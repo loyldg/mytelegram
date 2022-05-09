@@ -122,7 +122,9 @@ public static class MongoDbOptionsExtensions
         eventFlowOptions.ServiceCollection.AddTransient<IReadModelStore<TReadModel>>(f =>
             f.GetRequiredService<IMongoDbReadModelStore<TReadModel>>());
         //eventFlowOptions.UseReadStoreFor<IMongoDbReadModelStore<TReadModel>, TReadModel>();
+#pragma warning disable CS0618
         eventFlowOptions.UseReadStoreFor<TAggregate, TIdentity, IMongoDbReadModelStore<TReadModel>, TReadModel>();
+#pragma warning restore CS0618
 
         return eventFlowOptions;
     }
