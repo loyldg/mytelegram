@@ -1,9 +1,9 @@
-﻿using IMessageViews=MyTelegram.Schema.IMessageViews;
-using TMessageViews=MyTelegram.Schema.TMessageViews;
+﻿using IMessageViews = MyTelegram.Schema.IMessageViews;
+using TMessageViews = MyTelegram.Schema.TMessageViews;
 
 namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, ISingletonDependency
+public class ChannelMessageViewsAppService : IChannelMessageViewsAppService
 {
     private readonly IBloomFilter _bloomFilter;
     private readonly ICommandBus _commandBus;
@@ -57,8 +57,6 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
         foreach (var messageId in needIncrementMessageIdList)
         {
             var command = new IncrementViewsCommand(MessageId.Create(channelId, messageId));
-            //Console.WriteLine(
-            //    $"IncrementViewsCommand channelid={channelId} messageId={messageId} ,msgBoxId={command.AggregateId}");
             await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
         }
 

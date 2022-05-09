@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.MessengerServer.DomainEventHandlers;
 
-public class InvokeAfterMsgSubscriber : ISubscribeSynchronousToAll
+public class InvokeAfterMsgEventHandler : ISubscribeSynchronousToAll
 {
     private readonly IInvokeAfterMsgProcessor _invokeAfterMsgProcessor;
 
 
-    public InvokeAfterMsgSubscriber(IInvokeAfterMsgProcessor invokeAfterMsgProcessor)
+    public InvokeAfterMsgEventHandler(IInvokeAfterMsgProcessor invokeAfterMsgProcessor)
     {
         _invokeAfterMsgProcessor = invokeAfterMsgProcessor;
     }

@@ -3,7 +3,7 @@
 public class BadRequestException : RpcException
 {
     public BadRequestException(
-        string errorMessage) : base(400, errorMessage)
+        string errorMessage) : base(ErrorCodes.BadRequest, errorMessage)
     {
     }
 }

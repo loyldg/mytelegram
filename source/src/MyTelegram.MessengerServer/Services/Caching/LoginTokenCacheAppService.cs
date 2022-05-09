@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Caching;
 
-public class LoginTokenCacheAppService : ILoginTokenCacheAppService //, ISingletonDependency
+public class LoginTokenCacheAppService : ILoginTokenCacheAppService
 {
     private readonly IInMemoryRepository<CacheLoginToken, long> _inMemoryRepository;
 

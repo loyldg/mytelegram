@@ -3,7 +3,7 @@
 public class ForbiddenException : RpcException
 {
     public ForbiddenException(
-        string errorMessage) : base(403, errorMessage)
+        string errorMessage) : base(ErrorCodes.Forbidden, errorMessage)
     {
     }
 }

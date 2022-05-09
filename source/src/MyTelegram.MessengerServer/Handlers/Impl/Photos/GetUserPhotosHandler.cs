@@ -10,7 +10,6 @@ public class GetUserPhotosHandler : RpcResultObjectHandler<RequestGetUserPhotos,
     protected override Task<IPhotos> HandleCoreAsync(IRequestInput input,
         RequestGetUserPhotos obj)
     {
-        // TODO:get user photos
         return Task.FromResult<IPhotos>(new TPhotos { Photos = new TVector<IPhoto>(), Users = new TVector<IUser>() });
     }
 }

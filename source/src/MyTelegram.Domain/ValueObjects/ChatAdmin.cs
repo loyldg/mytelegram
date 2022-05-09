@@ -2,13 +2,6 @@
 
 public class ChatAdmin : ValueObject
 {
-    //public ChatAdmin()
-    //{
-
-    //}
-
-    //[Newtonsoft.Json.JsonConstructor]
-    //[JsonConstructor]
     public ChatAdmin(
         long promotedBy,
         bool canEdit,

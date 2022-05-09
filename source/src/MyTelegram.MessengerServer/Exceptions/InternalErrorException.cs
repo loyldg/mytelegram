@@ -3,7 +3,7 @@
 public class InternalErrorException : RpcException
 {
     public InternalErrorException(
-        string errorMessage) : base(500, errorMessage)
+        string errorMessage) : base(ErrorCodes.InternalError, errorMessage)
     {
     }
 }

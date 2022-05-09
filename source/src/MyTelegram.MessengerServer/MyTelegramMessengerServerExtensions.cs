@@ -1,19 +1,10 @@
-﻿
-//using MyTelegram.MessengerServer.Services.BloomFilter.InMemory;
-
-namespace MyTelegram.MessengerServer;
+﻿namespace MyTelegram.MessengerServer;
 
 public static class MyTelegramMessengerServerExtensions
 {
     public static IServiceCollection AddMyTelegramMessengerServices(this IServiceCollection services)
     {
-        //services.AddSingleton<IJsonContextProvider, MyJsonContextProvider>();
         services.AddTransient<IMediaHelper, NullMediaHelper>();
-
-        //services.AddSingleton<IBloomFilter, InMemoryBloomFilter>();
-        //services.AddSingleton<IDeletableBloomFilter, DeletableBloomFilter>();
-        //services.AddSingleton<ICuckooFilter, InMemoryCuckooFilter>();
-
         services.AddSingleton<IResponseCacheAppService, ResponseCacheAppService>();
         services.AddSingleton<IInvokeAfterMsgProcessor, InvokeAfterMsgProcessor>();
         services.AddSingleton<IUserStatusCacheAppService, UserStatusCacheAppService>();

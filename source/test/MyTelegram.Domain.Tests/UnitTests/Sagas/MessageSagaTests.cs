@@ -4,7 +4,7 @@ public class MessageSagaTests : TestsFor<MessageSaga>
 {
     //private Mock<ICommandBus> _commandBus;
     private readonly Mock<ISagaContext> _sagaContext;
-    private int _messageId = 1;
+    private readonly int _messageId = 1;
 
     public MessageSagaTests()
     {
@@ -18,7 +18,7 @@ public class MessageSagaTests : TestsFor<MessageSaga>
     public async Task SendMessage_Started_Test(Peer fromPeer, Peer toPeer)
     {
         var aggregateId = MessageId.Create(fromPeer.PeerId, _messageId);
-        var messageItem = new MessageItem(aggregateId,
+        var messageItem = new MessageItem(
             fromPeer,
             toPeer,
             fromPeer,

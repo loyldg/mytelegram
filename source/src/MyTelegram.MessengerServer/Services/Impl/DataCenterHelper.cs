@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class DataCenterHelper : IDataCenterHelper //, ISingletonDependency
+public class DataCenterHelper : IDataCenterHelper
 {
     private readonly IOptions<MyTelegramMessengerServerOptions> _options;
 

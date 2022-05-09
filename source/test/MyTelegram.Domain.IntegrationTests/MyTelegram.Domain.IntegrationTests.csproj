@@ -22,10 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyTelegram.TestBase\MyTelegram.TestBase.csproj" />
-    <!--<ProjectReference Include="..\src\MyTelegram.Core\MyTelegram.Core.csproj" />-->
-    <ProjectReference Include="..\src\MyTelegram.QueryHandlers.InMemory\MyTelegram.QueryHandlers.InMemory.csproj" />
-    <!--<ProjectReference Include="..\src\MyTelegram.Schema\MyTelegram.Schema.csproj" />-->
+    <ProjectReference Include="..\..\src\MyTelegram.QueryHandlers.InMemory\MyTelegram.QueryHandlers.InMemory.csproj" />
+    <ProjectReference Include="..\..\src\MyTelegram.TestBase\MyTelegram.TestBase.csproj" />
   </ItemGroup>
+
 
 </Project>

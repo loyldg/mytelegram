@@ -29,7 +29,6 @@ public class PtsEventHandler : IDistributedEventHandler<NewPtsMessageHasSentEven
         {
             if (_ackCacheService.TryRemovePts(msgId, out var ackCacheItem))
             {
-                // Console.WriteLine($"Ack:UserId={eventData.UserId} ReqMsgId={eventData.ReqMsgId} GlobalSeqNo={ackCacheItem.GlobalSeqNo}");
                 var command = new PtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
                     eventData.UserId,
                     eventData.PermAuthKeyId,
@@ -39,11 +38,11 @@ public class PtsEventHandler : IDistributedEventHandler<NewPtsMessageHasSentEven
                     ackCacheItem.ToPeer
                 );
                 await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
-            } else
+            }
+            else
             {
                 if (_ackCacheService.TryRemoveRpcPtsCache(msgId, out ackCacheItem))
                 {
-                    // Console.WriteLine($"Rpc Ack:UserId={eventData.UserId} ReqMsgId={eventData.ReqMsgId} Pts={ackCacheItem.Pts} GlobalSeqNo={ackCacheItem.GlobalSeqNo}");
                     var command = new PtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
                         eventData.UserId,
                         eventData.PermAuthKeyId,

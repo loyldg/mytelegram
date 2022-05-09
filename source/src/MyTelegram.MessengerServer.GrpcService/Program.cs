@@ -32,9 +32,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
 builder.Services.AddMyTelegramCoreServices();
 builder.Services.AddMyTelegramHandlerServices();
-builder.Services.AddMyTelegramMessengerServer();
+builder.Services.AddMyTelegramMessengerServices();
 builder.Services.AddMyTelegramGrpcService();
-//builder.Services.AddMyTelegramGrpcServiceEventFlow();
 builder.Services.AddMongoDbGrpcServiceEventFlow();
 builder.Services.AddGrpc();
 

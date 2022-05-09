@@ -9,7 +9,6 @@ public class GetWebPageHandler : RpcResultObjectHandler<RequestGetWebPage, IWebP
     protected override Task<IWebPage> HandleCoreAsync(IRequestInput input,
         RequestGetWebPage obj)
     {
-        // TODO:get web page
         return Task.FromResult<IWebPage>(new TWebPageEmpty());
     }
 }

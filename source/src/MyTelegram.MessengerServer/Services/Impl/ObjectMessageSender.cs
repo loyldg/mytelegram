@@ -1,8 +1,7 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class ObjectMessageSender : IObjectMessageSender //, ISingletonDependency
+public class ObjectMessageSender : IObjectMessageSender
 {
-    //private readonly IDistributedEventBus _distributedEventBus;
     private readonly IEventBus _eventBus;
 
     public ObjectMessageSender(
@@ -26,7 +25,7 @@ public class ObjectMessageSender : IObjectMessageSender //, ISingletonDependency
     }
 
     /// <summary>
-    ///     Push message to peer,receive server is session server(send from session server)
+    /// Push message to peer,receive server is session server(send from session server)
     /// </summary>
     /// <param name="peer"></param>
     /// <param name="data"></param>

@@ -2,7 +2,7 @@
 using TAuthorization=MyTelegram.Schema.TAuthorization;
 namespace MyTelegram.MessengerServer;
 
-public class CustomObjectMapper : //ITransientDependency,
+public class CustomObjectMapper :
     IObjectMapper<IUserReadModel, TUser>,
     IObjectMapper<UserCreatedEvent, TUser>,
     IObjectMapper<SignInSuccessEvent, TUser>,

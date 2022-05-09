@@ -15,7 +15,6 @@ public class AckCacheService : IAckCacheService
     public void AddRpcMsgIdToCache(long msgId,
         long reqMsgId)
     {
-        //Console.WriteLine($"Add Rpc msgId to cache,msgId:{msgId} reqMsgId:{reqMsgId}");
         _msgIdToReqMsgIdDict.TryAdd(msgId, reqMsgId);
         _scheduleAppService.Execute(() => _msgIdToReqMsgIdDict.TryRemove(msgId, out _), TimeSpan.FromSeconds(50));
     }
@@ -25,8 +24,6 @@ public class AckCacheService : IAckCacheService
         long globalSeqNo,
         Peer toPeer)
     {
-        //Console.WriteLine($"AddRpcPtsToCacheAsync,reqMsgId:{reqMsgId} pts:{pts} globalSeqNo:{globalSeqNo} toPeer:{toPeer}");
-
         _rpcReqMsgIdToPtsDict.TryAdd(reqMsgId, new AckCacheItem(pts, globalSeqNo, toPeer));
         _scheduleAppService.Execute(() =>
             {
@@ -53,7 +50,6 @@ public class AckCacheService : IAckCacheService
         long globalSeqNo,
         Peer toPeer)
     {
-        //Console.WriteLine($"##########AddMsgIdToCacheAsync msgId {msgId} pts {pts} globalSeqNo {globalSeqNo} toPeer:{toPeer}");
         _msgIdToPtsDict.TryAdd(msgId, new AckCacheItem(pts, globalSeqNo, toPeer));
         _scheduleAppService.Execute(() =>
             {

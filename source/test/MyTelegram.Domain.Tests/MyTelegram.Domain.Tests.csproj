@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MyTelegram.TestBase\MyTelegram.TestBase.csproj" />
     <ProjectReference Include="..\..\src\MyTelegram.Domain\MyTelegram.Domain.csproj" />
+    <ProjectReference Include="..\..\src\MyTelegram.TestBase\MyTelegram.TestBase.csproj" />
   </ItemGroup>
 
 </Project>

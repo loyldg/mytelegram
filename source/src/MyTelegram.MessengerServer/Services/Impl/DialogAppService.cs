@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class DialogAppService : BaseAppService, IDialogAppService //, ISingletonDependency
+public class DialogAppService : BaseAppService, IDialogAppService
 {
     private readonly ICommandBus _commandBus;
     private readonly IQueryProcessor _queryProcessor;
@@ -119,7 +119,7 @@ public class DialogAppService : BaseAppService, IDialogAppService //, ISingleton
             : await _queryProcessor
                 .ProcessAsync(new GetChatByChatIdListQuery(chatIdList), CancellationToken.None).ConfigureAwait(false);
 
-        // reset dialog top message box id
+        // Reset dialog top messageId
         var channelDict = channelList.ToDictionary(k => k.ChannelId, v => v);
         foreach (var dialogReadModel in dialogList)
         {

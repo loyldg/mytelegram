@@ -1,7 +1,7 @@
 ﻿using MyTelegram.Schema.Channels;
 using IChatFull = MyTelegram.Schema.Messages.IChatFull;
 
-namespace MyTelegram.MessengerServer.DomainEventHandlers;
+namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public interface ITlChatConverter
 {

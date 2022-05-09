@@ -31,3 +31,6 @@ global using Volo.Abp.Autofac;
 global using Volo.Abp.DependencyInjection;
 global using Volo.Abp.EventBus.Distributed;
 global using Volo.Abp.Modularity;
+global using EventFlow.Core.Caching;
+global using MyTelegram.Domain.EventFlow;
+global using MyTelegram.MessengerServer.Services.Serialization.SystemTextJson;

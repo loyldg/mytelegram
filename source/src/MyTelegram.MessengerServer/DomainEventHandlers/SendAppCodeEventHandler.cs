@@ -1,15 +1,15 @@
 ﻿namespace MyTelegram.MessengerServer.DomainEventHandlers;
 
-public class SendAppCodeSubscriber : ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent>,
+public class SendAppCodeEventHandler : ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent>,
     ISubscribeSynchronousTo<UserAggregate, UserId, UserCreatedEvent>
 
 {
     private readonly IMessageAppService _messageAppService;
     private readonly IRandomHelper _randomHelper;
-    private readonly ILogger<SendAppCodeSubscriber> _logger;
+    private readonly ILogger<SendAppCodeEventHandler> _logger;
 
-    public SendAppCodeSubscriber(IMessageAppService messageAppService,
-        IRandomHelper randomHelper, ILogger<SendAppCodeSubscriber> logger)
+    public SendAppCodeEventHandler(IMessageAppService messageAppService,
+        IRandomHelper randomHelper, ILogger<SendAppCodeEventHandler> logger)
     {
         _messageAppService = messageAppService;
         _randomHelper = randomHelper;

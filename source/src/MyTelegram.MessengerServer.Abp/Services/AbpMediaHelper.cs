@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Abp.Services;
 
-public class AbpMediaHelper : IMediaHelper//, ITransientDependency
+public class AbpMediaHelper : IMediaHelper
 {
     private readonly ILogger<AbpMediaHelper> _logger;
     private readonly IOptions<MyTelegramMessengerServerOptions> _options;
@@ -17,11 +17,14 @@ public class AbpMediaHelper : IMediaHelper//, ITransientDependency
     {
         var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerRpcServiceUrl);
         var r = await client
-            .SaveEncryptedFileAsync(new SaveEncryptedFileRequest {
-                EncryptedFile = ByteString.CopyFrom(encryptedFile.ToBytes()), ReqMsgId = reqMsgId
+            .SaveEncryptedFileAsync(new SaveEncryptedFileRequest
+            {
+                EncryptedFile = ByteString.CopyFrom(encryptedFile.ToBytes()),
+                ReqMsgId = reqMsgId
             }).ResponseAsync.ConfigureAwait(false);
 
-        return new TEncryptedFile {
+        return new TEncryptedFile
+        {
             AccessHash = r.AccessHash,
             DcId = r.DcId,
             Id = r.Id,
@@ -39,7 +42,8 @@ public class AbpMediaHelper : IMediaHelper//, ITransientDependency
         string? md5)
     {
         var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerRpcServiceUrl);
-        var r = await client.SavePhotoAsync(new SavePhotoRequest {
+        var r = await client.SavePhotoAsync(new SavePhotoRequest
+        {
             FileId = fileId,
             HasVideo = hasVideo,
             Md5 = md5 ?? string.Empty,
@@ -76,7 +80,8 @@ public class AbpMediaHelper : IMediaHelper//, ITransientDependency
             return MessageType.Text;
         }
 
-        return media switch {
+        return media switch
+        {
             TMessageMediaContact => MessageType.Contacts,
             TMessageMediaDice => MessageType.Game,
             TMessageMediaDocument => MessageType.Document,

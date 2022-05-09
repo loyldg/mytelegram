@@ -9,7 +9,6 @@ public class CancelCodeHandler : RpcResultObjectHandler<RequestCancelCode, IBool
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
         RequestCancelCode obj)
     {
-        // todo:cancel code
         return Task.FromResult<IBool>(new TBoolTrue());
     }
 }

@@ -5,7 +5,7 @@ using MyTelegram.Schema.Messages;
 namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 
 public class DeleteChatUserHandler : RpcResultObjectHandler<RequestDeleteChatUser, IUpdates>,
-    IDeleteChatUserHandler, IProcessedHandler //, IShouldCacheRequest
+    IDeleteChatUserHandler, IProcessedHandler
 {
     private readonly ICommandBus _commandBus;
     private readonly IPeerHelper _peerHelper;

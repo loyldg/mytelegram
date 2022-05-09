@@ -194,7 +194,7 @@ public class MessageSaga :
                 break;
             case PeerType.Chat:
                 ArgumentNullException.ThrowIfNull(_state.ChatMemberUidList);
-                // TODO:Send message to removed member(Delete chat member)
+                // TODO:Send message to removed member(DeleteChatUserHandler)
                 foreach (var memberUid in _state.ChatMemberUidList)
                 {
                     if (memberUid == _state.MessageItem.SenderPeer.PeerId)

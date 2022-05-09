@@ -31,7 +31,5 @@ public class SessionMessageDataProcessor : IDataProcessor<ISessionMessage>
             default:
                 throw new ArgumentOutOfRangeException(nameof(data));
         }
-
-        //return Task.CompletedTask;
     }
 }

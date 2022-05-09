@@ -24,7 +24,7 @@ public class GetConfigHandler : RpcResultObjectHandler<RequestGetConfig, IConfig
     protected override Task<IConfig> HandleCoreAsync(IRequestInput input,
         RequestGetConfig obj)
     {
-        //todo: desktop and app returns different config
+        //todo: returns different config for different platform
 
         var dcOptions = _objectMapper.Map<List<DcOption>, List<TDcOption>>(_options.DcOptions);
         IConfig r = new TConfig {

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class ScheduleAppService : IScheduleAppService //, ISingletonDependency
+public class ScheduleAppService : IScheduleAppService
 {
     private readonly IRandomHelper _randomHelper;
 

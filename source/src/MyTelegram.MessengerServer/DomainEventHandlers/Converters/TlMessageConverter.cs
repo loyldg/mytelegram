@@ -1,4 +1,4 @@
-﻿namespace MyTelegram.MessengerServer.DomainEventHandlers;
+﻿namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public class TlMessageConverter : ITlMessageConverter
 {

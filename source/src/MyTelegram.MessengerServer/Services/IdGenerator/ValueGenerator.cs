@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.IdGenerator;
 
-// copy from https://github.com/dotnet/efcore/blob/main/src/EFCore/ValueGeneration/ValueGenerator.cs
+// copied from https://github.com/dotnet/efcore/blob/main/src/EFCore/ValueGeneration/ValueGenerator.cs
 
 public abstract class ValueGenerator<TValue> : ValueGenerator
 {

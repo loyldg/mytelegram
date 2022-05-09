@@ -50,7 +50,6 @@ public class MessageAppService : BaseAppService, IMessageAppService
         var ownerPeerId = input.ToPeer.PeerType == PeerType.Channel ? input.ToPeer.PeerId : input.SenderPeerId;
 
         var date = CurrentDate;
-        //var aggregateId = MessageId.Create(ownerPeerId, outboxMessageId);
         var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, input.RandomId);
         var messageItem = new MessageItem(
             input.ToPeer with { PeerId = ownerPeerId },

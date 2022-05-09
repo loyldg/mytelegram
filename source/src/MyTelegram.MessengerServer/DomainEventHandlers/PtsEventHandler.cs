@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.DomainEventHandlers;
 
-public class PtsSubscriber :
+public class PtsEventHandler :
     ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedBoxPtsCompletedEvent>,
     ISubscribeSynchronousTo<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent>,
     ISubscribeSynchronousTo<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent>,
@@ -12,7 +12,7 @@ public class PtsSubscriber :
 {
     private readonly IPtsHelper _ptsHelper;
 
-    public PtsSubscriber(IPtsHelper ptsHelper)
+    public PtsEventHandler(IPtsHelper ptsHelper)
     {
         _ptsHelper = ptsHelper;
     }

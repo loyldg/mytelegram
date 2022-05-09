@@ -9,7 +9,6 @@ public class CheckRecoveryPasswordHandler : RpcResultObjectHandler<RequestCheckR
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
         RequestCheckRecoveryPassword obj)
     {
-        // todo:check recovery password
         return Task.FromResult<IBool>(new TBoolTrue());
     }
 }

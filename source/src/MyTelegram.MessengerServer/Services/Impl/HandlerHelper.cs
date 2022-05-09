@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class HandlerHelper : IHandlerHelper //, ISingletonDependency
+public class HandlerHelper : IHandlerHelper
 {
     private static readonly ConcurrentDictionary<uint, IObjectHandler> Handlers = new();
 
@@ -22,8 +22,6 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
         _serviceProvider = serviceProvider;
         _logger = logger;
     }
-
-    //public int TotalHandlerCount => Handlers.Count;
 
     public bool TryGetHandlerShortName(uint objectId,
         [NotNullWhen(true)] out string? handlerShortName)
@@ -93,7 +91,6 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
             .Where(p => baseType.IsAssignableFrom(p) && !p.IsAbstract)
             .ToList();
 
-        //var sb = new StringBuilder();
         foreach (var typeInfo in allHandlers)
         {
             var args = typeInfo.BaseType?.GetGenericArguments();
@@ -104,8 +101,6 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
                 {
                     AllHandlers.TryAdd(attr.ConstructorId, $"{typeInfo.Namespace}.{typeInfo.Name}");
                     HandlerShortNames.TryAdd(attr.ConstructorId, $"{typeInfo.Name}");
-
-                    //sb.AppendLine($"{{ 0x{attr.ConstructorId:x2},\"{typeInfo.Name}\" }},");
                 }
             }
         }
@@ -130,7 +125,6 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
 
         //Console.WriteLine(sb);
         _logger.LogDebug("All handlers count:{AllHandlersCount}", AllHandlers.Count);
-        //var currentAssembly = Assembly.GetExecutingAssembly();
 
         foreach (var typeInfo in types)
         {

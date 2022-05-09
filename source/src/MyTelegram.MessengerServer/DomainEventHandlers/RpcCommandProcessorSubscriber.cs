@@ -429,16 +429,13 @@ public class RpcCommandProcessorSubscriber :
                 pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
         }
 
-        //else
-        {
-            await PushUpdatesToPeerAsync(
-                domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel
-                    ? new Peer(PeerType.Channel, domainEvent.AggregateEvent.OwnerPeerId)
-                    : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
-                r,
-                excludeUid: domainEvent.AggregateEvent.SenderPeerId,
-                pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
-        }
+        await PushUpdatesToPeerAsync(
+            domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel
+                ? new Peer(PeerType.Channel, domainEvent.AggregateEvent.OwnerPeerId)
+                : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
+            r,
+            excludeUid: domainEvent.AggregateEvent.SenderPeerId,
+            pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
     }
 
     public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserNameUpdatedEvent> domainEvent,
@@ -467,7 +464,7 @@ public class RpcCommandProcessorSubscriber :
             Date = DateTime.UtcNow.ToTimestamp(),
             Update = new TUpdateChannel { ChannelId = channelId }
         };
-        // TODO:这里应该返回TUpdates给发送者,只包含频道信息即可
+        // TODO:Should return TUpdates to sender,include channel data
         if (reqMsgId != 0)
         {
             await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId).ConfigureAwait(false);
@@ -493,7 +490,7 @@ public class RpcCommandProcessorSubscriber :
             Update = new TUpdateChat { ChatId = chatId }
         };
 
-        // TODO:这里应该返回TUpdates给发送者,只包含群信息即可
+        // TODO:Should return TUpdates to sender,include channel data
         if (reqMsgId != 0)
         {
             await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId).ConfigureAwait(false);
@@ -517,8 +514,7 @@ public class RpcCommandProcessorSubscriber :
         {
             await SaveRpcResultAsync(reqMsgId, sourceId, selfUserId, rpcData).ConfigureAwait(false);
         }
-
-        // TODO:考虑推送不包含pts信息的Updates给客户端
+        
         if (pts > 0 && selfUserId != 0 && toPeerType != PeerType.Channel)
         {
             await _ackCacheService.AddRpcPtsToCacheAsync(reqMsgId, pts, 0, new Peer(PeerType.User, selfUserId))

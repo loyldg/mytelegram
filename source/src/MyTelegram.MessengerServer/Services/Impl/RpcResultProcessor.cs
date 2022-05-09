@@ -17,7 +17,7 @@ using TPhoto = MyTelegram.Schema.Photos.TPhoto;
 
 namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class RpcResultProcessor : IRpcResultProcessor //, ISingletonDependency
+public class RpcResultProcessor : IRpcResultProcessor
 {
     private readonly IAppSettingManager _appSettingManager;
     private readonly IDataCenterHelper _dataCenterHelper;

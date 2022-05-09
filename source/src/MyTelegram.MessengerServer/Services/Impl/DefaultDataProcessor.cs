@@ -37,7 +37,6 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                     obj.ReqMsgId,
                     handler.GetType().Name);
 
-                //await _objectMessageSender.SendMessageToPeerAsync(obj.ReqMsgId, rpcResult).ConfigureAwait(false);
                 await SendMessageToPeerAsync(obj.ReqMsgId, rpcResult).ConfigureAwait(false);
                 return;
             }
@@ -54,7 +53,6 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
 
                 if (r != null!)
                 {
-                    //await _objectMessageSender.SendMessageToPeerAsync(obj.ReqMsgId, r).ConfigureAwait(false);
                     await SendMessageToPeerAsync(obj.ReqMsgId, r).ConfigureAwait(false);
                 }
             }
@@ -67,7 +65,6 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                     obj.AuthKeyId,
                     false).ConfigureAwait(false);
             }
-            //await SendAckAsync(obj.ObjectId, obj.SeqNumber, obj.ReqMsgId).ConfigureAwait(false);
         }
     }
 

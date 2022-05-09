@@ -3,7 +3,7 @@
 public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
 {
     //private readonly Channel<TData> _queue = Channel.CreateUnbounded<TData>();
-    private const int MaxQueueCount = 10000;
+    private const int MaxQueueCount = 1000;
     private readonly IDataProcessor<TData> _dataProcessor;
     private readonly ILogger<MessageQueueProcessor<TData>> _logger;
     private readonly ConcurrentDictionary<long, BlockingCollection<TData>> _queues = new();

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Caching;
 
-public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDependency
+public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor
 {
     private readonly IHandlerHelper _handlerHelper;
 
@@ -15,7 +15,6 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
 
     public void AddToRecentMessageIdList(long messageId)
     {
-        //_recentMessageIds.TryAdd(messageId, DateTime.UtcNow.ToTimestamp());
         _recentMessageIds.Put(messageId);
     }
 

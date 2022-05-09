@@ -3,7 +3,7 @@
 public class PtsHelper : IPtsHelper
 {
     private readonly ConcurrentDictionary<long, PtsCacheItem> _ownerToPtsDict = new();
-    private readonly int _syncToReadModelIntervalCount = 1000;
+    //private readonly int _syncToReadModelIntervalCount = 1000;
 
     public int GetCachedPts(long ownerId)
     {
@@ -14,8 +14,6 @@ public class PtsHelper : IPtsHelper
 
         return 0;
     }
-
-    //public async Task AddPtsAsync(long ownerId,int currentPts){}
 
     public Task IncrementPtsAsync(long ownerId, int currentPts, int ptsCount = 1)
     {
@@ -50,11 +48,6 @@ public class PtsHelper : IPtsHelper
             _ownerToPtsDict.TryAdd(ownerId, cacheItem);
         }
 
-        if (cacheItem.Pts % _syncToReadModelIntervalCount == 0)
-        {
-            //var command = new UpdatePtsCommand(PtsId.Create(ownerId), ownerId, currentPts);
-            //await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
-        }
 
         return Task.CompletedTask;
     }

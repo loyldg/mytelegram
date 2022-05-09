@@ -1,12 +1,7 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class PeerHelper : IPeerHelper //, ISingletonDependency
+public class PeerHelper : IPeerHelper
 {
-    //public const long UserIdInitId =  6000000;
-    //public const long ChatIdInitId =  50000000000;
-    //public const long ChannelInitId = 800000000000;
-    //public const long BotUserInitId = 90000000000000;
-
     public Peer GetChannel(IInputChannel channel)
     {
         if (channel is TInputChannel inputChannel)
@@ -14,8 +9,7 @@ public class PeerHelper : IPeerHelper //, ISingletonDependency
             return new Peer(PeerType.Channel, inputChannel.ChannelId);
         }
 
-        throw new BadRequestException("CHANNEL_INVALID");
-        //ThrowHelper.ThrowUserFriendlyException("CHANNEL_INVALID");
+        throw new BadRequestException(RpcErrorMessages.ChannelInvalid); 
     }
 
     public Peer GetPeer(IInputPeer peer,

@@ -3,7 +3,7 @@
 public class UnauthorizedException : RpcException
 {
     public UnauthorizedException(
-        string errorMessage) : base(401, errorMessage)
+        string errorMessage) : base(ErrorCodes.Unauthorized, errorMessage)
     {
     }
 }

@@ -40,8 +40,6 @@ public interface IRpcResultProcessor
         long selfUserId,
         bool resetLeftToFalse = false);
 
-    //IUpdates ToChannelMessageUpdates(SendOutboxMessageSuccessEvent eventData);
-
     IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
         IChannelMemberReadModel channelMemberReadModel,
         IUserReadModel userReadModel,
@@ -72,16 +70,6 @@ public interface IRpcResultProcessor
         IChannelMemberReadModel? channelMemberReadModel,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
         long selfUserId);
-
-    //IUpdates ToCreateChannelUpdates(ChannelCreatedEvent eventData,
-    //    SendOutboxMessageSuccessEvent outbox);
-
-    //IUpdates ToCreateChatUpdates(ChatCreatedEvent eventData,
-    //    SendOutboxMessageSuccessEvent outbox);
-
-    //IUpdates ToCreateChatUpdates(ChatCreatedEvent eventData,
-    //    ReceiveInboxMessageSuccessEvent inbox);
-
     IUpdates ToDeleteMessagesUpdates(PeerType toPeerType,
         DeletedBoxItem item,
         int date);
@@ -95,51 +83,17 @@ public interface IRpcResultProcessor
         IList<IUpdate> updateList,
         IList<IChat> chatListFromUpdates);
 
-    //IUpdates ToEditUpdates(OutboxMessageEditCompletedEvent eventData,
-    //    long selfUserId);
-
-    //IUpdates ToEditUpdates(InboxEditCompletedEvent eventData);
-
     IExportedChatInvite ToExportedChatInvite(ExportChatInviteEvent eventData);
     IFound ToFound(SearchContactOutput output);
-    //IUpdates ToInboxForwardMessageUpdates(ReceiveInboxMessageSuccessEvent eventData);
-
-    //MyTelegramServer.Schema.Messages.IMessageViews ToMessageViews(
-    //    IncrementViewsCompletedEvent eventData);
-
-    //IUpdates ToInviteToChannelUpdates(SendOutboxMessageSuccessEvent eventData,
-    //    StartInvitoToChannelEvent aggregateEvent,
-    //    IChannelReadModel channelReadModel,
-    //    bool createUpdatesForSelf);
-
-    //IUpdates ToInviteToChannelUpdates(IChannelReadModel channelReadModel,
-    //    IUserReadModel senderUserReadModel,
-    //    int date);
-
     IJoinAsPeers ToJoinAsPeers(IUserReadModel userReadModel,
         IChannelReadModel? channelReadModel,
         IChatReadModel? chatReadModel);
-
-    //IMessage ToMessage(ReceiveInboxMessageSuccessEvent box);
-
-    //IMessage ToMessage(SendOutboxMessageSuccessEvent outbox,
-    //    long selfUserId);
-
     IMessages ToMessages(GetMessageOutput output);
 
     IPeerDialogs ToPeerDialogs(GetDialogOutput output);
     IPhoto ToPhoto(UserProfilePhotoChangedEvent aggregateEvent);
 
     IUpdates ToReadHistoryUpdates(ReadHistoryCompletedEvent eventData);
-    //IUpdates ToReceiveMessageBoxUpdates(ReceiveInboxMessageSuccessEvent eventData);
-    //IUpdates ToSelfOtherDeviceUpdates(SendOutboxMessageSuccessEvent eventData);
-
-    //IUpdates ToSelfUpdates(SendOutboxMessageSuccessEvent eventData);
-    //IUpdates ToUpdatePinnedMessageServiceUpdates(SendOutboxMessageSuccessEvent aggregateEvent);
-    //IUpdates ToUpdatePinnedMessageUpdates(ReceiveInboxMessageSuccessEvent eventData);
-    //IUpdates ToUpdatePinnedMessageUpdates(SendOutboxMessageSuccessEvent eventData);
-    //IUpdates ToUpdatePinnedMessageUpdates(UpdatePinnedBoxCompletedEvent aggregateEvent);
-
     IUser ToUser(UserNameUpdatedEvent aggregateEvent);
 
     IUser ToUser(IUserReadModel user,
@@ -149,7 +103,4 @@ public interface IRpcResultProcessor
         long selfUserId,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel
     );
-
-    //IList<IUser> ToUserList(IReadOnlyCollection<IUserReadModel> userList,
-    //    long selfUserId);
 }

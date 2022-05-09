@@ -39,7 +39,6 @@
     <ProjectReference Include="..\MyTelegram.GrpcService\MyTelegram.GrpcService.csproj" />
     <ProjectReference Include="..\MyTelegram.MessengerServer\MyTelegram.MessengerServer.csproj" />
     <ProjectReference Include="..\MyTelegram.Queries.MongoDB\MyTelegram.QueryHandlers.MongoDB.csproj" />
-    <ProjectReference Include="..\MyTelegram.QueryHandlers.InMemory\MyTelegram.QueryHandlers.InMemory.csproj" />
     <ProjectReference Include="..\MyTelegram.ReadModel.MongoDB\MyTelegram.ReadModel.MongoDB.csproj" />
   </ItemGroup>
 

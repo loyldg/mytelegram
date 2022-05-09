@@ -1,8 +1,4 @@
-﻿using EventFlow.Core.Caching;
-using MyTelegram.Domain.EventFlow;
-using MyTelegram.MessengerServer.Services.Serialization.SystemTextJson;
-
-namespace MyTelegram.MessengerServer.Abp;
+﻿namespace MyTelegram.MessengerServer.Abp;
 
 public static class MyTelegramMessengerServerAbpExtensions
 {
@@ -15,7 +11,7 @@ public static class MyTelegramMessengerServerAbpExtensions
                 options.AddDefaults(typeof(MyTelegramMessengerServerExtensions).Assembly);
                 options.AddDefaults(typeof(EventFlowExtensions).Assembly);
                 options.Configure(c => { c.IsAsynchronousSubscribersEnabled = true; });
-                // mongodb
+                
                 options.UseMongoDbEventStore();
                 options.UseMongoDbSnapshotStore();
 

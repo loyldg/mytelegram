@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Impl;
 
-public class RpcResultCacheAppService : IRpcResultCacheAppService //, ISingletonDependency
+public class RpcResultCacheAppService : IRpcResultCacheAppService
 {
     //private readonly IMemoryCache _memoryCache;
     private readonly TimeSpan _cacheExpireTimeSpan =
@@ -22,8 +22,6 @@ public class RpcResultCacheAppService : IRpcResultCacheAppService //, ISingleton
         long reqMsgId,
         [NotNullWhen(true)] out IObject? rpcResult)
     {
-        //return _memoryCache.TryGetValue(GetCacheKey(userId, reqMsgId), out rpcResult);
-
         return _rpcResults.TryGetValue(reqMsgId, out rpcResult);
     }
 

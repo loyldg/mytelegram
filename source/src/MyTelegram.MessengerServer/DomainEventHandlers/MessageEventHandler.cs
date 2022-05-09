@@ -162,7 +162,6 @@ public class MessageEventHandler :
             pts,
             ptsType,
             globalSeqNo).ConfigureAwait(false);
-        //return globalSeqNo;
     }
 
     private async Task<long> SavePushUpdatesAsync(Peer toPeer,
@@ -269,7 +268,6 @@ public class MessageEventHandler :
     }
     private async Task PushUpdatesToChannelMemberAsync(
         Peer channelPeer,
-        //IEnumerable<Peer> messageReceivePeerList,
         IUpdates updates,
         long excludeAuthKeyId = 0,
         long excludeUid = 0,
@@ -284,7 +282,7 @@ public class MessageEventHandler :
             globalSeqNo = await SavePushUpdatesAsync(
                 channelPeer,
                 updates.ToBytes(),
-                pts, //频道只使用GlobalSeqNo,pts直接传0
+                pts,
                 ptsType,
                 excludeAuthKeyId,
                 excludeUid,
