@@ -1,0 +1,15 @@
+﻿global using EventFlow;
+global using EventFlow.Extensions;
+global using EventFlow.Queries;
+global using EventFlow.ReadStores;
+global using MyTelegram.Domain.Aggregates.Channel;
+global using MyTelegram.Domain.Aggregates.Chat;
+global using MyTelegram.Domain.Aggregates.Device;
+global using MyTelegram.Domain.Aggregates.Pts;
+global using MyTelegram.Domain.Aggregates.User;
+global using MyTelegram.Domain.Aggregates.UserName;
+global using MyTelegram.Domain.Extensions;
+global using MyTelegram.Queries;
+global using MyTelegram.ReadModel;
+global using MyTelegram.ReadModel.Impl;
+global using MyTelegram.ReadModel.InMemory;

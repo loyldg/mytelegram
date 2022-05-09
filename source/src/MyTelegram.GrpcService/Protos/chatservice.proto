@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+option csharp_namespace="MyTelegram.GrpcService";
+
+package MyTelegram.GrpcService;
+
+service ChatService{
+	rpc GetChannel(.MyTelegram.GrpcService.GetChannelRequest) returns(.MyTelegram.GrpcService.GetChannelResponse);
+}
+
+message GetChannelRequest{
+	int64 ChannelId=1;
+	int64 SelfUserId=2;
+}
+
+message GetChannelResponse{
+	bytes ChannelData=1;
+}

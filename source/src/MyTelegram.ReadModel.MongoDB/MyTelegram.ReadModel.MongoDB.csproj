@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventFlow.MongoDB\EventFlow.MongoDB.csproj" />
+    <ProjectReference Include="..\MyTelegram.Domain\MyTelegram.Domain.csproj" />
+    <ProjectReference Include="..\MyTelegram.ReadModel\MyTelegram.ReadModel.csproj" />
+  </ItemGroup>
+
+</Project>
