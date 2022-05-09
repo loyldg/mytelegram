@@ -14,7 +14,7 @@ public class MyTelegramMessengerServerAbpModule : AbpModule
 
         context.Services.UseMyTelegramMessengerServer(options =>
         {
-            options.ConfigureMongoDb("tg-messenger",configuration.GetConnectionString("Default"));
+            options.ConfigureMongoDb(configuration.GetConnectionString("Default"), "tg-messenger");
         });
 
         context.Services.AddHostedService<MyTelegramAbpHostedService>();

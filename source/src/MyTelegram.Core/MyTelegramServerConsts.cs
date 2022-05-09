@@ -2,9 +2,6 @@
 
 public static class MyTelegramServerConsts
 {
-    public const int MaxLayer = 133;
-    public const string Version = "0.6.2022.0509";
-
     public const int ProcessRequestTooSlowMilliseconds = 300;
 
     public const string DbTablePrefix = "App";
