@@ -1,0 +1,26 @@
+﻿syntax = "proto3";
+
+option csharp_namespace="MyTelegram.GrpcService";
+
+package MyTelegram.GrpcService;
+
+service ChatMemberLoaderService{
+	rpc GetChatMembers (.MyTelegram.GrpcService.GetChatMemberRequest) returns(.MyTelegram.GrpcService.GetChatMemberResponse);
+	rpc GetChannelMembers(.MyTelegram.GrpcService.GetChannelMemberRequest) returns(.MyTelegram.GrpcService.GetChannelMemberResponse);
+}
+
+message GetChatMemberRequest{
+	int64 ChatId=1;
+}
+
+message GetChatMemberResponse{
+	repeated int64 ChatMemberUidList=1;
+}
+
+message GetChannelMemberRequest{
+	int64 ChannelId=1;
+}
+
+message GetChannelMemberResponse{
+	repeated int64 ChannelMemberUidList=1;
+}

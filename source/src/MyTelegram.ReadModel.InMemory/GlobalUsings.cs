@@ -1,0 +1,10 @@
+﻿global using EventFlow;
+global using EventFlow.Aggregates;
+global using EventFlow.Core;
+global using EventFlow.Extensions;
+global using EventFlow.ReadStores;
+global using EventFlow.ReadStores.InMemory;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using MyTelegram.ReadModel.Impl;
+global using MyTelegram.ReadModel.ReadModelLocators;

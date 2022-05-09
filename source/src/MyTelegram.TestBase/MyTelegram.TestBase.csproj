@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
+    <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<ProjectReference Include="..\src\EventFlow\EventFlow.csproj" />-->
+    <!--<ProjectReference Include="..\EventFlow\EventFlow.csproj" />-->
+    <PackageReference Include="EventFlow" Version="1.0.5001-alpha" />
+  </ItemGroup>
+
+</Project>

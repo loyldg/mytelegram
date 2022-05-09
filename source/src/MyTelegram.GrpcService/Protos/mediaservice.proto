@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+option csharp_namespace = "MyTelegram.GrpcService";
+
+package MyTelegram.GrpcService;
+
+service MediaService {
+	rpc GetFileMetadata(.MyTelegram.GrpcService.GetFileMetadataRequest) returns(.MyTelegram.GrpcService.GetFileMetadataResponse);
+	rpc SaveEncryptedFile(.MyTelegram.GrpcService.SaveEncryptedFileRequest) returns(.MyTelegram.GrpcService.SaveEncryptedFileResponse);
+	rpc SavePhoto(.MyTelegram.GrpcService.SavePhotoRequest)returns(.MyTelegram.GrpcService.SavePhotoResponse);
+	rpc SaveMedia(.MyTelegram.GrpcService.SaveMediaRequest)returns (.MyTelegram.GrpcService.SaveMediaResponse);
+}
+
+message GetFileMetadataRequest{
+	int64 fileId=1;
+}
+
+message GetFileMetadataResponse{
+ //int64 fileId=1;
+ int64 volumeId=2;
+ int64 serverFileId=3;
+ int64 accessHash=4;
+ int32 size=5;
+ int32 localId=6;
+ int32 date=7;
+ string mimeType=8;
+ int64 thumbFileId=9;
+ bytes attributes=10;
+ bytes thumbs=11;
+}
+
+message SavePhotoRequest{
+	int64 reqMsgId=1;
+	int64 fileId=2;
+	bool hasVideo=3;
+	double videoStartTs=4;
+	int32 parts=5;
+	string name=6;
+	string md5=7;
+}
+
+message SavePhotoResponse{
+	//int64 serverFileId=1;	
+	//int64 accessHash=2;
+	//int32 date=3;
+	//int32 size=4;
+	//int32 height=5;
+	//int32 width=6;
+	bytes photo=1;
+
+}
+
+message SaveMediaRequest{
+	bytes media=1;
+}
+
+message SaveMediaResponse{
+	bytes media=1;
+}
+
+message SaveEncryptedFileRequest{
+	bytes encryptedFile=1;
+	int64 reqMsgId=2;
+}
+
+message SaveEncryptedFileResponse{
+	//bytes encryptedFile=1;
+	int64 accessHash=1;
+	int32 dcId=2;
+	int64 id=3;
+	int32 keyFingerprint=4;
+	int32 size=5;
+}

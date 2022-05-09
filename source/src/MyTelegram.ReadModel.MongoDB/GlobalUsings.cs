@@ -1,0 +1,10 @@
+﻿global using EventFlow;
+global using EventFlow.Extensions;
+global using EventFlow.MongoDB.EventStore;
+global using EventFlow.MongoDB.Extensions;
+global using EventFlow.MongoDB.ReadStores;
+global using EventFlow.MongoDB.ValueObjects;
+global using Microsoft.Extensions.DependencyInjection;
+global using MongoDB.Driver;
+global using MyTelegram.ReadModel.ReadModelLocators;
+global using System.Linq.Expressions;

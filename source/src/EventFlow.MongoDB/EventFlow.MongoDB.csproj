@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="EventFlow" Version="1.0.4748-alpha" />-->
+    <!--<ProjectReference Include="..\EventFlow\EventFlow.csproj" />-->
+    <PackageReference Include="EventFlow" Version="1.0.5001-alpha" />
+  </ItemGroup>
+
+</Project>

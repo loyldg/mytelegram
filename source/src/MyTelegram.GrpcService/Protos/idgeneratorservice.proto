@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+//import "google/protobuf/empty.proto";
+
+option csharp_namespace = "MyTelegram.GrpcService";
+
+package MyTelegram.GrpcService;
+
+service IdGeneratorService {
+	rpc GetNextSeqId(.MyTelegram.GrpcService.GetNextSeqIdRequest) returns (.MyTelegram.GrpcService.GetNextSeqIdResponse);
+	rpc GenerateServerMessageId (.MyTelegram.GrpcService.GenerateServerMessageIdRequest) returns (.MyTelegram.GrpcService.GenerateServerMessageIdResponse);
+	rpc GenerateNextHighValue(.MyTelegram.GrpcService.GenerateNextHighValueRequest) returns(.MyTelegram.GrpcService.GenerateNextHighValueResponse);
+}
+
+message GetNextSeqIdRequest{
+	int32 IdType=1;
+	int64 IdKey=2;
+	int32 Step=3;
+}
+
+message GetNextSeqIdResponse{
+	int64 SeqId=1;
+}
+
+message GenerateServerMessageIdRequest{
+
+}
+
+message GenerateServerMessageIdResponse{
+	int64 MessageId=1;
+}
+
+message GenerateNextHighValueRequest{
+	int32 IdType=1;
+	int64 IdKey=2;
+}
+
+message GenerateNextHighValueResponse{
+	int64 HighValue=1;
+}
