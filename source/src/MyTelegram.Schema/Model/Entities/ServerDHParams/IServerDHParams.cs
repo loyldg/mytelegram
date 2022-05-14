@@ -6,6 +6,6 @@ public interface IServerDHParams : IObject
 {
     byte[] Nonce { get; set; }
     byte[] ServerNonce { get; set; }
-    //byte[] EncryptedAnswer { get; set; }
+    byte[] EncryptedAnswer { get; set; }
 
 }

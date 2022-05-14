@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/theme" />
 ///</summary>
-[TlObject(0xe802b8dc)]
+[TlObject(0xa00e67d6)]
 public class TTheme : ITheme
 {
-    public uint ConstructorId => 0xe802b8dc;
+    public uint ConstructorId => 0xa00e67d6;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Creator { get; set; }
     public bool Default { get; set; }
@@ -24,11 +24,8 @@ public class TTheme : ITheme
     ///See <a href="https://core.telegram.org/type/Document" />
     ///</summary>
     public MyTelegram.Schema.IDocument? Document { get; set; }
-
-    ///<summary>
-    ///See <a href="https://core.telegram.org/type/ThemeSettings" />
-    ///</summary>
-    public MyTelegram.Schema.IThemeSettings? Settings { get; set; }
+    public TVector<MyTelegram.Schema.IThemeSettings>? Settings { get; set; }
+    public string? Emoticon { get; set; }
     public int? InstallsCount { get; set; }
 
     public void ComputeFlag()
@@ -37,7 +34,8 @@ public class TTheme : ITheme
         if (Default) { Flags[1] = true; }
         if (ForChat) { Flags[5] = true; }
         if (Document != null) { Flags[2] = true; }
-        if (Settings != null) { Flags[3] = true; }
+        if (Settings?.Count > 0) { Flags[3] = true; }
+        if (Emoticon != null) { Flags[6] = true; }
         if (InstallsCount != 0 && InstallsCount.HasValue) { Flags[4] = true; }
     }
 
@@ -52,6 +50,7 @@ public class TTheme : ITheme
         bw.Serialize(Title);
         if (Flags[2]) { Document.Serialize(bw); }
         if (Flags[3]) { Settings.Serialize(bw); }
+        if (Flags[6]) { bw.Serialize(Emoticon); }
         if (Flags[4]) { bw.Write(InstallsCount.Value); }
     }
 
@@ -66,7 +65,8 @@ public class TTheme : ITheme
         Slug = br.Deserialize<string>();
         Title = br.Deserialize<string>();
         if (Flags[2]) { Document = br.Deserialize<MyTelegram.Schema.IDocument>(); }
-        if (Flags[3]) { Settings = br.Deserialize<MyTelegram.Schema.IThemeSettings>(); }
+        if (Flags[3]) { Settings = br.Deserialize<TVector<MyTelegram.Schema.IThemeSettings>>(); }
+        if (Flags[6]) { Emoticon = br.Deserialize<string>(); }
         if (Flags[4]) { InstallsCount = br.ReadInt32(); }
     }
 }

@@ -1,9 +1,10 @@
-﻿using MyTelegram.MessengerServer.Abp;
+﻿using MyTelegram;
+using MyTelegram.MessengerServer.Abp;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
-Console.Title = "MyTelegram messenger server";
+Console.Title = $"MyTelegram messenger server,Layer={MyTelegramServerDomainConsts.Layer}";
 
 Log.Logger = new LoggerConfiguration()
 #if DEBUG
@@ -22,7 +23,7 @@ Log.Logger = new LoggerConfiguration()
                 theme: AnsiConsoleTheme.Code))
     //.WriteTo.Async(c => c.File("Logs/logs.txt"))
     .CreateLogger();
-Log.Information("Messenger server starting...");
+Log.Information("Messenger server(supported layer={Layer}) starting...", MyTelegramServerDomainConsts.Layer);
 
 var builder = Host.CreateDefaultBuilder(args);
 builder.UseAutofac();

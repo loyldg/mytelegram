@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.deleteHistory" />
 ///</summary>
-[TlObject(0x1c015b09)]
+[TlObject(0xb08f922a)]
 public sealed class RequestDeleteHistory : IRequest<MyTelegram.Schema.Messages.IAffectedHistory>
 {
-    public uint ConstructorId => 0x1c015b09;
+    public uint ConstructorId => 0xb08f922a;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool JustClear { get; set; }
     public bool Revoke { get; set; }
@@ -19,12 +19,15 @@ public sealed class RequestDeleteHistory : IRequest<MyTelegram.Schema.Messages.I
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
     public int MaxId { get; set; }
+    public int? MinDate { get; set; }
+    public int? MaxDate { get; set; }
 
     public void ComputeFlag()
     {
         if (JustClear) { Flags[0] = true; }
         if (Revoke) { Flags[1] = true; }
-
+        if (MinDate != 0 && MinDate.HasValue) { Flags[2] = true; }
+        if (MaxDate != 0 && MaxDate.HasValue) { Flags[3] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -34,6 +37,8 @@ public sealed class RequestDeleteHistory : IRequest<MyTelegram.Schema.Messages.I
         bw.Serialize(Flags);
         Peer.Serialize(bw);
         bw.Write(MaxId);
+        if (Flags[2]) { bw.Write(MinDate.Value); }
+        if (Flags[3]) { bw.Write(MaxDate.Value); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -43,5 +48,7 @@ public sealed class RequestDeleteHistory : IRequest<MyTelegram.Schema.Messages.I
         if (Flags[1]) { Revoke = true; }
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         MaxId = br.ReadInt32();
+        if (Flags[2]) { MinDate = br.ReadInt32(); }
+        if (Flags[3]) { MaxDate = br.ReadInt32(); }
     }
 }

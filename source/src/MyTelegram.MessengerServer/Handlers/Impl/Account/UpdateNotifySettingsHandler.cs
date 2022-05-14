@@ -34,7 +34,8 @@ public class UpdateNotifySettingsHandler : RpcResultObjectHandler<RequestUpdateN
                 obj.Settings.ShowPreviews,
                 obj.Settings.Silent,
                 obj.Settings.MuteUntil,
-                obj.Settings.Sound
+                string.Empty // TODO: set notification sound
+                //obj.Settings.Sound
             );
             await _commandBus.PublishAsync(updatePeerNotifySettingsCommand, CancellationToken.None)
                 .ConfigureAwait(false);

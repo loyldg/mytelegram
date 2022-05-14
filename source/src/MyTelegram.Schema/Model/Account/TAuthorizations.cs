@@ -7,10 +7,11 @@ namespace MyTelegram.Schema.Account;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/account.authorizations" />
 ///</summary>
-[TlObject(0x1250abde)]
+[TlObject(0x4bff8ea0)]
 public class TAuthorizations : IAuthorizations
 {
-    public uint ConstructorId => 0x1250abde;
+    public uint ConstructorId => 0x4bff8ea0;
+    public int AuthorizationTtlDays { get; set; }
     public TVector<MyTelegram.Schema.IAuthorization> Authorizations { get; set; }
 
     public void ComputeFlag()
@@ -22,11 +23,13 @@ public class TAuthorizations : IAuthorizations
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Write(AuthorizationTtlDays);
         Authorizations.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
+        AuthorizationTtlDays = br.ReadInt32();
         Authorizations = br.Deserialize<TVector<MyTelegram.Schema.IAuthorization>>();
     }
 }

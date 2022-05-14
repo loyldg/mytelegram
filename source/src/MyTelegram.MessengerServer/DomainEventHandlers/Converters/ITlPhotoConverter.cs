@@ -2,6 +2,6 @@
 
 public interface ITlPhotoConverter
 {
-    IUserProfilePhoto GetProfilePhoto(byte[]? profilePhoto);
     IChatPhoto GetChatPhoto(byte[]? photo);
+    IUserProfilePhoto GetProfilePhoto(byte[]? profilePhoto);
 }

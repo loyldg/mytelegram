@@ -3,7 +3,7 @@ using MyTelegram.Schema.Messages;
 
 namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 
-public class GetPeerSettingsHandler : RpcResultObjectHandler<RequestGetPeerSettings, IPeerSettings>,
+public class GetPeerSettingsHandler : RpcResultObjectHandler<RequestGetPeerSettings, MyTelegram.Schema.Messages.IPeerSettings>,
     IGetPeerSettingsHandler, IProcessedHandler
 {
     private readonly IObjectMapper _objectMapper;
@@ -19,13 +19,19 @@ public class GetPeerSettingsHandler : RpcResultObjectHandler<RequestGetPeerSetti
         _objectMapper = objectMapper;
     }
 
-    protected override async Task<IPeerSettings> HandleCoreAsync(IRequestInput input,
+    protected override async Task<MyTelegram.Schema.Messages.IPeerSettings> HandleCoreAsync(IRequestInput input,
         RequestGetPeerSettings obj)
     {
         var userId = input.UserId;
         var peer = _peerHelper.GetPeer(obj.Peer, userId);
         var r = await _peerSettingsAppService.GetAsync(userId, peer).ConfigureAwait(false);
 
-        return _objectMapper.Map<PeerSettings, TPeerSettings>(r);
+        var peerSettings = new MyTelegram.Schema.Messages.TPeerSettings
+        {
+            Chats=new TVector<IChat>(),
+            Users = new TVector<IUser>(),
+            Settings = _objectMapper.Map<PeerSettings, MyTelegram.Schema.TPeerSettings>(r)
+        };
+        return peerSettings;
     }
 }

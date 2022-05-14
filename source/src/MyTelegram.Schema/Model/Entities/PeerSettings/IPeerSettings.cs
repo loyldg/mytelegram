@@ -13,6 +13,9 @@ public interface IPeerSettings : IObject
     bool ReportGeo { get; set; }
     bool Autoarchived { get; set; }
     bool InviteMembers { get; set; }
+    bool RequestChatBroadcast { get; set; }
     int? GeoDistance { get; set; }
+    string? RequestChatTitle { get; set; }
+    int? RequestChatDate { get; set; }
 
 }

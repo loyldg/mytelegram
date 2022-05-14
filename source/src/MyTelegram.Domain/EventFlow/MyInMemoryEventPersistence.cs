@@ -76,7 +76,7 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
                 id,
                 committedDomainEvents!.Count);
         }
-        _logger.LogInformation("Current count:{Count},removed count:{RemovedCount}", _eventStore.Count, committedDomainEvents?.Count);
+        // _logger.LogInformation("Current count:{Count},removed count:{RemovedCount}", _eventStore.Count, committedDomainEvents?.Count);
         return Task.FromResult(0);
     }
 

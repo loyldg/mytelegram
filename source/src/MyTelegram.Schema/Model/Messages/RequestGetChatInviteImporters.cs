@@ -6,16 +6,19 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.getChatInviteImporters" />
 ///</summary>
-[TlObject(0x26fb7289)]
+[TlObject(0xdf04dd4e)]
 public sealed class RequestGetChatInviteImporters : IRequest<MyTelegram.Schema.Messages.IChatInviteImporters>
 {
-    public uint ConstructorId => 0x26fb7289;
+    public uint ConstructorId => 0xdf04dd4e;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public bool Requested { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
-    public string Link { get; set; }
+    public string? Link { get; set; }
+    public string? Q { get; set; }
     public int OffsetDate { get; set; }
 
     ///<summary>
@@ -26,6 +29,9 @@ public sealed class RequestGetChatInviteImporters : IRequest<MyTelegram.Schema.M
 
     public void ComputeFlag()
     {
+        if (Requested) { Flags[0] = true; }
+        if (Link != null) { Flags[1] = true; }
+        if (Q != null) { Flags[2] = true; }
 
     }
 
@@ -33,8 +39,10 @@ public sealed class RequestGetChatInviteImporters : IRequest<MyTelegram.Schema.M
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         Peer.Serialize(bw);
-        bw.Serialize(Link);
+        if (Flags[1]) { bw.Serialize(Link); }
+        if (Flags[2]) { bw.Serialize(Q); }
         bw.Write(OffsetDate);
         OffsetUser.Serialize(bw);
         bw.Write(Limit);
@@ -42,8 +50,11 @@ public sealed class RequestGetChatInviteImporters : IRequest<MyTelegram.Schema.M
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
+        if (Flags[0]) { Requested = true; }
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
-        Link = br.Deserialize<string>();
+        if (Flags[1]) { Link = br.Deserialize<string>(); }
+        if (Flags[2]) { Q = br.Deserialize<string>(); }
         OffsetDate = br.ReadInt32();
         OffsetUser = br.Deserialize<MyTelegram.Schema.IInputUser>();
         Limit = br.ReadInt32();

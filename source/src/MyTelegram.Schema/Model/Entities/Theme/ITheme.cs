@@ -13,7 +13,8 @@ public interface ITheme : IObject
     string Slug { get; set; }
     string Title { get; set; }
     MyTelegram.Schema.IDocument? Document { get; set; }
-    MyTelegram.Schema.IThemeSettings? Settings { get; set; }
+    TVector<MyTelegram.Schema.IThemeSettings>? Settings { get; set; }
+    string? Emoticon { get; set; }
     int? InstallsCount { get; set; }
 
 }

@@ -10,7 +10,7 @@ public static class MyTelegramHandlerExtensions
         services.AddSingleton<IScheduleAppService, ScheduleAppService>();
         //services.AddTransient<IObjectMessageSender, ObjectMessageSender>();
         services.AddSingleton<IObjectMessageSender, QueuedObjectMessageSender>();
-
+        services.AddSingleton<IChatEventCacheHelper, ChatEventCacheHelper>();
         services.AddTransient<IExceptionProcessor, ExceptionProcessor>();
         services.AddTransient<IPeerHelper, PeerHelper>();
         services.AddSingleton<IHandlerHelper, HandlerHelper>();
@@ -38,6 +38,7 @@ public static class MyTelegramHandlerExtensions
         services.AddTransient<ITlChatConverter, TlChatConverter>();
         services.AddTransient<ITlUserConverter, TlUserConverter>();
         services.AddTransient<ITlPhotoConverter, TlPhotoConverter>();
+        services.AddTransient<ITlAuthorizationConverter, TlAuthorizationConverter>();
 
         return services;
     }

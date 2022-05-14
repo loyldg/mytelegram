@@ -492,7 +492,7 @@ public class RpcResultProcessor : IRpcResultProcessor
         return tUserList;
     }
 
-    public Task<IUserFull> ToUserFullAsync(IUserReadModel user,
+    public Task<MyTelegram.Schema.Users.IUserFull> ToUserFullAsync(IUserReadModel user,
         long fromUid,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel
     )
@@ -500,25 +500,30 @@ public class RpcResultProcessor : IRpcResultProcessor
         //var disallowPhoneCall = false;
         var isOfficialId = user.UserId == MyTelegramServerDomainConsts.OfficialUserId;
         var tUser = ToUser(user, fromUid);
-        var userFull = new TUserFull
+        var userFull = new MyTelegram.Schema.Users.TUserFull()
         {
-            About = user.About,
-            Blocked = false,
-            CanPinMessage = !isOfficialId,
-            PhoneCallsAvailable = !user.Bot && !isOfficialId,
-            VideoCallsAvailable = !user.Bot && !isOfficialId,
-            PhoneCallsPrivate = isOfficialId,
-            // FolderId = 0,
-            PinnedMsgId = user.PinnedMsgId,
-            ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
-            Settings = new TPeerSettings(),
-            NotifySettings =
-                _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
-                    peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings),
-            User = tUser
+            Chats = new TVector<IChat>(),
+            FullUser = new TUserFull
+            {
+                Id=user.UserId,
+                About = user.About,
+                Blocked = false,
+                CanPinMessage = !isOfficialId,
+                PhoneCallsAvailable = !user.Bot && !isOfficialId,
+                VideoCallsAvailable = !user.Bot && !isOfficialId,
+                PhoneCallsPrivate = isOfficialId,
+                // FolderId = 0,
+                PinnedMsgId = user.PinnedMsgId,
+                ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
+                Settings = new MyTelegram.Schema.TPeerSettings(),
+                NotifySettings =
+                    _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
+                        peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings),
+            },
+            Users = new TVector<IUser>(tUser)
         };
 
-        return Task.FromResult<IUserFull>(userFull);
+        return Task.FromResult<MyTelegram.Schema.Users.IUserFull>(userFull);
     }
 
 

@@ -1,10 +1,15 @@
-﻿namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
+﻿using IPhoto = MyTelegram.Schema.Photos.IPhoto;
+using TPeerSettings = MyTelegram.Schema.TPeerSettings;
+using TPhoto = MyTelegram.Schema.Photos.TPhoto;
+
+namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public class TlUserConverter : ITlUserConverter
 {
     private readonly IObjectMapper _objectMapper;
-    private readonly IUserStatusCacheAppService _userStatusCacheAppService;
     private readonly ITlPhotoConverter _photoConverter;
+    private readonly IUserStatusCacheAppService _userStatusCacheAppService;
+
     public TlUserConverter(IObjectMapper objectMapper,
         IUserStatusCacheAppService userStatusCacheAppService,
         ITlPhotoConverter photoConverter)
@@ -12,6 +17,27 @@ public class TlUserConverter : ITlUserConverter
         _objectMapper = objectMapper;
         _userStatusCacheAppService = userStatusCacheAppService;
         _photoConverter = photoConverter;
+    }
+
+    public IUser ToUser(UserCreatedEvent aggregateEvent)
+    {
+        var tUser = _objectMapper.Map<UserCreatedEvent, TUser>(aggregateEvent);
+        tUser.Self = true;
+        tUser.Photo = new TUserProfilePhotoEmpty();
+
+        return tUser;
+    }
+
+    public IUser ToUser(UserNameUpdatedEvent aggregateEvent)
+    {
+        return ToUser(aggregateEvent.UserItem);
+        //var tUser = _objectMapper.Map<UserItem, TUser>(aggregateEvent.UserItem);
+        //tUser.Id = aggregateEvent.UserItem.UserId;
+        //tUser.Self = true;
+        //tUser.Photo = new TUserProfilePhotoEmpty();
+        //tUser.Status = _userStatusAppService.GetUserStatus(aggregateEvent.UserItem.UserId);
+
+        //return tUser;
     }
 
     public IUser ToUser(IUserReadModel user,
@@ -50,12 +76,12 @@ public class TlUserConverter : ITlUserConverter
             PhoneCallsPrivate = isOfficialId,
             // FolderId = 0,
             PinnedMsgId = user.PinnedMsgId,
-            ProfilePhoto = user.ProfilePhoto.ToTObject<IPhoto>() ?? new TPhotoEmpty(),
+            ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
             Settings = new TPeerSettings(),
             NotifySettings =
                 _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
-                    peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings),
-            User = tUser
+                    peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings)
+            //User = tUser
         };
 
         return Task.FromResult<IUserFull>(userFull);
@@ -71,6 +97,24 @@ public class TlUserConverter : ITlUserConverter
         }
 
         return users;
+    }
+
+    public IPhoto ToUserPhoto(UserProfilePhotoChangedEvent aggregateEvent)
+    {
+        var user = ToUser(aggregateEvent.UserItem);
+        var photo = aggregateEvent.UserItem.ProfilePhoto.ToTObject<Schema.IPhoto>();
+        return new TPhoto { Photo = photo, Users = new TVector<IUser>(user) };
+    }
+
+    private IUser ToUser(UserItem userItem)
+    {
+        var tUser = _objectMapper.Map<UserItem, TUser>(userItem);
+        tUser.Id = userItem.UserId;
+        tUser.Self = true;
+        tUser.Status = _userStatusCacheAppService.GetUserStatus(userItem.UserId);
+        tUser.Photo = _photoConverter.GetProfilePhoto(userItem.ProfilePhoto);
+
+        return tUser;
     }
 
     //private IUser ToUser(UserItem userItem)

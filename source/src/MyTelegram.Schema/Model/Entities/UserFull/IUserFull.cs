@@ -11,7 +11,7 @@ public interface IUserFull : IObject
     bool CanPinMessage { get; set; }
     bool HasScheduled { get; set; }
     bool VideoCallsAvailable { get; set; }
-    MyTelegram.Schema.IUser User { get; set; }
+    long Id { get; set; }
     string? About { get; set; }
     MyTelegram.Schema.IPeerSettings Settings { get; set; }
     MyTelegram.Schema.IPhoto? ProfilePhoto { get; set; }
@@ -22,5 +22,8 @@ public interface IUserFull : IObject
     int? FolderId { get; set; }
     int? TtlPeriod { get; set; }
     string? ThemeEmoticon { get; set; }
+    string? PrivateForwardName { get; set; }
+    MyTelegram.Schema.IChatAdminRights? BotGroupAdminRights { get; set; }
+    MyTelegram.Schema.IChatAdminRights? BotBroadcastAdminRights { get; set; }
 
 }

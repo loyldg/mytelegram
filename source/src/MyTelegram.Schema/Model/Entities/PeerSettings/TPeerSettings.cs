@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/peerSettings" />
 ///</summary>
-[TlObject(0x733f2961)]
+[TlObject(0xa518110d)]
 public class TPeerSettings : IPeerSettings
 {
-    public uint ConstructorId => 0x733f2961;
+    public uint ConstructorId => 0xa518110d;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool ReportSpam { get; set; }
     public bool AddContact { get; set; }
@@ -20,7 +20,10 @@ public class TPeerSettings : IPeerSettings
     public bool ReportGeo { get; set; }
     public bool Autoarchived { get; set; }
     public bool InviteMembers { get; set; }
+    public bool RequestChatBroadcast { get; set; }
     public int? GeoDistance { get; set; }
+    public string? RequestChatTitle { get; set; }
+    public int? RequestChatDate { get; set; }
 
     public void ComputeFlag()
     {
@@ -32,7 +35,10 @@ public class TPeerSettings : IPeerSettings
         if (ReportGeo) { Flags[5] = true; }
         if (Autoarchived) { Flags[7] = true; }
         if (InviteMembers) { Flags[8] = true; }
+        if (RequestChatBroadcast) { Flags[10] = true; }
         if (GeoDistance != 0 && GeoDistance.HasValue) { Flags[6] = true; }
+        if (RequestChatTitle != null) { Flags[9] = true; }
+        if (RequestChatDate != 0 && RequestChatDate.HasValue) { Flags[9] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -41,6 +47,8 @@ public class TPeerSettings : IPeerSettings
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
         if (Flags[6]) { bw.Write(GeoDistance.Value); }
+        if (Flags[9]) { bw.Serialize(RequestChatTitle); }
+        if (Flags[9]) { bw.Write(RequestChatDate.Value); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -54,6 +62,9 @@ public class TPeerSettings : IPeerSettings
         if (Flags[5]) { ReportGeo = true; }
         if (Flags[7]) { Autoarchived = true; }
         if (Flags[8]) { InviteMembers = true; }
+        if (Flags[10]) { RequestChatBroadcast = true; }
         if (Flags[6]) { GeoDistance = br.ReadInt32(); }
+        if (Flags[9]) { RequestChatTitle = br.Deserialize<string>(); }
+        if (Flags[9]) { RequestChatDate = br.ReadInt32(); }
     }
 }

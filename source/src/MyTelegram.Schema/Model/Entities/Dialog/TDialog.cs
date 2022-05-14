@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/dialog" />
 ///</summary>
-[TlObject(0x2c171f72)]
+[TlObject(0xa8edd0f5)]
 public class TDialog : IDialog
 {
-    public uint ConstructorId => 0x2c171f72;
+    public uint ConstructorId => 0xa8edd0f5;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Pinned { get; set; }
     public bool UnreadMark { get; set; }
@@ -24,6 +24,7 @@ public class TDialog : IDialog
     public int ReadOutboxMaxId { get; set; }
     public int UnreadCount { get; set; }
     public int UnreadMentionsCount { get; set; }
+    public int UnreadReactionsCount { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/PeerNotifySettings" />
@@ -57,6 +58,7 @@ public class TDialog : IDialog
         bw.Write(ReadOutboxMaxId);
         bw.Write(UnreadCount);
         bw.Write(UnreadMentionsCount);
+        bw.Write(UnreadReactionsCount);
         NotifySettings.Serialize(bw);
         if (Flags[0]) { bw.Write(Pts.Value); }
         if (Flags[1]) { Draft.Serialize(bw); }
@@ -74,6 +76,7 @@ public class TDialog : IDialog
         ReadOutboxMaxId = br.ReadInt32();
         UnreadCount = br.ReadInt32();
         UnreadMentionsCount = br.ReadInt32();
+        UnreadReactionsCount = br.ReadInt32();
         NotifySettings = br.Deserialize<MyTelegram.Schema.IPeerNotifySettings>();
         if (Flags[0]) { Pts = br.ReadInt32(); }
         if (Flags[1]) { Draft = br.Deserialize<MyTelegram.Schema.IDraftMessage>(); }

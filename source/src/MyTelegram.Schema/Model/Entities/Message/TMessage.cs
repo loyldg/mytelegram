@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/message" />
 ///</summary>
-[TlObject(0x85d6cbe2)]
+[TlObject(0x38116ee0)]
 public class TMessage : IMessage
 {
-    public uint ConstructorId => 0x85d6cbe2;
+    public uint ConstructorId => 0x38116ee0;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Out { get; set; }
     public bool Mentioned { get; set; }
@@ -21,6 +21,7 @@ public class TMessage : IMessage
     public bool Legacy { get; set; }
     public bool EditHide { get; set; }
     public bool Pinned { get; set; }
+    public bool Noforwards { get; set; }
     public int Id { get; set; }
 
     ///<summary>
@@ -66,6 +67,11 @@ public class TMessage : IMessage
     public int? EditDate { get; set; }
     public string? PostAuthor { get; set; }
     public long? GroupedId { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/MessageReactions" />
+    ///</summary>
+    public MyTelegram.Schema.IMessageReactions? Reactions { get; set; }
     public TVector<MyTelegram.Schema.IRestrictionReason>? RestrictionReason { get; set; }
     public int? TtlPeriod { get; set; }
 
@@ -80,6 +86,7 @@ public class TMessage : IMessage
         if (Legacy) { Flags[19] = true; }
         if (EditHide) { Flags[21] = true; }
         if (Pinned) { Flags[24] = true; }
+        if (Noforwards) { Flags[26] = true; }
         if (FromId != null) { Flags[8] = true; }
         if (FwdFrom != null) { Flags[2] = true; }
         if (ViaBotId != 0 && ViaBotId.HasValue) { Flags[11] = true; }
@@ -93,6 +100,7 @@ public class TMessage : IMessage
         if (EditDate != 0 && EditDate.HasValue) { Flags[15] = true; }
         if (PostAuthor != null) { Flags[16] = true; }
         if (GroupedId != 0 && GroupedId.HasValue) { Flags[17] = true; }
+        if (Reactions != null) { Flags[20] = true; }
         if (RestrictionReason?.Count > 0) { Flags[22] = true; }
         if (TtlPeriod != 0 && TtlPeriod.HasValue) { Flags[25] = true; }
     }
@@ -119,6 +127,7 @@ public class TMessage : IMessage
         if (Flags[15]) { bw.Write(EditDate.Value); }
         if (Flags[16]) { bw.Serialize(PostAuthor); }
         if (Flags[17]) { bw.Write(GroupedId.Value); }
+        if (Flags[20]) { Reactions.Serialize(bw); }
         if (Flags[22]) { RestrictionReason.Serialize(bw); }
         if (Flags[25]) { bw.Write(TtlPeriod.Value); }
     }
@@ -135,6 +144,7 @@ public class TMessage : IMessage
         if (Flags[19]) { Legacy = true; }
         if (Flags[21]) { EditHide = true; }
         if (Flags[24]) { Pinned = true; }
+        if (Flags[26]) { Noforwards = true; }
         Id = br.ReadInt32();
         if (Flags[8]) { FromId = br.Deserialize<MyTelegram.Schema.IPeer>(); }
         PeerId = br.Deserialize<MyTelegram.Schema.IPeer>();
@@ -152,6 +162,7 @@ public class TMessage : IMessage
         if (Flags[15]) { EditDate = br.ReadInt32(); }
         if (Flags[16]) { PostAuthor = br.Deserialize<string>(); }
         if (Flags[17]) { GroupedId = br.ReadInt64(); }
+        if (Flags[20]) { Reactions = br.Deserialize<MyTelegram.Schema.IMessageReactions>(); }
         if (Flags[22]) { RestrictionReason = br.Deserialize<TVector<MyTelegram.Schema.IRestrictionReason>>(); }
         if (Flags[25]) { TtlPeriod = br.ReadInt32(); }
     }

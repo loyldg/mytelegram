@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/peerNotifySettings" />
 ///</summary>
-[TlObject(0xaf509d20)]
+[TlObject(0xa83b0426)]
 public class TPeerNotifySettings : IPeerNotifySettings
 {
-    public uint ConstructorId => 0xaf509d20;
+    public uint ConstructorId => 0xa83b0426;
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
@@ -23,15 +23,30 @@ public class TPeerNotifySettings : IPeerNotifySettings
     ///</summary>
     public bool? Silent { get; set; }
     public int? MuteUntil { get; set; }
-    public string? Sound { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/NotificationSound" />
+    ///</summary>
+    public MyTelegram.Schema.INotificationSound? IosSound { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/NotificationSound" />
+    ///</summary>
+    public MyTelegram.Schema.INotificationSound? AndroidSound { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/NotificationSound" />
+    ///</summary>
+    public MyTelegram.Schema.INotificationSound? OtherSound { get; set; }
 
     public void ComputeFlag()
     {
         if (ShowPreviews !=null) { Flags[0] = true; }
         if (Silent !=null) { Flags[1] = true; }
-        //if (MuteUntil != 0 && MuteUntil.HasValue) { Flags[2] = true; }
-        if (MuteUntil.HasValue) { Flags[2] = true; }
-        if (Sound != null) { Flags[3] = true; }
+        if (/*MuteUntil != 0 && */MuteUntil.HasValue) { Flags[2] = true; }
+        if (IosSound != null) { Flags[3] = true; }
+        if (AndroidSound != null) { Flags[4] = true; }
+        if (OtherSound != null) { Flags[5] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -42,7 +57,9 @@ public class TPeerNotifySettings : IPeerNotifySettings
         if (Flags[0]) { bw.Serialize(ShowPreviews.Value); }
         if (Flags[1]) { bw.Serialize(Silent.Value); }
         if (Flags[2]) { bw.Write(MuteUntil.Value); }
-        if (Flags[3]) { bw.Serialize(Sound); }
+        if (Flags[3]) { IosSound.Serialize(bw); }
+        if (Flags[4]) { AndroidSound.Serialize(bw); }
+        if (Flags[5]) { OtherSound.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -51,6 +68,8 @@ public class TPeerNotifySettings : IPeerNotifySettings
         if (Flags[0]) { ShowPreviews = br.Deserialize<bool>(); }
         if (Flags[1]) { Silent = br.Deserialize<bool>(); }
         if (Flags[2]) { MuteUntil = br.ReadInt32(); }
-        if (Flags[3]) { Sound = br.Deserialize<string>(); }
+        if (Flags[3]) { IosSound = br.Deserialize<MyTelegram.Schema.INotificationSound>(); }
+        if (Flags[4]) { AndroidSound = br.Deserialize<MyTelegram.Schema.INotificationSound>(); }
+        if (Flags[5]) { OtherSound = br.Deserialize<MyTelegram.Schema.INotificationSound>(); }
     }
 }

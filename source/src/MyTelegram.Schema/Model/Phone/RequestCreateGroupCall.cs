@@ -11,6 +11,7 @@ public sealed class RequestCreateGroupCall : IRequest<MyTelegram.Schema.IUpdates
 {
     public uint ConstructorId => 0x48cdc6d8;
     public BitArray Flags { get; set; } = new BitArray(32);
+    public bool RtmpStream { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
@@ -22,6 +23,7 @@ public sealed class RequestCreateGroupCall : IRequest<MyTelegram.Schema.IUpdates
 
     public void ComputeFlag()
     {
+        if (RtmpStream) { Flags[2] = true; }
         if (Title != null) { Flags[0] = true; }
         if (ScheduleDate != 0 && ScheduleDate.HasValue) { Flags[1] = true; }
     }
@@ -40,6 +42,7 @@ public sealed class RequestCreateGroupCall : IRequest<MyTelegram.Schema.IUpdates
     public void Deserialize(BinaryReader br)
     {
         Flags = br.Deserialize<BitArray>();
+        if (Flags[2]) { RtmpStream = true; }
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         RandomId = br.ReadInt32();
         if (Flags[0]) { Title = br.Deserialize<string>(); }

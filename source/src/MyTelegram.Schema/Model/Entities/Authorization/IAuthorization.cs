@@ -8,6 +8,8 @@ public interface IAuthorization : IObject
     bool Current { get; set; }
     bool OfficialApp { get; set; }
     bool PasswordPending { get; set; }
+    bool EncryptedRequestsDisabled { get; set; }
+    bool CallRequestsDisabled { get; set; }
     long Hash { get; set; }
     string DeviceModel { get; set; }
     string Platform { get; set; }

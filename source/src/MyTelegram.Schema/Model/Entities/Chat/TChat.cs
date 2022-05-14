@@ -13,11 +13,11 @@ public class TChat : IChat
     public uint ConstructorId => 0x41cbf256;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Creator { get; set; }
-    public bool Kicked { get; set; }
     public bool Left { get; set; }
     public bool Deactivated { get; set; }
     public bool CallActive { get; set; }
     public bool CallNotEmpty { get; set; }
+    public bool Noforwards { get; set; }
     public long Id { get; set; }
     public string Title { get; set; }
 
@@ -47,11 +47,11 @@ public class TChat : IChat
     public void ComputeFlag()
     {
         if (Creator) { Flags[0] = true; }
-        if (Kicked) { Flags[1] = true; }
         if (Left) { Flags[2] = true; }
         if (Deactivated) { Flags[5] = true; }
         if (CallActive) { Flags[23] = true; }
         if (CallNotEmpty) { Flags[24] = true; }
+        if (Noforwards) { Flags[25] = true; }
         if (MigratedTo != null) { Flags[6] = true; }
         if (AdminRights != null) { Flags[14] = true; }
         if (DefaultBannedRights != null) { Flags[18] = true; }
@@ -77,11 +77,11 @@ public class TChat : IChat
     {
         Flags = br.Deserialize<BitArray>();
         if (Flags[0]) { Creator = true; }
-        if (Flags[1]) { Kicked = true; }
         if (Flags[2]) { Left = true; }
         if (Flags[5]) { Deactivated = true; }
         if (Flags[23]) { CallActive = true; }
         if (Flags[24]) { CallNotEmpty = true; }
+        if (Flags[25]) { Noforwards = true; }
         Id = br.ReadInt64();
         Title = br.Deserialize<string>();
         Photo = br.Deserialize<MyTelegram.Schema.IChatPhoto>();

@@ -7,13 +7,18 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/botInfo" />
 ///</summary>
-[TlObject(0x1b74b335)]
+[TlObject(0xe4169b5d)]
 public class TBotInfo : IBotInfo
 {
-    public uint ConstructorId => 0x1b74b335;
+    public uint ConstructorId => 0xe4169b5d;
     public long UserId { get; set; }
     public string Description { get; set; }
     public TVector<MyTelegram.Schema.IBotCommand> Commands { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/BotMenuButton" />
+    ///</summary>
+    public MyTelegram.Schema.IBotMenuButton MenuButton { get; set; }
 
     public void ComputeFlag()
     {
@@ -27,6 +32,7 @@ public class TBotInfo : IBotInfo
         bw.Write(UserId);
         bw.Serialize(Description);
         Commands.Serialize(bw);
+        MenuButton.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
@@ -34,5 +40,6 @@ public class TBotInfo : IBotInfo
         UserId = br.ReadInt64();
         Description = br.Deserialize<string>();
         Commands = br.Deserialize<TVector<MyTelegram.Schema.IBotCommand>>();
+        MenuButton = br.Deserialize<MyTelegram.Schema.IBotMenuButton>();
     }
 }

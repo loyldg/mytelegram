@@ -7,16 +7,18 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/chatInvite" />
 ///</summary>
-[TlObject(0xdfc2f58e)]
+[TlObject(0x300c44c1)]
 public class TChatInvite : IChatInvite
 {
-    public uint ConstructorId => 0xdfc2f58e;
+    public uint ConstructorId => 0x300c44c1;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Channel { get; set; }
     public bool Broadcast { get; set; }
     public bool Public { get; set; }
     public bool Megagroup { get; set; }
+    public bool RequestNeeded { get; set; }
     public string Title { get; set; }
+    public string? About { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/Photo" />
@@ -31,6 +33,8 @@ public class TChatInvite : IChatInvite
         if (Broadcast) { Flags[1] = true; }
         if (Public) { Flags[2] = true; }
         if (Megagroup) { Flags[3] = true; }
+        if (RequestNeeded) { Flags[6] = true; }
+        if (About != null) { Flags[5] = true; }
         if (Participants?.Count > 0) { Flags[4] = true; }
     }
 
@@ -40,6 +44,7 @@ public class TChatInvite : IChatInvite
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
         bw.Serialize(Title);
+        if (Flags[5]) { bw.Serialize(About); }
         Photo.Serialize(bw);
         bw.Write(ParticipantsCount);
         if (Flags[4]) { Participants.Serialize(bw); }
@@ -52,7 +57,9 @@ public class TChatInvite : IChatInvite
         if (Flags[1]) { Broadcast = true; }
         if (Flags[2]) { Public = true; }
         if (Flags[3]) { Megagroup = true; }
+        if (Flags[6]) { RequestNeeded = true; }
         Title = br.Deserialize<string>();
+        if (Flags[5]) { About = br.Deserialize<string>(); }
         Photo = br.Deserialize<MyTelegram.Schema.IPhoto>();
         ParticipantsCount = br.ReadInt32();
         if (Flags[4]) { Participants = br.Deserialize<TVector<MyTelegram.Schema.IUser>>(); }

@@ -109,9 +109,9 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
             var command = new UpdateOutboxMessagePinnedCommand(
                 MessageId.Create(ownerPeerId,
                     domainEvent.AggregateEvent.SenderMessageId),
+                domainEvent.AggregateEvent.Pinned,
+                !domainEvent.AggregateEvent.PmOneSide,
                 domainEvent.AggregateEvent.Silent,
-                !domainEvent.AggregateEvent.Pinned,
-                domainEvent.AggregateEvent.PmOneSide,
                 domainEvent.AggregateEvent.Date,
                 domainEvent.AggregateEvent.CorrelationId);
             Publish(command);
@@ -176,7 +176,6 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId).ConfigureAwait(false);
         Emit(new UpdatePinnedBoxPtsCompletedEvent(peerId, pts));
-
         var item = _state.GetUpdatePinItem(peerId);
         if (item == null)
         {
@@ -217,11 +216,10 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
             }
 
             var command = new UpdateInboxMessagePinnedCommand(
-                MessageId.Create(inboxItem.InboxOwnerPeerId, /*toPeerId,*/ inboxItem.InboxMessageId),
-                //aggregateEvent.MessageId,
-                aggregateEvent.Silent,
+                MessageId.Create(inboxItem.InboxOwnerPeerId, inboxItem.InboxMessageId),
                 aggregateEvent.Pinned,
                 aggregateEvent.PmOneSide,
+                aggregateEvent.Silent,
                 aggregateEvent.Date,
                 aggregateEvent.CorrelationId);
             Publish(command);

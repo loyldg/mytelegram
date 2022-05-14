@@ -7,13 +7,14 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/chatInviteExported" />
 ///</summary>
-[TlObject(0xb18105e8)]
+[TlObject(0xab4a819)]
 public class TChatInviteExported : IExportedChatInvite
 {
-    public uint ConstructorId => 0xb18105e8;
+    public uint ConstructorId => 0xab4a819;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Revoked { get; set; }
     public bool Permanent { get; set; }
+    public bool RequestNeeded { get; set; }
     public string Link { get; set; }
     public long AdminId { get; set; }
     public int Date { get; set; }
@@ -21,15 +22,20 @@ public class TChatInviteExported : IExportedChatInvite
     public int? ExpireDate { get; set; }
     public int? UsageLimit { get; set; }
     public int? Usage { get; set; }
+    public int? Requested { get; set; }
+    public string? Title { get; set; }
 
     public void ComputeFlag()
     {
         if (Revoked) { Flags[0] = true; }
         if (Permanent) { Flags[5] = true; }
+        if (RequestNeeded) { Flags[6] = true; }
         if (StartDate != 0 && StartDate.HasValue) { Flags[4] = true; }
         if (ExpireDate != 0 && ExpireDate.HasValue) { Flags[1] = true; }
         if (UsageLimit != 0 && UsageLimit.HasValue) { Flags[2] = true; }
         if (Usage != 0 && Usage.HasValue) { Flags[3] = true; }
+        if (Requested != 0 && Requested.HasValue) { Flags[7] = true; }
+        if (Title != null) { Flags[8] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -44,6 +50,8 @@ public class TChatInviteExported : IExportedChatInvite
         if (Flags[1]) { bw.Write(ExpireDate.Value); }
         if (Flags[2]) { bw.Write(UsageLimit.Value); }
         if (Flags[3]) { bw.Write(Usage.Value); }
+        if (Flags[7]) { bw.Write(Requested.Value); }
+        if (Flags[8]) { bw.Serialize(Title); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -51,6 +59,7 @@ public class TChatInviteExported : IExportedChatInvite
         Flags = br.Deserialize<BitArray>();
         if (Flags[0]) { Revoked = true; }
         if (Flags[5]) { Permanent = true; }
+        if (Flags[6]) { RequestNeeded = true; }
         Link = br.Deserialize<string>();
         AdminId = br.ReadInt64();
         Date = br.ReadInt32();
@@ -58,5 +67,7 @@ public class TChatInviteExported : IExportedChatInvite
         if (Flags[1]) { ExpireDate = br.ReadInt32(); }
         if (Flags[2]) { UsageLimit = br.ReadInt32(); }
         if (Flags[3]) { Usage = br.ReadInt32(); }
+        if (Flags[7]) { Requested = br.ReadInt32(); }
+        if (Flags[8]) { Title = br.Deserialize<string>(); }
     }
 }
