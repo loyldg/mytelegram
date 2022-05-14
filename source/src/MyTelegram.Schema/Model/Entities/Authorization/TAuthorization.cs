@@ -15,6 +15,8 @@ public class TAuthorization : IAuthorization
     public bool Current { get; set; }
     public bool OfficialApp { get; set; }
     public bool PasswordPending { get; set; }
+    public bool EncryptedRequestsDisabled { get; set; }
+    public bool CallRequestsDisabled { get; set; }
     public long Hash { get; set; }
     public string DeviceModel { get; set; }
     public string Platform { get; set; }
@@ -33,6 +35,8 @@ public class TAuthorization : IAuthorization
         if (Current) { Flags[0] = true; }
         if (OfficialApp) { Flags[1] = true; }
         if (PasswordPending) { Flags[2] = true; }
+        if (EncryptedRequestsDisabled) { Flags[3] = true; }
+        if (CallRequestsDisabled) { Flags[4] = true; }
 
     }
 
@@ -61,6 +65,8 @@ public class TAuthorization : IAuthorization
         if (Flags[0]) { Current = true; }
         if (Flags[1]) { OfficialApp = true; }
         if (Flags[2]) { PasswordPending = true; }
+        if (Flags[3]) { EncryptedRequestsDisabled = true; }
+        if (Flags[4]) { CallRequestsDisabled = true; }
         Hash = br.ReadInt64();
         DeviceModel = br.Deserialize<string>();
         Platform = br.Deserialize<string>();

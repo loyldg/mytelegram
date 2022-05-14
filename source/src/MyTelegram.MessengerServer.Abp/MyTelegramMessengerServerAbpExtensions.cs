@@ -31,6 +31,7 @@ public static class MyTelegramMessengerServerAbpExtensions
             .AddMyTelegramHandlerServices()
             .AddMyTelegramMessengerServices()
             .AddMyTelegramIdGeneratorServices()
+            .AddMyEventFlow()
             .AddMyTelegramAbpServices()
             ;
     }

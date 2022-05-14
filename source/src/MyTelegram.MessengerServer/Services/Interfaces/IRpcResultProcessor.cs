@@ -99,7 +99,7 @@ public interface IRpcResultProcessor
     IUser ToUser(IUserReadModel user,
         long selfUserId);
 
-    Task<IUserFull> ToUserFullAsync(IUserReadModel user,
+    Task<MyTelegram.Schema.Users.IUserFull> ToUserFullAsync(IUserReadModel user,
         long selfUserId,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel
     );

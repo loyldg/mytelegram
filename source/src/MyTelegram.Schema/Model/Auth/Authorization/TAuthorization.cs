@@ -7,11 +7,13 @@ namespace MyTelegram.Schema.Auth;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/auth.authorization" />
 ///</summary>
-[TlObject(0xcd050916)]
+[TlObject(0x33fb7bb8)]
 public class TAuthorization : IAuthorization
 {
-    public uint ConstructorId => 0xcd050916;
+    public uint ConstructorId => 0x33fb7bb8;
     public BitArray Flags { get; set; } = new BitArray(32);
+    public bool SetupPasswordRequired { get; set; }
+    public int? OtherwiseReloginDays { get; set; }
     public int? TmpSessions { get; set; }
 
     ///<summary>
@@ -21,6 +23,8 @@ public class TAuthorization : IAuthorization
 
     public void ComputeFlag()
     {
+        if (SetupPasswordRequired) { Flags[1] = true; }
+        if (OtherwiseReloginDays != 0 && OtherwiseReloginDays.HasValue) { Flags[1] = true; }
         if (TmpSessions != 0 && TmpSessions.HasValue) { Flags[0] = true; }
 
     }
@@ -30,6 +34,7 @@ public class TAuthorization : IAuthorization
         ComputeFlag();
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
+        if (Flags[1]) { bw.Write(OtherwiseReloginDays.Value); }
         if (Flags[0]) { bw.Write(TmpSessions.Value); }
         User.Serialize(bw);
     }
@@ -37,6 +42,8 @@ public class TAuthorization : IAuthorization
     public void Deserialize(BinaryReader br)
     {
         Flags = br.Deserialize<BitArray>();
+        if (Flags[1]) { SetupPasswordRequired = true; }
+        if (Flags[1]) { OtherwiseReloginDays = br.ReadInt32(); }
         if (Flags[0]) { TmpSessions = br.ReadInt32(); }
         User = br.Deserialize<MyTelegram.Schema.IUser>();
     }

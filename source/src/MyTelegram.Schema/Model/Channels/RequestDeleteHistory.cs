@@ -6,10 +6,12 @@ namespace MyTelegram.Schema.Channels;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/channels.deleteHistory" />
 ///</summary>
-[TlObject(0xaf369d42)]
-public sealed class RequestDeleteHistory : IRequest<IBool>
+[TlObject(0x9baa9647)]
+public sealed class RequestDeleteHistory : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xaf369d42;
+    public uint ConstructorId => 0x9baa9647;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public bool ForEveryone { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputChannel" />
@@ -19,6 +21,7 @@ public sealed class RequestDeleteHistory : IRequest<IBool>
 
     public void ComputeFlag()
     {
+        if (ForEveryone) { Flags[0] = true; }
 
     }
 
@@ -26,12 +29,15 @@ public sealed class RequestDeleteHistory : IRequest<IBool>
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         Channel.Serialize(bw);
         bw.Write(MaxId);
     }
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
+        if (Flags[0]) { ForEveryone = true; }
         Channel = br.Deserialize<MyTelegram.Schema.IInputChannel>();
         MaxId = br.ReadInt32();
     }

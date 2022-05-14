@@ -3,7 +3,7 @@
 namespace MyTelegram.Domain.EventFlow;
 public static class MyEventFlowExtensions
 {
-    public static void AddMyEventFlow(this IServiceCollection services)
+    public static IServiceCollection AddMyEventFlow(this IServiceCollection services)
     {
         services.AddTransient<IDomainEventFactory, MyDomainEventFactory>();
         services.AddTransient(typeof(IReadModelFactory<>), typeof(MyReadModelFactory<>));
@@ -15,5 +15,7 @@ public static class MyEventFlowExtensions
 
         services.AddTransient<ISnapshotStore, SnapshotWithInMemoryCacheStore>();
         services.AddSingleton<IMyInMemorySnapshotPersistence, MyInMemorySnapshotPersistence>();
+
+        return services;
     }
 }

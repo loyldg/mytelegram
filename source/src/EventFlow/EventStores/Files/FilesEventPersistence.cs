@@ -261,7 +261,6 @@ public class FilesEventPersistence : IEventPersistence
             .SelectMany(Directory.GetFiles)
             .Select(f =>
             {
-                Console.WriteLine(f);
                 using var streamReader = File.OpenText(f);
                 var json = streamReader.ReadToEnd();
                 var fileEventData = _jsonSerializer.Deserialize<FileEventData>(json);

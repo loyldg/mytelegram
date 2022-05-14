@@ -332,7 +332,10 @@ public class CustomObjectMapper :
         {
             ShowPreviews = true,
             Silent = false,
-            Sound = "default",
+            //Sound = "default",
+            //AndroidSound = new TNotificationSoundDefault(),
+            //IosSound = new TNotificationSoundDefault(),
+            //OtherSound = new TNotificationSoundDefault(),
             MuteUntil = 0
         };
 
@@ -472,7 +475,8 @@ public class CustomObjectMapper :
     {
         destination.Silent = source.Silent;
         destination.MuteUntil = source.MuteUntil;
-        destination.Sound = source.Sound;
+        //destination.Sound = source.Sound;
+        //destination.IosSound=source.
         destination.ShowPreviews = source.ShowPreviews;
 
         return destination;

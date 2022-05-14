@@ -1,8 +1,15 @@
-﻿namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
+﻿using IPhoto = MyTelegram.Schema.Photos.IPhoto;
+
+namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public interface ITlUserConverter
 {
-    IUser ToUser(IUserReadModel user, long selfUserId);
+    IUser ToUser(IUserReadModel user,
+        long selfUserId);
+
+    IUser ToUser(UserCreatedEvent aggregateEvent);
+
+    IUser ToUser(UserNameUpdatedEvent aggregateEvent);
 
     Task<IUserFull> ToUserFullAsync(IUserReadModel user,
         long selfUserId,
@@ -11,4 +18,6 @@ public interface ITlUserConverter
 
     IList<IUser> ToUserList(IReadOnlyCollection<IUserReadModel> userList,
         long selfUserId);
+
+    IPhoto ToUserPhoto(UserProfilePhotoChangedEvent aggregateEvent);
 }

@@ -7,16 +7,19 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/channelParticipantSelf" />
 ///</summary>
-[TlObject(0x28a8bc67)]
+[TlObject(0x35a8bfa7)]
 public class TChannelParticipantSelf : IChannelParticipant
 {
-    public uint ConstructorId => 0x28a8bc67;
+    public uint ConstructorId => 0x35a8bfa7;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public bool ViaRequest { get; set; }
     public long UserId { get; set; }
     public long InviterId { get; set; }
     public int Date { get; set; }
 
     public void ComputeFlag()
     {
+        if (ViaRequest) { Flags[0] = true; }
 
     }
 
@@ -24,6 +27,7 @@ public class TChannelParticipantSelf : IChannelParticipant
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         bw.Write(UserId);
         bw.Write(InviterId);
         bw.Write(Date);
@@ -31,6 +35,8 @@ public class TChannelParticipantSelf : IChannelParticipant
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
+        if (Flags[0]) { ViaRequest = true; }
         UserId = br.ReadInt64();
         InviterId = br.ReadInt64();
         Date = br.ReadInt32();

@@ -6,11 +6,11 @@ namespace MyTelegram.Schema.Account;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/account.getChatThemes" />
 ///</summary>
-[TlObject(0xd6d71d7b)]
-public sealed class RequestGetChatThemes : IRequest<MyTelegram.Schema.Account.IChatThemes>
+[TlObject(0xd638de89)]
+public sealed class RequestGetChatThemes : IRequest<MyTelegram.Schema.Account.IThemes>
 {
-    public uint ConstructorId => 0xd6d71d7b;
-    public int Hash { get; set; }
+    public uint ConstructorId => 0xd638de89;
+    public long Hash { get; set; }
 
     public void ComputeFlag()
     {
@@ -26,6 +26,6 @@ public sealed class RequestGetChatThemes : IRequest<MyTelegram.Schema.Account.IC
 
     public void Deserialize(BinaryReader br)
     {
-        Hash = br.ReadInt32();
+        Hash = br.ReadInt64();
     }
 }

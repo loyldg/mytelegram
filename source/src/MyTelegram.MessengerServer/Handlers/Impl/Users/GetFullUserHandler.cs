@@ -4,7 +4,7 @@ using MyTelegram.Schema.Users;
 
 namespace MyTelegram.MessengerServer.Handlers.Impl.Users;
 
-public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, IUserFull>,
+public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, MyTelegram.Schema.Users.IUserFull>,
     IGetFullUserHandler, IProcessedHandler
 {
     private readonly IPeerHelper _peerHelper;
@@ -20,7 +20,7 @@ public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, IUs
         _rpcResultProcessor = rpcResultProcessor;
     }
 
-    protected override async Task<IUserFull> HandleCoreAsync(IRequestInput input,
+    protected override async Task<MyTelegram.Schema.Users.IUserFull> HandleCoreAsync(IRequestInput input,
         RequestGetFullUser obj)
     {
         var userId = input.UserId;

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Channels;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/channels.reportSpam" />
 ///</summary>
-[TlObject(0xfe087810)]
+[TlObject(0xf44a8315)]
 public sealed class RequestReportSpam : IRequest<IBool>
 {
-    public uint ConstructorId => 0xfe087810;
+    public uint ConstructorId => 0xf44a8315;
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputChannel" />
@@ -17,9 +17,9 @@ public sealed class RequestReportSpam : IRequest<IBool>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     ///<summary>
-    ///See <a href="https://core.telegram.org/type/InputUser" />
+    ///See <a href="https://core.telegram.org/type/InputPeer" />
     ///</summary>
-    public MyTelegram.Schema.IInputUser UserId { get; set; }
+    public MyTelegram.Schema.IInputPeer Participant { get; set; }
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()
@@ -32,14 +32,14 @@ public sealed class RequestReportSpam : IRequest<IBool>
         ComputeFlag();
         bw.Write(ConstructorId);
         Channel.Serialize(bw);
-        UserId.Serialize(bw);
+        Participant.Serialize(bw);
         Id.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
         Channel = br.Deserialize<MyTelegram.Schema.IInputChannel>();
-        UserId = br.Deserialize<MyTelegram.Schema.IInputUser>();
+        Participant = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         Id = br.Deserialize<TVector<int>>();
     }
 }

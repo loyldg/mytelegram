@@ -78,6 +78,19 @@ public class GetNotifySettingsHandler : RpcResultObjectHandler<RequestGetNotifyS
                 .ConfigureAwait(false);
         var peerNotifySettings = peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings;
 
-        return _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(peerNotifySettings);
+        var r = _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(peerNotifySettings);
+        r.MuteUntil = 0;
+        r.IosSound = new TNotificationSoundDefault();
+        r.AndroidSound = new TNotificationSoundLocal
+        {
+            Title= "default",
+            Data= "default"
+        };
+        r.OtherSound = new TNotificationSoundLocal
+        {
+            Title = "default",
+            Data = "default"
+        };
+        return r;
     }
 }

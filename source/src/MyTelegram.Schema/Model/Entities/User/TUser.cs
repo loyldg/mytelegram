@@ -27,6 +27,7 @@ public class TUser : IUser
     public bool Scam { get; set; }
     public bool ApplyMinPhoto { get; set; }
     public bool Fake { get; set; }
+    public bool BotAttachMenu { get; set; }
     public long Id { get; set; }
     public long? AccessHash { get; set; }
     public string? FirstName { get; set; }
@@ -65,6 +66,7 @@ public class TUser : IUser
         if (Scam) { Flags[24] = true; }
         if (ApplyMinPhoto) { Flags[25] = true; }
         if (Fake) { Flags[26] = true; }
+        if (BotAttachMenu) { Flags[27] = true; }
         if (AccessHash != 0 && AccessHash.HasValue) { Flags[0] = true; }
         if (FirstName != null) { Flags[1] = true; }
         if (LastName != null) { Flags[2] = true; }
@@ -115,6 +117,7 @@ public class TUser : IUser
         if (Flags[24]) { Scam = true; }
         if (Flags[25]) { ApplyMinPhoto = true; }
         if (Flags[26]) { Fake = true; }
+        if (Flags[27]) { BotAttachMenu = true; }
         Id = br.ReadInt64();
         if (Flags[0]) { AccessHash = br.ReadInt64(); }
         if (Flags[1]) { FirstName = br.Deserialize<string>(); }

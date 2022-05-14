@@ -9,6 +9,7 @@ public interface IStickerSet : IObject
     bool Official { get; set; }
     bool Masks { get; set; }
     bool Animated { get; set; }
+    bool Videos { get; set; }
     int? InstalledDate { get; set; }
     long Id { get; set; }
     long AccessHash { get; set; }

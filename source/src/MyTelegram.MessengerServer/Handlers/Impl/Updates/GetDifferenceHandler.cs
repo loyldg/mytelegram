@@ -64,7 +64,6 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
                 return new TDifferenceEmpty { Date = CurrentDate, Seq = 0 };
             }
         }
-        Console.WriteLine($"Joined channel count:{joinedChannelIdList.Count}");
 
         var limit = obj.PtsTotalLimit ?? MyTelegramServerDomainConsts.DefaultPtsTotalLimit;
         limit = Math.Min(limit, MyTelegramServerDomainConsts.DefaultPtsTotalLimit);
@@ -95,7 +94,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
 
         var hasUpdatesChannelIdList = new List<long>();
         var globalSeqNo = Math.Min(ptsReadModel?.GlobalSeqNo ?? 0, ptsForAuthKeyIdReadModel?.GlobalSeqNo ?? 0);
-        Console.WriteLine($"PeerId={input.UserId} GlobalSeqNo:{globalSeqNo}");
+        // Console.WriteLine($"PeerId={input.UserId} GlobalSeqNo:{globalSeqNo}");
         if (globalSeqNo > 0)
         {
             if (joinedChannelIdList.Count > 0)
@@ -212,7 +211,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         
         if (maxPts > 0 || channelMaxGlobalSeqNo > 0)
         {
-            Console.WriteLine($"Add pts ack:maxPts={maxPts},channelMaxGlobalSeqNo={channelMaxGlobalSeqNo},updatesCount={allPushUpdatesList.Count}");
+            // Console.WriteLine($"Add pts ack:maxPts={maxPts},channelMaxGlobalSeqNo={channelMaxGlobalSeqNo},updatesCount={allPushUpdatesList.Count}");
             await _ackCacheService
                 .AddRpcPtsToCacheAsync(input.ReqMsgId,
                     maxPts,

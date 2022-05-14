@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.getPeerSettings" />
 ///</summary>
-[TlObject(0x3672e09c)]
-public sealed class RequestGetPeerSettings : IRequest<MyTelegram.Schema.IPeerSettings>
+[TlObject(0xefd9a6a2)]
+public sealed class RequestGetPeerSettings : IRequest<MyTelegram.Schema.Messages.IPeerSettings>
 {
-    public uint ConstructorId => 0x3672e09c;
+    public uint ConstructorId => 0xefd9a6a2;
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />

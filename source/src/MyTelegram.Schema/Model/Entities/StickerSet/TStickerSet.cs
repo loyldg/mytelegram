@@ -16,6 +16,7 @@ public class TStickerSet : IStickerSet
     public bool Official { get; set; }
     public bool Masks { get; set; }
     public bool Animated { get; set; }
+    public bool Videos { get; set; }
     public int? InstalledDate { get; set; }
     public long Id { get; set; }
     public long AccessHash { get; set; }
@@ -33,6 +34,7 @@ public class TStickerSet : IStickerSet
         if (Official) { Flags[2] = true; }
         if (Masks) { Flags[3] = true; }
         if (Animated) { Flags[5] = true; }
+        if (Videos) { Flags[6] = true; }
         if (InstalledDate != 0 && InstalledDate.HasValue) { Flags[0] = true; }
         if (Thumbs?.Count > 0) { Flags[4] = true; }
         if (ThumbDcId != 0 && ThumbDcId.HasValue) { Flags[4] = true; }
@@ -64,6 +66,7 @@ public class TStickerSet : IStickerSet
         if (Flags[2]) { Official = true; }
         if (Flags[3]) { Masks = true; }
         if (Flags[5]) { Animated = true; }
+        if (Flags[6]) { Videos = true; }
         if (Flags[0]) { InstalledDate = br.ReadInt32(); }
         Id = br.ReadInt64();
         AccessHash = br.ReadInt64();

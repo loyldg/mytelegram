@@ -18,6 +18,8 @@ public class TGroupCall : IGroupCall
     public bool ScheduleStartSubscribed { get; set; }
     public bool CanStartVideo { get; set; }
     public bool RecordVideoActive { get; set; }
+    public bool RtmpStream { get; set; }
+    public bool ListenersHidden { get; set; }
     public long Id { get; set; }
     public long AccessHash { get; set; }
     public int ParticipantsCount { get; set; }
@@ -37,6 +39,8 @@ public class TGroupCall : IGroupCall
         if (ScheduleStartSubscribed) { Flags[8] = true; }
         if (CanStartVideo) { Flags[9] = true; }
         if (RecordVideoActive) { Flags[11] = true; }
+        if (RtmpStream) { Flags[12] = true; }
+        if (ListenersHidden) { Flags[13] = true; }
         if (Title != null) { Flags[3] = true; }
         if (StreamDcId != 0 && StreamDcId.HasValue) { Flags[4] = true; }
         if (RecordStartDate != 0 && RecordStartDate.HasValue) { Flags[5] = true; }
@@ -71,6 +75,8 @@ public class TGroupCall : IGroupCall
         if (Flags[8]) { ScheduleStartSubscribed = true; }
         if (Flags[9]) { CanStartVideo = true; }
         if (Flags[11]) { RecordVideoActive = true; }
+        if (Flags[12]) { RtmpStream = true; }
+        if (Flags[13]) { ListenersHidden = true; }
         Id = br.ReadInt64();
         AccessHash = br.ReadInt64();
         ParticipantsCount = br.ReadInt32();

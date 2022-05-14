@@ -13,6 +13,7 @@ public sealed class RequestCreateStickerSet : IRequest<MyTelegram.Schema.Message
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Masks { get; set; }
     public bool Animated { get; set; }
+    public bool Videos { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputUser" />
@@ -32,6 +33,7 @@ public sealed class RequestCreateStickerSet : IRequest<MyTelegram.Schema.Message
     {
         if (Masks) { Flags[0] = true; }
         if (Animated) { Flags[1] = true; }
+        if (Videos) { Flags[4] = true; }
         if (Thumb != null) { Flags[2] = true; }
         if (Software != null) { Flags[3] = true; }
     }
@@ -54,6 +56,7 @@ public sealed class RequestCreateStickerSet : IRequest<MyTelegram.Schema.Message
         Flags = br.Deserialize<BitArray>();
         if (Flags[0]) { Masks = true; }
         if (Flags[1]) { Animated = true; }
+        if (Flags[4]) { Videos = true; }
         UserId = br.Deserialize<MyTelegram.Schema.IInputUser>();
         Title = br.Deserialize<string>();
         ShortName = br.Deserialize<string>();

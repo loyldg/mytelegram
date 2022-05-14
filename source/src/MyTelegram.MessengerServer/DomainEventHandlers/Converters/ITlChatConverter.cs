@@ -1,17 +1,17 @@
 ﻿using MyTelegram.Schema.Channels;
+using IChannelParticipant = MyTelegram.Schema.IChannelParticipant;
 using IChatFull = MyTelegram.Schema.Messages.IChatFull;
+using IExportedChatInvite = MyTelegram.Schema.IExportedChatInvite;
 
 namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public interface ITlChatConverter
 {
-    IChat ToChat(long chatId,
-        string title,
-        int date,
-        int memberCount);
     IChat ToChannel(IChannelReadModel channelReadModel,
         IChannelMemberReadModel? channelMemberReadModel,
-        long selfUserId, bool channelMemberIsLeft);
+        long selfUserId,
+        bool channelMemberIsLeft);
+
     TChannel ToChannel(long selfUserId,
         long channelId,
         string title,
@@ -21,11 +21,13 @@ public interface ITlChatConverter
         long accessHash,
         int date,
         int participantsCount);
+
     TChannelFull ToChannelFull(IChannelReadModel channelReadModel,
         IChannelFullReadModel channelFullReadModel,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
         long selfUserId
     );
+
     List<IChat> ToChannelList(
         IReadOnlyCollection<IChannelReadModel> channelReadModels,
         IReadOnlyCollection<long> joinedChannelIdList,
@@ -33,7 +35,7 @@ public interface ITlChatConverter
         long selfUserId,
         bool resetLeftToFalse = false);
 
-    Schema.IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
+    IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
         IChannelMemberReadModel channelMemberReadModel,
         IUserReadModel userReadModel,
         long selfUserId);
@@ -49,6 +51,10 @@ public interface ITlChatConverter
         long selfUserId,
         DeviceType deviceType,
         bool forceNotLeft);
+    IChat ToChat(long chatId,
+        string title,
+        int date,
+        int memberCount);
 
     IChat ToChat(IChatReadModel chat,
         long selfUserId);
@@ -63,4 +69,10 @@ public interface ITlChatConverter
         IChannelMemberReadModel? channelMemberReadModel,
         IPeerNotifySettingsReadModel peerNotifySettingsReadModel,
         long selfUserId);
+
+    IExportedChatInvite ToExportedChatInvite(ExportChatInviteEvent eventData);
+
+    IUpdates ToInviteToChannelUpdates(IChannelReadModel channelReadModel,
+        IUserReadModel senderUserReadModel,
+        int date);
 }

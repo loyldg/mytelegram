@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/channelFull" />
 ///</summary>
-[TlObject(0xe9b27a17)]
+[TlObject(0xea68a619)]
 public class TChannelFull : IChatFull
 {
-    public uint ConstructorId => 0xe9b27a17;
+    public uint ConstructorId => 0xea68a619;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool CanViewParticipants { get; set; }
     public bool CanSetUsername { get; set; }
@@ -20,6 +20,8 @@ public class TChannelFull : IChatFull
     public bool HasScheduled { get; set; }
     public bool CanViewStats { get; set; }
     public bool Blocked { get; set; }
+    public BitArray Flags2 { get; set; } = new BitArray(32);
+    public bool CanDeleteChannel { get; set; }
     public long Id { get; set; }
     public string About { get; set; }
     public int? ParticipantsCount { get; set; }
@@ -79,6 +81,14 @@ public class TChannelFull : IChatFull
     ///</summary>
     public MyTelegram.Schema.IPeer? GroupcallDefaultJoinAs { get; set; }
     public string? ThemeEmoticon { get; set; }
+    public int? RequestsPending { get; set; }
+    public TVector<long>? RecentRequesters { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/Peer" />
+    ///</summary>
+    public MyTelegram.Schema.IPeer? DefaultSendAs { get; set; }
+    public TVector<string>? AvailableReactions { get; set; }
 
     public void ComputeFlag()
     {
@@ -112,6 +122,11 @@ public class TChannelFull : IChatFull
         if (PendingSuggestions?.Count > 0) { Flags[25] = true; }
         if (GroupcallDefaultJoinAs != null) { Flags[26] = true; }
         if (ThemeEmoticon != null) { Flags[27] = true; }
+        if (RequestsPending != 0 && RequestsPending.HasValue) { Flags[28] = true; }
+        if (RecentRequesters?.Count > 0) { Flags[28] = true; }
+        if (DefaultSendAs != null) { Flags[29] = true; }
+        if (AvailableReactions?.Count > 0) { Flags[30] = true; }
+        if (CanDeleteChannel) { Flags2[0] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -119,6 +134,8 @@ public class TChannelFull : IChatFull
         ComputeFlag();
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
+        bw.Serialize(Flags2);
+        
         bw.Write(Id);
         bw.Serialize(About);
         if (Flags[0]) { bw.Write(ParticipantsCount.Value); }
@@ -150,6 +167,10 @@ public class TChannelFull : IChatFull
         if (Flags[25]) { PendingSuggestions.Serialize(bw); }
         if (Flags[26]) { GroupcallDefaultJoinAs.Serialize(bw); }
         if (Flags[27]) { bw.Serialize(ThemeEmoticon); }
+        if (Flags[28]) { bw.Write(RequestsPending.Value); }
+        if (Flags[28]) { RecentRequesters.Serialize(bw); }
+        if (Flags[29]) { DefaultSendAs.Serialize(bw); }
+        if (Flags[30]) { AvailableReactions.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -163,6 +184,9 @@ public class TChannelFull : IChatFull
         if (Flags[19]) { HasScheduled = true; }
         if (Flags[20]) { CanViewStats = true; }
         if (Flags[22]) { Blocked = true; }
+        Flags2 = br.Deserialize<BitArray>();
+        if (Flags2[0]) { CanDeleteChannel = true; }
+        //CanDeleteChannel = br.Deserialize<bool>();
         Id = br.ReadInt64();
         About = br.Deserialize<string>();
         if (Flags[0]) { ParticipantsCount = br.ReadInt32(); }
@@ -194,5 +218,9 @@ public class TChannelFull : IChatFull
         if (Flags[25]) { PendingSuggestions = br.Deserialize<TVector<string>>(); }
         if (Flags[26]) { GroupcallDefaultJoinAs = br.Deserialize<MyTelegram.Schema.IPeer>(); }
         if (Flags[27]) { ThemeEmoticon = br.Deserialize<string>(); }
+        if (Flags[28]) { RequestsPending = br.ReadInt32(); }
+        if (Flags[28]) { RecentRequesters = br.Deserialize<TVector<long>>(); }
+        if (Flags[29]) { DefaultSendAs = br.Deserialize<MyTelegram.Schema.IPeer>(); }
+        if (Flags[30]) { AvailableReactions = br.Deserialize<TVector<string>>(); }
     }
 }

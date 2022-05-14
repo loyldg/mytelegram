@@ -3,7 +3,7 @@ using MyTelegram.Schema.Channels;
 
 namespace MyTelegram.MessengerServer.Handlers.Impl.Channels;
 
-public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory, IBool>,
+public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory, IUpdates>,
     IDeleteHistoryHandler, IProcessedHandler //, IShouldCacheRequest
 {
     private readonly ICommandBus _commandBus;
@@ -13,7 +13,7 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
         _commandBus = commandBus;
     }
 
-    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         RequestDeleteHistory obj)
     {
         if (obj.Channel is TInputChannel inputChannel)

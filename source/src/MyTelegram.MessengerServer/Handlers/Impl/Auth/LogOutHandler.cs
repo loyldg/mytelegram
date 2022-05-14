@@ -3,13 +3,13 @@ using MyTelegram.Schema.Auth;
 
 namespace MyTelegram.MessengerServer.Handlers.Impl.Auth;
 
-public class LogOutHandler : RpcResultObjectHandler<RequestLogOut, IBool>,
+public class LogOutHandler : RpcResultObjectHandler<RequestLogOut, ILoggedOut>,
     ILogOutHandler, IProcessedHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
+    protected override Task<ILoggedOut> HandleCoreAsync(IRequestInput input,
         RequestLogOut obj)
     {
-        return Task.FromResult<IBool>(new TBoolTrue());
+        return Task.FromResult<ILoggedOut>(new TLoggedOut());
         //if (input.IsAuthKeyActive)
         //{
         //    return Task.FromResult<IBool>(new TBoolTrue());

@@ -6,16 +6,17 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.forwardMessages" />
 ///</summary>
-[TlObject(0xd9fee60e)]
+[TlObject(0xcc30290b)]
 public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xd9fee60e;
+    public uint ConstructorId => 0xcc30290b;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Silent { get; set; }
     public bool Background { get; set; }
     public bool WithMyScore { get; set; }
     public bool DropAuthor { get; set; }
     public bool DropMediaCaptions { get; set; }
+    public bool Noforwards { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
@@ -30,6 +31,11 @@ public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates
     public MyTelegram.Schema.IInputPeer ToPeer { get; set; }
     public int? ScheduleDate { get; set; }
 
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/InputPeer" />
+    ///</summary>
+    public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
+
     public void ComputeFlag()
     {
         if (Silent) { Flags[5] = true; }
@@ -37,7 +43,9 @@ public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates
         if (WithMyScore) { Flags[8] = true; }
         if (DropAuthor) { Flags[11] = true; }
         if (DropMediaCaptions) { Flags[12] = true; }
+        if (Noforwards) { Flags[14] = true; }
         if (ScheduleDate != 0 && ScheduleDate.HasValue) { Flags[10] = true; }
+        if (SendAs != null) { Flags[13] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -50,6 +58,7 @@ public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates
         RandomId.Serialize(bw);
         ToPeer.Serialize(bw);
         if (Flags[10]) { bw.Write(ScheduleDate.Value); }
+        if (Flags[13]) { SendAs.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -60,10 +69,12 @@ public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates
         if (Flags[8]) { WithMyScore = true; }
         if (Flags[11]) { DropAuthor = true; }
         if (Flags[12]) { DropMediaCaptions = true; }
+        if (Flags[14]) { Noforwards = true; }
         FromPeer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         Id = br.Deserialize<TVector<int>>();
         RandomId = br.Deserialize<TVector<long>>();
         ToPeer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         if (Flags[10]) { ScheduleDate = br.ReadInt32(); }
+        if (Flags[13]) { SendAs = br.Deserialize<MyTelegram.Schema.IInputPeer>(); }
     }
 }

@@ -9,20 +9,23 @@ public class TlMessageConverter : ITlMessageConverter
         _peerHelper = peerHelper;
     }
 
-    public IMessage ToMessage(MessageItem item, long selfUserId = 0)
+    public IMessage ToMessage(MessageItem item,
+        long selfUserId = 0)
     {
         var isOut = item.IsOut;
         if (item.ToPeer.PeerType == PeerType.Channel && selfUserId != 0)
         {
             isOut = item.SenderPeer.PeerId == selfUserId;
         }
+
         switch (item.SendMessageType)
         {
             case SendMessageType.MessageService:
             {
                 if (string.IsNullOrEmpty(item.MessageActionData))
                 {
-                    throw new ArgumentNullException(nameof(item), "MessageActionData can not be null for service message");
+                    throw new ArgumentNullException(nameof(item),
+                        "MessageActionData can not be null for service message");
                 }
 
                 var bytes = item.MessageActionData.ToBytes();
@@ -66,7 +69,7 @@ public class TlMessageConverter : ITlMessageConverter
                     Media = item.Media.ToTObject<IMessageMedia>(),
                     Views = item.Views,
                     Forwards = item.Views.HasValue ? 0 : null,
-                    Post = item.Post,
+                    Post = item.Post
                 };
                 if (item.ToPeer.PeerType == PeerType.Channel)
                 {
@@ -90,7 +93,8 @@ public class TlMessageConverter : ITlMessageConverter
         }
     }
 
-    public IList<IMessage> ToMessages(IReadOnlyCollection<IMessageReadModel> readModels, long selfUserId)
+    public IList<IMessage> ToMessages(IReadOnlyCollection<IMessageReadModel> readModels,
+        long selfUserId)
     {
         var messages = new List<IMessage>();
         foreach (var readModel in readModels)
@@ -141,6 +145,35 @@ public class TlMessageConverter : ITlMessageConverter
         }
 
         return m;
+    }
+
+    public IMessageFwdHeader? ToMessageFwdHeader(MessageFwdHeader? fwdHeader)
+    {
+        if (fwdHeader == null)
+        {
+            return null;
+        }
+
+        return new TMessageFwdHeader
+        {
+            ChannelPost = fwdHeader.ChannelPost,
+            Date = fwdHeader.Date,
+            FromId = fwdHeader.FromId.ToPeer(),
+            FromName = fwdHeader.FromName,
+            PostAuthor = fwdHeader.PostAuthor,
+            SavedFromPeer = fwdHeader.SavedFromPeer.ToPeer(),
+            SavedFromMsgId = fwdHeader.SavedFromMsgId
+        };
+    }
+
+    public IMessageReplyHeader? ToMessageReplyHeader(int? replyToMsgId)
+    {
+        if (replyToMsgId > 0)
+        {
+            return new TMessageReplyHeader { ReplyToMsgId = replyToMsgId.Value };
+        }
+
+        return null;
     }
 
     private IMessage ToMessage(IMessageReadModel readModel,
@@ -214,33 +247,5 @@ public class TlMessageConverter : ITlMessageConverter
                 return m;
             }
         }
-    }
-
-    public IMessageFwdHeader? ToMessageFwdHeader(MessageFwdHeader? fwdHeader)
-    {
-        if (fwdHeader == null)
-        {
-            return null;
-        }
-
-        return new TMessageFwdHeader
-        {
-            ChannelPost = fwdHeader.ChannelPost,
-            Date = fwdHeader.Date,
-            FromId = fwdHeader.FromId.ToPeer(),
-            FromName = fwdHeader.FromName,
-            PostAuthor = fwdHeader.PostAuthor,
-            SavedFromPeer = fwdHeader.SavedFromPeer.ToPeer(),
-            SavedFromMsgId = fwdHeader.SavedFromMsgId
-        };
-    }
-    public IMessageReplyHeader? ToMessageReplyHeader(int? replyToMsgId)
-    {
-        if (replyToMsgId > 0)
-        {
-            return new TMessageReplyHeader { ReplyToMsgId = replyToMsgId.Value };
-        }
-
-        return null;
     }
 }

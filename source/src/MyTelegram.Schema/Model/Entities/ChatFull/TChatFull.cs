@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/chatFull" />
 ///</summary>
-[TlObject(0x4dbdc099)]
+[TlObject(0xd18ee226)]
 public class TChatFull : IChatFull
 {
-    public uint ConstructorId => 0x4dbdc099;
+    public uint ConstructorId => 0xd18ee226;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool CanSetUsername { get; set; }
     public bool HasScheduled { get; set; }
@@ -51,6 +51,9 @@ public class TChatFull : IChatFull
     ///</summary>
     public MyTelegram.Schema.IPeer? GroupcallDefaultJoinAs { get; set; }
     public string? ThemeEmoticon { get; set; }
+    public int? RequestsPending { get; set; }
+    public TVector<long>? RecentRequesters { get; set; }
+    public TVector<string>? AvailableReactions { get; set; }
 
     public void ComputeFlag()
     {
@@ -65,6 +68,9 @@ public class TChatFull : IChatFull
         if (TtlPeriod != 0 && TtlPeriod.HasValue) { Flags[14] = true; }
         if (GroupcallDefaultJoinAs != null) { Flags[15] = true; }
         if (ThemeEmoticon != null) { Flags[16] = true; }
+        if (RequestsPending != 0 && RequestsPending.HasValue) { Flags[17] = true; }
+        if (RecentRequesters?.Count > 0) { Flags[17] = true; }
+        if (AvailableReactions?.Count > 0) { Flags[18] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -85,6 +91,9 @@ public class TChatFull : IChatFull
         if (Flags[14]) { bw.Write(TtlPeriod.Value); }
         if (Flags[15]) { GroupcallDefaultJoinAs.Serialize(bw); }
         if (Flags[16]) { bw.Serialize(ThemeEmoticon); }
+        if (Flags[17]) { bw.Write(RequestsPending.Value); }
+        if (Flags[17]) { RecentRequesters.Serialize(bw); }
+        if (Flags[18]) { AvailableReactions.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -105,5 +114,8 @@ public class TChatFull : IChatFull
         if (Flags[14]) { TtlPeriod = br.ReadInt32(); }
         if (Flags[15]) { GroupcallDefaultJoinAs = br.Deserialize<MyTelegram.Schema.IPeer>(); }
         if (Flags[16]) { ThemeEmoticon = br.Deserialize<string>(); }
+        if (Flags[17]) { RequestsPending = br.ReadInt32(); }
+        if (Flags[17]) { RecentRequesters = br.Deserialize<TVector<long>>(); }
+        if (Flags[18]) { AvailableReactions = br.Deserialize<TVector<string>>(); }
     }
 }

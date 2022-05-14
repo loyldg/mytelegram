@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.sendInlineBotResult" />
 ///</summary>
-[TlObject(0x220815b0)]
+[TlObject(0x7aa11297)]
 public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x220815b0;
+    public uint ConstructorId => 0x7aa11297;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Silent { get; set; }
     public bool Background { get; set; }
@@ -26,6 +26,11 @@ public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpd
     public string Id { get; set; }
     public int? ScheduleDate { get; set; }
 
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/InputPeer" />
+    ///</summary>
+    public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
+
     public void ComputeFlag()
     {
         if (Silent) { Flags[5] = true; }
@@ -34,6 +39,7 @@ public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpd
         if (HideVia) { Flags[11] = true; }
         if (ReplyToMsgId != 0 && ReplyToMsgId.HasValue) { Flags[0] = true; }
         if (ScheduleDate != 0 && ScheduleDate.HasValue) { Flags[10] = true; }
+        if (SendAs != null) { Flags[13] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -47,6 +53,7 @@ public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpd
         bw.Write(QueryId);
         bw.Serialize(Id);
         if (Flags[10]) { bw.Write(ScheduleDate.Value); }
+        if (Flags[13]) { SendAs.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -62,5 +69,6 @@ public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpd
         QueryId = br.ReadInt64();
         Id = br.Deserialize<string>();
         if (Flags[10]) { ScheduleDate = br.ReadInt32(); }
+        if (Flags[13]) { SendAs = br.Deserialize<MyTelegram.Schema.IInputPeer>(); }
     }
 }

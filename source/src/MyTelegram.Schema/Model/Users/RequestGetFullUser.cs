@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Users;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/users.getFullUser" />
 ///</summary>
-[TlObject(0xca30a5b1)]
-public sealed class RequestGetFullUser : IRequest<MyTelegram.Schema.IUserFull>
+[TlObject(0xb60f5918)]
+public sealed class RequestGetFullUser : IRequest<MyTelegram.Schema.Users.IUserFull>
 {
-    public uint ConstructorId => 0xca30a5b1;
+    public uint ConstructorId => 0xb60f5918;
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputUser" />
