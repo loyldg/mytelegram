@@ -47,9 +47,9 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
 
             var command = new UpdateInboxMessagePinnedCommand(
                 MessageId.Create(inboxItem.InboxOwnerPeerId, /*toPeerId,*/ inboxItem.InboxMessageId),
-                aggregateEvent.Silent,
                 aggregateEvent.Pinned,
                 aggregateEvent.PmOneSide,
+                aggregateEvent.Silent,
                 aggregateEvent.Date,
                 aggregateEvent.CorrelationId);
             Publish(command);

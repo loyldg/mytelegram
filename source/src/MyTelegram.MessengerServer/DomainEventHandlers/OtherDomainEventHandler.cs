@@ -212,7 +212,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
         IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        var r = _updatesConverter.ToUpdatePinnedMessageUpdates(domainEvent.AggregateEvent);
+        var r = _updatesConverter.ToSelfUpdatePinnedMessageUpdates(domainEvent.AggregateEvent);
         if (domainEvent.AggregateEvent.PmOneSide || domainEvent.AggregateEvent.ShouldReplyRpcResult)
         {
             await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
@@ -235,7 +235,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                 domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel
                     ? new Peer(PeerType.Channel, domainEvent.AggregateEvent.OwnerPeerId)
                     : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
-                r,
+                _updatesConverter.ToUpdatePinnedMessageUpdates(domainEvent.AggregateEvent),
                 excludeUid: domainEvent.AggregateEvent.SenderPeerId,
                 pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
         }

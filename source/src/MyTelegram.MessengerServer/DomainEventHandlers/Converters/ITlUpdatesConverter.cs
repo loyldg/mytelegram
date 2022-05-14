@@ -20,6 +20,7 @@ public interface ITlUpdatesConverter
         long selfUserId);
 
     IUpdates ToEditUpdates(InboxMessageEditCompletedEvent aggregateEvent);
+
     IUpdates ToInboxForwardMessageUpdates(ReceiveInboxMessageCompletedEvent aggregateEvent);
 
     IUpdates ToInviteToChannelUpdates(SendOutboxMessageCompletedEvent aggregateEvent,
@@ -32,7 +33,10 @@ public interface ITlUpdatesConverter
         int date);
 
     IUpdates ToReadHistoryUpdates(ReadHistoryCompletedEvent eventData);
+
     IUpdates ToSelfOtherDeviceUpdates(SendOutboxMessageCompletedEvent aggregateEvent);
+
+    IUpdates ToSelfUpdatePinnedMessageUpdates(UpdatePinnedMessageCompletedEvent aggregateEvent);
     IUpdates ToSelfUpdates(SendOutboxMessageCompletedEvent aggregateEvent);
     IUpdates ToUpdatePinnedMessageServiceUpdates(SendOutboxMessageCompletedEvent aggregateEvent);
     IUpdates ToUpdatePinnedMessageUpdates(UpdatePinnedMessageCompletedEvent aggregateEvent);
