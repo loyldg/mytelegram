@@ -169,7 +169,7 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
     }
 
     public void UpdateOutboxMessagePinned(bool pinned,
-        bool pmOneSize,
+        bool pmOneSide,
         bool silent,
         int date,
         Guid correlationId)
@@ -179,7 +179,7 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
         Emit(new OutboxMessagePinnedUpdatedEvent(item.OwnerPeer.PeerId,
             item.MessageId,
             pinned,
-            pmOneSize,
+            pmOneSide,
             silent, date, _state.InboxItems,
             item.SenderPeer.PeerId,
             _state.SenderMessageId,

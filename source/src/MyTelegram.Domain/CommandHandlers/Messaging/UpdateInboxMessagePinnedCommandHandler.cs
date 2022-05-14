@@ -9,7 +9,7 @@ public class
         CancellationToken cancellationToken)
     {
         aggregate.UpdateInboxMessagePinned(command.Pinned,
-            command.PmOneSize,
+            command.PmOneSide,
             command.Silent,
             command.Date,
             command.CorrelationId);

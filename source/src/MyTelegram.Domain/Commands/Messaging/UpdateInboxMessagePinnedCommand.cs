@@ -3,19 +3,19 @@
 public class UpdateInboxMessagePinnedCommand : Command<MessageAggregate, MessageId, IExecutionResult>
 {
     public bool Pinned { get; }
-    public bool PmOneSize { get; }
+    public bool PmOneSide { get; }
     public bool Silent { get; }
     public int Date { get; }
     public Guid CorrelationId { get; }
 
     public UpdateInboxMessagePinnedCommand(MessageId aggregateId, bool pinned,
-        bool pmOneSize,
+        bool pmOneSide,
         bool silent,
         int date,
         Guid correlationId) : base(aggregateId)
     {
         Pinned = pinned;
-        PmOneSize = pmOneSize;
+        PmOneSide = pmOneSide;
         Silent = silent;
         Date = date;
         CorrelationId = correlationId;
