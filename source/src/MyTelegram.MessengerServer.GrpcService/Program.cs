@@ -1,6 +1,4 @@
-using MyTelegram.Core;
-using MyTelegram.MessengerServer;
-using MyTelegram.MessengerServer.Extensions;
+using EventFlow.MongoDB.Extensions;
 using MyTelegram.MessengerServer.GrpcService;
 using MyTelegram.MessengerServer.GrpcService.Services;
 using Serilog;
@@ -30,11 +28,10 @@ Log.Information("Messenger server rpc service starting...");
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
-builder.Services.AddMyTelegramCoreServices();
-builder.Services.AddMyTelegramHandlerServices();
-builder.Services.AddMyTelegramMessengerServices();
-builder.Services.AddMyTelegramGrpcService();
-builder.Services.AddMongoDbGrpcServiceEventFlow();
+builder.Services.UseMyTelegramMessengerGrpcServer(options =>
+{
+    options.ConfigureMongoDb(builder.Configuration.GetConnectionString("Default"), builder.Configuration.GetValue<string>("App:DatabaseName"));
+});
 builder.Services.AddGrpc();
 
 var app = builder.Build();
