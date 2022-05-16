@@ -56,6 +56,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService
 
         foreach (var messageId in needIncrementMessageIdList)
         {
+            Console.WriteLine($"IncrementViewsCommand:{channelId}:{messageId}");
             var command = new IncrementViewsCommand(MessageId.Create(channelId, messageId));
             await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
         }

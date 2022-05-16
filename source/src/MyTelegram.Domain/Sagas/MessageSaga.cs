@@ -256,7 +256,6 @@ public class MessageSaga :
         // TODO:Create new MessageItem instance
         messageItem.MessageId = outMessageId;
         var aggregateId = MessageId.Create(messageItem.OwnerPeer.PeerId, messageItem.MessageId);
-
         var command = new CreateOutboxMessageCommand(aggregateId,
             reqMsgId,
             messageItem,

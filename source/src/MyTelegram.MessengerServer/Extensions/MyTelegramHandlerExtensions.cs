@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.MessengerServer.Extensions;
+﻿using MyTelegram.MessengerServer.Services.IdGenerator;
+
+namespace MyTelegram.MessengerServer.Extensions;
 
 public static class MyTelegramHandlerExtensions
 {
@@ -39,6 +41,12 @@ public static class MyTelegramHandlerExtensions
         services.AddTransient<ITlUserConverter, TlUserConverter>();
         services.AddTransient<ITlPhotoConverter, TlPhotoConverter>();
         services.AddTransient<ITlAuthorizationConverter, TlAuthorizationConverter>();
+
+        // IdGenerator services
+        services.AddSingleton<IHiLoValueGeneratorCache, HiLoValueGeneratorCache>();
+        services.AddTransient<IHiLoValueGeneratorFactory, HiLoValueGeneratorFactory>();
+        services.AddSingleton<IHiLoStateBlockSizeHelper, HiLoStateBlockSizeHelper>();
+        services.AddTransient<IIdGenerator, DefaultIdGenerator>();
 
         return services;
     }

@@ -38,7 +38,7 @@ public static class MyTelegramMessengerServerAbpExtensions
 
     private static void AddMyTelegramAbpServices(this IServiceCollection services)
     {
-        services.AddSingleton<IIdGenerator, AbpIdGenerator>();
+        //services.AddSingleton<IIdGenerator, AbpIdGenerator>();
         services.AddTransient<IMediaHelper, AbpMediaHelper>();
         services.AddSingleton<IEventBus, AbpEventBus>();
         services.AddSingleton(typeof(ICacheManager<>), typeof(AbpCacheManager<>));
@@ -46,10 +46,11 @@ public static class MyTelegramMessengerServerAbpExtensions
 
     private static IServiceCollection AddMyTelegramIdGeneratorServices(this IServiceCollection services)
     {
-        services.AddSingleton<IHiLoValueGeneratorCache, HiLoValueGeneratorCache>();
-        services.AddTransient<IHiLoValueGeneratorFactory, HiLoValueGeneratorFactory>();
-        services.AddSingleton<IHiLoStateBlockSizeHelper, HiLoStateBlockSizeHelper>();
+        //services.AddSingleton<IHiLoValueGeneratorCache, HiLoValueGeneratorCache>();
+        //services.AddTransient<IHiLoValueGeneratorFactory, HiLoValueGeneratorFactory>();
+        //services.AddSingleton<IHiLoStateBlockSizeHelper, HiLoStateBlockSizeHelper>();
         services.AddSingleton<IHiLoHighValueGenerator, HiLoHighValueGenerator>();
+        
 
         return services;
     }
