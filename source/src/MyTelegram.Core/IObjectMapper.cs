@@ -1,4 +1,5 @@
 ﻿namespace MyTelegram.Core;
+// Copied from Abp
 
 /// <summary>
 /// Defines a simple interface to automatically map objects for a specific context.
