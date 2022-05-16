@@ -9,7 +9,8 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageSaga,MessageSagaId,ReceiveInboxMessageCompletedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessagePinnedUpdatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessagePinnedUpdatedEvent>,
-    IAmReadModelFor<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent>
+    IAmReadModelFor<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent>,
+    IAmReadModelFor<MessageAggregate, MessageId, MessageViewsIncrementedEvent>
 {
     public int Date { get; private set; }
     public int EditDate { get; private set; }
@@ -171,6 +172,14 @@ public class MessageReadModel : IMessageReadModel,
         CancellationToken cancellationToken)
     {
         Pinned = domainEvent.AggregateEvent.Pinned;
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<MessageAggregate, MessageId, MessageViewsIncrementedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        Views++;
         return Task.CompletedTask;
     }
 }
