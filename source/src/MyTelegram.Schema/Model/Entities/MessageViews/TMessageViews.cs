@@ -22,7 +22,7 @@ public class TMessageViews : IMessageViews
 
     public void ComputeFlag()
     {
-        if (Views != 0 && Views.HasValue) { Flags[0] = true; }
+        if (/*Views != 0 && */Views.HasValue) { Flags[0] = true; }
         if (Forwards != 0 && Forwards.HasValue) { Flags[1] = true; }
         if (Replies != null) { Flags[2] = true; }
     }

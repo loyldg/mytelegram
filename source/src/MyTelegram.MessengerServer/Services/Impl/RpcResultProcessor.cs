@@ -21,10 +21,9 @@ public class RpcResultProcessor : IRpcResultProcessor
 {
     private readonly IAppSettingManager _appSettingManager;
     private readonly IDataCenterHelper _dataCenterHelper;
+    private readonly ITlMessageConverter _messageConverter;
     private readonly IObjectMapper _objectMapper;
     private readonly IUserStatusCacheAppService _userStatusAppService;
-    private readonly ITlMessageConverter _messageConverter;
-
     public RpcResultProcessor(IObjectMapper objectMapper,
         IAppSettingManager appSettingManager,
         IUserStatusCacheAppService userStatusAppService,
@@ -38,29 +37,72 @@ public class RpcResultProcessor : IRpcResultProcessor
         _messageConverter = messageConverter;
     }
 
-    public IFound ToFound(SearchContactOutput output)
+    public IAuthorization CreateAuthorization(SignInSuccessEvent aggregateEvent)
     {
-        var userList = ToUserList(output.UserList, output.SelfUserId);
-        var peerList = output.UserList.Select(p => (IPeer)new TPeerUser { UserId = p.UserId }).ToList();
-        peerList.AddRange(output.MyChannelList.Select(p => (IPeer)new TPeerChannel { ChannelId = p.ChannelId }));
-        var otherPeerList = output.ChannelList.Select(p => (IPeer)new TPeerChannel { ChannelId = p.ChannelId });
-        //var chatList = ToChannelList(output.ChannelList, output.SelfUserId);
-        var myChannelList = ToChannelList(output.MyChannelList,
-            output.MyChannelList.Select(p => p.ChannelId).ToList(),
-            output.ChannelMemberList,
-            output.SelfUserId);
-        var otherChannelList = ToChannelList(output.ChannelList,
-            new List<long>(),
-            new List<IChannelMemberReadModel>(),
-            output.SelfUserId);
-        myChannelList.AddRange(otherChannelList);
-        return new TFound
+        var tUser = _objectMapper.Map<SignInSuccessEvent, TUser>(aggregateEvent);
+        tUser.Phone = aggregateEvent.PhoneNumber;
+        tUser.Photo = new TUserProfilePhotoEmpty();
+        tUser.Id = aggregateEvent.UserId;
+        tUser.Status = new TUserStatusOnline { Expires = DateTime.UtcNow.AddMinutes(5).ToTimestamp() };
+        tUser.Self = true;
+        var r = new TAuthorization { User = tUser };
+
+        return r;
+    }
+
+    public IAuthorization CreateAuthorizationFromUser(IUserReadModel? user)
+    {
+        if (user == null)
         {
-            Chats = new TVector<IChat>(myChannelList),
-            MyResults = new TVector<IPeer>(peerList),
-            Results = new TVector<IPeer>(otherPeerList),
-            Users = new TVector<IUser>(userList)
+            return new TAuthorizationSignUpRequired
+            {
+                TermsOfService = new TTermsOfService
+                {
+                    Entities = new TVector<IMessageEntity>(),
+                    Id = new TDataJSON
+                    {
+                        Data =
+                            "{\"country\":\"US\",\"min_age\":false,\"terms_key\":\"TERMS_OF_SERVICE\",\"terms_lang\":\"en\",\"terms_version\":1,\"terms_hash\":\"7dca806cb8d387c07c778ce9ef6aac04\"}"
+                    },
+                    Text =
+                        "By signing up for MyTelegram, you agree not to:\n\n- Use our service to send spam or scam users.\n- Promote violence on publicly viewable Telegram bots, groups or channels.\n- Post pornographic content on publicly viewable MyTelegram bots, groups or channels.\n\nWe reserve the right to update these Terms of Service later."
+                }
+            };
+        }
+
+        var tUser = ToUser(user, user.UserId);
+        var r = new TAuthorization { User = tUser };
+
+        return r;
+    }
+
+    public IAuthorization CreateAuthorizationFromUser(UserCreatedEvent userCreatedEvent)
+    {
+        var tUser = ToUser(userCreatedEvent);
+        return new TAuthorization { User = tUser };
+    }
+
+    public IAuthorization CreateSignUpAuthorization()
+    {
+        return new TAuthorizationSignUpRequired
+        {
+            TermsOfService = new TTermsOfService
+            {
+                Entities = new TVector<IMessageEntity>(),
+                Id = new TDataJSON
+                {
+                    Data =
+                        "{\"country\":\"US\",\"min_age\":false,\"terms_key\":\"TERMS_OF_SERVICE\",\"terms_lang\":\"en\",\"terms_version\":1,\"terms_hash\":\"7dca806cb8d387c07c778ce9ef6aac04\"}"
+                },
+                Text =
+                    "By signing up for MyTelegram, you agree not to:\n\n- Use our service to send spam or scam users.\n- Promote violence on publicly viewable Telegram bots, groups or channels.\n- Post pornographic content on publicly viewable MyTelegram bots, groups or channels.\n\nWe reserve the right to update these Terms of Service later."
+            }
         };
+    }
+
+    public Schema.IAuthorization ToAuthorization(IDeviceReadModel deviceReadModel)
+    {
+        return ToAuthorization(deviceReadModel, -1);
     }
 
     public IReadOnlyList<Schema.IAuthorization> ToAuthorizations(IReadOnlyCollection<IDeviceReadModel> deviceList,
@@ -75,71 +117,144 @@ public class RpcResultProcessor : IRpcResultProcessor
         return authList;
     }
 
-    public Schema.IAuthorization ToAuthorization(IDeviceReadModel deviceReadModel)
+    public IChat ToChannel(IChannelReadModel channelReadModel,
+        IChannelMemberReadModel? channelMemberReadModel,
+        long selfUserId)
     {
-        return ToAuthorization(deviceReadModel, -1);
+        return ToChannel(channelReadModel,
+            channelMemberReadModel,
+            selfUserId,
+            channelMemberReadModel == null || channelMemberReadModel.Left);
     }
 
-    public IJoinAsPeers ToJoinAsPeers(IUserReadModel userReadModel,
-        IChannelReadModel? channelReadModel,
-        IChatReadModel? chatReadModel)
+    public IChannelDifference ToChannelDifference(GetMessageOutput output,
+        bool isChannelMember,
+        IList<IUpdate> updatesList,
+        int updatesMaxPts = 0,
+        bool resetLeftToFalse = false)
     {
-        var peerList = new List<IPeer>();
-        IChat? chat = null;
-        var peer = new TPeerUser { UserId = userReadModel.UserId };
-        peerList.Add(peer);
-        if (channelReadModel != null)
+        var timeout = _appSettingManager.GetIntSetting(MyTelegramServerConsts.ChannelGetDifferenceIntervalSeconds);
+        if (output.MessageList.Count == 0 && updatesList.Count == 0)
         {
-            peerList.Add(new TPeerChannel { ChannelId = channelReadModel.ChannelId });
-            chat = ToChannel(channelReadModel, null, userReadModel.UserId);
+            return new TChannelDifferenceEmpty { Final = true, Pts = output.Pts, Timeout = timeout };
         }
 
-        if (chatReadModel != null)
+        var maxPts = updatesMaxPts;
+        if (output.MessageList.Count > 0)
         {
-            peerList.Add(new TPeerChat { ChatId = chatReadModel.ChatId });
-            chat = ToChat(chatReadModel, userReadModel.UserId);
+            var boxMaxPts = output.MessageList.Max(p => p.Pts);
+            maxPts = Math.Max(updatesMaxPts, boxMaxPts);
         }
 
-        return new TJoinAsPeers
+        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
+        var chatList = ToChatList(output.ChatList, output.SelfUserId);
+        var channelList = ToChannelList(output.ChannelList,
+            output.JoinedChannelIdList,
+            output.ChannelMemberList,
+            output.SelfUserId,
+            resetLeftToFalse
+        );
+        var userList = ToUserList(output.UserList, output.SelfUserId);
+        chatList.AddRange(channelList);
+        return new TChannelDifference
         {
-            Chats = chat == null ? new TVector<IChat>() : new TVector<IChat>(chat),
-            Peers = new TVector<IPeer>(peerList),
-            Users = new TVector<IUser>(ToUser(userReadModel, userReadModel.UserId))
+            Final = output.Pts == maxPts,
+            Pts = maxPts,
+            Users = new TVector<IUser>(userList),
+            OtherUpdates = new TVector<IUpdate>(updatesList),
+            Timeout = timeout,
+            Chats = new TVector<IChat>(chatList),
+            NewMessages = new TVector<IMessage>(messageList)
         };
     }
 
-    public IUpdates ToDeleteMessagesUpdates(PeerType toPeerType,
-        DeletedBoxItem item,
-        int date)
+    public TChannelFull ToChannelFull(IChannelReadModel channelReadModel,
+        IChannelFullReadModel channelFullReadModel,
+        IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
+        long selfUserId
+    )
     {
-        if (toPeerType == PeerType.Channel)
+        //var channel = ToChannel(selfUserId, channelReadModel);
+        var channelFull = _objectMapper.Map<IChannelFullReadModel, TChannelFull>(channelFullReadModel);
+        channelFull.About ??= string.Empty;
+        channelFull.ChatPhoto = channelReadModel.Photo.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty();
+        channelFull.NotifySettings =
+            _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
+                peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
+
+        channelFull.BotInfo = new TVector<IBotInfo>();
+        channelFull.Id = channelFullReadModel.ChannelId;
+        channelFull.Pts = channelReadModel.Pts;
+        channelFull.ParticipantsCount = channelReadModel.ParticipantsCount;
+
+        // Only creator and channel admin can view participants list for broadcast
+        if (channelReadModel.Broadcast)
         {
-            return new TUpdateShort
+            if (channelReadModel.CreatorId == selfUserId ||
+                channelReadModel.AdminList.FirstOrDefault(p => p.UserId == selfUserId) != null)
             {
-                Date = date,
-                Update = new TUpdateDeleteChannelMessages
+                channelFull.CanViewParticipants = true;
+            }
+            else
+            {
+                channelFull.CanViewParticipants = false;
+            }
+        }
+
+        if (selfUserId == MyTelegramServerDomainConsts.LeftChannelUid)
+        {
+            channelFull.CanViewParticipants = false;
+            channelFull.CanSetUsername = false;
+        }
+
+        if (channelReadModel.CreatorId == selfUserId)
+        {
+            channelFull.CanSetUsername = true;
+        }
+
+        if (channelFull.SlowmodeSeconds > 0)
+        {
+            if (selfUserId != channelReadModel.CreatorId && selfUserId == channelReadModel.LastSenderPeerId)
+            {
+                var nextSendDate = channelReadModel.LastSendDate + channelFull.SlowmodeSeconds;
+                channelFull.SlowmodeNextSendDate = nextSendDate;
+            }
+        }
+
+        return channelFull;
+    }
+
+    public List<IChat> ToChannelList(
+        IReadOnlyCollection<IChannelReadModel> channelReadModels,
+        IReadOnlyCollection<long> joinedChannelIdList,
+        IReadOnlyCollection<IChannelMemberReadModel> channelMemberReadModels,
+        long selfUserId,
+        bool resetLeftToFalse = false)
+    {
+        var channelList = new List<IChat>();
+        var memberDict = channelMemberReadModels.ToDictionary(k => k.ChannelId, v => v);
+        foreach (var channelReadModel in channelReadModels)
+        {
+            memberDict.TryGetValue(channelReadModel.ChannelId, out var memberReadModel);
+
+            var channel = ToChannel(channelReadModel, memberReadModel, selfUserId);
+            if (channel is TChannel chat)
+            {
+                if (!joinedChannelIdList.Contains(channelReadModel.ChannelId))
                 {
-                    ChannelId = item.OwnerPeerId,
-                    Messages = new TVector<int>(item.DeletedMessageIdList),
-                    Pts = item.Pts,
-                    PtsCount = item.PtsCount
+                    chat.Left = true;
                 }
-            };
+
+                if (resetLeftToFalse)
+                {
+                    chat.Left = false;
+                }
+            }
+
+            channelList.Add(channel);
         }
 
-        return new TUpdates
-        {
-            Updates = new TVector<IUpdate>(new TUpdateDeleteMessages
-            {
-                Messages = new TVector<int>(item.DeletedMessageIdList),
-                Pts = item.Pts,
-                PtsCount = item.PtsCount
-            }),
-            Chats = new TVector<IChat>(),
-            Users = new TVector<IUser>(),
-            Date = date,
-            Seq = 0
-        };
+        return channelList;
     }
 
     public IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
@@ -192,6 +307,11 @@ public class RpcResultProcessor : IRpcResultProcessor
             channelMemberIsLeft = channelMemberReadModel.Left;
         }
 
+        if (channelReadModel.CreatorId == selfUserId)
+        {
+            channelMemberIsLeft = false;
+        }
+
         var channel = ToChannel(channelReadModel, channelMemberReadModel, selfUserId, channelMemberIsLeft);
 
         return new TChannelParticipants
@@ -203,329 +323,117 @@ public class RpcResultProcessor : IRpcResultProcessor
         };
     }
 
-    public IChannelDifference ToChannelDifference(GetMessageOutput output,
-        bool isChannelMember,
-        IList<IUpdate> updatesList,
-        int updatesMaxPts = 0,
-        bool resetLeftToFalse = false)
+    public IChat ToChat(IChatReadModel chat,
+        long userId)
     {
-        var timeout = _appSettingManager.GetIntSetting(MyTelegramServerConsts.ChannelGetDifferenceIntervalSeconds);
-        if (output.MessageList.Count == 0 && updatesList.Count == 0)
+        if (chat.ChatMembers.All(p => p.UserId != userId))
         {
-            return new TChannelDifferenceEmpty { Final = true, Pts = output.Pts, Timeout = timeout };
+            return new TChatForbidden { Id = chat.ChatId, Title = chat.Title };
         }
 
-        var maxPts = updatesMaxPts;
-        if (output.MessageList.Count > 0)
-        {
-            var boxMaxPts = output.MessageList.Max(p => p.Pts);
-            maxPts = Math.Max(updatesMaxPts, boxMaxPts);
-        }
+        var tChat = _objectMapper.Map<IChatReadModel, TChat>(chat);
+        tChat.Id = chat.ChatId;
+        tChat.Creator = chat.CreatorUid == userId;
+        tChat.Photo = GetChatPhoto(chat.Photo);
+        tChat.ParticipantsCount = chat.ChatMembers.Count;
+        tChat.DefaultBannedRights ??=
+            _objectMapper.Map<ChatBannedRights, TChatBannedRights>(new ChatBannedRights());
 
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
-        var chatList = ToChatList(output.ChatList, output.SelfUserId);
-        var channelList = ToChannelList(output.ChannelList,
-            output.JoinedChannelIdList,
-            output.ChannelMemberList,
-            output.SelfUserId,
-            resetLeftToFalse
-        );
-        var userList = ToUserList(output.UserList, output.SelfUserId);
-        chatList.AddRange(channelList);
-        return new TChannelDifference
-        {
-            Final = output.Pts == maxPts,
-            Pts = maxPts,
-            Users = new TVector<IUser>(userList),
-            OtherUpdates = new TVector<IUpdate>(updatesList),
-            Timeout = timeout,
-            Chats = new TVector<IChat>(chatList),
-            NewMessages = new TVector<IMessage>(messageList)
-        };
+        return tChat;
     }
 
-    public IExportedChatInvite ToExportedChatInvite(ExportChatInviteEvent eventData)
-    {
-        var item = _objectMapper.Map<ExportChatInviteEvent, TChatInviteExported>(eventData);
-        item.Link = $"{_appSettingManager.GetSetting(MyTelegramServerConsts.JoinChatDomain)}/{item.Link}";
-
-        return item;
-    }
-
-    public List<IChat> ToChannelList(
-        IReadOnlyCollection<IChannelReadModel> channelReadModels,
-        IReadOnlyCollection<long> joinedChannelIdList,
-        IReadOnlyCollection<IChannelMemberReadModel> channelMemberReadModels,
-        long selfUserId,
-        bool resetLeftToFalse = false)
-    {
-        var channelList = new List<IChat>();
-        var memberDict = channelMemberReadModels.ToDictionary(k => k.ChannelId, v => v);
-        foreach (var channelReadModel in channelReadModels)
-        {
-            memberDict.TryGetValue(channelReadModel.ChannelId, out var memberReadModel);
-
-            var channel = ToChannel(channelReadModel, memberReadModel, selfUserId);
-            if (channel is TChannel chat)
-            {
-                if (!joinedChannelIdList.Contains(channelReadModel.ChannelId))
-                {
-                    chat.Left = true;
-                }
-
-                if (resetLeftToFalse)
-                {
-                    chat.Left = false;
-                }
-            }
-
-            channelList.Add(channel);
-        }
-
-        return channelList;
-    }
-
-    public IChat ToChannel(IChannelReadModel channelReadModel,
+    public IChatFull ToChatFull(IChannelReadModel channelReadModel,
+        IChannelFullReadModel channelFullReadModel,
         IChannelMemberReadModel? channelMemberReadModel,
-        long selfUserId)
-    {
-        return ToChannel(channelReadModel,
-            channelMemberReadModel,
-            selfUserId,
-            channelMemberReadModel == null || channelMemberReadModel.Left);
-    }
-
-    public IUpdates ToReadHistoryUpdates(ReadHistoryCompletedEvent eventData)
-    {
-        var peer = eventData.ReaderToPeer.PeerType == PeerType.User
-            ? new TPeerUser { UserId = eventData.ReaderUid }
-            : eventData.ReaderToPeer.ToPeer();
-        var updateReadHistoryOutbox = new TUpdateReadHistoryOutbox
-        {
-            Pts = eventData.SenderPts,
-            MaxId = eventData.SenderMessageId,
-            PtsCount = 1,
-            Peer = peer
-        };
-
-        var updates = new TUpdates
-        {
-            Chats = new TVector<IChat>(),
-            Date = DateTime.UtcNow.ToTimestamp(),
-            Updates = new TVector<IUpdate>(updateReadHistoryOutbox),
-            Users = new TVector<IUser>(),
-            Seq = 0
-        };
-
-        return updates;
-    }
-
-    public IDifference ToDifference(GetMessageOutput output,
-        IPtsReadModel? pts,
-        int cachedPts,
-        int limit,
-        IList<IUpdate> updateList,
-        IList<IChat> chatListFromUpdates)
-    {
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
-        var userList = ToUserList(output.UserList, output.SelfUserId);
-        var chatList = ToChatList(output.ChatList, output.SelfUserId);
-        chatList.AddRange(chatListFromUpdates);
-        var channelList = ToChannelList(output.ChannelList,
-            output.JoinedChannelIdList,
-            output.ChannelMemberList,
-            output.SelfUserId,
-            true);
-        chatList.AddRange(channelList);
-
-        if (updateList.Count == limit)
-        {
-            var differenceSlice = new TDifferenceSlice
-            {
-                Chats = new TVector<IChat>(chatList),
-                NewEncryptedMessages = new TVector<IEncryptedMessage>(),
-                NewMessages = new TVector<IMessage>(messageList),
-                OtherUpdates = new TVector<IUpdate>(updateList),
-                Users = new TVector<IUser>(userList),
-                IntermediateState = pts == null ? new TState
-                {
-                    Date = DateTime.UtcNow.ToTimestamp()
-                } : _objectMapper.Map<IPtsReadModel, TState>(pts)
-            };
-
-            return differenceSlice;
-        }
-
-        var difference = new TDifference
-        {
-            Chats = new TVector<IChat>(chatList),
-            NewEncryptedMessages = new TVector<IEncryptedMessage>(),
-            NewMessages = new TVector<IMessage>(messageList),
-            OtherUpdates = new TVector<IUpdate>(updateList),
-            Users = new TVector<IUser>(userList),
-            State = pts == null ? new TState
-            {
-                Date = DateTime.UtcNow.ToTimestamp()
-            } : _objectMapper.Map<IPtsReadModel, TState>(pts)
-        };
-        if (cachedPts > pts?.Pts)
-        {
-            difference.State.Pts = cachedPts;
-        }
-
-        return difference;
-    }
-
-    public IAuthorization CreateAuthorization(SignInSuccessEvent aggregateEvent)
-    {
-        var tUser = _objectMapper.Map<SignInSuccessEvent, TUser>(aggregateEvent);
-        tUser.Phone = aggregateEvent.PhoneNumber;
-        tUser.Photo = new TUserProfilePhotoEmpty();
-        tUser.Id = aggregateEvent.UserId;
-        tUser.Status = new TUserStatusOnline { Expires = DateTime.UtcNow.AddMinutes(5).ToTimestamp() };
-        tUser.Self = true;
-        var r = new TAuthorization { User = tUser };
-
-        return r;
-    }
-
-    public IAuthorization CreateSignUpAuthorization()
-    {
-        return new TAuthorizationSignUpRequired
-        {
-            TermsOfService = new TTermsOfService
-            {
-                Entities = new TVector<IMessageEntity>(),
-                Id = new TDataJSON
-                {
-                    Data =
-                        "{\"country\":\"US\",\"min_age\":false,\"terms_key\":\"TERMS_OF_SERVICE\",\"terms_lang\":\"en\",\"terms_version\":1,\"terms_hash\":\"7dca806cb8d387c07c778ce9ef6aac04\"}"
-                },
-                Text =
-                    "By signing up for MyTelegram, you agree not to:\n\n- Use our service to send spam or scam users.\n- Promote violence on publicly viewable Telegram bots, groups or channels.\n- Post pornographic content on publicly viewable MyTelegram bots, groups or channels.\n\nWe reserve the right to update these Terms of Service later."
-            }
-        };
-    }
-
-    public IAuthorization CreateAuthorizationFromUser(IUserReadModel? user)
-    {
-        if (user == null)
-        {
-            return new TAuthorizationSignUpRequired
-            {
-                TermsOfService = new TTermsOfService
-                {
-                    Entities = new TVector<IMessageEntity>(),
-                    Id = new TDataJSON
-                    {
-                        Data =
-                            "{\"country\":\"US\",\"min_age\":false,\"terms_key\":\"TERMS_OF_SERVICE\",\"terms_lang\":\"en\",\"terms_version\":1,\"terms_hash\":\"7dca806cb8d387c07c778ce9ef6aac04\"}"
-                    },
-                    Text =
-                        "By signing up for MyTelegram, you agree not to:\n\n- Use our service to send spam or scam users.\n- Promote violence on publicly viewable Telegram bots, groups or channels.\n- Post pornographic content on publicly viewable MyTelegram bots, groups or channels.\n\nWe reserve the right to update these Terms of Service later."
-                }
-            };
-        }
-
-        var tUser = ToUser(user, user.UserId);
-        var r = new TAuthorization { User = tUser };
-
-        return r;
-    }
-
-    public IAuthorization CreateAuthorizationFromUser(UserCreatedEvent userCreatedEvent)
-    {
-        var tUser = ToUser(userCreatedEvent);
-        return new TAuthorization { User = tUser };
-    }
-
-    public IPhoto ToPhoto(UserProfilePhotoChangedEvent aggregateEvent)
-    {
-        var user = ToUser(aggregateEvent.UserItem);
-        var photo = aggregateEvent.UserItem.ProfilePhoto.ToTObject<Schema.IPhoto>();
-        return new TPhoto { Photo = photo, Users = new TVector<IUser>(user) };
-    }
-
-    public IUser ToUser(UserNameUpdatedEvent aggregateEvent)
-    {
-        return ToUser(aggregateEvent.UserItem);
-        //var tUser = _objectMapper.Map<UserItem, TUser>(aggregateEvent.UserItem);
-        //tUser.Id = aggregateEvent.UserItem.UserId;
-        //tUser.Self = true;
-        //tUser.Photo = new TUserProfilePhotoEmpty();
-        //tUser.Status = _userStatusAppService.GetUserStatus(aggregateEvent.UserItem.UserId);
-
-        //return tUser;
-    }
-
-    public IUser ToUser(IUserReadModel user,
-        long selfUserId)
-    {
-        var tUser = _objectMapper.Map<IUserReadModel, TUser>(user);
-        tUser.Self = selfUserId == user.UserId;
-        tUser.Photo = GetProfilePhoto(user.ProfilePhoto);
-
-        //var cachedStatus = _userStatusAppService.GetUserStatus(user.UserId);
-
-        tUser.Status =
-            _userStatusAppService
-                .GetUserStatus(user
-                    .UserId); // GetUserStatus(cachedStatus?.LastUpdateDate ?? user.LastUpdateDate, cachedStatus?.Online ?? user.IsOnline);
-        if (user.Bot)
-        {
-            tUser.BotInfoVersion = 1;
-            tUser.BotChatHistory = true; // bot.AllowAccessGroupMessages;
-        }
-
-        return tUser;
-    }
-
-    public IList<IUser> ToUserList(IReadOnlyCollection<IUserReadModel> userList,
-        long selfUserId)
-    {
-        var tUserList = new List<IUser>();
-        foreach (var user in userList)
-        {
-            tUserList.Add(ToUser(user, selfUserId));
-        }
-
-        return tUserList;
-    }
-
-    public Task<MyTelegram.Schema.Users.IUserFull> ToUserFullAsync(IUserReadModel user,
-        long fromUid,
-        IPeerNotifySettingsReadModel? peerNotifySettingsReadModel
+        IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
+        long selfUserId
     )
     {
-        //var disallowPhoneCall = false;
-        var isOfficialId = user.UserId == MyTelegramServerDomainConsts.OfficialUserId;
-        var tUser = ToUser(user, fromUid);
-        var userFull = new MyTelegram.Schema.Users.TUserFull()
+        var channel = ToChannel(channelReadModel, channelMemberReadModel, selfUserId);
+        return new TChatFull
         {
-            Chats = new TVector<IChat>(),
-            FullUser = new TUserFull
-            {
-                Id=user.UserId,
-                About = user.About,
-                Blocked = false,
-                CanPinMessage = !isOfficialId,
-                PhoneCallsAvailable = !user.Bot && !isOfficialId,
-                VideoCallsAvailable = !user.Bot && !isOfficialId,
-                PhoneCallsPrivate = isOfficialId,
-                // FolderId = 0,
-                PinnedMsgId = user.PinnedMsgId,
-                ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
-                Settings = new MyTelegram.Schema.TPeerSettings(),
-                NotifySettings =
-                    _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
-                        peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings),
-            },
-            Users = new TVector<IUser>(tUser)
+            Chats = new TVector<IChat>(channel),
+            FullChat = ToChannelFull(channelReadModel, channelFullReadModel, peerNotifySettingsReadModel, selfUserId),
+            Users = new TVector<IUser>()
         };
-
-        return Task.FromResult<MyTelegram.Schema.Users.IUserFull>(userFull);
     }
 
+    public IChatFull ToChatFull(IChatReadModel chat,
+        IReadOnlyCollection<IUserReadModel> userList,
+        IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
+        long selfUserId)
+    {
+        var tChat = ToChat(chat, selfUserId);
+        var fullChat = new Schema.TChatFull
+        {
+            About = chat.About ?? string.Empty,
+            CanSetUsername = true,
+            Id = chat.ChatId,
+            ChatPhoto = chat.Photo.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
+            Participants = ToChatParticipants(chat.ChatId,
+                chat.ChatMembers,
+                chat.Date,
+                chat.CreatorUid,
+                (int)(chat.Version ?? 0)),
+            NotifySettings = _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
+                peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings)
+        };
+        var tUserList = ToUserList(userList, selfUserId);
+        var chatFull = new TChatFull
+        {
+            Chats = new TVector<IChat>(tChat),
+            Users = new TVector<IUser>(tUserList),
+            FullChat = fullChat
+        };
+
+        return chatFull;
+    }
+
+    public List<IChat> ToChatList(IReadOnlyCollection<IChatReadModel> chatList,
+        long userId)
+    {
+        var tChatList = new List<IChat>();
+        foreach (var chatReadModel in chatList)
+        {
+            tChatList.Add(ToChat(chatReadModel, userId));
+        }
+
+        return tChatList;
+    }
+
+    public IUpdates ToDeleteMessagesUpdates(PeerType toPeerType,
+        DeletedBoxItem item,
+        int date)
+    {
+        if (toPeerType == PeerType.Channel)
+        {
+            return new TUpdateShort
+            {
+                Date = date,
+                Update = new TUpdateDeleteChannelMessages
+                {
+                    ChannelId = item.OwnerPeerId,
+                    Messages = new TVector<int>(item.DeletedMessageIdList),
+                    Pts = item.Pts,
+                    PtsCount = item.PtsCount
+                }
+            };
+        }
+
+        return new TUpdates
+        {
+            Updates = new TVector<IUpdate>(new TUpdateDeleteMessages
+            {
+                Messages = new TVector<int>(item.DeletedMessageIdList),
+                Pts = item.Pts,
+                PtsCount = item.PtsCount
+            }),
+            Chats = new TVector<IChat>(),
+            Users = new TVector<IUser>(),
+            Date = date,
+            Seq = 0
+        };
+    }
 
     public IDialogs ToDialogs(GetDialogOutput output)
     {
@@ -640,6 +548,161 @@ public class RpcResultProcessor : IRpcResultProcessor
         };
     }
 
+    public IDifference ToDifference(GetMessageOutput output,
+        IPtsReadModel? pts,
+        int cachedPts,
+        int limit,
+        IList<IUpdate> updateList,
+        IList<IChat> chatListFromUpdates)
+    {
+        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
+        var userList = ToUserList(output.UserList, output.SelfUserId);
+        var chatList = ToChatList(output.ChatList, output.SelfUserId);
+        chatList.AddRange(chatListFromUpdates);
+        var channelList = ToChannelList(output.ChannelList,
+            output.JoinedChannelIdList,
+            output.ChannelMemberList,
+            output.SelfUserId,
+            true);
+        chatList.AddRange(channelList);
+
+        if (updateList.Count == limit)
+        {
+            var differenceSlice = new TDifferenceSlice
+            {
+                Chats = new TVector<IChat>(chatList),
+                NewEncryptedMessages = new TVector<IEncryptedMessage>(),
+                NewMessages = new TVector<IMessage>(messageList),
+                OtherUpdates = new TVector<IUpdate>(updateList),
+                Users = new TVector<IUser>(userList),
+                IntermediateState = pts == null ? new TState
+                {
+                    Date = DateTime.UtcNow.ToTimestamp()
+                } : _objectMapper.Map<IPtsReadModel, TState>(pts)
+            };
+
+            return differenceSlice;
+        }
+
+        var difference = new TDifference
+        {
+            Chats = new TVector<IChat>(chatList),
+            NewEncryptedMessages = new TVector<IEncryptedMessage>(),
+            NewMessages = new TVector<IMessage>(messageList),
+            OtherUpdates = new TVector<IUpdate>(updateList),
+            Users = new TVector<IUser>(userList),
+            State = pts == null ? new TState
+            {
+                Date = DateTime.UtcNow.ToTimestamp()
+            } : _objectMapper.Map<IPtsReadModel, TState>(pts)
+        };
+        if (cachedPts > pts?.Pts)
+        {
+            difference.State.Pts = cachedPts;
+        }
+
+        return difference;
+    }
+
+    public IExportedChatInvite ToExportedChatInvite(ExportChatInviteEvent eventData)
+    {
+        var item = _objectMapper.Map<ExportChatInviteEvent, TChatInviteExported>(eventData);
+        item.Link = $"{_appSettingManager.GetSetting(MyTelegramServerConsts.JoinChatDomain)}/{item.Link}";
+
+        return item;
+    }
+
+    public IFound ToFound(SearchContactOutput output)
+    {
+        var userList = ToUserList(output.UserList, output.SelfUserId);
+        var peerList = output.UserList.Select(p => (IPeer)new TPeerUser { UserId = p.UserId }).ToList();
+        peerList.AddRange(output.MyChannelList.Select(p => (IPeer)new TPeerChannel { ChannelId = p.ChannelId }));
+        var otherPeerList = output.ChannelList.Select(p => (IPeer)new TPeerChannel { ChannelId = p.ChannelId });
+        //var chatList = ToChannelList(output.ChannelList, output.SelfUserId);
+        var myChannelList = ToChannelList(output.MyChannelList,
+            output.MyChannelList.Select(p => p.ChannelId).ToList(),
+            output.ChannelMemberList,
+            output.SelfUserId);
+        var otherChannelList = ToChannelList(output.ChannelList,
+            new List<long>(),
+            new List<IChannelMemberReadModel>(),
+            output.SelfUserId);
+        myChannelList.AddRange(otherChannelList);
+        return new TFound
+        {
+            Chats = new TVector<IChat>(myChannelList),
+            MyResults = new TVector<IPeer>(peerList),
+            Results = new TVector<IPeer>(otherPeerList),
+            Users = new TVector<IUser>(userList)
+        };
+    }
+    public IJoinAsPeers ToJoinAsPeers(IUserReadModel userReadModel,
+        IChannelReadModel? channelReadModel,
+        IChatReadModel? chatReadModel)
+    {
+        var peerList = new List<IPeer>();
+        IChat? chat = null;
+        var peer = new TPeerUser { UserId = userReadModel.UserId };
+        peerList.Add(peer);
+        if (channelReadModel != null)
+        {
+            peerList.Add(new TPeerChannel { ChannelId = channelReadModel.ChannelId });
+            chat = ToChannel(channelReadModel, null, userReadModel.UserId);
+        }
+
+        if (chatReadModel != null)
+        {
+            peerList.Add(new TPeerChat { ChatId = chatReadModel.ChatId });
+            chat = ToChat(chatReadModel, userReadModel.UserId);
+        }
+
+        return new TJoinAsPeers
+        {
+            Chats = chat == null ? new TVector<IChat>() : new TVector<IChat>(chat),
+            Peers = new TVector<IPeer>(peerList),
+            Users = new TVector<IUser>(ToUser(userReadModel, userReadModel.UserId))
+        };
+    }
+    public IMessages ToMessages(GetMessageOutput output)
+    {
+        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
+        var userList = ToUserList(output.UserList, output.SelfUserId);
+        var chatList = ToChatList(output.ChatList, output.SelfUserId);
+        var channelList = ToChannelList(output.ChannelList,
+            output.JoinedChannelIdList,
+            output.ChannelMemberList,
+            output.SelfUserId);
+        chatList.AddRange(channelList);
+
+        if (output.MessageList.All(p => p.ToPeerType == PeerType.Channel) && !output.IsSearchGlobal)
+        {
+            var offsetId = messageList.Any() ? messageList.Max(p => p.Id) : 0;
+            //var messageIdList=messageList.Select()
+            //var offsetId = output.HasMoreData && messageList.Any() ? messageList.Min(p => p.Id) : 0;
+            //if(messageList.Count==output.l)
+            // Console.WriteLine($"offsetId={offsetId}");
+            var channelPts = output.ChannelList.FirstOrDefault()?.Pts ?? output.Pts;
+            //var channelPts = output.MessageList.Any() ? output.MessageList.Min(p => p.Pts) : output.Pts;
+
+            return new TChannelMessages
+            {
+                Chats = new TVector<IChat>(chatList),
+                Messages = new TVector<IMessage>(messageList),
+                Users = new TVector<IUser>(userList),
+                Pts = channelPts,
+                Count = messageList.Count,
+                OffsetIdOffset = offsetId
+            };
+        }
+
+        return new TMessages
+        {
+            Chats = new TVector<IChat>(chatList),
+            Messages = new TVector<IMessage>(messageList),
+            Users = new TVector<IUser>(userList)
+        };
+    }
+
     public IPeerDialogs ToPeerDialogs(GetDialogOutput output)
     {
         var dialogs = ToDialogs(output);
@@ -695,180 +758,116 @@ public class RpcResultProcessor : IRpcResultProcessor
         };
     }
 
-    public IChatFull ToChatFull(IChannelReadModel channelReadModel,
-        IChannelFullReadModel channelFullReadModel,
-        IChannelMemberReadModel? channelMemberReadModel,
-        IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
-        long selfUserId
-    )
+    public IPhoto ToPhoto(UserProfilePhotoChangedEvent aggregateEvent)
     {
-        var channel = ToChannel(channelReadModel, channelMemberReadModel, selfUserId);
-        return new TChatFull
+        var user = ToUser(aggregateEvent.UserItem);
+        var photo = aggregateEvent.UserItem.ProfilePhoto.ToTObject<Schema.IPhoto>();
+        return new TPhoto { Photo = photo, Users = new TVector<IUser>(user) };
+    }
+
+    public IUpdates ToReadHistoryUpdates(ReadHistoryCompletedEvent eventData)
+    {
+        var peer = eventData.ReaderToPeer.PeerType == PeerType.User
+            ? new TPeerUser { UserId = eventData.ReaderUid }
+            : eventData.ReaderToPeer.ToPeer();
+        var updateReadHistoryOutbox = new TUpdateReadHistoryOutbox
         {
-            Chats = new TVector<IChat>(channel),
-            FullChat = ToChannelFull(channelReadModel, channelFullReadModel, peerNotifySettingsReadModel, selfUserId),
-            Users = new TVector<IUser>()
+            Pts = eventData.SenderPts,
+            MaxId = eventData.SenderMessageId,
+            PtsCount = 1,
+            Peer = peer
         };
-    }
 
-    public IChat ToChat(IChatReadModel chat,
-        long userId)
-    {
-        if (chat.ChatMembers.All(p => p.UserId != userId))
+        var updates = new TUpdates
         {
-            return new TChatForbidden { Id = chat.ChatId, Title = chat.Title };
-        }
+            Chats = new TVector<IChat>(),
+            Date = DateTime.UtcNow.ToTimestamp(),
+            Updates = new TVector<IUpdate>(updateReadHistoryOutbox),
+            Users = new TVector<IUser>(),
+            Seq = 0
+        };
 
-        var tChat = _objectMapper.Map<IChatReadModel, TChat>(chat);
-        tChat.Id = chat.ChatId;
-        tChat.Creator = chat.CreatorUid == userId;
-        tChat.Photo = GetChatPhoto(chat.Photo);
-        tChat.ParticipantsCount = chat.ChatMembers.Count;
-        tChat.DefaultBannedRights ??=
-            _objectMapper.Map<ChatBannedRights, TChatBannedRights>(new ChatBannedRights());
+        return updates;
+    }
+    public IUser ToUser(UserNameUpdatedEvent aggregateEvent)
+    {
+        return ToUser(aggregateEvent.UserItem);
+        //var tUser = _objectMapper.Map<UserItem, TUser>(aggregateEvent.UserItem);
+        //tUser.Id = aggregateEvent.UserItem.UserId;
+        //tUser.Self = true;
+        //tUser.Photo = new TUserProfilePhotoEmpty();
+        //tUser.Status = _userStatusAppService.GetUserStatus(aggregateEvent.UserItem.UserId);
 
-        return tChat;
+        //return tUser;
     }
 
-    public IChatFull ToChatFull(IChatReadModel chat,
-        IReadOnlyCollection<IUserReadModel> userList,
-        IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
+    public IUser ToUser(IUserReadModel user,
         long selfUserId)
     {
-        var tChat = ToChat(chat, selfUserId);
-        var fullChat = new Schema.TChatFull
+        var tUser = _objectMapper.Map<IUserReadModel, TUser>(user);
+        tUser.Self = selfUserId == user.UserId;
+        tUser.Photo = GetProfilePhoto(user.ProfilePhoto);
+
+        //var cachedStatus = _userStatusAppService.GetUserStatus(user.UserId);
+
+        tUser.Status =
+            _userStatusAppService
+                .GetUserStatus(user
+                    .UserId); // GetUserStatus(cachedStatus?.LastUpdateDate ?? user.LastUpdateDate, cachedStatus?.Online ?? user.IsOnline);
+        if (user.Bot)
         {
-            About = chat.About ?? string.Empty,
-            CanSetUsername = true,
-            Id = chat.ChatId,
-            ChatPhoto = chat.Photo.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
-            Participants = ToChatParticipants(chat.ChatId,
-                chat.ChatMembers,
-                chat.Date,
-                chat.CreatorUid,
-                (int)(chat.Version ?? 0)),
-            NotifySettings = _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
-                peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings)
-        };
-        var tUserList = ToUserList(userList, selfUserId);
-        var chatFull = new TChatFull
-        {
-            Chats = new TVector<IChat>(tChat),
-            Users = new TVector<IUser>(tUserList),
-            FullChat = fullChat
-        };
-
-        return chatFull;
-    }
-
-    public IMessages ToMessages(GetMessageOutput output)
-    {
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
-        var userList = ToUserList(output.UserList, output.SelfUserId);
-        var chatList = ToChatList(output.ChatList, output.SelfUserId);
-        var channelList = ToChannelList(output.ChannelList,
-            output.JoinedChannelIdList,
-            output.ChannelMemberList,
-            output.SelfUserId);
-        chatList.AddRange(channelList);
-
-        if (output.MessageList.All(p => p.ToPeerType == PeerType.Channel) && !output.IsSearchGlobal)
-        {
-            var offsetId = messageList.Any() ? messageList.Max(p => p.Id) : 0;
-            //var messageIdList=messageList.Select()
-            //var offsetId = output.HasMoreData && messageList.Any() ? messageList.Min(p => p.Id) : 0;
-            //if(messageList.Count==output.l)
-            // Console.WriteLine($"offsetId={offsetId}");
-            var channelPts = output.ChannelList.FirstOrDefault()?.Pts ?? output.Pts;
-            //var channelPts = output.MessageList.Any() ? output.MessageList.Min(p => p.Pts) : output.Pts;
-
-            return new TChannelMessages
-            {
-                Chats = new TVector<IChat>(chatList),
-                Messages = new TVector<IMessage>(messageList),
-                Users = new TVector<IUser>(userList),
-                Pts = channelPts,
-                Count = messageList.Count,
-                OffsetIdOffset = offsetId
-            };
+            tUser.BotInfoVersion = 1;
+            tUser.BotChatHistory = true; // bot.AllowAccessGroupMessages;
         }
 
-        return new TMessages
-        {
-            Chats = new TVector<IChat>(chatList),
-            Messages = new TVector<IMessage>(messageList),
-            Users = new TVector<IUser>(userList)
-        };
+        return tUser;
     }
 
-    public TChannelFull ToChannelFull(IChannelReadModel channelReadModel,
-        IChannelFullReadModel channelFullReadModel,
-        IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
-        long selfUserId
+    public Task<MyTelegram.Schema.Users.IUserFull> ToUserFullAsync(IUserReadModel user,
+        long fromUid,
+        IPeerNotifySettingsReadModel? peerNotifySettingsReadModel
     )
     {
-        //var channel = ToChannel(selfUserId, channelReadModel);
-        var channelFull = _objectMapper.Map<IChannelFullReadModel, TChannelFull>(channelFullReadModel);
-        channelFull.About ??= string.Empty;
-        channelFull.ChatPhoto = channelReadModel.Photo.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty();
-        channelFull.NotifySettings =
-            _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
-                peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
-
-        channelFull.BotInfo = new TVector<IBotInfo>();
-        channelFull.Id = channelFullReadModel.ChannelId;
-        channelFull.Pts = channelReadModel.Pts;
-        channelFull.ParticipantsCount = channelReadModel.ParticipantsCount;
-
-        // Only creator and channel admin can view participants list for broadcast
-        if (channelReadModel.Broadcast)
+        //var disallowPhoneCall = false;
+        var isOfficialId = user.UserId == MyTelegramServerDomainConsts.OfficialUserId;
+        var tUser = ToUser(user, fromUid);
+        var userFull = new MyTelegram.Schema.Users.TUserFull()
         {
-            if (channelReadModel.CreatorId == selfUserId ||
-                channelReadModel.AdminList.FirstOrDefault(p => p.UserId == selfUserId) != null)
+            Chats = new TVector<IChat>(),
+            FullUser = new TUserFull
             {
-                channelFull.CanViewParticipants = true;
-            }
-            else
-            {
-                channelFull.CanViewParticipants = false;
-            }
-        }
+                Id = user.UserId,
+                About = user.About,
+                Blocked = false,
+                CanPinMessage = !isOfficialId,
+                PhoneCallsAvailable = !user.Bot && !isOfficialId,
+                VideoCallsAvailable = !user.Bot && !isOfficialId,
+                PhoneCallsPrivate = isOfficialId,
+                // FolderId = 0,
+                PinnedMsgId = user.PinnedMsgId,
+                ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
+                Settings = new MyTelegram.Schema.TPeerSettings(),
+                NotifySettings =
+                    _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
+                        peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings),
+            },
+            Users = new TVector<IUser>(tUser)
+        };
 
-        if (selfUserId == MyTelegramServerDomainConsts.LeftChannelUid)
-        {
-            channelFull.CanViewParticipants = false;
-            channelFull.CanSetUsername = false;
-        }
-
-        if (channelReadModel.CreatorId == selfUserId)
-        {
-            channelFull.CanSetUsername = true;
-        }
-
-        if (channelFull.SlowmodeSeconds > 0)
-        {
-            if (selfUserId != channelReadModel.CreatorId && selfUserId == channelReadModel.LastSenderPeerId)
-            {
-                var nextSendDate = channelReadModel.LastSendDate + channelFull.SlowmodeSeconds;
-                channelFull.SlowmodeNextSendDate = nextSendDate;
-            }
-        }
-
-        return channelFull;
+        return Task.FromResult<MyTelegram.Schema.Users.IUserFull>(userFull);
     }
 
-    public List<IChat> ToChatList(IReadOnlyCollection<IChatReadModel> chatList,
-        long userId)
+    public IList<IUser> ToUserList(IReadOnlyCollection<IUserReadModel> userList,
+            long selfUserId)
     {
-        var tChatList = new List<IChat>();
-        foreach (var chatReadModel in chatList)
+        var tUserList = new List<IUser>();
+        foreach (var user in userList)
         {
-            tChatList.Add(ToChat(chatReadModel, userId));
+            tUserList.Add(ToUser(user, selfUserId));
         }
 
-        return tChatList;
+        return tUserList;
     }
-
     private static IChatPhoto GetChatPhoto(byte[]? photo)
     {
         if (photo?.Length > 0)
@@ -931,6 +930,30 @@ public class RpcResultProcessor : IRpcResultProcessor
         }
 
         return new TChatPhotoEmpty();
+    }
+
+    private static TChatParticipants ToChatParticipants(long chatId,
+        IReadOnlyList<ChatMember> chatMemberList,
+        int date,
+        long creatorUid,
+        int chatVersion)
+    {
+        var participants = chatMemberList.Select(p =>
+        {
+            if (p.UserId == creatorUid)
+            {
+                return (IChatParticipant)new TChatParticipantCreator { UserId = p.UserId };
+            }
+
+            return new TChatParticipant { Date = date, InviterId = creatorUid, UserId = p.UserId };
+        }).ToList();
+
+        return new TChatParticipants
+        {
+            ChatId = chatId,
+            Participants = new TVector<IChatParticipant>(participants),
+            Version = chatVersion
+        };
     }
 
     private IUserProfilePhoto GetProfilePhoto(byte[]? profilePhoto)
@@ -1114,32 +1137,6 @@ public class RpcResultProcessor : IRpcResultProcessor
 
         return participants;
     }
-
-    private static TChatParticipants ToChatParticipants(long chatId,
-        IReadOnlyList<ChatMember> chatMemberList,
-        int date,
-        long creatorUid,
-        int chatVersion)
-    {
-        var participants = chatMemberList.Select(p =>
-        {
-            if (p.UserId == creatorUid)
-            {
-                return (IChatParticipant)new TChatParticipantCreator { UserId = p.UserId };
-            }
-
-            return new TChatParticipant { Date = date, InviterId = creatorUid, UserId = p.UserId };
-        }).ToList();
-
-        return new TChatParticipants
-        {
-            ChatId = chatId,
-            Participants = new TVector<IChatParticipant>(participants),
-            Version = chatVersion
-        };
-    }
-
-
     private IUser ToUser(UserItem userItem)
     {
         var tUser = _objectMapper.Map<UserItem, TUser>(userItem);
