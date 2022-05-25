@@ -39,18 +39,18 @@ public class ChatAdminRights : ValueObject
         Other = other;
     }
 
-    public bool AddAdmins { get; }
-    public bool Anonymous { get; }
-    public bool BanUsers { get; }
+    public bool AddAdmins { get; private set; }
+    public bool Anonymous { get; private set; }
+    public bool BanUsers { get; private set; }
 
-    public bool ChangeInfo { get; }
-    public bool DeleteMessages { get; }
-    public bool EditMessages { get; }
-    public bool InviteUsers { get; }
-    public bool ManageCall { get; }
-    public bool Other { get; }
-    public bool PinMessages { get; }
-    public bool PostMessages { get; }
+    public bool ChangeInfo { get; private set; }
+    public bool DeleteMessages { get; private set; }
+    public bool EditMessages { get; private set; }
+    public bool InviteUsers { get; private set; }
+    public bool ManageCall { get; private set; }
+    public bool Other { get; private set; }
+    public bool PinMessages { get; private set; }
+    public bool PostMessages { get; private set; }
 
     public bool HasNoRights()
     {

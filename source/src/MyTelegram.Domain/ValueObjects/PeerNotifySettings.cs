@@ -14,9 +14,9 @@ public class PeerNotifySettings : ValueObject
         Sound = sound;
     }
     public static PeerNotifySettings DefaultSettings { get; } = new(true, false, 0, "default");
-    public int? MuteUntil { get; } //= 0;// = int.MaxValue;
+    public int? MuteUntil { get; private set; } //= 0;// = int.MaxValue;
 
-    public bool? ShowPreviews { get; } //= true;
-    public bool? Silent { get; } //= false;
-    public string? Sound { get; } //= "default";
+    public bool? ShowPreviews { get; private set; } //= true;
+    public bool? Silent { get; private set; } //= false;
+    public string? Sound { get; private set; } //= "default";
 }

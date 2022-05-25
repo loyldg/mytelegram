@@ -11,8 +11,8 @@ public class ChatMember : ValueObject
         Date = date;
     }
 
-    public int Date { get; }
-    public long InviterId { get; }
+    public int Date { get; init; }
+    public long InviterId { get; init; }
 
-    public long UserId { get; }
+    public long UserId { get; init; }
 }

@@ -21,15 +21,15 @@ public class ChatAdmin : ValueObject
     /// <summary>
     ///     Can this admin promote other admins with the same permissions?
     /// </summary>
-    public bool CanEdit { get; }
+    public bool CanEdit { get; private set; }
 
     /// <summary>
     ///     User that promoted the user to admin
     /// </summary>
-    public long PromotedBy { get; }
+    public long PromotedBy { get; private set; }
 
-    public string Rank { get; }
-    public long UserId { get; }
+    public string Rank { get; private set; }
+    public long UserId { get; private set; }
 
     public void SetAdminRights(ChatAdminRights adminRights)
     {

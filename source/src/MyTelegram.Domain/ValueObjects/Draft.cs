@@ -14,10 +14,9 @@ public class Draft : ValueObject
         Date = date;
         Entities = entities;
     }
-
-    public int Date { get; }
-    public byte[]? Entities { get; }
-    public string Message { get; }
-    public bool NoWebpage { get; }
-    public int? ReplyToMsgId { get; }
+    public string Message { get; init; }
+    public bool NoWebpage { get; init; }
+    public int? ReplyToMsgId { get; init; }
+    public int Date { get; init; }
+    public byte[]? Entities { get; init; }
 }

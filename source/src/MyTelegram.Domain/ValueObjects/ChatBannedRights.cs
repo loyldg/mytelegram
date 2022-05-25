@@ -35,31 +35,31 @@ public class ChatBannedRights : ValueObject
         UntilDate = untilDate;
     }
 
-    public bool ChangeInfo { get; } = true;
+    public bool ChangeInfo { get; private set; } = true;
 
-    public bool EmbedLinks { get; }
+    public bool EmbedLinks { get; private set; }
 
-    public bool InviteUsers { get; } = true;
+    public bool InviteUsers { get; private set; } = true;
 
-    public bool PinMessages { get; } = true;
+    public bool PinMessages { get; private set; } = true;
 
-    public bool SendGames { get; }
+    public bool SendGames { get; private set; }
 
-    public bool SendGifs { get; }
+    public bool SendGifs { get; private set; }
 
-    public bool SendInline { get; }
+    public bool SendInline { get; private set; }
 
-    public bool SendMedia { get; }
-    public bool SendMessages { get; }
+    public bool SendMedia { get; private set; }
+    public bool SendMessages { get; private set; }
 
-    public bool SendPolls { get; }
+    public bool SendPolls { get; private set; }
 
-    public bool SendStickers { get; }
+    public bool SendStickers { get; private set; }
 
-    public int UntilDate { get; } = int.MaxValue;
+    public int UntilDate { get; private set; } = int.MaxValue;
 
     //public BitArray Flags { get; private set; } = new(32);
-    public bool ViewMessages { get; }
+    public bool ViewMessages { get; private set; }
 
     public static ChatBannedRights FromValue(int value,
         int untilDate)

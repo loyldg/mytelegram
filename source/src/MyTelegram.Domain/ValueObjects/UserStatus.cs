@@ -13,7 +13,7 @@ public class UserStatus
     public DateTime LastUpdateDate { get; private set; }
     public bool Online { get; private set; }
 
-    public long UserId { get; }
+    public long UserId { get; private set; }
 
     public void UpdateStatus(bool online)
     {
