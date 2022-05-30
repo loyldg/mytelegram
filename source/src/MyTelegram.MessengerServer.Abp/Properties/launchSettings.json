@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MyTelegram.MessengerServer.Abp": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
