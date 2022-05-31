@@ -26,6 +26,11 @@ Log.Logger = new LoggerConfiguration()
 Log.Information("Messenger server(supported layer={Layer}) starting...", MyTelegramServerDomainConsts.Layer);
 
 var builder = Host.CreateDefaultBuilder(args);
+builder.ConfigureAppConfiguration(options =>
+{
+    options.AddEnvironmentVariables();
+});
+
 builder.UseAutofac();
 builder.UseSerilog();
 

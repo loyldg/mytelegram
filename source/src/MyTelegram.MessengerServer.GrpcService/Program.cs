@@ -28,9 +28,11 @@ Log.Information("Messenger server rpc service starting...");
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
+builder.Configuration.AddEnvironmentVariables();
+
 builder.Services.UseMyTelegramMessengerGrpcServer(options =>
 {
-    options.ConfigureMongoDb(builder.Configuration.GetConnectionString("Default"), builder.Configuration.GetValue<string>("App:DatabaseName"));
+    options.ConfigureMongoDb(builder.Configuration.GetConnectionString("Default"), builder.Configuration["App:DatabaseName"]);
 });
 builder.Services.AddGrpc();
 
