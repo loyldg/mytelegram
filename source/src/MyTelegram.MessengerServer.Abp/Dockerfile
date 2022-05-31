@@ -1,9 +1,9 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
+FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /src
 COPY ["src/MyTelegram.MessengerServer.Abp/MyTelegram.MessengerServer.Abp.csproj", "src/MyTelegram.MessengerServer.Abp/"]
 COPY ["src/MyTelegram.Abp/MyTelegram.Abp.csproj", "src/MyTelegram.Abp/"]
@@ -19,15 +19,32 @@ COPY ["src/MyTelegram.GrpcService/MyTelegram.GrpcService.csproj", "src/MyTelegra
 COPY ["src/MyTelegram.MessengerServer/MyTelegram.MessengerServer.csproj", "src/MyTelegram.MessengerServer/"]
 COPY ["src/MyTelegram.Schema/MyTelegram.Schema.csproj", "src/MyTelegram.Schema/"]
 COPY ["src/Microsoft.Cuckoo/Microsoft.Cuckoo.csproj", "src/Microsoft.Cuckoo/"]
-RUN dotnet restore "src/MyTelegram.MessengerServer.Abp/MyTelegram.MessengerServer.Abp.csproj"
+COPY sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
+COPY glibc-2.35-r0.apk /app/glibc-2.35-r0.apk
+
+RUN dotnet restore  --runtime linux-musl-x64 "src/MyTelegram.MessengerServer.Abp/MyTelegram.MessengerServer.Abp.csproj"
 COPY . .
 WORKDIR "/src/src/MyTelegram.MessengerServer.Abp"
-RUN dotnet build "MyTelegram.MessengerServer.Abp.csproj" -c Release -o /app/build
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories &&\
+# Install gcompat package error should be Ignored
+	apk --no-cache add /app/glibc-2.35-r0.apk && apk --no-cache add gcompat ||true
+
+RUN dotnet build -r linux-musl-x64 "MyTelegram.MessengerServer.Abp.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MyTelegram.MessengerServer.Abp.csproj" -c Release -o /app/publish
+#RUN dotnet publish "MyTelegram.MessengerServer.Abp.csproj" -c Release -o /app/publish
+RUN dotnet publish "MyTelegram.MessengerServer.Abp.csproj" \
+-r linux-musl-x64 \
+--no-restore \
+--self-contained true \
+-c Release \
+-o /app/publish 
 
-FROM base AS final
+#FROM base AS final
+FROM alpine as final
 WORKDIR /app
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories &&\
+	apk --no-cache add libstdc++  
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MyTelegram.MessengerServer.Abp.dll"]
+ENTRYPOINT [ "/app/MyTelegram.MessengerServer.Abp"]
