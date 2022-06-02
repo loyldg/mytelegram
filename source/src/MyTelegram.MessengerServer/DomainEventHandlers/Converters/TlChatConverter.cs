@@ -67,6 +67,7 @@ public class TlChatConverter : ITlChatConverter
         {
             channel.AdminRights =
                 _objectMapper.Map<ChatAdminRights, TChatAdminRights>(ChatAdminRights.GetCreatorRights());
+            channel.Left = false;
         }
         else
         {
