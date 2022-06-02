@@ -72,6 +72,7 @@ RUN dotnet publish "MyTelegram.MessengerServer.GrpcService.csproj" \
 #FROM base AS final
 FROM alpine AS final
 WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:80 DOTNET_RUNNING_IN_CONTAINER=true DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories &&\
     apk --no-cache add --no-cache libstdc++
 COPY --from=publish /app/publish .
