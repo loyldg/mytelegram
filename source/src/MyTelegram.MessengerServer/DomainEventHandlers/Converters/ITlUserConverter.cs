@@ -11,7 +11,7 @@ public interface ITlUserConverter
 
     IUser ToUser(UserNameUpdatedEvent aggregateEvent);
 
-    Task<IUserFull> ToUserFullAsync(IUserReadModel user,
+    Task<Schema.Users.IUserFull> ToUserFullAsync(IUserReadModel user,
         long selfUserId,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel
     );

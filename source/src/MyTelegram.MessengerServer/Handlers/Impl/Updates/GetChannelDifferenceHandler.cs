@@ -9,17 +9,17 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
     private readonly IAckCacheService _ackCacheService;
     private readonly IMessageAppService _messageAppService;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlDifferenceConverter _differenceConverter;
 
     public GetChannelDifferenceHandler(IMessageAppService messageAppService,
-        IRpcResultProcessor rpcResultProcessor,
         IQueryProcessor queryProcessor,
-        IAckCacheService ackCacheService)
+        IAckCacheService ackCacheService,
+        ITlDifferenceConverter differenceConverter)
     {
         _messageAppService = messageAppService;
-        _rpcResultProcessor = rpcResultProcessor;
         _queryProcessor = queryProcessor;
         _ackCacheService = ackCacheService;
+        _differenceConverter = differenceConverter;
     }
 
     protected override async Task<IChannelDifference> HandleCoreAsync(IRequestInput input,
@@ -110,7 +110,7 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
 
             // Console.WriteLine($"User {input.UserId} get Channel difference,channelId={inputChannel.ChannelId},req pts={obj.Pts},maxPts={maxPts},limit={obj.Limit},updates count={pushUpdatesReadModelList.Count}");
 
-            return _rpcResultProcessor.ToChannelDifference(dto, isChannelMember, allUpdateList, maxPts);
+            return _differenceConverter.ToChannelDifference(dto, isChannelMember, allUpdateList, maxPts);
         }
 
         throw new NotImplementedException();

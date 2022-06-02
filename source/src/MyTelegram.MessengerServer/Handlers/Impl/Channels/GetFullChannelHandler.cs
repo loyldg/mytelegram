@@ -9,13 +9,12 @@ public class GetFullChannelHandler : RpcResultObjectHandler<RequestGetFullChanne
     IGetFullChannelHandler, IProcessedHandler
 {
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
-
+    private readonly ITlChatConverter _chatConverter;
     public GetFullChannelHandler(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor)
+        ITlChatConverter chatConverter)
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
+        _chatConverter = chatConverter;
     }
 
     protected override async Task<IChatFull> HandleCoreAsync(IRequestInput input,
@@ -42,7 +41,7 @@ public class GetFullChannelHandler : RpcResultObjectHandler<RequestGetFullChanne
                         inputChannel.ChannelId)),
                     CancellationToken.None).ConfigureAwait(false);
 
-            return _rpcResultProcessor.ToChatFull(channel!,
+            return _chatConverter.ToChatFull(channel!,
                 channelFull!,
                 channelMember,
                 peerNotifySettings,

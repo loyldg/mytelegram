@@ -7,13 +7,16 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
     IResolveUsernameHandler, IProcessedHandler
 {
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlChatConverter _chatConverter;
+    private readonly ITlUserConverter _userConverter;
 
     public ResolveUsernameHandler(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor)
+        ITlChatConverter chatConverter,
+        ITlUserConverter userConverter)
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
+        _chatConverter = chatConverter;
+        _userConverter = userConverter;
     }
 
     protected override async Task<IResolvedPeer> HandleCoreAsync(IRequestInput input,
@@ -41,7 +44,7 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                             {
                                 Chats = new TVector<IChat>(),
                                 Peer = new TPeerUser { UserId = userNameReadModel.PeerId },
-                                Users = new TVector<IUser>(_rpcResultProcessor.ToUser(userReadModel,
+                                Users = new TVector<IUser>(_userConverter.ToUser(userReadModel,
                                     input.UserId))
                             };
                         }
@@ -56,7 +59,7 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                             {
                                 return new TResolvedPeer
                                 {
-                                    Chats = new TVector<IChat>(_rpcResultProcessor.ToChat(chatReadModel, input.UserId)),
+                                    Chats = new TVector<IChat>(_chatConverter.ToChat(chatReadModel, input.UserId)),
                                     Peer = new TPeerChat { ChatId = userNameReadModel.PeerId },
                                     Users = new TVector<IUser>()
                                 };
@@ -73,9 +76,9 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                                 return new TResolvedPeer
                                 {
                                     Chats =
-                                        new TVector<IChat>(_rpcResultProcessor.ToChannel(channelReadModel,
+                                        new TVector<IChat>(_chatConverter.ToChannel(channelReadModel,
                                             null,
-                                            input.UserId)),
+                                            input.UserId, false)),
                                     Peer = new TPeerChat { ChatId = userNameReadModel.PeerId },
                                     Users = new TVector<IUser>()
                                 };

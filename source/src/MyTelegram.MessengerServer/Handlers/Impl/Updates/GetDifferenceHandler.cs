@@ -12,21 +12,21 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
     private readonly IMessageAppService _messageAppService;
     private readonly IPtsHelper _ptsHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlDifferenceConverter _differenceConverter;
 
     public GetDifferenceHandler(IMessageAppService messageAppService,
         IPtsHelper ptsHelper,
         IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor,
         ILogger<GetDifferenceHandler> logger,
-        IAckCacheService ackCacheService)
+        IAckCacheService ackCacheService,
+        ITlDifferenceConverter differenceConverter)
     {
         _messageAppService = messageAppService;
         _ptsHelper = ptsHelper;
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
         _logger = logger;
         _ackCacheService = ackCacheService;
+        _differenceConverter = differenceConverter;
     }
 
     protected override async Task<IDifference> HandleCoreAsync(IRequestInput input,
@@ -235,7 +235,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
             // Console.WriteLine("Count=0");
         }
 
-        var difference = _rpcResultProcessor.ToDifference(r,
+        var difference = _differenceConverter.ToDifference(r,
             ptsReadModel,
             cachedPts,
             limit,

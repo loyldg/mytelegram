@@ -9,15 +9,14 @@ public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipan
 {
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
-
+    private readonly ITlChatConverter _chatConverter;
     public GetParticipantHandler(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor,
-        IPeerHelper peerHelper)
+        IPeerHelper peerHelper,
+        ITlChatConverter chatConverter)
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
         _peerHelper = peerHelper;
+        _chatConverter = chatConverter;
     }
 
     protected override async Task<IChannelParticipant> HandleCoreAsync(IRequestInput input,
@@ -48,7 +47,7 @@ public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipan
             //var contactReadModel = await QueryProcessor
             //    .ProcessAsync(new GetContactQuery(input.UserId, peer.PeerId), default).ConfigureAwait(false);
 
-            var r = _rpcResultProcessor.ToChannelParticipant(channelReadModel,
+            var r = _chatConverter.ToChannelParticipant(channelReadModel,
                 channelMemberReadModel!,
                 userReadModel!,
                 input.UserId);
@@ -66,15 +65,15 @@ public class GetParticipantHandlerLayerN :
 {
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlChatConverter _chatConverter;
 
     public GetParticipantHandlerLayerN(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor,
-        IPeerHelper peerHelper)
+        IPeerHelper peerHelper,
+        ITlChatConverter chatConverter)
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
         _peerHelper = peerHelper;
+        _chatConverter = chatConverter;
     }
 
     protected override async Task<Schema.LayerN.IChannelParticipant> HandleCoreAsync(IRequestInput input,
@@ -104,7 +103,7 @@ public class GetParticipantHandlerLayerN :
             var channelReadModel = await _queryProcessor
                 .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default).ConfigureAwait(false);
 
-            return _rpcResultProcessor.ToChannelParticipantLayerN(channelReadModel,
+            return _chatConverter.ToChannelParticipantLayerN(channelReadModel,
                 channelMemberReadModel,
                 userReadModel!,
                 input.UserId);

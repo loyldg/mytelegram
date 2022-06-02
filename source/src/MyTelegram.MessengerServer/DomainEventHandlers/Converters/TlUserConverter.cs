@@ -60,31 +60,36 @@ public class TlUserConverter : ITlUserConverter
         return tUser;
     }
 
-    public Task<IUserFull> ToUserFullAsync(IUserReadModel user,
+    public Task<Schema.Users.IUserFull> ToUserFullAsync(IUserReadModel user,
         long selfUserId,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel)
     {
         var isOfficialId = user.UserId == MyTelegramServerDomainConsts.OfficialUserId;
         var tUser = ToUser(user, selfUserId);
-        var userFull = new TUserFull
+        var fullUser = new Schema.TUserFull
         {
             About = user.About,
             Blocked = false,
+            Id = user.UserId,
             CanPinMessage = !isOfficialId,
             PhoneCallsAvailable = !user.Bot && !isOfficialId,
             VideoCallsAvailable = !user.Bot && !isOfficialId,
             PhoneCallsPrivate = isOfficialId,
-            // FolderId = 0,
             PinnedMsgId = user.PinnedMsgId,
             ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
             Settings = new TPeerSettings(),
             NotifySettings =
                 _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
                     peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings)
-            //User = tUser
+        };
+        var userFull = new Schema.Users.TUserFull
+        {
+            Chats = new TVector<IChat>(),
+            FullUser = fullUser,
+            Users = new TVector<IUser>(tUser)
         };
 
-        return Task.FromResult<IUserFull>(userFull);
+        return Task.FromResult<Schema.Users.IUserFull>(userFull);
     }
 
     public IList<IUser> ToUserList(IReadOnlyCollection<IUserReadModel> userList,

@@ -9,17 +9,16 @@ public class GetPeerDialogsHandler : RpcResultObjectHandler<RequestGetPeerDialog
     private readonly IDialogAppService _dialogAppService;
     private readonly IPeerHelper _peerHelper;
     private readonly IPtsHelper _ptsHelper;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
-
+    private readonly ITlDialogConverter _dialogConverter;
     public GetPeerDialogsHandler(IDialogAppService dialogAppService,
         IPeerHelper peerHelper,
-        IRpcResultProcessor rpcResultProcessor,
-        IPtsHelper ptsHelper)
+        IPtsHelper ptsHelper,
+        ITlDialogConverter dialogConverter)
     {
         _dialogAppService = dialogAppService;
         _peerHelper = peerHelper;
-        _rpcResultProcessor = rpcResultProcessor;
         _ptsHelper = ptsHelper;
+        _dialogConverter = dialogConverter;
     }
 
     protected override async Task<IPeerDialogs> HandleCoreAsync(IRequestInput input,
@@ -51,8 +50,11 @@ public class GetPeerDialogsHandler : RpcResultObjectHandler<RequestGetPeerDialog
 
         var limit = peerList.Count == 0 ? 10 : peerList.Count;
         var output = await _dialogAppService
-            .GetDialogsAsync(new GetDialogInput {
-                OwnerId = userId, Limit = limit, PeerIdList = peerList.Select(p => p.PeerId).ToList()
+            .GetDialogsAsync(new GetDialogInput
+            {
+                OwnerId = userId,
+                Limit = limit,
+                PeerIdList = peerList.Select(p => p.PeerId).ToList()
             }).ConfigureAwait(false);
         //var pts = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(input.UserId), default)
         //    .ConfigureAwait(false);
@@ -62,6 +64,6 @@ public class GetPeerDialogsHandler : RpcResultObjectHandler<RequestGetPeerDialog
         output.CachedPts = cachedPts;
         // Console.WriteLine($"Get Peer Dialogs:{userId} peerList={JsonConvert.SerializeObject(peerList)}");
 
-        return _rpcResultProcessor.ToPeerDialogs(output);
+        return _dialogConverter.ToPeerDialogs(output);
     }
 }

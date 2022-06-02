@@ -8,15 +8,15 @@ public class GetGroupCallJoinAsHandler : RpcResultObjectHandler<RequestGetGroupC
 {
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlPeerConverter _peerConverter;
 
     public GetGroupCallJoinAsHandler(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor,
-        IPeerHelper peerHelper)
+        IPeerHelper peerHelper,
+        ITlPeerConverter peerConverter)
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
         _peerHelper = peerHelper;
+        _peerConverter = peerConverter;
     }
 
     protected override async Task<IJoinAsPeers> HandleCoreAsync(IRequestInput input,
@@ -42,6 +42,6 @@ public class GetGroupCallJoinAsHandler : RpcResultObjectHandler<RequestGetGroupC
                 break;
         }
 
-        return _rpcResultProcessor.ToJoinAsPeers(userReadModel!, channelReadModel, chatReadModel);
+        return _peerConverter.ToJoinAsPeers(userReadModel!, channelReadModel, chatReadModel);
     }
 }

@@ -9,14 +9,17 @@ public class GetDialogsHandler : RpcResultObjectHandler<RequestGetDialogs, IDial
     private readonly IDialogAppService _dialogAppService;
     private readonly IPeerHelper _peerHelper;
     private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlDialogConverter _dialogConverter;
 
     public GetDialogsHandler(IDialogAppService dialogAppService,
         IRpcResultProcessor rpcResultProcessor,
-        IPeerHelper peerHelper)
+        IPeerHelper peerHelper,
+        ITlDialogConverter dialogConverter)
     {
         _dialogAppService = dialogAppService;
         _rpcResultProcessor = rpcResultProcessor;
         _peerHelper = peerHelper;
+        _dialogConverter = dialogConverter;
     }
 
     protected override async Task<IDialogs> HandleCoreAsync(IRequestInput input,
@@ -40,6 +43,6 @@ public class GetDialogsHandler : RpcResultObjectHandler<RequestGetDialogs, IDial
             OffsetPeer = offsetPeer
         }).ConfigureAwait(false);
 
-        return _rpcResultProcessor.ToDialogs(r);
+        return _dialogConverter.ToDialogs(r);
     }
 }

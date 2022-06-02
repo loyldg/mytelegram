@@ -10,12 +10,14 @@ public class GetMessagesHandler : RpcResultObjectHandler<RequestGetMessages, IMe
 {
     private readonly IMessageAppService _messageAppService;
     private readonly IRpcResultProcessor _rpcResultProcessor;
-
+    private readonly ITlMessageConverter _messageConverter;
     public GetMessagesHandler(IMessageAppService messageAppService,
-        IRpcResultProcessor rpcResultProcessor)
+        IRpcResultProcessor rpcResultProcessor,
+        ITlMessageConverter messageConverter)
     {
         _messageAppService = messageAppService;
         _rpcResultProcessor = rpcResultProcessor;
+        _messageConverter = messageConverter;
     }
 
     protected override async Task<IMessages> HandleCoreAsync(IRequestInput input,

@@ -7,21 +7,18 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Channels;
 public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipants, IChannelParticipants>,
     IGetParticipantsHandler, IProcessedHandler
 {
-    //private readonly ISessionAppService _sessionAppService;
     private readonly ILogger<GetParticipantsHandler> _logger;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlChatConverter _chatConverter;
 
     public GetParticipantsHandler(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor,
-        ILogger<GetParticipantsHandler> logger //,
-                                               //ISessionAppService sessionAppService
+        ILogger<GetParticipantsHandler> logger,
+        ITlChatConverter chatConverter //,
     )
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
         _logger = logger;
-        //_sessionAppService = sessionAppService;
+        _chatConverter = chatConverter;
     }
 
     protected override async Task<IChannelParticipants> HandleCoreAsync(IRequestInput input,
@@ -29,7 +26,6 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            // Console.WriteLine($"GetParticipantsHandler:{input.UserId} {JsonConvert.SerializeObject(obj)}");
             var joinedChannelIdList = await _queryProcessor.ProcessAsync(new GetJoinedChannelIdListQuery(input.UserId,
                     new List<long> { inputChannel.ChannelId }),
                 default).ConfigureAwait(false);
@@ -143,7 +139,7 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
             var userReadModels = await _queryProcessor
                 .ProcessAsync(new GetUsersByUidListQuery(userIdList), default).ConfigureAwait(false);
 
-            return _rpcResultProcessor.ToChannelParticipants(channelReadModel,
+            return _chatConverter.ToChannelParticipants(channelReadModel,
                 channelMemberReadModels,
                 userReadModels,
                 input.UserId,

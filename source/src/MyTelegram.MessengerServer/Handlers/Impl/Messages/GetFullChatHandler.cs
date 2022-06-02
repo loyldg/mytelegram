@@ -8,20 +8,14 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 public class GetFullChatHandler : RpcResultObjectHandler<RequestGetFullChat, IChatFull>,
     IGetFullChatHandler, IProcessedHandler
 {
-    private readonly ILogger<GetFullChatHandler> _logger;
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
     private readonly ITlChatConverter _chatConverter;
     public GetFullChatHandler(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor,
-        ILogger<GetFullChatHandler> logger,
         IPeerHelper peerHelper,
         ITlChatConverter chatConverter)
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
-        _logger = logger;
         _peerHelper = peerHelper;
         _chatConverter = chatConverter;
     }
@@ -80,7 +74,7 @@ public class GetFullChatHandler : RpcResultObjectHandler<RequestGetFullChat, ICh
 
 
 
-                    return _rpcResultProcessor.ToChatFull(chat,
+                    return _chatConverter.ToChatFull(chat,
                         userList,
                         peerNotifySettings,
                         input.UserId);

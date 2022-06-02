@@ -8,15 +8,15 @@ public class GetPinnedDialogsHandler : RpcResultObjectHandler<RequestGetPinnedDi
 {
     private readonly IDialogAppService _dialogAppService;
     private readonly IPtsHelper _ptsHelper;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlDialogConverter _dialogConverter;
 
     public GetPinnedDialogsHandler(IDialogAppService dialogAppService,
-        IRpcResultProcessor rpcResultProcessor,
-        IPtsHelper ptsHelper)
+        IPtsHelper ptsHelper,
+        ITlDialogConverter dialogConverter)
     {
         _dialogAppService = dialogAppService;
-        _rpcResultProcessor = rpcResultProcessor;
         _ptsHelper = ptsHelper;
+        _dialogConverter = dialogConverter;
     }
 
     protected override async Task<IPeerDialogs> HandleCoreAsync(IRequestInput input,
@@ -35,6 +35,6 @@ public class GetPinnedDialogsHandler : RpcResultObjectHandler<RequestGetPinnedDi
         //r.PtsReadModel = pts;
         r.CachedPts = cachedPts;
 
-        return _rpcResultProcessor.ToPeerDialogs(r);
+        return _dialogConverter.ToPeerDialogs(r);
     }
 }

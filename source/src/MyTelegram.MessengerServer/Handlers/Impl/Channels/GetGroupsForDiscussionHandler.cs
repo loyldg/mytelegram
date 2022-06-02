@@ -8,13 +8,13 @@ public class GetGroupsForDiscussionHandler : RpcResultObjectHandler<RequestGetGr
     IGetGroupsForDiscussionHandler, IProcessedHandler
 {
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlChatConverter _chatConverter;
 
     public GetGroupsForDiscussionHandler(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor)
+        ITlChatConverter chatConverter)
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
+        _chatConverter = chatConverter;
     }
 
     protected override async Task<IChats> HandleCoreAsync(IRequestInput input,
@@ -23,7 +23,7 @@ public class GetGroupsForDiscussionHandler : RpcResultObjectHandler<RequestGetGr
         var channelReadModels = await _queryProcessor.ProcessAsync(new GetMegaGroupByUidQuery(input.UserId), default)
             .ConfigureAwait(false);
 
-        var channelList = _rpcResultProcessor.ToChannelList(channelReadModels,
+        var channelList = _chatConverter.ToChannelList(channelReadModels,
             channelReadModels.Select(p => p.ChannelId).ToList(),
             Array.Empty<IChannelMemberReadModel>(),
             input.UserId,

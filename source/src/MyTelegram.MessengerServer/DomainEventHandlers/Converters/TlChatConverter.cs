@@ -205,72 +205,19 @@ public class TlChatConverter : ITlChatConverter
         return channelList;
     }
 
-    public IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
+    public Schema.Channels.IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
         IChannelMemberReadModel channelMemberReadModel,
         IUserReadModel userReadModel,
         long selfUserId)
     {
-        var bannedRights = _objectMapper.Map<ChatBannedRights, TChatBannedRights>(
-            ChatBannedRights.FromValue(channelMemberReadModel.BannedRights,
-                channelMemberReadModel.UntilDate));
-        if (channelMemberReadModel.Kicked ||
-            (channelMemberReadModel.BannedRights != ChatBannedRights.Default.ToIntValue() &&
-             !channelMemberReadModel.Left))
+        var participant = ToChannelParticipantCore(channelReadModel, channelMemberReadModel, selfUserId);
+        var user = _userConverter.ToUser(userReadModel, selfUserId);
+        var channel = ToChannel(channelReadModel, channelMemberReadModel, selfUserId);
+        return new Schema.Channels.TChannelParticipant
         {
-            return new TChannelParticipantBanned
-            {
-                BannedRights = bannedRights,
-                Date = channelMemberReadModel.Date,
-                Peer = new TPeerUser { UserId = channelMemberReadModel.UserId },
-                KickedBy = channelMemberReadModel.KickedBy,
-                Left = false
-            };
-        }
-
-        if (channelMemberReadModel.Left)
-        {
-            return new TChannelParticipantLeft { Peer = new TPeerUser { UserId = channelMemberReadModel.UserId } };
-        }
-
-        if (channelMemberReadModel.UserId == channelReadModel.CreatorId)
-        {
-            return new TChannelParticipantCreator
-            {
-                UserId = channelMemberReadModel.UserId,
-                AdminRights = new TChatAdminRights()
-            };
-        }
-
-        var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == channelMemberReadModel.UserId);
-        if (admin != null)
-        {
-            return new TChannelParticipantAdmin
-            {
-                AdminRights = _objectMapper.Map<ChatAdminRights, TChatAdminRights>(admin.AdminRights),
-                Date = channelMemberReadModel.Date,
-                InviterId = channelMemberReadModel.InviterId,
-                Rank = admin.Rank,
-                UserId = admin.UserId,
-                Self = channelMemberReadModel.UserId == selfUserId,
-                CanEdit = admin.CanEdit,
-                PromotedBy = admin.PromotedBy
-            };
-        }
-
-        if (channelMemberReadModel.UserId == selfUserId)
-        {
-            return new TChannelParticipantSelf
-            {
-                Date = channelMemberReadModel.Date,
-                InviterId = channelMemberReadModel.InviterId,
-                UserId = channelMemberReadModel.UserId
-            };
-        }
-
-        return new TChannelParticipant
-        {
-            UserId = channelMemberReadModel.UserId,
-            Date = channelMemberReadModel.Date
+            Chats = new TVector<IChat>(channel),
+            Participant = participant,
+            Users = new TVector<IUser>(user)
         };
     }
 
@@ -405,6 +352,19 @@ public class TlChatConverter : ITlChatConverter
             Users = new TVector<IUser>()
         };
     }
+
+    public List<IChat> ToChatList(IReadOnlyCollection<IChatReadModel> chats,
+        long selfUserId)
+    {
+        var chatList = new List<IChat>();
+        foreach (var chatReadModel in chats)
+        {
+            chatList.Add(ToChat(chatReadModel, selfUserId));
+        }
+
+        return chatList;
+    }
+
     public IExportedChatInvite ToExportedChatInvite(ExportChatInviteEvent eventData)
     {
         var item = _objectMapper.Map<ExportChatInviteEvent, TChatInviteExported>(eventData);

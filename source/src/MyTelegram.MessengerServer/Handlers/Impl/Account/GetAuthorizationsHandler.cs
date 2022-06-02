@@ -1,21 +1,19 @@
 using MyTelegram.Handlers.Account;
 using MyTelegram.Schema.Account;
 
-//using MyTelegram.Queries.MongoDB.Device;
-
 namespace MyTelegram.MessengerServer.Handlers.Impl.Account;
 
 public class GetAuthorizationsHandler : RpcResultObjectHandler<RequestGetAuthorizations, IAuthorizations>,
     IGetAuthorizationsHandler, IProcessedHandler
 {
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlAuthorizationConverter _authorizationConverter;
 
     public GetAuthorizationsHandler(IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor)
+        ITlAuthorizationConverter authorizationConverter)
     {
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
+        _authorizationConverter = authorizationConverter;
     }
 
     protected override async Task<IAuthorizations> HandleCoreAsync(IRequestInput input,
@@ -23,7 +21,7 @@ public class GetAuthorizationsHandler : RpcResultObjectHandler<RequestGetAuthori
     {
         var deviceReadModelList = await _queryProcessor
             .ProcessAsync(new GetDeviceByUidQuery(input.UserId), CancellationToken.None).ConfigureAwait(false);
-        var r = _rpcResultProcessor.ToAuthorizations(deviceReadModelList, input.PermAuthKeyId);
+        var r = _authorizationConverter.ToAuthorizations(deviceReadModelList, input.PermAuthKeyId);
         return new TAuthorizations { Authorizations = new TVector<IAuthorization>(r) };
     }
 }

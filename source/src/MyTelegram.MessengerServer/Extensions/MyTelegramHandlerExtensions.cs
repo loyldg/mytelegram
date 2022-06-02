@@ -41,6 +41,9 @@ public static class MyTelegramHandlerExtensions
         services.AddTransient<ITlUserConverter, TlUserConverter>();
         services.AddTransient<ITlPhotoConverter, TlPhotoConverter>();
         services.AddTransient<ITlAuthorizationConverter, TlAuthorizationConverter>();
+        services.AddTransient<ITlDifferenceConverter, TlDifferenceConverter>();
+        services.AddTransient<ITlDialogConverter, TlDialogConverter>();
+        services.AddTransient<ITlPeerConverter, TlPeerConverter>();
 
         // IdGenerator services
         services.AddSingleton<IHiLoValueGeneratorCache, HiLoValueGeneratorCache>();

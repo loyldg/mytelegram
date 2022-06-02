@@ -9,24 +9,22 @@ public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, MyT
 {
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ITlUserConverter _userConverter;
 
     public GetFullUserHandler(IPeerHelper peerHelper,
         IQueryProcessor queryProcessor,
-        IRpcResultProcessor rpcResultProcessor)
+        ITlUserConverter userConverter)
     {
         _peerHelper = peerHelper;
         _queryProcessor = queryProcessor;
-        _rpcResultProcessor = rpcResultProcessor;
+        _userConverter = userConverter;
     }
 
     protected override async Task<MyTelegram.Schema.Users.IUserFull> HandleCoreAsync(IRequestInput input,
         RequestGetFullUser obj)
     {
         var userId = input.UserId;
-        //var userId = await GetUserIdAsync(input);
         var targetPeer = _peerHelper.GetPeer(obj.Id, userId);
-        //var targetUserId = UserId.Create(targetPeer.PeerId);
         var user = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(targetPeer.PeerId), CancellationToken.None)
             .ConfigureAwait(false);
         if (user == null)
@@ -38,7 +36,7 @@ public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, MyT
         var peerNotifySettings =
             await _queryProcessor.ProcessAsync(new GetPeerNotifySettingsByIdQuery(peerSettingsId),
                 CancellationToken.None).ConfigureAwait(false);
-        return await _rpcResultProcessor.ToUserFullAsync(user!,
+        return await _userConverter.ToUserFullAsync(user!,
             userId,
             peerNotifySettings).ConfigureAwait(false);
     }
