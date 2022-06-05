@@ -167,12 +167,17 @@ public class MessageSaga :
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(_state.MessageItem);
-        Emit(new SendChannelMessageStartedEvent(domainEvent.AggregateEvent.Post, domainEvent.AggregateEvent.Views, domainEvent.AggregateEvent.BotUidList, domainEvent.AggregateEvent.LinkedChannelId, domainEvent.AggregateEvent.CorrelationId));
+        var views = _state.MessageItem.Views;
+        if (domainEvent.AggregateEvent.Views > 0)
+        {
+            views = domainEvent.AggregateEvent.Views.Value;
+        }
+        Emit(new SendChannelMessageStartedEvent(domainEvent.AggregateEvent.Post, views, domainEvent.AggregateEvent.BotUidList, domainEvent.AggregateEvent.LinkedChannelId, domainEvent.AggregateEvent.CorrelationId));
         var outboxMessageItem = _state.MessageItem;
         outboxMessageItem.Post = domainEvent.AggregateEvent.Post;
-        outboxMessageItem.Views = domainEvent.AggregateEvent.Views;
+        outboxMessageItem.Views = views;
 
-        return CreateOutboxMessageAsync(_state.Request.ReqMsgId, _state.MessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
+        return CreateOutboxMessageAsync(_state.Request.ReqMsgId, outboxMessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
     }
 
     private void AddReplyMessageIdToCache(ReplyToMessageEvent aggregateEvent)
