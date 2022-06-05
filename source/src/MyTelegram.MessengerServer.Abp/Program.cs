@@ -1,4 +1,5 @@
-﻿using MyTelegram;
+﻿using System.Diagnostics.CodeAnalysis;
+using MyTelegram;
 using MyTelegram.MessengerServer;
 using MyTelegram.MessengerServer.Abp;
 using Serilog;
