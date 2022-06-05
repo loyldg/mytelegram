@@ -9,8 +9,6 @@ public class MyTelegramMessengerServerAbpModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var configuration = context.Services.GetConfiguration();
-        context.Services.Configure<MyTelegramMessengerServerOptions>(
-            configuration.GetRequiredSection(nameof(MyTelegramMessengerServerOptions)));
 
         context.Services.UseMyTelegramMessengerServer(options =>
         {
