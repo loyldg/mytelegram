@@ -10,7 +10,7 @@ public class ChatAdminRights : ValueObject
         true,
         true,
         true,
-        true,
+        false,
         true,
         true);
 
