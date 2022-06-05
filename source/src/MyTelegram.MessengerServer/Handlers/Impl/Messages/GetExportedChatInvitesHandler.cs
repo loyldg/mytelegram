@@ -8,17 +8,16 @@ public class GetExportedChatInvitesHandler :
     RpcResultObjectHandler<RequestGetExportedChatInvites, IExportedChatInvites>,
     IGetExportedChatInvitesHandler, IProcessedHandler
 {
-    private readonly IAppSettingManager _appSettingManager;
     private readonly IPeerHelper _peerHelper;
     private readonly IRandomHelper _randomHelper;
-
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
     public GetExportedChatInvitesHandler(IPeerHelper peerHelper,
-        IAppSettingManager appSettingManager,
-        IRandomHelper randomHelper)
+        IRandomHelper randomHelper,
+        IOptions<MyTelegramMessengerServerOptions> options)
     {
         _peerHelper = peerHelper;
-        _appSettingManager = appSettingManager;
         _randomHelper = randomHelper;
+        _options = options;
     }
 
     protected override Task<IExportedChatInvites> HandleCoreAsync(IRequestInput input,
@@ -37,7 +36,7 @@ public class GetExportedChatInvitesHandler :
                     Date = CurrentDate,
                     ExpireDate = DateTime.UtcNow.AddDays(30).ToTimestamp(),
                     Link =
-                        $"{_appSettingManager.GetSetting(MyTelegramServerConsts.JoinChatDomain)}/AAAAA{peer.PeerId}/{_randomHelper.GenerateRandomString(8)}",
+                        $"{_options.Value.JoinChatDomain}/AAAAA{peer.PeerId}/{_randomHelper.GenerateRandomString(8)}",
                     Permanent = true,
                     Revoked = false,
                     StartDate = CurrentDate,

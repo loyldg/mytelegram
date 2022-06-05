@@ -8,18 +8,18 @@ public class TlDifferenceConverter : ITlDifferenceConverter
     private readonly ITlChatConverter _chatConverter;
     private readonly ITlUserConverter _userConverter;
     private readonly IObjectMapper _objectMapper;
-    private readonly IAppSettingManager _appSettingManager;
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
     public TlDifferenceConverter(ITlMessageConverter messageConverter,
         ITlChatConverter chatConverter,
         ITlUserConverter userConverter,
         IObjectMapper objectMapper,
-        IAppSettingManager appSettingManager)
+        IOptions<MyTelegramMessengerServerOptions> options)
     {
         _messageConverter = messageConverter;
         _chatConverter = chatConverter;
         _userConverter = userConverter;
         _objectMapper = objectMapper;
-        _appSettingManager = appSettingManager;
+        _options = options;
     }
 
     public IChannelDifference ToChannelDifference(GetMessageOutput output,
@@ -28,7 +28,7 @@ public class TlDifferenceConverter : ITlDifferenceConverter
         int updatesMaxPts = 0,
         bool resetLeftToFalse = false)
     {
-        var timeout = _appSettingManager.GetIntSetting(MyTelegramServerConsts.ChannelGetDifferenceIntervalSeconds);
+        var timeout = _options.Value.ChannelGetDifferenceIntervalSeconds;
         if (output.MessageList.Count == 0 && updatesList.Count == 0)
         {
             return new TChannelDifferenceEmpty { Final = true, Pts = output.Pts, Timeout = timeout };

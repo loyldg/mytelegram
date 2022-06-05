@@ -9,20 +9,20 @@ namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public class TlChatConverter : ITlChatConverter
 {
-    private readonly IAppSettingManager _appSettingManager;
     private readonly IObjectMapper _objectMapper;
     private readonly ITlPhotoConverter _photoConverter;
     private readonly ITlUserConverter _userConverter;
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
 
     public TlChatConverter(IObjectMapper objectMapper,
         ITlPhotoConverter photoConverter,
         ITlUserConverter userConverter,
-        IAppSettingManager appSettingManager)
+        IOptions<MyTelegramMessengerServerOptions> options)
     {
         _objectMapper = objectMapper;
         _photoConverter = photoConverter;
         _userConverter = userConverter;
-        _appSettingManager = appSettingManager;
+        _options = options;
     }
 
     public IChat ToChannel(IChannelReadModel channelReadModel,
@@ -369,7 +369,7 @@ public class TlChatConverter : ITlChatConverter
     public IExportedChatInvite ToExportedChatInvite(ExportChatInviteEvent eventData)
     {
         var item = _objectMapper.Map<ExportChatInviteEvent, TChatInviteExported>(eventData);
-        item.Link = $"{_appSettingManager.GetSetting(MyTelegramServerConsts.JoinChatDomain)}/{item.Link}";
+        item.Link = $"{_options.Value.JoinChatDomain}/{item.Link}";
         return item;
     }
 
