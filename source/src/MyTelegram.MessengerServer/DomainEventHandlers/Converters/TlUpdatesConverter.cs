@@ -402,7 +402,8 @@ public class TlUpdatesConverter : ITlUpdatesConverter
 
         var item = aggregateEvent.MessageItem;
         if (item.Media?.Length > 0 ||
-            item.MessageSubType == MessageSubType.ForwardMessage
+            item.MessageSubType == MessageSubType.ForwardMessage||
+            item.SendMessageType == SendMessageType.MessageService
            )
         {
             var updateMessageId = new TUpdateMessageID { Id = item.MessageId, RandomId = item.RandomId };
