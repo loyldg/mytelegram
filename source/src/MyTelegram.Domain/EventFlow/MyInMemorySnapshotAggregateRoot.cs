@@ -7,6 +7,7 @@ public abstract class MyInMemorySnapshotAggregateRoot<TAggregate, TIdentity, TSn
     where TIdentity : IIdentity
     where TSnapshot : ISnapshot
 {
+    private readonly ISourceId _emptySourceId = new SourceId("EmptySourceId");
     protected MyInMemorySnapshotAggregateRoot(
         TIdentity id,
         ISnapshotStrategy snapshotStrategy)
@@ -31,7 +32,7 @@ public abstract class MyInMemorySnapshotAggregateRoot<TAggregate, TIdentity, TSn
         if (snapshot == null)
         {
             await base.LoadAsync(eventStore, snapshotStore, cancellationToken).ConfigureAwait(false);
-            await SaveInMemorySnapshotContainerAsync(snapshotStore, cancellationToken).ConfigureAwait(false);
+            await SaveInMemorySnapshotContainerAsync(snapshotStore, _emptySourceId, cancellationToken).ConfigureAwait(false);
             return;
         }
 
@@ -58,14 +59,14 @@ public abstract class MyInMemorySnapshotAggregateRoot<TAggregate, TIdentity, TSn
         var domainEvents = await base.CommitAsync(eventStore, snapshotStore, sourceId, cancellationToken)
             .ConfigureAwait(false);
 
-        await SaveInMemorySnapshotContainerAsync(snapshotStore, cancellationToken).ConfigureAwait(false);
+        await SaveInMemorySnapshotContainerAsync(snapshotStore, sourceId, cancellationToken).ConfigureAwait(false);
 
         if (!await SnapshotStrategy.ShouldCreateSnapshotAsync(this, cancellationToken).ConfigureAwait(false))
         {
             return domainEvents;
         }
 
-        var snapshotContainer = await CreateSnapshotContainerAsync(cancellationToken).ConfigureAwait(false);
+        var snapshotContainer = await CreateSnapshotContainerAsync(sourceId, cancellationToken).ConfigureAwait(false);
         await snapshotStore.StoreSnapshotAsync<TAggregate, TIdentity, TSnapshot>(
                 Id,
                 snapshotContainer,
@@ -77,10 +78,10 @@ public abstract class MyInMemorySnapshotAggregateRoot<TAggregate, TIdentity, TSn
 
     protected abstract Task<TSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken);
 
-    private async Task<SnapshotContainer> CreateSnapshotContainerAsync(CancellationToken cancellationToken)
+    private async Task<SnapshotContainer> CreateSnapshotContainerAsync(ISourceId sourceId, CancellationToken cancellationToken)
     {
         var snapshotTask = CreateSnapshotAsync(cancellationToken);
-        var snapshotMetadataTask = CreateSnapshotMetadataAsync(cancellationToken);
+        var snapshotMetadataTask = CreateSnapshotMetadataAsync(sourceId, cancellationToken);
 
         await Task.WhenAll(snapshotTask, snapshotMetadataTask).ConfigureAwait(false);
 
@@ -91,14 +92,19 @@ public abstract class MyInMemorySnapshotAggregateRoot<TAggregate, TIdentity, TSn
         return snapshotContainer;
     }
 
-    protected virtual Task<ISnapshotMetadata> CreateSnapshotMetadataAsync(CancellationToken cancellationToken)
+    protected virtual Task<ISnapshotMetadata> CreateSnapshotMetadataAsync(ISourceId sourceId, CancellationToken cancellationToken)
     {
+        var sourceIds = PreviousSourceIds.ToList();
+        if (sourceId != _emptySourceId)
+        {
+            sourceIds.Add(sourceId);
+        }
         var snapshotMetadata = new SnapshotMetadata
         {
             AggregateId = Id.Value,
             AggregateName = Name.Value,
             AggregateSequenceNumber = Version,
-            PreviousSourceIds = PreviousSourceIds.ToList()
+            PreviousSourceIds = sourceIds
         };
 
         return Task.FromResult<ISnapshotMetadata>(snapshotMetadata);
@@ -138,11 +144,12 @@ public abstract class MyInMemorySnapshotAggregateRoot<TAggregate, TIdentity, TSn
     }
 
     private async Task SaveInMemorySnapshotContainerAsync(ISnapshotStore snapshotStore,
+        ISourceId sourceId,
         CancellationToken cancellationToken)
     {
         if (snapshotStore is ISnapshotWithInMemoryCacheStore snapshotWithInMemoryCacheStore)
         {
-            var snapshotContainer = await CreateSnapshotContainerAsync(cancellationToken).ConfigureAwait(false);
+            var snapshotContainer = await CreateSnapshotContainerAsync(sourceId, cancellationToken).ConfigureAwait(false);
             await snapshotWithInMemoryCacheStore
                 .StoreInMemorySnapshotAsync<TAggregate, TIdentity, TSnapshot>(Id, snapshotContainer, cancellationToken)
                 .ConfigureAwait(false);

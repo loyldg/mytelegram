@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.UserName;
 
-public class UserNameAggregate : SnapshotAggregateRoot<UserNameAggregate, UserNameId, UserNameSnapshot>
+public class UserNameAggregate : MySnapshotAggregateRoot<UserNameAggregate, UserNameId, UserNameSnapshot>
 {
     private readonly UserNameState _state = new();
     public UserNameAggregate(UserNameId id) : base(id, SnapshotEveryFewVersionsStrategy.Default)

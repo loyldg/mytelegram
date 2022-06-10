@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.PeerNotifySettings;
 
-public class PeerNotifySettingsAggregate : SnapshotAggregateRoot<PeerNotifySettingsAggregate, PeerNotifySettingsId,
+public class PeerNotifySettingsAggregate : MySnapshotAggregateRoot<PeerNotifySettingsAggregate, PeerNotifySettingsId,
     PeerNotifySettingsSnapshot>
 {
     private readonly PeerNotifySettingsState _state = new();
