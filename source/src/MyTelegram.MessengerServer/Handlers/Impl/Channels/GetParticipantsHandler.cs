@@ -130,6 +130,11 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
                     break;
             }
 
+            if (joinedChannelIdList.Contains(channelReadModel.ChannelId))
+            {
+                forceNotLeft = true;
+            }
+
             var channelMemberReadModels = await _queryProcessor
                 .ProcessAsync(query,
                     default).ConfigureAwait(false);
