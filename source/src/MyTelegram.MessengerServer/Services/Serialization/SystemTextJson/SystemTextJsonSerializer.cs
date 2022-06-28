@@ -10,13 +10,14 @@ public class SystemTextJsonSerializer : ISystemTextJsonSerializer
     private readonly JsonSerializerOptions _optionsIndented = new()
     {
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         WriteIndented = true
     };
 
     private readonly JsonSerializerOptions _optionsNotIndented = new()
     {
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
-        //PropertyNamingPolicy =  JsonNamingPolicy.CamelCase
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        PropertyNamingPolicy =  JsonNamingPolicy.CamelCase
     };
 
     public SystemTextJsonSerializer(Action<JsonSerializerOptions>? options = default)
