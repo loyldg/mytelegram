@@ -26,6 +26,8 @@
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <PublishSingleFile>true</PublishSingleFile>
     <DockerfileContext>..\..</DockerfileContext>
+
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
   </PropertyGroup>
 
 

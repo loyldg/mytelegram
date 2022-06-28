@@ -19,17 +19,17 @@ COPY ["src/MyTelegram.GrpcService/MyTelegram.GrpcService.csproj", "src/MyTelegra
 COPY ["src/MyTelegram.MessengerServer/MyTelegram.MessengerServer.csproj", "src/MyTelegram.MessengerServer/"]
 COPY ["src/MyTelegram.Schema/MyTelegram.Schema.csproj", "src/MyTelegram.Schema/"]
 COPY ["src/Microsoft.Cuckoo/Microsoft.Cuckoo.csproj", "src/Microsoft.Cuckoo/"]
-COPY sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
-COPY glibc-2.35-r0.apk /app/glibc-2.35-r0.apk
-
+#COPY sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
+#COPY glibc-2.35-r0.apk /app/glibc-2.35-r0.apk
+RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk &&\
+	apk add glibc-2.35-r0.apk
 RUN dotnet restore  --runtime linux-musl-x64 "src/MyTelegram.MessengerServer.Abp/MyTelegram.MessengerServer.Abp.csproj"
 COPY . .
 WORKDIR "/src/src/MyTelegram.MessengerServer.Abp"
-
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories &&\
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories &&\
 # Install gcompat package error should be Ignored
-	apk --no-cache add /app/glibc-2.35-r0.apk && apk --no-cache add gcompat ||true
-
+	apk --no-cache add gcompat ||true
 RUN dotnet build -r linux-musl-x64 "MyTelegram.MessengerServer.Abp.csproj" -c Release -o /app/build
 
 FROM build AS publish
@@ -44,7 +44,6 @@ RUN dotnet publish "MyTelegram.MessengerServer.Abp.csproj" \
 #FROM base AS final
 FROM alpine as final
 WORKDIR /app
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories &&\
-	apk --no-cache add libstdc++  
+RUN apk --no-cache add libstdc++   
 COPY --from=publish /app/publish .
 ENTRYPOINT [ "/app/MyTelegram.MessengerServer.Abp"]
