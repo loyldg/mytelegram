@@ -3,8 +3,8 @@
 public class MyTelegramMessengerServerOptions
 {
     public string FileServerAppId { get; set; }
-    public string FileServerRpcServiceUrl { get; set; }
-    public string IdGeneratorRpcServiceUrl { get; set; }
+    public string FileServerGrpcServiceUrl { get; set; }
+    public string IdGeneratorGrpcServiceUrl { get; set; }
     public string JoinChatDomain { get; set; }
     public int ChannelGetDifferenceIntervalSeconds { get; set; }
     public bool UseInMemoryFilters { get; set; }
