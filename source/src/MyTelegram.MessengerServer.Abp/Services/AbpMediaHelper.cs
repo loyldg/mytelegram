@@ -15,7 +15,7 @@ public class AbpMediaHelper : IMediaHelper
     public async Task<IEncryptedFile> SaveEncryptedFileAsync(long reqMsgId,
         IInputEncryptedFile encryptedFile)
     {
-        var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerRpcServiceUrl);
+        var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerGrpcServiceUrl);
         var r = await client
             .SaveEncryptedFileAsync(new SaveEncryptedFileRequest
             {
@@ -41,7 +41,7 @@ public class AbpMediaHelper : IMediaHelper
         string? name,
         string? md5)
     {
-        var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerRpcServiceUrl);
+        var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerGrpcServiceUrl);
         var r = await client.SavePhotoAsync(new SavePhotoRequest
         {
             FileId = fileId,
@@ -60,7 +60,7 @@ public class AbpMediaHelper : IMediaHelper
     {
         try
         {
-            var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerRpcServiceUrl);
+            var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerGrpcServiceUrl);
             var r = await client.SaveMediaAsync(new SaveMediaRequest { Media = ByteString.CopyFrom(media.ToBytes()) })
                 .ResponseAsync.ConfigureAwait(false);
 

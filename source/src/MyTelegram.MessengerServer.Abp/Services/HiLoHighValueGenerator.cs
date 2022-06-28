@@ -13,7 +13,7 @@ public class HiLoHighValueGenerator : IHiLoHighValueGenerator, ITransientDepende
         long key,
         CancellationToken cancellationToken = default)
     {
-        var client = GrpcClientFactory.CreateIdGeneratorServiceClient(_options.Value.IdGeneratorRpcServiceUrl);
+        var client = GrpcClientFactory.CreateIdGeneratorServiceClient(_options.Value.IdGeneratorGrpcServiceUrl);
         var r = await client
             .GenerateNextHighValueAsync(new GenerateNextHighValueRequest { IdType = (int)idType, IdKey = key }, cancellationToken: cancellationToken)
             .ResponseAsync.ConfigureAwait(false);
