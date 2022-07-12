@@ -13,19 +13,22 @@ public class SendCodeHandler : RpcResultObjectHandler<RequestSendCode, ISentCode
     private readonly IHashHelper _hashHelper;
     private readonly IPeerHelper _peerHelper;
     private readonly IRandomHelper _randomHelper;
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
 
     public SendCodeHandler(
         ICommandBus commandBus,
         IRandomHelper randomHelper,
         IHashHelper hashHelper,
         IPeerHelper peerHelper,
-        ICacheManager<UserCacheItem> cacheManager)
+        ICacheManager<UserCacheItem> cacheManager,
+        IOptions<MyTelegramMessengerServerOptions> options)
     {
         _commandBus = commandBus;
         _randomHelper = randomHelper;
         _hashHelper = hashHelper;
         _peerHelper = peerHelper;
         _cacheManager = cacheManager;
+        _options = options;
     }
 
     protected override async Task<ISentCode> HandleCoreAsync(IRequestInput input,
@@ -44,10 +47,13 @@ public class SendCodeHandler : RpcResultObjectHandler<RequestSendCode, ISentCode
         }
 
         // ReSharper disable once RedundantAssignment
-        var code = _randomHelper.NextInt(10000, 99999).ToString();
-#if DEBUG
-        code = "2";
-#endif
+        //        var code = _randomHelper.NextInt(10000, 99999).ToString();
+        //#if DEBUG
+        //        code = "2";
+        //#endif
+        var code = _options.Value.FixedVerifyCode == 0
+            ? _randomHelper.NextInt(10000, 99999).ToString()
+            : _options.Value.FixedVerifyCode.ToString();
 
         var codeHash = _randomHelper.NextLong().ToString();
         var phoneCodeHash = BitConverter.ToString(_hashHelper.Sha1(Encoding.UTF8.GetBytes(codeHash)))
@@ -66,8 +72,11 @@ public class SendCodeHandler : RpcResultObjectHandler<RequestSendCode, ISentCode
                 DateTimeOffset.UtcNow.ToUnixTimeSeconds());
         await _commandBus.PublishAsync(sendAppCodeCommand, CancellationToken.None).ConfigureAwait(false);
 
-        return new TSentCode {
-            Type = new TSentCodeTypeSms { Length = code.Length }, PhoneCodeHash = phoneCodeHash, Timeout = timeout
+        return new TSentCode
+        {
+            Type = new TSentCodeTypeSms { Length = code.Length },
+            PhoneCodeHash = phoneCodeHash,
+            Timeout = timeout
         };
     }
 }

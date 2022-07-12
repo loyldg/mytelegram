@@ -5,11 +5,11 @@ public class MyTelegramMessengerServerOptions
     public string FileServerAppId { get; set; }
     public string FileServerGrpcServiceUrl { get; set; }
     public string IdGeneratorGrpcServiceUrl { get; set; }
+    public int FixedVerifyCode { get; set; }
     public string JoinChatDomain { get; set; }
     public int ChannelGetDifferenceIntervalSeconds { get; set; }
     public bool UseInMemoryFilters { get; set; }
     public int BlockedCountMax { get; set; }
-
     public int ChatSizeMax { get; set; }
     public int MegagroupSizeMax { get; set; }
     public int EditTimeLimit { get; set; }
