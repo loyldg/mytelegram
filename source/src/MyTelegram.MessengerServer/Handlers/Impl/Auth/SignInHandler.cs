@@ -56,7 +56,7 @@ public class SignInHandler : RpcResultObjectHandler<RequestSignIn, IAuthorizatio
 
         var command = new CheckSignInCodeCommand(AppCodeId.Create(obj.PhoneNumber.ToPhoneNumber(), obj.PhoneCodeHash),
             input.ToRequestInfo(),
-            obj.PhoneCodeHash,
+            obj.PhoneCode,
             userId,
             Guid.NewGuid()
         );

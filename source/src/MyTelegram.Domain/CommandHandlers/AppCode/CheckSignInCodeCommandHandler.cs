@@ -7,7 +7,7 @@ public class CheckSignInCodeCommandHandler : CommandHandler<AppCodeAggregate, Ap
         CancellationToken cancellationToken)
     {
         aggregate.CheckSignInCode(command.Request,
-            command.PhoneCodeHash,
+            command.Code,
             command.UserId,
             command.CorrelationId);
         return Task.CompletedTask;
