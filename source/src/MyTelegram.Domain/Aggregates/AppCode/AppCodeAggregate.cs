@@ -18,9 +18,9 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         Emit(new AppCodeCanceledEvent(reqMsgId, phoneNumber, phoneCodeHash));
     }
 
-    private bool CheckCode(string phoneCodeHash)
+    private bool CheckCode(string code)
     {
-        if (phoneCodeHash.IsNullOrEmpty())
+        if (code.IsNullOrEmpty())
         {
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PhoneCodeEmpty);
         }
@@ -37,16 +37,16 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         }
 
         // the validation failed count should be saved,so not throw exception
-        return string.Equals(_state.PhoneCodeHash, phoneCodeHash, StringComparison.OrdinalIgnoreCase);
+        return string.Equals(_state.Code, code, StringComparison.OrdinalIgnoreCase);
     }
 
     public void CheckSignInCode(RequestInfo request,
-        string phoneCodeHash,
+        //string phoneCodeHash,
+        string code,
         long userId,
         Guid correlationId)
     {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        var isCodeValid = CheckCode(phoneCodeHash);
+        var isCodeValid = CheckCode(code);
 
         Emit(new CheckSignInCodeCompletedEvent(request,
             isCodeValid,
@@ -64,23 +64,17 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        var isCodeValid = CheckCode(phoneCodeHash);
+        //var isCodeValid = CheckCode(code);
 
-        if (userId == 0 && isCodeValid)
-        {
-            Emit(new SignUpRequiredEvent(request.ReqMsgId));
-        }
-        else
-        {
+
             Emit(new CheckSignUpCodeCompletedEvent(request,
-                isCodeValid,
+            true,
                 userId,
                 accessHash,
                 phoneNumber,
                 firstName,
                 lastName,
                 correlationId));
-        }
     }
 
     public void Create(RequestInfo request,

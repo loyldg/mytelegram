@@ -22,7 +22,7 @@ public class UserSignInSagaTests : TestsFor<SignInSaga>
         var domainEvent =
             ADomainEvent<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>(aggregateEvent, A<AppCodeId>(), 1);
 
-        var exception = await Assert.ThrowsAsync<DomainError>(async () => await Sut.HandleAsync(domainEvent, _sagaContext.Object, CancellationToken.None).ConfigureAwait(false));
+        var exception = await Assert.ThrowsAsync<UserFriendlyException>(async () => await Sut.HandleAsync(domainEvent, _sagaContext.Object, CancellationToken.None).ConfigureAwait(false));
 
         exception.Message.ShouldBe(RpcErrorMessages.PhoneCodeInvalid);
     }

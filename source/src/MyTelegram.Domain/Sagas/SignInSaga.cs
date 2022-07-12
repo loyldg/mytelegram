@@ -6,7 +6,8 @@ public class SignInSaga :
     MyInMemoryAggregateSaga<SignInSaga, SignInSagaId, SignInSagaLocator>,
     ISagaIsStartedBy<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>,
     ISagaHandles<UserAggregate, UserId, CheckUserStatusCompletedEvent>,
-    IApply<SignInSuccessEvent>
+    IApply<SignInSuccessEvent>,
+    IApply<SignUpRequiredEvent>
 {
     private readonly SignInSagaState _state = new();
 
@@ -44,13 +45,22 @@ public class SignInSaga :
         if (!domainEvent.AggregateEvent.IsCodeValid)
         {
             await CompleteAsync(cancellationToken);
-            throw DomainError.With(RpcErrorMessages.PhoneCodeInvalid);
+            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PhoneCodeInvalid);
         }
 
+        if (domainEvent.AggregateEvent.UserId == 0)
+        {
+            Emit(new SignUpRequiredEvent(domainEvent.AggregateEvent.Request));
+            return;
+        }
         Emit(new SignInStartedEvent(domainEvent.AggregateEvent.Request));
         var checkUserStatusCommand = new CheckUserStatusCommand(UserId.Create(domainEvent.AggregateEvent.UserId),
             domainEvent.AggregateEvent.Request.ReqMsgId,
             domainEvent.AggregateEvent.CorrelationId);
         Publish(checkUserStatusCommand);
+    }
+    public void Apply(SignUpRequiredEvent aggregateEvent)
+    {
+        CompleteAsync();
     }
 }

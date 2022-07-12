@@ -4,7 +4,7 @@ namespace MyTelegram.MessengerServer.DomainEventHandlers;
 
 public class OtherDomainEventHandler : DomainEventHandlerBase,
     ISubscribeSynchronousTo<SignInSaga, SignInSagaId, SignInSuccessEvent>,
-    ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, SignUpRequiredEvent>,
+    ISubscribeSynchronousTo<SignInSaga, SignInSagaId, SignUpRequiredEvent>,
     ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedEvent>,
     ISubscribeSynchronousTo<DeleteMessageSaga, DeleteMessageSagaId, DeleteMessagesCompletedEvent>,
     ISubscribeSynchronousTo<ClearHistorySaga, ClearHistorySagaId, ClearSingleUserHistoryCompletedEvent>
@@ -34,10 +34,10 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
         _logger = logger;
     }
 
-    public Task HandleAsync(IDomainEvent<AppCodeAggregate, AppCodeId, SignUpRequiredEvent> domainEvent,
+    public Task HandleAsync(IDomainEvent<SignInSaga, SignInSagaId, SignUpRequiredEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
+        return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
             _authorizationConverter.CreateSignUpAuthorization());
     }
 

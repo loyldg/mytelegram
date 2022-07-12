@@ -12,7 +12,7 @@ public class AppCodeState : AggregateState<AppCodeAggregate, AppCodeId, AppCodeS
     public int Expire { get; private set; }
     public int FailedCount { get; private set; }
     public string PhoneCodeHash { get; private set; } = default!;
-
+    public string Code { get; private set; } = default!;
     public void Apply(AppCodeCanceledEvent aggregateEvent)
     {
         Canceled = true;
@@ -26,6 +26,7 @@ public class AppCodeState : AggregateState<AppCodeAggregate, AppCodeId, AppCodeS
     public void Apply(AppCodeCreatedEvent aggregateEvent)
     {
         PhoneCodeHash = aggregateEvent.PhoneCodeHash;
+        Code = aggregateEvent.Code;
         Expire = aggregateEvent.Expire;
     }
 
