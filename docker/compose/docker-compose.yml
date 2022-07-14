@@ -166,6 +166,8 @@ services:
        RabbitMQ__Connections__Default__UserName: ${RabbitMqConnectionsDefaultUserName}
        RabbitMQ__Connections__Default__Password: ${RabbitMqConnectionsDefaultPassword}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       App__DcOptions__0__IpAddress: ${DcOptions0IpAddress}
+       App__DcOptions__0__Port: ${DcOptions0Port}
     depends_on:
       - mongodb
       - rabbitmq
