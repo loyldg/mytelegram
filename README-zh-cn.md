@@ -2,8 +2,6 @@
 
 MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/api)的开源实现,支持私有化部署服务端,客户端使用官方的开源客户端
 
-#
-
 ## 特性
 * 支持的MTProto Layer:**`140`**  
 * 支持的MTProto协议(2.0):**`Abridged`**,**`Intermediate`**,支持通过普通`Tcp`和`Websocket`进行传输  
@@ -16,7 +14,6 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 * 机器人(部分支持,Pro版本)
 * 2FA(Pro版本)
 
-#
 ## 运行MyTelegram服务端
 - ### 在docker中运行MyTelegram服务端
 1. 下载docker-compose配置文件
@@ -37,12 +34,11 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 5. 安装RabbitMQ
 6. 修改目录里的start-all.bat/start-all.sh配置信息
 7. 运行start-all.bat/start-all.sh
-8. 使用Telegram客户端进行测试,如果要使用[已经编译好的桌面客户端](https://github.com/loyldg/mytelegram/releases/download/v0.6.628/Telegram-3.7.4-win-x64.zip),需要将Gateway Server服务端的IP地址加入`c:\windows\system32\drivers\etc\hosts`,比如网关服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
+8. 使用Telegram客户端进行测试,如果要使用[已经编译好的桌面客户端(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.6.628/Telegram-3.7.4-win-x64.zip),需要将Gateway Server服务端的IP地址加入`%SystemRoot%/system32/drivers/etc/hosts`,比如网关服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
 ```
 192.168.1.100    demos.telegram2.com
 ```
 
-#
 ## 编译Telegram客户端
 所有客户端编译方法均参考官方客户端的编译方法,只需要替换掉服务器地址和RSA公钥
 
@@ -99,8 +95,6 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
     *    **src\lib\mtproto\dcConfigurator.ts**替换里面的服务器地址和域名
     *    **src\config\app.ts** 替换里面的域名
     *    **webpack.common.js** 替换里面的域名和IP地址
-#
 ## 反馈
-<a href="https://t.me/mytelegramserver" target="_blank">
-  <img alt="MyTelegram" width="35px" src="https://telegram.org/img/t_logo.svg?1" />
-</a>
+联系作者:[https://t.me/mytelegram666](https://t.me/mytelegram666)  
+加入电报群:[https://t.me/+S-aNBoRvCRpPyXrR](https://t.me/+S-aNBoRvCRpPyXrR)

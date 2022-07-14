@@ -1,7 +1,6 @@
 # MyTelegram  [中文](README-zh-cn.md)|English
-MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment and support all offical client
+MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment
 
-#
 ## Features
 * Supported MTProto Layer:**`140`**  
 * Supported MTProto Protocol(2.0):**`Abridged`**,**`Intermediate`**  
@@ -14,7 +13,6 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 * Bot(Partial support,Pro version)
 * 2FA(Pro version)
 
-#
 ## Run MyTelegram server
 - ### Run MyTelegram server with docker
 1. Download docker-compose configuration file
@@ -28,19 +26,18 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
     ```
 
 - ### Run MyTelegram manually
-1. Download mytelegram server from **https://github.com/loyldg/mytelegram/releases**,supported platform:`win-x64` and `linux-x64`
+1. Download mytelegram server from [https://github.com/loyldg/mytelegram/releases](https://github.com/loyldg/mytelegram/releases),supported platform:`win-x64` and `linux-x64`
 2. Uncompress downloaded file
 3. Install Redis
 4. Install MongoDB
 5. Intall RabbitMQ
 6. Modify server configuration in start-all.bat/start-all.sh
 7. Run start-all.bat/start-all.sh
-8. Test using Telegram client,if you want to test with the [pre-build tdesktop client(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.6.628/Telegram-3.7.4-win-x64.zip),add the gateway server's ip address into hosts file(`c:\windows\system32\drivers\etc\hosts`),for example your gateway server ip is `192.168.1.100`,add the following line into hosts file
+8. Test using Telegram client,if you want to use the [compiled  tdesktop client(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.6.628/Telegram-3.7.4-win-x64.zip),add the gateway server's ip address into hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example your gateway server ip is `192.168.1.100`,add the following line into hosts file
 ```
 192.168.1.100    demos.telegram2.com
 ```
 
-#
 ## Build Telegram client
 For all clients,only need to replace server address and RSA public key,and then follow the offical documents to build it  
 
@@ -97,3 +94,6 @@ https://github.com/morethanwords/tweb
     *    **src\lib\mtproto\dcConfigurator.ts** Replace the domain and server address
     *    **src\config\app.ts** Replace the domain
     *    **webpack.common.js** Replace the domain and server address
+## Feedback
+Contact author:[https://t.me/mytelegram666](https://t.me/mytelegram666)  
+Join telegram group:[https://t.me/+S-aNBoRvCRpPyXrR](https://t.me/+S-aNBoRvCRpPyXrR)
