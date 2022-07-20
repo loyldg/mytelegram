@@ -67,6 +67,8 @@ services:
        RabbitMQ__Connections__Default__Password: ${RabbitMqConnectionsDefaultPassword}
        Redis__Configuration: ${RedsConfiguration}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       App__Tcp__Ip: ${GatewayServerTcpIp}
+       App__Http__Ip: ${GatewayServerHttpIp}
     depends_on:
       - rabbitmq
       - mongodb
@@ -165,9 +167,10 @@ services:
        RabbitMQ__Connections__Default__Port: ${RabbitMqConnectionsDefaultPort}
        RabbitMQ__Connections__Default__UserName: ${RabbitMqConnectionsDefaultUserName}
        RabbitMQ__Connections__Default__Password: ${RabbitMqConnectionsDefaultPassword}
-       Serilog__MinimumLevel__Default: ${DefaultLogLevel}
        App__DcOptions__0__IpAddress: ${DcOptions0IpAddress}
        App__DcOptions__0__Port: ${DcOptions0Port}
+       App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
+       Serilog__MinimumLevel__Default: ${DefaultLogLevel}
     depends_on:
       - mongodb
       - rabbitmq
@@ -189,6 +192,7 @@ services:
        App__IdGeneratorGrpcServiceUrl: ${IdGeneratorGrpcServiceUrl}
        App__DcOptions__0__IpAddress: ${DcOptions0IpAddress}
        App__DcOptions__0__Port: ${DcOptions0Port}
+       App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
     volumes:
       - ./data/mytelegram/messenger/logs:/data/Logs
