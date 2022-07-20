@@ -3,8 +3,8 @@
 MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/api)的开源实现,支持私有化部署服务端,客户端使用官方的开源客户端
 
 ## 特性
-* 支持的MTProto Layer:**`140`**  
-* 支持的MTProto协议(2.0):**`Abridged`**,**`Intermediate`**,支持通过普通`Tcp`和`Websocket`进行传输  
+* 支持的MTProto Layer:**`143`**  
+* 支持的[MTProto协议(2.0)](https://core.telegram.org/mtproto):**`Abridged`**,**`Intermediate`**,支持通过普通`Tcp`和`Websocket`进行传输  
 * 私聊
 * 普通群
 * 超级群
@@ -16,12 +16,13 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 
 ## 运行MyTelegram服务端
 - ### 在docker中运行MyTelegram服务端
-1. 下载docker-compose配置文件
+1. 下载docker-compose配置文件,将其放到同一个目录里
     ```
-    git clone https://github.com/loyldg/mytelegram.git
+    https://github.com/loyldg/mytelegram/blob/dev/docker/compose/docker-compose.yml
+    https://github.com/loyldg/mytelegram/blob/dev/docker/compose/.env
     ```
-2. 修改**mytelegram/docker/compose/.env**文件里的服务器IP地址
-3. 在compose目录里运行docker-compose
+2. 修改**.env**文件里的服务器IP地址
+3. 在docker-compose.yml文件所在的目录运行下面的命令
     ```
     docker compose up
     ```
@@ -34,7 +35,7 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 5. 安装RabbitMQ
 6. 修改目录里的start-all.bat/start-all.sh配置信息
 7. 运行start-all.bat/start-all.sh
-8. 使用Telegram客户端进行测试,如果要使用[已经编译好的桌面客户端(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.6.628/Telegram-3.7.4-win-x64.zip),需要将Gateway Server服务端的IP地址加入`%SystemRoot%/system32/drivers/etc/hosts`,比如网关服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
+8. 使用Telegram客户端进行测试,如果要使用[已经编译好的桌面客户端(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.7.720/Telegram-4.0.2-win-x64.zip),需要将Gateway Server服务端的IP地址加入`%SystemRoot%/system32/drivers/etc/hosts`,比如网关服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
 ```
 192.168.1.100    demos.telegram2.com
 ```
@@ -70,11 +71,9 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
 如果要使用自己的公钥,需要一并替换AuthServer的私钥:`private.pkcs8.key`
 
 1. 编译telegram桌面客户端 https://github.com/telegramdesktop/tdesktop   
-    * 切换到v3.7.4分支版本(支持Layer140的最高版本) `git checkout v3.7.4`
     * 替换**Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**里的服务器地址和RSA公钥
 
 2. 编译telegram安卓客户端 https://github.com/DrKLO/Telegram
-    * 切换到v.8.7.4分支版本(支持Layer140的最高版本) `git checkout 32aef724`
     * **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** 由于目前不支持Stickers相关功能,需要注释setSticker方法的以下代码,否则客户端会不停的调用获取Stickers的方法
         ```
         MediaDataController.getInstance(currentAccount).loadStickersByEmojiOrName(AndroidUtilities.STICKERS_PLACEHOLDER_PACK_NAME, false, set == null);

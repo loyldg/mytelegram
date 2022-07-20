@@ -6,12 +6,12 @@ namespace MyTelegram.Schema.Upload;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/upload.getCdnFileHashes" />
 ///</summary>
-[TlObject(0x4da54231)]
+[TlObject(0x91dc3f31)]
 public sealed class RequestGetCdnFileHashes : IRequest<TVector<MyTelegram.Schema.IFileHash>>
 {
-    public uint ConstructorId => 0x4da54231;
+    public uint ConstructorId => 0x91dc3f31;
     public byte[] FileToken { get; set; }
-    public int Offset { get; set; }
+    public long Offset { get; set; }
 
     public void ComputeFlag()
     {
@@ -29,6 +29,6 @@ public sealed class RequestGetCdnFileHashes : IRequest<TVector<MyTelegram.Schema
     public void Deserialize(BinaryReader br)
     {
         FileToken = br.Deserialize<byte[]>();
-        Offset = br.ReadInt32();
+        Offset = br.ReadInt64();
     }
 }

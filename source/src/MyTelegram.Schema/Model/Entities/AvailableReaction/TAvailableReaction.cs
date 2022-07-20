@@ -13,6 +13,7 @@ public class TAvailableReaction : IAvailableReaction
     public uint ConstructorId => 0xc077ec01;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Inactive { get; set; }
+    public bool Premium { get; set; }
     public string Reaction { get; set; }
     public string Title { get; set; }
 
@@ -54,6 +55,7 @@ public class TAvailableReaction : IAvailableReaction
     public void ComputeFlag()
     {
         if (Inactive) { Flags[0] = true; }
+        if (Premium) { Flags[2] = true; }
         if (AroundAnimation != null) { Flags[1] = true; }
         if (CenterIcon != null) { Flags[1] = true; }
     }
@@ -78,6 +80,7 @@ public class TAvailableReaction : IAvailableReaction
     {
         Flags = br.Deserialize<BitArray>();
         if (Flags[0]) { Inactive = true; }
+        if (Flags[2]) { Premium = true; }
         Reaction = br.Deserialize<string>();
         Title = br.Deserialize<string>();
         StaticIcon = br.Deserialize<MyTelegram.Schema.IDocument>();

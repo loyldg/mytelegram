@@ -6,12 +6,12 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.getDocumentByHash" />
 ///</summary>
-[TlObject(0x338e2464)]
+[TlObject(0xb1f2061f)]
 public sealed class RequestGetDocumentByHash : IRequest<MyTelegram.Schema.IDocument>
 {
-    public uint ConstructorId => 0x338e2464;
+    public uint ConstructorId => 0xb1f2061f;
     public byte[] Sha256 { get; set; }
-    public int Size { get; set; }
+    public long Size { get; set; }
     public string MimeType { get; set; }
 
     public void ComputeFlag()
@@ -31,7 +31,7 @@ public sealed class RequestGetDocumentByHash : IRequest<MyTelegram.Schema.IDocum
     public void Deserialize(BinaryReader br)
     {
         Sha256 = br.Deserialize<byte[]>();
-        Size = br.ReadInt32();
+        Size = br.ReadInt64();
         MimeType = br.Deserialize<string>();
     }
 }

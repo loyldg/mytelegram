@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 public interface IFileHash : IObject
 {
-    int Offset { get; set; }
+    long Offset { get; set; }
     int Limit { get; set; }
     byte[] Hash { get; set; }
 

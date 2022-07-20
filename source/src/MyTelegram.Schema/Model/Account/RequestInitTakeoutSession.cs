@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Account;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/account.initTakeoutSession" />
 ///</summary>
-[TlObject(0xf05b4804)]
+[TlObject(0x8ef3eab0)]
 public sealed class RequestInitTakeoutSession : IRequest<MyTelegram.Schema.Account.ITakeout>
 {
-    public uint ConstructorId => 0xf05b4804;
+    public uint ConstructorId => 0x8ef3eab0;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Contacts { get; set; }
     public bool MessageUsers { get; set; }
@@ -17,7 +17,7 @@ public sealed class RequestInitTakeoutSession : IRequest<MyTelegram.Schema.Accou
     public bool MessageMegagroups { get; set; }
     public bool MessageChannels { get; set; }
     public bool Files { get; set; }
-    public int? FileMaxSize { get; set; }
+    public long? FileMaxSize { get; set; }
 
     public void ComputeFlag()
     {
@@ -47,6 +47,6 @@ public sealed class RequestInitTakeoutSession : IRequest<MyTelegram.Schema.Accou
         if (Flags[3]) { MessageMegagroups = true; }
         if (Flags[4]) { MessageChannels = true; }
         if (Flags[5]) { Files = true; }
-        if (Flags[5]) { FileMaxSize = br.ReadInt32(); }
+        if (Flags[5]) { FileMaxSize = br.ReadInt64(); }
     }
 }

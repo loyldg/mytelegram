@@ -19,6 +19,7 @@ public class TConfig : IConfig
     public bool RevokePmInbox { get; set; }
     public bool BlockedMode { get; set; }
     public bool PfsEnabled { get; set; }
+    public bool ForceTryIpv6 { get; set; }
     public int Date { get; set; }
     public int Expires { get; set; }
 
@@ -77,6 +78,7 @@ public class TConfig : IConfig
         if (RevokePmInbox) { Flags[6] = true; }
         if (BlockedMode) { Flags[8] = true; }
         if (PfsEnabled) { Flags[13] = true; }
+        if (ForceTryIpv6) { Flags[14] = true; }
         if (TmpSessions != 0 && TmpSessions.HasValue) { Flags[0] = true; }
         if (AutoupdateUrlPrefix != null) { Flags[7] = true; }
         if (GifSearchUsername != null) { Flags[9] = true; }
@@ -149,6 +151,7 @@ public class TConfig : IConfig
         if (Flags[6]) { RevokePmInbox = true; }
         if (Flags[8]) { BlockedMode = true; }
         if (Flags[13]) { PfsEnabled = true; }
+        if (Flags[14]) { ForceTryIpv6 = true; }
         Date = br.ReadInt32();
         Expires = br.ReadInt32();
         TestMode = br.Deserialize<bool>();

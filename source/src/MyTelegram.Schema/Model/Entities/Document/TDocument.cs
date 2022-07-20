@@ -7,17 +7,17 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/document" />
 ///</summary>
-[TlObject(0x1e87342b)]
+[TlObject(0x8fd4c4d8)]
 public class TDocument : IDocument
 {
-    public uint ConstructorId => 0x1e87342b;
+    public uint ConstructorId => 0x8fd4c4d8;
     public BitArray Flags { get; set; } = new BitArray(32);
     public long Id { get; set; }
     public long AccessHash { get; set; }
     public byte[] FileReference { get; set; }
     public int Date { get; set; }
     public string MimeType { get; set; }
-    public int Size { get; set; }
+    public long Size { get; set; }
     public TVector<MyTelegram.Schema.IPhotoSize>? Thumbs { get; set; }
     public TVector<MyTelegram.Schema.IVideoSize>? VideoThumbs { get; set; }
     public int DcId { get; set; }
@@ -55,7 +55,7 @@ public class TDocument : IDocument
         FileReference = br.Deserialize<byte[]>();
         Date = br.ReadInt32();
         MimeType = br.Deserialize<string>();
-        Size = br.ReadInt32();
+        Size = br.ReadInt64();
         if (Flags[0]) { Thumbs = br.Deserialize<TVector<MyTelegram.Schema.IPhotoSize>>(); }
         if (Flags[1]) { VideoThumbs = br.Deserialize<TVector<MyTelegram.Schema.IVideoSize>>(); }
         DcId = br.ReadInt32();

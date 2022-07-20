@@ -2,6 +2,7 @@
 
 public class ObjectSerializer<T> : ISerializer<T> //where T : IObject
 {
+    private const uint VectorConstructorId = 0x1cb5c415;
     public void Serialize(T value,
         BinaryWriter writer)
     {
@@ -30,12 +31,17 @@ public class ObjectSerializer<T> : ISerializer<T> //where T : IObject
             return (T)obj;
         }
 
-        //if (typeof(T).IsInterface)
-        //{
+        if (typeof(T).IsInterface)
+        {
+            if (constructorId != VectorConstructorId)
+            {
+                // All supported constructor ids are loaded in memory when first time access SerializerObjectMappings
+                // if can not find object type by constructorId,may be telegram client version is mismatch  
+                throw new NotSupportedException($"Unsupported constructorId:0x{constructorId:x2}");
+            }
+        }
 
-        //}
-
-        // TVector<T>
+        // TVector<T> 
         var vectorObjFunc = MyReflectionHelper.CompileConstructor<IObject>(typeof(T));
         SerializerObjectMappings.TryAddTlObjectFuncToCache(typeof(T), vectorObjFunc);
 

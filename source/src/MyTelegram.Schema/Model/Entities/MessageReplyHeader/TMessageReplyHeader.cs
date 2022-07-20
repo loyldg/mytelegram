@@ -12,6 +12,7 @@ public class TMessageReplyHeader : IMessageReplyHeader
 {
     public uint ConstructorId => 0xa6d57763;
     public BitArray Flags { get; set; } = new BitArray(32);
+    public bool ReplyToScheduled { get; set; }
     public int ReplyToMsgId { get; set; }
 
     ///<summary>
@@ -22,6 +23,7 @@ public class TMessageReplyHeader : IMessageReplyHeader
 
     public void ComputeFlag()
     {
+        if (ReplyToScheduled) { Flags[2] = true; }
         if (ReplyToPeerId != null) { Flags[0] = true; }
         if (ReplyToTopId != 0 && ReplyToTopId.HasValue) { Flags[1] = true; }
     }
@@ -39,6 +41,7 @@ public class TMessageReplyHeader : IMessageReplyHeader
     public void Deserialize(BinaryReader br)
     {
         Flags = br.Deserialize<BitArray>();
+        if (Flags[2]) { ReplyToScheduled = true; }
         ReplyToMsgId = br.ReadInt32();
         if (Flags[0]) { ReplyToPeerId = br.Deserialize<MyTelegram.Schema.IPeer>(); }
         if (Flags[1]) { ReplyToTopId = br.ReadInt32(); }

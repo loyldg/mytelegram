@@ -7,39 +7,61 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/botInfo" />
 ///</summary>
-[TlObject(0xe4169b5d)]
+[TlObject(0x8f300b57)]
 public class TBotInfo : IBotInfo
 {
-    public uint ConstructorId => 0xe4169b5d;
-    public long UserId { get; set; }
-    public string Description { get; set; }
-    public TVector<MyTelegram.Schema.IBotCommand> Commands { get; set; }
+    public uint ConstructorId => 0x8f300b57;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public long? UserId { get; set; }
+    public string? Description { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/Photo" />
+    ///</summary>
+    public MyTelegram.Schema.IPhoto? DescriptionPhoto { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/Document" />
+    ///</summary>
+    public MyTelegram.Schema.IDocument? DescriptionDocument { get; set; }
+    public TVector<MyTelegram.Schema.IBotCommand>? Commands { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/BotMenuButton" />
     ///</summary>
-    public MyTelegram.Schema.IBotMenuButton MenuButton { get; set; }
+    public MyTelegram.Schema.IBotMenuButton? MenuButton { get; set; }
 
     public void ComputeFlag()
     {
-
+        if (UserId != 0 && UserId.HasValue) { Flags[0] = true; }
+        if (Description != null) { Flags[1] = true; }
+        if (DescriptionPhoto != null) { Flags[4] = true; }
+        if (DescriptionDocument != null) { Flags[5] = true; }
+        if (Commands?.Count > 0) { Flags[2] = true; }
+        if (MenuButton != null) { Flags[3] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
     {
         ComputeFlag();
         bw.Write(ConstructorId);
-        bw.Write(UserId);
-        bw.Serialize(Description);
-        Commands.Serialize(bw);
-        MenuButton.Serialize(bw);
+        bw.Serialize(Flags);
+        if (Flags[0]) { bw.Write(UserId.Value); }
+        if (Flags[1]) { bw.Serialize(Description); }
+        if (Flags[4]) { DescriptionPhoto.Serialize(bw); }
+        if (Flags[5]) { DescriptionDocument.Serialize(bw); }
+        if (Flags[2]) { Commands.Serialize(bw); }
+        if (Flags[3]) { MenuButton.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
     {
-        UserId = br.ReadInt64();
-        Description = br.Deserialize<string>();
-        Commands = br.Deserialize<TVector<MyTelegram.Schema.IBotCommand>>();
-        MenuButton = br.Deserialize<MyTelegram.Schema.IBotMenuButton>();
+        Flags = br.Deserialize<BitArray>();
+        if (Flags[0]) { UserId = br.ReadInt64(); }
+        if (Flags[1]) { Description = br.Deserialize<string>(); }
+        if (Flags[4]) { DescriptionPhoto = br.Deserialize<MyTelegram.Schema.IPhoto>(); }
+        if (Flags[5]) { DescriptionDocument = br.Deserialize<MyTelegram.Schema.IDocument>(); }
+        if (Flags[2]) { Commands = br.Deserialize<TVector<MyTelegram.Schema.IBotCommand>>(); }
+        if (Flags[3]) { MenuButton = br.Deserialize<MyTelegram.Schema.IBotMenuButton>(); }
     }
 }

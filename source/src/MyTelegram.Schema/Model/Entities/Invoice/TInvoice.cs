@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/invoice" />
 ///</summary>
-[TlObject(0xcd886e0)]
+[TlObject(0x3e85a91b)]
 public class TInvoice : IInvoice
 {
-    public uint ConstructorId => 0xcd886e0;
+    public uint ConstructorId => 0x3e85a91b;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Test { get; set; }
     public bool NameRequested { get; set; }
@@ -20,10 +20,12 @@ public class TInvoice : IInvoice
     public bool Flexible { get; set; }
     public bool PhoneToProvider { get; set; }
     public bool EmailToProvider { get; set; }
+    public bool Recurring { get; set; }
     public string Currency { get; set; }
     public TVector<MyTelegram.Schema.ILabeledPrice> Prices { get; set; }
     public long? MaxTipAmount { get; set; }
     public TVector<long>? SuggestedTipAmounts { get; set; }
+    public string? RecurringTermsUrl { get; set; }
 
     public void ComputeFlag()
     {
@@ -35,8 +37,10 @@ public class TInvoice : IInvoice
         if (Flexible) { Flags[5] = true; }
         if (PhoneToProvider) { Flags[6] = true; }
         if (EmailToProvider) { Flags[7] = true; }
+        if (Recurring) { Flags[9] = true; }
         if (MaxTipAmount != 0 && MaxTipAmount.HasValue) { Flags[8] = true; }
         if (SuggestedTipAmounts?.Count > 0) { Flags[8] = true; }
+        if (RecurringTermsUrl != null) { Flags[9] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -48,6 +52,7 @@ public class TInvoice : IInvoice
         Prices.Serialize(bw);
         if (Flags[8]) { bw.Write(MaxTipAmount.Value); }
         if (Flags[8]) { SuggestedTipAmounts.Serialize(bw); }
+        if (Flags[9]) { bw.Serialize(RecurringTermsUrl); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -61,9 +66,11 @@ public class TInvoice : IInvoice
         if (Flags[5]) { Flexible = true; }
         if (Flags[6]) { PhoneToProvider = true; }
         if (Flags[7]) { EmailToProvider = true; }
+        if (Flags[9]) { Recurring = true; }
         Currency = br.Deserialize<string>();
         Prices = br.Deserialize<TVector<MyTelegram.Schema.ILabeledPrice>>();
         if (Flags[8]) { MaxTipAmount = br.ReadInt64(); }
         if (Flags[8]) { SuggestedTipAmounts = br.Deserialize<TVector<long>>(); }
+        if (Flags[9]) { RecurringTermsUrl = br.Deserialize<string>(); }
     }
 }

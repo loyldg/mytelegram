@@ -6,6 +6,7 @@ public interface IAvailableReaction : IObject
 {
     BitArray Flags { get; set; }
     bool Inactive { get; set; }
+    bool Premium { get; set; }
     string Reaction { get; set; }
     string Title { get; set; }
     MyTelegram.Schema.IDocument StaticIcon { get; set; }

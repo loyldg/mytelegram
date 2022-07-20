@@ -1,5 +1,5 @@
 ﻿using MyTelegram.Schema.Updates;
-using TAuthorization=MyTelegram.Schema.TAuthorization;
+using TAuthorization = MyTelegram.Schema.TAuthorization;
 namespace MyTelegram.MessengerServer;
 
 public class CustomObjectMapper :
@@ -417,6 +417,7 @@ public class CustomObjectMapper :
         destination.LastName = source.LastName;
         destination.Verified = source.Verified;
         destination.Support = source.Support;
+        destination.Premium = source.Premium;
         return destination;
     }
 

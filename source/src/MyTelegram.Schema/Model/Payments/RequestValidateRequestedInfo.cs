@@ -6,18 +6,17 @@ namespace MyTelegram.Schema.Payments;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/payments.validateRequestedInfo" />
 ///</summary>
-[TlObject(0xdb103170)]
+[TlObject(0xb6c8f12b)]
 public sealed class RequestValidateRequestedInfo : IRequest<MyTelegram.Schema.Payments.IValidatedRequestedInfo>
 {
-    public uint ConstructorId => 0xdb103170;
+    public uint ConstructorId => 0xb6c8f12b;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Save { get; set; }
 
     ///<summary>
-    ///See <a href="https://core.telegram.org/type/InputPeer" />
+    ///See <a href="https://core.telegram.org/type/InputInvoice" />
     ///</summary>
-    public MyTelegram.Schema.IInputPeer Peer { get; set; }
-    public int MsgId { get; set; }
+    public MyTelegram.Schema.IInputInvoice Invoice { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/PaymentRequestedInfo" />
@@ -35,8 +34,7 @@ public sealed class RequestValidateRequestedInfo : IRequest<MyTelegram.Schema.Pa
         ComputeFlag();
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
-        Peer.Serialize(bw);
-        bw.Write(MsgId);
+        Invoice.Serialize(bw);
         Info.Serialize(bw);
     }
 
@@ -44,8 +42,7 @@ public sealed class RequestValidateRequestedInfo : IRequest<MyTelegram.Schema.Pa
     {
         Flags = br.Deserialize<BitArray>();
         if (Flags[0]) { Save = true; }
-        Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
-        MsgId = br.ReadInt32();
+        Invoice = br.Deserialize<MyTelegram.Schema.IInputInvoice>();
         Info = br.Deserialize<MyTelegram.Schema.IPaymentRequestedInfo>();
     }
 }

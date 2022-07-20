@@ -7,11 +7,11 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/fileHash" />
 ///</summary>
-[TlObject(0x6242c773)]
+[TlObject(0xf39b035c)]
 public class TFileHash : IFileHash
 {
-    public uint ConstructorId => 0x6242c773;
-    public int Offset { get; set; }
+    public uint ConstructorId => 0xf39b035c;
+    public long Offset { get; set; }
     public int Limit { get; set; }
     public byte[] Hash { get; set; }
 
@@ -31,7 +31,7 @@ public class TFileHash : IFileHash
 
     public void Deserialize(BinaryReader br)
     {
-        Offset = br.ReadInt32();
+        Offset = br.ReadInt64();
         Limit = br.ReadInt32();
         Hash = br.Deserialize<byte[]>();
     }

@@ -12,6 +12,7 @@ public class TSponsoredMessage : ISponsoredMessage
 {
     public uint ConstructorId => 0x3a836df8;
     public BitArray Flags { get; set; } = new BitArray(32);
+    public bool Recommended { get; set; }
     public byte[] RandomId { get; set; }
 
     ///<summary>
@@ -31,6 +32,7 @@ public class TSponsoredMessage : ISponsoredMessage
 
     public void ComputeFlag()
     {
+        if (Recommended) { Flags[5] = true; }
         if (FromId != null) { Flags[3] = true; }
         if (ChatInvite != null) { Flags[4] = true; }
         if (ChatInviteHash != null) { Flags[4] = true; }
@@ -57,6 +59,7 @@ public class TSponsoredMessage : ISponsoredMessage
     public void Deserialize(BinaryReader br)
     {
         Flags = br.Deserialize<BitArray>();
+        if (Flags[5]) { Recommended = true; }
         RandomId = br.Deserialize<byte[]>();
         if (Flags[3]) { FromId = br.Deserialize<MyTelegram.Schema.IPeer>(); }
         if (Flags[4]) { ChatInvite = br.Deserialize<MyTelegram.Schema.IChatInvite>(); }

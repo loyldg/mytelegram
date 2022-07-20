@@ -10,6 +10,7 @@ public interface IDcOption : IObject
     bool TcpoOnly { get; set; }
     bool Cdn { get; set; }
     bool Static { get; set; }
+    bool ThisPortOnly { get; set; }
     int Id { get; set; }
     string IpAddress { get; set; }
     int Port { get; set; }

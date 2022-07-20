@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.prolongWebView" />
 ///</summary>
-[TlObject(0xd22ad148)]
+[TlObject(0xea5fbcce)]
 public sealed class RequestProlongWebView : IRequest<IBool>
 {
-    public uint ConstructorId => 0xd22ad148;
+    public uint ConstructorId => 0xea5fbcce;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Silent { get; set; }
 
@@ -25,10 +25,16 @@ public sealed class RequestProlongWebView : IRequest<IBool>
     public long QueryId { get; set; }
     public int? ReplyToMsgId { get; set; }
 
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/InputPeer" />
+    ///</summary>
+    public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
+
     public void ComputeFlag()
     {
         if (Silent) { Flags[5] = true; }
         if (ReplyToMsgId != 0 && ReplyToMsgId.HasValue) { Flags[0] = true; }
+        if (SendAs != null) { Flags[13] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -40,6 +46,7 @@ public sealed class RequestProlongWebView : IRequest<IBool>
         Bot.Serialize(bw);
         bw.Write(QueryId);
         if (Flags[0]) { bw.Write(ReplyToMsgId.Value); }
+        if (Flags[13]) { SendAs.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -50,5 +57,6 @@ public sealed class RequestProlongWebView : IRequest<IBool>
         Bot = br.Deserialize<MyTelegram.Schema.IInputUser>();
         QueryId = br.ReadInt64();
         if (Flags[0]) { ReplyToMsgId = br.ReadInt32(); }
+        if (Flags[13]) { SendAs = br.Deserialize<MyTelegram.Schema.IInputPeer>(); }
     }
 }

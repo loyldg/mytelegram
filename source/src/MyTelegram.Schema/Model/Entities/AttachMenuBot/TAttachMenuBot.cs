@@ -7,19 +7,22 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/attachMenuBot" />
 ///</summary>
-[TlObject(0xe93cb772)]
+[TlObject(0xc8aa2cd2)]
 public class TAttachMenuBot : IAttachMenuBot
 {
-    public uint ConstructorId => 0xe93cb772;
+    public uint ConstructorId => 0xc8aa2cd2;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Inactive { get; set; }
+    public bool HasSettings { get; set; }
     public long BotId { get; set; }
     public string ShortName { get; set; }
+    public TVector<MyTelegram.Schema.IAttachMenuPeerType> PeerTypes { get; set; }
     public TVector<MyTelegram.Schema.IAttachMenuBotIcon> Icons { get; set; }
 
     public void ComputeFlag()
     {
         if (Inactive) { Flags[0] = true; }
+        if (HasSettings) { Flags[1] = true; }
 
     }
 
@@ -30,6 +33,7 @@ public class TAttachMenuBot : IAttachMenuBot
         bw.Serialize(Flags);
         bw.Write(BotId);
         bw.Serialize(ShortName);
+        PeerTypes.Serialize(bw);
         Icons.Serialize(bw);
     }
 
@@ -37,8 +41,10 @@ public class TAttachMenuBot : IAttachMenuBot
     {
         Flags = br.Deserialize<BitArray>();
         if (Flags[0]) { Inactive = true; }
+        if (Flags[1]) { HasSettings = true; }
         BotId = br.ReadInt64();
         ShortName = br.Deserialize<string>();
+        PeerTypes = br.Deserialize<TVector<MyTelegram.Schema.IAttachMenuPeerType>>();
         Icons = br.Deserialize<TVector<MyTelegram.Schema.IAttachMenuBotIcon>>();
     }
 }

@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 public interface ISponsoredMessage : IObject
 {
     BitArray Flags { get; set; }
+    bool Recommended { get; set; }
     byte[] RandomId { get; set; }
     MyTelegram.Schema.IPeer? FromId { get; set; }
     MyTelegram.Schema.IChatInvite? ChatInvite { get; set; }

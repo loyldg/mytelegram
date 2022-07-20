@@ -29,6 +29,8 @@ public class TChannel : IChat
     public bool Fake { get; set; }
     public bool Gigagroup { get; set; }
     public bool Noforwards { get; set; }
+    public bool JoinToSend { get; set; }
+    public bool JoinRequest { get; set; }
     public long Id { get; set; }
     public long? AccessHash { get; set; }
     public string Title { get; set; }
@@ -76,6 +78,8 @@ public class TChannel : IChat
         if (Fake) { Flags[25] = true; }
         if (Gigagroup) { Flags[26] = true; }
         if (Noforwards) { Flags[27] = true; }
+        if (JoinToSend) { Flags[28] = true; }
+        if (JoinRequest) { Flags[29] = true; }
         if (AccessHash != 0 && AccessHash.HasValue) { Flags[13] = true; }
         if (Username != null) { Flags[6] = true; }
         if (RestrictionReason?.Count > 0) { Flags[9] = true; }
@@ -123,6 +127,8 @@ public class TChannel : IChat
         if (Flags[25]) { Fake = true; }
         if (Flags[26]) { Gigagroup = true; }
         if (Flags[27]) { Noforwards = true; }
+        if (Flags[28]) { JoinToSend = true; }
+        if (Flags[29]) { JoinRequest = true; }
         Id = br.ReadInt64();
         if (Flags[13]) { AccessHash = br.ReadInt64(); }
         Title = br.Deserialize<string>();

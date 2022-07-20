@@ -69,5 +69,5 @@ message SaveEncryptedFileResponse{
 	int32 dcId=2;
 	int64 id=3;
 	int32 keyFingerprint=4;
-	int32 size=5;
+	int64 size=5;
 }

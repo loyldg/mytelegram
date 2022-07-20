@@ -12,6 +12,8 @@ public class TMessageActionPaymentSentMe : IMessageAction
 {
     public uint ConstructorId => 0x8f31b327;
     public BitArray Flags { get; set; } = new BitArray(32);
+    public bool RecurringInit { get; set; }
+    public bool RecurringUsed { get; set; }
     public string Currency { get; set; }
     public long TotalAmount { get; set; }
     public byte[] Payload { get; set; }
@@ -29,6 +31,8 @@ public class TMessageActionPaymentSentMe : IMessageAction
 
     public void ComputeFlag()
     {
+        if (RecurringInit) { Flags[2] = true; }
+        if (RecurringUsed) { Flags[3] = true; }
         if (Info != null) { Flags[0] = true; }
         if (ShippingOptionId != null) { Flags[1] = true; }
 
@@ -50,6 +54,8 @@ public class TMessageActionPaymentSentMe : IMessageAction
     public void Deserialize(BinaryReader br)
     {
         Flags = br.Deserialize<BitArray>();
+        if (Flags[2]) { RecurringInit = true; }
+        if (Flags[3]) { RecurringUsed = true; }
         Currency = br.Deserialize<string>();
         TotalAmount = br.ReadInt64();
         Payload = br.Deserialize<byte[]>();

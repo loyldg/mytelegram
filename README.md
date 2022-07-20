@@ -2,8 +2,8 @@
 MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment
 
 ## Features
-* Supported MTProto Layer:**`140`**  
-* Supported MTProto Protocol(2.0):**`Abridged`**,**`Intermediate`**  
+* Supported MTProto Layer:**`143`**  
+* Supported [MTProto Protocol(2.0)](https://core.telegram.org/mtproto):**`Abridged`**,**`Intermediate`**  
 * Private chat
 * Group chat
 * Supergroup chat
@@ -15,12 +15,13 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 
 ## Run MyTelegram server
 - ### Run MyTelegram server with docker
-1. Download docker-compose configuration file
+1. Download docker-compose configuration files
     ```
-    git clone https://github.com/loyldg/mytelegram.git
+    https://github.com/loyldg/mytelegram/blob/dev/docker/compose/docker-compose.yml
+    https://github.com/loyldg/mytelegram/blob/dev/docker/compose/.env
     ```
-2. Change the ip address configuration in **mytelegram/docker/compose/.env**
-3. Run the following command in compose folder
+2. Change the ip address configuration in **.env**
+3. Run the following command in the directory where the docker-compose.yml file is located
     ```
     docker compose up
     ```
@@ -33,7 +34,7 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 5. Intall RabbitMQ
 6. Modify server configuration in start-all.bat/start-all.sh
 7. Run start-all.bat/start-all.sh
-8. Test using Telegram client,if you want to use the [compiled  tdesktop client(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.6.628/Telegram-3.7.4-win-x64.zip),add the gateway server's ip address into hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example your gateway server ip is `192.168.1.100`,add the following line into hosts file
+8. Test using Telegram client,if you want to use the [compiled  tdesktop client(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.7.720/Telegram-4.0.2-win-x64.zip),add the gateway server's ip address into hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example your gateway server ip is `192.168.1.100`,add the following line into hosts file
 ```
 192.168.1.100    demos.telegram2.com
 ```
@@ -69,11 +70,9 @@ The default publick key's fingerprint is **`0xce27f5081215bda4`**(Android client
 if you want to use your own public key,replace `private.pkcs8.key` in auth folder
 
 1. Build telegram desktop client https://github.com/telegramdesktop/tdesktop   
-    * Switch to v3.7.4 branch(the highest version support layer 140)  `git checkout v3.7.4`
     * Replace server address and RSA public key in **Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**
 
 2. Build telegram android client https://github.com/DrKLO/Telegram
-    * Switch to v.8.7.4 branch(the highest version support layer 140) `git checkout 32aef724`
     * **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** Mytelegram not support Stickers in current version,need comment the following code in method `setSticker`  
         ```
         MediaDataController.getInstance(currentAccount).loadStickersByEmojiOrName(AndroidUtilities.STICKERS_PLACEHOLDER_PACK_NAME, false, set == null);

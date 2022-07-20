@@ -12,6 +12,7 @@ public class TMessageMediaDocument : IMessageMedia
 {
     public uint ConstructorId => 0x9cb070d7;
     public BitArray Flags { get; set; } = new BitArray(32);
+    public bool Nopremium { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/Document" />
@@ -21,6 +22,7 @@ public class TMessageMediaDocument : IMessageMedia
 
     public void ComputeFlag()
     {
+        if (Nopremium) { Flags[3] = true; }
         if (Document != null) { Flags[0] = true; }
         if (TtlSeconds != 0 && TtlSeconds.HasValue) { Flags[2] = true; }
     }
@@ -37,6 +39,7 @@ public class TMessageMediaDocument : IMessageMedia
     public void Deserialize(BinaryReader br)
     {
         Flags = br.Deserialize<BitArray>();
+        if (Flags[3]) { Nopremium = true; }
         if (Flags[0]) { Document = br.Deserialize<MyTelegram.Schema.IDocument>(); }
         if (Flags[2]) { TtlSeconds = br.ReadInt32(); }
     }

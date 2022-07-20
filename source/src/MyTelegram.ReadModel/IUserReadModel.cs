@@ -24,4 +24,5 @@ public interface IUserReadModel : IReadModel
     long UserId { get; }
     string? UserName { get; }
     bool Verified { get; }
+    bool Premium { get; }
 }

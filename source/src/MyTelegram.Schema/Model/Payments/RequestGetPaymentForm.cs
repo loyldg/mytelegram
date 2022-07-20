@@ -6,17 +6,16 @@ namespace MyTelegram.Schema.Payments;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/payments.getPaymentForm" />
 ///</summary>
-[TlObject(0x8a333c8d)]
+[TlObject(0x37148dbb)]
 public sealed class RequestGetPaymentForm : IRequest<MyTelegram.Schema.Payments.IPaymentForm>
 {
-    public uint ConstructorId => 0x8a333c8d;
+    public uint ConstructorId => 0x37148dbb;
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    ///See <a href="https://core.telegram.org/type/InputPeer" />
+    ///See <a href="https://core.telegram.org/type/InputInvoice" />
     ///</summary>
-    public MyTelegram.Schema.IInputPeer Peer { get; set; }
-    public int MsgId { get; set; }
+    public MyTelegram.Schema.IInputInvoice Invoice { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/DataJSON" />
@@ -33,16 +32,14 @@ public sealed class RequestGetPaymentForm : IRequest<MyTelegram.Schema.Payments.
         ComputeFlag();
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
-        Peer.Serialize(bw);
-        bw.Write(MsgId);
+        Invoice.Serialize(bw);
         if (Flags[0]) { ThemeParams.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
     {
         Flags = br.Deserialize<BitArray>();
-        Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
-        MsgId = br.ReadInt32();
+        Invoice = br.Deserialize<MyTelegram.Schema.IInputInvoice>();
         if (Flags[0]) { ThemeParams = br.Deserialize<MyTelegram.Schema.IDataJSON>(); }
     }
 }

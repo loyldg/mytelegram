@@ -12,6 +12,7 @@ public interface IConfig : IObject
     bool RevokePmInbox { get; set; }
     bool BlockedMode { get; set; }
     bool PfsEnabled { get; set; }
+    bool ForceTryIpv6 { get; set; }
     int Date { get; set; }
     int Expires { get; set; }
     bool TestMode { get; set; }

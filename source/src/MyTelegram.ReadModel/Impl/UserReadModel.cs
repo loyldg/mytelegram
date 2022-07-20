@@ -37,6 +37,8 @@ public class UserReadModel : IUserReadModel,
     public virtual bool Verified { get; private set; }
     public virtual long? Version { get; set; }
 
+    public bool Premium { get; private set; }
+
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<MessageAggregate, MessageId, InboxMessagePinnedUpdatedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -78,6 +80,7 @@ public class UserReadModel : IUserReadModel,
         AccountTtl = domainEvent.AggregateEvent.AccountTtl;
         SensitiveCanChange = true;
         ShowContactSignUpNotification = false;
+        Premium = true;
         return Task.CompletedTask;
     }
 

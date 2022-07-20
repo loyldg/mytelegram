@@ -10,8 +10,8 @@ public interface IAutoDownloadSettings : IObject
     bool AudioPreloadNext { get; set; }
     bool PhonecallsLessData { get; set; }
     int PhotoSizeMax { get; set; }
-    int VideoSizeMax { get; set; }
-    int FileSizeMax { get; set; }
+    long VideoSizeMax { get; set; }
+    long FileSizeMax { get; set; }
     int VideoUploadMaxbitrate { get; set; }
 
 }

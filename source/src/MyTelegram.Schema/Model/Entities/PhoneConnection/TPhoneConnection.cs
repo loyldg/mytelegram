@@ -7,10 +7,12 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/phoneConnection" />
 ///</summary>
-[TlObject(0x9d4c17c0)]
+[TlObject(0x9cc123c7)]
 public class TPhoneConnection : IPhoneConnection
 {
-    public uint ConstructorId => 0x9d4c17c0;
+    public uint ConstructorId => 0x9cc123c7;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public bool Tcp { get; set; }
     public long Id { get; set; }
     public string Ip { get; set; }
     public string Ipv6 { get; set; }
@@ -19,6 +21,7 @@ public class TPhoneConnection : IPhoneConnection
 
     public void ComputeFlag()
     {
+        if (Tcp) { Flags[0] = true; }
 
     }
 
@@ -26,6 +29,7 @@ public class TPhoneConnection : IPhoneConnection
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         bw.Write(Id);
         bw.Serialize(Ip);
         bw.Serialize(Ipv6);
@@ -35,6 +39,8 @@ public class TPhoneConnection : IPhoneConnection
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
+        if (Flags[0]) { Tcp = true; }
         Id = br.ReadInt64();
         Ip = br.Deserialize<string>();
         Ipv6 = br.Deserialize<string>();

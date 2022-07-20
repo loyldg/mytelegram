@@ -7,18 +7,18 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/autoDownloadSettings" />
 ///</summary>
-[TlObject(0xe04232f3)]
+[TlObject(0x8efab953)]
 public class TAutoDownloadSettings : IAutoDownloadSettings
 {
-    public uint ConstructorId => 0xe04232f3;
+    public uint ConstructorId => 0x8efab953;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Disabled { get; set; }
     public bool VideoPreloadLarge { get; set; }
     public bool AudioPreloadNext { get; set; }
     public bool PhonecallsLessData { get; set; }
     public int PhotoSizeMax { get; set; }
-    public int VideoSizeMax { get; set; }
-    public int FileSizeMax { get; set; }
+    public long VideoSizeMax { get; set; }
+    public long FileSizeMax { get; set; }
     public int VideoUploadMaxbitrate { get; set; }
 
     public void ComputeFlag()
@@ -49,8 +49,8 @@ public class TAutoDownloadSettings : IAutoDownloadSettings
         if (Flags[2]) { AudioPreloadNext = true; }
         if (Flags[3]) { PhonecallsLessData = true; }
         PhotoSizeMax = br.ReadInt32();
-        VideoSizeMax = br.ReadInt32();
-        FileSizeMax = br.ReadInt32();
+        VideoSizeMax = br.ReadInt64();
+        FileSizeMax = br.ReadInt64();
         VideoUploadMaxbitrate = br.ReadInt32();
     }
 }

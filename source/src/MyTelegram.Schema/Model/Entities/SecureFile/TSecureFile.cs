@@ -7,13 +7,13 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/secureFile" />
 ///</summary>
-[TlObject(0xe0277a62)]
+[TlObject(0x7d09c27e)]
 public class TSecureFile : ISecureFile
 {
-    public uint ConstructorId => 0xe0277a62;
+    public uint ConstructorId => 0x7d09c27e;
     public long Id { get; set; }
     public long AccessHash { get; set; }
-    public int Size { get; set; }
+    public long Size { get; set; }
     public int DcId { get; set; }
     public int Date { get; set; }
     public byte[] FileHash { get; set; }
@@ -41,7 +41,7 @@ public class TSecureFile : ISecureFile
     {
         Id = br.ReadInt64();
         AccessHash = br.ReadInt64();
-        Size = br.ReadInt32();
+        Size = br.ReadInt64();
         DcId = br.ReadInt32();
         Date = br.ReadInt32();
         FileHash = br.Deserialize<byte[]>();

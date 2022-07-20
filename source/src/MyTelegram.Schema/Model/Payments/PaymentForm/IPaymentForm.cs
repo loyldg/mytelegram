@@ -9,6 +9,9 @@ public interface IPaymentForm : IObject
     bool PasswordMissing { get; set; }
     long FormId { get; set; }
     long BotId { get; set; }
+    string Title { get; set; }
+    string Description { get; set; }
+    MyTelegram.Schema.IWebDocument? Photo { get; set; }
     MyTelegram.Schema.IInvoice Invoice { get; set; }
     long ProviderId { get; set; }
     string Url { get; set; }

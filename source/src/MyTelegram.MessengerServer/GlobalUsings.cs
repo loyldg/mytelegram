@@ -56,6 +56,7 @@ global using MyTelegram.MessengerServer.Services.Interfaces;
 global using MyTelegram.Queries;
 global using MyTelegram.ReadModel;
 global using MyTelegram.Schema;
+global using MyTelegram.Schema.Help;
 //global using MyTelegram.Schema.Auth;
 //global using MyTelegram.Schema.Channels;
 //global using MyTelegram.Schema.Messages;

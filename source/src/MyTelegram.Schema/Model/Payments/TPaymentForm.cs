@@ -7,15 +7,22 @@ namespace MyTelegram.Schema.Payments;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/payments.paymentForm" />
 ///</summary>
-[TlObject(0x1694761b)]
+[TlObject(0xb0133b37)]
 public class TPaymentForm : IPaymentForm
 {
-    public uint ConstructorId => 0x1694761b;
+    public uint ConstructorId => 0xb0133b37;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool CanSaveCredentials { get; set; }
     public bool PasswordMissing { get; set; }
     public long FormId { get; set; }
     public long BotId { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/WebDocument" />
+    ///</summary>
+    public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/Invoice" />
@@ -45,6 +52,7 @@ public class TPaymentForm : IPaymentForm
     {
         if (CanSaveCredentials) { Flags[2] = true; }
         if (PasswordMissing) { Flags[3] = true; }
+        if (Photo != null) { Flags[5] = true; }
         if (NativeProvider != null) { Flags[4] = true; }
         if (NativeParams != null) { Flags[4] = true; }
         if (SavedInfo != null) { Flags[0] = true; }
@@ -59,6 +67,9 @@ public class TPaymentForm : IPaymentForm
         bw.Serialize(Flags);
         bw.Write(FormId);
         bw.Write(BotId);
+        bw.Serialize(Title);
+        bw.Serialize(Description);
+        if (Flags[5]) { Photo.Serialize(bw); }
         Invoice.Serialize(bw);
         bw.Write(ProviderId);
         bw.Serialize(Url);
@@ -76,6 +87,9 @@ public class TPaymentForm : IPaymentForm
         if (Flags[3]) { PasswordMissing = true; }
         FormId = br.ReadInt64();
         BotId = br.ReadInt64();
+        Title = br.Deserialize<string>();
+        Description = br.Deserialize<string>();
+        if (Flags[5]) { Photo = br.Deserialize<MyTelegram.Schema.IWebDocument>(); }
         Invoice = br.Deserialize<MyTelegram.Schema.IInvoice>();
         ProviderId = br.ReadInt64();
         Url = br.Deserialize<string>();

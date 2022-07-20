@@ -6,18 +6,17 @@ namespace MyTelegram.Schema.Payments;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/payments.sendPaymentForm" />
 ///</summary>
-[TlObject(0x30c3bc9d)]
+[TlObject(0x2d03522f)]
 public sealed class RequestSendPaymentForm : IRequest<MyTelegram.Schema.Payments.IPaymentResult>
 {
-    public uint ConstructorId => 0x30c3bc9d;
+    public uint ConstructorId => 0x2d03522f;
     public BitArray Flags { get; set; } = new BitArray(32);
     public long FormId { get; set; }
 
     ///<summary>
-    ///See <a href="https://core.telegram.org/type/InputPeer" />
+    ///See <a href="https://core.telegram.org/type/InputInvoice" />
     ///</summary>
-    public MyTelegram.Schema.IInputPeer Peer { get; set; }
-    public int MsgId { get; set; }
+    public MyTelegram.Schema.IInputInvoice Invoice { get; set; }
     public string? RequestedInfoId { get; set; }
     public string? ShippingOptionId { get; set; }
 
@@ -40,8 +39,7 @@ public sealed class RequestSendPaymentForm : IRequest<MyTelegram.Schema.Payments
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
         bw.Write(FormId);
-        Peer.Serialize(bw);
-        bw.Write(MsgId);
+        Invoice.Serialize(bw);
         if (Flags[0]) { bw.Serialize(RequestedInfoId); }
         if (Flags[1]) { bw.Serialize(ShippingOptionId); }
         Credentials.Serialize(bw);
@@ -52,8 +50,7 @@ public sealed class RequestSendPaymentForm : IRequest<MyTelegram.Schema.Payments
     {
         Flags = br.Deserialize<BitArray>();
         FormId = br.ReadInt64();
-        Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
-        MsgId = br.ReadInt32();
+        Invoice = br.Deserialize<MyTelegram.Schema.IInputInvoice>();
         if (Flags[0]) { RequestedInfoId = br.Deserialize<string>(); }
         if (Flags[1]) { ShippingOptionId = br.Deserialize<string>(); }
         Credentials = br.Deserialize<MyTelegram.Schema.IInputPaymentCredentials>();

@@ -6,16 +6,16 @@ namespace MyTelegram.Schema.Upload;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/upload.getFileHashes" />
 ///</summary>
-[TlObject(0xc7025931)]
+[TlObject(0x9156982a)]
 public sealed class RequestGetFileHashes : IRequest<TVector<MyTelegram.Schema.IFileHash>>
 {
-    public uint ConstructorId => 0xc7025931;
+    public uint ConstructorId => 0x9156982a;
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputFileLocation" />
     ///</summary>
     public MyTelegram.Schema.IInputFileLocation Location { get; set; }
-    public int Offset { get; set; }
+    public long Offset { get; set; }
 
     public void ComputeFlag()
     {
@@ -33,6 +33,6 @@ public sealed class RequestGetFileHashes : IRequest<TVector<MyTelegram.Schema.IF
     public void Deserialize(BinaryReader br)
     {
         Location = br.Deserialize<MyTelegram.Schema.IInputFileLocation>();
-        Offset = br.ReadInt32();
+        Offset = br.ReadInt64();
     }
 }

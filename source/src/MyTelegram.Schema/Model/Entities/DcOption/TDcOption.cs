@@ -17,6 +17,7 @@ public class TDcOption : IDcOption
     public bool TcpoOnly { get; set; }
     public bool Cdn { get; set; }
     public bool Static { get; set; }
+    public bool ThisPortOnly { get; set; }
     public int Id { get; set; }
     public string IpAddress { get; set; }
     public int Port { get; set; }
@@ -29,6 +30,7 @@ public class TDcOption : IDcOption
         if (TcpoOnly) { Flags[2] = true; }
         if (Cdn) { Flags[3] = true; }
         if (Static) { Flags[4] = true; }
+        if (ThisPortOnly) { Flags[5] = true; }
         if (Secret != null) { Flags[10] = true; }
     }
 
@@ -51,6 +53,7 @@ public class TDcOption : IDcOption
         if (Flags[2]) { TcpoOnly = true; }
         if (Flags[3]) { Cdn = true; }
         if (Flags[4]) { Static = true; }
+        if (Flags[5]) { ThisPortOnly = true; }
         Id = br.ReadInt32();
         IpAddress = br.Deserialize<string>();
         Port = br.ReadInt32();
