@@ -19,7 +19,7 @@ public abstract class BaseAppService
 
             case LoadType.Forward:
                 fromId = input.OffsetId;
-                maxId = input.OffsetId + input.Limit;
+                //maxId = input.OffsetId + input.Limit;
                 break;
 
             case LoadType.FirstUnread:
