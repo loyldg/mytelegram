@@ -10,6 +10,7 @@ public static class Extension
             requestInput.PermAuthKeyId,Guid.NewGuid());
     }
 
+    [return: NotNullIfNotNull("peer")]
     public static IPeer? ToPeer(this Peer? peer)
     {
         if (peer == null)
