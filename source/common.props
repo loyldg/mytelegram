@@ -2,7 +2,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <!-- <VersionSuffix>0.6.$([System.DateTime]::Now.ToString(MMdd)).$([System.DateTime]::Now.ToString("HHmm"))</VersionSuffix> -->
-    <VersionSuffix>0.7.720.2157</VersionSuffix>
+    <VersionSuffix>0.7.727.1058</VersionSuffix>
     <AssemblyVersion Condition="'$(VersionSuffix)' =='' ">0.0.0.1</AssemblyVersion>
     <AssemblyVersion Condition="'$(VersionSuffix)' !='' ">$(VersionSuffix)</AssemblyVersion>
     <Version Condition="'$(VersionSuffix)' =='' ">0.0.1.0</Version>
