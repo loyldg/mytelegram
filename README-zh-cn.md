@@ -35,7 +35,7 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 5. 安装RabbitMQ
 6. 修改目录里的start-all.bat/start-all.sh配置信息
 7. 运行start-all.bat/start-all.sh
-8. 使用Telegram客户端进行测试,如果要使用[已经编译好的桌面客户端(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.7.720/Telegram-4.0.2-win-x64.zip),需要将Gateway Server服务端的IP地址加入`%SystemRoot%/system32/drivers/etc/hosts`,比如网关服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
+8. 使用Telegram客户端进行测试,如果要使用[已经编译好的桌面客户端(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.7.727/Telegram-4.0.2-win-x64.zip),需要将Gateway Server服务端的IP地址加入`%SystemRoot%/system32/drivers/etc/hosts`,比如网关服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
 ```
 192.168.1.100    demos.telegram2.com
 ```

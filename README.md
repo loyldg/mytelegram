@@ -34,7 +34,7 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 5. Intall RabbitMQ
 6. Modify server configuration in start-all.bat/start-all.sh
 7. Run start-all.bat/start-all.sh
-8. Test using Telegram client,if you want to use the [compiled  tdesktop client(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.7.720/Telegram-4.0.2-win-x64.zip),add the gateway server's ip address into hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example your gateway server ip is `192.168.1.100`,add the following line into hosts file
+8. Test using Telegram client,if you want to use the [compiled  tdesktop client(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.7.727/Telegram-4.0.2-win-x64.zip),add the gateway server's ip address into hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line into hosts file
 ```
 192.168.1.100    demos.telegram2.com
 ```
