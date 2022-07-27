@@ -5,13 +5,15 @@ public class SendMessageStartedEvent : RequestAggregateEvent2<MessageAggregate, 
     public MessageItem OutMessageItem { get; }
     public bool ClearDraft { get; }
     public int GroupItemCount { get; }
+    public bool ForwardFromLinkedChannel { get; }
     public Guid CorrelationId { get; }
 
-    public SendMessageStartedEvent(RequestInfo request, MessageItem outMessageItem, bool clearDraft, int groupItemCount, Guid correlationId) : base(request)
+    public SendMessageStartedEvent(RequestInfo request, MessageItem outMessageItem, bool clearDraft, int groupItemCount,bool forwardFromLinkedChannel, Guid correlationId) : base(request)
     {
         OutMessageItem = outMessageItem;
         ClearDraft = clearDraft;
         GroupItemCount = groupItemCount;
+        ForwardFromLinkedChannel = forwardFromLinkedChannel;
         CorrelationId = correlationId;
     }
 }

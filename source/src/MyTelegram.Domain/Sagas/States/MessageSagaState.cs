@@ -7,7 +7,9 @@ public class MessageSagaState : AggregateState<MessageSaga, MessageSagaId, Messa
     IApply<SendChannelMessageStartedEvent>,
     IApply<SendOutboxMessageCompletedEvent>,
     IApply<ReceiveInboxMessageCompletedEvent>,
-    IApply<OutboxMessageIdGeneratedEvent>
+    IApply<OutboxMessageIdGeneratedEvent>,
+    IApply<ReplyToChannelMessageStartedEvent>,
+    IApply<ReplyToChannelMessageCompletedEvent>
 {
     public RequestInfo Request { get; private set; } = null!;
     public bool ClearDraft { get; private set; }
@@ -22,8 +24,14 @@ public class MessageSagaState : AggregateState<MessageSaga, MessageSagaId, Messa
     public long? LinkedChannelId { get; private set; }
     //public bool Post { get; private set; }
     //public int? Views { get; private set; }
+    public bool ForwardFromLinkedChannel { get; private set; }
 
     public int InboxCount { get; private set; }
+    public int Pts { get; private set; }
+    public long ReplyToMessageSavedFromPeerId { get; private set; }
+    public int ReplyToMessageSavedFromMsgId { get; private set; }
+    public int ReplyToMsgId { get; private set; }
+    public IReadOnlyCollection<Peer>? RecentRepliers { get; private set; }
 
     public bool IsSendMessageCompleted()
     {
@@ -49,6 +57,7 @@ public class MessageSagaState : AggregateState<MessageSaga, MessageSagaId, Messa
         GroupItemCount = aggregateEvent.GroupItemCount;
         CorrelationId = aggregateEvent.CorrelationId;
         SenderMessageId = aggregateEvent.MessageItem.MessageId;
+        ForwardFromLinkedChannel = aggregateEvent.ForwardFromLinkedChannel;
     }
 
     public void Apply(SendChatMessageStartedEvent aggregateEvent)
@@ -75,21 +84,7 @@ public class MessageSagaState : AggregateState<MessageSaga, MessageSagaId, Messa
         return null;
     }
 
-    public void LoadSnapshot(MessageSnapshot snapshot)
-    {
-        Request = snapshot.Request;
-        MessageItem = snapshot.MessageItem;
-        ClearDraft = snapshot.ClearDraft;
-        GroupItemCount = snapshot.GroupItemCount;
-        SenderMessageId = snapshot.SenderMessageId;
-        CorrelationId = snapshot.CorrelationId;
-        ChatTitle = snapshot.ChatTitle;
-        ChatMemberUidList = snapshot.ChatMemberUidList;
-        InboxItems = snapshot.InboxItems;
 
-        BotUidList = snapshot.BotUidList;
-        LinkedChannelId = snapshot.LinkedChannelId;
-    }
 
     public void Apply(SendChannelMessageStartedEvent aggregateEvent)
     {
@@ -101,6 +96,7 @@ public class MessageSagaState : AggregateState<MessageSaga, MessageSagaId, Messa
 
     public void Apply(SendOutboxMessageCompletedEvent aggregateEvent)
     {
+        Pts = aggregateEvent.Pts;
         //throw new NotImplementedException();
     }
 
@@ -112,5 +108,15 @@ public class MessageSagaState : AggregateState<MessageSaga, MessageSagaId, Messa
     public void Apply(OutboxMessageIdGeneratedEvent aggregateEvent)
     {
         MessageItem!.MessageId = aggregateEvent.OutboxMessageId;
+    }
+    public void Apply(ReplyToChannelMessageStartedEvent aggregateEvent)
+    {
+        ReplyToMessageSavedFromPeerId = aggregateEvent.SavedFromPeerId;
+        ReplyToMessageSavedFromMsgId = aggregateEvent.SavedFromMsgId;
+        ReplyToMsgId= aggregateEvent.ReplyToMsgId;
+        RecentRepliers= aggregateEvent.RecentRepliers;
+    }
+    public void Apply(ReplyToChannelMessageCompletedEvent aggregateEvent)
+    {
     }
 }

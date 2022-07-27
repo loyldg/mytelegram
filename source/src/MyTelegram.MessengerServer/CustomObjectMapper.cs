@@ -1,5 +1,5 @@
 ﻿using MyTelegram.Schema.Updates;
-using TAuthorization = MyTelegram.Schema.TAuthorization;
+
 namespace MyTelegram.MessengerServer;
 
 public class CustomObjectMapper :
@@ -33,7 +33,8 @@ public class CustomObjectMapper :
     IObjectMapper<DcOption, TDcOption>,
     IObjectMapper<List<DcOption>, List<TDcOption>>,
     IObjectMapper<TInputMediaVenue, TMessageMediaVenue>,
-    IObjectMapper<MessageFwdHeader, TMessageFwdHeader>
+    IObjectMapper<MessageFwdHeader, TMessageFwdHeader>,
+    IObjectMapper<GetRepliesInput, GetMessagesQuery>
 
 {
     public TBotCommand Map(BotCommand source)
@@ -177,6 +178,25 @@ public class CustomObjectMapper :
             0);
     }
 
+    public GetMessagesQuery? Map(GetRepliesInput source)
+    {
+        return Map(source, null!);
+    }
+    public GetMessagesQuery? Map(GetRepliesInput source,
+        GetMessagesQuery destination)
+    {
+        return new GetMessagesQuery(source.OwnerPeerId,
+            MessageType.Unknown,
+            null,
+            new List<int>(),
+            0,
+            source.Limit,
+            null,
+            null,
+            source.SelfUserId,
+            0,
+            source.ReplyToMsgId);
+    }
     public TChannelFull Map(IChannelFullReadModel source)
     {
         return Map(source, new TChannelFull());
@@ -235,7 +255,8 @@ public class CustomObjectMapper :
         destination.DefaultBannedRights = Map(source.DefaultBannedRights ?? new ChatBannedRights());
         //destination.HasLink = !source.UserName.IsNullOrEmpty();
 
-        destination.HasLink = !string.IsNullOrEmpty(source.UserName);
+        //destination.HasLink = !string.IsNullOrEmpty(source.UserName);
+        destination.HasLink = source.LinkedChatId.HasValue;
 
         return destination;
     }
@@ -319,6 +340,7 @@ public class CustomObjectMapper :
         destination.ReadOutboxMaxId = source.ReadOutboxMaxId;
         destination.Peer = new Peer(source.ToPeerType, source.ToPeerId).ToPeer();
         if (source.Draft?.Message.Length > 0)
+        {
             destination.Draft = new TDraftMessage
             {
                 Date = source.Draft.Date,
@@ -327,6 +349,7 @@ public class CustomObjectMapper :
                 ReplyToMsgId = source.Draft.ReplyToMsgId,
                 Entities = source.Draft.Entities.ToTObject<TVector<IMessageEntity>>()
             };
+        }
 
         destination.NotifySettings = new TPeerNotifySettings
         {
@@ -393,7 +416,10 @@ public class CustomObjectMapper :
     public List<TBotCommand> Map(IReadOnlyList<BotCommand> source,
         List<TBotCommand> destination)
     {
-        foreach (var botCommand in source) destination.Add(Map(botCommand));
+        foreach (var botCommand in source)
+        {
+            destination.Add(Map(botCommand));
+        }
 
         return destination;
     }
@@ -429,7 +455,10 @@ public class CustomObjectMapper :
     public List<TDcOption> Map(List<DcOption> source,
         List<TDcOption> destination)
     {
-        foreach (var dcOption in source) destination.Add(Map(dcOption));
+        foreach (var dcOption in source)
+        {
+            destination.Add(Map(dcOption));
+        }
 
         return destination;
     }
@@ -442,7 +471,10 @@ public class CustomObjectMapper :
     public List<TPhoneConnectionWebrtc> Map(List<WebRtcConnection> source,
         List<TPhoneConnectionWebrtc> destination)
     {
-        foreach (var webRtcConnection in source) destination.Add(Map(webRtcConnection));
+        foreach (var webRtcConnection in source)
+        {
+            destination.Add(Map(webRtcConnection));
+        }
 
         return destination;
     }
@@ -511,15 +543,15 @@ public class CustomObjectMapper :
         GetMessagesQuery destination)
     {
         return new GetMessagesQuery(source.OwnerPeerId,
-                source.MessageType,
-                source.Q,
-                new List<int>(),
-                0,
-                source.Limit,
-                null,
-                null,
-                source.SelfUserId,
-                0);
+            source.MessageType,
+            source.Q,
+            new List<int>(),
+            0,
+            source.Limit,
+            null,
+            null,
+            source.SelfUserId,
+            0);
     }
 
     public GetMessagesQuery Map(SearchInput source)

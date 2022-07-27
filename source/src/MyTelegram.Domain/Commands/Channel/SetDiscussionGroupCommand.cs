@@ -6,7 +6,7 @@ public class SetDiscussionGroupCommand : RequestCommand<ChannelAggregate, Channe
         long reqMsgId,
         long selfUserId,
         long broadcastChannelId,
-        long groupChannelId) : base(aggregateId, reqMsgId)
+        long? groupChannelId) : base(aggregateId, reqMsgId)
     {
         SelfUserId = selfUserId;
         BroadcastChannelId = broadcastChannelId;
@@ -14,7 +14,7 @@ public class SetDiscussionGroupCommand : RequestCommand<ChannelAggregate, Channe
     }
 
     public long BroadcastChannelId { get; }
-    public long GroupChannelId { get; }
+    public long? GroupChannelId { get; }
 
     public long SelfUserId { get; }
 }

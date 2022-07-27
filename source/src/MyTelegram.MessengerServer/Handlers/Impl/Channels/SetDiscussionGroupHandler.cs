@@ -19,7 +19,8 @@ public class SetDiscussionGroupHandler : RpcResultObjectHandler<RequestSetDiscus
     {
         var broadcastChannel = (TInputChannel)obj.Broadcast;
         //var groupChannel = (TInputChannel)input.Request.Group;
-        var groupId = 0L;
+        //var groupId = 0L;
+        long? groupId = null;
         switch (obj.Group)
         {
             case TInputChannel inputChannel:

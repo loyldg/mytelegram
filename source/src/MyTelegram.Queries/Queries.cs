@@ -285,6 +285,17 @@ public class GetDialogsQuery : IQuery<IReadOnlyList<IDialogReadModel>>
     public bool? Pinned { get; }
 }
 
+public class GetDiscussionMessageQuery : IQuery<IMessageReadModel?>
+{
+    public GetDiscussionMessageQuery(long savedFromPeerId,
+        int savedFromMessageId)
+    {
+        SavedFromPeerId = savedFromPeerId;
+        SavedFromMessageId = savedFromMessageId;
+    }
+    public int SavedFromMessageId { get; }
+    public long SavedFromPeerId { get; }
+}
 public class GetFileQuery : IQuery<IFileReadModel?>
 {
     public GetFileQuery(long fileId,
@@ -328,6 +339,14 @@ public class GetKickedChannelMembersQuery : IQuery<IReadOnlyCollection<IChannelM
     public int Offset { get; }
 }
 
+public class GetLinkedChannelIdQuery : IQuery<long?>
+{
+    public GetLinkedChannelIdQuery(long channelId)
+    {
+        ChannelId = channelId;
+    }
+    public long ChannelId { get; }
+}
 public class GetMegaGroupByUidQuery : IQuery<IReadOnlyCollection<IChannelReadModel>>
 {
     public GetMegaGroupByUidQuery(long userId)
@@ -417,7 +436,8 @@ public class GetMessagesQuery : IQuery<IReadOnlyCollection<IMessageReadModel>>
         OffsetInfo? offset,
         Peer? peer,
         long selfUserId,
-        int pts
+        int pts,
+        int replyToMsgId = 0
     )
     {
         OwnerPeerId = ownerPeerId;
@@ -430,6 +450,7 @@ public class GetMessagesQuery : IQuery<IReadOnlyCollection<IMessageReadModel>>
         Peer = peer;
         SelfUserId = selfUserId;
         Pts = pts;
+        ReplyToMsgId = replyToMsgId;
     }
 
     public int ChannelHistoryMinId { get; }
@@ -448,7 +469,7 @@ public class GetMessagesQuery : IQuery<IReadOnlyCollection<IMessageReadModel>>
     public Peer? Peer { get; }
     public int Pts { get; }
     public string? Q { get; }
-
+    public int ReplyToMsgId { get; }
     // use private setter for auto mapper
 
     public long SelfUserId { get; }
@@ -572,6 +593,28 @@ public class GetReadingHistoryQuery : IQuery<IReadOnlyCollection<long>>
     public long MessageId { get; }
     public long TargetPeerId { get; }
 }
+public class GetRepliesQuery : IQuery<IReadOnlyCollection<IReplyReadModel>>
+{
+    public GetRepliesQuery(long channelId,
+        IList<int> messageIds)
+    {
+        ChannelId = channelId;
+        MessageIds = messageIds;
+    }
+    public long ChannelId { get; }
+    public IList<int> MessageIds { get; }
+}
+public class GetReplyQuery : IQuery<IReplyReadModel?>
+{
+    public GetReplyQuery(long channelId,
+        int savedFromMsgId)
+    {
+        ChannelId = channelId;
+        SavedFromMsgId = savedFromMsgId;
+    }
+    public long ChannelId { get; }
+    public int SavedFromMsgId { get; }
+}
 
 public class GetRpcResultByIdQuery : IQuery<IRpcResultReadModel?>
 {
@@ -680,6 +723,7 @@ public class SearchUserNameQuery : IQuery<IReadOnlyCollection<IUserNameReadModel
 
     public string Keyword { get; }
 }
+
 public class GetLatestAppCodeQuery : IQuery<IAppCodeReadModel>
 {
     public GetLatestAppCodeQuery(string phoneNumber,

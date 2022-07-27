@@ -33,4 +33,5 @@ public interface IChannelReadModel : IReadModel
     int TopMessageId { get; }
     string? UserName { get; }
     bool Verified { get; }
+    long? LinkedChatId { get; }
 }

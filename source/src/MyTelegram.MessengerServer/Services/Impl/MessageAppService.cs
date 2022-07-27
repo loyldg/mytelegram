@@ -100,6 +100,10 @@ public class MessageAppService : BaseAppService, IMessageAppService
     {
         return GetMessagesCoreAsync(input);
     }
+    public Task<GetMessageOutput> GetRepliesAsync(GetRepliesInput input)
+    {
+        return GetMessagesCoreAsync(input);
+    }
 
     private Task<GetMessageOutput> GetMessagesCoreAsync<TRequest>(TRequest input)
         where TRequest : GetPagedListInput

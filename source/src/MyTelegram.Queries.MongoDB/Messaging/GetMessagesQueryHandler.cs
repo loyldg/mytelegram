@@ -28,6 +28,7 @@ public class
                 .WhereIf(query.Pts > 0, p => p.Pts > query.Pts)
                 .WhereIf(query.Peer != null,
                     p => p.ToPeerType == query.Peer!.PeerType && p.ToPeerId == query.Peer.PeerId)
+                .WhereIf(query.ReplyToMsgId>0,p=>p.ReplyToMsgId==query.ReplyToMsgId)
             ;
         var options = new FindOptions<MessageReadModel, MessageReadModel>
         {

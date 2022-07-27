@@ -10,6 +10,7 @@ public class CreateOutboxMessageCommandHandler : CommandHandler<MessageAggregate
             command.OutboxMessageItem,
             command.ClearDraft,
             command.GroupItemCount,
+            command.LinkedChannelId,
             command.CorrelationId);
         return Task.CompletedTask;
     }

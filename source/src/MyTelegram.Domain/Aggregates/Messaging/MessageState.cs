@@ -30,6 +30,7 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
     public int EditDate { get; private set; }
     public int Pts { get; private set; }
 
+    public IReadOnlyCollection<Peer> RecentRepliers { get; private set; } = new List<Peer>(MyTelegramServerDomainConsts.MaxRecentRepliersCount);
     //public void LoadSnapshot(MessageSnapshot snapshot)
     //{
     //    MessageItem = snapshot.MessageItem;
@@ -90,6 +91,7 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
 
     public void Apply(ReplyToMessageStartedEvent aggregateEvent)
     {
+        RecentRepliers = aggregateEvent.RecentRepliers;
         //throw new NotImplementedException();
     }
 

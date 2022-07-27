@@ -4,12 +4,12 @@ public class SetDiscussionGroupEvent : RequestAggregateEvent<ChannelAggregate, C
 {
     public SetDiscussionGroupEvent(long reqMsgId,
         long broadcastChannelId,
-        long groupChannelId) : base(reqMsgId)
+        long? groupChannelId) : base(reqMsgId)
     {
         BroadcastChannelId = broadcastChannelId;
         GroupChannelId = groupChannelId;
     }
 
     public long BroadcastChannelId { get; }
-    public long GroupChannelId { get; }
+    public long? GroupChannelId { get; }
 }

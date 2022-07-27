@@ -76,6 +76,7 @@ public class MongoDbIndexesCreator : MongoDbIndexesCreatorBase
         await CreateIndexAsync<MessageReadModel>(p => p.Pts).ConfigureAwait(false);
         await CreateIndexAsync<MessageReadModel>(p => p.ToPeerType).ConfigureAwait(false);
         await CreateIndexAsync<MessageReadModel>(p => p.SendMessageType).ConfigureAwait(false);
+        await CreateIndexAsync<MessageReadModel>(p => p.ReplyToMsgId).ConfigureAwait(false);
 
         await CreateIndexAsync<UserReadModel>(p => p.UserId).ConfigureAwait(false);
         await CreateIndexAsync<UserReadModel>(p => p.FirstName).ConfigureAwait(false);
@@ -117,6 +118,8 @@ public class MongoDbIndexesCreator : MongoDbIndexesCreatorBase
         await CreateIndexAsync<RpcResultReadModel>(p => p.SourceId).ConfigureAwait(false);
         await CreateIndexAsync<RpcResultReadModel>(p => p.PeerId).ConfigureAwait(false);
 
+        await CreateIndexAsync<ReplyReadModel>(p => p.SavedFromPeerId).ConfigureAwait(false);
+        await CreateIndexAsync<ReplyReadModel>(p => p.SavedFromMsgId).ConfigureAwait(false);
 
         var snapShotCollectionName = "snapShots";
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateId, snapShotCollectionName)

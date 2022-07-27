@@ -29,6 +29,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             domainEvent.AggregateEvent.ToPeer,
             domainEvent.AggregateEvent.IdList,
             domainEvent.AggregateEvent.RandomIdList,
+            domainEvent.AggregateEvent.ForwardFromLinkedChannel,
             domainEvent.AggregateEvent.CorrelationId
         ));
         ForwardMessage(domainEvent.AggregateEvent);
@@ -77,7 +78,11 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
         var savedFromPeer = _state.ToPeer.PeerId == selfUserId ? _state.FromPeer : null;
 
         var savedFromMsgId = _state.ToPeer.PeerId == selfUserId ? aggregateEvent.OriginalMessageItem.MessageId : 0;
-
+        if (_state.ForwardFromLinkedChannel)
+        {
+            savedFromPeer = _state.FromPeer;
+            savedFromMsgId = aggregateEvent.OriginalMessageItem.MessageId;
+        }
         // TODO:Set fromName
         var fwdHeader = new MessageFwdHeader(fromId,
             null,
@@ -118,7 +123,8 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             ),
             false,
             1,
-            aggregateEvent.CorrelationId
+            aggregateEvent.CorrelationId,
+            _state.ForwardFromLinkedChannel
         );
 
         Publish(command);

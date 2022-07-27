@@ -10,7 +10,8 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessagePinnedUpdatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessagePinnedUpdatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent>,
-    IAmReadModelFor<MessageAggregate, MessageId, MessageViewsIncrementedEvent>
+    IAmReadModelFor<MessageAggregate, MessageId, MessageViewsIncrementedEvent>,
+	IAmReadModelFor<MessageAggregate,MessageId,ReplyToMessageStartedEvent>
 {
     public int Date { get; private set; }
     public int EditDate { get; private set; }
@@ -38,6 +39,10 @@ public class MessageReadModel : IMessageReadModel,
     public long ToPeerId { get; private set; }
     public PeerType ToPeerType { get; private set; }
     public int? Views { get; private set; }
+    public long? LinkedChannelId { get; private set; }
+    public int Replies { get; private set; }
+    public int? SavedFromMsgId { get; private set; }
+    public long? SavedFromPeerId { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -66,6 +71,16 @@ public class MessageReadModel : IMessageReadModel,
         Out = messageItem.IsOut;
         Views = messageItem.Views;
         Post= messageItem.Post;
+        LinkedChannelId = domainEvent.AggregateEvent.LinkedChannelId;
+        if (domainEvent.AggregateEvent.OutboxMessageItem.FwdHeader != null)
+        {
+            var fwdHeader = domainEvent.AggregateEvent.OutboxMessageItem.FwdHeader;
+            if (fwdHeader.SavedFromPeer != null)
+            {
+                SavedFromPeerId = fwdHeader.SavedFromPeer.PeerId;
+                SavedFromMsgId = fwdHeader.SavedFromMsgId;
+            }
+        }
 
         Silent = false;
 
@@ -180,6 +195,14 @@ public class MessageReadModel : IMessageReadModel,
         CancellationToken cancellationToken)
     {
         Views++;
+        return Task.CompletedTask;
+    }
+	
+	public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<MessageAggregate, MessageId, ReplyToMessageStartedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        Replies++;
         return Task.CompletedTask;
     }
 }

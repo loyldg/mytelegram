@@ -10,7 +10,9 @@ public class TlMessageConverter : ITlMessageConverter
     }
 
     public IMessage ToMessage(MessageItem item,
-        long selfUserId = 0)
+        long selfUserId = 0,
+        long? linkedChannelId = null,
+        int pts = 0)
     {
         var isOut = item.IsOut;
         if (item.ToPeer.PeerType == PeerType.Channel && selfUserId != 0)
@@ -79,9 +81,12 @@ public class TlMessageConverter : ITlMessageConverter
                         m.FromId = null;
                     }
 
-                    if (item.Post)
+                        m.Replies = ToMessageReplies(item.Post, linkedChannelId, pts);
+                        if (m.Replies != null && item.FwdHeader?.SavedFromPeer != null) // forward from linked channel
                     {
-                        m.Replies = new TMessageReplies { Comments = true, ChannelId = item.ToPeer.PeerId };
+                            //m.FromId = _peerHelper.ToPeer(PeerType.Channel, item.FwdHeader.SavedFromPeer.PeerId);
+                            m.FromId = item.FwdHeader.SavedFromPeer.ToPeer();
+                            m.Out = false;
                     }
                 }
 
@@ -103,6 +108,29 @@ public class TlMessageConverter : ITlMessageConverter
         }
 
         return messages;
+    }
+    public IMessage ToDiscussionMessage(IMessageReadModel messageReadModel,
+        int maxId,
+        int readMaxId,
+        int readInboxMaxId,
+        int readOutboxMaxId,
+        long selfUserId
+        )
+    {
+        var m = ToMessage(messageReadModel, selfUserId);
+        if (m is TMessage tMessage)
+        {
+            var replies = ToMessageReplies(messageReadModel.Post,
+                messageReadModel.LinkedChannelId,
+                messageReadModel.Pts);
+            if (replies != null)
+            {
+                replies.MaxId = maxId;
+                replies.ReadMaxId=readMaxId;
+                tMessage.Replies = replies;
+            }
+        }
+        return m;
     }
 
     public IMessage ToMessage(InboxMessageEditCompletedEvent aggregateEvent)
@@ -240,12 +268,38 @@ public class TlMessageConverter : ITlMessageConverter
                     if (readModel.Post)
                     {
                         m.FromId = null;
-                        m.Replies = new TMessageReplies { ChannelId = readModel.ToPeerId, Comments = true };
+                        }
+                        m.Replies = ToMessageReplies(readModel.Post, readModel.LinkedChannelId, readModel.Pts);
+                        if (m.Replies != null && readModel.FwdHeader != null) // forward from linked channel
+                        {
+                            m.FromId = readModel.FwdHeader.FromId.ToPeer();
+                            m.Out = false;
+                            m.Replies.Replies = readModel.Replies;
                     }
                 }
 
                 return m;
+                }
+        }
+    }
+    private IMessageReplies? ToMessageReplies(bool post,
+        long? linkedChannelId,
+        int pts)
+    {
+        if (post)
+        {
+            if (linkedChannelId.HasValue)
+            {
+                return new TMessageReplies { ChannelId = linkedChannelId, Comments = true };
             }
         }
+        else
+        {
+            if (linkedChannelId.HasValue)
+            {
+                return new TMessageReplies { RepliesPts = pts };
+            }
+        }
+        return null;
     }
 }

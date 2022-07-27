@@ -7,13 +7,15 @@ public class MessageSagaStartedEvent : RequestAggregateEvent2<MessageSaga, Messa
     public MessageItem MessageItem { get; }
     public bool ClearDraft { get; }
     public int GroupItemCount { get; }
+    public bool ForwardFromLinkedChannel { get; }
     public Guid CorrelationId { get; }
 
-    public MessageSagaStartedEvent(RequestInfo request, MessageItem messageItem, bool clearDraft, int groupItemCount, Guid correlationId) : base(request)
+    public MessageSagaStartedEvent(RequestInfo request, MessageItem messageItem, bool clearDraft, int groupItemCount,bool forwardFromLinkedChannel, Guid correlationId) : base(request)
     {
         MessageItem = messageItem;
         ClearDraft = clearDraft;
         GroupItemCount = groupItemCount;
+        ForwardFromLinkedChannel = forwardFromLinkedChannel;
         CorrelationId = correlationId;
     }
 }

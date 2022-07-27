@@ -29,6 +29,7 @@ public class ForwardMessagesHandler : RpcResultObjectHandler<RequestForwardMessa
             toPeer,
             obj.Id.ToList(),
             obj.RandomId.ToList(),
+            false,
             Guid.NewGuid());
         await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
         return null!;

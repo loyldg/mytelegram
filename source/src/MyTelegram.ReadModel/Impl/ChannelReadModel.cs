@@ -14,8 +14,8 @@ public class ChannelReadModel : IChannelReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelPhotoEditedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
-    IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>//,
-    //IAmReadModelFor<ChannelAggregate,ChannelId,CheckChannelStateCompletedEvent>
+    IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
+    IAmReadModelFor<ChannelAggregate, ChannelId, SetDiscussionGroupEvent>
 
 {
     public string? About { get; private set; }
@@ -46,6 +46,7 @@ public class ChannelReadModel : IChannelReadModel,
     public int TopMessageId { get; private set; }
     public string? UserName { get; private set; }
     public bool Verified { get; private set; }
+    public long? LinkedChatId { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -207,4 +208,11 @@ public class ChannelReadModel : IChannelReadModel,
     //    LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
     //    return Task.CompletedTask;
     //}
+    public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<ChannelAggregate, ChannelId, SetDiscussionGroupEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        LinkedChatId = domainEvent.AggregateEvent.GroupChannelId;
+        return Task.CompletedTask;
+    }
 }

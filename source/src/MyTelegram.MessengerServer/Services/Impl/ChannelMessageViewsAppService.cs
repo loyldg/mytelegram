@@ -1,4 +1,5 @@
-﻿using IMessageViews = MyTelegram.Schema.IMessageViews;
+﻿using EventFlow.Exceptions;
+using IMessageViews = MyTelegram.Schema.IMessageViews;
 
 namespace MyTelegram.MessengerServer.Services.Impl;
 
@@ -47,13 +48,6 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
         var keyList = messageIdGreaterThanZeroList
             .Select(p => GetFilterKey(selfUserId, authKeyId, channelId, p)).ToList();
 
-
-
-        //var resultList = await _bloomFilter
-        //    .ExistsAsync(keyList).ConfigureAwait(false);
-
-
-        //var needAddToList = new List<byte[]>();
         var needIncrementMessageIdList = new List<int>();
         var index = 0;
 
@@ -67,22 +61,6 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             }
             index++;
         }
-
-        //foreach (var isExists in resultList)
-        //{
-        //    if (!isExists)
-        //    {
-        //        needAddToList.Add(keyList[index]);
-        //        needIncrementMessageIdList.Add(messageIdGreaterThanZeroList[index]);
-        //    }
-
-        //    index++;
-        //}
-
-        //if (needAddToList.Count > 0)
-        //{
-        //    await _bloomFilter.AddAsync(needAddToList).ConfigureAwait(false);
-        //}
 
         var messageViews = (await _queryProcessor
                     .ProcessAsync(new GetMessageViewsQuery(channelId, messageIdGreaterThanZeroList), default)
@@ -103,16 +81,40 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             }
         }
 
+        var linkedChannelId = await _queryProcessor.ProcessAsync(new GetLinkedChannelIdQuery(channelId), default)
+            .ConfigureAwait(false);
+
+        var replies = (await _queryProcessor.ProcessAsync(new GetRepliesQuery(channelId, messageIdList), default)
+            .ConfigureAwait(false))
+                .ToDictionary(k => k.SavedFromMsgId, v => v)
+            ;
+
         var messageViewsToClient = new List<IMessageViews>();
         foreach (var messageId in messageIdList)
         {
             var needIncrement = needIncrementMessageIdList.Contains(messageId);
             if (messageViews.TryGetValue(messageId, out var views))
             {
+                replies.TryGetValue(messageId, out var reply);
+                var recentRepliers = new List<IPeer>();// = reply?.RecentRepliers.Select(p => p.ToPeer());
+                if (reply?.RecentRepliers?.Count > 0)
+                {
+                    recentRepliers.AddRange(reply.RecentRepliers.Select(peer => peer.ToPeer()));
+                }
+
                 messageViewsToClient.Add(new Schema.TMessageViews
                 {
                     Views = needIncrement ? views.Views + 1 : views.Views,
-                    Replies = new TMessageReplies { ChannelId = channelId }
+                    //Replies = new TMessageReplies { ChannelId = channelId }
+                    Replies = new TMessageReplies
+                    {
+                        ChannelId = linkedChannelId,
+                        Comments = linkedChannelId.HasValue,
+                        Replies = reply?.Replies ?? 0,
+                        RepliesPts = reply?.RepliesPts ?? 0,
+                        MaxId = reply?.MaxId ?? 0,
+                        RecentRepliers = new TVector<IPeer>(recentRepliers)
+                    }
                 });
             }
             else

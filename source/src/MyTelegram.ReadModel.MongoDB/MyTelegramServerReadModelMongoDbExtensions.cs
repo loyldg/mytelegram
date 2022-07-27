@@ -17,6 +17,7 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .AddTransient<IDialogReadModelLocator, DialogReadModelLocator>()
             .AddTransient<IMessageIdLocator, MessageIdLocator>()
             .AddTransient<IPtsReadModelLocator, PtsReadModelLocator>()
+            .AddTransient<IReplyReadModelLocator, ReplyReadModelLocator>()
             .AddTransient<IUserReadModelLocator, UserReadModelLocator>()
             .AddTransient<IChannelReadModelLocator, ChannelReadModelLocator>()
             .AddTransient<IChannelFullReadModelLocator, ChannelFullReadModelLocator>()
@@ -41,6 +42,7 @@ public static class MyTelegramServerReadModelMongoDbExtensions
                 //.UseMongoDbReadModel<FileReadModel>()
                 .UseMongoDbReadModel<ReadingHistoryReadModel>()
                 .UseMongoDbReadModel<RpcResultReadModel>()
+				.UseMongoDbReadModel<ReplyReadModel, IReplyReadModelLocator>()
             ;
     }
 }

@@ -9,4 +9,5 @@ public interface IMessageAppService
     Task<GetMessageOutput> SearchAsync(SearchInput input);
     Task<GetMessageOutput> SearchGlobalAsync(SearchGlobalInput input);
     Task SendMessageAsync(SendMessageInput input);
+    Task<GetMessageOutput> GetRepliesAsync(GetRepliesInput input);
 }

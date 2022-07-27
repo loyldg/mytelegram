@@ -3,7 +3,7 @@
 public interface ITlMessageConverter
 {
     IMessage ToMessage(MessageItem item,
-        long selfUserId = 0);
+        long selfUserId = 0, long? linkedChannelId = null, int pts = 0);
 
     IMessage ToMessage(InboxMessageEditCompletedEvent aggregateEvent);
 
@@ -15,4 +15,5 @@ public interface ITlMessageConverter
 
     IList<IMessage> ToMessages(IReadOnlyCollection<IMessageReadModel> readModels,
         long selfUserId);
+    IMessage ToDiscussionMessage(IMessageReadModel messageReadModel,int maxId,int readMaxId,int readInboxMaxId,int readOutboxMaxId,long selfUserId);
 }

@@ -29,4 +29,6 @@ public interface IMessageReadModel : IReadModel
     long ToPeerId { get; }
     PeerType ToPeerType { get; }
     int? Views { get; }
+    long? LinkedChannelId { get; }
+    int Replies { get; }
 }

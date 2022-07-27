@@ -6,14 +6,16 @@ public class StartSendMessageCommand : RequestCommand2<MessageAggregate, Message
     public bool ClearDraft { get; }
     public int GroupItemCount { get; }
     public Guid CorrelationId { get; }
+    public bool ForwardFromLinkedChannel { get; }
 
     public StartSendMessageCommand(MessageId aggregateId,
-        RequestInfo request, MessageItem outMessageItem, bool clearDraft = false, int groupItemCount = 1, Guid correlationId = default) : base(aggregateId, request)
+        RequestInfo request, MessageItem outMessageItem, bool clearDraft = false, int groupItemCount = 1, Guid correlationId = default, bool forwardFromLinkedChannel = false) : base(aggregateId, request)
     {
         OutMessageItem = outMessageItem;
         ClearDraft = clearDraft;
         GroupItemCount = groupItemCount;
         CorrelationId = correlationId;
+        ForwardFromLinkedChannel = forwardFromLinkedChannel;
     }
 
     protected override IEnumerable<byte[]> GetSourceIdComponents()

@@ -2,7 +2,9 @@
 
 public class CreateInboxMessageCommand : Command<MessageAggregate, MessageId, IExecutionResult>, IHasCorrelationId
 {
-    public CreateInboxMessageCommand(MessageId aggregateId, MessageItem inboxMessageItem, int senderMessageId,
+    public CreateInboxMessageCommand(MessageId aggregateId,
+        MessageItem inboxMessageItem,
+        int senderMessageId,
         Guid correlationId) : base(aggregateId)
     {
         InboxMessageItem = inboxMessageItem;
@@ -10,7 +12,8 @@ public class CreateInboxMessageCommand : Command<MessageAggregate, MessageId, IE
         CorrelationId = correlationId;
     }
 
-    public Guid CorrelationId { get; }
     public MessageItem InboxMessageItem { get; }
     public int SenderMessageId { get; }
+
+    public Guid CorrelationId { get; }
 }

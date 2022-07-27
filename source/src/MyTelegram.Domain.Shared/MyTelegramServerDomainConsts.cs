@@ -19,6 +19,7 @@ public class MyTelegramServerDomainConsts
     public const int ChatAboutMaxLength = 255;
 
     public const int ChannelAdminMaxCount = 5;
+    public const int MaxRecentRepliersCount = 3;
 
     public const int ChatMemberMaxCount = 50;
     //public const int AuthKeyExpireSeconds = 30;

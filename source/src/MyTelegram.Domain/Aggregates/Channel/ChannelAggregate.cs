@@ -236,7 +236,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     public void SetDiscussionGroup(long reqMsgId,
         long selfUserId,
         long broadcastChannelId,
-        long groupChannelId)
+        long? groupChannelId)
     {
         // TODO:Use saga to set discussion group id,check whether the groupChannelId is valid
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);

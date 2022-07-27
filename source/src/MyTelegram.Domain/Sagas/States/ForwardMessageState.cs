@@ -14,6 +14,7 @@ public class ForwardMessageState : AggregateState<ForwardMessageSaga, ForwardMes
     public IReadOnlyList<long> RandomIdList { get; private set; } = null!;
     public RequestInfo Request { get; private set; } = default!;
     public Peer ToPeer { get; private set; } = null!;
+    public bool ForwardFromLinkedChannel { get; private set; }
 
     public void Apply(ForwardMessageSagaStartedEvent aggregateEvent)
     {
@@ -22,6 +23,7 @@ public class ForwardMessageState : AggregateState<ForwardMessageSaga, ForwardMes
         ToPeer = aggregateEvent.ToPeer;
         IdList = aggregateEvent.IdList;
         RandomIdList = aggregateEvent.RandomIdList;
+        ForwardFromLinkedChannel=aggregateEvent.ForwardFromLinkedChannel;
         CorrelationId = aggregateEvent.CorrelationId;
     }
 

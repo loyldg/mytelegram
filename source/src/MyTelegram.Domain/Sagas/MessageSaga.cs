@@ -29,6 +29,7 @@ public class MessageSaga :
         if (domainEvent.AggregateEvent.OutboxMessageItem.ReplyToMsgId.HasValue)
         {
             StartReplyToMessage(domainEvent.AggregateEvent.OutboxMessageItem.OwnerPeer.PeerId,
+                domainEvent.AggregateEvent.OutboxMessageItem.SenderPeer,
                 domainEvent.AggregateEvent.OutboxMessageItem.ReplyToMsgId.Value,
                 domainEvent.AggregateEvent.CorrelationId);
         }
@@ -68,7 +69,7 @@ public class MessageSaga :
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        AddReplyMessageIdToCache(domainEvent.AggregateEvent);
+        HandleReplyToMessage(domainEvent.AggregateEvent);
         await HandleSendOutboxMessageCompletedAsync().ConfigureAwait(false);
         await CreateInboxMessageAsync().ConfigureAwait(false);
     }
@@ -77,6 +78,10 @@ public class MessageSaga :
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
+        if (domainEvent.AggregateEvent.SavedFromPeerId.HasValue)
+        {
+            Emit(new ReplyToChannelMessageStartedEvent(domainEvent.AggregateEvent.ReplyToMsgId, domainEvent.AggregateEvent.SavedFromPeerId.Value, domainEvent.AggregateEvent.SavedFromMsgId!.Value, domainEvent.AggregateEvent.RecentRepliers));
+        }
         // Reply outbox message,the reply message sender is current message sender
         if (domainEvent.AggregateEvent.IsOut)
         {
@@ -109,11 +114,13 @@ public class MessageSaga :
             domainEvent.AggregateEvent.OutMessageItem,
             domainEvent.AggregateEvent.ClearDraft,
             domainEvent.AggregateEvent.GroupItemCount,
+            domainEvent.AggregateEvent.ForwardFromLinkedChannel,
             domainEvent.AggregateEvent.CorrelationId));
 
         var item = domainEvent.AggregateEvent.OutMessageItem;
         switch (domainEvent.AggregateEvent.OutMessageItem.ToPeer.PeerType)
         {
+            case PeerType.Self:
             case PeerType.User:
                 {
                     var command = new CheckUserStateCommand(UserId.Create(item.OwnerPeer.PeerId),
@@ -180,7 +187,7 @@ public class MessageSaga :
         return CreateOutboxMessageAsync(_state.Request.ReqMsgId, outboxMessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
     }
 
-    private void AddReplyMessageIdToCache(ReplyToMessageEvent aggregateEvent)
+    private void HandleReplyToMessage(ReplyToMessageEvent aggregateEvent)
     {
         if (aggregateEvent.InboxItems != null)
         {
@@ -261,11 +268,17 @@ public class MessageSaga :
         // TODO:Create new MessageItem instance
         messageItem.MessageId = outMessageId;
         var aggregateId = MessageId.Create(messageItem.OwnerPeer.PeerId, messageItem.MessageId);
+        var linkedChannelId = _state.LinkedChannelId;
+        if (linkedChannelId == null && _state.ForwardFromLinkedChannel)
+        {
+            linkedChannelId = _state.MessageItem!.ToPeer.PeerId;
+        }
         var command = new CreateOutboxMessageCommand(aggregateId,
             reqMsgId,
             messageItem,
             clearDraft,
             groupItemCount,
+            linkedChannelId,
             correlationId);
         Publish(command);
         Emit(new OutboxMessageIdGeneratedEvent(outMessageId));
@@ -284,7 +297,7 @@ public class MessageSaga :
             toPeer,
             new List<int> { messageId },
             new List<long> { BitConverter.ToInt64(randomBytes) },
-            //_state.CorrelationId
+            true,
             Guid.NewGuid()
         );
         Publish(command);
@@ -305,7 +318,12 @@ public class MessageSaga :
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, _state.MessageItem!.OwnerPeer.PeerId)
             .ConfigureAwait(false);
-        Emit(new SendOutboxMessageCompletedEvent(_state.Request, _state.MessageItem, pts, _state.GroupItemCount));
+        var linkedChannelId = _state.LinkedChannelId;
+        if (linkedChannelId == null && _state.ForwardFromLinkedChannel)
+        {
+            linkedChannelId = _state.MessageItem.ToPeer.PeerId;
+        }
+        Emit(new SendOutboxMessageCompletedEvent(_state.Request, _state.MessageItem, pts, _state.GroupItemCount, linkedChannelId));
 
         if (_state.MessageItem.ToPeer.PeerType == PeerType.Channel)
         {
@@ -315,10 +333,19 @@ public class MessageSaga :
             {
                 ForwardBroadcastMessageToLinkedChannel(_state.LinkedChannelId.Value, _state.MessageItem.MessageId);
             }
+            HandleReplyDiscussionMessage();
             await CompleteAsync().ConfigureAwait(false);
         }
     }
 
+    private void HandleReplyDiscussionMessage()
+    {
+        if (_state.ReplyToMessageSavedFromPeerId != 0)
+        {
+            var savedFromPeerId = _state.ReplyToMessageSavedFromPeerId;
+            Emit(new ReplyToChannelMessageCompletedEvent(_state.ReplyToMsgId, _state.MessageItem!.ToPeer.PeerId, _state.Pts, _state.MessageItem.MessageId, savedFromPeerId, _state.ReplyToMessageSavedFromMsgId, _state.RecentRepliers!));
+        }
+    }
     private void ReplyToMessage(long reqMsgId, long ownerPeerId, int messageId, Guid correlationId)
     {
         var aggregateId = MessageId.Create(ownerPeerId, messageId);
@@ -345,10 +372,10 @@ public class MessageSaga :
         );
         Publish(command);
     }
-    private void StartReplyToMessage(long ownerPeerId, int replyToMsgId, Guid correlationId)
+    private void StartReplyToMessage(long ownerPeerId, Peer replierPeer, int replyToMsgId, Guid correlationId)
     {
         var command =
-            new StartReplyToMessageCommand(MessageId.Create(ownerPeerId, replyToMsgId), replyToMsgId, correlationId);
+            new StartReplyToMessageCommand(MessageId.Create(ownerPeerId, replyToMsgId), replierPeer, replyToMsgId, correlationId);
         Publish(command);
     }
 }

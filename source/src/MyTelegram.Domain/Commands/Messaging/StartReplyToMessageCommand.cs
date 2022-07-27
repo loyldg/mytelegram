@@ -2,13 +2,17 @@
 
 public class StartReplyToMessageCommand : Command<MessageAggregate, MessageId, IExecutionResult>, IHasCorrelationId
 {
-    public int ReplyToMsgId { get; }
-
-    public StartReplyToMessageCommand(MessageId aggregateId, int replyToMsgId, Guid correlationId) : base(aggregateId)
+    public StartReplyToMessageCommand(MessageId aggregateId,
+        Peer replierPeer,
+        int replyToMsgId,
+        Guid correlationId) : base(aggregateId)
     {
+        ReplierPeer = replierPeer;
         ReplyToMsgId = replyToMsgId;
         CorrelationId = correlationId;
     }
 
+    public Peer ReplierPeer { get; }
+    public int ReplyToMsgId { get; }
     public Guid CorrelationId { get; }
 }

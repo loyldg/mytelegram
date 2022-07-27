@@ -3,34 +3,51 @@
 public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
 {
     private readonly MessageState _state = new();
+
     public MessageAggregate(MessageId id) : base(id)
     {
         Register(_state);
     }
 
     /// <summary>
-    /// Sender's message id and receiver's message id are independent,add receiver's message id to sender,delete messages and pin messages need this
+    ///     Sender's message id and receiver's message id are independent,add receiver's message id to sender,delete messages
+    ///     and pin messages need this
     /// </summary>
     /// <param name="inboxOwnerPeerId"></param>
     /// <param name="inboxMessageId"></param>
-    public void AddInboxMessageIdToOutboxMessage(long inboxOwnerPeerId, int inboxMessageId)
+    public void AddInboxMessageIdToOutboxMessage(long inboxOwnerPeerId,
+        int inboxMessageId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new InboxMessageIdAddedToOutboxMessageEvent(new InboxItem(inboxOwnerPeerId, inboxMessageId)));
     }
 
-    public void CreateInboxMessage(MessageItem inboxMessageItem, int senderMessageId, Guid correlationId)
+    public void CreateInboxMessage(MessageItem inboxMessageItem,
+        int senderMessageId,
+        Guid correlationId)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new InboxMessageCreatedEvent(inboxMessageItem, senderMessageId, correlationId));
     }
 
-    public void CreateOutboxMessage(long reqMsgId, MessageItem outboxMessageItem, bool clearDraft, int groupItemCount, Guid correlationId)
+    public void CreateOutboxMessage(long reqMsgId,
+        MessageItem outboxMessageItem,
+        bool clearDraft,
+        int groupItemCount,
+        long? linkedChannelId,
+        Guid correlationId)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new OutboxMessageCreatedEvent(reqMsgId, outboxMessageItem, clearDraft, groupItemCount, correlationId));
+        Emit(new OutboxMessageCreatedEvent(reqMsgId,
+            outboxMessageItem,
+            clearDraft,
+            groupItemCount,
+            linkedChannelId,
+            correlationId));
     }
-    public void DeleteMessage(int messageId, Guid correlationId)
+
+    public void DeleteMessage(int messageId,
+        Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new MessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId,
@@ -58,7 +75,9 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
     public void DeleteOtherPartyMessage(Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new OtherPartyMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId, _state.MessageItem.MessageId, correlationId));
+        Emit(new OtherPartyMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId,
+            _state.MessageItem.MessageId,
+            correlationId));
     }
 
     public void EditInboxMessage(
@@ -70,11 +89,23 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new InboxMessageEditedEvent(_state.MessageItem.OwnerPeer.PeerId, messageId, newMessage, entities, editDate, _state.MessageItem.ToPeer, media, correlationId));
+        Emit(new InboxMessageEditedEvent(_state.MessageItem.OwnerPeer.PeerId,
+            messageId,
+            newMessage,
+            entities,
+            editDate,
+            _state.MessageItem.ToPeer,
+            media,
+            correlationId));
     }
 
     public void EditOutboxMessage(RequestInfo request,
-                    int messageId, string newMessage, int editDate, byte[]? entities, byte[]? media, Guid correlationId)
+        int messageId,
+        string newMessage,
+        int editDate,
+        byte[]? entities,
+        byte[]? media,
+        Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         if (_state.MessageItem.Date + MyTelegramServerDomainConsts.EditTimeLimit < DateTime.UtcNow.ToTimestamp())
@@ -97,6 +128,7 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
             media,
             correlationId));
     }
+
     public void ForwardMessage(
         RequestInfo request,
         long randomId,
@@ -120,7 +152,8 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new InboxMessageHasReadEvent(reqMsgId, readerUid,
+        Emit(new InboxMessageHasReadEvent(reqMsgId,
+            readerUid,
             _state.MessageItem.MessageId,
             _state.MessageItem.SenderPeer.PeerId,
             _state.SenderMessageId,
@@ -130,7 +163,7 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
         ));
     }
 
-    public void ReplyToMessage(/*int messageId*/Guid correlationId)
+    public void ReplyToMessage( /*int messageId*/ Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new ReplyToMessageEvent(_state.SenderMessageId, _state.InboxItems, correlationId));
@@ -154,24 +187,63 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
             correlationId));
     }
 
-    public void StartForwardMessage(RequestInfo request, Peer fromPeer,
-                        Peer toPeer,
+    public void StartForwardMessage(RequestInfo request,
+        Peer fromPeer,
+        Peer toPeer,
         IReadOnlyList<int> idList,
         IReadOnlyList<long> randomIdList,
+        bool forwardFromLinkedChannel,
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ForwardMessageStartedEvent(request, fromPeer, toPeer, idList, randomIdList, correlationId));
+        Emit(new ForwardMessageStartedEvent(request,
+            fromPeer,
+            toPeer,
+            idList,
+            randomIdList,
+            forwardFromLinkedChannel,
+            correlationId));
     }
-    public void StartReplyToMessage(Guid correlationId)
+
+    public void StartReplyToMessage(Peer replierPeer,
+        int replyToMsgId,
+        Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ReplyToMessageStartedEvent(_state.MessageItem.IsOut, _state.InboxItems, _state.MessageItem.SenderPeer, _state.MessageItem.ToPeer, _state.SenderMessageId, correlationId));
+        var recentRepliers = _state.RecentRepliers.ToList();
+        recentRepliers.RemoveAll(p => p.PeerId == replierPeer.PeerId);
+        if (recentRepliers.Count >= MyTelegramServerDomainConsts.MaxRecentRepliersCount)
+        {
+            recentRepliers.RemoveAt(MyTelegramServerDomainConsts.MaxRecentRepliersCount - 1);
+        }
+        recentRepliers.Insert(0, replierPeer);
+        Emit(new ReplyToMessageStartedEvent(replyToMsgId,
+            _state.MessageItem.IsOut,
+            _state.InboxItems,
+            _state.MessageItem.OwnerPeer,
+            _state.MessageItem.SenderPeer,
+            _state.MessageItem.ToPeer,
+            _state.SenderMessageId,
+            _state.MessageItem.FwdHeader?.SavedFromPeer?.PeerId,
+            _state.MessageItem.FwdHeader?.SavedFromMsgId,
+            recentRepliers,
+            correlationId));
     }
-    public void StartSendMessage(RequestInfo request, MessageItem outMessageItem, bool clearDraft, int groupItemCount, Guid correlationId)
+
+    public void StartSendMessage(RequestInfo request,
+        MessageItem outMessageItem,
+        bool clearDraft,
+        int groupItemCount,
+        bool forwardFromLinkedChannel,
+        Guid correlationId)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new SendMessageStartedEvent(request, outMessageItem, clearDraft, groupItemCount, correlationId));
+        Emit(new SendMessageStartedEvent(request,
+            outMessageItem,
+            clearDraft,
+            groupItemCount,
+            forwardFromLinkedChannel,
+            correlationId));
     }
 
     public void StartUpdatePinnedMessage(RequestInfo request,
@@ -191,7 +263,8 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
         }
 
         var item = _state.MessageItem;
-        Emit(new UpdatePinnedMessageStartedEvent(request, item.OwnerPeer.PeerId,
+        Emit(new UpdatePinnedMessageStartedEvent(request,
+            item.OwnerPeer.PeerId,
             item.MessageId,
             pinned,
             oldPmOneSide,
@@ -228,7 +301,7 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
     }
 
     public void UpdateOutboxMessagePinned(bool pinned,
-            bool pmOneSide,
+        bool pmOneSide,
         bool silent,
         int date,
         Guid correlationId)
@@ -239,10 +312,14 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
             item.MessageId,
             pinned,
             pmOneSide,
-            silent, date, _state.InboxItems,
+            silent,
+            date,
+            _state.InboxItems,
             item.SenderPeer.PeerId,
             _state.SenderMessageId,
-            item.ToPeer, _state.Pts, correlationId
+            item.ToPeer,
+            _state.Pts,
+            correlationId
         ));
     }
 }
