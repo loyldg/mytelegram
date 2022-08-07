@@ -7,8 +7,8 @@ public class ChatReadModel : IChatReadModel,
     IAmReadModelFor<ChatAggregate, ChatId, ChatDefaultBannedRightsEditedEvent>,
     IAmReadModelFor<ChatAggregate, ChatId, ChatPhotoEditedEvent>,
     IAmReadModelFor<ChatAggregate, ChatId, ChatAboutEditedEvent>,
-    IAmReadModelFor<ChatAggregate, ChatId, ChatTitleEditedEvent>
-//IAmReadModelFor<ChatAggregate,ChatId,NewChatMsgIdPinnedEvent>
+    IAmReadModelFor<ChatAggregate, ChatId, ChatTitleEditedEvent>,
+    IAmReadModelFor<ChatAggregate, ChatId, ChatDeletedEvent>
 
 {
     public virtual string? About { get; private set; }
@@ -32,6 +32,7 @@ public class ChatReadModel : IChatReadModel,
     public virtual string Title { get; private set; } = null!;
 
     public virtual long? Version { get; set; }
+    public bool IsDeleted { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<ChatAggregate, ChatId, ChatAboutEditedEvent> domainEvent,
@@ -96,6 +97,13 @@ public class ChatReadModel : IChatReadModel,
         CancellationToken cancellationToken)
     {
         Title = domainEvent.AggregateEvent.Title;
+        return Task.CompletedTask;
+    }
+    public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<ChatAggregate, ChatId, ChatDeletedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        IsDeleted = true;
         return Task.CompletedTask;
     }
 }

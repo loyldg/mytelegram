@@ -4,11 +4,19 @@ using MyTelegram.Schema.Messages;
 namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 
 public class DeleteChatHandler : RpcResultObjectHandler<RequestDeleteChat, IBool>,
-    IDeleteChatHandler
+    IDeleteChatHandler, IProcessedHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    public DeleteChatHandler(ICommandBus commandBus)
+    {
+        _commandBus = commandBus;
+    }
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
         RequestDeleteChat obj)
     {
-        throw new NotImplementedException();
+        var command = new DeleteChatCommand(ChatId.Create(obj.ChatId), input.ToRequestInfo(), Guid.NewGuid());
+        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+
+        return new TBoolTrue();
     }
 }

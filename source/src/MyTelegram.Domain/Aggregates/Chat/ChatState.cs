@@ -11,7 +11,8 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
     IApply<ChatPhotoEditedEvent>,
     IApply<ChatAboutEditedEvent>,
     IApply<ChatTitleEditedEvent>,
-    IApply<CheckChatStateCompletedEvent>
+    IApply<CheckChatStateCompletedEvent>,
+    IApply<ChatDeletedEvent>
 {
     private List<ChatMember> _chatMembers = new();
 
@@ -36,7 +37,7 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
     public byte[]? Photo { get; private set; }
 
     public string Title { get; private set; } = default!;
-
+    public bool IsDeleted { get; private set; }
     public void Apply(ChatAboutEditedEvent aggregateEvent)
     {
         About = aggregateEvent.About;
@@ -126,5 +127,9 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
         LatestDeletedMemberUid = snapshot.LatestDeletedUserId;
         DefaultBannedRights = snapshot.DefaultBannedRights;
         About = snapshot.About;
+    }
+    public void Apply(ChatDeletedEvent aggregateEvent)
+    {
+        IsDeleted = true;
     }
 }

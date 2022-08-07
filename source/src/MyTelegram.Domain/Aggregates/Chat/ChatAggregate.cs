@@ -9,6 +9,15 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Register(_state);
     }
 
+    public void DeleteChat(RequestInfo request, Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        if (request.UserId != _state.CreatorUid)
+        {
+            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
+        }
+        Emit(new ChatDeletedEvent(request, _state.ChatId, _state.Title, correlationId));
+    }
     public void AddChatUser(
         RequestInfo request,
         long inviterUserId,

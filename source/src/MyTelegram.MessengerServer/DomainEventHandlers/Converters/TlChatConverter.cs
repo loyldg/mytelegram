@@ -305,6 +305,11 @@ public class TlChatConverter : ITlChatConverter
         tChat.DefaultBannedRights ??=
             _objectMapper.Map<ChatBannedRights, TChatBannedRights>(new ChatBannedRights());
 
+        if (chat.IsDeleted)
+        {
+            tChat.ParticipantsCount = 0;
+            tChat.Deactivated = true;
+        }
         return tChat;
     }
 
@@ -320,7 +325,11 @@ public class TlChatConverter : ITlChatConverter
             CanSetUsername = true,
             Id = chat.ChatId,
             ChatPhoto = chat.Photo.ToTObject<IPhoto>() ?? new TPhotoEmpty(),
-            Participants = ToChatParticipants(chat.ChatId,
+            Participants = chat.IsDeleted ? new TChatParticipants
+            {
+                ChatId = chat.ChatId,
+                Participants = new TVector<IChatParticipant>()
+            } : ToChatParticipants(chat.ChatId,
                 chat.ChatMembers,
                 chat.Date,
                 chat.CreatorUid,

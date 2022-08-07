@@ -3,7 +3,8 @@
 public class ChatDomainEventHandler : DomainEventHandlerBase,
     ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatCreatedEvent>,
     ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatDefaultBannedRightsEditedEvent>,
-    ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatAboutEditedEvent> //,
+    ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatAboutEditedEvent>,
+    ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatDeletedEvent>
 
 {
     private readonly IChatEventCacheHelper _chatEventCacheHelper;
@@ -84,5 +85,28 @@ public class ChatDomainEventHandler : DomainEventHandlerBase,
         }
 
         await PushUpdatesToPeerAsync(new Peer(PeerType.Chat, chatId), updates).ConfigureAwait(false);
+    }
+    public async  Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatDeletedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        var updateChat = new TUpdateChat
+        {
+            ChatId = domainEvent.AggregateEvent.ChatId
+        };
+        var chatForbidden = new TChatForbidden
+        {
+            Id = domainEvent.AggregateEvent.ChatId,
+            Title = domainEvent.AggregateEvent.Title
+        };
+        var updates = new TUpdates
+        {
+            Updates = new TVector<IUpdate>(updateChat),
+            Users = new TVector<IUser>(),
+            Chats = new TVector<IChat>(chatForbidden),
+            Date = DateTime.UtcNow.ToTimestamp(),
+            Seq = 0
+        };
+        var peer = new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId);
+        await SendMessageToPeerAsync(peer, updates).ConfigureAwait(false);
     }
 }
