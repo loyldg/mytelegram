@@ -4,11 +4,11 @@ using MyTelegram.Schema.Help;
 namespace MyTelegram.MessengerServer.Handlers.Impl.Help;
 
 public class AcceptTermsOfServiceHandler : RpcResultObjectHandler<RequestAcceptTermsOfService, IBool>,
-    IAcceptTermsOfServiceHandler
+    IAcceptTermsOfServiceHandler, IProcessedHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
         RequestAcceptTermsOfService obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IBool>(new TBoolTrue());
     }
 }
