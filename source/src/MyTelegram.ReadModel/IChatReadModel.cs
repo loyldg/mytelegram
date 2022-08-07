@@ -13,4 +13,5 @@ public interface IChatReadModel : IReadModel
     int PinnedMsgId { get; }
     string Title { get; }
     long? Version { get; set; }
+    bool IsDeleted { get; set; }
 }
