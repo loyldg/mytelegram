@@ -4,11 +4,12 @@ using MyTelegram.Schema.Messages;
 namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 
 public class UpdateDialogFiltersOrderHandler : RpcResultObjectHandler<RequestUpdateDialogFiltersOrder, IBool>,
-    IUpdateDialogFiltersOrderHandler
+    IUpdateDialogFiltersOrderHandler, IProcessedHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
         RequestUpdateDialogFiltersOrder obj)
     {
-        throw new NotImplementedException();
+        return new TBoolTrue();
+        //throw new NotImplementedException();
     }
 }

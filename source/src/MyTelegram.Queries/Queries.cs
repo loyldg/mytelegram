@@ -259,6 +259,14 @@ public class GetDialogByIdQuery : IQuery<IDialogReadModel?>
     public DialogId Id { get; }
 }
 
+public class GetDialogFiltersQuery : IQuery<IReadOnlyCollection<IDialogFilterReadModel>>
+{
+    public GetDialogFiltersQuery(long ownerUserId)
+    {
+        OwnerUserId = ownerUserId;
+    }
+    public long OwnerUserId { get; }
+}
 public class GetDialogsQuery : IQuery<IReadOnlyList<IDialogReadModel>>
 {
     public GetDialogsQuery(long ownerId,

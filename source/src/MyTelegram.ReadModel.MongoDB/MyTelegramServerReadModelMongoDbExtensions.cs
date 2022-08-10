@@ -42,7 +42,8 @@ public static class MyTelegramServerReadModelMongoDbExtensions
                 //.UseMongoDbReadModel<FileReadModel>()
                 .UseMongoDbReadModel<ReadingHistoryReadModel>()
                 .UseMongoDbReadModel<RpcResultReadModel>()
-				.UseMongoDbReadModel<ReplyReadModel, IReplyReadModelLocator>()
+                .UseMongoDbReadModel<ReplyReadModel, IReplyReadModelLocator>()
+                .UseMongoDbReadModel<DialogFilterReadModel>()
             ;
     }
 }

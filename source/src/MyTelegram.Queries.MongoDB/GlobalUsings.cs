@@ -29,3 +29,4 @@ global using RpcResultReadModel = MyTelegram.ReadModel.MongoDB.RpcResultReadMode
 global using UserNameReadModel = MyTelegram.ReadModel.MongoDB.UserNameReadModel;
 global using UserReadModel = MyTelegram.ReadModel.MongoDB.UserReadModel;
 global using ReplyReadModel = MyTelegram.ReadModel.MongoDB.ReplyReadModel;
+global using DialogFilterReadModel = MyTelegram.ReadModel.MongoDB.DialogFilterReadModel;

@@ -4,11 +4,31 @@ using MyTelegram.Schema.Folders;
 namespace MyTelegram.MessengerServer.Handlers.Impl.Folders;
 
 public class DeleteFolderHandler : RpcResultObjectHandler<RequestDeleteFolder, IUpdates>,
-    IDeleteFolderHandler
+    IDeleteFolderHandler, IProcessedHandler
 {
-    protected override Task<IUpdates> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+
+    public DeleteFolderHandler(ICommandBus commandBus)
+    {
+        _commandBus = commandBus;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         RequestDeleteFolder obj)
     {
-        throw new NotImplementedException();
+        var command =
+            new DeleteDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.FolderId), input.ToRequestInfo());
+        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+
+        var updates = new TUpdateShort
+        {
+            Date = CurrentDate,
+            Update = new TUpdateDialogFilter
+            {
+                Filter = null,
+                Id = obj.FolderId
+            }
+        };
+        return updates;
     }
 }

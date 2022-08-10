@@ -39,6 +39,11 @@ public class DeviceReadModel : Impl.DeviceReadModel, IMongoDbReadModel
 }
 
 [BsonIgnoreExtraElements]
+public class DialogFilterReadModel : Impl.DialogFilterReadModel, IMongoDbReadModel
+{
+}
+
+[BsonIgnoreExtraElements]
 public class DialogReadModel : Impl.DialogReadModel, IMongoDbReadModel
 {
 }
