@@ -12,7 +12,9 @@ public class TPollAnswer : IPollAnswer
 {
     public uint ConstructorId => 0x6ca9c2e9;
     public string Text { get; set; }
-    public byte[] Option { get; set; }
+    //public byte[] Option { get; set; }
+    public string Option { get; set; }
+
 
     public void ComputeFlag()
     {
@@ -30,6 +32,8 @@ public class TPollAnswer : IPollAnswer
     public void Deserialize(BinaryReader br)
     {
         Text = br.Deserialize<string>();
-        Option = br.Deserialize<byte[]>();
+        //Option = br.Deserialize<byte[]>();
+        Option = br.Deserialize<string>();
+
     }
 }

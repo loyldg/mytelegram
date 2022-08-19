@@ -17,7 +17,9 @@ public class TInputMediaPoll : IInputMedia
     ///See <a href="https://core.telegram.org/type/Poll" />
     ///</summary>
     public MyTelegram.Schema.IPoll Poll { get; set; }
-    public TVector<byte[]>? CorrectAnswers { get; set; }
+    //public TVector<byte[]>? CorrectAnswers { get; set; }
+    public TVector<string>? CorrectAnswers { get; set; }
+
     public string? Solution { get; set; }
     public TVector<MyTelegram.Schema.IMessageEntity>? SolutionEntities { get; set; }
 
@@ -43,7 +45,8 @@ public class TInputMediaPoll : IInputMedia
     {
         Flags = br.Deserialize<BitArray>();
         Poll = br.Deserialize<MyTelegram.Schema.IPoll>();
-        if (Flags[0]) { CorrectAnswers = br.Deserialize<TVector<byte[]>>(); }
+        //if (Flags[0]) { CorrectAnswers = br.Deserialize<TVector<byte[]>>(); }
+        if (Flags[0]) { CorrectAnswers = br.Deserialize<TVector<string>>(); }
         if (Flags[1]) { Solution = br.Deserialize<string>(); }
         if (Flags[1]) { SolutionEntities = br.Deserialize<TVector<MyTelegram.Schema.IMessageEntity>>(); }
     }
