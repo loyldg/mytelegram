@@ -31,6 +31,7 @@ public class MessageSagaTests : TestsFor<MessageSaga>
             messageItem,
             true,
             1,
+            false,
             Guid.NewGuid()
         );
         var domainEvent = ADomainEvent<MessageAggregate, MessageId, SendMessageStartedEvent>(aggregateEvent, aggregateId, 1);

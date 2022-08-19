@@ -81,6 +81,7 @@ public class MessageAggregateTests : TestsFor<MessageAggregate>
             messageItem,
             true,
             1,
+            null,
             Guid.NewGuid());
 
         Sut.ApplyEvents(new IDomainEvent[] { ADomainEvent<MessageAggregate, MessageId, OutboxMessageCreatedEvent>(outboxMessageCreatedEvent, 1) });
