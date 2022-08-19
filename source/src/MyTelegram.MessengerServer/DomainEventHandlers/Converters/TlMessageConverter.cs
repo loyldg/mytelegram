@@ -3,10 +3,12 @@
 public class TlMessageConverter : ITlMessageConverter
 {
     private readonly IPeerHelper _peerHelper;
-
-    public TlMessageConverter(IPeerHelper peerHelper)
+    private readonly ITlPollConverter _pollConverter;
+    public TlMessageConverter(IPeerHelper peerHelper,
+        ITlPollConverter pollConverter)
     {
         _peerHelper = peerHelper;
+        _pollConverter = pollConverter;
     }
 
     public IMessage ToMessage(MessageItem item,
@@ -99,12 +101,22 @@ public class TlMessageConverter : ITlMessageConverter
     }
 
     public IList<IMessage> ToMessages(IReadOnlyCollection<IMessageReadModel> readModels,
+        IReadOnlyCollection<IPollReadModel>? pollReadModels,
+        IReadOnlyCollection<IPollAnswerVoterReadModel>? pollAnswerVoterReadModels,
         long selfUserId)
     {
         var messages = new List<IMessage>();
         foreach (var readModel in readModels)
         {
-            messages.Add(ToMessage(readModel, selfUserId));
+            IPollReadModel? poll = null;
+            List<string>? chosenOptions = null;
+            if (readModel.PollId.HasValue)
+            {
+                poll = pollReadModels?.FirstOrDefault(p => p.PollId == readModel.PollId);
+                chosenOptions = pollAnswerVoterReadModels?.Where(p => p.PollId == readModel.PollId)
+                    .Select(p => p.Option).ToList();
+            }
+            messages.Add(ToMessage(readModel, poll, chosenOptions, selfUserId));
         }
 
         return messages;
@@ -117,7 +129,7 @@ public class TlMessageConverter : ITlMessageConverter
         long selfUserId
         )
     {
-        var m = ToMessage(messageReadModel, selfUserId);
+        var m = ToMessage(messageReadModel, null, null, selfUserId);
         if (m is TMessage tMessage)
         {
             var replies = ToMessageReplies(messageReadModel.Post,
@@ -205,6 +217,8 @@ public class TlMessageConverter : ITlMessageConverter
     }
 
     private IMessage ToMessage(IMessageReadModel readModel,
+        IPollReadModel? pollReadModel,
+        List<string>? chosenOptions,
         long selfUserId)
     {
         switch (readModel.SendMessageType)
@@ -263,6 +277,14 @@ public class TlMessageConverter : ITlMessageConverter
                     ReplyTo = ToMessageReplyHeader(readModel.ReplyToMsgId)
                 };
 
+                    if (pollReadModel != null)
+                    {
+                        m.Media = new TMessageMediaPoll
+                        {
+                            Poll = _pollConverter.ToPoll(pollReadModel),
+                            Results = _pollConverter.ToPollResults(pollReadModel, chosenOptions ?? new List<string>())
+                        };
+                    }
                 if (readModel.ToPeerType == PeerType.Channel)
                 {
                     if (readModel.Post)

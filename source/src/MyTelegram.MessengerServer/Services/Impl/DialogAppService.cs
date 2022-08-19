@@ -140,12 +140,27 @@ public class DialogAppService : BaseAppService, IDialogAppService
                     default).ConfigureAwait(false);
         }
 
+        var pollIdList = messagesList.Where(p => p.PollId.HasValue).Select(p => p.PollId!.Value).ToList();
+        IReadOnlyCollection<IPollReadModel>? pollReadModels = null;
+        IReadOnlyCollection<IPollAnswerVoterReadModel>? chosenOptions = null;
+        if (pollIdList.Count > 0)
+        {
+            pollReadModels =
+                await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default).ConfigureAwait(false);
+            chosenOptions = await _queryProcessor
+                .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.OwnerId), default)
+                .ConfigureAwait(false);
+        }
         return new GetDialogOutput(input.OwnerId,
             dialogList,
             messagesList,
             userList,
             chatList,
             channelList,
-            channelMemberList, input.Limit);
+            channelMemberList,
+			pollReadModels,
+            chosenOptions,
+            input.Limit
+            );
     }
 }

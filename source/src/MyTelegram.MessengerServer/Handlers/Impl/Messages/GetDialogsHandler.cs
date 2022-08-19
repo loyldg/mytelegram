@@ -25,6 +25,14 @@ public class GetDialogsHandler : RpcResultObjectHandler<RequestGetDialogs, IDial
     protected override async Task<IDialogs> HandleCoreAsync(IRequestInput input,
         RequestGetDialogs obj)
     {
+        // Archived Folders
+        if (obj.FolderId == 1)
+        {
+            return new TDialogsNotModified
+            {
+                Count = 0,
+            };
+        }
         var userId = input.UserId;
         var offsetPeer = _peerHelper.GetPeer(obj.OffsetPeer);
         bool? pinned = null;

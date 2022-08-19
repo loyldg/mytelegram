@@ -6,6 +6,8 @@ public record GetMessageOutput(IReadOnlyCollection<IChannelReadModel> ChannelLis
     IReadOnlyCollection<long> JoinedChannelIdList,
     IReadOnlyCollection<IMessageReadModel> MessageList,
     IReadOnlyCollection<IUserReadModel> UserList,
+    IReadOnlyCollection<IPollReadModel>? PollList,
+    IReadOnlyCollection<IPollAnswerVoterReadModel>? ChosenPollOptions,
     bool HasMoreData,
     bool IsSearchGlobal,
     int Pts,

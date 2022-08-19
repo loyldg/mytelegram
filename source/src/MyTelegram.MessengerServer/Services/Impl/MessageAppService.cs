@@ -68,7 +68,8 @@ public class MessageAppService : BaseAppService, IMessageAppService
             MessageActionType.None,
             input.Entities,
             input.Media,
-            input.GroupId
+            input.GroupId,
+            pollId: input.PollId
         );
 
         var command = new StartSendMessageCommand(aggregateId,
@@ -205,12 +206,25 @@ public class MessageAppService : BaseAppService, IMessageAppService
             pts = messageBoxList.Max(p => p.Pts);
         }
 
+        var pollIdList = messageBoxList.Where(p => p.PollId.HasValue).Select(p => p.PollId!.Value).ToList();
+        IReadOnlyCollection<IPollReadModel>? pollReadModels = null;
+        IReadOnlyCollection<IPollAnswerVoterReadModel>? chosenOptions = null;
+        if (pollIdList.Count > 0)
+        {
+            pollReadModels =
+                await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default).ConfigureAwait(false);
+            chosenOptions = await _queryProcessor
+                .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.SelfUserId), default)
+                .ConfigureAwait(false);
+        }
         return new GetMessageOutput(channelList,
             channelMemberList,
             chatList,
             joinedChannelIdList,
             messageBoxList,
             userList,
+            pollReadModels,
+            chosenOptions,
             query.Limit == messageBoxList.Count,
             query.IsSearchGlobal,
             pts,

@@ -17,7 +17,9 @@ public record SendMessageInput
         //MessageActionType messageActionType = MessageActionType.None,
         string? messageActionData = null,
         long groupId = 0,
-        int groupItemCount = 1)
+        int groupItemCount = 1,
+        long? pollId = null
+        )
     {
         Request = request;
         SendMessageType = sendMessageType;
@@ -35,12 +37,14 @@ public record SendMessageInput
         Media = media;
         GroupId = groupId;
         GroupItemCount = groupItemCount;
+        PollId = pollId;
     }
 
     public bool ClearDraft { get; }
     public byte[]? Entities { get; }
     public long GroupId { get; }
     public int GroupItemCount { get; } = 1;
+    public long? PollId { get; }
     public byte[]? Media { get; }
     public string Message { get; }
     public string? MessageActionData { get; }

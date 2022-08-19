@@ -41,7 +41,7 @@ public class TlDifferenceConverter : ITlDifferenceConverter
             maxPts = Math.Max(updatesMaxPts, boxMaxPts);
         }
 
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
+        var messageList = _messageConverter.ToMessages(output.MessageList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
         var chatList = _chatConverter.ToChatList(output.ChatList, output.SelfUserId);
         var channelList = _chatConverter.ToChannelList(output.ChannelList,
             output.JoinedChannelIdList,
@@ -70,7 +70,7 @@ public class TlDifferenceConverter : ITlDifferenceConverter
         IList<IUpdate> updateList,
         IList<IChat> chatListFromUpdates)
     {
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
+        var messageList = _messageConverter.ToMessages(output.MessageList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
         var userList = _userConverter.ToUserList(output.UserList, output.SelfUserId);
         var chatList = _chatConverter.ToChatList(output.ChatList, output.SelfUserId);
         chatList.AddRange(chatListFromUpdates);

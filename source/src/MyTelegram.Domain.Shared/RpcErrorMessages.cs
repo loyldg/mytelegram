@@ -33,4 +33,9 @@ public static class RpcErrorMessages
     public const string MessageEditTimeExpired = "MESSAGE_EDIT_TIME_EXPIRED";
     public const string MessageAuthorRequired = "MESSAGE_AUTHOR_REQUIRED";
     public const string SessionPasswordNeeded = "SESSION_PASSWORD_NEEDED";
+    public const string MessagePollClosed = "MESSAGE_POLL_CLOSED";
+    public const string RevoteNotAllowed = "REVOTE_NOT_ALLOWED";
+    public const string OptionInvalid = "OPTION_INVALID";
+    public const string OptionsTooMuch = "OPTIONS_TOO_MUCH";
+    public const string MessageIdInvalid = "MESSAGE_ID_INVALID";
 }

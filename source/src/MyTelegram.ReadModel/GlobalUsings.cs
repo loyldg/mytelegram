@@ -8,6 +8,7 @@ global using MyTelegram.Domain.Aggregates.Dialog;
 global using MyTelegram.Domain.Aggregates.Messaging;
 global using MyTelegram.Domain.Aggregates.PeerNotifySettings;
 global using MyTelegram.Domain.Aggregates.Pts;
+global using MyTelegram.Domain.Aggregates.Poll;
 global using MyTelegram.Domain.Aggregates.PushDevice;
 global using MyTelegram.Domain.Aggregates.PushUpdates;
 global using MyTelegram.Domain.Aggregates.RpcResult;
@@ -30,4 +31,3 @@ global using MyTelegram.Domain.Sagas;
 global using MyTelegram.Domain.Sagas.Events;
 global using MyTelegram.Domain.Sagas.Identities;
 global using MyTelegram.Domain.ValueObjects;
-

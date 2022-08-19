@@ -8,3 +8,4 @@ global using Microsoft.Extensions.DependencyInjection;
 global using MongoDB.Driver;
 global using MyTelegram.ReadModel.ReadModelLocators;
 global using System.Linq.Expressions;
+global using MyTelegram.Domain.Aggregates.Poll;

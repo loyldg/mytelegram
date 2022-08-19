@@ -44,6 +44,7 @@ public class MessageReadModel : IMessageReadModel,
     public int? SavedFromMsgId { get; private set; }
     public long? SavedFromPeerId { get; private set; }
     public virtual long? Version { get; set; }
+    public long? PollId { get; private set; }
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<MessageAggregate, MessageId, OutboxMessageCreatedEvent> domainEvent,
@@ -83,6 +84,7 @@ public class MessageReadModel : IMessageReadModel,
         }
 
         Silent = false;
+        PollId = messageItem.PollId;
 
         return Task.CompletedTask;
     }
@@ -114,6 +116,7 @@ public class MessageReadModel : IMessageReadModel,
         Views = messageItem.Views;
 
         Silent = false;
+        PollId = messageItem.PollId;
 
         return Task.CompletedTask;
     }

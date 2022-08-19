@@ -122,6 +122,10 @@ public class MongoDbIndexesCreator : MongoDbIndexesCreatorBase
         await CreateIndexAsync<ReplyReadModel>(p => p.SavedFromMsgId).ConfigureAwait(false);
 
         await CreateIndexAsync<DialogFilterReadModel>(p => p.OwnerUserId).ConfigureAwait(false);
+        await CreateIndexAsync<PollReadModel>(p => p.ToPeerId).ConfigureAwait(false);
+        await CreateIndexAsync<PollReadModel>(p => p.PollId).ConfigureAwait(false);
+        await CreateIndexAsync<PollAnswerVoterReadModel>(p => p.PollId).ConfigureAwait(false);
+        await CreateIndexAsync<PollAnswerVoterReadModel>(p => p.Option).ConfigureAwait(false);
         var snapShotCollectionName = "snapShots";
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateId, snapShotCollectionName)
             .ConfigureAwait(false);

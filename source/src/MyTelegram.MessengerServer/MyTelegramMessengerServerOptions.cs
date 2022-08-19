@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer;
 #nullable disable
+
 public class MyTelegramMessengerServerOptions
 {
     public string FileServerAppId { get; set; }

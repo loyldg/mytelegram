@@ -1,4 +1,5 @@
-﻿namespace MyTelegram.ReadModel.MongoDB;
+﻿
+namespace MyTelegram.ReadModel.MongoDB;
 
 public static class MyTelegramServerReadModelMongoDbExtensions
 {
@@ -21,6 +22,7 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .AddTransient<IUserReadModelLocator, UserReadModelLocator>()
             .AddTransient<IChannelReadModelLocator, ChannelReadModelLocator>()
             .AddTransient<IChannelFullReadModelLocator, ChannelFullReadModelLocator>()
+			.AddTransient<IPollAnswerVoterReadModelLocator, PollAnswerVoterReadModelLocator>()
             ;
 
         return options.AddDefaults(typeof(MyTelegramServerReadModelMongoDbExtensions).Assembly)
@@ -44,6 +46,8 @@ public static class MyTelegramServerReadModelMongoDbExtensions
                 .UseMongoDbReadModel<RpcResultReadModel>()
                 .UseMongoDbReadModel<ReplyReadModel, IReplyReadModelLocator>()
                 .UseMongoDbReadModel<DialogFilterReadModel>()
+				.UseMongoDbReadModel<PollAggregate, PollId, PollReadModel>()
+                .UseMongoDbReadModel<PollAnswerVoterReadModel, IPollAnswerVoterReadModelLocator>()
             ;
     }
 }

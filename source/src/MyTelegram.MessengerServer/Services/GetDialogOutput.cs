@@ -10,6 +10,8 @@ public class GetDialogOutput
         IReadOnlyCollection<IChatReadModel> chatList,
         IReadOnlyCollection<IChannelReadModel> channelList,
         IReadOnlyCollection<IChannelMemberReadModel> channelMemberList,
+        IReadOnlyCollection<IPollReadModel>? pollList,
+        IReadOnlyCollection<IPollAnswerVoterReadModel>? chosenPollOptions,
         int limit
         //,
         //PtsReadModel ptsReadModel
@@ -23,6 +25,8 @@ public class GetDialogOutput
         ChatList = chatList;
         ChannelList = channelList;
         ChannelMemberList = channelMemberList;
+        PollList = pollList;
+        ChosenPollOptions = chosenPollOptions;
         Limit = limit;
         //PtsReadModel = ptsReadModel;
         //PeerNotifySettingList = peerNotifySettingList;
@@ -31,6 +35,8 @@ public class GetDialogOutput
     public int CachedPts { get; set; }
     public IReadOnlyCollection<IChannelReadModel> ChannelList { get; set; }
     public IReadOnlyCollection<IChannelMemberReadModel> ChannelMemberList { get; set; }
+    public IReadOnlyCollection<IPollReadModel>? PollList { get; }
+    public IReadOnlyCollection<IPollAnswerVoterReadModel>? ChosenPollOptions { get; }
     public int Limit { get; }
     public IReadOnlyCollection<IChatReadModel> ChatList { get; set; }
 

@@ -44,6 +44,7 @@ public static class MyTelegramHandlerExtensions
         services.AddTransient<ITlDifferenceConverter, TlDifferenceConverter>();
         services.AddTransient<ITlDialogConverter, TlDialogConverter>();
         services.AddTransient<ITlPeerConverter, TlPeerConverter>();
+        services.AddTransient<ITlPollConverter, TlPollConverter>();
 
         // IdGenerator services
         services.AddSingleton<IHiLoValueGeneratorCache, HiLoValueGeneratorCache>();

@@ -31,4 +31,5 @@ public interface IMessageReadModel : IReadModel
     int? Views { get; }
     long? LinkedChannelId { get; }
     int Replies { get; }
+    long? PollId { get; }
 }

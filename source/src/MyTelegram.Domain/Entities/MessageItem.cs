@@ -23,7 +23,8 @@ public class MessageItem :ValueObject// Entity<MessageId>
         //int? groupItemCount = null,
         bool post = false,
         MessageFwdHeader? fwdHeader = null,
-        int? views = null
+        int? views = null,
+        long? pollId=null
     ) //: base(id)
     {
         OwnerPeer = ownerPeer;
@@ -47,6 +48,7 @@ public class MessageItem :ValueObject// Entity<MessageId>
         Post = post;
         //GroupItemCount = groupItemCount;
         Views = views;
+        PollId = pollId;
     }
 
     public int Date { get; }
@@ -73,4 +75,5 @@ public class MessageItem :ValueObject// Entity<MessageId>
 
     public bool Post { get; internal set; }
     public int? Views { get; internal set; }
+    public long? PollId { get; }
 }

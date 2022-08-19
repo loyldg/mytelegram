@@ -111,7 +111,7 @@ public class TlDialogConverter : ITlDialogConverter
             }
         }
 
-        var messageList = _messageConverter.ToMessages(allBoxList, output.SelfUserId);
+        var messageList = _messageConverter.ToMessages(allBoxList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
 
         if (dialogs.Count == output.Limit)
         {

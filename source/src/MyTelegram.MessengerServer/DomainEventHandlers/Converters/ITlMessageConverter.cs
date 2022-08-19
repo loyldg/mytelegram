@@ -14,6 +14,8 @@ public interface ITlMessageConverter
     IMessageReplyHeader? ToMessageReplyHeader(int? replyToMessageId);
 
     IList<IMessage> ToMessages(IReadOnlyCollection<IMessageReadModel> readModels,
+        IReadOnlyCollection<IPollReadModel>? pollReadModels,
+        IReadOnlyCollection<IPollAnswerVoterReadModel>? pollAnswerVoterReadModels,
         long selfUserId);
     IMessage ToDiscussionMessage(IMessageReadModel messageReadModel,int maxId,int readMaxId,int readInboxMaxId,int readOutboxMaxId,long selfUserId);
 }

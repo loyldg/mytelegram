@@ -201,6 +201,8 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
             Array.Empty<long>(),
             Array.Empty<IMessageReadModel>(),
             Array.Empty<IUserReadModel>(),
+            Array.Empty<IPollReadModel>(),
+            Array.Empty<IPollAnswerVoterReadModel>(),
             false,
             false,
             0,
@@ -208,7 +210,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         );
 
         r.ChannelList = channelReadModelList;
-        
+
         if (maxPts > 0 || channelMaxGlobalSeqNo > 0)
         {
             // Console.WriteLine($"Add pts ack:maxPts={maxPts},channelMaxGlobalSeqNo={channelMaxGlobalSeqNo},updatesCount={allPushUpdatesList.Count}");
@@ -218,7 +220,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
                     channelMaxGlobalSeqNo,
                     new Peer(PeerType.User, input.UserId)).ConfigureAwait(false);
         }
-        
+
         _logger.LogDebug(
             "UserId={UserId} Diff={Diff} AuthKeyId={AuthKeyId} PermAuthKeyId={PermAuthKeyId} Updates Count={Count},Data={@Data},Chats={@Chats},Messages={@Messages},Users={@Users}",
             input.UserId,

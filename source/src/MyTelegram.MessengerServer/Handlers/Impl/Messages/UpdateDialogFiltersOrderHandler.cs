@@ -6,10 +6,10 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 public class UpdateDialogFiltersOrderHandler : RpcResultObjectHandler<RequestUpdateDialogFiltersOrder, IBool>,
     IUpdateDialogFiltersOrderHandler, IProcessedHandler
 {
-    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
         RequestUpdateDialogFiltersOrder obj)
     {
-        return new TBoolTrue();
+        return Task.FromResult<IBool>(new TBoolTrue());
         //throw new NotImplementedException();
     }
 }

@@ -745,3 +745,51 @@ public class GetLatestAppCodeQuery : IQuery<IAppCodeReadModel>
 
     public string PhoneNumber { get; }
 }
+public class GetPollIdByMessageIdQuery : IQuery<long?>
+{
+    public long PeerId { get; }
+    public int MessageId { get; }
+    public GetPollIdByMessageIdQuery(long peerId, int messageId)
+    {
+        PeerId = peerId;
+        MessageId = messageId;
+    }
+}
+public class GetPollQuery : IQuery<IPollReadModel?>
+{
+    public long ToPeerId { get; }
+    public long PollId { get; }
+    public GetPollQuery(long toPeerId, long pollId)
+    {
+        ToPeerId = toPeerId;
+        PollId = pollId;
+    }
+}
+public class GetChosenVoteAnswersQuery : IQuery<IReadOnlyCollection<IPollAnswerVoterReadModel>>
+{
+    public List<long> PollIds { get; }
+    public long VoterPeerId { get; }
+    public GetChosenVoteAnswersQuery(List<long> pollIds, long voterPeerId)
+    {
+        PollIds = pollIds;
+        VoterPeerId = voterPeerId;
+    }
+}
+public class GetPollAnswerVotersQuery : IQuery<IReadOnlyCollection<IPollAnswerVoterReadModel>>
+{
+    public long PollId { get; }
+    public long VoterPeerId { get; }
+    public GetPollAnswerVotersQuery(long pollId, long voterPeerId)
+    {
+        PollId = pollId;
+        VoterPeerId = voterPeerId;
+    }
+}
+public class GetPollsQuery : IQuery<IReadOnlyCollection<IPollReadModel>>
+{
+    public List<long> PollIds { get; }
+    public GetPollsQuery(List<long> pollIds)
+    {
+        PollIds = pollIds;
+    }
+}

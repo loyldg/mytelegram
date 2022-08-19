@@ -45,7 +45,7 @@ public class RpcResultProcessor : IRpcResultProcessor
 
     public IMessages ToMessages(GetMessageOutput output)
     {
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.SelfUserId);
+        var messageList = _messageConverter.ToMessages(output.MessageList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
         var userList = _userConverter.ToUserList(output.UserList, output.SelfUserId);
         var chatList = _chatConverter.ToChatList(output.ChatList, output.SelfUserId);
         var channelList = _chatConverter.ToChannelList(output.ChannelList,

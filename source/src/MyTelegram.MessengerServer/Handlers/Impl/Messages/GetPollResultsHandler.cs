@@ -4,11 +4,43 @@ using MyTelegram.Schema.Messages;
 namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 
 public class GetPollResultsHandler : RpcResultObjectHandler<RequestGetPollResults, IUpdates>,
-    IGetPollResultsHandler
+    IGetPollResultsHandler, IProcessedHandler
 {
-    protected override Task<IUpdates> HandleCoreAsync(IRequestInput input,
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IPeerHelper _peerHelper;
+    private readonly ITlPollConverter _pollConverter;
+    public GetPollResultsHandler(IQueryProcessor queryProcessor,
+        IPeerHelper peerHelper,
+        ITlPollConverter pollConverter)
+    {
+        _queryProcessor = queryProcessor;
+        _peerHelper = peerHelper;
+        _pollConverter = pollConverter;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         RequestGetPollResults obj)
     {
-        throw new NotImplementedException();
+        var peer = _peerHelper.GetPeer(obj.Peer);
+        var pollId = await _queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default).ConfigureAwait(false);
+        if (pollId == null)
+        {
+            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
+        }
+
+        var pollReadModel = await _queryProcessor
+            .ProcessAsync(new GetPollQuery(peer.PeerId, pollId!.Value),
+                default).ConfigureAwait(false);
+        if (pollReadModel == null)
+        {
+            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
+        }
+        var pollAnswers = await _queryProcessor
+            .ProcessAsync(new GetPollAnswerVotersQuery(pollId.Value, input.UserId), default)
+            .ConfigureAwait(false);
+        var updates = _pollConverter.ToPollUpdates(pollReadModel!,
+            pollAnswers?.Select(p => p.Option).ToArray() ?? Array.Empty<string>());
+
+        return updates;
     }
 }
