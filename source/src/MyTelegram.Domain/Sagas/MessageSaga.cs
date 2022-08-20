@@ -249,7 +249,8 @@ public class MessageSaga :
             outMessageItem.GroupId,
             outMessageItem.Post,
             outMessageItem.FwdHeader,
-            outMessageItem.Views
+            outMessageItem.Views,
+            outMessageItem.PollId
         );
 
         var command = new CreateInboxMessageCommand(aggregateId, inboxMessageItem, outMessageItem.MessageId, _state.CorrelationId);
