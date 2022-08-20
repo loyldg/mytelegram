@@ -19,7 +19,7 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessagePollClosed);
         }
 
-        if (_state.Quiz)
+        if (!_state.MultipleChoice)
         {
             if (options.Count > 1)
             {
@@ -29,7 +29,7 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
 
         if (_state.VotedPeerIds.Contains(voteUserPeerId))
         {
-            if (_state.Quiz || (_state.MultipleChoice && options.Count > 0))
+            if (_state.Quiz)
             {
                 ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.RevoteNotAllowed);
             }
@@ -46,9 +46,9 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
 
         var answerVoters = _state.AnswerVoters;
 
-        // Only multiple answers poll can retract vote
+        // Only quiz==false can retract vote
         List<string>? retractVoteOptions = null;
-        if (options.Count == 0 && _state.MultipleChoice)
+        if (options.Count == 0 && !_state.Quiz)
         {
             retractVoteOptions = _state.GetVoteOptionsByUserId(voteUserPeerId);
             foreach (var pollAnswerVoter in answerVoters)
