@@ -32,8 +32,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Protos\chatmemberloaderservice.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!--<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />-->
-    <PackageReference Include="Grpc.AspNetCore" Version="2.46.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.47.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,9 +50,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyTelegram.GrpcService\MyTelegram.GrpcService.csproj" />
+    <!--<ProjectReference Include="..\MyTelegram.GrpcService\MyTelegram.GrpcService.csproj" />-->
     <ProjectReference Include="..\MyTelegram.MessengerServer\MyTelegram.MessengerServer.csproj" />
     <ProjectReference Include="..\MyTelegram.Queries.MongoDB\MyTelegram.QueryHandlers.MongoDB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\chatmemberloaderservice.proto"  GrpcServices="Server"  />
   </ItemGroup>
 
 </Project>

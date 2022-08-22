@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\common.props" />
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -16,18 +16,15 @@
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.21.1" />
     <!--<PackageReference Include="Grpc" Version="2.46.3" />-->
-    <PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.46.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Grpc.Net.Client" Version="2.47.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.47.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\chatservice.proto" />
-    <Protobuf Include="Protos\chatmemberloaderservice.proto" />
-    <Protobuf Include="Protos\idgeneratorservice.proto" />
-    <Protobuf Include="Protos\mediaservice.proto" />
+    <!--<Protobuf Include="Protos\chatservice.proto" />-->
+    <Protobuf Include="Protos\chatmemberloaderservice.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\idgeneratorservice.proto" GrpcServices="Client"  />
+    <Protobuf Include="Protos\mediaservice.proto" GrpcServices="Client"  />
   </ItemGroup>
 
 </Project>
