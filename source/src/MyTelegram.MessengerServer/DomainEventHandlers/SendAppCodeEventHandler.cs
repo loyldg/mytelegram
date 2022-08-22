@@ -7,13 +7,15 @@ public class SendAppCodeEventHandler : ISubscribeSynchronousTo<AppCodeAggregate,
     private readonly IMessageAppService _messageAppService;
     private readonly IRandomHelper _randomHelper;
     private readonly ILogger<SendAppCodeEventHandler> _logger;
-
+    private readonly IEventBus _eventBus;
     public SendAppCodeEventHandler(IMessageAppService messageAppService,
-        IRandomHelper randomHelper, ILogger<SendAppCodeEventHandler> logger)
+        IRandomHelper randomHelper, ILogger<SendAppCodeEventHandler> logger,
+        IEventBus eventBus)
     {
         _messageAppService = messageAppService;
         _randomHelper = randomHelper;
         _logger = logger;
+        _eventBus = eventBus;
     }
 
     public async Task HandleAsync(IDomainEvent<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent> domainEvent,
@@ -23,6 +25,11 @@ public class SendAppCodeEventHandler : ISubscribeSynchronousTo<AppCodeAggregate,
             domainEvent.AggregateEvent.PhoneNumber,
             domainEvent.AggregateEvent.Code
         );
+
+        await _eventBus.PublishAsync(new AppCodeCreatedIntegrationEvent(domainEvent.AggregateEvent.UserId,
+                    domainEvent.AggregateEvent.PhoneNumber,
+                    domainEvent.AggregateEvent.Code,
+                    domainEvent.AggregateEvent.Expire)).ConfigureAwait(false);
 
         if (domainEvent.AggregateEvent.UserId != 0)
         {
