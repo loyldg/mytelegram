@@ -20,7 +20,7 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
     https://github.com/loyldg/mytelegram/blob/dev/docker/compose/docker-compose.yml
     https://github.com/loyldg/mytelegram/blob/dev/docker/compose/.env
     ```
-2. Change the ip address configuration in **.env**
+2. Change the IP address configuration in **.env**,replace `127.0.0.1` with the IP address of gateway server
 3. Run the following command in the directory where the docker-compose.yml file is located
     ```
     docker compose up
@@ -32,16 +32,21 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 3. Install Redis
 4. Install MongoDB
 5. Intall RabbitMQ
-6. Modify server configuration in start-all.bat/start-all.sh
-7. Run start-all.bat/start-all.sh
-8. Test using Telegram client,if you want to use the [compiled  tdesktop client(win-x64)](https://github.com/loyldg/mytelegram/releases/download/v0.7.727/Telegram-4.0.2-win-x64.zip),add the gateway server's ip address into hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line into hosts file
+6. Modify server configuration in `start-all.bat`/`start-all.ps1`/`start-all.sh`,replace `127.0.0.1` with the IP address of gateway server
+7. Run `start-all.bat`/`start-all.ps1`/`start-all.sh`
+
+- ### Test with compiled client
+1. Download [TDesktop client](https://github.com/loyldg/mytelegram/releases/download/v0.7.727/Telegram-4.0.2-win-x64.zip)
+2. Add the IP address of the gateway server to hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line to hosts file
 ```
 192.168.1.100    demos.telegram2.com
 ```
+3. Run Telegram.exe
+4. Default verification code is `22222`
 
 ## Build Telegram client
 For all clients,only need to replace server address and RSA public key,and then follow the offical documents to build it  
-
+> Tips:The default TCP port is 20443,default HTTPS port is 30443,default HTTP port is 30444,you need this port when compile the clients,Tdesktop client/Android client/iOS client use tcp port 20443,Web client use 30443(HTTPS)/30444(HTTP)
 Public key:
 ```
 -----BEGIN RSA PUBLIC KEY-----
@@ -69,30 +74,87 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
 The default publick key's fingerprint is **`0xce27f5081215bda4`**(Android client need calculate fingerpint and replace using this value),
 if you want to use your own public key,replace `private.pkcs8.key` in auth folder
 
-1. Build telegram desktop client https://github.com/telegramdesktop/tdesktop   
-    * Replace server address and RSA public key in **Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**
+- ### Build [Tdesktop client](https://github.com/telegramdesktop/tdesktop)
+1. Switch to the branch which the layer is 143(version 4.0.2)
+2. Replace server addresses,port and RSA public key in **Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**
 
-2. Build telegram android client https://github.com/DrKLO/Telegram
-    * **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** Mytelegram not support Stickers in current version,need comment the following code in method `setSticker`  
-        ```
-        MediaDataController.getInstance(currentAccount).loadStickersByEmojiOrName(AndroidUtilities.STICKERS_PLACEHOLDER_PACK_NAME, false, set == null);
-                stickerView.getImageReceiver().clearImage();
-        ```
-    * **Telegram\TMessagesProj\jni\tgnet\ConnectionsManager.cpp** Replace server ip address and port using gateway server's ip and port  
-    * **Telegram\TMessagesProj\jni\tgnet\Datacenter.cpp** Replace RSA public key in method `decodeSimpleConfig`
-    * **Telegram\TMessagesProj\jni\tgnet\Handshake.cpp** Replace RSA public key and fingerprint in method `processHandshakeResponse`  
+- ### Build [Android client](https://github.com/DrKLO/Telegram)
+1. Switch to the branch which the layer is 143(version 8.8.5)
+2. **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** Mytelegram not support Stickers in current version,need comment the following code in method `setSticker`  
+   ``` java
+   MediaDataController.getInstance(currentAccount).loadStickersByEmojiOrName(AndroidUtilities.STICKERS_PLACEHOLDER_PACK_NAME, false, set == null);
+                stickerView.getImageReceiver().clearImage();     
+   ```
+3. **Telegram\TMessagesProj\jni\tgnet\ConnectionsManager.cpp** Replace server ip address and port using gateway server's ip and port  
+4. **Telegram\TMessagesProj\jni\tgnet\Datacenter.cpp** Replace RSA public key in method `decodeSimpleConfig`
+5. **Telegram\TMessagesProj\jni\tgnet\Handshake.cpp** Replace RSA public key and fingerprint in method `processHandshakeResponse`  
 
-3. Build telegram iOS client  
-    * Coming soon
-4. Build telegram Web client
-https://github.com/morethanwords/tweb 
-   *  **src\lib\mtproto\rsaKeysManager.ts** Replace **modulus** with the following value
-        ```
-        bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7
-       ```
-    *    **src\lib\mtproto\dcConfigurator.ts** Replace the domain and server address
-    *    **src\config\app.ts** Replace the domain
-    *    **webpack.common.js** Replace the domain and server address
+- ### Build [iOS client](https://github.com/TelegramMessenger/Telegram-iOS)
+  Coming soon
+- ### Build [Telegram Web K](https://github.com/morethanwords/tweb)
+1. **src\lib\mtproto\rsaKeysManager.ts** Replace **modulus** with the following value
+  ```
+  bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7      
+  ```      
+2. **src\lib\mtproto\dcConfigurator.ts** Replace the domain and server address
+3. **src\config\app.ts** Replace the domain
+4. **webpack.common.js** Replace the domain and server address
+
+- ### Build [Telegram Web Z](https://github.com/Ajaxy/telegram-tt)
+1. **/src/lib/gramjs/network/Authenticator.ts** Line 47
+```typescript
+const pqInnerData = new Api.PQInnerData({
+        pq: Helpers.getByteArray(pq), // unsigned
+        p: pBuffer,
+        q: qBuffer,
+        nonce: resPQ.nonce,
+        serverNonce: resPQ.serverNonce,
+        newNonce,
+    }).getBytes();
+```
+replace the code with the following code
+```typescript
+const pqInnerData = new Api.PQInnerDataDc({
+        pq: Helpers.getByteArray(pq), // unsigned
+        p: pBuffer,
+        q: qBuffer,
+        nonce: resPQ.nonce,
+        serverNonce: resPQ.serverNonce,
+        newNonce,
+        dc: 2
+    }).getBytes();
+```
+
+2. **/src/lib/gramjs/extensions/PromisedWebSockets.js** Line 69
+Replace `port === 443` with `port === 30443`
+``` typescript
+getWebSocketLink(ip, port, testServers) {
+        if (port === 443) {
+            return `wss://${ip}:${port}/apiws${testServers ? '_test' : ''}`;
+        } else {
+            return `ws://${ip}:${port}/apiws${testServers ? '_test' : ''}`;
+        }
+    }
+```
+3. **src\lib\gramjs\crypto\RSA.ts** Replace SERVER_KEYS with the following code
+```typescript
+export const SERVER_KEYS = [
+    {
+        fingerprint: bigInt('-3591632762792723036'),
+        n: bigInt('bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7',16),
+        e: 65537
+    }
+].reduce((acc, { fingerprint, ...keyInfo }) => {
+    acc.set(fingerprint.toString(), keyInfo);
+    return acc;
+}, new Map<string, { n: bigInt.BigInteger; e: number }>());
+```
+
+4. **src\lib\gramjs\client\TelegramClient.js**  
+Line 29:Replace `zws2.web.telegram.org` with the IP address of the gateway server  
+Line 30:Replace `[2001:67c:4e8:f002::a]` with the IPV6 address of the gateway server,if gateway server IPV6 not enable,you can also replace the value with the IPV4 address of gateway server  
+Line 70:`useWSS: false`(HTTP) `useWSS: false`(HTTPS)  
+Line 224:Replace `this._args.useWSS ? 443 : 80` with `this._args.useWSS ? 30443 : 30444`
 ## Feedback
 Contact author:[https://t.me/mytelegram666](https://t.me/mytelegram666)  
 Join telegram group:[https://t.me/+S-aNBoRvCRpPyXrR](https://t.me/+S-aNBoRvCRpPyXrR)
