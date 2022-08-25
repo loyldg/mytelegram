@@ -55,8 +55,9 @@ services:
     networks:
       - tg-net
     ports:
-      - "${GatewayServerTcpPort}:20443"
-      - "${GatewayServerHttpPort}:30443"
+      - "${Servers0Port}:20443"
+      - "${Servers1Port}:30443"
+      - "${Servers2Port}:30444"
     volumes:
       - ./data/mytelegram/gateway/logs:/data/Logs
     environment:
@@ -67,8 +68,17 @@ services:
        RabbitMQ__Connections__Default__Password: ${RabbitMqConnectionsDefaultPassword}
        Redis__Configuration: ${RedsConfiguration}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
-       App__Tcp__Ip: ${GatewayServerTcpIp}
-       App__Http__Ip: ${GatewayServerHttpIp}
+       App__Servers__0__Enabled: ${Servers0Enabled}
+       App__Servers__0__ServerType: ${Servers0ServerType}
+       App__Servers__0__Port: ${Servers0Port}
+       App__Servers__1__Enabled: ${Servers1Enabled}
+       App__Servers__1__ServerType: ${Servers1ServerType}
+       App__Servers__1__Port: ${Servers1Port}
+       App__Servers__1__CertPemFilePath: ${Servers1CertPemFilePath}
+       App__Servers__1__KeyPemFilePath: ${Servers1KeyPemFilePath}
+       App__Servers__2__Enabled: ${Servers2Enabled}
+       App__Servers__2__ServerType: ${Servers2ServerType}
+       App__Servers__2__Port: ${Servers2Port}
     depends_on:
       - rabbitmq
       - mongodb
@@ -193,6 +203,7 @@ services:
        App__DcOptions__0__IpAddress: ${DcOptions0IpAddress}
        App__DcOptions__0__Port: ${DcOptions0Port}
        App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
+       App__FixedVerifyCode: ${FixedVerifyCode}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
     volumes:
       - ./data/mytelegram/messenger/logs:/data/Logs
@@ -200,3 +211,23 @@ services:
       - mongodb
       - rabbitmq
       - redis
+
+### 8.Sms sender
+  sms-sender:
+    image: mytelegram/mytelegram-sms-sender:${MyTelegramVersion}
+    restart: always
+    networks:
+      - tg-net
+    environment:
+      RabbitMQ__Connections__Default__HostName: ${RabbitMqConnectionsDefaultHostName}
+      RabbitMQ__Connections__Default__Port: ${RabbitMqConnectionsDefaultPort}
+      RabbitMQ__Connections__Default__UserName: ${RabbitMqConnectionsDefaultUserName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMqConnectionsDefaultPassword}
+      TwilioSms__Enabled: ${TwilioSmsEnabled}
+      TwilioSms__AccountSId: ${TwilioSmsAccountSId}
+      TwilioSms__AuthToken: ${TwilioSmsAuthToken}
+      TwilioSms__FromNumber: ${TwilioSmsFromNumber}
+    volumes:
+      - ./data/mytelegram/sms-sender/logs:/data/Logs
+    depends_on:
+      - rabbitmq
