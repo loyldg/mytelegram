@@ -8,6 +8,7 @@ public class
 {
     public int ChannelHistoryMinId { get; private set; }
     public long ChannelId { get; private set; }
+    public bool Broadcast { get; private set; }
 
     public bool Completed => TotalCount == IncrementedCount;
     public int Date { get; private set; }
@@ -40,6 +41,7 @@ public class
         RandomId = aggregateEvent.RandomId;
         MessageActionData = aggregateEvent.MessageActionData;
         ChannelHistoryMinId = aggregateEvent.ChannelHistoryMinId;
+        Broadcast = aggregateEvent.Broadcast;
     }
 
     public Guid CorrelationId { get; private set; }

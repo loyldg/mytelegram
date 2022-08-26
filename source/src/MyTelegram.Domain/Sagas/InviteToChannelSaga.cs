@@ -60,6 +60,7 @@ public class InviteToChannelSaga :
             domainEvent.AggregateEvent.ChannelHistoryMinId,
             domainEvent.AggregateEvent.RandomId,
             domainEvent.AggregateEvent.MessageActionData,
+            domainEvent.AggregateEvent.Broadcast,
             domainEvent.AggregateEvent.CorrelationId
         ));
         foreach (var userId in domainEvent.AggregateEvent.MemberUidList)
@@ -85,6 +86,8 @@ public class InviteToChannelSaga :
         if (_state.Completed)
         {
             // send service message to member after invited to channel
+            if (!_state.Broadcast)
+            {
             var ownerPeerId = _state.ChannelId;
             var outMessageId = 0;
             var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, _state.RandomId);
@@ -116,6 +119,7 @@ public class InviteToChannelSaga :
             );
 
             Publish(command);
+            }
 
             Emit(new InviteToChannelCompletedEvent(_state.Request.ReqMsgId,
                 _state.ChannelId,

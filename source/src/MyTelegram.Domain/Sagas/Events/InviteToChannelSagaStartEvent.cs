@@ -14,6 +14,7 @@ public class InviteToChannelSagaStartEvent : RequestAggregateEvent2<InviteToChan
         int channelHistoryMinId,
         long randomId,
         string messageActionData,
+        bool broadcast,
         Guid correlationId) : base(request)
     {
         ChannelId = channelId;
@@ -25,6 +26,7 @@ public class InviteToChannelSagaStartEvent : RequestAggregateEvent2<InviteToChan
         ChannelHistoryMinId = channelHistoryMinId;
         RandomId = randomId;
         MessageActionData = messageActionData;
+        Broadcast = broadcast;
         CorrelationId = correlationId;
     }
 
@@ -35,6 +37,7 @@ public class InviteToChannelSagaStartEvent : RequestAggregateEvent2<InviteToChan
     public int MaxMessageId { get; }
     public IReadOnlyList<long> MemberUidList { get; }
     public string MessageActionData { get; }
+    public bool Broadcast { get; }
     public long RandomId { get; }
     public int TotalCount { get; }
 

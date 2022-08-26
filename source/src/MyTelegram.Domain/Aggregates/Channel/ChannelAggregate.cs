@@ -298,6 +298,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             _state.PreHistoryHidden ? _state.MaxMessageId : 0,
             randomId,
             messageActionData,
+            _state.Broadcast,
             correlationId));
     }
 

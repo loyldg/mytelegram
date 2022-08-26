@@ -13,6 +13,7 @@ public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate
         long randomId,
         string messageActionData,
         //bool isBot,
+        bool broadcast,
         Guid correlationId):base(request)
     {
         ChannelId = channelId;
@@ -24,6 +25,7 @@ public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate
         ChannelHistoryMinId = channelHistoryMinId;
         RandomId = randomId;
         MessageActionData = messageActionData;
+        Broadcast = broadcast;
         //IsBot = isBot;
         CorrelationId = correlationId;
     }
@@ -36,6 +38,7 @@ public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate
     public int MaxMessageId { get; }
     public IReadOnlyList<long> MemberUidList { get; }
     public string MessageActionData { get; }
+    public bool Broadcast { get; }
     public long RandomId { get; }
 
     //public bool IsBot { get; }
