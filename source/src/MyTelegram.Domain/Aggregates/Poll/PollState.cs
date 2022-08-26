@@ -10,23 +10,23 @@ public class PollState : AggregateState<PollAggregate, PollId, PollState>, IAppl
     IApply<PollClosedEvent>
 {
     public long PollId { get; private set; }
-    public long CreatorUid { get; private set; }
+    //public long CreatorUid { get; private set; }
     public bool Closed { get; private set; }
-    public bool PublicVoters { get; private set; }
+    //public bool PublicVoters { get; private set; }
     public bool MultipleChoice { get; private set; }
     public bool Quiz { get; private set; }
-    public string Question { get; private set; }
-    public string Solution { get; private set; }
-    public byte[] SolutionEntities { get; private set; }
-    public int CreationTime { get; private set; }
+    public string Question { get; private set; } = null!;
+    //public string? Solution { get; private set; }
+    //public byte[]? SolutionEntities { get; private set; }
+    //public int CreationTime { get; private set; }
     public int CloseDate { get; private set; }
-    public int ClosePeriod { get; private set; }
-    public Peer ToPeer { get; private set; }
+    //public int ClosePeriod { get; private set; }
+    public Peer ToPeer { get; private set; } = null!;
 
     public ConcurrentDictionary<string, List<long>> OptionsToVoterUsers { get; } = new();
     public List<string> Options { get; private set; } = new();
     public IReadOnlyCollection<string>? CorrectAnswers { get; private set; }
-    public IReadOnlyCollection<PollAnswer> Answers { get; private set; }
+    public IReadOnlyCollection<PollAnswer> Answers { get; private set; } = null!;
     public IReadOnlyCollection<PollAnswerVoter> AnswerVoters { get; private set; } = new List<PollAnswerVoter>();
     public HashSet<long> VotedPeerIds { get; private set; } = new();
     private readonly ConcurrentDictionary<string, HashSet<long>> _optionToVoterPeers = new();
