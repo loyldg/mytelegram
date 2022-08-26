@@ -13,6 +13,17 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 * Bot(Partial support,Pro version)
 * 2FA(Pro version)
 
+## Build MyTelegram Server
+1. Install [.NET SDK 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+2. Execute the following command using powershell
+```
+git clone https://github.com/loyldg/mytelegram.git 
+cd mytelegram/source
+dotnet restore
+cd .\src\MyTelegram.MessengerServer.Abp\
+dotnet publish -c Release -r win-x64 
+```
+
 ## Run MyTelegram server
 - ### Run MyTelegram server with docker
 1. Download docker-compose configuration files

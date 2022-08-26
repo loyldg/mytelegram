@@ -14,6 +14,18 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 * 机器人(部分支持,Pro版本)
 * 2FA(Pro版本)
 
+## 编译MyTelegram服务端
+1. 安装[.NET SDK 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+2. 执行以下代码 
+```
+git clone https://github.com/loyldg/mytelegram.git 
+cd mytelegram/source
+dotnet restore
+cd .\src\MyTelegram.MessengerServer.Abp\
+dotnet publish -c Release -r win-x64 
+
+```
+
 ## 运行MyTelegram服务端
 - ### 在docker中运行MyTelegram服务端
 1. 下载docker-compose配置文件,将其放到同一个目录里
