@@ -6,10 +6,8 @@ using IAuthorization = MyTelegram.Schema.Auth.IAuthorization;
 namespace MyTelegram.MessengerServer.Handlers.Impl.Auth;
 
 public class SignUpHandler : RpcResultObjectHandler<RequestSignUp, IAuthorization>,
-    ISignUpHandler, IProcessedHandler //, IShouldCacheRequest
+    ISignUpHandler, IProcessedHandler
 {
-    //private readonly IDistributedCache<UserCacheItem> _distributedCache;
-    private readonly ICacheManager<UserCacheItem> _cacheManager;
     private readonly ICommandBus _commandBus;
     private readonly IRandomHelper _randomHelper;
     private readonly IQueryProcessor _queryProcessor;
@@ -17,12 +15,10 @@ public class SignUpHandler : RpcResultObjectHandler<RequestSignUp, IAuthorizatio
     public SignUpHandler(
         ICommandBus commandBus,
         IRandomHelper randomHelper,
-        ICacheManager<UserCacheItem> cacheManager,
         IQueryProcessor queryProcessor)
     {
         _commandBus = commandBus;
         _randomHelper = randomHelper;
-        _cacheManager = cacheManager;
         _queryProcessor = queryProcessor;
     }
 
