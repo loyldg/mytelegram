@@ -104,7 +104,7 @@ public class MessageReadModel : IMessageReadModel,
         Message = messageItem.Message;
         Entities = messageItem.Entities;
         Date = messageItem.Date;
-        SenderMessageId = messageItem.MessageId;
+        SenderMessageId = domainEvent.AggregateEvent.SenderMessageId;
         MessageActionData = messageItem.MessageActionData;
         MessageActionType = messageItem.MessageActionType;
         ReplyToMsgId = messageItem.ReplyToMsgId;
