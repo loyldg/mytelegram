@@ -123,7 +123,7 @@ public class MessageSaga :
             case PeerType.Self:
             case PeerType.User:
                 {
-                    var command = new CheckUserStateCommand(UserId.Create(item.OwnerPeer.PeerId),
+                    var command = new CheckUserStateCommand(UserId.Create(item.ToPeer.PeerId),
                         domainEvent.AggregateEvent.Request.ReqMsgId,
                         domainEvent.AggregateEvent.CorrelationId);
                     Publish(command);
