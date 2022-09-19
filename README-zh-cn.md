@@ -13,6 +13,7 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 * 语音视频聊天(Pro版本)
 * 机器人(部分支持,Pro版本)
 * 2FA(Pro版本)
+* 表情包(Pro版本)
 
 ## 编译MyTelegram服务端
 1. 安装[.NET SDK 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
@@ -167,6 +168,9 @@ export const SERVER_KEYS = [
 30行:`[2001:67c:4e8:f002::a]`替换为Gateway服务器的IPV6地址,如果Gateway服务器没有启用IPV6,这里也可以直接替换为IPV4地址  
 70行:`useWSS: false`(HTTP) `useWSS: true`(HTTPS),根据情况进行修改   
 224行:`this._args.useWSS ? 443 : 80);`修改为`this._args.useWSS ? 30443 : 30444);`
+
+## 支持MyTelegram
+如果你喜欢这个项目,请点一个⭐
 
 ## 反馈
 联系作者:[https://t.me/mytelegram666](https://t.me/mytelegram666)  

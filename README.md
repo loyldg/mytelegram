@@ -12,6 +12,7 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 * Voice/video call(Pro version)
 * Bot(Partial support,Pro version)
 * 2FA(Pro version)
+* Stickers(Pro version)
 
 ## Build MyTelegram Server
 1. Install [.NET SDK 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
@@ -166,6 +167,10 @@ Line 29:Replace `zws2.web.telegram.org` with the IP address of the gateway serve
 Line 30:Replace `[2001:67c:4e8:f002::a]` with the IPV6 address of the gateway server,if gateway server IPV6 not enable,you can also replace the value with the IPV4 address of gateway server  
 Line 70:`useWSS: false`(HTTP) `useWSS: false`(HTTPS)  
 Line 224:Replace `this._args.useWSS ? 443 : 80` with `this._args.useWSS ? 30443 : 30444`
+
+## Support MyTelegram
+Love MyTelegram? Please give a star to this repository ⭐
+
 ## Feedback
 Contact author:[https://t.me/mytelegram666](https://t.me/mytelegram666)  
 Join telegram group:[https://t.me/+S-aNBoRvCRpPyXrR](https://t.me/+S-aNBoRvCRpPyXrR)
