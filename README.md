@@ -2,7 +2,10 @@
 MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment
 
 ## Features
-* Supported MTProto Layer:**`143`**  
+* Supported MTProto Layer:**`143`~`146`**  
+Open source version: **`143`**  
+Pro version:**`143`**~**`146`**  
+Pro version supports client communication with different layers,open source version only supports single layer  
 * Supported [MTProto Protocol(2.0)](https://core.telegram.org/mtproto):**`Abridged`**,**`Intermediate`**  
 * Private chat
 * Group chat

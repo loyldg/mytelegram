@@ -3,7 +3,10 @@
 MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/api)的开源实现,支持私有化部署服务端,客户端使用官方的开源客户端
 
 ## 特性
-* 支持的MTProto Layer:**`143`**  
+* 支持的MTProto Layer:**`143`~`146`**  
+开源版本:**`143`**  
+Pro版本:**`143`**~**`146`**  
+Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开源版本仅支持单一的Layer,只支持某一个版本  
 * 支持的[MTProto协议(2.0)](https://core.telegram.org/mtproto):**`Abridged`**,**`Intermediate`**,支持通过普通`Tcp`和`Websocket`进行传输  
 * 私聊
 * 普通群
