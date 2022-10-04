@@ -32,7 +32,7 @@ public class GetDialogsQueryHandler : IQueryHandler<GetDialogsQuery, IReadOnlyLi
 
         Expression<Func<DialogReadModel, bool>> predicate = x => x.OwnerId == query.OwnerId;
         predicate = predicate
-                .WhereIf(needOffsetDate, p => p.CreationTime > offsetDate)
+                .WhereIf(needOffsetDate, p => p.CreationTime < offsetDate)
                 .WhereIf(needPinnedParameter, p => p.Pinned == pinned)
                 .WhereIf(query.PeerIdList?.Count > 0, p => query.PeerIdList!.Contains(p.ToPeerId))
             ;
