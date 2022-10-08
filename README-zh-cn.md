@@ -4,7 +4,7 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 
 ## 特性
 * 支持的MTProto Layer:**`143`~`146`**  
-开源版本:**`143`**  
+开源版本:**`146`**  
 Pro版本:**`143`**~**`146`**  
 Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开源版本仅支持单一的Layer,只支持某一个版本  
 * 支持的[MTProto协议(2.0)](https://core.telegram.org/mtproto):**`Abridged`**,**`Intermediate`**,支持通过普通`Tcp`和`Websocket`进行传输  
@@ -172,6 +172,30 @@ export const SERVER_KEYS = [
 70行:`useWSS: false`(HTTP) `useWSS: true`(HTTPS),根据情况进行修改   
 224行:`this._args.useWSS ? 443 : 80);`修改为`this._args.useWSS ? 30443 : 30444);`
 
+5. **src\api\gramjs\methods\users.ts**   
+146行:
+```
+const result = await invokeRequest(new GramJs.users.GetUsers({
+    id: users.map(({ id, accessHash }) => buildInputPeer(id, accessHash)),
+  }));
+```
+替换为如下代码:
+```
+const result = await invokeRequest(new GramJs.users.GetUsers({
+    id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
+  }));
+```
+6. **src\lib\gramjs\Utils.js**
+640行:  
+```
+function getDC(dcId, downloadDC = false) {
+    // TODO Move to external config
+```
+修改为以下代码,并替换gateway服务器IP地址
+```
+function getDC(dcId, downloadDC = false) {
+return { id: 2, ipAddress: '这里替换为gateway服务器Ip地址', port: 30443 };
+```
 ## 支持MyTelegram
 如果你喜欢这个项目,请点一个⭐
 

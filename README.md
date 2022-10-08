@@ -3,7 +3,7 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 
 ## Features
 * Supported MTProto Layer:**`143`~`146`**  
-Open source version: **`143`**  
+Open source version: **`146`**  
 Pro version:**`143`**~**`146`**  
 Pro version supports client communication with different layers,open source version only supports single layer  
 * Supported [MTProto Protocol(2.0)](https://core.telegram.org/mtproto):**`Abridged`**,**`Intermediate`**  
@@ -170,7 +170,31 @@ Line 29:Replace `zws2.web.telegram.org` with the IP address of the gateway serve
 Line 30:Replace `[2001:67c:4e8:f002::a]` with the IPV6 address of the gateway server,if gateway server IPV6 not enable,you can also replace the value with the IPV4 address of gateway server  
 Line 70:`useWSS: false`(HTTP) `useWSS: false`(HTTPS)  
 Line 224:Replace `this._args.useWSS ? 443 : 80` with `this._args.useWSS ? 30443 : 30444`
+5. **src\api\gramjs\methods\users.ts**    
+Line 146:
+```
+const result = await invokeRequest(new GramJs.users.GetUsers({
+    id: users.map(({ id, accessHash }) => buildInputPeer(id, accessHash)),
+  }));
+```
+Replace with the following code:
+```
+const result = await invokeRequest(new GramJs.users.GetUsers({
+    id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
+  }));
+```
 
+6. **src\lib\gramjs\Utils.js**
+Line 640:  
+```
+function getDC(dcId, downloadDC = false) {
+    // TODO Move to external config
+```
+Replace with the following code,and replace ipAddress
+```
+function getDC(dcId, downloadDC = false) {
+return { id: 2, ipAddress: 'IPAddress of your gateway server', port: 30443 };
+```
 ## Support MyTelegram
 Love MyTelegram? Please give a star to this repository ⭐
 
