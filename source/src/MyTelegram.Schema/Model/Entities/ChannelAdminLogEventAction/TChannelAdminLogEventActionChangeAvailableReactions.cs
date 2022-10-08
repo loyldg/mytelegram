@@ -7,12 +7,20 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/channelAdminLogEventActionChangeAvailableReactions" />
 ///</summary>
-[TlObject(0x9cf7f76a)]
+[TlObject(0xbe4e0ef8)]
 public class TChannelAdminLogEventActionChangeAvailableReactions : IChannelAdminLogEventAction
 {
-    public uint ConstructorId => 0x9cf7f76a;
-    public TVector<string> PrevValue { get; set; }
-    public TVector<string> NewValue { get; set; }
+    public uint ConstructorId => 0xbe4e0ef8;
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/ChatReactions" />
+    ///</summary>
+    public MyTelegram.Schema.IChatReactions PrevValue { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/ChatReactions" />
+    ///</summary>
+    public MyTelegram.Schema.IChatReactions NewValue { get; set; }
 
     public void ComputeFlag()
     {
@@ -29,7 +37,7 @@ public class TChannelAdminLogEventActionChangeAvailableReactions : IChannelAdmin
 
     public void Deserialize(BinaryReader br)
     {
-        PrevValue = br.Deserialize<TVector<string>>();
-        NewValue = br.Deserialize<TVector<string>>();
+        PrevValue = br.Deserialize<MyTelegram.Schema.IChatReactions>();
+        NewValue = br.Deserialize<MyTelegram.Schema.IChatReactions>();
     }
 }

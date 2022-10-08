@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/messageMediaInvoice" />
 ///</summary>
-[TlObject(0x84551347)]
+[TlObject(0xf6a548d3)]
 public class TMessageMediaInvoice : IMessageMedia
 {
-    public uint ConstructorId => 0x84551347;
+    public uint ConstructorId => 0xf6a548d3;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool ShippingAddressRequested { get; set; }
     public bool Test { get; set; }
@@ -26,13 +26,18 @@ public class TMessageMediaInvoice : IMessageMedia
     public long TotalAmount { get; set; }
     public string StartParam { get; set; }
 
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/MessageExtendedMedia" />
+    ///</summary>
+    public MyTelegram.Schema.IMessageExtendedMedia? ExtendedMedia { get; set; }
+
     public void ComputeFlag()
     {
         if (ShippingAddressRequested) { Flags[1] = true; }
         if (Test) { Flags[3] = true; }
         if (Photo != null) { Flags[0] = true; }
         if (ReceiptMsgId != 0 && ReceiptMsgId.HasValue) { Flags[2] = true; }
-
+        if (ExtendedMedia != null) { Flags[4] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -47,6 +52,7 @@ public class TMessageMediaInvoice : IMessageMedia
         bw.Serialize(Currency);
         bw.Write(TotalAmount);
         bw.Serialize(StartParam);
+        if (Flags[4]) { ExtendedMedia.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -61,5 +67,6 @@ public class TMessageMediaInvoice : IMessageMedia
         Currency = br.Deserialize<string>();
         TotalAmount = br.ReadInt64();
         StartParam = br.Deserialize<string>();
+        if (Flags[4]) { ExtendedMedia = br.Deserialize<MyTelegram.Schema.IMessageExtendedMedia>(); }
     }
 }

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.getMessageReactionsList" />
 ///</summary>
-[TlObject(0xe0ee6b77)]
+[TlObject(0x461b3f48)]
 public sealed class RequestGetMessageReactionsList : IRequest<MyTelegram.Schema.Messages.IMessageReactionsList>
 {
-    public uint ConstructorId => 0xe0ee6b77;
+    public uint ConstructorId => 0x461b3f48;
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
@@ -17,7 +17,11 @@ public sealed class RequestGetMessageReactionsList : IRequest<MyTelegram.Schema.
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
     public int Id { get; set; }
-    public string? Reaction { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/Reaction" />
+    ///</summary>
+    public MyTelegram.Schema.IReaction? Reaction { get; set; }
     public string? Offset { get; set; }
     public int Limit { get; set; }
 
@@ -35,7 +39,7 @@ public sealed class RequestGetMessageReactionsList : IRequest<MyTelegram.Schema.
         bw.Serialize(Flags);
         Peer.Serialize(bw);
         bw.Write(Id);
-        if (Flags[0]) { bw.Serialize(Reaction); }
+        if (Flags[0]) { Reaction.Serialize(bw); }
         if (Flags[1]) { bw.Serialize(Offset); }
         bw.Write(Limit);
     }
@@ -45,7 +49,7 @@ public sealed class RequestGetMessageReactionsList : IRequest<MyTelegram.Schema.
         Flags = br.Deserialize<BitArray>();
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         Id = br.ReadInt32();
-        if (Flags[0]) { Reaction = br.Deserialize<string>(); }
+        if (Flags[0]) { Reaction = br.Deserialize<MyTelegram.Schema.IReaction>(); }
         if (Flags[1]) { Offset = br.Deserialize<string>(); }
         Limit = br.ReadInt32();
     }

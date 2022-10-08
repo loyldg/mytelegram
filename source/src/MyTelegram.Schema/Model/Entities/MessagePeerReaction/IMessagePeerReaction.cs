@@ -8,6 +8,6 @@ public interface IMessagePeerReaction : IObject
     bool Big { get; set; }
     bool Unread { get; set; }
     MyTelegram.Schema.IPeer PeerId { get; set; }
-    string Reaction { get; set; }
+    MyTelegram.Schema.IReaction Reaction { get; set; }
 
 }

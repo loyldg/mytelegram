@@ -11,6 +11,7 @@ public interface IUserFull : IObject
     bool CanPinMessage { get; set; }
     bool HasScheduled { get; set; }
     bool VideoCallsAvailable { get; set; }
+    bool VoiceMessagesForbidden { get; set; }
     long Id { get; set; }
     string? About { get; set; }
     MyTelegram.Schema.IPeerSettings Settings { get; set; }
@@ -25,5 +26,6 @@ public interface IUserFull : IObject
     string? PrivateForwardName { get; set; }
     MyTelegram.Schema.IChatAdminRights? BotGroupAdminRights { get; set; }
     MyTelegram.Schema.IChatAdminRights? BotBroadcastAdminRights { get; set; }
+    TVector<MyTelegram.Schema.IPremiumGiftOption>? PremiumGifts { get; set; }
 
 }

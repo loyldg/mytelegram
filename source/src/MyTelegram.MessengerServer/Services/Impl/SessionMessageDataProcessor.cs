@@ -22,10 +22,10 @@ public class SessionMessageDataProcessor : IDataProcessor<ISessionMessage>
             case PushMessageToPeerEvent pushMessageToPeerEvent:
                 await _eventBus.PublishAsync(pushMessageToPeerEvent).ConfigureAwait(false);
                 break;
-            case PushSessionMessageToAuthKeyIdEvent pushSessionMessageToAuthKeyIdEvent:
+            case LayeredAuthKeyIdMessageCreatedIntegrationEvent pushSessionMessageToAuthKeyIdEvent:
                 await _eventBus.PublishAsync(pushSessionMessageToAuthKeyIdEvent).ConfigureAwait(false);
                 break;
-            case PushSessionMessageToPeerEvent pushSessionMessageToPeerEvent:
+            case LayeredPushMessageCreatedIntegrationEvent pushSessionMessageToPeerEvent:
                 await _eventBus.PublishAsync(pushSessionMessageToPeerEvent).ConfigureAwait(false);
                 break;
             default:

@@ -7,10 +7,12 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/messages.featuredStickers" />
 ///</summary>
-[TlObject(0x84c02310)]
+[TlObject(0xbe382906)]
 public class TFeaturedStickers : IFeaturedStickers
 {
-    public uint ConstructorId => 0x84c02310;
+    public uint ConstructorId => 0xbe382906;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public bool Premium { get; set; }
     public long Hash { get; set; }
     public int Count { get; set; }
     public TVector<MyTelegram.Schema.IStickerSetCovered> Sets { get; set; }
@@ -18,6 +20,7 @@ public class TFeaturedStickers : IFeaturedStickers
 
     public void ComputeFlag()
     {
+        if (Premium) { Flags[0] = true; }
 
     }
 
@@ -25,6 +28,7 @@ public class TFeaturedStickers : IFeaturedStickers
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         bw.Write(Hash);
         bw.Write(Count);
         Sets.Serialize(bw);
@@ -33,6 +37,8 @@ public class TFeaturedStickers : IFeaturedStickers
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
+        if (Flags[0]) { Premium = true; }
         Hash = br.ReadInt64();
         Count = br.ReadInt32();
         Sets = br.Deserialize<TVector<MyTelegram.Schema.IStickerSetCovered>>();

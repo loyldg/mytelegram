@@ -6,18 +6,19 @@ namespace MyTelegram.Schema.Payments;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/payments.assignAppStoreTransaction" />
 ///</summary>
-[TlObject(0xfec13c6)]
+[TlObject(0x80ed747d)]
 public sealed class RequestAssignAppStoreTransaction : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xfec13c6;
-    public BitArray Flags { get; set; } = new BitArray(32);
-    public bool Restore { get; set; }
-    public string TransactionId { get; set; }
+    public uint ConstructorId => 0x80ed747d;
     public byte[] Receipt { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/InputStorePaymentPurpose" />
+    ///</summary>
+    public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
     public void ComputeFlag()
     {
-        if (Restore) { Flags[0] = true; }
 
     }
 
@@ -25,16 +26,13 @@ public sealed class RequestAssignAppStoreTransaction : IRequest<MyTelegram.Schem
     {
         ComputeFlag();
         bw.Write(ConstructorId);
-        bw.Serialize(Flags);
-        bw.Serialize(TransactionId);
         bw.Serialize(Receipt);
+        Purpose.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
-        Flags = br.Deserialize<BitArray>();
-        if (Flags[0]) { Restore = true; }
-        TransactionId = br.Deserialize<string>();
         Receipt = br.Deserialize<byte[]>();
+        Purpose = br.Deserialize<MyTelegram.Schema.IInputStorePaymentPurpose>();
     }
 }

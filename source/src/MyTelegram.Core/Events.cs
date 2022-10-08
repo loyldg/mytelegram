@@ -84,18 +84,32 @@ public record PushMessageToPeerEvent(int PeerType,
     long ExcludeUid,
     long OnlySendToThisAuthKeyId, int Pts, PtsType PtsType, long GlobalSeqNo) : ISessionMessage;
 
-public record PushSessionMessageToAuthKeyIdEvent(long AuthKeyId,
+//public record PushSessionMessageToAuthKeyIdEvent(long AuthKeyId,
+//    byte[] Data,
+//    int Pts,
+//    PtsType PtsType, long GlobalSeqNo) : ISessionMessage;
+public record LayeredAuthKeyIdMessageCreatedIntegrationEvent(long AuthKeyId,
     byte[] Data,
     int Pts,
     PtsType PtsType, long GlobalSeqNo) : ISessionMessage;
 
-public record PushSessionMessageToPeerEvent(int PeerType,
+//public record PushSessionMessageToPeerEvent(int PeerType,
+//    long PeerId,
+//    byte[] Data,
+//    long ExcludeAuthKeyId,
+//    long ExcludeUid,
+//    long OnlySendToThisAuthKeyId, int Pts,
+//    PtsType PtsType, long GlobalSeqNo) : ISessionMessage;
+public record LayeredPushMessageCreatedIntegrationEvent(
+    int PeerType,
     long PeerId,
     byte[] Data,
     long ExcludeAuthKeyId,
     long ExcludeUid,
-    long OnlySendToThisAuthKeyId, int Pts,
-    PtsType PtsType, long GlobalSeqNo) : ISessionMessage;
+    long OnlySendToThisAuthKeyId,
+    int Pts,
+    PtsType PtsType,
+    long GlobalSeqNo) : ISessionMessage;
 
 public record FileDataResultResponseReceivedEvent(long ReqMsgId,
     byte[] Data) : ISessionMessage;
@@ -172,4 +186,18 @@ public record PushDataReceivedEvent(uint ObjectId,
     long AuthKeyId,
     long PermAuthKeyId,
     byte[] Data) : DataReceivedEvent(ObjectId, UserId, ReqMsgId, SeqNumber, AuthKeyId, PermAuthKeyId,
+    Data);
+
+public record StickerDataReceivedEvent(uint ObjectId,
+    long UserId,
+    long ReqMsgId,
+    int SeqNumber,
+    long AuthKeyId,
+    long PermAuthKeyId,
+    byte[] Data) : DataReceivedEvent(ObjectId,
+    UserId,
+    ReqMsgId,
+    SeqNumber,
+    AuthKeyId,
+    PermAuthKeyId,
     Data);

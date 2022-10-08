@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/config" />
 ///</summary>
-[TlObject(0x330b4067)]
+[TlObject(0x232566ac)]
 public class TConfig : IConfig
 {
-    public uint ConstructorId => 0x330b4067;
+    public uint ConstructorId => 0x232566ac;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool PhonecallsEnabled { get; set; }
     public bool DefaultP2pContacts { get; set; }
@@ -69,6 +69,11 @@ public class TConfig : IConfig
     public int? LangPackVersion { get; set; }
     public int? BaseLangPackVersion { get; set; }
 
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/Reaction" />
+    ///</summary>
+    public MyTelegram.Schema.IReaction? ReactionsDefault { get; set; }
+
     public void ComputeFlag()
     {
         if (PhonecallsEnabled) { Flags[1] = true; }
@@ -88,6 +93,7 @@ public class TConfig : IConfig
         if (SuggestedLangCode != null) { Flags[2] = true; }
         if (LangPackVersion != 0 && LangPackVersion.HasValue) { Flags[2] = true; }
         if (BaseLangPackVersion != 0 && BaseLangPackVersion.HasValue) { Flags[2] = true; }
+        if (ReactionsDefault != null) { Flags[15] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -139,6 +145,7 @@ public class TConfig : IConfig
         if (Flags[2]) { bw.Serialize(SuggestedLangCode); }
         if (Flags[2]) { bw.Write(LangPackVersion.Value); }
         if (Flags[2]) { bw.Write(BaseLangPackVersion.Value); }
+        if (Flags[15]) { ReactionsDefault.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -196,5 +203,6 @@ public class TConfig : IConfig
         if (Flags[2]) { SuggestedLangCode = br.Deserialize<string>(); }
         if (Flags[2]) { LangPackVersion = br.ReadInt32(); }
         if (Flags[2]) { BaseLangPackVersion = br.ReadInt32(); }
+        if (Flags[15]) { ReactionsDefault = br.Deserialize<MyTelegram.Schema.IReaction>(); }
     }
 }

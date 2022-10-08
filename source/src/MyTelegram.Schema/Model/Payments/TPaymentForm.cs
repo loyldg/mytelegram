@@ -7,10 +7,10 @@ namespace MyTelegram.Schema.Payments;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/payments.paymentForm" />
 ///</summary>
-[TlObject(0xb0133b37)]
+[TlObject(0xa0058751)]
 public class TPaymentForm : IPaymentForm
 {
-    public uint ConstructorId => 0xb0133b37;
+    public uint ConstructorId => 0xa0058751;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool CanSaveCredentials { get; set; }
     public bool PasswordMissing { get; set; }
@@ -36,16 +36,13 @@ public class TPaymentForm : IPaymentForm
     ///See <a href="https://core.telegram.org/type/DataJSON" />
     ///</summary>
     public MyTelegram.Schema.IDataJSON? NativeParams { get; set; }
+    public TVector<MyTelegram.Schema.IPaymentFormMethod>? AdditionalMethods { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/PaymentRequestedInfo" />
     ///</summary>
     public MyTelegram.Schema.IPaymentRequestedInfo? SavedInfo { get; set; }
-
-    ///<summary>
-    ///See <a href="https://core.telegram.org/type/PaymentSavedCredentials" />
-    ///</summary>
-    public MyTelegram.Schema.IPaymentSavedCredentials? SavedCredentials { get; set; }
+    public TVector<MyTelegram.Schema.IPaymentSavedCredentials>? SavedCredentials { get; set; }
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()
@@ -55,8 +52,9 @@ public class TPaymentForm : IPaymentForm
         if (Photo != null) { Flags[5] = true; }
         if (NativeProvider != null) { Flags[4] = true; }
         if (NativeParams != null) { Flags[4] = true; }
+        if (AdditionalMethods?.Count > 0) { Flags[6] = true; }
         if (SavedInfo != null) { Flags[0] = true; }
-        if (SavedCredentials != null) { Flags[1] = true; }
+        if (SavedCredentials?.Count > 0) { Flags[1] = true; }
 
     }
 
@@ -75,6 +73,7 @@ public class TPaymentForm : IPaymentForm
         bw.Serialize(Url);
         if (Flags[4]) { bw.Serialize(NativeProvider); }
         if (Flags[4]) { NativeParams.Serialize(bw); }
+        if (Flags[6]) { AdditionalMethods.Serialize(bw); }
         if (Flags[0]) { SavedInfo.Serialize(bw); }
         if (Flags[1]) { SavedCredentials.Serialize(bw); }
         Users.Serialize(bw);
@@ -95,8 +94,9 @@ public class TPaymentForm : IPaymentForm
         Url = br.Deserialize<string>();
         if (Flags[4]) { NativeProvider = br.Deserialize<string>(); }
         if (Flags[4]) { NativeParams = br.Deserialize<MyTelegram.Schema.IDataJSON>(); }
+        if (Flags[6]) { AdditionalMethods = br.Deserialize<TVector<MyTelegram.Schema.IPaymentFormMethod>>(); }
         if (Flags[0]) { SavedInfo = br.Deserialize<MyTelegram.Schema.IPaymentRequestedInfo>(); }
-        if (Flags[1]) { SavedCredentials = br.Deserialize<MyTelegram.Schema.IPaymentSavedCredentials>(); }
+        if (Flags[1]) { SavedCredentials = br.Deserialize<TVector<MyTelegram.Schema.IPaymentSavedCredentials>>(); }
         Users = br.Deserialize<TVector<MyTelegram.Schema.IUser>>();
     }
 }

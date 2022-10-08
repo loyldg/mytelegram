@@ -6,10 +6,15 @@ namespace MyTelegram.Schema.Payments;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/payments.canPurchasePremium" />
 ///</summary>
-[TlObject(0xaa6a90c8)]
+[TlObject(0x9fc19eb6)]
 public sealed class RequestCanPurchasePremium : IRequest<IBool>
 {
-    public uint ConstructorId => 0xaa6a90c8;
+    public uint ConstructorId => 0x9fc19eb6;
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/InputStorePaymentPurpose" />
+    ///</summary>
+    public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
     public void ComputeFlag()
     {
@@ -20,11 +25,11 @@ public sealed class RequestCanPurchasePremium : IRequest<IBool>
     {
         ComputeFlag();
         bw.Write(ConstructorId);
-
+        Purpose.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
-
+        Purpose = br.Deserialize<MyTelegram.Schema.IInputStorePaymentPurpose>();
     }
 }

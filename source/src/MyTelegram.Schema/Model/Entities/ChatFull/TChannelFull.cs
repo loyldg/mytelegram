@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/channelFull" />
 ///</summary>
-[TlObject(0xea68a619)]
+[TlObject(0xf2355507)]
 public class TChannelFull : IChatFull
 {
-    public uint ConstructorId => 0xea68a619;
+    public uint ConstructorId => 0xf2355507;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool CanViewParticipants { get; set; }
     public bool CanSetUsername { get; set; }
@@ -88,7 +88,7 @@ public class TChannelFull : IChatFull
     ///See <a href="https://core.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer? DefaultSendAs { get; set; }
-    public TVector<string>? AvailableReactions { get; set; }
+    public MyTelegram.Schema.IChatReactions? AvailableReactions { get; set; }
 
     public void ComputeFlag()
     {
@@ -125,7 +125,7 @@ public class TChannelFull : IChatFull
         if (RequestsPending != 0 && RequestsPending.HasValue) { Flags[28] = true; }
         if (RecentRequesters?.Count > 0) { Flags[28] = true; }
         if (DefaultSendAs != null) { Flags[29] = true; }
-        if (AvailableReactions?.Count > 0) { Flags[30] = true; }
+         if (AvailableReactions != null) { Flags[30] = true; }
         if (CanDeleteChannel) { Flags2[0] = true; }
     }
 
@@ -221,6 +221,6 @@ public class TChannelFull : IChatFull
         if (Flags[28]) { RequestsPending = br.ReadInt32(); }
         if (Flags[28]) { RecentRequesters = br.Deserialize<TVector<long>>(); }
         if (Flags[29]) { DefaultSendAs = br.Deserialize<MyTelegram.Schema.IPeer>(); }
-        if (Flags[30]) { AvailableReactions = br.Deserialize<TVector<string>>(); }
+        if (Flags[30]) { AvailableReactions = br.Deserialize<MyTelegram.Schema.IChatReactions>(); }
     }
 }

@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/inputMediaInvoice" />
 ///</summary>
-[TlObject(0xd9799874)]
+[TlObject(0x8eb5a6d5)]
 public class TInputMediaInvoice : IInputMedia
 {
-    public uint ConstructorId => 0xd9799874;
+    public uint ConstructorId => 0x8eb5a6d5;
     public BitArray Flags { get; set; } = new BitArray(32);
     public string Title { get; set; }
     public string Description { get; set; }
@@ -33,10 +33,16 @@ public class TInputMediaInvoice : IInputMedia
     public MyTelegram.Schema.IDataJSON ProviderData { get; set; }
     public string? StartParam { get; set; }
 
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/InputMedia" />
+    ///</summary>
+    public MyTelegram.Schema.IInputMedia? ExtendedMedia { get; set; }
+
     public void ComputeFlag()
     {
         if (Photo != null) { Flags[0] = true; }
         if (StartParam != null) { Flags[1] = true; }
+        if (ExtendedMedia != null) { Flags[2] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -52,6 +58,7 @@ public class TInputMediaInvoice : IInputMedia
         bw.Serialize(Provider);
         ProviderData.Serialize(bw);
         if (Flags[1]) { bw.Serialize(StartParam); }
+        if (Flags[2]) { ExtendedMedia.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -65,5 +72,6 @@ public class TInputMediaInvoice : IInputMedia
         Provider = br.Deserialize<string>();
         ProviderData = br.Deserialize<MyTelegram.Schema.IDataJSON>();
         if (Flags[1]) { StartParam = br.Deserialize<string>(); }
+        if (Flags[2]) { ExtendedMedia = br.Deserialize<MyTelegram.Schema.IInputMedia>(); }
     }
 }

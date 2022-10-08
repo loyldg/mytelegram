@@ -15,7 +15,7 @@ public class QueuedObjectMessageSender : IObjectMessageSender
         PtsType ptsType = PtsType.Unknown,
         long globalSeqNo = 0)
     {
-        _sessionMessageQueueProcessor.Enqueue(new PushSessionMessageToAuthKeyIdEvent(authKeyId,
+        _sessionMessageQueueProcessor.Enqueue(new LayeredAuthKeyIdMessageCreatedIntegrationEvent(authKeyId,
                 data.ToBytes(),
                 pts,
                 ptsType,
@@ -33,7 +33,7 @@ public class QueuedObjectMessageSender : IObjectMessageSender
         PtsType ptsType = PtsType.Unknown,
         long globalSeqNo = 0)
     {
-        _sessionMessageQueueProcessor.Enqueue(new PushSessionMessageToPeerEvent((int)peer.PeerType,
+        _sessionMessageQueueProcessor.Enqueue(new LayeredPushMessageCreatedIntegrationEvent((int)peer.PeerType,
                 peer.PeerId,
                 data.ToBytes(),
                 excludeAuthKeyId,
@@ -55,7 +55,7 @@ public class QueuedObjectMessageSender : IObjectMessageSender
         PtsType ptsType = PtsType.Unknown,
         long globalSeqNo = 0)
     {
-        _sessionMessageQueueProcessor.Enqueue(new PushSessionMessageToPeerEvent((int)peer.PeerType,
+        _sessionMessageQueueProcessor.Enqueue(new LayeredPushMessageCreatedIntegrationEvent((int)peer.PeerType,
                 peer.PeerId,
                 data.ToBytes(),
                 excludeAuthKeyId,

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.requestWebView" />
 ///</summary>
-[TlObject(0x91b15831)]
+[TlObject(0xfc87a53c)]
 public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewResult>
 {
-    public uint ConstructorId => 0x91b15831;
+    public uint ConstructorId => 0xfc87a53c;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool FromBotMenu { get; set; }
     public bool Silent { get; set; }
@@ -30,6 +30,7 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
     ///See <a href="https://core.telegram.org/type/DataJSON" />
     ///</summary>
     public MyTelegram.Schema.IDataJSON? ThemeParams { get; set; }
+    public string Platform { get; set; }
     public int? ReplyToMsgId { get; set; }
 
     ///<summary>
@@ -58,6 +59,7 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
         if (Flags[1]) { bw.Serialize(Url); }
         if (Flags[3]) { bw.Serialize(StartParam); }
         if (Flags[2]) { ThemeParams.Serialize(bw); }
+        bw.Serialize(Platform);
         if (Flags[0]) { bw.Write(ReplyToMsgId.Value); }
         if (Flags[13]) { SendAs.Serialize(bw); }
     }
@@ -72,6 +74,7 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
         if (Flags[1]) { Url = br.Deserialize<string>(); }
         if (Flags[3]) { StartParam = br.Deserialize<string>(); }
         if (Flags[2]) { ThemeParams = br.Deserialize<MyTelegram.Schema.IDataJSON>(); }
+        Platform = br.Deserialize<string>();
         if (Flags[0]) { ReplyToMsgId = br.ReadInt32(); }
         if (Flags[13]) { SendAs = br.Deserialize<MyTelegram.Schema.IInputPeer>(); }
     }

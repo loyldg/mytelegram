@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/userFull" />
 ///</summary>
-[TlObject(0x8c72ea81)]
+[TlObject(0xc4b1fc3f)]
 public class TUserFull : IUserFull
 {
-    public uint ConstructorId => 0x8c72ea81;
+    public uint ConstructorId => 0xc4b1fc3f;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Blocked { get; set; }
     public bool PhoneCallsAvailable { get; set; }
@@ -18,6 +18,7 @@ public class TUserFull : IUserFull
     public bool CanPinMessage { get; set; }
     public bool HasScheduled { get; set; }
     public bool VideoCallsAvailable { get; set; }
+    public bool VoiceMessagesForbidden { get; set; }
     public long Id { get; set; }
     public string? About { get; set; }
 
@@ -56,6 +57,7 @@ public class TUserFull : IUserFull
     ///See <a href="https://core.telegram.org/type/ChatAdminRights" />
     ///</summary>
     public MyTelegram.Schema.IChatAdminRights? BotBroadcastAdminRights { get; set; }
+    public TVector<MyTelegram.Schema.IPremiumGiftOption>? PremiumGifts { get; set; }
 
     public void ComputeFlag()
     {
@@ -65,6 +67,7 @@ public class TUserFull : IUserFull
         if (CanPinMessage) { Flags[7] = true; }
         if (HasScheduled) { Flags[12] = true; }
         if (VideoCallsAvailable) { Flags[13] = true; }
+        if (VoiceMessagesForbidden) { Flags[20] = true; }
         if (About != null) { Flags[1] = true; }
         if (ProfilePhoto != null) { Flags[2] = true; }
         if (BotInfo != null) { Flags[3] = true; }
@@ -75,6 +78,7 @@ public class TUserFull : IUserFull
         if (PrivateForwardName != null) { Flags[16] = true; }
         if (BotGroupAdminRights != null) { Flags[17] = true; }
         if (BotBroadcastAdminRights != null) { Flags[18] = true; }
+        if (PremiumGifts?.Count > 0) { Flags[19] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -96,6 +100,7 @@ public class TUserFull : IUserFull
         if (Flags[16]) { bw.Serialize(PrivateForwardName); }
         if (Flags[17]) { BotGroupAdminRights.Serialize(bw); }
         if (Flags[18]) { BotBroadcastAdminRights.Serialize(bw); }
+        if (Flags[19]) { PremiumGifts.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -107,6 +112,7 @@ public class TUserFull : IUserFull
         if (Flags[7]) { CanPinMessage = true; }
         if (Flags[12]) { HasScheduled = true; }
         if (Flags[13]) { VideoCallsAvailable = true; }
+        if (Flags[20]) { VoiceMessagesForbidden = true; }
         Id = br.ReadInt64();
         if (Flags[1]) { About = br.Deserialize<string>(); }
         Settings = br.Deserialize<MyTelegram.Schema.IPeerSettings>();
@@ -121,5 +127,6 @@ public class TUserFull : IUserFull
         if (Flags[16]) { PrivateForwardName = br.Deserialize<string>(); }
         if (Flags[17]) { BotGroupAdminRights = br.Deserialize<MyTelegram.Schema.IChatAdminRights>(); }
         if (Flags[18]) { BotBroadcastAdminRights = br.Deserialize<MyTelegram.Schema.IChatAdminRights>(); }
+        if (Flags[19]) { PremiumGifts = br.Deserialize<TVector<MyTelegram.Schema.IPremiumGiftOption>>(); }
     }
 }

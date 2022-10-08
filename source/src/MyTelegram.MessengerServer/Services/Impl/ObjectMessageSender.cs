@@ -17,7 +17,7 @@ public class ObjectMessageSender : IObjectMessageSender
         long globalSeqNo = 0)
     {
         return _eventBus.PublishAsync(
-            new PushSessionMessageToAuthKeyIdEvent(authKeyId,
+            new LayeredAuthKeyIdMessageCreatedIntegrationEvent(authKeyId,
                 data.ToBytes(),
                 pts,
                 ptsType,
@@ -45,7 +45,7 @@ public class ObjectMessageSender : IObjectMessageSender
         PtsType ptsType = PtsType.Unknown,
         long globalSeqNo = 0)
     {
-        return _eventBus.PublishAsync(new PushSessionMessageToPeerEvent((int)peer.PeerType,
+        return _eventBus.PublishAsync(new LayeredPushMessageCreatedIntegrationEvent((int)peer.PeerType,
             peer.PeerId,
             data.ToBytes(),
             excludeAuthKeyId,

@@ -6,7 +6,9 @@ public class MessengerEventHandler : IDistributedEventHandler<MessengerDataRecei
     IDistributedEventHandler<AuthKeyUnRegisteredIntegrationEvent>,
     IDistributedEventHandler<DuplicateCommandEvent>,
 //IDistributedEventHandler<UserIsOnlineEvent>,
-    ITransientDependency
+    IDistributedEventHandler<StickerDataReceivedEvent>,
+
+ITransientDependency
 {
     private readonly ICommandBus _commandBus;
     private readonly ILogger<MessengerEventHandler> _logger;
@@ -107,4 +109,9 @@ public class MessengerEventHandler : IDistributedEventHandler<MessengerDataRecei
     //    var updatesTooLong = new TUpdatesTooLong();
     //    return _objectMessageSender.PushSessionMessageToAuthKeyIdAsync(eventData.TempAuthKeyId, updatesTooLong);
     //}
+    public Task HandleEventAsync(StickerDataReceivedEvent eventData)
+    {
+        _processor.Enqueue(new MessengerDataReceivedEvent(eventData.ObjectId, eventData.UserId, eventData.ReqMsgId, eventData.SeqNumber, eventData.AuthKeyId, eventData.PermAuthKeyId, eventData.Data), eventData.AuthKeyId);
+        return Task.CompletedTask;
+    }
 }

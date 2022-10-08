@@ -17,5 +17,6 @@ public interface IPassword : IObject
     MyTelegram.Schema.ISecurePasswordKdfAlgo NewSecureAlgo { get; set; }
     byte[] SecureRandom { get; set; }
     int? PendingResetDate { get; set; }
+    string? LoginEmailPattern { get; set; }
 
 }

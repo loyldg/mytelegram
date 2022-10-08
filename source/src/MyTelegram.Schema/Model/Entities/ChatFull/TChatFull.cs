@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/chatFull" />
 ///</summary>
-[TlObject(0xd18ee226)]
+[TlObject(0xc9d31138)]
 public class TChatFull : IChatFull
 {
-    public uint ConstructorId => 0xd18ee226;
+    public uint ConstructorId => 0xc9d31138;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool CanSetUsername { get; set; }
     public bool HasScheduled { get; set; }
@@ -53,7 +53,7 @@ public class TChatFull : IChatFull
     public string? ThemeEmoticon { get; set; }
     public int? RequestsPending { get; set; }
     public TVector<long>? RecentRequesters { get; set; }
-    public TVector<string>? AvailableReactions { get; set; }
+    public MyTelegram.Schema.IChatReactions? AvailableReactions { get; set; }
 
     public void ComputeFlag()
     {
@@ -70,7 +70,7 @@ public class TChatFull : IChatFull
         if (ThemeEmoticon != null) { Flags[16] = true; }
         if (RequestsPending != 0 && RequestsPending.HasValue) { Flags[17] = true; }
         if (RecentRequesters?.Count > 0) { Flags[17] = true; }
-        if (AvailableReactions?.Count > 0) { Flags[18] = true; }
+        if (AvailableReactions != null) { Flags[18] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -116,6 +116,6 @@ public class TChatFull : IChatFull
         if (Flags[16]) { ThemeEmoticon = br.Deserialize<string>(); }
         if (Flags[17]) { RequestsPending = br.ReadInt32(); }
         if (Flags[17]) { RecentRequesters = br.Deserialize<TVector<long>>(); }
-        if (Flags[18]) { AvailableReactions = br.Deserialize<TVector<string>>(); }
+        if (Flags[18]) { AvailableReactions = br.Deserialize<MyTelegram.Schema.IChatReactions>(); }
     }
 }

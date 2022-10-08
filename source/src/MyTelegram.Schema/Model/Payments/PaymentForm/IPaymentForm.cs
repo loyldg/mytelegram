@@ -17,8 +17,9 @@ public interface IPaymentForm : IObject
     string Url { get; set; }
     string? NativeProvider { get; set; }
     MyTelegram.Schema.IDataJSON? NativeParams { get; set; }
+    TVector<MyTelegram.Schema.IPaymentFormMethod>? AdditionalMethods { get; set; }
     MyTelegram.Schema.IPaymentRequestedInfo? SavedInfo { get; set; }
-    MyTelegram.Schema.IPaymentSavedCredentials? SavedCredentials { get; set; }
+    TVector<MyTelegram.Schema.IPaymentSavedCredentials>? SavedCredentials { get; set; }
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
 }

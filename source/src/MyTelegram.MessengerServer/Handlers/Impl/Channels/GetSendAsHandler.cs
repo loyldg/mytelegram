@@ -38,7 +38,10 @@ public class GetSendAsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channel
                 return new TSendAsPeers
                 {
                     Chats = new TVector<IChat>(channel),
-                    Peers = new TVector<IPeer>(new TPeerChannel { ChannelId = channel.Id }),
+                    Peers = new TVector<ISendAsPeer>(new TSendAsPeer
+                    {
+                        Peer = new TPeerChannel { ChannelId = channelReadModel.ChannelId }
+                    }),
                     Users = new TVector<IUser>()
                 };
             }
@@ -49,7 +52,10 @@ public class GetSendAsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channel
                 return new TSendAsPeers
                 {
                     Chats = new TVector<IChat>(),
-                    Peers = new TVector<IPeer>(new TPeerUser() { UserId = input.UserId }),
+                    Peers = new TVector<ISendAsPeer>(new TSendAsPeer
+                    {
+                        Peer = new TPeerUser() { UserId = input.UserId }
+                    }),
                     Users = new TVector<IUser>(_userConverter.ToUser(userReadModel!, input.UserId))
                 };
             }

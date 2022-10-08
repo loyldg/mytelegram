@@ -15,6 +15,7 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
     public bool Background { get; set; }
     public bool ClearDraft { get; set; }
     public bool Noforwards { get; set; }
+    public bool UpdateStickersetsOrder { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
@@ -35,6 +36,7 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
         if (Background) { Flags[6] = true; }
         if (ClearDraft) { Flags[7] = true; }
         if (Noforwards) { Flags[14] = true; }
+        if (UpdateStickersetsOrder) { Flags[15] = true; }
         if (ReplyToMsgId != 0 && ReplyToMsgId.HasValue) { Flags[0] = true; }
         if (ScheduleDate != 0 && ScheduleDate.HasValue) { Flags[10] = true; }
         if (SendAs != null) { Flags[13] = true; }
@@ -59,6 +61,7 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
         if (Flags[6]) { Background = true; }
         if (Flags[7]) { ClearDraft = true; }
         if (Flags[14]) { Noforwards = true; }
+        if (Flags[15]) { UpdateStickersetsOrder = true; }
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         if (Flags[0]) { ReplyToMsgId = br.ReadInt32(); }
         MultiMedia = br.Deserialize<TVector<MyTelegram.Schema.IInputSingleMedia>>();

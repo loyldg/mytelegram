@@ -7,10 +7,10 @@ namespace MyTelegram.Schema.Account;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/account.password" />
 ///</summary>
-[TlObject(0x185b184f)]
+[TlObject(0x957b50fb)]
 public class TPassword : IPassword
 {
-    public uint ConstructorId => 0x185b184f;
+    public uint ConstructorId => 0x957b50fb;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool HasRecovery { get; set; }
     public bool HasSecureValues { get; set; }
@@ -36,6 +36,7 @@ public class TPassword : IPassword
     public MyTelegram.Schema.ISecurePasswordKdfAlgo NewSecureAlgo { get; set; }
     public byte[] SecureRandom { get; set; }
     public int? PendingResetDate { get; set; }
+    public string? LoginEmailPattern { get; set; }
 
     public void ComputeFlag()
     {
@@ -48,6 +49,7 @@ public class TPassword : IPassword
         if (Hint != null) { Flags[3] = true; }
         if (EmailUnconfirmedPattern != null) { Flags[4] = true; }
         if (PendingResetDate != 0 && PendingResetDate.HasValue) { Flags[5] = true; }
+        if (LoginEmailPattern != null) { Flags[6] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -64,6 +66,7 @@ public class TPassword : IPassword
         NewSecureAlgo.Serialize(bw);
         bw.Serialize(SecureRandom);
         if (Flags[5]) { bw.Write(PendingResetDate.Value); }
+        if (Flags[6]) { bw.Serialize(LoginEmailPattern); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -81,5 +84,6 @@ public class TPassword : IPassword
         NewSecureAlgo = br.Deserialize<MyTelegram.Schema.ISecurePasswordKdfAlgo>();
         SecureRandom = br.Deserialize<byte[]>();
         if (Flags[5]) { PendingResetDate = br.ReadInt32(); }
+        if (Flags[6]) { LoginEmailPattern = br.Deserialize<string>(); }
     }
 }

@@ -7,18 +7,22 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/reactionCount" />
 ///</summary>
-[TlObject(0x6fb250d1)]
+[TlObject(0xa3d1cb80)]
 public class TReactionCount : IReactionCount
 {
-    public uint ConstructorId => 0x6fb250d1;
+    public uint ConstructorId => 0xa3d1cb80;
     public BitArray Flags { get; set; } = new BitArray(32);
-    public bool Chosen { get; set; }
-    public string Reaction { get; set; }
+    public int? ChosenOrder { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/Reaction" />
+    ///</summary>
+    public MyTelegram.Schema.IReaction Reaction { get; set; }
     public int Count { get; set; }
 
     public void ComputeFlag()
     {
-        if (Chosen) { Flags[0] = true; }
+        if (ChosenOrder != 0 && ChosenOrder.HasValue) { Flags[0] = true; }
 
     }
 
@@ -27,15 +31,16 @@ public class TReactionCount : IReactionCount
         ComputeFlag();
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
-        bw.Serialize(Reaction);
+        if (Flags[0]) { bw.Write(ChosenOrder.Value); }
+        Reaction.Serialize(bw);
         bw.Write(Count);
     }
 
     public void Deserialize(BinaryReader br)
     {
         Flags = br.Deserialize<BitArray>();
-        if (Flags[0]) { Chosen = true; }
-        Reaction = br.Deserialize<string>();
+        if (Flags[0]) { ChosenOrder = br.ReadInt32(); }
+        Reaction = br.Deserialize<MyTelegram.Schema.IReaction>();
         Count = br.ReadInt32();
     }
 }

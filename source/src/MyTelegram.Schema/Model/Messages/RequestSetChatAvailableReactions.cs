@@ -6,16 +6,20 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.setChatAvailableReactions" />
 ///</summary>
-[TlObject(0x14050ea6)]
+[TlObject(0xfeb16771)]
 public sealed class RequestSetChatAvailableReactions : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x14050ea6;
+    public uint ConstructorId => 0xfeb16771;
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
-    public TVector<string> AvailableReactions { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/ChatReactions" />
+    ///</summary>
+    public MyTelegram.Schema.IChatReactions AvailableReactions { get; set; }
 
     public void ComputeFlag()
     {
@@ -33,6 +37,6 @@ public sealed class RequestSetChatAvailableReactions : IRequest<MyTelegram.Schem
     public void Deserialize(BinaryReader br)
     {
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
-        AvailableReactions = br.Deserialize<TVector<string>>();
+        AvailableReactions = br.Deserialize<MyTelegram.Schema.IChatReactions>();
     }
 }

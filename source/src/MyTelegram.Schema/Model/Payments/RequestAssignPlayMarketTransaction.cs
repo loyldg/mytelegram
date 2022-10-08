@@ -6,11 +6,20 @@ namespace MyTelegram.Schema.Payments;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/payments.assignPlayMarketTransaction" />
 ///</summary>
-[TlObject(0x4faa4aed)]
+[TlObject(0xdffd50d3)]
 public sealed class RequestAssignPlayMarketTransaction : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x4faa4aed;
-    public string PurchaseToken { get; set; }
+    public uint ConstructorId => 0xdffd50d3;
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/DataJSON" />
+    ///</summary>
+    public MyTelegram.Schema.IDataJSON Receipt { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/InputStorePaymentPurpose" />
+    ///</summary>
+    public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
     public void ComputeFlag()
     {
@@ -21,11 +30,13 @@ public sealed class RequestAssignPlayMarketTransaction : IRequest<MyTelegram.Sch
     {
         ComputeFlag();
         bw.Write(ConstructorId);
-        bw.Serialize(PurchaseToken);
+        Receipt.Serialize(bw);
+        Purpose.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
-        PurchaseToken = br.Deserialize<string>();
+        Receipt = br.Deserialize<MyTelegram.Schema.IDataJSON>();
+        Purpose = br.Deserialize<MyTelegram.Schema.IInputStorePaymentPurpose>();
     }
 }

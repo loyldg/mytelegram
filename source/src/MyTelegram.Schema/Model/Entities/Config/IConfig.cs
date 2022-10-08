@@ -57,5 +57,6 @@ public interface IConfig : IObject
     string? SuggestedLangCode { get; set; }
     int? LangPackVersion { get; set; }
     int? BaseLangPackVersion { get; set; }
+    MyTelegram.Schema.IReaction? ReactionsDefault { get; set; }
 
 }

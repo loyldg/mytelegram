@@ -7,16 +7,17 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/stickerSet" />
 ///</summary>
-[TlObject(0xd7df217a)]
+[TlObject(0x2dd14edc)]
 public class TStickerSet : IStickerSet
 {
-    public uint ConstructorId => 0xd7df217a;
+    public uint ConstructorId => 0x2dd14edc;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Archived { get; set; }
     public bool Official { get; set; }
     public bool Masks { get; set; }
     public bool Animated { get; set; }
     public bool Videos { get; set; }
+    public bool Emojis { get; set; }
     public int? InstalledDate { get; set; }
     public long Id { get; set; }
     public long AccessHash { get; set; }
@@ -25,6 +26,7 @@ public class TStickerSet : IStickerSet
     public TVector<MyTelegram.Schema.IPhotoSize>? Thumbs { get; set; }
     public int? ThumbDcId { get; set; }
     public int? ThumbVersion { get; set; }
+    public long? ThumbDocumentId { get; set; }
     public int Count { get; set; }
     public int Hash { get; set; }
 
@@ -35,10 +37,12 @@ public class TStickerSet : IStickerSet
         if (Masks) { Flags[3] = true; }
         if (Animated) { Flags[5] = true; }
         if (Videos) { Flags[6] = true; }
+        if (Emojis) { Flags[7] = true; }
         if (InstalledDate != 0 && InstalledDate.HasValue) { Flags[0] = true; }
         if (Thumbs?.Count > 0) { Flags[4] = true; }
         if (ThumbDcId != 0 && ThumbDcId.HasValue) { Flags[4] = true; }
         if (ThumbVersion != 0 && ThumbVersion.HasValue) { Flags[4] = true; }
+        if (ThumbDocumentId != 0 && ThumbDocumentId.HasValue) { Flags[8] = true; }
 
     }
 
@@ -55,6 +59,7 @@ public class TStickerSet : IStickerSet
         if (Flags[4]) { Thumbs.Serialize(bw); }
         if (Flags[4]) { bw.Write(ThumbDcId.Value); }
         if (Flags[4]) { bw.Write(ThumbVersion.Value); }
+        if (Flags[8]) { bw.Write(ThumbDocumentId.Value); }
         bw.Write(Count);
         bw.Write(Hash);
     }
@@ -67,6 +72,7 @@ public class TStickerSet : IStickerSet
         if (Flags[3]) { Masks = true; }
         if (Flags[5]) { Animated = true; }
         if (Flags[6]) { Videos = true; }
+        if (Flags[7]) { Emojis = true; }
         if (Flags[0]) { InstalledDate = br.ReadInt32(); }
         Id = br.ReadInt64();
         AccessHash = br.ReadInt64();
@@ -75,6 +81,7 @@ public class TStickerSet : IStickerSet
         if (Flags[4]) { Thumbs = br.Deserialize<TVector<MyTelegram.Schema.IPhotoSize>>(); }
         if (Flags[4]) { ThumbDcId = br.ReadInt32(); }
         if (Flags[4]) { ThumbVersion = br.ReadInt32(); }
+        if (Flags[8]) { ThumbDocumentId = br.ReadInt64(); }
         Count = br.ReadInt32();
         Hash = br.ReadInt32();
     }

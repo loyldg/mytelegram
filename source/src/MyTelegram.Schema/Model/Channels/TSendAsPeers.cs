@@ -7,11 +7,11 @@ namespace MyTelegram.Schema.Channels;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/channels.sendAsPeers" />
 ///</summary>
-[TlObject(0x8356cda9)]
+[TlObject(0xf496b0c6)]
 public class TSendAsPeers : ISendAsPeers
 {
-    public uint ConstructorId => 0x8356cda9;
-    public TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
+    public uint ConstructorId => 0xf496b0c6;
+    public TVector<MyTelegram.Schema.ISendAsPeer> Peers { get; set; }
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
@@ -31,7 +31,7 @@ public class TSendAsPeers : ISendAsPeers
 
     public void Deserialize(BinaryReader br)
     {
-        Peers = br.Deserialize<TVector<MyTelegram.Schema.IPeer>>();
+        Peers = br.Deserialize<TVector<MyTelegram.Schema.ISendAsPeer>>();
         Chats = br.Deserialize<TVector<MyTelegram.Schema.IChat>>();
         Users = br.Deserialize<TVector<MyTelegram.Schema.IUser>>();
     }

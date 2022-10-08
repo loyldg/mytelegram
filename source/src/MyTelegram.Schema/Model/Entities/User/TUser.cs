@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/user" />
 ///</summary>
-[TlObject(0x3ff6ecb0)]
+[TlObject(0x5d99adee)]
 public class TUser : IUser
 {
-    public uint ConstructorId => 0x3ff6ecb0;
+    public uint ConstructorId => 0x5d99adee;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Self { get; set; }
     public bool Contact { get; set; }
@@ -51,6 +51,11 @@ public class TUser : IUser
     public string? BotInlinePlaceholder { get; set; }
     public string? LangCode { get; set; }
 
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/EmojiStatus" />
+    ///</summary>
+    public MyTelegram.Schema.IEmojiStatus? EmojiStatus { get; set; }
+
     public void ComputeFlag()
     {
         if (Self) { Flags[10] = true; }
@@ -82,6 +87,7 @@ public class TUser : IUser
         if (RestrictionReason?.Count > 0) { Flags[18] = true; }
         if (BotInlinePlaceholder != null) { Flags[19] = true; }
         if (LangCode != null) { Flags[22] = true; }
+        if (EmojiStatus != null) { Flags[30] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -101,6 +107,7 @@ public class TUser : IUser
         if (Flags[18]) { RestrictionReason.Serialize(bw); }
         if (Flags[19]) { bw.Serialize(BotInlinePlaceholder); }
         if (Flags[22]) { bw.Serialize(LangCode); }
+        if (Flags[30]) { EmojiStatus.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -136,5 +143,6 @@ public class TUser : IUser
         if (Flags[18]) { RestrictionReason = br.Deserialize<TVector<MyTelegram.Schema.IRestrictionReason>>(); }
         if (Flags[19]) { BotInlinePlaceholder = br.Deserialize<string>(); }
         if (Flags[22]) { LangCode = br.Deserialize<string>(); }
+        if (Flags[30]) { EmojiStatus = br.Deserialize<MyTelegram.Schema.IEmojiStatus>(); }
     }
 }

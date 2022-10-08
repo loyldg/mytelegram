@@ -12,12 +12,14 @@ public sealed class RequestGetArchivedStickers : IRequest<MyTelegram.Schema.Mess
     public uint ConstructorId => 0x57f17692;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Masks { get; set; }
+    public bool Emojis { get; set; }
     public long OffsetId { get; set; }
     public int Limit { get; set; }
 
     public void ComputeFlag()
     {
         if (Masks) { Flags[0] = true; }
+        if (Emojis) { Flags[1] = true; }
 
     }
 
@@ -34,6 +36,7 @@ public sealed class RequestGetArchivedStickers : IRequest<MyTelegram.Schema.Mess
     {
         Flags = br.Deserialize<BitArray>();
         if (Flags[0]) { Masks = true; }
+        if (Flags[1]) { Emojis = true; }
         OffsetId = br.ReadInt64();
         Limit = br.ReadInt32();
     }

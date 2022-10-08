@@ -6,12 +6,20 @@ namespace MyTelegram.Schema.Account;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/account.verifyEmail" />
 ///</summary>
-[TlObject(0xecba39db)]
-public sealed class RequestVerifyEmail : IRequest<IBool>
+[TlObject(0x32da4cf)]
+public sealed class RequestVerifyEmail : IRequest<MyTelegram.Schema.Account.IEmailVerified>
 {
-    public uint ConstructorId => 0xecba39db;
-    public string Email { get; set; }
-    public string Code { get; set; }
+    public uint ConstructorId => 0x32da4cf;
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/EmailVerifyPurpose" />
+    ///</summary>
+    public MyTelegram.Schema.IEmailVerifyPurpose Purpose { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/EmailVerification" />
+    ///</summary>
+    public MyTelegram.Schema.IEmailVerification Verification { get; set; }
 
     public void ComputeFlag()
     {
@@ -22,13 +30,13 @@ public sealed class RequestVerifyEmail : IRequest<IBool>
     {
         ComputeFlag();
         bw.Write(ConstructorId);
-        bw.Serialize(Email);
-        bw.Serialize(Code);
+        Purpose.Serialize(bw);
+        Verification.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
-        Email = br.Deserialize<string>();
-        Code = br.Deserialize<string>();
+        Purpose = br.Deserialize<MyTelegram.Schema.IEmailVerifyPurpose>();
+        Verification = br.Deserialize<MyTelegram.Schema.IEmailVerification>();
     }
 }
