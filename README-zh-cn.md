@@ -196,6 +196,10 @@ function getDC(dcId, downloadDC = false) {
 function getDC(dcId, downloadDC = false) {
 return { id: 2, ipAddress: '这里替换为gateway服务器Ip地址', port: 30443 };
 ```
+7. **src\api\gramjs\gramjsBuilders\index.ts**  
+31行:`const CHANNEL_ID_MIN_LENGTH = 11;`修改为`const CHANNEL_ID_MIN_LENGTH = 13;`  
+51行:`chatOrUserId <= -1000000000`修改为`chatOrUserId <= -800000000000`
+
 ## 支持MyTelegram
 如果你喜欢这个项目,请点一个⭐
 

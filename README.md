@@ -195,6 +195,10 @@ Replace with the following code,and replace ipAddress
 function getDC(dcId, downloadDC = false) {
 return { id: 2, ipAddress: 'IPAddress of your gateway server', port: 30443 };
 ```
+7. **src\api\gramjs\gramjsBuilders\index.ts**  
+Line 31:Change `const CHANNEL_ID_MIN_LENGTH = 11;` to  `const CHANNEL_ID_MIN_LENGTH = 13;`  
+Line 51:Change `chatOrUserId <= -1000000000` to `chatOrUserId <= -800000000000`
+
 ## Support MyTelegram
 Love MyTelegram? Please give a star to this repository ⭐
 
