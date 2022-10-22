@@ -1,13 +1,19 @@
 # MyTelegram 中文|[English](README.md)
+[![API Layer](https://img.shields.io/badge/API_Layer-146-blueviolet)](https://corefork.telegram.org/methods)
+[![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
+[![Support Chat](https://img.shields.io/badge/Chat_with_us-on_Telegram-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
 
 MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/api)的开源实现,支持私有化部署服务端,客户端使用官方的开源客户端
 
+## 演示地址
+[https://webz.mytelegram.top/](https://webz.mytelegram.top/)  
+**Verification Code:22222**
 ## 特性
-* 支持的MTProto Layer:**`143`~`146`**  
+* 支持的Api Layer:**`143`~`146`**  
 开源版本:**`146`**  
 Pro版本:**`143`**~**`146`**  
 Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开源版本仅支持单一的Layer,只支持某一个版本  
-* 支持的[MTProto协议(2.0)](https://core.telegram.org/mtproto):**`Abridged`**,**`Intermediate`**,支持通过普通`Tcp`和`Websocket`进行传输  
+* 支持的[传输协议](https://corefork.telegram.org/mtproto/mtproto-transports):**`Abridged`**,**`Intermediate`**(支持[Transport error](https://corefork.telegram.org/mtproto/mtproto-transports#transport-errors)和[Transport obfuscation](https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation))  
 * 私聊
 * 普通群
 * 超级群
