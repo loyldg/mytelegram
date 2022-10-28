@@ -11,7 +11,9 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessagePinnedUpdatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, MessageViewsIncrementedEvent>,
-	IAmReadModelFor<MessageAggregate,MessageId,ReplyToMessageStartedEvent>
+	IAmReadModelFor<MessageAggregate,MessageId,ReplyToMessageStartedEvent>,
+    IAmReadModelFor<MessageAggregate, MessageId, MessageDeletedEvent>
+
 {
     public int Date { get; private set; }
     public int EditDate { get; private set; }
@@ -206,6 +208,14 @@ public class MessageReadModel : IMessageReadModel,
         CancellationToken cancellationToken)
     {
         Replies++;
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<MessageAggregate, MessageId, MessageDeletedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        context.MarkForDeletion();
         return Task.CompletedTask;
     }
 }
