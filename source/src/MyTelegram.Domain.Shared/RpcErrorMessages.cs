@@ -38,4 +38,5 @@ public static class RpcErrorMessages
     public const string OptionInvalid = "OPTION_INVALID";
     public const string OptionsTooMuch = "OPTIONS_TOO_MUCH";
     public const string MessageIdInvalid = "MESSAGE_ID_INVALID";
+    public const string PeerIdInvalid = "PEER_ID_INVALID";
 }
