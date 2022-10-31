@@ -9,6 +9,11 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Register(_state);
     }
 
+    public void StartDeleteUserMessages(RequestInfo requestInfo, bool revoke, List<int> messageIds, bool isClearHistory, Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new DeleteUserMessagesStartedEvent(requestInfo, revoke, _state.ToPeer.PeerId, messageIds, isClearHistory, correlationId));
+    }
     public void ClearChannelHistory(long reqMsgId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);

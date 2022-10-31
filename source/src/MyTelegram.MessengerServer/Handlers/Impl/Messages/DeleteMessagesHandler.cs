@@ -1,3 +1,4 @@
+using MyTelegram.Domain.Commands.Chat;
 using MyTelegram.Handlers.Messages;
 using MyTelegram.Schema.Messages;
 
@@ -8,13 +9,16 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
 {
     private readonly ICommandBus _commandBus;
     private readonly IPtsHelper _ptsHelper;
+    private readonly IQueryProcessor _queryProcessor;
 
     public DeleteMessagesHandler(
         ICommandBus commandBus,
-        IPtsHelper ptsHelper)
+        IPtsHelper ptsHelper,
+        IQueryProcessor queryProcessor)
     {
         _commandBus = commandBus;
         _ptsHelper = ptsHelper;
+        _queryProcessor = queryProcessor;
     }
 
     protected override async Task<IAffectedMessages> HandleCoreAsync(IRequestInput input,
@@ -24,12 +28,60 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
         if (obj.Id.Count > 0)
         {
             var id = obj.Id.First();
+            long? chatCreatorId = null;
+            if (obj.Revoke)
+            {
+                var messageReadModel = await _queryProcessor
+                    .ProcessAsync(new GetMessageByIdQuery(MessageId.Create(input.UserId, id).Value), default)
+                    .ConfigureAwait(false);
+                if (messageReadModel == null)
+                {
+                    ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
+                }
+                switch (messageReadModel!.ToPeerType)
+                {
+                    case PeerType.Chat:
+                    {
+                        var chatReadModel = await _queryProcessor
+                            .ProcessAsync(new GetChatByChatIdQuery(messageReadModel.ToPeerId), default)
+                            .ConfigureAwait(false);
+                        if (chatReadModel == null)
+                        {
+                            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PeerIdInvalid);
+                        }
+                        var command = new StartDeleteChatMessagesCommand(ChatId.Create(messageReadModel.ToPeerId),
+                            input.ToRequestInfo(),
+                            obj.Id.ToList(),
+                            obj.Revoke,
+                            false,
+                            Guid.NewGuid());
+                        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                    }
+                        break;
+                    case PeerType.User:
+                    {
+                        var command = new StartDeleteUserMessagesCommand(
+                            DialogId.Create(input.UserId, messageReadModel.ToPeerType, messageReadModel.ToPeerId),
+                            input.ToRequestInfo(),
+                            obj.Revoke,
+                            obj.Id.ToList(),
+                            false,
+                            Guid.NewGuid());
+                        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                    }
+                        break;
+                }
+            }
+            else
+            {
             var command = new StartDeleteMessagesCommand(MessageId.Create(input.UserId, id),
                 input.ToRequestInfo(),
                 obj.Revoke,
                 obj.Id.ToList(),
+                    chatCreatorId,
                 Guid.NewGuid());
             await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            }
 
             return null!;
         }

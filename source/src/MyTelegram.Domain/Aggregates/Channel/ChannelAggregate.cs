@@ -10,6 +10,13 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Register(_state);
     }
 
+    public void StartDeleteParticipantHistory(RequestInfo requestInfo, List<int> messageIds, Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var admin = _state.GetAdmin(requestInfo.UserId);
+        CheckBannedRights(requestInfo.UserId, true, admin?.AdminRights.DeleteMessages, RpcErrorMessages.ChatAdminRequired);
+        Emit(new DeleteParticipantHistoryStartedEvent(requestInfo, _state.ChannelId, messageIds, correlationId));
+    }
     public void CheckChannelState(long senderPeerId,
         int messageId,
         int date,

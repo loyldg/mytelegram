@@ -11,7 +11,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
     private readonly IIdGenerator _idGenerator;
     private readonly DeleteMessageState _state = new();
 
-    public DeleteMessageSaga(DeleteMessageSagaId id, IEventStore eventStore,IIdGenerator idGenerator) : base(id, eventStore)
+    public DeleteMessageSaga(DeleteMessageSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -61,7 +61,8 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
             false,
             0,
             0,
-            null));
+            null,
+            domainEvent.AggregateEvent.ChatCreatorId));
         DeleteMessagesForSelf(domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.IdList,
             domainEvent.AggregateEvent.CorrelationId);
@@ -91,7 +92,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
         {
             return;
         }
-        
+
         // Only message sender can delete all messages when receive peer is not user peer
         if (aggregateEvent.IsOut)
         {

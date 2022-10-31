@@ -33,7 +33,7 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
                     ////_randomHelper.NextLong(),
                     //0,
                     //0,
-                    //null,
+                    null,
                     Guid.NewGuid());
                 await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
                 return null!;

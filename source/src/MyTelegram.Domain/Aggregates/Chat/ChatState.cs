@@ -12,7 +12,8 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
     IApply<ChatAboutEditedEvent>,
     IApply<ChatTitleEditedEvent>,
     IApply<CheckChatStateCompletedEvent>,
-    IApply<ChatDeletedEvent>
+    IApply<ChatDeletedEvent>,
+    IApply<DeleteChatMessagesStartedEvent>
 {
     private List<ChatMember> _chatMembers = new();
 
@@ -131,5 +132,8 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
     public void Apply(ChatDeletedEvent aggregateEvent)
     {
         IsDeleted = true;
+    }
+    public void Apply(DeleteChatMessagesStartedEvent aggregateEvent)
+    {
     }
 }

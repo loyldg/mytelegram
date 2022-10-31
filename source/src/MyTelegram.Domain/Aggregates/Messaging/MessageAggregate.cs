@@ -1,12 +1,35 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Messaging;
 
-public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
+public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageId, MessageSnapshot>
 {
     private readonly MessageState _state = new();
 
-    public MessageAggregate(MessageId id) : base(id)
+    public MessageAggregate(MessageId id) : base(id, SnapshotEveryFewVersionsStrategy.Default)
     {
         Register(_state);
+    }
+    public void DeleteOutboxMessage(Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new OutboxMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId, _state.MessageItem.MessageId, _state.InboxItems, correlationId));
+    }
+    public void DeleteInboxMessage(Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new InboxMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId, _state.MessageItem.MessageId, correlationId));
+    }
+    public void DeleteSelfMessage(int messageId,
+        Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new SelfMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId,
+            messageId,
+            _state.MessageItem.IsOut,
+            _state.MessageItem.SenderPeer.PeerId,
+            _state.SenderMessageId,
+            _state.InboxItems,
+            correlationId
+        ));
     }
 
     /// <summary>
@@ -172,6 +195,7 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
     public void StartDeleteMessages(RequestInfo request,
         bool revoke,
         IReadOnlyList<int> idList,
+        long? chatCreatorId,
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -184,6 +208,7 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
             idList,
             revoke,
             _state.InboxItems,
+            chatCreatorId,
             correlationId));
     }
 
@@ -321,5 +346,23 @@ public class MessageAggregate : AggregateRoot<MessageAggregate, MessageId>
             _state.Pts,
             correlationId
         ));
+    }
+    protected override Task<MessageSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
+    {
+        return Task.FromResult(new MessageSnapshot(_state.MessageItem,
+            _state.InboxItems,
+            _state.SenderMessageId,
+            _state.Pinned,
+            _state.EditDate,
+            _state.Edited,
+            _state.Pts,
+            _state.RecentRepliers.ToList()));
+    }
+    protected override Task LoadSnapshotAsync(MessageSnapshot snapshot,
+        ISnapshotMetadata metadata,
+        CancellationToken cancellationToken)
+    {
+        _state.LoadSnapshot(snapshot);
+        return Task.CompletedTask;
     }
 }

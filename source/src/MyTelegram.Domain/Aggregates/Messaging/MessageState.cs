@@ -18,19 +18,34 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
     IApply<InboxMessagePinnedUpdatedEvent>,
     IApply<OutboxMessagePinnedUpdatedEvent>,
     IApply<OtherPartyMessageDeletedEvent>,
-    IApply<ForwardMessageStartedEvent>
+    IApply<ForwardMessageStartedEvent>,
+    IApply<SelfMessageDeletedEvent>,
+    IApply<OutboxMessageDeletedEvent>,
+    IApply<InboxMessageDeletedEvent>
 
 {
     public MessageItem MessageItem { get; private set; } = null!;
-    public List<InboxItem> InboxItems { get; } = new();
+    public List<InboxItem> InboxItems { get; private set; } = new();
     public int SenderMessageId { get; private set; }
 
     public bool Pinned { get; private set; }
     public bool PmOneSide { get; private set; }
     public int EditDate { get; private set; }
+    public bool Edited { get; private set; }
     public int Pts { get; private set; }
 
     public IReadOnlyCollection<Peer> RecentRepliers { get; private set; } = new List<Peer>(MyTelegramServerDomainConsts.MaxRecentRepliersCount);
+    public void LoadSnapshot(MessageSnapshot snapshot)
+    {
+        MessageItem = snapshot.MessageItem;
+        InboxItems = snapshot.InboxItems;
+        SenderMessageId = snapshot.SenderMessageId;
+        Pinned = snapshot.Pinned;
+        EditDate = snapshot.EditDate;
+        Edited = snapshot.Edited;
+        Pts = snapshot.Pts;
+        RecentRepliers = snapshot.RecentRepliers;
+    }
     //public void LoadSnapshot(MessageSnapshot snapshot)
     //{
     //    MessageItem = snapshot.MessageItem;
@@ -67,11 +82,13 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
     public void Apply(OutboxMessageEditedEvent aggregateEvent)
     {
         EditDate = aggregateEvent.EditDate;
+        Edited = true;
     }
 
     public void Apply(InboxMessageEditedEvent aggregateEvent)
     {
         EditDate = aggregateEvent.EditDate;
+        Edited = true;
     }
 
     public void Apply(MessageForwardedEvent aggregateEvent)
@@ -138,5 +155,14 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
     public void Apply(ForwardMessageStartedEvent aggregateEvent)
     {
         //throw new NotImplementedException();
+    }
+    public void Apply(SelfMessageDeletedEvent aggregateEvent)
+    {
+    }
+    public void Apply(OutboxMessageDeletedEvent aggregateEvent)
+    {
+    }
+    public void Apply(InboxMessageDeletedEvent aggregateEvent)
+    {
     }
 }

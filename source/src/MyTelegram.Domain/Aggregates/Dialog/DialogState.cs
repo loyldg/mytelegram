@@ -15,7 +15,8 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
     IApply<DialogPinChangedEvent>,
     IApply<PinnedOrderChangedEvent>,
     IApply<DialogUnreadMarkChangedEvent>,
-    IApply<DraftClearedEvent>
+    IApply<DraftClearedEvent>,
+    IApply<DeleteUserMessagesStartedEvent>
 {
     public int ChannelHistoryMinId { get; private set; }
 
@@ -142,5 +143,8 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
         Pinned = snapshot.Pinned;
         ChannelHistoryMinId = snapshot.ChannelHistoryMinId;
         Draft = snapshot.Draft;
+    }
+    public void Apply(DeleteUserMessagesStartedEvent aggregateEvent)
+    {
     }
 }

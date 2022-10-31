@@ -9,6 +9,15 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Register(_state);
     }
 
+    public void StartDeleteChatMessages(RequestInfo requestInfo,
+        List<int> messageIds,
+        bool revoke,
+        bool isClearHistory,
+        Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new DeleteChatMessagesStartedEvent(requestInfo, messageIds, revoke, _state.CreatorUid, _state.ChatMembers.Count, isClearHistory, correlationId));
+    }
     public void DeleteChat(RequestInfo request, Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);

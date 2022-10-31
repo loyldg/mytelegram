@@ -42,21 +42,22 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new ClearHistorySagaStartedEvent(domainEvent.AggregateEvent.Request,
-            domainEvent.AggregateEvent.OwnerPeerId,
-            domainEvent.AggregateEvent.Revoke,
-            domainEvent.AggregateEvent.ToPeer,
-            domainEvent.AggregateEvent.MessageActionData,
-            domainEvent.AggregateEvent.RandomId,
-            domainEvent.AggregateEvent.MessageIdListToBeDelete.Count,
-            domainEvent.AggregateEvent.NextMaxId
-        ));
+        return CompleteAsync(cancellationToken);
+        //Emit(new ClearHistorySagaStartedEvent(domainEvent.AggregateEvent.RequestInfo,
+        //    domainEvent.AggregateEvent.OwnerPeerId,
+        //    domainEvent.AggregateEvent.Revoke,
+        //    domainEvent.AggregateEvent.ToPeer,
+        //    domainEvent.AggregateEvent.MessageActionData,
+        //    domainEvent.AggregateEvent.RandomId,
+        //    domainEvent.AggregateEvent.MessageIdListToBeDelete.Count,
+        //    domainEvent.AggregateEvent.NextMaxId
+        //));
 
-        DeleteMessagesForSelf(domainEvent.AggregateEvent.OwnerPeerId,
-            domainEvent.AggregateEvent.MessageIdListToBeDelete,
-            domainEvent.AggregateEvent.CorrelationId);
+        //DeleteMessagesForSelf(domainEvent.AggregateEvent.OwnerPeerId,
+        //    domainEvent.AggregateEvent.MessageIdListToBeDelete,
+        //    domainEvent.AggregateEvent.CorrelationId);
 
-        return Task.CompletedTask;
+        //return Task.CompletedTask;
     }
 
     private void DeleteMessagesForOtherParty(MessageDeletedEvent aggregateEvent)
