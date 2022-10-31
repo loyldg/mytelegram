@@ -1,5 +1,4 @@
-﻿using MyTelegram.Domain.Aggregates.Poll;
-using MyTelegram.Domain.Events.Poll;
+﻿using MyTelegram.Domain.Events.Poll;
 
 namespace MyTelegram.ReadModel.Impl;
 
@@ -16,14 +15,14 @@ public class PollReadModel : IPollReadModel,
     public bool MultipleChoice { get; private set; }
     public bool Quiz { get; private set; }
     public bool PublicVoters { get; private set; }
-    public string Question { get; private set; }
-    public IReadOnlyCollection<PollAnswer> Answers { get; private set; }
+    public string Question { get; private set; } = null!;
+    public IReadOnlyCollection<PollAnswer> Answers { get; private set; } = null!;
     public IReadOnlyCollection<string>? CorrectAnswers { get; private set; }
     public string? Solution { get; private set; }
     public byte[]? SolutionEntities { get; private set; }
     public bool Closed { get; private set; }
     public int? CloseDate { get; private set; }
-    public int? ClosePeriod { get; private set; }
+    public int? ClosePeriod { get; private set; } = null!;
     public int TotalVoters { get; private set; }
     public IReadOnlyCollection<PollAnswerVoter>? AnswerVoters { get; private set; }
 

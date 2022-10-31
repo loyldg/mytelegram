@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.Aggregates.Poll;
-
-namespace MyTelegram.ReadModel.Impl;
+﻿namespace MyTelegram.ReadModel.Impl;
 
 public class PollAnswerVoterReadModel : IPollAnswerVoterReadModel,
     IAmReadModelFor<PollAggregate, PollId, VoteAnswerCreatedEvent>,
@@ -10,7 +8,7 @@ public class PollAnswerVoterReadModel : IPollAnswerVoterReadModel,
     public virtual long? Version { get; set; }
     public long PollId { get; private set; }
     public long VoterPeerId { get; private set; }
-    public string Option { get; private set; }
+    public string Option { get; private set; } = null!;
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<PollAggregate, PollId, VoteAnswerCreatedEvent> domainEvent,
