@@ -66,7 +66,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
     {
         var affectedMessages = new TAffectedMessages { Pts = domainEvent.AggregateEvent.ReaderPts, PtsCount = 1 };
 
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
                 affectedMessages,
                 domainEvent.AggregateEvent.SourceCommandId,
                 domainEvent.AggregateEvent.ReaderUid)
@@ -88,7 +88,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
         };
         await PushUpdatesToPeerAsync(new Peer(PeerType.User, domainEvent.AggregateEvent.ReaderUid),
             selfOtherDevicesUpdates,
-            domainEvent.AggregateEvent.Request.AuthKeyId,
+            domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
             pts: domainEvent.AggregateEvent.ReaderPts,
             ptsType: PtsType.OtherUpdates
         ).ConfigureAwait(false);
@@ -102,7 +102,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
             await PushUpdatesToPeerAsync(
                 toPeer,
                 readHistoryUpdates,
-                domainEvent.AggregateEvent.Request.AuthKeyId,
+                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
                 pts: domainEvent.AggregateEvent.ReaderPts,
                 ptsType: PtsType.OtherUpdates
             ).ConfigureAwait(false);

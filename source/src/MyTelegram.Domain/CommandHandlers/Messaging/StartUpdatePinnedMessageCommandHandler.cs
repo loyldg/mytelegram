@@ -8,7 +8,7 @@ public class
         StartUpdatePinnedMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartUpdatePinnedMessage(command.Request,
+        aggregate.StartUpdatePinnedMessage(command.RequestInfo,
             command.Pinned,
             command.PmOneSide,
             command.Silent,

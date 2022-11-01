@@ -40,7 +40,7 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         return string.Equals(_state.Code, code, StringComparison.OrdinalIgnoreCase);
     }
 
-    public void CheckSignInCode(RequestInfo request,
+    public void CheckSignInCode(RequestInfo requestInfo,
         //string phoneCodeHash,
         string code,
         long userId,
@@ -48,13 +48,13 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
     {
         var isCodeValid = CheckCode(code);
 
-        Emit(new CheckSignInCodeCompletedEvent(request,
+        Emit(new CheckSignInCodeCompletedEvent(requestInfo,
             isCodeValid,
             userId,
             correlationId));
     }
 
-    public void CheckSignUpCode(RequestInfo request,
+    public void CheckSignUpCode(RequestInfo requestInfo,
         long userId,
         string phoneCodeHash,
         long accessHash,
@@ -67,7 +67,7 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         //var isCodeValid = CheckCode(code);
 
 
-            Emit(new CheckSignUpCodeCompletedEvent(request,
+            Emit(new CheckSignUpCodeCompletedEvent(requestInfo,
             true,
                 userId,
                 accessHash,
@@ -77,7 +77,7 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
                 correlationId));
     }
 
-    public void Create(RequestInfo request,
+    public void Create(RequestInfo requestInfo,
         long userId,
         string phoneNumber,
         string code,
@@ -86,7 +86,7 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         long creationTime)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new AppCodeCreatedEvent(request,
+        Emit(new AppCodeCreatedEvent(requestInfo,
             userId,
             phoneNumber,
             code,

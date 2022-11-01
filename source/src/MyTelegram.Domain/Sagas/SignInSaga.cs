@@ -25,9 +25,9 @@ public class SignInSaga :
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new SignInSuccessEvent(_state.Request.ReqMsgId,
-            _state.Request.AuthKeyId,
-            _state.Request.PermAuthKeyId,
+        Emit(new SignInSuccessEvent(_state.RequestInfo.ReqMsgId,
+            _state.RequestInfo.AuthKeyId,
+            _state.RequestInfo.PermAuthKeyId,
             domainEvent.AggregateEvent.UserId,
             domainEvent.AggregateEvent.UserId == 0,
             domainEvent.AggregateEvent.PhoneNumber,
@@ -50,12 +50,12 @@ public class SignInSaga :
 
         if (domainEvent.AggregateEvent.UserId == 0)
         {
-            Emit(new SignUpRequiredEvent(domainEvent.AggregateEvent.Request));
+            Emit(new SignUpRequiredEvent(domainEvent.AggregateEvent.RequestInfo));
             return;
         }
-        Emit(new SignInStartedEvent(domainEvent.AggregateEvent.Request));
+        Emit(new SignInStartedEvent(domainEvent.AggregateEvent.RequestInfo));
         var checkUserStatusCommand = new CheckUserStatusCommand(UserId.Create(domainEvent.AggregateEvent.UserId),
-            domainEvent.AggregateEvent.Request.ReqMsgId,
+            domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             domainEvent.AggregateEvent.CorrelationId);
         Publish(checkUserStatusCommand);
     }

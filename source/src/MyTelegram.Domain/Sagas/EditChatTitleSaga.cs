@@ -12,7 +12,7 @@ public class
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        var ownerPeerId = domainEvent.AggregateEvent.Request.UserId;
+        var ownerPeerId = domainEvent.AggregateEvent.RequestInfo.UserId;
         var toPeerId = domainEvent.AggregateEvent.ChatId;
         var outMessageId = 0;
         var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, domainEvent.AggregateEvent.RandomId);
@@ -38,7 +38,7 @@ public class
 
         var command = new StartSendMessageCommand(
             aggregateId,
-            domainEvent.AggregateEvent.Request,
+            domainEvent.AggregateEvent.RequestInfo,
             messageItem,
             false,
             1,

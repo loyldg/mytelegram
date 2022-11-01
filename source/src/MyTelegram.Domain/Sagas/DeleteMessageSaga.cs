@@ -54,7 +54,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new DeleteMessagesSagaStartedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new DeleteMessagesSagaStartedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.Revoke,
             domainEvent.AggregateEvent.IdList,
             domainEvent.AggregateEvent.ToPeer,
@@ -100,7 +100,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
             {
                 foreach (var inboxItem in aggregateEvent.InboxItems)
                 {
-                    if (inboxItem.InboxOwnerPeerId == _state.Request.UserId)
+                    if (inboxItem.InboxOwnerPeerId == _state.RequestInfo.UserId)
                     {
                         continue;
                     }
@@ -128,9 +128,9 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
             var selfDeletedItem =
                 _state.GetDeletedBoxItem(_state.ToPeer.PeerType == PeerType.Channel
                     ? _state.ToPeer.PeerId
-                    : _state.Request.UserId);
+                    : _state.RequestInfo.UserId);
             var otherPartyDeletedBoxes = _state.GetDeletedBoxes();
-            Emit(new DeleteMessagesCompletedEvent(_state.Request,
+            Emit(new DeleteMessagesCompletedEvent(_state.RequestInfo,
                 _state.ToPeer.PeerType,
                 selfDeletedItem,
                 otherPartyDeletedBoxes //,

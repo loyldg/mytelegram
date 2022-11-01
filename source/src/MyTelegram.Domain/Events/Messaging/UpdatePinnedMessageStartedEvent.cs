@@ -17,7 +17,7 @@ public class UpdatePinnedMessageStartedEvent : RequestAggregateEvent2<MessageAgg
     public string MessageActionData { get; }
     public Guid CorrelationId { get; }
 
-    public UpdatePinnedMessageStartedEvent(RequestInfo request,
+    public UpdatePinnedMessageStartedEvent(RequestInfo requestInfo,
         long ownerPeerId,
         int messageId,
         bool pinned,
@@ -32,7 +32,7 @@ public class UpdatePinnedMessageStartedEvent : RequestAggregateEvent2<MessageAgg
         long randomId,
         string messageActionData,
         Guid correlationId
-    ) : base(request)
+    ) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         MessageId = messageId;

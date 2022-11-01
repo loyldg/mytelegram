@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class StartSendChannelMessageEvent : /*Request*/AggregateEvent<ChannelAggregate, ChannelId>, IHasCorrelationId
+public class StartSendChannelMessageEvent : /*RequestInfo*/AggregateEvent<ChannelAggregate, ChannelId>, IHasCorrelationId
 {
     public StartSendChannelMessageEvent( //long reqMsgId,
         long senderPeerId,

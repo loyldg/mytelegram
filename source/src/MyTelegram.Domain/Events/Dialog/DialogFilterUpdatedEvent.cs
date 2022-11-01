@@ -4,7 +4,7 @@ public class DialogFilterUpdatedEvent : RequestAggregateEvent2<DialogFilterAggre
 {
     public long OwnerUserId { get; }
     public DialogFilter Filter { get; }
-    public DialogFilterUpdatedEvent(RequestInfo request, long ownerUserId, DialogFilter filter) : base(request)
+    public DialogFilterUpdatedEvent(RequestInfo requestInfo, long ownerUserId, DialogFilter filter) : base(requestInfo)
     {
         OwnerUserId = ownerUserId;
         Filter = filter;

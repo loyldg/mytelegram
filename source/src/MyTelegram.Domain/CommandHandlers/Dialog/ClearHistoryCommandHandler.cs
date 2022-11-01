@@ -6,7 +6,7 @@ public class ClearHistoryCommandHandler : CommandHandler<DialogAggregate, Dialog
         ClearHistoryCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ClearHistory(command.Request,
+        aggregate.ClearHistory(command.RequestInfo,
             command.Revoke,
             command.MessageActionData,
             command.RandomId,

@@ -16,8 +16,8 @@ public class ChannelMessageViewsDomainEventHandler : ISubscribeSynchronousTo<Mes
         if (item.ToPeer.PeerType == PeerType.Channel && item.FwdHeader == null && item.Views > 0)
         {
             await _channelMessageViewsAppService
-                .IncrementViewsIfNotIncrementedAsync(domainEvent.AggregateEvent.Request.UserId,
-                    domainEvent.AggregateEvent.Request.PermAuthKeyId,
+                .IncrementViewsIfNotIncrementedAsync(domainEvent.AggregateEvent.RequestInfo.UserId,
+                    domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
                     item.ToPeer.PeerId,
                     item.MessageId).ConfigureAwait(false);
         }

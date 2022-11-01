@@ -6,7 +6,7 @@ public class DeleteChatUserCommandHandler : CommandHandler<ChatAggregate, ChatId
         DeleteChatUserCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.DeleteChatUser(command.Request,
+        aggregate.DeleteChatUser(command.RequestInfo,
             command.UserId,
             command.MessageActionData,
             command.RandomId,

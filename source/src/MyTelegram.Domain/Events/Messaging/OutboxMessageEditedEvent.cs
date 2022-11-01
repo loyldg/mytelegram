@@ -2,7 +2,7 @@
 
 public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>, IHasCorrelationId
 {
-    public OutboxMessageEditedEvent(RequestInfo request,
+    public OutboxMessageEditedEvent(RequestInfo requestInfo,
         IReadOnlyCollection<InboxItem>? inboxItems,
         MessageItem oldMessageItem,
         int messageId,
@@ -10,7 +10,7 @@ public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate,
         int editDate,
         byte[]? entities,
         byte[]? media,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         InboxItems = inboxItems;
         OldMessageItem = oldMessageItem;

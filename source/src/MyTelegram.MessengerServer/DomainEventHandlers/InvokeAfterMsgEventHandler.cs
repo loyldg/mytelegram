@@ -19,7 +19,7 @@ public class InvokeAfterMsgEventHandler : ISubscribeSynchronousToAll
             var reqMsgId = aggregateEvent switch
             {
                 IHasRequestMessageId hasRequestMessageId => hasRequestMessageId.ReqMsgId,
-                IHasRequestInfo hasRequestInfo => hasRequestInfo.Request.ReqMsgId,
+                IHasRequestInfo hasRequestInfo => hasRequestInfo.RequestInfo.ReqMsgId,
                 _ => 0L
             };
             if (reqMsgId == 0)

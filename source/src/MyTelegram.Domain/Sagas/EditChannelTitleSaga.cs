@@ -14,7 +14,7 @@ public class EditChannelTitleSaga : MyInMemoryAggregateSaga<EditChannelTitleSaga
         var outMessageId = 0;
         var aggregateId = MessageId.CreateWithRandomId(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.RandomId);
         var ownerPeer = new Peer(PeerType.Channel, domainEvent.AggregateEvent.ChannelId);
-        var senderPeer = new Peer(PeerType.User, domainEvent.AggregateEvent.Request.UserId);
+        var senderPeer = new Peer(PeerType.User, domainEvent.AggregateEvent.RequestInfo.UserId);
         var messageItem = new MessageItem(
             ownerPeer,
             ownerPeer,
@@ -32,7 +32,7 @@ public class EditChannelTitleSaga : MyInMemoryAggregateSaga<EditChannelTitleSaga
             MessageActionType.ChatEditTitle
         );
         var command = new StartSendMessageCommand(aggregateId,
-            domainEvent.AggregateEvent.Request,
+            domainEvent.AggregateEvent.RequestInfo,
             messageItem,
             correlationId: domainEvent.AggregateEvent.CorrelationId);
 

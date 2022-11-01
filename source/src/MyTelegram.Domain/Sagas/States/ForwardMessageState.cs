@@ -12,13 +12,13 @@ public class ForwardMessageState : AggregateState<ForwardMessageSaga, ForwardMes
 
     public bool IsCompleted => ForwardCount == IdList.Count;
     public IReadOnlyList<long> RandomIdList { get; private set; } = null!;
-    public RequestInfo Request { get; private set; } = default!;
+    public RequestInfo RequestInfo { get; private set; } = default!;
     public Peer ToPeer { get; private set; } = null!;
     public bool ForwardFromLinkedChannel { get; private set; }
 
     public void Apply(ForwardMessageSagaStartedEvent aggregateEvent)
     {
-        Request = aggregateEvent.Request;
+        RequestInfo = aggregateEvent.RequestInfo;
         FromPeer = aggregateEvent.FromPeer;
         ToPeer = aggregateEvent.ToPeer;
         IdList = aggregateEvent.IdList;

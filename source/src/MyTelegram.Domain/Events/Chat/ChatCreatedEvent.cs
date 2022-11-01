@@ -3,7 +3,7 @@
 public class ChatCreatedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, IHasCorrelationId
 {
     public ChatCreatedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long chatId,
         long creatorUid,
         string title,
@@ -11,7 +11,7 @@ public class ChatCreatedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, I
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         ChatId = chatId;
         CreatorUid = creatorUid;

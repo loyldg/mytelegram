@@ -3,7 +3,7 @@
 public class UserCreatedEvent : AggregateEvent<UserAggregate, UserId>
 {
     public UserCreatedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long userId,
         long accessHash,
         string phoneNumber,
@@ -13,9 +13,9 @@ public class UserCreatedEvent : AggregateEvent<UserAggregate, UserId>
         int? botInfoVersion,
         int accountTtl,
         DateTime creationTime
-    ) //: base(request)
+    ) //: base(requestInfo)
     {
-        Request = request;
+        RequestInfo = requestInfo;
         UserId = userId;
         AccessHash = accessHash;
         PhoneNumber = phoneNumber;
@@ -36,6 +36,6 @@ public class UserCreatedEvent : AggregateEvent<UserAggregate, UserId>
     public string? LastName { get; }
 
     public string PhoneNumber { get; }
-    public RequestInfo Request { get; }
+    public RequestInfo RequestInfo { get; }
     public long UserId { get; }
 }

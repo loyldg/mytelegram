@@ -2,9 +2,9 @@
 
 public class UserSignUpSuccessEvent : RequestAggregateEvent2<UserSignUpSaga, UserSignUpSagaId>
 {
-    public UserSignUpSuccessEvent(RequestInfo request,
+    public UserSignUpSuccessEvent(RequestInfo requestInfo,
         long userId,
-        string phoneNumber) : base(request)
+        string phoneNumber) : base(requestInfo)
     {
         UserId = userId;
         PhoneNumber = phoneNumber;

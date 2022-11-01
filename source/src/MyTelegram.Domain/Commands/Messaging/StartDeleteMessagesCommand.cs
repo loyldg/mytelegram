@@ -8,10 +8,10 @@ public class StartDeleteMessagesCommand : RequestCommand2<MessageAggregate, Mess
     public Guid CorrelationId { get; }
 
     public StartDeleteMessagesCommand(MessageId aggregateId,
-        RequestInfo request, bool revoke,
+        RequestInfo requestInfo, bool revoke,
         IReadOnlyList<int> idList,
         long? chatCreatorId,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         Revoke = revoke;
         IdList = idList;

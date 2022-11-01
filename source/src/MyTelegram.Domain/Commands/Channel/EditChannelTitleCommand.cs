@@ -3,11 +3,11 @@
 public class EditChannelTitleCommand : RequestCommand2<ChannelAggregate, ChannelId, IExecutionResult>, IHasCorrelationId
 {
     public EditChannelTitleCommand(ChannelId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         string title,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         Title = title;
         MessageActionData = messageActionData;

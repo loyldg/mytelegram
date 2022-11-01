@@ -73,7 +73,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
         );
 
         var command = new StartSendMessageCommand(aggregateId,
-            input.Request,
+            input.RequestInfo,
             messageItem,
             input.ClearDraft,
             input.GroupItemCount,

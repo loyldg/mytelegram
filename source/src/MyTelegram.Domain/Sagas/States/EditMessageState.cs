@@ -20,7 +20,7 @@ public class EditMessageState : AggregateState<EditMessageSaga, EditMessageSagaI
     public string NewMessage { get; private set; }
 #pragma warning restore CS8618
 
-    public RequestInfo Request { get; private set; } = default!;
+    public RequestInfo RequestInfo { get; private set; } = default!;
     public int SenderMessageId { get; private set; }
     public MessageItem OldMessageItem { get; private set; } = default!;
     public void Apply(EditInboxMessageStartedEvent aggregateEvent)
@@ -31,7 +31,7 @@ public class EditMessageState : AggregateState<EditMessageSaga, EditMessageSagaI
 
     public void Apply(EditOutboxMessageStartedEvent aggregateEvent)
     { 
-        Request=aggregateEvent.Request;
+        RequestInfo=aggregateEvent.RequestInfo;
         SenderMessageId = aggregateEvent.MessageId;
         Entities = aggregateEvent.Entities;
         InboxCount = aggregateEvent.InboxCount;

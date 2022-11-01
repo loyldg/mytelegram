@@ -23,7 +23,6 @@ builder.ConfigureAppConfiguration(options =>
 {
     options.AddEnvironmentVariables();
 });
-
 builder.UseAutofac();
 builder.UseSerilog((context,
     configuration) =>

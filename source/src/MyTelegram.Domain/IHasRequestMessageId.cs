@@ -7,5 +7,5 @@ public interface IHasRequestMessageId
 
 public interface IHasRequestInfo
 {
-    RequestInfo Request { get; }
+    RequestInfo RequestInfo { get; }
 }

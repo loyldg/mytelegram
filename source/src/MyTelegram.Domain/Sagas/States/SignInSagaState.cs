@@ -4,11 +4,11 @@ public class SignInSagaState : AggregateState<SignInSaga, SignInSagaId, SignInSa
         IApply<SignInStartedEvent>,
         IApply<SignUpRequiredEvent>
 {
-    public RequestInfo Request { get; private set; } = default!;
+    public RequestInfo RequestInfo { get; private set; } = default!;
 
     public void Apply(SignInStartedEvent aggregateEvent)
     {
-        Request=aggregateEvent.Request;
+        RequestInfo =aggregateEvent.RequestInfo;
     }
     public void Apply(SignUpRequiredEvent aggregateEvent)
     {

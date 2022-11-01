@@ -32,13 +32,13 @@ public class CreateChannelSaga : MyInMemoryAggregateSaga<CreateChannelSaga, Crea
             domainEvent.AggregateEvent.MessageActionData,
             MessageActionType.ChannelCreate
         );
-        var command = new StartSendMessageCommand(aggregateId, domainEvent.AggregateEvent.Request, messageItem, correlationId: Guid.NewGuid());
+        var command = new StartSendMessageCommand(aggregateId, domainEvent.AggregateEvent.RequestInfo, messageItem, correlationId: Guid.NewGuid());
 
         Publish(command);
 
         var createMemberCommand = new CreateChannelCreatorMemberCommand(
             ChannelMemberId.Create(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.CreatorId),
-            domainEvent.AggregateEvent.Request.ReqMsgId,
+            domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             domainEvent.AggregateEvent.ChannelId,
             domainEvent.AggregateEvent.CreatorId,
             domainEvent.AggregateEvent.Date);

@@ -44,7 +44,7 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
     public async Task HandleAsync(IDomainEvent<DialogFilterAggregate, DialogFilterId, DialogFilterUpdatedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.Request,
+        await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.Filter.Id,
             domainEvent.AggregateEvent.Filter).ConfigureAwait(false);
     }
@@ -52,7 +52,7 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
     public async Task HandleAsync(IDomainEvent<DialogFilterAggregate, DialogFilterId, DialogFilterDeletedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.Request,
+        await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.FilterId,
             null).ConfigureAwait(false);
     }

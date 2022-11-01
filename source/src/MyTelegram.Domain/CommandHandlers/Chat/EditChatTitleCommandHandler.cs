@@ -6,7 +6,7 @@ public class EditChatTitleCommandHandler : CommandHandler<ChatAggregate, ChatId,
         EditChatTitleCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditTitle(command.Request,
+        aggregate.EditTitle(command.RequestInfo,
             command.Title,
             command.MessageActionData,
             command.RandomId,

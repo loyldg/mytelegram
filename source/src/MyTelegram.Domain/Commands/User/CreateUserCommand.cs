@@ -5,13 +5,13 @@ namespace MyTelegram.Domain.Commands.User;
 public class CreateUserCommand : RequestCommand2<UserAggregate, UserId, IExecutionResult>
 {
     public CreateUserCommand(UserId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long userId,
         long accessHash,
         string phoneNumber,
         string firstName,
         string? lastName,
-        bool bot = false) : base(aggregateId, request)
+        bool bot = false) : base(aggregateId, requestInfo)
     {
         UserId = userId;
         PhoneNumber = phoneNumber;
@@ -37,7 +37,7 @@ public class CreateUserCommand : RequestCommand2<UserAggregate, UserId, IExecuti
         }
         else
         {
-            yield return BitConverter.GetBytes(Request.ReqMsgId);
+            yield return BitConverter.GetBytes(RequestInfo.ReqMsgId);
             yield return Encoding.UTF8.GetBytes(PhoneNumber);
         }
     }

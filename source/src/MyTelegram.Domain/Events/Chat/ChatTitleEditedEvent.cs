@@ -2,12 +2,12 @@
 
 public class ChatTitleEditedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, IHasCorrelationId
 {
-    public ChatTitleEditedEvent(RequestInfo request,
+    public ChatTitleEditedEvent(RequestInfo requestInfo,
         long chatId,
         string title,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         ChatId = chatId;
         Title = title;

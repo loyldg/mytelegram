@@ -3,7 +3,7 @@
 public class CheckSignUpCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeId, IExecutionResult>, IHasCorrelationId
 {
     public CheckSignUpCodeCommand(AppCodeId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         //string phoneNumber,
         string phoneCodeHash,
         //string code, 
@@ -12,7 +12,7 @@ public class CheckSignUpCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeI
         string phoneNumber,
         string firstName,
         string? lastName,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         //PhoneNumber = phoneNumber;
         PhoneCodeHash = phoneCodeHash;

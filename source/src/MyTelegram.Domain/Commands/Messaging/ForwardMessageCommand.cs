@@ -6,9 +6,9 @@ public class ForwardMessageCommand : RequestCommand2<MessageAggregate, MessageId
     public Guid CorrelationId { get; }
 
     public ForwardMessageCommand(MessageId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long randomId,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         RandomId = randomId;
         CorrelationId = correlationId;

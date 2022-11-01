@@ -3,12 +3,12 @@
 public class DeleteChatUserCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>, IHasCorrelationId
 {
     public DeleteChatUserCommand(ChatId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long userId,
         string messageActionData,
         long randomId,
         //int date,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         UserId = userId;
         MessageActionData = messageActionData;

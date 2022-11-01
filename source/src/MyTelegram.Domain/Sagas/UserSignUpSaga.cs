@@ -26,7 +26,7 @@ public class UserSignUpSaga : AggregateSaga<UserSignUpSaga, UserSignUpSagaId, Us
                 .ConfigureAwait(false);
 
             var createUserCommand = new CreateUserCommand(UserId.Create(userId),
-                domainEvent.AggregateEvent.Request,
+                domainEvent.AggregateEvent.RequestInfo,
                 userId,
                 domainEvent.AggregateEvent.AccessHash,
                 domainEvent.AggregateEvent.PhoneNumber,
@@ -35,7 +35,7 @@ public class UserSignUpSaga : AggregateSaga<UserSignUpSaga, UserSignUpSagaId, Us
             );
             Publish(createUserCommand);
 
-            Emit(new UserSignUpSuccessEvent(domainEvent.AggregateEvent.Request,
+            Emit(new UserSignUpSuccessEvent(domainEvent.AggregateEvent.RequestInfo,
                 userId,
                 domainEvent.AggregateEvent.PhoneNumber));
             Complete();

@@ -99,7 +99,7 @@ public class MessageSaga :
             // 2.send ReplyToMessageCommand 
             // 3.handle ReplyToMessageEvent
             Emit(new ReplyToMessageCompletedEvent(new List<InboxItem> { new(domainEvent.AggregateEvent.SenderPeer.PeerId, domainEvent.AggregateEvent.SenderMessageId) }));
-            ReplyToMessage(_state.Request.ReqMsgId,
+            ReplyToMessage(_state.RequestInfo.ReqMsgId,
                 domainEvent.AggregateEvent.SenderPeer.PeerId,
                 domainEvent.AggregateEvent.SenderMessageId,
                 domainEvent.AggregateEvent.CorrelationId);
@@ -110,7 +110,7 @@ public class MessageSaga :
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new MessageSagaStartedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new MessageSagaStartedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.OutMessageItem,
             domainEvent.AggregateEvent.ClearDraft,
             domainEvent.AggregateEvent.GroupItemCount,
@@ -124,7 +124,7 @@ public class MessageSaga :
             case PeerType.User:
                 {
                     var command = new CheckUserStateCommand(UserId.Create(item.ToPeer.PeerId),
-                        domainEvent.AggregateEvent.Request.ReqMsgId,
+                        domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
                         domainEvent.AggregateEvent.CorrelationId);
                     Publish(command);
                 }
@@ -157,7 +157,7 @@ public class MessageSaga :
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(_state.MessageItem);
-        return CreateOutboxMessageAsync(_state.Request.ReqMsgId, _state.MessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
+        return CreateOutboxMessageAsync(_state.RequestInfo.ReqMsgId, _state.MessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
     }
 
     public Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, CheckChatStateCompletedEvent> domainEvent,
@@ -166,7 +166,7 @@ public class MessageSaga :
     {
         ArgumentNullException.ThrowIfNull(_state.MessageItem);
         Emit(new SendChatMessageStartedEvent(domainEvent.AggregateEvent.Title, domainEvent.AggregateEvent.MemberUidList));
-        return CreateOutboxMessageAsync(_state.Request.ReqMsgId, _state.MessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
+        return CreateOutboxMessageAsync(_state.RequestInfo.ReqMsgId, _state.MessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, CheckChannelStateCompletedEvent> domainEvent,
@@ -184,7 +184,7 @@ public class MessageSaga :
         outboxMessageItem.Post = domainEvent.AggregateEvent.Post;
         outboxMessageItem.Views = views;
 
-        return CreateOutboxMessageAsync(_state.Request.ReqMsgId, outboxMessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
+        return CreateOutboxMessageAsync(_state.RequestInfo.ReqMsgId, outboxMessageItem, _state.ClearDraft, _state.GroupItemCount, _state.CorrelationId);
     }
 
     private void HandleReplyToMessage(ReplyToMessageEvent aggregateEvent)
@@ -293,7 +293,7 @@ public class MessageSaga :
         var randomBytes = new byte[8];
         Random.Shared.NextBytes(randomBytes);
         var command = new StartForwardMessageCommand(aggregateId,
-            _state.Request,
+            _state.RequestInfo,
             fromPeer,
             toPeer,
             new List<int> { messageId },
@@ -324,7 +324,7 @@ public class MessageSaga :
         {
             linkedChannelId = _state.MessageItem.ToPeer.PeerId;
         }
-        Emit(new SendOutboxMessageCompletedEvent(_state.Request, _state.MessageItem, pts, _state.GroupItemCount, linkedChannelId));
+        Emit(new SendOutboxMessageCompletedEvent(_state.RequestInfo, _state.MessageItem, pts, _state.GroupItemCount, linkedChannelId));
 
         if (_state.MessageItem.ToPeer.PeerType == PeerType.Channel)
         {

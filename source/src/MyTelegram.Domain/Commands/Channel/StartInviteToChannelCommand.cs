@@ -4,7 +4,7 @@ public class StartInviteToChannelCommand : RequestCommand2<ChannelAggregate, Cha
     IHasCorrelationId
 {
     public StartInviteToChannelCommand(ChannelId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long channelId,
         long inviterId,
         IReadOnlyList<long> memberUidList,
@@ -12,7 +12,7 @@ public class StartInviteToChannelCommand : RequestCommand2<ChannelAggregate, Cha
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         ChannelId = channelId;
         InviterId = inviterId;

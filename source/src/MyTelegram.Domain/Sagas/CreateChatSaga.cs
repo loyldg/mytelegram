@@ -33,7 +33,7 @@ public class CreateChatSaga : MyInMemoryAggregateSaga<CreateChatSaga, CreateChat
             MessageActionType.ChatCreate
         );
         var command = new StartSendMessageCommand(aggregateId,
-            domainEvent.AggregateEvent.Request,
+            domainEvent.AggregateEvent.RequestInfo,
             messageItem,
             correlationId: domainEvent.AggregateEvent.CorrelationId);
         Publish(command);

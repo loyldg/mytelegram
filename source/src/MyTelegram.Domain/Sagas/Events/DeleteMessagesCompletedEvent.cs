@@ -2,11 +2,11 @@
 
 public class DeleteMessagesCompletedEvent : RequestAggregateEvent2<DeleteMessageSaga, DeleteMessageSagaId>
 {
-    public DeleteMessagesCompletedEvent(RequestInfo request,
+    public DeleteMessagesCompletedEvent(RequestInfo requestInfo,
         PeerType toPeerType,
         DeletedBoxItem selfDeletedBoxItem,
         IReadOnlyList<DeletedBoxItem> deletedBoxItems /*, bool isClearHistory, int clearHistoryNextMaxId*/) :
-        base(request )
+        base(requestInfo)
     {
         //Pts = pts;
         //PtsCount = ptsCount;

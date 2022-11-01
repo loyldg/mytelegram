@@ -3,7 +3,7 @@
 public class DeleteChatCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>, IHasCorrelationId
 {
     public DeleteChatCommand(ChatId aggregateId,
-        RequestInfo request, Guid correlationId) : base(aggregateId, request)
+        RequestInfo requestInfo, Guid correlationId) : base(aggregateId, requestInfo)
     {
         CorrelationId = correlationId;
     }

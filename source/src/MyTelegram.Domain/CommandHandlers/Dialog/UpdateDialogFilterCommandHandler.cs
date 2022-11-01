@@ -7,7 +7,7 @@ public class
         UpdateDialogFilterCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.UpdateDialogFilter(command.Request, command.OwnerUserId, command.Filter);
+        aggregate.UpdateDialogFilter(command.RequestInfo, command.OwnerUserId, command.Filter);
         return Task.CompletedTask;
     }
 }

@@ -3,12 +3,12 @@
 public class AddChatUserCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>, IHasCorrelationId
 {
     public AddChatUserCommand(ChatId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long userId,
         int date,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         UserId = userId;
         Date = date;

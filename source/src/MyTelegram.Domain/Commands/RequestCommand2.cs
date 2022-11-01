@@ -3,15 +3,15 @@
 public abstract class RequestCommand2<TAggregate, TIdentity, TExecutionResult> : DistinctCommand<TAggregate, TIdentity, TExecutionResult>
     where TIdentity : IIdentity where TAggregate : IAggregateRoot<TIdentity> where TExecutionResult : IExecutionResult
 {
-    public RequestInfo Request { get; }
+    public RequestInfo RequestInfo { get; }
 
-    protected RequestCommand2(TIdentity aggregateId, RequestInfo request) : base(aggregateId)
+    protected RequestCommand2(TIdentity aggregateId, RequestInfo requestInfo) : base(aggregateId)
     {
-        Request = request;
+        RequestInfo = requestInfo;
     }
 
     protected override IEnumerable<byte[]> GetSourceIdComponents()
     {
-        yield return BitConverter.GetBytes(Request.ReqMsgId);
+        yield return BitConverter.GetBytes(RequestInfo.ReqMsgId);
     }
 }

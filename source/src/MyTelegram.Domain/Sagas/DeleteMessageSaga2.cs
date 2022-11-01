@@ -88,7 +88,7 @@ public class DeleteMessageSaga2 :
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new DeleteMessageSaga2StartedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new DeleteMessageSaga2StartedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.Revoke,
             domainEvent.AggregateEvent.MessageIds,
             domainEvent.AggregateEvent.ChatCreatorUserId,
@@ -96,7 +96,7 @@ public class DeleteMessageSaga2 :
             domainEvent.AggregateEvent.IsClearHistory,
             PeerType.Chat,
             domainEvent.AggregateEvent.CorrelationId));
-        DeleteMessagesForSelf(domainEvent.AggregateEvent.Request.UserId,
+        DeleteMessagesForSelf(domainEvent.AggregateEvent.RequestInfo.UserId,
             domainEvent.AggregateEvent.MessageIds,
             domainEvent.AggregateEvent.CorrelationId);
 
@@ -107,7 +107,7 @@ public class DeleteMessageSaga2 :
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new DeleteMessageSaga2StartedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new DeleteMessageSaga2StartedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.Revoke,
             domainEvent.AggregateEvent.MessageIds,
             0,
@@ -115,7 +115,7 @@ public class DeleteMessageSaga2 :
             domainEvent.AggregateEvent.IsClearHistory,
             PeerType.User,
             domainEvent.AggregateEvent.CorrelationId));
-        DeleteMessagesForSelf(domainEvent.AggregateEvent.Request.UserId,
+        DeleteMessagesForSelf(domainEvent.AggregateEvent.RequestInfo.UserId,
             domainEvent.AggregateEvent.MessageIds,
             domainEvent.AggregateEvent.CorrelationId);
 

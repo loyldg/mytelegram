@@ -5,13 +5,13 @@ public class ClearHistoryCommand : RequestCommand2<DialogAggregate, DialogId, IE
     //public bool Revoke { get; }
 
     public ClearHistoryCommand(DialogId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         bool revoke,
         string messageActionData,
         long randomId,
         List<int> messageIdListToBeDelete,
         int nextMaxId,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         //Revoke = revoke; 
         Revoke = revoke;

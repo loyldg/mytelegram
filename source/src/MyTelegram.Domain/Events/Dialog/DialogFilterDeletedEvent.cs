@@ -4,7 +4,7 @@ public class DialogFilterDeletedEvent : RequestAggregateEvent2<DialogFilterAggre
 {
     public int FilterId { get; }
 
-    public DialogFilterDeletedEvent(RequestInfo request,int filterId) : base(request)
+    public DialogFilterDeletedEvent(RequestInfo requestInfo,int filterId) : base(requestInfo)
     {
         FilterId = filterId;
     }

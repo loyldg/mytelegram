@@ -68,7 +68,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             correlationId));
     }
 
-    public void Create(RequestInfo request,
+    public void Create(RequestInfo requestInfo,
         long channelId,
         long creatorId,
         bool broadcast,
@@ -83,7 +83,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Guid correlationId)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelCreatedEvent(request,
+        Emit(new ChannelCreatedEvent(requestInfo,
             channelId,
             creatorId,
             title,
@@ -159,7 +159,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new ChannelDefaultBannedRightsEditedEvent(reqMsgId, _state.ChannelId, bannedRights));
     }
 
-    public void EditPhoto(RequestInfo request,
+    public void EditPhoto(RequestInfo requestInfo,
         //long fileId,
         byte[] photo,
         string messageActionData,
@@ -167,7 +167,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelPhotoEditedEvent(request,
+        Emit(new ChannelPhotoEditedEvent(requestInfo,
             _state.ChannelId,
             photo,
             messageActionData,
@@ -175,20 +175,20 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             correlationId));
     }
 
-    public void EditTitle(RequestInfo request,
+    public void EditTitle(RequestInfo requestInfo,
         string title,
         string messageActionData,
         long randomId,
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        var admin = _state.GetAdmin(request.UserId);
-        CheckBannedRights(request.UserId,
+        var admin = _state.GetAdmin(requestInfo.UserId);
+        CheckBannedRights(requestInfo.UserId,
             _state.GetDefaultBannedRights().ChangeInfo,
             admin?.AdminRights.ChangeInfo,
             RpcErrorMessages.ChatAdminRequired);
 
-        Emit(new ChannelTitleEditedEvent(request,
+        Emit(new ChannelTitleEditedEvent(requestInfo,
             _state.ChannelId,
             title,
             messageActionData,
@@ -271,7 +271,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new SetChannelPtsEvent(senderPeerId, pts, messageId, date));
     }
 
-    public void StartInviteToChannel(RequestInfo request,
+    public void StartInviteToChannel(RequestInfo requestInfo,
         long inviterId,
         IReadOnlyList<long> memberUidList,
         IReadOnlyList<long> botUidList,
@@ -295,7 +295,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
                 RpcErrorMessages.ChatAdminRequired);
         }
 
-        Emit(new StartInviteToChannelEvent(request,
+        Emit(new StartInviteToChannelEvent(requestInfo,
             _state.ChannelId,
             inviterId,
             memberUidList,

@@ -2,7 +2,7 @@
 
 public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>, IHasCorrelationId
 {
-    public StartInviteToChannelEvent(RequestInfo request,
+    public StartInviteToChannelEvent(RequestInfo requestInfo,
         long channelId,
         long inviterId,
         IReadOnlyList<long> memberUidList,
@@ -14,7 +14,7 @@ public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate
         string messageActionData,
         //bool isBot,
         bool broadcast,
-        Guid correlationId):base(request)
+        Guid correlationId):base(requestInfo)
     {
         ChannelId = channelId;
         InviterId = inviterId;

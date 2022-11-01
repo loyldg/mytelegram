@@ -9,7 +9,7 @@ public class ReadHistoryState : AggregateState<ReadHistorySaga, ReadHistorySagaI
     //IApply<ReadHistoryCompletedEvent>,
     IApply<ReadHistoryReadLatestNoneBotOutboxMessageEvent>
 {
-    public RequestInfo Request { get; private set; } = default!;
+    public RequestInfo RequestInfo { get; private set; } = default!;
 
     public Guid CorrelationId { get; private set; }
     public bool InboxPtsIncremented { get; private set; }
@@ -103,7 +103,7 @@ public class ReadHistoryState : AggregateState<ReadHistorySaga, ReadHistorySagaI
 
     public void Apply(ReadHistoryStartedEvent aggregateEvent)
     {
-        Request = aggregateEvent.Request;
+        RequestInfo = aggregateEvent.RequestInfo;
         ReaderUid = aggregateEvent.ReaderUid;
         ReaderMessageId = aggregateEvent.ReaderMessageId;
         ReaderToPeer = aggregateEvent.ToPeer;
@@ -114,7 +114,7 @@ public class ReadHistoryState : AggregateState<ReadHistorySaga, ReadHistorySagaI
 
     public void LoadSnapshot(ReadHistorySagaSnapshot snapshot)
     {
-        Request = snapshot.Request;
+        RequestInfo = snapshot.RequestInfo;
         ReaderUid = snapshot.ReaderUid;
         ReaderMessageId = snapshot.ReaderMessageId;
         ReaderPts = snapshot.ReaderPts;

@@ -17,7 +17,7 @@ public class AddChatUserSaga : MyInMemoryAggregateSaga<AddChatUserSaga, AddChatU
         //var aggregateId = MessageId.Create(ownerPeerId, outMessageId);
         var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, domainEvent.AggregateEvent.RandomId);
         var command = new StartSendMessageCommand(aggregateId,
-            domainEvent.AggregateEvent.Request,
+            domainEvent.AggregateEvent.RequestInfo,
             new MessageItem(
                 ownerPeer,
                 new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId),

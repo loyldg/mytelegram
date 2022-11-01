@@ -6,7 +6,7 @@ public class EditChannelPhotoCommandHandler : CommandHandler<ChannelAggregate, C
         EditChannelPhotoCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditPhoto(command.Request,
+        aggregate.EditPhoto(command.RequestInfo,
             //command.FileId,
             command.Photo,
             command.MessageActionData,

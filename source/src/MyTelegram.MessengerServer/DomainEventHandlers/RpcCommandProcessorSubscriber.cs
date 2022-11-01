@@ -256,14 +256,14 @@
 //                channelUpdates.ToBytes(),
 //                domainEvent.AggregateEvent.SelfDeletedBoxItem.Pts,
 //                PtsType.OtherUpdates,
-//                domainEvent.AggregateEvent.Request.AuthKeyId,
+//                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
 //                0,
 //                0
 //            ).ConfigureAwait(false);
-//            await AddRpcGlobalSeqNoForAuthKeyIdAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
-//                domainEvent.AggregateEvent.Request.UserId,
+//            await AddRpcGlobalSeqNoForAuthKeyIdAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
+//                domainEvent.AggregateEvent.RequestInfo.UserId,
 //                globalSeqNo).ConfigureAwait(false);
-//            await UpdateSelfGlobalSeqNoAfterSendChannelMessageAsync(domainEvent.AggregateEvent.Request.UserId,
+//            await UpdateSelfGlobalSeqNoAfterSendChannelMessageAsync(domainEvent.AggregateEvent.RequestInfo.UserId,
 //                globalSeqNo).ConfigureAwait(false);
 //        }
 
@@ -273,10 +273,10 @@
 //            PtsCount = domainEvent.AggregateEvent.SelfDeletedBoxItem.PtsCount
 //        };
 
-//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
 //            r,
 //            domainEvent.Metadata.SourceId.Value,
-//            domainEvent.AggregateEvent.Request.UserId,
+//            domainEvent.AggregateEvent.RequestInfo.UserId,
 //            domainEvent.AggregateEvent.SelfDeletedBoxItem.Pts,
 //            toPeerType: domainEvent.AggregateEvent.ToPeerType).ConfigureAwait(false);
 
@@ -285,7 +285,7 @@
 //            channelPeer = new Peer(PeerType.Channel, domainEvent.AggregateEvent.SelfDeletedBoxItem.OwnerPeerId);
 //            await PushUpdatesToChannelMemberAsync(channelPeer,
 //                channelUpdates!,
-//                domainEvent.AggregateEvent.Request.AuthKeyId,
+//                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
 //                skipSaveUpdates: true).ConfigureAwait(false);
 //        }
 //        else
@@ -295,7 +295,7 @@
 //                var excludeAuthKeyId = 0L;
 //                if (deletedBoxItem.OwnerPeerId == domainEvent.AggregateEvent.SelfDeletedBoxItem.OwnerPeerId)
 //                {
-//                    excludeAuthKeyId = domainEvent.AggregateEvent.Request.AuthKeyId;
+//                    excludeAuthKeyId = domainEvent.AggregateEvent.RequestInfo.AuthKeyId;
 //                }
 
 //                var updates =
@@ -662,12 +662,12 @@
 //            domainEvent.AggregateEvent.LastName
 //        );
 
-//        await _eventBus.PublishAsync(new UserSignUpSuccessIntegrationEvent(domainEvent.AggregateEvent.Request.AuthKeyId,
-//            domainEvent.AggregateEvent.Request.PermAuthKeyId,
+//        await _eventBus.PublishAsync(new UserSignUpSuccessIntegrationEvent(domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
+//            domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
 //            domainEvent.AggregateEvent.UserId)).ConfigureAwait(false);
 
 //        var r = _rpcResultProcessor.CreateAuthorizationFromUser(domainEvent.AggregateEvent);
-//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
 //            r,
 //            domainEvent.Metadata.SourceId.Value,
 //            domainEvent.AggregateEvent.UserId).ConfigureAwait(false);
@@ -679,7 +679,7 @@
 //    {
 //        var affectedMessages = new TAffectedMessages { Pts = domainEvent.AggregateEvent.ReaderPts, PtsCount = 1 };
 
-//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
 //                affectedMessages,
 //                domainEvent.AggregateEvent.SourceCommandId,
 //                domainEvent.AggregateEvent.ReaderUid)
@@ -701,7 +701,7 @@
 //        };
 //        await PushUpdatesToPeerAsync(new Peer(PeerType.User, domainEvent.AggregateEvent.ReaderUid),
 //            selfOtherDevicesUpdates,
-//            domainEvent.AggregateEvent.Request.AuthKeyId,
+//            domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
 //            pts: domainEvent.AggregateEvent.ReaderPts,
 //            ptsType: PtsType.OtherUpdates
 //        ).ConfigureAwait(false);
@@ -715,7 +715,7 @@
 //            await PushUpdatesToPeerAsync(
 //                toPeer,
 //                readHistoryUpdates,
-//                domainEvent.AggregateEvent.Request.AuthKeyId,
+//                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
 //                pts: domainEvent.AggregateEvent.ReaderPts,
 //                ptsType: PtsType.OtherUpdates
 //            ).ConfigureAwait(false);

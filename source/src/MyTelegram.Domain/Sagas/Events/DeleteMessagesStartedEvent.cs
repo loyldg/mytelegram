@@ -3,14 +3,14 @@
 //public class DeleteMessagesSagaStartedEvent : RequestAggregateEvent2<DeleteMessageSaga, DeleteMessageSagaId>
 //{
 //    public DeleteMessagesSagaStartedEvent(
-//        RequestInfo request,
+//        RequestInfo requestInfo,
 //        bool revoke,
 //        IReadOnlyList<int> idList,
 //        Peer toPeer,
 //        bool isClearHistory,
 //        int clearHistoryNextMaxId,
 //        long randomId,
-//        string? messageActionData):base(request)
+//        string? messageActionData):base(requestInfo)
 //    { 
 //        Revoke = revoke;
 //        IdList = idList;

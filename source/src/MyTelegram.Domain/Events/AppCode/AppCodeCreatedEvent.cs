@@ -2,13 +2,13 @@
 
 public class AppCodeCreatedEvent : RequestAggregateEvent2<AppCodeAggregate, AppCodeId>
 {
-    public AppCodeCreatedEvent(RequestInfo request,
+    public AppCodeCreatedEvent(RequestInfo requestInfo,
         long userId,
         string phoneNumber,
         string code,
         int expire,
         string phoneCodeHash,
-        long creationTime) : base(request)
+        long creationTime) : base(requestInfo)
     {
         UserId = userId;
         PhoneNumber = phoneNumber;

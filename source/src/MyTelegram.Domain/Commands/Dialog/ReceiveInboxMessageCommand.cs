@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Commands.Dialog;
 
-public class ReceiveInboxMessageCommand : /*Request*/Command<DialogAggregate, DialogId, IExecutionResult>
+public class ReceiveInboxMessageCommand : /*RequestInfo*/Command<DialogAggregate, DialogId, IExecutionResult>
 {
     public ReceiveInboxMessageCommand(DialogId aggregateId,
         //long reqMsgId,

@@ -6,7 +6,7 @@ public class ForwardMessageCommandHandler : CommandHandler<MessageAggregate, Mes
         ForwardMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ForwardMessage(command.Request, command.RandomId, command.CorrelationId);
+        aggregate.ForwardMessage(command.RequestInfo, command.RandomId, command.CorrelationId);
         return Task.CompletedTask;
     }
 }

@@ -3,7 +3,7 @@
 public class EditOutboxMessageStartedEvent : RequestAggregateEvent2<EditMessageSaga, EditMessageSagaId>
 {
     public EditOutboxMessageStartedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         MessageItem oldMessageItem,
         int messageId,
         string newMessage,
@@ -11,7 +11,7 @@ public class EditOutboxMessageStartedEvent : RequestAggregateEvent2<EditMessageS
         int inboxCount,
         byte[]? entities,
         byte[]? media
-    ):base(request)
+    ):base(requestInfo)
     { 
         OldMessageItem = oldMessageItem;
         MessageId = messageId;

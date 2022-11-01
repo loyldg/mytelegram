@@ -18,17 +18,17 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new DeleteChatMessagesStartedEvent(requestInfo, messageIds, revoke, _state.CreatorUid, _state.ChatMembers.Count, isClearHistory, correlationId));
     }
-    public void DeleteChat(RequestInfo request, Guid correlationId)
+    public void DeleteChat(RequestInfo requestInfo, Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (request.UserId != _state.CreatorUid)
+        if (requestInfo.UserId != _state.CreatorUid)
         {
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
         }
-        Emit(new ChatDeletedEvent(request, _state.ChatId, _state.Title, correlationId));
+        Emit(new ChatDeletedEvent(requestInfo, _state.ChatId, _state.Title, correlationId));
     }
     public void AddChatUser(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long inviterUserId,
         long userId,
         int date,
@@ -49,7 +49,7 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UserAlreadyParticipant);
         }
 
-        Emit(new ChatMemberAddedEvent(request,
+        Emit(new ChatMemberAddedEvent(requestInfo,
             _state.ChatId,
             new ChatMember(userId, inviterUserId, date),
             messageActionData,
@@ -76,7 +76,7 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Emit(new CheckChatStateCompletedEvent(_state.Title, _state.MemberUidList, correlationId));
     }
 
-    public void Create(RequestInfo request,
+    public void Create(RequestInfo requestInfo,
         long chatId,
         long creatorUid,
         string title,
@@ -94,7 +94,7 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
 
         var memberList = memberUidList.Select(p => new ChatMember(p, creatorUid, date)).ToList();
         memberList.Insert(0, new ChatMember(creatorUid, creatorUid, date));
-        Emit(new ChatCreatedEvent(request,
+        Emit(new ChatCreatedEvent(requestInfo,
             chatId,
             creatorUid,
             title,
@@ -120,22 +120,22 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
     }
 
     public void DeleteChatUser(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long userId,
         string messageActionData,
         long randomId,
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (_state.CreatorUid != request.UserId)
+        if (_state.CreatorUid != requestInfo.UserId)
         {
-            if (request.UserId != userId)
+            if (requestInfo.UserId != userId)
             {
                 ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
             }
         }
 
-        Emit(new ChatMemberDeletedEvent(request,
+        Emit(new ChatMemberDeletedEvent(requestInfo,
             _state.ChatId,
             userId,
             messageActionData,
@@ -178,14 +178,14 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Emit(new ChatDefaultBannedRightsEditedEvent(reqMsgId, _state.ChatId, bannedRights, Version));
     }
 
-    public void EditPhoto(RequestInfo request,
+    public void EditPhoto(RequestInfo requestInfo,
         byte[] photo,
         string messageActionData,
         long randomId,
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChatPhotoEditedEvent(request,
+        Emit(new ChatPhotoEditedEvent(requestInfo,
             _state.ChatId,
             photo,
             messageActionData,
@@ -193,16 +193,16 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
             correlationId));
     }
 
-    public void EditTitle(RequestInfo request,
+    public void EditTitle(RequestInfo requestInfo,
         string title,
         string messageActionData,
         long randomId,
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        CheckBannedRights(_state.GetDefaultBannedRights().ChangeInfo, RpcErrorMessages.ChatAdminRequired, request.UserId);
+        CheckBannedRights(_state.GetDefaultBannedRights().ChangeInfo, RpcErrorMessages.ChatAdminRequired, requestInfo.UserId);
 
-        Emit(new ChatTitleEditedEvent(request,
+        Emit(new ChatTitleEditedEvent(requestInfo,
             _state.ChatId,
             title,
             messageActionData,

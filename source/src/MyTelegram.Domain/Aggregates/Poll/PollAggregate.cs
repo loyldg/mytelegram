@@ -11,7 +11,7 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
         Register(_state);
     }
 
-    public void Vote(RequestInfo request, long voteUserPeerId, IReadOnlyCollection<string> options, Guid correlationId)
+    public void Vote(RequestInfo requestInfo, long voteUserPeerId, IReadOnlyCollection<string> options, Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         if (_state.Closed)
@@ -71,7 +71,7 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
         }
 
         Emit(new VoteSucceededEvent(
-            request,
+            requestInfo,
             _state.PollId,
             voteUserPeerId,
             options,

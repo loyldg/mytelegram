@@ -7,7 +7,7 @@ public class
         DeleteDialogFilterCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.DeleteDialogFilter(command.Request);
+        aggregate.DeleteDialogFilter(command.RequestInfo);
 
         return Task.CompletedTask;
     }

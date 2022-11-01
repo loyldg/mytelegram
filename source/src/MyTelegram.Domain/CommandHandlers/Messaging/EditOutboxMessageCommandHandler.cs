@@ -6,7 +6,7 @@ public class EditOutboxMessageCommandHandler : CommandHandler<MessageAggregate, 
         EditOutboxMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditOutboxMessage(command.Request,
+        aggregate.EditOutboxMessage(command.RequestInfo,
             command.MessageId,
             command.NewMessage,
             command.EditDate,

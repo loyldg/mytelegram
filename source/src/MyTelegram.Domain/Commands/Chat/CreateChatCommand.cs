@@ -3,7 +3,7 @@
 public class CreateChatCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>, IHasCorrelationId
 {
     public CreateChatCommand(ChatId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long chatId,
         long creatorUid,
         string title,
@@ -11,7 +11,7 @@ public class CreateChatCommand : RequestCommand2<ChatAggregate, ChatId, IExecuti
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         ChatId = chatId;
         CreatorUid = creatorUid;

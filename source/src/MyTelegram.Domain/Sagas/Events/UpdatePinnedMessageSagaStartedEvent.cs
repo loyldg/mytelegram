@@ -5,7 +5,7 @@ public class
         IHasCorrelationId
 {
     public UpdatePinnedMessageSagaStartedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         bool needWaitForOutboxPinnedUpdated,
         bool pinned,
         bool pmOneSide,
@@ -21,7 +21,7 @@ public class
         int date,
         string? messageActionData,
         Guid correlationId
-    ) : base(request)
+    ) : base(requestInfo)
     {
         NeedWaitForOutboxPinnedUpdated = needWaitForOutboxPinnedUpdated;
         Pinned = pinned;

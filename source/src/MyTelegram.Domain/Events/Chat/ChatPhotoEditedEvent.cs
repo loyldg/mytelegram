@@ -2,12 +2,12 @@
 
 public class ChatPhotoEditedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, IHasCorrelationId
 {
-    public ChatPhotoEditedEvent(RequestInfo request,
+    public ChatPhotoEditedEvent(RequestInfo requestInfo,
         long chatId,
         byte[] photo,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         ChatId = chatId;
         Photo = photo;

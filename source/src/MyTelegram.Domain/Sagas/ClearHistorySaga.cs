@@ -79,7 +79,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
             {
                 foreach (var inboxItem in aggregateEvent.InboxItems)
                 {
-                    if (inboxItem.InboxOwnerPeerId == _state.Request.UserId)
+                    if (inboxItem.InboxOwnerPeerId == _state.RequestInfo.UserId)
                     {
                         continue;
                     }
@@ -120,10 +120,10 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
             {
                 if (_state.PeerToPts.TryGetValue(peerId, out var pts))
                 {
-                    Emit(new ClearSingleUserHistoryCompletedEvent(_state.Request.ReqMsgId,
-                        _state.Request.AuthKeyId,
+                    Emit(new ClearSingleUserHistoryCompletedEvent(_state.RequestInfo.ReqMsgId,
+                        _state.RequestInfo.AuthKeyId,
                         _state.NextMaxId,
-                        _state.Request.UserId == peerId,
+                        _state.RequestInfo.UserId == peerId,
                         _state.ToPeer.PeerType,
                         new DeletedBoxItem(peerId, pts, deletedMessageIdList.Count, deletedMessageIdList)
                     ));
@@ -133,13 +133,13 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
             if (_state.IsCompleted())
             {
                 // after messages cleared should send history cleared service message
-                var ownerPeerId = _state.Request.UserId;
+                var ownerPeerId = _state.RequestInfo.UserId;
                 var outMessageId = 0;
                 var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, _state.RandomId);
                 var messageItem = new MessageItem(
                     new Peer(PeerType.User, ownerPeerId),
                     _state.ToPeer,
-                    new Peer(PeerType.User, _state.Request.UserId),
+                    new Peer(PeerType.User, _state.RequestInfo.UserId),
                     outMessageId,
                     string.Empty,
                     DateTime.UtcNow.ToTimestamp(),
@@ -149,7 +149,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
                     messageSubType: MessageSubType.ClearHistory,
                     messageActionData: _state.MessageActionData,
                     messageActionType: MessageActionType.HistoryClear);
-                var command = new StartSendMessageCommand(aggregateId, _state.Request, messageItem, correlationId: Guid.NewGuid());
+                var command = new StartSendMessageCommand(aggregateId, _state.RequestInfo, messageItem, correlationId: Guid.NewGuid());
                 Publish(command);
 
                 Emit(new ClearHistorySagaCompletedEvent());

@@ -10,8 +10,8 @@ public class EditOutboxMessageCommand : RequestCommand2<MessageAggregate, Messag
     public Guid CorrelationId { get; }
 
     public EditOutboxMessageCommand(MessageId aggregateId,
-        RequestInfo request,
-        int messageId, string newMessage, byte[]? entities, int editDate, byte[]? media, Guid correlationId) : base(aggregateId, request)
+        RequestInfo requestInfo,
+        int messageId, string newMessage, byte[]? entities, int editDate, byte[]? media, Guid correlationId) : base(aggregateId, requestInfo)
     {
         MessageId = messageId;
         NewMessage = newMessage;

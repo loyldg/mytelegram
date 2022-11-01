@@ -6,7 +6,7 @@ public class CheckSignUpCodeCommandHandler : CommandHandler<AppCodeAggregate, Ap
         CheckSignUpCodeCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.CheckSignUpCode(command.Request,
+        aggregate.CheckSignUpCode(command.RequestInfo,
             command.UserId,
             command.PhoneCodeHash,
             command.AccessHash,

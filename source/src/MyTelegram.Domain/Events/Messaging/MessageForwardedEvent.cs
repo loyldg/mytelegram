@@ -6,7 +6,7 @@ public class MessageForwardedEvent : RequestAggregateEvent2<MessageAggregate, Me
     public MessageItem OriginalMessageItem { get; }
     public Guid CorrelationId { get; }
 
-    public MessageForwardedEvent(RequestInfo request, long randomId, MessageItem originalMessageItem, Guid correlationId) : base(request)
+    public MessageForwardedEvent(RequestInfo requestInfo, long randomId, MessageItem originalMessageItem, Guid correlationId) : base(requestInfo)
     {
         RandomId = randomId;
         OriginalMessageItem = originalMessageItem;

@@ -4,12 +4,12 @@ public class CheckSignInCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeI
     IHasCorrelationId
 {
     public CheckSignInCodeCommand(AppCodeId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         //string phoneNumber,
         //string phoneCodeHash,
         string code,
         long userId,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         Code = code;
         //PhoneCodeHash = phoneCodeHash;

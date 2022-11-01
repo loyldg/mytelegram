@@ -122,7 +122,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             correlationId));
     }
 
-    public void EditOutboxMessage(RequestInfo request,
+    public void EditOutboxMessage(RequestInfo requestInfo,
         int messageId,
         string newMessage,
         int editDate,
@@ -141,7 +141,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageAuthorRequired);
         }
 
-        Emit(new OutboxMessageEditedEvent(request,
+        Emit(new OutboxMessageEditedEvent(requestInfo,
             _state.InboxItems,
             _state.MessageItem,
             _state.MessageItem.MessageId,
@@ -153,12 +153,12 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     }
 
     public void ForwardMessage(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long randomId,
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new MessageForwardedEvent(request, randomId, _state.MessageItem, correlationId));
+        Emit(new MessageForwardedEvent(requestInfo, randomId, _state.MessageItem, correlationId));
     }
 
     public void IncrementViews()
@@ -192,14 +192,14 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         Emit(new ReplyToMessageEvent(_state.SenderMessageId, _state.InboxItems, correlationId));
     }
 
-    public void StartDeleteMessages(RequestInfo request,
+    public void StartDeleteMessages(RequestInfo requestInfo,
         bool revoke,
         IReadOnlyList<int> idList,
         long? chatCreatorId,
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DeleteMessagesStartedEvent(request,
+        Emit(new DeleteMessagesStartedEvent(requestInfo,
             _state.MessageItem.OwnerPeer.PeerId,
             _state.MessageItem.IsOut,
             _state.MessageItem.SenderPeer.PeerId,
@@ -212,7 +212,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             correlationId));
     }
 
-    public void StartForwardMessage(RequestInfo request,
+    public void StartForwardMessage(RequestInfo requestInfo,
         Peer fromPeer,
         Peer toPeer,
         IReadOnlyList<int> idList,
@@ -221,7 +221,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ForwardMessageStartedEvent(request,
+        Emit(new ForwardMessageStartedEvent(requestInfo,
             fromPeer,
             toPeer,
             idList,
@@ -255,7 +255,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             correlationId));
     }
 
-    public void StartSendMessage(RequestInfo request,
+    public void StartSendMessage(RequestInfo requestInfo,
         MessageItem outMessageItem,
         bool clearDraft,
         int groupItemCount,
@@ -263,7 +263,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         Guid correlationId)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new SendMessageStartedEvent(request,
+        Emit(new SendMessageStartedEvent(requestInfo,
             outMessageItem,
             clearDraft,
             groupItemCount,
@@ -271,7 +271,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             correlationId));
     }
 
-    public void StartUpdatePinnedMessage(RequestInfo request,
+    public void StartUpdatePinnedMessage(RequestInfo requestInfo,
         bool pinned,
         bool pmOneSide,
         bool silent,
@@ -288,7 +288,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         }
 
         var item = _state.MessageItem;
-        Emit(new UpdatePinnedMessageStartedEvent(request,
+        Emit(new UpdatePinnedMessageStartedEvent(requestInfo,
             item.OwnerPeer.PeerId,
             item.MessageId,
             pinned,

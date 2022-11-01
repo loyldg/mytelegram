@@ -45,12 +45,12 @@ public class UserDomainEventHandler : DomainEventHandlerBase,
             domainEvent.AggregateEvent.LastName
         );
 
-        await _eventBus.PublishAsync(new UserSignUpSuccessIntegrationEvent(domainEvent.AggregateEvent.Request.AuthKeyId,
-            domainEvent.AggregateEvent.Request.PermAuthKeyId,
+        await _eventBus.PublishAsync(new UserSignUpSuccessIntegrationEvent(domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
+            domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
             domainEvent.AggregateEvent.UserId)).ConfigureAwait(false);
 
         var r = _authorizationConverter.CreateAuthorizationFromUser(domainEvent.AggregateEvent);
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             r,
             domainEvent.Metadata.SourceId.Value,
             domainEvent.AggregateEvent.UserId).ConfigureAwait(false);

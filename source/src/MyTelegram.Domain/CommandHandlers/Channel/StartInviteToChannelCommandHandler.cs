@@ -7,7 +7,7 @@ public class
         StartInviteToChannelCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartInviteToChannel(command.Request,
+        aggregate.StartInviteToChannel(command.RequestInfo,
             command.InviterId,
             command.MemberUidList,
             command.BotUidList,

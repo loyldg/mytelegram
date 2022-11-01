@@ -7,7 +7,7 @@ public class
         StartDeleteChatMessagesCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartDeleteChatMessages(command.Request, command.MessageIds, command.Revoke, command.IsClearHistory, command.CorrelationId);
+        aggregate.StartDeleteChatMessages(command.RequestInfo, command.MessageIds, command.Revoke, command.IsClearHistory, command.CorrelationId);
 
         return Task.CompletedTask;
     }

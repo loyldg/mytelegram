@@ -6,8 +6,8 @@ public class AddChatUserCommandHandler : CommandHandler<ChatAggregate, ChatId, A
         AddChatUserCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.AddChatUser(command.Request,
-            command.Request.UserId,
+        aggregate.AddChatUser(command.RequestInfo,
+            command.RequestInfo.UserId,
             command.UserId,
             command.Date,
             command.MessageActionData,

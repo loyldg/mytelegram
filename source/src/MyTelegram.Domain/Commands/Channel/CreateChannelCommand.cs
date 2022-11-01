@@ -3,7 +3,7 @@
 public class CreateChannelCommand : RequestCommand2<ChannelAggregate, ChannelId, IExecutionResult>, IHasCorrelationId
 {
     public CreateChannelCommand(ChannelId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long channelId,
         long creatorId,
         string title,
@@ -15,7 +15,7 @@ public class CreateChannelCommand : RequestCommand2<ChannelAggregate, ChannelId,
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         ChannelId = channelId;
         CreatorId = creatorId;

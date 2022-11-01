@@ -6,7 +6,7 @@ public class SendAppCodeCommandHandler : CommandHandler<AppCodeAggregate, AppCod
         SendAppCodeCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.Create(command.Request,
+        aggregate.Create(command.RequestInfo,
             command.UserId,
             command.PhoneNumber,
             command.Code,

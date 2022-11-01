@@ -4,13 +4,13 @@ public class StartForwardMessageCommand : RequestCommand2<MessageAggregate, Mess
     IHasCorrelationId
 {
     public StartForwardMessageCommand(MessageId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         Peer fromPeer,
         Peer toPeer,
         IReadOnlyList<int> idList,
         IReadOnlyList<long> randomIdList,
         bool forwardFromLinkedChannel,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         FromPeer = fromPeer;
         ToPeer = toPeer;

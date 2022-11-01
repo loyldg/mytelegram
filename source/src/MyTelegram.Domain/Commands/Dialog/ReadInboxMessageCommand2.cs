@@ -3,12 +3,12 @@
 public class ReadInboxMessageCommand2 : RequestCommand2<DialogAggregate, DialogId, IExecutionResult>, IHasCorrelationId
 {
     public ReadInboxMessageCommand2(DialogId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long readerUid,
         long ownerPeerId,
         int maxMessageId,
         Peer toPeer,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         ReaderUid = readerUid;
         OwnerPeerId = ownerPeerId;

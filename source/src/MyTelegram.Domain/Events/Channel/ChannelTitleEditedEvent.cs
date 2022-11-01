@@ -2,12 +2,12 @@
 
 public class ChannelTitleEditedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>, IHasCorrelationId
 {
-    public ChannelTitleEditedEvent(RequestInfo request,
+    public ChannelTitleEditedEvent(RequestInfo requestInfo,
         long channelId,
         string title,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         ChannelId = channelId;
         Title = title;

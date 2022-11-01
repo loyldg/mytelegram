@@ -11,7 +11,7 @@ public class DeleteChatUserSaga : MyInMemoryAggregateSaga<DeleteChatUserSaga, De
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        var ownerPeerId = domainEvent.AggregateEvent.Request.UserId;
+        var ownerPeerId = domainEvent.AggregateEvent.RequestInfo.UserId;
         var outMessageId = 0;
         var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, domainEvent.AggregateEvent.RandomId);
         var messageItem = new MessageItem(
@@ -30,7 +30,7 @@ public class DeleteChatUserSaga : MyInMemoryAggregateSaga<DeleteChatUserSaga, De
             messageActionType: MessageActionType.ChatDeleteUser
         );
         var command = new StartSendMessageCommand(aggregateId,
-            domainEvent.AggregateEvent.Request,
+            domainEvent.AggregateEvent.RequestInfo,
             messageItem,
             correlationId: Guid.NewGuid());
 

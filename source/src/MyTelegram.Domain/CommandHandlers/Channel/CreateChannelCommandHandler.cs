@@ -6,7 +6,7 @@ public class CreateChannelCommandHandler : CommandHandler<ChannelAggregate, Chan
         CreateChannelCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.Create(command.Request,
+        aggregate.Create(command.RequestInfo,
             command.ChannelId,
             command.CreatorId,
             command.Broadcast,

@@ -3,7 +3,7 @@
 public class DeleteMessagesStartedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>, IHasCorrelationId
 {
     public DeleteMessagesStartedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long ownerPeerId,
         bool isOut,
         long senderPeerId,
@@ -13,7 +13,7 @@ public class DeleteMessagesStartedEvent : RequestAggregateEvent2<MessageAggregat
         bool revoke,
         IReadOnlyList<InboxItem> inboxItems,
         long? chatCreatorId,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         IsOut = isOut;

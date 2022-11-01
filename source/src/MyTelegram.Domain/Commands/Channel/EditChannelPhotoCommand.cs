@@ -3,12 +3,12 @@
 public class EditChannelPhotoCommand : RequestCommand2<ChannelAggregate, ChannelId, IExecutionResult>, IHasCorrelationId
 {
     public EditChannelPhotoCommand(ChannelId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long fileId,
         byte[] photo,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         FileId = fileId;
         Photo = photo;

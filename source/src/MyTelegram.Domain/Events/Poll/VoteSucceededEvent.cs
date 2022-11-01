@@ -12,7 +12,7 @@ public class VoteSucceededEvent : RequestAggregateEvent2<PollAggregate, PollId>,
     public IReadOnlyCollection<string>? RetractVoteOptions { get; }
 
     public VoteSucceededEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long pollId,
         long voteUserPeerId,
         IReadOnlyCollection<string> options,
@@ -22,7 +22,7 @@ public class VoteSucceededEvent : RequestAggregateEvent2<PollAggregate, PollId>,
         Peer toPeer,
         IReadOnlyCollection<string>? retractVoteOptions,
         Guid correlationId
-    ) : base(request)
+    ) : base(requestInfo)
     {
         PollId = pollId;
         VoteUserPeerId = voteUserPeerId;

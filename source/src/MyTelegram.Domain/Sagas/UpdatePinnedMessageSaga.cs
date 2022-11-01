@@ -69,7 +69,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
             inboxCount = 1;
         }
 
-        Emit(new UpdatePinnedMessageSagaStartedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new UpdatePinnedMessageSagaStartedEvent(domainEvent.AggregateEvent.RequestInfo,
             !domainEvent.AggregateEvent.IsOut,
             domainEvent.AggregateEvent.Pinned,
             domainEvent.AggregateEvent.PmOneSide,
@@ -127,7 +127,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
                 case PeerType.Channel:
                     {
                         var setPinnedMsgIdCommand = new SetPinnedMsgIdCommand(ChannelId.Create(_state.ToPeer.PeerId),
-                            _state.Request.ReqMsgId,
+                            _state.RequestInfo.ReqMsgId,
                             _state.PinnedMsgId,
                             _state.Pinned
                         );
@@ -143,7 +143,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
 
                 var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, _state.RandomId);
                 var command = new StartSendMessageCommand(aggregateId,
-                    _state.Request,
+                    _state.RequestInfo,
                     new MessageItem(new Peer(PeerType.User, ownerPeerId),
                         _state.ToPeer,
                         new Peer(PeerType.User, ownerPeerId),
@@ -183,10 +183,10 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
         }
 
         var shouldReplyRpcResult =
-            (_state.ToPeer.PeerType == PeerType.Channel || _state.Request.UserId == peerId) && !_state.Pinned;
-        Emit(new UpdatePinnedMessageCompletedEvent(_state.Request.ReqMsgId,
+            (_state.ToPeer.PeerType == PeerType.Channel || _state.RequestInfo.UserId == peerId) && !_state.Pinned;
+        Emit(new UpdatePinnedMessageCompletedEvent(_state.RequestInfo.ReqMsgId,
             shouldReplyRpcResult,
-            _state.Request.UserId,
+            _state.RequestInfo.UserId,
             peerId,
             item.MessageId,
             _state.Pinned,

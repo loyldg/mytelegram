@@ -2,16 +2,16 @@
 
 public class CheckSignInCodeCompletedEvent : AggregateEvent<AppCodeAggregate, AppCodeId>, IHasCorrelationId
 {
-    public CheckSignInCodeCompletedEvent(RequestInfo request,
+    public CheckSignInCodeCompletedEvent(RequestInfo requestInfo,
         bool isCodeValid,
         long userId,
         //long accessHash,
         //string phoneNumber,
         //string firstName,
         //string lastName,
-        Guid correlationId) //: base(request)
+        Guid correlationId) //: base(requestInfo)
     {
-        Request = request;
+        RequestInfo = requestInfo;
         IsCodeValid = isCodeValid;
         UserId = userId;
         //AccessHash = accessHash;
@@ -21,7 +21,7 @@ public class CheckSignInCodeCompletedEvent : AggregateEvent<AppCodeAggregate, Ap
         CorrelationId = correlationId;
     }
 
-    public RequestInfo Request { get; }
+    public RequestInfo RequestInfo { get; }
     public bool IsCodeValid { get; }
 
     public long UserId { get; }

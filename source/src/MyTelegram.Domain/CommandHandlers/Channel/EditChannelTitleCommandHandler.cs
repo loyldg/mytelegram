@@ -6,7 +6,7 @@ public class EditChannelTitleCommandHandler : CommandHandler<ChannelAggregate, C
         EditChannelTitleCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditTitle(command.Request,
+        aggregate.EditTitle(command.RequestInfo,
             command.Title,
             command.MessageActionData,
             command.RandomId,

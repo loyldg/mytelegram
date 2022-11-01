@@ -2,7 +2,7 @@
 
 public class ChannelCreatedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>, IHasCorrelationId
 {
-    public ChannelCreatedEvent(RequestInfo request,
+    public ChannelCreatedEvent(RequestInfo requestInfo,
         long channelId,
         long creatorId,
         string title,
@@ -14,7 +14,7 @@ public class ChannelCreatedEvent : RequestAggregateEvent2<ChannelAggregate, Chan
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         ChannelId = channelId;
         CreatorId = creatorId;

@@ -7,7 +7,7 @@ public class CreateReadingHistoryCommand : Command<ReadingHistoryAggregate, Read
     public int MessageId { get; }
 
     public CreateReadingHistoryCommand(ReadingHistoryId aggregateId,
-        /*RequestInfo request,*/ long readerPeerId,
+        /*RequestInfo requestInfo,*/ long readerPeerId,
         long targetPeerId,
         int messageId) : base(aggregateId)
     {

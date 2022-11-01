@@ -10,7 +10,7 @@ public class UpdatePinnedMessageState :
     IApply<UpdatePinnedMessageCompletedEvent>
 {
     public Dictionary<long, PinnedMsgItem> UpdatePinItems = new();
-    public RequestInfo Request { get; private set; } = default!;
+    public RequestInfo RequestInfo { get; private set; } = default!;
 
     public Guid CorrelationId { get; private set; }
     public int Date { get; private set; }
@@ -69,7 +69,7 @@ public class UpdatePinnedMessageState :
 
     public void Apply(UpdatePinnedMessageSagaStartedEvent aggregateEvent)
     {
-        Request = aggregateEvent.Request;
+        RequestInfo = aggregateEvent.RequestInfo;
         ToPeer = aggregateEvent.ToPeer;
         StartUpdatePinnedOwnerPeerId = aggregateEvent.OwnerPeerId;
         NeedWaitForOutboxPinnedUpdated = aggregateEvent.NeedWaitForOutboxPinnedUpdated;

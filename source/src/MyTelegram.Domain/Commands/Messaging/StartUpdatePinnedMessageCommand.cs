@@ -11,13 +11,13 @@ public class StartUpdatePinnedMessageCommand : RequestCommand2<MessageAggregate,
     public Guid CorrelationId { get; }
 
     public StartUpdatePinnedMessageCommand(MessageId aggregateId,
-        RequestInfo request, bool pinned,
+        RequestInfo requestInfo, bool pinned,
         bool pmOneSide,
         bool silent,
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         Pinned = pinned;
         PmOneSide = pmOneSide;

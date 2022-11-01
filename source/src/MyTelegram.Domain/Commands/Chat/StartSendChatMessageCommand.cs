@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Commands.Chat;
 
-public class StartSendChatMessageCommand : /*Request*/Command<ChatAggregate, ChatId, IExecutionResult>,
+public class StartSendChatMessageCommand : /*RequestInfo*/Command<ChatAggregate, ChatId, IExecutionResult>,
     IHasCorrelationId
 {
     public StartSendChatMessageCommand(ChatId aggregateId,

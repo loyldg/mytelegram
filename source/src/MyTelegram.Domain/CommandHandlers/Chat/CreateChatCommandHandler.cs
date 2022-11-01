@@ -6,7 +6,7 @@ public class CreateChatCommandHandler : CommandHandler<ChatAggregate, ChatId, Cr
         CreateChatCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.Create(command.Request,
+        aggregate.Create(command.RequestInfo,
             command.ChatId,
             command.CreatorUid,
             command.Title,

@@ -8,9 +8,9 @@ public class DialogFilterAggregate : AggregateRoot<DialogFilterAggregate, Dialog
         Register(_state);
     }
 
-    public void UpdateDialogFilter(RequestInfo request, long ownerUserId, DialogFilter filter)
+    public void UpdateDialogFilter(RequestInfo requestInfo, long ownerUserId, DialogFilter filter)
     {
-        Emit(new DialogFilterUpdatedEvent(request, ownerUserId, filter));
+        Emit(new DialogFilterUpdatedEvent(requestInfo, ownerUserId, filter));
     }
 
     public void DeleteDialogFilter(RequestInfo request)

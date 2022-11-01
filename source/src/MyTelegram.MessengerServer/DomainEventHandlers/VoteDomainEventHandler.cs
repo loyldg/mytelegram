@@ -37,18 +37,18 @@ public class VoteDomainEventHandler :
         {
             var selfUpdates = _pollConverter.ToSelfPollUpdates(pollReadModel,
                 domainEvent.AggregateEvent.ChosenOptions.ToList());
-            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId, selfUpdates)
+            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId, selfUpdates)
                 .ConfigureAwait(false);
 
-            await SendMessageToPeerAsync(new Peer(PeerType.User, domainEvent.AggregateEvent.Request.UserId),
+            await SendMessageToPeerAsync(new Peer(PeerType.User, domainEvent.AggregateEvent.RequestInfo.UserId),
                 selfUpdates,
-                domainEvent.AggregateEvent.Request.AuthKeyId).ConfigureAwait(false);
+                domainEvent.AggregateEvent.RequestInfo.AuthKeyId).ConfigureAwait(false);
 
             // 
             var updatesForMember = _pollConverter.ToPollUpdates(pollReadModel, Array.Empty<string>());
             await SendMessageToPeerAsync(domainEvent.AggregateEvent.ToPeer,
                 updatesForMember,
-                excludeAuthKeyId: domainEvent.AggregateEvent.Request.AuthKeyId).ConfigureAwait(false);
+                excludeAuthKeyId: domainEvent.AggregateEvent.RequestInfo.AuthKeyId).ConfigureAwait(false);
         }
     }
 }

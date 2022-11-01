@@ -20,7 +20,7 @@ public class
     public string MessageActionData { get; private set; } = null!;
 
     public long RandomId { get; private set; }
-    public RequestInfo Request { get; private set; } = default!;
+    public RequestInfo RequestInfo { get; private set; } = default!;
     public int TotalCount { get; private set; }
 
     public void Apply(InviteToChannelSagaMemberCreatedEvent aggregateEvent)
@@ -30,7 +30,7 @@ public class
 
     public void Apply(InviteToChannelSagaStartEvent aggregateEvent)
     {
-        Request=aggregateEvent.Request;
+        RequestInfo =aggregateEvent.RequestInfo;
         ChannelId = aggregateEvent.ChannelId;
         InviterId = aggregateEvent.InviterId;
         Date = aggregateEvent.Date;

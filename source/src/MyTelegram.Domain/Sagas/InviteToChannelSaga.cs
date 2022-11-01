@@ -50,7 +50,7 @@ public class InviteToChannelSaga :
         CancellationToken cancellationToken)
     {
         Emit(new InviteToChannelSagaStartEvent(
-            domainEvent.AggregateEvent.Request,
+            domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.ChannelId,
             domainEvent.AggregateEvent.InviterId,
             domainEvent.AggregateEvent.Date,
@@ -96,7 +96,7 @@ public class InviteToChannelSaga :
 
             var command = new StartSendMessageCommand(
                 aggregateId,
-                _state.Request,
+                _state.RequestInfo,
                 new MessageItem(
                     ownerPeer,
                     ownerPeer,
@@ -121,7 +121,7 @@ public class InviteToChannelSaga :
             Publish(command);
             }
 
-            Emit(new InviteToChannelCompletedEvent(_state.Request.ReqMsgId,
+            Emit(new InviteToChannelCompletedEvent(_state.RequestInfo.ReqMsgId,
                 _state.ChannelId,
                 _state.InviterId,
                 _state.MemberUidList,

@@ -29,7 +29,7 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             correlationId));
     }
 
-    public void Create(RequestInfo request,
+    public void Create(RequestInfo requestInfo,
         long userId,
         long accessHash,
         string phoneNumber,
@@ -40,7 +40,7 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
         Specs.IsNotEmptyOrNull.ThrowDomainErrorIfNotSatisfied(firstName);
 
-        Emit(new UserCreatedEvent(request,
+        Emit(new UserCreatedEvent(requestInfo,
             userId,
             accessHash,
             phoneNumber,

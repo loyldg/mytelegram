@@ -2,12 +2,12 @@
 
 public class ChannelPhotoEditedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>, IHasCorrelationId
 {
-    public ChannelPhotoEditedEvent(RequestInfo request,
+    public ChannelPhotoEditedEvent(RequestInfo requestInfo,
         long channelId,
         byte[] photo,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         ChannelId = channelId;
         Photo = photo;

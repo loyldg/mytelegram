@@ -7,7 +7,7 @@ public class CreateUserCommandHandler : CommandHandler<UserAggregate, UserId, Cr
         CancellationToken cancellationToken)
     {
         //Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        aggregate.Create(command.Request,
+        aggregate.Create(command.RequestInfo,
             command.UserId,
             command.AccessHash,
             command.PhoneNumber,

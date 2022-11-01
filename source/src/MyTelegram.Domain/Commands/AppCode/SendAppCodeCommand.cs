@@ -3,13 +3,13 @@
 public class SendAppCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeId, IExecutionResult>
 {
     public SendAppCodeCommand(AppCodeId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         long userId,
         string phoneNumber,
         string code,
         string phoneCodeHash,
         int expire,
-        long creationTime) : base(aggregateId, request)
+        long creationTime) : base(aggregateId, requestInfo)
     {
         UserId = userId;
         PhoneNumber = phoneNumber;

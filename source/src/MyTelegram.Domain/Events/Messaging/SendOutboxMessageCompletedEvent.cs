@@ -9,8 +9,8 @@ public class SendOutboxMessageCompletedEvent : RequestAggregateEvent2<MessageSag
     public int GroupItemCount { get; }
     public long? LinkedChannelId { get; }
 
-    public SendOutboxMessageCompletedEvent(RequestInfo request, MessageItem messageItem, int pts, int groupItemCount,
-        long? linkedChannelId) : base(request)
+    public SendOutboxMessageCompletedEvent(RequestInfo requestInfo, MessageItem messageItem, int pts, int groupItemCount,
+        long? linkedChannelId) : base(requestInfo)
     {
         MessageItem = messageItem;
         Pts = pts;

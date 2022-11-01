@@ -15,14 +15,14 @@ public class CheckSignUpCodeCompletedEvent : RequestAggregateEvent2<AppCodeAggre
     //public bool IsCodeValid { get; }
     //public string ErrorMessage { get; }
     //public Guid CorrelationId { get; }
-    public CheckSignUpCodeCompletedEvent(RequestInfo request,
+    public CheckSignUpCodeCompletedEvent(RequestInfo requestInfo,
         bool isCodeValid,
         long userId,
         long accessHash,
         string phoneNumber,
         string firstName,
         string? lastName,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         IsCodeValid = isCodeValid;
         UserId = userId;

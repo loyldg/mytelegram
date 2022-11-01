@@ -20,8 +20,8 @@ public class SignUpEventHandler : ISubscribeSynchronousTo<UserAggregate, UserId,
             domainEvent.AggregateEvent.UserId,
             domainEvent.AggregateEvent.FirstName,
             domainEvent.AggregateEvent.LastName,
-            domainEvent.AggregateEvent.Request.AuthKeyId,
-            domainEvent.AggregateEvent.Request.PermAuthKeyId
+            domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
+            domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId
         );
         await _cacheManager.SetAsync(
             UserCacheItem.GetCacheKey(domainEvent.AggregateEvent.PhoneNumber.ToPhoneNumber()),

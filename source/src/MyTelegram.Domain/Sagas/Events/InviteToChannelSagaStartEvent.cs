@@ -4,7 +4,7 @@ public class InviteToChannelSagaStartEvent : RequestAggregateEvent2<InviteToChan
     IHasCorrelationId
 {
     public InviteToChannelSagaStartEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long channelId,
         long inviterId,
         int date,
@@ -15,7 +15,7 @@ public class InviteToChannelSagaStartEvent : RequestAggregateEvent2<InviteToChan
         long randomId,
         string messageActionData,
         bool broadcast,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         ChannelId = channelId;
         InviterId = inviterId;

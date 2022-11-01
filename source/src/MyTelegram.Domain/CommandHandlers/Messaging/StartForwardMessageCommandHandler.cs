@@ -7,7 +7,7 @@ public class
         StartForwardMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartForwardMessage(command.Request,
+        aggregate.StartForwardMessage(command.RequestInfo,
             command.FromPeer,
             command.ToPeer,
             command.IdList,

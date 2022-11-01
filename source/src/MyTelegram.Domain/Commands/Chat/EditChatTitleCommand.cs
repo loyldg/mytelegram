@@ -3,11 +3,11 @@
 public class EditChatTitleCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>, IHasCorrelationId
 {
     public EditChatTitleCommand(ChatId aggregateId,
-        RequestInfo request,
+        RequestInfo requestInfo,
         string title,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(aggregateId, request)
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         Title = title;
         MessageActionData = messageActionData;

@@ -3,7 +3,7 @@
 public class HistoryClearedEvent : RequestAggregateEvent2<DialogAggregate, DialogId>, IHasCorrelationId
 {
     public HistoryClearedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long ownerPeerId,
         int historyMinId,
         bool revoke,
@@ -12,7 +12,7 @@ public class HistoryClearedEvent : RequestAggregateEvent2<DialogAggregate, Dialo
         long randomId,
         List<int> messageIdListToBeDelete,
         int nextMaxId,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         HistoryMinId = historyMinId;

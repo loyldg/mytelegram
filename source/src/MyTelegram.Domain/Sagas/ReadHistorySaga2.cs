@@ -117,7 +117,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new ReadHistoryStartedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new ReadHistoryStartedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MaxMessageId,
             domainEvent.AggregateEvent.ToPeer,
@@ -130,7 +130,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
 
         var command = new ReadInboxHistoryCommand(
             MessageId.Create(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MaxMessageId),
-            domainEvent.AggregateEvent.Request.ReqMsgId,
+            domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             domainEvent.AggregateEvent.ReaderUid,
             domainEvent.AggregateEvent.CorrelationId
         );
@@ -170,7 +170,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         if (_state.ReadHistoryCompleted || outboxAlreadyRead)
         {
             //Complete();
-            Emit(new ReadHistoryCompletedEvent(_state.Request,
+            Emit(new ReadHistoryCompletedEvent(_state.RequestInfo,
                 _state.SenderIsBot,
                 _state.ReaderUid,
                 _state.ReaderMessageId,
@@ -221,7 +221,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
     {
         var senderDialogId = DialogId.Create(senderPeerId, toPeer);
         var outboxMessageHasReadCommand = new OutboxMessageHasReadCommand(senderDialogId,
-            _state.Request.ReqMsgId,
+            _state.RequestInfo.ReqMsgId,
             senderMessageId,
             senderPeerId,
             sourceCommandId,

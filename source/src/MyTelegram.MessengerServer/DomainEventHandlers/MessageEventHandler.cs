@@ -66,7 +66,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
     {
         var updates =
             _updatesConverter.ToEditUpdates(domainEvent.AggregateEvent, domainEvent.AggregateEvent.SenderPeerId);
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             updates,
             domainEvent.Metadata.SourceId.Value,
             domainEvent.AggregateEvent.SenderPeerId,
@@ -76,7 +76,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
         await PushUpdatesToPeerAsync(
             new Peer(PeerType.User, domainEvent.AggregateEvent.SenderPeerId),
             updates,
-            domainEvent.AggregateEvent.Request.AuthKeyId,
+            domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
             pts: domainEvent.AggregateEvent.Pts,
             ptsType: PtsType.NewMessages).ConfigureAwait(false);
 
@@ -108,14 +108,14 @@ public class MessageEventHandler : DomainEventHandlerBase,
         if (_chatEventCacheHelper.TryRemoveChannelCreatedEvent(aggregateEvent.MessageItem.ToPeer.PeerId, out ChannelCreatedEvent? eventData))
         {
             var updates = _updatesConverter.ToCreateChannelUpdates(eventData, aggregateEvent);
-            await SendRpcMessageToClientAsync(aggregateEvent.Request.ReqMsgId,
+            await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId,
                 updates,
                 sourceId,
                 aggregateEvent.MessageItem.SenderPeer.PeerId
             ).ConfigureAwait(false);
             await PushUpdatesToChannelSingleMemberAsync(aggregateEvent.MessageItem.SenderPeer,
                 updates,
-                aggregateEvent.Request.AuthKeyId,
+                aggregateEvent.RequestInfo.AuthKeyId,
                 pts: aggregateEvent.Pts
             ).ConfigureAwait(false);
         }
@@ -131,13 +131,13 @@ public class MessageEventHandler : DomainEventHandlerBase,
         if (_chatEventCacheHelper.TryGetChatCreatedEvent(aggregateEvent.MessageItem.ToPeer.PeerId, out var eventData))
         {
             var updates = _updatesConverter.ToCreateChatUpdates(eventData, aggregateEvent);
-            await SendRpcMessageToClientAsync(aggregateEvent.Request.ReqMsgId,
+            await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId,
                 updates,
                 sourceId,
                 pts: aggregateEvent.Pts).ConfigureAwait(false);
             await PushUpdatesToPeerAsync(aggregateEvent.MessageItem.SenderPeer,
                 updates,
-                aggregateEvent.Request.AuthKeyId,
+                aggregateEvent.RequestInfo.AuthKeyId,
                 pts: aggregateEvent.Pts
             ).ConfigureAwait(false);
         }
@@ -178,12 +178,12 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 startInviteToChannelEvent,
                 channelReadModel,
                 true);
-            await SendRpcMessageToClientAsync(aggregateEvent.Request.ReqMsgId,
+            await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId,
                 updates,
                 sourceId,
                 item.SenderPeer.PeerId).ConfigureAwait(false);
             // notify self other devices
-            await PushUpdatesToChannelSingleMemberAsync(item.SenderPeer, updates, aggregateEvent.Request.AuthKeyId)
+            await PushUpdatesToChannelSingleMemberAsync(item.SenderPeer, updates, aggregateEvent.RequestInfo.AuthKeyId)
                 .ConfigureAwait(false);
             var updatesForChannelMember = _updatesConverter.ToInviteToChannelUpdates(aggregateEvent,
                 startInviteToChannelEvent,
@@ -227,7 +227,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
 
         // when reqMsgId==0?
         // forward message reqMsgId==0
-        if (aggregateEvent.Request.ReqMsgId == 0)
+        if (aggregateEvent.RequestInfo.ReqMsgId == 0)
         {
             await PushUpdatesToPeerAsync(item.SenderPeer,
                 selfUpdates,
@@ -237,7 +237,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
         }
         else
         {
-            await ReplyRpcResultToSenderAsync(aggregateEvent.Request.ReqMsgId,
+            await ReplyRpcResultToSenderAsync(aggregateEvent.RequestInfo.ReqMsgId,
                 item.SenderPeer,
                 selfUpdates,
                 aggregateEvent.GroupItemCount,
@@ -248,7 +248,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
 
         await PushUpdatesToPeerAsync(item.SenderPeer,
             _updatesConverter.ToSelfOtherDeviceUpdates(aggregateEvent),
-            aggregateEvent.Request.AuthKeyId,
+            aggregateEvent.RequestInfo.AuthKeyId,
             pts: aggregateEvent.Pts,
             newMessage: newMessage
         ).ConfigureAwait(false);
@@ -269,12 +269,12 @@ public class MessageEventHandler : DomainEventHandlerBase,
             channelUpdates.ToBytes(),
             aggregateEvent.Pts,
             ptsType,
-            aggregateEvent.Request.AuthKeyId,
-            aggregateEvent.Request.UserId,
+            aggregateEvent.RequestInfo.AuthKeyId,
+            aggregateEvent.RequestInfo.UserId,
             0).ConfigureAwait(false);
-        await AddRpcGlobalSeqNoForAuthKeyIdAsync(aggregateEvent.Request.ReqMsgId, item.SenderPeer.PeerId, globalSeqNo).ConfigureAwait(false);
+        await AddRpcGlobalSeqNoForAuthKeyIdAsync(aggregateEvent.RequestInfo.ReqMsgId, item.SenderPeer.PeerId, globalSeqNo).ConfigureAwait(false);
 
-        if (aggregateEvent.Request.ReqMsgId == 0 || item.MessageSubType == MessageSubType.ForwardMessage)
+        if (aggregateEvent.RequestInfo.ReqMsgId == 0 || item.MessageSubType == MessageSubType.ForwardMessage)
         {
             await PushUpdatesToPeerAsync(item.SenderPeer,
                 selfUpdates,
@@ -284,23 +284,23 @@ public class MessageEventHandler : DomainEventHandlerBase,
         }
         else
         {
-            await ReplyRpcResultToSenderAsync(aggregateEvent.Request.ReqMsgId,
+            await ReplyRpcResultToSenderAsync(aggregateEvent.RequestInfo.ReqMsgId,
                 aggregateEvent.MessageItem.SenderPeer,
                 selfUpdates,
                 aggregateEvent.GroupItemCount,
-                aggregateEvent.Request.UserId,
+                aggregateEvent.RequestInfo.UserId,
                 aggregateEvent.Pts
             ).ConfigureAwait(false);
 
             var newMessage = _messageConverter.ToMessage(item);
             await PushUpdatesToPeerAsync(item.SenderPeer,
                 _updatesConverter.ToSelfOtherDeviceUpdates(aggregateEvent),
-                excludeAuthKeyId: aggregateEvent.Request.AuthKeyId,
+                excludeAuthKeyId: aggregateEvent.RequestInfo.AuthKeyId,
                 pts: aggregateEvent.Pts,
                 newMessage: newMessage
             ).ConfigureAwait(false);
         }
-        await PushUpdatesToPeerAsync(item.ToPeer, channelUpdates, aggregateEvent.Request.AuthKeyId).ConfigureAwait(false);
+        await PushUpdatesToPeerAsync(item.ToPeer, channelUpdates, aggregateEvent.RequestInfo.AuthKeyId).ConfigureAwait(false);
     }
 
     private Task HandleUpdatePinnedMessageAsync(ReceiveInboxMessageCompletedEvent aggregateEvent)
@@ -312,7 +312,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
     private async Task HandleUpdatePinnedMessageAsync(SendOutboxMessageCompletedEvent aggregateEvent, string sourceId)
     {
         var updates = _updatesConverter.ToUpdatePinnedMessageUpdates(aggregateEvent);
-        await SendRpcMessageToClientAsync(aggregateEvent.Request.ReqMsgId,
+        await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId,
             updates,
             sourceId,
             aggregateEvent.MessageItem.SenderPeer.PeerId,
@@ -320,7 +320,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
             aggregateEvent.MessageItem.ToPeer.PeerType
         ).ConfigureAwait(false);
         await PushUpdatesToPeerAsync(aggregateEvent.MessageItem.SenderPeer, updates,
-            excludeAuthKeyId: aggregateEvent.Request.AuthKeyId,
+            excludeAuthKeyId: aggregateEvent.RequestInfo.AuthKeyId,
             pts: aggregateEvent.Pts);
 
         if (aggregateEvent.MessageItem.ToPeer.PeerType == PeerType.Channel)
@@ -328,7 +328,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
             var channelUpdates = _updatesConverter.ToUpdatePinnedMessageServiceUpdates(aggregateEvent);
             await PushUpdatesToPeerAsync(aggregateEvent.MessageItem.ToPeer,
                 channelUpdates,
-                aggregateEvent.Request.AuthKeyId, pts: aggregateEvent.Pts).ConfigureAwait(false);
+                aggregateEvent.RequestInfo.AuthKeyId, pts: aggregateEvent.Pts).ConfigureAwait(false);
         }
     }
 }

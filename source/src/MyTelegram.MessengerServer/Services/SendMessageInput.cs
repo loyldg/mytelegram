@@ -2,7 +2,7 @@
 
 public record SendMessageInput
 {
-    public SendMessageInput(RequestInfo request,
+    public SendMessageInput(RequestInfo requestInfo,
         long senderPeerId,
         Peer toPeer,
         string message,
@@ -21,7 +21,7 @@ public record SendMessageInput
         long? pollId = null
         )
     {
-        Request = request;
+        RequestInfo = requestInfo;
         SendMessageType = sendMessageType;
         MessageType = messageType;
         //MessageActionType = messageActionType;
@@ -54,7 +54,7 @@ public record SendMessageInput
     public long RandomId { get; }
     public int? ReplyToMsgId { get; } 
     public long SenderPeerId { get; }
-    public RequestInfo Request { get; }
+    public RequestInfo RequestInfo { get; }
     public SendMessageType SendMessageType { get; }
     public Peer ToPeer { get; }
 }

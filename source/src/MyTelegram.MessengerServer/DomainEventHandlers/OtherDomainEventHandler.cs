@@ -39,7 +39,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
     public Task HandleAsync(IDomainEvent<SignInSaga, SignInSagaId, SignUpRequiredEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+        return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             _authorizationConverter.CreateSignUpAuthorization());
     }
 
@@ -108,14 +108,14 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                 channelUpdates.ToBytes(),
                 domainEvent.AggregateEvent.SelfDeletedBoxItem.Pts,
                 PtsType.OtherUpdates,
-                domainEvent.AggregateEvent.Request.AuthKeyId,
+                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
                 0,
                 0
             ).ConfigureAwait(false);
-            await AddRpcGlobalSeqNoForAuthKeyIdAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
-                domainEvent.AggregateEvent.Request.UserId,
+            await AddRpcGlobalSeqNoForAuthKeyIdAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
+                domainEvent.AggregateEvent.RequestInfo.UserId,
                 globalSeqNo).ConfigureAwait(false);
-            await UpdateSelfGlobalSeqNoAfterSendChannelMessageAsync(domainEvent.AggregateEvent.Request.UserId,
+            await UpdateSelfGlobalSeqNoAfterSendChannelMessageAsync(domainEvent.AggregateEvent.RequestInfo.UserId,
                 globalSeqNo).ConfigureAwait(false);
         }
 
@@ -125,10 +125,10 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             PtsCount = domainEvent.AggregateEvent.SelfDeletedBoxItem.PtsCount
         };
 
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             r,
             domainEvent.Metadata.SourceId.Value,
-            domainEvent.AggregateEvent.Request.UserId,
+            domainEvent.AggregateEvent.RequestInfo.UserId,
             domainEvent.AggregateEvent.SelfDeletedBoxItem.Pts,
             domainEvent.AggregateEvent.ToPeerType).ConfigureAwait(false);
 
@@ -137,7 +137,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             channelPeer = new Peer(PeerType.Channel, domainEvent.AggregateEvent.SelfDeletedBoxItem.OwnerPeerId);
             await PushUpdatesToChannelMemberAsync(channelPeer,
                 channelUpdates!,
-                domainEvent.AggregateEvent.Request.AuthKeyId,
+                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
                 skipSaveUpdates: true).ConfigureAwait(false);
         }
         else
@@ -147,7 +147,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                 var excludeAuthKeyId = 0L;
                 if (deletedBoxItem.OwnerPeerId == domainEvent.AggregateEvent.SelfDeletedBoxItem.OwnerPeerId)
                 {
-                    excludeAuthKeyId = domainEvent.AggregateEvent.Request.AuthKeyId;
+                    excludeAuthKeyId = domainEvent.AggregateEvent.RequestInfo.AuthKeyId;
                 }
 
                 var updates =
@@ -172,7 +172,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             PtsCount = aggregateEvent.SelfDeletedBoxItem.PtsCount,
             Offset = aggregateEvent.SelfDeletedBoxItem.DeletedMessageIdList.Min()
         };
-        await SendRpcMessageToClientAsync(aggregateEvent.Request.ReqMsgId, r).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId, r).ConfigureAwait(false);
         var date = DateTime.UtcNow.ToTimestamp();
         foreach (var deletedBoxItem in aggregateEvent.DeletedBoxItems)
         {
@@ -199,10 +199,10 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             PtsCount = domainEvent.AggregateEvent.SelfDeletedBoxItem.PtsCount
         };
         //        domainEvent.AggregateEvent.UserId,
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId,
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             r,
             domainEvent.Metadata.SourceId.Value,
-            domainEvent.AggregateEvent.Request.UserId,
+            domainEvent.AggregateEvent.RequestInfo.UserId,
             domainEvent.AggregateEvent.SelfDeletedBoxItem.Pts,
             domainEvent.AggregateEvent.ToPeerType).ConfigureAwait(false);
         //        _rpcResultProcessor.CreateSignUpAuthorization()).ConfigureAwait(false);
@@ -211,7 +211,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             var excludeAuthKeyId = 0L;
             if (deletedBoxItem.OwnerPeerId == domainEvent.AggregateEvent.SelfDeletedBoxItem.OwnerPeerId)
             {
-                excludeAuthKeyId = domainEvent.AggregateEvent.Request.AuthKeyId;
+                excludeAuthKeyId = domainEvent.AggregateEvent.RequestInfo.AuthKeyId;
             }
             var updates =
                 _updatesConverter
@@ -304,7 +304,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             PtsCount = domainEvent.AggregateEvent.PtsCount,
             Offset = domainEvent.AggregateEvent.NextMaxId
         };
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.Request.ReqMsgId, r).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId, r).ConfigureAwait(false);
         var date = DateTime.UtcNow.ToTimestamp();
         var deletedBoxItem = new DeletedBoxItem(domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.Pts,

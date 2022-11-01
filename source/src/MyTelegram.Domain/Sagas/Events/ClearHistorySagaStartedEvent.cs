@@ -3,14 +3,14 @@
 public class ClearHistorySagaStartedEvent : RequestAggregateEvent2<ClearHistorySaga, ClearHistorySagaId>
 {
     public ClearHistorySagaStartedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long ownerPeerId,
         bool revoke,
         Peer toPeer,
         string messageActionData,
         long randomId,
         int totalCountToBeDelete,
-        int nextMaxId):base(request)
+        int nextMaxId):base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         Revoke = revoke;

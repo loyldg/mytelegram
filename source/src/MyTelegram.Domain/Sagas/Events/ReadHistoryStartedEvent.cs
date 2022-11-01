@@ -2,12 +2,12 @@
 
 public class ReadHistoryStartedEvent : RequestAggregateEvent2<ReadHistorySaga, ReadHistorySagaId> //,IHasCorrelationId
 {
-    public ReadHistoryStartedEvent(RequestInfo request,
+    public ReadHistoryStartedEvent(RequestInfo requestInfo,
         long readerUid,
         int readerMessageId,
         Peer toPeer,
         string sourceCommandId,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         ReaderUid = readerUid;
         ReaderMessageId = readerMessageId;

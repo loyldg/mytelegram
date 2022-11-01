@@ -6,7 +6,7 @@ public class ReadInboxMessageCommand2Handler : CommandHandler<DialogAggregate, D
         ReadInboxMessageCommand2 command,
         CancellationToken cancellationToken)
     {
-        aggregate.ReadInboxMessage2(command.Request,
+        aggregate.ReadInboxMessage2(command.RequestInfo,
             command.ReaderUid,
             command.OwnerPeerId,
             command.MaxMessageId,

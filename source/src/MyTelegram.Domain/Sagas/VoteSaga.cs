@@ -35,7 +35,7 @@ public class VoteSaga : MyInMemoryAggregateSaga<VoteSaga, VoteSagaId, VoteSagaLo
             Publish(command);
         }
 
-        Emit(new VoteSagaCompletedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new VoteSagaCompletedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.PollId,
             domainEvent.AggregateEvent.VoteUserPeerId,
             domainEvent.AggregateEvent.Options,

@@ -9,7 +9,7 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
     private readonly Dictionary<long, List<int>> _ownerPeerIdToMessageIdDict = new();
     private readonly Dictionary<long, int> _peerToPts = new();
 
-    public RequestInfo Request { get; private set; } = default!;
+    public RequestInfo RequestInfo { get; private set; } = default!;
 
     public int DeletedCount { get; private set; }
     public bool IsCompleted => TotalCount == DeletedCount;
@@ -33,7 +33,7 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
 
     public void Apply(DeleteMessagesStartedEvent aggregateEvent)
     {
-        Request = aggregateEvent.Request;
+        RequestInfo = aggregateEvent.RequestInfo;
         SelfNeedDeleteCount = aggregateEvent.IdList.Count;
         Revoke = aggregateEvent.Revoke;
         ToPeer = aggregateEvent.ToPeer;
@@ -52,7 +52,7 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
         }
         else
         {
-            if (aggregateEvent.OwnerPeerId != Request.UserId)
+            if (aggregateEvent.OwnerPeerId != RequestInfo.UserId)
             {
                 DeletedCount++;
             }
@@ -105,7 +105,7 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
 
     public void Apply(DeleteMessagesSagaStartedEvent aggregateEvent)
     {
-        Request = aggregateEvent.Request;
+        RequestInfo = aggregateEvent.RequestInfo;
         SelfNeedDeleteCount = aggregateEvent.IdList.Count;
         Revoke = aggregateEvent.Revoke;
         ToPeer = aggregateEvent.ToPeer;

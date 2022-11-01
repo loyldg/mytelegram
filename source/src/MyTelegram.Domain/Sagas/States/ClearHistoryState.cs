@@ -8,7 +8,7 @@ public class ClearHistoryState : AggregateState<ClearHistorySaga, ClearHistorySa
     IApply<ClearHistoryPtsIncrementedEvent>,
     IInMemoryAggregate
 {
-    public RequestInfo Request { get; private set; } = default!;
+    public RequestInfo RequestInfo { get; private set; } = default!;
     public string MessageActionData { get; private set; } = default!;
     public bool NeedWaitForClearParticipantHistory { get; private set; }
     public int NextMaxId { get; private set; }
@@ -51,7 +51,7 @@ public class ClearHistoryState : AggregateState<ClearHistorySaga, ClearHistorySa
 
     public void Apply(ClearHistorySagaStartedEvent aggregateEvent)
     {
-        Request = aggregateEvent.Request;
+        RequestInfo = aggregateEvent.RequestInfo;
         Revoke = aggregateEvent.Revoke;
         ToPeer = aggregateEvent.ToPeer;
         MessageActionData = aggregateEvent.MessageActionData;
@@ -73,7 +73,7 @@ public class ClearHistoryState : AggregateState<ClearHistorySaga, ClearHistorySa
 
     public bool IsCompleted()
     {
-        if (OwnerToMessageIdList.TryGetValue(Request.UserId, out var messageIdList))
+        if (OwnerToMessageIdList.TryGetValue(RequestInfo.UserId, out var messageIdList))
         {
             if (messageIdList.Count == TotalCountToBeDelete)
             {

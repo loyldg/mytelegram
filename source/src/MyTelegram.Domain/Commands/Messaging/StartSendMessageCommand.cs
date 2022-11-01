@@ -9,7 +9,7 @@ public class StartSendMessageCommand : RequestCommand2<MessageAggregate, Message
     public bool ForwardFromLinkedChannel { get; }
 
     public StartSendMessageCommand(MessageId aggregateId,
-        RequestInfo request, MessageItem outMessageItem, bool clearDraft = false, int groupItemCount = 1, Guid correlationId = default, bool forwardFromLinkedChannel = false) : base(aggregateId, request)
+        RequestInfo requestInfo, MessageItem outMessageItem, bool clearDraft = false, int groupItemCount = 1, Guid correlationId = default, bool forwardFromLinkedChannel = false) : base(aggregateId, requestInfo)
     {
         OutMessageItem = outMessageItem;
         ClearDraft = clearDraft;

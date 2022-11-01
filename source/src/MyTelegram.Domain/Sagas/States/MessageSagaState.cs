@@ -11,7 +11,7 @@ public class MessageSagaState : AggregateState<MessageSaga, MessageSagaId, Messa
     IApply<ReplyToChannelMessageStartedEvent>,
     IApply<ReplyToChannelMessageCompletedEvent>
 {
-    public RequestInfo Request { get; private set; } = null!;
+    public RequestInfo RequestInfo { get; private set; } = null!;
     public bool ClearDraft { get; private set; }
     public int GroupItemCount { get; private set; }
     public Guid CorrelationId { get; private set; }
@@ -51,7 +51,7 @@ public class MessageSagaState : AggregateState<MessageSaga, MessageSagaId, Messa
 
     public void Apply(MessageSagaStartedEvent aggregateEvent)
     {
-        Request = aggregateEvent.Request;
+        RequestInfo = aggregateEvent.RequestInfo;
         MessageItem = aggregateEvent.MessageItem;
         ClearDraft = aggregateEvent.ClearDraft;
         GroupItemCount = aggregateEvent.GroupItemCount;

@@ -8,7 +8,7 @@ public class VoteCommand : RequestCommand2<PollAggregate, PollId, IExecutionResu
     public long VoteUserPeerId { get; }
     public IReadOnlyCollection<string> Options { get; }
 
-    public VoteCommand(PollId aggregateId, RequestInfo request, long voteUserPeerId, IReadOnlyCollection<string> options, Guid correlationId) : base(aggregateId, request)
+    public VoteCommand(PollId aggregateId, RequestInfo requestInfo, long voteUserPeerId, IReadOnlyCollection<string> options, Guid correlationId) : base(aggregateId, requestInfo)
     {
         VoteUserPeerId = voteUserPeerId;
         Options = options;

@@ -10,7 +10,7 @@ public class MessageSagaStartedEvent : RequestAggregateEvent2<MessageSaga, Messa
     public bool ForwardFromLinkedChannel { get; }
     public Guid CorrelationId { get; }
 
-    public MessageSagaStartedEvent(RequestInfo request, MessageItem messageItem, bool clearDraft, int groupItemCount,bool forwardFromLinkedChannel, Guid correlationId) : base(request)
+    public MessageSagaStartedEvent(RequestInfo requestInfo, MessageItem messageItem, bool clearDraft, int groupItemCount,bool forwardFromLinkedChannel, Guid correlationId) : base(requestInfo)
     {
         MessageItem = messageItem;
         ClearDraft = clearDraft;

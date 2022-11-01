@@ -7,7 +7,7 @@ public class VoteSagaCompletedEvent : RequestAggregateEvent2<VoteSaga, VoteSagaI
     public IReadOnlyCollection<string> ChosenOptions { get; }
     public Peer ToPeer { get; }
 
-    public VoteSagaCompletedEvent(RequestInfo request, long pollId, long voterPeerId, IReadOnlyCollection<string> chosenOptions, Peer toPeer) : base(request)
+    public VoteSagaCompletedEvent(RequestInfo requestInfo, long pollId, long voterPeerId, IReadOnlyCollection<string> chosenOptions, Peer toPeer) : base(requestInfo)
     {
         PollId = pollId;
         VoterPeerId = voterPeerId;

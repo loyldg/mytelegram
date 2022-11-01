@@ -3,13 +3,13 @@
 public class ChatMemberDeletedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, IHasCorrelationId
 {
     public ChatMemberDeletedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         long chatId,
         long userId,
         string messageActionData,
         long randomId,
         //int date,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     { 
         ChatId = chatId;
         UserId = userId;

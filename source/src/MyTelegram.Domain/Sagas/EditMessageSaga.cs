@@ -28,7 +28,7 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
         CancellationToken cancellationToken)
     {
         Emit(new EditOutboxMessageStartedEvent(
-            domainEvent.AggregateEvent.Request,
+            domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.OldMessageItem,
             domainEvent.AggregateEvent.MessageId,
             domainEvent.AggregateEvent.NewMessage,
@@ -93,7 +93,7 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, outboxOwnerPeerId).ConfigureAwait(false);
         var item = _state.OldMessageItem;
-        Emit(new OutboxMessageEditCompletedEvent(_state.Request,
+        Emit(new OutboxMessageEditCompletedEvent(_state.RequestInfo,
             outboxOwnerPeerId,
             item.SenderPeer.PeerId,
             _state.SenderMessageId,

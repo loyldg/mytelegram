@@ -2,7 +2,7 @@
 
 public class OutboxMessageEditCompletedEvent : RequestAggregateEvent2<EditMessageSaga, EditMessageSagaId>
 {
-    public OutboxMessageEditCompletedEvent(RequestInfo request,
+    public OutboxMessageEditCompletedEvent(RequestInfo requestInfo,
         long ownerPeerId,
         long senderPeerId,
         int messageId,
@@ -14,7 +14,7 @@ public class OutboxMessageEditCompletedEvent : RequestAggregateEvent2<EditMessag
         Peer toPeer,
         byte[]? entities,
         byte[]? media
-    ) : base(request)
+    ) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         SenderPeerId = senderPeerId;

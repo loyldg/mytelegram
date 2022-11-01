@@ -2,12 +2,12 @@
 
 public class ChatMemberAddedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, IHasCorrelationId
 {
-    public ChatMemberAddedEvent(RequestInfo request,
+    public ChatMemberAddedEvent(RequestInfo requestInfo,
         long chatId,
         ChatMember chatMember,
         string messageActionData,
         long randomId,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     { 
         ChatId = chatId;
         ChatMember = chatMember;

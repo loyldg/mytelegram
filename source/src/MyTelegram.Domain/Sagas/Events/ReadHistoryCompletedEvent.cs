@@ -2,7 +2,7 @@
 
 public class ReadHistoryCompletedEvent : RequestAggregateEvent2<ReadHistorySaga, ReadHistorySagaId>
 {
-    public ReadHistoryCompletedEvent(RequestInfo request,
+    public ReadHistoryCompletedEvent(RequestInfo requestInfo,
         bool senderIsBot,
         long readerUid,
         int readerMessageId,
@@ -13,7 +13,7 @@ public class ReadHistoryCompletedEvent : RequestAggregateEvent2<ReadHistorySaga,
         int senderMessageId,
         bool isOut,
         bool outboxAlreadyRead,
-        string sourceCommandId) : base(request)
+        string sourceCommandId) : base(requestInfo)
     {
         SenderIsBot = senderIsBot;
         ReaderUid = readerUid;

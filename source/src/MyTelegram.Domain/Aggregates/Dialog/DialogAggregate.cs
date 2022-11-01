@@ -28,7 +28,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         }
     }
 
-    public void ClearHistory(RequestInfo request,
+    public void ClearHistory(RequestInfo requestInfo,
         bool revoke,
         string messageActionData,
         long randomId,
@@ -37,7 +37,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new HistoryClearedEvent(request,
+        Emit(new HistoryClearedEvent(requestInfo,
             _state.OwnerId,
             _state.TopMessage,
             revoke,
@@ -113,7 +113,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
             correlationId));
     }
 
-    public void ReadInboxMessage2(RequestInfo request,
+    public void ReadInboxMessage2(RequestInfo requestInfo,
         long readerUid,
         long ownerPeerId,
         int maxId,
@@ -122,7 +122,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
     )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ReadInboxMessage2Event(request,
+        Emit(new ReadInboxMessage2Event(requestInfo,
             readerUid,
             ownerPeerId,
             maxId,

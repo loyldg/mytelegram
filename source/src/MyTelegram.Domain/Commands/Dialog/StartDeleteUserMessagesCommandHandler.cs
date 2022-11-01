@@ -7,7 +7,7 @@ public class
         StartDeleteUserMessagesCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartDeleteUserMessages(command.Request, command.Revoke, command.MessageIds, command.IsClearHistory, command.CorrelationId);
+        aggregate.StartDeleteUserMessages(command.RequestInfo, command.Revoke, command.MessageIds, command.IsClearHistory, command.CorrelationId);
         return Task.CompletedTask;
     }
 }

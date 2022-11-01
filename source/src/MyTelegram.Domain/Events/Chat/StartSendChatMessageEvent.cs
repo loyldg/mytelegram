@@ -2,7 +2,7 @@
 
 //public class SendChatMessageStartedEvent:AggregateEvent<chata>
 
-public class StartSendChatMessageEvent : /*Request*/AggregateEvent<ChatAggregate, ChatId>, IHasCorrelationId
+public class StartSendChatMessageEvent : /*RequestInfo*/AggregateEvent<ChatAggregate, ChatId>, IHasCorrelationId
 {
     public StartSendChatMessageEvent(
         //long reqMsgId,

@@ -2,7 +2,7 @@
 
 public class ReadHistorySagaSnapshot : ISnapshot
 {
-    public ReadHistorySagaSnapshot(RequestInfo request,
+    public ReadHistorySagaSnapshot(RequestInfo requestInfo,
         long readerUid,
         int readerMessageId,
         int readerPts,
@@ -21,7 +21,7 @@ public class ReadHistorySagaSnapshot : ISnapshot
         Guid correlationId
     )
     {
-        Request = request;
+        RequestInfo = requestInfo;
         ReaderUid = readerUid;
         ReaderMessageId = readerMessageId;
         ReaderPts = readerPts;
@@ -51,7 +51,7 @@ public class ReadHistorySagaSnapshot : ISnapshot
 
     public Peer ReaderToPeer { get; }
 
-    public RequestInfo Request { get; }
+    public RequestInfo RequestInfo { get; }
     public long ReaderUid { get; }
     public bool ReadHistoryCompleted { get; }
     

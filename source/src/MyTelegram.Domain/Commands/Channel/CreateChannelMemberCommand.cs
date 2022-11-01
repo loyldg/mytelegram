@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Commands.Channel;
 
-public class CreateChannelMemberCommand : /*Request*/Command<ChannelMemberAggregate, ChannelMemberId, IExecutionResult>,
+public class CreateChannelMemberCommand : /*RequestInfo*/Command<ChannelMemberAggregate, ChannelMemberId, IExecutionResult>,
     IHasCorrelationId
 {
     public CreateChannelMemberCommand(ChannelMemberId aggregateId,

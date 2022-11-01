@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Commands.Dialog;
 
-public class SetOutboxTopMessageCommand : /*Request*/Command<DialogAggregate, DialogId, IExecutionResult>
+public class SetOutboxTopMessageCommand : /*RequestInfo*/Command<DialogAggregate, DialogId, IExecutionResult>
 {
     public SetOutboxTopMessageCommand(DialogId aggregateId,
         //long reqMsgId,

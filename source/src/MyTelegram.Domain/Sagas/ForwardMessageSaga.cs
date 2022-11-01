@@ -24,7 +24,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new ForwardMessageSagaStartedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new ForwardMessageSagaStartedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.FromPeer,
             domainEvent.AggregateEvent.ToPeer,
             domainEvent.AggregateEvent.IdList,
@@ -40,13 +40,13 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
     {
         var ownerPeerId = _state.FromPeer.PeerType == PeerType.Channel
             ? _state.FromPeer.PeerId
-            : _state.Request.UserId;
+            : _state.RequestInfo.UserId;
         var index = 0;
         foreach (var messageId in aggregateEvent.IdList)
         {
             var randomId = aggregateEvent.RandomIdList[index];
             var command = new ForwardMessageCommand(MessageId.Create(ownerPeerId, messageId),
-                aggregateEvent.Request,
+                aggregateEvent.RequestInfo,
                 randomId,
                 aggregateEvent.CorrelationId);
             Publish(command);
@@ -66,7 +66,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
 
     private Task SendMessageToTargetPeerAsync(MessageForwardedEvent aggregateEvent)
     {
-        var selfUserId = _state.Request.UserId;
+        var selfUserId = _state.RequestInfo.UserId;
         var ownerPeerId = _state.ToPeer.PeerType == PeerType.Channel
             ? _state.ToPeer.PeerId
             : selfUserId;
@@ -95,14 +95,14 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             savedFromMsgId);
 
         var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, aggregateEvent.RandomId);
-        var senderPeer = new Peer(PeerType.User, _state.Request.UserId);
+        var senderPeer = new Peer(PeerType.User, _state.RequestInfo.UserId);
         var ownerPeer = _state.ToPeer.PeerType == PeerType.Channel
             ? _state.ToPeer
             : senderPeer;
         var toPeer = _state.ToPeer;
         var item = aggregateEvent.OriginalMessageItem;
 
-        var command = new StartSendMessageCommand(aggregateId, aggregateEvent.Request,
+        var command = new StartSendMessageCommand(aggregateId, aggregateEvent.RequestInfo,
             new MessageItem(
                 ownerPeer,
                 toPeer,

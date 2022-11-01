@@ -18,7 +18,7 @@ public class DeleteParticipantHistorySaga : MyInMemoryAggregateSaga<DeletePartic
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new DeleteParticipantHistorySagaStartedEvent(domainEvent.AggregateEvent.Request,
+        Emit(new DeleteParticipantHistorySagaStartedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.OwnerPeerId, 
             domainEvent.AggregateEvent.MessageIds
             ));

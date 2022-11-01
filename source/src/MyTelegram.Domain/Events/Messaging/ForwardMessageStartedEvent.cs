@@ -3,13 +3,13 @@
 public class ForwardMessageStartedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>, IHasCorrelationId
 {
     public ForwardMessageStartedEvent(
-        RequestInfo request,
+        RequestInfo requestInfo,
         Peer fromPeer,
         Peer toPeer,
         IReadOnlyList<int> idList,
         IReadOnlyList<long> randomIdList,
         bool forwardFromLinkedChannel,
-        Guid correlationId) : base(request)
+        Guid correlationId) : base(requestInfo)
     {
         FromPeer = fromPeer;
         ToPeer = toPeer;
