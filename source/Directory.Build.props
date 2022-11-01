@@ -1,0 +1,30 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <!-- <VersionSuffix>0.6.$([System.DateTime]::Now.ToString(MMdd)).$([System.DateTime]::Now.ToString("HHmm"))</VersionSuffix> -->
+    <VersionSuffix>0.9.1101.1009</VersionSuffix>
+    <AssemblyVersion Condition="'$(VersionSuffix)' =='' ">0.0.0.1</AssemblyVersion>
+    <AssemblyVersion Condition="'$(VersionSuffix)' !='' ">$(VersionSuffix)</AssemblyVersion>
+    <Version Condition="'$(VersionSuffix)' =='' ">0.0.1.0</Version>
+    <Version Condition="'$(VersionSuffix)' !='' ">$(VersionSuffix)</Version>
+    <NoWarn>$(NoWarn);CS1591;CS0436;NU1803;</NoWarn>
+    <Authors>Loyldg</Authors>
+    <RepositoryUrl>https://github.com/loyldg/mytelegram</RepositoryUrl>
+    <Company>Loyldg</Company>
+    <Copyright>Copyright (c) loyldg 2021 - 2022</Copyright>
+
+    <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows> 
+    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX> 
+    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux> 
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsWindows)'=='true'">
+    <DefineConstants>Windows</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsOSX)'=='true'">
+    <DefineConstants>OSX</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsLinux)'=='true'">
+    <DefineConstants>Linux</DefineConstants>
+  </PropertyGroup>
+</Project>
