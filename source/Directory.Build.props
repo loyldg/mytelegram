@@ -2,7 +2,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <!-- <VersionSuffix>0.6.$([System.DateTime]::Now.ToString(MMdd)).$([System.DateTime]::Now.ToString("HHmm"))</VersionSuffix> -->
-    <VersionSuffix>0.9.1101.1009</VersionSuffix>
+    <VersionSuffix>0.11.1102.1353</VersionSuffix>
     <AssemblyVersion Condition="'$(VersionSuffix)' =='' ">0.0.0.1</AssemblyVersion>
     <AssemblyVersion Condition="'$(VersionSuffix)' !='' ">$(VersionSuffix)</AssemblyVersion>
     <Version Condition="'$(VersionSuffix)' =='' ">0.0.1.0</Version>
@@ -13,9 +13,9 @@
     <Company>Loyldg</Company>
     <Copyright>Copyright (c) loyldg 2021 - 2022</Copyright>
 
-    <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows> 
-    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX> 
-    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux> 
+    <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
+    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
+    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(IsWindows)'=='true'">
@@ -26,5 +26,19 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsLinux)'=='true'">
     <DefineConstants>Linux</DefineConstants>
+  </PropertyGroup>
+
+   <PropertyGroup>
+    <DebuggerSupport>false</DebuggerSupport>
+    <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+    <EventSourceSupport>false</EventSourceSupport>
+    <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>link</TrimMode>
+    <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
   </PropertyGroup>
 </Project>

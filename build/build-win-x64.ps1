@@ -1,4 +1,4 @@
-$version="0.9.1101"
+$version="0.11.1102"
 $currentDir=(Get-Item .).FullName
 $parentFolder=(Get-Item $currentDir).Parent
 $outputRootFolder=Join-Path $parentFolder "out" $version 
@@ -25,7 +25,7 @@ function Build-Server([System.String]$srcFolder,[System.String] $outputFolder) {
     # CreateFolderIfNotExists $outputFolder
     # Copy-Item -Force -Path "./bin/Release/net6.0/win-x64/publish/*" -Include appsettings.json,*.key,*.exe,*.dll $outputFolder
 	$sourceFolder = Join-Path $sourceRootFolder $srcFolder
-    dotnet publish $sourceFolder -r win-x64 -c Release -o $outputFolder
+    dotnet publish $sourceFolder -r win-x64 -c Release -o $outputFolder -p:PublishSingleFile=true -p:PublishTrimmed=true
     Get-ChildItem -Path $outputFolder *.pdb | ForEach-Object { Remove-Item -Path $_.FullName }
 }
 
