@@ -31,7 +31,7 @@ git clone https://github.com/loyldg/mytelegram.git
 cd mytelegram/source
 dotnet restore
 cd .\src\MyTelegram.MessengerServer.Abp\
-dotnet publish -c Release -r win-x64 
+dotnet publish -c Release 
 ```
 
 ## Run MyTelegram server
@@ -53,11 +53,12 @@ dotnet publish -c Release -r win-x64
 3. Install Redis
 4. Install MongoDB
 5. Intall RabbitMQ
-6. Modify server configuration in `start-all.bat`/`start-all.ps1`/`start-all.sh`,replace `127.0.0.1` with the IP address of gateway server
-7. Run `start-all.bat`/`start-all.ps1`/`start-all.sh`
+6. Install Minio
+7. Modify server configuration in `start-all.bat`/`start-all.ps1`/`start-all.sh`,replace `127.0.0.1` with the IP address of gateway server
+8. Run `start-all.bat`/`start-all.ps1`/`start-all.sh`
 
 - ### Test with compiled client
-1. Download [TDesktop client](https://github.com/loyldg/mytelegram/releases/download/v0.7.727/Telegram-4.0.2-win-x64.zip)
+1. Download [TDesktop client(4.2.2)](https://github.com/loyldg/mytelegram/releases/download/v0.11.1102/Telegram-4.2.2-x64.zip)
 2. Add the IP address of the gateway server to hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line to hosts file
 ```
 192.168.1.100    demos.telegram2.com

@@ -55,11 +55,12 @@ dotnet publish -c Release -r win-x64
 3. 安装Redis服务端
 4. 安装MongoDB
 5. 安装RabbitMQ
-6. 修改目录里的`start-all.bat`/`start-all.ps1`/`start-all.sh`配置信息,替换里面的`127.0.0.1`为网关服务器的IP地址,Redis/MongoDB/RabbitMQ根据你的相关信息进行调整
-7. 运行`start-all.bat`/`start-all.ps1`/`start-all.sh`
+6. 安装Minio
+7. 修改目录里的`start-all.bat`/`start-all.ps1`/`start-all.sh`配置信息,替换里面的`127.0.0.1`为网关服务器的IP地址,Redis/MongoDB/RabbitMQ根据你的相关信息进行调整
+8. 运行`start-all.bat`/`start-all.ps1`/`start-all.sh`
 
 - ### 使用编译好的客户端进行测试
-1. 下载[已编译好的TDesktop客户端](https://github.com/loyldg/mytelegram/releases/download/v0.7.727/Telegram-4.0.2-win-x64.zip)
+1. 下载[已编译好的TDesktop客户端(4.2.2)](https://github.com/loyldg/mytelegram/releases/download/v0.11.1102/Telegram-4.2.2-x64.zip)
 2. 将Gateway server的IP地址加入`%SystemRoot%/system32/drivers/etc/hosts`,比如Gateway Server服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
 ```
 192.168.1.100    demos.telegram2.com
