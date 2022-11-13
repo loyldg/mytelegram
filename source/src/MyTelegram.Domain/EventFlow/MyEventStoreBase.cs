@@ -92,9 +92,9 @@ public class MyEventStoreBase : IEventStore
         return domainEvents;
     }
 
-    public async Task<AllEventsPage> LoadAllEventsAsync(
-        GlobalPosition globalPosition,
+    public async Task<AllEventsPage> LoadAllEventsAsync(GlobalPosition globalPosition,
         int pageSize,
+        IEventUpgradeContext eventUpgradeContext,
         CancellationToken cancellationToken)
     {
         if (pageSize <= 0)
@@ -110,7 +110,11 @@ public class MyEventStoreBase : IEventStore
         var domainEvents = (IReadOnlyCollection<IDomainEvent>)allCommittedEventsPage.CommittedDomainEvents
             .Select(e => _eventJsonSerializer.Deserialize(e))
             .ToList();
-        domainEvents = _eventUpgradeManager.Upgrade(domainEvents);
+        domainEvents = await _eventUpgradeManager.UpgradeAsync(
+            domainEvents.ToAsyncEnumerable(),
+            eventUpgradeContext,
+            cancellationToken).ToArrayAsync(cancellationToken);
+
         return new AllEventsPage(allCommittedEventsPage.NextGlobalPosition, domainEvents);
     }
 
@@ -152,7 +156,10 @@ public class MyEventStoreBase : IEventStore
             return domainEvents;
         }
 
-        domainEvents = _eventUpgradeManager.Upgrade(domainEvents);
+        // TODO: Pass a real IAsyncEnumerable instead
+        domainEvents = await _eventUpgradeManager.UpgradeAsync(
+            domainEvents.ToAsyncEnumerable(),
+            cancellationToken).ToArrayAsync(cancellationToken);
 
         return domainEvents;
     }

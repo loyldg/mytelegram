@@ -13,7 +13,7 @@
   <ItemGroup>
     <!--<PackageReference Include="EventFlow" Version="1.0.4748-alpha" />-->
     <!--<ProjectReference Include="..\EventFlow\EventFlow.csproj" />-->
-    <PackageReference Include="EventFlow" Version="1.0.5001-alpha" />
+    <PackageReference Include="EventFlow" Version="1.0.5002-alpha" />
   </ItemGroup>
 
 </Project>

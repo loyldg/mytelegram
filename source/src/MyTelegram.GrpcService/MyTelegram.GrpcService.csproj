@@ -13,17 +13,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.21.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.21.9" />
     <!--<PackageReference Include="Grpc" Version="2.46.3" />-->
-    <PackageReference Include="Grpc.Net.Client" Version="2.47.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.47.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.49.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.50.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <!--<Protobuf Include="Protos\chatservice.proto" />-->
     <Protobuf Include="Protos\chatmemberloaderservice.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\idgeneratorservice.proto" GrpcServices="Client"  />
-    <Protobuf Include="Protos\mediaservice.proto" GrpcServices="Client"  />
+    <Protobuf Include="Protos\idgeneratorservice.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\mediaservice.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

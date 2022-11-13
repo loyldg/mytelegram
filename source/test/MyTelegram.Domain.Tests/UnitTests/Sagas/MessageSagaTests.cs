@@ -76,7 +76,7 @@ public class MessageSagaTests : TestsFor<MessageSaga>
     //}
 
 
-    private static IEnumerable<object[]> GetSendMessageData()
+    public static IEnumerable<object[]> GetSendMessageData()
     {
         yield return new object[] { new Peer(PeerType.User, 1), new Peer(PeerType.User, 2) };
         yield return new object[] { new Peer(PeerType.User, 1), new Peer(PeerType.Chat, 2) };
