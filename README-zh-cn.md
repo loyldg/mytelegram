@@ -25,7 +25,7 @@ Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开�
 * 表情包(Pro版本)
 
 ## 编译MyTelegram服务端
-1. 安装[.NET SDK 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+1. 安装[.NET SDK 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 2. 执行以下代码 
 ```
 git clone https://github.com/loyldg/mytelegram.git 
@@ -98,11 +98,11 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
 ```
 默认公钥的Fingerprint为: **`0xce27f5081215bda4`** (安卓客户端里的Fingerprint需要提前计算好值并进行替换)  
 - ### 编译桌面客户端 [TDesktop](https://github.com/telegramdesktop/tdesktop)
-1. 切换到Layer143所在的分支(4.0.2版本)
+1. 切换到Layer146所在的分支(4.2.x版本)
 2. 替换**Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**里的服务器地址,端口,RSA公钥
 
 - ### 编译[安卓客户端](https://github.com/DrKLO/Telegram)
-1. 切换到Layer143所在的分支(8.8.5版本)
+1. 切换到Layer146所在的分支(9.x版本)
 
 2. **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** 由于目前不支持Stickers相关功能,需要注释setSticker方法的以下代码,否则客户端会不停的调用获取Stickers的方法
     ```java

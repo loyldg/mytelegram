@@ -24,7 +24,7 @@ Pro version supports client communication with different layers,open source vers
 * Stickers(Pro version)
 
 ## Build MyTelegram Server
-1. Install [.NET SDK 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+1. Install [.NET SDK 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 2. Execute the following command using powershell
 ```
 git clone https://github.com/loyldg/mytelegram.git 
@@ -97,11 +97,11 @@ The default publick key's fingerprint is **`0xce27f5081215bda4`**(Android client
 if you want to use your own public key,replace `private.pkcs8.key` in auth folder
 
 - ### Build [Tdesktop client](https://github.com/telegramdesktop/tdesktop)
-1. Switch to the branch which the layer is 143(version 4.0.2)
+1. Switch to the branch which the layer is 146(version 4.2.x)
 2. Replace server addresses,port and RSA public key in **Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**
 
 - ### Build [Android client](https://github.com/DrKLO/Telegram)
-1. Switch to the branch which the layer is 143(version 8.8.5)
+1. Switch to the branch which the layer is 146(version 9.x)
 2. **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** Mytelegram not support Stickers in current version,need comment the following code in method `setSticker`  
    ``` java
    MediaDataController.getInstance(currentAccount).loadStickersByEmojiOrName(AndroidUtilities.STICKERS_PLACEHOLDER_PACK_NAME, false, set == null);
