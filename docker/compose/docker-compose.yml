@@ -181,6 +181,11 @@ services:
        App__DcOptions__0__Port: ${DcOptions0Port}
        App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       Minio__Endpoint: ${MinioEndpoint}
+       Minio__AccessKey: ${MinioAccessKey}
+       Minio__SecretKey: ${MinioSecretKey}
+       Minio__BucketName: ${MinioBucketName}
+       Minio__CreateBucketIfNotExists: ${MinioCreateBucketIfNotExists}
     depends_on:
       - mongodb
       - rabbitmq
