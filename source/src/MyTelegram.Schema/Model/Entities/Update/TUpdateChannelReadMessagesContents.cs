@@ -7,15 +7,18 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/updateChannelReadMessagesContents" />
 ///</summary>
-[TlObject(0x44bdd535)]
+[TlObject(0xea29055d)]
 public class TUpdateChannelReadMessagesContents : IUpdate
 {
-    public uint ConstructorId => 0x44bdd535;
+    public uint ConstructorId => 0xea29055d;
+    public BitArray Flags { get; set; } = new BitArray(32);
     public long ChannelId { get; set; }
+    public int? TopMsgId { get; set; }
     public TVector<int> Messages { get; set; }
 
     public void ComputeFlag()
     {
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[0] = true; }
 
     }
 
@@ -23,13 +26,17 @@ public class TUpdateChannelReadMessagesContents : IUpdate
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         bw.Write(ChannelId);
+        if (Flags[0]) { bw.Write(TopMsgId.Value); }
         Messages.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
         ChannelId = br.ReadInt64();
+        if (Flags[0]) { TopMsgId = br.ReadInt32(); }
         Messages = br.Deserialize<TVector<int>>();
     }
 }

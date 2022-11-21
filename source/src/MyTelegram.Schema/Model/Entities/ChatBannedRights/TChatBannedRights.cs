@@ -24,6 +24,7 @@ public class TChatBannedRights : IChatBannedRights
     public bool ChangeInfo { get; set; }
     public bool InviteUsers { get; set; }
     public bool PinMessages { get; set; }
+    public bool ManageTopics { get; set; }
     public int UntilDate { get; set; }
 
     public void ComputeFlag()
@@ -40,6 +41,7 @@ public class TChatBannedRights : IChatBannedRights
         if (ChangeInfo) { Flags[10] = true; }
         if (InviteUsers) { Flags[15] = true; }
         if (PinMessages) { Flags[17] = true; }
+        if (ManageTopics) { Flags[18] = true; }
 
     }
 
@@ -66,6 +68,7 @@ public class TChatBannedRights : IChatBannedRights
         if (Flags[10]) { ChangeInfo = true; }
         if (Flags[15]) { InviteUsers = true; }
         if (Flags[17]) { PinMessages = true; }
+        if (Flags[18]) { ManageTopics = true; }
         UntilDate = br.ReadInt32();
     }
 }

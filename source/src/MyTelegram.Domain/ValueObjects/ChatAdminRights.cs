@@ -12,6 +12,7 @@ public class ChatAdminRights : ValueObject
         true,
         false,
         true,
+        true,
         true);
 
     public ChatAdminRights(bool changeInfo,
@@ -24,7 +25,9 @@ public class ChatAdminRights : ValueObject
         bool addAdmins,
         bool anonymous,
         bool manageCall,
-        bool other)
+        bool other,
+        bool manageTopic = true
+        )
     {
         ChangeInfo = changeInfo;
         PostMessages = postMessages;
@@ -37,20 +40,22 @@ public class ChatAdminRights : ValueObject
         Anonymous = anonymous;
         ManageCall = manageCall;
         Other = other;
+        ManageTopic = manageTopic;
     }
 
-    public bool AddAdmins { get; private set; }
-    public bool Anonymous { get; private set; }
-    public bool BanUsers { get; private set; }
+    public bool AddAdmins { get; init; }
+    public bool Anonymous { get; init; }
+    public bool BanUsers { get; init; }
 
-    public bool ChangeInfo { get; private set; }
-    public bool DeleteMessages { get; private set; }
-    public bool EditMessages { get; private set; }
-    public bool InviteUsers { get; private set; }
-    public bool ManageCall { get; private set; }
-    public bool Other { get; private set; }
-    public bool PinMessages { get; private set; }
-    public bool PostMessages { get; private set; }
+    public bool ChangeInfo { get; init; }
+    public bool DeleteMessages { get; init; }
+    public bool EditMessages { get; init; }
+    public bool InviteUsers { get; init; }
+    public bool ManageCall { get; init; }
+    public bool Other { get; init; }
+    public bool ManageTopic { get; }
+    public bool PinMessages { get; init; }
+    public bool PostMessages { get; init; }
 
     public bool HasNoRights()
     {
@@ -64,6 +69,8 @@ public class ChatAdminRights : ValueObject
                !AddAdmins &&
                !Anonymous &&
                !ManageCall &&
-               !Other;
+               !Other &&
+               !ManageTopic
+               ;
     }
 }

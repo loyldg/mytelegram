@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.sendMultiMedia" />
 ///</summary>
-[TlObject(0xf803138f)]
+[TlObject(0xb6f11a1c)]
 public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xf803138f;
+    public uint ConstructorId => 0xb6f11a1c;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Silent { get; set; }
     public bool Background { get; set; }
@@ -22,6 +22,7 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
     public int? ReplyToMsgId { get; set; }
+    public int? TopMsgId { get; set; }
     public TVector<MyTelegram.Schema.IInputSingleMedia> MultiMedia { get; set; }
     public int? ScheduleDate { get; set; }
 
@@ -38,6 +39,7 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
         if (Noforwards) { Flags[14] = true; }
         if (UpdateStickersetsOrder) { Flags[15] = true; }
         if (ReplyToMsgId != 0 && ReplyToMsgId.HasValue) { Flags[0] = true; }
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[9] = true; }
         if (ScheduleDate != 0 && ScheduleDate.HasValue) { Flags[10] = true; }
         if (SendAs != null) { Flags[13] = true; }
     }
@@ -49,6 +51,7 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
         bw.Serialize(Flags);
         Peer.Serialize(bw);
         if (Flags[0]) { bw.Write(ReplyToMsgId.Value); }
+        if (Flags[9]) { bw.Write(TopMsgId.Value); }
         MultiMedia.Serialize(bw);
         if (Flags[10]) { bw.Write(ScheduleDate.Value); }
         if (Flags[13]) { SendAs.Serialize(bw); }
@@ -64,6 +67,7 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
         if (Flags[15]) { UpdateStickersetsOrder = true; }
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         if (Flags[0]) { ReplyToMsgId = br.ReadInt32(); }
+        if (Flags[9]) { TopMsgId = br.ReadInt32(); }
         MultiMedia = br.Deserialize<TVector<MyTelegram.Schema.IInputSingleMedia>>();
         if (Flags[10]) { ScheduleDate = br.ReadInt32(); }
         if (Flags[13]) { SendAs = br.Deserialize<MyTelegram.Schema.IInputPeer>(); }

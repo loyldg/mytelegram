@@ -22,5 +22,6 @@ public interface IChannelAdminLogEventsFilter : IObject
     bool GroupCall { get; set; }
     bool Invites { get; set; }
     bool Send { get; set; }
+    bool Forums { get; set; }
 
 }

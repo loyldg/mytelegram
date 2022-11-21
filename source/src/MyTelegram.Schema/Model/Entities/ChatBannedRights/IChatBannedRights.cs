@@ -17,6 +17,7 @@ public interface IChatBannedRights : IObject
     bool ChangeInfo { get; set; }
     bool InviteUsers { get; set; }
     bool PinMessages { get; set; }
+    bool ManageTopics { get; set; }
     int UntilDate { get; set; }
 
 }

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.requestWebView" />
 ///</summary>
-[TlObject(0xfc87a53c)]
+[TlObject(0x178b480b)]
 public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewResult>
 {
-    public uint ConstructorId => 0xfc87a53c;
+    public uint ConstructorId => 0x178b480b;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool FromBotMenu { get; set; }
     public bool Silent { get; set; }
@@ -32,6 +32,7 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
     public MyTelegram.Schema.IDataJSON? ThemeParams { get; set; }
     public string Platform { get; set; }
     public int? ReplyToMsgId { get; set; }
+    public int? TopMsgId { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
@@ -46,6 +47,7 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
         if (StartParam != null) { Flags[3] = true; }
         if (ThemeParams != null) { Flags[2] = true; }
         if (ReplyToMsgId != 0 && ReplyToMsgId.HasValue) { Flags[0] = true; }
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[9] = true; }
         if (SendAs != null) { Flags[13] = true; }
     }
 
@@ -61,6 +63,7 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
         if (Flags[2]) { ThemeParams.Serialize(bw); }
         bw.Serialize(Platform);
         if (Flags[0]) { bw.Write(ReplyToMsgId.Value); }
+        if (Flags[9]) { bw.Write(TopMsgId.Value); }
         if (Flags[13]) { SendAs.Serialize(bw); }
     }
 
@@ -76,6 +79,7 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
         if (Flags[2]) { ThemeParams = br.Deserialize<MyTelegram.Schema.IDataJSON>(); }
         Platform = br.Deserialize<string>();
         if (Flags[0]) { ReplyToMsgId = br.ReadInt32(); }
+        if (Flags[9]) { TopMsgId = br.ReadInt32(); }
         if (Flags[13]) { SendAs = br.Deserialize<MyTelegram.Schema.IInputPeer>(); }
     }
 }

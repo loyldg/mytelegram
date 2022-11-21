@@ -6,15 +6,17 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.getUnreadReactions" />
 ///</summary>
-[TlObject(0xe85bae1a)]
+[TlObject(0x3223495b)]
 public sealed class RequestGetUnreadReactions : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
-    public uint ConstructorId => 0xe85bae1a;
+    public uint ConstructorId => 0x3223495b;
+    public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+    public int? TopMsgId { get; set; }
     public int OffsetId { get; set; }
     public int AddOffset { get; set; }
     public int Limit { get; set; }
@@ -23,6 +25,7 @@ public sealed class RequestGetUnreadReactions : IRequest<MyTelegram.Schema.Messa
 
     public void ComputeFlag()
     {
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[0] = true; }
 
     }
 
@@ -30,7 +33,9 @@ public sealed class RequestGetUnreadReactions : IRequest<MyTelegram.Schema.Messa
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         Peer.Serialize(bw);
+        if (Flags[0]) { bw.Write(TopMsgId.Value); }
         bw.Write(OffsetId);
         bw.Write(AddOffset);
         bw.Write(Limit);
@@ -40,7 +45,9 @@ public sealed class RequestGetUnreadReactions : IRequest<MyTelegram.Schema.Messa
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
+        if (Flags[0]) { TopMsgId = br.ReadInt32(); }
         OffsetId = br.ReadInt32();
         AddOffset = br.ReadInt32();
         Limit = br.ReadInt32();

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.sendMessage" />
 ///</summary>
-[TlObject(0xd9d75a4)]
+[TlObject(0x1cc20387)]
 public sealed class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xd9d75a4;
+    public uint ConstructorId => 0x1cc20387;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool NoWebpage { get; set; }
     public bool Silent { get; set; }
@@ -23,6 +23,7 @@ public sealed class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
     public int? ReplyToMsgId { get; set; }
+    public int? TopMsgId { get; set; }
     public string Message { get; set; }
     public long RandomId { get; set; }
 
@@ -47,6 +48,7 @@ public sealed class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
         if (Noforwards) { Flags[14] = true; }
         if (UpdateStickersetsOrder) { Flags[15] = true; }
         if (ReplyToMsgId != 0 && ReplyToMsgId.HasValue) { Flags[0] = true; }
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[9] = true; }
         if (ReplyMarkup != null) { Flags[2] = true; }
         if (Entities?.Count > 0) { Flags[3] = true; }
         if (ScheduleDate != 0 && ScheduleDate.HasValue) { Flags[10] = true; }
@@ -60,6 +62,7 @@ public sealed class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
         bw.Serialize(Flags);
         Peer.Serialize(bw);
         if (Flags[0]) { bw.Write(ReplyToMsgId.Value); }
+        if (Flags[9]) { bw.Write(TopMsgId.Value); }
         bw.Serialize(Message);
         bw.Write(RandomId);
         if (Flags[2]) { ReplyMarkup.Serialize(bw); }
@@ -79,6 +82,7 @@ public sealed class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
         if (Flags[15]) { UpdateStickersetsOrder = true; }
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         if (Flags[0]) { ReplyToMsgId = br.ReadInt32(); }
+        if (Flags[9]) { TopMsgId = br.ReadInt32(); }
         Message = br.Deserialize<string>();
         RandomId = br.ReadInt64();
         if (Flags[2]) { ReplyMarkup = br.Deserialize<MyTelegram.Schema.IReplyMarkup>(); }

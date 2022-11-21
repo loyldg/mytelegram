@@ -53,6 +53,10 @@ public class TChatFull : IChatFull
     public string? ThemeEmoticon { get; set; }
     public int? RequestsPending { get; set; }
     public TVector<long>? RecentRequesters { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/ChatReactions" />
+    ///</summary>
     public MyTelegram.Schema.IChatReactions? AvailableReactions { get; set; }
 
     public void ComputeFlag()

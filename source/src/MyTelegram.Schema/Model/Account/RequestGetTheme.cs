@@ -6,17 +6,16 @@ namespace MyTelegram.Schema.Account;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/account.getTheme" />
 ///</summary>
-[TlObject(0x8d9d742b)]
+[TlObject(0x3a5869ec)]
 public sealed class RequestGetTheme : IRequest<MyTelegram.Schema.ITheme>
 {
-    public uint ConstructorId => 0x8d9d742b;
+    public uint ConstructorId => 0x3a5869ec;
     public string Format { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputTheme" />
     ///</summary>
     public MyTelegram.Schema.IInputTheme Theme { get; set; }
-    public long DocumentId { get; set; }
 
     public void ComputeFlag()
     {
@@ -29,13 +28,11 @@ public sealed class RequestGetTheme : IRequest<MyTelegram.Schema.ITheme>
         bw.Write(ConstructorId);
         bw.Serialize(Format);
         Theme.Serialize(bw);
-        bw.Write(DocumentId);
     }
 
     public void Deserialize(BinaryReader br)
     {
         Format = br.Deserialize<string>();
         Theme = br.Deserialize<MyTelegram.Schema.IInputTheme>();
-        DocumentId = br.ReadInt64();
     }
 }

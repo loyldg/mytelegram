@@ -88,6 +88,10 @@ public class TChannelFull : IChatFull
     ///See <a href="https://core.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer? DefaultSendAs { get; set; }
+
+    ///<summary>
+    ///See <a href="https://core.telegram.org/type/ChatReactions" />
+    ///</summary>
     public MyTelegram.Schema.IChatReactions? AvailableReactions { get; set; }
 
     public void ComputeFlag()
@@ -100,6 +104,7 @@ public class TChannelFull : IChatFull
         if (HasScheduled) { Flags[19] = true; }
         if (CanViewStats) { Flags[20] = true; }
         if (Blocked) { Flags[22] = true; }
+        if (CanDeleteChannel) { Flags2[0] = true; }
         if (ParticipantsCount != 0 && ParticipantsCount.HasValue) { Flags[0] = true; }
         if (AdminsCount != 0 && AdminsCount.HasValue) { Flags[1] = true; }
         if (KickedCount != 0 && KickedCount.HasValue) { Flags[2] = true; }
@@ -125,8 +130,7 @@ public class TChannelFull : IChatFull
         if (RequestsPending != 0 && RequestsPending.HasValue) { Flags[28] = true; }
         if (RecentRequesters?.Count > 0) { Flags[28] = true; }
         if (DefaultSendAs != null) { Flags[29] = true; }
-         if (AvailableReactions != null) { Flags[30] = true; }
-        if (CanDeleteChannel) { Flags2[0] = true; }
+        if (AvailableReactions != null) { Flags[30] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -135,7 +139,6 @@ public class TChannelFull : IChatFull
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
         bw.Serialize(Flags2);
-        
         bw.Write(Id);
         bw.Serialize(About);
         if (Flags[0]) { bw.Write(ParticipantsCount.Value); }
@@ -186,7 +189,6 @@ public class TChannelFull : IChatFull
         if (Flags[22]) { Blocked = true; }
         Flags2 = br.Deserialize<BitArray>();
         if (Flags2[0]) { CanDeleteChannel = true; }
-        //CanDeleteChannel = br.Deserialize<bool>();
         Id = br.ReadInt64();
         About = br.Deserialize<string>();
         if (Flags[0]) { ParticipantsCount = br.ReadInt32(); }

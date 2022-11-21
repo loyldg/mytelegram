@@ -29,6 +29,7 @@ public class TChannelAdminLogEventsFilter : IChannelAdminLogEventsFilter
     public bool GroupCall { get; set; }
     public bool Invites { get; set; }
     public bool Send { get; set; }
+    public bool Forums { get; set; }
 
     public void ComputeFlag()
     {
@@ -49,6 +50,7 @@ public class TChannelAdminLogEventsFilter : IChannelAdminLogEventsFilter
         if (GroupCall) { Flags[14] = true; }
         if (Invites) { Flags[15] = true; }
         if (Send) { Flags[16] = true; }
+        if (Forums) { Flags[17] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -79,5 +81,6 @@ public class TChannelAdminLogEventsFilter : IChannelAdminLogEventsFilter
         if (Flags[14]) { GroupCall = true; }
         if (Flags[15]) { Invites = true; }
         if (Flags[16]) { Send = true; }
+        if (Flags[17]) { Forums = true; }
     }
 }

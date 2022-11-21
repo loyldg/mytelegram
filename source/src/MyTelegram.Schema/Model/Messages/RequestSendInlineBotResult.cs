@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.sendInlineBotResult" />
 ///</summary>
-[TlObject(0x7aa11297)]
+[TlObject(0xd3fbdccb)]
 public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x7aa11297;
+    public uint ConstructorId => 0xd3fbdccb;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Silent { get; set; }
     public bool Background { get; set; }
@@ -21,6 +21,7 @@ public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpd
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
     public int? ReplyToMsgId { get; set; }
+    public int? TopMsgId { get; set; }
     public long RandomId { get; set; }
     public long QueryId { get; set; }
     public string Id { get; set; }
@@ -38,6 +39,7 @@ public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpd
         if (ClearDraft) { Flags[7] = true; }
         if (HideVia) { Flags[11] = true; }
         if (ReplyToMsgId != 0 && ReplyToMsgId.HasValue) { Flags[0] = true; }
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[9] = true; }
         if (ScheduleDate != 0 && ScheduleDate.HasValue) { Flags[10] = true; }
         if (SendAs != null) { Flags[13] = true; }
     }
@@ -49,6 +51,7 @@ public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpd
         bw.Serialize(Flags);
         Peer.Serialize(bw);
         if (Flags[0]) { bw.Write(ReplyToMsgId.Value); }
+        if (Flags[9]) { bw.Write(TopMsgId.Value); }
         bw.Write(RandomId);
         bw.Write(QueryId);
         bw.Serialize(Id);
@@ -65,6 +68,7 @@ public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpd
         if (Flags[11]) { HideVia = true; }
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         if (Flags[0]) { ReplyToMsgId = br.ReadInt32(); }
+        if (Flags[9]) { TopMsgId = br.ReadInt32(); }
         RandomId = br.ReadInt64();
         QueryId = br.ReadInt64();
         Id = br.Deserialize<string>();

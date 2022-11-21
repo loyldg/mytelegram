@@ -23,6 +23,7 @@ public class TChatAdminRights : IChatAdminRights
     public bool Anonymous { get; set; }
     public bool ManageCall { get; set; }
     public bool Other { get; set; }
+    public bool ManageTopics { get; set; }
 
     public void ComputeFlag()
     {
@@ -37,6 +38,7 @@ public class TChatAdminRights : IChatAdminRights
         if (Anonymous) { Flags[10] = true; }
         if (ManageCall) { Flags[11] = true; }
         if (Other) { Flags[12] = true; }
+        if (ManageTopics) { Flags[13] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -61,5 +63,6 @@ public class TChatAdminRights : IChatAdminRights
         if (Flags[10]) { Anonymous = true; }
         if (Flags[11]) { ManageCall = true; }
         if (Flags[12]) { Other = true; }
+        if (Flags[13]) { ManageTopics = true; }
     }
 }

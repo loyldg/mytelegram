@@ -125,7 +125,8 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             true,
             true,
             true,
-            int.MaxValue);
+            int.MaxValue,
+            true);
         Sut.EditChatDefaultBannedRights(1, bannedWriteMessageRights, creatorId);
 
         var exception = Assert.Throws<UserFriendlyException>(() =>

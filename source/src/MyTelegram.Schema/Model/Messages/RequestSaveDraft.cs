@@ -6,13 +6,14 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.saveDraft" />
 ///</summary>
-[TlObject(0xbc39e14b)]
+[TlObject(0xb4331e3f)]
 public sealed class RequestSaveDraft : IRequest<IBool>
 {
-    public uint ConstructorId => 0xbc39e14b;
+    public uint ConstructorId => 0xb4331e3f;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool NoWebpage { get; set; }
     public int? ReplyToMsgId { get; set; }
+    public int? TopMsgId { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
@@ -25,6 +26,7 @@ public sealed class RequestSaveDraft : IRequest<IBool>
     {
         if (NoWebpage) { Flags[1] = true; }
         if (ReplyToMsgId != 0 && ReplyToMsgId.HasValue) { Flags[0] = true; }
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[2] = true; }
         if (Entities?.Count > 0) { Flags[3] = true; }
     }
 
@@ -34,6 +36,7 @@ public sealed class RequestSaveDraft : IRequest<IBool>
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
         if (Flags[0]) { bw.Write(ReplyToMsgId.Value); }
+        if (Flags[2]) { bw.Write(TopMsgId.Value); }
         Peer.Serialize(bw);
         bw.Serialize(Message);
         if (Flags[3]) { Entities.Serialize(bw); }
@@ -44,6 +47,7 @@ public sealed class RequestSaveDraft : IRequest<IBool>
         Flags = br.Deserialize<BitArray>();
         if (Flags[1]) { NoWebpage = true; }
         if (Flags[0]) { ReplyToMsgId = br.ReadInt32(); }
+        if (Flags[2]) { TopMsgId = br.ReadInt32(); }
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
         Message = br.Deserialize<string>();
         if (Flags[3]) { Entities = br.Deserialize<TVector<MyTelegram.Schema.IMessageEntity>>(); }

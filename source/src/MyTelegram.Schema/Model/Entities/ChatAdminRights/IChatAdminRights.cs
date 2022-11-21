@@ -16,5 +16,6 @@ public interface IChatAdminRights : IObject
     bool Anonymous { get; set; }
     bool ManageCall { get; set; }
     bool Other { get; set; }
+    bool ManageTopics { get; set; }
 
 }

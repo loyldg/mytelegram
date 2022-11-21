@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/channel" />
 ///</summary>
-[TlObject(0x8261ac61)]
+[TlObject(0x83259464)]
 public class TChannel : IChat
 {
-    public uint ConstructorId => 0x8261ac61;
+    public uint ConstructorId => 0x83259464;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Creator { get; set; }
     public bool Left { get; set; }
@@ -31,6 +31,8 @@ public class TChannel : IChat
     public bool Noforwards { get; set; }
     public bool JoinToSend { get; set; }
     public bool JoinRequest { get; set; }
+    public bool Forum { get; set; }
+    public BitArray Flags2 { get; set; } = new BitArray(32);
     public long Id { get; set; }
     public long? AccessHash { get; set; }
     public string Title { get; set; }
@@ -58,6 +60,7 @@ public class TChannel : IChat
     ///</summary>
     public MyTelegram.Schema.IChatBannedRights? DefaultBannedRights { get; set; }
     public int? ParticipantsCount { get; set; }
+    public TVector<MyTelegram.Schema.IUsername>? Usernames { get; set; }
 
     public void ComputeFlag()
     {
@@ -80,6 +83,7 @@ public class TChannel : IChat
         if (Noforwards) { Flags[27] = true; }
         if (JoinToSend) { Flags[28] = true; }
         if (JoinRequest) { Flags[29] = true; }
+        if (Forum) { Flags[30] = true; }
         if (AccessHash != 0 && AccessHash.HasValue) { Flags[13] = true; }
         if (Username != null) { Flags[6] = true; }
         if (RestrictionReason?.Count > 0) { Flags[9] = true; }
@@ -87,6 +91,7 @@ public class TChannel : IChat
         if (BannedRights != null) { Flags[15] = true; }
         if (DefaultBannedRights != null) { Flags[18] = true; }
         if (ParticipantsCount != 0 && ParticipantsCount.HasValue) { Flags[17] = true; }
+        if (Usernames?.Count > 0) { Flags2[0] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -94,6 +99,7 @@ public class TChannel : IChat
         ComputeFlag();
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
+        bw.Serialize(Flags2);
         bw.Write(Id);
         if (Flags[13]) { bw.Write(AccessHash.Value); }
         bw.Serialize(Title);
@@ -105,6 +111,7 @@ public class TChannel : IChat
         if (Flags[15]) { BannedRights.Serialize(bw); }
         if (Flags[18]) { DefaultBannedRights.Serialize(bw); }
         if (Flags[17]) { bw.Write(ParticipantsCount.Value); }
+        if (Flags2[0]) { Usernames.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -129,6 +136,8 @@ public class TChannel : IChat
         if (Flags[27]) { Noforwards = true; }
         if (Flags[28]) { JoinToSend = true; }
         if (Flags[29]) { JoinRequest = true; }
+        if (Flags[30]) { Forum = true; }
+        Flags2 = br.Deserialize<BitArray>();
         Id = br.ReadInt64();
         if (Flags[13]) { AccessHash = br.ReadInt64(); }
         Title = br.Deserialize<string>();
@@ -140,5 +149,6 @@ public class TChannel : IChat
         if (Flags[15]) { BannedRights = br.Deserialize<MyTelegram.Schema.IChatBannedRights>(); }
         if (Flags[18]) { DefaultBannedRights = br.Deserialize<MyTelegram.Schema.IChatBannedRights>(); }
         if (Flags[17]) { ParticipantsCount = br.ReadInt32(); }
+        if (Flags2[0]) { Usernames = br.Deserialize<TVector<MyTelegram.Schema.IUsername>>(); }
     }
 }

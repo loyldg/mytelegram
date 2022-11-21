@@ -6,19 +6,22 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.getSearchCounters" />
 ///</summary>
-[TlObject(0x732eef00)]
+[TlObject(0xae7cc1)]
 public sealed class RequestGetSearchCounters : IRequest<TVector<MyTelegram.Schema.Messages.ISearchCounter>>
 {
-    public uint ConstructorId => 0x732eef00;
+    public uint ConstructorId => 0xae7cc1;
+    public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+    public int? TopMsgId { get; set; }
     public TVector<MyTelegram.Schema.IMessagesFilter> Filters { get; set; }
 
     public void ComputeFlag()
     {
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[0] = true; }
 
     }
 
@@ -26,13 +29,17 @@ public sealed class RequestGetSearchCounters : IRequest<TVector<MyTelegram.Schem
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         Peer.Serialize(bw);
+        if (Flags[0]) { bw.Write(TopMsgId.Value); }
         Filters.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
+        if (Flags[0]) { TopMsgId = br.ReadInt32(); }
         Filters = br.Deserialize<TVector<MyTelegram.Schema.IMessagesFilter>>();
     }
 }

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.forwardMessages" />
 ///</summary>
-[TlObject(0xcc30290b)]
+[TlObject(0xc661bbc4)]
 public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xcc30290b;
+    public uint ConstructorId => 0xc661bbc4;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Silent { get; set; }
     public bool Background { get; set; }
@@ -29,6 +29,7 @@ public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates
     ///See <a href="https://core.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer ToPeer { get; set; }
+    public int? TopMsgId { get; set; }
     public int? ScheduleDate { get; set; }
 
     ///<summary>
@@ -44,6 +45,7 @@ public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates
         if (DropAuthor) { Flags[11] = true; }
         if (DropMediaCaptions) { Flags[12] = true; }
         if (Noforwards) { Flags[14] = true; }
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[9] = true; }
         if (ScheduleDate != 0 && ScheduleDate.HasValue) { Flags[10] = true; }
         if (SendAs != null) { Flags[13] = true; }
     }
@@ -57,6 +59,7 @@ public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates
         Id.Serialize(bw);
         RandomId.Serialize(bw);
         ToPeer.Serialize(bw);
+        if (Flags[9]) { bw.Write(TopMsgId.Value); }
         if (Flags[10]) { bw.Write(ScheduleDate.Value); }
         if (Flags[13]) { SendAs.Serialize(bw); }
     }
@@ -74,6 +77,7 @@ public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates
         Id = br.Deserialize<TVector<int>>();
         RandomId = br.Deserialize<TVector<long>>();
         ToPeer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
+        if (Flags[9]) { TopMsgId = br.ReadInt32(); }
         if (Flags[10]) { ScheduleDate = br.ReadInt32(); }
         if (Flags[13]) { SendAs = br.Deserialize<MyTelegram.Schema.IInputPeer>(); }
     }

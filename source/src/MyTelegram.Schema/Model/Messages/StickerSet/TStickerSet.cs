@@ -7,16 +7,17 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/messages.stickerSet" />
 ///</summary>
-[TlObject(0xb60a24a6)]
+[TlObject(0x6e153f16)]
 public class TStickerSet : IStickerSet
 {
-    public uint ConstructorId => 0xb60a24a6;
+    public uint ConstructorId => 0x6e153f16;
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/StickerSet" />
     ///</summary>
     public MyTelegram.Schema.IStickerSet Set { get; set; }
     public TVector<MyTelegram.Schema.IStickerPack> Packs { get; set; }
+    public TVector<MyTelegram.Schema.IStickerKeyword> Keywords { get; set; }
     public TVector<MyTelegram.Schema.IDocument> Documents { get; set; }
 
     public void ComputeFlag()
@@ -30,6 +31,7 @@ public class TStickerSet : IStickerSet
         bw.Write(ConstructorId);
         Set.Serialize(bw);
         Packs.Serialize(bw);
+        Keywords.Serialize(bw);
         Documents.Serialize(bw);
     }
 
@@ -37,6 +39,7 @@ public class TStickerSet : IStickerSet
     {
         Set = br.Deserialize<MyTelegram.Schema.IStickerSet>();
         Packs = br.Deserialize<TVector<MyTelegram.Schema.IStickerPack>>();
+        Keywords = br.Deserialize<TVector<MyTelegram.Schema.IStickerKeyword>>();
         Documents = br.Deserialize<TVector<MyTelegram.Schema.IDocument>>();
     }
 }

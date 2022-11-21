@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/user" />
 ///</summary>
-[TlObject(0x5d99adee)]
+[TlObject(0x8f97c628)]
 public class TUser : IUser
 {
-    public uint ConstructorId => 0x5d99adee;
+    public uint ConstructorId => 0x8f97c628;
     public BitArray Flags { get; set; } = new BitArray(32);
     public bool Self { get; set; }
     public bool Contact { get; set; }
@@ -30,6 +30,7 @@ public class TUser : IUser
     public bool BotAttachMenu { get; set; }
     public bool Premium { get; set; }
     public bool AttachMenuEnabled { get; set; }
+    public BitArray Flags2 { get; set; } = new BitArray(32);
     public long Id { get; set; }
     public long? AccessHash { get; set; }
     public string? FirstName { get; set; }
@@ -55,6 +56,7 @@ public class TUser : IUser
     ///See <a href="https://core.telegram.org/type/EmojiStatus" />
     ///</summary>
     public MyTelegram.Schema.IEmojiStatus? EmojiStatus { get; set; }
+    public TVector<MyTelegram.Schema.IUsername>? Usernames { get; set; }
 
     public void ComputeFlag()
     {
@@ -88,6 +90,7 @@ public class TUser : IUser
         if (BotInlinePlaceholder != null) { Flags[19] = true; }
         if (LangCode != null) { Flags[22] = true; }
         if (EmojiStatus != null) { Flags[30] = true; }
+        if (Usernames?.Count > 0) { Flags2[0] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
@@ -95,6 +98,7 @@ public class TUser : IUser
         ComputeFlag();
         bw.Write(ConstructorId);
         bw.Serialize(Flags);
+        bw.Serialize(Flags2);
         bw.Write(Id);
         if (Flags[0]) { bw.Write(AccessHash.Value); }
         if (Flags[1]) { bw.Serialize(FirstName); }
@@ -108,6 +112,7 @@ public class TUser : IUser
         if (Flags[19]) { bw.Serialize(BotInlinePlaceholder); }
         if (Flags[22]) { bw.Serialize(LangCode); }
         if (Flags[30]) { EmojiStatus.Serialize(bw); }
+        if (Flags2[0]) { Usernames.Serialize(bw); }
     }
 
     public void Deserialize(BinaryReader br)
@@ -131,6 +136,7 @@ public class TUser : IUser
         if (Flags[27]) { BotAttachMenu = true; }
         if (Flags[28]) { Premium = true; }
         if (Flags[29]) { AttachMenuEnabled = true; }
+        Flags2 = br.Deserialize<BitArray>();
         Id = br.ReadInt64();
         if (Flags[0]) { AccessHash = br.ReadInt64(); }
         if (Flags[1]) { FirstName = br.Deserialize<string>(); }
@@ -144,5 +150,6 @@ public class TUser : IUser
         if (Flags[19]) { BotInlinePlaceholder = br.Deserialize<string>(); }
         if (Flags[22]) { LangCode = br.Deserialize<string>(); }
         if (Flags[30]) { EmojiStatus = br.Deserialize<MyTelegram.Schema.IEmojiStatus>(); }
+        if (Flags2[0]) { Usernames = br.Deserialize<TVector<MyTelegram.Schema.IUsername>>(); }
     }
 }

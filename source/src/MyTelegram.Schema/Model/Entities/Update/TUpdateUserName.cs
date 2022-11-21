@@ -7,14 +7,14 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/updateUserName" />
 ///</summary>
-[TlObject(0xc3f202e0)]
+[TlObject(0xa7848924)]
 public class TUpdateUserName : IUpdate
 {
-    public uint ConstructorId => 0xc3f202e0;
+    public uint ConstructorId => 0xa7848924;
     public long UserId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string Username { get; set; }
+    public TVector<MyTelegram.Schema.IUsername> Usernames { get; set; }
 
     public void ComputeFlag()
     {
@@ -28,7 +28,7 @@ public class TUpdateUserName : IUpdate
         bw.Write(UserId);
         bw.Serialize(FirstName);
         bw.Serialize(LastName);
-        bw.Serialize(Username);
+        Usernames.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
@@ -36,6 +36,6 @@ public class TUpdateUserName : IUpdate
         UserId = br.ReadInt64();
         FirstName = br.Deserialize<string>();
         LastName = br.Deserialize<string>();
-        Username = br.Deserialize<string>();
+        Usernames = br.Deserialize<TVector<MyTelegram.Schema.IUsername>>();
     }
 }

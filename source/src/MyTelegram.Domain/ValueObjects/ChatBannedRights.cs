@@ -2,8 +2,15 @@
 
 public class ChatBannedRights : ValueObject
 {
-    public static readonly ChatBannedRights Default = new();
-    public ChatBannedRights() { }
+    public static readonly ChatBannedRights Default = new(false, false, false, false, false, false, false, false, false, true, true, false, int.MaxValue, true);
+
+    public ChatBannedRights()
+    {
+        ChangeInfo = true;
+        InviteUsers = true;
+        ManageTopic = true;
+        UntilDate = int.MaxValue;
+    }
 
     public ChatBannedRights(
         bool viewMessages,
@@ -18,7 +25,9 @@ public class ChatBannedRights : ValueObject
         bool changeInfo,
         bool inviteUsers,
         bool pinMessages,
-        int untilDate)
+        int untilDate,
+        bool manageTopic
+        )
     {
         ViewMessages = viewMessages;
         SendMessages = sendMessages;
@@ -33,33 +42,35 @@ public class ChatBannedRights : ValueObject
         InviteUsers = inviteUsers;
         PinMessages = pinMessages;
         UntilDate = untilDate;
+        ManageTopic = manageTopic;
     }
 
-    public bool ChangeInfo { get; private set; } = true;
+    public bool ChangeInfo { get; init; } = true;
 
-    public bool EmbedLinks { get; private set; }
+    public bool EmbedLinks { get; init; }
 
-    public bool InviteUsers { get; private set; } = true;
+    public bool InviteUsers { get; init; } = true;
 
-    public bool PinMessages { get; private set; } = true;
+    public bool PinMessages { get; init; } = true;
 
-    public bool SendGames { get; private set; }
+    public bool SendGames { get; init; }
 
-    public bool SendGifs { get; private set; }
+    public bool SendGifs { get; init; }
 
-    public bool SendInline { get; private set; }
+    public bool SendInline { get; init; }
 
-    public bool SendMedia { get; private set; }
-    public bool SendMessages { get; private set; }
+    public bool SendMedia { get; init; }
+    public bool SendMessages { get; init; }
 
-    public bool SendPolls { get; private set; }
+    public bool SendPolls { get; init; }
 
-    public bool SendStickers { get; private set; }
+    public bool SendStickers { get; init; }
 
-    public int UntilDate { get; private set; } = int.MaxValue;
+    public int UntilDate { get; init; } = int.MaxValue;
+    public bool ManageTopic { get; }
 
-    //public BitArray Flags { get; private set; } = new(32);
-    public bool ViewMessages { get; private set; }
+    //public BitArray Flags { get; init; } = new(32);
+    public bool ViewMessages { get; init; }
 
     public static ChatBannedRights FromValue(int value,
         int untilDate)
@@ -78,7 +89,8 @@ public class ChatBannedRights : ValueObject
             flags[10],
             flags[15],
             flags[17],
-            untilDate
+            untilDate,
+            flags[18]
         );
         return rights;
     }
@@ -118,6 +130,11 @@ public class ChatBannedRights : ValueObject
         if (InviteUsers) { flag[15] = true; }
 
         if (PinMessages) { flag[17] = true; }
+
+        if (ManageTopic)
+        {
+            flag[18] = true;
+        }
 
         return flag;
     }

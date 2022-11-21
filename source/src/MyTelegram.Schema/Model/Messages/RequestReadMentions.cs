@@ -6,30 +6,36 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/method/messages.readMentions" />
 ///</summary>
-[TlObject(0xf0189d3)]
+[TlObject(0x36e5bf4d)]
 public sealed class RequestReadMentions : IRequest<MyTelegram.Schema.Messages.IAffectedHistory>
 {
-    public uint ConstructorId => 0xf0189d3;
+    public uint ConstructorId => 0x36e5bf4d;
+    public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+    public int? TopMsgId { get; set; }
 
     public void ComputeFlag()
     {
-
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[0] = true; }
     }
 
     public void Serialize(BinaryWriter bw)
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         Peer.Serialize(bw);
+        if (Flags[0]) { bw.Write(TopMsgId.Value); }
     }
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
         Peer = br.Deserialize<MyTelegram.Schema.IInputPeer>();
+        if (Flags[0]) { TopMsgId = br.ReadInt32(); }
     }
 }

@@ -7,15 +7,17 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/updateDraftMessage" />
 ///</summary>
-[TlObject(0xee2bb969)]
+[TlObject(0x1b49ec6d)]
 public class TUpdateDraftMessage : IUpdate
 {
-    public uint ConstructorId => 0xee2bb969;
+    public uint ConstructorId => 0x1b49ec6d;
+    public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
+    public int? TopMsgId { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/DraftMessage" />
@@ -24,6 +26,7 @@ public class TUpdateDraftMessage : IUpdate
 
     public void ComputeFlag()
     {
+        if (TopMsgId != 0 && TopMsgId.HasValue) { Flags[0] = true; }
 
     }
 
@@ -31,13 +34,17 @@ public class TUpdateDraftMessage : IUpdate
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
         Peer.Serialize(bw);
+        if (Flags[0]) { bw.Write(TopMsgId.Value); }
         Draft.Serialize(bw);
     }
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
         Peer = br.Deserialize<MyTelegram.Schema.IPeer>();
+        if (Flags[0]) { TopMsgId = br.ReadInt32(); }
         Draft = br.Deserialize<MyTelegram.Schema.IDraftMessage>();
     }
 }

@@ -72,6 +72,7 @@ public class CustomObjectMapper :
         destination.Anonymous = source.Anonymous;
         destination.ManageCall = source.ManageCall;
         destination.Other = source.Other;
+        destination.ManageTopics = source.ManageTopic;
 
         return destination;
     }
@@ -97,6 +98,7 @@ public class CustomObjectMapper :
         destination.InviteUsers = source.InviteUsers;
         destination.PinMessages = source.PinMessages;
         destination.UntilDate = source.UntilDate;
+        destination.ManageTopics = source.ManageTopic;
 
         return destination;
     }
@@ -349,7 +351,7 @@ public class CustomObjectMapper :
                 Message = source.Draft.Message,
                 NoWebpage = source.Draft.NoWebpage,
                 ReplyToMsgId = source.Draft.ReplyToMsgId,
-                Entities = source.Draft.Entities.ToTObject<TVector<IMessageEntity>>()
+                Entities = source.Draft.Entities.ToTObject<TVector<IMessageEntity>>(),
             };
         }
 

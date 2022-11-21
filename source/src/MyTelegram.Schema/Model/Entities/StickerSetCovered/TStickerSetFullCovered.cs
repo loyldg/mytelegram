@@ -7,16 +7,17 @@ namespace MyTelegram.Schema;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/stickerSetFullCovered" />
 ///</summary>
-[TlObject(0x1aed5ee5)]
+[TlObject(0x40d13c0e)]
 public class TStickerSetFullCovered : IStickerSetCovered
 {
-    public uint ConstructorId => 0x1aed5ee5;
+    public uint ConstructorId => 0x40d13c0e;
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/StickerSet" />
     ///</summary>
     public MyTelegram.Schema.IStickerSet Set { get; set; }
     public TVector<MyTelegram.Schema.IStickerPack> Packs { get; set; }
+    public TVector<MyTelegram.Schema.IStickerKeyword> Keywords { get; set; }
     public TVector<MyTelegram.Schema.IDocument> Documents { get; set; }
 
     public void ComputeFlag()
@@ -30,6 +31,7 @@ public class TStickerSetFullCovered : IStickerSetCovered
         bw.Write(ConstructorId);
         Set.Serialize(bw);
         Packs.Serialize(bw);
+        Keywords.Serialize(bw);
         Documents.Serialize(bw);
     }
 
@@ -37,6 +39,7 @@ public class TStickerSetFullCovered : IStickerSetCovered
     {
         Set = br.Deserialize<MyTelegram.Schema.IStickerSet>();
         Packs = br.Deserialize<TVector<MyTelegram.Schema.IStickerPack>>();
+        Keywords = br.Deserialize<TVector<MyTelegram.Schema.IStickerKeyword>>();
         Documents = br.Deserialize<TVector<MyTelegram.Schema.IDocument>>();
     }
 }

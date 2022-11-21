@@ -7,16 +7,19 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 ///See <a href="https://core.telegram.org/constructor/messages.sponsoredMessages" />
 ///</summary>
-[TlObject(0x65a4c7d5)]
+[TlObject(0xc9ee1d87)]
 public class TSponsoredMessages : ISponsoredMessages
 {
-    public uint ConstructorId => 0x65a4c7d5;
+    public uint ConstructorId => 0xc9ee1d87;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public int? PostsBetween { get; set; }
     public TVector<MyTelegram.Schema.ISponsoredMessage> Messages { get; set; }
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()
     {
+        if (PostsBetween != 0 && PostsBetween.HasValue) { Flags[0] = true; }
 
     }
 
@@ -24,6 +27,8 @@ public class TSponsoredMessages : ISponsoredMessages
     {
         ComputeFlag();
         bw.Write(ConstructorId);
+        bw.Serialize(Flags);
+        if (Flags[0]) { bw.Write(PostsBetween.Value); }
         Messages.Serialize(bw);
         Chats.Serialize(bw);
         Users.Serialize(bw);
@@ -31,6 +36,8 @@ public class TSponsoredMessages : ISponsoredMessages
 
     public void Deserialize(BinaryReader br)
     {
+        Flags = br.Deserialize<BitArray>();
+        if (Flags[0]) { PostsBetween = br.ReadInt32(); }
         Messages = br.Deserialize<TVector<MyTelegram.Schema.ISponsoredMessage>>();
         Chats = br.Deserialize<TVector<MyTelegram.Schema.IChat>>();
         Users = br.Deserialize<TVector<MyTelegram.Schema.IUser>>();
