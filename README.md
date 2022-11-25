@@ -22,6 +22,8 @@ Pro version supports client communication with different layers,open source vers
 * Bot(Partial support,Pro version)
 * 2FA(Pro version)
 * Stickers(Pro version)
+* Reactions(Pro version)
+* ForumTopics(Pro version)
 
 ## Build MyTelegram Server
 1. Install [.NET SDK 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)

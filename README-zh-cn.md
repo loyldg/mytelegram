@@ -23,6 +23,8 @@ Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开�
 * 机器人(部分支持,Pro版本)
 * 2FA(Pro版本)
 * 表情包(Pro版本)
+* Reactions(Pro版本)
+* ForumTopics(Pro版本)
 
 ## 编译MyTelegram服务端
 1. 安装[.NET SDK 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
