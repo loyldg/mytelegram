@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.MessengerServer.Services.Impl;
+﻿using System.Text.RegularExpressions;
+
+namespace MyTelegram.MessengerServer.Services.Impl;
 
 public class MessageAppService : BaseAppService, IMessageAppService
 {
@@ -44,10 +46,54 @@ public class MessageAppService : BaseAppService, IMessageAppService
             input.Pts));
     }
 
+    public Task<GetMessageOutput> GetHistoryAsync(GetHistoryInput input)
+    {
+        return GetMessagesCoreAsync(input);
+    }
+
+    public Task<GetMessageOutput> GetMessagesAsync(GetMessagesInput input)
+    {
+        return GetMessagesCoreAsync(input);
+    }
+
+    public Task<GetMessageOutput> GetRepliesAsync(GetRepliesInput input)
+    {
+        return GetMessagesCoreAsync(input);
+    }
+
+    public Task<GetMessageOutput> SearchAsync(SearchInput input)
+    {
+        return GetMessagesCoreAsync(input);
+    }
+
+    public Task<GetMessageOutput> SearchGlobalAsync(SearchGlobalInput input)
+    {
+        return GetMessagesCoreAsync(input);
+    }
+
     public async Task SendMessageAsync(SendMessageInput input)
     {
         var correlationId = Guid.NewGuid();
         var ownerPeerId = input.ToPeer.PeerType == PeerType.Channel ? input.ToPeer.PeerId : input.SenderPeerId;
+        var mentions = GetMentions(input.Message);
+        var entities = input.Entities;
+        if (mentions.Count > 0)
+        {
+            if (entities?.Length > 0)
+            {
+                var tempEntities = input.Entities.ToTObject<TVector<IMessageEntity>>() ?? new TVector<IMessageEntity>();
+                foreach (var messageEntity in mentions)
+                {
+                    tempEntities.Add(messageEntity);
+                }
+
+                entities = tempEntities.ToBytes();
+            }
+            else
+            {
+                entities = new TVector<IMessageEntity>(mentions).ToBytes();
+            }
+        }
 
         var date = CurrentDate;
         var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, input.RandomId);
@@ -66,7 +112,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
             input.ReplyToMsgId,
             input.MessageActionData,
             MessageActionType.None,
-            input.Entities,
+            entities,
             input.Media,
             input.GroupId,
             pollId: input.PollId
@@ -81,29 +127,24 @@ public class MessageAppService : BaseAppService, IMessageAppService
 
         await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
     }
+    private List<IMessageEntity> GetMentions(string message)
+    {
+        var pattern = "@(\\w{3,40})";
+        var mentions = new List<IMessageEntity>();
+        var matches = Regex.Matches(message, pattern);
+        foreach (Match match in matches)
+        {
+            if (match.Success)
+            {
+                mentions.Add(new TMessageEntityMention
+                {
+                    Offset = match.Index,
+                    Length = match.Length
+                });
+            }
+        }
 
-    public Task<GetMessageOutput> GetMessagesAsync(GetMessagesInput input)
-    {
-        return GetMessagesCoreAsync(input);
-    }
-
-    public Task<GetMessageOutput> GetHistoryAsync(GetHistoryInput input)
-    {
-        return GetMessagesCoreAsync(input);
-    }
-
-    public Task<GetMessageOutput> SearchAsync(SearchInput input)
-    {
-        return GetMessagesCoreAsync(input);
-    }
-
-    public Task<GetMessageOutput> SearchGlobalAsync(SearchGlobalInput input)
-    {
-        return GetMessagesCoreAsync(input);
-    }
-    public Task<GetMessageOutput> GetRepliesAsync(GetRepliesInput input)
-    {
-        return GetMessagesCoreAsync(input);
+        return mentions;
     }
 
     private Task<GetMessageOutput> GetMessagesCoreAsync<TRequest>(TRequest input)
@@ -118,21 +159,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
 
     private async Task<GetMessageOutput> GetMessagesInternalAsync(GetMessagesQuery query)
     {
-        //var channelHistoryMinId = 0;
-        //if (query.Peer?.PeerType == PeerType.Channel)
-        //{
-        //    var dialog = await QueryProcessor
-        //        .ProcessAsync(new GetDialogByIdQuery(DialogId.Create(query.SelfUserId, query.Peer)),
-        //            CancellationToken.None).ConfigureAwait(false);
-        //    channelHistoryMinId = dialog?.ChannelHistoryMinId ?? 0;
-        //    ;
-        //}
         var messageBoxList = await _queryProcessor.ProcessAsync(query, CancellationToken.None).ConfigureAwait(false);
-        // Console.WriteLine($"GetMessagesInternalAsync limit={query.Limit} actual count={messageBoxList.Count},offset={query.Offset}");
-        // 添加群成员里的用户列表需要单独处理
-        //var addChatUserIdList = messageBoxList
-        //    .Where(p => p.MessageActionType == MessageActionType.ChatAddUser).SelectMany(p =>
-        //        p.MessageActionData.ToBytes().ToTObject2<TMessageActionChatAddUser>().Users.ToList()).ToList();
         var extraChatUserIdList = new List<long>();
         foreach (var box in messageBoxList)
         {
@@ -160,17 +187,6 @@ public class MessageAppService : BaseAppService, IMessageAppService
         userIdList.Add(query.SelfUserId);
         userIdList.AddRange(extraChatUserIdList);
 
-        //if (query.Q?.Length > 5 && query.Q.StartsWith("@"))
-        //{
-        //    var userNameReadModels = await _queryProcessor
-        //        .ProcessAsync(new SearchUserNameQuery(query.Q[1..]), default).ConfigureAwait(false);
-        //    userIdList.AddRange(userNameReadModels.Where(p => p.PeerType == PeerType.User).Select(p => p.PeerId).ToList());
-        //    channelIdList.AddRange(userNameReadModels.Where(p => p.PeerType == PeerType.Channel).Select(p => p.PeerId).ToList());
-
-        //    userIdList = userIdList.Distinct().ToList();
-        //    channelIdList = channelIdList.Distinct().ToList();
-        //}
-
         var userList =
             await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIdList), CancellationToken.None)
                 .ConfigureAwait(false);
@@ -196,7 +212,8 @@ public class MessageAppService : BaseAppService, IMessageAppService
         if (joinedChannelIdList.Count > 0)
         {
             channelMemberList = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberListByChannelIdListQuery(query.SelfUserId, joinedChannelIdList.ToList()),
+                .ProcessAsync(
+                    new GetChannelMemberListByChannelIdListQuery(query.SelfUserId, joinedChannelIdList.ToList()),
                     default).ConfigureAwait(false);
         }
 
@@ -217,6 +234,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
                 .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.SelfUserId), default)
                 .ConfigureAwait(false);
         }
+
         return new GetMessageOutput(channelList,
             channelMemberList,
             chatList,
