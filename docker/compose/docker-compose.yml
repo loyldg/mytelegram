@@ -70,14 +70,17 @@ services:
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
        App__Servers__0__Enabled: ${Servers0Enabled}
        App__Servers__0__ServerType: ${Servers0ServerType}
+       App__Servers__0__Ip: ${Servers0Ip}
        App__Servers__0__Port: ${Servers0Port}
        App__Servers__1__Enabled: ${Servers1Enabled}
        App__Servers__1__ServerType: ${Servers1ServerType}
+       App__Servers__1__Ip: ${Servers1Ip}
        App__Servers__1__Port: ${Servers1Port}
        App__Servers__1__CertPemFilePath: ${Servers1CertPemFilePath}
        App__Servers__1__KeyPemFilePath: ${Servers1KeyPemFilePath}
        App__Servers__2__Enabled: ${Servers2Enabled}
        App__Servers__2__ServerType: ${Servers2ServerType}
+       App__Servers__2__Ip: ${Servers2Ip}
        App__Servers__2__Port: ${Servers2Port}
     depends_on:
       - rabbitmq
