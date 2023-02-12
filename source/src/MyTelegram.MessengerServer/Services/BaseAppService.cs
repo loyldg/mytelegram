@@ -76,6 +76,20 @@ public abstract class BaseAppService
             return LoadType.AroundMessage;
         }
 
+        // WebZ:LoadMoreDirection.Around: 
+        // addOffset = -(Math.round(MESSAGE_LIST_SLICE / 2) + 1);
+        if (input.AddOffset == -(input.Limit / 2 + 1))
+        {
+            return LoadType.AroundMessage;
+        }
+
+        // WebZ:LoadMoreDirection.Forwards:
+        //  addOffset = -(MESSAGE_LIST_SLICE + 1);
+        if (input.AddOffset == -(input.Limit + 1))
+        {
+            return LoadType.Backward;
+        }
+
         if (input.AddOffset == -input.Limit + 6 && input.MaxId != 0)
         {
             return LoadType.AroundDate;
