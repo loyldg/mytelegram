@@ -28,13 +28,13 @@ Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开�
 
 ## 编译MyTelegram服务端
 1. 安装[.NET SDK 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
-2. 执行以下代码 
+2. 使用Powershell或者Linux终端执行以下代码 
 ```
 git clone https://github.com/loyldg/mytelegram.git 
 cd mytelegram/source
 dotnet restore
 cd .\src\MyTelegram.MessengerServer.Abp\
-dotnet publish -c Release -r win-x64 
+dotnet publish -c Release -p:PublishSingleFile=true 
 
 ```
 

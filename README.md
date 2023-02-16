@@ -27,13 +27,13 @@ Pro version supports client communication with different layers,open source vers
 
 ## Build MyTelegram Server
 1. Install [.NET SDK 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
-2. Execute the following command using powershell
+2. Execute the following command using powershell or Linux terminal
 ```
 git clone https://github.com/loyldg/mytelegram.git 
 cd mytelegram/source
 dotnet restore
 cd .\src\MyTelegram.MessengerServer.Abp\
-dotnet publish -c Release 
+dotnet publish -c Release -p:PublishSingleFile=true
 ```
 
 ## Run MyTelegram server

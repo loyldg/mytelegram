@@ -27,7 +27,7 @@
   <PropertyGroup Condition="'$(IsLinux)'=='true'">
     <DefineConstants>Linux</DefineConstants>
   </PropertyGroup>
-
+<!--
    <PropertyGroup>
     <DebuggerSupport>false</DebuggerSupport>
     <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
@@ -41,4 +41,5 @@
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <IlcOptimizationPreference>Size</IlcOptimizationPreference>
   </PropertyGroup>
+  -->
 </Project>
