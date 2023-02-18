@@ -6,6 +6,9 @@
 MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment
 ## Demo
 [https://webz.mytelegram.top/](https://webz.mytelegram.top/)  
+
+[https://fcbplgfrwduz5h6wq2thuqzlbzggsddztiedlqkpz7dfciku43zwqwqd.onion](https://fcbplgfrwduz5h6wq2thuqzlbzggsddztiedlqkpz7dfciku43zwqwqd.onion)(Visit this link use Tor browser,the server use a dev certificate,need to click "Advanced..."->"Accept the Risk and Continue" from the page)
+
 **Verification Code:22222**
 ## Features
 * Supported Api Layer:**`143`~`148`**  
@@ -33,7 +36,7 @@ git clone https://github.com/loyldg/mytelegram.git
 cd mytelegram/source
 dotnet restore
 cd .\src\MyTelegram.MessengerServer.Abp\
-dotnet publish -c Release -p:PublishSingleFile=true
+dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
 ```
 
 ## Run MyTelegram server

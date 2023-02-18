@@ -6,7 +6,9 @@
 MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/api)的开源实现,支持私有化部署服务端,客户端使用官方的开源客户端
 
 ## 演示地址
-[https://webz.mytelegram.top/](https://webz.mytelegram.top/)  
+[https://webz.mytelegram.top](https://webz.mytelegram.top)  
+[https://fcbplgfrwduz5h6wq2thuqzlbzggsddztiedlqkpz7dfciku43zwqwqd.onion](https://fcbplgfrwduz5h6wq2thuqzlbzggsddztiedlqkpz7dfciku43zwqwqd.onion)(使用Tor浏览器访问,由于使用的开发环境证书,首次访问时需要在提示页面点击"Advanced..."->"Accept the Risk and Continue")
+
 **Verification Code:22222**
 ## 特性
 * 支持的Api Layer:**`143`~`148`**  
@@ -34,7 +36,7 @@ git clone https://github.com/loyldg/mytelegram.git
 cd mytelegram/source
 dotnet restore
 cd .\src\MyTelegram.MessengerServer.Abp\
-dotnet publish -c Release -p:PublishSingleFile=true 
+dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
 
 ```
 
