@@ -265,6 +265,17 @@ public class GetAppConfigHandler : RpcResultObjectHandler<RequestGetAppConfig, I
                     {
                         Value = false
                     }
+                },
+                new TJsonObjectValue
+                {
+                    Key = "fragment_prefixes",
+                    Value = new TJsonArray
+                    {
+                        Value = new TVector<IJSONValue>(new TJsonString
+                        {
+                            Value = "888"
+                        })
+                    }
                 }
             )
         };
