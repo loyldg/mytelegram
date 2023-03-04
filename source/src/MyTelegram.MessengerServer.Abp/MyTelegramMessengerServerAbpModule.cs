@@ -12,7 +12,19 @@ public class MyTelegramMessengerServerAbpModule : AbpModule
 
         context.Services.UseMyTelegramMessengerServer(options =>
         {
-            options.ConfigureMongoDb(configuration.GetConnectionString("Default"), configuration["App:DatabaseName"]);
+            var connectionString = configuration.GetRequiredSection("ConnectionStrings:Default").Value;
+            var databaseName = configuration["App:DatabaseName"];
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new ArgumentException("ConnectionString is null,please set its value in appsettings.json");
+            }
+
+            if (string.IsNullOrEmpty(databaseName))
+            {
+                throw new ArgumentException("DatabaseName is null,please set its value in appsettings.json");
+            }
+
+            options.ConfigureMongoDb(connectionString, databaseName);
         });
 
         context.Services.AddHostedService<MyTelegramAbpHostedService>();

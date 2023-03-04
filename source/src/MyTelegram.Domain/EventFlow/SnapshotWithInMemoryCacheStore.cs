@@ -6,11 +6,11 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
     private readonly ILogger<SnapshotStore> _logger;
     private readonly ISnapshotPersistence _snapshotPersistence;
     //private readonly ISnapshotSerializer _snapshotSerializer;
-    private readonly ISnapshotSerilizer _snapshotSerializer;
+    private readonly ISnapshotSerializer _snapshotSerializer;
 
 
     public SnapshotWithInMemoryCacheStore(IMyInMemorySnapshotPersistence inMemorySnapshotPersistence,
-        ISnapshotSerilizer snapshotSerializer,
+        ISnapshotSerializer snapshotSerializer,
         ISnapshotPersistence snapshotPersistence,
         ILogger<SnapshotStore> logger)
     {

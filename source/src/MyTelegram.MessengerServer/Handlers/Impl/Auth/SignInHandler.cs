@@ -42,9 +42,14 @@ public class SignInHandler : RpcResultObjectHandler<RequestSignIn, IAuthorizatio
             userId = userReadModel.UserId;
         }
 
+        if (string.IsNullOrEmpty(obj.PhoneCode))
+        {
+            ThrowHelper.ThrowUserFriendlyException("Phone code can not be null");
+        }
+
         var command = new CheckSignInCodeCommand(AppCodeId.Create(obj.PhoneNumber.ToPhoneNumber(), obj.PhoneCodeHash),
             input.ToRequestInfo(),
-            obj.PhoneCode,
+            obj.PhoneCode!,
             userId,
             Guid.NewGuid()
         );
