@@ -1,4 +1,4 @@
-$version="0.11.1102"
+$version="0.12.304"
 $currentDir=(Get-Item .).FullName
 $parentFolder=(Get-Item $currentDir).Parent
 $outputRootFolder=Join-Path $parentFolder "out" $version 
