@@ -1,19 +1,19 @@
 # MyTelegram  [中文](README-zh-cn.md)|English
-[![API Layer](https://img.shields.io/badge/API_Layer-148-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-152-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![Support Chat](https://img.shields.io/badge/Chat_with_us-on_Telegram-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
 
 MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment
 ## Demo
-[https://webz.mytelegram.top/](https://webz.mytelegram.top/)  
+[https://webz.mytelegram.top](https://webz.mytelegram.top/)  
 
 [https://fcbplgfrwduz5h6wq2thuqzlbzggsddztiedlqkpz7dfciku43zwqwqd.onion](https://fcbplgfrwduz5h6wq2thuqzlbzggsddztiedlqkpz7dfciku43zwqwqd.onion)(Visit this link use Tor browser,the server use a dev certificate,need to click "Advanced..."->"Accept the Risk and Continue" from the page)
 
 **Verification Code:22222**
 ## Features
-* Supported Api Layer:**`143`~`148`**  
-Open source version: **`148`**  
-Pro version:**`143`**~**`148`**  
+* Supported Api Layer:**`143`~`152`**  
+Open source version: **`152`**  
+Pro version:**`143`**~**`152`**  
 Pro version supports client communication with different layers,open source version only supports single layer  
 * [MTProto transports](https://corefork.telegram.org/mtproto/mtproto-transports):**`Abridged`**,**`Intermediate`**(also support [Transport error](https://corefork.telegram.org/mtproto/mtproto-transports#transport-errors) and [Transport obfuscation](https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation))  
 * Private chat
@@ -40,7 +40,7 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 ```
 
 ## Run MyTelegram server
-- ### Run MyTelegram server with docker
+- ### Run MyTelegram server with docker(Only support Layer 146)
 1. Download docker-compose configuration files
     ```
     https://github.com/loyldg/mytelegram/blob/dev/docker/compose/docker-compose.yml
@@ -63,7 +63,7 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 8. Run `start-all.bat`/`start-all.ps1`/`start-all.sh`
 
 - ### Test with compiled client
-1. Download [TDesktop client(4.2.2)](https://github.com/loyldg/mytelegram/releases/download/v0.11.1102/Telegram-4.2.2-x64.zip)
+1. Download [TDesktop client(4.6.4)](https://github.com/loyldg/mytelegram/releases/download/v0.12.304/Telegram-4.6.4-x64.zip)
 2. Add the IP address of the gateway server to hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line to hosts file
 ```
 192.168.1.100    demos.telegram2.com
@@ -98,15 +98,15 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
 -----END PUBLIC KEY-----
 ```
 
-The default publick key's fingerprint is **`0xce27f5081215bda4`**(Android client need calculate fingerpint and replace using this value),
+The default fingerprint of the public key is **`0xce27f5081215bda4`**(Android client need calculate fingerpint and replace it using this value),
 if you want to use your own public key,replace `private.pkcs8.key` in auth folder
 
 - ### Build [Tdesktop client](https://github.com/telegramdesktop/tdesktop)
-1. Switch to the branch which the layer is 146(version 4.2.x)
+1. Switch to the branch which the layer is 152(version 4.6.x)
 2. Replace server addresses,port and RSA public key in **Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**
 
 - ### Build [Android client](https://github.com/DrKLO/Telegram)
-1. Switch to the branch which the layer is 146(version 9.x)
+1. Switch to the branch which the layer is 152(version 9.3+)
 2. **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** Mytelegram not support Stickers in current version,need comment the following code in method `setSticker`  
    ``` java
    MediaDataController.getInstance(currentAccount).loadStickersByEmojiOrName(AndroidUtilities.STICKERS_PLACEHOLDER_PACK_NAME, false, set == null);
@@ -119,51 +119,72 @@ if you want to use your own public key,replace `private.pkcs8.key` in auth folde
 - ### Build [iOS client](https://github.com/TelegramMessenger/Telegram-iOS)
   Coming soon
 - ### Build [Telegram Web K](https://github.com/morethanwords/tweb)
-1. **src\lib\mtproto\rsaKeysManager.ts** Replace **modulus** with the following value
+Note:The following documents are based on this version:https://github.com/morethanwords/tweb/tree/2b661d4ca277d80ada877b38f03e46cc143beacc
+
+1. Make sure the client layer is 152,check it in **src\scripts\out\schema.json**
+2. **src\lib\mtproto\rsaKeysManager.ts** Replace **modulus** with the following value
   ```
   bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7      
-  ```      
-2. **src\lib\mtproto\dcConfigurator.ts** Replace the domain and server address
-3. **src\config\app.ts** Replace the domain
-4. **webpack.common.js** Replace the domain and server address
+  ```  
+3. **src\config\modes.ts**  
+Line 18 change `ssl: true` to `ssl: false`
+4. **src\lib\mtproto\dcConfigurator.ts**
+Line 52:
+```
+export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: ConnectionType, premium?: boolean) {
+  const suffix = getTelegramConnectionSuffix(connectionType);
+  const path = connectionType !== 'client' ? 'apiws' + TEST_SUFFIX + (premium ? PREMIUM_SUFFIX : '') : ('apiws' + TEST_SUFFIX);
+  const chosenServer = `wss://${App.suffix.toLowerCase()}ws${dcId}${suffix}.web.telegram.org/${path}`;
+
+  return chosenServer;
+}
+```
+replace with:
+```
+export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: ConnectionType, premium?: boolean) {
+  return 'ws://The IPAddress of your gateway server:30444/apiws';
+}
+```
+Line 64:
+replace the IPAddress and port
 
 - ### Build [Telegram Web Z](https://github.com/Ajaxy/telegram-tt)
-1. **/src/lib/gramjs/network/Authenticator.ts** Line 47
-```typescript
-const pqInnerData = new Api.PQInnerData({
-        pq: Helpers.getByteArray(pq), // unsigned
-        p: pBuffer,
-        q: qBuffer,
-        nonce: resPQ.nonce,
-        serverNonce: resPQ.serverNonce,
-        newNonce,
-    }).getBytes();
+Note:The following documents are based on this version:https://github.com/Ajaxy/telegram-tt/tree/27842a1cf34685b3d088642124a221bebf675300
+1. Make sure the client layer is 152,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
+2. **src\api\gramjs\gramjsBuilders\index.ts**
+Line 35:
+`const CHANNEL_ID_MIN_LENGTH = 11; ` to `const CHANNEL_ID_MIN_LENGTH = 13; `
+Line 55:
+`chatOrUserId <= -1000000000` to `chatOrUserId <= -800000000000`
+3. **src\api\gramjs\methods\client.ts**  
+Line 76: `useWSS: true,` to `useWSS: false,`
+4. **src\api\gramjs\methods\users.ts**
+Line 161:
 ```
-replace the code with the following code
-```typescript
-const pqInnerData = new Api.PQInnerDataDc({
-        pq: Helpers.getByteArray(pq), // unsigned
-        p: pBuffer,
-        q: qBuffer,
-        nonce: resPQ.nonce,
-        serverNonce: resPQ.serverNonce,
-        newNonce,
-        dc: 2
-    }).getBytes();
+const result = await invokeRequest(new GramJs.users.GetUsers({
+    id: users.map(({ id, accessHash }) => buildInputPeer(id, accessHash)),
+  }));
 ```
-
-2. **/src/lib/gramjs/extensions/PromisedWebSockets.js** Line 69
-Replace `port === 443` with `port === 30443`
-``` typescript
-getWebSocketLink(ip, port, testServers) {
-        if (port === 443) {
-            return `wss://${ip}:${port}/apiws${testServers ? '_test' : ''}`;
-        } else {
-            return `ws://${ip}:${port}/apiws${testServers ? '_test' : ''}`;
-        }
-    }
+to
 ```
-3. **src\lib\gramjs\crypto\RSA.ts** Replace SERVER_KEYS with the following code
+  const result = await invokeRequest(new GramJs.users.GetUsers({
+    id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
+  }));
+```
+5. **src\lib\gramjs\Utils.js**
+Line 641:
+to
+```
+return { id: 2, ipAddress: 'Your Server IP', port: 30444 };
+```
+6. **src\lib\gramjs\client\TelegramClient.js**
+Line 299:
+to
+```
+this.session.setDC(this.defaultDcId, DC.ipAddress, this._args.useWSS ? 30443 : 30444);
+```
+7. **src\lib\gramjs\crypto\RSA.ts**
+Replace SERVER_KEYS with the following code
 ```typescript
 export const SERVER_KEYS = [
     {
@@ -176,41 +197,33 @@ export const SERVER_KEYS = [
     return acc;
 }, new Map<string, { n: bigInt.BigInteger; e: number }>());
 ```
-
-4. **src\lib\gramjs\client\TelegramClient.js**  
-Line 29:Replace `zws2.web.telegram.org` with the IP address of the gateway server  
-Line 30:Replace `[2001:67c:4e8:f002::a]` with the IPV6 address of the gateway server,if gateway server IPV6 not enable,you can also replace the value with the IPV4 address of gateway server  
-Line 70:`useWSS: false`(HTTP) `useWSS: false`(HTTPS)  
-Line 224:Replace `this._args.useWSS ? 443 : 80` with `this._args.useWSS ? 30443 : 30444`
-5. **src\api\gramjs\methods\users.ts**    
-Line 146:
+8. **src\lib\gramjs\extensions\PromisedWebSockets.js**
+Line 67:
+`if (port === 443)` to `if (port === 30443)`
+9. **src\lib\gramjs\network\Authenticator.ts**
+Line 47:
+```typescript
+const pqInnerData = new Api.PQInnerData({
+        pq: Helpers.getByteArray(pq), // unsigned
+        p: pBuffer,
+        q: qBuffer,
+        nonce: resPQ.nonce,
+        serverNonce: resPQ.serverNonce,
+        newNonce,
+    }).getBytes();
 ```
-const result = await invokeRequest(new GramJs.users.GetUsers({
-    id: users.map(({ id, accessHash }) => buildInputPeer(id, accessHash)),
-  }));
+to
+```typescript
+const pqInnerData = new Api.PQInnerDataDc({
+        pq: Helpers.getByteArray(pq), // unsigned
+        p: pBuffer,
+        q: qBuffer,
+        nonce: resPQ.nonce,
+        serverNonce: resPQ.serverNonce,
+        newNonce,
+        dc: 2
+    }).getBytes();
 ```
-Replace with the following code:
-```
-const result = await invokeRequest(new GramJs.users.GetUsers({
-    id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
-  }));
-```
-
-6. **src\lib\gramjs\Utils.js**
-Line 640:  
-```
-function getDC(dcId, downloadDC = false) {
-    // TODO Move to external config
-```
-Replace with the following code,and replace ipAddress
-```
-function getDC(dcId, downloadDC = false) {
-return { id: 2, ipAddress: 'IPAddress of your gateway server', port: 30443 };
-```
-7. **src\api\gramjs\gramjsBuilders\index.ts**  
-Line 31:Change `const CHANNEL_ID_MIN_LENGTH = 11;` to  `const CHANNEL_ID_MIN_LENGTH = 13;`  
-Line 51:Change `chatOrUserId <= -1000000000` to `chatOrUserId <= -800000000000`
-
 ## Support MyTelegram
 Love MyTelegram? Please give a star to this repository ⭐
 

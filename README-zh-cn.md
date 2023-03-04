@@ -1,5 +1,5 @@
 # MyTelegram 中文|[English](README.md)
-[![API Layer](https://img.shields.io/badge/API_Layer-148-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-152-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![Support Chat](https://img.shields.io/badge/Chat_with_us-on_Telegram-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
 
@@ -11,9 +11,9 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 
 **Verification Code:22222**
 ## 特性
-* 支持的Api Layer:**`143`~`148`**  
-开源版本:**`148`**  
-Pro版本:**`143`**~**`148`**  
+* 支持的Api Layer:**`143`~`152`**  
+开源版本:**`152`**  
+Pro版本:**`143`**~**`152`**  
 Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开源版本仅支持单一的Layer,只支持某一个版本  
 * 支持的[传输协议](https://corefork.telegram.org/mtproto/mtproto-transports):**`Abridged`**,**`Intermediate`**(支持[Transport error](https://corefork.telegram.org/mtproto/mtproto-transports#transport-errors)和[Transport obfuscation](https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation))  
 * 私聊
@@ -41,7 +41,7 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 ```
 
 ## 运行MyTelegram服务端
-- ### 在docker中运行MyTelegram服务端
+- ### 在docker中运行MyTelegram服务端(目前只支持Layer146版本的客户端)
 1. 下载docker-compose配置文件,将其放到同一个目录里
     ```
     https://github.com/loyldg/mytelegram/blob/dev/docker/compose/docker-compose.yml
@@ -64,7 +64,7 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 8. 运行`start-all.bat`/`start-all.ps1`/`start-all.sh`
 
 - ### 使用编译好的客户端进行测试
-1. 下载[已编译好的TDesktop客户端(4.2.2)](https://github.com/loyldg/mytelegram/releases/download/v0.11.1102/Telegram-4.2.2-x64.zip)
+1. 下载[已编译好的TDesktop客户端(4.6.4)](https://github.com/loyldg/mytelegram/releases/download/v0.12.304/Telegram-4.6.4-x64.zip)
 2. 将Gateway server的IP地址加入`%SystemRoot%/system32/drivers/etc/hosts`,比如Gateway Server服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
 ```
 192.168.1.100    demos.telegram2.com
@@ -102,11 +102,11 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
 ```
 默认公钥的Fingerprint为: **`0xce27f5081215bda4`** (安卓客户端里的Fingerprint需要提前计算好值并进行替换)  
 - ### 编译桌面客户端 [TDesktop](https://github.com/telegramdesktop/tdesktop)
-1. 切换到Layer146所在的分支(4.2.x版本)
+1. 切换到Layer152所在的分支(4.6.x版本)
 2. 替换**Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**里的服务器地址,端口,RSA公钥
 
 - ### 编译[安卓客户端](https://github.com/DrKLO/Telegram)
-1. 切换到Layer146所在的分支(9.x版本)
+1. 切换到Layer152所在的分支(9.3+版本)
 
 2. **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** 由于目前不支持Stickers相关功能,需要注释setSticker方法的以下代码,否则客户端会不停的调用获取Stickers的方法
     ```java
@@ -122,15 +122,81 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
   新版本暂时未进行编译,后面会补上需要修改的内容
 
 - ### 编译Web客户端 [Telegram Web K](https://github.com/morethanwords/tweb)
-1.  **src\lib\mtproto\rsaKeysManager.ts**文件里**modulus**的值替换为
+注意:以下文档基于此版本:https://github.com/morethanwords/tweb/tree/2b661d4ca277d80ada877b38f03e46cc143beacc
+1. 确保客户端的Layer为152,在src\scripts\out\schema.json文件里查看
+2.  **src\lib\mtproto\rsaKeysManager.ts**文件里**modulus**的值替换为
   ```
         bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7
   ```
-2.  **src\lib\mtproto\dcConfigurator.ts**替换里面的服务器地址和域名
-3.  **src\config\app.ts** 替换里面的域名
-4.  **webpack.common.js** 替换里面的域名和IP地址  
+3. **src\config\modes.ts** 18行 `ssl: true` 修改为`ssl: false`
+4. **src\lib\mtproto\dcConfigurator.ts**
+52行:
+```
+export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: ConnectionType, premium?: boolean) {
+  const suffix = getTelegramConnectionSuffix(connectionType);
+  const path = connectionType !== 'client' ? 'apiws' + TEST_SUFFIX + (premium ? PREMIUM_SUFFIX : '') : ('apiws' + TEST_SUFFIX);
+  const chosenServer = `wss://${App.suffix.toLowerCase()}ws${dcId}${suffix}.web.telegram.org/${path}`;
+
+  return chosenServer;
+}
+```
+修改为:
+```
+export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: ConnectionType, premium?: boolean) {
+  return 'ws://网关服务器地址:30444/apiws';
+}
+```
+修改dcOptions里的IP地址和端口为你自己的服务器IP地址和端口
+
 - ### 编译Web客户端 [Telegram Web Z](https://github.com/Ajaxy/telegram-tt)
-1. **/src/lib/gramjs/network/Authenticator.ts** 47行开始
+注意:以下文档基于此版本:https://github.com/Ajaxy/telegram-tt/tree/27842a1cf34685b3d088642124a221bebf675300
+1. 确保客户端的Layer为152,在**src\lib\gramjs\tl\AllTLObjects.js**文件里查看
+2. **src\api\gramjs\gramjsBuilders\index.ts**   
+35行:`const CHANNEL_ID_MIN_LENGTH = 11; `修改为`const CHANNEL_ID_MIN_LENGTH = 13; `  
+55行:`chatOrUserId <= -1000000000`修改为`chatOrUserId <= -800000000000`
+
+3. **src\api\gramjs\methods\client.ts**  
+76行:`useWSS: true,`修改为`useWSS: false,`
+4. **src\api\gramjs\methods\users.ts**
+161行:
+```
+const result = await invokeRequest(new GramJs.users.GetUsers({
+    id: users.map(({ id, accessHash }) => buildInputPeer(id, accessHash)),
+  }));
+```
+修改为:
+```
+  const result = await invokeRequest(new GramJs.users.GetUsers({
+    id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
+  }));
+```
+5. **src\lib\gramjs\Utils.js**
+641行:
+修改为
+```
+return { id: 2, ipAddress: '自己的服务器IP', port: 30444 };
+```
+6. **src\lib\gramjs\client\TelegramClient.js**
+299行:修改为
+```this.session.setDC(this.defaultDcId, DC.ipAddress, this._args.useWSS ? 30443 : 30444);
+```
+7. **src\lib\gramjs\crypto\RSA.ts**
+SERVER_KEYS替换为以下内容
+```typescript
+export const SERVER_KEYS = [
+    {
+        fingerprint: bigInt('-3591632762792723036'),
+        n: bigInt('bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7',16),
+        e: 65537
+    }
+].reduce((acc, { fingerprint, ...keyInfo }) => {
+    acc.set(fingerprint.toString(), keyInfo);
+    return acc;
+}, new Map<string, { n: bigInt.BigInteger; e: number }>());
+```
+8. **src\lib\gramjs\extensions\PromisedWebSockets.js**
+67行`if (port === 443)`修改为`if (port === 30443)`
+9. **src\lib\gramjs\network\Authenticator.ts** 47行开始
 ```typescript
 const pqInnerData = new Api.PQInnerData({
         pq: Helpers.getByteArray(pq), // unsigned
@@ -153,64 +219,6 @@ const pqInnerData = new Api.PQInnerDataDc({
         dc: 2
     }).getBytes();
 ```
-2. **/src/lib/gramjs/extensions/PromisedWebSockets.js** 69行  
-将`port === 443`修改为`port === 30443`
-``` typescript
-getWebSocketLink(ip, port, testServers) {
-        if (port === 443) {
-            return `wss://${ip}:${port}/apiws${testServers ? '_test' : ''}`;
-        } else {
-            return `ws://${ip}:${port}/apiws${testServers ? '_test' : ''}`;
-        }
-    }
-```
-3. **src\lib\gramjs\crypto\RSA.ts** SERVER_KEYS替换为以下内容
-```typescript
-export const SERVER_KEYS = [
-    {
-        fingerprint: bigInt('-3591632762792723036'),
-        n: bigInt('bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7',16),
-        e: 65537
-    }
-].reduce((acc, { fingerprint, ...keyInfo }) => {
-    acc.set(fingerprint.toString(), keyInfo);
-    return acc;
-}, new Map<string, { n: bigInt.BigInteger; e: number }>());
-```
-4. **src\lib\gramjs\client\TelegramClient.js**  
-29行:`zws2.web.telegram.org`替换为Gateway服务器的IP地址  
-30行:`[2001:67c:4e8:f002::a]`替换为Gateway服务器的IPV6地址,如果Gateway服务器没有启用IPV6,这里也可以直接替换为IPV4地址  
-70行:`useWSS: false`(HTTP) `useWSS: true`(HTTPS),根据情况进行修改   
-224行:`this._args.useWSS ? 443 : 80);`修改为`this._args.useWSS ? 30443 : 30444);`
-
-5. **src\api\gramjs\methods\users.ts**   
-146行:
-```
-const result = await invokeRequest(new GramJs.users.GetUsers({
-    id: users.map(({ id, accessHash }) => buildInputPeer(id, accessHash)),
-  }));
-```
-替换为如下代码:
-```
-const result = await invokeRequest(new GramJs.users.GetUsers({
-    id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
-  }));
-```
-6. **src\lib\gramjs\Utils.js**
-640行:  
-```
-function getDC(dcId, downloadDC = false) {
-    // TODO Move to external config
-```
-修改为以下代码,并替换gateway服务器IP地址
-```
-function getDC(dcId, downloadDC = false) {
-return { id: 2, ipAddress: '这里替换为gateway服务器Ip地址', port: 30443 };
-```
-7. **src\api\gramjs\gramjsBuilders\index.ts**  
-31行:`const CHANNEL_ID_MIN_LENGTH = 11;`修改为`const CHANNEL_ID_MIN_LENGTH = 13;`  
-51行:`chatOrUserId <= -1000000000`修改为`chatOrUserId <= -800000000000`
-
 ## 支持MyTelegram
 如果你喜欢这个项目,请点一个⭐
 
