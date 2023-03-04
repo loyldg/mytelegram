@@ -117,7 +117,7 @@ public class GetStickerSetHandler : RpcResultObjectHandler<RequestGetStickerSet,
             //    }
             //});
 
-            IStickerSet r = new Schema.Messages.TStickerSet { Set = set, Packs = packs, Documents = documents };
+            IStickerSet r = new Schema.Messages.TStickerSet { Set = set, Packs = packs, Documents = documents, Keywords = new() };
 
             return r;
         }
@@ -142,7 +142,8 @@ public class GetStickerSetHandler : RpcResultObjectHandler<RequestGetStickerSet,
                     AccessHash = 1494194797110569295,
                     Title = "Animated Emojies",
                     Thumbs = new TVector<IPhotoSize>()
-                }
+                },
+                Keywords = new()
             };
         }
 
@@ -164,7 +165,8 @@ public class GetStickerSetHandler : RpcResultObjectHandler<RequestGetStickerSet,
                     AccessHash = 1494194797110569295,
                     Title = "Animated Emojies",
                     Thumbs = new TVector<IPhotoSize>()
-                }
+                },
+                Keywords = new()
             };
 
             return r;
@@ -283,7 +285,7 @@ public class GetStickerSetHandlerLayer134 : RpcResultObjectHandler<RequestGetSti
             //    }
             //});
 
-            IStickerSet r = new Schema.Messages.TStickerSet { Set = set, Packs = packs, Documents = documents };
+            IStickerSet r = new Schema.Messages.TStickerSet { Set = set, Packs = packs, Documents = documents, Keywords = new() };
 
             return r;
         }
@@ -308,7 +310,8 @@ public class GetStickerSetHandlerLayer134 : RpcResultObjectHandler<RequestGetSti
                     AccessHash = 1494194797110569295,
                     Title = "Animated Emojies",
                     Thumbs = new TVector<IPhotoSize>()
-                }
+                },
+                Keywords = new()
             };
         }
 
@@ -330,7 +333,8 @@ public class GetStickerSetHandlerLayer134 : RpcResultObjectHandler<RequestGetSti
                     AccessHash = 1494194797110569295,
                     Title = "Animated Emojies",
                     Thumbs = new TVector<IPhotoSize>()
-                }
+                },
+                Keywords = new()
             };
 
             return r;

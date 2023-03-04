@@ -71,7 +71,8 @@ public class RpcResultProcessor : IRpcResultProcessor
                 Users = new TVector<IUser>(userList),
                 Pts = channelPts,
                 Count = messageList.Count,
-                OffsetIdOffset = offsetId
+                OffsetIdOffset = offsetId,
+                Topics = new()
             };
         }
 

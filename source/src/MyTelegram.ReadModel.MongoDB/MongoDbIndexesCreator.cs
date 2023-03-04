@@ -76,7 +76,7 @@ public class MongoDbIndexesCreator : MongoDbIndexesCreatorBase
         await CreateIndexAsync<MessageReadModel>(p => p.Pts).ConfigureAwait(false);
         await CreateIndexAsync<MessageReadModel>(p => p.ToPeerType).ConfigureAwait(false);
         await CreateIndexAsync<MessageReadModel>(p => p.SendMessageType).ConfigureAwait(false);
-        await CreateIndexAsync<MessageReadModel>(p => p.ReplyToMsgId).ConfigureAwait(false);
+        //await CreateIndexAsync<MessageReadModel>(p => p.ReplyToMsgId).ConfigureAwait(false);
 
         await CreateIndexAsync<UserReadModel>(p => p.UserId).ConfigureAwait(false);
         await CreateIndexAsync<UserReadModel>(p => p.FirstName).ConfigureAwait(false);

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.MessengerServer.Services.Serialization.SystemTextJson;
 
-public class MySnapshotSerializer : ISnapshotSerilizer// ISnapshotSerializer
+public class MySnapshotSerializer : ISnapshotSerializer
 {
     private readonly ISystemTextJsonSerializer _jsonSerializer;
     private readonly ILogger<MySnapshotSerializer> _logger;

@@ -12,7 +12,7 @@ public static class EventFlowOptionsSystemTextJsonExtensions
         eventFlowOptions.ServiceCollection.AddSingleton<IJsonSerializer>(new SystemTextJsonSerializer(configure));
 
         eventFlowOptions.ServiceCollection.AddSingleton<IEventJsonSerializer, MyEventJsonSerializer>();
-        eventFlowOptions.ServiceCollection.AddSingleton<ISnapshotSerilizer, MySnapshotSerializer>();
+        eventFlowOptions.ServiceCollection.AddSingleton<ISnapshotSerializer, MySnapshotSerializer>();
         //eventFlowOptions.ServiceCollection.AddSingleton<ISnapshotSerializer, MySnapshotSerializer>();
         //eventFlowOptions.ServiceCollection.AddSingleton<IJobScheduler, MyInstantJobScheduler>();
 
@@ -29,7 +29,7 @@ public static class EventFlowOptionsSystemTextJsonExtensions
 
         eventFlowOptions.ServiceCollection.AddSingleton<IEventJsonSerializer, MyEventJsonSerializer>();
         //eventFlowOptions.ServiceCollection.AddSingleton<ISnapshotSerializer, MySnapshotSerializer>();
-        eventFlowOptions.ServiceCollection.AddSingleton<ISnapshotSerilizer, MySnapshotSerializer>();
+        eventFlowOptions.ServiceCollection.AddSingleton<ISnapshotSerializer, MySnapshotSerializer>();
         //eventFlowOptions.ServiceCollection.AddSingleton<IJobScheduler, MyInstantJobScheduler>();
 
         return eventFlowOptions;

@@ -40,7 +40,8 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
                 {
                     Chats = new TVector<IChat>(),
                     Messages = new TVector<IMessage>(),
-                    Users = new TVector<IUser>()
+                    Users = new TVector<IUser>(),
+                    Topics = new(),
                 };
             }
         }
