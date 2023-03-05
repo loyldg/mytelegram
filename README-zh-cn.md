@@ -157,7 +157,7 @@ export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: Connec
 
 3. **src\api\gramjs\methods\client.ts**  
 76行:`useWSS: true,`修改为`useWSS: false,`
-4. **src\api\gramjs\methods\users.ts**
+4. **src\api\gramjs\methods\users.ts**  
 161行:
 ```
 const result = await invokeRequest(new GramJs.users.GetUsers({
@@ -170,15 +170,16 @@ const result = await invokeRequest(new GramJs.users.GetUsers({
     id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
   }));
 ```
-5. **src\lib\gramjs\Utils.js**
+5. **src\lib\gramjs\Utils.js**  
 641行:
 修改为
 ```
 return { id: 2, ipAddress: '自己的服务器IP', port: 30444 };
 ```
-6. **src\lib\gramjs\client\TelegramClient.js**
+6. **src\lib\gramjs\client\TelegramClient.js**  
 299行:修改为
-```this.session.setDC(this.defaultDcId, DC.ipAddress, this._args.useWSS ? 30443 : 30444);
+```
+this.session.setDC(this.defaultDcId, DC.ipAddress, this._args.useWSS ? 30443 : 30444);
 ```
 7. **src\lib\gramjs\crypto\RSA.ts**
 SERVER_KEYS替换为以下内容
@@ -194,9 +195,10 @@ export const SERVER_KEYS = [
     return acc;
 }, new Map<string, { n: bigInt.BigInteger; e: number }>());
 ```
-8. **src\lib\gramjs\extensions\PromisedWebSockets.js**
-67行`if (port === 443)`修改为`if (port === 30443)`
-9. **src\lib\gramjs\network\Authenticator.ts** 47行开始
+8. **src\lib\gramjs\extensions\PromisedWebSockets.js**  
+67行: `if (port === 443)`修改为`if (port === 30443)`
+9. **src\lib\gramjs\network\Authenticator.ts**  
+47行开始
 ```typescript
 const pqInnerData = new Api.PQInnerData({
         pq: Helpers.getByteArray(pq), // unsigned

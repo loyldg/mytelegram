@@ -128,7 +128,7 @@ Note:The following documents are based on this version:https://github.com/moreth
   ```  
 3. **src\config\modes.ts**  
 Line 18 change `ssl: true` to `ssl: false`
-4. **src\lib\mtproto\dcConfigurator.ts**
+4. **src\lib\mtproto\dcConfigurator.ts**  
 Line 52:
 ```
 export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: ConnectionType, premium?: boolean) {
@@ -151,14 +151,14 @@ replace the IPAddress and port
 - ### Build [Telegram Web Z](https://github.com/Ajaxy/telegram-tt)
 Note:The following documents are based on this version:https://github.com/Ajaxy/telegram-tt/tree/27842a1cf34685b3d088642124a221bebf675300
 1. Make sure the client layer is 152,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
-2. **src\api\gramjs\gramjsBuilders\index.ts**
+2. **src\api\gramjs\gramjsBuilders\index.ts**  
 Line 35:
-`const CHANNEL_ID_MIN_LENGTH = 11; ` to `const CHANNEL_ID_MIN_LENGTH = 13; `
+`const CHANNEL_ID_MIN_LENGTH = 11; ` to `const CHANNEL_ID_MIN_LENGTH = 13; `  
 Line 55:
 `chatOrUserId <= -1000000000` to `chatOrUserId <= -800000000000`
 3. **src\api\gramjs\methods\client.ts**  
 Line 76: `useWSS: true,` to `useWSS: false,`
-4. **src\api\gramjs\methods\users.ts**
+4. **src\api\gramjs\methods\users.ts**  
 Line 161:
 ```
 const result = await invokeRequest(new GramJs.users.GetUsers({
@@ -171,13 +171,13 @@ to
     id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
   }));
 ```
-5. **src\lib\gramjs\Utils.js**
+5. **src\lib\gramjs\Utils.js**  
 Line 641:
 to
 ```
 return { id: 2, ipAddress: 'Your Server IP', port: 30444 };
 ```
-6. **src\lib\gramjs\client\TelegramClient.js**
+6. **src\lib\gramjs\client\TelegramClient.js**  
 Line 299:
 to
 ```
@@ -197,10 +197,10 @@ export const SERVER_KEYS = [
     return acc;
 }, new Map<string, { n: bigInt.BigInteger; e: number }>());
 ```
-8. **src\lib\gramjs\extensions\PromisedWebSockets.js**
+8. **src\lib\gramjs\extensions\PromisedWebSockets.js**  
 Line 67:
 `if (port === 443)` to `if (port === 30443)`
-9. **src\lib\gramjs\network\Authenticator.ts**
+9. **src\lib\gramjs\network\Authenticator.ts**  
 Line 47:
 ```typescript
 const pqInnerData = new Api.PQInnerData({
