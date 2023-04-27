@@ -9,6 +9,7 @@ global using MyTelegram.Domain.Aggregates.User;
 global using MyTelegram.Domain.Aggregates.UserName;
 global using MyTelegram.Queries;
 global using MyTelegram.ReadModel;
+global using MyTelegram.EventFlow.MongoDB;
 global using System.Linq.Expressions;
 global using AppCodeReadModel = MyTelegram.ReadModel.MongoDB.AppCodeReadModel;
 global using ChannelFullReadModel = MyTelegram.ReadModel.MongoDB.ChannelFullReadModel;

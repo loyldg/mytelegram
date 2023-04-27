@@ -1,4 +1,4 @@
-﻿
+﻿using MyTelegram.EventFlow.MongoDB;
 namespace MyTelegram.ReadModel.MongoDB;
 
 public static class MyTelegramServerReadModelMongoDbExtensions
