@@ -190,6 +190,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 channelReadModel,
                 false);
             // notify channel members
+
             await PushUpdatesToChannelMemberAsync(item.ToPeer,
                 updatesForChannelMember,
                 excludeUid: item.SenderPeer.PeerId,

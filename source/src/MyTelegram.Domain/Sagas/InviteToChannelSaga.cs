@@ -88,43 +88,45 @@ public class InviteToChannelSaga :
             // send service message to member after invited to channel
             if (!_state.Broadcast)
             {
-            var ownerPeerId = _state.ChannelId;
-            var outMessageId = 0;
-            var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, _state.RandomId);
-            var ownerPeer = new Peer(PeerType.Channel, ownerPeerId);
-            var senderPeer = new Peer(PeerType.User, _state.InviterId);
+                var ownerPeerId = _state.ChannelId;
+                var outMessageId = 0;
+                var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, _state.RandomId);
+                var ownerPeer = new Peer(PeerType.Channel, ownerPeerId);
+                var senderPeer = new Peer(PeerType.User, _state.InviterId);
 
-            var command = new StartSendMessageCommand(
-                aggregateId,
-                _state.RequestInfo,
-                new MessageItem(
-                    ownerPeer,
-                    ownerPeer,
-                    senderPeer,
-                    outMessageId,
-                    string.Empty,
-                    DateTime.UtcNow.ToTimestamp(),
-                    _state.RandomId,
-                    true,
-                    SendMessageType.MessageService,
-                    MessageType.Text,
-                    MessageSubType.InviteToChannel,
-                    null,
-                    _state.MessageActionData,
-                    MessageActionType.ChatAddUser
-                ),
-                false,
-                1,
-                _state.CorrelationId
-            );
+                var command = new StartSendMessageCommand(
+                    aggregateId,
+                    _state.RequestInfo,
+                    new MessageItem(
+                        ownerPeer,
+                        ownerPeer,
+                        senderPeer,
+                        outMessageId,
+                        string.Empty,
+                        DateTime.UtcNow.ToTimestamp(),
+                        _state.RandomId,
+                        true,
+                        SendMessageType.MessageService,
+                        MessageType.Text,
+                        MessageSubType.InviteToChannel,
+                        null,
+                        _state.MessageActionData,
+                        MessageActionType.ChatAddUser
+                    ),
+                    false,
+                    1,
+                    _state.CorrelationId
+                );
 
-            Publish(command);
+                Publish(command);
             }
 
             Emit(new InviteToChannelCompletedEvent(_state.RequestInfo.ReqMsgId,
                 _state.ChannelId,
                 _state.InviterId,
+                _state.Broadcast,
                 _state.MemberUidList,
+                
                 _state.CorrelationId));
         }
 

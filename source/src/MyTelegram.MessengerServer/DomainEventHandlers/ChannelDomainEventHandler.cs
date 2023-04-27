@@ -14,7 +14,8 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
     ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent>,
     ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
     ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
-    ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>
+    ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
+    ISubscribeSynchronousTo<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent>
 {
     private readonly ITlChatConverter _chatConverter;
     private readonly IChatEventCacheHelper _chatEventCacheHelper;
@@ -132,11 +133,30 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
             .ConfigureAwait(false);
     }
 
-    //public Task HandleAsync(IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
-    //    CancellationToken cancellationToken)
-    //{
-    //    throw new NotImplementedException();
-    //}
+    public async Task HandleAsync(IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        if (domainEvent.AggregateEvent.Broadcast)
+        {
+            var updates = new TUpdateShort
+            {
+                Date = DateTime.UtcNow.ToTimestamp(),
+                Update = new TUpdateChannel
+                {
+                    ChannelId = domainEvent.AggregateEvent.ChannelId,
+                }
+            };
+            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, updates);
+            foreach (var userId in domainEvent.AggregateEvent.MemberUidList)
+            {
+                await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ChannelId,
+                    domainEvent.AggregateEvent.ChannelId,
+                    null,
+                    userId);
+            }
+        }
+    }
+
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,
         CancellationToken cancellationToken)
     {
