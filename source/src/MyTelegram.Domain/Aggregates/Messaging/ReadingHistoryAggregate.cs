@@ -11,11 +11,13 @@ public class ReadingHistoryAggregate : AggregateRoot<ReadingHistoryAggregate, Re
     public void Create(
         long readerPeerId,
         long targetPeerId,
-        int messageId)
+        int messageId,
+        int date
+        )
     {
         if (IsNew)
         {
-            Emit(new ReadingHistoryCreatedEvent(readerPeerId, targetPeerId, messageId));
+            Emit(new ReadingHistoryCreatedEvent(readerPeerId, targetPeerId, messageId, date));
         }
     }
 }

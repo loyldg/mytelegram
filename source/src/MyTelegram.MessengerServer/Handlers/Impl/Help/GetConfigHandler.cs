@@ -30,13 +30,13 @@ public class GetConfigHandler : RpcResultObjectHandler<RequestGetConfig, IConfig
         IConfig r = new TConfig {
             //Flags = new System.Collections.BitArray(new byte[] { 0 }),
 
-            PhonecallsEnabled = true,
+            //PhonecallsEnabled = true,
             DefaultP2pContacts = true,
             //PreloadFeaturedStickers = true,
             //IgnorePhoneEntities = false,
             RevokePmInbox = true,
             BlockedMode = false,
-            PfsEnabled = true,
+            //PfsEnabled = true,
             Date = CurrentDate,
             //android 30m
             Expires = DateTime.UtcNow.AddMinutes(30).ToTimestamp(),
@@ -60,17 +60,17 @@ public class GetConfigHandler : RpcResultObjectHandler<RequestGetConfig, IConfig
             NotifyDefaultDelayMs = 1500,
             PushChatPeriodMs = 60000,
             PushChatLimit = 2,
-            SavedGifsLimit = 200,
+            //SavedGifsLimit = 200,
             EditTimeLimit = _options.EditTimeLimit, //172800
             RevokeTimeLimit = 2147483647,
             RevokePmTimeLimit = 2147483647,
             RatingEDecay = 2419200,
             StickersRecentLimit = 200,
-            StickersFavedLimit = 5,
+            //StickersFavedLimit = 5,
             ChannelsReadMediaPeriod = 604800,
             //TmpSessions =
-            PinnedDialogsCountMax = _options.PinnedDialogsCountMax, //5
-            PinnedInfolderCountMax = 100,
+            //PinnedDialogsCountMax = _options.PinnedDialogsCountMax, //5
+            //PinnedInfolderCountMax = 100,
             CallReceiveTimeoutMs = 20000,
             CallRingTimeoutMs = 90000,
             CallConnectTimeoutMs = 30000,

@@ -8,7 +8,7 @@ public class
         CreateReadingHistoryCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.Create(command.ReaderPeerId, command.TargetPeerId, command.MessageId);
+        aggregate.Create(command.ReaderPeerId, command.TargetPeerId, command.MessageId, command.Date);
         return Task.CompletedTask;
     }
 }

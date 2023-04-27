@@ -5,14 +5,18 @@ public class CreateReadingHistoryCommand : Command<ReadingHistoryAggregate, Read
     public long ReaderPeerId { get; }
     public long TargetPeerId { get; }
     public int MessageId { get; }
+    public int Date { get; }
 
     public CreateReadingHistoryCommand(ReadingHistoryId aggregateId,
         /*RequestInfo requestInfo,*/ long readerPeerId,
         long targetPeerId,
-        int messageId) : base(aggregateId)
+        int messageId,
+        int date
+        ) : base(aggregateId)
     {
         ReaderPeerId = readerPeerId;
         TargetPeerId = targetPeerId;
         MessageId = messageId;
+        Date = date;
     }
 }

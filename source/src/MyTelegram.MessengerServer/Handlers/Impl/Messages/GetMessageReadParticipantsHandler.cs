@@ -4,7 +4,7 @@ using MyTelegram.Schema.Messages;
 namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 
 public class GetMessageReadParticipantsHandler :
-    RpcResultObjectHandler<RequestGetMessageReadParticipants, TVector<long>>,
+    RpcResultObjectHandler<RequestGetMessageReadParticipants, TVector<IReadParticipantDate>>,
     IGetMessageReadParticipantsHandler, IProcessedHandler
 {
     private readonly IPeerHelper _peerHelper;
@@ -17,14 +17,17 @@ public class GetMessageReadParticipantsHandler :
         _peerHelper = peerHelper;
     }
 
-    protected override async Task<TVector<long>> HandleCoreAsync(IRequestInput input,
+    protected override async Task<TVector<IReadParticipantDate>> HandleCoreAsync(IRequestInput input,
         RequestGetMessageReadParticipants obj)
     {
         var peer = _peerHelper.GetPeer(obj.Peer);
-        var uidList =
-            await _queryProcessor.ProcessAsync(new GetReadingHistoryQuery(peer.PeerId, obj.MsgId), default)
-                .ConfigureAwait(false);
+        var readModels = await _queryProcessor
+            .ProcessAsync(new GetMessageReadParticipantsQuery(peer.PeerId, obj.MsgId), default).ConfigureAwait(false);
 
-        return new TVector<long>(uidList);
+        return new TVector<IReadParticipantDate>(readModels.Select(p => new TReadParticipantDate
+        {
+            Date = p.Date,
+            UserId = p.ReaderPeerId,
+        }));
     }
 }

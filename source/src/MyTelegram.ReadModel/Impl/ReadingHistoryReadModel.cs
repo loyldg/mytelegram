@@ -21,6 +21,7 @@ public class ReadingHistoryReadModel : IReadingHistoryReadModel,
 
     public virtual string Id { get; private set; } = null!;
     public virtual long ReaderPeerId { get; private set; }
+    public int Date { get; private set; }
     public virtual long TargetPeerId { get; private set; }
     public virtual long MessageId { get; private set; }
 }

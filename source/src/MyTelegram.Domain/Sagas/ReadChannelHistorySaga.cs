@@ -99,7 +99,7 @@ public class ReadChannelHistorySaga : MyInMemoryAggregateSaga<ReadChannelHistory
                 domainEvent.AggregateEvent.CorrelationId);
             Publish(command);
 
-            CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, domainEvent.AggregateEvent.SenderMessageId);
+            CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, domainEvent.AggregateEvent.SenderMessageId, DateTime.UtcNow.ToTimestamp());
         }
 
         if (shouldEmitCompletedEvent)
@@ -135,13 +135,15 @@ public class ReadChannelHistorySaga : MyInMemoryAggregateSaga<ReadChannelHistory
     }
 
     private void CreateReadHistory(long toPeerId,
-        int senderMsgId)
+        int senderMsgId, int date)
     {
         var command = new CreateReadingHistoryCommand(
             ReadingHistoryId.Create(_state.ReaderUid, toPeerId, senderMsgId),
             _state.ReaderUid,
             toPeerId,
-            senderMsgId);
+            senderMsgId,
+            date
+            );
         Publish(command);
     }
 }

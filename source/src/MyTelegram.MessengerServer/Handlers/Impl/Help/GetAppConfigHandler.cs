@@ -2,10 +2,10 @@
 
 namespace MyTelegram.MessengerServer.Handlers.Impl.Help;
 
-public class GetAppConfigHandler : RpcResultObjectHandler<RequestGetAppConfig, IJSONValue>,
+public class GetAppConfigHandler : RpcResultObjectHandler<RequestGetAppConfig, IAppConfig>,
     IGetAppConfigHandler, IProcessedHandler
 {
-    protected override Task<IJSONValue> HandleCoreAsync(IRequestInput input,
+    protected override Task<IAppConfig> HandleCoreAsync(IRequestInput input,
         RequestGetAppConfig obj)
     {
         IJSONValue r = new TJsonObject
@@ -280,6 +280,9 @@ public class GetAppConfigHandler : RpcResultObjectHandler<RequestGetAppConfig, I
             )
         };
 
-        return Task.FromResult(r);
+        return Task.FromResult<IAppConfig>(new TAppConfig
+        {
+            Config = r
+        });
     }
 }

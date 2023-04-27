@@ -796,3 +796,4 @@ public class GetPollsQuery : IQuery<IReadOnlyCollection<IPollReadModel>>
 
 public record GetMessageIdListByUserIdQuery(long ChannelId, long SenderUserId, int Limit) : IQuery<IReadOnlyCollection<int>>;
 public record GetMessageIdListByChannelIdQuery(long ChannelId, int Limit) : IQuery<IReadOnlyCollection<int>>;
+public record GetMessageReadParticipantsQuery(long TargetPeerId, long MessageId) : IQuery<IReadOnlyCollection<IReadingHistoryReadModel>>;

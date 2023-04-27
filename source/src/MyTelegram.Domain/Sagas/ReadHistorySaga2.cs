@@ -12,7 +12,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
     private readonly IIdGenerator _idGenerator;
     private readonly ReadHistoryState _state = new();
 
-    public ReadHistorySaga(ReadHistorySagaId id, IEventStore eventStore,IIdGenerator idGenerator) : base(id, eventStore)
+    public ReadHistorySaga(ReadHistorySagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -53,7 +53,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, domainEvent.AggregateEvent.NewMaxMessageId);
+        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, domainEvent.AggregateEvent.NewMaxMessageId, DateTime.UtcNow.ToTimestamp());
 
         if (!_state.NeedReadLatestNoneBotOutboxMessage)
         {
@@ -74,7 +74,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
             PtsChangeReason.OutboxMessageHasRead,
             domainEvent.AggregateEvent.CorrelationId).ConfigureAwait(false);
 
-        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, _state.SenderMessageId);
+        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, _state.SenderMessageId, DateTime.UtcNow.ToTimestamp());
     }
 
     public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, InboxMessageHasReadEvent> domainEvent,
@@ -139,7 +139,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
     }
 
     private void CreateReadHistory(long toPeerId,
-        int senderMsgId)
+        int senderMsgId, int date)
     {
         if (_state.ReaderToPeer.PeerType == PeerType.Channel || _state.ReaderToPeer.PeerType == PeerType.Chat)
         {
@@ -148,7 +148,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
                     senderMsgId),
                 _state.ReaderUid,
                 toPeerId,
-                senderMsgId);
+                senderMsgId, date);
 
             Publish(command);
         }
