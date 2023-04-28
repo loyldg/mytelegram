@@ -70,3 +70,6 @@ global using System.Reflection;
 global using System.Text;
 global using System.Threading.Channels;
 global using System.Threading.Tasks;
+global using MyTelegram.Domain.Aggregates.Device;
+global using MyTelegram.Domain.Commands.Device;
+global using MyTelegram.EventBus;
