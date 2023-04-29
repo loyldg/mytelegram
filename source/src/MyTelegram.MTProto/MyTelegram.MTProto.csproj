@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="MemoryPack" Version="1.9.11" />-->
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <ProjectReference Include="..\MyTelegram.EventBus\MyTelegram.EventBus.csproj" />
+  </ItemGroup>-->
+
+
+</Project>
