@@ -1,10 +1,10 @@
 ﻿namespace MyTelegram.GatewayServer.BackgroundServices;
 
-public class UnencryptedDataProcessorServerBackgroundService : BackgroundService
+public class UnencryptedDataProcessorBackgroundService : BackgroundService
 {
     private readonly IMessageQueueProcessor<UnencryptedMessage> _messageQueueProcessor;
 
-    public UnencryptedDataProcessorServerBackgroundService(
+    public UnencryptedDataProcessorBackgroundService(
         IMessageQueueProcessor<UnencryptedMessage> messageQueueProcessor)
     {
         _messageQueueProcessor = messageQueueProcessor;
