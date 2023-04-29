@@ -2,27 +2,23 @@
 
 public static class Extensions
 {
-    public static bool IsNullOrEmpty(this string? value)
+    public static byte[] ToBytes(this string hex)
     {
-        return string.IsNullOrEmpty(value);
+        return HexToBytes(hex);
     }
 
-    public static string? MaskEmail(this string? email)
+    private static byte[] HexToBytes(string hex)
     {
-        if (string.IsNullOrEmpty(email))
-        {
-            return null;
-        }
-
-        var pattern = @"(?<=[\w]{1})[\w-\._\+%]*(?=[\w]{1}@)";
-        var result = Regex.Replace(email, pattern, m => new string('*', m.Length));
-
-        return result;
+        var text = hex.Replace(" ", string.Empty).Replace("\r\n", string.Empty).Replace("\n", string.Empty);
+        return StringToByteArray(text);
     }
 
-    public static string ToPhoneNumberWithPlus(this string phoneNumber)
+    public static byte[] StringToByteArray(string hex)
     {
-        return phoneNumber.Replace(" ", string.Empty);
+        return Enumerable.Range(0, hex.Length)
+            .Where(x => x % 2 == 0)
+            .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+            .ToArray();
     }
 
     public static string ToPhoneNumber(this string phoneNumber)
@@ -48,71 +44,8 @@ public static class Extensions
         return bytes;
     }
 
-    public static DateTime ToDateTime(this int unixTimestampSeconds)
-    {
-        return DateTimeOffset.FromUnixTimeSeconds(unixTimestampSeconds).DateTime;
-    }
-
     public static string ToHexString(this byte[] buffer)
     {
         return BitConverter.ToString(buffer).Replace("-", string.Empty);
-    }
-
-    public static string RemoveRsaKeyFormat(this string key)
-    {
-        return key
-            .Replace("-----BEGIN RSA PRIVATE KEY-----", "").Replace("-----END RSA PRIVATE KEY-----", "")
-            .Replace("-----BEGIN RSA PUBLIC KEY-----", "").Replace("-----END RSA PUBLIC KEY-----", "")
-            .Replace("-----BEGIN PRIVATE KEY-----", "").Replace("-----END PRIVATE KEY-----", "")
-            .Replace("-----BEGIN PUBLIC KEY-----", "").Replace("-----END PUBLIC KEY-----", "")
-            .Replace(Environment.NewLine, "");
-    }
-
-    public static void Dump(this ReadOnlySpan<byte> bufferSpan,
-        string? message = null)
-    {
-        Dump(bufferSpan.ToArray(), message);
-    }
-
-    public static void Dump(this Span<byte> bufferSpan,
-        string? message = null)
-    {
-        Dump(bufferSpan.ToArray(), message);
-    }
-
-    public static void Dump(this Memory<byte> buffer,
-        string? message = null)
-    {
-        Dump(buffer.ToArray(), message);
-    }
-
-    public static void Dump(this byte[] buffer,
-        string? message = null)
-    {
-        if (message != null)
-        {
-            Console.WriteLine($"{message}[{buffer.Length}]");
-        }
-
-        Console.WriteLine(Hex.Dump(buffer, 32, showAscii: false, showOffset: false));
-    }
-
-    public static byte[] ToBytes(this string hex)
-    {
-        return HexToBytes(hex);
-    }
-
-    private static byte[] HexToBytes(string hex)
-    {
-        var text = hex.Replace(" ", string.Empty).Replace("\r\n", string.Empty).Replace("\n", string.Empty);
-        return StringToByteArray(text);
-    }
-
-    public static byte[] StringToByteArray(string hex)
-    {
-        return Enumerable.Range(0, hex.Length)
-            .Where(x => x % 2 == 0)
-            .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-            .ToArray();
     }
 }
