@@ -7,7 +7,6 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 
 ## 演示地址
 [https://webz.mytelegram.top](https://webz.mytelegram.top)  
-[https://fcbplgfrwduz5h6wq2thuqzlbzggsddztiedlqkpz7dfciku43zwqwqd.onion](https://fcbplgfrwduz5h6wq2thuqzlbzggsddztiedlqkpz7dfciku43zwqwqd.onion)(使用Tor浏览器访问,由于使用的开发环境证书,首次访问时需要在提示页面点击"Advanced..."->"Accept the Risk and Continue")
 
 **Verification Code:22222**
 ## 特性
