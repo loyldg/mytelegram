@@ -2,12 +2,13 @@
 
 public class MessageViewsIncrementedEvent : AggregateEvent<MessageAggregate, MessageId>
 {
-    public int MessageId { get; }
-    public int Views { get; }
-
-    public MessageViewsIncrementedEvent(int messageId, int views)
+    public MessageViewsIncrementedEvent(int messageId,
+        int views)
     {
         MessageId = messageId;
         Views = views;
     }
+
+    public int MessageId { get; }
+    public int Views { get; }
 }

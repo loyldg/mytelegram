@@ -2,19 +2,6 @@
 
 public class ChatAdminRights : ValueObject
 {
-    public static ChatAdminRights GetCreatorRights() => new(true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        false,
-        true,
-        true,
-        true);
-
     public ChatAdminRights(bool changeInfo,
         bool postMessages,
         bool editMessages,
@@ -27,7 +14,7 @@ public class ChatAdminRights : ValueObject
         bool manageCall,
         bool other,
         bool manageTopic = true
-        )
+    )
     {
         ChangeInfo = changeInfo;
         PostMessages = postMessages;
@@ -57,6 +44,21 @@ public class ChatAdminRights : ValueObject
     public bool PinMessages { get; init; }
     public bool PostMessages { get; init; }
 
+    public static ChatAdminRights GetCreatorRights()
+    {
+        return new ChatAdminRights(true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true);
+    }
+
     public bool HasNoRights()
     {
         return !ChangeInfo &&
@@ -71,6 +73,6 @@ public class ChatAdminRights : ValueObject
                !ManageCall &&
                !Other &&
                !ManageTopic
-               ;
+            ;
     }
 }

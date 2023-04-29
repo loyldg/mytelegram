@@ -4,6 +4,6 @@ namespace MyTelegram.Schema.Chatlists;
 
 public interface IExportedChatlistInvite : IObject
 {
-    MyTelegram.Schema.IDialogFilter Filter { get; set; }
-    MyTelegram.Schema.IExportedChatlistInvite Invite { get; set; }
+    Schema.IDialogFilter Filter { get; set; }
+    Schema.IExportedChatlistInvite Invite { get; set; }
 }

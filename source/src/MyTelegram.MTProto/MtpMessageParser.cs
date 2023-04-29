@@ -41,22 +41,8 @@ public class MtpMessageParser : IMtpMessageParser
         };
     }
 
-    public void ProcessFirstUnencryptedPacket(ReadOnlySpan<byte> buffer,
-        IClientData d)
-    {
-        var data = _firstPacketParser.Parse(buffer);
-
-        d.IsFirstPacketParsed = true;
-        d.ObfuscationEnabled = data.ObfuscationEnabled;
-        d.MtProtoType = data.ProtocolType;
-        d.SendCtrState = data.SendState;
-        d.SendKey = data.SendKey;
-        d.ReceiveKey = data.ReceiveKey;
-        d.ReceiveCtrState = data.ReceiveState;
-    }
-
     public bool TryParse(ref ReadOnlySequence<byte> buffer,
-                IClientData clientData,
+        IClientData clientData,
         [NotNullWhen(true)] out IMtpMessage? message)
     {
         if (TryParseData(ref buffer, clientData, out var data))
@@ -91,6 +77,7 @@ public class MtpMessageParser : IMtpMessageParser
         message = default;
         return false;
     }
+
     private void DecryptBytes(Span<byte> encryptedBytes,
         IClientData d)
     {
@@ -221,6 +208,21 @@ public class MtpMessageParser : IMtpMessageParser
             _ => throw new NotSupportedException($"Not supported protocol:{d.MtProtoType}")
         };
     }
+
+    public void ProcessFirstUnencryptedPacket(ReadOnlySpan<byte> buffer,
+        IClientData d)
+    {
+        var data = _firstPacketParser.Parse(buffer);
+
+        d.IsFirstPacketParsed = true;
+        d.ObfuscationEnabled = data.ObfuscationEnabled;
+        d.MtProtoType = data.ProtocolType;
+        d.SendCtrState = data.SendState;
+        d.SendKey = data.SendKey;
+        d.ReceiveKey = data.ReceiveKey;
+        d.ReceiveCtrState = data.ReceiveState;
+    }
+
     private bool TryParseData(ref ReadOnlySequence<byte> buffer,
         IClientData clientData,
         out ReadOnlySequence<byte> data)

@@ -18,42 +18,12 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, SelfMessageDeletedEvent>
 
 {
-    public int Date { get; private set; }
-    public int EditDate { get; private set; }
-    public byte[]? Entities { get; private set; }
-    public MessageFwdHeader? FwdHeader { get; private set; }
-    public long? GroupedId { get; private set; }
-    public string Id { get; private set; } = default!;
-    public long? LinkedChannelId { get; private set; }
-    public byte[]? Media { get; private set; }
-    public string Message { get; private set; } = default!;
-    public string? MessageActionData { get; private set; }
-    public MessageActionType MessageActionType { get; private set; }
-    public int MessageId { get; private set; }
-    public MessageType MessageType { get; private set; }
-    public bool Out { get; private set; }
-    public long OwnerPeerId { get; private set; }
-    public bool Pinned { get; private set; }
-    public long? PollId { get; private set; }
-    public bool Post { get; private set; }
-    public string? PostAuthor { get; } = null;
-    public int Pts { get; private set; }
-    public int Replies { get; private set; }
-    public int? ReplyToMsgId { get; private set; }
     public int? SavedFromMsgId { get; private set; }
     public long? SavedFromPeerId { get; private set; }
-    public int SenderMessageId { get; private set; }
-    public long SenderPeerId { get; private set; }
-    public SendMessageType SendMessageType { get; private set; }
-    public bool Silent { get; private set; }
-    public long ToPeerId { get; private set; }
-    public PeerType ToPeerType { get; private set; }
     public virtual long? Version { get; set; }
 
-    public int? Views { get; private set; }
-
     public Task ApplyAsync(IReadModelContext context,
-            IDomainEvent<MessageAggregate, MessageId, InboxMessageCreatedEvent> domainEvent,
+        IDomainEvent<MessageAggregate, MessageId, InboxMessageCreatedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
         var messageItem = domainEvent.AggregateEvent.InboxMessageItem;
@@ -248,4 +218,35 @@ public class MessageReadModel : IMessageReadModel,
         Pts = domainEvent.AggregateEvent.Pts;
         return Task.CompletedTask;
     }
+
+    public int Date { get; private set; }
+    public int EditDate { get; private set; }
+    public byte[]? Entities { get; private set; }
+    public MessageFwdHeader? FwdHeader { get; private set; }
+    public long? GroupedId { get; private set; }
+    public string Id { get; private set; } = default!;
+    public long? LinkedChannelId { get; private set; }
+    public byte[]? Media { get; private set; }
+    public string Message { get; private set; } = default!;
+    public string? MessageActionData { get; private set; }
+    public MessageActionType MessageActionType { get; private set; }
+    public int MessageId { get; private set; }
+    public MessageType MessageType { get; private set; }
+    public bool Out { get; private set; }
+    public long OwnerPeerId { get; private set; }
+    public bool Pinned { get; private set; }
+    public long? PollId { get; private set; }
+    public bool Post { get; private set; }
+    public string? PostAuthor { get; } = null;
+    public int Pts { get; private set; }
+    public int Replies { get; private set; }
+    public int? ReplyToMsgId { get; private set; }
+    public int SenderMessageId { get; private set; }
+    public long SenderPeerId { get; private set; }
+    public SendMessageType SendMessageType { get; private set; }
+    public bool Silent { get; private set; }
+    public long ToPeerId { get; private set; }
+    public PeerType ToPeerType { get; private set; }
+
+    public int? Views { get; private set; }
 }

@@ -7,7 +7,8 @@ public class MessageId : MyIdentity<MessageId>
     {
     }
 
-    public static MessageId Create(long ownerPeerId, int messageId)
+    public static MessageId Create(long ownerPeerId,
+        int messageId)
     {
         return NewDeterministic(GuidFactories.Deterministic.Namespaces.Commands,
             $"message_{ownerPeerId}_{messageId}");

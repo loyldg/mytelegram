@@ -4,6 +4,6 @@ namespace MyTelegram.Schema;
 
 public interface ITopPeer : IObject
 {
-    MyTelegram.Schema.IPeer Peer { get; set; }
+    Schema.IPeer Peer { get; set; }
     double Rating { get; set; }
 }

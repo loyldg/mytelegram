@@ -36,5 +36,5 @@ public class UpdatePinnedMessageCompletedEvent : AggregateEvent<UpdatePinnedMess
 
     public long ReqMsgId { get; }
     public long SenderPeerId { get; }
-    public bool ShouldReplyRpcResult { get; } 
+    public bool ShouldReplyRpcResult { get; }
 }

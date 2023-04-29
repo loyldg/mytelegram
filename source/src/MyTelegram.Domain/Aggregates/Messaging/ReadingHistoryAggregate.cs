@@ -3,6 +3,7 @@
 public class ReadingHistoryAggregate : AggregateRoot<ReadingHistoryAggregate, ReadingHistoryId>
 {
     private readonly ReadingHistoryState _state = new();
+
     public ReadingHistoryAggregate(ReadingHistoryId id) : base(id)
     {
         Register(_state);
@@ -13,7 +14,7 @@ public class ReadingHistoryAggregate : AggregateRoot<ReadingHistoryAggregate, Re
         long targetPeerId,
         int messageId,
         int date
-        )
+    )
     {
         if (IsNew)
         {

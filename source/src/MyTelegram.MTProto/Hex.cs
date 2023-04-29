@@ -56,11 +56,6 @@ public class Hex
             length).Dump();
     }
 
-    private static string Translate(byte b)
-    {
-        return b < 32 ? "." : Encoding.ASCII.GetString(new[] { b });
-    }
-
     private string Dump()
     {
         if (_showHeader)
@@ -71,6 +66,12 @@ public class Hex
         WriteBody();
         return _sb.ToString();
     }
+
+    private static string Translate(byte b)
+    {
+        return b < 32 ? "." : Encoding.ASCII.GetString(new[] { b });
+    }
+
     private void WriteAscii()
     {
         var backtrack = (_index - 1) / _bytesPerLine * _bytesPerLine;

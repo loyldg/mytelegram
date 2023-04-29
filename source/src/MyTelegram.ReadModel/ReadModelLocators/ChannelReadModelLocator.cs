@@ -8,7 +8,8 @@ public class ChannelReadModelLocator : IChannelReadModelLocator
         if (domainEvent.AggregateType == typeof(ChannelAggregate))
         {
             yield return domainEvent.GetIdentity().Value;
-        } else
+        }
+        else
         {
             switch (aggregateEvent)
             {

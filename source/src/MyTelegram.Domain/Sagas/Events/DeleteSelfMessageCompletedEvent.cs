@@ -2,7 +2,10 @@
 
 public class DeleteSelfMessageCompletedEvent : AggregateEvent<DeleteMessageSaga2, DeleteMessageSaga2Id>
 {
-    public DeleteSelfMessageCompletedEvent(bool isOut, int otherPartyMessagesCount, long ownerPeerId, int messageId)
+    public DeleteSelfMessageCompletedEvent(bool isOut,
+        int otherPartyMessagesCount,
+        long ownerPeerId,
+        int messageId)
     {
         IsOut = isOut;
         OtherPartyMessagesCount = otherPartyMessagesCount;

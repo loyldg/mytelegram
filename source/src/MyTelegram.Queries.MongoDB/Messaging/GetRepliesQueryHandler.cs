@@ -13,7 +13,8 @@ public class GetRepliesQueryHandler : IQueryHandler<GetRepliesQuery, IReadOnlyCo
         CancellationToken cancellationToken)
     {
         var cursor = await _store
-            .FindAsync(p => p.SavedFromPeerId == query.ChannelId && query.MessageIds.Contains(p.SavedFromMsgId), cancellationToken: cancellationToken)
+                .FindAsync(p => p.SavedFromPeerId == query.ChannelId && query.MessageIds.Contains(p.SavedFromMsgId),
+                    cancellationToken: cancellationToken)
             ;
 
         return await cursor.ToListAsync(cancellationToken);

@@ -10,5 +10,5 @@ public interface IFolder : IObject
     bool AutofillNewCorrespondents { get; set; }
     int Id { get; set; }
     string Title { get; set; }
-    MyTelegram.Schema.IChatPhoto? Photo { get; set; }
+    Schema.IChatPhoto? Photo { get; set; }
 }

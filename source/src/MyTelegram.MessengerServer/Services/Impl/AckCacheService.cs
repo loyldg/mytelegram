@@ -25,10 +25,7 @@ public class AckCacheService : IAckCacheService
         Peer toPeer)
     {
         _rpcReqMsgIdToPtsDict.TryAdd(reqMsgId, new AckCacheItem(pts, globalSeqNo, toPeer));
-        _scheduleAppService.Execute(() =>
-            {
-                _rpcReqMsgIdToPtsDict.TryRemove(reqMsgId, out _);
-            },
+        _scheduleAppService.Execute(() => { _rpcReqMsgIdToPtsDict.TryRemove(reqMsgId, out _); },
             TimeSpan.FromSeconds(60));
         return Task.CompletedTask;
     }
@@ -51,10 +48,7 @@ public class AckCacheService : IAckCacheService
         Peer toPeer)
     {
         _msgIdToPtsDict.TryAdd(msgId, new AckCacheItem(pts, globalSeqNo, toPeer));
-        _scheduleAppService.Execute(() =>
-            {
-                _msgIdToPtsDict.TryRemove(msgId, out _);
-            },
+        _scheduleAppService.Execute(() => { _msgIdToPtsDict.TryRemove(msgId, out _); },
             TimeSpan.FromSeconds(60));
         return Task.CompletedTask;
     }

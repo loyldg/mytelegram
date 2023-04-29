@@ -1,6 +1,7 @@
 namespace MyTelegram.Domain.Sagas.States;
 
-public class DeleteMessageSaga2State : AggregateState<DeleteMessageSaga2, DeleteMessageSaga2Id, DeleteMessageSaga2State>,
+public class DeleteMessageSaga2State :
+    AggregateState<DeleteMessageSaga2, DeleteMessageSaga2Id, DeleteMessageSaga2State>,
     IApply<DeleteMessageSaga2StartedEvent>,
     IApply<DeleteSelfMessageCompletedEvent>,
     IApply<DeleteOtherPartyMessageCompletedEvent>,
@@ -16,6 +17,7 @@ public class DeleteMessageSaga2State : AggregateState<DeleteMessageSaga2, Delete
     public int TotalOtherPartyOutboxMessageCount { get; private set; }
     public int DeletedOtherPartyOutboxMessageCount { get; private set; }
     public RequestInfo RequestInfo { get; private set; } = null!;
+
     public bool Revoke { get; private set; }
     //public int TotalCountToDelete { get; private set; }
     //public int DeletedCount { get; private set; }
@@ -25,6 +27,12 @@ public class DeleteMessageSaga2State : AggregateState<DeleteMessageSaga2, Delete
 
     public PeerType ToPeerType { get; private set; }
     public bool IsClearHistory { get; private set; }
+
+    public void Apply(DeleteMessagePtsIncrementedEvent2 aggregateEvent)
+    {
+        UpdatePeerPts(aggregateEvent.PeerId, aggregateEvent.Pts);
+    }
+
     public void Apply(DeleteMessageSaga2StartedEvent aggregateEvent)
     {
         RequestInfo = aggregateEvent.RequestInfo;
@@ -35,6 +43,17 @@ public class DeleteMessageSaga2State : AggregateState<DeleteMessageSaga2, Delete
         IsClearHistory = aggregateEvent.IsClearHistory;
         TotalSelfMessagesCount = aggregateEvent.IdList.Count;
         ToPeerType = aggregateEvent.ToPeerType;
+    }
+
+    public void Apply(DeleteOtherPartyMessageCompletedEvent aggregateEvent)
+    {
+        DeletedOtherPartyMessagesCount++;
+        TotalOtherPartyMessagesCount += aggregateEvent.OtherPartyMessagesCount;
+        AddMessageIdToDeleteList(aggregateEvent.OwnerPeerId, aggregateEvent.MessageId);
+        if (aggregateEvent.IsOut)
+        {
+            DeletedOtherPartyOutboxMessageCount++;
+        }
     }
 
     public void Apply(DeleteSelfMessageCompletedEvent aggregateEvent)
@@ -49,20 +68,16 @@ public class DeleteMessageSaga2State : AggregateState<DeleteMessageSaga2, Delete
         }
     }
 
-    public void Apply(DeleteOtherPartyMessageCompletedEvent aggregateEvent)
+    private void AddMessageIdToDeleteList(long peerId,
+        int messageId)
     {
-        DeletedOtherPartyMessagesCount++;
-        TotalOtherPartyMessagesCount += aggregateEvent.OtherPartyMessagesCount;
-        AddMessageIdToDeleteList(aggregateEvent.OwnerPeerId, aggregateEvent.MessageId);
-        if (aggregateEvent.IsOut)
+        if (!_peerToMessages.TryGetValue(peerId, out var messageIds))
         {
-            DeletedOtherPartyOutboxMessageCount++;
+            messageIds = new List<int>();
+            _peerToMessages.TryAdd(peerId, messageIds);
         }
-    }
 
-    public void Apply(DeleteMessagePtsIncrementedEvent2 aggregateEvent)
-    {
-        UpdatePeerPts(aggregateEvent.PeerId, aggregateEvent.Pts);
+        messageIds.Add(messageId);
     }
 
     public IReadOnlyList<DeletedBoxItem> GetDeletedBoxes()
@@ -99,16 +114,6 @@ public class DeleteMessageSaga2State : AggregateState<DeleteMessageSaga2, Delete
         var otherPartyOutboxMessageDeleted = TotalOtherPartyOutboxMessageCount == DeletedOtherPartyOutboxMessageCount;
 
         return selfMessageDeletedSuccess && otherPartyMessagesDeletedSuccess && otherPartyOutboxMessageDeleted;
-    }
-    private void AddMessageIdToDeleteList(long peerId,
-        int messageId)
-    {
-        if (!_peerToMessages.TryGetValue(peerId, out var messageIds))
-        {
-            messageIds = new();
-            _peerToMessages.TryAdd(peerId, messageIds);
-        }
-        messageIds.Add(messageId);
     }
 
     private void UpdatePeerPts(long peerId,

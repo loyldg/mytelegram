@@ -1,4 +1,5 @@
 ﻿// ReSharper disable All
+
 namespace MyTelegram.Schema;
 
 [TlObject(0x1cb5c415)]
@@ -19,35 +20,6 @@ public class TVector<T> : IObject, IList<T> //where T : IObject
     public TVector(params T[] items)
     {
         _list = new List<T>(items);
-    }
-
-    public uint ConstructorId => 0x1cb5c415;
-
-    public void Serialize(BinaryWriter bw)
-    {
-        bw.Write(ConstructorId);
-        bw.Write(_list.Count);
-        var serializer = SerializerFactory.CreateSerializer<T>();
-
-        foreach (var item in _list)
-        {
-            serializer.Serialize(item,bw);
-        }
-    }
-
-    public void Deserialize(BinaryReader br)
-    {
-        var count = br.ReadInt32();
-        if (count > 0)
-        {
-            var serializer = SerializerFactory.CreateSerializer<T>();
-
-            for (int i = 0; i < count; i++)
-            {
-                var item = serializer.Deserialize(br);
-                _list.Add(item);
-            }
-        }
     }
 
     public IEnumerator<T> GetEnumerator()
@@ -105,8 +77,38 @@ public class TVector<T> : IObject, IList<T> //where T : IObject
         _list.RemoveAt(index);
     }
 
-    public T this[int index] {
+    public T this[int index]
+    {
         get => _list[index];
         set => _list[index] = value;
+    }
+
+    public uint ConstructorId => 0x1cb5c415;
+
+    public void Serialize(BinaryWriter bw)
+    {
+        bw.Write(ConstructorId);
+        bw.Write(_list.Count);
+        var serializer = SerializerFactory.CreateSerializer<T>();
+
+        foreach (var item in _list)
+        {
+            serializer.Serialize(item, bw);
+        }
+    }
+
+    public void Deserialize(BinaryReader br)
+    {
+        var count = br.ReadInt32();
+        if (count > 0)
+        {
+            var serializer = SerializerFactory.CreateSerializer<T>();
+
+            for (int i = 0; i < count; i++)
+            {
+                var item = serializer.Deserialize(br);
+                _list.Add(item);
+            }
+        }
     }
 }

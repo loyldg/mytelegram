@@ -14,6 +14,7 @@ public interface IMyMongoDbReadModelStore<TReadModel> : IMongoDbReadModelStore<T
         CancellationToken cancellationToken = default);
 }
 
-public interface IMyMongoDbReadModelStore<TReadModel, TMongoDbContext> : IMyMongoDbReadModelStore<TReadModel> where TReadModel : class, IReadModel
+public interface IMyMongoDbReadModelStore<TReadModel, TMongoDbContext> : IMyMongoDbReadModelStore<TReadModel>
+    where TReadModel : class, IReadModel
 {
 }

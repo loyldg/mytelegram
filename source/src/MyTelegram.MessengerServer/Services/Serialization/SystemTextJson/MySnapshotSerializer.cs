@@ -31,11 +31,13 @@ public class MySnapshotSerializer : ISnapshotSerializer
             throw new ArgumentNullException(nameof(committedSnapshot));
         }
 
-        var metadata = _jsonSerializer.Deserialize(committedSnapshot.SerializedMetadata, MyJsonContext.Default.SnapshotMetadata);
+        var metadata = _jsonSerializer.Deserialize(committedSnapshot.SerializedMetadata,
+            MyJsonContext.Default.SnapshotMetadata);
 
         if (metadata == null)
         {
-            throw new InvalidOperationException($"Deserialized metadata is null,metadata={committedSnapshot.SerializedMetadata}");
+            throw new InvalidOperationException(
+                $"Deserialized metadata is null,metadata={committedSnapshot.SerializedMetadata}");
         }
 
         var snapshotDefinition =
@@ -72,7 +74,8 @@ public class MySnapshotSerializer : ISnapshotSerializer
             typeof(TAggregate).PrettyPrint());
 
         var updatedSnapshotMetadata = new SnapshotMetadata(snapshotContainer.Metadata.Concat(
-            new Dictionary<string, string> {
+            new Dictionary<string, string>
+            {
                 { SnapshotMetadataKeys.SnapshotName, snapshotDefinition.Name },
                 { SnapshotMetadataKeys.SnapshotVersion, snapshotDefinition.Version.ToString() }
             }));

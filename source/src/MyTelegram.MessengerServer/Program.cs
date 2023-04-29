@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using EventFlow.MongoDB.Extensions;
+﻿using EventFlow.MongoDB.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using MyTelegram;
@@ -18,22 +17,22 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 Log.Information("{Info} {Version}", "MyTelegram Messenger Server", typeof(Program).Assembly.GetName().Version);
-Log.Information("{Description} {Url}", "For more information, please visit", MyTelegramServerDomainConsts.RepositoryUrl);
+Log.Information("{Description} {Url}",
+    "For more information, please visit",
+    MyTelegramServerDomainConsts.RepositoryUrl);
 
 Log.Information("Messenger server(supported layer={Layer}) starting...", MyTelegramServerDomainConsts.Layer);
 
 var builder = Host.CreateDefaultBuilder(args);
-builder.ConfigureAppConfiguration(options =>
-{
-    options.AddEnvironmentVariables();
-});
+builder.ConfigureAppConfiguration(options => { options.AddEnvironmentVariables(); });
 builder.UseSerilog((context,
     configuration) =>
 {
     configuration.ReadFrom.Configuration(context.Configuration);
 });
 
-builder.ConfigureServices((context, services) =>
+builder.ConfigureServices((context,
+    services) =>
 {
     services.Configure<MyTelegramMessengerServerOptions>(context.Configuration.GetRequiredSection("App"));
     services.Configure<EventBusRabbitMqOptions>(context.Configuration.GetRequiredSection("RabbitMQ:EventBus"));
@@ -57,4 +56,3 @@ var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.ConfigureEventBus();
 
 await app.RunAsync();
-

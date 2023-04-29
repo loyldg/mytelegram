@@ -2,7 +2,9 @@
 
 public class ChatDeletedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, IHasCorrelationId
 {
-    public ChatDeletedEvent(RequestInfo requestInfo, long chatId,string title,
+    public ChatDeletedEvent(RequestInfo requestInfo,
+        long chatId,
+        string title,
         Guid correlationId) : base(requestInfo)
     {
         ChatId = chatId;

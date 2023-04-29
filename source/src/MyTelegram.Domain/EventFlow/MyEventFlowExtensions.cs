@@ -1,6 +1,7 @@
 ﻿using EventFlow.ReadStores;
 
 namespace MyTelegram.Domain.EventFlow;
+
 public static class MyEventFlowExtensions
 {
     public static IServiceCollection AddMyEventFlow(this IServiceCollection services)

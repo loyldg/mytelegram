@@ -4,12 +4,13 @@ using MyTelegram.Schema.Account;
 
 namespace MyTelegram.Handlers.Account;
 
-public class GetDefaultEmojiStatusesHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetDefaultEmojiStatuses, MyTelegram.Schema.Account.IEmojiStatuses>,
+public class GetDefaultEmojiStatusesHandler : RpcResultObjectHandler<Schema.Account.RequestGetDefaultEmojiStatuses,
+        Schema.Account.IEmojiStatuses>,
     Account.IGetDefaultEmojiStatusesHandler, IProcessedHandler
 {
-    protected override Task<MyTelegram.Schema.Account.IEmojiStatuses> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestGetDefaultEmojiStatuses obj)
+    protected override Task<Schema.Account.IEmojiStatuses> HandleCoreAsync(IRequestInput input,
+        Schema.Account.RequestGetDefaultEmojiStatuses obj)
     {
-        return Task.FromResult<MyTelegram.Schema.Account.IEmojiStatuses>(new TEmojiStatusesNotModified());
+        return Task.FromResult<Schema.Account.IEmojiStatuses>(new TEmojiStatusesNotModified());
     }
 }

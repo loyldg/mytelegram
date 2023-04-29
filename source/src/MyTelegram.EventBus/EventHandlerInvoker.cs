@@ -11,19 +11,22 @@ public class EventHandlerInvoker : IEventHandlerInvoker
         _cache = new ConcurrentDictionary<string, IEventHandlerMethodExecutor>();
     }
 
-    public async Task InvokeAsync(IEventHandler eventHandler, object eventData, Type eventType)
+    public async Task InvokeAsync(IEventHandler eventHandler,
+        object eventData,
+        Type eventType)
     {
-        var cacheItem = _cache.GetOrAdd($"{eventHandler.GetType().FullName}-{eventType.FullName}", _ =>
-        {
-            var type = typeof(DistributedEventHandlerMethodExecutor<>).MakeGenericType(eventType);
-            var obj = Activator.CreateInstance(type);
-            if (obj == null)
+        var cacheItem = _cache.GetOrAdd($"{eventHandler.GetType().FullName}-{eventType.FullName}",
+            _ =>
             {
-                throw new InvalidOperationException($"Failed to create instance for type:{type}");
-            }
+                var type = typeof(DistributedEventHandlerMethodExecutor<>).MakeGenericType(eventType);
+                var obj = Activator.CreateInstance(type);
+                if (obj == null)
+                {
+                    throw new InvalidOperationException($"Failed to create instance for type:{type}");
+                }
 
-            return (IEventHandlerMethodExecutor)obj;
-        });
+                return (IEventHandlerMethodExecutor)obj;
+            });
 
         if (cacheItem == null)
         {

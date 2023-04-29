@@ -4,6 +4,17 @@ namespace MyTelegram.Schema;
 
 public static class TlObjectExtensions
 {
+    public static T Deserialize<T>(this BinaryReader reader)
+    {
+        return SerializerFactory.CreateSerializer<T>().Deserialize(reader);
+    }
+
+    public static void Serialize<T>(this BinaryWriter writer,
+        T value)
+    {
+        SerializerFactory.CreateSerializer<T>().Serialize(value, writer);
+    }
+
     [return: NotNullIfNotNull("obj")]
     public static byte[]? ToBytes(this IObject? obj)
     {
@@ -29,15 +40,5 @@ public static class TlObjectExtensions
 
         var serializer = SerializerFactory.CreateObjectSerializer<TObject>();
         return serializer.Deserialize(new BinaryReader(new MemoryStream(bytes)));
-    }
-
-    public static void Serialize<T>(this BinaryWriter writer, T value)
-    {
-        SerializerFactory.CreateSerializer<T>().Serialize(value, writer);
-    }
-
-    public static T Deserialize<T>(this BinaryReader reader)
-    {
-        return SerializerFactory.CreateSerializer<T>().Deserialize(reader);
     }
 }

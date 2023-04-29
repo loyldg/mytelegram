@@ -32,7 +32,7 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
         if (peer.PeerType == PeerType.Channel)
         {
             var channelMember = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberByUidQuery(peer.PeerId, input.UserId), default)
+                    .ProcessAsync(new GetChannelMemberByUidQuery(peer.PeerId, input.UserId), default)
                 ;
             if (channelMember?.Kicked == true)
             {
@@ -41,7 +41,7 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
                     Chats = new TVector<IChat>(),
                     Messages = new TVector<IMessage>(),
                     Users = new TVector<IUser>(),
-                    Topics = new(),
+                    Topics = new TVector<IForumTopic>()
                 };
             }
         }
@@ -50,19 +50,20 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
         //if (peer.PeerType == PeerType.Channel || peer.PeerType == PeerType.Chat)
         {
             var dialogReadModel = await _queryProcessor
-                .ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, peer)), CancellationToken.None)
+                    .ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, peer)), CancellationToken.None)
                 ;
             channelHistoryMinId = dialogReadModel?.ChannelHistoryMinId ?? 0;
         }
 
-        var r = await _messageAppService.GetHistoryAsync(new GetHistoryInput(ownerPeerId, userId, _peerHelper.GetPeer(obj.Peer, userId), channelHistoryMinId)
-        {
-            AddOffset = obj.AddOffset,
-            Limit = obj.Limit,
-            MaxId = obj.MaxId,
-            MinId = obj.MinId,
-            OffsetId = obj.OffsetId,
-        });
+        var r = await _messageAppService.GetHistoryAsync(
+            new GetHistoryInput(ownerPeerId, userId, _peerHelper.GetPeer(obj.Peer, userId), channelHistoryMinId)
+            {
+                AddOffset = obj.AddOffset,
+                Limit = obj.Limit,
+                MaxId = obj.MaxId,
+                MinId = obj.MinId,
+                OffsetId = obj.OffsetId
+            });
 
         return _rpcResultProcessor.ToMessages(r);
     }
@@ -98,19 +99,20 @@ public class GetHistoryHandlerLayerN : RpcResultObjectHandler<Schema.LayerN.Requ
         //if (peer.PeerType == PeerType.Channel || peer.PeerType == PeerType.Chat)
         {
             var dialogReadModel = await _queryProcessor
-                .ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, peer)), CancellationToken.None)
+                    .ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, peer)), CancellationToken.None)
                 ;
             channelHistoryMinId = dialogReadModel?.ChannelHistoryMinId ?? 0;
         }
 
-        var r = await _messageAppService.GetHistoryAsync(new GetHistoryInput(ownerPeerId, userId, _peerHelper.GetPeer(obj.Peer, userId), channelHistoryMinId)
-        {
-            AddOffset = obj.AddOffset,
-            Limit = obj.Limit,
-            MaxId = obj.MaxId,
-            MinId = obj.MinId,
-            OffsetId = obj.OffsetId,
-        });
+        var r = await _messageAppService.GetHistoryAsync(
+            new GetHistoryInput(ownerPeerId, userId, _peerHelper.GetPeer(obj.Peer, userId), channelHistoryMinId)
+            {
+                AddOffset = obj.AddOffset,
+                Limit = obj.Limit,
+                MaxId = obj.MaxId,
+                MinId = obj.MinId,
+                OffsetId = obj.OffsetId
+            });
 
         return _rpcResultProcessor.ToMessages(r);
     }

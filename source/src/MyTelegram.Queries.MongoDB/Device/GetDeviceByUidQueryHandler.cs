@@ -13,7 +13,8 @@ public class GetDeviceByUidQueryHandler : IQueryHandler<GetDeviceByUidQuery, IRe
     public async Task<IReadOnlyCollection<IDeviceReadModel>> ExecuteQueryAsync(GetDeviceByUidQuery query,
         CancellationToken cancellationToken)
     {
-        var cursor = await _store.FindAsync(p => p.UserId == query.UserId && p.IsActive, cancellationToken: cancellationToken)
+        var cursor = await _store.FindAsync(p => p.UserId == query.UserId && p.IsActive,
+                cancellationToken: cancellationToken)
             ;
         return await cursor.ToListAsync(cancellationToken);
     }

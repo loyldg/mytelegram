@@ -21,7 +21,9 @@ public class SearchContactOutput
     }
 
     public IReadOnlyCollection<IChannelReadModel> ChannelList { get; }
+
     public IReadOnlyCollection<IChannelMemberReadModel> ChannelMemberList { get; }
+
     //public IReadOnlyCollection<IContactReadModel> ContactList { get; }
     public IReadOnlyCollection<IChannelReadModel> MyChannelList { get; }
     //public IReadOnlyCollection<IPrivacyReadModel> PrivacyList { get; }

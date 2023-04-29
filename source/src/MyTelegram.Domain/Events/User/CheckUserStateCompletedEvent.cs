@@ -6,5 +6,6 @@ public class CheckUserStateCompletedEvent : AggregateEvent<UserAggregate, UserId
     {
         CorrelationId = correlationId;
     }
+
     public Guid CorrelationId { get; }
 }

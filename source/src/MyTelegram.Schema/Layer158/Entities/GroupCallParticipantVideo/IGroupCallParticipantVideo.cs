@@ -7,6 +7,6 @@ public interface IGroupCallParticipantVideo : IObject
     BitArray Flags { get; set; }
     bool Paused { get; set; }
     string Endpoint { get; set; }
-    TVector<MyTelegram.Schema.IGroupCallParticipantVideoSourceGroup> SourceGroups { get; set; }
+    TVector<Schema.IGroupCallParticipantVideoSourceGroup> SourceGroups { get; set; }
     int? AudioSource { get; set; }
 }

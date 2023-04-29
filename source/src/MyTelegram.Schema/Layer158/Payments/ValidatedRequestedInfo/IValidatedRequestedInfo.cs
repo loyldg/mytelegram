@@ -6,5 +6,5 @@ public interface IValidatedRequestedInfo : IObject
 {
     BitArray Flags { get; set; }
     string? Id { get; set; }
-    TVector<MyTelegram.Schema.IShippingOption>? ShippingOptions { get; set; }
+    TVector<Schema.IShippingOption>? ShippingOptions { get; set; }
 }

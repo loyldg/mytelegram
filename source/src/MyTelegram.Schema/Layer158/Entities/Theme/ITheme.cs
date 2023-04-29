@@ -12,8 +12,8 @@ public interface ITheme : IObject
     long AccessHash { get; set; }
     string Slug { get; set; }
     string Title { get; set; }
-    MyTelegram.Schema.IDocument? Document { get; set; }
-    TVector<MyTelegram.Schema.IThemeSettings>? Settings { get; set; }
+    Schema.IDocument? Document { get; set; }
+    TVector<Schema.IThemeSettings>? Settings { get; set; }
     string? Emoticon { get; set; }
     int? InstallsCount { get; set; }
 }

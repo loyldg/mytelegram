@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Contacts;
+
 namespace MyTelegram.Handlers.Contacts;
 
-internal sealed class ExportContactTokenHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestExportContactToken, MyTelegram.Schema.IExportedContactToken>,
+internal sealed class ExportContactTokenHandler :
+    RpcResultObjectHandler<RequestExportContactToken, Schema.IExportedContactToken>,
     Contacts.IExportContactTokenHandler
 {
-    protected override Task<MyTelegram.Schema.IExportedContactToken> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Contacts.RequestExportContactToken obj)
+    protected override Task<Schema.IExportedContactToken> HandleCoreAsync(IRequestInput input,
+        RequestExportContactToken obj)
     {
         throw new NotImplementedException();
     }

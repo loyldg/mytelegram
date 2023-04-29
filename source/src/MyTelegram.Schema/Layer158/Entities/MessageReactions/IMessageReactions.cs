@@ -7,6 +7,6 @@ public interface IMessageReactions : IObject
     BitArray Flags { get; set; }
     bool Min { get; set; }
     bool CanSeeList { get; set; }
-    TVector<MyTelegram.Schema.IReactionCount> Results { get; set; }
-    TVector<MyTelegram.Schema.IMessagePeerReaction>? RecentReactions { get; set; }
+    TVector<Schema.IReactionCount> Results { get; set; }
+    TVector<Schema.IMessagePeerReaction>? RecentReactions { get; set; }
 }

@@ -14,7 +14,7 @@ public interface IConfig : IObject
     int Expires { get; set; }
     bool TestMode { get; set; }
     int ThisDc { get; set; }
-    TVector<MyTelegram.Schema.IDcOption> DcOptions { get; set; }
+    TVector<Schema.IDcOption> DcOptions { get; set; }
     string DcTxtDomainName { get; set; }
     int ChatSizeMax { get; set; }
     int MegagroupSizeMax { get; set; }
@@ -50,6 +50,6 @@ public interface IConfig : IObject
     string? SuggestedLangCode { get; set; }
     int? LangPackVersion { get; set; }
     int? BaseLangPackVersion { get; set; }
-    MyTelegram.Schema.IReaction? ReactionsDefault { get; set; }
+    Schema.IReaction? ReactionsDefault { get; set; }
     string? AutologinToken { get; set; }
 }

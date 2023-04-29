@@ -6,6 +6,7 @@ public class ReadingHistoryState : AggregateState<ReadingHistoryAggregate, Readi
     public long ReaderPeerId { get; private set; }
     public long TargetPeerId { get; private set; }
     public int MessageId { get; private set; }
+
     public void Apply(ReadingHistoryCreatedEvent aggregateEvent)
     {
         ReaderPeerId = aggregateEvent.ReaderPeerId;

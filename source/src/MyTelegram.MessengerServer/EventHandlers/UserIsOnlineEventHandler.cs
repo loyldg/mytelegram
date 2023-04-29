@@ -22,10 +22,10 @@ public class UserIsOnlineEventHandler : IEventHandler<UserIsOnlineEvent>
             eventData.TempAuthKeyId,
             eventData.PermAuthKeyId);
         await _scheduleAppService.ExecuteAsync(() =>
-        {
-            var updatesTooLong = new TUpdatesTooLong();
-            _objectMessageSender.PushSessionMessageToAuthKeyIdAsync(eventData.TempAuthKeyId, updatesTooLong);
-        },
+            {
+                var updatesTooLong = new TUpdatesTooLong();
+                _objectMessageSender.PushSessionMessageToAuthKeyIdAsync(eventData.TempAuthKeyId, updatesTooLong);
+            },
             TimeSpan.FromMilliseconds(1500));
     }
 }

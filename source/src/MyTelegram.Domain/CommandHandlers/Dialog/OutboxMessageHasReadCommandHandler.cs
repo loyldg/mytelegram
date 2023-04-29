@@ -8,7 +8,10 @@ public class
         CancellationToken cancellationToken)
     {
         //Console.WriteLine($"outbox has read:OwnerPeerId:{command.OwnerPeerId} MaxMessageId:{command.MaxMessageId}");
-        aggregate.OutboxMessageHasRead(command.ReqMsgId, command.MaxMessageId, command.OwnerPeerId, command.CorrelationId);
+        aggregate.OutboxMessageHasRead(command.ReqMsgId,
+            command.MaxMessageId,
+            command.OwnerPeerId,
+            command.CorrelationId);
         return Task.CompletedTask;
     }
 }

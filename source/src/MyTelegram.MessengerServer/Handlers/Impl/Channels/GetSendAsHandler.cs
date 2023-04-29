@@ -5,13 +5,14 @@ using MyTelegram.Schema.Channels;
 
 namespace MyTelegram.Handlers.Channels;
 
-public class GetSendAsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestGetSendAs, MyTelegram.Schema.Channels.ISendAsPeers>,
+public class GetSendAsHandler : RpcResultObjectHandler<Schema.Channels.RequestGetSendAs, Schema.Channels.ISendAsPeers>,
     Channels.IGetSendAsHandler, IProcessedHandler
 {
+    private readonly ITlChatConverter _chatConverter;
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly ITlChatConverter _chatConverter;
     private readonly ITlUserConverter _userConverter;
+
     public GetSendAsHandler(IPeerHelper peerHelper,
         IQueryProcessor queryProcessor,
         ITlChatConverter chatConverter,
@@ -23,8 +24,8 @@ public class GetSendAsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channel
         _userConverter = userConverter;
     }
 
-    protected override async Task<MyTelegram.Schema.Channels.ISendAsPeers> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestGetSendAs obj)
+    protected override async Task<Schema.Channels.ISendAsPeers> HandleCoreAsync(IRequestInput input,
+        Schema.Channels.RequestGetSendAs obj)
     {
         var peer = _peerHelper.GetPeer(obj.Peer);
         if (peer.PeerType == PeerType.Channel)

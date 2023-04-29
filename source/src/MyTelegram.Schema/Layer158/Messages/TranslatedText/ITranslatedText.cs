@@ -4,5 +4,5 @@ namespace MyTelegram.Schema.Messages;
 
 public interface ITranslatedText : IObject
 {
-    TVector<MyTelegram.Schema.ITextWithEntities> Result { get; set; }
+    TVector<Schema.ITextWithEntities> Result { get; set; }
 }

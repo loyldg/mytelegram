@@ -10,7 +10,8 @@ public class GetEmojiKeywordsDifferenceHandler :
     protected override Task<IEmojiKeywordsDifference> HandleCoreAsync(IRequestInput input,
         RequestGetEmojiKeywordsDifference obj)
     {
-        var r = new TEmojiKeywordsDifference {
+        var r = new TEmojiKeywordsDifference
+        {
             LangCode = "en", FromVersion = 0, Version = 0, Keywords = new TVector<IEmojiKeyword>()
         };
 

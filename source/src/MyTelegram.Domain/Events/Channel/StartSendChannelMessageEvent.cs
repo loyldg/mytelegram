@@ -1,6 +1,7 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class StartSendChannelMessageEvent : /*RequestInfo*/AggregateEvent<ChannelAggregate, ChannelId>, IHasCorrelationId
+public class StartSendChannelMessageEvent : /*RequestInfo*/AggregateEvent<ChannelAggregate, ChannelId>,
+    IHasCorrelationId
 {
     public StartSendChannelMessageEvent( //long reqMsgId,
         long senderPeerId,
@@ -28,10 +29,12 @@ public class StartSendChannelMessageEvent : /*RequestInfo*/AggregateEvent<Channe
     public int Date { get; }
     public long? LinkedChannelId { get; }
     public int MessageId { get; }
+
     /// <summary>
-    /// Whether this is a channel post
+    ///     Whether this is a channel post
     /// </summary>
     public bool Post { get; }
+
     public bool SenderIsBot { get; }
     public long SenderPeerId { get; }
     public int? Views { get; }

@@ -28,3 +28,5 @@
 //// public class LeaveChannelSaga : AggregateSaga<LeaveChannelSaga, LeaveChannelSagaId, LeaveChannelSagaLocator>
 //// {
 //// }
+
+

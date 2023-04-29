@@ -3,7 +3,9 @@
 public interface IClientData
 {
     public long AuthKeyId { get; set; }
+
     public string ConnectionId { get; set; }
+
     //public ConnectionContext ConnectionContext { get; set; } = null!;
     public int CurrentPacketLength { get; set; }
 

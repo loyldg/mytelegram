@@ -33,6 +33,7 @@ public class CheckSignUpCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeI
 
     //public string PhoneNumber { get; }
     public string PhoneCodeHash { get; }
+
     //public string Code { get; } 
     public long UserId { get; }
 

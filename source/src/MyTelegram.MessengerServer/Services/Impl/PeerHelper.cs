@@ -9,7 +9,7 @@ public class PeerHelper : IPeerHelper
             return new Peer(PeerType.Channel, inputChannel.ChannelId);
         }
 
-        throw new BadRequestException(RpcErrorMessages.ChannelInvalid); 
+        throw new BadRequestException(RpcErrorMessages.ChannelInvalid);
     }
 
     public Peer GetPeer(IInputPeer peer,

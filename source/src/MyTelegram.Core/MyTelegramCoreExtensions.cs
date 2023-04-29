@@ -11,7 +11,6 @@ public static class MyTelegramCoreExtensions
         services.AddSingleton<IObjectMapper, DefaultObjectMapper>();
         services.AddSingleton(typeof(IObjectMapper<>), typeof(DefaultObjectMapper<>));
 
-
         return services;
     }
 }

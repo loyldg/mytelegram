@@ -22,7 +22,6 @@ public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate,
         CorrelationId = correlationId;
     }
 
-    public Guid CorrelationId { get; }
     public IReadOnlyCollection<InboxItem>? InboxItems { get; }
     public MessageItem OldMessageItem { get; }
     public int MessageId { get; }
@@ -30,4 +29,6 @@ public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate,
     public byte[]? Entities { get; }
     public byte[]? Media { get; }
     public int EditDate { get; }
+
+    public Guid CorrelationId { get; }
 }

@@ -11,7 +11,8 @@ public class GetLanguageHandler : RpcResultObjectHandler<RequestGetLanguage, ILa
     {
         if (obj.LangCode == "zhcncc")
         {
-            ILangPackLanguage r0 = new TLangPackLanguage {
+            ILangPackLanguage r0 = new TLangPackLanguage
+            {
                 //BaseLangCode,
                 Official = false,
                 Name = "Chinese (Simplified)",
@@ -26,7 +27,8 @@ public class GetLanguageHandler : RpcResultObjectHandler<RequestGetLanguage, ILa
             return Task.FromResult(r0);
         }
 
-        ILangPackLanguage r = new TLangPackLanguage {
+        ILangPackLanguage r = new TLangPackLanguage
+        {
             //BaseLangCode,
             LangCode = obj.LangCode,
             Name = "English",

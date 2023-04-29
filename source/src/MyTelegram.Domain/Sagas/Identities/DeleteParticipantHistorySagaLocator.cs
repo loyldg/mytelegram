@@ -11,6 +11,7 @@ public class DeleteParticipantHistorySagaLocator : ISagaLocator
                 $"Domain event:{domainEvent.GetAggregateEvent().GetType().FullName} should impl IHasCorrelationId ");
         }
 
-        return Task.FromResult<ISagaId>(new DeleteParticipantHistorySagaId($"deleteparticipanthistorysagaid-{id.CorrelationId}"));
+        return Task.FromResult<ISagaId>(
+            new DeleteParticipantHistorySagaId($"deleteparticipanthistorysagaid-{id.CorrelationId}"));
     }
 }

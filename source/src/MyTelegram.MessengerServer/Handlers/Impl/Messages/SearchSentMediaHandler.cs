@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class SearchSentMediaHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSearchSentMedia, MyTelegram.Schema.Messages.IMessages>,
+public class SearchSentMediaHandler : RpcResultObjectHandler<RequestSearchSentMedia, IMessages>,
     Messages.ISearchSentMediaHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSearchSentMedia obj)
+    protected override Task<IMessages> HandleCoreAsync(IRequestInput input,
+        RequestSearchSentMedia obj)
     {
         throw new NotImplementedException();
     }

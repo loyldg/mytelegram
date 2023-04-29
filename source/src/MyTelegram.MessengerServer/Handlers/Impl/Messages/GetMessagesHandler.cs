@@ -29,7 +29,7 @@ public class GetMessagesHandler : RpcResultObjectHandler<RequestGetMessages, IMe
         }
 
         var dto = await _messageAppService
-            .GetMessagesAsync(new GetMessagesInput(input.UserId, input.UserId, idList, null) { Limit = 50 })
+                .GetMessagesAsync(new GetMessagesInput(input.UserId, input.UserId, idList, null) { Limit = 50 })
             ;
 
         return _rpcResultProcessor.ToMessages(dto);
@@ -62,7 +62,7 @@ public class GetMessagesHandlerLayerN : RpcResultObjectHandler<Schema.LayerN.Req
         //}
 
         var dto = await _messageAppService
-            .GetMessagesAsync(new GetMessagesInput(input.UserId, input.UserId, idList, null) { Limit = 50 })
+                .GetMessagesAsync(new GetMessagesInput(input.UserId, input.UserId, idList, null) { Limit = 50 })
             ;
 
         return _rpcResultProcessor.ToMessages(dto);

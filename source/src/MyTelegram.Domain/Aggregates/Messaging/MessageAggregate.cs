@@ -8,29 +8,6 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     {
         Register(_state);
     }
-    public void DeleteOutboxMessage(Guid correlationId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new OutboxMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId, _state.MessageItem.MessageId, _state.InboxItems, correlationId));
-    }
-    public void DeleteInboxMessage(Guid correlationId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new InboxMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId, _state.MessageItem.MessageId, correlationId));
-    }
-    public void DeleteSelfMessage(int messageId,
-        Guid correlationId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new SelfMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId,
-            messageId,
-            _state.MessageItem.IsOut,
-            _state.MessageItem.SenderPeer.PeerId,
-            _state.SenderMessageId,
-            _state.InboxItems,
-            correlationId
-        ));
-    }
 
     /// <summary>
     ///     Sender's message id and receiver's message id are independent,add receiver's message id to sender,delete messages
@@ -69,6 +46,26 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             correlationId));
     }
 
+    protected override Task<MessageSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
+    {
+        return Task.FromResult(new MessageSnapshot(_state.MessageItem,
+            _state.InboxItems,
+            _state.SenderMessageId,
+            _state.Pinned,
+            _state.EditDate,
+            _state.Edited,
+            _state.Pts,
+            _state.RecentRepliers.ToList()));
+    }
+
+    public void DeleteInboxMessage(Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new InboxMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId,
+            _state.MessageItem.MessageId,
+            correlationId));
+    }
+
     public void DeleteMessage(int messageId,
         Guid correlationId)
     {
@@ -101,6 +98,29 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         Emit(new OtherPartyMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId,
             _state.MessageItem.MessageId,
             correlationId));
+    }
+
+    public void DeleteOutboxMessage(Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new OutboxMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId,
+            _state.MessageItem.MessageId,
+            _state.InboxItems,
+            correlationId));
+    }
+
+    public void DeleteSelfMessage(int messageId,
+        Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new SelfMessageDeletedEvent(_state.MessageItem.OwnerPeer.PeerId,
+            messageId,
+            _state.MessageItem.IsOut,
+            _state.MessageItem.SenderPeer.PeerId,
+            _state.SenderMessageId,
+            _state.InboxItems,
+            correlationId
+        ));
     }
 
     public void EditInboxMessage(
@@ -168,6 +188,14 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         {
             Emit(new MessageViewsIncrementedEvent(_state.MessageItem.MessageId, _state.MessageItem.Views ?? 0 + 1));
         }
+    }
+
+    protected override Task LoadSnapshotAsync(MessageSnapshot snapshot,
+        ISnapshotMetadata metadata,
+        CancellationToken cancellationToken)
+    {
+        _state.LoadSnapshot(snapshot);
+        return Task.CompletedTask;
     }
 
     public void ReadInboxHistory(long reqMsgId,
@@ -241,6 +269,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         {
             recentRepliers.RemoveAt(MyTelegramServerDomainConsts.MaxRecentRepliersCount - 1);
         }
+
         recentRepliers.Insert(0, replierPeer);
         Emit(new ReplyToMessageStartedEvent(replyToMsgId,
             _state.MessageItem.IsOut,
@@ -346,23 +375,5 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             _state.Pts,
             correlationId
         ));
-    }
-    protected override Task<MessageSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
-    {
-        return Task.FromResult(new MessageSnapshot(_state.MessageItem,
-            _state.InboxItems,
-            _state.SenderMessageId,
-            _state.Pinned,
-            _state.EditDate,
-            _state.Edited,
-            _state.Pts,
-            _state.RecentRepliers.ToList()));
-    }
-    protected override Task LoadSnapshotAsync(MessageSnapshot snapshot,
-        ISnapshotMetadata metadata,
-        CancellationToken cancellationToken)
-    {
-        _state.LoadSnapshot(snapshot);
-        return Task.CompletedTask;
     }
 }

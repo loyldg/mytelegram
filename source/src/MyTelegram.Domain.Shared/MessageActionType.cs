@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public enum MessageActionType
@@ -31,5 +32,5 @@ public enum MessageActionType
     SecureValuesSent,
     SecureValuesSentMe,
     SetMessagesTtl,
-    ChannelAddUser,
+    ChannelAddUser
 }

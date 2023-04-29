@@ -7,5 +7,5 @@ public interface IBotApp : IObject
     BitArray Flags { get; set; }
     bool Inactive { get; set; }
     bool RequestWriteAccess { get; set; }
-    MyTelegram.Schema.IBotApp App { get; set; }
+    Schema.IBotApp App { get; set; }
 }

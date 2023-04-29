@@ -45,7 +45,8 @@ public class UserDomainEventHandler : DomainEventHandlerBase,
             domainEvent.AggregateEvent.LastName
         );
 
-        await _eventBus.PublishAsync(new UserSignUpSuccessIntegrationEvent(domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
+        await _eventBus.PublishAsync(new UserSignUpSuccessIntegrationEvent(
+            domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
             domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
             domainEvent.AggregateEvent.UserId));
 

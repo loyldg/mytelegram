@@ -1,8 +1,8 @@
 ﻿namespace MyTelegram.Domain.Entities;
 
-public class MessageItem :ValueObject// Entity<MessageId>
+public class MessageItem : ValueObject // Entity<MessageId>
 {
-    public MessageItem(/*MessageId id,*/
+    public MessageItem( /*MessageId id,*/
         Peer ownerPeer,
         Peer toPeer,
         Peer senderPeer,
@@ -24,7 +24,7 @@ public class MessageItem :ValueObject// Entity<MessageId>
         bool post = false,
         MessageFwdHeader? fwdHeader = null,
         int? views = null,
-        long? pollId=null
+        long? pollId = null
     ) //: base(id)
     {
         OwnerPeer = ownerPeer;
@@ -55,7 +55,6 @@ public class MessageItem :ValueObject// Entity<MessageId>
     public byte[]? Entities { get; }
     public MessageFwdHeader? FwdHeader { get; }
     public long? GroupId { get; }
-
 
     //public int? GroupItemCount { get; }
     public byte[]? Media { get; }

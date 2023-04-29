@@ -6,6 +6,6 @@ public interface IAttachMenuBotIcon : IObject
 {
     BitArray Flags { get; set; }
     string Name { get; set; }
-    MyTelegram.Schema.IDocument Icon { get; set; }
-    TVector<MyTelegram.Schema.IAttachMenuBotIconColor>? Colors { get; set; }
+    Schema.IDocument Icon { get; set; }
+    TVector<Schema.IAttachMenuBotIconColor>? Colors { get; set; }
 }

@@ -8,7 +8,7 @@ public interface IMessageReplies : IObject
     bool Comments { get; set; }
     int Replies { get; set; }
     int RepliesPts { get; set; }
-    TVector<MyTelegram.Schema.IPeer>? RecentRepliers { get; set; }
+    TVector<Schema.IPeer>? RecentRepliers { get; set; }
     long? ChannelId { get; set; }
     int? MaxId { get; set; }
     int? ReadMaxId { get; set; }

@@ -1,10 +1,11 @@
 using MyTelegram.Domain.Aggregates.PeerNotifySettings;
 using MyTelegram.Handlers.Users;
 using MyTelegram.Schema.Users;
+using IUserFull = MyTelegram.Schema.Users.IUserFull;
 
 namespace MyTelegram.MessengerServer.Handlers.Impl.Users;
 
-public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, MyTelegram.Schema.Users.IUserFull>,
+public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, IUserFull>,
     IGetFullUserHandler, IProcessedHandler
 {
     private readonly IPeerHelper _peerHelper;
@@ -20,7 +21,7 @@ public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, MyT
         _userConverter = userConverter;
     }
 
-    protected override async Task<MyTelegram.Schema.Users.IUserFull> HandleCoreAsync(IRequestInput input,
+    protected override async Task<IUserFull> HandleCoreAsync(IRequestInput input,
         RequestGetFullUser obj)
     {
         var userId = input.UserId;

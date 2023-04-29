@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Account;
+
 namespace MyTelegram.Handlers.Account;
 
-public class SaveRingtoneHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestSaveRingtone, MyTelegram.Schema.Account.ISavedRingtone>,
+public class SaveRingtoneHandler : RpcResultObjectHandler<RequestSaveRingtone, ISavedRingtone>,
     Account.ISaveRingtoneHandler
 {
-    protected override Task<MyTelegram.Schema.Account.ISavedRingtone> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestSaveRingtone obj)
+    protected override Task<ISavedRingtone> HandleCoreAsync(IRequestInput input,
+        RequestSaveRingtone obj)
     {
         throw new NotImplementedException();
     }

@@ -265,8 +265,10 @@ public class GetDialogFiltersQuery : IQuery<IReadOnlyCollection<IDialogFilterRea
     {
         OwnerUserId = ownerUserId;
     }
+
     public long OwnerUserId { get; }
 }
+
 public class GetDialogsQuery : IQuery<IReadOnlyList<IDialogReadModel>>
 {
     public GetDialogsQuery(long ownerId,
@@ -301,9 +303,11 @@ public class GetDiscussionMessageQuery : IQuery<IMessageReadModel?>
         SavedFromPeerId = savedFromPeerId;
         SavedFromMessageId = savedFromMessageId;
     }
+
     public int SavedFromMessageId { get; }
     public long SavedFromPeerId { get; }
 }
+
 public class GetFileQuery : IQuery<IFileReadModel?>
 {
     public GetFileQuery(long fileId,
@@ -353,8 +357,10 @@ public class GetLinkedChannelIdQuery : IQuery<long?>
     {
         ChannelId = channelId;
     }
+
     public long ChannelId { get; }
 }
+
 public class GetMegaGroupByUidQuery : IQuery<IReadOnlyCollection<IChannelReadModel>>
 {
     public GetMegaGroupByUidQuery(long userId)
@@ -477,6 +483,7 @@ public class GetMessagesQuery : IQuery<IReadOnlyCollection<IMessageReadModel>>
     public Peer? Peer { get; }
     public int Pts { get; }
     public string? Q { get; }
+
     public int ReplyToMsgId { get; }
     // use private setter for auto mapper
 
@@ -601,6 +608,7 @@ public class GetReadingHistoryQuery : IQuery<IReadOnlyCollection<long>>
     public long MessageId { get; }
     public long TargetPeerId { get; }
 }
+
 public class GetRepliesQuery : IQuery<IReadOnlyCollection<IReplyReadModel>>
 {
     public GetRepliesQuery(long channelId,
@@ -609,9 +617,11 @@ public class GetRepliesQuery : IQuery<IReadOnlyCollection<IReplyReadModel>>
         ChannelId = channelId;
         MessageIds = messageIds;
     }
+
     public long ChannelId { get; }
     public IList<int> MessageIds { get; }
 }
+
 public class GetReplyQuery : IQuery<IReplyReadModel?>
 {
     public GetReplyQuery(long channelId,
@@ -620,6 +630,7 @@ public class GetReplyQuery : IQuery<IReplyReadModel?>
         ChannelId = channelId;
         SavedFromMsgId = savedFromMsgId;
     }
+
     public long ChannelId { get; }
     public int SavedFromMsgId { get; }
 }
@@ -745,55 +756,75 @@ public class GetLatestAppCodeQuery : IQuery<IAppCodeReadModel>
 
     public string PhoneNumber { get; }
 }
+
 public class GetPollIdByMessageIdQuery : IQuery<long?>
 {
-    public long PeerId { get; }
-    public int MessageId { get; }
-    public GetPollIdByMessageIdQuery(long peerId, int messageId)
+    public GetPollIdByMessageIdQuery(long peerId,
+        int messageId)
     {
         PeerId = peerId;
         MessageId = messageId;
     }
+
+    public long PeerId { get; }
+    public int MessageId { get; }
 }
+
 public class GetPollQuery : IQuery<IPollReadModel?>
 {
-    public long ToPeerId { get; }
-    public long PollId { get; }
-    public GetPollQuery(long toPeerId, long pollId)
+    public GetPollQuery(long toPeerId,
+        long pollId)
     {
         ToPeerId = toPeerId;
         PollId = pollId;
     }
+
+    public long ToPeerId { get; }
+    public long PollId { get; }
 }
+
 public class GetChosenVoteAnswersQuery : IQuery<IReadOnlyCollection<IPollAnswerVoterReadModel>>
 {
-    public List<long> PollIds { get; }
-    public long VoterPeerId { get; }
-    public GetChosenVoteAnswersQuery(List<long> pollIds, long voterPeerId)
+    public GetChosenVoteAnswersQuery(List<long> pollIds,
+        long voterPeerId)
     {
         PollIds = pollIds;
         VoterPeerId = voterPeerId;
     }
+
+    public List<long> PollIds { get; }
+    public long VoterPeerId { get; }
 }
+
 public class GetPollAnswerVotersQuery : IQuery<IReadOnlyCollection<IPollAnswerVoterReadModel>>
 {
-    public long PollId { get; }
-    public long VoterPeerId { get; }
-    public GetPollAnswerVotersQuery(long pollId, long voterPeerId)
+    public GetPollAnswerVotersQuery(long pollId,
+        long voterPeerId)
     {
         PollId = pollId;
         VoterPeerId = voterPeerId;
     }
+
+    public long PollId { get; }
+    public long VoterPeerId { get; }
 }
+
 public class GetPollsQuery : IQuery<IReadOnlyCollection<IPollReadModel>>
 {
-    public List<long> PollIds { get; }
     public GetPollsQuery(List<long> pollIds)
     {
         PollIds = pollIds;
     }
+
+    public List<long> PollIds { get; }
 }
 
-public record GetMessageIdListByUserIdQuery(long ChannelId, long SenderUserId, int Limit) : IQuery<IReadOnlyCollection<int>>;
-public record GetMessageIdListByChannelIdQuery(long ChannelId, int Limit) : IQuery<IReadOnlyCollection<int>>;
-public record GetMessageReadParticipantsQuery(long TargetPeerId, long MessageId) : IQuery<IReadOnlyCollection<IReadingHistoryReadModel>>;
+public record GetMessageIdListByUserIdQuery(long ChannelId,
+    long SenderUserId,
+    int Limit) : IQuery<IReadOnlyCollection<int>>;
+
+public record GetMessageIdListByChannelIdQuery(long ChannelId,
+    int Limit) : IQuery<IReadOnlyCollection<int>>;
+
+public record GetMessageReadParticipantsQuery(long TargetPeerId,
+    long MessageId) : IQuery<IReadOnlyCollection<IReadingHistoryReadModel>>;

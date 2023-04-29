@@ -13,5 +13,5 @@ public class UpdateInboxPinnedCompletedEvent : AggregateEvent<UpdatePinnedMessag
 
     public int MessageId { get; }
     public Peer ToPeer { get; }
-    public long OwnerPeerId { get; } 
+    public long OwnerPeerId { get; }
 }

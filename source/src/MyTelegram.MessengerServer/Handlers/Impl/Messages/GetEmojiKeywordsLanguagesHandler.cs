@@ -10,7 +10,8 @@ public class GetEmojiKeywordsLanguagesHandler :
     protected override Task<TVector<IEmojiLanguage>> HandleCoreAsync(IRequestInput input,
         RequestGetEmojiKeywordsLanguages obj)
     {
-        IEmojiLanguage[] languages = { new TEmojiLanguage { LangCode = "en" }, new TEmojiLanguage { LangCode = "zh-hans" } };
+        IEmojiLanguage[] languages =
+            { new TEmojiLanguage { LangCode = "en" }, new TEmojiLanguage { LangCode = "zh-hans" } };
 
         var r = new TVector<IEmojiLanguage>(languages);
 

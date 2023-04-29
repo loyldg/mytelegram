@@ -12,6 +12,6 @@ public class BitArraySerializer : ISerializer<BitArray>
 
     public BitArray Deserialize(BinaryReader reader)
     {
-        return new(reader.ReadBytes(4));
+        return new BitArray(reader.ReadBytes(4));
     }
 }

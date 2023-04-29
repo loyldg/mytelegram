@@ -9,7 +9,7 @@ public class ReplyToChannelMessageCompletedEvent : AggregateEvent<MessageSaga, M
         long savedFromPeerId,
         int savedFromMsgId,
         IReadOnlyCollection<Peer> recentRepliers
-        )
+    )
     {
         ReplyToMsgId = replyToMsgId;
         ChannelId = channelId;

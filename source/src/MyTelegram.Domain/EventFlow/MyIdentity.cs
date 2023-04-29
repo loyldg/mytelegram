@@ -7,6 +7,7 @@ public abstract class MyIdentity<T> : SingleValueObject<string>, IIdentity
 {
     // ReSharper disable StaticMemberInGenericType
     private static readonly string Prefix;
+
     private static readonly Regex ValueValidation;
     // ReSharper enable StaticMemberInGenericType
 
@@ -58,17 +59,20 @@ public abstract class MyIdentity<T> : SingleValueObject<string>, IIdentity
         return With(guid);
     }
 
-    public static T NewDeterministic(Guid namespaceId, string name)
+    public static T NewDeterministic(Guid namespaceId,
+        string name)
     {
         var guid = GuidFactories.Deterministic.Create(namespaceId, name);
         return With(guid);
     }
 
-    public static T NewDeterministic(Guid namespaceId, byte[] nameBytes)
+    public static T NewDeterministic(Guid namespaceId,
+        byte[] nameBytes)
     {
         var guid = GuidFactories.Deterministic.Create(namespaceId, nameBytes);
         return With(guid);
     }
+
     public static IEnumerable<string> Validate(string value)
     {
         if (string.IsNullOrEmpty(value))
@@ -79,7 +83,8 @@ public abstract class MyIdentity<T> : SingleValueObject<string>, IIdentity
 
         if (!string.Equals(value.Trim(), value, StringComparison.OrdinalIgnoreCase))
         {
-            yield return $"Identity '{value}' of type '{typeof(T).PrettyPrint()}' contains leading and/or trailing spaces";
+            yield return
+                $"Identity '{value}' of type '{typeof(T).PrettyPrint()}' contains leading and/or trailing spaces";
         }
 
         if (!string.IsNullOrEmpty(Prefix) && !value.StartsWith(Prefix))
@@ -89,7 +94,8 @@ public abstract class MyIdentity<T> : SingleValueObject<string>, IIdentity
 
         if (!ValueValidation.IsMatch(value))
         {
-            yield return $"Identity '{value}' of type '{typeof(T).PrettyPrint()}' does not follow the syntax '{Prefix}[GUID]' in lower case";
+            yield return
+                $"Identity '{value}' of type '{typeof(T).PrettyPrint()}' does not follow the syntax '{Prefix}[GUID]' in lower case";
         }
     }
 
@@ -105,5 +111,9 @@ public abstract class MyIdentity<T> : SingleValueObject<string>, IIdentity
         var value = $"{Prefix}{guid:D}";
         return With(value);
     }
-    public Guid GetGuid() => _lazyGuid.Value;
+
+    public Guid GetGuid()
+    {
+        return _lazyGuid.Value;
+    }
 }

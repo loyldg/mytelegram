@@ -16,7 +16,7 @@ public interface IStickerSet : IObject
     long AccessHash { get; set; }
     string Title { get; set; }
     string ShortName { get; set; }
-    TVector<MyTelegram.Schema.IPhotoSize>? Thumbs { get; set; }
+    TVector<Schema.IPhotoSize>? Thumbs { get; set; }
     int? ThumbDcId { get; set; }
     int? ThumbVersion { get; set; }
     long? ThumbDocumentId { get; set; }

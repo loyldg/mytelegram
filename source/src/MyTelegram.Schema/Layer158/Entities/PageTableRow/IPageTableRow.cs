@@ -4,5 +4,5 @@ namespace MyTelegram.Schema;
 
 public interface IPageTableRow : IObject
 {
-    TVector<MyTelegram.Schema.IPageTableCell> Cells { get; set; }
+    TVector<Schema.IPageTableCell> Cells { get; set; }
 }

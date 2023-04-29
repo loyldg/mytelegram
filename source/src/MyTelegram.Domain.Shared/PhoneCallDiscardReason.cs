@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public enum PhoneCallDiscardReason
@@ -7,5 +8,5 @@ public enum PhoneCallDiscardReason
     Busy,
     Disconnected,
     Hangup,
-    Missed,
+    Missed
 }

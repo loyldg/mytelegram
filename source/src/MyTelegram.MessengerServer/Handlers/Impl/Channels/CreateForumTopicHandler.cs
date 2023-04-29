@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Channels;
+
 namespace MyTelegram.Handlers.Channels;
 
-public class CreateForumTopicHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestCreateForumTopic, MyTelegram.Schema.IUpdates>,
+public class CreateForumTopicHandler : RpcResultObjectHandler<RequestCreateForumTopic, Schema.IUpdates>,
     Channels.ICreateForumTopicHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestCreateForumTopic obj)
+    protected override Task<Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestCreateForumTopic obj)
     {
         throw new NotImplementedException();
     }

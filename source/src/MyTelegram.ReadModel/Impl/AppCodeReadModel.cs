@@ -4,13 +4,6 @@ public class AppCodeReadModel :
     IAppCodeReadModel,
     IAmReadModelFor<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent>
 {
-    public virtual string AppCodeId { get; private set; } = null!;
-    public virtual string Code { get; private set; } = null!;
-    public virtual long CreationTime { get; private set; }
-    public virtual int Expire { get; private set; }
-    public virtual string Id { get; private set; } = null!;
-    public virtual string PhoneCodeHash { get; private set; } = null!;
-    public virtual string PhoneNumber { get; private set; } = null!;
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -27,4 +20,12 @@ public class AppCodeReadModel :
 
         return Task.CompletedTask;
     }
+
+    public virtual string AppCodeId { get; private set; } = null!;
+    public virtual string Code { get; private set; } = null!;
+    public virtual long CreationTime { get; private set; }
+    public virtual int Expire { get; private set; }
+    public virtual string Id { get; private set; } = null!;
+    public virtual string PhoneCodeHash { get; private set; } = null!;
+    public virtual string PhoneNumber { get; private set; } = null!;
 }

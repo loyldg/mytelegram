@@ -4,7 +4,9 @@ public class StartDeleteParticipantHistoryCommand : RequestCommand2<ChannelAggre
     IHasCorrelationId
 {
     public StartDeleteParticipantHistoryCommand(ChannelId aggregateId,
-        RequestInfo requestInfo,List<int> messageIds,Guid correlationId) : base(aggregateId, requestInfo)
+        RequestInfo requestInfo,
+        List<int> messageIds,
+        Guid correlationId) : base(aggregateId, requestInfo)
     {
         MessageIds = messageIds;
         CorrelationId = correlationId;

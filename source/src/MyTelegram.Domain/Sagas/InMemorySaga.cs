@@ -5,14 +5,14 @@ namespace MyTelegram.Domain.Sagas;
 
 public class MyDispatchToSagas : IDispatchToSagas
 {
-    private readonly ILogger<MyDispatchToSagas> _logger;
-    private readonly IServiceProvider _serviceProvider;
-    private readonly ISagaStore _sagaStore;
     private readonly IInMemorySagaStore _inMemorySagaStore;
+    private readonly ILogger<MyDispatchToSagas> _logger;
     private readonly ISagaDefinitionService _sagaDefinitionService;
     private readonly ISagaErrorHandler _sagaErrorHandler;
-    private readonly ISagaUpdateResilienceStrategy _sagaUpdateLog;
     private readonly Func<Type, ISagaErrorHandler> _sagaErrorHandlerFactory;
+    private readonly ISagaStore _sagaStore;
+    private readonly ISagaUpdateResilienceStrategy _sagaUpdateLog;
+    private readonly IServiceProvider _serviceProvider;
 
     public MyDispatchToSagas(
         ILogger<MyDispatchToSagas> logger,
@@ -117,11 +117,12 @@ public class MyDispatchToSagas : IDispatchToSagas
         catch (Exception e)
         {
             // Search for a specific SagaErrorHandler<Saga> based on saga type
-            ISagaErrorHandler specificSagaErrorHandler = _sagaErrorHandlerFactory(details.SagaType);
+            var specificSagaErrorHandler = _sagaErrorHandlerFactory(details.SagaType);
 
-            bool handled = specificSagaErrorHandler != null ?
-                await specificSagaErrorHandler.HandleAsync(sagaId, details, e, cancellationToken).ConfigureAwait(false) :
-                await _sagaErrorHandler.HandleAsync(sagaId, details, e, cancellationToken);
+            var handled = specificSagaErrorHandler != null
+                ? await specificSagaErrorHandler.HandleAsync(sagaId, details, e, cancellationToken)
+                    .ConfigureAwait(false)
+                : await _sagaErrorHandler.HandleAsync(sagaId, details, e, cancellationToken);
 
             if (handled)
             {
@@ -207,15 +208,17 @@ public class MyDispatchToSagas : IDispatchToSagas
 public interface IInMemorySaga
 {
 }
+
 public interface IInMemorySagaStore : ISagaStore
 {
 }
+
 public class InMemorySagaStore : SagaStore, IInMemorySagaStore
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly ConcurrentDictionary<ISagaId, ISaga> _sagas = new();
     //private readonly AsyncLock _asyncLock = new();
     private readonly ConcurrentDictionary<Type, Func<ISagaId, ISaga>> _sagaCreators = new();
+    private readonly ConcurrentDictionary<ISagaId, ISaga> _sagas = new();
+    private readonly IServiceProvider _serviceProvider;
 
     public InMemorySagaStore(
         IServiceProvider serviceProvider)
@@ -243,6 +246,7 @@ public class InMemorySagaStore : SagaStore, IInMemorySagaStore
             saga = sagaCreator(sagaId);
             _sagas.TryAdd(sagaId, saga);
         }
+
         await updateSaga(saga, cancellationToken);
 
         await saga.PublishAsync(commandBus, cancellationToken);

@@ -47,6 +47,30 @@ public class ChatDomainEventHandler : DomainEventHandlerBase,
             domainEvent.AggregateEvent.DefaultBannedRights);
     }
 
+    public async Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatDeletedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        var updateChat = new TUpdateChat
+        {
+            ChatId = domainEvent.AggregateEvent.ChatId
+        };
+        var chatForbidden = new TChatForbidden
+        {
+            Id = domainEvent.AggregateEvent.ChatId,
+            Title = domainEvent.AggregateEvent.Title
+        };
+        var updates = new TUpdates
+        {
+            Updates = new TVector<IUpdate>(updateChat),
+            Users = new TVector<IUser>(),
+            Chats = new TVector<IChat>(chatForbidden),
+            Date = DateTime.UtcNow.ToTimestamp(),
+            Seq = 0
+        };
+        var peer = new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId);
+        await SendMessageToPeerAsync(peer, updates);
+    }
+
     private async Task NotifyUpdateChatAsync(long reqMsgId,
         long chatId,
         string sourceId,
@@ -85,28 +109,5 @@ public class ChatDomainEventHandler : DomainEventHandlerBase,
         }
 
         await PushUpdatesToPeerAsync(new Peer(PeerType.Chat, chatId), updates);
-    }
-    public async  Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatDeletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        var updateChat = new TUpdateChat
-        {
-            ChatId = domainEvent.AggregateEvent.ChatId
-        };
-        var chatForbidden = new TChatForbidden
-        {
-            Id = domainEvent.AggregateEvent.ChatId,
-            Title = domainEvent.AggregateEvent.Title
-        };
-        var updates = new TUpdates
-        {
-            Updates = new TVector<IUpdate>(updateChat),
-            Users = new TVector<IUser>(),
-            Chats = new TVector<IChat>(chatForbidden),
-            Date = DateTime.UtcNow.ToTimestamp(),
-            Seq = 0
-        };
-        var peer = new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId);
-        await SendMessageToPeerAsync(peer, updates);
     }
 }

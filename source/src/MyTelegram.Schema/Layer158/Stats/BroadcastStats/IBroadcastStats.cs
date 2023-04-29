@@ -4,19 +4,19 @@ namespace MyTelegram.Schema.Stats;
 
 public interface IBroadcastStats : IObject
 {
-    MyTelegram.Schema.IStatsDateRangeDays Period { get; set; }
-    MyTelegram.Schema.IStatsAbsValueAndPrev Followers { get; set; }
-    MyTelegram.Schema.IStatsAbsValueAndPrev ViewsPerPost { get; set; }
-    MyTelegram.Schema.IStatsAbsValueAndPrev SharesPerPost { get; set; }
-    MyTelegram.Schema.IStatsPercentValue EnabledNotifications { get; set; }
-    MyTelegram.Schema.IStatsGraph GrowthGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph FollowersGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph MuteGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph TopHoursGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph InteractionsGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph IvInteractionsGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph ViewsBySourceGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph NewFollowersBySourceGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph LanguagesGraph { get; set; }
-    TVector<MyTelegram.Schema.IMessageInteractionCounters> RecentMessageInteractions { get; set; }
+    Schema.IStatsDateRangeDays Period { get; set; }
+    Schema.IStatsAbsValueAndPrev Followers { get; set; }
+    Schema.IStatsAbsValueAndPrev ViewsPerPost { get; set; }
+    Schema.IStatsAbsValueAndPrev SharesPerPost { get; set; }
+    Schema.IStatsPercentValue EnabledNotifications { get; set; }
+    Schema.IStatsGraph GrowthGraph { get; set; }
+    Schema.IStatsGraph FollowersGraph { get; set; }
+    Schema.IStatsGraph MuteGraph { get; set; }
+    Schema.IStatsGraph TopHoursGraph { get; set; }
+    Schema.IStatsGraph InteractionsGraph { get; set; }
+    Schema.IStatsGraph IvInteractionsGraph { get; set; }
+    Schema.IStatsGraph ViewsBySourceGraph { get; set; }
+    Schema.IStatsGraph NewFollowersBySourceGraph { get; set; }
+    Schema.IStatsGraph LanguagesGraph { get; set; }
+    TVector<Schema.IMessageInteractionCounters> RecentMessageInteractions { get; set; }
 }

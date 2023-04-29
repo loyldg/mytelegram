@@ -4,5 +4,5 @@ namespace MyTelegram.Schema;
 
 public interface IKeyboardButtonRow : IObject
 {
-    TVector<MyTelegram.Schema.IKeyboardButton> Buttons { get; set; }
+    TVector<Schema.IKeyboardButton> Buttons { get; set; }
 }

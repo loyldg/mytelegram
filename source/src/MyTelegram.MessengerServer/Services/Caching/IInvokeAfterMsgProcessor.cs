@@ -13,5 +13,6 @@ public interface IInvokeAfterMsgProcessor
 
     Task<IObject> HandleAsync(IRequestInput input,
         IObject query);
+
     Task ProcessAsync();
 }

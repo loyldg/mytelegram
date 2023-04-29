@@ -13,6 +13,7 @@ public class PeerNotifySettings : ValueObject
         MuteUntil = muteUntil;
         Sound = sound;
     }
+
     public static PeerNotifySettings DefaultSettings { get; } = new(true, false, 0, "default");
     public int? MuteUntil { get; private set; } //= 0;// = int.MaxValue;
 

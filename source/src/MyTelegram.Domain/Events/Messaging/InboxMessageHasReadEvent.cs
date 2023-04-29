@@ -2,16 +2,9 @@
 
 public class InboxMessageHasReadEvent : AggregateEvent<MessageAggregate, MessageId>, IHasCorrelationId
 {
-    public long ReqMsgId { get; }
-    public long ReaderUid { get; }
-    public int MaxMessageId { get; }
-    public long SenderPeerId { get; }
-    public int SenderMessageId { get; }
-    public Peer ToPeer { get; }
-    public bool IsOut { get; }
-    public Guid CorrelationId { get; }
-
-    public InboxMessageHasReadEvent(long reqMsgId, long readerUid, int maxMessageId,
+    public InboxMessageHasReadEvent(long reqMsgId,
+        long readerUid,
+        int maxMessageId,
         long senderPeerId,
         int senderMessageId,
         Peer toPeer,
@@ -28,4 +21,13 @@ public class InboxMessageHasReadEvent : AggregateEvent<MessageAggregate, Message
         IsOut = isOut;
         CorrelationId = correlationId;
     }
+
+    public long ReqMsgId { get; }
+    public long ReaderUid { get; }
+    public int MaxMessageId { get; }
+    public long SenderPeerId { get; }
+    public int SenderMessageId { get; }
+    public Peer ToPeer { get; }
+    public bool IsOut { get; }
+    public Guid CorrelationId { get; }
 }

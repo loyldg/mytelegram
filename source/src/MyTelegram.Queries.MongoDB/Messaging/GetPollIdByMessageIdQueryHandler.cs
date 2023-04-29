@@ -17,7 +17,9 @@ public class GetPollIdByMessageIdQueryHandler : IQueryHandler<GetPollIdByMessage
             Projection = new ProjectionDefinitionBuilder<MessageReadModel>().Expression(p => p.PollId),
             Limit = 1
         };
-        var cursor = await _store.FindAsync(p => p.ToPeerId == query.PeerId && p.MessageId == query.MessageId, findOptions, cancellationToken)
+        var cursor = await _store.FindAsync(p => p.ToPeerId == query.PeerId && p.MessageId == query.MessageId,
+                findOptions,
+                cancellationToken)
             ;
 
         return await cursor.FirstOrDefaultAsync(cancellationToken);

@@ -12,6 +12,7 @@ public class DeleteParticipantHistorySagaState : AggregateState<DeleteParticipan
     public RequestInfo RequestInfo { get; private set; } = null!;
     public List<int> MessageIds { get; private set; } = null!;
     public long OwnerPeerId { get; private set; }
+
     public void Apply(DeleteParticipantHistoryCompletedEvent aggregateEvent)
     {
         //throw new NotImplementedException();

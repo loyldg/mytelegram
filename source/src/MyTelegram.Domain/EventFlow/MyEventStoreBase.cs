@@ -4,12 +4,12 @@ public class MyEventStoreBase : IEventStore
 {
     private readonly IAggregateFactory _aggregateFactory;
     private readonly IEventJsonSerializer _eventJsonSerializer;
-    private readonly ILogger<MyEventStoreBase> _logger;
     private readonly IEventPersistence _eventPersistence;
-    private readonly IInMemoryEventPersistence _inMemoryEventPersistence;
-    private readonly ISnapshotStore _snapshotStore;
     private readonly IEventUpgradeManager _eventUpgradeManager;
+    private readonly IInMemoryEventPersistence _inMemoryEventPersistence;
+    private readonly ILogger<MyEventStoreBase> _logger;
     private readonly IReadOnlyCollection<IMetadataProvider> _metadataProviders;
+    private readonly ISnapshotStore _snapshotStore;
 
     public MyEventStoreBase(
         ILogger<MyEventStoreBase> logger,
@@ -31,7 +31,8 @@ public class MyEventStoreBase : IEventStore
         _metadataProviders = metadataProviders.ToList();
     }
 
-    public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> StoreAsync<TAggregate, TIdentity>(
+    public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> StoreAsync<TAggregate,
+        TIdentity>(
         TIdentity id,
         IReadOnlyCollection<IUncommittedEvent>? uncommittedDomainEvents,
         ISourceId sourceId,
@@ -101,6 +102,7 @@ public class MyEventStoreBase : IEventStore
         {
             throw new ArgumentOutOfRangeException(nameof(pageSize));
         }
+
         // Warning:not include IInMemoryAggregate's event data
         var allCommittedEventsPage = await _eventPersistence.LoadAllCommittedEvents(
                 globalPosition,
@@ -130,7 +132,8 @@ public class MyEventStoreBase : IEventStore
             cancellationToken);
     }
 
-    public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> LoadEventsAsync<TAggregate, TIdentity>(
+    public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> LoadEventsAsync<TAggregate,
+        TIdentity>(
         TIdentity id,
         int fromEventSequenceNumber,
         CancellationToken cancellationToken)

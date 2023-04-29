@@ -8,10 +8,12 @@ public class DeleteChatHandler : RpcResultObjectHandler<RequestDeleteChat, IBool
     IDeleteChatHandler, IProcessedHandler
 {
     private readonly ICommandBus _commandBus;
+
     public DeleteChatHandler(ICommandBus commandBus)
     {
         _commandBus = commandBus;
     }
+
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
         RequestDeleteChat obj)
     {

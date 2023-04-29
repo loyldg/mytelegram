@@ -7,5 +7,5 @@ public interface IExportedChatlistInvite : IObject
     BitArray Flags { get; set; }
     string Title { get; set; }
     string Url { get; set; }
-    TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
+    TVector<Schema.IPeer> Peers { get; set; }
 }

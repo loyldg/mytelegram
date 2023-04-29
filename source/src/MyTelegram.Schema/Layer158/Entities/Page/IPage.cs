@@ -9,8 +9,8 @@ public interface IPage : IObject
     bool Rtl { get; set; }
     bool V2 { get; set; }
     string Url { get; set; }
-    TVector<MyTelegram.Schema.IPageBlock> Blocks { get; set; }
-    TVector<MyTelegram.Schema.IPhoto> Photos { get; set; }
-    TVector<MyTelegram.Schema.IDocument> Documents { get; set; }
+    TVector<Schema.IPageBlock> Blocks { get; set; }
+    TVector<Schema.IPhoto> Photos { get; set; }
+    TVector<Schema.IDocument> Documents { get; set; }
     int? Views { get; set; }
 }

@@ -2,11 +2,6 @@
 
 public static class Extensions
 {
-    public static byte[] ToBytes(this string hex)
-    {
-        return HexToBytes(hex);
-    }
-
     private static byte[] HexToBytes(string hex)
     {
         var text = hex.Replace(" ", string.Empty).Replace("\r\n", string.Empty).Replace("\n", string.Empty);
@@ -21,21 +16,6 @@ public static class Extensions
             .ToArray();
     }
 
-    public static string ToPhoneNumber(this string phoneNumber)
-    {
-        if (string.IsNullOrEmpty(phoneNumber))
-        {
-            return string.Empty;
-        }
-
-        return phoneNumber.Replace("+", string.Empty).Replace(" ", string.Empty);
-    }
-
-    public static int ToInt(this BitArray bitArray)
-    {
-        return BitConverter.ToInt32(ToByteArray(bitArray));
-    }
-
     public static byte[] ToByteArray(this BitArray bitArray)
     {
         var bytes = new byte[(bitArray.Length - 1) / 8 + 1];
@@ -44,8 +24,28 @@ public static class Extensions
         return bytes;
     }
 
+    public static byte[] ToBytes(this string hex)
+    {
+        return HexToBytes(hex);
+    }
+
     public static string ToHexString(this byte[] buffer)
     {
         return BitConverter.ToString(buffer).Replace("-", string.Empty);
+    }
+
+    public static int ToInt(this BitArray bitArray)
+    {
+        return BitConverter.ToInt32(ToByteArray(bitArray));
+    }
+
+    public static string ToPhoneNumber(this string phoneNumber)
+    {
+        if (string.IsNullOrEmpty(phoneNumber))
+        {
+            return string.Empty;
+        }
+
+        return phoneNumber.Replace("+", string.Empty).Replace(" ", string.Empty);
     }
 }

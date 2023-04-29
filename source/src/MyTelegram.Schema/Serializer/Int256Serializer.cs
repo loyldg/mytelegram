@@ -1,7 +1,7 @@
 ﻿namespace MyTelegram.Schema.Serializer;
 
 /// <summary>
-/// int256 8*[ int ] = Int256;
+///     int256 8*[ int ] = Int256;
 /// </summary>
 public class Int256Serializer : ISerializer<byte[]>
 {

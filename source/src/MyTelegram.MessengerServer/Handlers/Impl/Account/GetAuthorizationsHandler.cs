@@ -6,8 +6,8 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Account;
 public class GetAuthorizationsHandler : RpcResultObjectHandler<RequestGetAuthorizations, IAuthorizations>,
     IGetAuthorizationsHandler, IProcessedHandler
 {
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ITlAuthorizationConverter _authorizationConverter;
+    private readonly IQueryProcessor _queryProcessor;
 
     public GetAuthorizationsHandler(IQueryProcessor queryProcessor,
         ITlAuthorizationConverter authorizationConverter)

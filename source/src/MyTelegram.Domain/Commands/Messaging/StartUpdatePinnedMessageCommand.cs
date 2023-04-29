@@ -2,16 +2,9 @@
 
 public class StartUpdatePinnedMessageCommand : RequestCommand2<MessageAggregate, MessageId, IExecutionResult>
 {
-    public bool Pinned { get; }
-    public bool PmOneSide { get; }
-    public bool Silent { get; }
-    public int Date { get; }
-    public long RandomId { get; }
-    public string MessageActionData { get; }
-    public Guid CorrelationId { get; }
-
     public StartUpdatePinnedMessageCommand(MessageId aggregateId,
-        RequestInfo requestInfo, bool pinned,
+        RequestInfo requestInfo,
+        bool pinned,
         bool pmOneSide,
         bool silent,
         int date,
@@ -27,4 +20,12 @@ public class StartUpdatePinnedMessageCommand : RequestCommand2<MessageAggregate,
         MessageActionData = messageActionData;
         CorrelationId = correlationId;
     }
+
+    public bool Pinned { get; }
+    public bool PmOneSide { get; }
+    public bool Silent { get; }
+    public int Date { get; }
+    public long RandomId { get; }
+    public string MessageActionData { get; }
+    public Guid CorrelationId { get; }
 }

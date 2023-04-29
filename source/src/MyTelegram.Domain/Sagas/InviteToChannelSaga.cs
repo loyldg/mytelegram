@@ -8,7 +8,8 @@ public class InviteToChannelSaga :
 {
     private readonly InviteToChannelSagaState _state = new();
 
-    public InviteToChannelSaga(InviteToChannelSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public InviteToChannelSaga(InviteToChannelSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
         Register(_state);
     }
@@ -126,7 +127,6 @@ public class InviteToChannelSaga :
                 _state.InviterId,
                 _state.Broadcast,
                 _state.MemberUidList,
-                
                 _state.CorrelationId));
         }
 

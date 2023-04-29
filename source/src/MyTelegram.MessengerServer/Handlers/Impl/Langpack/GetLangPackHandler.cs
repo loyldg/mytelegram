@@ -9,7 +9,8 @@ public class GetLangPackHandler : RpcResultObjectHandler<RequestGetLangPack, ILa
     protected override Task<ILangPackDifference> HandleCoreAsync(IRequestInput input,
         RequestGetLangPack obj)
     {
-        ILangPackDifference r = new TLangPackDifference {
+        ILangPackDifference r = new TLangPackDifference
+        {
             FromVersion = 0, LangCode = obj.LangCode, Strings = new TVector<ILangPackString>(), Version = 0
         };
         return Task.FromResult(r);
@@ -22,7 +23,8 @@ public class GetLangPackHandlerLayerN : RpcResultObjectHandler<Schema.LayerN.Req
     protected override Task<ILangPackDifference> HandleCoreAsync(IRequestInput input,
         Schema.LayerN.RequestGetLangPack obj)
     {
-        ILangPackDifference r = new TLangPackDifference {
+        ILangPackDifference r = new TLangPackDifference
+        {
             FromVersion = 0, LangCode = obj.LangCode, Strings = new TVector<ILangPackString>(), Version = 0
         };
         return Task.FromResult(r);

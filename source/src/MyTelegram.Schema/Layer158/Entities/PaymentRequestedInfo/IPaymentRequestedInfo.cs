@@ -8,5 +8,5 @@ public interface IPaymentRequestedInfo : IObject
     string? Name { get; set; }
     string? Phone { get; set; }
     string? Email { get; set; }
-    MyTelegram.Schema.IPostAddress? ShippingAddress { get; set; }
+    Schema.IPostAddress? ShippingAddress { get; set; }
 }

@@ -11,79 +11,6 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
         Register(_state);
     }
 
-    public void Vote(RequestInfo requestInfo, long voteUserPeerId, IReadOnlyCollection<string> options, Guid correlationId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (_state.Closed)
-        {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessagePollClosed);
-        }
-
-        if (!_state.MultipleChoice)
-        {
-            if (options.Count > 1)
-            {
-                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.OptionInvalid);
-            }
-        }
-
-        if (_state.VotedPeerIds.Contains(voteUserPeerId))
-        {
-            if (_state.Quiz)
-            {
-                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.RevoteNotAllowed);
-            }
-        }
-
-
-        foreach (var option in options)
-        {
-            if (!_state.Options.Contains(option))
-            {
-                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.OptionInvalid);
-            }
-        }
-
-        var answerVoters = _state.AnswerVoters;
-
-        // Only quiz==false can retract vote
-        List<string>? retractVoteOptions = null;
-        if (options.Count == 0 && !_state.Quiz)
-        {
-            retractVoteOptions = _state.GetVoteOptionsByUserId(voteUserPeerId);
-            foreach (var pollAnswerVoter in answerVoters)
-            {
-                if (retractVoteOptions.Contains(pollAnswerVoter.Option))
-                {
-                    pollAnswerVoter.DecrementVoters();
-                }
-            }
-        }
-        else
-        {
-            foreach (var answer in answerVoters)
-            {
-                if (options.Contains(answer.Option))
-                {
-                    answer.IncrementVoters();
-                }
-            }
-        }
-
-        Emit(new VoteSucceededEvent(
-            requestInfo,
-            _state.PollId,
-            voteUserPeerId,
-            options,
-            _state.Answers,
-            _state.CorrectAnswers,
-            answerVoters,
-            _state.ToPeer,
-            retractVoteOptions,
-            correlationId
-        ));
-    }
-
     public void Close(int closeDate)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -133,5 +60,80 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new VoteAnswerDeletedEvent(pollId, voterPeerId));
+    }
+
+    public void Vote(RequestInfo requestInfo,
+        long voteUserPeerId,
+        IReadOnlyCollection<string> options,
+        Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        if (_state.Closed)
+        {
+            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessagePollClosed);
+        }
+
+        if (!_state.MultipleChoice)
+        {
+            if (options.Count > 1)
+            {
+                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.OptionInvalid);
+            }
+        }
+
+        if (_state.VotedPeerIds.Contains(voteUserPeerId))
+        {
+            if (_state.Quiz)
+            {
+                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.RevoteNotAllowed);
+            }
+        }
+
+        foreach (var option in options)
+        {
+            if (!_state.Options.Contains(option))
+            {
+                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.OptionInvalid);
+            }
+        }
+
+        var answerVoters = _state.AnswerVoters;
+
+        // Only quiz==false can retract vote
+        List<string>? retractVoteOptions = null;
+        if (options.Count == 0 && !_state.Quiz)
+        {
+            retractVoteOptions = _state.GetVoteOptionsByUserId(voteUserPeerId);
+            foreach (var pollAnswerVoter in answerVoters)
+            {
+                if (retractVoteOptions.Contains(pollAnswerVoter.Option))
+                {
+                    pollAnswerVoter.DecrementVoters();
+                }
+            }
+        }
+        else
+        {
+            foreach (var answer in answerVoters)
+            {
+                if (options.Contains(answer.Option))
+                {
+                    answer.IncrementVoters();
+                }
+            }
+        }
+
+        Emit(new VoteSucceededEvent(
+            requestInfo,
+            _state.PollId,
+            voteUserPeerId,
+            options,
+            _state.Answers,
+            _state.CorrectAnswers,
+            answerVoters,
+            _state.ToPeer,
+            retractVoteOptions,
+            correlationId
+        ));
     }
 }

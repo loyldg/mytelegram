@@ -8,7 +8,8 @@ public class ReplyReadModelLocator : IReplyReadModelLocator
         if (domainEvent.AggregateType == typeof(MessageAggregate))
         {
             yield return domainEvent.GetIdentity().Value;
-        }else if (domainEvent.AggregateType == typeof(MessageSaga))
+        }
+        else if (domainEvent.AggregateType == typeof(MessageSaga))
         {
             switch (aggregateEvent)
             {

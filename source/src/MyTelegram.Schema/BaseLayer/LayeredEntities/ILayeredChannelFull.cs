@@ -1,10 +1,13 @@
 ﻿// ReSharper disable All
+
 namespace MyTelegram.Schema;
 
 public interface ILayeredChannelFull : IChatFull
 {
     bool CanViewParticipants { get; set; }
+
     bool CanSetUsername { get; set; }
+
     //bool CanSetStickers { get; set; }
     //bool HiddenPrehistory { get; set; }
     //bool CanSetLocation { get; set; }
@@ -12,6 +15,7 @@ public interface ILayeredChannelFull : IChatFull
     //bool CanViewStats { get; set; }
     //bool Blocked { get; set; }
     bool CanDeleteChannel { get; set; }
+
     int? ParticipantsCount { get; set; }
     //int? AdminsCount { get; set; }
     //int? KickedCount { get; set; }
@@ -21,10 +25,10 @@ public interface ILayeredChannelFull : IChatFull
     //int ReadOutboxMaxId { get; set; }
     //int UnreadCount { get; set; }
 
-    ///<summary>
-    ///See <a href="https://core.telegram.org/type/Photo" />
-    ///</summary>
-    MyTelegram.Schema.IPhoto ChatPhoto { get; set; }
+    /// <summary>
+    ///     See <a href="https://core.telegram.org/type/Photo" />
+    /// </summary>
+    Schema.IPhoto ChatPhoto { get; set; }
 
     /////<summary>
     /////See <a href="https://core.telegram.org/type/PeerNotifySettings" />
@@ -35,7 +39,7 @@ public interface ILayeredChannelFull : IChatFull
     /////See <a href="https://core.telegram.org/type/ExportedChatInvite" />
     /////</summary>
     //MyTelegram.Schema.IExportedChatInvite? ExportedInvite { get; set; }
-    TVector<MyTelegram.Schema.IBotInfo> BotInfo { get; set; }
+    TVector<Schema.IBotInfo> BotInfo { get; set; }
     //long? MigratedFromChatId { get; set; }
     //int? MigratedFromMaxId { get; set; }
     //int? PinnedMsgId { get; set; }
@@ -53,7 +57,9 @@ public interface ILayeredChannelFull : IChatFull
     /////</summary>
     //MyTelegram.Schema.IChannelLocation? Location { get; set; }
     int? SlowmodeSeconds { get; set; }
+
     int? SlowmodeNextSendDate { get; set; }
+
     //int? StatsDc { get; set; }
     int Pts { get; set; }
 

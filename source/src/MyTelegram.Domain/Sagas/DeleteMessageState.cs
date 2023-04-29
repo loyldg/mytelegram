@@ -31,6 +31,14 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
         }
     }
 
+    public void Apply(DeleteMessagesSagaStartedEvent aggregateEvent)
+    {
+        RequestInfo = aggregateEvent.RequestInfo;
+        SelfNeedDeleteCount = aggregateEvent.IdList.Count;
+        Revoke = aggregateEvent.Revoke;
+        ToPeer = aggregateEvent.ToPeer;
+    }
+
     public void Apply(DeleteMessagesStartedEvent aggregateEvent)
     {
         RequestInfo = aggregateEvent.RequestInfo;
@@ -101,13 +109,5 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
         }
 
         return false;
-    }
-
-    public void Apply(DeleteMessagesSagaStartedEvent aggregateEvent)
-    {
-        RequestInfo = aggregateEvent.RequestInfo;
-        SelfNeedDeleteCount = aggregateEvent.IdList.Count;
-        Revoke = aggregateEvent.Revoke;
-        ToPeer = aggregateEvent.ToPeer;
     }
 }

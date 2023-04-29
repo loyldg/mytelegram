@@ -3,3 +3,5 @@
 //public class SetOutboxTopMessageEvent : AggregateEvent<MessageSaga, MessageSagaId>
 //{
 //}
+
+

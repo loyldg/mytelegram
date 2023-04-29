@@ -9,5 +9,5 @@ public interface ICountry : IObject
     string Iso2 { get; set; }
     string DefaultName { get; set; }
     string? Name { get; set; }
-    TVector<MyTelegram.Schema.Help.ICountryCode> CountryCodes { get; set; }
+    TVector<Help.ICountryCode> CountryCodes { get; set; }
 }

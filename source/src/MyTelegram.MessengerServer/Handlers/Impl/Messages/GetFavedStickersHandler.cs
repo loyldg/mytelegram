@@ -9,7 +9,8 @@ public class GetFavedStickersHandler : RpcResultObjectHandler<RequestGetFavedSti
     protected override Task<IFavedStickers> HandleCoreAsync(IRequestInput input,
         RequestGetFavedStickers obj)
     {
-        return Task.FromResult<IFavedStickers>(new TFavedStickers {
+        return Task.FromResult<IFavedStickers>(new TFavedStickers
+        {
             Packs = new TVector<IStickerPack>(), Stickers = new TVector<IDocument>()
         });
     }

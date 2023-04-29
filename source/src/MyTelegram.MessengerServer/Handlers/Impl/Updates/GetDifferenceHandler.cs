@@ -8,11 +8,11 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
     IGetDifferenceHandler, IProcessedHandler
 {
     private readonly IAckCacheService _ackCacheService;
+    private readonly ITlDifferenceConverter _differenceConverter;
     private readonly ILogger<GetDifferenceHandler> _logger;
     private readonly IMessageAppService _messageAppService;
     private readonly IPtsHelper _ptsHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly ITlDifferenceConverter _differenceConverter;
 
     public GetDifferenceHandler(IMessageAppService messageAppService,
         IPtsHelper ptsHelper,
@@ -44,8 +44,8 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         var pts = Math.Max(cachedPts, ptsReadModel?.Pts ?? 0);
 
         var ptsForAuthKeyIdReadModel =
-            await _queryProcessor.ProcessAsync(new GetPtsByPermAuthKeyIdQuery(userId, input.PermAuthKeyId), default)
-                ;
+                await _queryProcessor.ProcessAsync(new GetPtsByPermAuthKeyIdQuery(userId, input.PermAuthKeyId), default)
+            ;
         var ptsForAuthKeyId = ptsForAuthKeyIdReadModel?.Pts ?? 0;
         var diff = pts - ptsForAuthKeyId;
         if (diff == 0)
@@ -54,7 +54,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         }
 
         var joinedChannelIdList = await _queryProcessor
-            .ProcessAsync(new GetChannelIdListByMemberUidQuery(input.UserId), default)
+                .ProcessAsync(new GetChannelIdListByMemberUidQuery(input.UserId), default)
             ;
 
         if (joinedChannelIdList.Count == 0)
@@ -76,7 +76,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         if (diff > 0 /*&& ptsForAuthKeyIdReadModel != null*/)
         {
             var pushUpdatesReadModelList = await _queryProcessor
-                .ProcessAsync(new GetPushUpdatesQuery(input.UserId, obj.Pts, limit), default)
+                    .ProcessAsync(new GetPushUpdatesQuery(input.UserId, obj.Pts, limit), default)
                 ;
             allPushUpdatesList.AddRange(pushUpdatesReadModelList.Where(p => p.ExcludeAuthKeyId != input.AuthKeyId));
             _logger.LogDebug("UserId={UserId} Normal updates count={Count},pts={Pts},reqPts={ReqPts}",
@@ -138,46 +138,46 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
                     updatesList.Add(updateShort.Update);
                     break;
                 case TUpdateShortMessage updateShortMessage:
+                {
+                    var m = new TMessage
                     {
-                        var m = new TMessage
-                        {
-                            Date = updateShortMessage.Date,
-                            Entities = updateShortMessage.Entities,
-                            FromId = new TPeerUser { UserId = updateShortMessage.UserId },
-                            PeerId = new TPeerUser { UserId = input.UserId },
-                            FwdFrom = updateShortMessage.FwdFrom,
-                            Out = updateShortMessage.Out,
-                            Mentioned = updateShortMessage.Mentioned,
-                            MediaUnread = updateShortMessage.MediaUnread,
-                            Silent = updateShortMessage.Silent,
-                            Id = updateShortMessage.Id,
-                            ReplyTo = updateShortMessage.ReplyTo,
-                            Message = updateShortMessage.Message,
-                            TtlPeriod = updateShortMessage.TtlPeriod
-                        };
-                        messageList.Add(m);
-                    }
+                        Date = updateShortMessage.Date,
+                        Entities = updateShortMessage.Entities,
+                        FromId = new TPeerUser { UserId = updateShortMessage.UserId },
+                        PeerId = new TPeerUser { UserId = input.UserId },
+                        FwdFrom = updateShortMessage.FwdFrom,
+                        Out = updateShortMessage.Out,
+                        Mentioned = updateShortMessage.Mentioned,
+                        MediaUnread = updateShortMessage.MediaUnread,
+                        Silent = updateShortMessage.Silent,
+                        Id = updateShortMessage.Id,
+                        ReplyTo = updateShortMessage.ReplyTo,
+                        Message = updateShortMessage.Message,
+                        TtlPeriod = updateShortMessage.TtlPeriod
+                    };
+                    messageList.Add(m);
+                }
                     break;
                 case TUpdateShortChatMessage updateShortChatMessage:
+                {
+                    var m = new TMessage
                     {
-                        var m = new TMessage
-                        {
-                            Date = updateShortChatMessage.Date,
-                            Entities = updateShortChatMessage.Entities,
-                            FromId = new TPeerUser { UserId = updateShortChatMessage.FromId },
-                            PeerId = new TPeerChat { ChatId = updateShortChatMessage.ChatId },
-                            FwdFrom = updateShortChatMessage.FwdFrom,
-                            Out = updateShortChatMessage.Out,
-                            Mentioned = updateShortChatMessage.Mentioned,
-                            MediaUnread = updateShortChatMessage.MediaUnread,
-                            Silent = updateShortChatMessage.Silent,
-                            Id = updateShortChatMessage.Id,
-                            ReplyTo = updateShortChatMessage.ReplyTo,
-                            Message = updateShortChatMessage.Message,
-                            TtlPeriod = updateShortChatMessage.TtlPeriod
-                        };
-                        messageList.Add(m);
-                    }
+                        Date = updateShortChatMessage.Date,
+                        Entities = updateShortChatMessage.Entities,
+                        FromId = new TPeerUser { UserId = updateShortChatMessage.FromId },
+                        PeerId = new TPeerChat { ChatId = updateShortChatMessage.ChatId },
+                        FwdFrom = updateShortChatMessage.FwdFrom,
+                        Out = updateShortChatMessage.Out,
+                        Mentioned = updateShortChatMessage.Mentioned,
+                        MediaUnread = updateShortChatMessage.MediaUnread,
+                        Silent = updateShortChatMessage.Silent,
+                        Id = updateShortChatMessage.Id,
+                        ReplyTo = updateShortChatMessage.ReplyTo,
+                        Message = updateShortChatMessage.Message,
+                        TtlPeriod = updateShortChatMessage.TtlPeriod
+                    };
+                    messageList.Add(m);
+                }
                     break;
                 case IMessage message:
                     messageList.Add(message);
@@ -192,7 +192,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         var channelIdListNeedToLoadFromDatabase =
             hasUpdatesChannelIdList.Where(p => !alreadyLoadedChannelIdList.Contains(p)).ToList();
         var channelReadModelList = await _queryProcessor
-            .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdListNeedToLoadFromDatabase), default)
+                .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdListNeedToLoadFromDatabase), default)
             ;
 
         r ??= new GetMessageOutput(Array.Empty<IChannelReadModel>(),

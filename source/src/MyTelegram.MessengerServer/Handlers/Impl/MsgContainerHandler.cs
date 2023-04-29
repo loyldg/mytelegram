@@ -157,7 +157,8 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                     handlerName);
 
                 //CheckPermission(input.AuthKeyId, objectId, input.IsAuthKeyActive);
-                IRequestInput newReq = input switch {
+                IRequestInput newReq = input switch
+                {
                     SessionRequestInput sessionRequestInput => sessionRequestInput with { ReqMsgId = m.MsgId },
                     RequestInput requestInput1 => requestInput1 with { ReqMsgId = m.MsgId },
                     _ => throw new ArgumentOutOfRangeException(nameof(input))
@@ -231,7 +232,8 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                         currentCount,
                         count,
                         handlerName);
-                } else
+                }
+                else
                 {
                     _logger.LogInformation(
                         "{TimeSpan} UserId={UserId} request handler=msgContainer->[{CurrentCount}/{Count}] {HandlerName}",
@@ -271,7 +273,8 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
 
                 {
                     var messageId = await _messageIdGenerator.GenerateServerMessageIdAsync();
-                    containerMessageList.Add(new TContainerMessage {
+                    containerMessageList.Add(new TContainerMessage
+                    {
                         Body = r,
                         MsgId = messageId, // _messageIdHelper.GenerateMessageId(),
                         Bytes = (int)stream.Length,
@@ -287,7 +290,8 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                     var ackWriter = new BinaryWriter(ackStream);
                     ack.Serialize(ackWriter);
                     var messageId = await _messageIdGenerator.GenerateServerMessageIdAsync();
-                    containerMessageList.Add(new TContainerMessage {
+                    containerMessageList.Add(new TContainerMessage
+                    {
                         Body = ack,
                         MsgId = messageId, // _messageIdHelper.GenerateMessageId(),
                         Bytes = (int)ackStream.Length,

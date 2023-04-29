@@ -17,7 +17,7 @@ public class GetAccountTtlHandler : RpcResultObjectHandler<RequestGetAccountTTL,
         RequestGetAccountTTL obj)
     {
         var user = await _queryProcessor
-            .ProcessAsync(new GetUserByIdQuery(input.UserId), CancellationToken.None)
+                .ProcessAsync(new GetUserByIdQuery(input.UserId), CancellationToken.None)
             ;
 
         return new TAccountDaysTTL { Days = user!.AccountTtl };

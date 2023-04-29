@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
-using JsonSerializer=System.Text.Json.JsonSerializer;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace MyTelegram.MessengerServer.Services.Serialization.SystemTextJson;
 
@@ -17,7 +17,7 @@ public class SystemTextJsonSerializer : ISystemTextJsonSerializer
     private readonly JsonSerializerOptions _optionsNotIndented = new()
     {
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-        PropertyNamingPolicy =  JsonNamingPolicy.CamelCase
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
     public SystemTextJsonSerializer(Action<JsonSerializerOptions>? options = default)
@@ -68,6 +68,7 @@ public class SystemTextJsonSerializer : ISystemTextJsonSerializer
     {
         return JsonSerializer.Serialize(obj, indented ? _optionsIndented : _optionsNotIndented);
     }
+
     public string Serialize<TValue>(TValue value,
         JsonTypeInfo<TValue> jsonTypeInfo)
     {
@@ -80,6 +81,7 @@ public class SystemTextJsonSerializer : ISystemTextJsonSerializer
     {
         return JsonSerializer.Serialize(value, typeOfTValue, context);
     }
+
     public string Serialize<T>(T value)
     {
         return JsonSerializer.Serialize(value, _optionsNotIndented);

@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public enum LoadType
@@ -8,5 +9,5 @@ public enum LoadType
     FirstUnread,
     AroundMessage,
     AroundDate,
-    LimitIs1,
+    LimitIs1
 }

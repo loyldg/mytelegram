@@ -2,9 +2,6 @@
 
 public class ForwardMessageCommand : RequestCommand2<MessageAggregate, MessageId, IExecutionResult>
 {
-    public long RandomId { get; }
-    public Guid CorrelationId { get; }
-
     public ForwardMessageCommand(MessageId aggregateId,
         RequestInfo requestInfo,
         long randomId,
@@ -13,6 +10,9 @@ public class ForwardMessageCommand : RequestCommand2<MessageAggregate, MessageId
         RandomId = randomId;
         CorrelationId = correlationId;
     }
+
+    public long RandomId { get; }
+    public Guid CorrelationId { get; }
 
     protected override IEnumerable<byte[]> GetSourceIdComponents()
     {

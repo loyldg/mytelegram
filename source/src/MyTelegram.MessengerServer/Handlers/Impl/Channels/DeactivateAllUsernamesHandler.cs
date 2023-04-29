@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Channels;
+
 namespace MyTelegram.Handlers.Channels;
 
-public class DeactivateAllUsernamesHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeactivateAllUsernames, IBool>,
+public class DeactivateAllUsernamesHandler : RpcResultObjectHandler<RequestDeactivateAllUsernames, IBool>,
     Channels.IDeactivateAllUsernamesHandler, IProcessedHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestDeactivateAllUsernames obj)
+        RequestDeactivateAllUsernames obj)
     {
         return Task.FromResult<IBool>(new TBoolTrue());
     }

@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.Aggregates.Poll;
-
-namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
+﻿namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public class TlPollConverter : ITlPollConverter
 {
@@ -23,13 +21,14 @@ public class TlPollConverter : ITlPollConverter
         };
     }
 
-    public IPollResults ToPollResults(IPollReadModel pollReadModel, IList<string> chosenOptions)
+    public IPollResults ToPollResults(IPollReadModel pollReadModel,
+        IList<string> chosenOptions)
     {
         var pollResults = new TPollResults
         {
             TotalVoters = pollReadModel.TotalVoters,
             Solution = pollReadModel.Solution,
-            SolutionEntities = pollReadModel.SolutionEntities.ToTObject<TVector<IMessageEntity>>(),
+            SolutionEntities = pollReadModel.SolutionEntities.ToTObject<TVector<IMessageEntity>>()
         };
 
         if (pollReadModel.AnswerVoters != null)
@@ -76,7 +75,7 @@ public class TlPollConverter : ITlPollConverter
             Updates = new TVector<IUpdate>(updateMessagePoll),
             Chats = new TVector<IChat>(),
             Users = new TVector<IUser>(),
-            Date = DateTime.UtcNow.ToTimestamp(),
+            Date = DateTime.UtcNow.ToTimestamp()
         };
 
         return updates;
@@ -97,7 +96,7 @@ public class TlPollConverter : ITlPollConverter
         return new TUpdateShort
         {
             Date = DateTime.UtcNow.ToTimestamp(),
-            Update = updateMessagePoll,
+            Update = updateMessagePoll
         };
     }
 }

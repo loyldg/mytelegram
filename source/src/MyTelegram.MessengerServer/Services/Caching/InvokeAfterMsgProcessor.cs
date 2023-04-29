@@ -2,12 +2,13 @@
 
 public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDependency
 {
+    private readonly Channel<long> _completedReqMsgIds = Channel.CreateUnbounded<long>();
     private readonly IHandlerHelper _handlerHelper;
 
     //private readonly ConcurrentDictionary<long, int> _recentMessageIds = new();
     private readonly CircularBuffer<long> _recentMessageIds = new(50000);
     private readonly ConcurrentDictionary<long, InvokeAfterMsgItem> _requests = new();
-    private readonly System.Threading.Channels.Channel<long> _completedReqMsgIds = Channel.CreateUnbounded<long>();
+
     public InvokeAfterMsgProcessor(IHandlerHelper handlerHelper)
     {
         _handlerHelper = handlerHelper;
@@ -29,12 +30,6 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
         IObject query)
     {
         _requests.TryAdd(reqMsgId, new InvokeAfterMsgItem(input, query));
-    }
-
-    public ValueTask AddCompletedReqMsgIdAsync(long reqMsgId)
-    {
-        //_completedReqMsgIds.Writer.TryWrite(reqMsgId);
-        return _completedReqMsgIds.Writer.WriteAsync(reqMsgId);
     }
 
     public async Task ProcessAsync()
@@ -63,14 +58,12 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
             {
                 throw new NotImplementedException($"Not supported query:{item.Query.ConstructorId:x2}");
             }
+
             // Console.WriteLine($">>>>>> Handle invoke after msg:{reqMsgId}");
             return handler.HandleAsync(item.Input, item.Query);
         }
-        else
-        {
-            // Console.WriteLine($"XXXXXX ReqMsgId:{reqMsgId} not find invoke after msg");
-        }
 
+        // Console.WriteLine($"XXXXXX ReqMsgId:{reqMsgId} not find invoke after msg");
         return Task.CompletedTask;
     }
 
@@ -84,5 +77,11 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
 
         //Console.WriteLine($"Handle exists reqMsgId:{input.ReqMsgId}");
         return handler.HandleAsync(input, query);
+    }
+
+    public ValueTask AddCompletedReqMsgIdAsync(long reqMsgId)
+    {
+        //_completedReqMsgIds.Writer.TryWrite(reqMsgId);
+        return _completedReqMsgIds.Writer.WriteAsync(reqMsgId);
     }
 }

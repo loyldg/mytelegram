@@ -10,7 +10,9 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
     private readonly IIdGenerator _idGenerator;
     private readonly UpdatePinnedMessageState _state = new();
 
-    public UpdatePinnedMessageSaga(UpdatePinnedMessageSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
+    public UpdatePinnedMessageSaga(UpdatePinnedMessageSagaId id,
+        IEventStore eventStore,
+        IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -28,7 +30,8 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
         await HandleUpdatePinnedCompletedAsync();
     }
 
-    public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, OutboxMessagePinnedUpdatedEvent> domainEvent,
+    public async Task HandleAsync(
+        IDomainEvent<MessageAggregate, MessageId, OutboxMessagePinnedUpdatedEvent> domainEvent,
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
@@ -125,14 +128,14 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
             switch (_state.ToPeer.PeerType)
             {
                 case PeerType.Channel:
-                    {
-                        var setPinnedMsgIdCommand = new SetPinnedMsgIdCommand(ChannelId.Create(_state.ToPeer.PeerId),
-                            _state.RequestInfo.ReqMsgId,
-                            _state.PinnedMsgId,
-                            _state.Pinned
-                        );
-                        Publish(setPinnedMsgIdCommand);
-                    }
+                {
+                    var setPinnedMsgIdCommand = new SetPinnedMsgIdCommand(ChannelId.Create(_state.ToPeer.PeerId),
+                        _state.RequestInfo.ReqMsgId,
+                        _state.PinnedMsgId,
+                        _state.Pinned
+                    );
+                    Publish(setPinnedMsgIdCommand);
+                }
                     break;
             }
 
@@ -158,7 +161,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
                         messageActionData: _state.MessageActionData,
                         replyToMsgId: _state.ReplyToMsgId,
                         messageActionType: MessageActionType.PinMessage
-                        ),
+                    ),
                     false,
                     1,
                     Guid.NewGuid());

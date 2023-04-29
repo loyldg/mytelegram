@@ -24,6 +24,7 @@ public class MessageSnapshot : ISnapshot
     }
 
     public int EditDate { get; }
+
     //public bool EditHide { get; }
     public bool Edited { get; }
 

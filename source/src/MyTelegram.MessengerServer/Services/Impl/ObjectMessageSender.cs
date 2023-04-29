@@ -25,7 +25,7 @@ public class ObjectMessageSender : IObjectMessageSender
     }
 
     /// <summary>
-    /// Push message to peer,receive server is session server(send from session server)
+    ///     Push message to peer,receive server is session server(send from session server)
     /// </summary>
     /// <param name="peer"></param>
     /// <param name="data"></param>

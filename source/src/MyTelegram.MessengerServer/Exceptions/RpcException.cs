@@ -2,10 +2,10 @@
 
 public class RpcException : Exception
 {
-    public TRpcError Error { get; }
     //public long RequestMessageId { get; }
 
-    protected RpcException(int errorCode, string errorMessage) : base(errorMessage)
+    protected RpcException(int errorCode,
+        string errorMessage) : base(errorMessage)
     {
         //RequestMessageId = requestMessageId;
         Error = new TRpcError
@@ -14,4 +14,6 @@ public class RpcException : Exception
             ErrorMessage = errorMessage
         };
     }
+
+    public TRpcError Error { get; }
 }

@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class ReadReactionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadReactions, MyTelegram.Schema.Messages.IAffectedHistory>,
+public class ReadReactionsHandler : RpcResultObjectHandler<RequestReadReactions, IAffectedHistory>,
     Messages.IReadReactionsHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IAffectedHistory> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestReadReactions obj)
+    protected override Task<IAffectedHistory> HandleCoreAsync(IRequestInput input,
+        RequestReadReactions obj)
     {
         throw new NotImplementedException();
     }

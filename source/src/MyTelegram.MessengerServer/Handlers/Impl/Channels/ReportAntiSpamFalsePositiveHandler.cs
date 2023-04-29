@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Channels;
+
 namespace MyTelegram.Handlers.Channels;
 
-internal sealed class ReportAntiSpamFalsePositiveHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestReportAntiSpamFalsePositive, IBool>,
+internal sealed class ReportAntiSpamFalsePositiveHandler :
+    RpcResultObjectHandler<RequestReportAntiSpamFalsePositive, IBool>,
     Channels.IReportAntiSpamFalsePositiveHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestReportAntiSpamFalsePositive obj)
+        RequestReportAntiSpamFalsePositive obj)
     {
         throw new NotImplementedException();
     }

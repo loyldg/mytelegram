@@ -4,7 +4,7 @@ namespace MyTelegram.Schema.Contacts;
 
 public interface IResolvedPeer : IObject
 {
-    MyTelegram.Schema.IPeer Peer { get; set; }
-    TVector<MyTelegram.Schema.IChat> Chats { get; set; }
-    TVector<MyTelegram.Schema.IUser> Users { get; set; }
+    Schema.IPeer Peer { get; set; }
+    TVector<Schema.IChat> Chats { get; set; }
+    TVector<Schema.IUser> Users { get; set; }
 }

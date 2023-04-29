@@ -3,11 +3,6 @@
 public class PeerNotifySettingsReadModel : IPeerNotifySettingsReadModel,
     IAmReadModelFor<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent>
 {
-    public virtual string Id { get; private set; } = null!;
-    public virtual PeerNotifySettings NotifySettings { get; protected set; } = null!;
-    public virtual long OwnerPeerId { get; private set; }
-    public virtual long PeerId { get; private set; }
-    public virtual PeerType PeerType { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -26,6 +21,13 @@ public class PeerNotifySettingsReadModel : IPeerNotifySettingsReadModel,
         NotifySettings = domainEvent.AggregateEvent.PeerNotifySettings;
         return Task.CompletedTask;
     }
+
+    public virtual string Id { get; private set; } = null!;
+    public virtual PeerNotifySettings NotifySettings { get; protected set; } = null!;
+    public virtual long OwnerPeerId { get; private set; }
+    public virtual long PeerId { get; private set; }
+
+    public virtual PeerType PeerType { get; private set; }
     //public bool ShowPreviews { get; private set; } = true;
     //public bool Silent { get; private set; }
     //public int MuteUntil { get; private set; }// = int.MaxValue;

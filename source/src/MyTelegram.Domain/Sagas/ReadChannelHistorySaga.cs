@@ -11,11 +11,12 @@ public class ReadChannelHistorySaga : MyInMemoryAggregateSaga<ReadChannelHistory
 {
     private readonly ReadChannelHistorySagaState _state = new();
 
-    public ReadChannelHistorySaga(ReadChannelHistorySagaId id
-        , IEventStore eventStore) : base(id, eventStore)
+    public ReadChannelHistorySaga(ReadChannelHistorySagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
         Register(_state);
     }
+
     public void Apply(ReadChannelHistoryCompletedEvent aggregateEvent)
     {
         CompleteAsync();
@@ -83,8 +84,8 @@ public class ReadChannelHistorySaga : MyInMemoryAggregateSaga<ReadChannelHistory
 
         var shouldEmitCompletedEvent = true;
         if (domainEvent.AggregateEvent.SenderPeerId != domainEvent.AggregateEvent.ReaderUid //&&
-                                                                                            //!domainEvent.AggregateEvent.SenderIsBot
-            )
+            //!domainEvent.AggregateEvent.SenderIsBot
+           )
         {
             shouldEmitCompletedEvent = false;
             var senderDialogId = DialogId.Create(domainEvent.AggregateEvent.SenderPeerId,
@@ -99,7 +100,9 @@ public class ReadChannelHistorySaga : MyInMemoryAggregateSaga<ReadChannelHistory
                 domainEvent.AggregateEvent.CorrelationId);
             Publish(command);
 
-            CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, domainEvent.AggregateEvent.SenderMessageId, DateTime.UtcNow.ToTimestamp());
+            CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId,
+                domainEvent.AggregateEvent.SenderMessageId,
+                DateTime.UtcNow.ToTimestamp());
         }
 
         if (shouldEmitCompletedEvent)
@@ -135,7 +138,8 @@ public class ReadChannelHistorySaga : MyInMemoryAggregateSaga<ReadChannelHistory
     }
 
     private void CreateReadHistory(long toPeerId,
-        int senderMsgId, int date)
+        int senderMsgId,
+        int date)
     {
         var command = new CreateReadingHistoryCommand(
             ReadingHistoryId.Create(_state.ReaderUid, toPeerId, senderMsgId),
@@ -143,7 +147,7 @@ public class ReadChannelHistorySaga : MyInMemoryAggregateSaga<ReadChannelHistory
             toPeerId,
             senderMsgId,
             date
-            );
+        );
         Publish(command);
     }
 }

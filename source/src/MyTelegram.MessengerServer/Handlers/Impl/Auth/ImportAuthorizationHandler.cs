@@ -7,11 +7,12 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Auth;
 public class ImportAuthorizationHandler : RpcResultObjectHandler<RequestImportAuthorization, IAuthorization>,
     IImportAuthorizationHandler, IProcessedHandler
 {
+    private readonly ITlAuthorizationConverter _authorizationConverter;
     private readonly ICacheManager<string> _cacheManager;
     private readonly IEventBus _eventBus;
     private readonly IHashHelper _hashHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly ITlAuthorizationConverter _authorizationConverter;
+
     public ImportAuthorizationHandler(
         IHashHelper hashHelper,
         IQueryProcessor queryProcessor,

@@ -8,6 +8,6 @@ public interface IMessageReplyHeader : IObject
     bool ReplyToScheduled { get; set; }
     bool ForumTopic { get; set; }
     int ReplyToMsgId { get; set; }
-    MyTelegram.Schema.IPeer? ReplyToPeerId { get; set; }
+    Schema.IPeer? ReplyToPeerId { get; set; }
     int? ReplyToTopId { get; set; }
 }

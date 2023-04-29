@@ -9,7 +9,8 @@ public class GetFeaturedStickersHandler : RpcResultObjectHandler<RequestGetFeatu
     protected override Task<IFeaturedStickers> HandleCoreAsync(IRequestInput input,
         RequestGetFeaturedStickers obj)
     {
-        return Task.FromResult<IFeaturedStickers>(new TFeaturedStickers {
+        return Task.FromResult<IFeaturedStickers>(new TFeaturedStickers
+        {
             Sets = new TVector<IStickerSetCovered>(), Unread = new TVector<long>()
         });
     }

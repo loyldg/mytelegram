@@ -10,7 +10,7 @@ public class ClearHistorySagaStartedEvent : RequestAggregateEvent2<ClearHistoryS
         string messageActionData,
         long randomId,
         int totalCountToBeDelete,
-        int nextMaxId):base(requestInfo)
+        int nextMaxId) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         Revoke = revoke;

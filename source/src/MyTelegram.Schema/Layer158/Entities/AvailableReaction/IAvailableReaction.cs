@@ -9,11 +9,11 @@ public interface IAvailableReaction : IObject
     bool Premium { get; set; }
     string Reaction { get; set; }
     string Title { get; set; }
-    MyTelegram.Schema.IDocument StaticIcon { get; set; }
-    MyTelegram.Schema.IDocument AppearAnimation { get; set; }
-    MyTelegram.Schema.IDocument SelectAnimation { get; set; }
-    MyTelegram.Schema.IDocument ActivateAnimation { get; set; }
-    MyTelegram.Schema.IDocument EffectAnimation { get; set; }
-    MyTelegram.Schema.IDocument? AroundAnimation { get; set; }
-    MyTelegram.Schema.IDocument? CenterIcon { get; set; }
+    Schema.IDocument StaticIcon { get; set; }
+    Schema.IDocument AppearAnimation { get; set; }
+    Schema.IDocument SelectAnimation { get; set; }
+    Schema.IDocument ActivateAnimation { get; set; }
+    Schema.IDocument EffectAnimation { get; set; }
+    Schema.IDocument? AroundAnimation { get; set; }
+    Schema.IDocument? CenterIcon { get; set; }
 }

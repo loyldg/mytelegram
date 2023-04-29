@@ -4,7 +4,7 @@ namespace MyTelegram.Schema.Chatlists;
 
 public interface IExportedInvites : IObject
 {
-    TVector<MyTelegram.Schema.IExportedChatlistInvite> Invites { get; set; }
-    TVector<MyTelegram.Schema.IChat> Chats { get; set; }
-    TVector<MyTelegram.Schema.IUser> Users { get; set; }
+    TVector<Schema.IExportedChatlistInvite> Invites { get; set; }
+    TVector<Schema.IChat> Chats { get; set; }
+    TVector<Schema.IUser> Users { get; set; }
 }

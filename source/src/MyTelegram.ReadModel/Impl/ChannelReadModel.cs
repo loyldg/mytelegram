@@ -18,35 +18,6 @@ public class ChannelReadModel : IChannelReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, SetDiscussionGroupEvent>
 
 {
-    public string? About { get; private set; }
-    public long AccessHash { get; private set; }
-    public string? Address { get; private set; }
-    //public ChatAdminRights AdminRights { get; private set; }
-    public virtual List<ChatAdmin> AdminList { get; protected set; } = new();
-
-    public bool Broadcast { get; private set; }
-    public long ChannelId { get; private set; }
-    public long CreatorId { get; private set; }
-    public int Date { get; private set; }
-    public virtual ChatBannedRights? DefaultBannedRights { get; protected set; }
-    public virtual string Id { get; private set; } = null!;
-    public int LastSendDate { get; private set; }
-    public long LastSenderPeerId { get; private set; }
-    public bool MegaGroup { get; private set; }
-    public int? ParticipantsCount { get; private set; }
-    public byte[]? Photo { get; private set; }
-    public int Pts { get; private set; }
-    public bool Signatures { get; private set; }
-    public bool SlowModeEnabled { get; private set; }
-
-    public string Title { get; private set; } = null!;
-    //public string Link { get; private set; }
-    //public string TopMessageBoxId { get; private set; }
-
-    public int TopMessageId { get; private set; }
-    public string? UserName { get; private set; }
-    public bool Verified { get; private set; }
-    public long? LinkedChatId { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -67,11 +38,13 @@ public class ChannelReadModel : IChannelReadModel,
             if (domainEvent.AggregateEvent.AdminRights.HasNoRights())
             {
                 AdminList.Remove(admin);
-            } else
+            }
+            else
             {
                 admin.SetAdminRights(domainEvent.AggregateEvent.AdminRights);
             }
-        } else
+        }
+        else
         {
             AdminList.Add(new ChatAdmin(domainEvent.AggregateEvent.PromotedBy,
                 domainEvent.AggregateEvent.CanEdit,
@@ -114,7 +87,7 @@ public class ChannelReadModel : IChannelReadModel,
         DefaultBannedRights = domainEvent.AggregateEvent.DefaultBannedRights;
         return Task.CompletedTask;
     }
-    
+
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<ChannelAggregate, ChannelId, ChannelPhotoEditedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -155,6 +128,23 @@ public class ChannelReadModel : IChannelReadModel,
         TopMessageId = domainEvent.AggregateEvent.MessageId;
         LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
         LastSendDate = domainEvent.AggregateEvent.Date;
+        return Task.CompletedTask;
+    }
+
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<ChannelAggregate, ChannelId, CheckChannelStateCompletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    TopMessageId = domainEvent.AggregateEvent.MessageId;
+    //    LastSendDate = domainEvent.AggregateEvent.Date;
+    //    LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
+    //    return Task.CompletedTask;
+    //}
+    public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<ChannelAggregate, ChannelId, SetDiscussionGroupEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        LinkedChatId = domainEvent.AggregateEvent.GroupChannelId;
         return Task.CompletedTask;
     }
 
@@ -199,20 +189,35 @@ public class ChannelReadModel : IChannelReadModel,
         return Task.CompletedTask;
     }
 
-    //public Task ApplyAsync(IReadModelContext context,
-    //    IDomainEvent<ChannelAggregate, ChannelId, CheckChannelStateCompletedEvent> domainEvent,
-    //    CancellationToken cancellationToken)
-    //{
-    //    TopMessageId = domainEvent.AggregateEvent.MessageId;
-    //    LastSendDate = domainEvent.AggregateEvent.Date;
-    //    LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
-    //    return Task.CompletedTask;
-    //}
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<ChannelAggregate, ChannelId, SetDiscussionGroupEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        LinkedChatId = domainEvent.AggregateEvent.GroupChannelId;
-        return Task.CompletedTask;
-    }
+    public string? About { get; private set; }
+    public long AccessHash { get; private set; }
+
+    public string? Address { get; private set; }
+
+    //public ChatAdminRights AdminRights { get; private set; }
+    public virtual List<ChatAdmin> AdminList { get; protected set; } = new();
+
+    public bool Broadcast { get; private set; }
+    public long ChannelId { get; private set; }
+    public long CreatorId { get; private set; }
+    public int Date { get; private set; }
+    public virtual ChatBannedRights? DefaultBannedRights { get; protected set; }
+    public virtual string Id { get; private set; } = null!;
+    public int LastSendDate { get; private set; }
+    public long LastSenderPeerId { get; private set; }
+    public bool MegaGroup { get; private set; }
+    public int? ParticipantsCount { get; private set; }
+    public byte[]? Photo { get; private set; }
+    public int Pts { get; private set; }
+    public bool Signatures { get; private set; }
+    public bool SlowModeEnabled { get; private set; }
+
+    public string Title { get; private set; } = null!;
+    //public string Link { get; private set; }
+    //public string TopMessageBoxId { get; private set; }
+
+    public int TopMessageId { get; private set; }
+    public string? UserName { get; private set; }
+    public bool Verified { get; private set; }
+    public long? LinkedChatId { get; private set; }
 }

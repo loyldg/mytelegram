@@ -1,6 +1,8 @@
 ﻿namespace MyTelegram.MessengerServer.DomainEventHandlers;
 
-public class ChannelMessageViewsDomainEventHandler : ISubscribeSynchronousTo<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent>
+public class
+    ChannelMessageViewsDomainEventHandler : ISubscribeSynchronousTo<MessageSaga, MessageSagaId,
+        SendOutboxMessageCompletedEvent>
 {
     private readonly IChannelMessageViewsAppService _channelMessageViewsAppService;
 

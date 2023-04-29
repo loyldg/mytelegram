@@ -11,7 +11,7 @@ public interface IPoll : IObject
     bool MultipleChoice { get; set; }
     bool Quiz { get; set; }
     string Question { get; set; }
-    TVector<MyTelegram.Schema.IPollAnswer> Answers { get; set; }
+    TVector<Schema.IPollAnswer> Answers { get; set; }
     int? ClosePeriod { get; set; }
     int? CloseDate { get; set; }
 }

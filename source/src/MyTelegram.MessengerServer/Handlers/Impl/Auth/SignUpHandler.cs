@@ -9,8 +9,8 @@ public class SignUpHandler : RpcResultObjectHandler<RequestSignUp, IAuthorizatio
     ISignUpHandler, IProcessedHandler
 {
     private readonly ICommandBus _commandBus;
-    private readonly IRandomHelper _randomHelper;
     private readonly IQueryProcessor _queryProcessor;
+    private readonly IRandomHelper _randomHelper;
 
     public SignUpHandler(
         ICommandBus commandBus,
@@ -27,7 +27,7 @@ public class SignUpHandler : RpcResultObjectHandler<RequestSignUp, IAuthorizatio
     {
         var phoneNumber = obj.PhoneNumber.ToPhoneNumber();
         var userReadModel = await _queryProcessor
-            .ProcessAsync(new GetUserByPhoneNumberQuery(phoneNumber), default)
+                .ProcessAsync(new GetUserByPhoneNumberQuery(phoneNumber), default)
             ;
         var userId = userReadModel?.UserId ?? 0;
 

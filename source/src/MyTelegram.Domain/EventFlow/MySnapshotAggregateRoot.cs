@@ -2,13 +2,11 @@
 
 // taken from https://github.com/eventflow/EventFlow/blob/fix-snapshot-load-sourceids/Source/EventFlow/Snapshots/SnapshotAggregateRoot.cs
 public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> : AggregateRoot<TAggregate, TIdentity>,
-       ISnapshotAggregateRoot<TIdentity, TSnapshot>
-       where TAggregate : MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot>
-       where TIdentity : IIdentity
-       where TSnapshot : ISnapshot
+    ISnapshotAggregateRoot<TIdentity, TSnapshot>
+    where TAggregate : MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot>
+    where TIdentity : IIdentity
+    where TSnapshot : ISnapshot
 {
-    protected ISnapshotStrategy SnapshotStrategy { get; }
-
     protected MySnapshotAggregateRoot(
         TIdentity id,
         ISnapshotStrategy snapshotStrategy)
@@ -16,6 +14,8 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
     {
         SnapshotStrategy = snapshotStrategy;
     }
+
+    protected ISnapshotStrategy SnapshotStrategy { get; }
 
     public int? SnapshotVersion { get; private set; }
 
@@ -25,8 +25,8 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
         CancellationToken cancellationToken)
     {
         var snapshot = await snapshotStore.LoadSnapshotAsync<TAggregate, TIdentity, TSnapshot>(
-            Id,
-            cancellationToken)
+                Id,
+                cancellationToken)
             ;
         if (snapshot == null)
         {
@@ -39,9 +39,9 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
         Version = snapshot.Metadata.AggregateSequenceNumber;
         AddPreviousSourceIds(snapshot.Metadata.PreviousSourceIds);
         var domainEvents = await eventStore.LoadEventsAsync<TAggregate, TIdentity>(
-            Id,
-            Version + 1,
-            cancellationToken)
+                Id,
+                Version + 1,
+                cancellationToken)
             ;
 
         ApplyEvents(domainEvents);
@@ -62,13 +62,15 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
 
         var snapshotContainer = await CreateSnapshotContainerAsync(sourceId, cancellationToken);
         await snapshotStore.StoreSnapshotAsync<TAggregate, TIdentity, TSnapshot>(
-            Id,
-            snapshotContainer,
-            cancellationToken)
+                Id,
+                snapshotContainer,
+                cancellationToken)
             ;
 
         return domainEvents;
     }
+
+    protected abstract Task<TSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken);
 
     private async Task<SnapshotContainer> CreateSnapshotContainerAsync(
         ISourceId sourceId,
@@ -85,37 +87,6 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
 
         return snapshotContainer;
     }
-
-    private Task LoadSnapshotContainerAsync(SnapshotContainer snapshotContainer, CancellationToken cancellationToken)
-    {
-        if (SnapshotVersion.HasValue)
-        {
-            throw new InvalidOperationException($"Aggregate '{Id}' of type '{GetType().PrettyPrint()}' already has snapshot loaded");
-        }
-
-        if (Version > 0)
-        {
-            throw new InvalidOperationException($"Aggregate '{Id}' of type '{GetType().PrettyPrint()}' already has events loaded");
-        }
-
-        if (!(snapshotContainer.Snapshot is TSnapshot snapshot))
-        {
-            throw new ArgumentException($"Snapshot '{snapshotContainer.Snapshot.GetType().PrettyPrint()}' for aggregate '{GetType().PrettyPrint()}' is not of type '{typeof(TSnapshot).PrettyPrint()}'. Did you forget to implement a snapshot upgrader?");
-        }
-
-        SnapshotVersion = snapshotContainer.Metadata.AggregateSequenceNumber;
-
-        AddPreviousSourceIds(snapshotContainer.Metadata.PreviousSourceIds);
-
-        return LoadSnapshotAsync(
-            snapshot,
-            snapshotContainer.Metadata,
-            cancellationToken);
-    }
-
-    protected abstract Task<TSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken);
-
-    protected abstract Task LoadSnapshotAsync(TSnapshot snapshot, ISnapshotMetadata metadata, CancellationToken cancellationToken);
 
     protected virtual Task<ISnapshotMetadata> CreateSnapshotMetadataAsync(
         ISourceId sourceId,
@@ -136,5 +107,40 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
         };
 
         return Task.FromResult(snapshotMetadata);
+    }
+
+    protected abstract Task LoadSnapshotAsync(TSnapshot snapshot,
+        ISnapshotMetadata metadata,
+        CancellationToken cancellationToken);
+
+    private Task LoadSnapshotContainerAsync(SnapshotContainer snapshotContainer,
+        CancellationToken cancellationToken)
+    {
+        if (SnapshotVersion.HasValue)
+        {
+            throw new InvalidOperationException(
+                $"Aggregate '{Id}' of type '{GetType().PrettyPrint()}' already has snapshot loaded");
+        }
+
+        if (Version > 0)
+        {
+            throw new InvalidOperationException(
+                $"Aggregate '{Id}' of type '{GetType().PrettyPrint()}' already has events loaded");
+        }
+
+        if (!(snapshotContainer.Snapshot is TSnapshot snapshot))
+        {
+            throw new ArgumentException(
+                $"Snapshot '{snapshotContainer.Snapshot.GetType().PrettyPrint()}' for aggregate '{GetType().PrettyPrint()}' is not of type '{typeof(TSnapshot).PrettyPrint()}'. Did you forget to implement a snapshot upgrader?");
+        }
+
+        SnapshotVersion = snapshotContainer.Metadata.AggregateSequenceNumber;
+
+        AddPreviousSourceIds(snapshotContainer.Metadata.PreviousSourceIds);
+
+        return LoadSnapshotAsync(
+            snapshot,
+            snapshotContainer.Metadata,
+            cancellationToken);
     }
 }

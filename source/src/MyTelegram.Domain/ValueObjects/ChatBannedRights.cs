@@ -2,7 +2,20 @@
 
 public class ChatBannedRights : ValueObject
 {
-    public static readonly ChatBannedRights Default = new(false, false, false, false, false, false, false, false, false, true, true, false, int.MaxValue, true);
+    public static readonly ChatBannedRights Default = new(false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        int.MaxValue,
+        true);
 
     public ChatBannedRights()
     {
@@ -27,7 +40,7 @@ public class ChatBannedRights : ValueObject
         bool pinMessages,
         int untilDate,
         bool manageTopic
-        )
+    )
     {
         ViewMessages = viewMessages;
         SendMessages = sendMessages;
@@ -72,6 +85,77 @@ public class ChatBannedRights : ValueObject
     //public BitArray Flags { get; init; } = new(32);
     public bool ViewMessages { get; init; }
 
+    private BitArray ComputeFlag()
+    {
+        var flag = new BitArray(32);
+        if (ViewMessages)
+        {
+            flag[0] = true;
+        }
+
+        if (SendMessages)
+        {
+            flag[1] = true;
+        }
+
+        if (SendMedia)
+        {
+            flag[2] = true;
+        }
+
+        if (SendStickers)
+        {
+            flag[3] = true;
+        }
+
+        if (SendGifs)
+        {
+            flag[4] = true;
+        }
+
+        if (SendGames)
+        {
+            flag[5] = true;
+        }
+
+        if (SendInline)
+        {
+            flag[6] = true;
+        }
+
+        if (EmbedLinks)
+        {
+            flag[7] = true;
+        }
+
+        if (SendPolls)
+        {
+            flag[8] = true;
+        }
+
+        if (ChangeInfo)
+        {
+            flag[10] = true;
+        }
+
+        if (InviteUsers)
+        {
+            flag[15] = true;
+        }
+
+        if (PinMessages)
+        {
+            flag[17] = true;
+        }
+
+        if (ManageTopic)
+        {
+            flag[18] = true;
+        }
+
+        return flag;
+    }
+
     public static ChatBannedRights FromValue(int value,
         int untilDate)
     {
@@ -102,40 +186,5 @@ public class ChatBannedRights : ValueObject
         flag.CopyTo(data, 0);
 
         return BitConverter.ToInt32(data);
-    }
-
-    private BitArray ComputeFlag()
-    {
-        var flag = new BitArray(32);
-        if (ViewMessages) { flag[0] = true; }
-
-        if (SendMessages) { flag[1] = true; }
-
-        if (SendMedia) { flag[2] = true; }
-
-        if (SendStickers) { flag[3] = true; }
-
-        if (SendGifs) { flag[4] = true; }
-
-        if (SendGames) { flag[5] = true; }
-
-        if (SendInline) { flag[6] = true; }
-
-        if (EmbedLinks) { flag[7] = true; }
-
-        if (SendPolls) { flag[8] = true; }
-
-        if (ChangeInfo) { flag[10] = true; }
-
-        if (InviteUsers) { flag[15] = true; }
-
-        if (PinMessages) { flag[17] = true; }
-
-        if (ManageTopic)
-        {
-            flag[18] = true;
-        }
-
-        return flag;
     }
 }

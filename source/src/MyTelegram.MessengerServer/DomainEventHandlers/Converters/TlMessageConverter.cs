@@ -4,6 +4,7 @@ public class TlMessageConverter : ITlMessageConverter
 {
     private readonly IPeerHelper _peerHelper;
     private readonly ITlPollConverter _pollConverter;
+
     public TlMessageConverter(IPeerHelper peerHelper,
         ITlPollConverter pollConverter)
     {
@@ -83,12 +84,12 @@ public class TlMessageConverter : ITlMessageConverter
                         m.FromId = null;
                     }
 
-                        m.Replies = ToMessageReplies(item.Post, linkedChannelId, pts);
-                        if (m.Replies != null && item.FwdHeader?.SavedFromPeer != null) // forward from linked channel
+                    m.Replies = ToMessageReplies(item.Post, linkedChannelId, pts);
+                    if (m.Replies != null && item.FwdHeader?.SavedFromPeer != null) // forward from linked channel
                     {
-                            //m.FromId = _peerHelper.ToPeer(PeerType.Channel, item.FwdHeader.SavedFromPeer.PeerId);
-                            m.FromId = item.FwdHeader.SavedFromPeer.ToPeer();
-                            m.Out = false;
+                        //m.FromId = _peerHelper.ToPeer(PeerType.Channel, item.FwdHeader.SavedFromPeer.PeerId);
+                        m.FromId = item.FwdHeader.SavedFromPeer.ToPeer();
+                        m.Out = false;
                     }
                 }
 
@@ -116,18 +117,20 @@ public class TlMessageConverter : ITlMessageConverter
                 chosenOptions = pollAnswerVoterReadModels?.Where(p => p.PollId == readModel.PollId)
                     .Select(p => p.Option).ToList();
             }
+
             messages.Add(ToMessage(readModel, poll, chosenOptions, selfUserId));
         }
 
         return messages;
     }
+
     public IMessage ToDiscussionMessage(IMessageReadModel messageReadModel,
         int maxId,
         int readMaxId,
         int readInboxMaxId,
         int readOutboxMaxId,
         long selfUserId
-        )
+    )
     {
         var m = ToMessage(messageReadModel, null, null, selfUserId);
         if (m is TMessage tMessage)
@@ -138,10 +141,11 @@ public class TlMessageConverter : ITlMessageConverter
             if (replies != null)
             {
                 replies.MaxId = maxId;
-                replies.ReadMaxId=readMaxId;
+                replies.ReadMaxId = readMaxId;
                 tMessage.Replies = replies;
             }
         }
+
         return m;
     }
 
@@ -277,33 +281,36 @@ public class TlMessageConverter : ITlMessageConverter
                     ReplyTo = ToMessageReplyHeader(readModel.ReplyToMsgId)
                 };
 
-                    if (pollReadModel != null)
+                if (pollReadModel != null)
+                {
+                    m.Media = new TMessageMediaPoll
                     {
-                        m.Media = new TMessageMediaPoll
-                        {
-                            Poll = _pollConverter.ToPoll(pollReadModel),
-                            Results = _pollConverter.ToPollResults(pollReadModel, chosenOptions ?? new List<string>())
-                        };
-                    }
+                        Poll = _pollConverter.ToPoll(pollReadModel),
+                        Results = _pollConverter.ToPollResults(pollReadModel, chosenOptions ?? new List<string>())
+                    };
+                }
+
                 if (readModel.ToPeerType == PeerType.Channel)
                 {
                     if (readModel.Post)
                     {
                         m.FromId = null;
-                        }
-                        m.Replies = ToMessageReplies(readModel.Post, readModel.LinkedChannelId, readModel.Pts);
-                        if (m.Replies != null && readModel.FwdHeader != null) // forward from linked channel
-                        {
-                            m.FromId = readModel.FwdHeader.FromId.ToPeer();
-                            m.Out = false;
-                            m.Replies.Replies = readModel.Replies;
+                    }
+
+                    m.Replies = ToMessageReplies(readModel.Post, readModel.LinkedChannelId, readModel.Pts);
+                    if (m.Replies != null && readModel.FwdHeader != null) // forward from linked channel
+                    {
+                        m.FromId = readModel.FwdHeader.FromId.ToPeer();
+                        m.Out = false;
+                        m.Replies.Replies = readModel.Replies;
                     }
                 }
 
                 return m;
-                }
+            }
         }
     }
+
     private IMessageReplies? ToMessageReplies(bool post,
         long? linkedChannelId,
         int pts)
@@ -322,6 +329,7 @@ public class TlMessageConverter : ITlMessageConverter
                 return new TMessageReplies { RepliesPts = pts };
             }
         }
+
         return null;
     }
 }

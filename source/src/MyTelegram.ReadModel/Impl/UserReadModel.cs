@@ -11,33 +11,7 @@ public class UserReadModel : IUserReadModel,
     IAmReadModelFor<UserAggregate, UserId, UserProfilePhotoChangedEvent>
 
 {
-    public virtual string? About { get; private set; }
-    public virtual long AccessHash { get; private set; }
-    public virtual int AccountTtl { get; private set; }
-    public virtual bool Bot { get; private set; }
-    public int? BotInfoVersion { get; private set; }
-    public virtual string FirstName { get; private set; } = null!;
-    public virtual bool HasPassword { get; private set; }
-    public virtual string Id { get; private set; } = null!;
-    public virtual bool IsOnline { get; private set; }
-    public virtual string? LastName { get; private set; }
-    public virtual DateTime LastUpdateDate { get; private set; }
-    public virtual string PhoneNumber { get; private set; } = null!;
-    public virtual int PinnedMsgId { get; private set; }
-    public virtual List<int> PinnedMsgIdList { get; protected set; } = new();
-    public virtual byte[]? ProfilePhoto { get; private set; }
-    public virtual bool SensitiveCanChange { get; private set; }
-    public virtual bool SensitiveEnabled { get; private set; }
-    public virtual bool ShowContactSignUpNotification { get; private set; }
-    public virtual bool Support { get; private set; }
-    public virtual long UserId { get; private set; }
-    //public string UserId { get; private set; }
-    public virtual string? UserName { get; private set; }
-
-    public virtual bool Verified { get; private set; }
     public virtual long? Version { get; set; }
-
-    public bool Premium { get; private set; }
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<MessageAggregate, MessageId, InboxMessagePinnedUpdatedEvent> domainEvent,
@@ -134,6 +108,36 @@ public class UserReadModel : IUserReadModel,
         Verified = domainEvent.AggregateEvent.Verified;
         return Task.CompletedTask;
     }
+
+    public virtual string? About { get; private set; }
+    public virtual long AccessHash { get; private set; }
+    public virtual int AccountTtl { get; private set; }
+    public virtual bool Bot { get; private set; }
+    public int? BotInfoVersion { get; private set; }
+    public virtual string FirstName { get; private set; } = null!;
+    public virtual bool HasPassword { get; }
+    public virtual string Id { get; private set; } = null!;
+    public virtual bool IsOnline { get; }
+    public virtual string? LastName { get; private set; }
+    public virtual DateTime LastUpdateDate { get; private set; }
+    public virtual string PhoneNumber { get; private set; } = null!;
+    public virtual int PinnedMsgId { get; private set; }
+    public virtual List<int> PinnedMsgIdList { get; protected set; } = new();
+    public virtual byte[]? ProfilePhoto { get; private set; }
+    public virtual bool SensitiveCanChange { get; private set; }
+    public virtual bool SensitiveEnabled { get; }
+    public virtual bool ShowContactSignUpNotification { get; private set; }
+    public virtual bool Support { get; private set; }
+
+    public virtual long UserId { get; private set; }
+
+    //public string UserId { get; private set; }
+    public virtual string? UserName { get; private set; }
+
+    public virtual bool Verified { get; private set; }
+
+    public bool Premium { get; private set; }
+
     private void UpdatePinnedMsgId(int messageId,
         bool pinned)
     {
@@ -141,7 +145,8 @@ public class UserReadModel : IUserReadModel,
         {
             PinnedMsgId = messageId;
             PinnedMsgIdList.Add(messageId);
-        } else
+        }
+        else
         {
             PinnedMsgIdList.Remove(messageId);
             PinnedMsgId = PinnedMsgIdList.LastOrDefault();

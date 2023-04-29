@@ -5,6 +5,7 @@ namespace MyTelegram.MessengerServer.Services.Filters;
 public class MyBloomFilter : IBloomFilter
 {
     private readonly BloomFilter.IBloomFilter _filter = FilterBuilder.Build(5_000_000, 0.001, HashMethod.LCGWithFNV1a);
+
     public Task<bool> ExistsAsync(byte[] value)
     {
         return _filter.ContainsAsync(value);

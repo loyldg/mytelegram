@@ -5,8 +5,8 @@ namespace MyTelegram.Caching.Redis;
 
 public class CacheManager<TCacheItem> : ICacheManager<TCacheItem> where TCacheItem : class
 {
-    private readonly IDistributedCache _distributedCache;
     private readonly ICacheSerializer _cacheSerializer;
+    private readonly IDistributedCache _distributedCache;
 
     public CacheManager(IDistributedCache distributedCache,
         ICacheSerializer cacheSerializer)
@@ -37,6 +37,7 @@ public class CacheManager<TCacheItem> : ICacheManager<TCacheItem> where TCacheIt
             {
                 continue;
             }
+
             cachedDict.Add(key, cacheItem);
         }
 
@@ -55,7 +56,7 @@ public class CacheManager<TCacheItem> : ICacheManager<TCacheItem> where TCacheIt
         DistributedCacheEntryOptions? cacheOptions;
         if (ttlInSeconds > 0)
         {
-            cacheOptions = new()
+            cacheOptions = new DistributedCacheEntryOptions
             {
                 SlidingExpiration = TimeSpan.FromSeconds(ttlInSeconds)
             };

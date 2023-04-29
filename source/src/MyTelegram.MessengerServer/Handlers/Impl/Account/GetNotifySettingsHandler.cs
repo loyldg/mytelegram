@@ -16,7 +16,7 @@ public class GetNotifySettingsHandler : RpcResultObjectHandler<RequestGetNotifyS
         _queryProcessor = queryProcessor;
         _objectMapper = objectMapper;
     }
-    
+
     protected override async Task<IPeerNotifySettings> HandleCoreAsync(IRequestInput input,
         RequestGetNotifySettings obj)
     {
@@ -74,8 +74,8 @@ public class GetNotifySettingsHandler : RpcResultObjectHandler<RequestGetNotifyS
 
         var id = PeerNotifySettingsId.Create(userId, peerType, peerId);
         var peerNotifySettingsReadModel =
-            await _queryProcessor.ProcessAsync(new GetPeerNotifySettingsByIdQuery(id), CancellationToken.None)
-                ;
+                await _queryProcessor.ProcessAsync(new GetPeerNotifySettingsByIdQuery(id), CancellationToken.None)
+            ;
         var peerNotifySettings = peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings;
 
         var r = _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(peerNotifySettings);
@@ -83,8 +83,8 @@ public class GetNotifySettingsHandler : RpcResultObjectHandler<RequestGetNotifyS
         r.IosSound = new TNotificationSoundDefault();
         r.AndroidSound = new TNotificationSoundLocal
         {
-            Title= "default",
-            Data= "default"
+            Title = "default",
+            Data = "default"
         };
         r.OtherSound = new TNotificationSoundLocal
         {

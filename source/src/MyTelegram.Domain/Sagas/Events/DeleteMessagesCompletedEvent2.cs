@@ -5,7 +5,8 @@ public class DeleteMessagesCompletedEvent2 : RequestAggregateEvent2<DeleteMessag
     public DeleteMessagesCompletedEvent2(RequestInfo requestInfo,
         PeerType toPeerType,
         DeletedBoxItem selfDeletedBoxItem,
-        IReadOnlyList<DeletedBoxItem> deletedBoxItems, bool isClearHistory /*, bool isClearHistory, int clearHistoryNextMaxId*/) :
+        IReadOnlyList<DeletedBoxItem> deletedBoxItems,
+        bool isClearHistory /*, bool isClearHistory, int clearHistoryNextMaxId*/) :
         base(requestInfo)
     {
         //Pts = pts;
@@ -24,7 +25,6 @@ public class DeleteMessagesCompletedEvent2 : RequestAggregateEvent2<DeleteMessag
     public bool IsClearHistory { get; }
 
     public DeletedBoxItem SelfDeletedBoxItem { get; }
-
 
     public PeerType ToPeerType { get; }
     //public bool IsClearHistory { get; }

@@ -1,11 +1,12 @@
 ﻿using System.Text.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace MyTelegram.Domain.EventFlow;
 
 public class SystemTextJsonSerializer : IJsonSerializer
 {
-    private readonly JsonSerializerOptions _settingsNotIndented = new();
     private readonly JsonSerializerOptions _settingsIndented = new();
+    private readonly JsonSerializerOptions _settingsNotIndented = new();
 
     public SystemTextJsonSerializer(ISystemTextJsonOptions? options = null)
     {
@@ -16,19 +17,21 @@ public class SystemTextJsonSerializer : IJsonSerializer
         _settingsNotIndented.WriteIndented = false;
     }
 
-    public string Serialize(object obj, bool indented = false)
+    public string Serialize(object obj,
+        bool indented = false)
     {
         var settings = indented ? _settingsIndented : _settingsNotIndented;
-        return System.Text.Json.JsonSerializer.Serialize(obj, settings);
+        return JsonSerializer.Serialize(obj, settings);
     }
 
-    public object? Deserialize(string json, Type type)
+    public object? Deserialize(string json,
+        Type type)
     {
-        return System.Text.Json.JsonSerializer.Deserialize(json, type, _settingsNotIndented);
+        return JsonSerializer.Deserialize(json, type, _settingsNotIndented);
     }
 
     public T? Deserialize<T>(string json)
     {
-        return System.Text.Json.JsonSerializer.Deserialize<T>(json, _settingsNotIndented);
+        return JsonSerializer.Deserialize<T>(json, _settingsNotIndented);
     }
 }

@@ -9,7 +9,8 @@ public class GetRecentStickersHandler : RpcResultObjectHandler<RequestGetRecentS
     protected override Task<IRecentStickers> HandleCoreAsync(IRequestInput input,
         RequestGetRecentStickers obj)
     {
-        var r = new TRecentStickers {
+        var r = new TRecentStickers
+        {
             Packs = new TVector<IStickerPack>(), Stickers = new TVector<IDocument>(), Dates = new TVector<int>()
         };
 

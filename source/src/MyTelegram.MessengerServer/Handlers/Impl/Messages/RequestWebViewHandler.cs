@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class RequestWebViewHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestRequestWebView, MyTelegram.Schema.IWebViewResult>,
+public class RequestWebViewHandler : RpcResultObjectHandler<RequestRequestWebView, Schema.IWebViewResult>,
     Messages.IRequestWebViewHandler
 {
-    protected override Task<MyTelegram.Schema.IWebViewResult> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestRequestWebView obj)
+    protected override Task<Schema.IWebViewResult> HandleCoreAsync(IRequestInput input,
+        RequestRequestWebView obj)
     {
         throw new NotImplementedException();
     }

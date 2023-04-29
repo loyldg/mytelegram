@@ -30,10 +30,7 @@ public static class MyTelegramHandlerExtensions
         services.AddSingleton<IBloomFilter, MyBloomFilter>();
         services.AddSingleton<ICuckooFilter, MyCuckooFilter>();
         services.AddTransient<IInMemoryFilterDataLoader, InMemoryFilterDataLoader>();
-        services.AddBloomFilter(options =>
-        {
-            options.UseInMemory();
-        });
+        services.AddBloomFilter(options => { options.UseInMemory(); });
 
         services.AddTransient<ITlMessageConverter, TlMessageConverter>();
         services.AddTransient<ITlUpdatesConverter, TlUpdatesConverter>();
@@ -55,7 +52,8 @@ public static class MyTelegramHandlerExtensions
         return services;
     }
 
-    public static IServiceCollection RegisterHandlers(this IServiceCollection services, Assembly handlerImplTypeInThisAssembly)
+    public static IServiceCollection RegisterHandlers(this IServiceCollection services,
+        Assembly handlerImplTypeInThisAssembly)
     {
         var baseType = typeof(IObjectHandler);
         var baseInterface = typeof(IProcessedHandler);

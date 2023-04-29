@@ -7,11 +7,14 @@ public class MyDomainEventFactory : IDomainEventFactory
 {
     private static readonly ConcurrentDictionary<Type, Type> AggregateEventToDomainEventTypeMap = new();
     private static readonly ConcurrentDictionary<Type, Type> DomainEventToIdentityTypeMap = new();
+
     private static readonly
         ConcurrentDictionary<Type, Func<IAggregateEvent, IMetadata, DateTimeOffset, IIdentity, int, IDomainEvent>>
         DomainEventTypeToCreateInstanceFuncMap = new();
 
-    private static readonly ConcurrentDictionary<Type, Func<string, IIdentity>> IdentityTypeToCreateInstanceFuncMap = new();
+    private static readonly ConcurrentDictionary<Type, Func<string, IIdentity>> IdentityTypeToCreateInstanceFuncMap =
+        new();
+
     public IDomainEvent Create(
         IAggregateEvent aggregateEvent,
         IMetadata metadata,
@@ -26,15 +29,17 @@ public class MyDomainEventFactory : IDomainEventFactory
             createInstanceFunc = MyReflectionHelper.CompileConstructor<string, IIdentity>(identityType);
             IdentityTypeToCreateInstanceFuncMap.TryAdd(identityType, createInstanceFunc);
         }
-        IIdentity identity = createInstanceFunc(aggregateIdentity);
+
+        var identity = createInstanceFunc(aggregateIdentity);
         if (!DomainEventTypeToCreateInstanceFuncMap.TryGetValue(domainEventType, out var createDomainEventInstanceFunc))
         {
             createDomainEventInstanceFunc =
-                MyReflectionHelper.CompileConstructor<IAggregateEvent, IMetadata, DateTimeOffset, IIdentity, int, IDomainEvent>(
-                    aggregateEvent.GetType(),
-                    typeOfT4Impl: identityType,
-                    typeOfTResultImpl: domainEventType
-                );
+                MyReflectionHelper
+                    .CompileConstructor<IAggregateEvent, IMetadata, DateTimeOffset, IIdentity, int, IDomainEvent>(
+                        aggregateEvent.GetType(),
+                        typeOfT4Impl: identityType,
+                        typeOfTResultImpl: domainEventType
+                    );
             DomainEventTypeToCreateInstanceFuncMap.TryAdd(domainEventType, createDomainEventInstanceFunc);
         }
 
@@ -73,35 +78,39 @@ public class MyDomainEventFactory : IDomainEventFactory
             domainEvent.AggregateSequenceNumber);
     }
 
-    private static Type GetIdentityType(Type domainEventType)
-    {
-        var domainEventInterfaceType = domainEventType
-            .GetTypeInfo()
-            .GetInterfaces()
-            .SingleOrDefault(i => i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IDomainEvent<,>));
-
-        if (domainEventInterfaceType == null)
-        {
-            throw new ArgumentException($"Type '{domainEventType.PrettyPrint()}' is not a '{typeof(IDomainEvent<,>).PrettyPrint()}'");
-        }
-
-        var genericArguments = domainEventInterfaceType.GetTypeInfo().GetGenericArguments();
-        return genericArguments[1];
-    }
-
     private static Type GetDomainEventType(Type aggregateEventType)
     {
         var aggregateEventInterfaceType = aggregateEventType
             .GetTypeInfo()
             .GetInterfaces()
-            .SingleOrDefault(i => i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IAggregateEvent<,>));
+            .SingleOrDefault(i =>
+                i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IAggregateEvent<,>));
 
         if (aggregateEventInterfaceType == null)
         {
-            throw new ArgumentException($"Type '{aggregateEventType.PrettyPrint()}' is not a '{typeof(IAggregateEvent<,>).PrettyPrint()}'");
+            throw new ArgumentException(
+                $"Type '{aggregateEventType.PrettyPrint()}' is not a '{typeof(IAggregateEvent<,>).PrettyPrint()}'");
         }
 
         var genericArguments = aggregateEventInterfaceType.GetTypeInfo().GetGenericArguments();
         return typeof(DomainEvent<,,>).MakeGenericType(genericArguments[0], genericArguments[1], aggregateEventType);
+    }
+
+    private static Type GetIdentityType(Type domainEventType)
+    {
+        var domainEventInterfaceType = domainEventType
+            .GetTypeInfo()
+            .GetInterfaces()
+            .SingleOrDefault(i =>
+                i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IDomainEvent<,>));
+
+        if (domainEventInterfaceType == null)
+        {
+            throw new ArgumentException(
+                $"Type '{domainEventType.PrettyPrint()}' is not a '{typeof(IDomainEvent<,>).PrettyPrint()}'");
+        }
+
+        var genericArguments = domainEventInterfaceType.GetTypeInfo().GetGenericArguments();
+        return genericArguments[1];
     }
 }

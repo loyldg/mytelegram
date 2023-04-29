@@ -5,5 +5,5 @@ namespace MyTelegram.Schema.Help;
 public interface ISupport : IObject
 {
     string PhoneNumber { get; set; }
-    MyTelegram.Schema.IUser User { get; set; }
+    Schema.IUser User { get; set; }
 }

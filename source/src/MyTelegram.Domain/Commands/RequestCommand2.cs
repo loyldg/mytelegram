@@ -1,14 +1,16 @@
 ﻿namespace MyTelegram.Domain.Commands;
 
-public abstract class RequestCommand2<TAggregate, TIdentity, TExecutionResult> : DistinctCommand<TAggregate, TIdentity, TExecutionResult>
+public abstract class
+    RequestCommand2<TAggregate, TIdentity, TExecutionResult> : DistinctCommand<TAggregate, TIdentity, TExecutionResult>
     where TIdentity : IIdentity where TAggregate : IAggregateRoot<TIdentity> where TExecutionResult : IExecutionResult
 {
-    public RequestInfo RequestInfo { get; }
-
-    protected RequestCommand2(TIdentity aggregateId, RequestInfo requestInfo) : base(aggregateId)
+    protected RequestCommand2(TIdentity aggregateId,
+        RequestInfo requestInfo) : base(aggregateId)
     {
         RequestInfo = requestInfo;
     }
+
+    public RequestInfo RequestInfo { get; }
 
     protected override IEnumerable<byte[]> GetSourceIdComponents()
     {

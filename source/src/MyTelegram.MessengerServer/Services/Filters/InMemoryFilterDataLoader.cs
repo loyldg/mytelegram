@@ -4,10 +4,11 @@ public class InMemoryFilterDataLoader : IInMemoryFilterDataLoader
 {
     //private readonly IBloomFilter _bloomFilter;
     private readonly ICuckooFilter _cuckooFilter;
-    private readonly IQueryProcessor _queryProcessor;
-    private readonly int _pageSize = 1000;
     private readonly ILogger<InMemoryFilterDataLoader> _logger;
-    public InMemoryFilterDataLoader(//IBloomFilter bloomFilter,
+    private readonly int _pageSize = 1000;
+    private readonly IQueryProcessor _queryProcessor;
+
+    public InMemoryFilterDataLoader( //IBloomFilter bloomFilter,
         ICuckooFilter cuckooFilter,
         IQueryProcessor queryProcessor,
         ILogger<InMemoryFilterDataLoader> logger)
@@ -33,10 +34,13 @@ public class InMemoryFilterDataLoader : IInMemoryFilterDataLoader
             count += userNameList.Count;
             foreach (var userName in userNameList)
             {
-                await _cuckooFilter.AddAsync(Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{userName}"));
+                await _cuckooFilter.AddAsync(
+                    Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{userName}"));
             }
+
             skip += _pageSize;
         }
+
         _logger.LogInformation("Load userName list ok,count={Count}", count);
     }
 }

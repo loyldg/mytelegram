@@ -7,9 +7,10 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Channels;
 public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipant, IChannelParticipant>,
     IGetParticipantHandler, IProcessedHandler
 {
+    private readonly ITlChatConverter _chatConverter;
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly ITlChatConverter _chatConverter;
+
     public GetParticipantHandler(IQueryProcessor queryProcessor,
         IPeerHelper peerHelper,
         ITlChatConverter chatConverter)
@@ -26,7 +27,7 @@ public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipan
         if (obj.Channel is TInputChannel inputChannel)
         {
             var channelMemberReadModel = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
+                    .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
                 ;
             if (channelMemberReadModel == null)
             {
@@ -34,7 +35,7 @@ public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipan
             }
 
             var userReadModel = await _queryProcessor
-                .ProcessAsync(new GetUserByIdQuery(channelMemberReadModel?.UserId ?? input.UserId), default)
+                    .ProcessAsync(new GetUserByIdQuery(channelMemberReadModel?.UserId ?? input.UserId), default)
                 ;
 
             if (userReadModel == null)
@@ -63,9 +64,9 @@ public class GetParticipantHandlerLayerN :
     RpcResultObjectHandler<Schema.LayerN.RequestGetParticipant, Schema.LayerN.IChannelParticipant>,
     IGetParticipantHandlerLayerN, IProcessedHandler
 {
+    private readonly ITlChatConverter _chatConverter;
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly ITlChatConverter _chatConverter;
 
     public GetParticipantHandlerLayerN(IQueryProcessor queryProcessor,
         IPeerHelper peerHelper,
@@ -83,7 +84,7 @@ public class GetParticipantHandlerLayerN :
         if (obj.Channel is TInputChannel inputChannel)
         {
             var channelMemberReadModel = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
+                    .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
                 ;
 
             if (channelMemberReadModel == null)
@@ -92,7 +93,7 @@ public class GetParticipantHandlerLayerN :
             }
 
             var userReadModel = await _queryProcessor
-                .ProcessAsync(new GetUserByIdQuery(channelMemberReadModel!.UserId), default)
+                    .ProcessAsync(new GetUserByIdQuery(channelMemberReadModel!.UserId), default)
                 ;
 
             if (userReadModel == null)

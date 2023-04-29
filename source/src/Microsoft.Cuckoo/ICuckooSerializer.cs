@@ -4,24 +4,25 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Microsoft.Cuckoo
-{
-  using System.IO;
+using System.IO;
 
-  public interface ICuckooSerializer
-  {
+namespace Microsoft.Cuckoo;
+
+public interface ICuckooSerializer
+{
     /// <summary>
-    /// Deserializes the CuckooFilter to from a stream.
+    ///     Deserializes the CuckooFilter to from a stream.
     /// </summary>
     /// <param name="source">Source stream to read</param>
     /// <param name="hashAlgorithm">Hash algorithm</param>
-    CuckooFilter Deserialize(Stream source, IHashAlgorithm hashAlgorithm = null);
+    CuckooFilter Deserialize(Stream source,
+        IHashAlgorithm hashAlgorithm = null);
 
     /// <summary>
-    /// Serializes the CuckooFilter to a stream.
+    ///     Serializes the CuckooFilter to a stream.
     /// </summary>
     /// <param name="target">Target stream to write to</param>
     /// <param name="filter">Filter to serialize</param>
-    void Serialize(Stream target, CuckooFilter filter);
-  }
+    void Serialize(Stream target,
+        CuckooFilter filter);
 }

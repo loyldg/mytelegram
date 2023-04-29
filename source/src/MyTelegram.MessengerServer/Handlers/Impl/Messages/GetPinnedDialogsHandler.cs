@@ -7,8 +7,8 @@ public class GetPinnedDialogsHandler : RpcResultObjectHandler<RequestGetPinnedDi
     IGetPinnedDialogsHandler, IProcessedHandler
 {
     private readonly IDialogAppService _dialogAppService;
-    private readonly IPtsHelper _ptsHelper;
     private readonly ITlDialogConverter _dialogConverter;
+    private readonly IPtsHelper _ptsHelper;
 
     public GetPinnedDialogsHandler(IDialogAppService dialogAppService,
         IPtsHelper ptsHelper,
@@ -24,7 +24,8 @@ public class GetPinnedDialogsHandler : RpcResultObjectHandler<RequestGetPinnedDi
     {
         var userId = input.UserId;
         var r = await _dialogAppService
-            .GetDialogsAsync(new GetDialogInput {
+            .GetDialogsAsync(new GetDialogInput
+            {
                 Pinned = true, OwnerId = userId, Limit = DefaultPageSize, FolderId = obj.FolderId
             });
 

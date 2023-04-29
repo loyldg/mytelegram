@@ -5,13 +5,6 @@ public class PtsReadModel : IPtsReadModel,
     IAmReadModelFor<PushUpdatesAggregate, PushUpdatesId, EncryptedPushUpdatesCreatedEvent>,
     IAmReadModelFor<PtsAggregate, PtsId, PtsGlobalSeqNoUpdatedEvent>
 {
-    public virtual int Date { get; private set; }
-    public virtual long GlobalSeqNo { get; private set; }
-    public virtual string Id { get; private set; } = null!;
-    public virtual long PeerId { get; private set; }
-    public virtual int Pts { get; private set; }
-    public virtual int Qts { get; private set; }
-    public virtual int UnreadCount { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -68,4 +61,12 @@ public class PtsReadModel : IPtsReadModel,
 
         return Task.CompletedTask;
     }
+
+    public virtual int Date { get; private set; }
+    public virtual long GlobalSeqNo { get; private set; }
+    public virtual string Id { get; private set; } = null!;
+    public virtual long PeerId { get; private set; }
+    public virtual int Pts { get; private set; }
+    public virtual int Qts { get; private set; }
+    public virtual int UnreadCount { get; private set; }
 }

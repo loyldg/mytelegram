@@ -17,6 +17,7 @@ public class Draft : ValueObject
         Entities = entities;
         TopMsgId = topMsgId;
     }
+
     public string Message { get; init; }
     public bool NoWebpage { get; init; }
     public int? ReplyToMsgId { get; init; }

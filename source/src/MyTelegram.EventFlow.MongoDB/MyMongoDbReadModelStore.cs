@@ -8,19 +8,24 @@ using MongoDB.Driver;
 
 namespace MyTelegram.EventFlow.MongoDB;
 
-public class MyMongoDbReadModelStore<TReadModel, TMongoDbContext> : MyMongoDbReadModelStore<TReadModel>, IMyMongoDbReadModelStore<TReadModel, TMongoDbContext>
+public class MyMongoDbReadModelStore<TReadModel, TMongoDbContext> : MyMongoDbReadModelStore<TReadModel>,
+    IMyMongoDbReadModelStore<TReadModel, TMongoDbContext>
     where TReadModel : class, IMongoDbReadModel
     where TMongoDbContext : IMongoDbContext
 {
     public MyMongoDbReadModelStore(ILogger<MongoDbReadModelStore<TReadModel>> logger,
         IMongoDbContextProvider<TMongoDbContext> mongoDbContextProvider,
         IReadModelDescriptionProvider readModelDescriptionProvider,
-        ITransientFaultHandler<IOptimisticConcurrencyRetryStrategy> transientFaultHandler) : base(logger, mongoDbContextProvider.CreateContext().GetDatabase(), readModelDescriptionProvider, transientFaultHandler)
+        ITransientFaultHandler<IOptimisticConcurrencyRetryStrategy> transientFaultHandler) : base(logger,
+        mongoDbContextProvider.CreateContext().GetDatabase(),
+        readModelDescriptionProvider,
+        transientFaultHandler)
     {
     }
 }
 
-public class MyMongoDbReadModelStore<TReadModel> : MongoDbReadModelStore<TReadModel>, IMyMongoDbReadModelStore<TReadModel>
+public class MyMongoDbReadModelStore<TReadModel> : MongoDbReadModelStore<TReadModel>,
+    IMyMongoDbReadModelStore<TReadModel>
     where TReadModel : class, IMongoDbReadModel
 {
     private readonly ILogger<MongoDbReadModelStore<TReadModel>> _logger;
@@ -30,7 +35,10 @@ public class MyMongoDbReadModelStore<TReadModel> : MongoDbReadModelStore<TReadMo
     public MyMongoDbReadModelStore(ILogger<MongoDbReadModelStore<TReadModel>> logger,
         IMongoDatabase mongoDatabase,
         IReadModelDescriptionProvider readModelDescriptionProvider,
-        ITransientFaultHandler<IOptimisticConcurrencyRetryStrategy> transientFaultHandler) : base(logger, mongoDatabase, readModelDescriptionProvider, transientFaultHandler)
+        ITransientFaultHandler<IOptimisticConcurrencyRetryStrategy> transientFaultHandler) : base(logger,
+        mongoDatabase,
+        readModelDescriptionProvider,
+        transientFaultHandler)
     {
         _logger = logger;
         _mongoDatabase = mongoDatabase;

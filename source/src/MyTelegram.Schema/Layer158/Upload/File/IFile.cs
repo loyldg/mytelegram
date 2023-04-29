@@ -4,5 +4,4 @@ namespace MyTelegram.Schema.Upload;
 
 public interface IFile : IObject
 {
-
 }

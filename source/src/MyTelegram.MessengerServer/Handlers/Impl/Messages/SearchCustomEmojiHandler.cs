@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-internal sealed class SearchCustomEmojiHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSearchCustomEmoji, MyTelegram.Schema.IEmojiList>,
+internal sealed class SearchCustomEmojiHandler : RpcResultObjectHandler<RequestSearchCustomEmoji, Schema.IEmojiList>,
     Messages.ISearchCustomEmojiHandler
 {
-    protected override Task<MyTelegram.Schema.IEmojiList> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSearchCustomEmoji obj)
+    protected override Task<Schema.IEmojiList> HandleCoreAsync(IRequestInput input,
+        RequestSearchCustomEmoji obj)
     {
         throw new NotImplementedException();
     }

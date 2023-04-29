@@ -4,5 +4,4 @@ namespace MyTelegram.Schema.Channels;
 
 public interface IChannelParticipants : IObject
 {
-
 }

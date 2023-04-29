@@ -23,6 +23,10 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
     public string? UserName { get; private set; }
     public bool Verified { get; private set; }
 
+    public void Apply(CheckUserStateCompletedEvent aggregateEvent)
+    {
+    }
+
     public void Apply(CheckUserStatusCompletedEvent aggregateEvent)
     {
     }
@@ -65,10 +69,6 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
     public void Apply(UserVerifiedHasSetEvent aggregateEvent)
     {
         Verified = aggregateEvent.Verified;
-    }
-
-    public void Apply(CheckUserStateCompletedEvent aggregateEvent)
-    {
     }
 
     public void LoadFromSnapshot(UserSnapshot snapshot)

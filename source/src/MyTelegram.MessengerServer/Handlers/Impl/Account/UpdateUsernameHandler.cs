@@ -22,7 +22,8 @@ public class UpdateUsernameHandler : RpcResultObjectHandler<RequestUpdateUsernam
         RequestUpdateUsername obj)
     {
         if (await _cuckooFilter
-                .ExistsAsync(Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{obj.Username}"))
+                .ExistsAsync(
+                    Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{obj.Username}"))
                 .ConfigureAwait(false))
         {
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UserNameOccupied);

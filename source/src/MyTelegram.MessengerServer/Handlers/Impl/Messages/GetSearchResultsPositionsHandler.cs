@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class GetSearchResultsPositionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetSearchResultsPositions, MyTelegram.Schema.Messages.ISearchResultsPositions>,
+public class GetSearchResultsPositionsHandler :
+    RpcResultObjectHandler<RequestGetSearchResultsPositions, ISearchResultsPositions>,
     Messages.IGetSearchResultsPositionsHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.ISearchResultsPositions> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetSearchResultsPositions obj)
+    protected override Task<ISearchResultsPositions> HandleCoreAsync(IRequestInput input,
+        RequestGetSearchResultsPositions obj)
     {
         throw new NotImplementedException();
     }

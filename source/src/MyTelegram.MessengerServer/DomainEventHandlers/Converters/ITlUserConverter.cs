@@ -1,4 +1,5 @@
 ﻿using IPhoto = MyTelegram.Schema.Photos.IPhoto;
+using IUserFull = MyTelegram.Schema.Users.IUserFull;
 
 namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
@@ -11,7 +12,7 @@ public interface ITlUserConverter
 
     IUser ToUser(UserNameUpdatedEvent aggregateEvent);
 
-    Task<Schema.Users.IUserFull> ToUserFullAsync(IUserReadModel user,
+    Task<IUserFull> ToUserFullAsync(IUserReadModel user,
         long selfUserId,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel
     );

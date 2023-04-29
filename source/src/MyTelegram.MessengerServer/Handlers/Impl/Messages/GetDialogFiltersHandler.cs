@@ -6,8 +6,9 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 public class GetDialogFiltersHandler : RpcResultObjectHandler<RequestGetDialogFilters, TVector<IDialogFilter>>,
     IGetDialogFiltersHandler, IProcessedHandler
 {
-    private readonly IQueryProcessor _queryProcessor;
     private readonly IObjectMapper _objectMapper;
+    private readonly IQueryProcessor _queryProcessor;
+
     public GetDialogFiltersHandler(IQueryProcessor queryProcessor,
         IObjectMapper objectMapper)
     {

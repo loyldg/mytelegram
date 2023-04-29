@@ -8,9 +8,9 @@ public interface IBotResults : IObject
     bool Gallery { get; set; }
     long QueryId { get; set; }
     string? NextOffset { get; set; }
-    MyTelegram.Schema.IInlineBotSwitchPM? SwitchPm { get; set; }
-    MyTelegram.Schema.IInlineBotWebView? SwitchWebview { get; set; }
-    TVector<MyTelegram.Schema.IBotInlineResult> Results { get; set; }
+    Schema.IInlineBotSwitchPM? SwitchPm { get; set; }
+    Schema.IInlineBotWebView? SwitchWebview { get; set; }
+    TVector<Schema.IBotInlineResult> Results { get; set; }
     int CacheTime { get; set; }
-    TVector<MyTelegram.Schema.IUser> Users { get; set; }
+    TVector<Schema.IUser> Users { get; set; }
 }

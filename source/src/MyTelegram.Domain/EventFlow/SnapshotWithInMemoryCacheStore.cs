@@ -4,10 +4,11 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
 {
     private readonly IMyInMemorySnapshotPersistence _inMemorySnapshotPersistence;
     private readonly ILogger<SnapshotStore> _logger;
+
     private readonly ISnapshotPersistence _snapshotPersistence;
+
     //private readonly ISnapshotSerializer _snapshotSerializer;
     private readonly ISnapshotSerializer _snapshotSerializer;
-
 
     public SnapshotWithInMemoryCacheStore(IMyInMemorySnapshotPersistence inMemorySnapshotPersistence,
         ISnapshotSerializer snapshotSerializer,
@@ -26,8 +27,8 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
         where TSnapshot : ISnapshot
     {
         var cachedSnapshot =
-            await LoadSnapshotFromMemoryAsync<TAggregate, TIdentity, TSnapshot>(identity, cancellationToken)
-                ;
+                await LoadSnapshotFromMemoryAsync<TAggregate, TIdentity, TSnapshot>(identity, cancellationToken)
+            ;
         if (cachedSnapshot != null)
         {
             _logger.LogTrace("Fetching snapshot for {AggregateType} with ID {Id} from memory",

@@ -33,13 +33,15 @@ public class SetTypingHandler : RpcResultObjectHandler<RequestSetTyping, IBool>,
 
                 break;
             case PeerType.Chat:
-                update = new TUpdateChatUserTyping {
+                update = new TUpdateChatUserTyping
+                {
                     Action = obj.Action, ChatId = peer.PeerId, FromId = new TPeerUser { UserId = userId }
                     //UserId = session.UserId
                 };
                 break;
             case PeerType.Channel:
-                update = new TUpdateChannelUserTyping {
+                update = new TUpdateChannelUserTyping
+                {
                     Action = obj.Action,
                     ChannelId = peer.PeerId,
                     TopMsgId = obj.TopMsgId,

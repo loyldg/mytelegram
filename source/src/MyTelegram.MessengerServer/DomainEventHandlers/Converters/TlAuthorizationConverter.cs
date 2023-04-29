@@ -1,5 +1,4 @@
 ﻿using MyTelegram.Schema.Auth;
-using MyTelegram.Schema.Help;
 using IAuthorization = MyTelegram.Schema.Auth.IAuthorization;
 using TAuthorization = MyTelegram.Schema.Auth.TAuthorization;
 

@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public record RequestInput(uint ObjectId,

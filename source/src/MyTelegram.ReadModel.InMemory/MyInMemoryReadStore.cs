@@ -1,10 +1,10 @@
 ﻿namespace MyTelegram.ReadModel.InMemory;
 
 public class MyInMemoryReadStore<TReadModel> : ReadModelStore<TReadModel>, IMyInMemoryReadStore<TReadModel>
-        where TReadModel : class, IReadModel
+    where TReadModel : class, IReadModel
 {
-    private readonly Dictionary<string, ReadModelEnvelope<TReadModel>> _readModels = new();
     private readonly AsyncLock _asyncLock = new();
+    private readonly Dictionary<string, ReadModelEnvelope<TReadModel>> _readModels = new();
 
     public MyInMemoryReadStore(
         ILogger<InMemoryReadStore<TReadModel>> logger)
@@ -64,7 +64,8 @@ public class MyInMemoryReadStore<TReadModel> : ReadModelStore<TReadModel>, IMyIn
 
     public override async Task UpdateAsync(IReadOnlyCollection<ReadModelUpdate> readModelUpdates,
         IReadModelContextFactory readModelContextFactory,
-        Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken, Task<ReadModelUpdateResult<TReadModel>>> updateReadModel,
+        Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken,
+            Task<ReadModelUpdateResult<TReadModel>>> updateReadModel,
         CancellationToken cancellationToken)
     {
         using (await _asyncLock.WaitAsync(cancellationToken).ConfigureAwait(false))
@@ -83,10 +84,10 @@ public class MyInMemoryReadStore<TReadModel> : ReadModelStore<TReadModel>, IMyIn
                 var readModelContext = readModelContextFactory.Create(readModelId, isNew);
 
                 var readModelUpdateResult = await updateReadModel(
-                    readModelContext,
-                    readModelUpdate.DomainEvents,
-                    readModelEnvelope!,
-                    cancellationToken)
+                        readModelContext,
+                        readModelUpdate.DomainEvents,
+                        readModelEnvelope!,
+                        cancellationToken)
                     ;
                 if (!readModelUpdateResult.IsModified)
                 {
@@ -98,7 +99,8 @@ public class MyInMemoryReadStore<TReadModel> : ReadModelStore<TReadModel>, IMyIn
                 if (readModelContext.IsMarkedForDeletion)
                 {
                     _readModels.Remove(readModelId);
-                } else
+                }
+                else
                 {
                     _readModels[readModelId] = readModelEnvelope;
                 }

@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Account;
+
 namespace MyTelegram.Handlers.Account;
 
-public class ClearRecentEmojiStatusesHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestClearRecentEmojiStatuses, IBool>,
+public class ClearRecentEmojiStatusesHandler : RpcResultObjectHandler<RequestClearRecentEmojiStatuses, IBool>,
     Account.IClearRecentEmojiStatusesHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestClearRecentEmojiStatuses obj)
+        RequestClearRecentEmojiStatuses obj)
     {
         throw new NotImplementedException();
     }

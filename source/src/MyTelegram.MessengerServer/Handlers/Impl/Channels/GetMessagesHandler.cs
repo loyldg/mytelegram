@@ -9,8 +9,9 @@ public class GetMessagesHandler : RpcResultObjectHandler<RequestGetMessages, IMe
     IGetMessagesHandler, IProcessedHandler
 {
     private readonly IMessageAppService _messageAppService;
-    private readonly IRpcResultProcessor _rpcResultProcessor;
     private readonly ITlMessageConverter _messageConverter;
+    private readonly IRpcResultProcessor _rpcResultProcessor;
+
     public GetMessagesHandler(IMessageAppService messageAppService,
         IRpcResultProcessor rpcResultProcessor,
         ITlMessageConverter messageConverter)
@@ -45,10 +46,10 @@ public class GetMessagesHandler : RpcResultObjectHandler<RequestGetMessages, IMe
         var dto = await _messageAppService
             .GetMessagesAsync(
                 new GetMessagesInput(input.UserId,
-                    channelId,
-                    idList,
-                    new Peer(PeerType.Channel, channelId))
-                { Limit = 50 });
+                        channelId,
+                        idList,
+                        new Peer(PeerType.Channel, channelId))
+                    { Limit = 50 });
 
         return _rpcResultProcessor.ToMessages(dto);
     }
@@ -85,10 +86,10 @@ public class GetMessagesHandlerLayerN : RpcResultObjectHandler<RequestGetChannel
         var dto = await _messageAppService
             .GetMessagesAsync(
                 new GetMessagesInput(input.UserId,
-                    channelId,
-                    idList,
-                    new Peer(PeerType.Channel, channelId))
-                { Limit = 50 });
+                        channelId,
+                        idList,
+                        new Peer(PeerType.Channel, channelId))
+                    { Limit = 50 });
 
         return _rpcResultProcessor.ToMessages(dto);
     }

@@ -20,38 +20,6 @@ public class DialogReadModel : IDialogReadModel,
 
 //IAmReadModelFor<DialogAggregate,DialogId,>
 {
-    public virtual int ChannelHistoryMinId { get; private set; }
-    public virtual DateTime CreationTime { get; private set; }
-    public virtual Draft? Draft { get; protected set; }
-    public virtual string Id { get; private set; } = null!;
-    public virtual int MaxSendOutMessageId { get; private set; }
-    public virtual PeerNotifySettings? NotifySettings { get; protected set; }
-    public virtual long OwnerId { get; private set; }
-    //public virtual string TopMessageBoxId { get; private set; }
-    public virtual bool Pinned { get; private set; }
-
-    public virtual int PinnedMsgId { get; private set; }
-    //public int Date { get; private set; }
-    //public string Message { get; private set; }
-    //public bool NoWebpage { get; private set; }
-    //public int ReplyToMsgId { get; private set; }
-    //public byte[] Entities { get; private set; }
-    //#endregion
-    ///// <summary>
-    ///// only for channel
-    ///// </summary>
-    //public int NewTopMessageId { get; private set; }
-    public virtual int PinnedOrder { get; private set; }
-
-    public virtual int Pts { get; private set; }
-    public virtual int ReadInboxMaxId { get; private set; }
-    //public Draft Draft => new(Message, NoWebpage, ReplyToMsgId, Date, Entities);
-    public virtual int ReadOutboxMaxId { get; private set; }
-
-    public virtual long ToPeerId { get; private set; }
-    public virtual PeerType ToPeerType { get; private set; }
-    public virtual int TopMessage { get; private set; }
-    public virtual int UnreadCount { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -252,6 +220,46 @@ public class DialogReadModel : IDialogReadModel,
         NotifySettings = domainEvent.AggregateEvent.PeerNotifySettings;
         return Task.CompletedTask;
     }
+
+    public virtual int ChannelHistoryMinId { get; private set; }
+    public virtual DateTime CreationTime { get; private set; }
+    public virtual Draft? Draft { get; protected set; }
+    public virtual string Id { get; private set; } = null!;
+    public virtual int MaxSendOutMessageId { get; private set; }
+    public virtual PeerNotifySettings? NotifySettings { get; protected set; }
+
+    public virtual long OwnerId { get; private set; }
+
+    //public virtual string TopMessageBoxId { get; private set; }
+    public virtual bool Pinned { get; private set; }
+
+    public virtual int PinnedMsgId { get; private set; }
+
+    //public int Date { get; private set; }
+    //public string Message { get; private set; }
+    //public bool NoWebpage { get; private set; }
+    //public int ReplyToMsgId { get; private set; }
+    //public byte[] Entities { get; private set; }
+    //#endregion
+    ///// <summary>
+    ///// only for channel
+    ///// </summary>
+    //public int NewTopMessageId { get; private set; }
+    public virtual int PinnedOrder { get; private set; }
+
+    public virtual int Pts { get; private set; }
+
+    public virtual int ReadInboxMaxId { get; private set; }
+
+    //public Draft Draft => new(Message, NoWebpage, ReplyToMsgId, Date, Entities);
+    public virtual int ReadOutboxMaxId { get; private set; }
+
+    public virtual long ToPeerId { get; private set; }
+    public virtual PeerType ToPeerType { get; private set; }
+    public virtual int TopMessage { get; private set; }
+
+    public virtual int UnreadCount { get; private set; }
+
     //#region Draft
     public void SetNewTopMessageId(int newTopMessageId)
     {

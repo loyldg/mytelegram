@@ -7,9 +7,10 @@ public class GetPeerDialogsHandler : RpcResultObjectHandler<RequestGetPeerDialog
     IGetPeerDialogsHandler, IProcessedHandler
 {
     private readonly IDialogAppService _dialogAppService;
+    private readonly ITlDialogConverter _dialogConverter;
     private readonly IPeerHelper _peerHelper;
     private readonly IPtsHelper _ptsHelper;
-    private readonly ITlDialogConverter _dialogConverter;
+
     public GetPeerDialogsHandler(IDialogAppService dialogAppService,
         IPeerHelper peerHelper,
         IPtsHelper ptsHelper,

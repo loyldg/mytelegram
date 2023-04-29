@@ -13,7 +13,8 @@ public class GetMessageIdListQueryHandler : IQueryHandler<GetMessageIdListQuery,
     public async Task<List<int>> ExecuteQueryAsync(GetMessageIdListQuery query,
         CancellationToken cancellationToken)
     {
-        var findOptions = new FindOptions<MessageReadModel, int> {
+        var findOptions = new FindOptions<MessageReadModel, int>
+        {
             Projection = new ProjectionDefinitionBuilder<MessageReadModel>().Expression(p => p.MessageId),
             Limit = query.Limit
         };

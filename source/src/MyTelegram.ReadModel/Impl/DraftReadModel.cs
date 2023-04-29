@@ -5,10 +5,6 @@ public class DraftReadModel : IDraftReadModel,
     IAmReadModelFor<DialogAggregate, DialogId, DraftClearedEvent>
 
 {
-    public virtual Draft Draft { get; protected set; } = null!;
-    public virtual string Id { get; private set; } = null!;
-    public virtual long OwnerPeerId { get; private set; }
-    public virtual Peer Peer { get; protected set; } = null!;
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -29,4 +25,9 @@ public class DraftReadModel : IDraftReadModel,
         Draft = domainEvent.AggregateEvent.Draft;
         return Task.CompletedTask;
     }
+
+    public virtual Draft Draft { get; protected set; } = null!;
+    public virtual string Id { get; private set; } = null!;
+    public virtual long OwnerPeerId { get; private set; }
+    public virtual Peer Peer { get; protected set; } = null!;
 }

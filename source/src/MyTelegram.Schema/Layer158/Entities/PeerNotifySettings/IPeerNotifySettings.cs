@@ -8,7 +8,7 @@ public interface IPeerNotifySettings : IObject
     bool? ShowPreviews { get; set; }
     bool? Silent { get; set; }
     int? MuteUntil { get; set; }
-    MyTelegram.Schema.INotificationSound? IosSound { get; set; }
-    MyTelegram.Schema.INotificationSound? AndroidSound { get; set; }
-    MyTelegram.Schema.INotificationSound? OtherSound { get; set; }
+    Schema.INotificationSound? IosSound { get; set; }
+    Schema.INotificationSound? AndroidSound { get; set; }
+    Schema.INotificationSound? OtherSound { get; set; }
 }

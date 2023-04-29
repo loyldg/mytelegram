@@ -1,6 +1,7 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, DeleteMessageSagaId, DeleteMessageSagaLocator>,
+public class DeleteMessageSaga :
+    MyInMemoryAggregateSaga<DeleteMessageSaga, DeleteMessageSagaId, DeleteMessageSagaLocator>,
     ISagaIsStartedBy<MessageAggregate, MessageId, DeleteMessagesStartedEvent>,
     //ISagaIsStartedBy<DialogAggregate, DialogId, HistoryClearedEvent>,
     ISagaHandles<MessageAggregate, MessageId, MessageDeletedEvent>,
@@ -11,7 +12,9 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
     private readonly IIdGenerator _idGenerator;
     private readonly DeleteMessageState _state = new();
 
-    public DeleteMessageSaga(DeleteMessageSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
+    public DeleteMessageSaga(DeleteMessageSagaId id,
+        IEventStore eventStore,
+        IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -27,7 +30,9 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        var inboxCount = _state.ToPeer.PeerType == PeerType.User ? 1 : domainEvent.AggregateEvent.InboxItems?.Count ?? 0;
+        var inboxCount = _state.ToPeer.PeerType == PeerType.User
+            ? 1
+            : domainEvent.AggregateEvent.InboxItems?.Count ?? 0;
         Emit(new DeleteSingleMessageCompletedEvent(domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MessageId,
             true,
@@ -68,6 +73,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
             domainEvent.AggregateEvent.CorrelationId);
         return Task.CompletedTask;
     }
+
     private void DeleteMessagesForSelf(long selfUserId,
         IReadOnlyList<int> messageIdList,
         Guid correlationId)
@@ -134,8 +140,8 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
                 _state.ToPeer.PeerType,
                 selfDeletedItem,
                 otherPartyDeletedBoxes //,
-                                       //_state.IsClearHistory,
-                                       //_state.ClearHistoryNextMaxId
+                //_state.IsClearHistory,
+                //_state.ClearHistoryNextMaxId
             ));
 
             //if (_state.IsClearHistory && _state.ClearHistoryNextMaxId == 0)
@@ -191,6 +197,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
 
         return Task.CompletedTask;
     }
+
     private async Task IncrementPtsAsync(long peerId)
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);

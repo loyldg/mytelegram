@@ -21,7 +21,6 @@ public class CheckUserStatusCompletedEvent : AggregateEvent<UserAggregate, UserI
         CorrelationId = correlationId;
     }
 
-    public Guid CorrelationId { get; }
     public string FirstName { get; }
     public bool HasPassword { get; }
     public bool IsUserLocked { get; }
@@ -29,4 +28,6 @@ public class CheckUserStatusCompletedEvent : AggregateEvent<UserAggregate, UserI
     public string PhoneNumber { get; }
 
     public long UserId { get; }
+
+    public Guid CorrelationId { get; }
 }

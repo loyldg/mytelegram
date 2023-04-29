@@ -70,14 +70,16 @@ public static class MyMongoDbOptionsExtensions
     {
         eventFlowOptions.ServiceCollection
             .AddTransient<IMongoDbReadModelStore<TReadModel>, MyMongoDbReadModelStore<TReadModel, TDbContext>>()
-            .AddTransient<IMyMongoDbReadModelStore<TReadModel, TDbContext>, MyMongoDbReadModelStore<TReadModel, TDbContext>>()
+            .AddTransient<IMyMongoDbReadModelStore<TReadModel, TDbContext>,
+                MyMongoDbReadModelStore<TReadModel, TDbContext>>()
             .AddTransient<IMyMongoDbReadModelStore<TReadModel>, MyMongoDbReadModelStore<TReadModel, TDbContext>>()
             ;
         eventFlowOptions.ServiceCollection.AddTransient<IReadModelStore<TReadModel>>(f =>
             f.GetRequiredService<IMyMongoDbReadModelStore<TReadModel, TDbContext>>());
         //eventFlowOptions.UseReadStoreFor<IMongoDbReadModelStore<TReadModel>, TReadModel>();
 #pragma warning disable CS0618
-        eventFlowOptions.UseReadStoreFor<TAggregate, TIdentity, IMyMongoDbReadModelStore<TReadModel, TDbContext>, TReadModel>();
+        eventFlowOptions
+            .UseReadStoreFor<TAggregate, TIdentity, IMyMongoDbReadModelStore<TReadModel, TDbContext>, TReadModel>();
 #pragma warning restore CS0618
 
         return eventFlowOptions;

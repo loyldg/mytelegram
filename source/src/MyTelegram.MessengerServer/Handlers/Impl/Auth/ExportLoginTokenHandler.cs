@@ -7,13 +7,13 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Auth;
 public class ExportLoginTokenHandler : RpcResultObjectHandler<RequestExportLoginToken, ILoginToken>,
     IExportLoginTokenHandler, IProcessedHandler
 {
+    private readonly ITlAuthorizationConverter _authorizationConverter;
     private readonly ICommandBus _commandBus;
     private readonly IEventBus _eventBus;
     private readonly ILogger<ExportLoginTokenHandler> _logger;
     private readonly ILoginTokenCacheAppService _loginTokenCacheAppService;
     private readonly IQueryProcessor _queryProcessor;
     private readonly IRandomHelper _randomHelper;
-    private readonly ITlAuthorizationConverter _authorizationConverter;
 
     public ExportLoginTokenHandler(ILoginTokenCacheAppService loginTokenCacheAppService,
         ICommandBus commandBus,
@@ -40,7 +40,9 @@ public class ExportLoginTokenHandler : RpcResultObjectHandler<RequestExportLogin
             _logger.LogInformation("User {UserId} login using qr code", cachedLoginInfo.UserId);
 
             await _eventBus
-                .PublishAsync(new BindUidToSessionEvent(cachedLoginInfo.UserId, input.AuthKeyId, input.PermAuthKeyId))
+                    .PublishAsync(new BindUidToSessionEvent(cachedLoginInfo.UserId,
+                        input.AuthKeyId,
+                        input.PermAuthKeyId))
                 ;
 
             var userReadModel = await _queryProcessor

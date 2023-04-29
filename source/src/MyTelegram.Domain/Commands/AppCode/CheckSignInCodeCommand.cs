@@ -18,6 +18,7 @@ public class CheckSignInCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeI
     }
 
     public string Code { get; }
+
     //public string PhoneCodeHash { get; }
     public long UserId { get; }
 

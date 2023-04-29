@@ -9,24 +9,6 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Register(_state);
     }
 
-    public void StartDeleteChatMessages(RequestInfo requestInfo,
-        List<int> messageIds,
-        bool revoke,
-        bool isClearHistory,
-        Guid correlationId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DeleteChatMessagesStartedEvent(requestInfo, messageIds, revoke, _state.CreatorUid, _state.ChatMembers.Count, isClearHistory, correlationId));
-    }
-    public void DeleteChat(RequestInfo requestInfo, Guid correlationId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (requestInfo.UserId != _state.CreatorUid)
-        {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
-        }
-        Emit(new ChatDeletedEvent(requestInfo, _state.ChatId, _state.Title, correlationId));
-    }
     public void AddChatUser(
         RequestInfo requestInfo,
         long inviterUserId,
@@ -37,7 +19,9 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        CheckBannedRights(_state.GetDefaultBannedRights().InviteUsers, RpcErrorMessages.ChatAdminRequired, inviterUserId);
+        CheckBannedRights(_state.GetDefaultBannedRights().InviteUsers,
+            RpcErrorMessages.ChatAdminRequired,
+            inviterUserId);
 
         if (_state.ChatMembers.Count > MyTelegramServerDomainConsts.ChatMemberMaxCount)
         {
@@ -117,6 +101,18 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
             _state.DefaultBannedRights,
             _state.About
         ));
+    }
+
+    public void DeleteChat(RequestInfo requestInfo,
+        Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        if (requestInfo.UserId != _state.CreatorUid)
+        {
+            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
+        }
+
+        Emit(new ChatDeletedEvent(requestInfo, _state.ChatId, _state.Title, correlationId));
     }
 
     public void DeleteChatUser(
@@ -200,7 +196,9 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        CheckBannedRights(_state.GetDefaultBannedRights().ChangeInfo, RpcErrorMessages.ChatAdminRequired, requestInfo.UserId);
+        CheckBannedRights(_state.GetDefaultBannedRights().ChangeInfo,
+            RpcErrorMessages.ChatAdminRequired,
+            requestInfo.UserId);
 
         Emit(new ChatTitleEditedEvent(requestInfo,
             _state.ChatId,
@@ -239,6 +237,22 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new ClearGroupChatHistoryStartedEvent(_state.ChatId, _state.ChatMembers, correlationId));
+    }
+
+    public void StartDeleteChatMessages(RequestInfo requestInfo,
+        List<int> messageIds,
+        bool revoke,
+        bool isClearHistory,
+        Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new DeleteChatMessagesStartedEvent(requestInfo,
+            messageIds,
+            revoke,
+            _state.CreatorUid,
+            _state.ChatMembers.Count,
+            isClearHistory,
+            correlationId));
     }
 
     public void StartSendChatMessage(

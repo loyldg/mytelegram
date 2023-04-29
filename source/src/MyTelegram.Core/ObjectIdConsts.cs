@@ -7,6 +7,6 @@ public class ObjectIdConsts
         { 0xf3427b8c, "PingDelayDisconnectHandler" },
         { 0x7abe77ec, "PingHandler" },
         { 0x73f1f8dc, "MsgContainerHandler" },
-        { 0xcdd42a05, "BindTempAuthKeyHandler" },
+        { 0xcdd42a05, "BindTempAuthKeyHandler" }
     };
 }

@@ -7,7 +7,8 @@ public class DialogFilterId : MyIdentity<DialogFilterId>
     {
     }
 
-    public static DialogFilterId Create(long ownerUserId, int filterId)
+    public static DialogFilterId Create(long ownerUserId,
+        int filterId)
     {
         return NewDeterministic(GuidFactories.Deterministic.Namespaces.Commands,
             $"dialogfilter_{ownerUserId}_{filterId}");

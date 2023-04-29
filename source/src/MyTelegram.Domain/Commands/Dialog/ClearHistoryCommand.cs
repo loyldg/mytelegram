@@ -26,6 +26,6 @@ public class ClearHistoryCommand : RequestCommand2<DialogAggregate, DialogId, IE
     public List<int> MessageIdListToBeDelete { get; }
     public int NextMaxId { get; }
     public long RandomId { get; }
-    public bool Revoke { get; } 
+    public bool Revoke { get; }
     public Guid CorrelationId { get; }
 }

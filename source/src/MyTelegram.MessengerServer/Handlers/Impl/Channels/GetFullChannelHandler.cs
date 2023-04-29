@@ -8,8 +8,9 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Channels;
 public class GetFullChannelHandler : RpcResultObjectHandler<RequestGetFullChannel, IChatFull>,
     IGetFullChannelHandler, IProcessedHandler
 {
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ITlChatConverter _chatConverter;
+    private readonly IQueryProcessor _queryProcessor;
+
     public GetFullChannelHandler(IQueryProcessor queryProcessor,
         ITlChatConverter chatConverter)
     {
@@ -32,7 +33,7 @@ public class GetFullChannelHandler : RpcResultObjectHandler<RequestGetFullChanne
             var channelFull = await _queryProcessor.ProcessAsync(new GetChannelFullByIdQuery(inputChannel.ChannelId),
                 CancellationToken.None);
             var channelMember = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default)
+                    .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default)
                 ;
             var peerNotifySettings = await _queryProcessor
                 .ProcessAsync(

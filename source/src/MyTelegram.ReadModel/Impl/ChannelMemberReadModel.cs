@@ -8,18 +8,6 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>
 
 {
-    public int BannedRights { get; private set; }
-    public long ChannelId { get; private set; }
-    public int Date { get; private set; }
-    public virtual string Id { get; private set; } = null!;
-    // ReSharper disable once IdentifierTypo
-    public long InviterId { get; private set; }
-    public bool IsBot { get; private set; }
-    public bool Kicked { get; private set; }
-    public long KickedBy { get; private set; }
-    public bool Left { get; private set; }
-    public int UntilDate { get; private set; }
-    public long UserId { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -47,7 +35,8 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
             // Kicked = true;
             Kicked = true;
             Left = true;
-        } else
+        }
+        else
         {
             if (domainEvent.AggregateEvent.NeedRemoveFromKicked)
             {
@@ -99,4 +88,18 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
         Left = true;
         return Task.CompletedTask;
     }
+
+    public int BannedRights { get; private set; }
+    public long ChannelId { get; private set; }
+    public int Date { get; private set; }
+    public virtual string Id { get; private set; } = null!;
+
+    // ReSharper disable once IdentifierTypo
+    public long InviterId { get; private set; }
+    public bool IsBot { get; private set; }
+    public bool Kicked { get; private set; }
+    public long KickedBy { get; private set; }
+    public bool Left { get; private set; }
+    public int UntilDate { get; private set; }
+    public long UserId { get; private set; }
 }

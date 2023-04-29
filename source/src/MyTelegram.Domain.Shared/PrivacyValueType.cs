@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public enum PrivacyValueType
@@ -11,5 +12,5 @@ public enum PrivacyValueType
     DisallowAll,
     DisallowUsers,
     AllowChatParticipants,
-    DisallowChatParticipants,
+    DisallowChatParticipants
 }

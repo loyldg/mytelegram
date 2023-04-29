@@ -6,7 +6,11 @@ public class StartDeleteMessagesCommandHandler : CommandHandler<MessageAggregate
         StartDeleteMessagesCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartDeleteMessages(command.RequestInfo, command.Revoke, command.IdList, command.ChatCreatorId, command.CorrelationId);
+        aggregate.StartDeleteMessages(command.RequestInfo,
+            command.Revoke,
+            command.IdList,
+            command.ChatCreatorId,
+            command.CorrelationId);
         return Task.CompletedTask;
     }
 }

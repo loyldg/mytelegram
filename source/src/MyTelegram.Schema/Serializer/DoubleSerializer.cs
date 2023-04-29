@@ -1,7 +1,7 @@
 ﻿namespace MyTelegram.Schema.Serializer;
 
 /// <summary>
-/// Values of type double, are two-element sequences containing 64-bit real numbers in a standard double format
+///     Values of type double, are two-element sequences containing 64-bit real numbers in a standard double format
 /// </summary>
 public class DoubleSerializer : ISerializer<double>
 {

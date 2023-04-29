@@ -8,11 +8,12 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 public class SendMediaHandler : RpcResultObjectHandler<RequestSendMedia, IUpdates>,
     ISendMediaHandler, IProcessedHandler //, IShouldCacheRequest
 {
+    private readonly ICommandBus _commandBus;
     private readonly IMediaHelper _mediaHelper;
     private readonly IMessageAppService _messageAppService;
     private readonly IPeerHelper _peerHelper;
     private readonly IRandomHelper _randomHelper;
-    private readonly ICommandBus _commandBus;
+
     public SendMediaHandler(IMediaHelper mediaHelper,
         IMessageAppService messageAppService,
         IPeerHelper peerHelper,
@@ -26,6 +27,25 @@ public class SendMediaHandler : RpcResultObjectHandler<RequestSendMedia, IUpdate
         _commandBus = commandBus;
     }
 
+    private async Task CreatePollAsync(Peer toPeer,
+        TInputMediaPoll inputMediaPoll)
+    {
+        var poll = inputMediaPoll.Poll;
+        var command = new CreatePollCommand(PollId.Create(toPeer.PeerId, poll.Id),
+            toPeer,
+            poll.Id,
+            poll.MultipleChoice,
+            poll.Quiz,
+            inputMediaPoll.Poll.PublicVoters,
+            poll.Question,
+            poll.Answers.Select(p => new PollAnswer(p.Text, p.Option)).ToList(),
+            inputMediaPoll.CorrectAnswers?.ToList(),
+            inputMediaPoll.Solution,
+            inputMediaPoll.SolutionEntities.ToBytes()
+        );
+        await _commandBus.PublishAsync(command, default);
+    }
+
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         RequestSendMedia obj)
     {
@@ -37,6 +57,7 @@ public class SendMediaHandler : RpcResultObjectHandler<RequestSendMedia, IUpdate
             inputMediaPoll.Poll.Id = pollId.Value;
             await CreatePollAsync(toPeer, inputMediaPoll);
         }
+
         var media = await _mediaHelper.SaveMediaAsync(obj.Media);
         var sendMessageInput = new SendMessageInput(input.ToRequestInfo(),
             input.UserId,
@@ -54,22 +75,5 @@ public class SendMediaHandler : RpcResultObjectHandler<RequestSendMedia, IUpdate
         await _messageAppService.SendMessageAsync(sendMessageInput);
 
         return null!;
-    }
-    private async Task CreatePollAsync(Peer toPeer, TInputMediaPoll inputMediaPoll)
-    {
-        var poll = inputMediaPoll.Poll;
-        var command = new CreatePollCommand(PollId.Create(toPeer.PeerId, poll.Id),
-            toPeer,
-            poll.Id,
-            poll.MultipleChoice,
-            poll.Quiz,
-            inputMediaPoll.Poll.PublicVoters,
-            poll.Question,
-            poll.Answers.Select(p => new PollAnswer(p.Text, p.Option)).ToList(),
-            inputMediaPoll.CorrectAnswers?.ToList(),
-            inputMediaPoll.Solution,
-            inputMediaPoll.SolutionEntities.ToBytes()
-        );
-        await _commandBus.PublishAsync(command, default);
     }
 }

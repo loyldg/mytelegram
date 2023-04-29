@@ -27,7 +27,7 @@ public class GetMessageReadParticipantsHandler :
         return new TVector<IReadParticipantDate>(readModels.Select(p => new TReadParticipantDate
         {
             Date = p.Date,
-            UserId = p.ReaderPeerId,
+            UserId = p.ReaderPeerId
         }));
     }
 }

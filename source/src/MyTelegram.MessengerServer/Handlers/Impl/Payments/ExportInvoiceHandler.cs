@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Payments;
+
 namespace MyTelegram.Handlers.Payments;
 
-public class ExportInvoiceHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestExportInvoice, MyTelegram.Schema.Payments.IExportedInvoice>,
+public class ExportInvoiceHandler : RpcResultObjectHandler<RequestExportInvoice, IExportedInvoice>,
     Payments.IExportInvoiceHandler
 {
-    protected override Task<MyTelegram.Schema.Payments.IExportedInvoice> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Payments.RequestExportInvoice obj)
+    protected override Task<IExportedInvoice> HandleCoreAsync(IRequestInput input,
+        RequestExportInvoice obj)
     {
         throw new NotImplementedException();
     }

@@ -4,7 +4,6 @@ public class InvokeAfterMsgEventHandler : ISubscribeSynchronousToAll
 {
     private readonly IInvokeAfterMsgProcessor _invokeAfterMsgProcessor;
 
-
     public InvokeAfterMsgEventHandler(IInvokeAfterMsgProcessor invokeAfterMsgProcessor)
     {
         _invokeAfterMsgProcessor = invokeAfterMsgProcessor;

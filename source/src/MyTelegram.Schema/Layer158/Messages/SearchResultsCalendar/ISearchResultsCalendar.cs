@@ -10,8 +10,8 @@ public interface ISearchResultsCalendar : IObject
     int MinDate { get; set; }
     int MinMsgId { get; set; }
     int? OffsetIdOffset { get; set; }
-    TVector<MyTelegram.Schema.ISearchResultsCalendarPeriod> Periods { get; set; }
-    TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
-    TVector<MyTelegram.Schema.IChat> Chats { get; set; }
-    TVector<MyTelegram.Schema.IUser> Users { get; set; }
+    TVector<Schema.ISearchResultsCalendarPeriod> Periods { get; set; }
+    TVector<Schema.IMessage> Messages { get; set; }
+    TVector<Schema.IChat> Chats { get; set; }
+    TVector<Schema.IUser> Users { get; set; }
 }

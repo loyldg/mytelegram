@@ -54,7 +54,7 @@ public class ReadHistorySagaSnapshot : ISnapshot
     public RequestInfo RequestInfo { get; }
     public long ReaderUid { get; }
     public bool ReadHistoryCompleted { get; }
-    
+
     public bool SenderIsBot { get; }
 
     public int SenderMessageId { get; }

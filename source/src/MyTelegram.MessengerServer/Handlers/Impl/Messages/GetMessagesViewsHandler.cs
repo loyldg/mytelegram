@@ -40,7 +40,7 @@ public class GetMessagesViewsHandler : RpcResultObjectHandler<RequestGetMessages
             }
 
             var views = await _channelMessageViewsAppService
-                .GetMessageViewsAsync(input.UserId, input.PermAuthKeyId, peer.PeerId, obj.Id.ToList())
+                    .GetMessageViewsAsync(input.UserId, input.PermAuthKeyId, peer.PeerId, obj.Id.ToList())
                 ;
             return new TMessageViews
             {

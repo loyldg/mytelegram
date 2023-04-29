@@ -1,12 +1,14 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, ForwardMessageSagaId, ForwardMessageSagaLocator>,
-        ISagaIsStartedBy<MessageAggregate, MessageId, ForwardMessageStartedEvent>,
-        ISagaHandles<MessageAggregate, MessageId, MessageForwardedEvent>
+public class ForwardMessageSaga :
+    MyInMemoryAggregateSaga<ForwardMessageSaga, ForwardMessageSagaId, ForwardMessageSagaLocator>,
+    ISagaIsStartedBy<MessageAggregate, MessageId, ForwardMessageStartedEvent>,
+    ISagaHandles<MessageAggregate, MessageId, MessageForwardedEvent>
 {
     private readonly ForwardMessageState _state = new();
 
-    public ForwardMessageSaga(ForwardMessageSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public ForwardMessageSaga(ForwardMessageSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
         Register(_state);
     }
@@ -73,7 +75,9 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
 
         var outMessageId = 0;
         var fromId = _state.FromPeer;
-        var channelPost = _state.FromPeer.PeerType == PeerType.Channel ? aggregateEvent.OriginalMessageItem.MessageId : 0;
+        var channelPost = _state.FromPeer.PeerType == PeerType.Channel
+            ? aggregateEvent.OriginalMessageItem.MessageId
+            : 0;
 
         var savedFromPeer = _state.ToPeer.PeerId == selfUserId ? _state.FromPeer : null;
 
@@ -83,6 +87,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             savedFromPeer = _state.FromPeer;
             savedFromMsgId = aggregateEvent.OriginalMessageItem.MessageId;
         }
+
         // TODO:Set fromName
         var fwdHeader = new MessageFwdHeader(fromId,
             null,
@@ -102,7 +107,8 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
         var toPeer = _state.ToPeer;
         var item = aggregateEvent.OriginalMessageItem;
 
-        var command = new StartSendMessageCommand(aggregateId, aggregateEvent.RequestInfo,
+        var command = new StartSendMessageCommand(aggregateId,
+            aggregateEvent.RequestInfo,
             new MessageItem(
                 ownerPeer,
                 toPeer,
@@ -115,7 +121,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
                 SendMessageType.Text,
                 MessageType.Text,
                 MessageSubType.ForwardMessage,
-                replyToMsgId: item.ReplyToMsgId,
+                item.ReplyToMsgId,
                 entities: item.Entities,
                 media: item.Media,
                 fwdHeader: fwdHeader,

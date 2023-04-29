@@ -23,7 +23,8 @@ public class
         predicate = predicate.WhereIf(query.SenderUserId != 0, p => p.SenderPeerId == query.SenderUserId);
 
         var cursor = await _store.FindAsync(predicate,
-            findOptions, cancellationToken);
+            findOptions,
+            cancellationToken);
 
         return await cursor.ToListAsync(cancellationToken);
     }

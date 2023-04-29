@@ -2,14 +2,6 @@
 
 public static class Extension
 {
-    public static RequestInfo ToRequestInfo(this IRequestInput requestInput)
-    {
-        return new RequestInfo(requestInput.ReqMsgId,
-            requestInput.UserId,
-            requestInput.AuthKeyId,
-            requestInput.PermAuthKeyId,Guid.NewGuid());
-    }
-
     [return: NotNullIfNotNull("peer")]
     public static IPeer? ToPeer(this Peer? peer)
     {
@@ -28,5 +20,14 @@ public static class Extension
             _ => throw new ArgumentOutOfRangeException(
                 $"peer type is invalid:peerType={peer.PeerType} peerId={peer.PeerId}")
         };
+    }
+
+    public static RequestInfo ToRequestInfo(this IRequestInput requestInput)
+    {
+        return new RequestInfo(requestInput.ReqMsgId,
+            requestInput.UserId,
+            requestInput.AuthKeyId,
+            requestInput.PermAuthKeyId,
+            Guid.NewGuid());
     }
 }

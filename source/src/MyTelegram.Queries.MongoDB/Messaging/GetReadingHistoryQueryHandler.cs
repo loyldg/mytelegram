@@ -14,12 +14,15 @@ public class
     public async Task<IReadOnlyCollection<long>> ExecuteQueryAsync(GetReadingHistoryQuery query,
         CancellationToken cancellationToken)
     {
-        var findOptions = new FindOptions<ReadingHistoryReadModel, long> {
+        var findOptions = new FindOptions<ReadingHistoryReadModel, long>
+        {
             Projection = new ProjectionDefinitionBuilder<ReadingHistoryReadModel>().Expression(p => p.TargetPeerId),
             Limit = 200 //query.Limit
         };
         var cursor = await _store
-            .FindAsync(p => p.TargetPeerId == query.TargetPeerId && p.MessageId == query.MessageId, findOptions, cancellationToken)
+                .FindAsync(p => p.TargetPeerId == query.TargetPeerId && p.MessageId == query.MessageId,
+                    findOptions,
+                    cancellationToken)
             ;
 
         return await cursor.ToListAsync(cancellationToken);

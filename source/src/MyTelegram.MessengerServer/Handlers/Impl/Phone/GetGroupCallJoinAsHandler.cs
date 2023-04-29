@@ -6,9 +6,9 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Phone;
 public class GetGroupCallJoinAsHandler : RpcResultObjectHandler<RequestGetGroupCallJoinAs, IJoinAsPeers>,
     IGetGroupCallJoinAsHandler, IProcessedHandler
 {
+    private readonly ITlPeerConverter _peerConverter;
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly ITlPeerConverter _peerConverter;
 
     public GetGroupCallJoinAsHandler(IQueryProcessor queryProcessor,
         IPeerHelper peerHelper,
@@ -24,7 +24,7 @@ public class GetGroupCallJoinAsHandler : RpcResultObjectHandler<RequestGetGroupC
     {
         var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
         var userReadModel = await _queryProcessor
-            .ProcessAsync(new GetUserByIdQuery(input.UserId), CancellationToken.None)
+                .ProcessAsync(new GetUserByIdQuery(input.UserId), CancellationToken.None)
             ;
         IChatReadModel? chatReadModel = null;
         IChannelReadModel? channelReadModel = null;
@@ -32,12 +32,12 @@ public class GetGroupCallJoinAsHandler : RpcResultObjectHandler<RequestGetGroupC
         {
             case PeerType.Channel:
                 channelReadModel = await _queryProcessor
-                    .ProcessAsync(new GetChannelByIdQuery(peer.PeerId), CancellationToken.None)
+                        .ProcessAsync(new GetChannelByIdQuery(peer.PeerId), CancellationToken.None)
                     ;
                 break;
             case PeerType.Chat:
                 chatReadModel = await _queryProcessor
-                    .ProcessAsync(new GetChatByChatIdQuery(peer.PeerId), CancellationToken.None)
+                        .ProcessAsync(new GetChatByChatIdQuery(peer.PeerId), CancellationToken.None)
                     ;
                 break;
         }

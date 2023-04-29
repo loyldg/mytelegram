@@ -23,7 +23,6 @@ public class OutboxMessageHasReadEvent : AggregateEvent<DialogAggregate, DialogI
     public Peer ToPeer { get; }
 
     public long ReqMsgId { get; }
-     
 
     //public bool AlreadyRead { get; }
     public Guid CorrelationId { get; }

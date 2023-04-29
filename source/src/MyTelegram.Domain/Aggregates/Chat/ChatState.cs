@@ -39,6 +39,7 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
 
     public string Title { get; private set; } = default!;
     public bool IsDeleted { get; private set; }
+
     public void Apply(ChatAboutEditedEvent aggregateEvent)
     {
         About = aggregateEvent.About;
@@ -58,6 +59,11 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
     public void Apply(ChatDefaultBannedRightsEditedEvent aggregateEvent)
     {
         DefaultBannedRights = aggregateEvent.DefaultBannedRights;
+    }
+
+    public void Apply(ChatDeletedEvent aggregateEvent)
+    {
+        IsDeleted = true;
     }
 
     public void Apply(ChatMemberAddedEvent aggregateEvent)
@@ -82,6 +88,10 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
     }
 
     public void Apply(CheckChatStateCompletedEvent aggregateEvent)
+    {
+    }
+
+    public void Apply(DeleteChatMessagesStartedEvent aggregateEvent)
     {
     }
 
@@ -128,12 +138,5 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
         LatestDeletedMemberUid = snapshot.LatestDeletedUserId;
         DefaultBannedRights = snapshot.DefaultBannedRights;
         About = snapshot.About;
-    }
-    public void Apply(ChatDeletedEvent aggregateEvent)
-    {
-        IsDeleted = true;
-    }
-    public void Apply(DeleteChatMessagesStartedEvent aggregateEvent)
-    {
     }
 }

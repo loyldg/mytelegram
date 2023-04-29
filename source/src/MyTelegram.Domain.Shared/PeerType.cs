@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public enum PeerType
@@ -9,5 +10,5 @@ public enum PeerType
     User,
     Chat,
     Channel,
-    EncryptionChat,
+    EncryptionChat
 }

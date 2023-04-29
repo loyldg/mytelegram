@@ -53,6 +53,27 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         ));
     }
 
+    protected override Task<UserSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
+    {
+        return Task.FromResult(new UserSnapshot(_state.UserId,
+            _state.IsOnline,
+            _state.AccessHash,
+            _state.FirstName,
+            _state.LastName,
+            _state.PhoneNumber,
+            _state.UserName,
+            _state.HasPassword,
+            _state.Photo));
+    }
+
+    protected override Task LoadSnapshotAsync(UserSnapshot snapshot,
+        ISnapshotMetadata metadata,
+        CancellationToken cancellationToken)
+    {
+        _state.LoadFromSnapshot(snapshot);
+        return Task.CompletedTask;
+    }
+
     public void SetSupport(bool support)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -109,26 +130,5 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
                 _state.Photo),
             _state.UserName,
             correlationId));
-    }
-
-    protected override Task<UserSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
-    {
-        return Task.FromResult(new UserSnapshot(_state.UserId,
-            _state.IsOnline,
-            _state.AccessHash,
-            _state.FirstName,
-            _state.LastName,
-            _state.PhoneNumber,
-            _state.UserName,
-            _state.HasPassword,
-            _state.Photo));
-    }
-
-    protected override Task LoadSnapshotAsync(UserSnapshot snapshot,
-        ISnapshotMetadata metadata,
-        CancellationToken cancellationToken)
-    {
-        _state.LoadFromSnapshot(snapshot);
-        return Task.CompletedTask;
     }
 }

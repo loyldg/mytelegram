@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Channels;
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Channels;
 
-public class DeleteTopicHistoryHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteTopicHistory, MyTelegram.Schema.Messages.IAffectedHistory>,
+public class DeleteTopicHistoryHandler : RpcResultObjectHandler<RequestDeleteTopicHistory, IAffectedHistory>,
     Channels.IDeleteTopicHistoryHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IAffectedHistory> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestDeleteTopicHistory obj)
+    protected override Task<IAffectedHistory> HandleCoreAsync(IRequestInput input,
+        RequestDeleteTopicHistory obj)
     {
         throw new NotImplementedException();
     }

@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Phone;
+
 namespace MyTelegram.Handlers.Phone;
 
-public class SaveCallLogHandler : RpcResultObjectHandler<MyTelegram.Schema.Phone.RequestSaveCallLog, IBool>,
+public class SaveCallLogHandler : RpcResultObjectHandler<RequestSaveCallLog, IBool>,
     Phone.ISaveCallLogHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Phone.RequestSaveCallLog obj)
+        RequestSaveCallLog obj)
     {
         throw new NotImplementedException();
     }

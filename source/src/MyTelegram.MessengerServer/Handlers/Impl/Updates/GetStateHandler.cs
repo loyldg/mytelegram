@@ -27,7 +27,8 @@ public class GetStateHandler : RpcResultObjectHandler<RequestGetState, IState>,
             ;
         if (pts == null)
         {
-            return new TState {
+            return new TState
+            {
                 Date = CurrentDate,
                 Pts = 0,
                 Qts = 0,

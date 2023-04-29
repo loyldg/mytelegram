@@ -13,7 +13,8 @@ public class GetAllDraftQueryHandler : IQueryHandler<GetAllDraftQuery, IReadOnly
     public async Task<IReadOnlyCollection<IDraftReadModel>> ExecuteQueryAsync(GetAllDraftQuery query,
         CancellationToken cancellationToken)
     {
-        var cursor = await _store.FindAsync(p => p.OwnerPeerId == query.OwnerPeerId, cancellationToken: cancellationToken)
+        var cursor =
+                await _store.FindAsync(p => p.OwnerPeerId == query.OwnerPeerId, cancellationToken: cancellationToken)
             ;
         return await cursor.ToListAsync(cancellationToken);
     }

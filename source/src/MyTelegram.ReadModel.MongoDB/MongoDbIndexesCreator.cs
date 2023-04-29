@@ -92,7 +92,6 @@ public class MongoDbIndexesCreator : MongoDbIndexesCreatorBase
         await CreateIndexAsync<DeviceReadModel>(p => p.UserId);
         await CreateIndexAsync<DeviceReadModel>(p => p.IsActive);
 
-
         //await CreateIndexAsync<FileReadModel>(p => p.UserId);
         //await CreateIndexAsync<FileReadModel>(p => p.FileId);
         //await CreateIndexAsync<FileReadModel>(p => p.ServerFileId);

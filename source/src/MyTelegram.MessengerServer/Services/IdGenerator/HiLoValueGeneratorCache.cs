@@ -2,9 +2,9 @@
 
 public class HiLoValueGeneratorCache : IHiLoValueGeneratorCache
 {
-    private readonly ConcurrentDictionary<IdType, ConcurrentDictionary<long, HiLoValueGeneratorState>> _states = new();
     //private readonly int DefaultBlockSize = 10000;
     private readonly IHiLoStateBlockSizeHelper _stateBlockSizeHelper;
+    private readonly ConcurrentDictionary<IdType, ConcurrentDictionary<long, HiLoValueGeneratorState>> _states = new();
 
     public HiLoValueGeneratorCache(IHiLoStateBlockSizeHelper stateBlockSizeHelper)
     {

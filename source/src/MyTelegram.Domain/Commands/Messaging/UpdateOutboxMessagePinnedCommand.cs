@@ -2,13 +2,8 @@
 
 public class UpdateOutboxMessagePinnedCommand : Command<MessageAggregate, MessageId, IExecutionResult>
 {
-    public bool Pinned { get; }
-    public bool PmOneSize { get; }
-    public bool Silent { get; }
-    public int Date { get; }
-    public Guid CorrelationId { get; }
-
-    public UpdateOutboxMessagePinnedCommand(MessageId aggregateId, bool pinned,
+    public UpdateOutboxMessagePinnedCommand(MessageId aggregateId,
+        bool pinned,
         bool pmOneSize,
         bool silent,
         int date,
@@ -20,4 +15,10 @@ public class UpdateOutboxMessagePinnedCommand : Command<MessageAggregate, Messag
         Date = date;
         CorrelationId = correlationId;
     }
+
+    public bool Pinned { get; }
+    public bool PmOneSize { get; }
+    public bool Silent { get; }
+    public int Date { get; }
+    public Guid CorrelationId { get; }
 }

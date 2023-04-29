@@ -8,5 +8,5 @@ public interface IInputPeerNotifySettings : IObject
     bool? ShowPreviews { get; set; }
     bool? Silent { get; set; }
     int? MuteUntil { get; set; }
-    MyTelegram.Schema.INotificationSound? Sound { get; set; }
+    Schema.INotificationSound? Sound { get; set; }
 }

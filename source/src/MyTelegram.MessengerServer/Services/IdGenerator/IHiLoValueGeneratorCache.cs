@@ -2,5 +2,6 @@
 
 public interface IHiLoValueGeneratorCache
 {
-    HiLoValueGeneratorState GetOrAdd(IdType idType, long key);
+    HiLoValueGeneratorState GetOrAdd(IdType idType,
+        long key);
 }

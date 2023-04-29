@@ -1,17 +1,20 @@
 ﻿// ReSharper disable All
 
 using MyTelegram.Domain.Commands.Channel;
+using MyTelegram.Schema.Channels;
 using MyTelegram.Schema.Messages;
 
 namespace MyTelegram.Handlers.Channels;
 
-public class DeleteParticipantHistoryHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteParticipantHistory, MyTelegram.Schema.Messages.IAffectedHistory>,
+public class DeleteParticipantHistoryHandler :
+    RpcResultObjectHandler<RequestDeleteParticipantHistory, Schema.Messages.IAffectedHistory>,
     Channels.IDeleteParticipantHistoryHandler, IProcessedHandler
 {
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ICommandBus _commandBus;
     private readonly IPeerHelper _peerHelper;
     private readonly IPtsHelper _ptsHelper;
+    private readonly IQueryProcessor _queryProcessor;
+
     public DeleteParticipantHistoryHandler(IQueryProcessor queryProcessor,
         ICommandBus commandBus,
         IPeerHelper peerHelper,
@@ -22,8 +25,9 @@ public class DeleteParticipantHistoryHandler : RpcResultObjectHandler<MyTelegram
         _peerHelper = peerHelper;
         _ptsHelper = ptsHelper;
     }
-    protected override async Task<MyTelegram.Schema.Messages.IAffectedHistory> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestDeleteParticipantHistory obj)
+
+    protected override async Task<Schema.Messages.IAffectedHistory> HandleCoreAsync(IRequestInput input,
+        RequestDeleteParticipantHistory obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
@@ -53,6 +57,7 @@ public class DeleteParticipantHistoryHandler : RpcResultObjectHandler<MyTelegram
                 };
             }
         }
+
         throw new NotImplementedException();
     }
 }

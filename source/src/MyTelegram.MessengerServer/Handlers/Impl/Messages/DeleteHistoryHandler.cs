@@ -37,11 +37,11 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
         var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
         var pageSize = MyTelegramServerDomainConsts.ClearHistoryDefaultPageSize;
         var messageIdList = await _queryProcessor
-            .ProcessAsync(new GetMessageIdListQuery(input.UserId,
-                    peer.PeerId,
-                    obj.MaxId,
-                    pageSize),
-                default)
+                .ProcessAsync(new GetMessageIdListQuery(input.UserId,
+                        peer.PeerId,
+                        obj.MaxId,
+                        pageSize),
+                    default)
             ;
 
         //var nextMaxId = messageIdList.Count == pageSize
@@ -68,26 +68,26 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
         switch (peer.PeerType)
         {
             case PeerType.Chat:
-                {
-                    var command = new StartDeleteChatMessagesCommand(ChatId.Create(peer.PeerId),
-                        input.ToRequestInfo(),
-                        messageIdList,
-                        obj.Revoke,
-                        true,
-                        Guid.NewGuid());
-                    await _commandBus.PublishAsync(command, default);
-                }
+            {
+                var command = new StartDeleteChatMessagesCommand(ChatId.Create(peer.PeerId),
+                    input.ToRequestInfo(),
+                    messageIdList,
+                    obj.Revoke,
+                    true,
+                    Guid.NewGuid());
+                await _commandBus.PublishAsync(command, default);
+            }
                 break;
             case PeerType.User:
-                {
-                    var command = new StartDeleteUserMessagesCommand(DialogId.Create(input.UserId, peer),
-            input.ToRequestInfo(),
-            obj.Revoke,
-            messageIdList,
-                        true,
-            Guid.NewGuid());
-                    await _commandBus.PublishAsync(command, default);
-                }
+            {
+                var command = new StartDeleteUserMessagesCommand(DialogId.Create(input.UserId, peer),
+                    input.ToRequestInfo(),
+                    obj.Revoke,
+                    messageIdList,
+                    true,
+                    Guid.NewGuid());
+                await _commandBus.PublishAsync(command, default);
+            }
                 break;
         }
 

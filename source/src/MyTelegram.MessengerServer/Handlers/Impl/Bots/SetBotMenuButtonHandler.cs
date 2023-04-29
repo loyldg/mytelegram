@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Bots;
+
 namespace MyTelegram.Handlers.Bots;
 
-public class SetBotMenuButtonHandler : RpcResultObjectHandler<MyTelegram.Schema.Bots.RequestSetBotMenuButton, IBool>,
+public class SetBotMenuButtonHandler : RpcResultObjectHandler<RequestSetBotMenuButton, IBool>,
     Bots.ISetBotMenuButtonHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Bots.RequestSetBotMenuButton obj)
+        RequestSetBotMenuButton obj)
     {
         throw new NotImplementedException();
     }

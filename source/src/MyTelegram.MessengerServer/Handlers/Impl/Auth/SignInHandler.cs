@@ -29,7 +29,7 @@ public class SignInHandler : RpcResultObjectHandler<RequestSignIn, IAuthorizatio
 
         var userId = 0L;
         var userReadModel = await _queryProcessor
-            .ProcessAsync(new GetUserByPhoneNumberQuery(obj.PhoneNumber.ToPhoneNumber()), default)
+                .ProcessAsync(new GetUserByPhoneNumberQuery(obj.PhoneNumber.ToPhoneNumber()), default)
             ;
         if (userReadModel == null)
         {

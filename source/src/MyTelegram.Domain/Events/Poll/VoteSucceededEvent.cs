@@ -2,15 +2,6 @@
 
 public class VoteSucceededEvent : RequestAggregateEvent2<PollAggregate, PollId>, IHasCorrelationId
 {
-    public long PollId { get; }
-    public long VoteUserPeerId { get; }
-    public IReadOnlyCollection<string> Options { get; }
-    public IReadOnlyCollection<PollAnswer> Answers { get; }
-    public IReadOnlyCollection<string>? CorrectAnswers { get; }
-    public IReadOnlyCollection<PollAnswerVoter> AnswerVoters { get; }
-    public Peer ToPeer { get; }
-    public IReadOnlyCollection<string>? RetractVoteOptions { get; }
-
     public VoteSucceededEvent(
         RequestInfo requestInfo,
         long pollId,
@@ -34,6 +25,15 @@ public class VoteSucceededEvent : RequestAggregateEvent2<PollAggregate, PollId>,
         AnswerVoters = answerVoters;
         CorrelationId = correlationId;
     }
+
+    public long PollId { get; }
+    public long VoteUserPeerId { get; }
+    public IReadOnlyCollection<string> Options { get; }
+    public IReadOnlyCollection<PollAnswer> Answers { get; }
+    public IReadOnlyCollection<string>? CorrectAnswers { get; }
+    public IReadOnlyCollection<PollAnswerVoter> AnswerVoters { get; }
+    public Peer ToPeer { get; }
+    public IReadOnlyCollection<string>? RetractVoteOptions { get; }
 
     public Guid CorrelationId { get; }
 }

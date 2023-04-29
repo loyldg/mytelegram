@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-internal sealed class GetDefaultHistoryTTLHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetDefaultHistoryTTL, MyTelegram.Schema.IDefaultHistoryTTL>,
+internal sealed class GetDefaultHistoryTTLHandler :
+    RpcResultObjectHandler<RequestGetDefaultHistoryTTL, Schema.IDefaultHistoryTTL>,
     Messages.IGetDefaultHistoryTTLHandler
 {
-    protected override Task<MyTelegram.Schema.IDefaultHistoryTTL> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetDefaultHistoryTTL obj)
+    protected override Task<Schema.IDefaultHistoryTTL> HandleCoreAsync(IRequestInput input,
+        RequestGetDefaultHistoryTTL obj)
     {
         throw new NotImplementedException();
     }

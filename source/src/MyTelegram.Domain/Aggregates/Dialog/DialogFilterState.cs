@@ -5,14 +5,15 @@ public class DialogFilterState : AggregateState<DialogFilterAggregate, DialogFil
     IApply<DialogFilterDeletedEvent>
 {
     public int Id { get; private set; }
-    public void Apply(DialogFilterUpdatedEvent aggregateEvent)
-    {
-        Id = aggregateEvent.Filter.Id;
-        //throw new NotImplementedException();
-    }
 
     public void Apply(DialogFilterDeletedEvent aggregateEvent)
     {
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(DialogFilterUpdatedEvent aggregateEvent)
+    {
+        Id = aggregateEvent.Filter.Id;
         //throw new NotImplementedException();
     }
 }

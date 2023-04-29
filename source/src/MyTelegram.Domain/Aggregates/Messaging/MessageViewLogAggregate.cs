@@ -6,6 +6,7 @@ public class MessageViewLogAggregate : AggregateRoot<MessageViewLogAggregate, Me
     public MessageViewLogAggregate(MessageViewLogId id) : base(id)
     {
     }
+
     public void Apply(CheckMessageViewLogSuccessEvent aggregateEvent)
     {
     }

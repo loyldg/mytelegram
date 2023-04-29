@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Contacts;
+
 namespace MyTelegram.Handlers.Contacts;
 
-public class ResolvePhoneHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestResolvePhone, MyTelegram.Schema.Contacts.IResolvedPeer>,
+public class ResolvePhoneHandler : RpcResultObjectHandler<RequestResolvePhone, IResolvedPeer>,
     Contacts.IResolvePhoneHandler
 {
-    protected override Task<MyTelegram.Schema.Contacts.IResolvedPeer> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Contacts.RequestResolvePhone obj)
+    protected override Task<IResolvedPeer> HandleCoreAsync(IRequestInput input,
+        RequestResolvePhone obj)
     {
         throw new NotImplementedException();
     }

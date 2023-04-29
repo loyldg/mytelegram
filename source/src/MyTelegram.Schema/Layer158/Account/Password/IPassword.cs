@@ -8,13 +8,13 @@ public interface IPassword : IObject
     bool HasRecovery { get; set; }
     bool HasSecureValues { get; set; }
     bool HasPassword { get; set; }
-    MyTelegram.Schema.IPasswordKdfAlgo? CurrentAlgo { get; set; }
+    Schema.IPasswordKdfAlgo? CurrentAlgo { get; set; }
     byte[]? SrpB { get; set; }
     long? SrpId { get; set; }
     string? Hint { get; set; }
     string? EmailUnconfirmedPattern { get; set; }
-    MyTelegram.Schema.IPasswordKdfAlgo NewAlgo { get; set; }
-    MyTelegram.Schema.ISecurePasswordKdfAlgo NewSecureAlgo { get; set; }
+    Schema.IPasswordKdfAlgo NewAlgo { get; set; }
+    Schema.ISecurePasswordKdfAlgo NewSecureAlgo { get; set; }
     byte[] SecureRandom { get; set; }
     int? PendingResetDate { get; set; }
     string? LoginEmailPattern { get; set; }

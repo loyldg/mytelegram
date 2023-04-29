@@ -1,4 +1,5 @@
 ﻿// ReSharper Disable All
+
 namespace MyTelegram.ReadModel;
 
 public interface IPushDeviceReadModel : IReadModel

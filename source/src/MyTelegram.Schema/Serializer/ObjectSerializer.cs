@@ -3,13 +3,15 @@
 public class ObjectSerializer<T> : ISerializer<T> //where T : IObject
 {
     private const uint VectorConstructorId = 0x1cb5c415;
+
     public void Serialize(T value,
         BinaryWriter writer)
     {
         if (value is IObject tlObject)
         {
             tlObject.Serialize(writer);
-        } else
+        }
+        else
         {
             throw new NotSupportedException($"Only support `IObject`,but input type is `{typeof(T).Name}` ");
         }

@@ -72,6 +72,7 @@ builder.WebHost.ConfigureKestrel(options =>
                             });
                         break;
                 }
+
                 Log.Information("{ServerType} server started at:{Address},ssl:{Ssl}", item.ServerType, iep, item.Ssl);
             }
         }

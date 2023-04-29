@@ -15,6 +15,6 @@ public class GetReplyQueryHandler : IQueryHandler<GetReplyQuery, IReplyReadModel
         var cursor = await _store.FindAsync(p =>
                 p.SavedFromPeerId == query.ChannelId && p.SavedFromMsgId == query.SavedFromMsgId,
             cancellationToken: cancellationToken);
-        return await cursor.FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
 }

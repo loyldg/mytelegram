@@ -2,7 +2,7 @@
 
 //ReSharper disable once CommentTypo
 /// <summary>
-/// Values of type long are two-element sequences that are 64-bit signed numbers (little endian again)
+///     Values of type long are two-element sequences that are 64-bit signed numbers (little endian again)
 /// </summary>
 public class Int64Serializer : ISerializer<long>
 {

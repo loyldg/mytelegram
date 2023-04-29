@@ -24,7 +24,7 @@ public class CreateUserCommand : RequestCommand2<UserAggregate, UserId, IExecuti
     public long AccessHash { get; }
     public bool Bot { get; }
     public string FirstName { get; }
-    public string? LastName { get; } 
+    public string? LastName { get; }
     public string PhoneNumber { get; }
     public long UserId { get; }
 

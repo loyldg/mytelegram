@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class SetChatAvailableReactionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSetChatAvailableReactions, MyTelegram.Schema.IUpdates>,
+public class SetChatAvailableReactionsHandler :
+    RpcResultObjectHandler<RequestSetChatAvailableReactions, Schema.IUpdates>,
     Messages.ISetChatAvailableReactionsHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSetChatAvailableReactions obj)
+    protected override Task<Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestSetChatAvailableReactions obj)
     {
         throw new NotImplementedException();
     }

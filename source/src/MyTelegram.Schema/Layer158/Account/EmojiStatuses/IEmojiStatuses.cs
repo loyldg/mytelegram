@@ -4,5 +4,4 @@ namespace MyTelegram.Schema.Account;
 
 public interface IEmojiStatuses : IObject
 {
-
 }

@@ -2,7 +2,10 @@
 
 public class DeleteOtherPartyMessageCompletedEvent : AggregateEvent<DeleteMessageSaga2, DeleteMessageSaga2Id>
 {
-    public DeleteOtherPartyMessageCompletedEvent(bool isOut, int otherPartyMessagesCount, long ownerPeerId, int messageId)
+    public DeleteOtherPartyMessageCompletedEvent(bool isOut,
+        int otherPartyMessagesCount,
+        long ownerPeerId,
+        int messageId)
     {
         IsOut = isOut;
         OtherPartyMessagesCount = otherPartyMessagesCount;

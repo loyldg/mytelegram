@@ -55,7 +55,10 @@ public class SerializerFactory
                 return (ISerializer<T>)BytesSerializer;
         }
 
-        if (typeof(IObject).IsAssignableFrom(type)) return new ObjectSerializer<T>();
+        if (typeof(IObject).IsAssignableFrom(type))
+        {
+            return new ObjectSerializer<T>();
+        }
 
         throw new NotImplementedException($"Not supported type:{type}");
     }

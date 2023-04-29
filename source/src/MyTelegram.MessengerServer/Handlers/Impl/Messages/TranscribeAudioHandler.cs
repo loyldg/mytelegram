@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class TranscribeAudioHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestTranscribeAudio, MyTelegram.Schema.Messages.ITranscribedAudio>,
+public class TranscribeAudioHandler : RpcResultObjectHandler<RequestTranscribeAudio, ITranscribedAudio>,
     Messages.ITranscribeAudioHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.ITranscribedAudio> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestTranscribeAudio obj)
+    protected override Task<ITranscribedAudio> HandleCoreAsync(IRequestInput input,
+        RequestTranscribeAudio obj)
     {
         throw new NotImplementedException();
     }

@@ -19,7 +19,7 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     IApply<ChannelPhotoEditedEvent>,
     IApply<ChannelUserNameChangedEvent>,
     IApply<CheckChannelStateCompletedEvent>,
-	IApply<DeleteParticipantHistoryStartedEvent>
+    IApply<DeleteParticipantHistoryStartedEvent>
 {
     private List<ChatAdmin> _adminList = new();
     private List<long> _botUidList = new();
@@ -107,6 +107,10 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         LatestNoneBotSenderMessageId = aggregateEvent.MessageId;
 
         LastSendDate = aggregateEvent.Date;
+    }
+
+    public void Apply(DeleteParticipantHistoryStartedEvent aggregateEvent)
+    {
     }
 
     public void Apply(ExportChatInviteEvent aggregateEvent)
@@ -203,8 +207,5 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         Photo = snapshot.Photo;
         LinkedChannelId = snapshot.LinkedChannelId;
         UserName = snapshot.UserName;
-    }
-    public void Apply(DeleteParticipantHistoryStartedEvent aggregateEvent)
-    {
     }
 }

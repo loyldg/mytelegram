@@ -6,5 +6,5 @@ public interface ISendAsPeer : IObject
 {
     BitArray Flags { get; set; }
     bool PremiumRequired { get; set; }
-    MyTelegram.Schema.IPeer Peer { get; set; }
+    Schema.IPeer Peer { get; set; }
 }

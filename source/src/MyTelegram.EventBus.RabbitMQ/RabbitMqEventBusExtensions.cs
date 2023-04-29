@@ -5,7 +5,7 @@ public static class RabbitMqEventBusExtensions
     public static IServiceCollection AddMyTelegramRabbitMqEventBus(this IServiceCollection services)
     {
         services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-        services.AddSingleton<IRabbitMqPersistentConnection,DefaultRabbitMqPersistentConnection>();
+        services.AddSingleton<IRabbitMqPersistentConnection, DefaultRabbitMqPersistentConnection>();
 
         services.AddSingleton<IEventBus, EventBusRabbitMq>();
         services.AddSingleton<IEventHandlerInvoker, EventHandlerInvoker>();

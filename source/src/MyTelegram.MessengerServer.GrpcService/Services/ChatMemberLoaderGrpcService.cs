@@ -7,13 +7,35 @@ namespace MyTelegram.MessengerServer.GrpcService.Services;
 
 public class ChatMemberLoaderGrpcService : ChatMemberLoaderService.ChatMemberLoaderServiceBase
 {
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ILogger<ChatMemberLoaderGrpcService> _logger;
+    private readonly IQueryProcessor _queryProcessor;
+
     public ChatMemberLoaderGrpcService(IQueryProcessor queryProcessor,
         ILogger<ChatMemberLoaderGrpcService> logger)
     {
         _queryProcessor = queryProcessor;
         _logger = logger;
+    }
+
+    public override async Task<GetChannelMemberResponse> GetChannelMembers(GetChannelMemberRequest request,
+        ServerCallContext context)
+    {
+        var channelId = request.ChannelId;
+        var channelMemberList = await _queryProcessor
+                .ProcessAsync(new GetChannelMembersByChannelIdQuery(channelId,
+                        new List<long>(),
+                        false,
+                        0,
+                        int.MaxValue),
+                    default)
+            ;
+        var newMemberUidList = channelMemberList.Select(p => p.UserId).ToList();
+        _logger.LogDebug("Load channel member list from read model,channelId={ChannelId},member count={MemberCount}",
+            channelId,
+            newMemberUidList.Count);
+        var r = new GetChannelMemberResponse();
+        r.ChannelMemberUidList.AddRange(newMemberUidList);
+        return r;
     }
 
     public override async Task<GetChatMemberResponse> GetChatMembers(GetChatMemberRequest request,
@@ -31,23 +53,11 @@ public class ChatMemberLoaderGrpcService : ChatMemberLoaderService.ChatMemberLoa
         var newMemberUidList = chatReadModel.ChatMembers.Select(p => p.UserId).ToList();
         //_chatToChatMembers.TryAdd(chatId, newMemberUidList);
 
-        _logger.LogDebug("Load chat member list from read model,chatId={ChatId},member count={MemberCount}", chatId, newMemberUidList.Count);
+        _logger.LogDebug("Load chat member list from read model,chatId={ChatId},member count={MemberCount}",
+            chatId,
+            newMemberUidList.Count);
         var r = new GetChatMemberResponse();
         r.ChatMemberUidList.AddRange(newMemberUidList);
-        return r;
-    }
-
-    public override async Task<GetChannelMemberResponse> GetChannelMembers(GetChannelMemberRequest request,
-        ServerCallContext context)
-    {
-        var channelId = request.ChannelId;
-        var channelMemberList = await _queryProcessor
-            .ProcessAsync(new GetChannelMembersByChannelIdQuery(channelId, new List<long>(), false, 0, int.MaxValue), default)
-            ;
-        var newMemberUidList = channelMemberList.Select(p => p.UserId).ToList();
-        _logger.LogDebug("Load channel member list from read model,channelId={ChannelId},member count={MemberCount}", channelId, newMemberUidList.Count);
-        var r = new GetChannelMemberResponse();
-        r.ChannelMemberUidList.AddRange(newMemberUidList);
         return r;
     }
 }

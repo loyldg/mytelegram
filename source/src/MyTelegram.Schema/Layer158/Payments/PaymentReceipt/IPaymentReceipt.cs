@@ -10,13 +10,13 @@ public interface IPaymentReceipt : IObject
     long ProviderId { get; set; }
     string Title { get; set; }
     string Description { get; set; }
-    MyTelegram.Schema.IWebDocument? Photo { get; set; }
-    MyTelegram.Schema.IInvoice Invoice { get; set; }
-    MyTelegram.Schema.IPaymentRequestedInfo? Info { get; set; }
-    MyTelegram.Schema.IShippingOption? Shipping { get; set; }
+    Schema.IWebDocument? Photo { get; set; }
+    Schema.IInvoice Invoice { get; set; }
+    Schema.IPaymentRequestedInfo? Info { get; set; }
+    Schema.IShippingOption? Shipping { get; set; }
     long? TipAmount { get; set; }
     string Currency { get; set; }
     long TotalAmount { get; set; }
     string CredentialsTitle { get; set; }
-    TVector<MyTelegram.Schema.IUser> Users { get; set; }
+    TVector<Schema.IUser> Users { get; set; }
 }

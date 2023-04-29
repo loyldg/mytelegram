@@ -43,6 +43,7 @@ public abstract class BaseAppService
 
         return new OffsetInfo { MaxId = maxId, FromId = fromId, LoadType = loadType };
     }
+
     private static LoadType GetOffsetLoadType(GetPagedListInput input)
     {
         if (input.Limit == 1)

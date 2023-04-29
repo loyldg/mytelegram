@@ -2,9 +2,6 @@
 
 public class ReplyToMessageCommand : RequestCommand<MessageAggregate, MessageId, IExecutionResult>
 {
-    public int MessageId { get; }
-    public Guid CorrelationId { get; }
-
     public ReplyToMessageCommand(MessageId aggregateId,
         long reqMsgId,
         int messageId,
@@ -14,4 +11,7 @@ public class ReplyToMessageCommand : RequestCommand<MessageAggregate, MessageId,
         MessageId = messageId;
         CorrelationId = correlationId;
     }
+
+    public int MessageId { get; }
+    public Guid CorrelationId { get; }
 }

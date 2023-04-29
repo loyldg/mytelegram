@@ -9,11 +9,6 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Register(_state);
     }
 
-    public void StartDeleteUserMessages(RequestInfo requestInfo, bool revoke, List<int> messageIds, bool isClearHistory, Guid correlationId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DeleteUserMessagesStartedEvent(requestInfo, revoke, _state.ToPeer.PeerId, messageIds, isClearHistory, correlationId));
-    }
     public void ClearChannelHistory(long reqMsgId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -68,6 +63,30 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
             topMessageId,
             DateTime.UtcNow,
             correlationId));
+    }
+
+    protected override Task<DialogSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
+    {
+        return Task.FromResult(new DialogSnapshot(
+            _state.OwnerId,
+            _state.TopMessage,
+            _state.ReadInboxMaxId,
+            _state.ReadOutboxMaxId,
+            _state.UnreadCount,
+            _state.ToPeer,
+            _state.UnreadMark,
+            _state.Pinned,
+            _state.ChannelHistoryMinId,
+            _state.Draft
+        ));
+    }
+
+    protected override Task LoadSnapshotAsync(DialogSnapshot snapshot,
+        ISnapshotMetadata metadata,
+        CancellationToken cancellationToken)
+    {
+        _state.LoadSnapshot(snapshot);
+        return Task.CompletedTask;
     }
 
     public void MarkDialogAsUnread(bool unread)
@@ -190,34 +209,25 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new PinnedOrderChangedEvent(order));
     }
 
+    public void StartDeleteUserMessages(RequestInfo requestInfo,
+        bool revoke,
+        List<int> messageIds,
+        bool isClearHistory,
+        Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new DeleteUserMessagesStartedEvent(requestInfo,
+            revoke,
+            _state.ToPeer.PeerId,
+            messageIds,
+            isClearHistory,
+            correlationId));
+    }
+
     public void TogglePinned(long reqMsgId,
         bool pinned)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new DialogPinChangedEvent(reqMsgId, _state.OwnerId, pinned));
-    }
-
-    protected override Task<DialogSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
-    {
-        return Task.FromResult(new DialogSnapshot(
-            _state.OwnerId,
-            _state.TopMessage,
-            _state.ReadInboxMaxId,
-            _state.ReadOutboxMaxId,
-            _state.UnreadCount,
-            _state.ToPeer,
-            _state.UnreadMark,
-            _state.Pinned,
-            _state.ChannelHistoryMinId,
-            _state.Draft
-        ));
-    }
-
-    protected override Task LoadSnapshotAsync(DialogSnapshot snapshot,
-        ISnapshotMetadata metadata,
-        CancellationToken cancellationToken)
-    {
-        _state.LoadSnapshot(snapshot);
-        return Task.CompletedTask;
     }
 }

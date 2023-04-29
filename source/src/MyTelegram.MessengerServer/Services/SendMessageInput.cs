@@ -19,7 +19,7 @@ public record SendMessageInput
         long groupId = 0,
         int groupItemCount = 1,
         long? pollId = null
-        )
+    )
     {
         RequestInfo = requestInfo;
         SendMessageType = sendMessageType;
@@ -47,12 +47,15 @@ public record SendMessageInput
     public long? PollId { get; }
     public byte[]? Media { get; }
     public string Message { get; }
+
     public string? MessageActionData { get; }
+
     //public MessageActionType MessageActionType { get; }
     public MessageType MessageType { get; }
+
     //public Peer? Peer { get; }
     public long RandomId { get; }
-    public int? ReplyToMsgId { get; } 
+    public int? ReplyToMsgId { get; }
     public long SenderPeerId { get; }
     public RequestInfo RequestInfo { get; }
     public SendMessageType SendMessageType { get; }

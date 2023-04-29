@@ -55,10 +55,10 @@ public class DialogAppService : BaseAppService, IDialogAppService
         var channelIdList = dialogList.Where(p => p.ToPeerType == PeerType.Channel).Select(p => p.ToPeerId)
             .ToList();
         var channelList = channelIdList.Count == 0
-            ? new List<IChannelReadModel>()
-            : await _queryProcessor
-                .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), CancellationToken.None)
-                ;
+                ? new List<IChannelReadModel>()
+                : await _queryProcessor
+                    .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), CancellationToken.None)
+            ;
 
         //
         var topMessageIdList = dialogList.Where(p => p.ToPeerType != PeerType.Channel)
@@ -111,8 +111,8 @@ public class DialogAppService : BaseAppService, IDialogAppService
         uidList.AddRange(extraChatUserIdList);
 
         var userList =
-            await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(uidList), CancellationToken.None)
-                ;
+                await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(uidList), CancellationToken.None)
+            ;
 
         var chatList = chatIdList.Count == 0
             ? new List<IChatReadModel>()
@@ -148,9 +148,10 @@ public class DialogAppService : BaseAppService, IDialogAppService
             pollReadModels =
                 await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default);
             chosenOptions = await _queryProcessor
-                .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.OwnerId), default)
+                    .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.OwnerId), default)
                 ;
         }
+
         return new GetDialogOutput(input.OwnerId,
             dialogList,
             messagesList,
@@ -158,9 +159,9 @@ public class DialogAppService : BaseAppService, IDialogAppService
             chatList,
             channelList,
             channelMemberList,
-			pollReadModels,
+            pollReadModels,
             chosenOptions,
             input.Limit
-            );
+        );
     }
 }

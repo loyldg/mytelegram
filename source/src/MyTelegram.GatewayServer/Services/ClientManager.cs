@@ -3,8 +3,10 @@
 public class ClientManager : IClientManager
 {
     private readonly ConcurrentDictionary<string, ClientData> _clients = new();
+
     //private readonly ConcurrentDictionary<string, ConnectionContext> _connections = new();
-    public void AddClient(string connectionId, ClientData clientData)
+    public void AddClient(string connectionId,
+        ClientData clientData)
     {
         _clients.TryAdd(connectionId, clientData);
     }
@@ -14,7 +16,8 @@ public class ClientManager : IClientManager
         _clients.TryRemove(connectionId, out _);
     }
 
-    public bool TryGetClientData(string connectionId, [NotNullWhen(true)] out ClientData? clientData)
+    public bool TryGetClientData(string connectionId,
+        [NotNullWhen(true)] out ClientData? clientData)
     {
         if (_clients.TryGetValue(connectionId, out var d))
         {

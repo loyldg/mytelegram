@@ -6,11 +6,12 @@ public interface ICreatedChatCacheHelper
     void Add(ChannelCreatedEvent data);
     void Add(ChatCreatedEvent data);
 
+    bool TryGetValue(long chatId,
+        [NotNullWhen(true)] out ChatCreatedEvent? chatCreatedEvent);
+
     bool TryRemove(long channelId,
         [NotNullWhen(true)] out StartInviteToChannelEvent? eventData);
 
     bool TryRemove(long channelId,
         [NotNullWhen(true)] out ChannelCreatedEvent? channelCreatedEvent);
-
-    bool TryGetValue(long chatId, [NotNullWhen(true)] out ChatCreatedEvent? chatCreatedEvent);
 }

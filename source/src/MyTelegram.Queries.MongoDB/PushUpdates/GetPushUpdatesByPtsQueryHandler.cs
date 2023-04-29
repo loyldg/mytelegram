@@ -2,7 +2,7 @@
 
 // ReSharper disable once UnusedMember.Global
 public class GetPushUpdatesByPtsQueryHandler : IQueryHandler<GetPushUpdatesByPtsQuery,
-        IReadOnlyCollection<IPushUpdatesReadModel>>
+    IReadOnlyCollection<IPushUpdatesReadModel>>
 {
     private readonly IMongoDbReadModelStore<PushUpdatesReadModel> _store;
 

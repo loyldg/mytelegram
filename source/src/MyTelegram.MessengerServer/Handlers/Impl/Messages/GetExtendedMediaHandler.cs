@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class GetExtendedMediaHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetExtendedMedia, MyTelegram.Schema.IUpdates>,
+public class GetExtendedMediaHandler : RpcResultObjectHandler<RequestGetExtendedMedia, Schema.IUpdates>,
     Messages.IGetExtendedMediaHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetExtendedMedia obj)
+    protected override Task<Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestGetExtendedMedia obj)
     {
         throw new NotImplementedException();
     }

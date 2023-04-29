@@ -1,7 +1,8 @@
 ﻿namespace MyTelegram.QueryHandlers.MongoDB.User;
 
 // ReSharper disable once UnusedMember.Global
-public class SearchUserByKeywordQueryHandler : IQueryHandler<SearchUserByKeywordQuery, IReadOnlyCollection<IUserReadModel>>
+public class
+    SearchUserByKeywordQueryHandler : IQueryHandler<SearchUserByKeywordQuery, IReadOnlyCollection<IUserReadModel>>
 {
     private readonly IMongoDbReadModelStore<UserReadModel> _store;
 

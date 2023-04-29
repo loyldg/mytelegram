@@ -11,29 +11,6 @@ public class ChatReadModel : IChatReadModel,
     IAmReadModelFor<ChatAggregate, ChatId, ChatDeletedEvent>
 
 {
-    public virtual string? About { get; private set; }
-
-    public virtual long ChatId { get; private set; }
-
-    public virtual List<ChatMember> ChatMembers { get; protected set; } = null!;
-
-    public virtual long CreatorUid { get; private set; }
-
-    public virtual int Date { get; private set; }
-
-    public virtual ChatBannedRights? DefaultBannedRights { get; protected set; }
-
-    public virtual string Id { get; private set; } = null!;
-
-    public virtual byte[]? Photo { get; private set; }
-
-    public virtual int PinnedMsgId { get; private set; }
-
-    public virtual string Title { get; private set; } = null!;
-
-    public virtual long? Version { get; set; }
-    public bool IsDeleted { get; set; }
-
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<ChatAggregate, ChatId, ChatAboutEditedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -69,6 +46,14 @@ public class ChatReadModel : IChatReadModel,
     }
 
     public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<ChatAggregate, ChatId, ChatDeletedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        IsDeleted = true;
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<ChatAggregate, ChatId, ChatMemberAddedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
@@ -99,11 +84,27 @@ public class ChatReadModel : IChatReadModel,
         Title = domainEvent.AggregateEvent.Title;
         return Task.CompletedTask;
     }
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<ChatAggregate, ChatId, ChatDeletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        IsDeleted = true;
-        return Task.CompletedTask;
-    }
+
+    public virtual string? About { get; private set; }
+
+    public virtual long ChatId { get; private set; }
+
+    public virtual List<ChatMember> ChatMembers { get; protected set; } = null!;
+
+    public virtual long CreatorUid { get; private set; }
+
+    public virtual int Date { get; private set; }
+
+    public virtual ChatBannedRights? DefaultBannedRights { get; protected set; }
+
+    public virtual string Id { get; private set; } = null!;
+
+    public virtual byte[]? Photo { get; private set; }
+
+    public virtual int PinnedMsgId { get; private set; }
+
+    public virtual string Title { get; private set; } = null!;
+
+    public virtual long? Version { get; set; }
+    public bool IsDeleted { get; set; }
 }

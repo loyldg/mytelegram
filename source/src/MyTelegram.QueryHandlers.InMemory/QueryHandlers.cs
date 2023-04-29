@@ -41,8 +41,8 @@ public class GetAllDraftQueryHandler : MyQueryHandler<DraftReadModel>,
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.OwnerPeerId == query.OwnerPeerId)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.OwnerPeerId == query.OwnerPeerId)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -85,8 +85,8 @@ public class
 
         // todo:pagination
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => query.ChannelIdList.Contains(p.ChannelId))
-            .ToListAsync(cancellationToken)
+                .Where(p => query.ChannelIdList.Contains(p.ChannelId))
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -119,7 +119,7 @@ public class GetChannelFullByIdQueryHandler : MyQueryHandler<ChannelFullReadMode
     {
         var id = ChannelId.Create(query.ChannelId).Value;
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken)
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken)
             ;
     }
 }
@@ -138,11 +138,11 @@ public class
     {
         // todo:pass page size parameter
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.UserId == query.MemberUid)
-            .OrderBy(p => p.Id)
-            .Take(100)
-            .Select(p => p.ChannelId)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.UserId == query.MemberUid)
+                .OrderBy(p => p.Id)
+                .Take(100)
+                .Select(p => p.ChannelId)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -158,9 +158,9 @@ public class GetChannelIdListByUidQueryHandler : MyQueryHandler<ChannelMemberRea
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.UserId == query.UserId)
-            .Select(p => p.ChannelId)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.UserId == query.UserId)
+                .Select(p => p.ChannelId)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -177,7 +177,7 @@ public class GetChannelMemberByUidQueryHandler : MyQueryHandler<ChannelMemberRea
     {
         var id = ChannelMemberId.Create(query.ChannelId, query.UserId).Value;
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken)
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken)
             ;
     }
 }
@@ -195,8 +195,8 @@ public class GetChannelMemberListByChannelIdListQueryHandler : MyQueryHandler<Ch
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.UserId == query.MemberUid && query.ChannelIdList.Contains(p.ChannelId))
-            .ToListAsync(cancellationToken)
+                .Where(p => p.UserId == query.MemberUid && query.ChannelIdList.Contains(p.ChannelId))
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -238,9 +238,9 @@ public class GetChannelPushUpdatesBySeqNoQueryHandler : MyQueryHandler<PushUpdat
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.SeqNo > query.SeqNo && query.ChannelIdList.Contains(p.PeerId))
-            .Take(query.Limit)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.SeqNo > query.SeqNo && query.ChannelIdList.Contains(p.PeerId))
+                .Take(query.Limit)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -256,8 +256,8 @@ public class GetChatByChatIdListQueryHandler : MyQueryHandler<ChatReadModel>,
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => query.ChatIdList.Contains(p.ChatId))
-            .ToListAsync(cancellationToken)
+                .Where(p => query.ChatIdList.Contains(p.ChatId))
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -274,7 +274,7 @@ public class GetChatByChatIdQueryHandler : MyQueryHandler<ChatReadModel>,
     {
         var id = ChatId.Create(query.ChatId).Value;
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .SingleOrDefaultAsync(p => p.Id == id, cancellationToken)
+                .SingleOrDefaultAsync(p => p.Id == id, cancellationToken)
             ;
     }
 }
@@ -291,9 +291,9 @@ public class
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p =>
-                p.Revoked == query.Revoked && p.ChannelId == query.ChannelId && p.AdminId == query.AdminId)
-            .ToListAsync(cancellationToken)
+                .Where(p =>
+                    p.Revoked == query.Revoked && p.ChannelId == query.ChannelId && p.AdminId == query.AdminId)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -311,7 +311,7 @@ public class GetDeviceByAuthKeyIdQueryHandler : MyQueryHandler<DeviceReadModel>,
         var id = DeviceId.Create(query.AuthKeyId).Value;
 
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .SingleOrDefaultAsync(p => p.Id == id, cancellationToken)
+                .SingleOrDefaultAsync(p => p.Id == id, cancellationToken)
             ;
     }
 }
@@ -327,7 +327,7 @@ public class GetDeviceByHashQueryHandler : MyQueryHandler<DeviceReadModel>,
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .FirstOrDefaultAsync(p => p.UserId == query.UserId && p.Hash == query.Hash, cancellationToken)
+                .FirstOrDefaultAsync(p => p.UserId == query.UserId && p.Hash == query.Hash, cancellationToken)
             ;
     }
 }
@@ -343,8 +343,8 @@ public class GetDeviceByUidQueryHandler : MyQueryHandler<DeviceReadModel>,
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.UserId == query.UserId && p.IsActive)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.UserId == query.UserId && p.IsActive)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -360,7 +360,7 @@ public class GetDialogByIdQueryHandler : MyQueryHandler<DialogReadModel>,
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .SingleOrDefaultAsync(p => p.Id == query.Id.Value, cancellationToken)
+                .SingleOrDefaultAsync(p => p.Id == query.Id.Value, cancellationToken)
             ;
     }
 }
@@ -386,14 +386,14 @@ public class GetDialogsQueryHandler : MyQueryHandler<DialogReadModel>,
         }
 
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.OwnerId == query.OwnerId)
-            .WhereIf(needOffsetDate, p => p.CreationTime > offsetDate)
-            .WhereIf(query.Pinned.HasValue, p => p.Pinned == query.Pinned!.Value)
-            .WhereIf(query.PeerIdList?.Count > 0, p => query.PeerIdList!.Contains(p.ToPeerId))
-            .OrderBy(p => p.TopMessage)
-            .Skip(0)
-            .Take(query.Limit)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.OwnerId == query.OwnerId)
+                .WhereIf(needOffsetDate, p => p.CreationTime > offsetDate)
+                .WhereIf(query.Pinned.HasValue, p => p.Pinned == query.Pinned!.Value)
+                .WhereIf(query.PeerIdList?.Count > 0, p => query.PeerIdList!.Contains(p.ToPeerId))
+                .OrderBy(p => p.TopMessage)
+                .Skip(0)
+                .Take(query.Limit)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -410,9 +410,9 @@ public class
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.UserId == query.MemberUid && query.ChannelIdList.Contains(p.ChannelId))
-            .Select(p => p.ChannelId)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.UserId == query.MemberUid && query.ChannelIdList.Contains(p.ChannelId))
+                .Select(p => p.ChannelId)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -430,11 +430,11 @@ public class GetKickedChannelMembersQueryHandler : MyQueryHandler<ChannelMemberR
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.ChannelId == query.ChannelId && p.Kicked)
-            .OrderBy(p => p.Id)
-            .Skip(query.Offset)
-            .Take(query.Limit)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.ChannelId == query.ChannelId && p.Kicked)
+                .OrderBy(p => p.Id)
+                .Skip(query.Offset)
+                .Take(query.Limit)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -451,8 +451,8 @@ public class
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.MegaGroup && p.CreatorId == query.UserId)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.MegaGroup && p.CreatorId == query.UserId)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -489,11 +489,11 @@ public class GetMessageIdListQueryHandler : MyQueryHandler<MessageReadModel>,
         }
 
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p =>
-                p.OwnerPeerId == query.OwnerPeerId && p.ToPeerId == query.ToPeerId && p.MessageId < maxId)
-            .Select(p => p.MessageId)
-            .Take(query.Limit)
-            .ToListAsync(cancellationToken)
+                .Where(p =>
+                    p.OwnerPeerId == query.OwnerPeerId && p.ToPeerId == query.ToPeerId && p.MessageId < maxId)
+                .Select(p => p.MessageId)
+                .Take(query.Limit)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -510,12 +510,12 @@ public class
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.TargetPeerId == query.TargetPeerId && p.MessageId == query.MessageId)
-            .OrderBy(p => p.Id)
-            // todo:set limit
-            .Take(200)
-            .Select(p => p.TargetPeerId)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.TargetPeerId == query.TargetPeerId && p.MessageId == query.MessageId)
+                .OrderBy(p => p.Id)
+                // todo:set limit
+                .Take(200)
+                .Select(p => p.TargetPeerId)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -533,8 +533,8 @@ public class GetMessagesByMessageIdListQueryHandler : MyQueryHandler<MessageRead
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => query.MessageIdList.Contains(p.MessageId))
-            .ToListAsync(cancellationToken)
+                .Where(p => query.MessageIdList.Contains(p.MessageId))
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -570,22 +570,22 @@ public class
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.OwnerPeerId == query.OwnerPeerId)
-            .WhereIf(query.Q?.Length > 2, p => p.Message.Contains(query.Q!))
-            .WhereIf(
-                query.MessageType != MessageType.Unknown && query.MessageType != MessageType.Pinned,
-                p => p.MessageType == query.MessageType)
-            .WhereIf(query.MessageType == MessageType.Pinned, p => p.Pinned)
-            .WhereIf(query.MessageIdList?.Count > 0, p => query.MessageIdList!.Contains(p.MessageId))
-            .WhereIf(query.ChannelHistoryMinId > 0, p => p.MessageId > query.ChannelHistoryMinId)
-            .WhereIf(query.Offset?.LoadType == LoadType.Forward, p => p.MessageId > query.Offset!.FromId)
-            .WhereIf(query.Offset?.MaxId > 0, p => p.MessageId < query.Offset!.MaxId)
-            .WhereIf(query.Pts > 0, p => p.Pts > query.Pts)
-            .WhereIf(query.Peer != null,
-                p => p.ToPeerType == query.Peer!.PeerType && p.ToPeerId == query.Peer.PeerId)
-            .OrderByDescending(p => p.MessageId)
-            .Take(query.Limit)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.OwnerPeerId == query.OwnerPeerId)
+                .WhereIf(query.Q?.Length > 2, p => p.Message.Contains(query.Q!))
+                .WhereIf(
+                    query.MessageType != MessageType.Unknown && query.MessageType != MessageType.Pinned,
+                    p => p.MessageType == query.MessageType)
+                .WhereIf(query.MessageType == MessageType.Pinned, p => p.Pinned)
+                .WhereIf(query.MessageIdList?.Count > 0, p => query.MessageIdList!.Contains(p.MessageId))
+                .WhereIf(query.ChannelHistoryMinId > 0, p => p.MessageId > query.ChannelHistoryMinId)
+                .WhereIf(query.Offset?.LoadType == LoadType.Forward, p => p.MessageId > query.Offset!.FromId)
+                .WhereIf(query.Offset?.MaxId > 0, p => p.MessageId < query.Offset!.MaxId)
+                .WhereIf(query.Pts > 0, p => p.Pts > query.Pts)
+                .WhereIf(query.Peer != null,
+                    p => p.ToPeerType == query.Peer!.PeerType && p.ToPeerId == query.Peer.PeerId)
+                .OrderByDescending(p => p.MessageId)
+                .Take(query.Limit)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -601,9 +601,9 @@ public class GetMessageViewsQueryHandler : MyQueryHandler<MessageReadModel>,
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.OwnerPeerId == query.ChannelId && query.MessageIdList.Contains(p.MessageId))
-            .Select(p => new MessageView { MessageId = p.MessageId, Views = p.Views ?? 0 })
-            .ToListAsync(cancellationToken)
+                .Where(p => p.OwnerPeerId == query.ChannelId && query.MessageIdList.Contains(p.MessageId))
+                .Select(p => new MessageView { MessageId = p.MessageId, Views = p.Views ?? 0 })
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -641,8 +641,8 @@ public class GetPeerNotifySettingsListQueryHandler : MyQueryHandler<PeerNotifySe
         var peerIdList = query.PeerNotifySettingsIdList.Select(p => p.Value).ToList();
 
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => peerIdList.Contains(p.Id))
-            .ToListAsync(cancellationToken)
+                .Where(p => peerIdList.Contains(p.Id))
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -675,7 +675,7 @@ public class GetPtsByPermAuthKeyIdQueryHandler : MyQueryHandler<PtsForAuthKeyIdR
     {
         var id = PtsId.Create(query.PeerId, query.PermAuthKeyId);
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .FirstOrDefaultAsync(p => p.Id == id.Value, cancellationToken)
+                .FirstOrDefaultAsync(p => p.Id == id.Value, cancellationToken)
             ;
     }
 }
@@ -692,9 +692,9 @@ public class
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .Where(p => p.PeerId == query.PeerId && p.Pts > query.Pts)
-            .Take(query.Limit)
-            .ToListAsync(cancellationToken)
+                .Where(p => p.PeerId == query.PeerId && p.Pts > query.Pts)
+                .Take(query.Limit)
+                .ToListAsync(cancellationToken)
             ;
     }
 }
@@ -728,9 +728,10 @@ public class
         CancellationToken cancellationToken)
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
-            .SingleOrDefaultAsync(p =>
-                    p.OwnerPeerId == query.OwnerPeerId && p.MessageId == query.MessageId && p.ToPeerId == query.ToPeerId,
-                cancellationToken)
+                .SingleOrDefaultAsync(p =>
+                        p.OwnerPeerId == query.OwnerPeerId && p.MessageId == query.MessageId &&
+                        p.ToPeerId == query.ToPeerId,
+                    cancellationToken)
             ;
     }
 }
@@ -853,6 +854,7 @@ public class MyQueryHandler<TReadModel> where TReadModel : class, IReadModel
         return _store.AsQueryable();
     }
 }
+
 public class
     SearchUserByKeywordQueryHandler : MyQueryHandler<UserReadModel>,
         IQueryHandler<SearchUserByKeywordQuery, IReadOnlyCollection<IUserReadModel>>
@@ -900,6 +902,7 @@ public class SearchUserNameQueryHandler : IQueryHandler<SearchUserNameQuery, IRe
             ;
     }
 }
+
 public class GetLatestAppCodeQueryHandler : MyQueryHandler<AppCodeReadModel>,
     IQueryHandler<GetLatestAppCodeQuery, IAppCodeReadModel>
 {

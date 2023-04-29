@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Channels;
+
 namespace MyTelegram.Handlers.Channels;
 
-public class ToggleJoinRequestHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestToggleJoinRequest, MyTelegram.Schema.IUpdates>,
+public class ToggleJoinRequestHandler : RpcResultObjectHandler<RequestToggleJoinRequest, Schema.IUpdates>,
     Channels.IToggleJoinRequestHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestToggleJoinRequest obj)
+    protected override Task<Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestToggleJoinRequest obj)
     {
         throw new NotImplementedException();
     }

@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Channels;
+
 namespace MyTelegram.Handlers.Channels;
 
-internal sealed class ReorderPinnedForumTopicsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestReorderPinnedForumTopics, MyTelegram.Schema.IUpdates>,
+internal sealed class ReorderPinnedForumTopicsHandler :
+    RpcResultObjectHandler<RequestReorderPinnedForumTopics, Schema.IUpdates>,
     Channels.IReorderPinnedForumTopicsHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestReorderPinnedForumTopics obj)
+    protected override Task<Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestReorderPinnedForumTopics obj)
     {
         throw new NotImplementedException();
     }

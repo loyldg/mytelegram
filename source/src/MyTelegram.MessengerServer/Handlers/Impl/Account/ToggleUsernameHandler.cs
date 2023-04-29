@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Account;
+
 namespace MyTelegram.Handlers.Account;
 
-public class ToggleUsernameHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestToggleUsername, IBool>,
+public class ToggleUsernameHandler : RpcResultObjectHandler<RequestToggleUsername, IBool>,
     Account.IToggleUsernameHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestToggleUsername obj)
+        RequestToggleUsername obj)
     {
         throw new NotImplementedException();
     }

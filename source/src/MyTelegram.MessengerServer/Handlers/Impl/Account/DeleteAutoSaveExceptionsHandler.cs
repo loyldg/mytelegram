@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Account;
+
 namespace MyTelegram.Handlers.Account;
 
-internal sealed class DeleteAutoSaveExceptionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestDeleteAutoSaveExceptions, IBool>,
+internal sealed class DeleteAutoSaveExceptionsHandler : RpcResultObjectHandler<RequestDeleteAutoSaveExceptions, IBool>,
     Account.IDeleteAutoSaveExceptionsHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestDeleteAutoSaveExceptions obj)
+        RequestDeleteAutoSaveExceptions obj)
     {
         throw new NotImplementedException();
     }

@@ -8,5 +8,5 @@ public interface IWallPaper : IObject
     BitArray Flags { get; set; }
     bool Default { get; set; }
     bool Dark { get; set; }
-    MyTelegram.Schema.IWallPaperSettings? Settings { get; set; }
+    Schema.IWallPaperSettings? Settings { get; set; }
 }

@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class ToggleBotInAttachMenuHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestToggleBotInAttachMenu, IBool>,
+public class ToggleBotInAttachMenuHandler : RpcResultObjectHandler<RequestToggleBotInAttachMenu, IBool>,
     Messages.IToggleBotInAttachMenuHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestToggleBotInAttachMenu obj)
+        RequestToggleBotInAttachMenu obj)
     {
         throw new NotImplementedException();
     }

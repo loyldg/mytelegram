@@ -15,7 +15,9 @@ public class PtsHelper : IPtsHelper
         return 0;
     }
 
-    public Task IncrementPtsAsync(long ownerId, int currentPts, int ptsCount = 1)
+    public Task IncrementPtsAsync(long ownerId,
+        int currentPts,
+        int ptsCount = 1)
     {
         if (_ownerToPtsDict.TryGetValue(ownerId, out var cacheItem))
         {
@@ -47,7 +49,6 @@ public class PtsHelper : IPtsHelper
             cacheItem = new PtsCacheItem(currentPts);
             _ownerToPtsDict.TryAdd(ownerId, cacheItem);
         }
-
 
         return Task.CompletedTask;
     }

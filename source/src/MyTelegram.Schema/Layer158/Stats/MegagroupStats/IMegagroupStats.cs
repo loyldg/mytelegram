@@ -4,21 +4,21 @@ namespace MyTelegram.Schema.Stats;
 
 public interface IMegagroupStats : IObject
 {
-    MyTelegram.Schema.IStatsDateRangeDays Period { get; set; }
-    MyTelegram.Schema.IStatsAbsValueAndPrev Members { get; set; }
-    MyTelegram.Schema.IStatsAbsValueAndPrev Messages { get; set; }
-    MyTelegram.Schema.IStatsAbsValueAndPrev Viewers { get; set; }
-    MyTelegram.Schema.IStatsAbsValueAndPrev Posters { get; set; }
-    MyTelegram.Schema.IStatsGraph GrowthGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph MembersGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph NewMembersBySourceGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph LanguagesGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph MessagesGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph ActionsGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph TopHoursGraph { get; set; }
-    MyTelegram.Schema.IStatsGraph WeekdaysGraph { get; set; }
-    TVector<MyTelegram.Schema.IStatsGroupTopPoster> TopPosters { get; set; }
-    TVector<MyTelegram.Schema.IStatsGroupTopAdmin> TopAdmins { get; set; }
-    TVector<MyTelegram.Schema.IStatsGroupTopInviter> TopInviters { get; set; }
-    TVector<MyTelegram.Schema.IUser> Users { get; set; }
+    Schema.IStatsDateRangeDays Period { get; set; }
+    Schema.IStatsAbsValueAndPrev Members { get; set; }
+    Schema.IStatsAbsValueAndPrev Messages { get; set; }
+    Schema.IStatsAbsValueAndPrev Viewers { get; set; }
+    Schema.IStatsAbsValueAndPrev Posters { get; set; }
+    Schema.IStatsGraph GrowthGraph { get; set; }
+    Schema.IStatsGraph MembersGraph { get; set; }
+    Schema.IStatsGraph NewMembersBySourceGraph { get; set; }
+    Schema.IStatsGraph LanguagesGraph { get; set; }
+    Schema.IStatsGraph MessagesGraph { get; set; }
+    Schema.IStatsGraph ActionsGraph { get; set; }
+    Schema.IStatsGraph TopHoursGraph { get; set; }
+    Schema.IStatsGraph WeekdaysGraph { get; set; }
+    TVector<Schema.IStatsGroupTopPoster> TopPosters { get; set; }
+    TVector<Schema.IStatsGroupTopAdmin> TopAdmins { get; set; }
+    TVector<Schema.IStatsGroupTopInviter> TopInviters { get; set; }
+    TVector<Schema.IUser> Users { get; set; }
 }

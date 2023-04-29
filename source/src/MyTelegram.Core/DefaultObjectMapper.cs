@@ -57,4 +57,3 @@ public class DefaultObjectMapper : IObjectMapper //, ITransientDependency
             $"Can not map source type {typeof(TSource).FullName} to destination type {typeof(TDestination).FullName}");
     }
 }
-

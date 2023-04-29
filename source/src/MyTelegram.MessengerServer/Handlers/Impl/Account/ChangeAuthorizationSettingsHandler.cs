@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Account;
+
 namespace MyTelegram.Handlers.Account;
 
-public class ChangeAuthorizationSettingsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestChangeAuthorizationSettings, IBool>,
+public class ChangeAuthorizationSettingsHandler : RpcResultObjectHandler<RequestChangeAuthorizationSettings, IBool>,
     Account.IChangeAuthorizationSettingsHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestChangeAuthorizationSettings obj)
+        RequestChangeAuthorizationSettings obj)
     {
         throw new NotImplementedException();
     }

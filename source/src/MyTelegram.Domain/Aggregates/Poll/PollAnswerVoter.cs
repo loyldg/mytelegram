@@ -6,11 +6,6 @@ public record PollAnswerVoter(bool Correct,
 {
     public int Voters { get; private set; } = Voters;
 
-    public void IncrementVoters()
-    {
-        Voters++;
-    }
-
     public void DecrementVoters()
     {
         Voters--;
@@ -18,5 +13,10 @@ public record PollAnswerVoter(bool Correct,
         {
             Voters = 0;
         }
+    }
+
+    public void IncrementVoters()
+    {
+        Voters++;
     }
 }

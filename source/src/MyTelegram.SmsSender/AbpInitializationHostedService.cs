@@ -8,10 +8,9 @@ namespace MyTelegram.SmsSender;
 
 public class AbpInitializationHostedService : IHostedService
 {
-    private IAbpApplicationWithInternalServiceProvider _abpApplication = null!;
-
     private readonly IConfiguration _configuration;
     private readonly IHostEnvironment _hostEnvironment;
+    private IAbpApplicationWithInternalServiceProvider _abpApplication = null!;
 
     public AbpInitializationHostedService(IConfiguration configuration,
         IHostEnvironment hostEnvironment)

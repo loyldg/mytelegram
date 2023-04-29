@@ -3,6 +3,7 @@
 public class MessageIdGenerator : IMessageIdGenerator
 {
     private long _lastMessageId;
+
     public Task<long> GenerateServerMessageIdAsync()
     {
         var unixTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();

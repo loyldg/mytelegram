@@ -1,9 +1,11 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class EditChannelTitleSaga : MyInMemoryAggregateSaga<EditChannelTitleSaga, EditChannelTitleSagaId, EditChannelTitleSagaLocator>,
-        ISagaIsStartedBy<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>
+public class EditChannelTitleSaga :
+    MyInMemoryAggregateSaga<EditChannelTitleSaga, EditChannelTitleSagaId, EditChannelTitleSagaLocator>,
+    ISagaIsStartedBy<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>
 {
-    public EditChannelTitleSaga(EditChannelTitleSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public EditChannelTitleSaga(EditChannelTitleSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
     }
 
@@ -12,7 +14,8 @@ public class EditChannelTitleSaga : MyInMemoryAggregateSaga<EditChannelTitleSaga
         CancellationToken cancellationToken)
     {
         var outMessageId = 0;
-        var aggregateId = MessageId.CreateWithRandomId(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.RandomId);
+        var aggregateId =
+            MessageId.CreateWithRandomId(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.RandomId);
         var ownerPeer = new Peer(PeerType.Channel, domainEvent.AggregateEvent.ChannelId);
         var senderPeer = new Peer(PeerType.User, domainEvent.AggregateEvent.RequestInfo.UserId);
         var messageItem = new MessageItem(

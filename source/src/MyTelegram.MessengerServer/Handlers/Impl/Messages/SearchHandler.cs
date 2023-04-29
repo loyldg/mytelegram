@@ -19,28 +19,6 @@ public class SearchHandler : RpcResultObjectHandler<RequestSearch, IMessages>,
         _rpcResultProcessor = rpcResultProcessor;
     }
 
-    protected override async Task<IMessages> HandleCoreAsync(IRequestInput input,
-        RequestSearch obj)
-    {
-        var userId = input.UserId;
-        var peer = _peerHelper.GetPeer(obj.Peer, userId);
-
-        var ownerPeerId = peer.PeerType == PeerType.Channel ? peer.PeerId : userId;
-
-        var r = await _messageAppService.SearchAsync(new SearchInput(GetMessageType(obj.Filter), ownerPeerId, peer, obj.Q, userId)
-        {
-            Limit = obj.Limit,
-            OffsetId = obj.OffsetId,
-            AddOffset = obj.AddOffset,
-            MaxDate = obj.MaxDate,
-            MaxId = obj.MaxId,
-            MinDate = obj.MinDate,
-            MinId = obj.MinId,
-        });
-
-        return _rpcResultProcessor.ToMessages(r);
-    }
-
     private static MessageType GetMessageType(IMessagesFilter? filter)
     {
         //Expression<Func<MessageBox, bool>> predicate = null;
@@ -131,5 +109,32 @@ public class SearchHandler : RpcResultObjectHandler<RequestSearch, IMessages>,
 
         return MessageType.Unknown;
         //return predicate;
+    }
+
+    protected override async Task<IMessages> HandleCoreAsync(IRequestInput input,
+        RequestSearch obj)
+    {
+        var userId = input.UserId;
+        var peer = _peerHelper.GetPeer(obj.Peer, userId);
+
+        var ownerPeerId = peer.PeerType == PeerType.Channel ? peer.PeerId : userId;
+
+        var r = await _messageAppService.SearchAsync(
+            new SearchInput(GetMessageType(obj.Filter),
+                ownerPeerId,
+                peer,
+                obj.Q,
+                userId)
+            {
+                Limit = obj.Limit,
+                OffsetId = obj.OffsetId,
+                AddOffset = obj.AddOffset,
+                MaxDate = obj.MaxDate,
+                MaxId = obj.MaxId,
+                MinDate = obj.MinDate,
+                MinId = obj.MinId
+            });
+
+        return _rpcResultProcessor.ToMessages(r);
     }
 }

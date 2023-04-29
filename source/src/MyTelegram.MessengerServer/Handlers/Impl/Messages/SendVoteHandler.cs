@@ -9,8 +9,9 @@ public class SendVoteHandler : RpcResultObjectHandler<RequestSendVote, IUpdates>
     ISendVoteHandler, IProcessedHandler
 {
     private readonly ICommandBus _commandBus;
-    private readonly IQueryProcessor _queryProcessor;
     private readonly IPeerHelper _peerHelper;
+    private readonly IQueryProcessor _queryProcessor;
+
     public SendVoteHandler(ICommandBus commandBus,
         IQueryProcessor queryProcessor,
         IPeerHelper peerHelper)
@@ -19,6 +20,7 @@ public class SendVoteHandler : RpcResultObjectHandler<RequestSendVote, IUpdates>
         _queryProcessor = queryProcessor;
         _peerHelper = peerHelper;
     }
+
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         RequestSendVote obj)
     {

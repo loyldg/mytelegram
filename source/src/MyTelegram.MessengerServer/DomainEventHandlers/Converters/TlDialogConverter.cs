@@ -6,9 +6,9 @@ namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 public class TlDialogConverter : ITlDialogConverter
 {
     private readonly ITlChatConverter _chatConverter;
-    private readonly ITlUserConverter _userConverter;
     private readonly ITlMessageConverter _messageConverter;
     private readonly IObjectMapper _objectMapper;
+    private readonly ITlUserConverter _userConverter;
 
     public TlDialogConverter(ITlChatConverter chatConverter,
         ITlUserConverter userConverter,
@@ -58,7 +58,8 @@ public class TlDialogConverter : ITlDialogConverter
                     }
                 }
 
-                var maxId = new[] {
+                var maxId = new[]
+                {
                     dialog.MaxSendOutMessageId, dialog.ReadOutboxMaxId, dialog.ReadInboxMaxId,
                     dialog.ChannelHistoryMinId
                 }.Max();
@@ -111,7 +112,8 @@ public class TlDialogConverter : ITlDialogConverter
             }
         }
 
-        var messageList = _messageConverter.ToMessages(allBoxList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
+        var messageList =
+            _messageConverter.ToMessages(allBoxList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
 
         if (dialogs.Count == output.Limit)
         {

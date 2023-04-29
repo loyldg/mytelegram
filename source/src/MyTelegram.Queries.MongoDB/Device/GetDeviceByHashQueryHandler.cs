@@ -14,7 +14,7 @@ public class GetDeviceByHashQueryHandler : IQueryHandler<GetDeviceByHashQuery, I
         CancellationToken cancellationToken)
     {
         var cursor = await _store
-            .FindAsync(p => p.UserId == query.UserId && p.Hash == query.Hash, cancellationToken: cancellationToken)
+                .FindAsync(p => p.UserId == query.UserId && p.Hash == query.Hash, cancellationToken: cancellationToken)
             ;
         return await cursor.SingleOrDefaultAsync(cancellationToken);
     }

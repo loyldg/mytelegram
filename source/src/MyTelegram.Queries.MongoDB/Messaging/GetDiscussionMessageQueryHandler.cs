@@ -16,6 +16,6 @@ public class GetDiscussionMessageQueryHandler : IQueryHandler<GetDiscussionMessa
                 p.FwdHeader!.SavedFromPeer!.PeerId == query.SavedFromPeerId &&
                 p.FwdHeader.SavedFromMsgId == query.SavedFromMessageId,
             cancellationToken: cancellationToken);
-        return await cursor.FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
 }

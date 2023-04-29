@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.Aggregates.Poll;
-
-namespace MyTelegram.ReadModel;
+﻿namespace MyTelegram.ReadModel;
 
 public interface IPollReadModel : IReadModel
 {

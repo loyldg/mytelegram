@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Account;
+
 namespace MyTelegram.Handlers.Account;
 
-public class ReorderUsernamesHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestReorderUsernames, IBool>,
+public class ReorderUsernamesHandler : RpcResultObjectHandler<RequestReorderUsernames, IBool>,
     Account.IReorderUsernamesHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestReorderUsernames obj)
+        RequestReorderUsernames obj)
     {
         throw new NotImplementedException();
     }

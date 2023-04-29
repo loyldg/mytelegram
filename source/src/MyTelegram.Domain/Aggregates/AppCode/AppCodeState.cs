@@ -13,6 +13,7 @@ public class AppCodeState : AggregateState<AppCodeAggregate, AppCodeId, AppCodeS
     public int FailedCount { get; private set; }
     public string PhoneCodeHash { get; private set; } = default!;
     public string Code { get; private set; } = default!;
+
     public void Apply(AppCodeCanceledEvent aggregateEvent)
     {
         Canceled = true;

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.EventFlow;
 
-public interface IMyInMemorySnapshotPersistence//:ISnapshotPersistence
+public interface IMyInMemorySnapshotPersistence //:ISnapshotPersistence
 {
     Task DeleteSnapshotAsync<TAggregate>(IIdentity identity,
         CancellationToken cancellationToken);

@@ -2,13 +2,9 @@
 
 public class StartDeleteMessagesCommand : RequestCommand2<MessageAggregate, MessageId, IExecutionResult>
 {
-    public bool Revoke { get; }
-    public IReadOnlyList<int> IdList { get; }
-    public long? ChatCreatorId { get; }
-    public Guid CorrelationId { get; }
-
     public StartDeleteMessagesCommand(MessageId aggregateId,
-        RequestInfo requestInfo, bool revoke,
+        RequestInfo requestInfo,
+        bool revoke,
         IReadOnlyList<int> idList,
         long? chatCreatorId,
         Guid correlationId) : base(aggregateId, requestInfo)
@@ -18,4 +14,9 @@ public class StartDeleteMessagesCommand : RequestCommand2<MessageAggregate, Mess
         ChatCreatorId = chatCreatorId;
         CorrelationId = correlationId;
     }
+
+    public bool Revoke { get; }
+    public IReadOnlyList<int> IdList { get; }
+    public long? ChatCreatorId { get; }
+    public Guid CorrelationId { get; }
 }

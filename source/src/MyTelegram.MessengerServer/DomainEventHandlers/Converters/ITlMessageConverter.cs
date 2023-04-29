@@ -2,8 +2,17 @@
 
 public interface ITlMessageConverter
 {
+    IMessage ToDiscussionMessage(IMessageReadModel messageReadModel,
+        int maxId,
+        int readMaxId,
+        int readInboxMaxId,
+        int readOutboxMaxId,
+        long selfUserId);
+
     IMessage ToMessage(MessageItem item,
-        long selfUserId = 0, long? linkedChannelId = null, int pts = 0);
+        long selfUserId = 0,
+        long? linkedChannelId = null,
+        int pts = 0);
 
     IMessage ToMessage(InboxMessageEditCompletedEvent aggregateEvent);
 
@@ -17,5 +26,4 @@ public interface ITlMessageConverter
         IReadOnlyCollection<IPollReadModel>? pollReadModels,
         IReadOnlyCollection<IPollAnswerVoterReadModel>? pollAnswerVoterReadModels,
         long selfUserId);
-    IMessage ToDiscussionMessage(IMessageReadModel messageReadModel,int maxId,int readMaxId,int readInboxMaxId,int readOutboxMaxId,long selfUserId);
 }

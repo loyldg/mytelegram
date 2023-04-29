@@ -12,7 +12,8 @@ public class GetChannelIdListByUidQueryHandler : IQueryHandler<GetChannelIdListB
     public async Task<IReadOnlyCollection<long>> ExecuteQueryAsync(GetChannelIdListByUidQuery query,
         CancellationToken cancellationToken)
     {
-        var findOption = new FindOptions<ChannelMemberReadModel, ChannelMemberReadModel> {
+        var findOption = new FindOptions<ChannelMemberReadModel, ChannelMemberReadModel>
+        {
             Projection = Builders<ChannelMemberReadModel>.Projection.Include(p => p.ChannelId)
         };
 

@@ -9,7 +9,8 @@ public class GetTopPeersHandler : RpcResultObjectHandler<RequestGetTopPeers, ITo
     protected override Task<ITopPeers> HandleCoreAsync(IRequestInput input,
         RequestGetTopPeers obj)
     {
-        ITopPeers r = new TTopPeers {
+        ITopPeers r = new TTopPeers
+        {
             Categories = new TVector<ITopPeerCategoryPeers>(),
             Chats = new TVector<IChat>(),
             Users = new TVector<IUser>()

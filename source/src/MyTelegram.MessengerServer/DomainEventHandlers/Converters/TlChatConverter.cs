@@ -1,18 +1,16 @@
 ﻿using MyTelegram.Schema.Channels;
-using IChannelParticipant = MyTelegram.Schema.IChannelParticipant;
+using IChannelParticipant = MyTelegram.Schema.Channels.IChannelParticipant;
 using IChatFull = MyTelegram.Schema.Messages.IChatFull;
-using IExportedChatInvite = MyTelegram.Schema.IExportedChatInvite;
-using TChannelParticipant = MyTelegram.Schema.TChannelParticipant;
-using TChatFull = MyTelegram.Schema.TChatFull;
+using TChannelParticipant = MyTelegram.Schema.Channels.TChannelParticipant;
 
 namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public class TlChatConverter : ITlChatConverter
 {
     private readonly IObjectMapper _objectMapper;
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
     private readonly ITlPhotoConverter _photoConverter;
     private readonly ITlUserConverter _userConverter;
-    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
 
     public TlChatConverter(IObjectMapper objectMapper,
         ITlPhotoConverter photoConverter,
@@ -108,16 +106,6 @@ public class TlChatConverter : ITlChatConverter
         return channel;
     }
 
-    public IChat ToChannel(IChannelReadModel channelReadModel,
-        IChannelMemberReadModel? channelMemberReadModel,
-        long selfUserId)
-    {
-        return ToChannel(channelReadModel,
-            channelMemberReadModel,
-            selfUserId,
-            channelMemberReadModel == null || channelMemberReadModel.Left);
-    }
-
     public TChannelFull ToChannelFull(IChannelReadModel channelReadModel,
         IChannelFullReadModel channelFullReadModel,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel,
@@ -206,7 +194,7 @@ public class TlChatConverter : ITlChatConverter
         return channelList;
     }
 
-    public Schema.Channels.IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
+    public IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
         IChannelMemberReadModel channelMemberReadModel,
         IUserReadModel userReadModel,
         long selfUserId)
@@ -214,7 +202,7 @@ public class TlChatConverter : ITlChatConverter
         var participant = ToChannelParticipantCore(channelReadModel, channelMemberReadModel, selfUserId);
         var user = _userConverter.ToUser(userReadModel, selfUserId);
         var channel = ToChannel(channelReadModel, channelMemberReadModel, selfUserId);
-        return new Schema.Channels.TChannelParticipant
+        return new TChannelParticipant
         {
             Chats = new TVector<IChat>(channel),
             Participant = participant,
@@ -255,19 +243,20 @@ public class TlChatConverter : ITlChatConverter
         {
             channelMemberIsLeft = channelMemberReadModel.Left;
         }
+
         var channel = ToChannel(channelReadModel, channelMemberReadModel, selfUserId, channelMemberIsLeft);
 
         return new TChannelParticipants
         {
             Chats = new TVector<IChat>(channel),
             Count = participants.Count,
-            Participants = new TVector<IChannelParticipant>(participants),
+            Participants = new TVector<Schema.IChannelParticipant>(participants),
             Users = new TVector<IUser>(users)
         };
     }
 
     public IChat ToChat(long chatId,
-                                            string title,
+        string title,
         int date,
         int memberCount)
     {
@@ -289,6 +278,7 @@ public class TlChatConverter : ITlChatConverter
         };
         return tChat;
     }
+
     public IChat ToChat(IChatReadModel chat,
         long selfUserId)
     {
@@ -310,6 +300,7 @@ public class TlChatConverter : ITlChatConverter
             tChat.ParticipantsCount = 0;
             tChat.Deactivated = true;
         }
+
         return tChat;
     }
 
@@ -325,15 +316,17 @@ public class TlChatConverter : ITlChatConverter
             CanSetUsername = true,
             Id = chat.ChatId,
             ChatPhoto = chat.Photo.ToTObject<IPhoto>() ?? new TPhotoEmpty(),
-            Participants = chat.IsDeleted ? new TChatParticipants
-            {
-                ChatId = chat.ChatId,
-                Participants = new TVector<IChatParticipant>()
-            } : ToChatParticipants(chat.ChatId,
-                chat.ChatMembers,
-                chat.Date,
-                chat.CreatorUid,
-                (int)(chat.Version ?? 0)),
+            Participants = chat.IsDeleted
+                ? new TChatParticipants
+                {
+                    ChatId = chat.ChatId,
+                    Participants = new TVector<IChatParticipant>()
+                }
+                : ToChatParticipants(chat.ChatId,
+                    chat.ChatMembers,
+                    chat.Date,
+                    chat.CreatorUid,
+                    (int)(chat.Version ?? 0)),
             NotifySettings = _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
                 peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings)
         };
@@ -383,7 +376,7 @@ public class TlChatConverter : ITlChatConverter
     }
 
     public IUpdates ToInviteToChannelUpdates(IChannelReadModel channelReadModel,
-            IUserReadModel senderUserReadModel,
+        IUserReadModel senderUserReadModel,
         int date)
     {
         var update = new TUpdateChannel { ChannelId = channelReadModel.ChannelId };
@@ -396,32 +389,19 @@ public class TlChatConverter : ITlChatConverter
             Updates = new TVector<IUpdate>(update)
         };
     }
-    private static TChatParticipants ToChatParticipants(long chatId,
-        IReadOnlyList<ChatMember> chatMemberList,
-        int date,
-        long creatorUid,
-        int chatVersion)
+
+    public IChat ToChannel(IChannelReadModel channelReadModel,
+        IChannelMemberReadModel? channelMemberReadModel,
+        long selfUserId)
     {
-        var participants = chatMemberList.Select(p =>
-        {
-            if (p.UserId == creatorUid)
-            {
-                return (IChatParticipant)new TChatParticipantCreator { UserId = p.UserId };
-            }
-
-            return new TChatParticipant { Date = date, InviterId = creatorUid, UserId = p.UserId };
-        }).ToList();
-
-        return new TChatParticipants
-        {
-            ChatId = chatId,
-            Participants = new TVector<IChatParticipant>(participants),
-            Version = chatVersion
-        };
+        return ToChannel(channelReadModel,
+            channelMemberReadModel,
+            selfUserId,
+            channelMemberReadModel == null || channelMemberReadModel.Left);
     }
 
-    private IChannelParticipant ToChannelParticipantCore(IChannelReadModel channelReadModel,
-            IChannelMemberReadModel channelMemberReadModel,
+    private Schema.IChannelParticipant ToChannelParticipantCore(IChannelReadModel channelReadModel,
+        IChannelMemberReadModel channelMemberReadModel,
         long selfUserId)
     {
         var bannedRights = _objectMapper.Map<ChatBannedRights, TChatBannedRights>(
@@ -481,22 +461,47 @@ public class TlChatConverter : ITlChatConverter
             };
         }
 
-        return new TChannelParticipant
+        return new Schema.TChannelParticipant
         {
             UserId = channelMemberReadModel.UserId,
             Date = channelMemberReadModel.Date
         };
     }
-    private IReadOnlyList<IChannelParticipant> ToChannelParticipantsCore(
+
+    private IReadOnlyList<Schema.IChannelParticipant> ToChannelParticipantsCore(
         IReadOnlyCollection<IChannelMemberReadModel> channelMemberReadModels,
         IChannelReadModel channelReadModel)
     {
-        var participants = new List<IChannelParticipant>();
+        var participants = new List<Schema.IChannelParticipant>();
         foreach (var channelMemberReadModel in channelMemberReadModels)
         {
             participants.Add(ToChannelParticipantCore(channelReadModel, channelMemberReadModel, 0));
         }
 
         return participants;
+    }
+
+    private static TChatParticipants ToChatParticipants(long chatId,
+        IReadOnlyList<ChatMember> chatMemberList,
+        int date,
+        long creatorUid,
+        int chatVersion)
+    {
+        var participants = chatMemberList.Select(p =>
+        {
+            if (p.UserId == creatorUid)
+            {
+                return (IChatParticipant)new TChatParticipantCreator { UserId = p.UserId };
+            }
+
+            return new TChatParticipant { Date = date, InviterId = creatorUid, UserId = p.UserId };
+        }).ToList();
+
+        return new TChatParticipants
+        {
+            ChatId = chatId,
+            Participants = new TVector<IChatParticipant>(participants),
+            Version = chatVersion
+        };
     }
 }

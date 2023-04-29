@@ -7,9 +7,9 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
     IGetChannelDifferenceHandler, IProcessedHandler
 {
     private readonly IAckCacheService _ackCacheService;
+    private readonly ITlDifferenceConverter _differenceConverter;
     private readonly IMessageAppService _messageAppService;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly ITlDifferenceConverter _differenceConverter;
 
     public GetChannelDifferenceHandler(IMessageAppService messageAppService,
         IQueryProcessor queryProcessor,
@@ -28,7 +28,7 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
         if (obj.Channel is TInputChannel inputChannel)
         {
             var channelMemberReadModel = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default)
+                    .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default)
                 ;
             var isChannelMember = channelMemberReadModel != null;
 
@@ -54,7 +54,7 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
                     input.UserId));
 
             var pushUpdatesReadModelList = await _queryProcessor
-                .ProcessAsync(new GetPushUpdatesQuery(inputChannel.ChannelId, obj.Pts, limit), default)
+                    .ProcessAsync(new GetPushUpdatesQuery(inputChannel.ChannelId, obj.Pts, limit), default)
                 ;
             var allUpdateList = new List<IUpdate>();
             var maxPts = 0;

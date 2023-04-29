@@ -22,13 +22,14 @@ public class ResetAuthorizationHandler : RpcResultObjectHandler<RequestResetAuth
         RequestResetAuthorization obj)
     {
         var deviceReadModel = await _queryProcessor
-            .ProcessAsync(new GetDeviceByHashQuery(input.UserId, obj.Hash), CancellationToken.None)
+                .ProcessAsync(new GetDeviceByHashQuery(input.UserId, obj.Hash), CancellationToken.None)
             ;
         if (deviceReadModel != null)
         {
             await _eventBus.PublishAsync(new UnRegisterAuthKeyEvent(deviceReadModel.PermAuthKeyId))
                 ;
         }
+
         return new TBoolTrue();
     }
 }

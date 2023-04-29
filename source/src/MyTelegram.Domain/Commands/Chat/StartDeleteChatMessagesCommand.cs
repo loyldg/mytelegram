@@ -2,11 +2,6 @@
 
 public class StartDeleteChatMessagesCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>
 {
-    public List<int> MessageIds { get; }
-    public bool Revoke { get; }
-    public bool IsClearHistory { get; }
-    public Guid CorrelationId { get; }
-
     public StartDeleteChatMessagesCommand(ChatId aggregateId,
         RequestInfo requestInfo,
         List<int> messageIds,
@@ -19,4 +14,9 @@ public class StartDeleteChatMessagesCommand : RequestCommand2<ChatAggregate, Cha
         IsClearHistory = isClearHistory;
         CorrelationId = correlationId;
     }
+
+    public List<int> MessageIds { get; }
+    public bool Revoke { get; }
+    public bool IsClearHistory { get; }
+    public Guid CorrelationId { get; }
 }

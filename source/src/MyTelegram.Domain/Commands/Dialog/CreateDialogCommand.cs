@@ -4,14 +4,14 @@ public class CreateDialogCommand : Command<DialogAggregate, DialogId, IExecution
 {
     public CreateDialogCommand(DialogId aggregateId,
         long ownerId,
-        Peer toPeer ,
+        Peer toPeer,
         int channelHistoryMinId,
         int topMessageId,
         //string topMessageBoxId,
         Guid correlationId) : base(aggregateId)
     {
         OwnerId = ownerId;
-        ToPeer  = toPeer ;
+        ToPeer = toPeer;
         ChannelHistoryMinId = channelHistoryMinId;
         TopMessageId = topMessageId;
         //TopMessageBoxId = topMessageBoxId;
@@ -24,6 +24,6 @@ public class CreateDialogCommand : Command<DialogAggregate, DialogId, IExecution
     public Guid CorrelationId { get; }
 
     public long OwnerId { get; }
-    public Peer ToPeer { get; } 
+    public Peer ToPeer { get; }
     public int TopMessageId { get; }
 }

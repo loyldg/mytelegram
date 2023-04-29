@@ -9,7 +9,8 @@ public class GetScheduledHistoryHandler : RpcResultObjectHandler<RequestGetSched
     protected override Task<IMessages> HandleCoreAsync(IRequestInput input,
         RequestGetScheduledHistory obj)
     {
-        return Task.FromResult<IMessages>(new TMessages {
+        return Task.FromResult<IMessages>(new TMessages
+        {
             Chats = new TVector<IChat>(), Messages = new TVector<IMessage>(), Users = new TVector<IUser>()
         });
     }

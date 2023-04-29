@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.Aggregates.Poll;
-
-namespace MyTelegram.ReadModel.ReadModelLocators;
+﻿namespace MyTelegram.ReadModel.ReadModelLocators;
 
 public class PollAnswerVoterReadModelLocator : IPollAnswerVoterReadModelLocator
 {

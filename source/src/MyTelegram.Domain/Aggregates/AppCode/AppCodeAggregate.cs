@@ -66,15 +66,14 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         //var isCodeValid = CheckCode(code);
 
-
-            Emit(new CheckSignUpCodeCompletedEvent(requestInfo,
+        Emit(new CheckSignUpCodeCompletedEvent(requestInfo,
             true,
-                userId,
-                accessHash,
-                phoneNumber,
-                firstName,
-                lastName,
-                correlationId));
+            userId,
+            accessHash,
+            phoneNumber,
+            firstName,
+            lastName,
+            correlationId));
     }
 
     public void Create(RequestInfo requestInfo,

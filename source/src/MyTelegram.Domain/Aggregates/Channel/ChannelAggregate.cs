@@ -10,13 +10,25 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Register(_state);
     }
 
-    public void StartDeleteParticipantHistory(RequestInfo requestInfo, List<int> messageIds, Guid correlationId)
+    private void CheckBannedRights(long selfUserId,
+        bool bannedRights,
+        bool? adminRights,
+        string error)
     {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        var admin = _state.GetAdmin(requestInfo.UserId);
-        CheckBannedRights(requestInfo.UserId, true, admin?.AdminRights.DeleteMessages, RpcErrorMessages.ChatAdminRequired);
-        Emit(new DeleteParticipantHistoryStartedEvent(requestInfo, _state.ChannelId, messageIds, correlationId));
+        if (_state.CreatorId != selfUserId)
+        {
+            if (adminRights.HasValue && adminRights.Value)
+            {
+                return;
+            }
+
+            if (bannedRights)
+            {
+                ThrowHelper.ThrowUserFriendlyException(error);
+            }
+        }
     }
+
     public void CheckChannelState(long senderPeerId,
         int messageId,
         int date,
@@ -96,6 +108,27 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             randomId,
             messageActionData,
             correlationId));
+    }
+
+    protected override Task<ChannelSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
+    {
+        return Task.FromResult(new ChannelSnapshot(_state.Broadcast,
+            _state.ChannelId,
+            _state.CreatorId,
+            _state.PreHistoryHidden,
+            _state.MaxMessageId,
+            _state.BotUidList,
+            _state.LatestNoneBotSenderPeerId,
+            _state.LatestNoneBotSenderMessageId,
+            _state.DefaultBannedRights,
+            _state.SlowModeSeconds,
+            _state.LastSendDate,
+            //_state.LastSenderPeerId,
+            _state.AdminList,
+            _state.PinnedMsgId,
+            _state.Photo,
+            _state.LinkedChannelId,
+            _state.UserName));
     }
 
     public void EditAbout(long reqMsgId,
@@ -230,6 +263,14 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new IncrementParticipantCountEvent());
     }
 
+    protected override Task LoadSnapshotAsync(ChannelSnapshot snapshot,
+        ISnapshotMetadata metadata,
+        CancellationToken cancellationToken)
+    {
+        _state.LoadFromSnapshot(snapshot);
+        return Task.CompletedTask;
+    }
+
     public void ReadChannelLatestNoneBotOutboxMessage(string sourceCommandId,
         Guid correlationId)
     {
@@ -269,6 +310,19 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new SetChannelPtsEvent(senderPeerId, pts, messageId, date));
+    }
+
+    public void StartDeleteParticipantHistory(RequestInfo requestInfo,
+        List<int> messageIds,
+        Guid correlationId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var admin = _state.GetAdmin(requestInfo.UserId);
+        CheckBannedRights(requestInfo.UserId,
+            true,
+            admin?.AdminRights.DeleteMessages,
+            RpcErrorMessages.ChatAdminRequired);
+        Emit(new DeleteParticipantHistoryStartedEvent(requestInfo, _state.ChannelId, messageIds, correlationId));
     }
 
     public void StartInviteToChannel(RequestInfo requestInfo,
@@ -396,52 +450,5 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             userName,
             _state.UserName,
             correlationId));
-    }
-
-    protected override Task<ChannelSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
-    {
-        return Task.FromResult(new ChannelSnapshot(_state.Broadcast,
-            _state.ChannelId,
-            _state.CreatorId,
-            _state.PreHistoryHidden,
-            _state.MaxMessageId,
-            _state.BotUidList,
-            _state.LatestNoneBotSenderPeerId,
-            _state.LatestNoneBotSenderMessageId,
-            _state.DefaultBannedRights,
-            _state.SlowModeSeconds,
-            _state.LastSendDate,
-            //_state.LastSenderPeerId,
-            _state.AdminList,
-            _state.PinnedMsgId,
-            _state.Photo,
-            _state.LinkedChannelId,
-            _state.UserName));
-    }
-
-    protected override Task LoadSnapshotAsync(ChannelSnapshot snapshot,
-        ISnapshotMetadata metadata,
-        CancellationToken cancellationToken)
-    {
-        _state.LoadFromSnapshot(snapshot);
-        return Task.CompletedTask;
-    }
-
-    private void CheckBannedRights(long selfUserId, bool bannedRights,
-        bool? adminRights,
-        string error)
-    {
-        if (_state.CreatorId != selfUserId)
-        {
-            if (adminRights.HasValue && adminRights.Value)
-            {
-                return;
-            }
-
-            if (bannedRights)
-            {
-                ThrowHelper.ThrowUserFriendlyException(error);
-            }
-        }
     }
 }

@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Auth;
+
 namespace MyTelegram.Handlers.Auth;
 
-internal sealed class RequestFirebaseSmsHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestRequestFirebaseSms, IBool>,
+internal sealed class RequestFirebaseSmsHandler : RpcResultObjectHandler<RequestRequestFirebaseSms, IBool>,
     Auth.IRequestFirebaseSmsHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Auth.RequestRequestFirebaseSms obj)
+        RequestRequestFirebaseSms obj)
     {
         throw new NotImplementedException();
     }

@@ -1,7 +1,8 @@
 ﻿// ReSharper disable All
+
 namespace MyTelegram.Schema;
 
-public interface ILayeredChatFull : MyTelegram.Schema.IChatFull
+public interface ILayeredChatFull : Schema.IChatFull
 {
-    MyTelegram.Schema.IChatParticipants Participants { get; set; }
+    Schema.IChatParticipants Participants { get; set; }
 }

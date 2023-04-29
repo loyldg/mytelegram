@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public enum PtsChangeReason
@@ -12,9 +13,10 @@ public enum PtsChangeReason
     InboxEdited = 5,
     OutboxPinnedChanged = 6,
     InboxPinnedChanged = 7,
+
     //ReadHistory,
     DeleteMessage,
     ClearHistory,
     EditMessage,
-    Others,
+    Others
 }

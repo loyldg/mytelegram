@@ -35,7 +35,7 @@ public class CustomObjectMapper :
     IObjectMapper<TInputMediaVenue, TMessageMediaVenue>,
     IObjectMapper<MessageFwdHeader, TMessageFwdHeader>,
     IObjectMapper<GetRepliesInput, GetMessagesQuery>,
- 	IObjectMapper<DialogFilter, TDialogFilter>,
+    IObjectMapper<DialogFilter, TDialogFilter>,
     IObjectMapper<InputPeer, IInputPeer>
 
 {
@@ -123,6 +123,46 @@ public class CustomObjectMapper :
         return destination;
     }
 
+    public TDialogFilter? Map(DialogFilter source)
+    {
+        return Map(source, new TDialogFilter());
+    }
+
+    public TDialogFilter? Map(DialogFilter source,
+        TDialogFilter destination)
+    {
+        destination.Id = source.Id;
+        destination.Contacts = source.Contacts;
+        destination.NonContacts = source.NonContacts;
+        destination.Groups = source.Groups;
+        destination.Bots = source.Bots;
+        destination.ExcludeMuted = source.ExcludeMuted;
+        destination.ExcludeRead = source.ExcludeRead;
+        destination.ExcludeArchived = source.ExcludeArchived;
+        destination.Title = source.Title;
+        destination.Emoticon = source.Emoticon;
+        destination.Broadcasts = source.Broadcasts;
+        destination.PinnedPeers = new TVector<IInputPeer>();
+        destination.ExcludePeers = new TVector<IInputPeer>();
+        destination.IncludePeers = new TVector<IInputPeer>();
+        foreach (var peer in source.PinnedPeers)
+        {
+            destination.PinnedPeers.Add(Map(peer));
+        }
+
+        foreach (var peer in source.ExcludePeers)
+        {
+            destination.ExcludePeers.Add(Map(peer));
+        }
+
+        foreach (var peer in source.IncludePeers)
+        {
+            destination.IncludePeers.Add(Map(peer));
+        }
+
+        return destination;
+    }
+
     public TChatInviteExported Map(ExportChatInviteEvent source)
     {
         return Map(source, new TChatInviteExported());
@@ -186,6 +226,7 @@ public class CustomObjectMapper :
     {
         return Map(source, null!);
     }
+
     public GetMessagesQuery? Map(GetRepliesInput source,
         GetMessagesQuery destination)
     {
@@ -201,6 +242,7 @@ public class CustomObjectMapper :
             0,
             source.ReplyToMsgId);
     }
+
     public TChannelFull Map(IChannelFullReadModel source)
     {
         return Map(source, new TChannelFull());
@@ -351,7 +393,7 @@ public class CustomObjectMapper :
                 Message = source.Draft.Message,
                 NoWebpage = source.Draft.NoWebpage,
                 ReplyToMsgId = source.Draft.ReplyToMsgId,
-                Entities = source.Draft.Entities.ToTObject<TVector<IMessageEntity>>(),
+                Entities = source.Draft.Entities.ToTObject<TVector<IMessageEntity>>()
             };
         }
 
@@ -394,6 +436,29 @@ public class CustomObjectMapper :
         destination.Thumbs = source.Thumbs;
 
         return destination;
+    }
+
+    public IInputPeer? Map(InputPeer source)
+    {
+        switch (source.Peer.PeerType)
+        {
+            case PeerType.Empty:
+            case PeerType.Self:
+            case PeerType.User:
+                return new TInputPeerUser { AccessHash = source.AccessHash, UserId = source.Peer.PeerId };
+            case PeerType.Chat:
+                return new TInputPeerChat { ChatId = source.Peer.PeerId };
+            case PeerType.Channel:
+                return new TInputPeerChannel { AccessHash = source.AccessHash, ChannelId = source.Peer.PeerId };
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public IInputPeer? Map(InputPeer source,
+        IInputPeer destination)
+    {
+        throw new NotImplementedException();
     }
 
     public TState Map(IPtsReadModel source)
@@ -666,61 +731,5 @@ public class CustomObjectMapper :
         destination.Password = source.Password;
 
         return destination;
-    }
-    public TDialogFilter? Map(DialogFilter source)
-    {
-        return Map(source, new TDialogFilter());
-    }
-    public TDialogFilter? Map(DialogFilter source,
-        TDialogFilter destination)
-    {
-        destination.Id = source.Id;
-        destination.Contacts = source.Contacts;
-        destination.NonContacts = source.NonContacts;
-        destination.Groups = source.Groups;
-        destination.Bots = source.Bots;
-        destination.ExcludeMuted = source.ExcludeMuted;
-        destination.ExcludeRead = source.ExcludeRead;
-        destination.ExcludeArchived = source.ExcludeArchived;
-        destination.Title = source.Title;
-        destination.Emoticon = source.Emoticon;
-        destination.Broadcasts = source.Broadcasts;
-        destination.PinnedPeers = new TVector<IInputPeer>();
-        destination.ExcludePeers = new TVector<IInputPeer>();
-        destination.IncludePeers = new TVector<IInputPeer>();
-        foreach (var peer in source.PinnedPeers)
-        {
-            destination.PinnedPeers.Add(Map(peer));
-        }
-        foreach (var peer in source.ExcludePeers)
-        {
-            destination.ExcludePeers.Add(Map(peer));
-        }
-        foreach (var peer in source.IncludePeers)
-        {
-            destination.IncludePeers.Add(Map(peer));
-        }
-        return destination;
-    }
-    public IInputPeer? Map(InputPeer source)
-    {
-        switch (source.Peer.PeerType)
-        {
-            case PeerType.Empty:
-            case PeerType.Self:
-            case PeerType.User:
-                return new TInputPeerUser { AccessHash = source.AccessHash, UserId = source.Peer.PeerId };
-            case PeerType.Chat:
-                return new TInputPeerChat { ChatId = source.Peer.PeerId };
-            case PeerType.Channel:
-                return new TInputPeerChannel { AccessHash = source.AccessHash, ChannelId = source.Peer.PeerId };
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-    public IInputPeer? Map(InputPeer source,
-        IInputPeer destination)
-    {
-        throw new NotImplementedException();
     }
 }

@@ -40,7 +40,6 @@ public class GetDialogOutput
     public int Limit { get; }
     public IReadOnlyCollection<IChatReadModel> ChatList { get; set; }
 
-
     public IReadOnlyCollection<IDialogReadModel> DialogList { get; set; }
     public IReadOnlyCollection<IMessageReadModel> MessageList { get; set; }
     public IPtsReadModel? PtsReadModel { get; set; }

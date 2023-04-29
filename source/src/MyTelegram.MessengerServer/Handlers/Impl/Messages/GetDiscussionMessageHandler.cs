@@ -6,10 +6,11 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDiscussionMessage, IDiscussionMessage>,
     IGetDiscussionMessageHandler, IProcessedHandler
 {
-    private readonly IPeerHelper _peerHelper;
-    private readonly ITlMessageConverter _messageConverter;
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ITlChatConverter _chatConverter;
+    private readonly ITlMessageConverter _messageConverter;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IQueryProcessor _queryProcessor;
+
     public GetDiscussionMessageHandler(IPeerHelper peerHelper,
         ITlMessageConverter messageConverter,
         IQueryProcessor queryProcessor,
@@ -28,7 +29,7 @@ public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDisc
         var peer = _peerHelper.GetPeer(obj.Peer);
         var query = new GetDiscussionMessageQuery(peer.PeerId, obj.MsgId);
         var messageReadModel = await _queryProcessor
-            .ProcessAsync(query, default)
+                .ProcessAsync(query, default)
             ;
 
         if (messageReadModel == null)
@@ -37,7 +38,7 @@ public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDisc
             {
                 Chats = new TVector<IChat>(),
                 Messages = new TVector<IMessage>(),
-                Users = new TVector<IUser>(),
+                Users = new TVector<IUser>()
             };
         }
 
@@ -47,9 +48,12 @@ public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDisc
         //var messages = _messageConverter.ToMessages(new[] { messageReadModel }, input.UserId);
 
         var dialogReadModel =
-            await _queryProcessor.ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, PeerType.Channel, messageReadModel.ToPeerId)), default);
+            await _queryProcessor.ProcessAsync(
+                new GetDialogByIdQuery(DialogId.Create(input.UserId, PeerType.Channel, messageReadModel.ToPeerId)),
+                default);
         var channelReadModels = await _queryProcessor
-            .ProcessAsync(new GetChannelByChannelIdListQuery(new long[] { peer.PeerId, messageReadModel.ToPeerId }), default)
+                .ProcessAsync(new GetChannelByChannelIdListQuery(new[] { peer.PeerId, messageReadModel.ToPeerId }),
+                    default)
             ;
 
         var readMaxId = 0;
@@ -72,7 +76,8 @@ public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDisc
         var chats = _chatConverter.ToChannelList(channelReadModels,
             new List<long>(),
             new List<IChannelMemberReadModel>(),
-            input.UserId, true);
+            input.UserId,
+            true);
 
         return new TDiscussionMessage
         {

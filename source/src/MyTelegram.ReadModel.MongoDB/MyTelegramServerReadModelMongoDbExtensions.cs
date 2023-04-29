@@ -1,16 +1,9 @@
 ﻿using MyTelegram.EventFlow.MongoDB;
+
 namespace MyTelegram.ReadModel.MongoDB;
 
 public static class MyTelegramServerReadModelMongoDbExtensions
 {
-    public static IEventFlowOptions AddPushUpdatesMongoDbReadModel(this IEventFlowOptions options)
-    {
-        options.UseMongoDbReadModel<PtsReadModel, IPtsReadModelLocator>();
-        options.UseMongoDbReadModel<PushUpdatesReadModel>();
-        options.UseMongoDbReadModel<PtsForAuthKeyIdReadModel>();
-        return options;
-    }
-
     public static IEventFlowOptions AddMessengerMongoDbReadModel(this IEventFlowOptions options)
     {
         options.ServiceCollection
@@ -22,7 +15,7 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .AddTransient<IUserReadModelLocator, UserReadModelLocator>()
             .AddTransient<IChannelReadModelLocator, ChannelReadModelLocator>()
             .AddTransient<IChannelFullReadModelLocator, ChannelFullReadModelLocator>()
-			.AddTransient<IPollAnswerVoterReadModelLocator, PollAnswerVoterReadModelLocator>()
+            .AddTransient<IPollAnswerVoterReadModelLocator, PollAnswerVoterReadModelLocator>()
             ;
 
         return options.AddDefaults(typeof(MyTelegramServerReadModelMongoDbExtensions).Assembly)
@@ -46,8 +39,16 @@ public static class MyTelegramServerReadModelMongoDbExtensions
                 .UseMongoDbReadModel<RpcResultReadModel>()
                 .UseMongoDbReadModel<ReplyReadModel, IReplyReadModelLocator>()
                 .UseMongoDbReadModel<DialogFilterReadModel>()
-				.UseMongoDbReadModel<PollAggregate, PollId, PollReadModel>()
+                .UseMongoDbReadModel<PollAggregate, PollId, PollReadModel>()
                 .UseMongoDbReadModel<PollAnswerVoterReadModel, IPollAnswerVoterReadModelLocator>()
             ;
+    }
+
+    public static IEventFlowOptions AddPushUpdatesMongoDbReadModel(this IEventFlowOptions options)
+    {
+        options.UseMongoDbReadModel<PtsReadModel, IPtsReadModelLocator>();
+        options.UseMongoDbReadModel<PushUpdatesReadModel>();
+        options.UseMongoDbReadModel<PtsForAuthKeyIdReadModel>();
+        return options;
     }
 }

@@ -1,14 +1,12 @@
-﻿using EventFlow.Exceptions;
-using IMessageViews = MyTelegram.Schema.IMessageViews;
-
-namespace MyTelegram.MessengerServer.Services.Impl;
+﻿namespace MyTelegram.MessengerServer.Services.Impl;
 
 public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, ISingletonDependency
 {
     //private readonly IBloomFilter _bloomFilter;
     private readonly ICommandBus _commandBus;
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ICuckooFilter _cuckooFilter;
+    private readonly IQueryProcessor _queryProcessor;
+
     public ChannelMessageViewsAppService(
         IQueryProcessor queryProcessor,
         ICommandBus commandBus,
@@ -32,13 +30,6 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
         }
     }
 
-    private byte[] GetFilterKey(long selfUserId,
-        long authKeyId,
-        long channelId,
-        int messageId) =>
-        Encoding.UTF8.GetBytes(
-            $"{MyTelegramServerDomainConsts.ChannelMessageViewsBloomFilterKey}_{selfUserId}_{authKeyId}_{channelId}_{messageId}");
-
     public async Task<IList<IMessageViews>> GetMessageViewsAsync(long selfUserId,
         long authKeyId,
         long channelId,
@@ -59,6 +50,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
                 await _cuckooFilter.AddAsync(key);
                 needIncrementMessageIdList.Add(messageIdGreaterThanZeroList[index]);
             }
+
             index++;
         }
 
@@ -85,7 +77,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             ;
 
         var replies = (await _queryProcessor.ProcessAsync(new GetRepliesQuery(channelId, messageIdList), default)
-            .ConfigureAwait(false))
+                    .ConfigureAwait(false))
                 .ToDictionary(k => k.SavedFromMsgId, v => v)
             ;
 
@@ -96,13 +88,13 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             if (messageViews.TryGetValue(messageId, out var views))
             {
                 replies.TryGetValue(messageId, out var reply);
-                var recentRepliers = new List<IPeer>();// = reply?.RecentRepliers.Select(p => p.ToPeer());
+                var recentRepliers = new List<IPeer>(); // = reply?.RecentRepliers.Select(p => p.ToPeer());
                 if (reply?.RecentRepliers?.Count > 0)
                 {
                     recentRepliers.AddRange(reply.RecentRepliers.Select(peer => peer.ToPeer()));
                 }
 
-                messageViewsToClient.Add(new Schema.TMessageViews
+                messageViewsToClient.Add(new TMessageViews
                 {
                     Views = needIncrement ? views.Views + 1 : views.Views,
                     //Replies = new TMessageReplies { ChannelId = channelId }
@@ -119,10 +111,19 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             }
             else
             {
-                messageViewsToClient.Add(new Schema.TMessageViews { Views = 0 });
+                messageViewsToClient.Add(new TMessageViews { Views = 0 });
             }
         }
 
         return messageViewsToClient;
+    }
+
+    private byte[] GetFilterKey(long selfUserId,
+        long authKeyId,
+        long channelId,
+        int messageId)
+    {
+        return Encoding.UTF8.GetBytes(
+            $"{MyTelegramServerDomainConsts.ChannelMessageViewsBloomFilterKey}_{selfUserId}_{authKeyId}_{channelId}_{messageId}");
     }
 }

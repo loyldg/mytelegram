@@ -4,5 +4,5 @@ namespace MyTelegram.Schema;
 
 public interface ICdnConfig : IObject
 {
-    TVector<MyTelegram.Schema.ICdnPublicKey> PublicKeys { get; set; }
+    TVector<Schema.ICdnPublicKey> PublicKeys { get; set; }
 }

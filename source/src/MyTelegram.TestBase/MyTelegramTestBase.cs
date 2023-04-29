@@ -9,40 +9,21 @@ namespace MyTelegram.TestBase;
 
 public abstract class MyTelegramTestBase
 {
-    protected IFixture Fixture { get; }
-    protected IDomainEventFactory DomainEventFactory { get; }
-
     protected MyTelegramTestBase()
     {
         Fixture = new Fixture().Customize(new AutoMoqCustomization());
-        Fixture.Customize<EventId>(c => (c.FromFactory(() => EventId.New)));
+        Fixture.Customize<EventId>(c => c.FromFactory(() => EventId.New));
         Fixture.Customize<Label>(s => s.FromFactory(() => Label.Named($"label-{Guid.NewGuid():D}")));
 
         DomainEventFactory = new DomainEventFactory();
     }
 
-    protected T A<T>() => Fixture.Create<T>();
+    protected IFixture Fixture { get; }
+    protected IDomainEventFactory DomainEventFactory { get; }
 
-    protected List<T> Many<T>(int count = 3) => Fixture.CreateMany<T>(count).ToList();
-
-    protected T Mock<T>() where T : class
+    protected T A<T>()
     {
-        return new Mock<T>().Object;
-    }
-
-    protected T Inject<T>(T instance)
-           where T : class
-    {
-        Fixture.Inject(instance);
-        return instance;
-    }
-
-    protected Mock<T> InjectMock<T>(params object[] args) where T : class
-    {
-        var mock = new Mock<T>(args);
-        Fixture.Inject(mock.Object);
-
-        return mock;
+        return Fixture.Create<T>();
     }
 
     protected IDomainEvent<TAggregate, TIdentity, TAggregateEvent> ADomainEvent<TAggregate, TIdentity, TAggregateEvent>(
@@ -65,7 +46,9 @@ public abstract class MyTelegramTestBase
         int aggregateSequenceNumber = 0
     ) where TAggregate : IAggregateRoot<TIdentity> where TIdentity : IIdentity where TAggregateEvent : IAggregateEvent
     {
-        return ToDomainEvent<TAggregate, TIdentity, TAggregateEvent>(A<TIdentity>(), A<TAggregateEvent>(), aggregateSequenceNumber);
+        return ToDomainEvent<TAggregate, TIdentity, TAggregateEvent>(A<TIdentity>(),
+            A<TAggregateEvent>(),
+            aggregateSequenceNumber);
     }
 
     protected IDomainEvent<TAggregate, TIdentity> ADomainEvent<TAggregate, TIdentity, TAggregateEvent>(
@@ -73,7 +56,34 @@ public abstract class MyTelegramTestBase
         int aggregateSequenceNumber = 0
     ) where TAggregate : IAggregateRoot<TIdentity> where TIdentity : IIdentity where TAggregateEvent : IAggregateEvent
     {
-        return ToDomainEvent<TAggregate, TIdentity, TAggregateEvent>(A<TIdentity>(), aggregateEvent, aggregateSequenceNumber);
+        return ToDomainEvent<TAggregate, TIdentity, TAggregateEvent>(A<TIdentity>(),
+            aggregateEvent,
+            aggregateSequenceNumber);
+    }
+
+    protected T Inject<T>(T instance)
+        where T : class
+    {
+        Fixture.Inject(instance);
+        return instance;
+    }
+
+    protected Mock<T> InjectMock<T>(params object[] args) where T : class
+    {
+        var mock = new Mock<T>(args);
+        Fixture.Inject(mock.Object);
+
+        return mock;
+    }
+
+    protected List<T> Many<T>(int count = 3)
+    {
+        return Fixture.CreateMany<T>(count).ToList();
+    }
+
+    protected T Mock<T>() where T : class
+    {
+        return new Mock<T>().Object;
     }
 
     protected IDomainEvent<TAggregate, TIdentity> ToDomainEvent<TAggregate, TIdentity, TAggregateEvent>(

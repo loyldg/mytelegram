@@ -10,7 +10,7 @@ public interface IPageTableCell : IObject
     bool AlignRight { get; set; }
     bool ValignMiddle { get; set; }
     bool ValignBottom { get; set; }
-    MyTelegram.Schema.IRichText? Text { get; set; }
+    Schema.IRichText? Text { get; set; }
     int? Colspan { get; set; }
     int? Rowspan { get; set; }
 }

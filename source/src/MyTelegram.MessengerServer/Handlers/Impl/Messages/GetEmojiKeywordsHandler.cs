@@ -9,7 +9,8 @@ public class GetEmojiKeywordsHandler : RpcResultObjectHandler<RequestGetEmojiKey
     protected override Task<IEmojiKeywordsDifference> HandleCoreAsync(IRequestInput input,
         RequestGetEmojiKeywords obj)
     {
-        var r = new TEmojiKeywordsDifference {
+        var r = new TEmojiKeywordsDifference
+        {
             FromVersion = 0, Version = 0, LangCode = obj.LangCode, Keywords = new TVector<IEmojiKeyword>()
         };
 

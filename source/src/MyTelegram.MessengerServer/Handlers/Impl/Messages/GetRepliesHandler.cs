@@ -6,9 +6,9 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Messages;
 public class GetRepliesHandler : RpcResultObjectHandler<RequestGetReplies, IMessages>,
     IGetRepliesHandler, IProcessedHandler
 {
-    private readonly IQueryProcessor _queryProcessor;
-    private readonly IPeerHelper _peerHelper;
     private readonly IMessageAppService _messageAppService;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IQueryProcessor _queryProcessor;
     private readonly IRpcResultProcessor _rpcResultProcessor;
 
     public GetRepliesHandler(IQueryProcessor queryProcessor,

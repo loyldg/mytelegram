@@ -67,7 +67,8 @@ public class ExceptionProcessor : IExceptionProcessor
                 } commandException
             }:
                 errorCode = MyTelegramServerDomainConsts.BadRequestErrorCode;
-                errorMessage = commandException.InnerException?.Message ?? MyTelegramServerDomainConsts.InternalErrorMessage;
+                errorMessage = commandException.InnerException?.Message ??
+                               MyTelegramServerDomainConsts.InternalErrorMessage;
                 break;
 
             default:

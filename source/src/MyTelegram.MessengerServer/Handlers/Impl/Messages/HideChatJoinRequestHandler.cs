@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class HideChatJoinRequestHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestHideChatJoinRequest, MyTelegram.Schema.IUpdates>,
+public class HideChatJoinRequestHandler : RpcResultObjectHandler<RequestHideChatJoinRequest, Schema.IUpdates>,
     Messages.IHideChatJoinRequestHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestHideChatJoinRequest obj)
+    protected override Task<Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestHideChatJoinRequest obj)
     {
         throw new NotImplementedException();
     }

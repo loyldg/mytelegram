@@ -16,6 +16,7 @@ public interface ITlUpdatesConverter
     IUpdates ToDeleteMessagesUpdates(PeerType toPeerType,
         DeletedBoxItem item,
         int date);
+
     IUpdates ToEditUpdates(OutboxMessageEditCompletedEvent aggregateEvent,
         long selfUserId);
 

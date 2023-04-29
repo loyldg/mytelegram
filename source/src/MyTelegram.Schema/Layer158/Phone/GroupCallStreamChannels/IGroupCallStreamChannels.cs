@@ -4,5 +4,5 @@ namespace MyTelegram.Schema.Phone;
 
 public interface IGroupCallStreamChannels : IObject
 {
-    TVector<MyTelegram.Schema.IGroupCallStreamChannel> Channels { get; set; }
+    TVector<Schema.IGroupCallStreamChannel> Channels { get; set; }
 }

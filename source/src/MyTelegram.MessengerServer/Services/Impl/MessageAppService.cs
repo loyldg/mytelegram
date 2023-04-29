@@ -127,6 +127,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
 
         await _commandBus.PublishAsync(command, default);
     }
+
     private List<IMessageEntity> GetMentions(string message)
     {
         var pattern = "@(\\w{3,40})";
@@ -188,23 +189,23 @@ public class MessageAppService : BaseAppService, IMessageAppService
         userIdList.AddRange(extraChatUserIdList);
 
         var userList =
-            await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIdList), CancellationToken.None)
-                ;
+                await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIdList), CancellationToken.None)
+            ;
         var chatList = chatIdList.Count == 0
             ? new List<IChatReadModel>()
             : await _queryProcessor
                 .ProcessAsync(new GetChatByChatIdListQuery(chatIdList), CancellationToken.None);
         var channelList = channelIdList.Count == 0
-            ? new List<IChannelReadModel>()
-            : await _queryProcessor
-                .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), CancellationToken.None)
-                ;
+                ? new List<IChannelReadModel>()
+                : await _queryProcessor
+                    .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), CancellationToken.None)
+            ;
 
         IReadOnlyCollection<long> joinedChannelIdList = new List<long>();
         if (channelIdList.Count > 0)
         {
             joinedChannelIdList = await _queryProcessor
-                .ProcessAsync(new GetJoinedChannelIdListQuery(query.SelfUserId, channelIdList), default)
+                    .ProcessAsync(new GetJoinedChannelIdListQuery(query.SelfUserId, channelIdList), default)
                 ;
         }
 
@@ -231,7 +232,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
             pollReadModels =
                 await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default);
             chosenOptions = await _queryProcessor
-                .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.SelfUserId), default)
+                    .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.SelfUserId), default)
                 ;
         }
 

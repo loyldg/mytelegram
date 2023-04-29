@@ -3,7 +3,8 @@
 public class CreateChatSaga : MyInMemoryAggregateSaga<CreateChatSaga, CreateChatSagaId, CreateChatSagaLocator>,
     ISagaIsStartedBy<ChatAggregate, ChatId, ChatCreatedEvent>
 {
-    public CreateChatSaga(CreateChatSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public CreateChatSaga(CreateChatSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
     }
 

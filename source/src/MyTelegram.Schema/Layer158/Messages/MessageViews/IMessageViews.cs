@@ -4,7 +4,7 @@ namespace MyTelegram.Schema.Messages;
 
 public interface IMessageViews : IObject
 {
-    TVector<MyTelegram.Schema.IMessageViews> Views { get; set; }
-    TVector<MyTelegram.Schema.IChat> Chats { get; set; }
-    TVector<MyTelegram.Schema.IUser> Users { get; set; }
+    TVector<Schema.IMessageViews> Views { get; set; }
+    TVector<Schema.IChat> Chats { get; set; }
+    TVector<Schema.IUser> Users { get; set; }
 }

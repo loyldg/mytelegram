@@ -21,7 +21,8 @@ public class CheckUsernameHandler : RpcResultObjectHandler<RequestCheckUsername,
         RequestCheckUsername obj)
     {
         if (await _cuckooFilter
-                .ExistsAsync( Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{obj.Username}"))
+                .ExistsAsync(
+                    Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{obj.Username}"))
                 .ConfigureAwait(false))
         {
             return new TBoolFalse();

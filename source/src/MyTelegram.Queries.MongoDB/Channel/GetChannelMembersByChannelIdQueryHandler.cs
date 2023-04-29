@@ -23,15 +23,16 @@ public class GetChannelMembersByChannelIdQueryHandler : IQueryHandler<GetChannel
         if (query.MemberUidList.Count > 0)
         {
             var cursor = await _store
-                .FindAsync(p => !p.Left && p.ChannelId == query.ChannelId && query.MemberUidList.Contains(p.UserId),
-                    options,
-                    cancellationToken)
+                    .FindAsync(p => !p.Left && p.ChannelId == query.ChannelId && query.MemberUidList.Contains(p.UserId),
+                        options,
+                        cancellationToken)
                 ;
             return await cursor.ToListAsync(cancellationToken);
-        } else
+        }
+        else
         {
             var cursor = await _store
-                .FindAsync(p => !p.Left && p.ChannelId == query.ChannelId, options, cancellationToken)
+                    .FindAsync(p => !p.Left && p.ChannelId == query.ChannelId, options, cancellationToken)
                 ;
             return await cursor.ToListAsync(cancellationToken);
         }

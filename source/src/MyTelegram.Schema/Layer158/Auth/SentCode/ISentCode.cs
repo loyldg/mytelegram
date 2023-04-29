@@ -4,5 +4,4 @@ namespace MyTelegram.Schema.Auth;
 
 public interface ISentCode : IObject
 {
-
 }

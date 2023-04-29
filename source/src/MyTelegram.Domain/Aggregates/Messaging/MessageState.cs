@@ -34,17 +34,69 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
     public bool Edited { get; private set; }
     public int Pts { get; private set; }
 
-    public IReadOnlyCollection<Peer> RecentRepliers { get; private set; } = new List<Peer>(MyTelegramServerDomainConsts.MaxRecentRepliersCount);
-    public void LoadSnapshot(MessageSnapshot snapshot)
+    public IReadOnlyCollection<Peer> RecentRepliers { get; private set; } =
+        new List<Peer>(MyTelegramServerDomainConsts.MaxRecentRepliersCount);
+
+    public void Apply(DeleteMessagesStartedEvent aggregateEvent)
     {
-        MessageItem = snapshot.MessageItem;
-        InboxItems = snapshot.InboxItems;
-        SenderMessageId = snapshot.SenderMessageId;
-        Pinned = snapshot.Pinned;
-        EditDate = snapshot.EditDate;
-        Edited = snapshot.Edited;
-        Pts = snapshot.Pts;
-        RecentRepliers = snapshot.RecentRepliers;
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(ForwardMessageStartedEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(InboxMessageCreatedEvent aggregateEvent)
+    {
+        MessageItem = aggregateEvent.InboxMessageItem;
+        SenderMessageId = aggregateEvent.SenderMessageId;
+    }
+
+    public void Apply(InboxMessageDeletedEvent aggregateEvent)
+    {
+    }
+
+    public void Apply(InboxMessageEditedEvent aggregateEvent)
+    {
+        EditDate = aggregateEvent.EditDate;
+        Edited = true;
+    }
+
+    public void Apply(InboxMessageHasReadEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(InboxMessageIdAddedToOutboxMessageEvent aggregateEvent)
+    {
+        InboxItems.Add(aggregateEvent.InboxItem);
+    }
+
+    public void Apply(InboxMessagePinnedUpdatedEvent aggregateEvent)
+    {
+        Pinned = aggregateEvent.Pinned;
+        //PmOneSide = false;
+    }
+
+    public void Apply(MessageDeletedEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(MessageForwardedEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(MessageViewsIncrementedEvent aggregateEvent)
+    {
+        MessageItem.Views++;
+    }
+
+    public void Apply(OtherPartyMessageDeletedEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
     }
     //public void LoadSnapshot(MessageSnapshot snapshot)
     //{
@@ -63,20 +115,8 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
         SenderMessageId = aggregateEvent.OutboxMessageItem.MessageId;
     }
 
-    public void Apply(InboxMessageCreatedEvent aggregateEvent)
+    public void Apply(OutboxMessageDeletedEvent aggregateEvent)
     {
-        MessageItem = aggregateEvent.InboxMessageItem;
-        SenderMessageId = aggregateEvent.SenderMessageId;
-    }
-
-    public void Apply(InboxMessageIdAddedToOutboxMessageEvent aggregateEvent)
-    {
-        InboxItems.Add(aggregateEvent.InboxItem);
-    }
-
-    public void Apply(MessageDeletedEvent aggregateEvent)
-    {
-        //throw new NotImplementedException();
     }
 
     public void Apply(OutboxMessageEditedEvent aggregateEvent)
@@ -85,20 +125,10 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
         Edited = true;
     }
 
-    public void Apply(InboxMessageEditedEvent aggregateEvent)
+    public void Apply(OutboxMessagePinnedUpdatedEvent aggregateEvent)
     {
-        EditDate = aggregateEvent.EditDate;
-        Edited = true;
-    }
-
-    public void Apply(MessageForwardedEvent aggregateEvent)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void Apply(InboxMessageHasReadEvent aggregateEvent)
-    {
-        //throw new NotImplementedException();
+        Pinned = aggregateEvent.Pinned;
+        //PmOneSide = false;
     }
 
     public void Apply(ReplyToMessageEvent aggregateEvent)
@@ -112,20 +142,14 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
         //throw new NotImplementedException();
     }
 
+    public void Apply(SelfMessageDeletedEvent aggregateEvent)
+    {
+    }
+
     public void Apply(SendMessageStartedEvent aggregateEvent)
     {
         MessageItem = aggregateEvent.OutMessageItem;
         SenderMessageId = aggregateEvent.OutMessageItem.MessageId;
-        //throw new NotImplementedException();
-    }
-
-    public void Apply(MessageViewsIncrementedEvent aggregateEvent)
-    {
-        MessageItem.Views++;
-    }
-
-    public void Apply(DeleteMessagesStartedEvent aggregateEvent)
-    {
         //throw new NotImplementedException();
     }
 
@@ -135,34 +159,15 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
         PmOneSide = aggregateEvent.PmOneSide;
     }
 
-    public void Apply(InboxMessagePinnedUpdatedEvent aggregateEvent)
+    public void LoadSnapshot(MessageSnapshot snapshot)
     {
-        Pinned = aggregateEvent.Pinned;
-        //PmOneSide = false;
-    }
-
-    public void Apply(OutboxMessagePinnedUpdatedEvent aggregateEvent)
-    {
-        Pinned = aggregateEvent.Pinned;
-        //PmOneSide = false;
-    }
-
-    public void Apply(OtherPartyMessageDeletedEvent aggregateEvent)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void Apply(ForwardMessageStartedEvent aggregateEvent)
-    {
-        //throw new NotImplementedException();
-    }
-    public void Apply(SelfMessageDeletedEvent aggregateEvent)
-    {
-    }
-    public void Apply(OutboxMessageDeletedEvent aggregateEvent)
-    {
-    }
-    public void Apply(InboxMessageDeletedEvent aggregateEvent)
-    {
+        MessageItem = snapshot.MessageItem;
+        InboxItems = snapshot.InboxItems;
+        SenderMessageId = snapshot.SenderMessageId;
+        Pinned = snapshot.Pinned;
+        EditDate = snapshot.EditDate;
+        Edited = snapshot.Edited;
+        Pts = snapshot.Pts;
+        RecentRepliers = snapshot.RecentRepliers;
     }
 }

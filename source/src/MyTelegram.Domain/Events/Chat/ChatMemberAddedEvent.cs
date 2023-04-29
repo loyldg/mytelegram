@@ -8,7 +8,7 @@ public class ChatMemberAddedEvent : RequestAggregateEvent2<ChatAggregate, ChatId
         string messageActionData,
         long randomId,
         Guid correlationId) : base(requestInfo)
-    { 
+    {
         ChatId = chatId;
         ChatMember = chatMember;
         MessageActionData = messageActionData;

@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.Aggregates.Poll;
-
-namespace MyTelegram.Domain.Commands.Poll;
+﻿namespace MyTelegram.Domain.Commands.Poll;
 
 public class CreatePollCommand : Command<PollAggregate, PollId, IExecutionResult>
 {

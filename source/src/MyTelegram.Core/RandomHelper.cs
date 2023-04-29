@@ -23,7 +23,7 @@ public class RandomHelper : IRandomHelper
 
     public string GenerateRandomString(int length)
     {
-        return new(Enumerable.Repeat(Characters, length)
+        return new string(Enumerable.Repeat(Characters, length)
             .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
     }
 

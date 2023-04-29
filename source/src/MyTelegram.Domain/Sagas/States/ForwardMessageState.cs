@@ -23,7 +23,7 @@ public class ForwardMessageState : AggregateState<ForwardMessageSaga, ForwardMes
         ToPeer = aggregateEvent.ToPeer;
         IdList = aggregateEvent.IdList;
         RandomIdList = aggregateEvent.RandomIdList;
-        ForwardFromLinkedChannel=aggregateEvent.ForwardFromLinkedChannel;
+        ForwardFromLinkedChannel = aggregateEvent.ForwardFromLinkedChannel;
         CorrelationId = aggregateEvent.CorrelationId;
     }
 

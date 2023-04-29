@@ -7,9 +7,9 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Channels;
 public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipants, IChannelParticipants>,
     IGetParticipantsHandler, IProcessedHandler
 {
+    private readonly ITlChatConverter _chatConverter;
     private readonly ILogger<GetParticipantsHandler> _logger;
     private readonly IQueryProcessor _queryProcessor;
-    private readonly ITlChatConverter _chatConverter;
 
     public GetParticipantsHandler(IQueryProcessor queryProcessor,
         ILogger<GetParticipantsHandler> logger,

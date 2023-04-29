@@ -3,15 +3,29 @@
 public class UserNameAggregate : MySnapshotAggregateRoot<UserNameAggregate, UserNameId, UserNameSnapshot>
 {
     private readonly UserNameState _state = new();
+
     public UserNameAggregate(UserNameId id) : base(id, SnapshotEveryFewVersionsStrategy.Default)
     {
         Register(_state);
+    }
+
+    protected override Task<UserNameSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
+    {
+        return Task.FromResult(new UserNameSnapshot(_state.UserName, _state.IsDeleted));
     }
 
     public void Delete()
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new UserNameDeletedEvent());
+    }
+
+    protected override Task LoadSnapshotAsync(UserNameSnapshot snapshot,
+        ISnapshotMetadata metadata,
+        CancellationToken cancellationToken)
+    {
+        _state.LoadSnapshot(snapshot);
+        return Task.CompletedTask;
     }
 
     public void SetUserName(long reqMsgId,
@@ -51,17 +65,5 @@ public class UserNameAggregate : MySnapshotAggregateRoot<UserNameAggregate, User
                 ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UserNameOccupied);
             }
         }
-    }
-
-    protected override Task<UserNameSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
-    {
-        return Task.FromResult(new UserNameSnapshot(_state.UserName, _state.IsDeleted));
-    }
-    protected override Task LoadSnapshotAsync(UserNameSnapshot snapshot,
-        ISnapshotMetadata metadata,
-        CancellationToken cancellationToken)
-    {
-        _state.LoadSnapshot(snapshot);
-        return Task.CompletedTask;
     }
 }

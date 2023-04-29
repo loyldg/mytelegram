@@ -1,5 +1,4 @@
 using MyTelegram.Handlers.Help;
-using MyTelegram.Schema.Help;
 
 namespace MyTelegram.MessengerServer.Handlers.Impl.Help;
 
@@ -27,7 +26,8 @@ public class GetConfigHandler : RpcResultObjectHandler<RequestGetConfig, IConfig
         //todo: returns different config for different platform
 
         var dcOptions = _objectMapper.Map<List<DcOption>, List<TDcOption>>(_options.DcOptions);
-        IConfig r = new TConfig {
+        IConfig r = new TConfig
+        {
             //Flags = new System.Collections.BitArray(new byte[] { 0 }),
 
             //PhonecallsEnabled = true,

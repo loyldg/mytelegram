@@ -8,9 +8,10 @@ public class GetExportedChatInvitesHandler :
     RpcResultObjectHandler<RequestGetExportedChatInvites, IExportedChatInvites>,
     IGetExportedChatInvitesHandler, IProcessedHandler
 {
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
     private readonly IPeerHelper _peerHelper;
     private readonly IRandomHelper _randomHelper;
-    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
+
     public GetExportedChatInvitesHandler(IPeerHelper peerHelper,
         IRandomHelper randomHelper,
         IOptions<MyTelegramMessengerServerOptions> options)
@@ -30,8 +31,10 @@ public class GetExportedChatInvitesHandler :
         {
             Count = 1,
             Users = new TVector<IUser>(),
-            Invites = new TVector<IExportedChatInvite> {
-                new TChatInviteExported {
+            Invites = new TVector<IExportedChatInvite>
+            {
+                new TChatInviteExported
+                {
                     AdminId = admin.PeerId,
                     Date = CurrentDate,
                     ExpireDate = DateTime.UtcNow.AddDays(30).ToTimestamp(),

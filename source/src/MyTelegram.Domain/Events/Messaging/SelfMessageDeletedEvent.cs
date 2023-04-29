@@ -19,7 +19,6 @@ public class SelfMessageDeletedEvent : AggregateEvent<MessageAggregate, MessageI
         CorrelationId = correlationId;
     }
 
-
     public IReadOnlyList<InboxItem>? InboxItems { get; }
     public bool IsOut { get; }
     public int MessageId { get; }

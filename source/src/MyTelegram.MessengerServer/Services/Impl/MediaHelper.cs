@@ -75,7 +75,7 @@ public class MediaHelper : IMediaHelper
         catch (Exception ex)
         {
             _logger.LogError(ex, "Save media failed");
-            throw new UserFriendlyException("FILE_ID_INVALID", 400);
+            throw new UserFriendlyException("FILE_ID_INVALID");
         }
     }
 

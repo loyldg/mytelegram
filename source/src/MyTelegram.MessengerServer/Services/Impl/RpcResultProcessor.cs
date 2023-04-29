@@ -5,8 +5,8 @@ namespace MyTelegram.MessengerServer.Services.Impl;
 
 public class RpcResultProcessor : IRpcResultProcessor
 {
-    private readonly ITlMessageConverter _messageConverter;
     private readonly ITlChatConverter _chatConverter;
+    private readonly ITlMessageConverter _messageConverter;
     private readonly ITlUserConverter _userConverter;
 
     public RpcResultProcessor(ITlMessageConverter messageConverter,
@@ -45,7 +45,10 @@ public class RpcResultProcessor : IRpcResultProcessor
 
     public IMessages ToMessages(GetMessageOutput output)
     {
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
+        var messageList = _messageConverter.ToMessages(output.MessageList,
+            output.PollList,
+            output.ChosenPollOptions,
+            output.SelfUserId);
         var userList = _userConverter.ToUserList(output.UserList, output.SelfUserId);
         var chatList = _chatConverter.ToChatList(output.ChatList, output.SelfUserId);
         var channelList = _chatConverter.ToChannelList(output.ChannelList,
@@ -72,7 +75,7 @@ public class RpcResultProcessor : IRpcResultProcessor
                 Pts = channelPts,
                 Count = messageList.Count,
                 OffsetIdOffset = offsetId,
-                Topics = new()
+                Topics = new TVector<IForumTopic>()
             };
         }
 

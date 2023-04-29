@@ -1,6 +1,4 @@
-﻿using EventFlow.Exceptions;
-
-namespace MyTelegram.Domain.Sagas;
+﻿namespace MyTelegram.Domain.Sagas;
 
 public class SignInSaga :
     MyInMemoryAggregateSaga<SignInSaga, SignInSagaId, SignInSagaLocator>,
@@ -11,12 +9,18 @@ public class SignInSaga :
 {
     private readonly SignInSagaState _state = new();
 
-    public SignInSaga(SignInSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public SignInSaga(SignInSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
         Register(_state);
     }
 
     public void Apply(SignInSuccessEvent aggregateEvent)
+    {
+        CompleteAsync();
+    }
+
+    public void Apply(SignUpRequiredEvent aggregateEvent)
     {
         CompleteAsync();
     }
@@ -53,14 +57,11 @@ public class SignInSaga :
             Emit(new SignUpRequiredEvent(domainEvent.AggregateEvent.RequestInfo));
             return;
         }
+
         Emit(new SignInStartedEvent(domainEvent.AggregateEvent.RequestInfo));
         var checkUserStatusCommand = new CheckUserStatusCommand(UserId.Create(domainEvent.AggregateEvent.UserId),
             domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             domainEvent.AggregateEvent.CorrelationId);
         Publish(checkUserStatusCommand);
-    }
-    public void Apply(SignUpRequiredEvent aggregateEvent)
-    {
-        CompleteAsync();
     }
 }

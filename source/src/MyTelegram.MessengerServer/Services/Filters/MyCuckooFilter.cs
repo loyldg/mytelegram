@@ -1,8 +1,10 @@
-﻿namespace MyTelegram.MessengerServer.Services.Filters;
+﻿using Microsoft.Cuckoo;
+
+namespace MyTelegram.MessengerServer.Services.Filters;
 
 public class MyCuckooFilter : ICuckooFilter
 {
-    private readonly Microsoft.Cuckoo.ICuckooFilter _filter = new Microsoft.Cuckoo.CuckooFilter(capacity: 5_000_000, falsePositiveRate: 0.01);
+    private readonly Microsoft.Cuckoo.ICuckooFilter _filter = new CuckooFilter(5_000_000, 0.01);
 
     public Task<bool> ExistsAsync(byte[] filterKey)
     {

@@ -18,21 +18,6 @@ public class GetFutureSaltsHandler : BaseObjectHandler<RequestGetFutureSalts, IF
         _logger = logger;
     }
 
-    protected override async Task<IFutureSalts> HandleCoreAsync(IRequestInput input,
-        RequestGetFutureSalts obj)
-    {
-        var salts = await GetOrCreateFutureSaltsAsync(input.UserId, input.AuthKeyId, obj.Num);
-        var r = new TFutureSalts
-        {
-            Now = CurrentDate,
-            ReqMsgId = input.ReqMsgId,
-            Salts = new TVector<IFutureSalt>(salts.Select(p =>
-                new TFutureSalt { Salt = p.Salt, ValidSince = p.ValidSince, ValidUntil = p.ValidUntil }))
-        };
-
-        return r;
-    }
-
     private async Task<List<CachedFutureSalt>> GetOrCreateFutureSaltsAsync(long userId,
         long authKeyId,
         int count)
@@ -58,6 +43,21 @@ public class GetFutureSaltsHandler : BaseObjectHandler<RequestGetFutureSalts, IF
         }
 
         return cachedSalts;
+    }
+
+    protected override async Task<IFutureSalts> HandleCoreAsync(IRequestInput input,
+        RequestGetFutureSalts obj)
+    {
+        var salts = await GetOrCreateFutureSaltsAsync(input.UserId, input.AuthKeyId, obj.Num);
+        var r = new TFutureSalts
+        {
+            Now = CurrentDate,
+            ReqMsgId = input.ReqMsgId,
+            Salts = new TVector<IFutureSalt>(salts.Select(p =>
+                new TFutureSalt { Salt = p.Salt, ValidSince = p.ValidSince, ValidUntil = p.ValidUntil }))
+        };
+
+        return r;
     }
 }
 

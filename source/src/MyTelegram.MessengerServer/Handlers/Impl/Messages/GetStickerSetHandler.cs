@@ -117,7 +117,8 @@ public class GetStickerSetHandler : RpcResultObjectHandler<RequestGetStickerSet,
             //    }
             //});
 
-            IStickerSet r = new Schema.Messages.TStickerSet { Set = set, Packs = packs, Documents = documents, Keywords = new() };
+            IStickerSet r = new Schema.Messages.TStickerSet
+                { Set = set, Packs = packs, Documents = documents, Keywords = new TVector<IStickerKeyword>() };
 
             return r;
         }
@@ -143,7 +144,7 @@ public class GetStickerSetHandler : RpcResultObjectHandler<RequestGetStickerSet,
                     Title = "Animated Emojies",
                     Thumbs = new TVector<IPhotoSize>()
                 },
-                Keywords = new()
+                Keywords = new TVector<IStickerKeyword>()
             };
         }
 
@@ -166,7 +167,7 @@ public class GetStickerSetHandler : RpcResultObjectHandler<RequestGetStickerSet,
                     Title = "Animated Emojies",
                     Thumbs = new TVector<IPhotoSize>()
                 },
-                Keywords = new()
+                Keywords = new TVector<IStickerKeyword>()
             };
 
             return r;
@@ -285,7 +286,8 @@ public class GetStickerSetHandlerLayer134 : RpcResultObjectHandler<RequestGetSti
             //    }
             //});
 
-            IStickerSet r = new Schema.Messages.TStickerSet { Set = set, Packs = packs, Documents = documents, Keywords = new() };
+            IStickerSet r = new Schema.Messages.TStickerSet
+                { Set = set, Packs = packs, Documents = documents, Keywords = new TVector<IStickerKeyword>() };
 
             return r;
         }
@@ -311,7 +313,7 @@ public class GetStickerSetHandlerLayer134 : RpcResultObjectHandler<RequestGetSti
                     Title = "Animated Emojies",
                     Thumbs = new TVector<IPhotoSize>()
                 },
-                Keywords = new()
+                Keywords = new TVector<IStickerKeyword>()
             };
         }
 
@@ -334,7 +336,7 @@ public class GetStickerSetHandlerLayer134 : RpcResultObjectHandler<RequestGetSti
                     Title = "Animated Emojies",
                     Thumbs = new TVector<IPhotoSize>()
                 },
-                Keywords = new()
+                Keywords = new TVector<IStickerKeyword>()
             };
 
             return r;

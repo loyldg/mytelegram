@@ -11,9 +11,9 @@ public class SendCodeHandler : RpcResultObjectHandler<RequestSendCode, ISentCode
     private readonly ICacheManager<UserCacheItem> _cacheManager;
     private readonly ICommandBus _commandBus;
     private readonly IHashHelper _hashHelper;
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
     private readonly IPeerHelper _peerHelper;
     private readonly IRandomHelper _randomHelper;
-    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
 
     public SendCodeHandler(
         ICommandBus commandBus,

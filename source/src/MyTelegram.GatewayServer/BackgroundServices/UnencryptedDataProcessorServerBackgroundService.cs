@@ -4,7 +4,8 @@ public class UnencryptedDataProcessorServerBackgroundService : BackgroundService
 {
     private readonly IMessageQueueProcessor<UnencryptedMessage> _messageQueueProcessor;
 
-    public UnencryptedDataProcessorServerBackgroundService(IMessageQueueProcessor<UnencryptedMessage> messageQueueProcessor)
+    public UnencryptedDataProcessorServerBackgroundService(
+        IMessageQueueProcessor<UnencryptedMessage> messageQueueProcessor)
     {
         _messageQueueProcessor = messageQueueProcessor;
     }

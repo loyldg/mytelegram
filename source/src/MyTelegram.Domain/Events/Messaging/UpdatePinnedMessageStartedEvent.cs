@@ -2,21 +2,6 @@
 
 public class UpdatePinnedMessageStartedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>, IHasCorrelationId
 {
-    public long OwnerPeerId { get; }
-    public int MessageId { get; }
-    public bool Pinned { get; }
-    public bool PmOneSide { get; }
-    public bool Silent { get; }
-    public int Date { get; }
-    public bool IsOut { get; }
-    public IReadOnlyList<InboxItem> InboxItems { get; }
-    public long SenderPeerId { get; }
-    public int SenderMessageId { get; }
-    public Peer ToPeer { get; }
-    public long RandomId { get; }
-    public string MessageActionData { get; }
-    public Guid CorrelationId { get; }
-
     public UpdatePinnedMessageStartedEvent(RequestInfo requestInfo,
         long ownerPeerId,
         int messageId,
@@ -49,4 +34,19 @@ public class UpdatePinnedMessageStartedEvent : RequestAggregateEvent2<MessageAgg
         MessageActionData = messageActionData;
         CorrelationId = correlationId;
     }
+
+    public long OwnerPeerId { get; }
+    public int MessageId { get; }
+    public bool Pinned { get; }
+    public bool PmOneSide { get; }
+    public bool Silent { get; }
+    public int Date { get; }
+    public bool IsOut { get; }
+    public IReadOnlyList<InboxItem> InboxItems { get; }
+    public long SenderPeerId { get; }
+    public int SenderMessageId { get; }
+    public Peer ToPeer { get; }
+    public long RandomId { get; }
+    public string MessageActionData { get; }
+    public Guid CorrelationId { get; }
 }

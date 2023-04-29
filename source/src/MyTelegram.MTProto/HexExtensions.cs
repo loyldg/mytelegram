@@ -40,6 +40,12 @@ public static class HexExtensions
         Console.WriteLine(content);
     }
 
+    private static byte[] HexToBytes(string hex)
+    {
+        var text = hex.Replace(" ", string.Empty).Replace("\r\n", string.Empty).Replace("\n", string.Empty);
+        return StringToByteArray(text);
+    }
+
     public static byte[] StringToByteArray(string hex)
     {
         return Enumerable.Range(0, hex.Length)
@@ -69,11 +75,5 @@ public static class HexExtensions
     public static int ToInt(this BitArray bitArray)
     {
         return BitConverter.ToInt32(ToByteArray(bitArray));
-    }
-
-    private static byte[] HexToBytes(string hex)
-    {
-        var text = hex.Replace(" ", string.Empty).Replace("\r\n", string.Empty).Replace("\n", string.Empty);
-        return StringToByteArray(text);
     }
 }

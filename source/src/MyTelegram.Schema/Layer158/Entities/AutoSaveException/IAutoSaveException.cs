@@ -4,6 +4,6 @@ namespace MyTelegram.Schema;
 
 public interface IAutoSaveException : IObject
 {
-    MyTelegram.Schema.IPeer Peer { get; set; }
-    MyTelegram.Schema.IAutoSaveSettings Settings { get; set; }
+    Schema.IPeer Peer { get; set; }
+    Schema.IAutoSaveSettings Settings { get; set; }
 }

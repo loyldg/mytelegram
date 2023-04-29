@@ -1,10 +1,12 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
 public class
-    EditChannelPhotoSaga : MyInMemoryAggregateSaga<EditChannelPhotoSaga, EditChannelPhotoSagaId, EditChannelPhotoSagaLocator>,
+    EditChannelPhotoSaga : MyInMemoryAggregateSaga<EditChannelPhotoSaga, EditChannelPhotoSagaId,
+            EditChannelPhotoSagaLocator>,
         ISagaIsStartedBy<ChannelAggregate, ChannelId, ChannelPhotoEditedEvent>
 {
-    public EditChannelPhotoSaga(EditChannelPhotoSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public EditChannelPhotoSaga(EditChannelPhotoSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
     }
 
@@ -13,7 +15,8 @@ public class
         CancellationToken cancellationToken)
     {
         var outMessageId = 0;
-        var aggregateId = MessageId.CreateWithRandomId(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.RandomId);
+        var aggregateId =
+            MessageId.CreateWithRandomId(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.RandomId);
         var ownerPeer = new Peer(PeerType.Channel, domainEvent.AggregateEvent.ChannelId);
         var senderPeer = new Peer(PeerType.User, domainEvent.AggregateEvent.RequestInfo.UserId);
 

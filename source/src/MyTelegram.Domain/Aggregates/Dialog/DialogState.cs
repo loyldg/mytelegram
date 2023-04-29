@@ -35,6 +35,10 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
         ChannelHistoryMinId = aggregateEvent.HistoryMinId;
     }
 
+    public void Apply(DeleteUserMessagesStartedEvent aggregateEvent)
+    {
+    }
+
     public void Apply(DialogCreatedEvent aggregateEvent)
     {
         OwnerId = aggregateEvent.OwnerId;
@@ -143,8 +147,5 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
         Pinned = snapshot.Pinned;
         ChannelHistoryMinId = snapshot.ChannelHistoryMinId;
         Draft = snapshot.Draft;
-    }
-    public void Apply(DeleteUserMessagesStartedEvent aggregateEvent)
-    {
     }
 }

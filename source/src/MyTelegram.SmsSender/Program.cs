@@ -1,12 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Serilog;
 using System.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog.Sinks.SystemConsole.Themes;
 using Microsoft.Extensions.Hosting;
 using MyTelegram.SmsSender;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 // Twilio new accounts and subaccounts are now required to use TLS 1.2 when accessing the REST API. 
 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;

@@ -17,7 +17,7 @@ public class GetContactSignUpNotificationHandler : RpcResultObjectHandler<Reques
         RequestGetContactSignUpNotification obj)
     {
         var user = await _queryProcessor
-            .ProcessAsync(new GetUserByIdQuery(input.UserId), CancellationToken.None)
+                .ProcessAsync(new GetUserByIdQuery(input.UserId), CancellationToken.None)
             ;
 
         return user!.ShowContactSignUpNotification ? new TBoolTrue() : new TBoolFalse();

@@ -6,8 +6,8 @@ public interface ITermsOfService : IObject
 {
     BitArray Flags { get; set; }
     bool Popup { get; set; }
-    MyTelegram.Schema.IDataJSON Id { get; set; }
+    Schema.IDataJSON Id { get; set; }
     string Text { get; set; }
-    TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
+    TVector<Schema.IMessageEntity> Entities { get; set; }
     int? MinAgeConfirm { get; set; }
 }

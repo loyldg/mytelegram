@@ -1,13 +1,15 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
 public class EditMessageSaga : MyInMemoryAggregateSaga<EditMessageSaga, EditMessageSagaId, EditMessageSagaLocator>,
-ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
-        ISagaHandles<MessageAggregate, MessageId, InboxMessageEditedEvent>
+    ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
+    ISagaHandles<MessageAggregate, MessageId, InboxMessageEditedEvent>
 {
     private readonly IIdGenerator _idGenerator;
     private readonly EditMessageState _state = new();
 
-    public EditMessageSaga(EditMessageSagaId id, IEventStore eventStore,IIdGenerator idGenerator) : base(id, eventStore)
+    public EditMessageSaga(EditMessageSagaId id,
+        IEventStore eventStore,
+        IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -17,9 +19,11 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new EditInboxMessageStartedEvent(domainEvent.AggregateEvent.InboxOwnerPeerId, domainEvent.AggregateEvent.MessageId));
+        Emit(new EditInboxMessageStartedEvent(domainEvent.AggregateEvent.InboxOwnerPeerId,
+            domainEvent.AggregateEvent.MessageId));
         await HandleEditInboxCompletedAsync(domainEvent.AggregateEvent.InboxOwnerPeerId,
-            domainEvent.AggregateEvent.MessageId, domainEvent.AggregateEvent.ToPeer);
+            domainEvent.AggregateEvent.MessageId,
+            domainEvent.AggregateEvent.ToPeer);
         await HandleEditCompletedAsync();
     }
 
@@ -70,6 +74,7 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
         {
             return CompleteAsync();
         }
+
         return Task.CompletedTask;
     }
 
@@ -89,6 +94,7 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
             _state.Entities,
             _state.Media));
     }
+
     private async Task HandleEditOutboxCompletedAsync(long outboxOwnerPeerId)
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, outboxOwnerPeerId);

@@ -1,4 +1,5 @@
 ﻿namespace MyTelegram.QueryHandlers.MongoDB.User;
+
 // ReSharper disable once UnusedMember.Global
 public class GetUserByPhoneNumberQueryHandler : IQueryHandler<GetUserByPhoneNumberQuery, IUserReadModel?>
 {
@@ -13,7 +14,7 @@ public class GetUserByPhoneNumberQueryHandler : IQueryHandler<GetUserByPhoneNumb
         CancellationToken cancellationToken)
     {
         var cursor = await _store
-            .FindAsync(p => p.PhoneNumber == query.PhoneNumber, cancellationToken: cancellationToken)
+                .FindAsync(p => p.PhoneNumber == query.PhoneNumber, cancellationToken: cancellationToken)
             ;
         return await cursor.FirstOrDefaultAsync(cancellationToken);
     }

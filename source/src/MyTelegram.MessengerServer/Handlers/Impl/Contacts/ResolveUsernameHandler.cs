@@ -6,8 +6,8 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Contacts;
 public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsername, IResolvedPeer>,
     IResolveUsernameHandler, IProcessedHandler
 {
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ITlChatConverter _chatConverter;
+    private readonly IQueryProcessor _queryProcessor;
     private readonly ITlUserConverter _userConverter;
 
     public ResolveUsernameHandler(IQueryProcessor queryProcessor,
@@ -26,7 +26,7 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
         if (!string.IsNullOrEmpty(obj.Username))
         {
             var userNameReadModel = await _queryProcessor
-                .ProcessAsync(new GetUserNameByNameQuery(obj.Username), default)
+                    .ProcessAsync(new GetUserNameByNameQuery(obj.Username), default)
                 ;
             if (userNameReadModel != null)
             {
@@ -34,9 +34,8 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                 {
                     case PeerType.User:
                         var userReadModel = await _queryProcessor
-                            .ProcessAsync(new GetUserByIdQuery(userNameReadModel.PeerId), default)
+                                .ProcessAsync(new GetUserByIdQuery(userNameReadModel.PeerId), default)
                             ;
-
 
                         if (userReadModel != null)
                         {
@@ -51,39 +50,40 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
 
                         break;
                     case PeerType.Chat:
-                        {
-                            var chatReadModel = await _queryProcessor
+                    {
+                        var chatReadModel = await _queryProcessor
                                 .ProcessAsync(new GetChatByChatIdQuery(userNameReadModel.PeerId), default)
-                                ;
-                            if (chatReadModel != null)
+                            ;
+                        if (chatReadModel != null)
+                        {
+                            return new TResolvedPeer
                             {
-                                return new TResolvedPeer
-                                {
-                                    Chats = new TVector<IChat>(_chatConverter.ToChat(chatReadModel, input.UserId)),
-                                    Peer = new TPeerChat { ChatId = userNameReadModel.PeerId },
-                                    Users = new TVector<IUser>()
-                                };
-                            }
+                                Chats = new TVector<IChat>(_chatConverter.ToChat(chatReadModel, input.UserId)),
+                                Peer = new TPeerChat { ChatId = userNameReadModel.PeerId },
+                                Users = new TVector<IUser>()
+                            };
                         }
+                    }
                         break;
                     case PeerType.Channel:
-                        {
-                            var channelReadModel = await _queryProcessor
+                    {
+                        var channelReadModel = await _queryProcessor
                                 .ProcessAsync(new GetChannelByIdQuery(userNameReadModel.PeerId), default)
-                                ;
-                            if (channelReadModel != null)
+                            ;
+                        if (channelReadModel != null)
+                        {
+                            return new TResolvedPeer
                             {
-                                return new TResolvedPeer
-                                {
-                                    Chats =
-                                        new TVector<IChat>(_chatConverter.ToChannel(channelReadModel,
-                                            null,
-                                            input.UserId, false)),
-                                    Peer = new TPeerChat { ChatId = userNameReadModel.PeerId },
-                                    Users = new TVector<IUser>()
-                                };
-                            }
+                                Chats =
+                                    new TVector<IChat>(_chatConverter.ToChannel(channelReadModel,
+                                        null,
+                                        input.UserId,
+                                        false)),
+                                Peer = new TPeerChat { ChatId = userNameReadModel.PeerId },
+                                Users = new TVector<IUser>()
+                            };
                         }
+                    }
                         break;
                     //case PeerType.EncryptionChat:
                     //    break;

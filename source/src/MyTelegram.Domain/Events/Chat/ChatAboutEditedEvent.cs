@@ -10,11 +10,9 @@ public class ChatAboutEditedEvent : RequestAggregateEvent<ChatAggregate, ChatId>
 
     public string? About { get; }
 }
+
 public class CheckChatStateCompletedEvent : AggregateEvent<ChatAggregate, ChatId>, IHasCorrelationId
 {
-    public string Title { get; }
-    public IReadOnlyList<long> MemberUidList { get; }
-
     public CheckChatStateCompletedEvent(
         string title,
         IReadOnlyList<long> memberUidList,
@@ -24,6 +22,9 @@ public class CheckChatStateCompletedEvent : AggregateEvent<ChatAggregate, ChatId
         MemberUidList = memberUidList;
         CorrelationId = correlationId;
     }
+
+    public string Title { get; }
+    public IReadOnlyList<long> MemberUidList { get; }
 
     public Guid CorrelationId { get; }
 }

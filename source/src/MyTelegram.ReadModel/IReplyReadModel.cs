@@ -9,6 +9,7 @@ public interface IReplyReadModel : IReadModel
     long ChannelId { get; }
     int ReplyToMsgId { get; }
     int MaxId { get; }
+
     IReadOnlyCollection<Peer>? RecentRepliers { get; }
     //int ReadMaxId { get; }
 }

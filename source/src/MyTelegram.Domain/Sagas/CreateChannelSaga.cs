@@ -1,10 +1,12 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class CreateChannelSaga : MyInMemoryAggregateSaga<CreateChannelSaga, CreateChannelSagaId, CreateChannelSagaLocator>,
-        ISagaIsStartedBy<ChannelAggregate, ChannelId, ChannelCreatedEvent>
+public class CreateChannelSaga :
+    MyInMemoryAggregateSaga<CreateChannelSaga, CreateChannelSagaId, CreateChannelSagaLocator>,
+    ISagaIsStartedBy<ChannelAggregate, ChannelId, ChannelCreatedEvent>
 {
     //private readonly CreateChannelSagaState _state = new();
-    public CreateChannelSaga(CreateChannelSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public CreateChannelSaga(CreateChannelSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
         //Register(_state);
     }
@@ -32,7 +34,10 @@ public class CreateChannelSaga : MyInMemoryAggregateSaga<CreateChannelSaga, Crea
             domainEvent.AggregateEvent.MessageActionData,
             MessageActionType.ChannelCreate
         );
-        var command = new StartSendMessageCommand(aggregateId, domainEvent.AggregateEvent.RequestInfo, messageItem, correlationId: Guid.NewGuid());
+        var command = new StartSendMessageCommand(aggregateId,
+            domainEvent.AggregateEvent.RequestInfo,
+            messageItem,
+            correlationId: Guid.NewGuid());
 
         Publish(command);
 

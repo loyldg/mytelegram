@@ -12,34 +12,6 @@ public class ChannelFullReadModel : IChannelFullReadModel,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>
 
 {
-    public virtual string? About { get; private set; }
-    public virtual int AdminsCount { get; private set; }
-    public virtual int? AvailableMinId { get; private set; }
-    public virtual int BannedCount { get; private set; }
-    public virtual bool CanSetLocation { get; private set; }
-    public virtual bool CanSetStickers { get; private set; }
-    public virtual bool CanSetUserName { get; private set; }
-    public virtual bool CanViewParticipants { get; private set; } //= true;
-    public virtual bool CanViewStats { get; private set; }
-    public virtual long ChannelId { get; private set; }
-    public virtual int? FolderId { get; private set; }
-    //= true;
-    public virtual bool HiddenPreHistory { get; private set; }
-
-    public virtual string Id { get; private set; } = null!;
-    public virtual int KickedCount { get; private set; }
-    public virtual long? LinkedChatId { get; private set; }
-    public virtual long? MigratedFromChatId { get; private set; }
-    public virtual int? MigratedFromMaxId { get; private set; }
-    public virtual int OnlineCount { get; private set; }
-    public virtual int? PinnedMsgId { get; private set; }
-    public virtual List<int> PinnedMsgIdList { get; protected set; } = new();
-    public virtual int ReadInboxMaxId { get; private set; }
-    public virtual int ReadOutboxMaxId { get; private set; }
-    public virtual int? SlowModeNextSendDate { get; private set; }
-    public virtual int? SlowModeSeconds { get; private set; }
-    public virtual int UnreadCount { get; private set; }
-    public virtual string? UserName { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -78,7 +50,8 @@ public class ChannelFullReadModel : IChannelFullReadModel,
         {
             PinnedMsgId = domainEvent.AggregateEvent.PinnedMsgId;
             PinnedMsgIdList.Add(PinnedMsgId.Value);
-        } else
+        }
+        else
         {
             PinnedMsgIdList.Remove(domainEvent.AggregateEvent.PinnedMsgId);
             PinnedMsgId = PinnedMsgIdList.LastOrDefault();
@@ -128,7 +101,8 @@ public class ChannelFullReadModel : IChannelFullReadModel,
         if (domainEvent.AggregateEvent.BannedRights.ViewMessages)
         {
             KickedCount++;
-        } else
+        }
+        else
         {
             if (domainEvent.AggregateEvent.BannedRights.ToIntValue() != ChatBannedRights.Default.ToIntValue())
             {
@@ -148,8 +122,9 @@ public class ChannelFullReadModel : IChannelFullReadModel,
             if (domainEvent.AggregateEvent.BannedRights.ViewMessages)
             {
                 KickedCount--;
-            } else if (domainEvent.AggregateEvent.BannedRights.ToIntValue() !=
-                       ChatBannedRights.Default.ToIntValue())
+            }
+            else if (domainEvent.AggregateEvent.BannedRights.ToIntValue() !=
+                     ChatBannedRights.Default.ToIntValue())
             {
                 BannedCount--;
             }
@@ -157,4 +132,35 @@ public class ChannelFullReadModel : IChannelFullReadModel,
 
         return Task.CompletedTask;
     }
+
+    public virtual string? About { get; private set; }
+    public virtual int AdminsCount { get; }
+    public virtual int? AvailableMinId { get; }
+    public virtual int BannedCount { get; private set; }
+    public virtual bool CanSetLocation { get; }
+    public virtual bool CanSetStickers { get; }
+    public virtual bool CanSetUserName { get; }
+    public virtual bool CanViewParticipants { get; private set; } //= true;
+    public virtual bool CanViewStats { get; }
+    public virtual long ChannelId { get; private set; }
+
+    public virtual int? FolderId { get; }
+
+    //= true;
+    public virtual bool HiddenPreHistory { get; private set; }
+
+    public virtual string Id { get; private set; } = null!;
+    public virtual int KickedCount { get; private set; }
+    public virtual long? LinkedChatId { get; private set; }
+    public virtual long? MigratedFromChatId { get; }
+    public virtual int? MigratedFromMaxId { get; }
+    public virtual int OnlineCount { get; }
+    public virtual int? PinnedMsgId { get; private set; }
+    public virtual List<int> PinnedMsgIdList { get; protected set; } = new();
+    public virtual int ReadInboxMaxId { get; }
+    public virtual int ReadOutboxMaxId { get; }
+    public virtual int? SlowModeNextSendDate { get; }
+    public virtual int? SlowModeSeconds { get; private set; }
+    public virtual int UnreadCount { get; }
+    public virtual string? UserName { get; private set; }
 }

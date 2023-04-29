@@ -23,7 +23,9 @@ public class UpdatePinnedMessageState :
 
     public int PinnedMsgId { get; private set; }
     public bool PmOneSide { get; private set; }
+
     public long RandomId { get; private set; }
+
     // public bool ReceiveOutboxPinnedUpdated { get; private set; }
     public int ReplyToMsgId { get; private set; }
 
@@ -48,11 +50,6 @@ public class UpdatePinnedMessageState :
             new PinnedMsgItem(aggregateEvent.OwnerPeerId, aggregateEvent.MessageId, aggregateEvent.ToPeer.PeerId));
     }
 
-    public void Apply(UpdatePinnedMessageCompletedEvent aggregateEvent)
-    {
-        //throw new NotImplementedException();
-    }
-
     public void Apply(UpdatePinnedBoxPtsCompletedEvent aggregateEvent)
     {
         //throw new NotImplementedException();
@@ -63,6 +60,11 @@ public class UpdatePinnedMessageState :
     }
 
     public void Apply(UpdatePinnedCompletedEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(UpdatePinnedMessageCompletedEvent aggregateEvent)
     {
         //throw new NotImplementedException();
     }

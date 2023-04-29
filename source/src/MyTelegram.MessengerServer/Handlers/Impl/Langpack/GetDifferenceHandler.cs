@@ -9,7 +9,8 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
     protected override Task<ILangPackDifference> HandleCoreAsync(IRequestInput input,
         RequestGetDifference obj)
     {
-        ILangPackDifference r = new TLangPackDifference {
+        ILangPackDifference r = new TLangPackDifference
+        {
             FromVersion = 0,
             LangCode = obj.LangCode,
             Strings = new TVector<ILangPackString>(),

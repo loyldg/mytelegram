@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-public class ProlongWebViewHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestProlongWebView, IBool>,
+public class ProlongWebViewHandler : RpcResultObjectHandler<RequestProlongWebView, IBool>,
     Messages.IProlongWebViewHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestProlongWebView obj)
+        RequestProlongWebView obj)
     {
         throw new NotImplementedException();
     }

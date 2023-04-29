@@ -1,5 +1,5 @@
 ﻿using IPhoto = MyTelegram.Schema.Photos.IPhoto;
-using TPeerSettings = MyTelegram.Schema.TPeerSettings;
+using IUserFull = MyTelegram.Schema.Users.IUserFull;
 using TPhoto = MyTelegram.Schema.Photos.TPhoto;
 
 namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
@@ -60,13 +60,13 @@ public class TlUserConverter : ITlUserConverter
         return tUser;
     }
 
-    public Task<Schema.Users.IUserFull> ToUserFullAsync(IUserReadModel user,
+    public Task<IUserFull> ToUserFullAsync(IUserReadModel user,
         long selfUserId,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel)
     {
         var isOfficialId = user.UserId == MyTelegramServerDomainConsts.OfficialUserId;
         var tUser = ToUser(user, selfUserId);
-        var fullUser = new Schema.TUserFull
+        var fullUser = new TUserFull
         {
             About = user.About,
             Blocked = false,
@@ -89,7 +89,7 @@ public class TlUserConverter : ITlUserConverter
             Users = new TVector<IUser>(tUser)
         };
 
-        return Task.FromResult<Schema.Users.IUserFull>(userFull);
+        return Task.FromResult<IUserFull>(userFull);
     }
 
     public IList<IUser> ToUserList(IReadOnlyCollection<IUserReadModel> userList,

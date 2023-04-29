@@ -10,6 +10,7 @@ public class CheckUserStatusCommandHandler : CommandHandler<UserAggregate, UserI
         return Task.CompletedTask;
     }
 }
+
 public class CheckUserStateCommandHandler : CommandHandler<UserAggregate, UserId, CheckUserStateCommand>
 {
     public override Task ExecuteAsync(UserAggregate aggregate,

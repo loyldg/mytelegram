@@ -2,10 +2,9 @@
 
 public class CreatedChatCacheHelper : ICreatedChatCacheHelper
 {
+    private readonly ConcurrentDictionary<long, ChannelCreatedEvent> _channelCreatedEvents = new();
     private readonly ConcurrentDictionary<long, ChatCreatedEvent> _createdEvents = new();
     private readonly ConcurrentDictionary<long, int> _getCountDict = new();
-
-    private readonly ConcurrentDictionary<long, ChannelCreatedEvent> _channelCreatedEvents = new();
     private readonly ConcurrentDictionary<long, StartInviteToChannelEvent> _inviteToChannelEvents = new();
 
     public void Add(StartInviteToChannelEvent data)
@@ -24,7 +23,8 @@ public class CreatedChatCacheHelper : ICreatedChatCacheHelper
         _createdEvents.TryAdd(data.ChatId, data);
     }
 
-    public bool TryRemove(long channelId, [NotNullWhen(true)] out StartInviteToChannelEvent? eventData)
+    public bool TryRemove(long channelId,
+        [NotNullWhen(true)] out StartInviteToChannelEvent? eventData)
     {
         return _inviteToChannelEvents.TryRemove(channelId, out eventData);
     }

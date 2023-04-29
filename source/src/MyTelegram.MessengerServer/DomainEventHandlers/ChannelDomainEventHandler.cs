@@ -133,30 +133,6 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
             ;
     }
 
-    public async Task HandleAsync(IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        if (domainEvent.AggregateEvent.Broadcast)
-        {
-            var updates = new TUpdateShort
-            {
-                Date = DateTime.UtcNow.ToTimestamp(),
-                Update = new TUpdateChannel
-                {
-                    ChannelId = domainEvent.AggregateEvent.ChannelId,
-                }
-            };
-            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, updates);
-            foreach (var userId in domainEvent.AggregateEvent.MemberUidList)
-            {
-                await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ChannelId,
-                    domainEvent.AggregateEvent.ChannelId,
-                    null,
-                    userId);
-            }
-        }
-    }
-
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,
         CancellationToken cancellationToken)
     {
@@ -180,7 +156,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
     {
         // 这里直接从ReadModel获取频道信息
         var channelReadModel = await _queryProcessor
-            .ProcessAsync(new GetChannelByIdQuery(domainEvent.AggregateEvent.ChannelId), default)
+                .ProcessAsync(new GetChannelByIdQuery(domainEvent.AggregateEvent.ChannelId), default)
             ;
         var updates = new TUpdates
         {
@@ -206,6 +182,31 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
             domainEvent.AggregateEvent.ChannelId,
             null,
             domainEvent.AggregateEvent.MemberUid);
+    }
+
+    public async Task HandleAsync(
+        IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        if (domainEvent.AggregateEvent.Broadcast)
+        {
+            var updates = new TUpdateShort
+            {
+                Date = DateTime.UtcNow.ToTimestamp(),
+                Update = new TUpdateChannel
+                {
+                    ChannelId = domainEvent.AggregateEvent.ChannelId
+                }
+            };
+            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, updates);
+            foreach (var userId in domainEvent.AggregateEvent.MemberUidList)
+            {
+                await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ChannelId,
+                    domainEvent.AggregateEvent.ChannelId,
+                    null,
+                    userId);
+            }
+        }
     }
 
     private async Task NotifyUpdateChannelAsync(long reqMsgId,

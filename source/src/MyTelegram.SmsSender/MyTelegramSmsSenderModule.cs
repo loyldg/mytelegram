@@ -5,7 +5,7 @@ using Volo.Abp.Modularity;
 namespace MyTelegram.SmsSender;
 
 [DependsOn(typeof(AbpEventBusRabbitMqModule),
-     typeof(AbpAutofacModule))
+    typeof(AbpAutofacModule))
 ]
 public class MyTelegramSmsSenderModule : AbpModule
 {

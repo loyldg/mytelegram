@@ -7,9 +7,9 @@ public class GetDialogsHandler : RpcResultObjectHandler<RequestGetDialogs, IDial
     IGetDialogsHandler, IProcessedHandler
 {
     private readonly IDialogAppService _dialogAppService;
+    private readonly ITlDialogConverter _dialogConverter;
     private readonly IPeerHelper _peerHelper;
     private readonly IRpcResultProcessor _rpcResultProcessor;
-    private readonly ITlDialogConverter _dialogConverter;
 
     public GetDialogsHandler(IDialogAppService dialogAppService,
         IRpcResultProcessor rpcResultProcessor,
@@ -30,9 +30,10 @@ public class GetDialogsHandler : RpcResultObjectHandler<RequestGetDialogs, IDial
         {
             return new TDialogsNotModified
             {
-                Count = 0,
+                Count = 0
             };
         }
+
         var userId = input.UserId;
         var offsetPeer = _peerHelper.GetPeer(obj.OffsetPeer);
         bool? pinned = null;
@@ -41,7 +42,8 @@ public class GetDialogsHandler : RpcResultObjectHandler<RequestGetDialogs, IDial
             pinned = false;
         }
 
-        var r = await _dialogAppService.GetDialogsAsync(new GetDialogInput {
+        var r = await _dialogAppService.GetDialogsAsync(new GetDialogInput
+        {
             FolderId = obj.FolderId,
             Limit = obj.Limit,
             Pinned = pinned,

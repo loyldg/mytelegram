@@ -22,7 +22,6 @@ public class DeleteMessagesCompletedEvent : RequestAggregateEvent2<DeleteMessage
     public IReadOnlyList<DeletedBoxItem> DeletedBoxItems { get; }
 
     public DeletedBoxItem SelfDeletedBoxItem { get; }
-    
 
     public PeerType ToPeerType { get; }
     //public bool IsClearHistory { get; }

@@ -11,6 +11,7 @@ public static class CertificateHelper
             {
                 throw new ArgumentException("CertPemFilePath or KeyPemFilePath is null");
             }
+
             var cert = X509Certificate2.CreateFromPemFile(serverItem.CertPemFilePath, serverItem.KeyPemFilePath);
             // https://github.com/dotnet/runtime/issues/23749
             // https://github.com/dotnet/runtime/issues/27493

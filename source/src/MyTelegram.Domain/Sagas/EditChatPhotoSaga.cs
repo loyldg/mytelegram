@@ -4,7 +4,8 @@ public class
     EditChatPhotoSaga : MyInMemoryAggregateSaga<EditChatPhotoSaga, EditChatPhotoSagaId, EditChatPhotoSagaLocator>,
         ISagaIsStartedBy<ChatAggregate, ChatId, ChatPhotoEditedEvent>
 {
-    public EditChatPhotoSaga(EditChatPhotoSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public EditChatPhotoSaga(EditChatPhotoSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
     }
 

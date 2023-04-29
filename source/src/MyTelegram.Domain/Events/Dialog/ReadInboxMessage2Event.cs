@@ -11,7 +11,7 @@ public class ReadInboxMessage2Event : RequestAggregateEvent2<DialogAggregate, Di
         //bool isOut,
         Guid correlationId
     ) : base(requestInfo)
-    { 
+    {
         ReaderUid = readerUid;
         OwnerPeerId = ownerPeerId;
         //GlobalMessageId = globalMessageId;
@@ -26,7 +26,7 @@ public class ReadInboxMessage2Event : RequestAggregateEvent2<DialogAggregate, Di
     public Peer ToPeer { get; }
     public long OwnerPeerId { get; }
     public long ReaderUid { get; }
-     
+
     //public bool IsOut { get; }
     public Guid CorrelationId { get; }
 }

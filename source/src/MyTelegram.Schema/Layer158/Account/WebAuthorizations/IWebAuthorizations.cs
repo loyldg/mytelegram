@@ -4,6 +4,6 @@ namespace MyTelegram.Schema.Account;
 
 public interface IWebAuthorizations : IObject
 {
-    TVector<MyTelegram.Schema.IWebAuthorization> Authorizations { get; set; }
-    TVector<MyTelegram.Schema.IUser> Users { get; set; }
+    TVector<Schema.IWebAuthorization> Authorizations { get; set; }
+    TVector<Schema.IUser> Users { get; set; }
 }

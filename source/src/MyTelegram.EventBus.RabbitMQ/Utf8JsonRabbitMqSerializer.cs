@@ -39,12 +39,14 @@ public class Utf8JsonRabbitMqSerializer : IRabbitMqSerializer
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
     public byte[] Serialize<T>(T obj)
     {
-        return obj == null ? Array.Empty<byte>() : JsonSerializer.SerializeToUtf8Bytes(obj, obj.GetType().UnderlyingSystemType, _jsonSerializerOptions);
+        return obj == null
+            ? Array.Empty<byte>()
+            : JsonSerializer.SerializeToUtf8Bytes(obj, obj.GetType().UnderlyingSystemType, _jsonSerializerOptions);
     }
 
     public byte[] Serialize(object obj)
@@ -52,30 +54,33 @@ public class Utf8JsonRabbitMqSerializer : IRabbitMqSerializer
         return JsonSerializer.SerializeToUtf8Bytes(obj, obj.GetType(), _jsonSerializerOptions);
     }
 
-    public object? Deserialize(byte[] value, Type type)
+    public object? Deserialize(byte[] value,
+        Type type)
     {
         return JsonSerializer.Deserialize(value, type, _jsonSerializerOptions);
     }
 
-    public object? Deserialize(ReadOnlySpan<byte> value, Type type)
+    public object? Deserialize(ReadOnlySpan<byte> value,
+        Type type)
     {
         return JsonSerializer.Deserialize(value, type, _jsonSerializerOptions);
     }
 
     public T? Deserialize<T>(byte[] value)
     {
-        return JsonSerializer.Deserialize<T>(utf8Json: value, _jsonSerializerOptions);
+        return JsonSerializer.Deserialize<T>(value, _jsonSerializerOptions);
     }
 
     public T? Deserialize<T>(ReadOnlySpan<byte> value)
     {
-        return JsonSerializer.Deserialize<T>(utf8Json: value, _jsonSerializerOptions);
+        return JsonSerializer.Deserialize<T>(value, _jsonSerializerOptions);
     }
 }
 
 public class NativeAotUtf8JsonRabbitMqSerializer : IRabbitMqSerializer
 {
     private readonly IJsonContextProvider _contextProvider;
+
     public NativeAotUtf8JsonRabbitMqSerializer(IJsonContextProvider contextProvider)
     {
         _contextProvider = contextProvider;
@@ -83,7 +88,9 @@ public class NativeAotUtf8JsonRabbitMqSerializer : IRabbitMqSerializer
 
     public byte[] Serialize<T>(T obj)
     {
-        return obj == null ? Array.Empty<byte>() : JsonSerializer.SerializeToUtf8Bytes(obj, obj.GetType(), _contextProvider.GetSerializerContext());
+        return obj == null
+            ? Array.Empty<byte>()
+            : JsonSerializer.SerializeToUtf8Bytes(obj, obj.GetType(), _contextProvider.GetSerializerContext());
     }
 
     public byte[] Serialize(object obj)
@@ -91,21 +98,25 @@ public class NativeAotUtf8JsonRabbitMqSerializer : IRabbitMqSerializer
         return JsonSerializer.SerializeToUtf8Bytes(obj, obj.GetType(), _contextProvider.GetSerializerContext());
     }
 
-    public object? Deserialize(byte[] value, Type type)
+    public object? Deserialize(byte[] value,
+        Type type)
     {
         return JsonSerializer.Deserialize(value, type, _contextProvider.GetSerializerContext());
     }
-    public object? Deserialize(ReadOnlySpan<byte> value, Type type)
+
+    public object? Deserialize(ReadOnlySpan<byte> value,
+        Type type)
     {
         return JsonSerializer.Deserialize(value, type, _contextProvider.GetSerializerContext());
     }
+
     public T? Deserialize<T>(byte[] value)
     {
-        return (T?)JsonSerializer.Deserialize(utf8Json: value, typeof(T), _contextProvider.GetSerializerContext());
+        return (T?)JsonSerializer.Deserialize(value, typeof(T), _contextProvider.GetSerializerContext());
     }
 
     public T? Deserialize<T>(ReadOnlySpan<byte> value)
     {
-        return (T?)JsonSerializer.Deserialize(utf8Json: value, typeof(T), _contextProvider.GetSerializerContext());
+        return (T?)JsonSerializer.Deserialize(value, typeof(T), _contextProvider.GetSerializerContext());
     }
 }

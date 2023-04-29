@@ -8,6 +8,7 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
 
 {
     private readonly IObjectMapper _objectMapper;
+
     public DialogDomainEventHandler(IObjectMessageSender objectMessageSender,
         ICommandBus commandBus,
         IIdGenerator idGenerator,
@@ -41,20 +42,22 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
             ;
     }
 
-    public async Task HandleAsync(IDomainEvent<DialogFilterAggregate, DialogFilterId, DialogFilterUpdatedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.RequestInfo,
-            domainEvent.AggregateEvent.Filter.Id,
-            domainEvent.AggregateEvent.Filter);
-    }
-
-    public async Task HandleAsync(IDomainEvent<DialogFilterAggregate, DialogFilterId, DialogFilterDeletedEvent> domainEvent,
+    public async Task HandleAsync(
+        IDomainEvent<DialogFilterAggregate, DialogFilterId, DialogFilterDeletedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
         await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.FilterId,
             null);
+    }
+
+    public async Task HandleAsync(
+        IDomainEvent<DialogFilterAggregate, DialogFilterId, DialogFilterUpdatedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.RequestInfo,
+            domainEvent.AggregateEvent.Filter.Id,
+            domainEvent.AggregateEvent.Filter);
     }
 
     private async Task NotifyDialogFilterUpdatedAsync(RequestInfo request,
@@ -72,9 +75,9 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
             Update = new TUpdateDialogFilter
             {
                 Filter = filter,
-                Id = filterId,
+                Id = filterId
             },
-            Date = DateTime.UtcNow.ToTimestamp(),
+            Date = DateTime.UtcNow.ToTimestamp()
         };
 
         await SendMessageToPeerAsync(new Peer(PeerType.User, request.UserId), updates, request.AuthKeyId)

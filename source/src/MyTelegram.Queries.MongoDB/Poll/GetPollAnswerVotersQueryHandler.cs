@@ -14,7 +14,8 @@ public class
     public async Task<IReadOnlyCollection<IPollAnswerVoterReadModel>> ExecuteQueryAsync(GetPollAnswerVotersQuery query,
         CancellationToken cancellationToken)
     {
-        var cursor = await _store.FindAsync(p => p.PollId == query.PollId && p.VoterPeerId == query.VoterPeerId, cancellationToken: cancellationToken);
+        var cursor = await _store.FindAsync(p => p.PollId == query.PollId && p.VoterPeerId == query.VoterPeerId,
+            cancellationToken: cancellationToken);
         return await cursor.ToListAsync(cancellationToken);
     }
 }

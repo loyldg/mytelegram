@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public enum MessageType
@@ -18,6 +19,7 @@ public enum MessageType
     Contacts,
     Game,
     Poll,
-    Pinned,
+
+    Pinned
     //Service
 }

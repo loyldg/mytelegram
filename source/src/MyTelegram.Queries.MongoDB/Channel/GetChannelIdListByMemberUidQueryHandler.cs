@@ -14,7 +14,8 @@ public class
     public async Task<IReadOnlyCollection<long>> ExecuteQueryAsync(GetChannelIdListByMemberUidQuery query,
         CancellationToken cancellationToken)
     {
-        var findOptions = new FindOptions<ChannelMemberReadModel, long> {
+        var findOptions = new FindOptions<ChannelMemberReadModel, long>
+        {
             Projection = new ProjectionDefinitionBuilder<ChannelMemberReadModel>().Expression(p => p.ChannelId),
             Limit = 100
         };

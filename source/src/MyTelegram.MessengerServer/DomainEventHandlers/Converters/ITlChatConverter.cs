@@ -1,6 +1,6 @@
 ﻿using MyTelegram.Schema.Channels;
+using IChannelParticipant = MyTelegram.Schema.Channels.IChannelParticipant;
 using IChatFull = MyTelegram.Schema.Messages.IChatFull;
-using IExportedChatInvite = MyTelegram.Schema.IExportedChatInvite;
 
 namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
@@ -34,10 +34,10 @@ public interface ITlChatConverter
         long selfUserId,
         bool resetLeftToFalse = false);
 
-    Schema.Channels.IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
-         IChannelMemberReadModel channelMemberReadModel,
-         IUserReadModel userReadModel,
-         long selfUserId);
+    IChannelParticipant ToChannelParticipant(IChannelReadModel channelReadModel,
+        IChannelMemberReadModel channelMemberReadModel,
+        IUserReadModel userReadModel,
+        long selfUserId);
 
     Schema.LayerN.IChannelParticipant ToChannelParticipantLayerN(IChannelReadModel channelReadModel,
         IChannelMemberReadModel channelMemberReadModel,
@@ -50,6 +50,7 @@ public interface ITlChatConverter
         long selfUserId,
         DeviceType deviceType,
         bool forceNotLeft);
+
     IChat ToChat(long chatId,
         string title,
         int date,

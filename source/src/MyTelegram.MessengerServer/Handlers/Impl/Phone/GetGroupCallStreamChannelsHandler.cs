@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Phone;
+
 namespace MyTelegram.Handlers.Phone;
 
-public class GetGroupCallStreamChannelsHandler : RpcResultObjectHandler<MyTelegram.Schema.Phone.RequestGetGroupCallStreamChannels, MyTelegram.Schema.Phone.IGroupCallStreamChannels>,
+public class GetGroupCallStreamChannelsHandler :
+    RpcResultObjectHandler<RequestGetGroupCallStreamChannels, IGroupCallStreamChannels>,
     Phone.IGetGroupCallStreamChannelsHandler
 {
-    protected override Task<MyTelegram.Schema.Phone.IGroupCallStreamChannels> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Phone.RequestGetGroupCallStreamChannels obj)
+    protected override Task<IGroupCallStreamChannels> HandleCoreAsync(IRequestInput input,
+        RequestGetGroupCallStreamChannels obj)
     {
         throw new NotImplementedException();
     }

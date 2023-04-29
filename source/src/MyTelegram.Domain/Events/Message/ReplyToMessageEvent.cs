@@ -27,3 +27,5 @@
 //     public IReadOnlyList<InboxItem> InboxItems { get; }
 //     public Guid CorrelationId { get; }
 // }
+
+

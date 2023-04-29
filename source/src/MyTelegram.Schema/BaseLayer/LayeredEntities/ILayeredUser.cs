@@ -1,9 +1,10 @@
 ﻿// ReSharper disable All
+
 namespace MyTelegram.Schema;
 
 public interface ILayeredUser : IUser
 {
-    MyTelegram.Schema.IUserStatus? Status { get; set; }
+    Schema.IUserStatus? Status { get; set; }
     bool Self { get; set; }
     bool Contact { get; set; }
     string? Phone { get; set; }
@@ -12,8 +13,9 @@ public interface ILayeredUser : IUser
     int? BotInfoVersion { get; set; }
     bool BotChatHistory { get; set; }
     bool BotNochats { get; set; }
-    ///<summary>
-    ///See <a href="https://core.telegram.org/type/UserProfilePhoto" />
-    ///</summary>
-    MyTelegram.Schema.IUserProfilePhoto? Photo { get; set; }
+
+    /// <summary>
+    ///     See <a href="https://core.telegram.org/type/UserProfilePhoto" />
+    /// </summary>
+    Schema.IUserProfilePhoto? Photo { get; set; }
 }

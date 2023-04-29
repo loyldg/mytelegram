@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace MyTelegram;
 
 public enum IdType : byte
@@ -8,10 +9,10 @@ public enum IdType : byte
     ChannelMessageId = 3,
     UserId = 4,
     ChannelId = 5,
-    ChatId = 6, 
+    ChatId = 6,
     PrivacyId = 7,
     MessageFwdHeaderId = 8,
-    MessageMediaId = 9, 
+    MessageMediaId = 9,
     BotId = 10,
     BotUserId = 11,
     BotUpdateId = 12,
@@ -21,5 +22,5 @@ public enum IdType : byte
     Qts = 16,
     PushSeqNo = 17,
     GlobalSeqNo = 18,
-    NextHiLoHighValue = 19,
+    NextHiLoHighValue = 19
 }

@@ -2,6 +2,6 @@
 
 public interface ICacheSerializer
 {
-    byte[] Serialize<T>(T obj);
     T? Deserialize<T>(byte[] bytes);
+    byte[] Serialize<T>(T obj);
 }

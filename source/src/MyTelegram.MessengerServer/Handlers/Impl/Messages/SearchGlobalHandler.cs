@@ -22,12 +22,16 @@ public class SearchGlobalHandler : RpcResultObjectHandler<RequestSearchGlobal, I
         //var userId = await GetUidAsync(input);
         var userId = input.UserId;
 
-        var r = await _messageAppService.SearchGlobalAsync(new SearchGlobalInput
-            (MessageType.Unknown, userId, obj.Q, userId, obj.FolderId)
-        {
-            Limit = obj.Limit,
-            OffsetId = obj.OffsetId
-        });
+        var r = await _messageAppService.SearchGlobalAsync(
+            new SearchGlobalInput(MessageType.Unknown,
+                userId,
+                obj.Q,
+                userId,
+                obj.FolderId)
+            {
+                Limit = obj.Limit,
+                OffsetId = obj.OffsetId
+            });
 
         return _rpcResultProcessor.ToMessages(r);
     }

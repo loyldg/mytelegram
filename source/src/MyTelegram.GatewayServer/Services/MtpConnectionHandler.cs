@@ -3,9 +3,9 @@
 public class MtpConnectionHandler : ConnectionHandler
 {
     private readonly IClientManager _clientManager;
-    private readonly IMtpMessageParser _messageParser;
-    private readonly IMtpMessageDispatcher _messageDispatcher;
     private readonly ILogger<MtpConnectionHandler> _logger;
+    private readonly IMtpMessageDispatcher _messageDispatcher;
+    private readonly IMtpMessageParser _messageParser;
 
     public MtpConnectionHandler(IClientManager clientManager,
         IMtpMessageParser messageParser,
@@ -20,16 +20,21 @@ public class MtpConnectionHandler : ConnectionHandler
 
     public override async Task OnConnectedAsync(ConnectionContext connection)
     {
-        _logger.LogInformation("[ConnectionId={ConnectionId}] New client connected,RemoteEndPoint:{RemoteEndPoint}", connection.ConnectionId, connection.RemoteEndPoint);
-        _clientManager.AddClient(connection.ConnectionId, new ClientData
-        {
-            ConnectionContext = connection,
-            ConnectionId = connection.ConnectionId,
-            ClientType = ClientType.Tcp
-        });
+        _logger.LogInformation("[ConnectionId={ConnectionId}] New client connected,RemoteEndPoint:{RemoteEndPoint}",
+            connection.ConnectionId,
+            connection.RemoteEndPoint);
+        _clientManager.AddClient(connection.ConnectionId,
+            new ClientData
+            {
+                ConnectionContext = connection,
+                ConnectionId = connection.ConnectionId,
+                ClientType = ClientType.Tcp
+            });
         connection.ConnectionClosed.Register(() =>
         {
-            _logger.LogInformation("[ConnectionId={ConnectionId}] Client disconnected,RemoteEndPoint:{RemoteEndPoint}", connection.ConnectionId, connection.RemoteEndPoint);
+            _logger.LogInformation("[ConnectionId={ConnectionId}] Client disconnected,RemoteEndPoint:{RemoteEndPoint}",
+                connection.ConnectionId,
+                connection.RemoteEndPoint);
             _clientManager.RemoveClient(connection.ConnectionId);
         });
 
@@ -73,6 +78,18 @@ public class MtpConnectionHandler : ConnectionHandler
         }
     }
 
+    private Task ProcessDataAsync(IMtpMessage mtpMessage,
+        ClientData clientData)
+    {
+        if (clientData.IsFirstPacketParsed)
+        {
+            mtpMessage.ConnectionId = clientData.ConnectionId;
+            mtpMessage.ClientIp = (clientData.ConnectionContext!.RemoteEndPoint as IPEndPoint)?.Address.ToString();
+            return _messageDispatcher.DispatchAsync(mtpMessage);
+        }
+
+        return Task.CompletedTask;
+    }
 
     private bool TryParseMessage(ref ReadOnlySequence<byte> buffer,
         ClientData clientData,
@@ -94,18 +111,5 @@ public class MtpConnectionHandler : ConnectionHandler
         }
 
         return _messageParser.TryParse(ref buffer, clientData, out mtpMessage);
-    }
-
-    private Task ProcessDataAsync(IMtpMessage mtpMessage,
-        ClientData clientData)
-    {
-        if (clientData.IsFirstPacketParsed)
-        {
-            mtpMessage.ConnectionId = clientData.ConnectionId;
-            mtpMessage.ClientIp = (clientData.ConnectionContext!.RemoteEndPoint as IPEndPoint)?.Address.ToString();
-            return _messageDispatcher.DispatchAsync(mtpMessage);
-        }
-
-        return Task.CompletedTask;
     }
 }

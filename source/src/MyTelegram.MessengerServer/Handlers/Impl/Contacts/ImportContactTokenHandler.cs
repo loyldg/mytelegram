@@ -1,12 +1,14 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Contacts;
+
 namespace MyTelegram.Handlers.Contacts;
 
-internal sealed class ImportContactTokenHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestImportContactToken, MyTelegram.Schema.IUser>,
+internal sealed class ImportContactTokenHandler : RpcResultObjectHandler<RequestImportContactToken, Schema.IUser>,
     Contacts.IImportContactTokenHandler
 {
-    protected override Task<MyTelegram.Schema.IUser> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Contacts.RequestImportContactToken obj)
+    protected override Task<Schema.IUser> HandleCoreAsync(IRequestInput input,
+        RequestImportContactToken obj)
     {
         throw new NotImplementedException();
     }

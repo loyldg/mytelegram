@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Bots;
+
 namespace MyTelegram.Handlers.Bots;
 
-public class SetBotBroadcastDefaultAdminRightsHandler : RpcResultObjectHandler<MyTelegram.Schema.Bots.RequestSetBotBroadcastDefaultAdminRights, IBool>,
+public class SetBotBroadcastDefaultAdminRightsHandler :
+    RpcResultObjectHandler<RequestSetBotBroadcastDefaultAdminRights, IBool>,
     Bots.ISetBotBroadcastDefaultAdminRightsHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Bots.RequestSetBotBroadcastDefaultAdminRights obj)
+        RequestSetBotBroadcastDefaultAdminRights obj)
     {
         throw new NotImplementedException();
     }

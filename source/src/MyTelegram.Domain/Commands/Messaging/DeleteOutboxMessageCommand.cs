@@ -2,7 +2,8 @@
 
 public class DeleteOutboxMessageCommand : Command<MessageAggregate, MessageId, IExecutionResult>, IHasCorrelationId
 {
-    public DeleteOutboxMessageCommand(MessageId aggregateId, Guid correlationId) : base(aggregateId)
+    public DeleteOutboxMessageCommand(MessageId aggregateId,
+        Guid correlationId) : base(aggregateId)
     {
         CorrelationId = correlationId;
     }

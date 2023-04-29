@@ -2,25 +2,9 @@
 
 public static class ObjectMapperExtensions
 {
-    public static void RegisterAllMappers(this IServiceCollection services)
-    {
-        //services.AddSingleton<IObjectMapper, DefaultObjectMapper>();
-        var mapperType = typeof(CustomObjectMapper);
-        var types = GetImplementedGenericTypes(mapperType, typeof(IObjectMapper<,>));
-        foreach (var type in types)
-        {
-            services.AddSingleton(type, mapperType);
-        }
-    }
-
-    private static List<Type> GetImplementedGenericTypes(Type givenType, Type genericType)
-    {
-        var result = new List<Type>();
-        AddImplementedGenericTypes(result, givenType, genericType);
-        return result;
-    }
-
-    private static void AddImplementedGenericTypes(List<Type> result, Type givenType, Type genericType)
+    private static void AddImplementedGenericTypes(List<Type> result,
+        Type givenType,
+        Type genericType)
     {
         var givenTypeInfo = givenType.GetTypeInfo();
 
@@ -49,5 +33,24 @@ public static class ObjectMapperExtensions
         }
 
         AddImplementedGenericTypes(result, givenTypeInfo.BaseType, genericType);
+    }
+
+    private static List<Type> GetImplementedGenericTypes(Type givenType,
+        Type genericType)
+    {
+        var result = new List<Type>();
+        AddImplementedGenericTypes(result, givenType, genericType);
+        return result;
+    }
+
+    public static void RegisterAllMappers(this IServiceCollection services)
+    {
+        //services.AddSingleton<IObjectMapper, DefaultObjectMapper>();
+        var mapperType = typeof(CustomObjectMapper);
+        var types = GetImplementedGenericTypes(mapperType, typeof(IObjectMapper<,>));
+        foreach (var type in types)
+        {
+            services.AddSingleton(type, mapperType);
+        }
     }
 }

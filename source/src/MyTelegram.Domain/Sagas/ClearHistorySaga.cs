@@ -9,7 +9,9 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
     private readonly IIdGenerator _idGenerator;
     private readonly ClearHistoryState _state = new();
 
-    public ClearHistorySaga(ClearHistorySagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
+    public ClearHistorySaga(ClearHistorySagaId id,
+        IEventStore eventStore,
+        IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -149,7 +151,10 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
                     messageSubType: MessageSubType.ClearHistory,
                     messageActionData: _state.MessageActionData,
                     messageActionType: MessageActionType.HistoryClear);
-                var command = new StartSendMessageCommand(aggregateId, _state.RequestInfo, messageItem, correlationId: Guid.NewGuid());
+                var command = new StartSendMessageCommand(aggregateId,
+                    _state.RequestInfo,
+                    messageItem,
+                    correlationId: Guid.NewGuid());
                 Publish(command);
 
                 Emit(new ClearHistorySagaCompletedEvent());

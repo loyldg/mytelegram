@@ -10,6 +10,6 @@ public interface IAttachMenuBot : IObject
     bool RequestWriteAccess { get; set; }
     long BotId { get; set; }
     string ShortName { get; set; }
-    TVector<MyTelegram.Schema.IAttachMenuPeerType> PeerTypes { get; set; }
-    TVector<MyTelegram.Schema.IAttachMenuBotIcon> Icons { get; set; }
+    TVector<Schema.IAttachMenuPeerType> PeerTypes { get; set; }
+    TVector<Schema.IAttachMenuBotIcon> Icons { get; set; }
 }

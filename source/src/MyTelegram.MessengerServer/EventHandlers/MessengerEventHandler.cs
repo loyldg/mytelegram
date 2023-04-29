@@ -45,9 +45,9 @@ public class MessengerEventHandler : IEventHandler<MessengerDataReceivedEvent>,
     public async Task HandleEventAsync(DuplicateCommandEvent eventData)
     {
         var rpcResultReadModel =
-            await _queryProcessor
-                .ProcessAsync(new GetRpcResultByIdQuery(RpcResultId.Create(eventData.SourceId).Value), default)
-                ;
+                await _queryProcessor
+                    .ProcessAsync(new GetRpcResultByIdQuery(RpcResultId.Create(eventData.SourceId).Value), default)
+            ;
         if (rpcResultReadModel != null)
         {
             var rpcData = rpcResultReadModel.RpcData.ToTObject<IObject>();
@@ -108,7 +108,14 @@ public class MessengerEventHandler : IEventHandler<MessengerDataReceivedEvent>,
     //}
     public Task HandleEventAsync(StickerDataReceivedEvent eventData)
     {
-        _processor.Enqueue(new MessengerDataReceivedEvent(eventData.ObjectId, eventData.UserId, eventData.ReqMsgId, eventData.SeqNumber, eventData.AuthKeyId, eventData.PermAuthKeyId, eventData.Data), eventData.AuthKeyId);
+        _processor.Enqueue(new MessengerDataReceivedEvent(eventData.ObjectId,
+                eventData.UserId,
+                eventData.ReqMsgId,
+                eventData.SeqNumber,
+                eventData.AuthKeyId,
+                eventData.PermAuthKeyId,
+                eventData.Data),
+            eventData.AuthKeyId);
         return Task.CompletedTask;
     }
 }

@@ -13,7 +13,6 @@ public class ChannelFullReadModel : Impl.ChannelFullReadModel, IMongoDbReadModel
 }
 
 [BsonIgnoreExtraElements]
-
 public class ChannelMemberReadModel : Impl.ChannelMemberReadModel, IMongoDbReadModel
 {
 }
@@ -109,10 +108,12 @@ public class UserNameReadModel : Impl.UserNameReadModel, IMongoDbReadModel
 public class UserReadModel : Impl.UserReadModel, IMongoDbReadModel
 {
 }
+
 [BsonIgnoreExtraElements]
 public class PollReadModel : Impl.PollReadModel, IMongoDbReadModel
 {
 }
+
 [BsonIgnoreExtraElements]
 public class PollAnswerVoterReadModel : Impl.PollAnswerVoterReadModel, IMongoDbReadModel
 {

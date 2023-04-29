@@ -2,11 +2,6 @@
 
 public class VoteAnswerCreatedEvent : AggregateEvent<PollAggregate, PollId>
 {
-    public long PollId { get; }
-    public long VoterPeerId { get; }
-    public string Option { get; }
-    public bool Correct { get; }
-
     public VoteAnswerCreatedEvent(
         long pollId,
         long voterPeerId,
@@ -18,4 +13,9 @@ public class VoteAnswerCreatedEvent : AggregateEvent<PollAggregate, PollId>
         Option = option;
         Correct = correct;
     }
+
+    public long PollId { get; }
+    public long VoterPeerId { get; }
+    public string Option { get; }
+    public bool Correct { get; }
 }

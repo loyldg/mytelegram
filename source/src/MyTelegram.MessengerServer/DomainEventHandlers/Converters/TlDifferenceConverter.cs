@@ -4,11 +4,12 @@ namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
 public class TlDifferenceConverter : ITlDifferenceConverter
 {
-    private readonly ITlMessageConverter _messageConverter;
     private readonly ITlChatConverter _chatConverter;
-    private readonly ITlUserConverter _userConverter;
+    private readonly ITlMessageConverter _messageConverter;
     private readonly IObjectMapper _objectMapper;
     private readonly IOptions<MyTelegramMessengerServerOptions> _options;
+    private readonly ITlUserConverter _userConverter;
+
     public TlDifferenceConverter(ITlMessageConverter messageConverter,
         ITlChatConverter chatConverter,
         ITlUserConverter userConverter,
@@ -41,7 +42,10 @@ public class TlDifferenceConverter : ITlDifferenceConverter
             maxPts = Math.Max(updatesMaxPts, boxMaxPts);
         }
 
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
+        var messageList = _messageConverter.ToMessages(output.MessageList,
+            output.PollList,
+            output.ChosenPollOptions,
+            output.SelfUserId);
         var chatList = _chatConverter.ToChatList(output.ChatList, output.SelfUserId);
         var channelList = _chatConverter.ToChannelList(output.ChannelList,
             output.JoinedChannelIdList,
@@ -70,7 +74,10 @@ public class TlDifferenceConverter : ITlDifferenceConverter
         IList<IUpdate> updateList,
         IList<IChat> chatListFromUpdates)
     {
-        var messageList = _messageConverter.ToMessages(output.MessageList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
+        var messageList = _messageConverter.ToMessages(output.MessageList,
+            output.PollList,
+            output.ChosenPollOptions,
+            output.SelfUserId);
         var userList = _userConverter.ToUserList(output.UserList, output.SelfUserId);
         var chatList = _chatConverter.ToChatList(output.ChatList, output.SelfUserId);
         chatList.AddRange(chatListFromUpdates);
@@ -90,10 +97,12 @@ public class TlDifferenceConverter : ITlDifferenceConverter
                 NewMessages = new TVector<IMessage>(messageList),
                 OtherUpdates = new TVector<IUpdate>(updateList),
                 Users = new TVector<IUser>(userList),
-                IntermediateState = pts == null ? new TState
-                {
-                    Date = DateTime.UtcNow.ToTimestamp()
-                } : _objectMapper.Map<IPtsReadModel, TState>(pts)
+                IntermediateState = pts == null
+                    ? new TState
+                    {
+                        Date = DateTime.UtcNow.ToTimestamp()
+                    }
+                    : _objectMapper.Map<IPtsReadModel, TState>(pts)
             };
 
             return differenceSlice;
@@ -106,10 +115,12 @@ public class TlDifferenceConverter : ITlDifferenceConverter
             NewMessages = new TVector<IMessage>(messageList),
             OtherUpdates = new TVector<IUpdate>(updateList),
             Users = new TVector<IUser>(userList),
-            State = pts == null ? new TState
-            {
-                Date = DateTime.UtcNow.ToTimestamp()
-            } : _objectMapper.Map<IPtsReadModel, TState>(pts)
+            State = pts == null
+                ? new TState
+                {
+                    Date = DateTime.UtcNow.ToTimestamp()
+                }
+                : _objectMapper.Map<IPtsReadModel, TState>(pts)
         };
         if (cachedPts > pts?.Pts)
         {

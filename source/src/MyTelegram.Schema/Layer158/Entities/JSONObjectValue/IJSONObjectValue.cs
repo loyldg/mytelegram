@@ -5,5 +5,5 @@ namespace MyTelegram.Schema;
 public interface IJSONObjectValue : IObject
 {
     string Key { get; set; }
-    MyTelegram.Schema.IJSONValue Value { get; set; }
+    Schema.IJSONValue Value { get; set; }
 }

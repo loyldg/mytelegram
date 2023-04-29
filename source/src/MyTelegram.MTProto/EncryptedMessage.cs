@@ -1,6 +1,7 @@
 ﻿//namespace MyTelegram.MTProto;
 
 namespace MyTelegram.Core;
+
 //[EventName("MyTelegram.Core.EncryptedMessage")]
 public record EncryptedMessage(long AuthKeyId,
     byte[] MsgKey,

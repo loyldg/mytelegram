@@ -8,52 +8,12 @@ public class UpdateDialogFilterHandler : RpcResultObjectHandler<RequestUpdateDia
 {
     private readonly ICommandBus _commandBus;
     private readonly IPeerHelper _peerHelper;
+
     public UpdateDialogFilterHandler(ICommandBus commandBus,
         IPeerHelper peerHelper)
     {
         _commandBus = commandBus;
         _peerHelper = peerHelper;
-    }
-
-    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
-        RequestUpdateDialogFilter obj)
-    {
-        if (obj.Filter == null)
-        {
-            var command = new DeleteDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id), input.ToRequestInfo());
-            await _commandBus.PublishAsync(command, default);
-        }
-        else
-        {
-            if (obj.Filter is TDialogFilter f)
-            {
-                var pinnedPeers = f.PinnedPeers.Select(GetInputPeer).ToList();
-                var includePeers = f.IncludePeers.Select(GetInputPeer).ToList();
-                var excludePeers = f.ExcludePeers.Select(GetInputPeer).ToList();
-                var filter = new DialogFilter(obj.Id,
-                    f.Contacts,
-                    f.NonContacts,
-                    f.Groups,
-                    f.Broadcasts,
-                    f.Bots,
-                    f.ExcludeMuted,
-                    f.ExcludeRead,
-                    f.ExcludeArchived,
-                    f.Title,
-                    f.Emoticon,
-                    pinnedPeers,
-                    includePeers,
-                    excludePeers);
-                var command = new UpdateDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id), input.ToRequestInfo(), input.UserId, filter);
-                await _commandBus.PublishAsync(command, default);
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        return new TBoolTrue();
     }
 
     private InputPeer GetInputPeer(IInputPeer inputPeer)
@@ -79,5 +39,50 @@ public class UpdateDialogFilterHandler : RpcResultObjectHandler<RequestUpdateDia
         }
 
         return new InputPeer(peer, accessHash);
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestUpdateDialogFilter obj)
+    {
+        if (obj.Filter == null)
+        {
+            var command =
+                new DeleteDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id), input.ToRequestInfo());
+            await _commandBus.PublishAsync(command, default);
+        }
+        else
+        {
+            if (obj.Filter is TDialogFilter f)
+            {
+                var pinnedPeers = f.PinnedPeers.Select(GetInputPeer).ToList();
+                var includePeers = f.IncludePeers.Select(GetInputPeer).ToList();
+                var excludePeers = f.ExcludePeers.Select(GetInputPeer).ToList();
+                var filter = new DialogFilter(obj.Id,
+                    f.Contacts,
+                    f.NonContacts,
+                    f.Groups,
+                    f.Broadcasts,
+                    f.Bots,
+                    f.ExcludeMuted,
+                    f.ExcludeRead,
+                    f.ExcludeArchived,
+                    f.Title,
+                    f.Emoticon,
+                    pinnedPeers,
+                    includePeers,
+                    excludePeers);
+                var command = new UpdateDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id),
+                    input.ToRequestInfo(),
+                    input.UserId,
+                    filter);
+                await _commandBus.PublishAsync(command, default);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        return new TBoolTrue();
     }
 }

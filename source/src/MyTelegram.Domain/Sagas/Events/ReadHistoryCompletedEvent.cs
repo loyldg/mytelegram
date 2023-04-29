@@ -33,7 +33,7 @@ public class ReadHistoryCompletedEvent : RequestAggregateEvent2<ReadHistorySaga,
     public int ReaderMessageId { get; }
     public int ReaderPts { get; }
     public Peer ReaderToPeer { get; }
-    public long ReaderUid { get; } 
+    public long ReaderUid { get; }
     public bool SenderIsBot { get; }
     public int SenderMessageId { get; }
     public int SenderPts { get; }

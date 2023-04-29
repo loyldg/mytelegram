@@ -7,8 +7,8 @@ namespace MyTelegram.MessengerServer.Handlers.Impl.Channels;
 public class GetGroupsForDiscussionHandler : RpcResultObjectHandler<RequestGetGroupsForDiscussion, IChats>,
     IGetGroupsForDiscussionHandler, IProcessedHandler
 {
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ITlChatConverter _chatConverter;
+    private readonly IQueryProcessor _queryProcessor;
 
     public GetGroupsForDiscussionHandler(IQueryProcessor queryProcessor,
         ITlChatConverter chatConverter)

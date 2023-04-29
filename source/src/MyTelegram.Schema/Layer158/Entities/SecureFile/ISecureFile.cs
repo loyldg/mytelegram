@@ -4,5 +4,4 @@ namespace MyTelegram.Schema;
 
 public interface ISecureFile : IObject
 {
-
 }

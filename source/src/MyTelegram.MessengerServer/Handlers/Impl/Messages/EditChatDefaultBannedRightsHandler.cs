@@ -25,52 +25,52 @@ public class EditChatDefaultBannedRightsHandler : RpcResultObjectHandler<Request
         switch (peer.PeerType)
         {
             case PeerType.Chat:
-                {
-                    var rights = obj.BannedRights;
-                    var command = new EditChatDefaultBannedRightsCommand(ChatId.Create(peer.PeerId),
-                        input.ReqMsgId,
-                        new ChatBannedRights(rights.ViewMessages,
-                            rights.SendMessages,
-                            rights.SendMedia,
-                            rights.SendStickers,
-                            rights.SendGifs,
-                            rights.SendGames,
-                            rights.SendInline,
-                            rights.EmbedLinks,
-                            rights.SendPolls,
-                            rights.ChangeInfo,
-                            rights.InviteUsers,
-                            rights.PinMessages,
-                            rights.UntilDate,
-                            rights.ManageTopics
-                        ),
-                        input.UserId);
-                    await _commandBus.PublishAsync(command, CancellationToken.None);
-                }
+            {
+                var rights = obj.BannedRights;
+                var command = new EditChatDefaultBannedRightsCommand(ChatId.Create(peer.PeerId),
+                    input.ReqMsgId,
+                    new ChatBannedRights(rights.ViewMessages,
+                        rights.SendMessages,
+                        rights.SendMedia,
+                        rights.SendStickers,
+                        rights.SendGifs,
+                        rights.SendGames,
+                        rights.SendInline,
+                        rights.EmbedLinks,
+                        rights.SendPolls,
+                        rights.ChangeInfo,
+                        rights.InviteUsers,
+                        rights.PinMessages,
+                        rights.UntilDate,
+                        rights.ManageTopics
+                    ),
+                    input.UserId);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
+            }
                 break;
             case PeerType.Channel:
-                {
-                    var rights = obj.BannedRights;
-                    var command = new EditChannelDefaultBannedRightsCommand(ChannelId.Create(peer.PeerId),
-                        input.ReqMsgId,
-                        new ChatBannedRights(rights.ViewMessages,
-                            rights.SendMessages,
-                            rights.SendMedia,
-                            rights.SendStickers,
-                            rights.SendGifs,
-                            rights.SendGames,
-                            rights.SendInline,
-                            rights.EmbedLinks,
-                            rights.SendPolls,
-                            rights.ChangeInfo,
-                            rights.InviteUsers,
-                            rights.PinMessages,
-                            rights.UntilDate,
-                            rights.ManageTopics
-                        ),
-                        input.UserId);
-                    await _commandBus.PublishAsync(command, CancellationToken.None);
-                }
+            {
+                var rights = obj.BannedRights;
+                var command = new EditChannelDefaultBannedRightsCommand(ChannelId.Create(peer.PeerId),
+                    input.ReqMsgId,
+                    new ChatBannedRights(rights.ViewMessages,
+                        rights.SendMessages,
+                        rights.SendMedia,
+                        rights.SendStickers,
+                        rights.SendGifs,
+                        rights.SendGames,
+                        rights.SendInline,
+                        rights.EmbedLinks,
+                        rights.SendPolls,
+                        rights.ChangeInfo,
+                        rights.InviteUsers,
+                        rights.PinMessages,
+                        rights.UntilDate,
+                        rights.ManageTopics
+                    ),
+                    input.UserId);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
+            }
                 break;
         }
 

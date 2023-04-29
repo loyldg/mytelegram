@@ -6,7 +6,8 @@ public class UserSignUpSaga : AggregateSaga<UserSignUpSaga, UserSignUpSagaId, Us
 {
     private readonly IIdGenerator _idGenerator;
 
-    public UserSignUpSaga(UserSignUpSagaId id,IIdGenerator idGenerator) : base(id)
+    public UserSignUpSaga(UserSignUpSagaId id,
+        IIdGenerator idGenerator) : base(id)
     {
         _idGenerator = idGenerator;
     }

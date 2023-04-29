@@ -7,8 +7,8 @@ namespace MyTelegram.SmsSender;
 
 public class AppCodeEventHandler : IDistributedEventHandler<AppCodeCreatedIntegrationEvent>, ITransientDependency
 {
-    private readonly ISmsSender _smsSender;
     private readonly ILogger<AppCodeEventHandler> _logger;
+    private readonly ISmsSender _smsSender;
 
     public AppCodeEventHandler(ISmsSender smsSender,
         ILogger<AppCodeEventHandler> logger)
@@ -38,7 +38,7 @@ public class AppCodeEventHandler : IDistributedEventHandler<AppCodeCreatedIntegr
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Send sms failed,data={@Data}",eventData);
+            _logger.LogError(ex, "Send sms failed,data={@Data}", eventData);
         }
     }
 }

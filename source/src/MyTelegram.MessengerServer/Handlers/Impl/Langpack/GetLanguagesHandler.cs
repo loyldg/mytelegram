@@ -41,7 +41,7 @@ public class GetLanguagesHandler : RpcResultObjectHandler<RequestGetLanguages, T
 }
 
 public class GetLanguagesHandlerLayerN : RpcResultObjectHandler<RequestGetLanguagesLayerN, TVector<ILangPackLanguage>>,
-     IGetLanguagesHandlerLayerN, IProcessedHandler
+    IGetLanguagesHandlerLayerN, IProcessedHandler
 {
     protected override Task<TVector<ILangPackLanguage>> HandleCoreAsync(IRequestInput input,
         RequestGetLanguagesLayerN obj)

@@ -33,7 +33,7 @@ public class
         MessageId = messageId;
         SenderPeerId = senderPeerId;
         SenderMessageId = senderMessageId;
-        ToPeer = toPeer; 
+        ToPeer = toPeer;
         RandomId = randomId;
         Date = date;
         MessageActionData = messageActionData;
@@ -58,7 +58,7 @@ public class
     public Peer ToPeer { get; }
     public long SenderPeerId { get; }
     public bool Silent { get; }
-     
+
     //public int MessageId { get; }
     ////public long ChannelId { get; }
     //public bool Pinned { get; }

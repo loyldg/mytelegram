@@ -1,9 +1,11 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class DeleteChatUserSaga : MyInMemoryAggregateSaga<DeleteChatUserSaga, DeleteChatUserSagaId, DeleteChatUserSagaLocator>,
+public class DeleteChatUserSaga :
+    MyInMemoryAggregateSaga<DeleteChatUserSaga, DeleteChatUserSagaId, DeleteChatUserSagaLocator>,
     ISagaIsStartedBy<ChatAggregate, ChatId, ChatMemberDeletedEvent>
 {
-    public DeleteChatUserSaga(DeleteChatUserSagaId id, IEventStore eventStore) : base(id, eventStore)
+    public DeleteChatUserSaga(DeleteChatUserSagaId id,
+        IEventStore eventStore) : base(id, eventStore)
     {
     }
 

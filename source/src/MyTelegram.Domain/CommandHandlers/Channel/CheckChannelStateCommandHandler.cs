@@ -6,7 +6,11 @@ public class CheckChannelStateCommandHandler : CommandHandler<ChannelAggregate, 
         CheckChannelStateCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.CheckChannelState(command.SenderPeerId, command.MessageId, command.Date, command.MessageSubType, command.CorrelationId);
+        aggregate.CheckChannelState(command.SenderPeerId,
+            command.MessageId,
+            command.Date,
+            command.MessageSubType,
+            command.CorrelationId);
         return Task.CompletedTask;
     }
 }

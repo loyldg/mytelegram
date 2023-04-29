@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TUpdateMessagePoll = MyTelegram.Schema.TUpdateMessagePoll;
-
-namespace MyTelegram.MessengerServer.DomainEventHandlers;
+﻿namespace MyTelegram.MessengerServer.DomainEventHandlers;
 
 public class VoteDomainEventHandler :
     DomainEventHandlerBase,
     ISubscribeSynchronousTo<VoteSaga, VoteSagaId, VoteSagaCompletedEvent>
 {
-    private readonly IQueryProcessor _queryProcessor;
     private readonly ITlPollConverter _pollConverter;
+    private readonly IQueryProcessor _queryProcessor;
 
     public VoteDomainEventHandler(IObjectMessageSender objectMessageSender,
         ICommandBus commandBus,
@@ -20,7 +13,10 @@ public class VoteDomainEventHandler :
         IAckCacheService ackCacheService,
         IResponseCacheAppService responseCacheAppService,
         IQueryProcessor queryProcessor,
-        ITlPollConverter pollConverter) : base(objectMessageSender, commandBus, idGenerator, ackCacheService,
+        ITlPollConverter pollConverter) : base(objectMessageSender,
+        commandBus,
+        idGenerator,
+        ackCacheService,
         responseCacheAppService)
     {
         _queryProcessor = queryProcessor;
@@ -48,8 +44,7 @@ public class VoteDomainEventHandler :
             var updatesForMember = _pollConverter.ToPollUpdates(pollReadModel, Array.Empty<string>());
             await SendMessageToPeerAsync(domainEvent.AggregateEvent.ToPeer,
                 updatesForMember,
-                excludeAuthKeyId: domainEvent.AggregateEvent.RequestInfo.AuthKeyId);
+                domainEvent.AggregateEvent.RequestInfo.AuthKeyId);
         }
     }
 }
-

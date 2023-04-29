@@ -3,5 +3,8 @@
 public interface IPtsHelper
 {
     int GetCachedPts(long ownerId);
-    Task IncrementPtsAsync(long ownerId, int currentPts, int ptsCount = 1);
+
+    Task IncrementPtsAsync(long ownerId,
+        int currentPts,
+        int ptsCount = 1);
 }

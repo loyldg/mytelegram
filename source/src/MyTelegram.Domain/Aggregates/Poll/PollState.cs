@@ -9,17 +9,24 @@ public class PollState : AggregateState<PollAggregate, PollId, PollState>, IAppl
     IApply<VoteAnswerDeletedEvent>,
     IApply<PollClosedEvent>
 {
+    private readonly ConcurrentDictionary<string, HashSet<long>> _optionToVoterPeers = new();
+
     public long PollId { get; private set; }
+
     //public long CreatorUid { get; private set; }
     public bool Closed { get; private set; }
+
     //public bool PublicVoters { get; private set; }
     public bool MultipleChoice { get; private set; }
     public bool Quiz { get; private set; }
+
     public string Question { get; private set; } = null!;
+
     //public string? Solution { get; private set; }
     //public byte[]? SolutionEntities { get; private set; }
     //public int CreationTime { get; private set; }
     public int CloseDate { get; private set; }
+
     //public int ClosePeriod { get; private set; }
     public Peer ToPeer { get; private set; } = null!;
 
@@ -28,8 +35,14 @@ public class PollState : AggregateState<PollAggregate, PollId, PollState>, IAppl
     public IReadOnlyCollection<string>? CorrectAnswers { get; private set; }
     public IReadOnlyCollection<PollAnswer> Answers { get; private set; } = null!;
     public IReadOnlyCollection<PollAnswerVoter> AnswerVoters { get; private set; } = new List<PollAnswerVoter>();
-    public HashSet<long> VotedPeerIds { get; private set; } = new();
-    private readonly ConcurrentDictionary<string, HashSet<long>> _optionToVoterPeers = new();
+    public HashSet<long> VotedPeerIds { get; } = new();
+
+    public void Apply(PollClosedEvent aggregateEvent)
+    {
+        Closed = true;
+        CloseDate = aggregateEvent.CloseDate;
+    }
+
     public void Apply(PollCreatedEvent aggregateEvent)
     {
         //throw new NotImplementedException();
@@ -48,7 +61,19 @@ public class PollState : AggregateState<PollAggregate, PollId, PollState>, IAppl
             var voter = new PollAnswerVoter(correct, answer.Option, 0);
             answerVoters.Add(voter);
         }
+
         AnswerVoters = answerVoters;
+    }
+
+    public void Apply(VoteAnswerCreatedEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(VoteAnswerDeletedEvent aggregateEvent)
+    {
+        VotedPeerIds.Remove(aggregateEvent.VoterPeerId);
+        //throw new NotImplementedException();
     }
 
     public void Apply(VoteSucceededEvent aggregateEvent)
@@ -64,13 +89,9 @@ public class PollState : AggregateState<PollAggregate, PollId, PollState>, IAppl
                 voterPeers = new HashSet<long>();
                 _optionToVoterPeers.TryAdd(option, voterPeers);
             }
+
             voterPeers.Add(aggregateEvent.VoteUserPeerId);
         }
-    }
-
-    public void Apply(VoteAnswerCreatedEvent aggregateEvent)
-    {
-        //throw new NotImplementedException();
     }
 
     public List<string> GetVoteOptionsByUserId(long userId)
@@ -85,17 +106,5 @@ public class PollState : AggregateState<PollAggregate, PollId, PollState>, IAppl
         }
 
         return options;
-    }
-
-    public void Apply(VoteAnswerDeletedEvent aggregateEvent)
-    {
-        VotedPeerIds.Remove(aggregateEvent.VoterPeerId);
-        //throw new NotImplementedException();
-    }
-
-    public void Apply(PollClosedEvent aggregateEvent)
-    {
-        Closed = true;
-        CloseDate = aggregateEvent.CloseDate;
     }
 }

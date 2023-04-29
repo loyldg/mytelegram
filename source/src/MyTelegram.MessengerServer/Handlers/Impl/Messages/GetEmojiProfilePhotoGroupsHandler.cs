@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Messages;
+
 namespace MyTelegram.Handlers.Messages;
 
-internal sealed class GetEmojiProfilePhotoGroupsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetEmojiProfilePhotoGroups, MyTelegram.Schema.Messages.IEmojiGroups>,
+internal sealed class GetEmojiProfilePhotoGroupsHandler :
+    RpcResultObjectHandler<RequestGetEmojiProfilePhotoGroups, IEmojiGroups>,
     Messages.IGetEmojiProfilePhotoGroupsHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IEmojiGroups> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetEmojiProfilePhotoGroups obj)
+    protected override Task<IEmojiGroups> HandleCoreAsync(IRequestInput input,
+        RequestGetEmojiProfilePhotoGroups obj)
     {
         throw new NotImplementedException();
     }

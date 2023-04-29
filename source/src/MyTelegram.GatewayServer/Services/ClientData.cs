@@ -2,6 +2,10 @@
 
 public class ClientData : IClientData
 {
+    public ConnectionContext? ConnectionContext { get; set; }
+    public WebSocket? WebSocket { get; set; }
+    public ClientType ClientType { get; set; }
+    public string? ClientIp { get; set; }
     public ProtocolType MtProtoType { get; set; }
     public bool IsFirstPacketParsed { get; set; }
     public byte[] SendKey { get; set; } = null!;
@@ -11,12 +15,8 @@ public class ClientData : IClientData
     public long AuthKeyId { get; set; }
     public string ConnectionId { get; set; } = null!;
     public bool ObfuscationEnabled { get; set; }
-    public ConnectionContext? ConnectionContext { get; set; }
-    public WebSocket? WebSocket { get; set; }
     public int CurrentPacketLength { get; set; }
     public int SkipCount { get; set; }
-    public ClientType ClientType { get; set; }
-    public string? ClientIp { get; set; }
 
     //public IAesCtrHelper SendAesCtrHelper { get; set; } = null!;
     //public IAesCtrHelper ReceiveAesCtrHelper { get; set; } = null!;

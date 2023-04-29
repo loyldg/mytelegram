@@ -12,7 +12,8 @@ public class GetAutoDownloadSettingsHandler :
     protected override Task<IAutoDownloadSettings> HandleCoreAsync(IRequestInput input,
         RequestGetAutoDownloadSettings obj)
     {
-        var settings = new TAutoDownloadSettings {
+        var settings = new TAutoDownloadSettings
+        {
             AudioPreloadNext = true,
             Disabled = false,
             FileSizeMax = 1024 * 1024 * 10,

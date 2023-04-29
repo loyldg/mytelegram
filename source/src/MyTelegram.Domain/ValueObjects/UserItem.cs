@@ -1,7 +1,7 @@
 ﻿namespace MyTelegram.Domain.ValueObjects;
 
 public class UserItem : ValueObject
-{ 
+{
     public UserItem(
         long userId,
         long accessHash,

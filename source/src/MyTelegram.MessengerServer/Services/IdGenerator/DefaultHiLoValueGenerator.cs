@@ -32,6 +32,6 @@ public class DefaultHiLoValueGenerator : HiLoValueGenerator<long>
             key,
             highValue);
 
-        return (highValue-1) * _blockSize + 1;
+        return (highValue - 1) * _blockSize + 1;
     }
 }

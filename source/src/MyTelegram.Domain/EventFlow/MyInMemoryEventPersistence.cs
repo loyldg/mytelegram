@@ -11,10 +11,17 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
     private readonly ConcurrentDictionary<string, ImmutableList<InMemoryCommittedDomainEvent>> _eventStore = new();
 
     private readonly ILogger<MyInMemoryEventPersistence> _logger;
+
     public MyInMemoryEventPersistence(
         ILogger<MyInMemoryEventPersistence> logger)
     {
         _logger = logger;
+    }
+
+    public void Dispose()
+    {
+        _asyncLock.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     public async Task<IReadOnlyCollection<ICommittedDomainEvent>> CommitEventsAsync(
@@ -32,7 +39,8 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
             var globalCount = _eventStore.Values.Sum(events => events.Count);
 
             var newCommittedDomainEvents = serializedEvents
-                .Select((e, i) =>
+                .Select((e,
+                    i) =>
                 {
                     var committedDomainEvent = new InMemoryCommittedDomainEvent
                     {
@@ -41,7 +49,7 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
                         AggregateSequenceNumber = e.AggregateSequenceNumber,
                         Data = e.SerializedData,
                         Metadata = e.SerializedMetadata,
-                        GlobalSequenceNumber = globalCount + i + 1,
+                        GlobalSequenceNumber = globalCount + i + 1
                     };
                     _logger.LogTrace("Committing event {CommittedEvent}", committedDomainEvent);
                     return committedDomainEvent;
@@ -51,8 +59,10 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
             var expectedVersion = newCommittedDomainEvents.First().AggregateSequenceNumber - 1;
             var lastEvent = newCommittedDomainEvents.Last();
 
-            var updateResult = _eventStore.AddOrUpdate(id.Value, _ => ImmutableList<InMemoryCommittedDomainEvent>.Empty.AddRange(newCommittedDomainEvents),
-                (_, collection) => collection.Count == expectedVersion
+            var updateResult = _eventStore.AddOrUpdate(id.Value,
+                _ => ImmutableList<InMemoryCommittedDomainEvent>.Empty.AddRange(newCommittedDomainEvents),
+                (_,
+                    collection) => collection.Count == expectedVersion
                     ? collection.AddRange(newCommittedDomainEvents)
                     : collection);
 
@@ -65,7 +75,8 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
         }
     }
 
-    public Task DeleteEventsAsync(IIdentity id, CancellationToken cancellationToken)
+    public Task DeleteEventsAsync(IIdentity id,
+        CancellationToken cancellationToken)
     {
         var deleted = _eventStore.TryRemove(id.Value, out var committedDomainEvents);
 
@@ -76,14 +87,9 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
                 id,
                 committedDomainEvents!.Count);
         }
+
         // _logger.LogInformation("Current count:{Count},removed count:{RemovedCount}", _eventStore.Count, committedDomainEvents?.Count);
         return Task.FromResult(0);
-    }
-
-    public void Dispose()
-    {
-        _asyncLock.Dispose();
-        GC.SuppressFinalize(this);
     }
 
     public Task<AllCommittedEventsPage> LoadAllCommittedEvents(
@@ -106,7 +112,8 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
             ? committedDomainEvents.Max(e => e.GlobalSequenceNumber) + 1
             : startPosition;
 
-        return Task.FromResult(new AllCommittedEventsPage(new GlobalPosition(nextPosition.ToString()), committedDomainEvents));
+        return Task.FromResult(new AllCommittedEventsPage(new GlobalPosition(nextPosition.ToString()),
+            committedDomainEvents));
     }
 
     public Task<IReadOnlyCollection<ICommittedDomainEvent>> LoadCommittedEventsAsync(
@@ -132,23 +139,12 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
 
     private class InMemoryCommittedDomainEvent : ICommittedDomainEvent
     {
-        public string AggregateId { get; init; } = default!;
         public string AggregateName { private get; init; } = default!;
+        public long GlobalSequenceNumber { get; init; }
+        public string AggregateId { get; init; } = default!;
         public int AggregateSequenceNumber { get; init; }
         public string Data { get; init; } = default!;
-        public long GlobalSequenceNumber { get; init; }
         public string Metadata { get; init; } = default!;
-        public override string ToString()
-        {
-            return new StringBuilder()
-                .AppendLineFormat("{0} v{1} ==================================", AggregateName,
-                    AggregateSequenceNumber)
-                .AppendLine(PrettifyJson(Metadata))
-                .AppendLine("---------------------------------")
-                .AppendLine(PrettifyJson(Data))
-                .Append("---------------------------------")
-                .ToString();
-        }
 
         private static string PrettifyJson(string json)
         {
@@ -164,6 +160,19 @@ public class MyInMemoryEventPersistence : IInMemoryEventPersistence, IDisposable
             {
                 return json;
             }
+        }
+
+        public override string ToString()
+        {
+            return new StringBuilder()
+                .AppendLineFormat("{0} v{1} ==================================",
+                    AggregateName,
+                    AggregateSequenceNumber)
+                .AppendLine(PrettifyJson(Metadata))
+                .AppendLine("---------------------------------")
+                .AppendLine(PrettifyJson(Data))
+                .Append("---------------------------------")
+                .ToString();
         }
     }
 }

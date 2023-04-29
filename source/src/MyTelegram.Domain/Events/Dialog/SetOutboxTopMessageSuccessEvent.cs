@@ -14,7 +14,7 @@ public class SetOutboxTopMessageSuccessEvent : AggregateEvent<DialogAggregate, D
     {
         //MessageBoxId = messageBoxId;
         MessageId = messageId;
-        CorrelationId = correlationId; 
+        CorrelationId = correlationId;
         ClearDraft = clearDraft;
         OwnerPeerId = ownerPeerId;
         ToPeer = toPeer;

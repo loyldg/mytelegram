@@ -2,13 +2,6 @@
 
 public class DeleteChatMessagesStartedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, IHasCorrelationId
 {
-    public List<int> MessageIds { get; }
-    public bool Revoke { get; }
-    public long ChatCreatorUserId { get; }
-    public int ChatMemberCount { get; }
-    public bool IsClearHistory { get; }
-    public Guid CorrelationId { get; }
-
     public DeleteChatMessagesStartedEvent(RequestInfo requestInfo,
         List<int> messageIds,
         bool revoke,
@@ -24,4 +17,11 @@ public class DeleteChatMessagesStartedEvent : RequestAggregateEvent2<ChatAggrega
         IsClearHistory = isClearHistory;
         CorrelationId = correlationId;
     }
+
+    public List<int> MessageIds { get; }
+    public bool Revoke { get; }
+    public long ChatCreatorUserId { get; }
+    public int ChatMemberCount { get; }
+    public bool IsClearHistory { get; }
+    public Guid CorrelationId { get; }
 }

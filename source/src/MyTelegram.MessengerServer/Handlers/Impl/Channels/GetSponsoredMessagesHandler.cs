@@ -10,7 +10,8 @@ public class GetSponsoredMessagesHandler : RpcResultObjectHandler<RequestGetSpon
     protected override Task<ISponsoredMessages> HandleCoreAsync(IRequestInput input,
         RequestGetSponsoredMessages obj)
     {
-        return Task.FromResult<ISponsoredMessages>(new TSponsoredMessages {
+        return Task.FromResult<ISponsoredMessages>(new TSponsoredMessages
+        {
             Chats = new TVector<IChat>(), Messages = new TVector<ISponsoredMessage>(), Users = new TVector<IUser>()
         });
     }

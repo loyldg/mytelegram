@@ -10,6 +10,6 @@ public interface IGame : IObject
     string ShortName { get; set; }
     string Title { get; set; }
     string Description { get; set; }
-    MyTelegram.Schema.IPhoto Photo { get; set; }
-    MyTelegram.Schema.IDocument? Document { get; set; }
+    Schema.IPhoto Photo { get; set; }
+    Schema.IDocument? Document { get; set; }
 }

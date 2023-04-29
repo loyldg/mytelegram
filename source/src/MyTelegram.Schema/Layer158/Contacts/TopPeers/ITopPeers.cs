@@ -4,5 +4,4 @@ namespace MyTelegram.Schema.Contacts;
 
 public interface ITopPeers : IObject
 {
-
 }

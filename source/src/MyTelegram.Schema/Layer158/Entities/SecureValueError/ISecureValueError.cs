@@ -4,6 +4,6 @@ namespace MyTelegram.Schema;
 
 public interface ISecureValueError : IObject
 {
-    MyTelegram.Schema.ISecureValueType Type { get; set; }
+    Schema.ISecureValueType Type { get; set; }
     string Text { get; set; }
 }

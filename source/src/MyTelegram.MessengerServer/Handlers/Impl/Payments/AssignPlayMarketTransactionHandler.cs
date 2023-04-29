@@ -1,12 +1,15 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Payments;
+
 namespace MyTelegram.Handlers.Payments;
 
-public class AssignPlayMarketTransactionHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestAssignPlayMarketTransaction, MyTelegram.Schema.IUpdates>,
+public class AssignPlayMarketTransactionHandler :
+    RpcResultObjectHandler<RequestAssignPlayMarketTransaction, Schema.IUpdates>,
     Payments.IAssignPlayMarketTransactionHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Payments.RequestAssignPlayMarketTransaction obj)
+    protected override Task<Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestAssignPlayMarketTransaction obj)
     {
         throw new NotImplementedException();
     }

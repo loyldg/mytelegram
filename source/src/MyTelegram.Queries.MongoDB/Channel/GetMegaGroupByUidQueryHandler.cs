@@ -15,7 +15,7 @@ public class
         CancellationToken cancellationToken)
     {
         var cursor = await _store
-            .FindAsync(p => p.MegaGroup && p.CreatorId == query.UserId, cancellationToken: cancellationToken)
+                .FindAsync(p => p.MegaGroup && p.CreatorId == query.UserId, cancellationToken: cancellationToken)
             ;
         return await cursor.ToListAsync(cancellationToken);
     }

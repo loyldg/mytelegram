@@ -4,18 +4,14 @@
 namespace MyTelegram.Schema.LayerN;
 
 [TlObject(0x2619a90e)]
-public sealed class RequestGetStickerSetLayer134 : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed class RequestGetStickerSetLayer134 : IRequest<Messages.IStickerSet>
 {
+    /// <summary>
+    ///     See <a href="https://core.telegram.org/type/InputStickerSet" />
+    /// </summary>
+    public Schema.IInputStickerSet Stickerset { get; set; }
+
     public uint ConstructorId => 0x2619a90e;
-
-    ///<summary>
-    ///See <a href="https://core.telegram.org/type/InputStickerSet" />
-    ///</summary>
-    public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
-
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(BinaryWriter bw)
     {
@@ -26,6 +22,10 @@ public sealed class RequestGetStickerSetLayer134 : IRequest<MyTelegram.Schema.Me
 
     public void Deserialize(BinaryReader br)
     {
-        Stickerset = br.Deserialize<MyTelegram.Schema.IInputStickerSet>();
+        Stickerset = br.Deserialize<Schema.IInputStickerSet>();
+    }
+
+    public void ComputeFlag()
+    {
     }
 }

@@ -30,7 +30,7 @@ public class
 
     public void Apply(InviteToChannelSagaStartEvent aggregateEvent)
     {
-        RequestInfo =aggregateEvent.RequestInfo;
+        RequestInfo = aggregateEvent.RequestInfo;
         ChannelId = aggregateEvent.ChannelId;
         InviterId = aggregateEvent.InviterId;
         Date = aggregateEvent.Date;

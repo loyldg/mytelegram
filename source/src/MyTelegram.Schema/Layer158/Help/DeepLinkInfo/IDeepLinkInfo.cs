@@ -4,5 +4,4 @@ namespace MyTelegram.Schema.Help;
 
 public interface IDeepLinkInfo : IObject
 {
-
 }

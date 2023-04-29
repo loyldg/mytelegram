@@ -41,8 +41,10 @@ public class MyEventJsonSerializer : IEventJsonSerializer
         var metadata = _jsonSerializer.Deserialize(committedDomainEvent.Metadata, MyJsonContext.Default.Metadata);
         if (metadata == null)
         {
-            throw new InvalidOperationException($"Deserialized metadata is null,metadata={committedDomainEvent.Metadata}");
+            throw new InvalidOperationException(
+                $"Deserialized metadata is null,metadata={committedDomainEvent.Metadata}");
         }
+
         return Deserialize(committedDomainEvent.AggregateId, committedDomainEvent.Data, metadata);
     }
 
@@ -68,7 +70,8 @@ public class MyEventJsonSerializer : IEventJsonSerializer
 
         var metadata = new Metadata(metadatas
             .Where(kv => kv.Key != MetadataKeys.EventName && kv.Key != MetadataKeys.EventVersion)
-            .Concat(new[] {
+            .Concat(new[]
+            {
                 new KeyValuePair<string, string>(MetadataKeys.EventName, eventDefinition.Name),
                 new KeyValuePair<string, string>(MetadataKeys.EventVersion,
                     eventDefinition.Version.ToString(CultureInfo.InvariantCulture))
@@ -84,6 +87,7 @@ public class MyEventJsonSerializer : IEventJsonSerializer
             metadata.AggregateSequenceNumber,
             metadata);
     }
+
     private IDomainEvent Deserialize(string aggregateId,
         string json,
         IMetadata metadata)
