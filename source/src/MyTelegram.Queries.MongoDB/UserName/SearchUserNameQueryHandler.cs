@@ -20,8 +20,8 @@ public class SearchUserNameQueryHandler : IQueryHandler<SearchUserNameQuery, IRe
 
         var cursor = await _store.FindAsync(p => p.UserName.StartsWith(query.Keyword),
             findOptions,
-            cancellationToken).ConfigureAwait(false);
+            cancellationToken);
 
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

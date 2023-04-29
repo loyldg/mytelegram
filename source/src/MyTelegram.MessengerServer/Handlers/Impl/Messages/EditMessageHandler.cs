@@ -32,7 +32,7 @@ public class EditMessageHandler : RpcResultObjectHandler<RequestEditMessage, IUp
         byte[]? mediaBytes = null;
         if (obj.Media != null)
         {
-            var media = await _mediaHelper.SaveMediaAsync(obj.Media).ConfigureAwait(false);
+            var media = await _mediaHelper.SaveMediaAsync(obj.Media);
             mediaBytes = media.ToBytes();
         }
 
@@ -45,7 +45,7 @@ public class EditMessageHandler : RpcResultObjectHandler<RequestEditMessage, IUp
             mediaBytes,
             Guid.NewGuid()
         );
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
 
         return null!;
         //throw new NotImplementedException();

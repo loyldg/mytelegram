@@ -28,7 +28,7 @@ public class InvokeAfterMsgEventHandler : ISubscribeSynchronousToAll
             }
 
             _invokeAfterMsgProcessor.AddToRecentMessageIdList(reqMsgId);
-            await _invokeAfterMsgProcessor.HandleAsync(reqMsgId).ConfigureAwait(false);
+            await _invokeAfterMsgProcessor.HandleAsync(reqMsgId);
         }
     }
 }

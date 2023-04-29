@@ -13,7 +13,7 @@ public class GetDialogByIdQueryHandler : IQueryHandler<GetDialogByIdQuery, IDial
     public async Task<IDialogReadModel?> ExecuteQueryAsync(GetDialogByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var item = await _store.GetAsync(query.Id.Value, cancellationToken).ConfigureAwait(false);
+        var item = await _store.GetAsync(query.Id.Value, cancellationToken);
 
         return item.ReadModel;
     }

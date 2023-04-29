@@ -28,7 +28,7 @@ public class SaveDraftHandler : RpcResultObjectHandler<RequestSaveDraft, IBool>,
             CurrentDate,
             obj.ReplyToMsgId,
             null);
-        await _commandBus.PublishAsync(saveDraftCommand, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(saveDraftCommand, CancellationToken.None);
 
         return new TBoolTrue();
     }

@@ -53,13 +53,13 @@ public class UploadProfilePhotoHandler : RpcResultObjectHandler<RequestUploadPro
             obj.VideoStartTs,
             file.Parts,
             file.Name,
-            md5 ?? string.Empty).ConfigureAwait(false);
+            md5 ?? string.Empty);
         var command = new UpdateProfilePhotoCommand(UserId.Create(input.UserId),
             input.ReqMsgId,
             photo.Id,
             photo.ToBytes()
         );
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
 
         return null!;
         //return photo;

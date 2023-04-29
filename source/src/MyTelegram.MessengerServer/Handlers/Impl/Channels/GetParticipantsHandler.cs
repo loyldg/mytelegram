@@ -28,10 +28,10 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
         {
             var joinedChannelIdList = await _queryProcessor.ProcessAsync(new GetJoinedChannelIdListQuery(input.UserId,
                     new List<long> { inputChannel.ChannelId }),
-                default).ConfigureAwait(false);
+                default);
 
             var channelReadModel = await _queryProcessor
-                .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default).ConfigureAwait(false);
+                .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default);
 
             // Only channel creator or admin can access channel participants
             if (channelReadModel.Broadcast)
@@ -137,12 +137,12 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
 
             var channelMemberReadModels = await _queryProcessor
                 .ProcessAsync(query,
-                    default).ConfigureAwait(false);
+                    default);
             //var selfChannelMember = channelMemberReadModels.FirstOrDefault(p => p.UserId == input.UserId);
 
             var userIdList = channelMemberReadModels.Select(p => p.UserId).ToList();
             var userReadModels = await _queryProcessor
-                .ProcessAsync(new GetUsersByUidListQuery(userIdList), default).ConfigureAwait(false);
+                .ProcessAsync(new GetUsersByUidListQuery(userIdList), default);
 
             return _chatConverter.ToChannelParticipants(channelReadModel,
                 channelMemberReadModels,

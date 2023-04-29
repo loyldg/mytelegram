@@ -27,7 +27,7 @@ public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipan
         {
             var channelMemberReadModel = await _queryProcessor
                 .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
-                .ConfigureAwait(false);
+                ;
             if (channelMemberReadModel == null)
             {
                 ThrowHelper.ThrowUserFriendlyException("USER_NOT_PARTICIPANT");
@@ -35,7 +35,7 @@ public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipan
 
             var userReadModel = await _queryProcessor
                 .ProcessAsync(new GetUserByIdQuery(channelMemberReadModel?.UserId ?? input.UserId), default)
-                .ConfigureAwait(false);
+                ;
 
             if (userReadModel == null)
             {
@@ -43,9 +43,9 @@ public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipan
             }
 
             var channelReadModel = await _queryProcessor
-                .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default).ConfigureAwait(false);
+                .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default);
             //var contactReadModel = await QueryProcessor
-            //    .ProcessAsync(new GetContactQuery(input.UserId, peer.PeerId), default).ConfigureAwait(false);
+            //    .ProcessAsync(new GetContactQuery(input.UserId, peer.PeerId), default);
 
             var r = _chatConverter.ToChannelParticipant(channelReadModel,
                 channelMemberReadModel!,
@@ -84,7 +84,7 @@ public class GetParticipantHandlerLayerN :
         {
             var channelMemberReadModel = await _queryProcessor
                 .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
-                .ConfigureAwait(false);
+                ;
 
             if (channelMemberReadModel == null)
             {
@@ -93,7 +93,7 @@ public class GetParticipantHandlerLayerN :
 
             var userReadModel = await _queryProcessor
                 .ProcessAsync(new GetUserByIdQuery(channelMemberReadModel!.UserId), default)
-                .ConfigureAwait(false);
+                ;
 
             if (userReadModel == null)
             {
@@ -101,7 +101,7 @@ public class GetParticipantHandlerLayerN :
             }
 
             var channelReadModel = await _queryProcessor
-                .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default).ConfigureAwait(false);
+                .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default);
 
             return _chatConverter.ToChannelParticipantLayerN(channelReadModel,
                 channelMemberReadModel,

@@ -72,13 +72,13 @@ public class MessageEventHandler : DomainEventHandlerBase,
             domainEvent.AggregateEvent.SenderPeerId,
             domainEvent.AggregateEvent.Pts,
             domainEvent.AggregateEvent.ToPeer.PeerType
-        ).ConfigureAwait(false);
+        );
         await PushUpdatesToPeerAsync(
             new Peer(PeerType.User, domainEvent.AggregateEvent.SenderPeerId),
             updates,
             domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
             pts: domainEvent.AggregateEvent.Pts,
-            ptsType: PtsType.NewMessages).ConfigureAwait(false);
+            ptsType: PtsType.NewMessages);
 
         // Channel message shares the same message,edit out message should notify channel member
         if (domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel)
@@ -86,7 +86,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
             var channelEditUpdates = _updatesConverter.ToEditUpdates(domainEvent.AggregateEvent, 0);
             await PushUpdatesToPeerAsync(domainEvent.AggregateEvent.ToPeer,
                 channelEditUpdates,
-                pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
+                pts: domainEvent.AggregateEvent.Pts);
         }
     }
 
@@ -112,12 +112,12 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 updates,
                 sourceId,
                 aggregateEvent.MessageItem.SenderPeer.PeerId
-            ).ConfigureAwait(false);
+            );
             await PushUpdatesToChannelSingleMemberAsync(aggregateEvent.MessageItem.SenderPeer,
                 updates,
                 aggregateEvent.RequestInfo.AuthKeyId,
                 pts: aggregateEvent.Pts
-            ).ConfigureAwait(false);
+            );
         }
         else
         {
@@ -134,12 +134,12 @@ public class MessageEventHandler : DomainEventHandlerBase,
             await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId,
                 updates,
                 sourceId,
-                pts: aggregateEvent.Pts).ConfigureAwait(false);
+                pts: aggregateEvent.Pts);
             await PushUpdatesToPeerAsync(aggregateEvent.MessageItem.SenderPeer,
                 updates,
                 aggregateEvent.RequestInfo.AuthKeyId,
                 pts: aggregateEvent.Pts
-            ).ConfigureAwait(false);
+            );
         }
     }
 
@@ -172,7 +172,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
             var item = aggregateEvent.MessageItem;
             // TODO: Create channel info from domain events
             var channelReadModel = await _queryProcessor
-                .ProcessAsync(new GetChannelByIdQuery(item.ToPeer.PeerId), default).ConfigureAwait(false);
+                .ProcessAsync(new GetChannelByIdQuery(item.ToPeer.PeerId), default);
 
             var updates = _updatesConverter.ToInviteToChannelUpdates(aggregateEvent,
                 startInviteToChannelEvent,
@@ -181,10 +181,10 @@ public class MessageEventHandler : DomainEventHandlerBase,
             await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId,
                 updates,
                 sourceId,
-                item.SenderPeer.PeerId).ConfigureAwait(false);
+                item.SenderPeer.PeerId);
             // notify self other devices
             await PushUpdatesToChannelSingleMemberAsync(item.SenderPeer, updates, aggregateEvent.RequestInfo.AuthKeyId)
-                .ConfigureAwait(false);
+                ;
             var updatesForChannelMember = _updatesConverter.ToInviteToChannelUpdates(aggregateEvent,
                 startInviteToChannelEvent,
                 channelReadModel,
@@ -194,7 +194,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
             await PushUpdatesToChannelMemberAsync(item.ToPeer,
                 updatesForChannelMember,
                 excludeUid: item.SenderPeer.PeerId,
-                pts: aggregateEvent.Pts).ConfigureAwait(false);
+                pts: aggregateEvent.Pts);
         }
     }
 
@@ -234,7 +234,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 selfUpdates,
                 pts: aggregateEvent.Pts,
                 ptsType: ptsType
-            ).ConfigureAwait(false);
+            );
         }
         else
         {
@@ -244,7 +244,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 aggregateEvent.GroupItemCount,
                 item.SenderPeer.PeerId,
                 aggregateEvent.Pts
-            ).ConfigureAwait(false);
+            );
         }
 
         await PushUpdatesToPeerAsync(item.SenderPeer,
@@ -252,7 +252,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
             aggregateEvent.RequestInfo.AuthKeyId,
             pts: aggregateEvent.Pts,
             newMessage: newMessage
-        ).ConfigureAwait(false);
+        );
     }
 
     private async Task HandleSendMessageToChannelAsync(SendOutboxMessageCompletedEvent aggregateEvent)
@@ -272,8 +272,8 @@ public class MessageEventHandler : DomainEventHandlerBase,
             ptsType,
             aggregateEvent.RequestInfo.AuthKeyId,
             aggregateEvent.RequestInfo.UserId,
-            0).ConfigureAwait(false);
-        await AddRpcGlobalSeqNoForAuthKeyIdAsync(aggregateEvent.RequestInfo.ReqMsgId, item.SenderPeer.PeerId, globalSeqNo).ConfigureAwait(false);
+            0);
+        await AddRpcGlobalSeqNoForAuthKeyIdAsync(aggregateEvent.RequestInfo.ReqMsgId, item.SenderPeer.PeerId, globalSeqNo);
 
         if (aggregateEvent.RequestInfo.ReqMsgId == 0 || item.MessageSubType == MessageSubType.ForwardMessage)
         {
@@ -281,7 +281,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 selfUpdates,
                 pts: aggregateEvent.Pts,
                 ptsType: ptsType
-            ).ConfigureAwait(false);
+            );
         }
         else
         {
@@ -291,7 +291,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 aggregateEvent.GroupItemCount,
                 aggregateEvent.RequestInfo.UserId,
                 aggregateEvent.Pts
-            ).ConfigureAwait(false);
+            );
 
             var newMessage = _messageConverter.ToMessage(item);
             await PushUpdatesToPeerAsync(item.SenderPeer,
@@ -299,9 +299,9 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 excludeAuthKeyId: aggregateEvent.RequestInfo.AuthKeyId,
                 pts: aggregateEvent.Pts,
                 newMessage: newMessage
-            ).ConfigureAwait(false);
+            );
         }
-        await PushUpdatesToPeerAsync(item.ToPeer, channelUpdates, aggregateEvent.RequestInfo.AuthKeyId).ConfigureAwait(false);
+        await PushUpdatesToPeerAsync(item.ToPeer, channelUpdates, aggregateEvent.RequestInfo.AuthKeyId);
     }
 
     private Task HandleUpdatePinnedMessageAsync(ReceiveInboxMessageCompletedEvent aggregateEvent)
@@ -319,7 +319,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
             aggregateEvent.MessageItem.SenderPeer.PeerId,
             aggregateEvent.Pts,
             aggregateEvent.MessageItem.ToPeer.PeerType
-        ).ConfigureAwait(false);
+        );
         await PushUpdatesToPeerAsync(aggregateEvent.MessageItem.SenderPeer, updates,
             excludeAuthKeyId: aggregateEvent.RequestInfo.AuthKeyId,
             pts: aggregateEvent.Pts);
@@ -329,7 +329,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
             var channelUpdates = _updatesConverter.ToUpdatePinnedMessageServiceUpdates(aggregateEvent);
             await PushUpdatesToPeerAsync(aggregateEvent.MessageItem.ToPeer,
                 channelUpdates,
-                aggregateEvent.RequestInfo.AuthKeyId, pts: aggregateEvent.Pts).ConfigureAwait(false);
+                aggregateEvent.RequestInfo.AuthKeyId, pts: aggregateEvent.Pts);
         }
     }
 }

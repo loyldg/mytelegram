@@ -26,10 +26,10 @@ public class GetPinnedDialogsHandler : RpcResultObjectHandler<RequestGetPinnedDi
         var r = await _dialogAppService
             .GetDialogsAsync(new GetDialogInput {
                 Pinned = true, OwnerId = userId, Limit = DefaultPageSize, FolderId = obj.FolderId
-            }).ConfigureAwait(false);
+            });
 
         //var pts = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(input.UserId), default)
-        //    .ConfigureAwait(false);
+        //    ;
         var cachedPts = _ptsHelper.GetCachedPts(input.UserId);
 
         //r.PtsReadModel = pts;

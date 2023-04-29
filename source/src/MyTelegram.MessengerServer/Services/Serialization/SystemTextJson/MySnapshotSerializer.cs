@@ -51,7 +51,7 @@ public class MySnapshotSerializer : ISnapshotSerializer
         var snapshot =
             (ISnapshot)_jsonSerializer.Deserialize(committedSnapshot.SerializedData, snapshotDefinition.Type);
         var upgradedSnapshot =
-            await _snapshotUpgradeService.UpgradeAsync(snapshot, cancellationToken).ConfigureAwait(false);
+            await _snapshotUpgradeService.UpgradeAsync(snapshot, cancellationToken);
 
         return new SnapshotContainer(upgradedSnapshot, metadata);
     }

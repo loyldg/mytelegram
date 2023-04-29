@@ -31,7 +31,7 @@ public class AddChatUserHandler : RpcResultObjectHandler<RequestAddChatUser, IUp
             new TMessageActionChatAddUser { Users = new TVector<long>(peer.PeerId) }.ToBytes().ToHexString(),
             _randomHelper.NextLong(),
             Guid.NewGuid());
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
         return null!;
     }
 }

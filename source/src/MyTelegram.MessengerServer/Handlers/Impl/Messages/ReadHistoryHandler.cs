@@ -30,7 +30,7 @@ public class ReadHistoryHandler : RpcResultObjectHandler<RequestReadHistory, IAf
             peer,
             Guid.NewGuid());
         // Console.WriteLine("SourceId:{0}",readInboxMessageCommand.GetSourceId().Value);
-        await _commandBus.PublishAsync(readInboxMessageCommand, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(readInboxMessageCommand, CancellationToken.None);
 
         return null!;
     }

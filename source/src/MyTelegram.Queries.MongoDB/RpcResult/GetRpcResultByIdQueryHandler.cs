@@ -13,7 +13,7 @@ public class GetRpcResultByIdQueryHandler : IQueryHandler<GetRpcResultByIdQuery,
     public async Task<IRpcResultReadModel?> ExecuteQueryAsync(GetRpcResultByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var item = await _store.GetAsync(query.Id, cancellationToken).ConfigureAwait(false);
+        var item = await _store.GetAsync(query.Id, cancellationToken);
         return item.ReadModel;
     }
 }

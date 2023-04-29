@@ -17,8 +17,8 @@ public class
         var cursor = await _store.FindAsync(p =>
                     p.Revoked == query.Revoked && p.ChannelId == query.ChannelId && p.AdminId == query.AdminId,
                 cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

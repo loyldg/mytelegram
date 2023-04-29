@@ -93,7 +93,7 @@
 //        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ReqMsgId,
 //                domainEvent.AggregateEvent.ChannelId,
 //                domainEvent.Metadata.SourceId.Value)
-//            .ConfigureAwait(false);
+//            ;
 //    }
 
 //    public async Task HandleAsync(
@@ -103,14 +103,14 @@
 //        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ReqMsgId,
 //                domainEvent.AggregateEvent.ChannelId,
 //                domainEvent.Metadata.SourceId.Value)
-//            .ConfigureAwait(false);
+//            ;
 //    }
 
 //    public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelTitleEditedEvent> domainEvent,
 //        CancellationToken cancellationToken)
 //    {
 //        await NotifyUpdateChannelAsync(0, domainEvent.AggregateEvent.ChannelId, domainEvent.Metadata.SourceId.Value)
-//            .ConfigureAwait(false);
+//            ;
 //    }
 
 //    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent> domainEvent,
@@ -126,7 +126,7 @@
 //        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ReqMsgId,
 //                domainEvent.AggregateEvent.ChannelId,
 //                domainEvent.Metadata.SourceId.Value)
-//            .ConfigureAwait(false);
+//            ;
 //    }
 
 //    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, SetDiscussionGroupEvent> domainEvent,
@@ -143,7 +143,7 @@
 //        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ReqMsgId,
 //                domainEvent.AggregateEvent.ChannelId,
 //                domainEvent.Metadata.SourceId.Value)
-//            .ConfigureAwait(false);
+//            ;
 //    }
 
 //    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,
@@ -170,7 +170,7 @@
 //        // 这里直接从ReadModel获取频道信息
 //        var channelReadModel = await _queryProcessor
 //            .ProcessAsync(new GetChannelByIdQuery(domainEvent.AggregateEvent.ChannelId), default)
-//            .ConfigureAwait(false);
+//            ;
 //        var updates = new TUpdates
 //        {
 //            Chats = new TVector<IChat>(_rpcResultProcessor.ToChannel(channelReadModel,
@@ -182,8 +182,8 @@
 //            Updates = new TVector<IUpdate>()
 //        };
 
-//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, updates).ConfigureAwait(false);
-//        await NotifyUpdateChannelAsync(0, domainEvent.AggregateEvent.ChannelId, null).ConfigureAwait(false);
+//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, updates);
+//        await NotifyUpdateChannelAsync(0, domainEvent.AggregateEvent.ChannelId, null);
 //    }
 
 //    public Task HandleAsync(
@@ -208,7 +208,7 @@
 //    {
 //        await NotifyUpdateChatAsync(domainEvent.AggregateEvent.ReqMsgId,
 //            domainEvent.AggregateEvent.ChatId,
-//            domainEvent.Metadata.SourceId.Value).ConfigureAwait(false);
+//            domainEvent.Metadata.SourceId.Value);
 //    }
 
 //    public async Task HandleAsync(
@@ -226,7 +226,7 @@
 //            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
 //                r,
 //                domainEvent.Metadata.SourceId.Value
-//            ).ConfigureAwait(false);
+//            );
 //        }
 
 //        var updates = _rpcResultProcessor.ToDeleteMessagesUpdates(domainEvent.AggregateEvent.ToPeerType,
@@ -235,7 +235,7 @@
 //        await PushUpdatesToPeerAsync(
 //            new Peer(PeerType.User, domainEvent.AggregateEvent.DeletedBoxItem.OwnerPeerId),
 //            updates,
-//            pts: domainEvent.AggregateEvent.DeletedBoxItem.Pts).ConfigureAwait(false);
+//            pts: domainEvent.AggregateEvent.DeletedBoxItem.Pts);
 //    }
 
 //    public async Task HandleAsync(
@@ -259,12 +259,12 @@
 //                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
 //                0,
 //                0
-//            ).ConfigureAwait(false);
+//            );
 //            await AddRpcGlobalSeqNoForAuthKeyIdAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
 //                domainEvent.AggregateEvent.RequestInfo.UserId,
-//                globalSeqNo).ConfigureAwait(false);
+//                globalSeqNo);
 //            await UpdateSelfGlobalSeqNoAfterSendChannelMessageAsync(domainEvent.AggregateEvent.RequestInfo.UserId,
-//                globalSeqNo).ConfigureAwait(false);
+//                globalSeqNo);
 //        }
 
 //        var r = new TAffectedMessages
@@ -278,7 +278,7 @@
 //            domainEvent.Metadata.SourceId.Value,
 //            domainEvent.AggregateEvent.RequestInfo.UserId,
 //            domainEvent.AggregateEvent.SelfDeletedBoxItem.Pts,
-//            toPeerType: domainEvent.AggregateEvent.ToPeerType).ConfigureAwait(false);
+//            toPeerType: domainEvent.AggregateEvent.ToPeerType);
 
 //        if (domainEvent.AggregateEvent.ToPeerType == PeerType.Channel)
 //        {
@@ -286,7 +286,7 @@
 //            await PushUpdatesToChannelMemberAsync(channelPeer,
 //                channelUpdates!,
 //                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
-//                skipSaveUpdates: true).ConfigureAwait(false);
+//                skipSaveUpdates: true);
 //        }
 //        else
 //        {
@@ -307,7 +307,7 @@
 //                    updates,
 //                    excludeAuthKeyId,
 //                    pts: deletedBoxItem.Pts
-//                ).ConfigureAwait(false);
+//                );
 //            }
 //        }
 //    }
@@ -318,7 +318,7 @@
 //        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
 //                new TBoolTrue(),
 //                domainEvent.Metadata.SourceId.Value)
-//            .ConfigureAwait(false);
+//            ;
 //    }
 
 //    public async Task HandleAsync(IDomainEvent<DialogAggregate, DialogId, DialogPinChangedEvent> domainEvent,
@@ -328,7 +328,7 @@
 //                new TBoolTrue(),
 //                domainEvent.Metadata.SourceId.Value,
 //                domainEvent.AggregateEvent.OwnerPeerId)
-//            .ConfigureAwait(false);
+//            ;
 //    }
 
 //    public async Task HandleAsync(IDomainEvent<QrCodeAggregate, QrCodeId, LoginTokenAcceptedEvent> domainEvent,
@@ -336,7 +336,7 @@
 //    {
 //        var deviceReadModel = await _queryProcessor
 //            .ProcessAsync(new GetDeviceByAuthKeyIdQuery(domainEvent.AggregateEvent.QrCodeLoginRequestPermAuthKeyId),
-//                default).ConfigureAwait(false);
+//                default);
 
 //        if (deviceReadModel == null)
 //        {
@@ -351,14 +351,14 @@
 //            domainEvent.AggregateEvent.UserId);
 //        var authorization = _rpcResultProcessor.ToAuthorization(deviceReadModel);
 //        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, authorization)
-//            .ConfigureAwait(false);
+//            ;
 
 //        var updateShortForLoginWithTokenRequestOwner =
 //            new TUpdateShort { Date = DateTime.UtcNow.ToTimestamp(), Update = new TUpdateLoginToken() };
 
 //        await _objectMessageSender
 //            .PushSessionMessageToAuthKeyIdAsync(domainEvent.AggregateEvent.QrCodeLoginRequestTempAuthKeyId,
-//                updateShortForLoginWithTokenRequestOwner).ConfigureAwait(false);
+//                updateShortForLoginWithTokenRequestOwner);
 //        _logger.LogDebug("Accept qr code login token,userId={UserId},qr code client authKeyId={AuthKeyId}",
 //            domainEvent.AggregateEvent.UserId,
 //            domainEvent.AggregateEvent.QrCodeLoginRequestTempAuthKeyId);
@@ -374,7 +374,7 @@
 //            Expires = domainEvent.AggregateEvent.ExpireDate
 //        };
 
-//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r).ConfigureAwait(false);
+//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r);
 //    }
 
 //    public async Task HandleAsync(IDomainEvent<SignInSaga, SignInSagaId, SignInSuccessEvent> domainEvent,
@@ -386,7 +386,7 @@
 //                domainEvent.AggregateEvent.PermAuthKeyId,
 //                domainEvent.AggregateEvent.UserId,
 //                domainEvent.AggregateEvent.HasPassword ? PasswordState.WaitingForVerify : PasswordState.None))
-//            .ConfigureAwait(false);
+//            ;
 //        _logger.LogDebug(
 //            "########################### User sign in success:{UserId} with tempAuthKeyId:{TempAuthKeyId} permAuthKeyId:{PermAuthKeyId}",
 //            domainEvent.AggregateEvent.UserId,
@@ -400,13 +400,13 @@
 //                ErrorCode = MyTelegramServerDomainConsts.BadRequestErrorCode,
 //                ErrorMessage = RpcErrorMessages.SessionPasswordNeeded
 //            };
-//            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, rpcError).ConfigureAwait(false);
+//            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, rpcError);
 //            return;
 //        }
 
 //        var r = _rpcResultProcessor.CreateAuthorization(domainEvent.AggregateEvent);
 
-//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r).ConfigureAwait(false);
+//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r);
 //    }
 
 //    public async Task HandleAsync(
@@ -422,11 +422,11 @@
 //                domainEvent.AggregateEvent.SenderPeerId,
 //                domainEvent.AggregateEvent.Pts,
 //                toPeerType: domainEvent.AggregateEvent.ToPeer.PeerType
-//            ).ConfigureAwait(false);
+//            );
 //            await PushUpdatesToPeerAsync(
 //                new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
 //                r,
-//                pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
+//                pts: domainEvent.AggregateEvent.Pts);
 //        }
 
 //        await PushUpdatesToPeerAsync(
@@ -435,7 +435,7 @@
 //                : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
 //            r,
 //            excludeUid: domainEvent.AggregateEvent.SenderPeerId,
-//            pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
+//            pts: domainEvent.AggregateEvent.Pts);
 //    }
 
 //    public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserNameUpdatedEvent> domainEvent,
@@ -443,7 +443,7 @@
 //    {
 //        var r = _rpcResultProcessor.ToUser(domainEvent.AggregateEvent);
 
-//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r).ConfigureAwait(false);
+//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r);
 //    }
 
 //    public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserProfilePhotoChangedEvent> domainEvent,
@@ -451,7 +451,7 @@
 //    {
 //        var r = _rpcResultProcessor.ToPhoto(domainEvent.AggregateEvent);
 
-//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r).ConfigureAwait(false);
+//        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r);
 //    }
 
 //    private async Task NotifyUpdateChannelAsync(long reqMsgId,
@@ -467,16 +467,16 @@
 //        // TODO:Should return TUpdates to sender,include channel data
 //        if (reqMsgId != 0)
 //        {
-//            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId).ConfigureAwait(false);
+//            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId);
 //        }
 
 //        if (memberUid != 0)
 //        {
-//            await PushUpdatesToPeerAsync(new Peer(PeerType.User, memberUid), updates).ConfigureAwait(false);
+//            await PushUpdatesToPeerAsync(new Peer(PeerType.User, memberUid), updates);
 //        }
 //        else
 //        {
-//            await PushUpdatesToPeerAsync(new Peer(PeerType.Channel, channelId), updates).ConfigureAwait(false);
+//            await PushUpdatesToPeerAsync(new Peer(PeerType.Channel, channelId), updates);
 //        }
 //    }
 
@@ -493,10 +493,10 @@
 //        // TODO:Should return TUpdates to sender,include channel data
 //        if (reqMsgId != 0)
 //        {
-//            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId).ConfigureAwait(false);
+//            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId);
 //        }
 
-//        await PushUpdatesToPeerAsync(new Peer(PeerType.Chat, chatId), updates).ConfigureAwait(false);
+//        await PushUpdatesToPeerAsync(new Peer(PeerType.Chat, chatId), updates);
 //    }
 
 //    #region Handlers
@@ -512,16 +512,16 @@
 //    {
 //        if (!string.IsNullOrEmpty(sourceId))
 //        {
-//            await SaveRpcResultAsync(reqMsgId, sourceId, selfUserId, rpcData).ConfigureAwait(false);
+//            await SaveRpcResultAsync(reqMsgId, sourceId, selfUserId, rpcData);
 //        }
         
 //        if (pts > 0 && selfUserId != 0 && toPeerType != PeerType.Channel)
 //        {
 //            await _ackCacheService.AddRpcPtsToCacheAsync(reqMsgId, pts, 0, new Peer(PeerType.User, selfUserId))
-//                .ConfigureAwait(false);
+//                ;
 //        }
 
-//        await _objectMessageSender.SendRpcMessageToClientAsync(reqMsgId, rpcData).ConfigureAwait(false);
+//        await _objectMessageSender.SendRpcMessageToClientAsync(reqMsgId, rpcData);
 //    }
 
 //    private Task SaveRpcResultAsync(long reqMsgId,
@@ -565,7 +565,7 @@
 //        {
 //            return 0;
 //        }
-//        var globalSeqNo = await _idGenerator.NextLongIdAsync(IdType.GlobalSeqNo).ConfigureAwait(false);
+//        var globalSeqNo = await _idGenerator.NextLongIdAsync(IdType.GlobalSeqNo);
 //        var dataBytes = newMessage == null ? data : newMessage.ToBytes();
 //        var command = new CreatePushUpdatesCommand(PushUpdatesId.Create(
 //                toPeer.PeerId,
@@ -581,7 +581,7 @@
 //            pts,
 //            ptsType,
 //            globalSeqNo);
-//        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+//        await _commandBus.PublishAsync(command, default);
 //        return globalSeqNo;
 //    }
 
@@ -604,7 +604,7 @@
 //                ptsType,
 //                excludeAuthKeyId,
 //                excludeUid,
-//                onlySendToThisAuthKeyId).ConfigureAwait(false);
+//                onlySendToThisAuthKeyId);
 //        }
 
 //        await _objectMessageSender.PushMessageToPeerAsync(channelPeer,
@@ -614,7 +614,7 @@
 //            onlySendToThisAuthKeyId,
 //            pts,
 //            ptsType,
-//            globalSeqNo).ConfigureAwait(false);
+//            globalSeqNo);
 //    }
 
 //    private async Task PushUpdatesToPeerAsync(Peer toPeer,
@@ -638,7 +638,7 @@
 //                excludeAuthKeyId,
 //                excludeUid,
 //                onlySendToThisAuthKeyId,
-//                newMessage).ConfigureAwait(false);
+//                newMessage);
 //        }
 
 //        await _objectMessageSender.PushMessageToPeerAsync(toPeer,
@@ -648,7 +648,7 @@
 //            onlySendToThisAuthKeyId,
 //            pts,
 //            ptsType,
-//            globalSeqNo).ConfigureAwait(false);
+//            globalSeqNo);
 //    }
 
 //    public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserCreatedEvent> domainEvent,
@@ -664,13 +664,13 @@
 
 //        await _eventBus.PublishAsync(new UserSignUpSuccessIntegrationEvent(domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
 //            domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
-//            domainEvent.AggregateEvent.UserId)).ConfigureAwait(false);
+//            domainEvent.AggregateEvent.UserId));
 
 //        var r = _rpcResultProcessor.CreateAuthorizationFromUser(domainEvent.AggregateEvent);
 //        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
 //            r,
 //            domainEvent.Metadata.SourceId.Value,
-//            domainEvent.AggregateEvent.UserId).ConfigureAwait(false);
+//            domainEvent.AggregateEvent.UserId);
 //    }
 
 //    public async Task HandleAsync(
@@ -683,7 +683,7 @@
 //                affectedMessages,
 //                domainEvent.AggregateEvent.SourceCommandId,
 //                domainEvent.AggregateEvent.ReaderUid)
-//            .ConfigureAwait(false);
+//            ;
 //        var peer = domainEvent.AggregateEvent.ReaderToPeer;
 //        var updateReadHistoryInbox = new TUpdateReadHistoryInbox
 //        {
@@ -704,7 +704,7 @@
 //            domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
 //            pts: domainEvent.AggregateEvent.ReaderPts,
 //            ptsType: PtsType.OtherUpdates
-//        ).ConfigureAwait(false);
+//        );
 
 //        if (!domainEvent.AggregateEvent.IsOut && !domainEvent.AggregateEvent.OutboxAlreadyRead &&
 //            !_peerHelper.IsBotUser(domainEvent.AggregateEvent.SenderPeerId))
@@ -718,7 +718,7 @@
 //                domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
 //                pts: domainEvent.AggregateEvent.ReaderPts,
 //                ptsType: PtsType.OtherUpdates
-//            ).ConfigureAwait(false);
+//            );
 //        }
 //    }
 
@@ -727,13 +727,13 @@
 //    {
 //        // TODO:Create user from domain events instead of query from read model
 //        var user = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(domainEvent.AggregateEvent.UserId),
-//            cancellationToken).ConfigureAwait(false);
+//            cancellationToken);
 //        var r = _rpcResultProcessor.ToUser(user!, user!.UserId);
 
 //        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
 //            r,
 //            domainEvent.Metadata.SourceId.Value,
-//            domainEvent.AggregateEvent.UserId).ConfigureAwait(false);
+//            domainEvent.AggregateEvent.UserId);
 //    }
 
 //    public Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatCreatedEvent> domainEvent,
@@ -755,7 +755,7 @@
 //    {
 //        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
 //            _rpcResultProcessor.ToExportedChatInvite(domainEvent.AggregateEvent)
-//        ).ConfigureAwait(false);
+//        );
 //    }
 
 //    public async Task HandleAsync(
@@ -767,7 +767,7 @@
 //                new TBoolTrue(),
 //                domainEvent.Metadata.SourceId.Value,
 //                domainEvent.AggregateEvent.SenderPeerId)
-//            .ConfigureAwait(false);
+//            ;
 
 //        if (domainEvent.AggregateEvent.NeedNotifySender)
 //        {
@@ -780,7 +780,7 @@
 //            await PushUpdatesToPeerAsync(
 //                    new Peer(PeerType.User, domainEvent.AggregateEvent.SenderPeerId),
 //                    updates)
-//                .ConfigureAwait(false);
+//                ;
 //        }
 //    }
 

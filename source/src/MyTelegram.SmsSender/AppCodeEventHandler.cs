@@ -34,7 +34,7 @@ public class AppCodeEventHandler : IDistributedEventHandler<AppCodeCreatedIntegr
 
         try
         {
-            await _smsSender.SendAsync(phoneNumber, $"MyTelegram code:{eventData.Code}").ConfigureAwait(false);
+            await _smsSender.SendAsync(phoneNumber, $"MyTelegram code:{eventData.Code}");
         }
         catch (Exception ex)
         {

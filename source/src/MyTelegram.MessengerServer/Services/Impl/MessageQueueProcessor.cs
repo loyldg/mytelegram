@@ -23,7 +23,7 @@ public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
         //{
         //    while (_queue.Reader.TryRead(out var item))
         //    {
-        //        await func(item).ConfigureAwait(false);
+        //        await func(item);
         //    }
         //}
 
@@ -34,14 +34,14 @@ public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
         //             {
         //                 try
         //                 {
-        //                     await _dataProcessor.ProcessAsync(item).ConfigureAwait(false);
+        //                     await _dataProcessor.ProcessAsync(item);
         //                 }
         //                 catch (Exception ex)
         //                 {
         //                     _logger.LogError(ex, "Process message queue error:");
         //                 }
         //             }
-        //         }).ConfigureAwait(false);
+        //         });
 
         var tasks = new List<Task>();
         foreach (var queue in _queues)
@@ -52,7 +52,7 @@ public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
                 {
                     try
                     {
-                        await _dataProcessor.ProcessAsync(item).ConfigureAwait(false);
+                        await _dataProcessor.ProcessAsync(item);
                     }
                     catch (Exception ex)
                     {
@@ -64,7 +64,7 @@ public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
             tasks.Add(task);
         }
 
-        await Task.WhenAll(tasks).ConfigureAwait(false);
+        await Task.WhenAll(tasks);
         //return Task.CompletedTask;
     }
 

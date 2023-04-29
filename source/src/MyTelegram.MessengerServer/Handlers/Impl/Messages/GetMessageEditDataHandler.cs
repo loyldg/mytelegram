@@ -23,7 +23,7 @@ public class GetMessageEditDataHandler : RpcResultObjectHandler<RequestGetMessag
             .ProcessAsync(
                 new GetMessageByIdQuery(
                     MessageId.Create(input.UserId, obj.Id).Value),
-                default).ConfigureAwait(false);
+                default);
         var canEdit = message != null && message.Date + _options.Value.EditTimeLimit > CurrentDate;
         return new TMessageEditData { Caption = canEdit };
     }

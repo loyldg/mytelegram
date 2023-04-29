@@ -7,7 +7,7 @@ public abstract class RpcResultObjectHandler<TInput, TOutput> : BaseObjectHandle
     public override async Task<IObject> HandleAsync(IRequestInput request,
         IObject obj)
     {
-        var r = await base.HandleAsync(request, obj).ConfigureAwait(false);
+        var r = await base.HandleAsync(request, obj);
         if (r == null!)
         {
             return null!;

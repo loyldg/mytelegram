@@ -25,7 +25,7 @@ public class GetGroupCallJoinAsHandler : RpcResultObjectHandler<RequestGetGroupC
         var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
         var userReadModel = await _queryProcessor
             .ProcessAsync(new GetUserByIdQuery(input.UserId), CancellationToken.None)
-            .ConfigureAwait(false);
+            ;
         IChatReadModel? chatReadModel = null;
         IChannelReadModel? channelReadModel = null;
         switch (peer.PeerType)
@@ -33,12 +33,12 @@ public class GetGroupCallJoinAsHandler : RpcResultObjectHandler<RequestGetGroupC
             case PeerType.Channel:
                 channelReadModel = await _queryProcessor
                     .ProcessAsync(new GetChannelByIdQuery(peer.PeerId), CancellationToken.None)
-                    .ConfigureAwait(false);
+                    ;
                 break;
             case PeerType.Chat:
                 chatReadModel = await _queryProcessor
                     .ProcessAsync(new GetChatByChatIdQuery(peer.PeerId), CancellationToken.None)
-                    .ConfigureAwait(false);
+                    ;
                 break;
         }
 

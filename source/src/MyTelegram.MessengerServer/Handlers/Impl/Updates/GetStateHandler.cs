@@ -24,7 +24,7 @@ public class GetStateHandler : RpcResultObjectHandler<RequestGetState, IState>,
     {
         //var userId = await GetUidAsync(input);
         var pts = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(input.UserId), CancellationToken.None)
-            .ConfigureAwait(false);
+            ;
         if (pts == null)
         {
             return new TState {

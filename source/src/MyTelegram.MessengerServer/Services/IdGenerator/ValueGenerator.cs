@@ -13,7 +13,7 @@ public abstract class ValueGenerator<TValue> : ValueGenerator
 
     protected override async ValueTask<object?> NextValueAsync(IdType idType, long key,
         CancellationToken cancellationToken = default) =>
-        await NextAsync(idType, key, cancellationToken).ConfigureAwait(false);
+        await NextAsync(idType, key, cancellationToken);
 }
 
 public abstract class ValueGenerator

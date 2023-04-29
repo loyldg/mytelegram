@@ -31,7 +31,7 @@ public class CheckUsernameHandler : RpcResultObjectHandler<RequestCheckUsername,
 
         //var item = await _queryProcessor
         //    .ProcessAsync(new GetUserNameByIdQuery(obj.Username),
-        //        CancellationToken.None).ConfigureAwait(false);
+        //        CancellationToken.None);
         //if (item == null)
         //{
         //    return new TBoolTrue();

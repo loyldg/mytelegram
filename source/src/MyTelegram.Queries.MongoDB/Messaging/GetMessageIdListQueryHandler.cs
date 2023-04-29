@@ -27,7 +27,7 @@ public class GetMessageIdListQueryHandler : IQueryHandler<GetMessageIdListQuery,
             .FindAsync(p =>
                     p.OwnerPeerId == query.OwnerPeerId && p.ToPeerId == query.ToPeerId && p.MessageId < maxId,
                 findOptions,
-                cancellationToken).ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+                cancellationToken);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

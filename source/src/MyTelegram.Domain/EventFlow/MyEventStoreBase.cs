@@ -83,7 +83,7 @@ public class MyEventStoreBase : IEventStore
                 id,
                 serializedEvents,
                 cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
         var domainEvents = committedDomainEvents
             .Select(e => _eventJsonSerializer.Deserialize<TAggregate, TIdentity>(id, e))
@@ -106,7 +106,7 @@ public class MyEventStoreBase : IEventStore
                 globalPosition,
                 pageSize,
                 cancellationToken)
-            .ConfigureAwait(false);
+            ;
         var domainEvents = (IReadOnlyCollection<IDomainEvent>)allCommittedEventsPage.CommittedDomainEvents
             .Select(e => _eventJsonSerializer.Deserialize(e))
             .ToList();
@@ -146,7 +146,7 @@ public class MyEventStoreBase : IEventStore
                 id,
                 fromEventSequenceNumber,
                 cancellationToken)
-            .ConfigureAwait(false);
+            ;
         var domainEvents = (IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>)committedDomainEvents
             .Select(e => _eventJsonSerializer.Deserialize<TAggregate, TIdentity>(id, e))
             .ToList();
@@ -170,8 +170,8 @@ public class MyEventStoreBase : IEventStore
         where TAggregate : IAggregateRoot<TIdentity>
         where TIdentity : IIdentity
     {
-        var aggregate = await _aggregateFactory.CreateNewAggregateAsync<TAggregate, TIdentity>(id).ConfigureAwait(false);
-        await aggregate.LoadAsync(this, _snapshotStore, cancellationToken).ConfigureAwait(false);
+        var aggregate = await _aggregateFactory.CreateNewAggregateAsync<TAggregate, TIdentity>(id);
+        await aggregate.LoadAsync(this, _snapshotStore, cancellationToken);
         return aggregate;
     }
 

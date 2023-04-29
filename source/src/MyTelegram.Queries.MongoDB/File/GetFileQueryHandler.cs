@@ -15,8 +15,8 @@
 //        var cursor = await _store.FindAsync(p =>
 //                p.ServerFileId == query.FileId || p.FileId == query.FileId ||
 //                p.FileReference == query.FileReference,
-//            cancellationToken: cancellationToken).ConfigureAwait(false);
-//        return await cursor.FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+//            cancellationToken: cancellationToken);
+//        return await cursor.FirstOrDefaultAsync(cancellationToken);
 //    }
 //}
 

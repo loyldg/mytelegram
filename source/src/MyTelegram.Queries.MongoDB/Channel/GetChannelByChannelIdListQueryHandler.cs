@@ -22,7 +22,7 @@ public class
         // todo:pagination
         var cursor = await _store
             .FindAsync(p => query.ChannelIdList.Contains(p.ChannelId), cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            ;
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

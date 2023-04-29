@@ -29,7 +29,7 @@ public class SearchUserByKeywordQueryHandler : IQueryHandler<SearchUserByKeyword
             Sort = Builders<UserReadModel>.Sort.Ascending(p => p.UserName)
         };
 
-        var cursor = await _store.FindAsync(predicate, options, cancellationToken).ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        var cursor = await _store.FindAsync(predicate, options, cancellationToken);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

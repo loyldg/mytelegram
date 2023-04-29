@@ -16,7 +16,7 @@ public class UploadMediaHandler : RpcResultObjectHandler<RequestUploadMedia, IMe
     protected override async Task<IMessageMedia> HandleCoreAsync(IRequestInput input,
         RequestUploadMedia obj)
     {
-        var media = await _mediaHelper.SaveMediaAsync(obj.Media).ConfigureAwait(false);
+        var media = await _mediaHelper.SaveMediaAsync(obj.Media);
         return media;
     }
 }

@@ -19,7 +19,7 @@ public class GetChannelPushUpdatesBySeqNoQueryHandler : IQueryHandler<GetChannel
 
         var cursor = await _store.FindAsync(p => p.SeqNo > query.SeqNo && query.ChannelIdList.Contains(p.PeerId),
             options,
-            cancellationToken).ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            cancellationToken);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

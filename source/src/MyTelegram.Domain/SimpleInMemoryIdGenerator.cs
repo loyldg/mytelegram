@@ -10,7 +10,7 @@ public class SimpleInMemoryIdGenerator : IIdGenerator
         int step = 1,
         CancellationToken cancellationToken = default)
     {
-        var value = await NextLongIdAsync(idType, id, step, cancellationToken).ConfigureAwait(false);
+        var value = await NextLongIdAsync(idType, id, step, cancellationToken);
 
         return (int)value;
     }

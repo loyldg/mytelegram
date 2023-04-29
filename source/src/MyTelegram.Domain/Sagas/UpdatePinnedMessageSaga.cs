@@ -23,9 +23,9 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
         Emit(new UpdateInboxPinnedCompletedEvent(domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MessageId,
             domainEvent.AggregateEvent.ToPeer));
-        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId).ConfigureAwait(false);
+        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId);
 
-        await HandleUpdatePinnedCompletedAsync().ConfigureAwait(false);
+        await HandleUpdatePinnedCompletedAsync();
     }
 
     public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, OutboxMessagePinnedUpdatedEvent> domainEvent,
@@ -35,7 +35,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
         Emit(new UpdateOutboxPinnedCompletedEvent(domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MessageId,
             domainEvent.AggregateEvent.ToPeer));
-        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId).ConfigureAwait(false);
+        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId);
         var aggregateEvent = domainEvent.AggregateEvent;
 
         foreach (var inboxItem in domainEvent.AggregateEvent.InboxItems)
@@ -55,7 +55,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
             Publish(command);
         }
 
-        await HandleUpdatePinnedCompletedAsync().ConfigureAwait(false);
+        await HandleUpdatePinnedCompletedAsync();
     }
 
     public async Task HandleAsync(
@@ -87,7 +87,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
             domainEvent.AggregateEvent.CorrelationId
         ));
 
-        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId).ConfigureAwait(false);
+        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId);
 
         if (domainEvent.AggregateEvent.PmOneSide)
         {
@@ -174,7 +174,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
 
     private async Task IncrementPtsAsync(long peerId)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);
         Emit(new UpdatePinnedBoxPtsCompletedEvent(peerId, pts));
         var item = _state.GetUpdatePinItem(peerId);
         if (item == null)
@@ -197,12 +197,12 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
 
         if (_state.ToPeer.PeerType == PeerType.Channel)
         {
-            await HandleUpdatePinnedCompletedAsync().ConfigureAwait(false);
+            await HandleUpdatePinnedCompletedAsync();
         }
 
         if (_state.PmOneSide)
         {
-            await CompleteAsync().ConfigureAwait(false);
+            await CompleteAsync();
         }
     }
 

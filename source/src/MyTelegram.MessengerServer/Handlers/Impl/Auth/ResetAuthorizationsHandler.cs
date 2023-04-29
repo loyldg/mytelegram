@@ -24,7 +24,7 @@ public class ResetAuthorizationsHandler : RpcResultObjectHandler<RequestResetAut
         RequestResetAuthorizations obj)
     {
         var deviceList = await _queryProcessor
-            .ProcessAsync(new GetDeviceByUidQuery(input.UserId), CancellationToken.None).ConfigureAwait(false);
+            .ProcessAsync(new GetDeviceByUidQuery(input.UserId), CancellationToken.None);
         foreach (var deviceReadModel in deviceList)
         {
             if (deviceReadModel.PermAuthKeyId == input.PermAuthKeyId)
@@ -33,20 +33,20 @@ public class ResetAuthorizationsHandler : RpcResultObjectHandler<RequestResetAut
             }
 
             // var command = new UnRegisterAuthKeyCommand(AuthKeyId.Create(deviceReadModel.PermAuthKeyId));
-            // await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            // await _commandBus.PublishAsync(command, CancellationToken.None);
             await _eventBus.PublishAsync(new UnRegisterAuthKeyEvent(deviceReadModel.PermAuthKeyId))
-                .ConfigureAwait(false);
+                ;
         }
 
         var updatesTooLong = new TUpdatesTooLong();
         //await SendMessageToPeerAsync(new Peer(PeerType.User, input.UserId),
         //    updatesTooLong,
         //    3,
-        //    excludeAuthKeyId: input.AuthKeyId).ConfigureAwait(false);
+        //    excludeAuthKeyId: input.AuthKeyId);
         await _messageSender.PushMessageToPeerAsync(new Peer(PeerType.User, input.UserId),
             updatesTooLong,
             //3,
-            input.AuthKeyId).ConfigureAwait(false);
+            input.AuthKeyId);
 
         return new TBoolTrue();
     }

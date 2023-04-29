@@ -86,7 +86,7 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
 
                 if (_rpcResultCacheAppService.TryGetRpcResult(input.UserId, m.MsgId, out var cachedRpcResult))
                 {
-                    await _messageSender.SendMessageToPeerAsync(m.MsgId, cachedRpcResult).ConfigureAwait(false);
+                    await _messageSender.SendMessageToPeerAsync(m.MsgId, cachedRpcResult);
                     //await _localEventBus.PublishAsync(new SendMessageToClientEto(input.AuthKeyData,
                     //    input.ServerSalt,
                     //    cachedRpcResult,
@@ -94,7 +94,7 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                     //    m.SeqNo + 1,
                     //    input.AuthKeyId,
                     //    input.RequestSessionId,
-                    //    input.ReqMsgId)).ConfigureAwait(false);
+                    //    input.ReqMsgId));
                     continue;
                 }
 
@@ -189,7 +189,7 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                 //    continue;
                 //}
 
-                var r = await handler.HandleAsync(newReq, m.Body).ConfigureAwait(false);
+                var r = await handler.HandleAsync(newReq, m.Body);
                 sw.Stop();
 
                 //if (handler is IMsgsAckHandler)
@@ -255,7 +255,7 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
 
                 if (r is TRpcResult)
                 {
-                    await _messageSender.SendMessageToPeerAsync(m.MsgId, r).ConfigureAwait(false);
+                    await _messageSender.SendMessageToPeerAsync(m.MsgId, r);
                     //await _localEventBus.PublishAsync(new SendMessageToClientEto(input.AuthKeyData,
                     //    input.ServerSalt,
                     //    r,
@@ -263,14 +263,14 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                     //    m.SeqNo + 1,
                     //    input.AuthKeyId,
                     //    input.RequestSessionId,
-                    //    input.ReqMsgId)).ConfigureAwait(false);
+                    //    input.ReqMsgId));
 
                     _rpcResultCacheAppService.TryAdd(input.UserId, m.MsgId, r);
                     continue;
                 }
 
                 {
-                    var messageId = await _messageIdGenerator.GenerateServerMessageIdAsync().ConfigureAwait(false);
+                    var messageId = await _messageIdGenerator.GenerateServerMessageIdAsync();
                     containerMessageList.Add(new TContainerMessage {
                         Body = r,
                         MsgId = messageId, // _messageIdHelper.GenerateMessageId(),
@@ -286,7 +286,7 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                     var ackStream = new MemoryStream();
                     var ackWriter = new BinaryWriter(ackStream);
                     ack.Serialize(ackWriter);
-                    var messageId = await _messageIdGenerator.GenerateServerMessageIdAsync().ConfigureAwait(false);
+                    var messageId = await _messageIdGenerator.GenerateServerMessageIdAsync();
                     containerMessageList.Add(new TContainerMessage {
                         Body = ack,
                         MsgId = messageId, // _messageIdHelper.GenerateMessageId(),
@@ -309,7 +309,7 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                     //m.SeqNo + 1,
                     input.AuthKeyId,
                     //input.RequestSessionId,
-                    true).ConfigureAwait(false);
+                    true);
             }
         }
 

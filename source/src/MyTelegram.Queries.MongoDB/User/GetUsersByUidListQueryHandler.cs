@@ -22,6 +22,6 @@ public class GetUsersByUidListQueryHandler : IQueryHandler<GetUsersByUidListQuer
                 await _store.FindAsync(p => query.UidList.Contains(p.UserId), cancellationToken: cancellationToken)
                     .ConfigureAwait(false)
             ;
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

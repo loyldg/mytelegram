@@ -44,7 +44,7 @@ public class ChatDomainEventHandler : DomainEventHandlerBase,
         await NotifyUpdateChatAsync(domainEvent.AggregateEvent.ReqMsgId,
             domainEvent.AggregateEvent.ChatId,
             domainEvent.Metadata.SourceId.Value,
-            domainEvent.AggregateEvent.DefaultBannedRights).ConfigureAwait(false);
+            domainEvent.AggregateEvent.DefaultBannedRights);
     }
 
     private async Task NotifyUpdateChatAsync(long reqMsgId,
@@ -81,10 +81,10 @@ public class ChatDomainEventHandler : DomainEventHandlerBase,
         // todo:这里应该返回TUpdates给发送者,只包含群信息即可
         if (reqMsgId != 0)
         {
-            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId).ConfigureAwait(false);
+            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId);
         }
 
-        await PushUpdatesToPeerAsync(new Peer(PeerType.Chat, chatId), updates).ConfigureAwait(false);
+        await PushUpdatesToPeerAsync(new Peer(PeerType.Chat, chatId), updates);
     }
     public async  Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatDeletedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -107,6 +107,6 @@ public class ChatDomainEventHandler : DomainEventHandlerBase,
             Seq = 0
         };
         var peer = new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId);
-        await SendMessageToPeerAsync(peer, updates).ConfigureAwait(false);
+        await SendMessageToPeerAsync(peer, updates);
     }
 }

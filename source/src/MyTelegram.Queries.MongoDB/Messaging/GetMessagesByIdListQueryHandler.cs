@@ -19,6 +19,6 @@ public class GetMessagesByIdListQueryHandler : IQueryHandler<GetMessagesByIdList
                 .FindAsync(p => query.MessageIdList.Contains(p.Id), cancellationToken: cancellationToken)
                 .ConfigureAwait(false)
             ;
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

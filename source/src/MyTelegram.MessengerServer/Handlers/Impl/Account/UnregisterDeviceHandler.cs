@@ -23,7 +23,7 @@ public class UnRegisterDeviceHandler : RpcResultObjectHandler<RequestUnregisterD
             obj.TokenType,
             obj.Token,
             obj.OtherUids.ToList());
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
 
         return new TBoolTrue();
     }

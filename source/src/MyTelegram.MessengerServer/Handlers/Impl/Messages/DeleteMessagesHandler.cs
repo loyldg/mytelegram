@@ -33,7 +33,7 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
             {
                 var messageReadModel = await _queryProcessor
                     .ProcessAsync(new GetMessageByIdQuery(MessageId.Create(input.UserId, id).Value), default)
-                    .ConfigureAwait(false);
+                    ;
                 if (messageReadModel == null)
                 {
                     ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
@@ -44,7 +44,7 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
                     {
                         var chatReadModel = await _queryProcessor
                             .ProcessAsync(new GetChatByChatIdQuery(messageReadModel.ToPeerId), default)
-                            .ConfigureAwait(false);
+                            ;
                         if (chatReadModel == null)
                         {
                             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PeerIdInvalid);
@@ -55,7 +55,7 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
                             obj.Revoke,
                             false,
                             Guid.NewGuid());
-                        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                        await _commandBus.PublishAsync(command, default);
                     }
                         break;
                     case PeerType.User:
@@ -67,7 +67,7 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
                             obj.Id.ToList(),
                             false,
                             Guid.NewGuid());
-                        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                        await _commandBus.PublishAsync(command, default);
                     }
                         break;
                 }
@@ -80,7 +80,7 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
                 obj.Id.ToList(),
                     chatCreatorId,
                 Guid.NewGuid());
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
             }
 
             return null!;

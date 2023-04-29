@@ -27,7 +27,7 @@ public static class MyTelegramMessengerServerGrpcServiceExtensions
             })
             .AddMyTelegramCoreServices()
             .AddMyTelegramHandlerServices()
-            .AddMyTelegramMessengerServices()
+            .AddMyTelegramMessengerServer()
             .AddMyTelegramGrpcService()
             .AddMyEventFlow()
             .RegisterAllMappers()

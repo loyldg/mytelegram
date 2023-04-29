@@ -29,7 +29,7 @@ public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDisc
         var query = new GetDiscussionMessageQuery(peer.PeerId, obj.MsgId);
         var messageReadModel = await _queryProcessor
             .ProcessAsync(query, default)
-            .ConfigureAwait(false);
+            ;
 
         if (messageReadModel == null)
         {
@@ -42,15 +42,15 @@ public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDisc
         }
 
         var reply = await _queryProcessor.ProcessAsync(new GetReplyQuery(peer.PeerId, obj.MsgId), default)
-            .ConfigureAwait(false);
+            ;
 
         //var messages = _messageConverter.ToMessages(new[] { messageReadModel }, input.UserId);
 
         var dialogReadModel =
-            await _queryProcessor.ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, PeerType.Channel, messageReadModel.ToPeerId)), default).ConfigureAwait(false);
+            await _queryProcessor.ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, PeerType.Channel, messageReadModel.ToPeerId)), default);
         var channelReadModels = await _queryProcessor
             .ProcessAsync(new GetChannelByChannelIdListQuery(new long[] { peer.PeerId, messageReadModel.ToPeerId }), default)
-            .ConfigureAwait(false);
+            ;
 
         var readMaxId = 0;
         if (dialogReadModel != null)

@@ -14,19 +14,19 @@ public class SessionMessageDataProcessor : IDataProcessor<ISessionMessage>
         switch (data)
         {
             case DataResultResponseReceivedEvent dataResultResponseReceivedEvent:
-                await _eventBus.PublishAsync(dataResultResponseReceivedEvent).ConfigureAwait(false);
+                await _eventBus.PublishAsync(dataResultResponseReceivedEvent);
                 break;
             case FileDataResultResponseReceivedEvent fileDataResultResponseReceivedEvent:
-                await _eventBus.PublishAsync(fileDataResultResponseReceivedEvent).ConfigureAwait(false);
+                await _eventBus.PublishAsync(fileDataResultResponseReceivedEvent);
                 break;
             case PushMessageToPeerEvent pushMessageToPeerEvent:
-                await _eventBus.PublishAsync(pushMessageToPeerEvent).ConfigureAwait(false);
+                await _eventBus.PublishAsync(pushMessageToPeerEvent);
                 break;
             case LayeredAuthKeyIdMessageCreatedIntegrationEvent pushSessionMessageToAuthKeyIdEvent:
-                await _eventBus.PublishAsync(pushSessionMessageToAuthKeyIdEvent).ConfigureAwait(false);
+                await _eventBus.PublishAsync(pushSessionMessageToAuthKeyIdEvent);
                 break;
             case LayeredPushMessageCreatedIntegrationEvent pushSessionMessageToPeerEvent:
-                await _eventBus.PublishAsync(pushSessionMessageToPeerEvent).ConfigureAwait(false);
+                await _eventBus.PublishAsync(pushSessionMessageToPeerEvent);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(data));

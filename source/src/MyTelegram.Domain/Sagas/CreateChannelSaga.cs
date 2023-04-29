@@ -43,6 +43,6 @@ public class CreateChannelSaga : MyInMemoryAggregateSaga<CreateChannelSaga, Crea
             domainEvent.AggregateEvent.CreatorId,
             domainEvent.AggregateEvent.Date);
         Publish(createMemberCommand);
-        await CompleteAsync(cancellationToken).ConfigureAwait(false);
+        await CompleteAsync(cancellationToken);
     }
 }

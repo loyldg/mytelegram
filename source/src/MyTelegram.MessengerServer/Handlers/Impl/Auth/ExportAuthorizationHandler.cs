@@ -36,7 +36,7 @@ public class ExportAuthorizationHandler : RpcResultObjectHandler<RequestExportAu
         _randomHelper.NextBytes(bytes);
         var keyBytes = _hashHelper.Sha1(bytes);
         var key = BitConverter.ToString(keyBytes).Replace("-", string.Empty);
-        await _cacheManager.SetAsync(key, input.UserId.ToString()).ConfigureAwait(false);
+        await _cacheManager.SetAsync(key, input.UserId.ToString());
 
         return new TExportedAuthorization { Bytes = bytes, Id = input.UserId };
     }

@@ -17,7 +17,7 @@ public class GetAllDraftsHandler : RpcResultObjectHandler<RequestGetAllDrafts, I
         RequestGetAllDrafts obj)
     {
         var draftList = await _queryProcessor.ProcessAsync(new GetAllDraftQuery(input.UserId), CancellationToken.None)
-            .ConfigureAwait(false);
+            ;
         var draftUpdates = draftList.Select(p => new TUpdateDraftMessage
         {
             Draft = new TDraftMessage

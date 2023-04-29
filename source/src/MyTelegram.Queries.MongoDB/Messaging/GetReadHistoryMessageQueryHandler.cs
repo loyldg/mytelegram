@@ -16,8 +16,8 @@ public class
     {
         var cursor = await _store.FindAsync(
             p => p.OwnerPeerId == query.OwnerPeerId && p.MessageId == query.MessageId && p.ToPeerId == query.ToPeerId,
-            cancellationToken: cancellationToken).ConfigureAwait(false);
+            cancellationToken: cancellationToken);
 
-        return await cursor.SingleOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.SingleOrDefaultAsync(cancellationToken);
     }
 }

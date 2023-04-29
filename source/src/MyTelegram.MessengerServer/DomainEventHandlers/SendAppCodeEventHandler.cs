@@ -29,7 +29,7 @@ public class SendAppCodeEventHandler : ISubscribeSynchronousTo<AppCodeAggregate,
         await _eventBus.PublishAsync(new AppCodeCreatedIntegrationEvent(domainEvent.AggregateEvent.UserId,
                     domainEvent.AggregateEvent.PhoneNumber,
                     domainEvent.AggregateEvent.Code,
-                    domainEvent.AggregateEvent.Expire)).ConfigureAwait(false);
+                    domainEvent.AggregateEvent.Expire));
 
         if (domainEvent.AggregateEvent.UserId != 0)
         {
@@ -55,7 +55,7 @@ public class SendAppCodeEventHandler : ISubscribeSynchronousTo<AppCodeAggregate,
                 entities: entities.ToBytes()
             );
 
-            await _messageAppService.SendMessageAsync(sendMessageInput).ConfigureAwait(false);
+            await _messageAppService.SendMessageAsync(sendMessageInput);
         }
     }
 
@@ -74,7 +74,7 @@ public class SendAppCodeEventHandler : ISubscribeSynchronousTo<AppCodeAggregate,
                 welcomeMessage,
                 _randomHelper.NextLong());
 
-            await _messageAppService.SendMessageAsync(sendMessageInput).ConfigureAwait(false);
+            await _messageAppService.SendMessageAsync(sendMessageInput);
         }
     }
 }

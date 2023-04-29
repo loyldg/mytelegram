@@ -37,14 +37,14 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                     obj.ReqMsgId,
                     handler.GetType().Name);
 
-                await SendMessageToPeerAsync(obj.ReqMsgId, rpcResult).ConfigureAwait(false);
+                await SendMessageToPeerAsync(obj.ReqMsgId, rpcResult);
                 return;
             }
 
             try
             {
                 var req = GetRequestInput(obj);
-                var r = await handler.HandleAsync(req, GetData(obj)).ConfigureAwait(false);
+                var r = await handler.HandleAsync(req, GetData(obj));
                 _logger.LogInformation("{Elapsed} request from userId={UserId} reqMsgId={ReqMsgId} handler={Handler}",
                     sw.Elapsed,
                     obj.UserId,
@@ -53,7 +53,7 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
 
                 if (r != null!)
                 {
-                    await SendMessageToPeerAsync(obj.ReqMsgId, r).ConfigureAwait(false);
+                    await SendMessageToPeerAsync(obj.ReqMsgId, r);
                 }
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                     handler.GetType().Name,
                     obj.ReqMsgId,
                     obj.AuthKeyId,
-                    false).ConfigureAwait(false);
+                    false);
             }
         }
     }
@@ -81,7 +81,7 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
     //        {
     //            MsgIds = new TVector<long>(reqMsgId)
     //        };
-    //        //await _objectMessageSender.PushMessageToPeerAsync().ConfigureAwait(false);
+    //        //await _objectMessageSender.PushMessageToPeerAsync();
     //    }
     //}
 

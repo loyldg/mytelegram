@@ -85,7 +85,7 @@ public class EditChatPhotoHandler : RpcResultObjectHandler<RequestEditChatPhoto,
             videoStartTs,
             parts,
             name,
-            md5).ConfigureAwait(false);
+            md5);
         var command = new EditChatPhotoCommand(ChatId.Create(chatId),
             input.ToRequestInfo(),
             fileId,
@@ -93,7 +93,7 @@ public class EditChatPhotoHandler : RpcResultObjectHandler<RequestEditChatPhoto,
             new TMessageActionChatEditPhoto { Photo = photo }.ToBytes().ToHexString(),
             _randomHelper.NextLong(),
             Guid.NewGuid());
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
 
         return null!;
     }

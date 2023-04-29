@@ -18,7 +18,7 @@ public class GetPollIdByMessageIdQueryHandler : IQueryHandler<GetPollIdByMessage
             Limit = 1
         };
         var cursor = await _store.FindAsync(p => p.ToPeerId == query.PeerId && p.MessageId == query.MessageId, findOptions, cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
         return await cursor.FirstOrDefaultAsync(cancellationToken);
     }

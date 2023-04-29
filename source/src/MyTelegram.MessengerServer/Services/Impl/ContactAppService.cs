@@ -22,45 +22,45 @@ public class ContactAppService : BaseAppService, IContactAppService
 
             var userList =
                 await _queryProcessor.ProcessAsync(new SearchUserByKeywordQuery(keyword, 20),
-                    CancellationToken.None).ConfigureAwait(false);
+                    CancellationToken.None);
 
             //var contactReadModels = await _queryProcessor
             //    .ProcessAsync(new GetContactListQuery(selfUserId, userList.Select(p => p.UserId).ToList()), default)
-            //    .ConfigureAwait(false);
+            //    ;
 
             //var contactReadModels = await _queryProcessor
-            //    .ProcessAsync(new SearchContactQuery(selfUserId, searchKey), default).ConfigureAwait(false);
+            //    .ProcessAsync(new SearchContactQuery(selfUserId, searchKey), default);
 
             var userNameReadModel = await _queryProcessor
-                .ProcessAsync(new SearchUserNameQuery(searchKey), default).ConfigureAwait(false);
+                .ProcessAsync(new SearchUserNameQuery(searchKey), default);
 
             var channelIdList = userNameReadModel.Where(p => p.PeerType == PeerType.Channel).Select(p => p.PeerId)
                 .ToList();
             var userIdList = userNameReadModel.Where(p => p.PeerType == PeerType.User).Select(p => p.PeerId).ToList();
 
             var userList2 = await _queryProcessor
-                .ProcessAsync(new GetUsersByUidListQuery(userIdList), default).ConfigureAwait(false);
+                .ProcessAsync(new GetUsersByUidListQuery(userIdList), default);
             var allUserList = userList.ToList();
             allUserList.AddRange(userList2);
 
             var channelList = await _queryProcessor
-                .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), default).ConfigureAwait(false);
+                .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), default);
 
             var myChannelIdList = await _queryProcessor
-                .ProcessAsync(new GetChannelIdListByMemberUidQuery(selfUserId), default).ConfigureAwait(false);
+                .ProcessAsync(new GetChannelIdListByMemberUidQuery(selfUserId), default);
             var myChannelList = channelList.Where(p => myChannelIdList.Contains(p.ChannelId)).ToList();
             var otherChannelList = channelList.Where(p => !myChannelIdList.Contains(p.ChannelId)).ToList();
 
             //var privacyList = await _queryProcessor
             //    .ProcessAsync(new GetPrivacyListQuery(userIdList,
             //            new[] { PrivacyType.PhoneNumber, PrivacyType.StatusTimestamp }),
-            //        default).ConfigureAwait(false);
+            //        default);
             IReadOnlyCollection<IChannelMemberReadModel> channelMemberList = new List<IChannelMemberReadModel>();
             if (channelIdList.Count > 0)
             {
                 channelMemberList = await _queryProcessor
                     .ProcessAsync(new GetChannelMemberListByChannelIdListQuery(selfUserId, channelIdList),
-                        default).ConfigureAwait(false);
+                        default);
             }
 
             return new SearchContactOutput(selfUserId,

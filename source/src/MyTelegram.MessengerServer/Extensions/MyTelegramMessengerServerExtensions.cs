@@ -1,25 +1,18 @@
-﻿using MyTelegram.MessengerServer.Services.IdGenerator;
-using MyTelegram.MessengerServer.Services.Serialization.SystemTextJson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EventFlow.Core.Caching;
+﻿using EventFlow.Core.Caching;
 using EventFlow.MongoDB.Extensions;
-using MyTelegram.Caching.Redis;
 using MyTelegram.Domain.EventFlow;
 using MyTelegram.EventBus.RabbitMQ;
+using MyTelegram.MessengerServer.BackgroundServices;
+using MyTelegram.MessengerServer.EventHandlers;
+using MyTelegram.MessengerServer.Services.IdGenerator;
+using MyTelegram.MessengerServer.Services.Serialization.SystemTextJson;
 using MyTelegram.QueryHandlers.MongoDB;
 using MyTelegram.ReadModel.MongoDB;
-using MyTelegram.MessengerServer.BackgroundServices;
 using IEventBus = MyTelegram.EventBus.IEventBus;
-using MyTelegram.MessengerServer.EventHandlers;
-using PtsEventHandler = MyTelegram.MessengerServer.DomainEventHandlers.PtsEventHandler;
 
 namespace MyTelegram.MessengerServer.Extensions
 {
-    internal static class MyTelegramMessengerServerExtensions
+    public static class MyTelegramMessengerServerExtensions
     {
         public static void ConfigureEventBus(this IEventBus eventBus)
         {
@@ -63,14 +56,14 @@ namespace MyTelegram.MessengerServer.Extensions
                 //options.UseSpanJson();
             });
 
-            services.AddMyTelegramRabbitMqEventBus();
-            services.AddMyTelegramCoreServices();
-            services.AddMyTelegramHandlerServices();
-            services.AddMyEventFlow();
-            services.AddMyTelegramMessengerServices();
-            services.AddMyTelegramEventHandlers();
-            services.AddMyTelegramIdGeneratorServices();
-            
+            services.AddMyTelegramRabbitMqEventBus()
+            .AddMyTelegramCoreServices()
+            .AddMyTelegramHandlerServices()
+            .AddMyEventFlow()
+            .AddMyTelegramMessengerServices()
+            .AddMyTelegramEventHandlers()
+            .AddMyTelegramIdGeneratorServices();
+
 
             services.AddHostedService<MyTelegramMessengerServerInitBackgroundService>();
             services.AddHostedService<DataProcessorBackgroundService>();
@@ -82,9 +75,9 @@ namespace MyTelegram.MessengerServer.Extensions
 
         private static IServiceCollection AddMyTelegramEventHandlers(this IServiceCollection services)
         {
-            services.AddTransient<EventHandlers.MessengerEventHandler>();
+            services.AddTransient<MessengerEventHandler>();
             services.AddTransient<EventHandlers.PtsEventHandler>();
-            services.AddTransient<EventHandlers.UserIsOnlineEventHandler>();
+            services.AddTransient<UserIsOnlineEventHandler>();
 
             return services;
         }

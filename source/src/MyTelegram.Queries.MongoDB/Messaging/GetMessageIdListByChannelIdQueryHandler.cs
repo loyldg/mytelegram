@@ -20,7 +20,7 @@ public class
         };
 
         var cursor = await _store.FindAsync(p => p.OwnerPeerId == query.ChannelId, findOptions, cancellationToken)
-            .ConfigureAwait(false);
+            ;
         return await cursor.ToListAsync(cancellationToken);
     }
 }

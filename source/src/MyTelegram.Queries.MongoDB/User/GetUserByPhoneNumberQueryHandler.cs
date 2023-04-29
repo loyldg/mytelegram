@@ -14,7 +14,7 @@ public class GetUserByPhoneNumberQueryHandler : IQueryHandler<GetUserByPhoneNumb
     {
         var cursor = await _store
             .FindAsync(p => p.PhoneNumber == query.PhoneNumber, cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
-        return await cursor.FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+            ;
+        return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
 }

@@ -10,7 +10,7 @@ public abstract class BaseObjectHandler<TInput, TOutput> : IObjectHandler
     public virtual async Task<IObject> HandleAsync(IRequestInput request,
         IObject obj)
     {
-        return await HandleCoreAsync(request, (TInput)obj).ConfigureAwait(false);
+        return await HandleCoreAsync(request, (TInput)obj);
     }
 
     protected abstract Task<TOutput> HandleCoreAsync(IRequestInput request,

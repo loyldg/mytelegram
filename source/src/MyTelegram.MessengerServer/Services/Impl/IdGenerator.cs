@@ -24,7 +24,7 @@ namespace MyTelegram.MessengerServer.Services.Impl
             int step = 1,
             CancellationToken cancellationToken = default)
         {
-            return (int)await NextLongIdAsync(idType, id, step, cancellationToken).ConfigureAwait(false);
+            return (int)await NextLongIdAsync(idType, id, step, cancellationToken);
         }
 
         public async Task<long> NextLongIdAsync(IdType idType,
@@ -34,7 +34,7 @@ namespace MyTelegram.MessengerServer.Services.Impl
         {
             var state = _cache.GetOrAdd(idType, id);
             var generator = _factory.Create(state);
-            var nextId = await generator.NextAsync(idType, id, cancellationToken).ConfigureAwait(false);
+            var nextId = await generator.NextAsync(idType, id, cancellationToken);
 
             return nextId + GetInitId(idType);
         }

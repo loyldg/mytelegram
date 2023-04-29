@@ -25,10 +25,10 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
         int messageId)
     {
         var key = GetFilterKey(selfUserId, authKeyId, channelId, messageId);
-        var isExists = await _cuckooFilter.ExistsAsync(key).ConfigureAwait(false);
+        var isExists = await _cuckooFilter.ExistsAsync(key);
         if (!isExists)
         {
-            await _cuckooFilter.AddAsync(key).ConfigureAwait(false);
+            await _cuckooFilter.AddAsync(key);
         }
     }
 
@@ -53,10 +53,10 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
 
         foreach (var key in keyList)
         {
-            var isExists = await _cuckooFilter.ExistsAsync(key).ConfigureAwait(false);
+            var isExists = await _cuckooFilter.ExistsAsync(key);
             if (!isExists)
             {
-                await _cuckooFilter.AddAsync(key).ConfigureAwait(false);
+                await _cuckooFilter.AddAsync(key);
                 needIncrementMessageIdList.Add(messageIdGreaterThanZeroList[index]);
             }
             index++;
@@ -73,7 +73,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             try
             {
                 var command = new IncrementViewsCommand(MessageId.Create(channelId, messageId));
-                await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, default);
             }
             catch (DomainError)
             {
@@ -82,7 +82,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
         }
 
         var linkedChannelId = await _queryProcessor.ProcessAsync(new GetLinkedChannelIdQuery(channelId), default)
-            .ConfigureAwait(false);
+            ;
 
         var replies = (await _queryProcessor.ProcessAsync(new GetRepliesQuery(channelId, messageIdList), default)
             .ConfigureAwait(false))

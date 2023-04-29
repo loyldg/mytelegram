@@ -20,8 +20,8 @@ public class
         };
         var cursor = await _store
             .FindAsync(p => p.TargetPeerId == query.TargetPeerId && p.MessageId == query.MessageId, findOptions, cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

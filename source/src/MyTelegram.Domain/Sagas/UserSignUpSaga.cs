@@ -23,7 +23,7 @@ public class UserSignUpSaga : AggregateSaga<UserSignUpSaga, UserSignUpSagaId, Us
         if (userId == 0)
         {
             userId = await _idGenerator.NextLongIdAsync(IdType.UserId, cancellationToken: cancellationToken)
-                .ConfigureAwait(false);
+                ;
 
             var createUserCommand = new CreateUserCommand(UserId.Create(userId),
                 domainEvent.AggregateEvent.RequestInfo,

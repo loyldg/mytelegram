@@ -28,6 +28,6 @@ public class SignUpEventHandler : ISubscribeSynchronousTo<UserAggregate, UserId,
             new UserCacheItem
             {
                 UserId = domainEvent.AggregateEvent.UserId,
-            }).ConfigureAwait(false);
+            });
     }
 }

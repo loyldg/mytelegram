@@ -17,9 +17,9 @@ public class GetChannelIdListByUidQueryHandler : IQueryHandler<GetChannelIdListB
         };
 
         var cursor = await _store.FindAsync(p => p.UserId == query.UserId, findOption, cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
-        var list = await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        var list = await cursor.ToListAsync(cancellationToken);
         return list.Select(p => p.ChannelId).ToList();
     }
 }

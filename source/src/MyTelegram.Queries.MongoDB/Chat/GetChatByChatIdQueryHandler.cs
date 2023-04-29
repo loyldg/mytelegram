@@ -12,7 +12,7 @@ public class GetChatByChatIdQueryHandler : IQueryHandler<GetChatByChatIdQuery, I
     public async Task<IChatReadModel?> ExecuteQueryAsync(GetChatByChatIdQuery query,
         CancellationToken cancellationToken)
     {
-        var item = await _store.GetAsync(ChatId.Create(query.ChatId).Value, cancellationToken).ConfigureAwait(false);
+        var item = await _store.GetAsync(ChatId.Create(query.ChatId).Value, cancellationToken);
         return item.ReadModel;
     }
 }

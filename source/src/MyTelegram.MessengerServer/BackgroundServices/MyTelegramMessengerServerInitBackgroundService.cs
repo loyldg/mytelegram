@@ -35,14 +35,14 @@ public class MyTelegramMessengerServerInitBackgroundService : BackgroundService
         _logger.LogInformation("App init starting...");
         _handlerHelper.InitAllHandlers(typeof(MyTelegramMessengerServerExtensions).Assembly);
         //IdGeneratorFactory.SetDefaultIdGenerator(_idGenerator);
-        await _mongoDbIndexesCreator.CreateAllIndexesAsync().ConfigureAwait(false);
+        await _mongoDbIndexesCreator.CreateAllIndexesAsync();
         if (_options.UseInMemoryFilters)
         {
             await _serviceProvider.GetRequiredService<IInMemoryFilterDataLoader>().LoadAllFilterDataAsync()
-                .ConfigureAwait(false);
+                ;
         }
 
-        await _dataSeeder.SeedAsync().ConfigureAwait(false);
+        await _dataSeeder.SeedAsync();
         _logger.LogInformation("Messenger service init ok");
     }
 }

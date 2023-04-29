@@ -27,7 +27,7 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
         {
             var userNameReadModel = await _queryProcessor
                 .ProcessAsync(new GetUserNameByNameQuery(obj.Username), default)
-                .ConfigureAwait(false);
+                ;
             if (userNameReadModel != null)
             {
                 switch (userNameReadModel.PeerType)
@@ -35,7 +35,7 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                     case PeerType.User:
                         var userReadModel = await _queryProcessor
                             .ProcessAsync(new GetUserByIdQuery(userNameReadModel.PeerId), default)
-                            .ConfigureAwait(false);
+                            ;
 
 
                         if (userReadModel != null)
@@ -54,7 +54,7 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                         {
                             var chatReadModel = await _queryProcessor
                                 .ProcessAsync(new GetChatByChatIdQuery(userNameReadModel.PeerId), default)
-                                .ConfigureAwait(false);
+                                ;
                             if (chatReadModel != null)
                             {
                                 return new TResolvedPeer
@@ -70,7 +70,7 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                         {
                             var channelReadModel = await _queryProcessor
                                 .ProcessAsync(new GetChannelByIdQuery(userNameReadModel.PeerId), default)
-                                .ConfigureAwait(false);
+                                ;
                             if (channelReadModel != null)
                             {
                                 return new TResolvedPeer

@@ -39,6 +39,6 @@ public class
             correlationId: domainEvent.AggregateEvent.CorrelationId);
 
         Publish(command);
-        await CompleteAsync(cancellationToken).ConfigureAwait(false);
+        await CompleteAsync(cancellationToken);
     }
 }

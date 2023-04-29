@@ -25,7 +25,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
         CancellationToken cancellationToken)
     {
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MessageId)
-            .ConfigureAwait(false);
+            ;
         DeleteMessagesForOtherParty(domainEvent.AggregateEvent);
     }
 
@@ -35,7 +35,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
         CancellationToken cancellationToken)
     {
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MessageId)
-            .ConfigureAwait(false);
+            ;
     }
 
     public Task HandleAsync(IDomainEvent<DialogAggregate, DialogId, HistoryClearedEvent> domainEvent,
@@ -162,8 +162,8 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
     private async Task IncrementPtsAsync(long peerId,
         int messageId)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);
         Emit(new ClearHistoryPtsIncrementedEvent(peerId, messageId, pts));
-        await HandleClearHistoryCompletedAsync(peerId).ConfigureAwait(false);
+        await HandleClearHistoryCompletedAsync(peerId);
     }
 }

@@ -29,19 +29,19 @@ public class GetFullChatHandler : RpcResultObjectHandler<RequestGetFullChat, ICh
             case PeerType.Channel:
                 {
                     var channel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(obj.ChatId),
-                        CancellationToken.None).ConfigureAwait(false);
+                        CancellationToken.None);
                     var channelFull = await _queryProcessor.ProcessAsync(new GetChannelFullByIdQuery(obj.ChatId),
-                        CancellationToken.None).ConfigureAwait(false);
+                        CancellationToken.None);
 
                     var channelMember = await _queryProcessor
                         .ProcessAsync(new GetChannelMemberByUidQuery(obj.ChatId, input.UserId), default)
-                        .ConfigureAwait(false);
+                        ;
                     var peerNotifySettings = await _queryProcessor
                         .ProcessAsync(
                             new GetPeerNotifySettingsByIdQuery(PeerNotifySettingsId.Create(input.UserId,
                                 PeerType.Channel,
                                 obj.ChatId)),
-                            CancellationToken.None).ConfigureAwait(false);
+                            CancellationToken.None);
 
                     return _chatConverter.ToChatFull(channel,
                         channelFull!,
@@ -53,7 +53,7 @@ public class GetFullChatHandler : RpcResultObjectHandler<RequestGetFullChat, ICh
                 {
                     var chat = await _queryProcessor
                         .ProcessAsync(new GetChatByChatIdQuery(obj.ChatId), CancellationToken.None)
-                        .ConfigureAwait(false);
+                        ;
 
                     if (chat == null)
                     {
@@ -62,7 +62,7 @@ public class GetFullChatHandler : RpcResultObjectHandler<RequestGetFullChat, ICh
 
                     var userList = await _queryProcessor
                         .ProcessAsync(new GetUsersByUidListQuery(chat!.ChatMembers.Select(p => p.UserId).ToList()),
-                            CancellationToken.None).ConfigureAwait(false);
+                            CancellationToken.None);
 
 
                     var peerNotifySettings = await _queryProcessor
@@ -70,7 +70,7 @@ public class GetFullChatHandler : RpcResultObjectHandler<RequestGetFullChat, ICh
                             new GetPeerNotifySettingsByIdQuery(PeerNotifySettingsId.Create(input.UserId,
                                 PeerType.Chat,
                                 obj.ChatId)),
-                            CancellationToken.None).ConfigureAwait(false);
+                            CancellationToken.None);
 
 
 

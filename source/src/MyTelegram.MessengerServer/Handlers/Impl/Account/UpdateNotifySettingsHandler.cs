@@ -38,7 +38,7 @@ public class UpdateNotifySettingsHandler : RpcResultObjectHandler<RequestUpdateN
                 //obj.Settings.Sound
             );
             await _commandBus.PublishAsync(updatePeerNotifySettingsCommand, CancellationToken.None)
-                .ConfigureAwait(false);
+                ;
             return new TBoolTrue();
         }
 

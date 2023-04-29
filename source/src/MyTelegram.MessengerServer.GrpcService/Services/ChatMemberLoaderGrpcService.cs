@@ -21,7 +21,7 @@ public class ChatMemberLoaderGrpcService : ChatMemberLoaderService.ChatMemberLoa
     {
         var chatId = request.ChatId;
         var chatReadModel = await _queryProcessor.ProcessAsync(new GetChatByChatIdQuery(chatId), default)
-            .ConfigureAwait(false);
+            ;
         if (chatReadModel == null)
         {
             _logger.LogWarning("Get chat read model failed,chat read model not exists,chatId={ChatId}", chatId);
@@ -43,7 +43,7 @@ public class ChatMemberLoaderGrpcService : ChatMemberLoaderService.ChatMemberLoa
         var channelId = request.ChannelId;
         var channelMemberList = await _queryProcessor
             .ProcessAsync(new GetChannelMembersByChannelIdQuery(channelId, new List<long>(), false, 0, int.MaxValue), default)
-            .ConfigureAwait(false);
+            ;
         var newMemberUidList = channelMemberList.Select(p => p.UserId).ToList();
         _logger.LogDebug("Load channel member list from read model,channelId={ChannelId},member count={MemberCount}", channelId, newMemberUidList.Count);
         var r = new GetChannelMemberResponse();

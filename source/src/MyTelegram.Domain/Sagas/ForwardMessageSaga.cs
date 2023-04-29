@@ -15,9 +15,9 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        await SendMessageToTargetPeerAsync(domainEvent.AggregateEvent).ConfigureAwait(false);
+        await SendMessageToTargetPeerAsync(domainEvent.AggregateEvent);
         Emit(new ForwardSingleMessageSuccessEvent());
-        await HandleForwardCompletedAsync().ConfigureAwait(false);
+        await HandleForwardCompletedAsync();
     }
 
     public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, ForwardMessageStartedEvent> domainEvent,

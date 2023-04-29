@@ -45,7 +45,7 @@ public class EditChatDefaultBannedRightsHandler : RpcResultObjectHandler<Request
                             rights.ManageTopics
                         ),
                         input.UserId);
-                    await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+                    await _commandBus.PublishAsync(command, CancellationToken.None);
                 }
                 break;
             case PeerType.Channel:
@@ -69,7 +69,7 @@ public class EditChatDefaultBannedRightsHandler : RpcResultObjectHandler<Request
                             rights.ManageTopics
                         ),
                         input.UserId);
-                    await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+                    await _commandBus.PublishAsync(command, CancellationToken.None);
                 }
                 break;
         }

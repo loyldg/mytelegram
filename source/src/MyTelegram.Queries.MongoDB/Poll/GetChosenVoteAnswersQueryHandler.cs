@@ -20,7 +20,7 @@ public class
         //    Limit = MyTelegramServerDomainConsts.MaxVoteOptions //query.Limit
         //};
 
-        var cursor = await _store.FindAsync(p => query.PollIds.Contains(p.PollId) && p.VoterPeerId == query.VoterPeerId, cancellationToken: cancellationToken).ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        var cursor = await _store.FindAsync(p => query.PollIds.Contains(p.PollId) && p.VoterPeerId == query.VoterPeerId, cancellationToken: cancellationToken);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

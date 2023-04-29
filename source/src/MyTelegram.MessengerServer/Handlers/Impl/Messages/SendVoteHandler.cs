@@ -23,7 +23,7 @@ public class SendVoteHandler : RpcResultObjectHandler<RequestSendVote, IUpdates>
         RequestSendVote obj)
     {
         var peer = _peerHelper.GetPeer(obj.Peer);
-        var pollId = await _queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default).ConfigureAwait(false);
+        var pollId = await _queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default);
         if (pollId == null)
         {
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
@@ -34,7 +34,7 @@ public class SendVoteHandler : RpcResultObjectHandler<RequestSendVote, IUpdates>
             input.UserId,
             obj.Options.Select(p => Encoding.UTF8.GetString(p)).ToList(),
             Guid.NewGuid());
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
         return null!;
     }
 }

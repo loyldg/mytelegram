@@ -42,7 +42,7 @@ public class SetDiscussionGroupHandler : RpcResultObjectHandler<RequestSetDiscus
             input.UserId,
             broadcastChannel.ChannelId,
             groupId);
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
         return null!;
     }
 }

@@ -29,7 +29,7 @@ public class SendMessageHandler : RpcResultObjectHandler<RequestSendMessage, IUp
             obj.ClearDraft
         );
 
-        await _messageAppService.SendMessageAsync(sendMessageInput).ConfigureAwait(false);
+        await _messageAppService.SendMessageAsync(sendMessageInput);
 
         return null!;
     }

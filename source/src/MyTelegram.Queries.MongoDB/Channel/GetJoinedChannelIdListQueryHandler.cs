@@ -20,7 +20,7 @@ public class
         var cursor = await _store
             .FindAsync(p => p.UserId == query.MemberUid && query.ChannelIdList.Contains(p.ChannelId),
                 findOptions,
-                cancellationToken).ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+                cancellationToken);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

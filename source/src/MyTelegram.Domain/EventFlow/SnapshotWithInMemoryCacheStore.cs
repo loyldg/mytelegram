@@ -27,7 +27,7 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
     {
         var cachedSnapshot =
             await LoadSnapshotFromMemoryAsync<TAggregate, TIdentity, TSnapshot>(identity, cancellationToken)
-                .ConfigureAwait(false);
+                ;
         if (cachedSnapshot != null)
         {
             _logger.LogTrace("Fetching snapshot for {AggregateType} with ID {Id} from memory",
@@ -44,7 +44,7 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
                 typeof(TAggregate),
                 identity,
                 cancellationToken)
-            .ConfigureAwait(false);
+            ;
         if (committedSnapshot == null)
         {
             _logger.LogTrace(
@@ -57,7 +57,7 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
         var snapshotContainer = await _snapshotSerializer.DeserializeAsync<TAggregate, TIdentity, TSnapshot>(
                 committedSnapshot,
                 cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
         return snapshotContainer;
     }
@@ -71,14 +71,14 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
         var serializedSnapshot = await _snapshotSerializer.SerializeAsync<TAggregate, TIdentity, TSnapshot>(
                 snapshotContainer,
                 cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
         await _snapshotPersistence.SetSnapshotAsync(
                 typeof(TAggregate),
                 identity,
                 serializedSnapshot,
                 cancellationToken)
-            .ConfigureAwait(false);
+            ;
     }
 
     public Task<SnapshotContainer?> LoadSnapshotFromMemoryAsync<TAggregate, TIdentity, TSnapshot>(TIdentity identity,
@@ -91,7 +91,7 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
         //        typeof(TAggregate),
         //        identity,
         //        cancellationToken)
-        //    .ConfigureAwait(false);
+        //    ;
         //if (committedSnapshot == null)
         //{
         //    _logger.LogTrace(
@@ -104,7 +104,7 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
         //var snapshotContainer = await _snapshotSerilizer.DeserializeAsync<TAggregate, TIdentity, TSnapshot>(
         //        committedSnapshot,
         //        cancellationToken)
-        //    .ConfigureAwait(false);
+        //    ;
 
         //return snapshotContainer;
     }
@@ -121,13 +121,13 @@ public class SnapshotWithInMemoryCacheStore : ISnapshotWithInMemoryCacheStore
         //var serializedSnapshot = await _snapshotSerilizer.SerializeAsync<TAggregate, TIdentity, TSnapshot>(
         //        snapshotContainer,
         //        cancellationToken)
-        //    .ConfigureAwait(false);
+        //    ;
 
         //await _inMemorySnapshotPersistence.SetSnapshotAsync(
         //        typeof(TAggregate),
         //        identity,
         //        serializedSnapshot,
         //        cancellationToken)
-        //    .ConfigureAwait(false);
+        //    ;
     }
 }

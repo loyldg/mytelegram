@@ -14,7 +14,7 @@ public class MyInMemoryReadStore<TReadModel> : ReadModelStore<TReadModel>, IMyIn
 
     public async Task<IQueryable<TReadModel>> AsQueryable(CancellationToken cancellationToken = default)
     {
-        using var r = await _asyncLock.WaitAsync(cancellationToken).ConfigureAwait(false);
+        using var r = await _asyncLock.WaitAsync(cancellationToken);
         return _readModels.Values.Select(p => p.ReadModel).AsQueryable();
     }
 
@@ -87,7 +87,7 @@ public class MyInMemoryReadStore<TReadModel> : ReadModelStore<TReadModel>, IMyIn
                     readModelUpdate.DomainEvents,
                     readModelEnvelope!,
                     cancellationToken)
-                    .ConfigureAwait(false);
+                    ;
                 if (!readModelUpdateResult.IsModified)
                 {
                     continue;

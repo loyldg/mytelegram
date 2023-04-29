@@ -25,7 +25,7 @@ public class MarkDialogUnreadHandler : RpcResultObjectHandler<RequestMarkDialogU
                 var peer = _peerHelper.GetPeer(inputDialogPeer.Peer, input.UserId);
                 var command =
                     new MarkDialogAsUnreadCommand(DialogId.Create(input.UserId, peer), input.ReqMsgId, obj.Unread);
-                await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
                 break;
             case TInputDialogPeerFolder inputDialogPeerFolder:
                 break;

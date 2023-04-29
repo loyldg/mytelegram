@@ -37,7 +37,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
                 new TBoolTrue(),
                 domainEvent.Metadata.SourceId.Value,
                 domainEvent.AggregateEvent.SenderPeerId)
-            .ConfigureAwait(false);
+            ;
 
         if (domainEvent.AggregateEvent.NeedNotifySender)
         {
@@ -50,7 +50,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
             await PushUpdatesToPeerAsync(
                     new Peer(PeerType.User, domainEvent.AggregateEvent.SenderPeerId),
                     updates)
-                .ConfigureAwait(false);
+                ;
         }
 
         //await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
@@ -70,7 +70,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
                 affectedMessages,
                 domainEvent.AggregateEvent.SourceCommandId,
                 domainEvent.AggregateEvent.ReaderUid)
-            .ConfigureAwait(false);
+            ;
         var peer = domainEvent.AggregateEvent.ReaderToPeer;
         var updateReadHistoryInbox = new TUpdateReadHistoryInbox
         {
@@ -91,7 +91,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
             domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
             pts: domainEvent.AggregateEvent.ReaderPts,
             ptsType: PtsType.OtherUpdates
-        ).ConfigureAwait(false);
+        );
 
         if (!domainEvent.AggregateEvent.IsOut && !domainEvent.AggregateEvent.OutboxAlreadyRead &&
             !_peerHelper.IsBotUser(domainEvent.AggregateEvent.SenderPeerId))
@@ -105,7 +105,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
                 domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
                 pts: domainEvent.AggregateEvent.ReaderPts,
                 ptsType: PtsType.OtherUpdates
-            ).ConfigureAwait(false);
+            );
         }
     }
 }

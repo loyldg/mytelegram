@@ -47,11 +47,11 @@ public class MessengerEventHandler : IEventHandler<MessengerDataReceivedEvent>,
         var rpcResultReadModel =
             await _queryProcessor
                 .ProcessAsync(new GetRpcResultByIdQuery(RpcResultId.Create(eventData.SourceId).Value), default)
-                .ConfigureAwait(false);
+                ;
         if (rpcResultReadModel != null)
         {
             var rpcData = rpcResultReadModel.RpcData.ToTObject<IObject>();
-            await _objectMessageSender.SendRpcMessageToClientAsync(eventData.ReqMsgId, rpcData).ConfigureAwait(false);
+            await _objectMessageSender.SendRpcMessageToClientAsync(eventData.ReqMsgId, rpcData);
         }
         else
         {
@@ -89,7 +89,7 @@ public class MessengerEventHandler : IEventHandler<MessengerDataReceivedEvent>,
                 eventData.Ip,
                 eventData.Layer
             );
-            await _commandBus.PublishAsync(createDeviceCommand, default).ConfigureAwait(false);
+            await _commandBus.PublishAsync(createDeviceCommand, default);
         }
         catch (DuplicateOperationException)
         {

@@ -49,7 +49,7 @@ public class GetDialogsHandler : RpcResultObjectHandler<RequestGetDialogs, IDial
             //ExcludePinned = obj.ExcludePinned,
             OwnerId = userId,
             OffsetPeer = offsetPeer
-        }).ConfigureAwait(false);
+        });
 
         return _dialogConverter.ToDialogs(r);
     }

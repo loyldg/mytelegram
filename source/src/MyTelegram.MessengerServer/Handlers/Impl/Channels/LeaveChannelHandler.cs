@@ -26,7 +26,7 @@ public class LeaveChannelHandler : RpcResultObjectHandler<RequestLeaveChannel,
             input.ReqMsgId,
             channel.PeerId,
             input.UserId);
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
 
         return null!;
     }

@@ -26,7 +26,7 @@ public class ToggleDialogPinHandler : RpcResultObjectHandler<RequestToggleDialog
                 //var ownerPeerId = peer.PeerType == PeerType.Channel ? peer.PeerId : input.UserId;
                 var command =
                     new ToggleDialogPinnedCommand(DialogId.Create(input.UserId, peer), input.ReqMsgId, obj.Pinned);
-                await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
                 return null!;
             case TInputDialogPeerFolder:
                 return new TBoolTrue();

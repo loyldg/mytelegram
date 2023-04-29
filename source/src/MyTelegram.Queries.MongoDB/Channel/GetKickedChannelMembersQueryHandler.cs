@@ -21,8 +21,8 @@ public class GetKickedChannelMembersQueryHandler : IQueryHandler<GetKickedChanne
             Skip = query.Offset
         };
         var cursor = await _store.FindAsync(p => p.ChannelId == query.ChannelId && p.Kicked, options, cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

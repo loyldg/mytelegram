@@ -25,7 +25,7 @@ public class HiLoHighValueGenerator : IHiLoHighValueGenerator
         var client = GrpcClientFactory.CreateIdGeneratorServiceClient(_options.Value.IdGeneratorGrpcServiceUrl);
         var r = await client
             .GenerateNextHighValueAsync(new GenerateNextHighValueRequest { IdType = (int)idType, IdKey = key }, cancellationToken: cancellationToken)
-            .ResponseAsync.ConfigureAwait(false);
+            .ResponseAsync;
         return r.HighValue;
     }
 }

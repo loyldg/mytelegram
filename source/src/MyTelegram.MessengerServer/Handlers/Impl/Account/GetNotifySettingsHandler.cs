@@ -75,7 +75,7 @@ public class GetNotifySettingsHandler : RpcResultObjectHandler<RequestGetNotifyS
         var id = PeerNotifySettingsId.Create(userId, peerType, peerId);
         var peerNotifySettingsReadModel =
             await _queryProcessor.ProcessAsync(new GetPeerNotifySettingsByIdQuery(id), CancellationToken.None)
-                .ConfigureAwait(false);
+                ;
         var peerNotifySettings = peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings;
 
         var r = _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(peerNotifySettings);

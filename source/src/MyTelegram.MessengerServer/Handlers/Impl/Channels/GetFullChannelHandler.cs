@@ -23,23 +23,23 @@ public class GetFullChannelHandler : RpcResultObjectHandler<RequestGetFullChanne
         if (obj.Channel is TInputChannel inputChannel)
         {
             var channel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId),
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None);
             if (channel == null)
             {
                 ThrowHelper.ThrowUserFriendlyException("CHANNEL_INVALID");
             }
 
             var channelFull = await _queryProcessor.ProcessAsync(new GetChannelFullByIdQuery(inputChannel.ChannelId),
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None);
             var channelMember = await _queryProcessor
                 .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default)
-                .ConfigureAwait(false);
+                ;
             var peerNotifySettings = await _queryProcessor
                 .ProcessAsync(
                     new GetPeerNotifySettingsByIdQuery(PeerNotifySettingsId.Create(input.UserId,
                         PeerType.Channel,
                         inputChannel.ChannelId)),
-                    CancellationToken.None).ConfigureAwait(false);
+                    CancellationToken.None);
 
             return _chatConverter.ToChatFull(channel!,
                 channelFull!,

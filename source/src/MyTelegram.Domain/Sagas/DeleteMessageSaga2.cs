@@ -33,7 +33,7 @@ public class DeleteMessageSaga2 :
             0,
             domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MessageId));
-        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId).ConfigureAwait(false);
+        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId);
     }
 
     public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, OutboxMessageDeletedEvent> domainEvent,
@@ -44,7 +44,7 @@ public class DeleteMessageSaga2 :
             domainEvent.AggregateEvent.InboxItems?.Count ?? 0,
             domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MessageId));
-        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId).ConfigureAwait(false);
+        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId);
         HandleDeleteOtherPartyMessage(true,
             domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MessageId,
@@ -77,7 +77,7 @@ public class DeleteMessageSaga2 :
             otherPartyMessageCount,
             domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MessageId));
-        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId).ConfigureAwait(false);
+        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId);
         HandleDeleteOtherPartyMessage(domainEvent.AggregateEvent.IsOut,
             domainEvent.AggregateEvent.SenderPeerId,
             domainEvent.AggregateEvent.SenderMessageId,
@@ -199,7 +199,7 @@ public class DeleteMessageSaga2 :
 
     private async Task IncrementPtsAsync(long peerId)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);
         Emit(new DeleteMessagePtsIncrementedEvent2(peerId, pts));
         HandleDeleteMessageCompleted();
     }

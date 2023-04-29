@@ -30,7 +30,7 @@ public class SignInHandler : RpcResultObjectHandler<RequestSignIn, IAuthorizatio
         var userId = 0L;
         var userReadModel = await _queryProcessor
             .ProcessAsync(new GetUserByPhoneNumberQuery(obj.PhoneNumber.ToPhoneNumber()), default)
-            .ConfigureAwait(false);
+            ;
         if (userReadModel == null)
         {
             _logger.LogInformation(
@@ -54,7 +54,7 @@ public class SignInHandler : RpcResultObjectHandler<RequestSignIn, IAuthorizatio
             Guid.NewGuid()
         );
 
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
         return null!;
     }
 }

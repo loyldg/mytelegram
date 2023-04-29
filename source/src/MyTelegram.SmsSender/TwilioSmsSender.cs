@@ -37,7 +37,7 @@ public class TwilioSmsSender : ISmsSender, ITransientDependency
 
         var resource = await MessageResource.CreateAsync(new PhoneNumber(smsMessage.PhoneNumber),
             from: new PhoneNumber(_optionsSnapshot.Value.FromNumber),
-            body: smsMessage.Text).ConfigureAwait(false);
+            body: smsMessage.Text);
         _logger.LogDebug("Send SMS result:{@Resource}", resource);
         _logger.LogInformation("Send SMS completed,To={To},Status={Status} DateSent={DateSent} ErrorCode={ErrorCode} ErrorMessage={ErrorMessage} ",
             resource.To,
@@ -59,7 +59,7 @@ public class TwilioSmsSender : ISmsSender, ITransientDependency
         {
             return;
         }
-        //await _semaphore.WaitAsync().ConfigureAwait(false);
+        //await _semaphore.WaitAsync();
         _semaphore.Wait();
 
         try

@@ -24,7 +24,7 @@ public class MediaHelper : IMediaHelper
             {
                 EncryptedFile = ByteString.CopyFrom(encryptedFile.ToBytes()),
                 ReqMsgId = reqMsgId
-            }).ResponseAsync.ConfigureAwait(false);
+            }).ResponseAsync;
 
         return new TEncryptedFile
         {
@@ -54,7 +54,7 @@ public class MediaHelper : IMediaHelper
             Parts = parts,
             ReqMsgId = reqMsgId,
             VideoStartTs = videoStartTs ?? 0
-        }).ResponseAsync.ConfigureAwait(false);
+        }).ResponseAsync;
 
         return r.Photo.Span.ToArray().ToTObject<IPhoto>();
     }
@@ -68,7 +68,7 @@ public class MediaHelper : IMediaHelper
                 {
                     Media = ByteString.CopyFrom(media.ToBytes())
                 })
-                .ResponseAsync.ConfigureAwait(false);
+                .ResponseAsync;
 
             return r.Media.Span.ToArray().ToTObject<IMessageMedia>();
         }

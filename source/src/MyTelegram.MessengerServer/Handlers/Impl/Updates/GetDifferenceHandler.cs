@@ -40,12 +40,12 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
 
         var cachedPts = _ptsHelper.GetCachedPts(userId);
         var ptsReadModel = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(userId), default)
-            .ConfigureAwait(false);
+            ;
         var pts = Math.Max(cachedPts, ptsReadModel?.Pts ?? 0);
 
         var ptsForAuthKeyIdReadModel =
             await _queryProcessor.ProcessAsync(new GetPtsByPermAuthKeyIdQuery(userId, input.PermAuthKeyId), default)
-                .ConfigureAwait(false);
+                ;
         var ptsForAuthKeyId = ptsForAuthKeyIdReadModel?.Pts ?? 0;
         var diff = pts - ptsForAuthKeyId;
         if (diff == 0)
@@ -55,7 +55,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
 
         var joinedChannelIdList = await _queryProcessor
             .ProcessAsync(new GetChannelIdListByMemberUidQuery(input.UserId), default)
-            .ConfigureAwait(false);
+            ;
 
         if (joinedChannelIdList.Count == 0)
         {
@@ -77,7 +77,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         {
             var pushUpdatesReadModelList = await _queryProcessor
                 .ProcessAsync(new GetPushUpdatesQuery(input.UserId, obj.Pts, limit), default)
-                .ConfigureAwait(false);
+                ;
             allPushUpdatesList.AddRange(pushUpdatesReadModelList.Where(p => p.ExcludeAuthKeyId != input.AuthKeyId));
             _logger.LogDebug("UserId={UserId} Normal updates count={Count},pts={Pts},reqPts={ReqPts}",
                 userId,
@@ -85,7 +85,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
                 ptsForAuthKeyId,
                 obj.Pts);
             r = await _messageAppService
-                .GetDifferenceAsync(new GetDifferenceInput(userId, obj.Pts, limit, userId)).ConfigureAwait(false);
+                .GetDifferenceAsync(new GetDifferenceInput(userId, obj.Pts, limit, userId));
             if (pushUpdatesReadModelList.Count > 0)
             {
                 maxPts = pushUpdatesReadModelList.Max(p => p.Pts);
@@ -104,7 +104,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
                         new GetChannelPushUpdatesBySeqNoQuery(joinedChannelIdList.ToList(),
                             globalSeqNo,
                             limit),
-                        default).ConfigureAwait(false);
+                        default);
                 allPushUpdatesList.AddRange(
                     channelUpdatesReadModelList.Where(p => p.ExcludeAuthKeyId != input.AuthKeyId));
                 _logger.LogDebug("UserId={UserId} Channel updates count={Count},minGlobalSeqNo={SeqNo}",
@@ -193,7 +193,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
             hasUpdatesChannelIdList.Where(p => !alreadyLoadedChannelIdList.Contains(p)).ToList();
         var channelReadModelList = await _queryProcessor
             .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdListNeedToLoadFromDatabase), default)
-            .ConfigureAwait(false);
+            ;
 
         r ??= new GetMessageOutput(Array.Empty<IChannelReadModel>(),
             Array.Empty<IChannelMemberReadModel>(),
@@ -218,7 +218,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
                 .AddRpcPtsToCacheAsync(input.ReqMsgId,
                     maxPts,
                     channelMaxGlobalSeqNo,
-                    new Peer(PeerType.User, input.UserId)).ConfigureAwait(false);
+                    new Peer(PeerType.User, input.UserId));
         }
 
         _logger.LogDebug(

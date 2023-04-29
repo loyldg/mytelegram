@@ -35,7 +35,7 @@ public class SendMultiMediaHandler : RpcResultObjectHandler<RequestSendMultiMedi
         var requestInfo = input.ToRequestInfo();
         foreach (var inputSingleMedia in obj.MultiMedia)
         {
-            var media = await _mediaHelper.SaveMediaAsync(inputSingleMedia.Media).ConfigureAwait(false);
+            var media = await _mediaHelper.SaveMediaAsync(inputSingleMedia.Media);
             var sendMessageInput = new SendMessageInput(requestInfo,
                 input.UserId,
                 _peerHelper.GetPeer(obj.Peer, input.UserId),
@@ -50,7 +50,7 @@ public class SendMultiMediaHandler : RpcResultObjectHandler<RequestSendMultiMedi
                 groupId: groupId,
                 groupItemCount: groupItemCount
             );
-            await _messageAppService.SendMessageAsync(sendMessageInput).ConfigureAwait(false);
+            await _messageAppService.SendMessageAsync(sendMessageInput);
             //_requestCacheAppService.AddRequest(input.ReqMsgId, input.AuthKeyId, input.RequestSessionId, input.SeqNumber);
         }
 

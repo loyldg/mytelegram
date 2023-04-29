@@ -29,7 +29,7 @@ public class EditBannedHandler : RpcResultObjectHandler<RequestEditBanned, IUpda
             channel.PeerId,
             peer.PeerId,
             bannedRights);
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
         return null!;
     }
 }

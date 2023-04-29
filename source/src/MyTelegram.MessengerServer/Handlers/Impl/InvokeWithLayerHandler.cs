@@ -38,7 +38,7 @@ public class InvokeWithLayerHandler : BaseObjectHandler<RequestInvokeWithLayer, 
             //     initConnection.LangCode,
             //     obj.Layer
 
-            // ).ConfigureAwait(false);
+            // );
         }
 
         if (obj.Query is Schema.LayerN.RequestInitConnection initConnectionLayerN)
@@ -62,7 +62,7 @@ public class InvokeWithLayerHandler : BaseObjectHandler<RequestInvokeWithLayer, 
             //    initConnectionLayerN.LangCode,
             //    obj.Layer
 
-            //).ConfigureAwait(false);
+            //);
         }
 
         //if (input.UserId != 0)
@@ -93,7 +93,7 @@ public class InvokeWithLayerHandler : BaseObjectHandler<RequestInvokeWithLayer, 
             obj.Layer,
             handlerShortName);
 
-        var result = await handler.HandleAsync(input, query).ConfigureAwait(false);
+        var result = await handler.HandleAsync(input, query);
 
         return result;
     }
@@ -165,6 +165,6 @@ public class InvokeWithLayerHandler : BaseObjectHandler<RequestInvokeWithLayer, 
     //    ////}
     //    ////Console.WriteLine($"init connection:{JsonConvert.SerializeObject(createDeviceCommand)}");
 
-    //    //await _commandBus.PublishAsync(createDeviceCommand, CancellationToken.None).ConfigureAwait(false);
+    //    //await _commandBus.PublishAsync(createDeviceCommand, CancellationToken.None);
     //}
 }

@@ -17,7 +17,7 @@ public class GetPushUpdatesQueryHandler : IQueryHandler<GetPushUpdatesQuery, IRe
 
         var cursor = await _store.FindAsync(p => p.PeerId == query.PeerId && p.Pts > query.MinPts,
             options,
-            cancellationToken).ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            cancellationToken);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

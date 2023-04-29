@@ -34,7 +34,7 @@ public class CreateChatHandler : RpcResultObjectHandler<RequestCreateChat, IUpda
 
         memberUidList = memberUidList.Distinct().ToList();
 
-        var chatId = await _idGenerator.NextLongIdAsync(IdType.ChatId).ConfigureAwait(false);
+        var chatId = await _idGenerator.NextLongIdAsync(IdType.ChatId);
         var randomId = _randomHelper.NextLong();
         var messageActionData =
             new TMessageActionChatCreate { Title = obj.Title, Users = new TVector<long>(memberUidList) }.ToBytes()
@@ -50,7 +50,7 @@ public class CreateChatHandler : RpcResultObjectHandler<RequestCreateChat, IUpda
             randomId,
             messageActionData,
             Guid.NewGuid());
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
         return null!;
     }
 }

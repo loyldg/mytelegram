@@ -37,8 +37,8 @@ public class
             Sort = Builders<MessageReadModel>.Sort.Descending(p => p.MessageId)
         };
 
-        var cursor = await _store.FindAsync(predicate, options, cancellationToken).ConfigureAwait(false);
+        var cursor = await _store.FindAsync(predicate, options, cancellationToken);
 
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

@@ -24,7 +24,7 @@ public class GetOnlinesHandler : RpcResultObjectHandler<RequestGetOnlines, IChat
         //var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
         //if (peer.PeerType == PeerType.Channel)
         //{
-        //    var memberList = await _onlineUserHelper.GetChannelMemberUidListAsync(peer.PeerId).ConfigureAwait(false);
+        //    var memberList = await _onlineUserHelper.GetChannelMemberUidListAsync(peer.PeerId);
         //    return new TChatOnlines
         //    {
         //        Onlines = memberList.Count

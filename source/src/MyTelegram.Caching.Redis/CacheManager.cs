@@ -17,7 +17,7 @@ public class CacheManager<TCacheItem> : ICacheManager<TCacheItem> where TCacheIt
 
     public async Task<TCacheItem?> GetAsync(string key)
     {
-        var cachedBytes = await _distributedCache.GetAsync(key).ConfigureAwait(false);
+        var cachedBytes = await _distributedCache.GetAsync(key);
         if (cachedBytes == null)
         {
             return default;
@@ -32,7 +32,7 @@ public class CacheManager<TCacheItem> : ICacheManager<TCacheItem> where TCacheIt
         var cachedDict = new Dictionary<string, TCacheItem>();
         foreach (var key in keys)
         {
-            var cacheItem = await GetAsync(key).ConfigureAwait(false);
+            var cacheItem = await GetAsync(key);
             if (cacheItem == null)
             {
                 continue;

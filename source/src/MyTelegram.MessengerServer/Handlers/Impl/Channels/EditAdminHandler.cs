@@ -45,7 +45,7 @@ public class EditAdminHandler : RpcResultObjectHandler<RequestEditAdmin, IUpdate
                 obj.Rank,
                 Guid.NewGuid()
             );
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
             return null!;
         }
 

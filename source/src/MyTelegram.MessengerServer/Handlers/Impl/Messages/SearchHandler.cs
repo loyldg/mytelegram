@@ -36,7 +36,7 @@ public class SearchHandler : RpcResultObjectHandler<RequestSearch, IMessages>,
             MaxId = obj.MaxId,
             MinDate = obj.MinDate,
             MinId = obj.MinId,
-        }).ConfigureAwait(false);
+        });
 
         return _rpcResultProcessor.ToMessages(r);
     }

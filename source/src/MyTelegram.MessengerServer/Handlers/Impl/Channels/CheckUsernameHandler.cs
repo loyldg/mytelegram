@@ -18,7 +18,7 @@ public class CheckUsernameHandler : RpcResultObjectHandler<RequestCheckUsername,
     {
         var item = await _queryProcessor
             .ProcessAsync(new GetUserNameByIdQuery(obj.Username),
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None);
         if (item == null)
         {
             return new TBoolTrue();
@@ -32,10 +32,10 @@ public class CheckUsernameHandler : RpcResultObjectHandler<RequestCheckUsername,
         //    //    UserNameId.Create(PeerType.Channel, inputChannel.ChannelId, obj.Username),
         //    //    input.ReqMsgId,
         //    //    obj.Username);
-        //    //await CommandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        //    //await CommandBus.PublishAsync(command, CancellationToken.None);
         //    var item = await QueryProcessor
         //        .ProcessAsync(new GetUserNameByIdQuery(PeerType.Channel, inputChannel.ChannelId, obj.Username),
-        //            CancellationToken.None).ConfigureAwait(false);
+        //            CancellationToken.None);
         //    if (item == null)
         //    {
         //        return new TBoolTrue();

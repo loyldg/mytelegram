@@ -97,14 +97,14 @@ public class HiLoValueGeneratorState : IDisposable
         // gets a chance to use the new value, so use a while here to do it all again.
         while (newValue.Low >= newValue.High)
         {
-            await _semaphoreSlim.WaitAsync(cancellationToken).ConfigureAwait(false);
+            await _semaphoreSlim.WaitAsync(cancellationToken);
             try
             {
                 // Once inside the lock check to see if another thread already got a new block, in which
                 // case just get a value out of the new block instead of requesting one.
                 if (newValue.High == _currentValue.High)
                 {
-                    var newCurrent = await getNewLowValue(idType, key, cancellationToken).ConfigureAwait(false);
+                    var newCurrent = await getNewLowValue(idType, key, cancellationToken);
                     newValue = new HiLoValue(newCurrent, newCurrent + _blockSize);
                     _currentValue = newValue;
                 }

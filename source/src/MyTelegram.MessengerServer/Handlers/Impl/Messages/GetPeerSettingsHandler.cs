@@ -24,7 +24,7 @@ public class GetPeerSettingsHandler : RpcResultObjectHandler<RequestGetPeerSetti
     {
         var userId = input.UserId;
         var peer = _peerHelper.GetPeer(obj.Peer, userId);
-        var r = await _peerSettingsAppService.GetAsync(userId, peer).ConfigureAwait(false);
+        var r = await _peerSettingsAppService.GetAsync(userId, peer);
 
         var peerSettings = new MyTelegram.Schema.Messages.TPeerSettings
         {

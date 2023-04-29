@@ -20,7 +20,7 @@ public class DefaultIdGeneratorTests : TestsFor<DefaultIdGenerator>
     //            c.GetNewHighValueAsync(It.IsAny<IdType>(), It.IsAny<long>(), It.IsAny<CancellationToken>()))
     //        .Returns(() => Task.FromResult<long>(1));
 
-    //    var actualInitId = await Sut.NextLongIdAsync(idType).ConfigureAwait(false);
+    //    var actualInitId = await Sut.NextLongIdAsync(idType);
 
     //    Assert.Equal(expectedInitId, actualInitId);
     //}

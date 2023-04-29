@@ -22,7 +22,7 @@ public class GetPollResultsHandler : RpcResultObjectHandler<RequestGetPollResult
         RequestGetPollResults obj)
     {
         var peer = _peerHelper.GetPeer(obj.Peer);
-        var pollId = await _queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default).ConfigureAwait(false);
+        var pollId = await _queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default);
         if (pollId == null)
         {
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
@@ -30,14 +30,14 @@ public class GetPollResultsHandler : RpcResultObjectHandler<RequestGetPollResult
 
         var pollReadModel = await _queryProcessor
             .ProcessAsync(new GetPollQuery(peer.PeerId, pollId!.Value),
-                default).ConfigureAwait(false);
+                default);
         if (pollReadModel == null)
         {
             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
         }
         var pollAnswers = await _queryProcessor
             .ProcessAsync(new GetPollAnswerVotersQuery(pollId.Value, input.UserId), default)
-            .ConfigureAwait(false);
+            ;
         var updates = _pollConverter.ToPollUpdates(pollReadModel!,
             pollAnswers?.Select(p => p.Option).ToArray() ?? Array.Empty<string>());
 

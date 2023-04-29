@@ -20,9 +20,9 @@ public class GzipPackedHandler : BaseObjectHandler<TGzipPacked, IObject>, IGzipP
     protected override Task<IObject> HandleCoreAsync(IRequestInput input,
         TGzipPacked obj)
     {
-        obj.PackedData.Dump("before decompress");
+        //obj.PackedData.Dump("before decompress");
         var unpackedData = _gZipHelper.Decompress(obj.PackedData);
-        unpackedData.Dump("after decompress");
+        //unpackedData.Dump("after decompress");
         //var unpackedData = obj.PackedData;// _gZipHelper.Decompress(obj.PackedData);
         var br = new BinaryReader(new MemoryStream(unpackedData));
         var objectId = BitConverter.ToUInt32(unpackedData);

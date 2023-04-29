@@ -21,7 +21,7 @@ public class UpdateDialogFilterHandler : RpcResultObjectHandler<RequestUpdateDia
         if (obj.Filter == null)
         {
             var command = new DeleteDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id), input.ToRequestInfo());
-            await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, default);
         }
         else
         {
@@ -45,7 +45,7 @@ public class UpdateDialogFilterHandler : RpcResultObjectHandler<RequestUpdateDia
                     includePeers,
                     excludePeers);
                 var command = new UpdateDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id), input.ToRequestInfo(), input.UserId, filter);
-                await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, default);
             }
             else
             {

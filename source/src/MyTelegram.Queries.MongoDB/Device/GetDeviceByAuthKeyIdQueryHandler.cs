@@ -14,7 +14,7 @@ public class GetDeviceByAuthKeyIdQueryHandler : IQueryHandler<GetDeviceByAuthKey
         CancellationToken cancellationToken)
     {
         var item = await _store.GetAsync(DeviceId.Create(query.AuthKeyId).Value, cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
         return item.ReadModel;
     }

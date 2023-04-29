@@ -14,7 +14,7 @@ public class GetAllDraftQueryHandler : IQueryHandler<GetAllDraftQuery, IReadOnly
         CancellationToken cancellationToken)
     {
         var cursor = await _store.FindAsync(p => p.OwnerPeerId == query.OwnerPeerId, cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            ;
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

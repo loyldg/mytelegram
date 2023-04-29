@@ -19,7 +19,7 @@ public class GetDialogFiltersHandler : RpcResultObjectHandler<RequestGetDialogFi
         RequestGetDialogFilters obj)
     {
         var filterReadModels = await _queryProcessor.ProcessAsync(new GetDialogFiltersQuery(input.UserId), default)
-            .ConfigureAwait(false);
+            ;
 
         var filters = new TVector<IDialogFilter>();
         foreach (var filterReadModel in filterReadModels)

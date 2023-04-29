@@ -39,7 +39,7 @@ public class QrCodeLoginDomainEventHandler : DomainEventHandlerBase,
         // 这里最好不要从ReadModel读取设备信息
         var deviceReadModel = await _queryProcessor
             .ProcessAsync(new GetDeviceByAuthKeyIdQuery(domainEvent.AggregateEvent.QrCodeLoginRequestPermAuthKeyId),
-                default).ConfigureAwait(false);
+                default);
 
         if (deviceReadModel == null)
         {
@@ -54,7 +54,7 @@ public class QrCodeLoginDomainEventHandler : DomainEventHandlerBase,
             domainEvent.AggregateEvent.UserId);
         var authorization = _authorizationConverter.ToAuthorization(deviceReadModel);
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, authorization)
-            .ConfigureAwait(false);
+            ;
 
         var updateShortForLoginWithTokenRequestOwner =
             new TUpdateShort { Date = DateTime.UtcNow.ToTimestamp(), Update = new TUpdateLoginToken() };
@@ -62,16 +62,16 @@ public class QrCodeLoginDomainEventHandler : DomainEventHandlerBase,
 
         await _objectMessageSender
             .PushSessionMessageToAuthKeyIdAsync(domainEvent.AggregateEvent.QrCodeLoginRequestTempAuthKeyId,
-                updateShortForLoginWithTokenRequestOwner).ConfigureAwait(false);
+                updateShortForLoginWithTokenRequestOwner);
         //await PushUpdatesToPeerAsync(new Peer(PeerType.User, domainEvent.AggregateEvent.UserId),
         //    updateShortForLoginWithTokenRequestOwner,
         //    excludeUid:-1,
-        //    onlySendToThisAuthKeyId: domainEvent.AggregateEvent.QrCodeLoginRequestTempAuthKeyId).ConfigureAwait(false);
+        //    onlySendToThisAuthKeyId: domainEvent.AggregateEvent.QrCodeLoginRequestTempAuthKeyId);
         _logger.LogDebug("Accept qr code login token,userId={UserId},qr code client authKeyId={AuthKeyId}",
             domainEvent.AggregateEvent.UserId,
             domainEvent.AggregateEvent.QrCodeLoginRequestTempAuthKeyId);
         //await SendMessageToAuthKeyIdAsync(domainEvent.AggregateEvent.QrCodeLoginRequestTempAuthKeyId,
-        //    updateShortForLoginWithTokenRequestOwner).ConfigureAwait(false);
+        //    updateShortForLoginWithTokenRequestOwner);
     }
 
     public async Task HandleAsync(
@@ -84,6 +84,6 @@ public class QrCodeLoginDomainEventHandler : DomainEventHandlerBase,
             Expires = domainEvent.AggregateEvent.ExpireDate
         };
 
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r);
     }
 }

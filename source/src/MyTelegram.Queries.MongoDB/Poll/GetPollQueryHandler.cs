@@ -13,7 +13,7 @@ public class GetPollQueryHandler : IQueryHandler<GetPollQuery, IPollReadModel?>
         CancellationToken cancellationToken)
     {
         var cursor = await _store.FindAsync(p => p.ToPeerId == query.ToPeerId && p.PollId == query.PollId,
-            cancellationToken: cancellationToken).ConfigureAwait(false);
+            cancellationToken: cancellationToken);
         return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
 }

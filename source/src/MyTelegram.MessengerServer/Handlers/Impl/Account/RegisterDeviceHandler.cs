@@ -29,7 +29,7 @@ public class RegisterDeviceHandler : RpcResultObjectHandler<RequestRegisterDevic
             obj.AppSandbox,
             obj.Secret,
             obj.OtherUids.ToList());
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
         return new TBoolTrue();
     }
 }
@@ -57,7 +57,7 @@ public class RegisterDeviceHandlerLayerN : RpcResultObjectHandler<RequestRegiste
             false,
             null,
             null);
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
         return new TBoolTrue();
     }
 }

@@ -43,7 +43,7 @@ public class MyDispatchToSagas : IDispatchToSagas
             await ProcessAsync(
                     domainEvent,
                     cancellationToken)
-                .ConfigureAwait(false);
+                ;
         }
     }
 
@@ -64,7 +64,7 @@ public class MyDispatchToSagas : IDispatchToSagas
         foreach (var details in sagaTypeDetails)
         {
             var locator = (ISagaLocator)_serviceProvider.GetRequiredService(details.SagaLocatorType);
-            var sagaId = await locator.LocateSagaAsync(domainEvent, cancellationToken).ConfigureAwait(false);
+            var sagaId = await locator.LocateSagaAsync(domainEvent, cancellationToken);
 
             if (sagaId == null)
             {
@@ -74,7 +74,7 @@ public class MyDispatchToSagas : IDispatchToSagas
                 continue;
             }
 
-            await ProcessSagaAsync(domainEvent, sagaId, details, cancellationToken).ConfigureAwait(false);
+            await ProcessSagaAsync(domainEvent, sagaId, details, cancellationToken);
         }
     }
 
@@ -100,7 +100,7 @@ public class MyDispatchToSagas : IDispatchToSagas
                         (s,
                             c) => UpdateSagaAsync(s, domainEvent, details, c),
                         cancellationToken)
-                    .ConfigureAwait(false);
+                    ;
             }
             else
             {
@@ -111,7 +111,7 @@ public class MyDispatchToSagas : IDispatchToSagas
                         (s,
                             c) => UpdateSagaAsync(s, domainEvent, details, c),
                         cancellationToken)
-                    .ConfigureAwait(false);
+                    ;
             }
         }
         catch (Exception e)
@@ -121,7 +121,7 @@ public class MyDispatchToSagas : IDispatchToSagas
 
             bool handled = specificSagaErrorHandler != null ?
                 await specificSagaErrorHandler.HandleAsync(sagaId, details, e, cancellationToken).ConfigureAwait(false) :
-                await _sagaErrorHandler.HandleAsync(sagaId, details, e, cancellationToken).ConfigureAwait(false);
+                await _sagaErrorHandler.HandleAsync(sagaId, details, e, cancellationToken);
 
             if (handled)
             {
@@ -172,7 +172,7 @@ public class MyDispatchToSagas : IDispatchToSagas
                 domainEvent,
                 details,
                 cancellationToken)
-            .ConfigureAwait(false);
+            ;
         try
         {
             await sagaUpdater.ProcessAsync(
@@ -180,13 +180,13 @@ public class MyDispatchToSagas : IDispatchToSagas
                     domainEvent,
                     SagaContext.Empty,
                     cancellationToken)
-                .ConfigureAwait(false);
+                ;
             await _sagaUpdateLog.UpdateSucceededAsync(
                     saga,
                     domainEvent,
                     details,
                     cancellationToken)
-                .ConfigureAwait(false);
+                ;
         }
         catch (Exception e)
         {
@@ -243,9 +243,9 @@ public class InMemorySagaStore : SagaStore, IInMemorySagaStore
             saga = sagaCreator(sagaId);
             _sagas.TryAdd(sagaId, saga);
         }
-        await updateSaga(saga, cancellationToken).ConfigureAwait(false);
+        await updateSaga(saga, cancellationToken);
 
-        await saga.PublishAsync(commandBus, cancellationToken).ConfigureAwait(false);
+        await saga.PublishAsync(commandBus, cancellationToken);
         return saga;
     }
 }

@@ -35,7 +35,7 @@ public class SendCodeHandler : RpcResultObjectHandler<RequestSendCode, ISentCode
         RequestSendCode obj)
     {
         var cachedUserItem = await _cacheManager.GetAsync(UserCacheItem.GetCacheKey(obj.PhoneNumber))
-            .ConfigureAwait(false);
+            ;
 
         if (cachedUserItem != null)
         {
@@ -70,7 +70,7 @@ public class SendCodeHandler : RpcResultObjectHandler<RequestSendCode, ISentCode
                 phoneCodeHash,
                 expire,
                 DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-        await _commandBus.PublishAsync(sendAppCodeCommand, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(sendAppCodeCommand, CancellationToken.None);
 
         return new TSentCode
         {

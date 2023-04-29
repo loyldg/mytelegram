@@ -39,7 +39,7 @@ public class JoinChannelHandler : RpcResultObjectHandler<RequestJoinChannel, IUp
                 new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString(),
                 Guid.NewGuid());
 
-            await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, default);
             return null!;
         }
 

@@ -13,7 +13,7 @@ public class GetUserNameByNameQueryHandler : IQueryHandler<GetUserNameByNameQuer
     public async Task<IUserNameReadModel?> ExecuteQueryAsync(GetUserNameByNameQuery query,
         CancellationToken cancellationToken)
     {
-        var item = await _store.GetAsync(UserNameId.Create(query.Name).Value, cancellationToken).ConfigureAwait(false);
+        var item = await _store.GetAsync(UserNameId.Create(query.Name).Value, cancellationToken);
         return item.ReadModel;
     }
 }

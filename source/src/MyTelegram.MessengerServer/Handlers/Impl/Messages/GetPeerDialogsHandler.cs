@@ -55,9 +55,9 @@ public class GetPeerDialogsHandler : RpcResultObjectHandler<RequestGetPeerDialog
                 OwnerId = userId,
                 Limit = limit,
                 PeerIdList = peerList.Select(p => p.PeerId).ToList()
-            }).ConfigureAwait(false);
+            });
         //var pts = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(input.UserId), default)
-        //    .ConfigureAwait(false);
+        //    ;
         var cachedPts = _ptsHelper.GetCachedPts(input.UserId);
 
         //output.PtsReadModel = pts;

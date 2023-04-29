@@ -30,7 +30,7 @@ public class GetSendAsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channel
         if (peer.PeerType == PeerType.Channel)
         {
             var channelReadModel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(peer.PeerId), default)
-                .ConfigureAwait(false);
+                ;
             // Only channel creator can send as channel peer
             if (channelReadModel.CreatorId == input.UserId)
             {
@@ -48,7 +48,7 @@ public class GetSendAsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channel
             else
             {
                 var userReadModel = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(input.UserId), default)
-                    .ConfigureAwait(false);
+                    ;
                 return new TSendAsPeers
                 {
                     Chats = new TVector<IChat>(),

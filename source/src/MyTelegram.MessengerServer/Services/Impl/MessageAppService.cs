@@ -29,7 +29,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
             null,
             null,
             input.SelfUserId,
-            input.Pts)).ConfigureAwait(false);
+            input.Pts));
     }
 
     public Task<GetMessageOutput> GetDifferenceAsync(GetDifferenceInput input)
@@ -125,7 +125,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
             input.GroupItemCount,
             correlationId);
 
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
     }
     private List<IMessageEntity> GetMentions(string message)
     {
@@ -159,7 +159,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
 
     private async Task<GetMessageOutput> GetMessagesInternalAsync(GetMessagesQuery query)
     {
-        var messageBoxList = await _queryProcessor.ProcessAsync(query, CancellationToken.None).ConfigureAwait(false);
+        var messageBoxList = await _queryProcessor.ProcessAsync(query, CancellationToken.None);
         var extraChatUserIdList = new List<long>();
         foreach (var box in messageBoxList)
         {
@@ -189,23 +189,23 @@ public class MessageAppService : BaseAppService, IMessageAppService
 
         var userList =
             await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIdList), CancellationToken.None)
-                .ConfigureAwait(false);
+                ;
         var chatList = chatIdList.Count == 0
             ? new List<IChatReadModel>()
             : await _queryProcessor
-                .ProcessAsync(new GetChatByChatIdListQuery(chatIdList), CancellationToken.None).ConfigureAwait(false);
+                .ProcessAsync(new GetChatByChatIdListQuery(chatIdList), CancellationToken.None);
         var channelList = channelIdList.Count == 0
             ? new List<IChannelReadModel>()
             : await _queryProcessor
                 .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), CancellationToken.None)
-                .ConfigureAwait(false);
+                ;
 
         IReadOnlyCollection<long> joinedChannelIdList = new List<long>();
         if (channelIdList.Count > 0)
         {
             joinedChannelIdList = await _queryProcessor
                 .ProcessAsync(new GetJoinedChannelIdListQuery(query.SelfUserId, channelIdList), default)
-                .ConfigureAwait(false);
+                ;
         }
 
         IReadOnlyCollection<IChannelMemberReadModel> channelMemberList = new List<IChannelMemberReadModel>();
@@ -214,7 +214,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
             channelMemberList = await _queryProcessor
                 .ProcessAsync(
                     new GetChannelMemberListByChannelIdListQuery(query.SelfUserId, joinedChannelIdList.ToList()),
-                    default).ConfigureAwait(false);
+                    default);
         }
 
         var pts = query.Pts;
@@ -229,10 +229,10 @@ public class MessageAppService : BaseAppService, IMessageAppService
         if (pollIdList.Count > 0)
         {
             pollReadModels =
-                await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default).ConfigureAwait(false);
+                await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default);
             chosenOptions = await _queryProcessor
                 .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.SelfUserId), default)
-                .ConfigureAwait(false);
+                ;
         }
 
         return new GetMessageOutput(channelList,

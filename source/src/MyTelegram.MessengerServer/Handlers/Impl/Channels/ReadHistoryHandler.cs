@@ -26,7 +26,7 @@ public class ReadHistoryHandler : RpcResultObjectHandler<RequestReadHistory, IBo
                 obj.MaxId,
                 //MessageBoxId.Create(inputChannel.ChannelId, obj.MaxId).Value,
                 Guid.NewGuid());
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
             return null!;
         }
 

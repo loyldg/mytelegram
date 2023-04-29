@@ -13,7 +13,7 @@ public class GetMessageByIdQueryHandler : IQueryHandler<GetMessageByIdQuery, IMe
     public async Task<IMessageReadModel?> ExecuteQueryAsync(GetMessageByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var item = await _store.GetAsync(query.Id, cancellationToken).ConfigureAwait(false);
+        var item = await _store.GetAsync(query.Id, cancellationToken);
         return item.ReadModel;
     }
 }

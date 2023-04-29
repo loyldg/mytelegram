@@ -47,13 +47,13 @@ public class UserDomainEventHandler : DomainEventHandlerBase,
 
         await _eventBus.PublishAsync(new UserSignUpSuccessIntegrationEvent(domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
             domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
-            domainEvent.AggregateEvent.UserId)).ConfigureAwait(false);
+            domainEvent.AggregateEvent.UserId));
 
         var r = _authorizationConverter.CreateAuthorizationFromUser(domainEvent.AggregateEvent);
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
             r,
             domainEvent.Metadata.SourceId.Value,
-            domainEvent.AggregateEvent.UserId).ConfigureAwait(false);
+            domainEvent.AggregateEvent.UserId);
     }
 
     public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserNameUpdatedEvent> domainEvent,
@@ -61,7 +61,7 @@ public class UserDomainEventHandler : DomainEventHandlerBase,
     {
         var r = _userConverter.ToUser(domainEvent.AggregateEvent);
 
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r);
     }
 
     public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserProfilePhotoChangedEvent> domainEvent,
@@ -69,7 +69,7 @@ public class UserDomainEventHandler : DomainEventHandlerBase,
     {
         var r = _userConverter.ToUserPhoto(domainEvent.AggregateEvent);
 
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r);
     }
 
     public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserProfileUpdatedEvent> domainEvent,
@@ -77,12 +77,12 @@ public class UserDomainEventHandler : DomainEventHandlerBase,
     {
         // todo:这里直接通过事件信息创建用户对象，不从ReadModel读取
         var user = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(domainEvent.AggregateEvent.UserId),
-            cancellationToken).ConfigureAwait(false);
+            cancellationToken);
         var r = _userConverter.ToUser(user!, user!.UserId);
 
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
             r,
             domainEvent.Metadata.SourceId.Value,
-            domainEvent.AggregateEvent.UserId).ConfigureAwait(false);
+            domainEvent.AggregateEvent.UserId);
     }
 }

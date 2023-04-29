@@ -14,8 +14,8 @@ public class GetMessageReadParticipantsQueryHandler : IQueryHandler<GetMessageRe
         CancellationToken cancellationToken)
     {
         var cursor = await _store.FindAsync(p => p.TargetPeerId == query.TargetPeerId && p.MessageId == query.MessageId, cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
-        return await cursor.ToListAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken: cancellationToken);
     }
 }

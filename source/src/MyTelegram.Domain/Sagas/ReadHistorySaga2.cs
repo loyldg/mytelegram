@@ -72,7 +72,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
             domainEvent.AggregateEvent.CorrelationId));
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId,
             PtsChangeReason.OutboxMessageHasRead,
-            domainEvent.AggregateEvent.CorrelationId).ConfigureAwait(false);
+            domainEvent.AggregateEvent.CorrelationId);
 
         CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, _state.SenderMessageId, DateTime.UtcNow.ToTimestamp());
     }
@@ -126,7 +126,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
 
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId,
             PtsChangeReason.ReadInboxMessage,
-            domainEvent.AggregateEvent.CorrelationId).ConfigureAwait(false);
+            domainEvent.AggregateEvent.CorrelationId);
 
         var command = new ReadInboxHistoryCommand(
             MessageId.Create(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MaxMessageId),
@@ -196,7 +196,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         PtsChangeReason reason,
         Guid correlationId)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);
         Emit(new ReadHistoryPtsIncrementEvent(
             peerId,
             pts,

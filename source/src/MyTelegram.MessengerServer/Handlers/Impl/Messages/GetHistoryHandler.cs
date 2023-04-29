@@ -33,7 +33,7 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
         {
             var channelMember = await _queryProcessor
                 .ProcessAsync(new GetChannelMemberByUidQuery(peer.PeerId, input.UserId), default)
-                .ConfigureAwait(false);
+                ;
             if (channelMember?.Kicked == true)
             {
                 return new TChannelMessages
@@ -51,7 +51,7 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
         {
             var dialogReadModel = await _queryProcessor
                 .ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, peer)), CancellationToken.None)
-                .ConfigureAwait(false);
+                ;
             channelHistoryMinId = dialogReadModel?.ChannelHistoryMinId ?? 0;
         }
 
@@ -62,7 +62,7 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
             MaxId = obj.MaxId,
             MinId = obj.MinId,
             OffsetId = obj.OffsetId,
-        }).ConfigureAwait(false);
+        });
 
         return _rpcResultProcessor.ToMessages(r);
     }
@@ -99,7 +99,7 @@ public class GetHistoryHandlerLayerN : RpcResultObjectHandler<Schema.LayerN.Requ
         {
             var dialogReadModel = await _queryProcessor
                 .ProcessAsync(new GetDialogByIdQuery(DialogId.Create(input.UserId, peer)), CancellationToken.None)
-                .ConfigureAwait(false);
+                ;
             channelHistoryMinId = dialogReadModel?.ChannelHistoryMinId ?? 0;
         }
 
@@ -110,7 +110,7 @@ public class GetHistoryHandlerLayerN : RpcResultObjectHandler<Schema.LayerN.Requ
             MaxId = obj.MaxId,
             MinId = obj.MinId,
             OffsetId = obj.OffsetId,
-        }).ConfigureAwait(false);
+        });
 
         return _rpcResultProcessor.ToMessages(r);
     }

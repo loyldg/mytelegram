@@ -41,9 +41,9 @@ public class DeleteParticipantHistorySaga : MyInMemoryAggregateSaga<DeletePartic
 
     private async Task IncrementPtsAsync(long peerId)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);
         Emit(new DeleteParticipantHistoryPtsIncrementedEvent(peerId, pts));
-        await HandleDeleteMessageCompletedAsync().ConfigureAwait(false);
+        await HandleDeleteMessageCompletedAsync();
     }
 
     private Task HandleDeleteMessageCompletedAsync()

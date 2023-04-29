@@ -28,7 +28,7 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
                 new TBoolTrue(),
                 domainEvent.Metadata.SourceId.Value)
-            .ConfigureAwait(false);
+            ;
     }
 
     public async Task HandleAsync(IDomainEvent<DialogAggregate, DialogId, DialogPinChangedEvent> domainEvent,
@@ -38,7 +38,7 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
                 new TBoolTrue(),
                 domainEvent.Metadata.SourceId.Value,
                 domainEvent.AggregateEvent.OwnerPeerId)
-            .ConfigureAwait(false);
+            ;
     }
 
     public async Task HandleAsync(IDomainEvent<DialogFilterAggregate, DialogFilterId, DialogFilterUpdatedEvent> domainEvent,
@@ -46,7 +46,7 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
     {
         await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.Filter.Id,
-            domainEvent.AggregateEvent.Filter).ConfigureAwait(false);
+            domainEvent.AggregateEvent.Filter);
     }
 
     public async Task HandleAsync(IDomainEvent<DialogFilterAggregate, DialogFilterId, DialogFilterDeletedEvent> domainEvent,
@@ -54,7 +54,7 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
     {
         await NotifyDialogFilterUpdatedAsync(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.FilterId,
-            null).ConfigureAwait(false);
+            null);
     }
 
     private async Task NotifyDialogFilterUpdatedAsync(RequestInfo request,
@@ -78,6 +78,6 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
         };
 
         await SendMessageToPeerAsync(new Peer(PeerType.User, request.UserId), updates, request.AuthKeyId)
-            .ConfigureAwait(false);
+            ;
     }
 }

@@ -36,7 +36,7 @@ public class PtsEventHandler : IEventHandler<NewPtsMessageHasSentEvent>,
                     ackCacheItem.GlobalSeqNo,
                     ackCacheItem.ToPeer
                 );
-                await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, default);
             }
             else
             {
@@ -50,7 +50,7 @@ public class PtsEventHandler : IEventHandler<NewPtsMessageHasSentEvent>,
                         ackCacheItem.GlobalSeqNo,
                         ackCacheItem.ToPeer
                     );
-                    await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                    await _commandBus.PublishAsync(command, default);
                 }
             }
         }

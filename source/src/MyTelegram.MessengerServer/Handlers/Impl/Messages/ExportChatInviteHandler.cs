@@ -31,7 +31,7 @@ public class ExportChatInviteHandler : RpcResultObjectHandler<RequestExportChatI
                 obj.LegacyRevokePermanent,
                 _randomHelper.GenerateRandomString(8),
                 CurrentDate);
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
             return null!;
         }
 

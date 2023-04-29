@@ -28,7 +28,7 @@ public class EditChatAboutHandler : RpcResultObjectHandler<RequestEditChatAbout,
             {
                 var command =
                     new EditChannelAboutCommand(ChannelId.Create(peer.PeerId), input.ReqMsgId, input.UserId, obj.About);
-                await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
                 //return new TBoolTrue();
                 return null!;
             }
@@ -36,7 +36,7 @@ public class EditChatAboutHandler : RpcResultObjectHandler<RequestEditChatAbout,
             {
                 var command =
                     new EditChatAboutCommand(ChatId.Create(peer.PeerId), input.ReqMsgId, input.UserId, obj.About);
-                await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
                 return null!;
             }
         }

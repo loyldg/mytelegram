@@ -18,6 +18,6 @@ public class GetLatestAppCodeQueryHandler : IQueryHandler<GetLatestAppCodeQuery,
                 .ConfigureAwait(false)
             ;
 
-        return await cursor.FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
 }

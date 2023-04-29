@@ -41,10 +41,10 @@ public class ExportLoginTokenHandler : RpcResultObjectHandler<RequestExportLogin
 
             await _eventBus
                 .PublishAsync(new BindUidToSessionEvent(cachedLoginInfo.UserId, input.AuthKeyId, input.PermAuthKeyId))
-                .ConfigureAwait(false);
+                ;
 
             var userReadModel = await _queryProcessor
-                .ProcessAsync(new GetUserByIdQuery(cachedLoginInfo.UserId), default).ConfigureAwait(false);
+                .ProcessAsync(new GetUserByIdQuery(cachedLoginInfo.UserId), default);
 
             return new TLoginTokenSuccess
             {
@@ -63,7 +63,7 @@ public class ExportLoginTokenHandler : RpcResultObjectHandler<RequestExportLogin
             token,
             expireDate,
             obj.ExceptIds.ToList());
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
 
         return null!;
     }

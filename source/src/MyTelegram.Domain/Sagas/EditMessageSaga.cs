@@ -19,8 +19,8 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
     {
         Emit(new EditInboxMessageStartedEvent(domainEvent.AggregateEvent.InboxOwnerPeerId, domainEvent.AggregateEvent.MessageId));
         await HandleEditInboxCompletedAsync(domainEvent.AggregateEvent.InboxOwnerPeerId,
-            domainEvent.AggregateEvent.MessageId, domainEvent.AggregateEvent.ToPeer).ConfigureAwait(false);
-        await HandleEditCompletedAsync().ConfigureAwait(false);
+            domainEvent.AggregateEvent.MessageId, domainEvent.AggregateEvent.ToPeer);
+        await HandleEditCompletedAsync();
     }
 
     public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, OutboxMessageEditedEvent> domainEvent,
@@ -38,10 +38,10 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
             domainEvent.AggregateEvent.Media
         ));
 
-        await HandleEditOutboxCompletedAsync(domainEvent.AggregateEvent.OldMessageItem.OwnerPeer.PeerId).ConfigureAwait(false);
+        await HandleEditOutboxCompletedAsync(domainEvent.AggregateEvent.OldMessageItem.OwnerPeer.PeerId);
 
         EditInbox(domainEvent.AggregateEvent);
-        await HandleEditCompletedAsync().ConfigureAwait(false);
+        await HandleEditCompletedAsync();
     }
 
     private void EditInbox(OutboxMessageEditedEvent aggregateEvent)
@@ -77,7 +77,7 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
         int inboxMessageId,
         Peer toPeer)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, inboxOwnerPeerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, inboxOwnerPeerId);
 
         Emit(new InboxMessageEditCompletedEvent(inboxOwnerPeerId,
             _state.OldMessageItem.SenderPeer.PeerId,
@@ -91,7 +91,7 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
     }
     private async Task HandleEditOutboxCompletedAsync(long outboxOwnerPeerId)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, outboxOwnerPeerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, outboxOwnerPeerId);
         var item = _state.OldMessageItem;
         Emit(new OutboxMessageEditCompletedEvent(_state.RequestInfo,
             outboxOwnerPeerId,

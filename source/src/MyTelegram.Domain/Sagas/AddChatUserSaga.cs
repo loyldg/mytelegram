@@ -41,6 +41,6 @@ public class AddChatUserSaga : MyInMemoryAggregateSaga<AddChatUserSaga, AddChatU
 
         Publish(command);
 
-        await CompleteAsync(cancellationToken).ConfigureAwait(false);
+        await CompleteAsync(cancellationToken);
     }
 }

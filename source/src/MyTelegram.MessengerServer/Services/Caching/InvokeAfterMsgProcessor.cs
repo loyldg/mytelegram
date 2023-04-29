@@ -45,7 +45,7 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
             {
                 try
                 {
-                    await HandleAsync(reqMsgId).ConfigureAwait(false);
+                    await HandleAsync(reqMsgId);
                 }
                 catch (Exception ex)
                 {

@@ -13,7 +13,7 @@ public class GetChannelByIdQueryHandler : IQueryHandler<GetChannelByIdQuery, ICh
         CancellationToken cancellationToken)
     {
         var readMode = await _store.GetAsync(ChannelId.Create(query.ChannelId).Value, cancellationToken)
-            .ConfigureAwait(false);
+            ;
         return readMode.ReadModel;
     }
 }

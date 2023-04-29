@@ -15,7 +15,7 @@ public class GetChatByChatIdListQueryHandler : IQueryHandler<GetChatByChatIdList
     {
         var cursor = await _store
             .FindAsync(p => query.ChatIdList.Contains(p.ChatId), cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            ;
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

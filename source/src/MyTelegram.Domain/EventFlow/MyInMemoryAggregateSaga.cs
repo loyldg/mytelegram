@@ -33,7 +33,7 @@ public abstract class MyInMemoryAggregateSaga<TSaga, TIdentity, TLocator> : Aggr
         Exception exception,
         CancellationToken cancellationToken)
     {
-        await CompleteAsync(cancellationToken).ConfigureAwait(false);
+        await CompleteAsync(cancellationToken);
         return false;
     }
 }

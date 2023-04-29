@@ -24,7 +24,7 @@ public class DataSeeder : IDataSeeder
 
     public async Task SeedAsync()
     {
-        await CreateOfficialUserAsync().ConfigureAwait(false);
+        await CreateOfficialUserAsync();
 
         var initUid = MyTelegramServerDomainConsts.UserIdInitId;
         var testUserCount = 30;
@@ -34,7 +34,7 @@ public class DataSeeder : IDataSeeder
                 $"1{i}",
                 $"{i}",
                 $"{i}",
-                false).ConfigureAwait(false);
+                false);
         }
     }
 
@@ -45,15 +45,15 @@ public class DataSeeder : IDataSeeder
             "42777",
             "Telegram",
             null,
-            false).ConfigureAwait(false);
+            false);
 
         if (created)
         {
             var command = new SetSupportCommand(UserId.Create(userId), true);
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
 
             var setVerifiedCommand = new SetVerifiedCommand(UserId.Create(userId), true);
-            await _commandBus.PublishAsync(setVerifiedCommand, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(setVerifiedCommand, CancellationToken.None);
         }
     }
 
@@ -65,7 +65,7 @@ public class DataSeeder : IDataSeeder
     {
         var aggregateId = UserId.Create(userId);
         var u = new UserAggregate(aggregateId);
-        await u.LoadAsync(_eventStore, _snapshotStore, CancellationToken.None).ConfigureAwait(false);
+        await u.LoadAsync(_eventStore, _snapshotStore, CancellationToken.None);
         if (u.IsNew)
         {
             var accessHash = _randomHelper.NextLong();
@@ -82,7 +82,7 @@ public class DataSeeder : IDataSeeder
                     firstName,
                     lastName,
                     bot);
-            await _commandBus.PublishAsync(createUserCommand, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(createUserCommand, CancellationToken.None);
             return true;
         }
 

@@ -20,7 +20,7 @@ public class SearchHandler : RpcResultObjectHandler<RequestSearch, IFound>,
         RequestSearch obj)
     {
         var userId = input.UserId;
-        var r = await _contactAppService.SearchAsync(userId, obj.Q).ConfigureAwait(false);
+        var r = await _contactAppService.SearchAsync(userId, obj.Q);
 
         return _rpcResultProcessor.ToFound(r);
     }

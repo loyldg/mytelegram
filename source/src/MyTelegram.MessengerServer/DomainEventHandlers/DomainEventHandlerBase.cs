@@ -49,7 +49,7 @@ public abstract class DomainEventHandlerBase
                 ptsType,
                 excludeAuthKeyId,
                 excludeUid,
-                onlySendToThisAuthKeyId).ConfigureAwait(false);
+                onlySendToThisAuthKeyId);
         }
 
         await _objectMessageSender.PushMessageToPeerAsync(channelPeer,
@@ -59,7 +59,7 @@ public abstract class DomainEventHandlerBase
             onlySendToThisAuthKeyId,
             pts,
             ptsType,
-            globalSeqNo).ConfigureAwait(false);
+            globalSeqNo);
     }
 
     protected async Task PushUpdatesToChannelSingleMemberAsync(Peer channelMemberPeer,
@@ -77,7 +77,7 @@ public abstract class DomainEventHandlerBase
             ptsType,
             excludeAuthKeyId,
             excludeUid,
-            onlySendToThisAuthKeyId).ConfigureAwait(false);
+            onlySendToThisAuthKeyId);
         await _objectMessageSender.PushMessageToPeerAsync(channelMemberPeer,
             updates,
             excludeAuthKeyId,
@@ -85,7 +85,7 @@ public abstract class DomainEventHandlerBase
             onlySendToThisAuthKeyId,
             pts,
             ptsType,
-            globalSeqNo).ConfigureAwait(false);
+            globalSeqNo);
     }
 
     protected async Task PushUpdatesToPeerAsync(Peer toPeer,
@@ -109,7 +109,7 @@ public abstract class DomainEventHandlerBase
                 excludeAuthKeyId,
                 excludeUid,
                 onlySendToThisAuthKeyId,
-                newMessage).ConfigureAwait(false);
+                newMessage);
         }
 
         await _objectMessageSender.PushMessageToPeerAsync(toPeer,
@@ -119,7 +119,7 @@ public abstract class DomainEventHandlerBase
             onlySendToThisAuthKeyId,
             pts,
             ptsType,
-            globalSeqNo).ConfigureAwait(false);
+            globalSeqNo);
         //return globalSeqNo;
     }
 
@@ -137,7 +137,7 @@ public abstract class DomainEventHandlerBase
                 updates,
                 groupItemCount,
                 selfUserId,
-                pts).ConfigureAwait(false);
+                pts);
         }
         else
         {
@@ -146,7 +146,7 @@ public abstract class DomainEventHandlerBase
                 null,
                 selfUserId,
                 pts,
-                toPeer.PeerType).ConfigureAwait(false);
+                toPeer.PeerType);
         }
     }
 
@@ -164,7 +164,7 @@ public abstract class DomainEventHandlerBase
             return 0;
         }
 
-        var globalSeqNo = await _idGenerator.NextLongIdAsync(IdType.GlobalSeqNo).ConfigureAwait(false);
+        var globalSeqNo = await _idGenerator.NextLongIdAsync(IdType.GlobalSeqNo);
         var dataBytes = newMessage == null ? data : newMessage.ToBytes();
         var command = new CreatePushUpdatesCommand(PushUpdatesId.Create(
                 toPeer.PeerId,
@@ -180,7 +180,7 @@ public abstract class DomainEventHandlerBase
             pts,
             ptsType,
             globalSeqNo);
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
         return globalSeqNo;
     }
 
@@ -212,7 +212,7 @@ public abstract class DomainEventHandlerBase
             ptsType,
             excludeAuthKeyId,
             excludeUid,
-            onlySendToThisAuthKeyId).ConfigureAwait(false);
+            onlySendToThisAuthKeyId);
         await _objectMessageSender.PushMessageToPeerAsync(toPeer,
             data,
             excludeAuthKeyId,
@@ -220,7 +220,7 @@ public abstract class DomainEventHandlerBase
             onlySendToThisAuthKeyId,
             pts,
             ptsType,
-            globalSeqNo).ConfigureAwait(false);
+            globalSeqNo);
     }
 
     protected async Task SendMultiMediaResultAsync(long reqMsgId,
@@ -258,7 +258,7 @@ public abstract class DomainEventHandlerBase
                     null,
                     selfUserId,
                     pts,
-                    toPeer.PeerType).ConfigureAwait(false);
+                    toPeer.PeerType);
             }
         }
     }
@@ -274,16 +274,16 @@ public abstract class DomainEventHandlerBase
     {
         if (!string.IsNullOrEmpty(sourceId))
         {
-            await SaveRpcResultAsync(reqMsgId, sourceId, selfUserId, rpcData).ConfigureAwait(false);
+            await SaveRpcResultAsync(reqMsgId, sourceId, selfUserId, rpcData);
         }
 
         if (pts > 0 && selfUserId != 0 && toPeerType != PeerType.Channel)
         {
             await _ackCacheService.AddRpcPtsToCacheAsync(reqMsgId, pts, 0, new Peer(PeerType.User, selfUserId))
-                .ConfigureAwait(false);
+                ;
         }
 
-        await _objectMessageSender.SendRpcMessageToClientAsync(reqMsgId, rpcData).ConfigureAwait(false);
+        await _objectMessageSender.SendRpcMessageToClientAsync(reqMsgId, rpcData);
     }
 
     protected Task UpdateSelfGlobalSeqNoAfterSendChannelMessageAsync(long userId,

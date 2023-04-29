@@ -43,14 +43,14 @@ public class BindTempAuthKeyHandler : RpcResultObjectHandler<RequestBindTempAuth
 
         ////var authKeyReadModel = await _queryProcessor
         ////    .ProcessAsync(new GetAuthKeyByAuthKeyIdQuery(obj.PermAuthKeyId), CancellationToken.None)
-        ////    .ConfigureAwait(false);
+        ////    ;
         //if (!_permAuthKeyHelper.TryGetAuthKeyData(obj.PermAuthKeyId, out var authKeyData))
         //{
         //    // read authKeyReadModel from Q
         //    // todo:using saga to bind temp auth key
         //    var authKeyReadModel = await _queryProcessor
         //        .ProcessAsync(new GetAuthKeyByAuthKeyIdQuery(obj.PermAuthKeyId), CancellationToken.None)
-        //        .ConfigureAwait(false);
+        //        ;
         //    if (authKeyReadModel?.Data?.Length > 0)
         //    {
         //        authKeyData = authKeyReadModel.Data;

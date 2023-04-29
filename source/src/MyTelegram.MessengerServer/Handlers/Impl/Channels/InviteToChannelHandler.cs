@@ -56,7 +56,7 @@ public class InviteToChannelHandler : RpcResultObjectHandler<RequestInviteToChan
                 _randomHelper.NextLong(),
                 new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString(),
                 Guid.NewGuid());
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
 
             return null!;
         }

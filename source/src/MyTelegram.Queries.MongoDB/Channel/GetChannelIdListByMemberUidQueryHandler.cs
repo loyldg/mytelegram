@@ -19,7 +19,7 @@ public class
             Limit = 100
         };
         var cursor = await _store.FindAsync(p => p.UserId == query.MemberUid, findOptions, cancellationToken)
-            .ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            ;
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

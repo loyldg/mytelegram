@@ -18,7 +18,7 @@ public class GetContentSettingsHandler : RpcResultObjectHandler<RequestGetConten
     {
         var user = await _queryProcessor
             .ProcessAsync(new GetUserByIdQuery(input.UserId), CancellationToken.None)
-            .ConfigureAwait(false);
+            ;
 
         return new TContentSettings {
             SensitiveCanChange = user!.SensitiveCanChange, SensitiveEnabled = user.SensitiveEnabled

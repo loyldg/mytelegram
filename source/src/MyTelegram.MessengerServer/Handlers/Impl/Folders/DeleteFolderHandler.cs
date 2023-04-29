@@ -18,7 +18,7 @@
 //    {
 //        var command =
 //            new DeleteDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.FolderId), input.ToRequestInfo());
-//        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+//        await _commandBus.PublishAsync(command, default);
 
 //        var updates = new TUpdateShort
 //        {

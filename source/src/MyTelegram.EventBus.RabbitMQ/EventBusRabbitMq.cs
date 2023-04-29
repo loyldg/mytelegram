@@ -340,7 +340,7 @@ public class EventBusRabbitMq : IEventBus, IDisposable
                         _logger.LogWarning("Deserialize data to type `{Type}` failed,json data is `{Data}`", eventType, eventData);
                         continue;
                     }
-                    await _eventHandlerInvoker.InvokeAsync(handler, eventData, eventType).ConfigureAwait(false);
+                    await _eventHandlerInvoker.InvokeAsync(handler, eventData, eventType);
                     //var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
 
                     //await Task.Yield();
@@ -381,7 +381,7 @@ public class EventBusRabbitMq : IEventBus, IDisposable
     //                    _logger.LogWarning("Deserialize data to type `{Type}` failed,json data is `{Data}`", eventType, message);
     //                    continue;
     //                }
-    //                await _eventHandlerInvoker.InvokeAsync(handler, eventData, eventType).ConfigureAwait(false);
+    //                await _eventHandlerInvoker.InvokeAsync(handler, eventData, eventType);
     //                //var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
 
     //                //await Task.Yield();

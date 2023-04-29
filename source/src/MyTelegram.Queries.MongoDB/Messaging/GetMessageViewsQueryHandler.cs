@@ -21,7 +21,7 @@ public class GetMessageViewsQueryHandler : IQueryHandler<GetMessageViewsQuery, I
             .FindAsync(p => p.OwnerPeerId == query.ChannelId && query.MessageIdList.Contains(p.MessageId),
                 findOptions,
                 cancellationToken)
-            .ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            ;
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

@@ -13,8 +13,8 @@ public class GetPollsQueryHandler : IQueryHandler<GetPollsQuery, IReadOnlyCollec
         CancellationToken cancellationToken)
     {
         var cursor = await _store.FindAsync(p => query.PollIds.Contains(p.PollId), cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

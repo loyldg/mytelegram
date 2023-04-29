@@ -37,7 +37,7 @@ public class ExceptionProcessor : IExceptionProcessor
         {
             case DuplicateOperationException duplicateOperationException:
                 var eventData = new DuplicateCommandEvent(reqMsgId, duplicateOperationException.SourceId.Value);
-                await _eventBus.PublishAsync(eventData).ConfigureAwait(false);
+                await _eventBus.PublishAsync(eventData);
                 return;
             case UserFriendlyException userFriendlyException:
                 errorCode = userFriendlyException.ErrorCode;
@@ -78,6 +78,6 @@ public class ExceptionProcessor : IExceptionProcessor
 
         var rpcError = new TRpcError { ErrorCode = errorCode, ErrorMessage = errorMessage };
         var rpcResult = new TRpcResult { ReqMsgId = reqMsgId, Result = rpcError };
-        await _objectMessageSender.SendMessageToPeerAsync(reqMsgId, rpcResult).ConfigureAwait(false);
+        await _objectMessageSender.SendMessageToPeerAsync(reqMsgId, rpcResult);
     }
 }

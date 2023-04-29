@@ -15,8 +15,8 @@ public class GetPtsByPermAuthKeyIdQueryHandler : IQueryHandler<GetPtsByPermAuthK
     {
         var id = PtsId.Create(query.PeerId, query.PermAuthKeyId);
         var item = await _store.FindAsync(p => p.Id == id.Value, cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
-        return await item.FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+        return await item.FirstOrDefaultAsync(cancellationToken);
     }
 }

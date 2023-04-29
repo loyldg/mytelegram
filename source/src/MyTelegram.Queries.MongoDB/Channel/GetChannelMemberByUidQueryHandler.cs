@@ -13,7 +13,7 @@ public class GetChannelMemberByUidQueryHandler : IQueryHandler<GetChannelMemberB
         CancellationToken cancellationToken)
     {
         var id = ChannelMemberId.Create(query.ChannelId, query.UserId);
-        var item = await _store.GetAsync(id.Value, cancellationToken).ConfigureAwait(false);
+        var item = await _store.GetAsync(id.Value, cancellationToken);
         return item.ReadModel;
     }
 }

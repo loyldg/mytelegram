@@ -16,7 +16,7 @@ public class DeleteChatHandler : RpcResultObjectHandler<RequestDeleteChat, IBool
         RequestDeleteChat obj)
     {
         var command = new DeleteChatCommand(ChatId.Create(obj.ChatId), input.ToRequestInfo(), Guid.NewGuid());
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
 
         return new TBoolTrue();
     }

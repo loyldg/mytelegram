@@ -14,7 +14,7 @@ public class GetPtsByPeerIdQueryHandler : IQueryHandler<GetPtsByPeerIdQuery, IPt
         CancellationToken cancellationToken)
     {
         var ptsId = PtsId.Create(query.PeerId).Value;
-        var item = await _store.GetAsync(ptsId, cancellationToken).ConfigureAwait(false);
+        var item = await _store.GetAsync(ptsId, cancellationToken);
         return item.ReadModel;
     }
 }

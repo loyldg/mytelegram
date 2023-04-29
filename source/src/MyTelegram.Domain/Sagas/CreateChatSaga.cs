@@ -37,6 +37,6 @@ public class CreateChatSaga : MyInMemoryAggregateSaga<CreateChatSaga, CreateChat
             messageItem,
             correlationId: domainEvent.AggregateEvent.CorrelationId);
         Publish(command);
-        await CompleteAsync(cancellationToken).ConfigureAwait(false);
+        await CompleteAsync(cancellationToken);
     }
 }

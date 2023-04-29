@@ -42,7 +42,7 @@ public class InviteToChannelSaga :
             Publish(createDialogCommand);
         }
 
-        await HandleInviteToChannelCompletedAsync().ConfigureAwait(false);
+        await HandleInviteToChannelCompletedAsync();
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,

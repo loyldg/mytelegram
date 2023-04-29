@@ -35,7 +35,7 @@ public class UpdateUsernameHandler : RpcResultObjectHandler<RequestUpdateUsernam
             input.UserId,
             obj.Username,
             Guid.NewGuid());
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
         return null!;
     }
 }

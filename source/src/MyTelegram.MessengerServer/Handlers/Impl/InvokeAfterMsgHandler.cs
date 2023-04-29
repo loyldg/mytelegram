@@ -16,7 +16,7 @@ public class InvokeAfterMsgHandler : BaseObjectHandler<RequestInvokeAfterMsg, IO
         //Logger.LogDebug($"InvokeAfterMsg,msgId{obj.MsgId},query:{obj.Query.GetType().Name}");
         if (_invokeAfterMsgProcessor.ExistsInRecentMessageId(obj.MsgId))
         {
-            return await _invokeAfterMsgProcessor.HandleAsync(input, obj.Query).ConfigureAwait(false);
+            return await _invokeAfterMsgProcessor.HandleAsync(input, obj.Query);
         }
 
         _invokeAfterMsgProcessor.Enqueue(obj.MsgId, input, obj.Query);

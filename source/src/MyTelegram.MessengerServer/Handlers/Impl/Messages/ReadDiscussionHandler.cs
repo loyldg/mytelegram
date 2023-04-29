@@ -30,7 +30,7 @@ public class ReadDiscussionHandler : RpcResultObjectHandler<RequestReadDiscussio
             obj.ReadMaxId,
             //MessageBoxId.Create(inputChannel.ChannelId, obj.MaxId).Value,
             Guid.NewGuid());
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
 
         return new TBoolTrue();
     }

@@ -27,7 +27,7 @@ public class SearchGlobalHandler : RpcResultObjectHandler<RequestSearchGlobal, I
         {
             Limit = obj.Limit,
             OffsetId = obj.OffsetId
-        }).ConfigureAwait(false);
+        });
 
         return _rpcResultProcessor.ToMessages(r);
     }

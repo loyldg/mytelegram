@@ -32,7 +32,7 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
                 messageIds.ToList(),
                 Guid.NewGuid()
             );
-            await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, default);
         }
     }
 
@@ -43,7 +43,7 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
         {
             if (obj.ForEveryone)
             {
-                await DeleteChannelHistoryForEveryoneAsync(inputChannel.ChannelId, input).ConfigureAwait(false);
+                await DeleteChannelHistoryForEveryoneAsync(inputChannel.ChannelId, input);
             }
             else
             {
@@ -51,7 +51,7 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
                     new ClearChannelHistoryCommand(
                         DialogId.Create(input.UserId, PeerType.Channel, inputChannel.ChannelId),
                         input.ReqMsgId);
-                await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
             }
 
             return null!;

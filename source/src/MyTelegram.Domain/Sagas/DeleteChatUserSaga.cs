@@ -35,6 +35,6 @@ public class DeleteChatUserSaga : MyInMemoryAggregateSaga<DeleteChatUserSaga, De
             correlationId: Guid.NewGuid());
 
         Publish(command);
-        await CompleteAsync(cancellationToken).ConfigureAwait(false);
+        await CompleteAsync(cancellationToken);
     }
 }

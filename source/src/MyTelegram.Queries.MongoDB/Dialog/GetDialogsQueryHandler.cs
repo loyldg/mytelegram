@@ -42,7 +42,7 @@ public class GetDialogsQueryHandler : IQueryHandler<GetDialogsQuery, IReadOnlyLi
             Skip = 0,
             Sort = Builders<DialogReadModel>.Sort.Descending(p => p.TopMessage)
         };
-        var cursor = await _store.FindAsync(predicate, options, cancellationToken).ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        var cursor = await _store.FindAsync(predicate, options, cancellationToken);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

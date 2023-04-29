@@ -26,6 +26,6 @@ public class UserIsOnlineEventHandler : IEventHandler<UserIsOnlineEvent>
             var updatesTooLong = new TUpdatesTooLong();
             _objectMessageSender.PushSessionMessageToAuthKeyIdAsync(eventData.TempAuthKeyId, updatesTooLong);
         },
-            TimeSpan.FromMilliseconds(1500)).ConfigureAwait(false);
+            TimeSpan.FromMilliseconds(1500));
     }
 }

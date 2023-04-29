@@ -62,8 +62,8 @@ public class SetTypingHandler : RpcResultObjectHandler<RequestSetTyping, IBool>,
         // push message to peer
         // await LocalEventBus.PublishAsync(new PushMessageToPeerDomainEvent(peer,updateShort,input.SeqNumber+1));
         //await SendMessageToPeerAsync(peer, updateShort, input.SeqNumber + 1, input.AuthKeyId);
-        //await _messageSender.SendMessageToPeerAsync(peer, updateShort, input.SeqNumber + 1, input.AuthKeyId).ConfigureAwait(false);
-        await _messageSender.PushMessageToPeerAsync(peer, updateShort).ConfigureAwait(false);
+        //await _messageSender.SendMessageToPeerAsync(peer, updateShort, input.SeqNumber + 1, input.AuthKeyId);
+        await _messageSender.PushMessageToPeerAsync(peer, updateShort);
         return new TBoolTrue();
     }
 }

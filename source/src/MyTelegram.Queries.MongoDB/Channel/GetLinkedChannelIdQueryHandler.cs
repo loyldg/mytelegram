@@ -17,7 +17,7 @@ public class GetLinkedChannelIdQueryHandler : IQueryHandler<GetLinkedChannelIdQu
             Projection = new ProjectionDefinitionBuilder<ChannelFullReadModel>().Expression(p => p.LinkedChatId),
             Limit = 100
         };
-        var cursor = await _store.FindAsync(p => p.ChannelId == query.ChannelId, findOptions, cancellationToken: cancellationToken).ConfigureAwait(false);
-        return await cursor.FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+        var cursor = await _store.FindAsync(p => p.ChannelId == query.ChannelId, findOptions, cancellationToken: cancellationToken);
+        return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
 }

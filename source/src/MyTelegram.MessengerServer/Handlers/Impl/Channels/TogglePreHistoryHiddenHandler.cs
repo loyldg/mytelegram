@@ -23,7 +23,7 @@ public class TogglePreHistoryHiddenHandler : RpcResultObjectHandler<RequestToggl
                 input.ReqMsgId,
                 obj.Enabled,
                 input.UserId);
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
             return null!;
         }
 

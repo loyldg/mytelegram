@@ -25,13 +25,13 @@ public abstract class MongoDbIndexesCreatorBase : IMongoDbIndexesCreator
         _eventPersistenceInitializer.Initialize();
         var snapShotCollectionName = "snapShots";
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateId, snapShotCollectionName)
-            .ConfigureAwait(false);
+            ;
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateName, snapShotCollectionName)
-            .ConfigureAwait(false);
+            ;
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateSequenceNumber, snapShotCollectionName)
-            .ConfigureAwait(false);
+            ;
 
-        await CreateAllIndexesCoreAsync().ConfigureAwait(false);
+        await CreateAllIndexesCoreAsync();
     }
 
     protected abstract Task CreateAllIndexesCoreAsync();
@@ -42,7 +42,7 @@ public abstract class MongoDbIndexesCreatorBase : IMongoDbIndexesCreator
         var indexDefine = Builders<TReadModel>.IndexKeys.Ascending(field);
         var collectionName = _descriptionProvider.GetReadModelDescription<TReadModel>().RootCollectionName;
         await _database.GetCollection<TReadModel>(collectionName.Value).Indexes
-            .CreateOneAsync(new CreateIndexModel<TReadModel>(indexDefine)).ConfigureAwait(false);
+            .CreateOneAsync(new CreateIndexModel<TReadModel>(indexDefine));
     }
 
     protected async Task CreateIndexAsync<TSnapshot>(Expression<Func<TSnapshot, object>> field,
@@ -50,7 +50,7 @@ public abstract class MongoDbIndexesCreatorBase : IMongoDbIndexesCreator
     {
         var indexDefine = Builders<TSnapshot>.IndexKeys.Ascending(field);
         await _database.GetCollection<TSnapshot>(collectionName).Indexes
-            .CreateOneAsync(new CreateIndexModel<TSnapshot>(indexDefine)).ConfigureAwait(false);
+            .CreateOneAsync(new CreateIndexModel<TSnapshot>(indexDefine));
     }
 }
 
@@ -66,72 +66,72 @@ public class MongoDbIndexesCreator : MongoDbIndexesCreatorBase
 
     protected override async Task CreateAllIndexesCoreAsync()
     {
-        await CreateIndexAsync<DialogReadModel>(p => p.OwnerId).ConfigureAwait(false);
-        await CreateIndexAsync<DialogReadModel>(p => p.Pinned).ConfigureAwait(false);
+        await CreateIndexAsync<DialogReadModel>(p => p.OwnerId);
+        await CreateIndexAsync<DialogReadModel>(p => p.Pinned);
 
-        await CreateIndexAsync<MessageReadModel>(p => p.MessageId).ConfigureAwait(false);
-        await CreateIndexAsync<MessageReadModel>(p => p.OwnerPeerId).ConfigureAwait(false);
-        await CreateIndexAsync<MessageReadModel>(p => p.MessageType).ConfigureAwait(false);
-        await CreateIndexAsync<MessageReadModel>(p => p.Pinned).ConfigureAwait(false);
-        await CreateIndexAsync<MessageReadModel>(p => p.Pts).ConfigureAwait(false);
-        await CreateIndexAsync<MessageReadModel>(p => p.ToPeerType).ConfigureAwait(false);
-        await CreateIndexAsync<MessageReadModel>(p => p.SendMessageType).ConfigureAwait(false);
-        //await CreateIndexAsync<MessageReadModel>(p => p.ReplyToMsgId).ConfigureAwait(false);
+        await CreateIndexAsync<MessageReadModel>(p => p.MessageId);
+        await CreateIndexAsync<MessageReadModel>(p => p.OwnerPeerId);
+        await CreateIndexAsync<MessageReadModel>(p => p.MessageType);
+        await CreateIndexAsync<MessageReadModel>(p => p.Pinned);
+        await CreateIndexAsync<MessageReadModel>(p => p.Pts);
+        await CreateIndexAsync<MessageReadModel>(p => p.ToPeerType);
+        await CreateIndexAsync<MessageReadModel>(p => p.SendMessageType);
+        //await CreateIndexAsync<MessageReadModel>(p => p.ReplyToMsgId);
 
-        await CreateIndexAsync<UserReadModel>(p => p.UserId).ConfigureAwait(false);
-        await CreateIndexAsync<UserReadModel>(p => p.FirstName).ConfigureAwait(false);
-        await CreateIndexAsync<ChannelReadModel>(p => p.ChannelId).ConfigureAwait(false);
-        await CreateIndexAsync<ChannelFullReadModel>(p => p.ChannelId).ConfigureAwait(false);
-        await CreateIndexAsync<ChannelMemberReadModel>(p => p.ChannelId).ConfigureAwait(false);
-        await CreateIndexAsync<ChannelMemberReadModel>(p => p.UserId).ConfigureAwait(false);
-        await CreateIndexAsync<ChannelMemberReadModel>(p => p.Kicked).ConfigureAwait(false);
-        await CreateIndexAsync<ChannelMemberReadModel>(p => p.IsBot).ConfigureAwait(false);
+        await CreateIndexAsync<UserReadModel>(p => p.UserId);
+        await CreateIndexAsync<UserReadModel>(p => p.FirstName);
+        await CreateIndexAsync<ChannelReadModel>(p => p.ChannelId);
+        await CreateIndexAsync<ChannelFullReadModel>(p => p.ChannelId);
+        await CreateIndexAsync<ChannelMemberReadModel>(p => p.ChannelId);
+        await CreateIndexAsync<ChannelMemberReadModel>(p => p.UserId);
+        await CreateIndexAsync<ChannelMemberReadModel>(p => p.Kicked);
+        await CreateIndexAsync<ChannelMemberReadModel>(p => p.IsBot);
         //await CreateIndexAsync<AuthKeyReadModel>(p => p.TempAuthKeyId);
 
-        await CreateIndexAsync<DeviceReadModel>(p => p.PermAuthKeyId).ConfigureAwait(false);
-        await CreateIndexAsync<DeviceReadModel>(p => p.UserId).ConfigureAwait(false);
-        await CreateIndexAsync<DeviceReadModel>(p => p.IsActive).ConfigureAwait(false);
+        await CreateIndexAsync<DeviceReadModel>(p => p.PermAuthKeyId);
+        await CreateIndexAsync<DeviceReadModel>(p => p.UserId);
+        await CreateIndexAsync<DeviceReadModel>(p => p.IsActive);
 
 
-        //await CreateIndexAsync<FileReadModel>(p => p.UserId).ConfigureAwait(false);
-        //await CreateIndexAsync<FileReadModel>(p => p.FileId).ConfigureAwait(false);
-        //await CreateIndexAsync<FileReadModel>(p => p.ServerFileId).ConfigureAwait(false);
-        //await CreateIndexAsync<FileReadModel>(p => p.FileReference).ConfigureAwait(false);
+        //await CreateIndexAsync<FileReadModel>(p => p.UserId);
+        //await CreateIndexAsync<FileReadModel>(p => p.FileId);
+        //await CreateIndexAsync<FileReadModel>(p => p.ServerFileId);
+        //await CreateIndexAsync<FileReadModel>(p => p.FileReference);
 
-        await CreateIndexAsync<UserNameReadModel>(p => p.UserName).ConfigureAwait(false);
-        await CreateIndexAsync<UserNameReadModel>(p => p.PeerId).ConfigureAwait(false);
+        await CreateIndexAsync<UserNameReadModel>(p => p.UserName);
+        await CreateIndexAsync<UserNameReadModel>(p => p.PeerId);
 
-        await CreateIndexAsync<PushUpdatesReadModel>(p => p.PeerId).ConfigureAwait(false);
-        await CreateIndexAsync<PushUpdatesReadModel>(p => p.Pts).ConfigureAwait(false);
-        await CreateIndexAsync<PushUpdatesReadModel>(p => p.PtsType).ConfigureAwait(false);
-        await CreateIndexAsync<PushUpdatesReadModel>(p => p.SeqNo).ConfigureAwait(false);
+        await CreateIndexAsync<PushUpdatesReadModel>(p => p.PeerId);
+        await CreateIndexAsync<PushUpdatesReadModel>(p => p.Pts);
+        await CreateIndexAsync<PushUpdatesReadModel>(p => p.PtsType);
+        await CreateIndexAsync<PushUpdatesReadModel>(p => p.SeqNo);
 
-        await CreateIndexAsync<ReadingHistoryReadModel>(p => p.MessageId).ConfigureAwait(false);
-        await CreateIndexAsync<ReadingHistoryReadModel>(p => p.TargetPeerId).ConfigureAwait(false);
+        await CreateIndexAsync<ReadingHistoryReadModel>(p => p.MessageId);
+        await CreateIndexAsync<ReadingHistoryReadModel>(p => p.TargetPeerId);
 
-        await CreateIndexAsync<PtsReadModel>(p => p.PeerId).ConfigureAwait(false);
-        await CreateIndexAsync<PtsForAuthKeyIdReadModel>(p => p.PeerId).ConfigureAwait(false);
-        await CreateIndexAsync<PtsForAuthKeyIdReadModel>(p => p.PermAuthKeyId).ConfigureAwait(false);
-        await CreateIndexAsync<PtsForAuthKeyIdReadModel>(p => p.GlobalSeqNo).ConfigureAwait(false);
-        await CreateIndexAsync<PtsForAuthKeyIdReadModel>(p => p.Pts).ConfigureAwait(false);
+        await CreateIndexAsync<PtsReadModel>(p => p.PeerId);
+        await CreateIndexAsync<PtsForAuthKeyIdReadModel>(p => p.PeerId);
+        await CreateIndexAsync<PtsForAuthKeyIdReadModel>(p => p.PermAuthKeyId);
+        await CreateIndexAsync<PtsForAuthKeyIdReadModel>(p => p.GlobalSeqNo);
+        await CreateIndexAsync<PtsForAuthKeyIdReadModel>(p => p.Pts);
 
-        await CreateIndexAsync<RpcResultReadModel>(p => p.SourceId).ConfigureAwait(false);
-        await CreateIndexAsync<RpcResultReadModel>(p => p.PeerId).ConfigureAwait(false);
+        await CreateIndexAsync<RpcResultReadModel>(p => p.SourceId);
+        await CreateIndexAsync<RpcResultReadModel>(p => p.PeerId);
 
-        await CreateIndexAsync<ReplyReadModel>(p => p.SavedFromPeerId).ConfigureAwait(false);
-        await CreateIndexAsync<ReplyReadModel>(p => p.SavedFromMsgId).ConfigureAwait(false);
+        await CreateIndexAsync<ReplyReadModel>(p => p.SavedFromPeerId);
+        await CreateIndexAsync<ReplyReadModel>(p => p.SavedFromMsgId);
 
-        await CreateIndexAsync<DialogFilterReadModel>(p => p.OwnerUserId).ConfigureAwait(false);
-        await CreateIndexAsync<PollReadModel>(p => p.ToPeerId).ConfigureAwait(false);
-        await CreateIndexAsync<PollReadModel>(p => p.PollId).ConfigureAwait(false);
-        await CreateIndexAsync<PollAnswerVoterReadModel>(p => p.PollId).ConfigureAwait(false);
-        await CreateIndexAsync<PollAnswerVoterReadModel>(p => p.Option).ConfigureAwait(false);
+        await CreateIndexAsync<DialogFilterReadModel>(p => p.OwnerUserId);
+        await CreateIndexAsync<PollReadModel>(p => p.ToPeerId);
+        await CreateIndexAsync<PollReadModel>(p => p.PollId);
+        await CreateIndexAsync<PollAnswerVoterReadModel>(p => p.PollId);
+        await CreateIndexAsync<PollAnswerVoterReadModel>(p => p.Option);
         var snapShotCollectionName = "snapShots";
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateId, snapShotCollectionName)
-            .ConfigureAwait(false);
+            ;
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateName, snapShotCollectionName)
-            .ConfigureAwait(false);
+            ;
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateSequenceNumber, snapShotCollectionName)
-            .ConfigureAwait(false);
+            ;
     }
 }

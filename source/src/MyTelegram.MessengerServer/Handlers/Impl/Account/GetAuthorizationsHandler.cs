@@ -20,7 +20,7 @@ public class GetAuthorizationsHandler : RpcResultObjectHandler<RequestGetAuthori
         RequestGetAuthorizations obj)
     {
         var deviceReadModelList = await _queryProcessor
-            .ProcessAsync(new GetDeviceByUidQuery(input.UserId), CancellationToken.None).ConfigureAwait(false);
+            .ProcessAsync(new GetDeviceByUidQuery(input.UserId), CancellationToken.None);
         var r = _authorizationConverter.ToAuthorizations(deviceReadModelList, input.PermAuthKeyId);
         return new TAuthorizations { Authorizations = new TVector<IAuthorization>(r) };
     }

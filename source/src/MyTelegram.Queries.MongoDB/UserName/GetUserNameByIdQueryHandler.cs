@@ -14,7 +14,7 @@ public class GetUserNameByIdQueryHandler : IQueryHandler<GetUserNameByIdQuery, I
     {
         var item = await _store
             .GetAsync(UserNameId.Create(query.UserName).Value, cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
         return item.ReadModel;
     }

@@ -28,12 +28,12 @@ public class InMemoryFilterDataLoader : IInMemoryFilterDataLoader
         while (hasMoreData)
         {
             var userNameList = await _queryProcessor.ProcessAsync(new GetAllUserNameQuery(skip, _pageSize), default)
-                .ConfigureAwait(false);
+                ;
             hasMoreData = userNameList.Count == _pageSize;
             count += userNameList.Count;
             foreach (var userName in userNameList)
             {
-                await _cuckooFilter.AddAsync(Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{userName}")).ConfigureAwait(false);
+                await _cuckooFilter.AddAsync(Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{userName}"));
             }
             skip += _pageSize;
         }

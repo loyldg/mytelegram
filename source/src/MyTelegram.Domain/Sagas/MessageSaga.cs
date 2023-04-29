@@ -35,8 +35,8 @@ public class MessageSaga :
         }
         else
         {
-            await HandleSendOutboxMessageCompletedAsync().ConfigureAwait(false);
-            await CreateInboxMessageAsync().ConfigureAwait(false);
+            await HandleSendOutboxMessageCompletedAsync();
+            await CreateInboxMessageAsync();
         }
     }
 
@@ -62,7 +62,7 @@ public class MessageSaga :
             item.MessageId,
             domainEvent.AggregateEvent.CorrelationId);
         Publish(command);
-        await HandleReceiveInboxMessageCompletedAsync(item).ConfigureAwait(false);
+        await HandleReceiveInboxMessageCompletedAsync(item);
     }
 
     public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, ReplyToMessageEvent> domainEvent,
@@ -70,8 +70,8 @@ public class MessageSaga :
         CancellationToken cancellationToken)
     {
         HandleReplyToMessage(domainEvent.AggregateEvent);
-        await HandleSendOutboxMessageCompletedAsync().ConfigureAwait(false);
-        await CreateInboxMessageAsync().ConfigureAwait(false);
+        await HandleSendOutboxMessageCompletedAsync();
+        await CreateInboxMessageAsync();
     }
 
     public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, ReplyToMessageStartedEvent> domainEvent,
@@ -88,9 +88,9 @@ public class MessageSaga :
             // Reply outbox message:
             // outbox message's replyToMessageId is from client
             // inbox message's replyToMessageId is from inbox item in ReplyToMessageStartedEvent
-            await HandleSendOutboxMessageCompletedAsync().ConfigureAwait(false);
+            await HandleSendOutboxMessageCompletedAsync();
             Emit(new ReplyToMessageCompletedEvent(domainEvent.AggregateEvent.InboxItems));
-            await CreateInboxMessageAsync().ConfigureAwait(false);
+            await CreateInboxMessageAsync();
         }
         else
         {
@@ -202,7 +202,7 @@ public class MessageSaga :
         switch (_state.MessageItem.ToPeer.PeerType)
         {
             case PeerType.User:
-                await CreateInboxMessageForUserPeerAsync(_state.MessageItem.ToPeer.PeerId).ConfigureAwait(false);
+                await CreateInboxMessageForUserPeerAsync(_state.MessageItem.ToPeer.PeerId);
                 break;
             case PeerType.Chat:
                 ArgumentNullException.ThrowIfNull(_state.ChatMemberUidList);
@@ -214,7 +214,7 @@ public class MessageSaga :
                         continue;
                     }
 
-                    await CreateInboxMessageForUserPeerAsync(memberUid).ConfigureAwait(false);
+                    await CreateInboxMessageForUserPeerAsync(memberUid);
                 }
                 break;
         }
@@ -227,7 +227,7 @@ public class MessageSaga :
 
         // Channel only create outbox message,
         // the idType can only be IdType.MessageId for inbox message
-        var inboxMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, inboxOwnerPeerId).ConfigureAwait(false);
+        var inboxMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, inboxOwnerPeerId);
         var aggregateId = MessageId.Create(inboxOwnerPeerId, inboxMessageId);
         var inboxMessageItem = new MessageItem(
             new Peer(PeerType.User, inboxOwnerPeerId),
@@ -265,7 +265,7 @@ public class MessageSaga :
     {
         var idType = messageItem.ToPeer.PeerType == PeerType.Channel ? IdType.ChannelMessageId : IdType.MessageId;
         var ownerPeerId = messageItem.OwnerPeer.PeerId;
-        var outMessageId = await _idGenerator.NextIdAsync(idType, ownerPeerId).ConfigureAwait(false);
+        var outMessageId = await _idGenerator.NextIdAsync(idType, ownerPeerId);
         // TODO:Create new MessageItem instance
         messageItem.MessageId = outMessageId;
         var aggregateId = MessageId.Create(messageItem.OwnerPeer.PeerId, messageItem.MessageId);
@@ -306,19 +306,19 @@ public class MessageSaga :
 
     private async Task HandleReceiveInboxMessageCompletedAsync(MessageItem inboxMessageItem)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, inboxMessageItem.OwnerPeer.PeerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, inboxMessageItem.OwnerPeer.PeerId);
         Emit(new ReceiveInboxMessageCompletedEvent(inboxMessageItem, pts, _state.ChatTitle));
 
         if (_state.IsSendMessageCompleted())
         {
-            await CompleteAsync().ConfigureAwait(false);
+            await CompleteAsync();
         }
     }
 
     private async Task HandleSendOutboxMessageCompletedAsync()
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, _state.MessageItem!.OwnerPeer.PeerId)
-            .ConfigureAwait(false);
+            ;
         var linkedChannelId = _state.LinkedChannelId;
         if (linkedChannelId == null && _state.ForwardFromLinkedChannel)
         {
@@ -335,7 +335,7 @@ public class MessageSaga :
                 ForwardBroadcastMessageToLinkedChannel(_state.LinkedChannelId.Value, _state.MessageItem.MessageId);
             }
             HandleReplyDiscussionMessage();
-            await CompleteAsync().ConfigureAwait(false);
+            await CompleteAsync();
         }
     }
 

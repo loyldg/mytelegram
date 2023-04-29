@@ -33,7 +33,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
             true,
             inboxCount));
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId)
-            .ConfigureAwait(false);
+            ;
         DeleteOtherPartyMessages(domainEvent.AggregateEvent);
     }
 
@@ -47,7 +47,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
             false,
             0));
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId)
-            .ConfigureAwait(false);
+            ;
     }
 
     public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, DeleteMessagesStartedEvent> domainEvent,
@@ -142,7 +142,7 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
             //{
             //    var ownerPeerId = _state.SelfUserId;
             //    var outMessageId = await IdGeneratorFactory.Default.NextIdAsync(IdType.MessageId, ownerPeerId)
-            //        .ConfigureAwait(false);
+            //        ;
             //    var command = new CreateOutboxCommand(
             //        _state.ReqMsgId,
             //        _state.SelfAuthKeyId,
@@ -193,9 +193,9 @@ public class DeleteMessageSaga : MyInMemoryAggregateSaga<DeleteMessageSaga, Dele
     }
     private async Task IncrementPtsAsync(long peerId)
     {
-        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId).ConfigureAwait(false);
+        var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);
         Emit(new DeleteMessagePtsIncrementedEvent(peerId, pts));
 
-        await HandleDeleteMessageCompletedAsync().ConfigureAwait(false);
+        await HandleDeleteMessageCompletedAsync();
     }
 }

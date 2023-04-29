@@ -54,7 +54,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ReqMsgId,
                 domainEvent.AggregateEvent.ChannelId,
                 domainEvent.Metadata.SourceId.Value)
-            .ConfigureAwait(false);
+            ;
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent> domainEvent,
@@ -71,7 +71,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ReqMsgId,
                 domainEvent.AggregateEvent.ChannelId,
                 domainEvent.Metadata.SourceId.Value)
-            .ConfigureAwait(false);
+            ;
         //var updates = new TUpdateShort
         //{
         //    Date = DateTime.UtcNow.ToTimestamp(),
@@ -81,7 +81,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         //    }
         //};
         //// todo:这里应该返回TUpdates给发送者,只包含频道信息即可
-        //await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, () => updates).ConfigureAwait(false);
+        //await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, () => updates);
         //await SendMessageToPeerAsync(new Peer(PeerType.Channel, domainEvent.AggregateEvent.ChannelId), updates);
     }
 
@@ -89,7 +89,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         CancellationToken cancellationToken)
     {
         await NotifyUpdateChannelAsync(0, domainEvent.AggregateEvent.ChannelId, domainEvent.Metadata.SourceId.Value)
-            .ConfigureAwait(false);
+            ;
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent> domainEvent,
@@ -103,7 +103,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
     {
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
             _chatConverter.ToExportedChatInvite(domainEvent.AggregateEvent)
-        ).ConfigureAwait(false);
+        );
     }
 
     public async Task HandleAsync(
@@ -113,7 +113,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ReqMsgId,
                 domainEvent.AggregateEvent.ChannelId,
                 domainEvent.Metadata.SourceId.Value)
-            .ConfigureAwait(false);
+            ;
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, SetDiscussionGroupEvent> domainEvent,
@@ -130,7 +130,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ReqMsgId,
                 domainEvent.AggregateEvent.ChannelId,
                 domainEvent.Metadata.SourceId.Value)
-            .ConfigureAwait(false);
+            ;
     }
 
     public async Task HandleAsync(IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
@@ -181,7 +181,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         // 这里直接从ReadModel获取频道信息
         var channelReadModel = await _queryProcessor
             .ProcessAsync(new GetChannelByIdQuery(domainEvent.AggregateEvent.ChannelId), default)
-            .ConfigureAwait(false);
+            ;
         var updates = new TUpdates
         {
             Chats = new TVector<IChat>(_chatConverter.ToChannel(channelReadModel,
@@ -194,8 +194,8 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
             Updates = new TVector<IUpdate>()
         };
 
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, updates).ConfigureAwait(false);
-        await NotifyUpdateChannelAsync(0, domainEvent.AggregateEvent.ChannelId, null).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, updates);
+        await NotifyUpdateChannelAsync(0, domainEvent.AggregateEvent.ChannelId, null);
     }
 
     public Task HandleAsync(
@@ -221,16 +221,16 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         // todo:这里应该返回TUpdates给发送者,只包含频道信息即可
         if (reqMsgId != 0)
         {
-            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId).ConfigureAwait(false);
+            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId);
         }
 
         if (memberUid != 0)
         {
-            await PushUpdatesToPeerAsync(new Peer(PeerType.User, memberUid), updates).ConfigureAwait(false);
+            await PushUpdatesToPeerAsync(new Peer(PeerType.User, memberUid), updates);
         }
         else
         {
-            await PushUpdatesToPeerAsync(new Peer(PeerType.Channel, channelId), updates).ConfigureAwait(false);
+            await PushUpdatesToPeerAsync(new Peer(PeerType.Channel, channelId), updates);
         }
     }
 }

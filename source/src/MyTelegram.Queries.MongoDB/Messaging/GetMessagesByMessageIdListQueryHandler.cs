@@ -17,7 +17,7 @@ public class GetMessagesByMessageIdListQueryHandler : IQueryHandler<GetMessagesB
     {
         var cursor = await _store
             .FindAsync(p => query.MessageIdList.Contains(p.MessageId), cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            ;
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

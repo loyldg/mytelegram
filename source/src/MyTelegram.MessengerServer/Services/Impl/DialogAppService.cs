@@ -18,7 +18,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
         foreach (var peer in input.OrderedPeerList)
         {
             var command = new SetPinnedOrderCommand(DialogId.Create(input.SelfUserId, peer), order);
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
             order++;
         }
     }
@@ -31,7 +31,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
         {
             var dialogId = DialogId.Create(input.OwnerId, input.OffsetPeer.PeerType, input.OffsetPeer.PeerId);
             var dialog = await _queryProcessor.ProcessAsync(new GetDialogByIdQuery(dialogId),
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None);
             offsetDate = dialog?.CreationTime;
         }
 
@@ -41,7 +41,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
             offset,
             input.Limit,
             input.PeerIdList);
-        var dialogList = await _queryProcessor.ProcessAsync(query, CancellationToken.None).ConfigureAwait(false);
+        var dialogList = await _queryProcessor.ProcessAsync(query, CancellationToken.None);
         if (input.Pinned == true)
         {
             dialogList = dialogList.OrderBy(p => p.PinnedOrder).ToList();
@@ -50,7 +50,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
         //var peerNotifySettingsIdList = dialogList
         //    .Select(p => PeerNotifySettingsId.Create(p.OwnerId, p.ToPeerType, p.ToPeerId)).ToList();
         //var peerNotifySettingsList = await QueryProcessor
-        //    .ProcessAsync(new GetPeerNotifySettingsListQuery(peerNotifySettingsIdList), CancellationToken.None).ConfigureAwait(false);
+        //    .ProcessAsync(new GetPeerNotifySettingsListQuery(peerNotifySettingsIdList), CancellationToken.None);
 
         var channelIdList = dialogList.Where(p => p.ToPeerType == PeerType.Channel).Select(p => p.ToPeerId)
             .ToList();
@@ -58,7 +58,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
             ? new List<IChannelReadModel>()
             : await _queryProcessor
                 .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), CancellationToken.None)
-                .ConfigureAwait(false);
+                ;
 
         //
         var topMessageIdList = dialogList.Where(p => p.ToPeerType != PeerType.Channel)
@@ -69,7 +69,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
         topMessageIdList.RemoveAll(p => minIdList.Contains(p));
         var messagesList =
             await _queryProcessor.ProcessAsync(new GetMessagesByIdListQuery(topMessageIdList),
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None);
 
         // 删除的消息为topMessage时，需要重新读取topMessage，由于在domain层获取topMessage不是很方便，所以在读取的时候，如果发现topMessage不存在时，
         // 就重新从ReadModel读取一下最新的topMessage
@@ -112,12 +112,12 @@ public class DialogAppService : BaseAppService, IDialogAppService
 
         var userList =
             await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(uidList), CancellationToken.None)
-                .ConfigureAwait(false);
+                ;
 
         var chatList = chatIdList.Count == 0
             ? new List<IChatReadModel>()
             : await _queryProcessor
-                .ProcessAsync(new GetChatByChatIdListQuery(chatIdList), CancellationToken.None).ConfigureAwait(false);
+                .ProcessAsync(new GetChatByChatIdListQuery(chatIdList), CancellationToken.None);
 
         // Reset dialog top messageId
         var channelDict = channelList.ToDictionary(k => k.ChannelId, v => v);
@@ -137,7 +137,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
         {
             channelMemberList = await _queryProcessor
                 .ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.OwnerId, channelIdList),
-                    default).ConfigureAwait(false);
+                    default);
         }
 
         var pollIdList = messagesList.Where(p => p.PollId.HasValue).Select(p => p.PollId!.Value).ToList();
@@ -146,10 +146,10 @@ public class DialogAppService : BaseAppService, IDialogAppService
         if (pollIdList.Count > 0)
         {
             pollReadModels =
-                await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default).ConfigureAwait(false);
+                await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default);
             chosenOptions = await _queryProcessor
                 .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.OwnerId), default)
-                .ConfigureAwait(false);
+                ;
         }
         return new GetDialogOutput(input.OwnerId,
             dialogList,

@@ -62,7 +62,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId,
                 r,
                 domainEvent.Metadata.SourceId.Value
-            ).ConfigureAwait(false);
+            );
             // Console.WriteLine($"Clear history completed for {domainEvent.AggregateEvent.DeletedBoxItem.OwnerPeerId} reqMsgId:{domainEvent.AggregateEvent.ReqMsgId}");
         }
 
@@ -72,7 +72,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
         await PushUpdatesToPeerAsync(
             new Peer(PeerType.User, domainEvent.AggregateEvent.DeletedBoxItem.OwnerPeerId),
             updates,
-            pts: domainEvent.AggregateEvent.DeletedBoxItem.Pts).ConfigureAwait(false);
+            pts: domainEvent.AggregateEvent.DeletedBoxItem.Pts);
 
         //var r = new TAffectedHistory
         //{
@@ -111,12 +111,12 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                 domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
                 0,
                 0
-            ).ConfigureAwait(false);
+            );
             await AddRpcGlobalSeqNoForAuthKeyIdAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
                 domainEvent.AggregateEvent.RequestInfo.UserId,
-                globalSeqNo).ConfigureAwait(false);
+                globalSeqNo);
             await UpdateSelfGlobalSeqNoAfterSendChannelMessageAsync(domainEvent.AggregateEvent.RequestInfo.UserId,
-                globalSeqNo).ConfigureAwait(false);
+                globalSeqNo);
         }
 
         var r = new TAffectedMessages
@@ -130,7 +130,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             domainEvent.Metadata.SourceId.Value,
             domainEvent.AggregateEvent.RequestInfo.UserId,
             domainEvent.AggregateEvent.SelfDeletedBoxItem.Pts,
-            domainEvent.AggregateEvent.ToPeerType).ConfigureAwait(false);
+            domainEvent.AggregateEvent.ToPeerType);
 
         if (domainEvent.AggregateEvent.ToPeerType == PeerType.Channel)
         {
@@ -138,7 +138,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             await PushUpdatesToChannelMemberAsync(channelPeer,
                 channelUpdates!,
                 domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
-                skipSaveUpdates: true).ConfigureAwait(false);
+                skipSaveUpdates: true);
         }
         else
         {
@@ -159,7 +159,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                     updates,
                     excludeAuthKeyId,
                     pts: deletedBoxItem.Pts
-                ).ConfigureAwait(false);
+                );
             }
         }
     }
@@ -172,14 +172,14 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             PtsCount = aggregateEvent.SelfDeletedBoxItem.PtsCount,
             Offset = aggregateEvent.SelfDeletedBoxItem.DeletedMessageIdList.Min()
         };
-        await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId, r).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo.ReqMsgId, r);
         var date = DateTime.UtcNow.ToTimestamp();
         foreach (var deletedBoxItem in aggregateEvent.DeletedBoxItems)
         {
             var updates = _updatesConverter
                 .ToDeleteMessagesUpdates(aggregateEvent.ToPeerType, deletedBoxItem, date);
             await PushUpdatesToPeerAsync(new Peer(PeerType.User, deletedBoxItem.OwnerPeerId),
-                updates).ConfigureAwait(false);
+                updates);
         }
     }
     public async Task HandleAsync(IDomainEvent<DeleteMessageSaga2, DeleteMessageSaga2Id, DeleteMessagesCompletedEvent2> domainEvent,
@@ -187,7 +187,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
     {
         if (domainEvent.AggregateEvent.IsClearHistory)
         {
-            await HandleClearHistoryCompletedAsync(domainEvent.AggregateEvent).ConfigureAwait(false);
+            await HandleClearHistoryCompletedAsync(domainEvent.AggregateEvent);
             return;
         }
         //{
@@ -204,8 +204,8 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             domainEvent.Metadata.SourceId.Value,
             domainEvent.AggregateEvent.RequestInfo.UserId,
             domainEvent.AggregateEvent.SelfDeletedBoxItem.Pts,
-            domainEvent.AggregateEvent.ToPeerType).ConfigureAwait(false);
-        //        _rpcResultProcessor.CreateSignUpAuthorization()).ConfigureAwait(false);
+            domainEvent.AggregateEvent.ToPeerType);
+        //        _rpcResultProcessor.CreateSignUpAuthorization());
         foreach (var deletedBoxItem in domainEvent.AggregateEvent.DeletedBoxItems)
         {
             var excludeAuthKeyId = 0L;
@@ -224,21 +224,21 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                 updates,
                 excludeAuthKeyId,
                 pts: deletedBoxItem.Pts
-            ).ConfigureAwait(false);
+            );
         }
     }
     public async Task HandleAsync(IDomainEvent<SignInSaga, SignInSagaId, SignInSuccessEvent> domainEvent,
         CancellationToken cancellationToken)
     {
         var tempAuthKeyId = domainEvent.AggregateEvent.TempAuthKeyId;
-        //await _sessionAppService.BindUserIdToSessionAsync(tempAuthKeyId, domainEvent.AggregateEvent.UserId).ConfigureAwait(false);
+        //await _sessionAppService.BindUserIdToSessionAsync(tempAuthKeyId, domainEvent.AggregateEvent.UserId);
         //_sessionAppService.SetSessionPasswordState(domainEvent.AggregateEvent.TempAuthKeyId, domainEvent.AggregateEvent.HasPassword ? PasswordState.WaitingForVerify : PasswordState.None);
 
         await _eventBus.PublishAsync(new UserSignInSuccessEvent(tempAuthKeyId,
                 domainEvent.AggregateEvent.PermAuthKeyId,
                 domainEvent.AggregateEvent.UserId,
                 domainEvent.AggregateEvent.HasPassword ? PasswordState.WaitingForVerify : PasswordState.None))
-            .ConfigureAwait(false);
+            ;
         _logger.LogDebug(
             "########################### User sign in success:{UserId} with tempAuthKeyId:{TempAuthKeyId} permAuthKeyId:{PermAuthKeyId}",
             domainEvent.AggregateEvent.UserId,
@@ -254,13 +254,13 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                 ErrorCode = MyTelegramServerDomainConsts.BadRequestErrorCode,
                 ErrorMessage = "SESSION_PASSWORD_NEEDED"
             };
-            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, rpcError).ConfigureAwait(false);
+            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, rpcError);
             return;
         }
 
         var r = _authorizationConverter.CreateAuthorization(domainEvent.AggregateEvent);
 
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, r);
     }
 
     public async Task HandleAsync(
@@ -277,11 +277,11 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                 domainEvent.AggregateEvent.Pts,
                 //PtsType.OtherUpdates,
                 domainEvent.AggregateEvent.ToPeer.PeerType
-            ).ConfigureAwait(false);
+            );
             await PushUpdatesToPeerAsync(
                 new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
                 r,
-                pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
+                pts: domainEvent.AggregateEvent.Pts);
         }
 
         //else
@@ -292,7 +292,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
                     : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
                 _updatesConverter.ToUpdatePinnedMessageUpdates(domainEvent.AggregateEvent),
                 excludeUid: domainEvent.AggregateEvent.SenderPeerId,
-                pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
+                pts: domainEvent.AggregateEvent.Pts);
         }
     }
     public async Task HandleAsync(IDomainEvent<DeleteParticipantHistorySaga, DeleteParticipantHistorySagaId, DeleteParticipantHistoryCompletedEvent> domainEvent,
@@ -304,7 +304,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             PtsCount = domainEvent.AggregateEvent.PtsCount,
             Offset = domainEvent.AggregateEvent.NextMaxId
         };
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId, r).ConfigureAwait(false);
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo.ReqMsgId, r);
         var date = DateTime.UtcNow.ToTimestamp();
         var deletedBoxItem = new DeletedBoxItem(domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.Pts,
@@ -317,6 +317,6 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
         await PushUpdatesToPeerAsync(
             new Peer(PeerType.Channel, domainEvent.AggregateEvent.OwnerPeerId),
             updates,
-            pts: domainEvent.AggregateEvent.Pts).ConfigureAwait(false);
+            pts: domainEvent.AggregateEvent.Pts);
     }
 }

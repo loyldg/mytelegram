@@ -48,7 +48,7 @@ public class GetMessagesHandler : RpcResultObjectHandler<RequestGetMessages, IMe
                     channelId,
                     idList,
                     new Peer(PeerType.Channel, channelId))
-                { Limit = 50 }).ConfigureAwait(false);
+                { Limit = 50 });
 
         return _rpcResultProcessor.ToMessages(dto);
     }
@@ -88,7 +88,7 @@ public class GetMessagesHandlerLayerN : RpcResultObjectHandler<RequestGetChannel
                     channelId,
                     idList,
                     new Peer(PeerType.Channel, channelId))
-                { Limit = 50 }).ConfigureAwait(false);
+                { Limit = 50 });
 
         return _rpcResultProcessor.ToMessages(dto);
     }

@@ -21,7 +21,7 @@ public class GetGroupsForDiscussionHandler : RpcResultObjectHandler<RequestGetGr
         RequestGetGroupsForDiscussion obj)
     {
         var channelReadModels = await _queryProcessor.ProcessAsync(new GetMegaGroupByUidQuery(input.UserId), default)
-            .ConfigureAwait(false);
+            ;
 
         var channelList = _chatConverter.ToChannelList(channelReadModels,
             channelReadModels.Select(p => p.ChannelId).ToList(),

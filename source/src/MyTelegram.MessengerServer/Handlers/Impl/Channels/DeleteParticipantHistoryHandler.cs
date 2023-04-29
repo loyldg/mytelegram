@@ -32,7 +32,7 @@ public class DeleteParticipantHistoryHandler : RpcResultObjectHandler<MyTelegram
                 .ProcessAsync(new GetMessageIdListByUserIdQuery(inputChannel.ChannelId,
                         peer.PeerId,
                         MyTelegramServerDomainConsts.ClearHistoryDefaultPageSize),
-                    default).ConfigureAwait(false);
+                    default);
             if (messageIds.Count > 0)
             {
                 var command = new StartDeleteParticipantHistoryCommand(ChannelId.Create(inputChannel.ChannelId),
@@ -40,7 +40,7 @@ public class DeleteParticipantHistoryHandler : RpcResultObjectHandler<MyTelegram
                     messageIds.ToList(),
                     Guid.NewGuid()
                 );
-                await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                await _commandBus.PublishAsync(command, default);
                 return null!;
             }
             else

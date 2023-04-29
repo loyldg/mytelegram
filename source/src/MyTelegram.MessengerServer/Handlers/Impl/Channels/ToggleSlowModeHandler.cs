@@ -23,7 +23,7 @@ public class ToggleSlowModeHandler : RpcResultObjectHandler<RequestToggleSlowMod
                 input.ReqMsgId,
                 obj.Seconds,
                 input.UserId);
-            await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
 
             return null!;
         }

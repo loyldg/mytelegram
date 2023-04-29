@@ -42,7 +42,7 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
                     obj.MaxId,
                     pageSize),
                 default)
-            .ConfigureAwait(false);
+            ;
 
         //var nextMaxId = messageIdList.Count == pageSize
         //    ? messageIdList.Min()
@@ -58,7 +58,7 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
             //    messageIdList,
             //    nextMaxId,
             //    Guid.NewGuid());
-            //await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+            //await _commandBus.PublishAsync(command, CancellationToken.None);
 
             //_requestCacheAppService.TryRemoveRequest(input.ReqMsgId, out _);
             var cachedPts = _ptsHelper.GetCachedPts(input.UserId);
@@ -75,7 +75,7 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
                         obj.Revoke,
                         true,
                         Guid.NewGuid());
-                    await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                    await _commandBus.PublishAsync(command, default);
                 }
                 break;
             case PeerType.User:
@@ -86,7 +86,7 @@ public class DeleteHistoryHandler : RpcResultObjectHandler<RequestDeleteHistory,
             messageIdList,
                         true,
             Guid.NewGuid());
-                    await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+                    await _commandBus.PublishAsync(command, default);
                 }
                 break;
         }

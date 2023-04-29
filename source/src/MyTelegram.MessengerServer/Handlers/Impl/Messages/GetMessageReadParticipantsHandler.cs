@@ -22,7 +22,7 @@ public class GetMessageReadParticipantsHandler :
     {
         var peer = _peerHelper.GetPeer(obj.Peer);
         var readModels = await _queryProcessor
-            .ProcessAsync(new GetMessageReadParticipantsQuery(peer.PeerId, obj.MsgId), default).ConfigureAwait(false);
+            .ProcessAsync(new GetMessageReadParticipantsQuery(peer.PeerId, obj.MsgId), default);
 
         return new TVector<IReadParticipantDate>(readModels.Select(p => new TReadParticipantDate
         {

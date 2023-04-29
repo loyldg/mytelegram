@@ -17,8 +17,8 @@ public class GetPeerNotifySettingsListQueryHandler : IQueryHandler<GetPeerNotify
     {
         var peerIdList = query.PeerNotifySettingsIdList.Select(p => p.Value).ToList();
         var cursor = await _store.FindAsync(p => peerIdList.Contains(p.Id), cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

@@ -29,7 +29,7 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
         {
             var channelMemberReadModel = await _queryProcessor
                 .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default)
-                .ConfigureAwait(false);
+                ;
             var isChannelMember = channelMemberReadModel != null;
 
             if (channelMemberReadModel is { Kicked: true })
@@ -41,7 +41,7 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
             // {
             //     var channelMemberReadModel = await _queryProcessor
             //         .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default)
-            //         .ConfigureAwait(false);
+            //         ;
             //     isChannelMember = channelMemberReadModel != null;
             // }
             var limit = obj.Limit == 0 ? MyTelegramServerDomainConsts.DefaultPtsTotalLimit : obj.Limit;
@@ -51,11 +51,11 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
                 .GetChannelDifferenceAsync(new GetDifferenceInput(inputChannel.ChannelId,
                     obj.Pts,
                     obj.Limit,
-                    input.UserId)).ConfigureAwait(false);
+                    input.UserId));
 
             var pushUpdatesReadModelList = await _queryProcessor
                 .ProcessAsync(new GetPushUpdatesQuery(inputChannel.ChannelId, obj.Pts, limit), default)
-                .ConfigureAwait(false);
+                ;
             var allUpdateList = new List<IUpdate>();
             var maxPts = 0;
             if (pushUpdatesReadModelList.Count > 0)
@@ -101,11 +101,11 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
                 await _ackCacheService.AddRpcPtsToCacheAsync(input.ReqMsgId,
                     0,
                     channelMaxGlobalSeqNo,
-                    new Peer(PeerType.Channel, inputChannel.ChannelId)).ConfigureAwait(false);
+                    new Peer(PeerType.Channel, inputChannel.ChannelId));
 
                 //var maxPts = updatesReadModelList.Max(p => p.Pts);
                 //await _sequenceService.SetPtsForPeerAsync(input.UserId, PeerType.User, maxPts, input.PermAuthKeyId)
-                //    .ConfigureAwait(false);
+                //    ;
             }
 
             // Console.WriteLine($"User {input.UserId} get Channel difference,channelId={inputChannel.ChannelId},req pts={obj.Pts},maxPts={maxPts},limit={obj.Limit},updates count={pushUpdatesReadModelList.Count}");

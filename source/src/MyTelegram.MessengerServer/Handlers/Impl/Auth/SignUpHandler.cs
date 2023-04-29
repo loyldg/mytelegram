@@ -28,7 +28,7 @@ public class SignUpHandler : RpcResultObjectHandler<RequestSignUp, IAuthorizatio
         var phoneNumber = obj.PhoneNumber.ToPhoneNumber();
         var userReadModel = await _queryProcessor
             .ProcessAsync(new GetUserByPhoneNumberQuery(phoneNumber), default)
-            .ConfigureAwait(false);
+            ;
         var userId = userReadModel?.UserId ?? 0;
 
         var command = new CheckSignUpCodeCommand(AppCodeId.Create(phoneNumber, obj.PhoneCodeHash),
@@ -41,7 +41,7 @@ public class SignUpHandler : RpcResultObjectHandler<RequestSignUp, IAuthorizatio
             obj.LastName,
             Guid.NewGuid());
 
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
 
         return null!;
     }

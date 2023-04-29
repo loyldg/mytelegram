@@ -41,7 +41,7 @@ public class GetMessagesViewsHandler : RpcResultObjectHandler<RequestGetMessages
 
             var views = await _channelMessageViewsAppService
                 .GetMessageViewsAsync(input.UserId, input.PermAuthKeyId, peer.PeerId, obj.Id.ToList())
-                .ConfigureAwait(false);
+                ;
             return new TMessageViews
             {
                 Chats = new TVector<IChat>(),
@@ -52,7 +52,7 @@ public class GetMessagesViewsHandler : RpcResultObjectHandler<RequestGetMessages
 
         var messageIdList = obj.Id.Select(p => MessageId.Create(input.UserId, p).Value).ToList();
         var messages = await _queryProcessor
-            .ProcessAsync(new GetMessagesByIdListQuery(messageIdList), default).ConfigureAwait(false);
+            .ProcessAsync(new GetMessagesByIdListQuery(messageIdList), default);
         var dict = messages.ToDictionary(k => k.MessageId, v => v);
         return new TMessageViews
         {

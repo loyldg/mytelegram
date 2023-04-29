@@ -22,7 +22,7 @@ public class AcceptLoginTokenHandler : RpcResultObjectHandler<RequestAcceptLogin
             input.ReqMsgId,
             input.UserId,
             obj.Token);
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
 
         return null!;
     }

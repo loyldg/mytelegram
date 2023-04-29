@@ -12,7 +12,7 @@ public class DestroyAuthKeyHandler : RpcResultObjectHandler<RequestDestroyAuthKe
     {
         throw new NotImplementedException();
         //var command = new DestroyAuthKeyCommand(AuthKeyId.Create(input.PermAuthKeyId), input.ReqMsgId);
-        //await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        //await _commandBus.PublishAsync(command, CancellationToken.None);
 
         //return new TDestroyAuthKeyOk();
     }

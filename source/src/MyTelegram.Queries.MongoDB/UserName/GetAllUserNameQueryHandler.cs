@@ -18,8 +18,8 @@ public class GetAllUserNameQueryHandler : IQueryHandler<GetAllUserNameQuery, IRe
             Projection = new ProjectionDefinitionBuilder<UserNameReadModel>().Expression(p => p.UserName)
         };
 
-        var cursor = await _store.FindAsync(p => true, findOptions, cancellationToken).ConfigureAwait(false);
+        var cursor = await _store.FindAsync(p => true, findOptions, cancellationToken);
 
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

@@ -23,7 +23,7 @@ public class UpdateProfileHandler : RpcResultObjectHandler<RequestUpdateProfile,
             obj.FirstName,
             obj.LastName,
             obj.About);
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
 
         return null!;
     }

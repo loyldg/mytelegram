@@ -30,8 +30,8 @@ public class MessageQueueProcessor2<TData> : IMessageQueueProcessor<TData>
                     {
                         try
                         {
-                            //await func(item).ConfigureAwait(false);
-                            await _dataProcessor.ProcessAsync(item).ConfigureAwait(false);
+                            //await func(item);
+                            await _dataProcessor.ProcessAsync(item);
                         }
                         catch (Exception ex)
                         {
@@ -44,7 +44,7 @@ public class MessageQueueProcessor2<TData> : IMessageQueueProcessor<TData>
             tasks.Add(task);
         }
 
-        await Task.WhenAll(tasks).ConfigureAwait(false);
+        await Task.WhenAll(tasks);
     }
 
     public void Enqueue(TData message,

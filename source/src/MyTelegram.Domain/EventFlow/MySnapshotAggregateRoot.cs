@@ -27,14 +27,14 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
         var snapshot = await snapshotStore.LoadSnapshotAsync<TAggregate, TIdentity, TSnapshot>(
             Id,
             cancellationToken)
-            .ConfigureAwait(false);
+            ;
         if (snapshot == null)
         {
-            await base.LoadAsync(eventStore, snapshotStore, cancellationToken).ConfigureAwait(false);
+            await base.LoadAsync(eventStore, snapshotStore, cancellationToken);
             return;
         }
 
-        await LoadSnapshotContainerAsync(snapshot, cancellationToken).ConfigureAwait(false);
+        await LoadSnapshotContainerAsync(snapshot, cancellationToken);
 
         Version = snapshot.Metadata.AggregateSequenceNumber;
         AddPreviousSourceIds(snapshot.Metadata.PreviousSourceIds);
@@ -42,7 +42,7 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
             Id,
             Version + 1,
             cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
         ApplyEvents(domainEvents);
     }
@@ -53,19 +53,19 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
         ISourceId sourceId,
         CancellationToken cancellationToken)
     {
-        var domainEvents = await base.CommitAsync(eventStore, snapshotStore, sourceId, cancellationToken).ConfigureAwait(false);
+        var domainEvents = await base.CommitAsync(eventStore, snapshotStore, sourceId, cancellationToken);
 
         if (!await SnapshotStrategy.ShouldCreateSnapshotAsync(this, cancellationToken).ConfigureAwait(false))
         {
             return domainEvents;
         }
 
-        var snapshotContainer = await CreateSnapshotContainerAsync(sourceId, cancellationToken).ConfigureAwait(false);
+        var snapshotContainer = await CreateSnapshotContainerAsync(sourceId, cancellationToken);
         await snapshotStore.StoreSnapshotAsync<TAggregate, TIdentity, TSnapshot>(
             Id,
             snapshotContainer,
             cancellationToken)
-            .ConfigureAwait(false);
+            ;
 
         return domainEvents;
     }
@@ -77,7 +77,7 @@ public abstract class MySnapshotAggregateRoot<TAggregate, TIdentity, TSnapshot> 
         var snapshotTask = CreateSnapshotAsync(cancellationToken);
         var snapshotMetadataTask = CreateSnapshotMetadataAsync(sourceId, cancellationToken);
 
-        await Task.WhenAll(snapshotTask, snapshotMetadataTask).ConfigureAwait(false);
+        await Task.WhenAll(snapshotTask, snapshotMetadataTask);
 
         var snapshotContainer = new SnapshotContainer(
             snapshotTask.Result,

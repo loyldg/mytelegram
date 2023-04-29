@@ -14,7 +14,7 @@ public class GetDeviceByUidQueryHandler : IQueryHandler<GetDeviceByUidQuery, IRe
         CancellationToken cancellationToken)
     {
         var cursor = await _store.FindAsync(p => p.UserId == query.UserId && p.IsActive, cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
-        return await cursor.ToListAsync(cancellationToken).ConfigureAwait(false);
+            ;
+        return await cursor.ToListAsync(cancellationToken);
     }
 }

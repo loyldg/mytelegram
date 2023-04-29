@@ -35,9 +35,9 @@ public class SendMediaHandler : RpcResultObjectHandler<RequestSendMedia, IUpdate
         {
             pollId = _randomHelper.NextLong();
             inputMediaPoll.Poll.Id = pollId.Value;
-            await CreatePollAsync(toPeer, inputMediaPoll).ConfigureAwait(false);
+            await CreatePollAsync(toPeer, inputMediaPoll);
         }
-        var media = await _mediaHelper.SaveMediaAsync(obj.Media).ConfigureAwait(false);
+        var media = await _mediaHelper.SaveMediaAsync(obj.Media);
         var sendMessageInput = new SendMessageInput(input.ToRequestInfo(),
             input.UserId,
             _peerHelper.GetPeer(obj.Peer, input.UserId),
@@ -51,7 +51,7 @@ public class SendMediaHandler : RpcResultObjectHandler<RequestSendMedia, IUpdate
             messageType: _mediaHelper.GeMessageType(media),
             pollId: pollId
         );
-        await _messageAppService.SendMessageAsync(sendMessageInput).ConfigureAwait(false);
+        await _messageAppService.SendMessageAsync(sendMessageInput);
 
         return null!;
     }
@@ -70,6 +70,6 @@ public class SendMediaHandler : RpcResultObjectHandler<RequestSendMedia, IUpdate
             inputMediaPoll.Solution,
             inputMediaPoll.SolutionEntities.ToBytes()
         );
-        await _commandBus.PublishAsync(command, default).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, default);
     }
 }

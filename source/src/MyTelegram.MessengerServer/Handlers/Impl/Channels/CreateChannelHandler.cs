@@ -23,7 +23,7 @@ public class CreateChannelHandler : RpcResultObjectHandler<RequestCreateChannel,
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         RequestCreateChannel obj)
     {
-        var channelId = await _idGenerator.NextLongIdAsync(IdType.ChannelId).ConfigureAwait(false);
+        var channelId = await _idGenerator.NextLongIdAsync(IdType.ChannelId);
         var accessHash = _randomHelper.NextLong();
         var date = DateTime.UtcNow.ToTimestamp();
         var command = new CreateChannelCommand(ChannelId.Create(channelId),
@@ -41,7 +41,7 @@ public class CreateChannelHandler : RpcResultObjectHandler<RequestCreateChannel,
             new TMessageActionChannelCreate { Title = obj.Title }.ToBytes().ToHexString(),
             Guid.NewGuid()
         );
-        await _commandBus.PublishAsync(command, CancellationToken.None).ConfigureAwait(false);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
 
         // send message services to channel
         return null!;

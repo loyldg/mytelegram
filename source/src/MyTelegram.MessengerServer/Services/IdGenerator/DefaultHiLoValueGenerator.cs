@@ -26,7 +26,7 @@ public class DefaultHiLoValueGenerator : HiLoValueGenerator<long>
         CancellationToken cancellationToken = default)
     {
         var highValue = await _highValueGenerator.GetNewHighValueAsync(idType, key, cancellationToken)
-            .ConfigureAwait(false);
+            ;
         _logger.LogInformation("Get new low value from db,idType={IdType} key={Key} newHighValue={HighValue}",
             idType,
             key,

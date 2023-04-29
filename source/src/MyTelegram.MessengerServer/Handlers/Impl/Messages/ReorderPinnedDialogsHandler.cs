@@ -35,7 +35,7 @@ public class ReorderPinnedDialogsHandler : RpcResultObjectHandler<RequestReorder
         }
 
         await _dialogAppService.ReorderPinnedDialogsAsync(new ReorderPinnedDialogsInput(input.UserId, peerList))
-            .ConfigureAwait(false);
+            ;
         return new TBoolTrue();
     }
 }

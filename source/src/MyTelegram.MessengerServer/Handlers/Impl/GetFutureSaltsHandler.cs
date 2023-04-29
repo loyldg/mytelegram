@@ -21,7 +21,7 @@ public class GetFutureSaltsHandler : BaseObjectHandler<RequestGetFutureSalts, IF
     protected override async Task<IFutureSalts> HandleCoreAsync(IRequestInput input,
         RequestGetFutureSalts obj)
     {
-        var salts = await GetOrCreateFutureSaltsAsync(input.UserId, input.AuthKeyId, obj.Num).ConfigureAwait(false);
+        var salts = await GetOrCreateFutureSaltsAsync(input.UserId, input.AuthKeyId, obj.Num);
         var r = new TFutureSalts
         {
             Now = CurrentDate,
@@ -38,7 +38,7 @@ public class GetFutureSaltsHandler : BaseObjectHandler<RequestGetFutureSalts, IF
         int count)
     {
         var key = $"future_salt_{userId}_{authKeyId}";
-        var cachedSalts = await _cacheManager.GetAsync(key).ConfigureAwait(false);
+        var cachedSalts = await _cacheManager.GetAsync(key);
         if (cachedSalts == null)
         {
             cachedSalts = new List<CachedFutureSalt>();
@@ -54,7 +54,7 @@ public class GetFutureSaltsHandler : BaseObjectHandler<RequestGetFutureSalts, IF
             _logger.LogDebug("UserId={UserId} new server salt created:{@ServerSalt}", userId, cachedSalts);
             await _cacheManager.SetAsync(key,
                 cachedSalts,
-                (int)TimeSpan.FromHours(2).TotalSeconds).ConfigureAwait(false);
+                (int)TimeSpan.FromHours(2).TotalSeconds);
         }
 
         return cachedSalts;

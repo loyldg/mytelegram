@@ -31,7 +31,7 @@ public class ImportAuthorizationHandler : RpcResultObjectHandler<RequestImportAu
     {
         var keyBytes = _hashHelper.Sha1(obj.Bytes);
         var key = BitConverter.ToString(keyBytes).Replace("-", string.Empty);
-        var uidText = await _cacheManager.GetAsync(key).ConfigureAwait(false);
+        var uidText = await _cacheManager.GetAsync(key);
         if (string.IsNullOrEmpty(uidText))
         {
             throw new BadRequestException("AUTH_BYTES_INVALID");
@@ -45,11 +45,11 @@ public class ImportAuthorizationHandler : RpcResultObjectHandler<RequestImportAu
             }
 
             await _eventBus.PublishAsync(new BindUidToSessionEvent(input.UserId, input.AuthKeyId, input.PermAuthKeyId))
-                .ConfigureAwait(false);
+                ;
             var userReadModel = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(userId), default)
-                .ConfigureAwait(false);
+                ;
 
-            await _cacheManager.RemoveAsync(key).ConfigureAwait(false);
+            await _cacheManager.RemoveAsync(key);
 
             return _authorizationConverter.CreateAuthorizationFromUser(userReadModel);
         }
