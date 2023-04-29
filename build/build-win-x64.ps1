@@ -1,4 +1,4 @@
-$version="0.12.304"
+$version="0.13.421"
 $currentDir=(Get-Item .).FullName
 $parentFolder=(Get-Item $currentDir).Parent
 $outputRootFolder=Join-Path $parentFolder "out" $version 
@@ -31,7 +31,7 @@ function Build-Server([System.String]$srcFolder,[System.String] $outputFolder) {
 
 # Set-Location ../source/
 #dotnet restore ./MyTelegram.sln
-Build-Server "./MyTelegram.MessengerServer.Abp" $messengerOutputFolder
+Build-Server "./MyTelegram.MessengerServer" $messengerOutputFolder
 Build-Server "./MyTelegram.MessengerServer.GrpcService" $messengerGrpcServiceOutputFolder
 Build-Server "./MyTelegram.SmsSender" $smsSenderOutputFolder
 Set-Location $currentDir
