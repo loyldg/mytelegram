@@ -1,5 +1,5 @@
 # MyTelegram  [中文](README-zh-cn.md)|English
-[![API Layer](https://img.shields.io/badge/API_Layer-152-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-158-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![Support Chat](https://img.shields.io/badge/Chat_with_us-on_Telegram-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
 
@@ -11,9 +11,9 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 
 **Verification Code:22222**
 ## Features
-* Supported Api Layer:**`143`~`152`**  
-Open source version: **`152`**  
-Pro version:**`143`**~**`152`**  
+* Supported Api Layer:**`143`~`158`**  
+Open source version: **`158`**  
+Pro version:**`143`**~**`158`**  
 Pro version supports client communication with different layers,open source version only supports single layer  
 * [MTProto transports](https://corefork.telegram.org/mtproto/mtproto-transports):**`Abridged`**,**`Intermediate`**(also support [Transport error](https://corefork.telegram.org/mtproto/mtproto-transports#transport-errors) and [Transport obfuscation](https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation))  
 * Private chat
@@ -35,7 +35,9 @@ Pro version supports client communication with different layers,open source vers
 git clone https://github.com/loyldg/mytelegram.git 
 cd mytelegram/source
 dotnet restore
-cd .\src\MyTelegram.MessengerServer.Abp\
+cd ./src/MyTelegram.MessengerServer
+dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
+cd ../MyTelegram.GatewayServer
 dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
 ```
 
@@ -63,7 +65,7 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 8. Run `start-all.bat`/`start-all.ps1`/`start-all.sh`
 
 - ### Test with compiled client
-1. Download [TDesktop client(4.6.4)](https://github.com/loyldg/mytelegram/releases/download/v0.12.304/Telegram-4.6.4-x64.zip)
+1. Download [TDesktop client(4.8.0)](https://github.com/loyldg/mytelegram/releases/download/v0.13.421/Telegram-4.8.0-x64.zip)
 2. Add the IP address of the gateway server to hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line to hosts file
 ```
 192.168.1.100    demos.telegram2.com
@@ -102,11 +104,11 @@ The default fingerprint of the public key is **`0xce27f5081215bda4`**(Android cl
 if you want to use your own public key,replace `private.pkcs8.key` in auth folder
 
 - ### Build [Tdesktop client](https://github.com/telegramdesktop/tdesktop)
-1. Switch to the branch which the layer is 152(version 4.6.x)
+1. Switch to the branch which the layer is 158(version 4.8.x)
 2. Replace server addresses,port and RSA public key in **Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**
 
 - ### Build [Android client](https://github.com/DrKLO/Telegram)
-1. Switch to the branch which the layer is 152(version 9.3+)
+1. Switch to the branch which the layer is 158(version 9.6+)
 2. **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** Mytelegram not support Stickers in current version,need comment the following code in method `setSticker`  
    ``` java
    MediaDataController.getInstance(currentAccount).loadStickersByEmojiOrName(AndroidUtilities.STICKERS_PLACEHOLDER_PACK_NAME, false, set == null);
@@ -148,7 +150,7 @@ export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: Connec
 Line 64:
 replace the IPAddress and port
 
-- ### Build [Telegram Web Z](https://github.com/Ajaxy/telegram-tt)
+- ### Build [Telegram Web A](https://github.com/Ajaxy/telegram-tt)
 Note:The following documents are based on this version:https://github.com/Ajaxy/telegram-tt/tree/27842a1cf34685b3d088642124a221bebf675300
 1. Make sure the client layer is 152,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
 2. **src\api\gramjs\gramjsBuilders\index.ts**  

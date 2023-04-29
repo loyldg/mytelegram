@@ -1,5 +1,5 @@
 # MyTelegram 中文|[English](README.md)
-[![API Layer](https://img.shields.io/badge/API_Layer-152-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-158-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![Support Chat](https://img.shields.io/badge/Chat_with_us-on_Telegram-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
 
@@ -11,9 +11,9 @@ MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/a
 
 **Verification Code:22222**
 ## 特性
-* 支持的Api Layer:**`143`~`152`**  
-开源版本:**`152`**  
-Pro版本:**`143`**~**`152`**  
+* 支持的Api Layer:**`143`~`158`**  
+开源版本:**`158`**  
+Pro版本:**`143`**~**`158`**  
 Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开源版本仅支持单一的Layer,只支持某一个版本  
 * 支持的[传输协议](https://corefork.telegram.org/mtproto/mtproto-transports):**`Abridged`**,**`Intermediate`**(支持[Transport error](https://corefork.telegram.org/mtproto/mtproto-transports#transport-errors)和[Transport obfuscation](https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation))  
 * 私聊
@@ -35,7 +35,9 @@ Pro版本支持不同Layer的客户端通信,客户端可以多版本共存,开�
 git clone https://github.com/loyldg/mytelegram.git 
 cd mytelegram/source
 dotnet restore
-cd .\src\MyTelegram.MessengerServer.Abp\
+cd ./src/MyTelegram.MessengerServer
+dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
+cd ../MyTelegram.GatewayServer
 dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
 
 ```
@@ -64,7 +66,7 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 8. 运行`start-all.bat`/`start-all.ps1`/`start-all.sh`
 
 - ### 使用编译好的客户端进行测试
-1. 下载[已编译好的TDesktop客户端(4.6.4)](https://github.com/loyldg/mytelegram/releases/download/v0.12.304/Telegram-4.6.4-x64.zip)
+1. 下载[已编译好的TDesktop客户端(4.8.0)](https://github.com/loyldg/mytelegram/releases/download/v0.13.421/Telegram-4.8.0-x64.zip)
 2. 将Gateway server的IP地址加入`%SystemRoot%/system32/drivers/etc/hosts`,比如Gateway Server服务端的IP地址为`192.168.1.100`,那么需要在hosts文件里添加以下内容  
 ```
 192.168.1.100    demos.telegram2.com
@@ -102,11 +104,11 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
 ```
 默认公钥的Fingerprint为: **`0xce27f5081215bda4`** (安卓客户端里的Fingerprint需要提前计算好值并进行替换)  
 - ### 编译桌面客户端 [TDesktop](https://github.com/telegramdesktop/tdesktop)
-1. 切换到Layer152所在的分支(4.6.x版本)
+1. 切换到Layer158所在的分支(4.8.x版本)
 2. 替换**Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**里的服务器地址,端口,RSA公钥
 
 - ### 编译[安卓客户端](https://github.com/DrKLO/Telegram)
-1. 切换到Layer152所在的分支(9.3+版本)
+1. 切换到Layer158所在的分支(9.6+版本)
 
 2. **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** 由于目前不支持Stickers相关功能,需要注释setSticker方法的以下代码,否则客户端会不停的调用获取Stickers的方法
     ```java
@@ -148,7 +150,7 @@ export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: Connec
 ```
 修改dcOptions里的IP地址和端口为你自己的服务器IP地址和端口
 
-- ### 编译Web客户端 [Telegram Web Z](https://github.com/Ajaxy/telegram-tt)
+- ### 编译Web客户端 [Telegram Web A](https://github.com/Ajaxy/telegram-tt)
 注意:以下文档基于此版本:https://github.com/Ajaxy/telegram-tt/tree/27842a1cf34685b3d088642124a221bebf675300
 1. 确保客户端的Layer为152,在**src\lib\gramjs\tl\AllTLObjects.js**文件里查看
 2. **src\api\gramjs\gramjsBuilders\index.ts**   
