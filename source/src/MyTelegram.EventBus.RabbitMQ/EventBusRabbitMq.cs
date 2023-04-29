@@ -249,6 +249,12 @@ public class EventBusRabbitMq : IEventBus, IDisposable
             //    throw new InvalidOperationException($"Fake exception requested: \"{message}\"");
             //}
             var eventData = ParseMessage(eventArgs.Body.Span, eventName);
+            if (eventData == null)
+            {
+                _logger.LogWarning("Can not parse message,eventName={EventName}", eventName);
+                return;
+            }
+
             await ProcessEvent(eventName, eventData);
         }
         catch (Exception ex)
@@ -299,6 +305,11 @@ public class EventBusRabbitMq : IEventBus, IDisposable
     private object? ParseMessage(ReadOnlySpan<byte> message, string eventName)
     {
         var eventType = _subsManager.GetEventTypeByName(eventName);
+
+        if (eventType == null)
+        {
+            return null;
+        }
         return _rabbitMqSerializer.Deserialize(message, eventType);
     }
 

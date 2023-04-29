@@ -1,22 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\..\common.props"/>
+  <Import Project="..\..\common.props"/>
 
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0"/>
-        <PackageReference Include="Polly" Version="7.2.3"/>
-        <PackageReference Include="RabbitMQ.Client" Version="6.4.0"/>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0"/>
+    <PackageReference Include="Polly" Version="7.2.3"/>
+    <PackageReference Include="RabbitMQ.Client" Version="6.4.0"/>
 
-        <PackageReference Include="MemoryPack" Version="1.9.11" />
+    <!--<PackageReference Include="MemoryPack" Version="1.9.11" />-->
 
-    </ItemGroup>
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\MyTelegram.EventBus\MyTelegram.EventBus.csproj"/>
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyTelegram.EventBus\MyTelegram.EventBus.csproj"/>
+  </ItemGroup>
 
 </Project>

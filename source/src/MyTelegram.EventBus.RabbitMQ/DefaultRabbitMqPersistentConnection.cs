@@ -44,6 +44,12 @@ public class DefaultRabbitMqPersistentConnection
         //{
 
         //}
+
+        if (_connection == null)
+        {
+            throw new InvalidOperationException("No RabbitMQ connections are available to perform this action,connection is null");
+        }
+
         return _connection.CreateModel();
     }
 
