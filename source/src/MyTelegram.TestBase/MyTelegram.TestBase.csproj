@@ -6,16 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
-    <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
-    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="AutoFixture.Xunit2" />
+    <PackageReference Include="AutoFixture.AutoMoq" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" />
   </ItemGroup>
 
   <ItemGroup>
-    <!--<ProjectReference Include="..\src\EventFlow\EventFlow.csproj" />-->
-    <!--<ProjectReference Include="..\EventFlow\EventFlow.csproj" />-->
-    <PackageReference Include="EventFlow" Version="1.0.5001-alpha" />
+    <PackageReference Include="EventFlow" />
   </ItemGroup>
 
 </Project>

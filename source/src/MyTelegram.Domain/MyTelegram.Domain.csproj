@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EventFlow" Version="1.0.5002-alpha" />
+    <PackageReference Include="EventFlow" />
     <!--<ProjectReference Include="..\EventFlow\EventFlow.csproj" />-->
     <ProjectReference Include="..\MyTelegram.Domain.Shared\MyTelegram.Domain.Shared.csproj" />
   </ItemGroup>

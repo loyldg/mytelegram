@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.1" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.1-dev-00901" />
-    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00947" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.Async" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Settings.Configuration" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,44 @@
+<Project>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageVersion Include="AutoFixture.AutoMoq" Version="4.17.0" />
+        <PackageVersion Include="AutoFixture.Xunit2" Version="4.17.0" />
+        <PackageVersion Include="BloomFilter.NetCore" Version="1.2.0" />
+        <PackageVersion Include="ConfigureAwait.Fody" PrivateAssets="All" Version="3.3.2" />
+        <PackageVersion Include="coverlet.collector" Version="3.2.0" />
+        <PackageVersion Include="EventFlow" Version="1.0.5002-alpha" />
+        <PackageVersion Include="EventFlow.MongoDB" Version="1.0.5002-alpha" />
+        <PackageVersion Include="Fody" Version="6.7.0" />
+        <PackageVersion Include="Google.Protobuf" Version="3.21.9" />
+        <PackageVersion Include="Grpc.AspNetCore" Version="2.49.0" />
+        <PackageVersion Include="Grpc.Net.Client" Version="2.49.0" />
+        <PackageVersion Include="Grpc.Tools" Version="2.50.0" />
+        <PackageVersion Include="HashedWheelTimer" Version="1.0.3" />
+        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.4" />
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+        <PackageVersion Include="Polly" Version="7.2.3" />
+        <PackageVersion Include="RabbitMQ.Client" Version="6.4.0" />
+        <PackageVersion Include="Serilog.Extensions.Hosting" Version="4.2.0" />
+        <PackageVersion Include="Serilog.Settings.Configuration" Version="3.4.0" />
+        <PackageVersion Include="Serilog.Sinks.Async" Version="1.5.0" />
+        <PackageVersion Include="Serilog.Sinks.Console" Version="4.1.0" />
+        <PackageVersion Include="Serilog.Sinks.File" Version="5.0.0" />
+        <PackageVersion Include="SharpZipLib" Version="1.4.1" />
+        <PackageVersion Include="Shouldly" Version="4.1.0" />
+        <PackageVersion Include="Sigil" Version="5.0.0" />
+        <PackageVersion Include="Standart.Hash.xxHash" Version="3.1.0" />
+        <PackageVersion Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
+        <PackageVersion Include="Twilio" Version="5.81.2" />
+        <PackageVersion Include="Volo.Abp.Autofac" Version="6.0.1" />
+        <PackageVersion Include="Volo.Abp.EventBus.RabbitMQ" Version="6.0.1" />
+        <PackageVersion Include="Volo.Abp.Sms" Version="6.0.1" />
+        <PackageVersion Include="xunit" Version="2.4.2" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    </ItemGroup>
+</Project>
