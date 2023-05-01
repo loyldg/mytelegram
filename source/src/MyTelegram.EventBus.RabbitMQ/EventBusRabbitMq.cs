@@ -170,7 +170,6 @@ public class EventBusRabbitMq : IEventBus, IDisposable
         _logger.LogTrace("Creating RabbitMQ consumer channel");
 
         var channel = _persistentConnection.CreateModel();
-        Console.WriteLine(GetHashCode());
 
         channel.ExchangeDeclare(_options.Value.ExchangeName,
             durable: true,
