@@ -27,8 +27,8 @@ builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetRequiredSec
 builder.Services.Configure<MyTelegramGatewayServerOption>(builder.Configuration.GetRequiredSection("App"));
 var appConfig = builder.Configuration.GetRequiredSection("App").Get<MyTelegramGatewayServerOption>();
 
-builder.Services.AddHostedService<EncryptedDataProcessorServerBackgroundService>();
-builder.Services.AddHostedService<UnencryptedDataProcessorServerBackgroundService>();
+builder.Services.AddHostedService<EncryptedDataProcessorBackgroundService>();
+builder.Services.AddHostedService<UnencryptedDataProcessorBackgroundService>();
 
 builder.Services.AddTransient<WebsocketMiddleware>();
 
