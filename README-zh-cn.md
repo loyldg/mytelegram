@@ -123,8 +123,8 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
   新版本暂时未进行编译,后面会补上需要修改的内容
 
 - ### 编译Web客户端 [Telegram Web K](https://github.com/morethanwords/tweb)
-注意:以下文档基于此版本:https://github.com/morethanwords/tweb/tree/2b661d4ca277d80ada877b38f03e46cc143beacc
-1. 确保客户端的Layer为152,在src\scripts\out\schema.json文件里查看
+注意:以下文档基于此版本:https://github.com/morethanwords/tweb/tree/369b3ec294ea55d9190567ca462f94969693cd79
+1. 确保客户端的Layer为158,在src\scripts\out\schema.json文件里查看
 2.  **src\lib\mtproto\rsaKeysManager.ts**文件里**modulus**的值替换为
   ```
         bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7
@@ -150,15 +150,18 @@ export function constructTelegramWebSocketUrl(dcId: DcId, connectionType: Connec
 修改dcOptions里的IP地址和端口为你自己的服务器IP地址和端口
 
 - ### 编译Web客户端 [Telegram Web A](https://github.com/Ajaxy/telegram-tt)
-注意:以下文档基于此版本:https://github.com/Ajaxy/telegram-tt/tree/27842a1cf34685b3d088642124a221bebf675300
-1. 确保客户端的Layer为152,在**src\lib\gramjs\tl\AllTLObjects.js**文件里查看
+注意:以下文档基于此版本:https://github.com/Ajaxy/telegram-tt/tree/61a26749d02460c012e451e17cdb06a830f82a7d
+1. 确保客户端的Layer为158,在**src\lib\gramjs\tl\AllTLObjects.js**文件里查看
 2. **src\api\gramjs\gramjsBuilders\index.ts**   
-35行:`const CHANNEL_ID_MIN_LENGTH = 11; `修改为`const CHANNEL_ID_MIN_LENGTH = 13; `  
-55行:`chatOrUserId <= -1000000000`修改为`chatOrUserId <= -800000000000`
+36行:`const CHANNEL_ID_MIN_LENGTH = 11; `修改为`const CHANNEL_ID_MIN_LENGTH = 13; `  
+56行:`chatOrUserId <= -1000000000`修改为`chatOrUserId <= -800000000000`
 
 3. **src\api\gramjs\methods\client.ts**  
-76行:`useWSS: true,`修改为`useWSS: false,`
-4. **src\api\gramjs\methods\users.ts**  
+76行:`useWSS: true,`修改为`useWSS: false,`  
+4. **src\api\gramjs\methods\calls.ts**  
+Line 272: `userId: buildInputPeer(user.id, user.accessHash),`  
+to `userId: new GramJs.InputUser({ userId: BigInt(user.id), accessHash: BigInt(user.accessHash!) }),`
+5. **src\api\gramjs\methods\users.ts**  
 161行:
 ```
 const result = await invokeRequest(new GramJs.users.GetUsers({
@@ -171,18 +174,18 @@ const result = await invokeRequest(new GramJs.users.GetUsers({
     id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
   }));
 ```
-5. **src\lib\gramjs\Utils.js**  
+6. **src\lib\gramjs\Utils.js**  
 641行:
 修改为
 ```
 return { id: 2, ipAddress: '自己的服务器IP', port: 30444 };
 ```
-6. **src\lib\gramjs\client\TelegramClient.js**  
-299行:修改为
+7. **src\lib\gramjs\client\TelegramClient.js**  
+229行:修改为
 ```
 this.session.setDC(this.defaultDcId, DC.ipAddress, this._args.useWSS ? 30443 : 30444);
 ```
-7. **src\lib\gramjs\crypto\RSA.ts**
+8. **src\lib\gramjs\crypto\RSA.ts**
 SERVER_KEYS替换为以下内容
 ```typescript
 export const SERVER_KEYS = [
@@ -196,9 +199,28 @@ export const SERVER_KEYS = [
     return acc;
 }, new Map<string, { n: bigInt.BigInteger; e: number }>());
 ```
-8. **src\lib\gramjs\extensions\PromisedWebSockets.js**  
-67行: `if (port === 443)`修改为`if (port === 30443)`
-9. **src\lib\gramjs\network\Authenticator.ts**  
+9. **src\lib\gramjs\extensions\PromisedWebSockets.js**  
+67行: 
+```
+getWebSocketLink(ip, port, testServers, isPremium) {
+        if (port === 443) {
+            return `wss://${ip}:${port}/apiws${testServers ? '_test' : ''}${isPremium ? '_premium' : ''}`;
+        } else {
+            return `ws://${ip}:${port}/apiws${testServers ? '_test' : ''}${isPremium ? '_premium' : ''}`;
+        }
+    }
+```
+to
+```
+getWebSocketLink(ip, port, testServers, isPremium) {
+        if (port === 30443) {
+            return `wss://${ip}:${port}/apiws${testServers ? '_test' : ''}${isPremium ? '' : ''}`;
+        } else {
+            return `ws://${ip}:${port}/apiws${testServers ? '_test' : ''}${isPremium ? '' : ''}`;
+        }
+    }
+```
+10. **src\lib\gramjs\network\Authenticator.ts**  
 47行开始
 ```typescript
 const pqInnerData = new Api.PQInnerData({

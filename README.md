@@ -119,12 +119,12 @@ if you want to use your own public key,replace `private.pkcs8.key` in auth folde
 - ### Build [iOS client](https://github.com/TelegramMessenger/Telegram-iOS)
   Coming soon
 - ### Build [Telegram Web K](https://github.com/morethanwords/tweb)
-Note:The following documents are based on this version:https://github.com/morethanwords/tweb/tree/2b661d4ca277d80ada877b38f03e46cc143beacc
+Note:The following documents are based on this version:https://github.com/morethanwords/tweb/tree/369b3ec294ea55d9190567ca462f94969693cd79
 
-1. Make sure the client layer is 152,check it in **src\scripts\out\schema.json**
+1. Make sure the client layer is 158,check it in **src\scripts\out\schema.json**
 2. **src\lib\mtproto\rsaKeysManager.ts** Replace **modulus** with the following value
   ```
-  bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7      
+  bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7
   ```  
 3. **src\config\modes.ts**  
 Line 18 change `ssl: true` to `ssl: false`
@@ -149,16 +149,21 @@ Line 64:
 replace the IPAddress and port
 
 - ### Build [Telegram Web A](https://github.com/Ajaxy/telegram-tt)
-Note:The following documents are based on this version:https://github.com/Ajaxy/telegram-tt/tree/27842a1cf34685b3d088642124a221bebf675300
-1. Make sure the client layer is 152,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
+Note:The following documents are based on this version:https://github.com/Ajaxy/telegram-tt/tree/61a26749d02460c012e451e17cdb06a830f82a7d
+1. Make sure the client layer is 158,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
 2. **src\api\gramjs\gramjsBuilders\index.ts**  
-Line 35:
+Line 36:
 `const CHANNEL_ID_MIN_LENGTH = 11; ` to `const CHANNEL_ID_MIN_LENGTH = 13; `  
-Line 55:
+Line 56:
 `chatOrUserId <= -1000000000` to `chatOrUserId <= -800000000000`
 3. **src\api\gramjs\methods\client.ts**  
 Line 76: `useWSS: true,` to `useWSS: false,`
-4. **src\api\gramjs\methods\users.ts**  
+
+4. **src\api\gramjs\methods\calls.ts**  
+Line 272: `userId: buildInputPeer(user.id, user.accessHash),`  
+to `userId: new GramJs.InputUser({ userId: BigInt(user.id), accessHash: BigInt(user.accessHash!) }),`
+
+5. **src\api\gramjs\methods\users.ts**  
 Line 161:
 ```
 const result = await invokeRequest(new GramJs.users.GetUsers({
@@ -171,19 +176,19 @@ to
     id: users.map(({ id, accessHash }) => new GramJs.InputUser({ userId: BigInt(id), accessHash: BigInt(accessHash!) })),
   }));
 ```
-5. **src\lib\gramjs\Utils.js**  
+6. **src\lib\gramjs\Utils.js**  
 Line 641:
 to
 ```
 return { id: 2, ipAddress: 'Your Server IP', port: 30444 };
 ```
-6. **src\lib\gramjs\client\TelegramClient.js**  
-Line 299:
+7. **src\lib\gramjs\client\TelegramClient.js**  
+Line 229:
 to
 ```
 this.session.setDC(this.defaultDcId, DC.ipAddress, this._args.useWSS ? 30443 : 30444);
 ```
-7. **src\lib\gramjs\crypto\RSA.ts**
+8. **src\lib\gramjs\crypto\RSA.ts**
 Replace SERVER_KEYS with the following code
 ```typescript
 export const SERVER_KEYS = [
@@ -197,10 +202,28 @@ export const SERVER_KEYS = [
     return acc;
 }, new Map<string, { n: bigInt.BigInteger; e: number }>());
 ```
-8. **src\lib\gramjs\extensions\PromisedWebSockets.js**  
+9. **src\lib\gramjs\extensions\PromisedWebSockets.js**  
 Line 67:
-`if (port === 443)` to `if (port === 30443)`
-9. **src\lib\gramjs\network\Authenticator.ts**  
+```
+getWebSocketLink(ip, port, testServers, isPremium) {
+        if (port === 443) {
+            return `wss://${ip}:${port}/apiws${testServers ? '_test' : ''}${isPremium ? '_premium' : ''}`;
+        } else {
+            return `ws://${ip}:${port}/apiws${testServers ? '_test' : ''}${isPremium ? '_premium' : ''}`;
+        }
+    }
+```
+to
+```
+getWebSocketLink(ip, port, testServers, isPremium) {
+        if (port === 30443) {
+            return `wss://${ip}:${port}/apiws${testServers ? '_test' : ''}${isPremium ? '' : ''}`;
+        } else {
+            return `ws://${ip}:${port}/apiws${testServers ? '_test' : ''}${isPremium ? '' : ''}`;
+        }
+    }
+```
+10. **src\lib\gramjs\network\Authenticator.ts**  
 Line 47:
 ```typescript
 const pqInnerData = new Api.PQInnerData({
