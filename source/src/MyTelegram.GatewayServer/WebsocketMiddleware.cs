@@ -6,6 +6,7 @@ public class WebsocketMiddleware : IMiddleware
     private readonly IMtpMessageDispatcher _messageDispatcher;
     private readonly IMtpMessageParser _messageParser;
     private readonly string _subProtocol = "binary";
+    private bool _isWebSocketConnected;
 
     public WebsocketMiddleware(IMtpMessageParser messageParser,
         IMtpMessageDispatcher messageDispatcher,
@@ -24,6 +25,7 @@ public class WebsocketMiddleware : IMiddleware
             if (context.Request.Path == "/apiws")
             {
                 var webSocket = await context.WebSockets.AcceptWebSocketAsync(_subProtocol);
+                _isWebSocketConnected = true;
                 var clientData = new ClientData
                 {
                     ConnectionId = context.Connection.Id,
@@ -32,7 +34,7 @@ public class WebsocketMiddleware : IMiddleware
                     ClientIp = context.Connection.RemoteIpAddress?.ToString()
                 };
                 _clientManager.AddClient(context.Connection.Id, clientData);
-
+                
                 await ProcessWebSocketAsync(webSocket, clientData);
             }
         }
@@ -62,12 +64,13 @@ public class WebsocketMiddleware : IMiddleware
         var writeTask = WritePipeAsync(webSocket, pipe.Writer);
         var readTask = ReadPipeAsync(pipe.Reader, clientData);
         await Task.WhenAll(writeTask, readTask);
+        _clientManager.RemoveClient(clientData.ConnectionId);
     }
 
     private async Task ReadPipeAsync(PipeReader reader,
         ClientData clientData)
     {
-        while (true)
+        while (_isWebSocketConnected)
         {
             var result = await reader.ReadAsync();
             var buffer = result.Buffer;
@@ -139,5 +142,6 @@ public class WebsocketMiddleware : IMiddleware
         }
 
         await writer.CompleteAsync();
+        _isWebSocketConnected = false;
     }
 }
