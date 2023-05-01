@@ -41,8 +41,8 @@ public class MediaHelper : IMediaHelper
         bool hasVideo,
         double? videoStartTs,
         int parts,
-        string name,
-        string md5)
+        string? name,
+        string? md5)
     {
         var client = GrpcClientFactory.CreateMediaServiceClient(_options.Value.FileServerGrpcServiceUrl);
         var r = await client.SavePhotoAsync(new SavePhotoRequest
@@ -79,7 +79,7 @@ public class MediaHelper : IMediaHelper
         }
     }
 
-    public MessageType GeMessageType(IMessageMedia media)
+    public MessageType GeMessageType(IMessageMedia? media)
     {
         if (media == null)
         {
