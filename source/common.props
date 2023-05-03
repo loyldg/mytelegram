@@ -11,7 +11,7 @@
     <Authors>Loyldg</Authors>
     <RepositoryUrl>https://github.com/loyldg/mytelegram</RepositoryUrl>
     <Company>Loyldg</Company>
-    <Copyright>Copyright (c) loyldg 2021 - 2022</Copyright>
+    <Copyright>Copyright (c) loyldg 2021 - 2023</Copyright>
 
     <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows> 
     <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX> 
