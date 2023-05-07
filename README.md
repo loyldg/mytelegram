@@ -40,7 +40,7 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 ```
 
 ## Run MyTelegram server
-- ### Run MyTelegram server with docker(Only support Layer 146)
+- ### Run MyTelegram server with docker
 1. Download docker-compose configuration files
     ```
     https://github.com/loyldg/mytelegram/blob/dev/docker/compose/docker-compose.yml

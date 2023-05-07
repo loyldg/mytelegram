@@ -42,7 +42,7 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 ```
 
 ## 运行MyTelegram服务端
-- ### 在docker中运行MyTelegram服务端(目前只支持Layer146版本的客户端)
+- ### 在docker中运行MyTelegram服务端
 1. 下载docker-compose配置文件,将其放到同一个目录里
     ```
     https://github.com/loyldg/mytelegram/blob/dev/docker/compose/docker-compose.yml
