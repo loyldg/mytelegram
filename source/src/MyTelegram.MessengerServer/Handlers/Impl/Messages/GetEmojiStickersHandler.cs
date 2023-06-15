@@ -1,6 +1,7 @@
 ﻿// ReSharper disable All
 
 using MyTelegram.Schema.Messages;
+using IStickerSet = MyTelegram.Schema.IStickerSet;
 
 namespace MyTelegram.Handlers.Messages;
 
@@ -11,6 +12,9 @@ public class GetEmojiStickersHandler :
     protected override Task<Schema.Messages.IAllStickers> HandleCoreAsync(IRequestInput input,
         Schema.Messages.RequestGetEmojiStickers obj)
     {
-        return Task.FromResult<Schema.Messages.IAllStickers>(new TAllStickersNotModified());
+        return Task.FromResult<Schema.Messages.IAllStickers>(new TAllStickers
+        {
+            Sets = new TVector<IStickerSet>()
+        });
     }
 }

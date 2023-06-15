@@ -11,6 +11,9 @@ internal sealed class GetEmojiGroupsHandler :
     protected override Task<Schema.Messages.IEmojiGroups> HandleCoreAsync(IRequestInput input,
         Schema.Messages.RequestGetEmojiGroups obj)
     {
-        return Task.FromResult<Schema.Messages.IEmojiGroups>(new TEmojiGroupsNotModified());
+        return Task.FromResult<Schema.Messages.IEmojiGroups>(new TEmojiGroups
+        {
+            Groups = new TVector<IEmojiGroup>()
+        });
     }
 }

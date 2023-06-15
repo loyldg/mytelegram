@@ -11,6 +11,10 @@ public class GetFeaturedEmojiStickersHandler : RpcResultObjectHandler<Schema.Mes
     protected override Task<Schema.Messages.IFeaturedStickers> HandleCoreAsync(IRequestInput input,
         Schema.Messages.RequestGetFeaturedEmojiStickers obj)
     {
-        return Task.FromResult<Schema.Messages.IFeaturedStickers>(new TFeaturedStickersNotModified());
+        return Task.FromResult<Schema.Messages.IFeaturedStickers>(new TFeaturedStickers
+        {
+            Sets = new(),
+            Unread = new()
+        });
     }
 }
