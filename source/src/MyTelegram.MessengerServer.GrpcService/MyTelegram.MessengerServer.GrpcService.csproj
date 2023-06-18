@@ -48,7 +48,7 @@
 
   <ItemGroup>
     <!--<ProjectReference Include="..\MyTelegram.GrpcService\MyTelegram.GrpcService.csproj" />-->
-    <ProjectReference Include="..\MyTelegram.MessengerServer\MyTelegram.MessengerServer.csproj" />
+    <!--<ProjectReference Include="..\MyTelegram.MessengerServer\MyTelegram.MessengerServer.csproj" />-->
     <ProjectReference Include="..\MyTelegram.Queries.MongoDB\MyTelegram.QueryHandlers.MongoDB.csproj" />
   </ItemGroup>
 
