@@ -52,10 +52,7 @@ public class EditChatPhotoHandler : RpcResultObjectHandler<RequestEditChatPhoto,
                 break;
             case TInputChatUploadedPhoto inputChatUploadedPhoto:
                 var file = inputChatUploadedPhoto.File ?? inputChatUploadedPhoto.Video;
-                if (file == null)
-                {
-                    ThrowHelper.ThrowUserFriendlyException("PHOTO_INVALID");
-                }
+                if (file == null) ThrowHelper.ThrowUserFriendlyException("PHOTO_INVALID");
 
                 fileId = file!.Id;
                 parts = file.Parts;

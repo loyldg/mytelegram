@@ -17,9 +17,7 @@ public class HiLoValueGeneratorState : IDisposable
     public HiLoValueGeneratorState(int blockSize)
     {
         if (blockSize <= 0)
-        {
             throw new ArgumentOutOfRangeException(nameof(blockSize), $"Invalid block size {blockSize} for HiLoValue");
-        }
 
         BlockSize = blockSize;
         _currentValue = new HiLoValue(-1, 0);

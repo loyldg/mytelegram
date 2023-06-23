@@ -65,10 +65,7 @@ public class DialogDomainEventHandler : DomainEventHandlerBase,
         DialogFilter? dialogFilter)
     {
         IDialogFilter? filter = null;
-        if (dialogFilter != null)
-        {
-            filter = _objectMapper.Map<DialogFilter, TDialogFilter>(dialogFilter);
-        }
+        if (dialogFilter != null) filter = _objectMapper.Map<DialogFilter, TDialogFilter>(dialogFilter);
 
         var updates = new TUpdateShort
         {

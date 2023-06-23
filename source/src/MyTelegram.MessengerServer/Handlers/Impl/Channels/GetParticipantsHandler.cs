@@ -35,7 +35,6 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
 
             // Only channel creator or admin can access channel participants
             if (channelReadModel.Broadcast)
-            {
                 if (channelReadModel.CreatorId != input.UserId &&
                     channelReadModel.AdminList.FirstOrDefault(p => p.UserId == input.UserId) == null)
                 {
@@ -50,10 +49,8 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
                         Users = new TVector<IUser>()
                     };
                 }
-            }
 
             if (joinedChannelIdList.Count == 0 && channelReadModel.Broadcast)
-            {
                 return new TChannelParticipants
                 {
                     Chats = new TVector<IChat>(),
@@ -61,20 +58,15 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
                     Participants = new TVector<IChannelParticipant>(),
                     Users = new TVector<IUser>()
                 };
-                //ThrowHelper.ThrowUserFriendlyException("CHANNEL_PRIVATE");
-            }
 
+            //ThrowHelper.ThrowUserFriendlyException("CHANNEL_PRIVATE");
             void CheckAdminPermission(IChannelReadModel channel,
                 long userId)
             {
                 if (channelReadModel.Broadcast)
-                {
                     if (channel.CreatorId != userId &&
                         channel.AdminList.FirstOrDefault(p => p.UserId == userId) == null)
-                    {
                         ThrowHelper.ThrowUserFriendlyException("CHAT_ADMIN_REQUIRED");
-                    }
-                }
             }
 
             var memberUidList = new List<long>();
@@ -87,10 +79,7 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
                     if (channelReadModel.AdminList.Count > 0)
                     {
                         memberUidList.AddRange(channelReadModel.AdminList.Select(p => p.UserId).ToList());
-                        if (input.UserId == channelReadModel.CreatorId)
-                        {
-                            memberUidList.Add(input.UserId);
-                        }
+                        if (input.UserId == channelReadModel.CreatorId) memberUidList.Add(input.UserId);
 
                         query = new GetChannelMembersByChannelIdQuery(inputChannel.ChannelId,
                             memberUidList,
@@ -130,10 +119,7 @@ public class GetParticipantsHandler : RpcResultObjectHandler<RequestGetParticipa
                     break;
             }
 
-            if (joinedChannelIdList.Contains(channelReadModel.ChannelId))
-            {
-                forceNotLeft = true;
-            }
+            if (joinedChannelIdList.Contains(channelReadModel.ChannelId)) forceNotLeft = true;
 
             var channelMemberReadModels = await _queryProcessor
                 .ProcessAsync(query,

@@ -33,9 +33,7 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
             var isChannelMember = channelMemberReadModel != null;
 
             if (channelMemberReadModel is { Kicked: true })
-            {
                 ThrowHelper.ThrowUserFriendlyException("CHANNEL_PUBLIC_GROUP_NA");
-            }
 
             // if (obj.Force)
             // {
@@ -70,10 +68,7 @@ public class GetChannelDifferenceHandler : RpcResultObjectHandler<RequestGetChan
                 foreach (var pushUpdatesReadModel in pushUpdatesReadModelList)
                 {
                     // Console.WriteLine($"##### objectId={BitConverter.ToUInt32(pushUpdatesReadModel.Data):x2}");
-                    if (pushUpdatesReadModel.ExcludeAuthKeyId == input.AuthKeyId)
-                    {
-                        continue;
-                    }
+                    if (pushUpdatesReadModel.ExcludeAuthKeyId == input.AuthKeyId) continue;
 
                     var data = pushUpdatesReadModel.Data.ToTObject<IObject>();
                     switch (data)

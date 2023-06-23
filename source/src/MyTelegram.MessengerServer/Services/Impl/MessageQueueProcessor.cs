@@ -49,7 +49,6 @@ public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
             var task = Task.Run(async () =>
             {
                 foreach (var item in queue.Value.GetConsumingEnumerable())
-                {
                     try
                     {
                         await _dataProcessor.ProcessAsync(item);
@@ -58,7 +57,6 @@ public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
                     {
                         _logger.LogError(ex, "Process message queue error:");
                     }
-                }
             });
 
             tasks.Add(task);
@@ -78,10 +76,7 @@ public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
     private BlockingCollection<TData>? GetQueue(long key)
     {
         var n = Math.Abs(key % MaxQueueCount);
-        if (!_queues.TryGetValue(n, out var queue))
-        {
-            _logger.LogWarning("Can not find queue for key {Key}", key);
-        }
+        if (!_queues.TryGetValue(n, out var queue)) _logger.LogWarning("Can not find queue for key {Key}", key);
 
         return queue;
     }
@@ -90,10 +85,7 @@ public class MessageQueueProcessor<TData> : IMessageQueueProcessor<TData>
     {
         if (!_isInited)
         {
-            for (var i = 0; i < MaxQueueCount; i++)
-            {
-                _queues.TryAdd(i, new BlockingCollection<TData>());
-            }
+            for (var i = 0; i < MaxQueueCount; i++) _queues.TryAdd(i, new BlockingCollection<TData>());
 
             _isInited = true;
         }

@@ -21,10 +21,7 @@ public class InvokeAfterMsgEventHandler : ISubscribeSynchronousToAll
                 IHasRequestInfo hasRequestInfo => hasRequestInfo.RequestInfo.ReqMsgId,
                 _ => 0L
             };
-            if (reqMsgId == 0)
-            {
-                continue;
-            }
+            if (reqMsgId == 0) continue;
 
             _invokeAfterMsgProcessor.AddToRecentMessageIdList(reqMsgId);
             await _invokeAfterMsgProcessor.HandleAsync(reqMsgId);

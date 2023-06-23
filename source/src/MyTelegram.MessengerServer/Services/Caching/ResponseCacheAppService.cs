@@ -21,10 +21,7 @@ public class ResponseCacheAppService : IResponseCacheAppService
     public bool TryRemoveResponseList(long reqMsgId,
         [NotNullWhen(true)] out List<IObject>? responseList)
     {
-        if (_responseDict.TryRemove(reqMsgId, out responseList))
-        {
-            return true;
-        }
+        if (_responseDict.TryRemove(reqMsgId, out responseList)) return true;
 
         return false;
     }

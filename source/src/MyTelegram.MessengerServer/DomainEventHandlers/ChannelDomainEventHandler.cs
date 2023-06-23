@@ -200,12 +200,10 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
             };
             await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, updates);
             foreach (var userId in domainEvent.AggregateEvent.MemberUidList)
-            {
                 await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.ChannelId,
                     domainEvent.AggregateEvent.ChannelId,
                     null,
                     userId);
-            }
         }
     }
 
@@ -220,18 +218,11 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
             Update = new TUpdateChannel { ChannelId = channelId }
         };
         // todo:这里应该返回TUpdates给发送者,只包含频道信息即可
-        if (reqMsgId != 0)
-        {
-            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId);
-        }
+        if (reqMsgId != 0) await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId);
 
         if (memberUid != 0)
-        {
             await PushUpdatesToPeerAsync(new Peer(PeerType.User, memberUid), updates);
-        }
         else
-        {
             await PushUpdatesToPeerAsync(new Peer(PeerType.Channel, channelId), updates);
-        }
     }
 }

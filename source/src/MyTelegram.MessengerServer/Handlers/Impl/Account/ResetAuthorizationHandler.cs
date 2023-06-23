@@ -25,10 +25,8 @@ public class ResetAuthorizationHandler : RpcResultObjectHandler<RequestResetAuth
                 .ProcessAsync(new GetDeviceByHashQuery(input.UserId, obj.Hash), CancellationToken.None)
             ;
         if (deviceReadModel != null)
-        {
             await _eventBus.PublishAsync(new UnRegisterAuthKeyEvent(deviceReadModel.PermAuthKeyId))
                 ;
-        }
 
         return new TBoolTrue();
     }

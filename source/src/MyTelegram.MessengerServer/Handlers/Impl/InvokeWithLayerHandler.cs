@@ -17,68 +17,53 @@ public class InvokeWithLayerHandler : BaseObjectHandler<RequestInvokeWithLayer, 
         RequestInvokeWithLayer obj)
     {
         IObject? query = null;
-        if (obj.Query is RequestInitConnection initConnection)
-        {
-            query = initConnection.Query;
-            ////Logger.LogDebug($"initConnection:{query.GetType().Name}");
-            ////_sessionAppService.SetSessionLayer(input.AuthKeyId, obj.Layer);
-            ////SessionAppService.SetDeviceInfo(input.AuthKeyId, obj.Layer, initConnection.LangPack);
-            //await SaveDeviceInfoAsync(input.ReqMsgId,
-            //     input.PermAuthKeyId,
-            //     input.AuthKeyId,
-            //     input.UserId,
-            //     //input.ClientIp,
-            //     null,
-            //     initConnection.ApiId,
-            //     initConnection.AppVersion,
-            //     initConnection.DeviceModel,
-            //     initConnection.SystemVersion,
-            //     initConnection.SystemLangCode,
-            //     initConnection.LangPack,
-            //     initConnection.LangCode,
-            //     obj.Layer
-
-            // );
-        }
-
-        if (obj.Query is Schema.LayerN.RequestInitConnection initConnectionLayerN)
-        {
-            query = initConnectionLayerN.Query;
-            ////Logger.LogDebug($"initConnection(LayerN),seq={input.SeqNumber},query={query.GetType().Name}");
-            ////_sessionAppService.SetSessionLayer(input.AuthKeyId, obj.Layer);
-            ////SessionAppService.SetDeviceInfo(input.AuthKeyId, obj.Layer, initConnectionLayerN.LangPack);
-            //await SaveDeviceInfoAsync(input.ReqMsgId,
-            //    input.PermAuthKeyId,
-            //    input.AuthKeyId,
-            //    input.UserId,
-            //    //input.ClientIp,
-            //    null,
-            //    initConnectionLayerN.ApiId,
-            //    initConnectionLayerN.AppVersion,
-            //    initConnectionLayerN.DeviceModel,
-            //    initConnectionLayerN.SystemVersion,
-            //    initConnectionLayerN.SystemLangCode,
-            //    initConnectionLayerN.LangPack,
-            //    initConnectionLayerN.LangCode,
-            //    obj.Layer
-
-            //);
-        }
-
+        if (obj.Query is RequestInitConnection initConnection) query = initConnection.Query;
+        ////Logger.LogDebug($"initConnection:{query.GetType().Name}");
+        ////_sessionAppService.SetSessionLayer(input.AuthKeyId, obj.Layer);
+        ////SessionAppService.SetDeviceInfo(input.AuthKeyId, obj.Layer, initConnection.LangPack);
+        //await SaveDeviceInfoAsync(input.ReqMsgId,
+        //     input.PermAuthKeyId,
+        //     input.AuthKeyId,
+        //     input.UserId,
+        //     //input.ClientIp,
+        //     null,
+        //     initConnection.ApiId,
+        //     initConnection.AppVersion,
+        //     initConnection.DeviceModel,
+        //     initConnection.SystemVersion,
+        //     initConnection.SystemLangCode,
+        //     initConnection.LangPack,
+        //     initConnection.LangCode,
+        //     obj.Layer
+        // );
+        if (obj.Query is Schema.LayerN.RequestInitConnection initConnectionLayerN) query = initConnectionLayerN.Query;
+        ////Logger.LogDebug($"initConnection(LayerN),seq={input.SeqNumber},query={query.GetType().Name}");
+        ////_sessionAppService.SetSessionLayer(input.AuthKeyId, obj.Layer);
+        ////SessionAppService.SetDeviceInfo(input.AuthKeyId, obj.Layer, initConnectionLayerN.LangPack);
+        //await SaveDeviceInfoAsync(input.ReqMsgId,
+        //    input.PermAuthKeyId,
+        //    input.AuthKeyId,
+        //    input.UserId,
+        //    //input.ClientIp,
+        //    null,
+        //    initConnectionLayerN.ApiId,
+        //    initConnectionLayerN.AppVersion,
+        //    initConnectionLayerN.DeviceModel,
+        //    initConnectionLayerN.SystemVersion,
+        //    initConnectionLayerN.SystemLangCode,
+        //    initConnectionLayerN.LangPack,
+        //    initConnectionLayerN.LangCode,
+        //    obj.Layer
+        //);
         //if (input.UserId != 0)
         //{
         //    Logger.LogInformation($"Init Connection Ok.UserId={input.UserId}");
         //}
 
-        if (query == null)
-        {
-            throw new ArgumentException("InitConnection.query can not be null.");
-        }
+        if (query == null) throw new ArgumentException("InitConnection.query can not be null.");
 
         if (!_handlerHelper.TryGetHandler(query.ConstructorId, out var handler))
-        {
             throw new NotSupportedException($"Not supported query:{query.ConstructorId:x2}");
-        }
 
         //if (handler is IShouldCacheRequest)
         //{

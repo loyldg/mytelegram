@@ -21,12 +21,8 @@ public class GetMessagesHandler : RpcResultObjectHandler<RequestGetMessages, IMe
     {
         var idList = new List<int>();
         foreach (var inputMessage in obj.Id)
-        {
             if (inputMessage is TInputMessageID inputMessageId)
-            {
                 idList.Add(inputMessageId.Id);
-            }
-        }
 
         var dto = await _messageAppService
                 .GetMessagesAsync(new GetMessagesInput(input.UserId, input.UserId, idList, null) { Limit = 50 })

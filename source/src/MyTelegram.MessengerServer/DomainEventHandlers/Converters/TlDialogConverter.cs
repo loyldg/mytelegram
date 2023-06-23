@@ -52,10 +52,7 @@ public class TlDialogConverter : ITlDialogConverter
                 else
                 {
                     var firstBox = output.MessageList.FirstOrDefault(p => p.ToPeerId == dialog.ToPeerId);
-                    if (firstBox != null)
-                    {
-                        tDialog.Pts = firstBox.Pts;
-                    }
+                    if (firstBox != null) tDialog.Pts = firstBox.Pts;
                 }
 
                 var maxId = new[]
@@ -105,18 +102,13 @@ public class TlDialogConverter : ITlDialogConverter
         var allBoxList = output.MessageList.ToList();
 
         foreach (var chat in channelList)
-        {
             if (chat is TChannelForbidden channelForbidden)
-            {
                 allBoxList.RemoveAll(p => p.ToPeerId == channelForbidden.Id);
-            }
-        }
 
         var messageList =
             _messageConverter.ToMessages(allBoxList, output.PollList, output.ChosenPollOptions, output.SelfUserId);
 
         if (dialogs.Count == output.Limit)
-        {
             return new TDialogsSlice
             {
                 Chats = new TVector<IChat>(chatList),
@@ -125,7 +117,6 @@ public class TlDialogConverter : ITlDialogConverter
                 Users = new TVector<IUser>(userList),
                 Count = output.Limit
             };
-        }
 
         return new TDialogs
         {
@@ -152,10 +143,7 @@ public class TlDialogConverter : ITlDialogConverter
         //}
 
         var pts = output.PtsReadModel?.Pts ?? 0;
-        if (output.CachedPts > pts)
-        {
-            pts = output.CachedPts;
-        }
+        if (output.CachedPts > pts) pts = output.CachedPts;
 
         return dialogs switch
         {

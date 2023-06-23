@@ -224,7 +224,6 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                 );
 
                 if (isTooSlow)
-                {
                     _logger.LogWarning(
                         "{TimeSpan} UserId={UserId} request handler=msgContainer->[{CurrentCount}/{Count}] {HandlerName} [response too slow]",
                         sw.Elapsed,
@@ -232,9 +231,7 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                         currentCount,
                         count,
                         handlerName);
-                }
                 else
-                {
                     _logger.LogInformation(
                         "{TimeSpan} UserId={UserId} request handler=msgContainer->[{CurrentCount}/{Count}] {HandlerName}",
                         sw.Elapsed,
@@ -242,13 +239,10 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
                         currentCount,
                         count,
                         handlerName);
-                }
 
                 if (r == null!)
-                {
                     //Logger.LogDebug($"[{currentCount}/{count}][{sw.Elapsed.TotalMilliseconds:0000}ms]Processed reqMsgId={m.MsgId:x2} ok,handler={handlerName},handler returns null,continue to process next request.");
                     continue;
-                }
 
                 await using var stream = new MemoryStream();
                 var bw = new BinaryWriter(stream);
@@ -317,10 +311,7 @@ public class MsgContainerHandler : BaseObjectHandler<TMsgContainer, IObject>, IM
             }
         }
 
-        if (containerMessageList.Count == 0)
-        {
-            return null!;
-        }
+        if (containerMessageList.Count == 0) return null!;
 
         return new TMsgContainer { Messages = containerMessageList.ToArray() };
     }

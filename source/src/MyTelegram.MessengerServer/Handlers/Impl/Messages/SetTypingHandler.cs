@@ -54,10 +54,7 @@ public class SetTypingHandler : RpcResultObjectHandler<RequestSetTyping, IBool>,
                 throw new ArgumentOutOfRangeException();
         }
 
-        if (update == null)
-        {
-            return new TBoolTrue();
-        }
+        if (update == null) return new TBoolTrue();
 
         var updateShort = new TUpdateShort { Date = CurrentDate, Update = update };
 

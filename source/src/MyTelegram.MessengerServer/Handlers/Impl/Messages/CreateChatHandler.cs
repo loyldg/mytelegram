@@ -25,12 +25,8 @@ public class CreateChatHandler : RpcResultObjectHandler<RequestCreateChat, IUpda
     {
         var memberUidList = new List<long>();
         foreach (var inputUser in obj.Users)
-        {
             if (inputUser is TInputUser u)
-            {
                 memberUidList.Add(u.UserId);
-            }
-        }
 
         memberUidList = memberUidList.Distinct().ToList();
 

@@ -25,10 +25,7 @@ public class GetFullChannelHandler : RpcResultObjectHandler<RequestGetFullChanne
         {
             var channel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId),
                 CancellationToken.None);
-            if (channel == null)
-            {
-                ThrowHelper.ThrowUserFriendlyException("CHANNEL_INVALID");
-            }
+            if (channel == null) ThrowHelper.ThrowUserFriendlyException("CHANNEL_INVALID");
 
             var channelFull = await _queryProcessor.ProcessAsync(new GetChannelFullByIdQuery(inputChannel.ChannelId),
                 CancellationToken.None);

@@ -35,9 +35,7 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
     public async Task ProcessAsync()
     {
         while (await _completedReqMsgIds.Reader.WaitToReadAsync().ConfigureAwait(false))
-        {
             if (_completedReqMsgIds.Reader.TryRead(out var reqMsgId))
-            {
                 try
                 {
                     await HandleAsync(reqMsgId);
@@ -46,8 +44,6 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
                 {
                     Console.WriteLine(ex);
                 }
-            }
-        }
     }
 
     public Task HandleAsync(long reqMsgId)
@@ -55,9 +51,7 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
         if (_requests.TryGetValue(reqMsgId, out var item))
         {
             if (!_handlerHelper.TryGetHandler(item.Query.ConstructorId, out var handler))
-            {
                 throw new NotImplementedException($"Not supported query:{item.Query.ConstructorId:x2}");
-            }
 
             // Console.WriteLine($">>>>>> Handle invoke after msg:{reqMsgId}");
             return handler.HandleAsync(item.Input, item.Query);
@@ -71,9 +65,7 @@ public class InvokeAfterMsgProcessor : IInvokeAfterMsgProcessor //, ISingletonDe
         IObject query)
     {
         if (!_handlerHelper.TryGetHandler(query.ConstructorId, out var handler))
-        {
             throw new NotSupportedException($"Not supported query:{query.ConstructorId:x2}");
-        }
 
         //Console.WriteLine($"Handle exists reqMsgId:{input.ReqMsgId}");
         return handler.HandleAsync(input, query);

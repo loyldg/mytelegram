@@ -24,10 +24,7 @@ public class HiLoValueGeneratorCache : IHiLoValueGeneratorCache
         }
         else
         {
-            if (stateList.TryGetValue(key, out var state))
-            {
-                return state;
-            }
+            if (stateList.TryGetValue(key, out var state)) return state;
 
             state = new HiLoValueGeneratorState(_stateBlockSizeHelper.GetBlockSize(idType));
             stateList.TryAdd(key, state);

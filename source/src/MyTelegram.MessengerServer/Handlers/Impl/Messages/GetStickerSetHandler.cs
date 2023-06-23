@@ -124,7 +124,6 @@ public class GetStickerSetHandler : RpcResultObjectHandler<RequestGetStickerSet,
         }
 
         if (obj.Stickerset is TInputStickerSetShortName inputStickerSetShortName)
-        {
             //Logger.LogDebug($"get sticker short name:{inputStickerSetShortName.ShortName}");
             return new Schema.Messages.TStickerSet
             {
@@ -146,7 +145,6 @@ public class GetStickerSetHandler : RpcResultObjectHandler<RequestGetStickerSet,
                 },
                 Keywords = new TVector<IStickerKeyword>()
             };
-        }
 
         {
             IStickerSet r = new Schema.Messages.TStickerSet
@@ -293,7 +291,6 @@ public class GetStickerSetHandlerLayer134 : RpcResultObjectHandler<RequestGetSti
         }
 
         if (obj.Stickerset is TInputStickerSetShortName inputStickerSetShortName)
-        {
             //Logger.LogDebug($"get sticker short name:{inputStickerSetShortName.ShortName}");
             return new Schema.Messages.TStickerSet
             {
@@ -315,7 +312,6 @@ public class GetStickerSetHandlerLayer134 : RpcResultObjectHandler<RequestGetSti
                 },
                 Keywords = new TVector<IStickerKeyword>()
             };
-        }
 
         {
             IStickerSet r = new Schema.Messages.TStickerSet

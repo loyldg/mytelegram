@@ -27,10 +27,7 @@ public class ResetAuthorizationsHandler : RpcResultObjectHandler<RequestResetAut
             .ProcessAsync(new GetDeviceByUidQuery(input.UserId), CancellationToken.None);
         foreach (var deviceReadModel in deviceList)
         {
-            if (deviceReadModel.PermAuthKeyId == input.PermAuthKeyId)
-            {
-                continue;
-            }
+            if (deviceReadModel.PermAuthKeyId == input.PermAuthKeyId) continue;
 
             // var command = new UnRegisterAuthKeyCommand(AuthKeyId.Create(deviceReadModel.PermAuthKeyId));
             // await _commandBus.PublishAsync(command, CancellationToken.None);

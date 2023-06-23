@@ -31,13 +31,8 @@ public class ChatAndChannelMemberStateChangedEventHandler :
     {
         var memberStateChangeType = MemberStateChangeType.None;
         if (domainEvent.AggregateEvent.BannedRights.ViewMessages)
-        {
             memberStateChangeType = MemberStateChangeType.Add;
-        }
-        else if (domainEvent.AggregateEvent.NeedRemoveFromKicked)
-        {
-            memberStateChangeType = MemberStateChangeType.Remove;
-        }
+        else if (domainEvent.AggregateEvent.NeedRemoveFromKicked) memberStateChangeType = MemberStateChangeType.Remove;
 
         return _eventBus.PublishAsync(new ChannelMemberChangedEvent(domainEvent.AggregateEvent.ChannelId,
             memberStateChangeType,

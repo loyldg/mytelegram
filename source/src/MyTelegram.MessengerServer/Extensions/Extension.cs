@@ -5,10 +5,7 @@ public static class Extension
     [return: NotNullIfNotNull("peer")]
     public static IPeer? ToPeer(this Peer? peer)
     {
-        if (peer == null)
-        {
-            return null;
-        }
+        if (peer == null) return null;
 
         return peer.PeerType switch
         {

@@ -33,17 +33,11 @@ public class ImportAuthorizationHandler : RpcResultObjectHandler<RequestImportAu
         var keyBytes = _hashHelper.Sha1(obj.Bytes);
         var key = BitConverter.ToString(keyBytes).Replace("-", string.Empty);
         var uidText = await _cacheManager.GetAsync(key);
-        if (string.IsNullOrEmpty(uidText))
-        {
-            throw new BadRequestException("AUTH_BYTES_INVALID");
-        }
+        if (string.IsNullOrEmpty(uidText)) throw new BadRequestException("AUTH_BYTES_INVALID");
 
         if (int.TryParse(uidText, out var userId))
         {
-            if (userId != obj.Id)
-            {
-                throw new BadRequestException("USER_ID_INVALID");
-            }
+            if (userId != obj.Id) throw new BadRequestException("USER_ID_INVALID");
 
             await _eventBus.PublishAsync(new BindUidToSessionEvent(input.UserId, input.AuthKeyId, input.PermAuthKeyId))
                 ;

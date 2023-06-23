@@ -34,10 +34,7 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
                 var messageReadModel = await _queryProcessor
                         .ProcessAsync(new GetMessageByIdQuery(MessageId.Create(input.UserId, id).Value), default)
                     ;
-                if (messageReadModel == null)
-                {
-                    ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
-                }
+                if (messageReadModel == null) ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
 
                 switch (messageReadModel!.ToPeerType)
                 {
@@ -47,9 +44,7 @@ public class DeleteMessagesHandler : RpcResultObjectHandler<RequestDeleteMessage
                                 .ProcessAsync(new GetChatByChatIdQuery(messageReadModel.ToPeerId), default)
                             ;
                         if (chatReadModel == null)
-                        {
                             ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PeerIdInvalid);
-                        }
 
                         var command = new StartDeleteChatMessagesCommand(ChatId.Create(messageReadModel.ToPeerId),
                             input.ToRequestInfo(),

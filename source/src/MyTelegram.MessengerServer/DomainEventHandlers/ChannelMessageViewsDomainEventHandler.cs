@@ -16,12 +16,10 @@ public class
     {
         var item = domainEvent.AggregateEvent.MessageItem;
         if (item.ToPeer.PeerType == PeerType.Channel && item.FwdHeader == null && item.Views > 0)
-        {
             await _channelMessageViewsAppService
                 .IncrementViewsIfNotIncrementedAsync(domainEvent.AggregateEvent.RequestInfo.UserId,
                     domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
                     item.ToPeer.PeerId,
                     item.MessageId);
-        }
     }
 }

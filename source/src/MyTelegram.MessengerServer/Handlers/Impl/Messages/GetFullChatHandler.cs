@@ -56,10 +56,7 @@ public class GetFullChatHandler : RpcResultObjectHandler<RequestGetFullChat, ICh
                         .ProcessAsync(new GetChatByChatIdQuery(obj.ChatId), CancellationToken.None)
                     ;
 
-                if (chat == null)
-                {
-                    ThrowHelper.ThrowUserFriendlyException("CHAT_ID_INVALID");
-                }
+                if (chat == null) ThrowHelper.ThrowUserFriendlyException("CHAT_ID_INVALID");
 
                 var userList = await _queryProcessor
                     .ProcessAsync(new GetUsersByUidListQuery(chat!.ChatMembers.Select(p => p.UserId).ToList()),

@@ -33,10 +33,8 @@ public class InMemoryFilterDataLoader : IInMemoryFilterDataLoader
             hasMoreData = userNameList.Count == _pageSize;
             count += userNameList.Count;
             foreach (var userName in userNameList)
-            {
                 await _cuckooFilter.AddAsync(
                     Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{userName}"));
-            }
 
             skip += _pageSize;
         }

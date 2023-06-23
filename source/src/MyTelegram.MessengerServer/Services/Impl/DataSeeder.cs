@@ -29,13 +29,11 @@ public class DataSeeder : IDataSeeder
         var initUid = MyTelegramServerDomainConsts.UserIdInitId;
         var testUserCount = 30;
         for (var i = 1; i < testUserCount; i++)
-        {
             await CreateUserIfNeedAsync(initUid + i,
                 $"1{i}",
                 $"{i}",
                 $"{i}",
                 false);
-        }
     }
 
     private async Task CreateOfficialUserAsync()

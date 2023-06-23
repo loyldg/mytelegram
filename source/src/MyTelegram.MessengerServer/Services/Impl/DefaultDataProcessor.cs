@@ -51,10 +51,7 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                     obj.ReqMsgId,
                     handler.GetType().Name);
 
-                if (r != null!)
-                {
-                    await SendMessageToPeerAsync(obj.ReqMsgId, r);
-                }
+                if (r != null!) await SendMessageToPeerAsync(obj.ReqMsgId, r);
             }
             catch (Exception ex)
             {

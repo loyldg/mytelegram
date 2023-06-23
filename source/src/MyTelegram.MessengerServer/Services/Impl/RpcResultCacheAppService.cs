@@ -29,10 +29,7 @@ public class RpcResultCacheAppService : IRpcResultCacheAppService
         long reqMsgId,
         IObject rpcResult)
     {
-        if (_rpcResults.Count > _maxRpcResultCacheCount)
-        {
-            return false;
-        }
+        if (_rpcResults.Count > _maxRpcResultCacheCount) return false;
 
         _hashedWheelTimer.NewTimeout(new ActionTimeTask(() =>
             {
@@ -45,12 +42,10 @@ public class RpcResultCacheAppService : IRpcResultCacheAppService
                     _totalCount);
 #endif
                 if (_removedCount % 1000 == 0)
-                {
                     _logger.LogInformation(
                         "Remove rpc result cache,current cache count is {CacheCount},total cached count {TotalCachedCount}",
                         _rpcResults.Count,
                         _totalCount);
-                }
             }),
             _cacheExpireTimeSpan);
         Interlocked.Increment(ref _totalCount);

@@ -21,7 +21,6 @@ public class ReorderPinnedDialogsHandler : RpcResultObjectHandler<RequestReorder
     {
         var peerList = new List<Peer>();
         foreach (var inputDialogPeer in obj.Order)
-        {
             switch (inputDialogPeer)
             {
                 case TInputDialogPeer inputDialogPeer1:
@@ -32,7 +31,6 @@ public class ReorderPinnedDialogsHandler : RpcResultObjectHandler<RequestReorder
                 //default:
                 //    throw new ArgumentOutOfRangeException(nameof(inputDialogPeer));
             }
-        }
 
         await _dialogAppService.ReorderPinnedDialogsAsync(new ReorderPinnedDialogsInput(input.UserId, peerList))
             ;

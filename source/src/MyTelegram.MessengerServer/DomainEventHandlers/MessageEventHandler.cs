@@ -238,15 +238,12 @@ public class MessageEventHandler : DomainEventHandlerBase,
         // when reqMsgId==0?
         // forward message reqMsgId==0
         if (aggregateEvent.RequestInfo.ReqMsgId == 0)
-        {
             await PushUpdatesToPeerAsync(item.SenderPeer,
                 selfUpdates,
                 pts: aggregateEvent.Pts,
                 ptsType: ptsType
             );
-        }
         else
-        {
             await ReplyRpcResultToSenderAsync(aggregateEvent.RequestInfo.ReqMsgId,
                 item.SenderPeer,
                 selfUpdates,
@@ -254,7 +251,6 @@ public class MessageEventHandler : DomainEventHandlerBase,
                 item.SenderPeer.PeerId,
                 aggregateEvent.Pts
             );
-        }
 
         await PushUpdatesToPeerAsync(item.SenderPeer,
             _updatesConverter.ToSelfOtherDeviceUpdates(aggregateEvent),
@@ -271,9 +267,7 @@ public class MessageEventHandler : DomainEventHandlerBase,
         var channelUpdates = _updatesConverter.ToChannelMessageUpdates(aggregateEvent);
         var ptsType = PtsType.OtherUpdates;
         if (item.MessageSubType == MessageSubType.Normal || item.MessageSubType == MessageSubType.ForwardMessage)
-        {
             ptsType = PtsType.NewMessages;
-        }
 
         var globalSeqNo = await SavePushUpdatesAsync(item.ToPeer,
             channelUpdates.ToBytes(),

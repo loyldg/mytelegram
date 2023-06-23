@@ -37,10 +37,8 @@ public class MyTelegramMessengerServerInitBackgroundService : BackgroundService
         //IdGeneratorFactory.SetDefaultIdGenerator(_idGenerator);
         await _mongoDbIndexesCreator.CreateAllIndexesAsync();
         if (_options.UseInMemoryFilters)
-        {
             await _serviceProvider.GetRequiredService<IInMemoryFilterDataLoader>().LoadAllFilterDataAsync()
                 ;
-        }
 
         await _dataSeeder.SeedAsync();
         _logger.LogInformation("Messenger service init ok");

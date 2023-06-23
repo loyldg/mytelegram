@@ -103,10 +103,7 @@ public class ChatDomainEventHandler : DomainEventHandlerBase,
         };
 
         // todo:这里应该返回TUpdates给发送者,只包含群信息即可
-        if (reqMsgId != 0)
-        {
-            await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId);
-        }
+        if (reqMsgId != 0) await SendRpcMessageToClientAsync(reqMsgId, updates, sourceId);
 
         await PushUpdatesToPeerAsync(new Peer(PeerType.Chat, chatId), updates);
     }

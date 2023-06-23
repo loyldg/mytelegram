@@ -15,7 +15,6 @@ public class TlPhotoConverter : ITlPhotoConverter
         {
             var tlObject = photo.ToTObject<IObject>();
             if (tlObject is TPhoto tPhoto)
-            {
                 return new TChatPhoto
                 {
                     DcId = tPhoto.DcId,
@@ -32,7 +31,6 @@ public class TlPhotoConverter : ITlPhotoConverter
                     //    LocalId = 1
                     //}
                 };
-            }
 
             var chatPhoto = photo.ToTObject<IChatPhoto>();
             return chatPhoto;
@@ -79,10 +77,7 @@ public class TlPhotoConverter : ITlPhotoConverter
         {
             var photo = profilePhoto.ToTObject<IPhoto>();
             var hasVideo = false;
-            if (photo is TPhoto tPhoto)
-            {
-                hasVideo = tPhoto.VideoSizes?.Count > 0;
-            }
+            if (photo is TPhoto tPhoto) hasVideo = tPhoto.VideoSizes?.Count > 0;
 
             return new TUserProfilePhoto
             {

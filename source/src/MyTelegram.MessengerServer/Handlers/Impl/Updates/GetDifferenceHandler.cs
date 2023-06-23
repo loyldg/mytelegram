@@ -33,10 +33,7 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         RequestGetDifference obj)
     {
         var userId = input.UserId;
-        if (userId == 0)
-        {
-            return new TDifferenceEmpty();
-        }
+        if (userId == 0) return new TDifferenceEmpty();
 
         var cachedPts = _ptsHelper.GetCachedPts(userId);
         var ptsReadModel = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(userId), default)
@@ -48,22 +45,15 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
             ;
         var ptsForAuthKeyId = ptsForAuthKeyIdReadModel?.Pts ?? 0;
         var diff = pts - ptsForAuthKeyId;
-        if (diff == 0)
-        {
-            diff = pts - obj.Pts;
-        }
+        if (diff == 0) diff = pts - obj.Pts;
 
         var joinedChannelIdList = await _queryProcessor
                 .ProcessAsync(new GetChannelIdListByMemberUidQuery(input.UserId), default)
             ;
 
         if (joinedChannelIdList.Count == 0)
-        {
             if ((obj.Pts != 0 && obj.Pts == ptsForAuthKeyId) || diff == 0)
-            {
                 return new TDifferenceEmpty { Date = CurrentDate, Seq = 0 };
-            }
-        }
 
         var limit = obj.PtsTotalLimit ?? MyTelegramServerDomainConsts.DefaultPtsTotalLimit;
         limit = Math.Min(limit, MyTelegramServerDomainConsts.DefaultPtsTotalLimit);
@@ -86,17 +76,13 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
                 obj.Pts);
             r = await _messageAppService
                 .GetDifferenceAsync(new GetDifferenceInput(userId, obj.Pts, limit, userId));
-            if (pushUpdatesReadModelList.Count > 0)
-            {
-                maxPts = pushUpdatesReadModelList.Max(p => p.Pts);
-            }
+            if (pushUpdatesReadModelList.Count > 0) maxPts = pushUpdatesReadModelList.Max(p => p.Pts);
         }
 
         var hasUpdatesChannelIdList = new List<long>();
         var globalSeqNo = Math.Min(ptsReadModel?.GlobalSeqNo ?? 0, ptsForAuthKeyIdReadModel?.GlobalSeqNo ?? 0);
         // Console.WriteLine($"PeerId={input.UserId} GlobalSeqNo:{globalSeqNo}");
         if (globalSeqNo > 0)
-        {
             if (joinedChannelIdList.Count > 0)
             {
                 var channelUpdatesReadModelList = await _queryProcessor
@@ -118,7 +104,6 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
                     hasUpdatesChannelIdList = channelUpdatesReadModelList.Select(p => p.PeerId).Distinct().ToList();
                 }
             }
-        }
 
         var updatesList = new List<IUpdate>();
         //var userList = new List<IUser>();
@@ -212,14 +197,12 @@ public class GetDifferenceHandler : RpcResultObjectHandler<RequestGetDifference,
         r.ChannelList = channelReadModelList;
 
         if (maxPts > 0 || channelMaxGlobalSeqNo > 0)
-        {
             // Console.WriteLine($"Add pts ack:maxPts={maxPts},channelMaxGlobalSeqNo={channelMaxGlobalSeqNo},updatesCount={allPushUpdatesList.Count}");
             await _ackCacheService
                 .AddRpcPtsToCacheAsync(input.ReqMsgId,
                     maxPts,
                     channelMaxGlobalSeqNo,
                     new Peer(PeerType.User, input.UserId));
-        }
 
         _logger.LogDebug(
             "UserId={UserId} Diff={Diff} AuthKeyId={AuthKeyId} PermAuthKeyId={PermAuthKeyId} Updates Count={Count},Data={@Data},Chats={@Chats},Messages={@Messages},Users={@Users}",

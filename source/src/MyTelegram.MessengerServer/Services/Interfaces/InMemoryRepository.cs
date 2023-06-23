@@ -16,20 +16,14 @@ public class
 
     public TEntity? Find(TPrimaryKey id)
     {
-        if (_entities.TryGetValue(id, out var entity))
-        {
-            return entity;
-        }
+        if (_entities.TryGetValue(id, out var entity)) return entity;
 
         return default;
     }
 
     public TEntity Get(TPrimaryKey id)
     {
-        if (_entities.TryGetValue(id, out var entity))
-        {
-            return entity;
-        }
+        if (_entities.TryGetValue(id, out var entity)) return entity;
 
         //return default;
         throw new ArgumentException($"entity:{typeof(TEntity).FullName} can not find.{id}");
@@ -39,12 +33,8 @@ public class
     {
         var entityList = new List<TEntity>();
         foreach (var id in idList)
-        {
             if (_entities.TryGetValue(id, out var entity))
-            {
                 entityList.Add(entity);
-            }
-        }
 
         return entityList;
     }

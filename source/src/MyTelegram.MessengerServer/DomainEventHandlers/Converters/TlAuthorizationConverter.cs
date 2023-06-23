@@ -33,7 +33,6 @@ public class TlAuthorizationConverter : ITlAuthorizationConverter
     public IAuthorization CreateAuthorizationFromUser(IUserReadModel? user)
     {
         if (user == null)
-        {
             return new TAuthorizationSignUpRequired
             {
                 TermsOfService = new TTermsOfService
@@ -48,7 +47,6 @@ public class TlAuthorizationConverter : ITlAuthorizationConverter
                         "By signing up for MyTelegram, you agree not to:\n\n- Use our service to send spam or scam users.\n- Promote violence on publicly viewable Telegram bots, groups or channels.\n- Post pornographic content on publicly viewable MyTelegram bots, groups or channels.\n\nWe reserve the right to update these Terms of Service later."
                 }
             };
-        }
 
         var tUser = _userConverter.ToUser(user, user.UserId);
         var r = new TAuthorization { User = tUser };
@@ -91,10 +89,7 @@ public class TlAuthorizationConverter : ITlAuthorizationConverter
         long selfPermAuthKeyId)
     {
         var authList = new List<Schema.IAuthorization>();
-        foreach (var deviceReadModel in deviceList)
-        {
-            authList.Add(ToAuthorization(deviceReadModel, selfPermAuthKeyId));
-        }
+        foreach (var deviceReadModel in deviceList) authList.Add(ToAuthorization(deviceReadModel, selfPermAuthKeyId));
 
         return authList;
     }

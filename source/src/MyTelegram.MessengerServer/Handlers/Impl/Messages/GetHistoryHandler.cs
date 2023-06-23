@@ -35,7 +35,6 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
                     .ProcessAsync(new GetChannelMemberByUidQuery(peer.PeerId, input.UserId), default)
                 ;
             if (channelMember?.Kicked == true)
-            {
                 return new TChannelMessages
                 {
                     Chats = new TVector<IChat>(),
@@ -43,7 +42,6 @@ public class GetHistoryHandler : RpcResultObjectHandler<RequestGetHistory, IMess
                     Users = new TVector<IUser>(),
                     Topics = new TVector<IForumTopic>()
                 };
-            }
         }
 
         int channelHistoryMinId;

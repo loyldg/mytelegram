@@ -29,7 +29,6 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                     .ProcessAsync(new GetUserNameByNameQuery(obj.Username), default)
                 ;
             if (userNameReadModel != null)
-            {
                 switch (userNameReadModel.PeerType)
                 {
                     case PeerType.User:
@@ -38,7 +37,6 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                             ;
 
                         if (userReadModel != null)
-                        {
                             return new TResolvedPeer
                             {
                                 Chats = new TVector<IChat>(),
@@ -46,7 +44,6 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                                 Users = new TVector<IUser>(_userConverter.ToUser(userReadModel,
                                     input.UserId))
                             };
-                        }
 
                         break;
                     case PeerType.Chat:
@@ -55,14 +52,12 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                                 .ProcessAsync(new GetChatByChatIdQuery(userNameReadModel.PeerId), default)
                             ;
                         if (chatReadModel != null)
-                        {
                             return new TResolvedPeer
                             {
                                 Chats = new TVector<IChat>(_chatConverter.ToChat(chatReadModel, input.UserId)),
                                 Peer = new TPeerChat { ChatId = userNameReadModel.PeerId },
                                 Users = new TVector<IUser>()
                             };
-                        }
                     }
                         break;
                     case PeerType.Channel:
@@ -71,7 +66,6 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                                 .ProcessAsync(new GetChannelByIdQuery(userNameReadModel.PeerId), default)
                             ;
                         if (channelReadModel != null)
-                        {
                             return new TResolvedPeer
                             {
                                 Chats =
@@ -82,7 +76,6 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                                 Peer = new TPeerChat { ChatId = userNameReadModel.PeerId },
                                 Users = new TVector<IUser>()
                             };
-                        }
                     }
                         break;
                     //case PeerType.EncryptionChat:
@@ -91,7 +84,6 @@ public class ResolveUsernameHandler : RpcResultObjectHandler<RequestResolveUsern
                         //throw new ArgumentOutOfRangeException();
                         throw new NotSupportedException($"Not supported peer:{userNameReadModel.PeerType}");
                 }
-            }
         }
 
         throw new BadRequestException("USERNAME_NOT_OCCUPIED");

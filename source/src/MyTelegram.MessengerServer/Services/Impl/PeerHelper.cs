@@ -4,10 +4,7 @@ public class PeerHelper : IPeerHelper
 {
     public Peer GetChannel(IInputChannel channel)
     {
-        if (channel is TInputChannel inputChannel)
-        {
-            return new Peer(PeerType.Channel, inputChannel.ChannelId);
-        }
+        if (channel is TInputChannel inputChannel) return new Peer(PeerType.Channel, inputChannel.ChannelId);
 
         throw new BadRequestException(RpcErrorMessages.ChannelInvalid);
     }
@@ -44,10 +41,7 @@ public class PeerHelper : IPeerHelper
                 throw new NotSupportedException(peer.GetType().Name);
         }
 
-        if (peerType == PeerType.User && peerId == selfUserId)
-        {
-            peerType = PeerType.Self;
-        }
+        if (peerType == PeerType.User && peerId == selfUserId) peerType = PeerType.Self;
 
         return new Peer(peerType, peerId);
     }

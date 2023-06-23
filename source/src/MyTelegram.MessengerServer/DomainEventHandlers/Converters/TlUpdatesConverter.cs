@@ -145,7 +145,6 @@ public class TlUpdatesConverter : ITlUpdatesConverter
         int date)
     {
         if (toPeerType == PeerType.Channel)
-        {
             return new TUpdateShort
             {
                 Date = date,
@@ -157,7 +156,6 @@ public class TlUpdatesConverter : ITlUpdatesConverter
                     PtsCount = item.PtsCount
                 }
             };
-        }
 
         return new TUpdates
         {
@@ -297,10 +295,7 @@ public class TlUpdatesConverter : ITlUpdatesConverter
 
     public IUpdates ToSelfOtherDeviceUpdates(SendOutboxMessageCompletedEvent aggregateEvent)
     {
-        if (aggregateEvent.MessageItem.Media?.Length > 0)
-        {
-            return ToSelfUpdates(aggregateEvent);
-        }
+        if (aggregateEvent.MessageItem.Media?.Length > 0) return ToSelfUpdates(aggregateEvent);
 
         var item = aggregateEvent.MessageItem;
         switch (item.ToPeer.PeerType)
@@ -367,14 +362,12 @@ public class TlUpdatesConverter : ITlUpdatesConverter
                     Message = _messageConverter.ToMessage(item)
                 };
                 if (item.MessageSubType == MessageSubType.ClearHistory)
-                {
                     updateNewChannelMessage = new TUpdateEditChannelMessage
                     {
                         Pts = aggregateEvent.Pts,
                         PtsCount = 1,
                         Message = _messageConverter.ToMessage(item)
                     };
-                }
 
                 return new TUpdates
                 {
@@ -398,10 +391,7 @@ public class TlUpdatesConverter : ITlUpdatesConverter
 
     public IUpdates ToSelfUpdates(SendOutboxMessageCompletedEvent aggregateEvent)
     {
-        if (aggregateEvent.MessageItem.ToPeer.PeerType == PeerType.Channel)
-        {
-            return ToSelfChannelUpdates(aggregateEvent);
-        }
+        if (aggregateEvent.MessageItem.ToPeer.PeerType == PeerType.Channel) return ToSelfChannelUpdates(aggregateEvent);
 
         var item = aggregateEvent.MessageItem;
         if (item.Media?.Length > 0 ||
@@ -418,14 +408,12 @@ public class TlUpdatesConverter : ITlUpdatesConverter
             };
 
             if (item.MessageSubType == MessageSubType.ClearHistory)
-            {
                 updateNewMessage = new TUpdateEditMessage
                 {
                     Pts = aggregateEvent.Pts,
                     PtsCount = 1,
                     Message = _messageConverter.ToMessage(item)
                 };
-            }
 
             return new TUpdates
             {
@@ -546,10 +534,8 @@ public class TlUpdatesConverter : ITlUpdatesConverter
         if (item.SendMessageType == SendMessageType.MessageService)
         {
             if (string.IsNullOrEmpty(item.MessageActionData))
-            {
                 throw new ArgumentNullException(nameof(aggregateEvent),
                     "MessageActionData can not be null for service message");
-            }
 
             var messageAction = item.MessageActionData.ToBytes().ToTObject<IMessageAction>();
             var update = ToMessageServiceUpdate(item.MessageId,
@@ -572,23 +558,19 @@ public class TlUpdatesConverter : ITlUpdatesConverter
             {
                 var action = (TMessageActionChatDeleteUser)messageAction;
                 if (action.UserId == item.OwnerPeer.PeerId)
-                {
                     r.Chats = new TVector<IChat>(new TChatForbidden
                     {
                         Id = item.ToPeer.PeerId,
                         Title = aggregateEvent.ChatTitle
                     });
-                }
             }
 
             return r;
         }
 
         if (item.Media?.Length > 0)
-        {
             // media message and forward message use the same output updates
             return ToInboxForwardMessageUpdates(item, aggregateEvent.Pts);
-        }
 
         switch (item.ToPeer.PeerType)
         {
@@ -682,10 +664,7 @@ public class TlUpdatesConverter : ITlUpdatesConverter
     {
         var participants = chatMemberList.Select(p =>
         {
-            if (p.UserId == creatorUid)
-            {
-                return (IChatParticipant)new TChatParticipantCreator { UserId = p.UserId };
-            }
+            if (p.UserId == creatorUid) return (IChatParticipant)new TChatParticipantCreator { UserId = p.UserId };
 
             return new TChatParticipant { Date = date, InviterId = creatorUid, UserId = p.UserId };
         }).ToList();
@@ -724,10 +703,7 @@ public class TlUpdatesConverter : ITlUpdatesConverter
         int? replyToMsgId)
     {
         var isOut = false;
-        if (fromPeer != null)
-        {
-            isOut = selfUserId == fromPeer.PeerId;
-        }
+        if (fromPeer != null) isOut = selfUserId == fromPeer.PeerId;
 
         var m = new TMessageService
         {
@@ -745,18 +721,14 @@ public class TlUpdatesConverter : ITlUpdatesConverter
         if (toPeer.PeerType == PeerType.Channel)
         {
             if (messageAction is TMessageActionHistoryClear)
-            {
                 return new TUpdateEditChannelMessage { Message = m, Pts = pts, PtsCount = 1 };
-            }
 
             return new TUpdateNewChannelMessage { Message = m, Pts = pts, PtsCount = 1 };
         }
 
         IUpdate updateNewMessage = new TUpdateNewMessage { Pts = pts, PtsCount = 1, Message = m };
         if (messageAction is TMessageActionHistoryClear)
-        {
             updateNewMessage = new TUpdateEditMessage { Pts = pts, PtsCount = 1, Message = m };
-        }
 
         return updateNewMessage;
     }
@@ -780,14 +752,12 @@ public class TlUpdatesConverter : ITlUpdatesConverter
             Message = _messageConverter.ToMessage(aggregateEvent.MessageItem)
         };
         if (item.MessageSubType == MessageSubType.ClearHistory)
-        {
             updateNewChannelMessage = new TUpdateEditChannelMessage
             {
                 Pts = aggregateEvent.Pts,
                 PtsCount = 1,
                 Message = _messageConverter.ToMessage(aggregateEvent.MessageItem)
             };
-        }
 
         return new TUpdates
         {
@@ -845,10 +815,7 @@ public class TlUpdatesConverter : ITlUpdatesConverter
         }
 
         var toPeer = aggregateEvent.ToPeer;
-        if (!createForSelf)
-        {
-            toPeer = new Peer(PeerType.User, aggregateEvent.SenderPeerId);
-        }
+        if (!createForSelf) toPeer = new Peer(PeerType.User, aggregateEvent.SenderPeerId);
 
         var updatePinnedMessages = new TUpdatePinnedMessages
         {

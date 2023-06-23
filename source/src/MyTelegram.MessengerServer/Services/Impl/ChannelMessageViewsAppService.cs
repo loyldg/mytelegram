@@ -24,10 +24,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
     {
         var key = GetFilterKey(selfUserId, authKeyId, channelId, messageId);
         var isExists = await _cuckooFilter.ExistsAsync(key);
-        if (!isExists)
-        {
-            await _cuckooFilter.AddAsync(key);
-        }
+        if (!isExists) await _cuckooFilter.AddAsync(key);
     }
 
     public async Task<IList<IMessageViews>> GetMessageViewsAsync(long selfUserId,
@@ -61,7 +58,6 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             ;
 
         foreach (var messageId in needIncrementMessageIdList)
-        {
             try
             {
                 var command = new IncrementViewsCommand(MessageId.Create(channelId, messageId));
@@ -71,7 +67,6 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             {
                 //
             }
-        }
 
         var linkedChannelId = await _queryProcessor.ProcessAsync(new GetLinkedChannelIdQuery(channelId), default)
             ;
@@ -90,9 +85,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
                 replies.TryGetValue(messageId, out var reply);
                 var recentRepliers = new List<IPeer>(); // = reply?.RecentRepliers.Select(p => p.ToPeer());
                 if (reply?.RecentRepliers?.Count > 0)
-                {
                     recentRepliers.AddRange(reply.RecentRepliers.Select(peer => peer.ToPeer()));
-                }
 
                 messageViewsToClient.Add(new TMessageViews
                 {

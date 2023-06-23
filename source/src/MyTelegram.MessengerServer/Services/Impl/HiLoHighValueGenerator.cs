@@ -17,10 +17,7 @@ public class HiLoHighValueGenerator : IHiLoHighValueGenerator
         CancellationToken cancellationToken = default)
     {
         const byte maxIdType = 20;
-        if ((byte)idType > maxIdType)
-        {
-            Console.WriteLine($"############ new high value error:{idType}");
-        }
+        if ((byte)idType > maxIdType) Console.WriteLine($"############ new high value error:{idType}");
 
         var client = GrpcClientFactory.CreateIdGeneratorServiceClient(_options.Value.IdGeneratorGrpcServiceUrl);
         var r = await client

@@ -31,9 +31,7 @@ public class TlDifferenceConverter : ITlDifferenceConverter
     {
         var timeout = _options.Value.ChannelGetDifferenceIntervalSeconds;
         if (output.MessageList.Count == 0 && updatesList.Count == 0)
-        {
             return new TChannelDifferenceEmpty { Final = true, Pts = output.Pts, Timeout = timeout };
-        }
 
         var maxPts = updatesMaxPts;
         if (output.MessageList.Count > 0)
@@ -122,10 +120,7 @@ public class TlDifferenceConverter : ITlDifferenceConverter
                 }
                 : _objectMapper.Map<IPtsReadModel, TState>(pts)
         };
-        if (cachedPts > pts?.Pts)
-        {
-            difference.State.Pts = cachedPts;
-        }
+        if (cachedPts > pts?.Pts) difference.State.Pts = cachedPts;
 
         return difference;
     }

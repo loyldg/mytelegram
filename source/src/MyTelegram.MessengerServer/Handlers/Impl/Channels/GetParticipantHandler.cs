@@ -29,19 +29,13 @@ public class GetParticipantHandler : RpcResultObjectHandler<RequestGetParticipan
             var channelMemberReadModel = await _queryProcessor
                     .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
                 ;
-            if (channelMemberReadModel == null)
-            {
-                ThrowHelper.ThrowUserFriendlyException("USER_NOT_PARTICIPANT");
-            }
+            if (channelMemberReadModel == null) ThrowHelper.ThrowUserFriendlyException("USER_NOT_PARTICIPANT");
 
             var userReadModel = await _queryProcessor
                     .ProcessAsync(new GetUserByIdQuery(channelMemberReadModel?.UserId ?? input.UserId), default)
                 ;
 
-            if (userReadModel == null)
-            {
-                ThrowHelper.ThrowUserFriendlyException("USER_ID_INVALID");
-            }
+            if (userReadModel == null) ThrowHelper.ThrowUserFriendlyException("USER_ID_INVALID");
 
             var channelReadModel = await _queryProcessor
                 .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default);
@@ -87,19 +81,13 @@ public class GetParticipantHandlerLayerN :
                     .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
                 ;
 
-            if (channelMemberReadModel == null)
-            {
-                ThrowHelper.ThrowUserFriendlyException("USER_NOT_PARTICIPANT");
-            }
+            if (channelMemberReadModel == null) ThrowHelper.ThrowUserFriendlyException("USER_NOT_PARTICIPANT");
 
             var userReadModel = await _queryProcessor
                     .ProcessAsync(new GetUserByIdQuery(channelMemberReadModel!.UserId), default)
                 ;
 
-            if (userReadModel == null)
-            {
-                ThrowHelper.ThrowUserFriendlyException("USER_ID_INVALID");
-            }
+            if (userReadModel == null) ThrowHelper.ThrowUserFriendlyException("USER_ID_INVALID");
 
             var channelReadModel = await _queryProcessor
                 .ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default);

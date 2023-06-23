@@ -28,10 +28,7 @@ public class GetFullUserHandler : RpcResultObjectHandler<RequestGetFullUser, IUs
         var targetPeer = _peerHelper.GetPeer(obj.Id, userId);
         var user = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(targetPeer.PeerId), CancellationToken.None)
             ;
-        if (user == null)
-        {
-            ThrowHelper.ThrowUserFriendlyException("USER_ID_INVALID");
-        }
+        if (user == null) ThrowHelper.ThrowUserFriendlyException("USER_ID_INVALID");
 
         var peerSettingsId = PeerNotifySettingsId.Create(userId, targetPeer.PeerType, targetPeer.PeerId);
         var peerNotifySettings =

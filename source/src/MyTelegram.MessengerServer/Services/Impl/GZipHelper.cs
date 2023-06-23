@@ -4,10 +4,7 @@ public class GZipHelper : IGZipHelper
 {
     public byte[] Decompress(byte[] data)
     {
-        if (IsGzipPacked(data))
-        {
-            return UnGzip(data);
-        }
+        if (IsGzipPacked(data)) return UnGzip(data);
 
         return Unzip(data);
     }
@@ -23,10 +20,7 @@ public class GZipHelper : IGZipHelper
     private static bool IsGzipPacked(byte[] data)
     {
         // gzip header
-        if (data[0] == 0x1f && data[1] == 0x8b && data[2] == 0x8)
-        {
-            return true;
-        }
+        if (data[0] == 0x1f && data[1] == 0x8b && data[2] == 0x8) return true;
 
         return false;
     }

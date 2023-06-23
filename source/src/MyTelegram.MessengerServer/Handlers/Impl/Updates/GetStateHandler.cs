@@ -26,7 +26,6 @@ public class GetStateHandler : RpcResultObjectHandler<RequestGetState, IState>,
         var pts = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(input.UserId), CancellationToken.None)
             ;
         if (pts == null)
-        {
             return new TState
             {
                 Date = CurrentDate,
@@ -35,14 +34,10 @@ public class GetStateHandler : RpcResultObjectHandler<RequestGetState, IState>,
                 Seq = 0,
                 UnreadCount = 0
             };
-        }
 
         var r = _objectMapper.Map<IPtsReadModel, TState>(pts);
         var cachedPts = _ptsHelper.GetCachedPts(input.UserId);
-        if (cachedPts > 0 && cachedPts != pts.Pts)
-        {
-            r.Pts = cachedPts;
-        }
+        if (cachedPts > 0 && cachedPts != pts.Pts) r.Pts = cachedPts;
 
         return r;
     }

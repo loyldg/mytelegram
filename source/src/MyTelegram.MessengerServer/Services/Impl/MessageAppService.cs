@@ -82,10 +82,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
             if (entities?.Length > 0)
             {
                 var tempEntities = input.Entities.ToTObject<TVector<IMessageEntity>>() ?? new TVector<IMessageEntity>();
-                foreach (var messageEntity in mentions)
-                {
-                    tempEntities.Add(messageEntity);
-                }
+                foreach (var messageEntity in mentions) tempEntities.Add(messageEntity);
 
                 entities = tempEntities.ToBytes();
             }
@@ -134,16 +131,12 @@ public class MessageAppService : BaseAppService, IMessageAppService
         var mentions = new List<IMessageEntity>();
         var matches = Regex.Matches(message, pattern);
         foreach (Match match in matches)
-        {
             if (match.Success)
-            {
                 mentions.Add(new TMessageEntityMention
                 {
                     Offset = match.Index,
                     Length = match.Length
                 });
-            }
-        }
 
         return mentions;
     }
@@ -203,26 +196,19 @@ public class MessageAppService : BaseAppService, IMessageAppService
 
         IReadOnlyCollection<long> joinedChannelIdList = new List<long>();
         if (channelIdList.Count > 0)
-        {
             joinedChannelIdList = await _queryProcessor
                     .ProcessAsync(new GetJoinedChannelIdListQuery(query.SelfUserId, channelIdList), default)
                 ;
-        }
 
         IReadOnlyCollection<IChannelMemberReadModel> channelMemberList = new List<IChannelMemberReadModel>();
         if (joinedChannelIdList.Count > 0)
-        {
             channelMemberList = await _queryProcessor
                 .ProcessAsync(
                     new GetChannelMemberListByChannelIdListQuery(query.SelfUserId, joinedChannelIdList.ToList()),
                     default);
-        }
 
         var pts = query.Pts;
-        if (pts == 0 && messageBoxList.Count > 0)
-        {
-            pts = messageBoxList.Max(p => p.Pts);
-        }
+        if (pts == 0 && messageBoxList.Count > 0) pts = messageBoxList.Max(p => p.Pts);
 
         var pollIdList = messageBoxList.Where(p => p.PollId.HasValue).Select(p => p.PollId!.Value).ToList();
         IReadOnlyCollection<IPollReadModel>? pollReadModels = null;

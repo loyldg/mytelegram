@@ -96,10 +96,7 @@ public class TlUserConverter : ITlUserConverter
         long selfUserId)
     {
         var users = new List<IUser>();
-        foreach (var user in userList)
-        {
-            users.Add(ToUser(user, selfUserId));
-        }
+        foreach (var user in userList) users.Add(ToUser(user, selfUserId));
 
         return users;
     }

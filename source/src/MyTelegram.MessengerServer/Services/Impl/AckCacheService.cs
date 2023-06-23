@@ -34,9 +34,7 @@ public class AckCacheService : IAckCacheService
         [NotNullWhen(true)] out AckCacheItem? ackRpcCacheItem)
     {
         if (_msgIdToReqMsgIdDict.TryRemove(msgId, out var reqMsgId))
-        {
             return _rpcReqMsgIdToPtsDict.TryRemove(reqMsgId, out ackRpcCacheItem);
-        }
 
         ackRpcCacheItem = null;
         return false;

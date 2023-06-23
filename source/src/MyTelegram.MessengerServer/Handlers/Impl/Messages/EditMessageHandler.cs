@@ -24,10 +24,7 @@ public class EditMessageHandler : RpcResultObjectHandler<RequestEditMessage, IUp
     {
         var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
         var ownerPeerId = input.UserId;
-        if (peer.PeerType == PeerType.Channel)
-        {
-            ownerPeerId = peer.PeerId;
-        }
+        if (peer.PeerType == PeerType.Channel) ownerPeerId = peer.PeerId;
 
         byte[]? mediaBytes = null;
         if (obj.Media != null)

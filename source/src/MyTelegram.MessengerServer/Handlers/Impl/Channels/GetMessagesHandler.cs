@@ -26,22 +26,14 @@ public class GetMessagesHandler : RpcResultObjectHandler<RequestGetMessages, IMe
     {
         var idList = new List<int>();
         foreach (var inputMessage in obj.Id)
-        {
             if (inputMessage is TInputMessageID inputMessageId)
-            {
                 idList.Add(inputMessageId.Id);
-            }
-        }
 
         long channelId;
         if (obj.Channel is TInputChannel inputChannel)
-        {
             channelId = inputChannel.ChannelId;
-        }
         else
-        {
             throw new BadRequestException("Only TInputChannel supported for get messages");
-        }
 
         var dto = await _messageAppService
             .GetMessagesAsync(
@@ -75,13 +67,9 @@ public class GetMessagesHandlerLayerN : RpcResultObjectHandler<RequestGetChannel
 
         long channelId;
         if (obj.Channel is TInputChannel inputChannel)
-        {
             channelId = inputChannel.ChannelId;
-        }
         else
-        {
             throw new BadRequestException("Only TInputChannel supported for get messages");
-        }
 
         var dto = await _messageAppService
             .GetMessagesAsync(

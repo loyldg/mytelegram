@@ -7,10 +7,7 @@ public class PtsHelper : IPtsHelper
 
     public int GetCachedPts(long ownerId)
     {
-        if (_ownerToPtsDict.TryGetValue(ownerId, out var cacheItem))
-        {
-            return cacheItem.Pts;
-        }
+        if (_ownerToPtsDict.TryGetValue(ownerId, out var cacheItem)) return cacheItem.Pts;
 
         return 0;
     }
@@ -22,18 +19,11 @@ public class PtsHelper : IPtsHelper
         if (_ownerToPtsDict.TryGetValue(ownerId, out var cacheItem))
         {
             if (ptsCount == 1)
-            {
                 cacheItem.IncrementPts();
-            }
             else
-            {
                 cacheItem.AddPts(ptsCount);
-            }
 
-            if (cacheItem.Pts < currentPts)
-            {
-                cacheItem.AddPts(currentPts - cacheItem.Pts);
-            }
+            if (cacheItem.Pts < currentPts) cacheItem.AddPts(currentPts - cacheItem.Pts);
 
             //if (cacheItem.Pts + 1 < currentPts)
             //{

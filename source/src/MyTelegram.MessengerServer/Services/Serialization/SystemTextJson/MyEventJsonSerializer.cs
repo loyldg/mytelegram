@@ -23,9 +23,7 @@ public class MyEventJsonSerializer : IEventJsonSerializer
     {
         var metadata = _jsonSerializer.Deserialize(metadataJson, MyJsonContext.Default.Metadata);
         if (metadata == null)
-        {
             throw new InvalidOperationException($"Deserialized metadata is null,metadata={metadataJson}");
-        }
 
         return Deserialize(eventJson, metadata);
     }
@@ -40,10 +38,8 @@ public class MyEventJsonSerializer : IEventJsonSerializer
     {
         var metadata = _jsonSerializer.Deserialize(committedDomainEvent.Metadata, MyJsonContext.Default.Metadata);
         if (metadata == null)
-        {
             throw new InvalidOperationException(
                 $"Deserialized metadata is null,metadata={committedDomainEvent.Metadata}");
-        }
 
         return Deserialize(committedDomainEvent.AggregateId, committedDomainEvent.Data, metadata);
     }

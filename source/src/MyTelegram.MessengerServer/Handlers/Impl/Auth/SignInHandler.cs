@@ -32,20 +32,13 @@ public class SignInHandler : RpcResultObjectHandler<RequestSignIn, IAuthorizatio
                 .ProcessAsync(new GetUserByPhoneNumberQuery(obj.PhoneNumber.ToPhoneNumber()), default)
             ;
         if (userReadModel == null)
-        {
             _logger.LogInformation(
                 "The phone number={PhoneNumber} not exists,user sign up required",
                 obj.PhoneNumber.ToPhoneNumber());
-        }
         else
-        {
             userId = userReadModel.UserId;
-        }
 
-        if (string.IsNullOrEmpty(obj.PhoneCode))
-        {
-            ThrowHelper.ThrowUserFriendlyException("Phone code can not be null");
-        }
+        if (string.IsNullOrEmpty(obj.PhoneCode)) ThrowHelper.ThrowUserFriendlyException("Phone code can not be null");
 
         var command = new CheckSignInCodeCommand(AppCodeId.Create(obj.PhoneNumber.ToPhoneNumber(), obj.PhoneCodeHash),
             input.ToRequestInfo(),

@@ -27,10 +27,7 @@ public class ExportAuthorizationHandler : RpcResultObjectHandler<RequestExportAu
         RequestExportAuthorization obj)
     {
         var dataCenter = _options.Value.DcOptions.FirstOrDefault(p => p.Id == obj.DcId);
-        if (dataCenter == null)
-        {
-            throw new BadRequestException("DC_ID_INVALID");
-        }
+        if (dataCenter == null) throw new BadRequestException("DC_ID_INVALID");
 
         var bytes = new byte[128];
         _randomHelper.NextBytes(bytes);

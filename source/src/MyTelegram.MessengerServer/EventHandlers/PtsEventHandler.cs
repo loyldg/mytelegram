@@ -25,7 +25,6 @@ public class PtsEventHandler : IEventHandler<NewPtsMessageHasSentEvent>,
             eventData.AuthKeyId,
             data.MsgIds);
         foreach (var msgId in data.MsgIds)
-        {
             if (_ackCacheService.TryRemovePts(msgId, out var ackCacheItem))
             {
                 var command = new PtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
@@ -53,7 +52,6 @@ public class PtsEventHandler : IEventHandler<NewPtsMessageHasSentEvent>,
                     await _commandBus.PublishAsync(command, default);
                 }
             }
-        }
     }
 
     public Task HandleEventAsync(NewPtsMessageHasSentEvent eventData)

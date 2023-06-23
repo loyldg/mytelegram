@@ -25,20 +25,16 @@ public class MessageQueueProcessor2<TData> : IMessageQueueProcessor<TData>
             var task = Task.Run(async () =>
             {
                 while (await queue.Value.Reader.WaitToReadAsync().ConfigureAwait(false))
-                {
-                    while (queue.Value.Reader.TryRead(out var item))
+                while (queue.Value.Reader.TryRead(out var item))
+                    try
                     {
-                        try
-                        {
-                            //await func(item);
-                            await _dataProcessor.ProcessAsync(item);
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, "Process message queue error:");
-                        }
+                        //await func(item);
+                        await _dataProcessor.ProcessAsync(item);
                     }
-                }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Process message queue error:");
+                    }
             });
 
             tasks.Add(task);
@@ -54,15 +50,10 @@ public class MessageQueueProcessor2<TData> : IMessageQueueProcessor<TData>
         {
             InitQueueIfNeed();
             if (!TryGetQueue(key, out queue))
-            {
                 throw new InvalidOperationException($"Get queue failed,key={key} message='{typeof(TData)}'");
-            }
         }
 
-        if (!queue!.Writer.TryWrite(message))
-        {
-            _logger.LogWarning("Can not write message to queue");
-        }
+        if (!queue!.Writer.TryWrite(message)) _logger.LogWarning("Can not write message to queue");
     }
 
     private void InitQueueIfNeed()
@@ -70,10 +61,7 @@ public class MessageQueueProcessor2<TData> : IMessageQueueProcessor<TData>
         if (!_isInited)
         {
             _semaphoreSlim.Wait();
-            for (var i = 0; i < MaxQueueCount; i++)
-            {
-                _queues.TryAdd(i, Channel.CreateUnbounded<TData>());
-            }
+            for (var i = 0; i < MaxQueueCount; i++) _queues.TryAdd(i, Channel.CreateUnbounded<TData>());
 
             _isInited = true;
             _semaphoreSlim.Release();
@@ -84,10 +72,7 @@ public class MessageQueueProcessor2<TData> : IMessageQueueProcessor<TData>
         out Channel<TData>? queue)
     {
         var n = Math.Abs(key % MaxQueueCount);
-        if (_queues.TryGetValue(n, out queue))
-        {
-            return true;
-        }
+        if (_queues.TryGetValue(n, out queue)) return true;
 
         _logger.LogWarning("Can not find queue for key {Key}", key);
         return false;

@@ -140,9 +140,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
             {
                 var excludeAuthKeyId = 0L;
                 if (deletedBoxItem.OwnerPeerId == domainEvent.AggregateEvent.SelfDeletedBoxItem.OwnerPeerId)
-                {
                     excludeAuthKeyId = domainEvent.AggregateEvent.RequestInfo.AuthKeyId;
-                }
 
                 var updates =
                     _updatesConverter.ToDeleteMessagesUpdates(domainEvent.AggregateEvent.ToPeerType,
@@ -188,9 +186,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
         {
             var excludeAuthKeyId = 0L;
             if (deletedBoxItem.OwnerPeerId == domainEvent.AggregateEvent.SelfDeletedBoxItem.OwnerPeerId)
-            {
                 excludeAuthKeyId = domainEvent.AggregateEvent.RequestInfo.AuthKeyId;
-            }
 
             var updates =
                 _updatesConverter

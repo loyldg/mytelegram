@@ -33,16 +33,11 @@ public class InviteToChannelHandler : RpcResultObjectHandler<RequestInviteToChan
             var userIdList = new List<long>();
             var botList = new List<long>();
             foreach (var inputUser in obj.Users)
-            {
                 if (inputUser is TInputUser tInputUser)
                 {
                     userIdList.Add(tInputUser.UserId);
-                    if (_peerHelper.IsBotUser(tInputUser.UserId))
-                    {
-                        botList.Add(tInputUser.UserId);
-                    }
+                    if (_peerHelper.IsBotUser(tInputUser.UserId)) botList.Add(tInputUser.UserId);
                 }
-            }
 
             //var userId = userIdList[0];
             var command = new StartInviteToChannelCommand(

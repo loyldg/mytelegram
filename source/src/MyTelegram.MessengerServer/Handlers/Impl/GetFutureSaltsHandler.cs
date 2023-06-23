@@ -31,9 +31,7 @@ public class GetFutureSaltsHandler : BaseObjectHandler<RequestGetFutureSalts, IF
             var validUntil = DateTime.UtcNow.AddHours(2).ToTimestamp();
             var maxCount = Math.Min(8, count);
             for (var i = 0; i < maxCount; i++)
-            {
                 cachedSalts.Add(new CachedFutureSalt(_randomHelper.NextLong(), now, validUntil));
-            }
 
             //Logger.LogDebug($"create future salt,count:{maxCount}");
             _logger.LogDebug("UserId={UserId} new server salt created:{@ServerSalt}", userId, cachedSalts);

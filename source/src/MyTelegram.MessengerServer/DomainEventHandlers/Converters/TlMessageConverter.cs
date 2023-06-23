@@ -18,20 +18,15 @@ public class TlMessageConverter : ITlMessageConverter
         int pts = 0)
     {
         var isOut = item.IsOut;
-        if (item.ToPeer.PeerType == PeerType.Channel && selfUserId != 0)
-        {
-            isOut = item.SenderPeer.PeerId == selfUserId;
-        }
+        if (item.ToPeer.PeerType == PeerType.Channel && selfUserId != 0) isOut = item.SenderPeer.PeerId == selfUserId;
 
         switch (item.SendMessageType)
         {
             case SendMessageType.MessageService:
             {
                 if (string.IsNullOrEmpty(item.MessageActionData))
-                {
                     throw new ArgumentNullException(nameof(item),
                         "MessageActionData can not be null for service message");
-                }
 
                 var bytes = item.MessageActionData.ToBytes();
                 var fromId = item.SenderPeer.ToPeer();
@@ -79,10 +74,7 @@ public class TlMessageConverter : ITlMessageConverter
                 if (item.ToPeer.PeerType == PeerType.Channel)
                 {
                     //m.FromId = null;
-                    if (item.Post /*|| item.SenderPeer.PeerId == selfUserId*/)
-                    {
-                        m.FromId = null;
-                    }
+                    if (item.Post /*|| item.SenderPeer.PeerId == selfUserId*/) m.FromId = null;
 
                     m.Replies = ToMessageReplies(item.Post, linkedChannelId, pts);
                     if (m.Replies != null && item.FwdHeader?.SavedFromPeer != null) // forward from linked channel
@@ -183,20 +175,14 @@ public class TlMessageConverter : ITlMessageConverter
             Post = aggregateEvent.Post,
             Media = aggregateEvent.Media.ToTObject<IMessageMedia>()
         };
-        if (aggregateEvent.Post)
-        {
-            m.FromId = null;
-        }
+        if (aggregateEvent.Post) m.FromId = null;
 
         return m;
     }
 
     public IMessageFwdHeader? ToMessageFwdHeader(MessageFwdHeader? fwdHeader)
     {
-        if (fwdHeader == null)
-        {
-            return null;
-        }
+        if (fwdHeader == null) return null;
 
         return new TMessageFwdHeader
         {
@@ -212,10 +198,7 @@ public class TlMessageConverter : ITlMessageConverter
 
     public IMessageReplyHeader? ToMessageReplyHeader(int? replyToMsgId)
     {
-        if (replyToMsgId > 0)
-        {
-            return new TMessageReplyHeader { ReplyToMsgId = replyToMsgId.Value };
-        }
+        if (replyToMsgId > 0) return new TMessageReplyHeader { ReplyToMsgId = replyToMsgId.Value };
 
         return null;
     }
@@ -235,9 +218,7 @@ public class TlMessageConverter : ITlMessageConverter
                 var fromId = _peerHelper.ToPeer(PeerType.User, readModel.SenderPeerId);
                 if (readModel.ToPeerType == PeerType.Channel && readModel.Post &&
                     readModel.MessageActionType != MessageActionType.ChatAddUser)
-                {
                     fromId = null;
-                }
 
                 var m = new TMessageService
                 {
@@ -282,20 +263,15 @@ public class TlMessageConverter : ITlMessageConverter
                 };
 
                 if (pollReadModel != null)
-                {
                     m.Media = new TMessageMediaPoll
                     {
                         Poll = _pollConverter.ToPoll(pollReadModel),
                         Results = _pollConverter.ToPollResults(pollReadModel, chosenOptions ?? new List<string>())
                     };
-                }
 
                 if (readModel.ToPeerType == PeerType.Channel)
                 {
-                    if (readModel.Post)
-                    {
-                        m.FromId = null;
-                    }
+                    if (readModel.Post) m.FromId = null;
 
                     m.Replies = ToMessageReplies(readModel.Post, readModel.LinkedChannelId, readModel.Pts);
                     if (m.Replies != null && readModel.FwdHeader != null) // forward from linked channel
@@ -317,17 +293,11 @@ public class TlMessageConverter : ITlMessageConverter
     {
         if (post)
         {
-            if (linkedChannelId.HasValue)
-            {
-                return new TMessageReplies { ChannelId = linkedChannelId, Comments = true };
-            }
+            if (linkedChannelId.HasValue) return new TMessageReplies { ChannelId = linkedChannelId, Comments = true };
         }
         else
         {
-            if (linkedChannelId.HasValue)
-            {
-                return new TMessageReplies { RepliesPts = pts };
-            }
+            if (linkedChannelId.HasValue) return new TMessageReplies { RepliesPts = pts };
         }
 
         return null;

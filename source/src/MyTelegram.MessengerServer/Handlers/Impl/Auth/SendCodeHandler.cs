@@ -38,13 +38,9 @@ public class SendCodeHandler : RpcResultObjectHandler<RequestSendCode, ISentCode
             ;
 
         if (cachedUserItem != null)
-        {
             if (_peerHelper.IsBotUser(cachedUserItem.UserId) ||
                 cachedUserItem.UserId == MyTelegramServerDomainConsts.OfficialUserId)
-            {
                 ThrowHelper.ThrowUserFriendlyException("PHONE_NUMBER_INVALID");
-            }
-        }
 
         // ReSharper disable once RedundantAssignment
         //        var code = _randomHelper.NextInt(10000, 99999).ToString();

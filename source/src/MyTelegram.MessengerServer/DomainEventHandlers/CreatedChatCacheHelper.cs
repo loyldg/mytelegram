@@ -38,21 +38,16 @@ public class CreatedChatCacheHelper : ICreatedChatCacheHelper
     public bool TryGetValue(long chatId,
         [NotNullWhen(true)] out ChatCreatedEvent? chatCreatedEvent)
     {
-        if (_getCountDict.TryGetValue(chatId, out var count))
-        {
-            _getCountDict.TryUpdate(chatId, count + 1, count);
-        }
+        if (_getCountDict.TryGetValue(chatId, out var count)) _getCountDict.TryUpdate(chatId, count + 1, count);
 
         var found = _createdEvents.TryGetValue(chatId, out chatCreatedEvent);
 
         if (found)
-        {
             if (count == chatCreatedEvent!.MemberUidList.Count)
             {
                 _getCountDict.TryRemove(chatId, out _);
                 _createdEvents.TryRemove(chatId, out _);
             }
-        }
 
         return found;
     }

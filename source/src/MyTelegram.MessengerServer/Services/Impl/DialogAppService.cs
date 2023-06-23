@@ -42,10 +42,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
             input.Limit,
             input.PeerIdList);
         var dialogList = await _queryProcessor.ProcessAsync(query, CancellationToken.None);
-        if (input.Pinned == true)
-        {
-            dialogList = dialogList.OrderBy(p => p.PinnedOrder).ToList();
-        }
+        if (input.Pinned == true) dialogList = dialogList.OrderBy(p => p.PinnedOrder).ToList();
 
         //var peerNotifySettingsIdList = dialogList
         //    .Select(p => PeerNotifySettingsId.Create(p.OwnerId, p.ToPeerType, p.ToPeerId)).ToList();
@@ -103,10 +100,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
         //var channelIdList = messageBoxList.Where(p => p.ToPeerType == PeerType.Channel).Select(p => p.ToPeerId)
         //    .ToList();
 
-        if (dialogList.Count > 0 || messagesList.Count > 0)
-        {
-            uidList.Add(input.OwnerId);
-        }
+        if (dialogList.Count > 0 || messagesList.Count > 0) uidList.Add(input.OwnerId);
 
         uidList.AddRange(extraChatUserIdList);
 
@@ -122,23 +116,15 @@ public class DialogAppService : BaseAppService, IDialogAppService
         // Reset dialog top messageId
         var channelDict = channelList.ToDictionary(k => k.ChannelId, v => v);
         foreach (var dialogReadModel in dialogList)
-        {
             if (dialogReadModel.ToPeerType == PeerType.Channel)
-            {
                 if (channelDict.TryGetValue(dialogReadModel.ToPeerId, out var channelReadModel))
-                {
                     dialogReadModel.SetNewTopMessageId(channelReadModel.TopMessageId);
-                }
-            }
-        }
 
         IReadOnlyCollection<IChannelMemberReadModel> channelMemberList = new List<IChannelMemberReadModel>();
         if (channelIdList.Count > 0)
-        {
             channelMemberList = await _queryProcessor
                 .ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.OwnerId, channelIdList),
                     default);
-        }
 
         var pollIdList = messagesList.Where(p => p.PollId.HasValue).Select(p => p.PollId!.Value).ToList();
         IReadOnlyCollection<IPollReadModel>? pollReadModels = null;

@@ -15,10 +15,7 @@ public class ContactAppService : BaseAppService, IContactAppService
         if (keyword?.Length > 0)
         {
             var searchKey = keyword;
-            if (searchKey.StartsWith("@"))
-            {
-                searchKey = keyword[1..];
-            }
+            if (searchKey.StartsWith("@")) searchKey = keyword[1..];
 
             var userList =
                 await _queryProcessor.ProcessAsync(new SearchUserByKeywordQuery(keyword, 20),
@@ -57,11 +54,9 @@ public class ContactAppService : BaseAppService, IContactAppService
             //        default);
             IReadOnlyCollection<IChannelMemberReadModel> channelMemberList = new List<IChannelMemberReadModel>();
             if (channelIdList.Count > 0)
-            {
                 channelMemberList = await _queryProcessor
                     .ProcessAsync(new GetChannelMemberListByChannelIdListQuery(selfUserId, channelIdList),
                         default);
-            }
 
             return new SearchContactOutput(selfUserId,
                 allUserList,

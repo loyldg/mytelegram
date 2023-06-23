@@ -33,14 +33,12 @@ public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDisc
             ;
 
         if (messageReadModel == null)
-        {
             return new TDiscussionMessage
             {
                 Chats = new TVector<IChat>(),
                 Messages = new TVector<IMessage>(),
                 Users = new TVector<IUser>()
             };
-        }
 
         var reply = await _queryProcessor.ProcessAsync(new GetReplyQuery(peer.PeerId, obj.MsgId), default)
             ;
@@ -58,14 +56,9 @@ public class GetDiscussionMessageHandler : RpcResultObjectHandler<RequestGetDisc
 
         var readMaxId = 0;
         if (dialogReadModel != null)
-        {
             readMaxId = Math.Max(dialogReadModel.ReadInboxMaxId, dialogReadModel.ReadOutboxMaxId);
-        }
 
-        if (reply?.MaxId > 0 && readMaxId > reply.MaxId)
-        {
-            readMaxId = reply.MaxId;
-        }
+        if (reply?.MaxId > 0 && readMaxId > reply.MaxId) readMaxId = reply.MaxId;
 
         var message = _messageConverter.ToDiscussionMessage(messageReadModel,
             reply?.MaxId ?? 0,

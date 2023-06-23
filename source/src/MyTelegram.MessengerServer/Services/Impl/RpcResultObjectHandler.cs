@@ -8,10 +8,7 @@ public abstract class RpcResultObjectHandler<TInput, TOutput> : BaseObjectHandle
         IObject obj)
     {
         var r = await base.HandleAsync(request, obj);
-        if (r == null!)
-        {
-            return null!;
-        }
+        if (r == null!) return null!;
 
         return new TRpcResult { ReqMsgId = request.ReqMsgId, Result = r };
     }

@@ -26,10 +26,7 @@ public class SendVoteHandler : RpcResultObjectHandler<RequestSendVote, IUpdates>
     {
         var peer = _peerHelper.GetPeer(obj.Peer);
         var pollId = await _queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default);
-        if (pollId == null)
-        {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
-        }
+        if (pollId == null) ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessageIdInvalid);
 
         var command = new VoteCommand(PollId.Create(peer.PeerId, pollId!.Value),
             input.ToRequestInfo(),

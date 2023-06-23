@@ -8,15 +8,9 @@ public class MessageIdGenerator : IMessageIdGenerator
     {
         var unixTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var messageId = (unixTime / 1000) << 32;
-        if (messageId <= _lastMessageId)
-        {
-            messageId = _lastMessageId += 4;
-        }
+        if (messageId <= _lastMessageId) messageId = _lastMessageId += 4;
 
-        while (messageId % 4 != 1)
-        {
-            messageId++;
-        }
+        while (messageId % 4 != 1) messageId++;
 
         _lastMessageId = messageId;
 

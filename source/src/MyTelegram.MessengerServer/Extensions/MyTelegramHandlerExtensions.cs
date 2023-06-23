@@ -60,10 +60,7 @@ public static class MyTelegramHandlerExtensions
         var types = handlerImplTypeInThisAssembly.DefinedTypes
             .Where(p => baseType.IsAssignableFrom(p) && baseInterface.IsAssignableFrom(p) && !p.IsAbstract)
             .ToList();
-        foreach (var typeInfo in types)
-        {
-            services.AddTransient(typeInfo);
-        }
+        foreach (var typeInfo in types) services.AddTransient(typeInfo);
 
         return services;
     }

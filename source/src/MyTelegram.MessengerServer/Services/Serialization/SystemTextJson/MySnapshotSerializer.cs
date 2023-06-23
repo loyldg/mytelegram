@@ -26,19 +26,14 @@ public class MySnapshotSerializer : ISnapshotSerializer
         where TIdentity : IIdentity
         where TSnapshot : ISnapshot
     {
-        if (committedSnapshot == null)
-        {
-            throw new ArgumentNullException(nameof(committedSnapshot));
-        }
+        if (committedSnapshot == null) throw new ArgumentNullException(nameof(committedSnapshot));
 
         var metadata = _jsonSerializer.Deserialize(committedSnapshot.SerializedMetadata,
             MyJsonContext.Default.SnapshotMetadata);
 
         if (metadata == null)
-        {
             throw new InvalidOperationException(
                 $"Deserialized metadata is null,metadata={committedSnapshot.SerializedMetadata}");
-        }
 
         var snapshotDefinition =
             _snapshotDefinitionService.GetDefinition(metadata.SnapshotName, metadata.SnapshotVersion);

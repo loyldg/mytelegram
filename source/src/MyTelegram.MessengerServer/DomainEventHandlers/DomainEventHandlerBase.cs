@@ -41,7 +41,6 @@ public abstract class DomainEventHandlerBase
     {
         var globalSeqNo = 0L;
         if (!skipSaveUpdates)
-        {
             globalSeqNo = await SavePushUpdatesAsync(
                 channelPeer,
                 updates.ToBytes(),
@@ -50,7 +49,6 @@ public abstract class DomainEventHandlerBase
                 excludeAuthKeyId,
                 excludeUid,
                 onlySendToThisAuthKeyId);
-        }
 
         await _objectMessageSender.PushMessageToPeerAsync(channelPeer,
             updates,
@@ -131,23 +129,19 @@ public abstract class DomainEventHandlerBase
         int pts)
     {
         if (groupItemCount > 1)
-        {
             await SendMultiMediaResultAsync(reqMsgId,
                 toPeer,
                 updates,
                 groupItemCount,
                 selfUserId,
                 pts);
-        }
         else
-        {
             await SendRpcMessageToClientAsync(reqMsgId,
                 updates,
                 null,
                 selfUserId,
                 pts,
                 toPeer.PeerType);
-        }
     }
 
     protected async Task<long> SavePushUpdatesAsync(Peer toPeer,
@@ -159,10 +153,7 @@ public abstract class DomainEventHandlerBase
         long onlySendToThisAuthKeyId,
         IMessage? newMessage = null)
     {
-        if (pts == 0)
-        {
-            return 0;
-        }
+        if (pts == 0) return 0;
 
         var globalSeqNo = await _idGenerator.NextLongIdAsync(IdType.GlobalSeqNo);
         var dataBytes = newMessage == null ? data : newMessage.ToBytes();
@@ -232,7 +223,6 @@ public abstract class DomainEventHandlerBase
     {
         var cachedCount = _responseCacheAppService.AddToCache(reqMsgId, updates);
         if (cachedCount == groupItemCount)
-        {
             if (_responseCacheAppService.TryRemoveResponseList(reqMsgId, out var responseList))
             {
                 var updatesAllInOne = new TUpdates
@@ -243,15 +233,9 @@ public abstract class DomainEventHandlerBase
                     Date = DateTime.UtcNow.ToTimestamp()
                 };
                 foreach (var allUpdate in responseList)
-                {
                     if (allUpdate is TUpdates updatesItem)
-                    {
                         foreach (var update in updatesItem.Updates)
-                        {
                             updatesAllInOne.Updates.Add(update);
-                        }
-                    }
-                }
 
                 await SendRpcMessageToClientAsync(reqMsgId,
                     updatesAllInOne,
@@ -260,7 +244,6 @@ public abstract class DomainEventHandlerBase
                     pts,
                     toPeer.PeerType);
             }
-        }
     }
 
     protected async Task SendRpcMessageToClientAsync(
@@ -272,16 +255,11 @@ public abstract class DomainEventHandlerBase
         PeerType toPeerType = PeerType.User
     )
     {
-        if (!string.IsNullOrEmpty(sourceId))
-        {
-            await SaveRpcResultAsync(reqMsgId, sourceId, selfUserId, rpcData);
-        }
+        if (!string.IsNullOrEmpty(sourceId)) await SaveRpcResultAsync(reqMsgId, sourceId, selfUserId, rpcData);
 
         if (pts > 0 && selfUserId != 0 && toPeerType != PeerType.Channel)
-        {
             await _ackCacheService.AddRpcPtsToCacheAsync(reqMsgId, pts, 0, new Peer(PeerType.User, selfUserId))
                 ;
-        }
 
         await _objectMessageSender.SendRpcMessageToClientAsync(reqMsgId, rpcData);
     }

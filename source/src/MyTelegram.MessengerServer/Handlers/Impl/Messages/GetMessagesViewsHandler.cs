@@ -29,7 +29,6 @@ public class GetMessagesViewsHandler : RpcResultObjectHandler<RequestGetMessages
         if (peer.PeerType == PeerType.Channel)
         {
             if (obj.Id.Max() < 0)
-            {
                 return new TMessageViews
                 {
                     Views = new TVector<Schema.IMessageViews>(obj.Id.Select(_ => new Schema.TMessageViews { Views = 1 })
@@ -37,7 +36,6 @@ public class GetMessagesViewsHandler : RpcResultObjectHandler<RequestGetMessages
                     Chats = new TVector<IChat>(),
                     Users = new TVector<IUser>()
                 };
-            }
 
             var views = await _channelMessageViewsAppService
                     .GetMessageViewsAsync(input.UserId, input.PermAuthKeyId, peer.PeerId, obj.Id.ToList())

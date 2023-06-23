@@ -81,10 +81,7 @@ public class MediaHelper : IMediaHelper
 
     public MessageType GeMessageType(IMessageMedia? media)
     {
-        if (media == null)
-        {
-            return MessageType.Text;
-        }
+        if (media == null) return MessageType.Text;
 
         return media switch
         {

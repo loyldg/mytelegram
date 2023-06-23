@@ -29,7 +29,6 @@ public class TlChatConverter : ITlChatConverter
         bool channelMemberIsLeft)
     {
         if (channelMemberReadModel is { Kicked: true })
-        {
             return new TChannelForbidden
             {
                 Broadcast = channelReadModel.Broadcast,
@@ -39,7 +38,6 @@ public class TlChatConverter : ITlChatConverter
                 Megagroup = channelReadModel.MegaGroup,
                 UntilDate = channelMemberReadModel.UntilDate
             };
-        }
 
         var channel = _objectMapper.Map<IChannelReadModel, TChannel>(channelReadModel);
 
@@ -71,9 +69,7 @@ public class TlChatConverter : ITlChatConverter
         {
             var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == selfUserId);
             if (admin != null)
-            {
                 channel.AdminRights = _objectMapper.Map<ChatAdminRights, TChatAdminRights>(admin.AdminRights);
-            }
         }
 
         return channel;
@@ -129,13 +125,9 @@ public class TlChatConverter : ITlChatConverter
         {
             if (channelReadModel.CreatorId == selfUserId ||
                 channelReadModel.AdminList.FirstOrDefault(p => p.UserId == selfUserId) != null)
-            {
                 channelFull.CanViewParticipants = true;
-            }
             else
-            {
                 channelFull.CanViewParticipants = false;
-            }
         }
 
         if (selfUserId == MyTelegramServerDomainConsts.LeftChannelUid)
@@ -151,13 +143,11 @@ public class TlChatConverter : ITlChatConverter
         }
 
         if (channelFull.SlowmodeSeconds > 0)
-        {
             if (selfUserId != channelReadModel.CreatorId && selfUserId == channelReadModel.LastSenderPeerId)
             {
                 var nextSendDate = channelReadModel.LastSendDate + channelFull.SlowmodeSeconds;
                 channelFull.SlowmodeNextSendDate = nextSendDate;
             }
-        }
 
         return channelFull;
     }
@@ -177,15 +167,9 @@ public class TlChatConverter : ITlChatConverter
             var channel = ToChannel(channelReadModel, memberReadModel, selfUserId);
             if (channel is TChannel chat)
             {
-                if (!joinedChannelIdList.Contains(channelReadModel.ChannelId))
-                {
-                    chat.Left = true;
-                }
+                if (!joinedChannelIdList.Contains(channelReadModel.ChannelId)) chat.Left = true;
 
-                if (resetLeftToFalse)
-                {
-                    chat.Left = false;
-                }
+                if (resetLeftToFalse) chat.Left = false;
             }
 
             channelList.Add(channel);
@@ -234,10 +218,7 @@ public class TlChatConverter : ITlChatConverter
         var channelMemberIsLeft = true;
         if (channelMemberReadModel == null)
         {
-            if (forceNotLeft)
-            {
-                channelMemberIsLeft = false;
-            }
+            if (forceNotLeft) channelMemberIsLeft = false;
         }
         else
         {
@@ -283,9 +264,7 @@ public class TlChatConverter : ITlChatConverter
         long selfUserId)
     {
         if (chat.ChatMembers.All(p => p.UserId != selfUserId))
-        {
             return new TChatForbidden { Id = chat.ChatId, Title = chat.Title };
-        }
 
         var tChat = _objectMapper.Map<IChatReadModel, TChat>(chat);
         tChat.Id = chat.ChatId;
@@ -360,10 +339,7 @@ public class TlChatConverter : ITlChatConverter
         long selfUserId)
     {
         var chatList = new List<IChat>();
-        foreach (var chatReadModel in chats)
-        {
-            chatList.Add(ToChat(chatReadModel, selfUserId));
-        }
+        foreach (var chatReadModel in chats) chatList.Add(ToChat(chatReadModel, selfUserId));
 
         return chatList;
     }
@@ -410,7 +386,6 @@ public class TlChatConverter : ITlChatConverter
         if (channelMemberReadModel.Kicked ||
             (channelMemberReadModel.BannedRights != ChatBannedRights.Default.ToIntValue() &&
              !channelMemberReadModel.Left))
-        {
             return new TChannelParticipantBanned
             {
                 BannedRights = bannedRights,
@@ -419,25 +394,19 @@ public class TlChatConverter : ITlChatConverter
                 KickedBy = channelMemberReadModel.KickedBy,
                 Left = false
             };
-        }
 
         if (channelMemberReadModel.Left)
-        {
             return new TChannelParticipantLeft { Peer = new TPeerUser { UserId = channelMemberReadModel.UserId } };
-        }
 
         if (channelMemberReadModel.UserId == channelReadModel.CreatorId)
-        {
             return new TChannelParticipantCreator
             {
                 UserId = channelMemberReadModel.UserId,
                 AdminRights = new TChatAdminRights()
             };
-        }
 
         var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == channelMemberReadModel.UserId);
         if (admin != null)
-        {
             return new TChannelParticipantAdmin
             {
                 AdminRights = _objectMapper.Map<ChatAdminRights, TChatAdminRights>(admin.AdminRights),
@@ -449,17 +418,14 @@ public class TlChatConverter : ITlChatConverter
                 CanEdit = admin.CanEdit,
                 PromotedBy = admin.PromotedBy
             };
-        }
 
         if (channelMemberReadModel.UserId == selfUserId)
-        {
             return new TChannelParticipantSelf
             {
                 Date = channelMemberReadModel.Date,
                 InviterId = channelMemberReadModel.InviterId,
                 UserId = channelMemberReadModel.UserId
             };
-        }
 
         return new Schema.TChannelParticipant
         {
@@ -474,9 +440,7 @@ public class TlChatConverter : ITlChatConverter
     {
         var participants = new List<Schema.IChannelParticipant>();
         foreach (var channelMemberReadModel in channelMemberReadModels)
-        {
             participants.Add(ToChannelParticipantCore(channelReadModel, channelMemberReadModel, 0));
-        }
 
         return participants;
     }
@@ -489,10 +453,7 @@ public class TlChatConverter : ITlChatConverter
     {
         var participants = chatMemberList.Select(p =>
         {
-            if (p.UserId == creatorUid)
-            {
-                return (IChatParticipant)new TChatParticipantCreator { UserId = p.UserId };
-            }
+            if (p.UserId == creatorUid) return (IChatParticipant)new TChatParticipantCreator { UserId = p.UserId };
 
             return new TChatParticipant { Date = date, InviterId = creatorUid, UserId = p.UserId };
         }).ToList();

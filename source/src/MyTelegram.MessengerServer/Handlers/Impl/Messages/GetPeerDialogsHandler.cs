@@ -30,24 +30,16 @@ public class GetPeerDialogsHandler : RpcResultObjectHandler<RequestGetPeerDialog
         var peerList = new List<Peer>();
 
         foreach (var inputDialogPeer in obj.Peers)
-        {
             if (inputDialogPeer is TInputDialogPeer dialogPeer)
             {
-                if (dialogPeer.Peer is TInputPeerSelf || dialogPeer.Peer is TInputPeerEmpty)
-                {
-                    continue;
-                }
+                if (dialogPeer.Peer is TInputPeerSelf || dialogPeer.Peer is TInputPeerEmpty) continue;
 
                 var peer = _peerHelper.GetPeer(dialogPeer.Peer, userId);
-                // Console.WriteLine($"Add peer to list:{peer} {dialogPeer.Peer.GetType().Name}");
 
-                if (peer.PeerId != userId)
-                {
-                    peerList.Add(peer);
-                }
+                // Console.WriteLine($"Add peer to list:{peer} {dialogPeer.Peer.GetType().Name}");
+                if (peer.PeerId != userId) peerList.Add(peer);
                 //Logger.LogInformation($"get peer dialogs:{peer}");
             }
-        }
 
         var limit = peerList.Count == 0 ? 10 : peerList.Count;
         var output = await _dialogAppService
