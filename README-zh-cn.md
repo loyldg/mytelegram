@@ -6,7 +6,8 @@
 MyTelegram是使用C#编写的[Telegram服务端Api](https://core.telegram.org/api)的开源实现,支持私有化部署服务端,客户端使用官方的开源客户端
 
 ## 演示地址
-[https://webz.mytelegram.top](https://webz.mytelegram.top)  
+WebA:[https://weba.mytelegram.top](https://weba.mytelegram.top/)  
+WebK:[https://webk.mytelegram.top](https://webk.mytelegram.top/)   
 
 **Verification Code:22222**
 ## 特性

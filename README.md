@@ -5,7 +5,8 @@
 
 MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment
 ## Demo
-[https://webz.mytelegram.top](https://webz.mytelegram.top/)  
+WebA:[https://weba.mytelegram.top](https://weba.mytelegram.top/)  
+WebK:[https://webk.mytelegram.top](https://webk.mytelegram.top/)  
 
 **Verification Code:22222**
 ## Features
