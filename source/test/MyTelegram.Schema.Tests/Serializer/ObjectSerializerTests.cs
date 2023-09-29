@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using MyTelegram.Schema.Messages;
+using MyTelegram.Schema.Upload;
+using System.Buffers;
+using System.Reflection;
 
 #pragma warning disable CS8618
 
@@ -10,6 +13,27 @@ public class ObjectSerializerTests
     {
         // Only need this code when tl object and serializer in different assembly
         SerializerObjectMappings.CreateConstructIdToTypeMappingsFromAssembly(Assembly.GetExecutingAssembly());
+    }
+
+    [Fact]
+    public void Serialize_ResPQ_Test()
+    {
+        var expectedValue =
+            "6324160500000000000000000000000000000000000000000000000000000000000000000817ED48941A08F98100000015C4B51C0200000001000000000000000200000000000000"
+                .ToBytes();
+        var obj = new TResPQ
+        {
+            Pq = new byte[] { 0x17, 0xED, 0x48, 0x94, 0x1A, 0x08, 0xF9, 0x81 },
+            ServerNonce = new byte[16],
+            Nonce = new byte[16],
+            ServerPublicKeyFingerprints = new TVector<long> { 1, 2 }
+        };
+        var steam = new MemoryStream();
+        var writer = new BinaryWriter(steam);
+
+        obj.Serialize(writer);
+
+        steam.ToArray().ShouldBeEquivalentTo(expectedValue);
     }
 
     [Fact]
@@ -76,14 +100,19 @@ public class ObjectSerializerTests
         var value =
             "016D5CF363000000000000000600000015C4B51C020000000200000001000000230000000000000015C4B51C01000000240000000200000015C4B51C010000000431313131000000"
                 .ToBytes();
-        var expectedValue = new TRpcResult {
+        var expectedValue = new TRpcResult
+        {
             ReqMsgId = 99,
-            Result = new TestObjectWithTVectorOfInterface {
+            Result = new TestObjectWithTVectorOfInterface
+            {
                 SubObjects = new TVector<ISubObject>(new SubObject { Id = 1 },
-                    new SubObject3WithNullableProperty {
+                    new SubObject3WithNullableProperty
+                    {
                         Level2Vector =
-                            new TVector<ILevel2SubObject>(new Level2SubObject {
-                                Id = 2, Level2SubVector = new TVector<string>("1111")
+                            new TVector<ILevel2SubObject>(new Level2SubObject
+                            {
+                                Id = 2,
+                                Level2SubVector = new TVector<string>("1111")
                             }),
                         Level2Vector2 = null // new TVector<ILevel2SubObject>()
                     })
@@ -111,6 +140,56 @@ public class ObjectSerializerTests
 
         actualValue.ShouldBeEquivalentTo(expectedValue);
     }
+
+    [Fact]
+    public void Deserialize_Test3()
+    {
+        var value =
+            "BE 35 53 BE 02 00 00 00 84 75 D0 BA 71 2F 18 DC 71 56 35 99 59 F5 E5 6C 49 E3 17 6D 10 BA 9B B2\r\n46 08 08 AD 4B 82 F3 22 A1 0B 0D 9C 06 00 00 00 30 3B FD 19 39 C1 9A D9 72 8D FB C3 9A F6 BE 0E"
+                .ToBytes();
+        //var buffer = new ReadOnlySequence<byte>(value);
+        var serializer = new ObjectSerializer<IObject>();
+        var stream = new MemoryStream();
+        var br = new BinaryReader(stream);
+
+        var actualValue = serializer.Deserialize(br);
+
+        actualValue.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public void Serialize_RequestGetFile_Test()
+    {
+        var expectedValue =
+            "BE 35 53 BE 02 00 00 00 84 75 D0 BA 71 2F 18 DC 71 56 35 99 59 F5 E5 6C 49 E3 17 6D 10 BA 9B B2\r\n46 08 08 AD 4B 82 F3 22 A1 0B 0D 9C 06 00 00 00 00 00 00 00 00 00 74 00 00 00 00 00 00 00 02 00"
+                .ToBytes();
+        var obj = new RequestGetFile
+        {
+            CdnSupported = true,
+            Offset = 7602176,
+            Limit = 131072,
+            Location = new TInputDocumentFileLocation
+            {
+                AccessHash = 7861001579097617753,
+                FileReference = "BA 9B B2 46 08 08 AD 4B 82 F3 22 A1 0B 0D 9C 06".ToBytes(),
+                Id = BitConverter.ToInt64(BitConverter.GetBytes(11039825108592504689)),
+                ThumbSize = ""
+            }
+        };
+        //using var writer = ArrayBufferWriterPool.Rent();
+
+        //obj.Serialize(writer);
+        var stream = new MemoryStream();
+        var bw = new BinaryWriter(stream);
+
+        obj.Serialize(bw);
+
+        var bytes = stream.ToArray();
+
+        bytes.ShouldBeEquivalentTo(expectedValue);
+        //writer.Writer.WrittenSpan.ToArray().ShouldBeEquivalentTo(expectedValue);
+    }
+
 
     [Fact]
     public void Deserialize_TVector_Of_Empty_TLObject_Interface()
@@ -245,14 +324,19 @@ public class ObjectSerializerTests
         var stream = new MemoryStream();
         var bw = new BinaryWriter(stream);
 
-        var obj = new TRpcResult {
+        var obj = new TRpcResult
+        {
             ReqMsgId = 99,
-            Result = new TestObjectWithTVectorOfInterface {
+            Result = new TestObjectWithTVectorOfInterface
+            {
                 SubObjects = new TVector<ISubObject>(new SubObject { Id = 1 },
-                    new SubObject3WithNullableProperty {
+                    new SubObject3WithNullableProperty
+                    {
                         Level2Vector =
-                            new TVector<ILevel2SubObject>(new Level2SubObject {
-                                Id = 2, Level2SubVector = new TVector<string>("1111")
+                            new TVector<ILevel2SubObject>(new Level2SubObject
+                            {
+                                Id = 2,
+                                Level2SubVector = new TVector<string>("1111")
                             }),
                         Level2Vector2 = new TVector<ILevel2SubObject>()// ==null or .Count==0 is the same result for TVector<T>?
                     })
@@ -273,6 +357,49 @@ public class ObjectSerializerTests
         var bw = new BinaryWriter(stream);
 
         testObject.Serialize(bw);
+
+        stream.ToArray().ShouldBeEquivalentTo(expectedValue);
+    }
+
+    [Fact]
+    public void Serialize_Test2()
+    {
+        var obj = new RequestInvokeWithLayer
+        {
+            Layer = 148,
+            Query = new RequestInitConnection
+            {
+                ApiId = 17349,
+                DeviceModel = "Server",
+                SystemVersion = "Windows 10",
+                AppVersion = "4.3.1 x64",
+                SystemLangCode = "en-US",
+                LangPack = "tdesktop",
+                LangCode = "en",
+                Params = new TJsonObject
+                {
+                    Value = new TVector<IJSONObjectValue>(new TJsonObjectValue
+                    {
+                        Key = "tz_offset",
+                        Value = new TJsonNumber
+                        {
+                            Value = 28800
+                        }
+                    })
+                },
+                Query = new RequestGetStickerSet
+                {
+                    Stickerset = new TInputStickerSetAnimatedEmoji(),
+                    Hash = 0
+                }
+            },
+        };
+        var expectedValue = "0D 0D 9B DA 94 00 00 00 A9 5E CD C1 02 00 00 00 C5 43 00 00 06 53 65 72 76 65 72 00 0A 57 69 6E\r\n64 6F 77 73 20 31 30 00 09 34 2E 33 2E 31 20 78 36 34 00 00 05 65 6E 2D 55 53 00 00 08 74 64 65\r\n73 6B 74 6F 70 00 00 00 02 65 6E 00 9D D4 C1 99 15 C4 B5 1C 01 00 00 00 D9 1B DE C0 09 74 7A 5F\r\n6F 66 66 73 65 74 00 00 A4 DF E0 2B 00 00 00 00 00 20 DC 40 2C 56 28 66 B5 75 72 99".ToBytes();
+
+        var stream = new MemoryStream();
+        var bw = new BinaryWriter(stream);
+
+        obj.Serialize(bw);
 
         stream.ToArray().ShouldBeEquivalentTo(expectedValue);
     }

@@ -2,10 +2,10 @@
 
 public interface IBloomFilter
 {
-    Task<bool> AddAsync(byte[] value);
+    ValueTask<bool> AddAsync(byte[] value);
 
-    Task<IList<bool>> AddAsync(IEnumerable<byte[]> values);
-    Task<bool> ExistsAsync(byte[] value);
+    ValueTask<IList<bool>> AddAsync(IEnumerable<byte[]> values);
+    ValueTask<bool> ExistsAsync(byte[] value);
 
-    Task<IList<bool>> ExistsAsync(IEnumerable<byte[]> values);
+    ValueTask<IList<bool>> ExistsAsync(IEnumerable<byte[]> values);
 }
