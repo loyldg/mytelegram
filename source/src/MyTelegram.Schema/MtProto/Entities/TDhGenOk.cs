@@ -17,19 +17,19 @@ public sealed class TDhGenOk : ISetClientDHParamsAnswer
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(ServerNonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(NewNonceHash1, bw);
+        writer.Write(ConstructorId);
+        writer.WriteRawBytes(Nonce);
+        writer.WriteRawBytes(ServerNonce);
+        writer.WriteRawBytes(NewNonceHash1);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        ServerNonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        NewNonceHash1 = SerializerFactory.CreateInt128Serializer().Deserialize(br);
+        Nonce = reader.ReadInt128();
+        ServerNonce = reader.ReadInt128();
+        NewNonceHash1 = reader.ReadInt128();
     }
 }

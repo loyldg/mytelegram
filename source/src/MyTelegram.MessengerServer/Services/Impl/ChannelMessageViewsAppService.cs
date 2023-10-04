@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.MessengerServer.Services.Impl;
+﻿using IMessageViews = MyTelegram.Schema.IMessageViews;
+
+namespace MyTelegram.MessengerServer.Services.Impl;
 
 public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, ISingletonDependency
 {
@@ -87,7 +89,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
                 if (reply?.RecentRepliers?.Count > 0)
                     recentRepliers.AddRange(reply.RecentRepliers.Select(peer => peer.ToPeer()));
 
-                messageViewsToClient.Add(new TMessageViews
+                messageViewsToClient.Add(new Schema.TMessageViews
                 {
                     Views = needIncrement ? views.Views + 1 : views.Views,
                     //Replies = new TMessageReplies { ChannelId = channelId }
@@ -104,7 +106,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             }
             else
             {
-                messageViewsToClient.Add(new TMessageViews { Views = 0 });
+                messageViewsToClient.Add(new Schema.TMessageViews { Views = 0 });
             }
         }
 

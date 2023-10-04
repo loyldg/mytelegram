@@ -17,19 +17,19 @@ public sealed class TRpcAnswerDropped : IRpcDropAnswer
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(MsgId);
-        bw.Write(SeqNo);
-        bw.Write(Bytes);
+        writer.Write(ConstructorId);
+        writer.Write(MsgId);
+        writer.Write(SeqNo);
+        writer.Write(Bytes);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        MsgId = br.ReadInt64();
-        SeqNo = br.ReadInt32();
-        Bytes = br.ReadInt32();
+        MsgId = reader.ReadInt64();
+        SeqNo = reader.ReadInt32();
+        Bytes = reader.ReadInt32();
     }
 }

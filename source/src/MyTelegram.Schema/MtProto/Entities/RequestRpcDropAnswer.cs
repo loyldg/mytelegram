@@ -14,15 +14,15 @@ public sealed class RequestRpcDropAnswer : IRequest<MyTelegram.Schema.IRpcDropAn
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(ReqMsgId);
+        writer.Write(ConstructorId);
+        writer.Write(ReqMsgId);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        ReqMsgId = br.ReadInt64();
+        ReqMsgId = reader.ReadInt64();
     }
 }

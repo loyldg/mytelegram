@@ -15,17 +15,17 @@ public sealed class RequestPingDelayDisconnect : IRequest<MyTelegram.Schema.IPon
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(PingId);
-        bw.Write(DisconnectDelay);
+        writer.Write(ConstructorId);
+        writer.Write(PingId);
+        writer.Write(DisconnectDelay);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        PingId = br.ReadInt64();
-        DisconnectDelay = br.ReadInt32();
+        PingId = reader.ReadInt64();
+        DisconnectDelay = reader.ReadInt32();
     }
 }

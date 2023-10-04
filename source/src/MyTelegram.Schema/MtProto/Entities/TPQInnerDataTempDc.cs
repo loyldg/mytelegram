@@ -22,29 +22,29 @@ public sealed class TPQInnerDataTempDc : IPQInnerData
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Serialize(Pq);
-        bw.Serialize(P);
-        bw.Serialize(Q);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(ServerNonce, bw);
-        SerializerFactory.CreateInt256Serializer().Serialize(NewNonce, bw);
-        bw.Write(Dc);
-        bw.Write(ExpiresIn);
+        writer.Write(ConstructorId);
+        writer.Write(Pq);
+        writer.Write(P);
+        writer.Write(Q);
+        writer.WriteRawBytes(Nonce);
+        writer.WriteRawBytes(ServerNonce);
+        writer.WriteRawBytes(NewNonce);
+        writer.Write(Dc);
+        writer.Write(ExpiresIn);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Pq = br.Deserialize<byte[]>();
-        P = br.Deserialize<byte[]>();
-        Q = br.Deserialize<byte[]>();
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        ServerNonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        NewNonce = SerializerFactory.CreateInt256Serializer().Deserialize(br);
-        Dc = br.ReadInt32();
-        ExpiresIn = br.ReadInt32();
+        Pq = reader.ReadBytes();
+        P = reader.ReadBytes();
+        Q = reader.ReadBytes();
+        Nonce = reader.ReadInt128();
+        ServerNonce = reader.ReadInt128();
+        NewNonce = reader.ReadInt256();
+        Dc = reader.ReadInt32();
+        ExpiresIn = reader.ReadInt32();
     }
 }

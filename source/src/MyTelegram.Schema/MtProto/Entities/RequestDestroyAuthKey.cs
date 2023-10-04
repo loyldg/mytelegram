@@ -13,14 +13,14 @@ public sealed class RequestDestroyAuthKey : IRequest<MyTelegram.Schema.IDestroyA
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
+        writer.Write(ConstructorId);
 
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
 
     }

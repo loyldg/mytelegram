@@ -15,14 +15,14 @@ public sealed class TRpcAnswerDroppedRunning : IRpcDropAnswer
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
+        writer.Write(ConstructorId);
 
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
 
     }

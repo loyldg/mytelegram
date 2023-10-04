@@ -14,15 +14,15 @@ public sealed class RequestPing : IRequest<MyTelegram.Schema.IPong>
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(PingId);
+        writer.Write(ConstructorId);
+        writer.Write(PingId);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        PingId = br.ReadInt64();
+        PingId = reader.ReadInt64();
     }
 }

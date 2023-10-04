@@ -17,19 +17,19 @@ public sealed class TFutureSalt : IFutureSalt
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(ValidSince);
-        bw.Write(ValidUntil);
-        bw.Write(Salt);
+        writer.Write(ConstructorId);
+        writer.Write(ValidSince);
+        writer.Write(ValidUntil);
+        writer.Write(Salt);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        ValidSince = br.ReadInt32();
-        ValidUntil = br.ReadInt32();
-        Salt = br.ReadInt64();
+        ValidSince = reader.ReadInt32();
+        ValidUntil = reader.ReadInt32();
+        Salt = reader.ReadInt64();
     }
 }

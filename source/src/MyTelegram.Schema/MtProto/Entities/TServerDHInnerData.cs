@@ -20,25 +20,25 @@ public sealed class TServerDHInnerData : IObject
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(ServerNonce, bw);
-        bw.Write(G);
-        bw.Serialize(DhPrime);
-        bw.Serialize(GA);
-        bw.Write(ServerTime);
+        writer.Write(ConstructorId);
+        writer.WriteRawBytes(Nonce);
+        writer.WriteRawBytes(ServerNonce);
+        writer.Write(G);
+        writer.Write(DhPrime);
+        writer.Write(GA);
+        writer.Write(ServerTime);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        ServerNonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        G = br.ReadInt32();
-        DhPrime = br.Deserialize<byte[]>();
-        GA = br.Deserialize<byte[]>();
-        ServerTime = br.ReadInt32();
+        Nonce = reader.ReadInt128();
+        ServerNonce = reader.ReadInt128();
+        G = reader.ReadInt32();
+        DhPrime = reader.ReadBytes();
+        GA = reader.ReadBytes();
+        ServerTime = reader.ReadInt32();
     }
 }

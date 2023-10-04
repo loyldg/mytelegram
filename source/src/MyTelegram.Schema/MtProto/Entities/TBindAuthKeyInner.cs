@@ -19,23 +19,23 @@ public sealed class TBindAuthKeyInner : IObject
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(Nonce);
-        bw.Write(TempAuthKeyId);
-        bw.Write(PermAuthKeyId);
-        bw.Write(TempSessionId);
-        bw.Write(ExpiresAt);
+        writer.Write(ConstructorId);
+        writer.Write(Nonce);
+        writer.Write(TempAuthKeyId);
+        writer.Write(PermAuthKeyId);
+        writer.Write(TempSessionId);
+        writer.Write(ExpiresAt);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = br.ReadInt64();
-        TempAuthKeyId = br.ReadInt64();
-        PermAuthKeyId = br.ReadInt64();
-        TempSessionId = br.ReadInt64();
-        ExpiresAt = br.ReadInt32();
+        Nonce = reader.ReadInt64();
+        TempAuthKeyId = reader.ReadInt64();
+        PermAuthKeyId = reader.ReadInt64();
+        TempSessionId = reader.ReadInt64();
+        ExpiresAt = reader.ReadInt32();
     }
 }

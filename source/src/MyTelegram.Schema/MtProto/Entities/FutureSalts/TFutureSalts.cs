@@ -17,19 +17,19 @@ public sealed class TFutureSalts : IFutureSalts
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(ReqMsgId);
-        bw.Write(Now);
-        Salts.Serialize(bw);
+        writer.Write(ConstructorId);
+        writer.Write(ReqMsgId);
+        writer.Write(Now);
+        writer.Write(Salts);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        ReqMsgId = br.ReadInt64();
-        Now = br.ReadInt32();
-        Salts = br.Deserialize<TVector<MyTelegram.Schema.IFutureSalt>>();
+        ReqMsgId = reader.ReadInt64();
+        Now = reader.ReadInt32();
+        Salts = reader.Read<TVector<MyTelegram.Schema.IFutureSalt>>();
     }
 }

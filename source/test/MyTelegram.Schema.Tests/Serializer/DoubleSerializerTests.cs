@@ -1,4 +1,7 @@
-﻿namespace MyTelegram.Schema.Serializer;
+﻿using System.Buffers;
+using MyTelegram.Schema.Extensions;
+
+namespace MyTelegram.Schema.Serializer;
 
 public class DoubleSerializerTests
 {
@@ -9,13 +12,14 @@ public class DoubleSerializerTests
     public void SerializeTest(double a)
     {
         var bytes = BitConverter.GetBytes(a);
-        var stream = new MemoryStream();
-        var bw = new BinaryWriter(stream);
+        //var stream = new MemoryStream();
+        //var bw = new BinaryWriter(stream);
+        using var writer = ArrayBufferWriterPool.Rent();
         var serializer = CreateSerializer();
 
-        serializer.Serialize(a, bw);
+        serializer.Serialize(a, writer.Writer);
 
-        var actualBytes = stream.ToArray();
+        var actualBytes = writer.Writer.WrittenSpan.ToArray();
         actualBytes.ShouldBeEquivalentTo(bytes);
     }
 
@@ -27,10 +31,11 @@ public class DoubleSerializerTests
     public void DeserializeTest(string data, double expectedValue)
     {
         var dataBytes = data.ToBytes();
-        var br = new BinaryReader(new MemoryStream(dataBytes));
+        //var br = new BinaryReader(new MemoryStream(dataBytes));
         var serializer = CreateSerializer();
+        var reader = new SequenceReader<byte>(new ReadOnlySequence<byte>(dataBytes));
 
-        var actualValue = serializer.Deserialize(br);
+        var actualValue = serializer.Deserialize(ref reader);
 
         actualValue.ShouldBe(expectedValue);
     }

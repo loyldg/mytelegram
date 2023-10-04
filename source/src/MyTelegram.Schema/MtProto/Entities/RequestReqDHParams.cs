@@ -19,25 +19,25 @@ public sealed class RequestReqDHParams : IRequest<MyTelegram.Schema.IServerDHPar
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(ServerNonce, bw);
-        bw.Serialize(P);
-        bw.Serialize(Q);
-        bw.Write(PublicKeyFingerprint);
-        bw.Serialize(EncryptedData);
+        writer.Write(ConstructorId);
+        writer.WriteRawBytes(Nonce);
+        writer.WriteRawBytes(ServerNonce);
+        writer.Write(P);
+        writer.Write(Q);
+        writer.Write(PublicKeyFingerprint);
+        writer.Write(EncryptedData);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        ServerNonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        P = br.Deserialize<byte[]>();
-        Q = br.Deserialize<byte[]>();
-        PublicKeyFingerprint = br.ReadInt64();
-        EncryptedData = br.Deserialize<byte[]>();
+        Nonce = reader.ReadInt128();
+        ServerNonce = reader.ReadInt128();
+        P = reader.ReadBytes();
+        Q = reader.ReadBytes();
+        PublicKeyFingerprint = reader.ReadInt64();
+        EncryptedData = reader.ReadBytes();
     }
 }

@@ -22,6 +22,62 @@ public class TVector<T> : IObject, IList<T> //where T : IObject
         _list = new List<T>(items);
     }
 
+    public uint ConstructorId => 0x1cb5c415;
+    public void Serialize(IBufferWriter<byte> writer)
+    {
+        writer.Write(ConstructorId);
+        writer.Write(_list.Count);
+        var serializer = SerializerFactory.CreateSerializer<T>();
+        foreach (var item in _list)
+        {
+            serializer.Serialize(item, writer);
+        }
+    }
+
+    public void Deserialize(ref SequenceReader<byte> reader)
+    {
+        //throw new NotImplementedException();
+        if (reader.TryReadLittleEndian(out int count))
+        {
+            if (count > 0)
+            {
+                var serializer = SerializerFactory.CreateSerializer<T>();
+                for (int i = 0; i < count; i++)
+                {
+                    var item = serializer.Deserialize(ref reader);
+                    _list.Add(item);
+                }
+            }
+        }
+    }
+
+    //public void Serialize(BinaryWriter bw)
+    //{
+    //    bw.Write(ConstructorId);
+    //    bw.Write(_list.Count);
+    //    var serializer = SerializerFactory.CreateSerializer<T>();
+
+    //    foreach (var item in _list)
+    //    {
+    //        serializer.Serialize(item, bw);
+    //    }
+    //}
+
+    //public void Deserialize(BinaryReader br)
+    //{
+    //    var count = br.ReadInt32();
+    //    if (count > 0)
+    //    {
+    //        var serializer = SerializerFactory.CreateSerializer<T>();
+
+    //        for (int i = 0; i < count; i++)
+    //        {
+    //            var item = serializer.Deserialize(br);
+    //            _list.Add(item);
+    //        }
+    //    }
+    //}
+
     public IEnumerator<T> GetEnumerator()
     {
         return _list.GetEnumerator();
@@ -81,34 +137,5 @@ public class TVector<T> : IObject, IList<T> //where T : IObject
     {
         get => _list[index];
         set => _list[index] = value;
-    }
-
-    public uint ConstructorId => 0x1cb5c415;
-
-    public void Serialize(BinaryWriter bw)
-    {
-        bw.Write(ConstructorId);
-        bw.Write(_list.Count);
-        var serializer = SerializerFactory.CreateSerializer<T>();
-
-        foreach (var item in _list)
-        {
-            serializer.Serialize(item, bw);
-        }
-    }
-
-    public void Deserialize(BinaryReader br)
-    {
-        var count = br.ReadInt32();
-        if (count > 0)
-        {
-            var serializer = SerializerFactory.CreateSerializer<T>();
-
-            for (int i = 0; i < count; i++)
-            {
-                var item = serializer.Deserialize(br);
-                _list.Add(item);
-            }
-        }
     }
 }

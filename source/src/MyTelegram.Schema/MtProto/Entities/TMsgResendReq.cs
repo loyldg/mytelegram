@@ -15,15 +15,15 @@ public sealed class TMsgResendReq : IObject
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        MsgIds.Serialize(bw);
+        writer.Write(ConstructorId);
+        writer.Write(MsgIds);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        MsgIds = br.Deserialize<TVector<long>>();
+        MsgIds = reader.Read<TVector<long>>();
     }
 }

@@ -77,7 +77,7 @@ public class TlUserConverter : ITlUserConverter
             PhoneCallsPrivate = isOfficialId,
             PinnedMsgId = user.PinnedMsgId,
             ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
-            Settings = new TPeerSettings(),
+            Settings = new Schema.TPeerSettings(),
             NotifySettings =
                 _objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
                     peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings)

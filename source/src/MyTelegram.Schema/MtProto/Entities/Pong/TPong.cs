@@ -16,17 +16,17 @@ public sealed class TPong : IPong
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(MsgId);
-        bw.Write(PingId);
+        writer.Write(ConstructorId);
+        writer.Write(MsgId);
+        writer.Write(PingId);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        MsgId = br.ReadInt64();
-        PingId = br.ReadInt64();
+        MsgId = reader.ReadInt64();
+        PingId = reader.ReadInt64();
     }
 }

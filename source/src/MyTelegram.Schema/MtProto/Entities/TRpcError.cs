@@ -16,17 +16,17 @@ public sealed class TRpcError : IObject
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(ErrorCode);
-        bw.Serialize(ErrorMessage);
+        writer.Write(ConstructorId);
+        writer.Write(ErrorCode);
+        writer.Write(ErrorMessage);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        ErrorCode = br.ReadInt32();
-        ErrorMessage = br.Deserialize<string>();
+        ErrorCode = reader.ReadInt32();
+        ErrorMessage = reader.ReadString();
     }
 }

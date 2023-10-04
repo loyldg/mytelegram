@@ -17,19 +17,19 @@ public sealed class TBadMsgNotification : IBadMsgNotification
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(BadMsgId);
-        bw.Write(BadMsgSeqno);
-        bw.Write(ErrorCode);
+        writer.Write(ConstructorId);
+        writer.Write(BadMsgId);
+        writer.Write(BadMsgSeqno);
+        writer.Write(ErrorCode);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        BadMsgId = br.ReadInt64();
-        BadMsgSeqno = br.ReadInt32();
-        ErrorCode = br.ReadInt32();
+        BadMsgId = reader.ReadInt64();
+        BadMsgSeqno = reader.ReadInt32();
+        ErrorCode = reader.ReadInt32();
     }
 }

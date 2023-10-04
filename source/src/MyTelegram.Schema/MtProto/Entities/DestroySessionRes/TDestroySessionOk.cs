@@ -15,15 +15,15 @@ public sealed class TDestroySessionOk : IDestroySessionRes
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(SessionId);
+        writer.Write(ConstructorId);
+        writer.Write(SessionId);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        SessionId = br.ReadInt64();
+        SessionId = reader.ReadInt64();
     }
 }

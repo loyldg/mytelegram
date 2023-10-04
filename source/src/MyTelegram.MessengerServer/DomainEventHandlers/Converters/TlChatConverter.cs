@@ -2,6 +2,8 @@
 using IChannelParticipant = MyTelegram.Schema.Channels.IChannelParticipant;
 using IChatFull = MyTelegram.Schema.Messages.IChatFull;
 using TChannelParticipant = MyTelegram.Schema.Channels.TChannelParticipant;
+using TChatFull = MyTelegram.Schema.TChatFull;
+using IExportedChatInvite = MyTelegram.Schema.IExportedChatInvite;
 
 namespace MyTelegram.MessengerServer.DomainEventHandlers.Converters;
 
@@ -194,7 +196,7 @@ public class TlChatConverter : ITlChatConverter
         };
     }
 
-    public Schema.LayerN.IChannelParticipant ToChannelParticipantLayerN(IChannelReadModel channelReadModel,
+    public Schema.Channels.IChannelParticipant ToChannelParticipantLayerN(IChannelReadModel channelReadModel,
         IChannelMemberReadModel channelMemberReadModel,
         IUserReadModel userReadModel,
         long selfUserId)
@@ -202,7 +204,7 @@ public class TlChatConverter : ITlChatConverter
         var participant = ToChannelParticipantCore(channelReadModel, channelMemberReadModel, selfUserId);
         var user = _userConverter.ToUser(userReadModel, selfUserId);
         //var channel = ToChannel(channelReadModel, selfUserId);
-        return new Schema.LayerN.TChannelParticipant { Participant = participant, Users = new TVector<IUser>(user) };
+        return new Schema.Channels.TChannelParticipant { Participant = participant, Users = new TVector<IUser>(user) };
     }
 
     public IChannelParticipants ToChannelParticipants(IChannelReadModel channelReadModel,

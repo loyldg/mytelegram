@@ -21,15 +21,30 @@ public class SerializerFactory
         return Int128Serializer;
     }
 
+    //public static ISerializer2<byte[]> CreateInt128Serializer2()
+    //{
+    //    return Int128Serializer;
+    //}
+
     public static ISerializer<byte[]> CreateInt256Serializer()
     {
         return Int256Serializer;
     }
 
+    //public static ISerializer2<byte[]> CreateInt256Serializer2()
+    //{
+    //    return Int256Serializer;
+    //}
+
     public static ISerializer<T> CreateObjectSerializer<T>() where T : IObject
     {
         return new ObjectSerializer<T>();
     }
+
+    //public static ISerializer2<T> CreateObjectSerializer2<T>() where T : IObject
+    //{
+    //    return new ObjectSerializer<T>();
+    //}
 
     public static ISerializer<T> CreateSerializer<T>()
     {
@@ -55,11 +70,37 @@ public class SerializerFactory
                 return (ISerializer<T>)BytesSerializer;
         }
 
-        if (typeof(IObject).IsAssignableFrom(type))
-        {
-            return new ObjectSerializer<T>();
-        }
+        if (typeof(IObject).IsAssignableFrom(type)) return new ObjectSerializer<T>();
 
         throw new NotImplementedException($"Not supported type:{type}");
     }
+
+    //public static ISerializer2<T> CreateSerializer2<T>()
+    //{
+    //    var type = typeof(T);
+    //    var typeName = type.Name;
+    //    switch (typeName)
+    //    {
+    //        case nameof(Int32):
+    //            return (ISerializer2<T>)Int32Serializer;
+    //        case nameof(UInt32):
+    //            return (ISerializer2<T>)UInt32Serializer;
+    //        case nameof(Int64):
+    //            return (ISerializer2<T>)Int64Serializer;
+    //        case nameof(Boolean):
+    //            return (ISerializer2<T>)BooleanSerializer;
+    //        case nameof(Double):
+    //            return (ISerializer2<T>)DoubleSerializer;
+    //        case nameof(BitArray):
+    //            return (ISerializer2<T>)BitArraySerializer;
+    //        case nameof(String):
+    //            return (ISerializer2<T>)StringSerializer;
+    //        case ByteArrayTypeName:
+    //            return (ISerializer2<T>)BytesSerializer;
+    //    }
+
+    //    if (typeof(IObject).IsAssignableFrom(type)) return new ObjectSerializer<T>();
+
+    //    throw new NotImplementedException($"Not supported type:{type}");
+    //}
 }

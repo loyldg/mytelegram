@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.MessengerServer.Services.Interfaces;
+﻿using IMessageViews = MyTelegram.Schema.IMessageViews;
+
+namespace MyTelegram.MessengerServer.Services.Interfaces;
 
 public interface IChannelMessageViewsAppService
 {

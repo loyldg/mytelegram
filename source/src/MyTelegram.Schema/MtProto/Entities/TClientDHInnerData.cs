@@ -18,21 +18,21 @@ public sealed class TClientDHInnerData : IObject
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(ServerNonce, bw);
-        bw.Write(RetryId);
-        bw.Serialize(GB);
+        writer.Write(ConstructorId);
+        writer.WriteRawBytes(Nonce);
+        writer.WriteRawBytes(ServerNonce);
+        writer.Write(RetryId);
+        writer.Write(GB);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        ServerNonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        RetryId = br.ReadInt64();
-        GB = br.Deserialize<byte[]>();
+        Nonce = reader.ReadInt128();
+        ServerNonce = reader.ReadInt128();
+        RetryId = reader.ReadInt64();
+        GB = reader.ReadBytes();
     }
 }

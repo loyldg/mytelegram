@@ -16,19 +16,19 @@
 
 //    }
 
-//    public void Serialize(BinaryWriter bw)
+//    public void Serialize(IBufferWriter<byte> writer)
 //    {
 //        ComputeFlag();
-//        bw.Write(ConstructorId);
-//        bw.Write(MaxDelay);
-//        bw.Write(WaitAfter);
-//        bw.Write(MaxWait);
+//        writer.Write(ConstructorId);
+//        writer.Write(MaxDelay);
+//        writer.Write(WaitAfter);
+//        writer.Write(MaxWait);
 //    }
 
-//    public void Deserialize(BinaryReader br)
+//    public void Deserialize(ref SequenceReader<byte> reader)
 //    {
-//        MaxDelay = br.ReadInt32();
-//        WaitAfter = br.ReadInt32();
-//        MaxWait = br.ReadInt32();
+//        MaxDelay = reader.ReadInt32();
+//        WaitAfter = reader.ReadInt32();
+//        MaxWait = reader.ReadInt32();
 //    }
 //}

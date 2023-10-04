@@ -1,5 +1,4 @@
 ﻿// ReSharper disable All
-
 namespace MyTelegram.Schema;
 
 public interface ILayeredChannel : IChat
@@ -10,7 +9,6 @@ public interface ILayeredChannel : IChat
     IChatBannedRights? BannedRights { get; set; }
     IChatAdminRights? AdminRights { get; set; }
     IChatBannedRights? DefaultBannedRights { get; set; }
-
     int? ParticipantsCount { get; set; }
     //bool Deactivated { get; set; }
 }

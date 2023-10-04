@@ -14,15 +14,15 @@ public sealed class RequestReqPq : IRequest<MyTelegram.Schema.IResPQ>
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
+        writer.Write(ConstructorId);
+        writer.WriteRawBytes(Nonce);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
+        Nonce = reader.ReadInt128();
     }
 }

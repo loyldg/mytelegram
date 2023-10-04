@@ -18,21 +18,21 @@ public sealed class TResPQ : IResPQ
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(ServerNonce, bw);
-        bw.Serialize(Pq);
-        ServerPublicKeyFingerprints.Serialize(bw);
+        writer.Write(ConstructorId);
+        writer.WriteRawBytes(Nonce);
+        writer.WriteRawBytes(ServerNonce);
+        writer.Write(Pq);
+        writer.Write(ServerPublicKeyFingerprints);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        ServerNonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        Pq = br.Deserialize<byte[]>();
-        ServerPublicKeyFingerprints = br.Deserialize<TVector<long>>();
+        Nonce = reader.ReadInt128();
+        ServerNonce = reader.ReadInt128();
+        Pq = reader.ReadBytes();
+        ServerPublicKeyFingerprints = reader.Read<TVector<long>>();
     }
 }

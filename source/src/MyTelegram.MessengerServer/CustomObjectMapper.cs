@@ -1,4 +1,6 @@
 ﻿using MyTelegram.Schema.Updates;
+using TAuthorization = MyTelegram.Schema.TAuthorization;
+using TPeerSettings = MyTelegram.Schema.TPeerSettings;
 
 namespace MyTelegram.MessengerServer;
 

@@ -16,19 +16,19 @@ public sealed class RequestSetClientDHParams : IRequest<MyTelegram.Schema.ISetCl
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(ServerNonce, bw);
-        bw.Serialize(EncryptedData);
+        writer.Write(ConstructorId);
+        writer.WriteRawBytes(Nonce);
+        writer.WriteRawBytes(ServerNonce);
+        writer.Write(EncryptedData);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        ServerNonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        EncryptedData = br.Deserialize<byte[]>();
+        Nonce = reader.ReadInt128();
+        ServerNonce = reader.ReadInt128();
+        EncryptedData = reader.ReadBytes();
     }
 }

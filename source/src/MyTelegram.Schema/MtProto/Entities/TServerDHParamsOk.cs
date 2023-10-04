@@ -17,19 +17,19 @@ public sealed class TServerDHParamsOk : IServerDHParams
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        SerializerFactory.CreateInt128Serializer().Serialize(Nonce, bw);
-        SerializerFactory.CreateInt128Serializer().Serialize(ServerNonce, bw);
-        bw.Serialize(EncryptedAnswer);
+        writer.Write(ConstructorId);
+        writer.WriteRawBytes(Nonce);
+        writer.WriteRawBytes(ServerNonce);
+        writer.Write(EncryptedAnswer);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Nonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        ServerNonce = SerializerFactory.CreateInt128Serializer().Deserialize(br);
-        EncryptedAnswer = br.Deserialize<byte[]>();
+        Nonce = reader.ReadInt128();
+        ServerNonce = reader.ReadInt128();
+        EncryptedAnswer = reader.ReadBytes();
     }
 }

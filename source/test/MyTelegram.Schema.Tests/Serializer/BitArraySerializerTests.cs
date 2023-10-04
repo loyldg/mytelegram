@@ -1,4 +1,7 @@
-﻿namespace MyTelegram.Schema.Serializer;
+﻿using System.Buffers;
+using MyTelegram.Schema.Extensions;
+
+namespace MyTelegram.Schema.Serializer;
 
 public class BitArraySerializerTests
 {
@@ -7,13 +10,14 @@ public class BitArraySerializerTests
     {
         var value = new BitArray(32) { [0] = true };
         var expectedValue = "01000000".ToBytes();
-        var stream = new MemoryStream();
-        var bw = new BinaryWriter(stream);
+        //var stream = new MemoryStream();
+        //var bw = new BinaryWriter(stream);
+        var writer = ArrayBufferWriterPool.Rent();
         var serializer = CreateSerializer();
 
-        serializer.Serialize(value, bw);
+        serializer.Serialize(value, writer.Writer);
 
-        stream.ToArray().ShouldBeEquivalentTo(expectedValue);
+        writer.Writer.WrittenSpan.ToArray().ShouldBeEquivalentTo(expectedValue);
     }
 
     [MemberData(nameof(GetData), parameters: new[] { 0 })]
@@ -26,11 +30,11 @@ public class BitArraySerializerTests
     [Theory]
     public void DeserializeTest(byte[] value, BitArray expectedValue)
     {
-        var stream = new MemoryStream(value);
-        var br = new BinaryReader(stream);
+        //var stream = new MemoryStream(value);
+        //var br = new BinaryReader(stream);
         var serializer = CreateSerializer();
-
-        var actualValue = serializer.Deserialize(br);
+        var reader = new SequenceReader<byte>(new ReadOnlySequence<byte>(value));
+        var actualValue = serializer.Deserialize(ref reader);
 
         actualValue.ShouldBeEquivalentTo(expectedValue);
     }

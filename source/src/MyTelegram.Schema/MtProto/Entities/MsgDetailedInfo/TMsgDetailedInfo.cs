@@ -18,21 +18,21 @@ public sealed class TMsgDetailedInfo : IMsgDetailedInfo
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(MsgId);
-        bw.Write(AnswerMsgId);
-        bw.Write(Bytes);
-        bw.Write(Status);
+        writer.Write(ConstructorId);
+        writer.Write(MsgId);
+        writer.Write(AnswerMsgId);
+        writer.Write(Bytes);
+        writer.Write(Status);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        MsgId = br.ReadInt64();
-        AnswerMsgId = br.ReadInt64();
-        Bytes = br.ReadInt32();
-        Status = br.ReadInt32();
+        MsgId = reader.ReadInt64();
+        AnswerMsgId = reader.ReadInt64();
+        Bytes = reader.ReadInt32();
+        Status = reader.ReadInt32();
     }
 }

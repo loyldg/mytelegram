@@ -14,15 +14,15 @@ public sealed class RequestGetFutureSalts : IRequest<MyTelegram.Schema.IFutureSa
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(Num);
+        writer.Write(ConstructorId);
+        writer.Write(Num);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        Num = br.ReadInt32();
+        Num = reader.ReadInt32();
     }
 }

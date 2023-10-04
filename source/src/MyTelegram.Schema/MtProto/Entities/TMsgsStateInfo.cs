@@ -16,17 +16,17 @@ public sealed class TMsgsStateInfo : IObject
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(ReqMsgId);
-        bw.Serialize(Info);
+        writer.Write(ConstructorId);
+        writer.Write(ReqMsgId);
+        writer.Write(Info);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        ReqMsgId = br.ReadInt64();
-        Info = br.Deserialize<string>();
+        ReqMsgId = reader.ReadInt64();
+        Info = reader.ReadString();
     }
 }

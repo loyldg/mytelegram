@@ -17,19 +17,19 @@ public sealed class TNewSessionCreated : IObject
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(FirstMsgId);
-        bw.Write(UniqueId);
-        bw.Write(ServerSalt);
+        writer.Write(ConstructorId);
+        writer.Write(FirstMsgId);
+        writer.Write(UniqueId);
+        writer.Write(ServerSalt);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        FirstMsgId = br.ReadInt64();
-        UniqueId = br.ReadInt64();
-        ServerSalt = br.ReadInt64();
+        FirstMsgId = reader.ReadInt64();
+        UniqueId = reader.ReadInt64();
+        ServerSalt = reader.ReadInt64();
     }
 }

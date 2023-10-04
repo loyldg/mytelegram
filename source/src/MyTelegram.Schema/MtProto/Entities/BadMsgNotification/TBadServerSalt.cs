@@ -18,21 +18,21 @@ public sealed class TBadServerSalt : IBadMsgNotification
 
     }
 
-    public void Serialize(BinaryWriter bw)
+    public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
-        bw.Write(ConstructorId);
-        bw.Write(BadMsgId);
-        bw.Write(BadMsgSeqno);
-        bw.Write(ErrorCode);
-        bw.Write(NewServerSalt);
+        writer.Write(ConstructorId);
+        writer.Write(BadMsgId);
+        writer.Write(BadMsgSeqno);
+        writer.Write(ErrorCode);
+        writer.Write(NewServerSalt);
     }
 
-    public void Deserialize(BinaryReader br)
+    public void Deserialize(ref SequenceReader<byte> reader)
     {
-        BadMsgId = br.ReadInt64();
-        BadMsgSeqno = br.ReadInt32();
-        ErrorCode = br.ReadInt32();
-        NewServerSalt = br.ReadInt64();
+        BadMsgId = reader.ReadInt64();
+        BadMsgSeqno = reader.ReadInt32();
+        ErrorCode = reader.ReadInt32();
+        NewServerSalt = reader.ReadInt64();
     }
 }
