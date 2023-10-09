@@ -1,32 +1,7 @@
 ﻿namespace MyTelegram.Domain.Events.Messaging;
 
-public class ReplyToMessageStartedEvent : AggregateEvent<MessageAggregate, MessageId>, IHasCorrelationId
+public class ReplyToMessageStartedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
-    public ReplyToMessageStartedEvent(int replyToMsgId,
-        bool isOut,
-        IReadOnlyList<InboxItem> inboxItems,
-        Peer ownerPeer,
-        Peer senderPeer,
-        Peer toPeer,
-        int senderMessageId,
-        long? savedFromPeerId,
-        int? savedFromMsgId,
-        IReadOnlyCollection<Peer> recentRepliers,
-        Guid correlationId)
-    {
-        ReplyToMsgId = replyToMsgId;
-        IsOut = isOut;
-        InboxItems = inboxItems;
-        OwnerPeer = ownerPeer;
-        SenderPeer = senderPeer;
-        ToPeer = toPeer;
-        SenderMessageId = senderMessageId;
-        SavedFromPeerId = savedFromPeerId;
-        CorrelationId = correlationId;
-        SavedFromMsgId = savedFromMsgId;
-        RecentRepliers = recentRepliers;
-    }
-
     public int ReplyToMsgId { get; }
     public bool IsOut { get; }
     public IReadOnlyList<InboxItem> InboxItems { get; }
@@ -37,5 +12,29 @@ public class ReplyToMessageStartedEvent : AggregateEvent<MessageAggregate, Messa
     public long? SavedFromPeerId { get; }
     public int? SavedFromMsgId { get; }
     public IReadOnlyCollection<Peer> RecentRepliers { get; }
-    public Guid CorrelationId { get; }
+
+
+    public ReplyToMessageStartedEvent(
+        RequestInfo requestInfo,
+        int replyToMsgId, bool isOut, IReadOnlyList<InboxItem> inboxItems,
+        Peer ownerPeer,
+        Peer senderPeer,
+        Peer toPeer,
+        int senderMessageId,
+        long? savedFromPeerId,
+        int? savedFromMsgId,
+        IReadOnlyCollection<Peer> recentRepliers) : base(requestInfo)
+    {
+        ReplyToMsgId = replyToMsgId;
+        IsOut = isOut;
+        InboxItems = inboxItems;
+        OwnerPeer = ownerPeer;
+        SenderPeer = senderPeer;
+        ToPeer = toPeer;
+        SenderMessageId = senderMessageId;
+        SavedFromPeerId = savedFromPeerId;
+
+        SavedFromMsgId = savedFromMsgId;
+        RecentRepliers = recentRepliers;
+    }
 }

@@ -1,9 +1,9 @@
 ﻿namespace MyTelegram.Domain.Events.QrCode;
 
-public class QrCodeLoginSuccessEvent : RequestAggregateEvent<QrCodeAggregate, QrCodeId>
+public class QrCodeLoginSuccessEvent : RequestAggregateEvent2<QrCodeAggregate, QrCodeId>
 {
-    public QrCodeLoginSuccessEvent(long reqMsgId,
-        long userId) : base(reqMsgId)
+    public QrCodeLoginSuccessEvent(RequestInfo requestInfo,
+        long userId) : base(requestInfo)
     {
         UserId = userId;
     }

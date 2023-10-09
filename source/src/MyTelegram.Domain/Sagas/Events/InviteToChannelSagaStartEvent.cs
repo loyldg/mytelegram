@@ -10,24 +10,24 @@ public class InviteToChannelSagaStartEvent : RequestAggregateEvent2<InviteToChan
         int date,
         int totalCount,
         IReadOnlyList<long> memberUidList,
+        IReadOnlyList<long>? privacyRestrictedUserId,
         int maxMessageId,
         int channelHistoryMinId,
         long randomId,
         string messageActionData,
-        bool broadcast,
-        Guid correlationId) : base(requestInfo)
+        bool broadcast) : base(requestInfo)
     {
         ChannelId = channelId;
         InviterId = inviterId;
         Date = date;
         TotalCount = totalCount;
         MemberUidList = memberUidList;
+        PrivacyRestrictedUserId = privacyRestrictedUserId;
         MaxMessageId = maxMessageId;
         ChannelHistoryMinId = channelHistoryMinId;
         RandomId = randomId;
         MessageActionData = messageActionData;
         Broadcast = broadcast;
-        CorrelationId = correlationId;
     }
 
     public int ChannelHistoryMinId { get; }
@@ -36,10 +36,9 @@ public class InviteToChannelSagaStartEvent : RequestAggregateEvent2<InviteToChan
     public long InviterId { get; }
     public int MaxMessageId { get; }
     public IReadOnlyList<long> MemberUidList { get; }
+    public IReadOnlyList<long>? PrivacyRestrictedUserId { get; }
     public string MessageActionData { get; }
     public bool Broadcast { get; }
     public long RandomId { get; }
     public int TotalCount { get; }
-
-    public Guid CorrelationId { get; }
 }

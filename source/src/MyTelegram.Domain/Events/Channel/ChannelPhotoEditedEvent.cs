@@ -1,24 +1,24 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class ChannelPhotoEditedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>, IHasCorrelationId
+public class ChannelPhotoEditedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>
 {
     public ChannelPhotoEditedEvent(RequestInfo requestInfo,
         long channelId,
-        byte[] photo,
+        //byte[] photo,
+        long photoId,
         string messageActionData,
-        long randomId,
-        Guid correlationId) : base(requestInfo)
+        long randomId) : base(requestInfo)
     {
         ChannelId = channelId;
-        Photo = photo;
+        PhotoId = photoId;
+        //Photo = photo;
         MessageActionData = messageActionData;
         RandomId = randomId;
-        CorrelationId = correlationId;
     }
 
     public long ChannelId { get; }
+    public long PhotoId { get; }
     public string MessageActionData { get; }
-    public byte[] Photo { get; }
+    //public byte[] Photo { get; }
     public long RandomId { get; }
-    public Guid CorrelationId { get; }
 }

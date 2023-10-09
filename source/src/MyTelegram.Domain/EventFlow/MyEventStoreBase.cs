@@ -4,12 +4,13 @@ public class MyEventStoreBase : IEventStore
 {
     private readonly IAggregateFactory _aggregateFactory;
     private readonly IEventJsonSerializer _eventJsonSerializer;
-    private readonly IEventPersistence _eventPersistence;
-    private readonly IEventUpgradeManager _eventUpgradeManager;
-    private readonly IInMemoryEventPersistence _inMemoryEventPersistence;
     private readonly ILogger<MyEventStoreBase> _logger;
-    private readonly IReadOnlyCollection<IMetadataProvider> _metadataProviders;
+    private readonly IEventPersistence _eventPersistence;
+    private readonly IInMemoryEventPersistence _inMemoryEventPersistence;
     private readonly ISnapshotStore _snapshotStore;
+    private readonly IEventUpgradeManager _eventUpgradeManager;
+    private readonly IReadOnlyCollection<IMetadataProvider> _metadataProviders;
+    private readonly INullEventPersistence _nullEventPersistence;
 
     public MyEventStoreBase(
         ILogger<MyEventStoreBase> logger,
@@ -19,20 +20,20 @@ public class MyEventStoreBase : IEventStore
         IEnumerable<IMetadataProvider> metadataProviders,
         IEventPersistence eventPersistence,
         ISnapshotStore snapshotStore,
-        IInMemoryEventPersistence inMemoryEventPersistence)
+        IInMemoryEventPersistence inMemoryEventPersistence, INullEventPersistence nullEventPersistence)
     {
         _logger = logger;
         _eventPersistence = eventPersistence;
         _snapshotStore = snapshotStore;
         _inMemoryEventPersistence = inMemoryEventPersistence;
+        _nullEventPersistence = nullEventPersistence;
         _aggregateFactory = aggregateFactory;
         _eventJsonSerializer = eventJsonSerializer;
         _eventUpgradeManager = eventUpgradeManager;
         _metadataProviders = metadataProviders.ToList();
     }
 
-    public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> StoreAsync<TAggregate,
-        TIdentity>(
+    public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> StoreAsync<TAggregate, TIdentity>(
         TIdentity id,
         IReadOnlyCollection<IUncommittedEvent>? uncommittedDomainEvents,
         ISourceId sourceId,
@@ -84,7 +85,7 @@ public class MyEventStoreBase : IEventStore
                 id,
                 serializedEvents,
                 cancellationToken)
-            ;
+     ;
 
         var domainEvents = committedDomainEvents
             .Select(e => _eventJsonSerializer.Deserialize<TAggregate, TIdentity>(id, e))
@@ -93,25 +94,25 @@ public class MyEventStoreBase : IEventStore
         return domainEvents;
     }
 
-    public async Task<AllEventsPage> LoadAllEventsAsync(GlobalPosition globalPosition,
+    public async Task<AllEventsPage> LoadAllEventsAsync(
+        GlobalPosition globalPosition,
         int pageSize,
         IEventUpgradeContext eventUpgradeContext,
         CancellationToken cancellationToken)
     {
-        if (pageSize <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(pageSize));
-        }
+        if (pageSize <= 0) throw new ArgumentOutOfRangeException(nameof(pageSize));
 
-        // Warning:not include IInMemoryAggregate's event data
         var allCommittedEventsPage = await _eventPersistence.LoadAllCommittedEvents(
                 globalPosition,
                 pageSize,
                 cancellationToken)
-            ;
+            .ConfigureAwait(false);
         var domainEvents = (IReadOnlyCollection<IDomainEvent>)allCommittedEventsPage.CommittedDomainEvents
             .Select(e => _eventJsonSerializer.Deserialize(e))
             .ToList();
+        //IAsyncEnumerable<IDomainEvent> a=new 
+
+        // TODO: Pass a real IAsyncEnumerable instead
         domainEvents = await _eventUpgradeManager.UpgradeAsync(
             domainEvents.ToAsyncEnumerable(),
             eventUpgradeContext,
@@ -132,24 +133,43 @@ public class MyEventStoreBase : IEventStore
             cancellationToken);
     }
 
-    public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> LoadEventsAsync<TAggregate,
-        TIdentity>(
+    public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> LoadEventsAsync<TAggregate, TIdentity>(
         TIdentity id,
         int fromEventSequenceNumber,
         CancellationToken cancellationToken)
         where TAggregate : IAggregateRoot<TIdentity>
         where TIdentity : IIdentity
     {
-        if (fromEventSequenceNumber < 1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(fromEventSequenceNumber), "Event sequence numbers start at 1");
-        }
+        //   if (fromEventSequenceNumber < 1)
+        //   {
+        //       throw new ArgumentOutOfRangeException(nameof(fromEventSequenceNumber), "Event sequence numbers start at 1");
+        //   }
+
+        //   var committedDomainEvents = await GetEventPersistence<TAggregate>().LoadCommittedEventsAsync(
+        //           id,
+        //           fromEventSequenceNumber,
+        //           cancellationToken)
+        //;
+        //   var domainEvents = (IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>)committedDomainEvents
+        //       .Select(e => _eventJsonSerializer.Deserialize<TAggregate, TIdentity>(id, e))
+        //       .ToList();
+
+        //   if (!domainEvents.Any())
+        //   {
+        //       return domainEvents;
+        //   }
+
+        //   domainEvents = _eventUpgradeManager.Upgrade(domainEvents);
+
+        //   return domainEvents;
+
+        if (fromEventSequenceNumber < 1) throw new ArgumentOutOfRangeException(nameof(fromEventSequenceNumber), "Event sequence numbers start at 1");
 
         var committedDomainEvents = await GetEventPersistence<TAggregate>().LoadCommittedEventsAsync(
                 id,
                 fromEventSequenceNumber,
                 cancellationToken)
-            ;
+            .ConfigureAwait(false);
         var domainEvents = (IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>)committedDomainEvents
             .Select(e => _eventJsonSerializer.Deserialize<TAggregate, TIdentity>(id, e))
             .ToList();
@@ -191,6 +211,11 @@ public class MyEventStoreBase : IEventStore
 
     private IEventPersistence GetEventPersistence<TAggregate>()
     {
+        if (typeof(INotSaveAggregateEvents).IsAssignableFrom(typeof(TAggregate)))
+        {
+            return _nullEventPersistence;
+        }
+
         if (typeof(IInMemoryAggregate).IsAssignableFrom(typeof(TAggregate)))
         {
             return _inMemoryEventPersistence;

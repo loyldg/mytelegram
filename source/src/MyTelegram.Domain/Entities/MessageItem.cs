@@ -1,8 +1,8 @@
-﻿namespace MyTelegram.Domain.Entities;
+﻿namespace MyTelegram.Domain.ValueObjects;
 
-public class MessageItem : ValueObject // Entity<MessageId>
+public class MessageItem : ValueObject
 {
-    public MessageItem( /*MessageId id,*/
+    public MessageItem(/*MessageId id,*/
         Peer ownerPeer,
         Peer toPeer,
         Peer senderPeer,
@@ -24,8 +24,12 @@ public class MessageItem : ValueObject // Entity<MessageId>
         bool post = false,
         MessageFwdHeader? fwdHeader = null,
         int? views = null,
-        long? pollId = null
-    ) //: base(id)
+        long? pollId = null,
+        byte[]? replyMarkup = null,
+        long? linkedChannelId = null,
+        int? topMsgId = null,
+        string? postAuthor = null
+    )// : base(id)
     {
         OwnerPeer = ownerPeer;
         ToPeer = toPeer;
@@ -49,30 +53,39 @@ public class MessageItem : ValueObject // Entity<MessageId>
         //GroupItemCount = groupItemCount;
         Views = views;
         PollId = pollId;
+        ReplyMarkup = replyMarkup;
+        LinkedChannelId = linkedChannelId;
+        TopMsgId = topMsgId;
+        PostAuthor = postAuthor;
     }
 
-    public int Date { get; }
-    public byte[]? Entities { get; }
-    public MessageFwdHeader? FwdHeader { get; }
-    public long? GroupId { get; }
+    public int Date { get; init; }
+    public byte[]? Entities { get; init; }
+    public MessageFwdHeader? FwdHeader { get; init; }
+    public long? GroupId { get; init; }
+
 
     //public int? GroupItemCount { get; }
-    public byte[]? Media { get; }
-    public string Message { get; }
-    public string? MessageActionData { get; }
-    public MessageActionType MessageActionType { get; }
-    public MessageType MessageType { get; }
-    public MessageSubType MessageSubType { get; }
+    public byte[]? Media { get; init; }
+    public string Message { get; init; }
+    public string? MessageActionData { get; init; }
+    public MessageActionType MessageActionType { get; init; }
+    public MessageType MessageType { get; init; }
+    public MessageSubType MessageSubType { get; init; }
     public int MessageId { get; internal set; }
-    public Peer OwnerPeer { get; }
-    public Peer ToPeer { get; }
-    public Peer SenderPeer { get; }
-    public long RandomId { get; }
-    public bool IsOut { get; }
-    public SendMessageType SendMessageType { get; }
-    public int? ReplyToMsgId { get; }
+    public Peer OwnerPeer { get; init; }
+    public Peer ToPeer { get; init; }
+    public Peer SenderPeer { get; set; }
+    public long RandomId { get; init; }
+    public bool IsOut { get; init; }
+    public SendMessageType SendMessageType { get; init; }
+    public int? ReplyToMsgId { get; init; }
 
     public bool Post { get; internal set; }
     public int? Views { get; internal set; }
-    public long? PollId { get; }
+    public long? PollId { get; init; }
+    public byte[]? ReplyMarkup { get; init; }
+    public long? LinkedChannelId { get; internal set; }
+    public int? TopMsgId { get; }
+    public string? PostAuthor { get; }
 }

@@ -1,9 +1,21 @@
 ﻿namespace MyTelegram.ReadModel;
 
-public interface IMessageReadModel : IReadModel
+public interface IHasReactions
+{
+    List<ReactionCount>? Reactions { get; }
+    List<Reaction>? RecentReactions { get; }
+    bool CanSeeList { get; }
+    int MessageId { get; }
+    List<UserReaction>? UserReactions { get; }
+
+    //long SenderPeerId { get; }
+}
+
+public interface IMessageReadModel : IReadModel, IHasReactions
 {
     int Date { get; }
     int EditDate { get; }
+    bool EditHide { get; }
     byte[]? Entities { get; }
     MessageFwdHeader? FwdHeader { get; }
     long? GroupedId { get; }
@@ -14,7 +26,7 @@ public interface IMessageReadModel : IReadModel
     string? MessageActionData { get; }
     MessageActionType MessageActionType { get; }
     MessageType MessageType { get; }
-    int MessageId { get; }
+    // int MessageId { get; }
     bool Out { get; }
     long OwnerPeerId { get; }
     bool Pinned { get; }
@@ -22,6 +34,7 @@ public interface IMessageReadModel : IReadModel
     string? PostAuthor { get; }
     int Pts { get; }
     int? ReplyToMsgId { get; }
+    int? TopMsgId { get; }
     int SenderMessageId { get; }
     long SenderPeerId { get; }
     SendMessageType SendMessageType { get; }
@@ -32,4 +45,10 @@ public interface IMessageReadModel : IReadModel
     long? LinkedChannelId { get; }
     int Replies { get; }
     long? PollId { get; }
+    byte[]? ReplyMarkup { get; }
+    //bool Mentioned { get; }
+    //List<UserReaction>? UserReactions { get; }
+    //List<long>? ReactionUserIds { get; }
+    //List<ReactionCount>? Reactions { get; }
+    //List<Reaction>? RecentReactions { get; }
 }

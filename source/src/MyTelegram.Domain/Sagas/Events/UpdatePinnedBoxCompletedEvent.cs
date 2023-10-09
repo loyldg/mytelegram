@@ -1,9 +1,9 @@
 ﻿namespace MyTelegram.Domain.Sagas.Events;
 
-public class UpdatePinnedMessageCompletedEvent : AggregateEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId>
+public class UpdatePinnedMessageCompletedEvent : RequestAggregateEvent2<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId>
 {
     public UpdatePinnedMessageCompletedEvent(
-        long reqMsgId,
+        RequestInfo requestInfo,
         bool shouldReplyRpcResult,
         long senderPeerId,
         long ownerPeerId,
@@ -12,9 +12,8 @@ public class UpdatePinnedMessageCompletedEvent : AggregateEvent<UpdatePinnedMess
         bool pmOneSide,
         int pts,
         Peer toPeer,
-        int date)
+        int date) : base(requestInfo)
     {
-        ReqMsgId = reqMsgId;
         ShouldReplyRpcResult = shouldReplyRpcResult;
         SenderPeerId = senderPeerId;
         OwnerPeerId = ownerPeerId;
@@ -33,8 +32,6 @@ public class UpdatePinnedMessageCompletedEvent : AggregateEvent<UpdatePinnedMess
     public bool PmOneSide { get; }
     public int Pts { get; }
     public Peer ToPeer { get; }
-
-    public long ReqMsgId { get; }
     public long SenderPeerId { get; }
     public bool ShouldReplyRpcResult { get; }
 }

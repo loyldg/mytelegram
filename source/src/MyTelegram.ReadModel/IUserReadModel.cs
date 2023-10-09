@@ -16,7 +16,7 @@ public interface IUserReadModel : IReadModel
     string PhoneNumber { get; }
     int PinnedMsgId { get; }
     List<int> PinnedMsgIdList { get; } // = new();
-    byte[]? ProfilePhoto { get; }
+    //byte[]? ProfilePhoto { get; }
     bool SensitiveCanChange { get; } //= true;
     bool SensitiveEnabled { get; }
     bool ShowContactSignUpNotification { get; }
@@ -25,4 +25,23 @@ public interface IUserReadModel : IReadModel
     string? UserName { get; }
     bool Verified { get; }
     bool Premium { get; }
+    string? Email { get; }
+    long? EmojiStatusDocumentId { get; }
+    int? EmojiStatusValidUntil { get; }
+    List<long> RecentEmojiStatuses { get; }
+    VideoSizeEmojiMarkup? VideoEmojiMarkup { get; }
+
+    long? ProfilePhotoId { get; }
+    long? PersonalPhotoId { get; }
+    long? FallbackPhotoId { get; }
+}
+
+public interface IContactReadModel : IReadModel
+{
+
+}
+
+public interface IPrivacyReadModel : IReadModel
+{
+
 }

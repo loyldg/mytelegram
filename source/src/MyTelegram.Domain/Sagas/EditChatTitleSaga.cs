@@ -4,8 +4,7 @@ public class
     EditChatTitleSaga : MyInMemoryAggregateSaga<EditChatTitleSaga, EditChatTitleSagaId, EditChatTitleSagaLocator>,
         ISagaIsStartedBy<ChatAggregate, ChatId, ChatTitleEditedEvent>
 {
-    public EditChatTitleSaga(EditChatTitleSagaId id,
-        IEventStore eventStore) : base(id, eventStore)
+    public EditChatTitleSaga(EditChatTitleSagaId id, IEventStore eventStore) : base(id, eventStore)
     {
     }
 
@@ -40,10 +39,7 @@ public class
         var command = new StartSendMessageCommand(
             aggregateId,
             domainEvent.AggregateEvent.RequestInfo,
-            messageItem,
-            false,
-            1,
-            domainEvent.AggregateEvent.CorrelationId
+            messageItem
         );
         Publish(command);
         return CompleteAsync(cancellationToken);

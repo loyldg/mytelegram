@@ -1,15 +1,15 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class ChannelMemberLeftEvent : RequestAggregateEvent<ChannelMemberAggregate, ChannelMemberId>
+public class ChannelMemberLeftEvent : RequestAggregateEvent2<ChannelMemberAggregate, ChannelMemberId>
 {
-    public ChannelMemberLeftEvent(long reqMsgId,
+    public ChannelMemberLeftEvent(RequestInfo requestInfo,
         long channelId,
-        long memberUid) : base(reqMsgId)
+        long memberUserId) : base(requestInfo)
     {
         ChannelId = channelId;
-        MemberUid = memberUid;
+        MemberUserId = memberUserId;
     }
 
     public long ChannelId { get; }
-    public long MemberUid { get; }
+    public long MemberUserId { get; }
 }

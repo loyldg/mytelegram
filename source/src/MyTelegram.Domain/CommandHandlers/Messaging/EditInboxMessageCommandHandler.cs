@@ -6,12 +6,13 @@ public class EditInboxMessageCommandHandler : CommandHandler<MessageAggregate, M
         EditInboxMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditInboxMessage(command.MessageId,
+        aggregate.EditInboxMessage(
+            command.RequestInfo,
+            command.MessageId,
             command.NewMessage,
             command.EditDate,
             command.Entities,
-            command.Media,
-            command.CorrelationId);
+            command.Media);
         return Task.CompletedTask;
     }
 }

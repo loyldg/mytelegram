@@ -3,7 +3,7 @@
 public class DeleteMessageSaga :
     MyInMemoryAggregateSaga<DeleteMessageSaga, DeleteMessageSagaId, DeleteMessageSagaLocator>,
     ISagaIsStartedBy<MessageAggregate, MessageId, DeleteMessagesStartedEvent>,
-    //ISagaIsStartedBy<DialogAggregate, DialogId, HistoryClearedEvent>,
+//ISagaIsStartedBy<DialogAggregate, DialogId, HistoryClearedEvent>,
     ISagaHandles<MessageAggregate, MessageId, MessageDeletedEvent>,
     ISagaHandles<MessageAggregate, MessageId, OtherPartyMessageDeletedEvent>,
     //ISagaHandles<PtsAggregate, PtsId, PtsIncrementedEvent>,
@@ -24,6 +24,9 @@ public class DeleteMessageSaga :
     {
         CompleteAsync();
     }
+    // delete self message
+    // inbox==true,delete outbox messages
+    // outbox==true,delete inbox messages
 
     // out box message deleted
     public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, MessageDeletedEvent> domainEvent,
@@ -38,7 +41,7 @@ public class DeleteMessageSaga :
             true,
             inboxCount));
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId)
-            ;
+     ;
         DeleteOtherPartyMessages(domainEvent.AggregateEvent);
     }
 
@@ -52,7 +55,7 @@ public class DeleteMessageSaga :
             false,
             0));
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId)
-            ;
+     ;
     }
 
     public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, DeleteMessagesStartedEvent> domainEvent,
@@ -67,21 +70,19 @@ public class DeleteMessageSaga :
             0,
             0,
             null,
-            domainEvent.AggregateEvent.ChatCreatorId));
+            domainEvent.AggregateEvent.ChatCreatorId
+        ));
         DeleteMessagesForSelf(domainEvent.AggregateEvent.OwnerPeerId,
-            domainEvent.AggregateEvent.IdList,
-            domainEvent.AggregateEvent.CorrelationId);
+            domainEvent.AggregateEvent.IdList);
         return Task.CompletedTask;
     }
 
     private void DeleteMessagesForSelf(long selfUserId,
-        IReadOnlyList<int> messageIdList,
-        Guid correlationId)
+        IReadOnlyList<int> messageIdList)
     {
         foreach (var messageId in messageIdList)
         {
-            var command = new DeleteMessageCommand(MessageId.Create(selfUserId, messageId),
-                correlationId);
+            var command = new DeleteMessageCommand(MessageId.Create(selfUserId, messageId), _state.RequestInfo);
             Publish(command);
         }
     }
@@ -100,30 +101,55 @@ public class DeleteMessageSaga :
         }
 
         // Only message sender can delete all messages when receive peer is not user peer
-        if (aggregateEvent.IsOut)
+        switch (_state.ToPeer.PeerType)
         {
-            if (aggregateEvent.InboxItems != null)
-            {
-                foreach (var inboxItem in aggregateEvent.InboxItems)
+            case PeerType.Chat:
                 {
-                    if (inboxItem.InboxOwnerPeerId == _state.RequestInfo.UserId)
-                    {
-                        continue;
-                    }
+                    var shouldDeleteMessageForEveryone =
+                        aggregateEvent.IsOut || _state.ChatCreatorId == _state.RequestInfo.UserId;
 
+                    if (shouldDeleteMessageForEveryone)
+                    {
+                        if (aggregateEvent.IsOut)
+                        {
+                            if (aggregateEvent.InboxItems != null)
+                            {
+                                foreach (var inboxItem in aggregateEvent.InboxItems)
+                                {
+                                    if (inboxItem.InboxOwnerPeerId == _state.RequestInfo.UserId)
+                                    {
+                                        continue;
+                                    }
+
+                                    var command = new DeleteOtherPartyMessageCommand(
+                                        MessageId.Create(inboxItem.InboxOwnerPeerId, inboxItem.InboxMessageId),
+                                        _state.RequestInfo);
+                                    Publish(command);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (aggregateEvent.SenderPeerId != _state.RequestInfo.UserId)
+                            {
+                                var command = new DeleteOtherPartyMessageCommand(
+                                    MessageId.Create(aggregateEvent.SenderPeerId, aggregateEvent.SenderMessageId),
+                                    _state.RequestInfo);
+                                Publish(command);
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case PeerType.User:
+                {
                     var command = new DeleteOtherPartyMessageCommand(
-                        MessageId.Create(inboxItem.InboxOwnerPeerId, inboxItem.InboxMessageId),
-                        aggregateEvent.CorrelationId);
+                        MessageId.Create(aggregateEvent.SenderPeerId, aggregateEvent.SenderMessageId),
+                        _state.RequestInfo);
                     Publish(command);
                 }
-            }
-        }
-        else if (_state.ToPeer.PeerType == PeerType.User)
-        {
-            var command = new DeleteOtherPartyMessageCommand(
-                MessageId.Create(aggregateEvent.SenderPeerId, aggregateEvent.SenderMessageId),
-                aggregateEvent.CorrelationId);
-            Publish(command);
+                break;
         }
     }
 
@@ -139,60 +165,8 @@ public class DeleteMessageSaga :
             Emit(new DeleteMessagesCompletedEvent(_state.RequestInfo,
                 _state.ToPeer.PeerType,
                 selfDeletedItem,
-                otherPartyDeletedBoxes //,
-                //_state.IsClearHistory,
-                //_state.ClearHistoryNextMaxId
+                otherPartyDeletedBoxes
             ));
-
-            //if (_state.IsClearHistory && _state.ClearHistoryNextMaxId == 0)
-            //{
-            //    var ownerPeerId = _state.SelfUserId;
-            //    var outMessageId = await IdGeneratorFactory.Default.NextIdAsync(IdType.MessageId, ownerPeerId)
-            //        ;
-            //    var command = new CreateOutboxCommand(
-            //        _state.ReqMsgId,
-            //        _state.SelfAuthKeyId,
-            //        MessageBoxId.Create(ownerPeerId, outMessageId),
-            //        DialogId.Create(ownerPeerId, _state.ToPeerType, _state.ToPeerId),
-            //        ownerPeerId,
-            //        ownerPeerId,
-            //        _state.ToPeerType,
-            //        _state.ToPeerId,
-            //        outMessageId,
-            //        DateTime.UtcNow.ToTimestamp(),
-            //        new MessageData(string.Empty),
-            //        null,
-            //        _state.RandomId,
-            //        SendMessageType.MessageService,
-            //        MessageBoxType.Text,
-            //        0,
-            //        false,
-            //        false,
-            //        _state.MessageActionData,
-            //        Guid.NewGuid(),
-            //        MessageActionType.HistoryClear,
-            //        MessageBoxSubType.ClearHistory
-            //    );
-            //    Publish(command);
-            //}
-
-            //if (_state.IsClearHistory)
-            //{
-            //    Emit(new ClearHistoryCompletedEvent(_state.ReqMsgId, selfDeletedItem, otherPartyDeletedBoxes, _state.ClearHistoryNextMaxId));
-            //}
-            //else
-            //{
-
-            //    Emit(new DeleteMessagesCompletedEvent(_state.ReqMsgId,
-            //        _state.SelfAuthKeyId,
-            //        _state.SelfUserId,
-            //        _state.ToPeerType,
-            //        selfDeletedItem,
-            //        otherPartyDeletedBoxes,
-            //        _state.IsClearHistory,
-            //        _state.ClearHistoryNextMaxId
-            //    ));
-            //}
         }
 
         return Task.CompletedTask;

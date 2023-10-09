@@ -6,7 +6,7 @@ public class CheckChatStateCommandHandler : CommandHandler<ChatAggregate, ChatId
         CheckChatStateCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.CheckChatState(command.CorrelationId);
+        aggregate.CheckChatState(command.RequestInfo);
         return Task.CompletedTask;
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace MyTelegram.Domain.Commands.QrCode;
 
-public class LoginWithTokenSuccessCommand : RequestCommand<QrCodeAggregate, QrCodeId, IExecutionResult>
+public class LoginWithTokenSuccessCommand : RequestCommand2<QrCodeAggregate, QrCodeId, IExecutionResult>
 {
-    public LoginWithTokenSuccessCommand(QrCodeId aggregateId,
-        long reqMsgId) : base(aggregateId, reqMsgId)
+    public LoginWithTokenSuccessCommand(QrCodeId aggregateId, RequestInfo requestInfo) : base(aggregateId, requestInfo)
     {
     }
 }

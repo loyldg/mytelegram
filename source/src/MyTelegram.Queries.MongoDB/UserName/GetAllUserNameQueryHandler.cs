@@ -1,6 +1,5 @@
 ﻿namespace MyTelegram.QueryHandlers.MongoDB.UserName;
 
-// ReSharper disable once UnusedMember.Global
 public class GetAllUserNameQueryHandler : IQueryHandler<GetAllUserNameQuery, IReadOnlyCollection<string>>
 {
     private readonly IMyMongoDbReadModelStore<UserNameReadModel> _store;
@@ -13,8 +12,7 @@ public class GetAllUserNameQueryHandler : IQueryHandler<GetAllUserNameQuery, IRe
     public async Task<IReadOnlyCollection<string>> ExecuteQueryAsync(GetAllUserNameQuery query,
         CancellationToken cancellationToken)
     {
-        var findOptions = new FindOptions<UserNameReadModel, string>
-        {
+        var findOptions = new FindOptions<UserNameReadModel, string> {
             Limit = query.Limit,
             Skip = query.Skip,
             Projection = new ProjectionDefinitionBuilder<UserNameReadModel>().Expression(p => p.UserName)

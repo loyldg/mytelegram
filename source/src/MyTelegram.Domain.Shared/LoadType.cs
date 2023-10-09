@@ -11,3 +11,10 @@ public enum LoadType
     AroundDate,
     LimitIs1
 }
+
+public enum ReactionType
+{
+    ReactionNone,
+    ReactionAll,
+    ReactionSome,
+}

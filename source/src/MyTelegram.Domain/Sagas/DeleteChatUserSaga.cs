@@ -1,11 +1,9 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class DeleteChatUserSaga :
-    MyInMemoryAggregateSaga<DeleteChatUserSaga, DeleteChatUserSagaId, DeleteChatUserSagaLocator>,
+public class DeleteChatUserSaga : MyInMemoryAggregateSaga<DeleteChatUserSaga, DeleteChatUserSagaId, DeleteChatUserSagaLocator>,
     ISagaIsStartedBy<ChatAggregate, ChatId, ChatMemberDeletedEvent>
 {
-    public DeleteChatUserSaga(DeleteChatUserSagaId id,
-        IEventStore eventStore) : base(id, eventStore)
+    public DeleteChatUserSaga(DeleteChatUserSagaId id, IEventStore eventStore) : base(id, eventStore)
     {
     }
 
@@ -32,9 +30,8 @@ public class DeleteChatUserSaga :
             messageActionType: MessageActionType.ChatDeleteUser
         );
         var command = new StartSendMessageCommand(aggregateId,
-            domainEvent.AggregateEvent.RequestInfo,
-            messageItem,
-            correlationId: Guid.NewGuid());
+            domainEvent.AggregateEvent.RequestInfo with { RequestId = Guid.NewGuid() },
+            messageItem);
 
         Publish(command);
         await CompleteAsync(cancellationToken);

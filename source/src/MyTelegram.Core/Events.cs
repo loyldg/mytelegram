@@ -1,7 +1,6 @@
 ﻿namespace MyTelegram.Core;
 
-public record DuplicateCommandEvent(long ReqMsgId /*,string AggregateId*/,
-    string SourceId);
+public record DuplicateCommandEvent(long UserId, long ReqMsgId);
 
 //public record AckMessageReceivedEvent(long UserId, long PermAuthKeyId, long MsgId);
 public record UpdateSelfPtsEvent(long SelfUserId,
@@ -36,12 +35,6 @@ public record NewPtsMessageHasSentEvent(long ToUid,
 public record UserIsOnlineEvent(long UserId,
     long TempAuthKeyId,
     long PermAuthKeyId);
-
-/// <summary>
-///     对Dapr发布订阅的数据进行包装,主要解决传递long数据类型最大只能2^53,超过该值后会丢失精度
-/// </summary>
-public record DaprPubSubWrappedEventData(string EventData,
-    string EventType);
 
 public record SetSessionPasswordStateEvent(long UserId,
     PasswordState PasswordState);
@@ -116,156 +109,284 @@ public record PushMessageToPeerEvent(int PeerType,
     PtsType PtsType,
     long GlobalSeqNo) : ISessionMessage;
 
-//public record PushSessionMessageToAuthKeyIdEvent(long AuthKeyId,
-//    byte[] Data,
-//    int Pts,
-//    PtsType PtsType, long GlobalSeqNo) : ISessionMessage;
-public record LayeredAuthKeyIdMessageCreatedIntegrationEvent(long AuthKeyId,
-    byte[] Data,
-    int Pts,
-    PtsType PtsType,
-    long GlobalSeqNo) : ISessionMessage;
+public partial record LayeredAuthKeyIdMessageCreatedIntegrationEvent(
+    long AuthKeyId, byte[] Data, int Pts, long GlobalSeqNo, LayeredData<byte[]>? LayeredData) : ISessionMessage;
 
-//public record PushSessionMessageToPeerEvent(int PeerType,
-//    long PeerId,
-//    byte[] Data,
-//    long ExcludeAuthKeyId,
-//    long ExcludeUid,
-//    long OnlySendToThisAuthKeyId, int Pts,
-//    PtsType PtsType, long GlobalSeqNo) : ISessionMessage;
-public record LayeredPushMessageCreatedIntegrationEvent(
-    int PeerType,
+//[MemoryPackable]
+public record LayeredPushMessageCreatedIntegrationEvent(int PeerType, long PeerId, byte[] Data, long? ExcludeAuthKeyId,
+    long? ExcludeUserId, long? OnlySendToUserId, long? OnlySendToThisAuthKeyId, int Pts, long GlobalSeqNo,
+    LayeredData<byte[]>? LayeredData) : ISessionMessage;
+
+//[MemoryPackable]
+public record LayeredPushMessageCreatedIntegrationEvent<TExtraData>(int PeerType,
     long PeerId,
     byte[] Data,
-    long ExcludeAuthKeyId,
-    long ExcludeUid,
-    long OnlySendToThisAuthKeyId,
+    long? ExcludeAuthKeyId,
+    long? ExcludeUserId,
+    long? OnlySendToUserId,
+    long? OnlySendToThisAuthKeyId,
     int Pts,
-    PtsType PtsType,
-    long GlobalSeqNo) : ISessionMessage;
+    //PtsType PtsType,
+    //UpdatesType UpdatesType,
+    long GlobalSeqNo,
+    LayeredData<byte[]>? LayeredData, TExtraData ExtraData) :
+    LayeredPushMessageCreatedIntegrationEvent(PeerType, PeerId, Data, ExcludeAuthKeyId, ExcludeUserId,
+        OnlySendToUserId,
+        OnlySendToThisAuthKeyId, Pts, GlobalSeqNo, LayeredData);
+
+//[MemoryPackable] 
+public record ChannelReactionChangedData(Dictionary<long, LayeredData<byte[]>> LayeredData);
+
+//[MemoryPackable]
+public class EmptyLayeredData
+{
+    public static EmptyLayeredData Empty { get; } = new();
+}
 
 public record FileDataResultResponseReceivedEvent(long ReqMsgId,
     byte[] Data) : ISessionMessage;
 
 public record DataResultResponseReceivedEvent(long ReqMsgId,
-    byte[] Data) : ISessionMessage;
+    //ReadOnlyMemory<byte> Data
+    byte[] Data
+) : ISessionMessage;
 
-public record DataReceivedEvent(uint ObjectId,
+public record DataResultResponseWithUserIdReceivedEvent(long ReqMsgId, byte[] Data, long UserId, long AuthKeyId,
+    long PermAuthKeyId) : ISessionMessage;
+
+public record DataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data);
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date
+);
 
-public record AcksDataReceivedEvent(uint ObjectId,
+public record AcksDataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data) : DataReceivedEvent(ObjectId,
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date
+) : DataReceivedEvent(
+    ConnectionId,
+    RequestId,
+    ObjectId,
     UserId,
     ReqMsgId,
     SeqNumber,
     AuthKeyId,
     PermAuthKeyId,
-    Data);
+    Data,
+    Layer,
+    Date
+);
 
-public record UpdatesDataReceivedEvent(uint ObjectId,
+public record DomainEventMessage(string EventId, string Message, IReadOnlyDictionary<string, string> Headers);
+
+public record UpdatesDataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data) : DataReceivedEvent(ObjectId,
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date
+) : DataReceivedEvent(
+    ConnectionId,
+    RequestId,
+    ObjectId,
     UserId,
     ReqMsgId,
     SeqNumber,
     AuthKeyId,
     PermAuthKeyId,
-    Data);
+    Data,
+    Layer,
+    Date
+);
 
-public record UploadDataReceivedEvent(uint ObjectId,
+public record UploadDataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data) : DataReceivedEvent(ObjectId,
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date
+) : DataReceivedEvent(
+    ConnectionId,
+    RequestId,
+    ObjectId,
     UserId,
     ReqMsgId,
     SeqNumber,
     AuthKeyId,
     PermAuthKeyId,
-    Data);
+    Data,
+    Layer,
+    Date
+);
 
-public record DownloadDataReceivedEvent(uint ObjectId,
+public record DownloadDataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data) : DataReceivedEvent(ObjectId,
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date
+) : DataReceivedEvent(
+    ConnectionId,
+    RequestId,
+    ObjectId,
     UserId,
     ReqMsgId,
     SeqNumber,
     AuthKeyId,
     PermAuthKeyId,
-    Data);
+    Data,
+    Layer,
+    Date
+);
 
-public record PhoneCallDataReceivedEvent(uint ObjectId,
+public record PhoneCallDataReceivedEvent(uint ObjectId, long UserId, long ReqMsgId, int SeqNumber, long AuthKeyId,
+    long PermAuthKeyId, byte[] Data, int Layer);
+
+public record MessengerDataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data) : DataReceivedEvent(ObjectId,
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date
+) : DataReceivedEvent(
+    ConnectionId,
+    RequestId,
+    ObjectId,
     UserId,
     ReqMsgId,
     SeqNumber,
     AuthKeyId,
     PermAuthKeyId,
-    Data);
+    Data,
+    Layer,
+    Date
+);
 
-public record MessengerDataReceivedEvent(uint ObjectId,
+public record MessengerQueryDataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data) : DataReceivedEvent(ObjectId,
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date) : DataReceivedEvent(
+    ConnectionId,
+    RequestId,
+    ObjectId,
     UserId,
     ReqMsgId,
     SeqNumber,
     AuthKeyId,
     PermAuthKeyId,
-    Data);
+    Data,
+    Layer,
+    Date
+);
 
-public record PushDataReceivedEvent(uint ObjectId,
+public record MessengerCommandDataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data) : DataReceivedEvent(ObjectId,
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date) : DataReceivedEvent(
+    ConnectionId,
+    RequestId,
+    ObjectId,
     UserId,
     ReqMsgId,
     SeqNumber,
     AuthKeyId,
     PermAuthKeyId,
-    Data);
+    Data,
+    Layer,
+    Date
+);
 
-public record StickerDataReceivedEvent(uint ObjectId,
+public record PushDataReceivedEvent(uint ObjectId, long UserId, long ReqMsgId, int SeqNumber, long AuthKeyId,
+    long PermAuthKeyId, byte[] Data, int Layer);
+
+public record StickerDataReceivedEvent(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long UserId,
     long ReqMsgId,
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    byte[] Data) : DataReceivedEvent(ObjectId,
+    //ReadOnlyMemory<byte> Data,
+    byte[] Data,
+    int Layer,
+    long Date
+) : DataReceivedEvent(
+    ConnectionId,
+    RequestId,
+    ObjectId,
     UserId,
     ReqMsgId,
     SeqNumber,
     AuthKeyId,
     PermAuthKeyId,
-    Data);
+    Data,
+    Layer,
+    Date
+);

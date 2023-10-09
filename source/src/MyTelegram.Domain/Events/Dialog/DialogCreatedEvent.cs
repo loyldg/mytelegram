@@ -1,14 +1,13 @@
 ﻿namespace MyTelegram.Domain.Events.Dialog;
 
-public class DialogCreatedEvent : AggregateEvent<DialogAggregate, DialogId>, IHasCorrelationId
+public class DialogCreatedEvent : AggregateEvent<DialogAggregate, DialogId>
 {
     public DialogCreatedEvent(long ownerId,
         Peer toPeer,
         int channelHistoryMinId,
         int topMessageId,
         //string topMessageBoxId,
-        DateTime creationTime,
-        Guid correlationId)
+        DateTime creationTime)
     {
         OwnerId = ownerId;
         ToPeer = toPeer;
@@ -16,7 +15,7 @@ public class DialogCreatedEvent : AggregateEvent<DialogAggregate, DialogId>, IHa
         TopMessageId = topMessageId;
         //TopMessageBoxId = topMessageBoxId;
         CreationTime = creationTime;
-        CorrelationId = correlationId;
+
     }
 
     public int ChannelHistoryMinId { get; }
@@ -27,5 +26,5 @@ public class DialogCreatedEvent : AggregateEvent<DialogAggregate, DialogId>, IHa
     public long OwnerId { get; }
     public Peer ToPeer { get; }
     public int TopMessageId { get; }
-    public Guid CorrelationId { get; }
+
 }

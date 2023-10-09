@@ -9,46 +9,47 @@ public class QrCodeAggregate : AggregateRoot<QrCodeAggregate, QrCodeId>
         Register(_state);
     }
 
-    public void AcceptLoginToken(long reqMsgId,
+    public void AcceptLoginToken(RequestInfo requestInfo,
         long userId,
         byte[] token)
     {
         if (IsNew)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.AuthTokenInvalid);
+            RpcErrors.RpcErrors400.AuthTokenInvalid.ThrowRpcError();
         }
 
         var now = DateTime.UtcNow.ToTimestamp();
         if (_state.ExpireDate < now)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.AuthTokenExpired);
+            RpcErrors.RpcErrors400.AuthTokenExpired.ThrowRpcError();
         }
 
         if (_state.IsAccepted)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.AuthTokenAlreadyAccepted);
+            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.AuthTokenAlreadyAccepted);
+            RpcErrors.RpcErrors400.AuthTokenAlreadyAccepted.ThrowRpcError();
         }
 
         if (_state.ExceptUidList != null && _state.ExceptUidList.Contains(userId))
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.AuthTokenAlreadyAccepted);
+            RpcErrors.RpcErrors400.AuthTokenAlreadyAccepted.ThrowRpcError();
         }
 
-        Emit(new LoginTokenAcceptedEvent(reqMsgId,
+        Emit(new LoginTokenAcceptedEvent(requestInfo,
             _state.TempAuthKeyId,
             _state.PermAuthKeyId,
             token,
             userId));
     }
 
-    public void ExportLoginToken(long reqMsgId,
+    public void ExportLoginToken(RequestInfo requestInfo,
         long tempAuthKeyId,
         long permAuthKeyId,
         byte[] token,
         int expireDate,
         List<long> exceptUidList)
     {
-        Emit(new QrCodeLoginTokenExportedEvent(reqMsgId,
+        Emit(new QrCodeLoginTokenExportedEvent(requestInfo,
             tempAuthKeyId,
             permAuthKeyId,
             token,
@@ -56,14 +57,15 @@ public class QrCodeAggregate : AggregateRoot<QrCodeAggregate, QrCodeId>
             exceptUidList));
     }
 
-    public void LoginWithTokenSuccess(long reqMsgId)
+    public void LoginWithTokenSuccess(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowFirstDomainErrorIfNotSatisfied(this);
         if (!_state.IsAccepted || _state.IsLoginTokenUsed)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.AuthTokenInvalid);
+            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.AuthTokenInvalid);
+            RpcErrors.RpcErrors400.AuthTokenInvalid.ThrowRpcError();
         }
 
-        Emit(new QrCodeLoginSuccessEvent(reqMsgId, _state.UserId));
+        Emit(new QrCodeLoginSuccessEvent(requestInfo, _state.UserId));
     }
 }

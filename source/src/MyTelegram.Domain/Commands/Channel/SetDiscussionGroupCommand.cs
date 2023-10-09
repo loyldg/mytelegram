@@ -1,12 +1,12 @@
 ﻿namespace MyTelegram.Domain.Commands.Channel;
 
-public class SetDiscussionGroupCommand : RequestCommand<ChannelAggregate, ChannelId, IExecutionResult>
+public class SetDiscussionGroupCommand : RequestCommand2<ChannelAggregate, ChannelId, IExecutionResult>
 {
     public SetDiscussionGroupCommand(ChannelId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long selfUserId,
         long broadcastChannelId,
-        long? groupChannelId) : base(aggregateId, reqMsgId)
+        long? groupChannelId) : base(aggregateId, requestInfo)
     {
         SelfUserId = selfUserId;
         BroadcastChannelId = broadcastChannelId;

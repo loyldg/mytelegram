@@ -2,5 +2,4 @@
 
 namespace MyTelegram;
 
-public record Peer(PeerType PeerType,
-    long PeerId);
+public partial record Peer(PeerType PeerType, long PeerId, long AccessHash = 0);

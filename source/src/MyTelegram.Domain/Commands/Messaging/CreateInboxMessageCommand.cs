@@ -1,19 +1,16 @@
 ﻿namespace MyTelegram.Domain.Commands.Messaging;
 
-public class CreateInboxMessageCommand : Command<MessageAggregate, MessageId, IExecutionResult>, IHasCorrelationId
+public class CreateInboxMessageCommand : RequestCommand2<MessageAggregate, MessageId, IExecutionResult>
 {
     public CreateInboxMessageCommand(MessageId aggregateId,
+        RequestInfo requestInfo,
         MessageItem inboxMessageItem,
-        int senderMessageId,
-        Guid correlationId) : base(aggregateId)
+        int senderMessageId) : base(aggregateId, requestInfo)
     {
         InboxMessageItem = inboxMessageItem;
         SenderMessageId = senderMessageId;
-        CorrelationId = correlationId;
     }
 
     public MessageItem InboxMessageItem { get; }
     public int SenderMessageId { get; }
-
-    public Guid CorrelationId { get; }
 }

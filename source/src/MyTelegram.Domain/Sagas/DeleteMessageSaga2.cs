@@ -94,11 +94,9 @@ public class DeleteMessageSaga2 :
             domainEvent.AggregateEvent.ChatCreatorUserId,
             domainEvent.AggregateEvent.ChatMemberCount,
             domainEvent.AggregateEvent.IsClearHistory,
-            PeerType.Chat,
-            domainEvent.AggregateEvent.CorrelationId));
+            PeerType.Chat));
         DeleteMessagesForSelf(domainEvent.AggregateEvent.RequestInfo.UserId,
-            domainEvent.AggregateEvent.MessageIds,
-            domainEvent.AggregateEvent.CorrelationId);
+            domainEvent.AggregateEvent.MessageIds);
 
         return Task.CompletedTask;
     }
@@ -113,25 +111,22 @@ public class DeleteMessageSaga2 :
             0,
             0,
             domainEvent.AggregateEvent.IsClearHistory,
-            PeerType.User,
-            domainEvent.AggregateEvent.CorrelationId));
+            PeerType.User));
         DeleteMessagesForSelf(domainEvent.AggregateEvent.RequestInfo.UserId,
-            domainEvent.AggregateEvent.MessageIds,
-            domainEvent.AggregateEvent.CorrelationId);
+            domainEvent.AggregateEvent.MessageIds);
 
         return Task.CompletedTask;
     }
 
     private void DeleteMessagesForSelf(long selfUserId,
-        IReadOnlyList<int> messageIdList,
-        Guid correlationId)
+        IReadOnlyList<int> messageIdList)
     {
         foreach (var messageId in messageIdList)
         {
             var command = new DeleteSelfMessageCommand(
                 MessageId.Create(selfUserId, messageId),
-                messageId,
-                correlationId);
+                _state.RequestInfo,
+                messageId);
             Publish(command);
         }
     }

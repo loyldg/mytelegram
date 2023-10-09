@@ -1,24 +1,21 @@
 ﻿namespace MyTelegram.Domain.Events.Messaging;
 
-public class SendMessageStartedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>, IHasCorrelationId
+public class SendMessageStartedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
-    public SendMessageStartedEvent(RequestInfo requestInfo,
-        MessageItem outMessageItem,
-        bool clearDraft,
-        int groupItemCount,
-        bool forwardFromLinkedChannel,
-        Guid correlationId) : base(requestInfo)
-    {
-        OutMessageItem = outMessageItem;
-        ClearDraft = clearDraft;
-        GroupItemCount = groupItemCount;
-        ForwardFromLinkedChannel = forwardFromLinkedChannel;
-        CorrelationId = correlationId;
-    }
-
     public MessageItem OutMessageItem { get; }
+    public List<long>? MentionedUserIds { get; }
     public bool ClearDraft { get; }
     public int GroupItemCount { get; }
     public bool ForwardFromLinkedChannel { get; }
-    public Guid CorrelationId { get; }
+
+
+    public SendMessageStartedEvent(RequestInfo requestInfo, MessageItem outMessageItem, List<long>? mentionedUserIds, bool clearDraft, int groupItemCount, bool forwardFromLinkedChannel) : base(requestInfo)
+    {
+        OutMessageItem = outMessageItem;
+        MentionedUserIds = mentionedUserIds;
+        ClearDraft = clearDraft;
+        GroupItemCount = groupItemCount;
+        ForwardFromLinkedChannel = forwardFromLinkedChannel;
+
+    }
 }

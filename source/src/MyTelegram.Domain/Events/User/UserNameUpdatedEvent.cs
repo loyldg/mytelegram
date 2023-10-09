@@ -1,19 +1,18 @@
 ﻿namespace MyTelegram.Domain.Events.User;
 
-public class UserNameUpdatedEvent : RequestAggregateEvent<UserAggregate, UserId>, IHasCorrelationId
+public class UserNameUpdatedEvent : RequestAggregateEvent2<UserAggregate, UserId>
 {
-    public UserNameUpdatedEvent(long reqMsgId,
+    public UserNameUpdatedEvent(RequestInfo requestInfo,
         UserItem userItem,
-        string? oldUserName,
-        Guid correlationId) : base(reqMsgId)
+        string? oldUserName) : base(requestInfo)
     {
         UserItem = userItem;
         OldUserName = oldUserName;
-        CorrelationId = correlationId;
+
     }
 
     public string? OldUserName { get; }
 
     public UserItem UserItem { get; }
-    public Guid CorrelationId { get; }
+
 }

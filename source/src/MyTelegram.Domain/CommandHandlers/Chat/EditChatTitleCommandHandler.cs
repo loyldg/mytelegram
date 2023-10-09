@@ -9,8 +9,7 @@ public class EditChatTitleCommandHandler : CommandHandler<ChatAggregate, ChatId,
         aggregate.EditTitle(command.RequestInfo,
             command.Title,
             command.MessageActionData,
-            command.RandomId,
-            command.CorrelationId);
+            command.RandomId);
         return Task.CompletedTask;
     }
 }

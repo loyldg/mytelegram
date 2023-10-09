@@ -6,7 +6,7 @@ public class AcceptLoginTokenCommandHandler : CommandHandler<QrCodeAggregate, Qr
         AcceptLoginTokenCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.AcceptLoginToken(command.ReqMsgId, command.UserId, command.Token);
+        aggregate.AcceptLoginToken(command.RequestInfo, command.UserId, command.Token);
         return Task.CompletedTask;
     }
 }

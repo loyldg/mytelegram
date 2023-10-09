@@ -6,7 +6,7 @@ public class ReadInboxHistoryCommandHandler : CommandHandler<MessageAggregate, M
         ReadInboxHistoryCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ReadInboxHistory(command.ReqMsgId, command.ReaderUid, command.CorrelationId);
+        aggregate.ReadInboxHistory(command.RequestInfo, command.ReaderUserId);
         return Task.CompletedTask;
     }
 }

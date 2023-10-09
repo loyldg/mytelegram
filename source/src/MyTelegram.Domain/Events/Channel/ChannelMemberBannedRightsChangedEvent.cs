@@ -1,20 +1,28 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class ChannelMemberBannedRightsChangedEvent : RequestAggregateEvent<ChannelMemberAggregate, ChannelMemberId>
+public class ChannelMemberBannedRightsChangedEvent : RequestAggregateEvent2<ChannelMemberAggregate, ChannelMemberId>, IHasCorrelationId
 {
-    public ChannelMemberBannedRightsChangedEvent(long reqMsgId,
+    public ChannelMemberBannedRightsChangedEvent(RequestInfo requestInfo,
         long adminId,
         long channelId,
         long memberUid,
-        bool needRemoveFromKicked,
-        bool needRemoveFromBanned,
-        ChatBannedRights bannedRights) : base(reqMsgId)
+        bool kicked,
+        long kickedBy,
+        bool left,
+        bool banned,
+        bool removedFromKicked,
+        bool removedFromBanned,
+        ChatBannedRights bannedRights) : base(requestInfo)
     {
         AdminId = adminId;
         ChannelId = channelId;
         MemberUid = memberUid;
-        NeedRemoveFromKicked = needRemoveFromKicked;
-        NeedRemoveFromBanned = needRemoveFromBanned;
+        Kicked = kicked;
+        KickedBy = kickedBy;
+        Left = left;
+        Banned = banned;
+        RemovedFromKicked = removedFromKicked;
+        RemovedFromBanned = removedFromBanned;
         BannedRights = bannedRights;
     }
 
@@ -22,6 +30,11 @@ public class ChannelMemberBannedRightsChangedEvent : RequestAggregateEvent<Chann
     public ChatBannedRights BannedRights { get; }
     public long ChannelId { get; }
     public long MemberUid { get; }
-    public bool NeedRemoveFromBanned { get; }
-    public bool NeedRemoveFromKicked { get; }
+    public bool Kicked { get; }
+    public long KickedBy { get; }
+    public bool Left { get; }
+
+    public bool Banned { get; }
+    public bool RemovedFromKicked { get; }
+    public bool RemovedFromBanned { get; }
 }

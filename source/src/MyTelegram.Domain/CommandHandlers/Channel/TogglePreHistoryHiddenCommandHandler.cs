@@ -8,7 +8,7 @@ public class
         TogglePreHistoryHiddenCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.TogglePreHistoryHidden(command.ReqMsgId, command.Hidden, command.SelfUserId);
+        aggregate.TogglePreHistoryHidden(command.RequestInfo, command.Hidden, command.SelfUserId);
         return Task.CompletedTask;
     }
 }

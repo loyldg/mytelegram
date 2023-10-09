@@ -9,12 +9,13 @@ public class
         CancellationToken cancellationToken)
     {
         aggregate.Create( //command.ReqMsgId,
+            command.RequestInfo,
             command.ChannelId,
             command.UserId,
             command.InviterId,
             command.Date,
             command.IsBot,
-            command.CorrelationId);
+            command.ChatInviteId);
         return Task.CompletedTask;
     }
 }

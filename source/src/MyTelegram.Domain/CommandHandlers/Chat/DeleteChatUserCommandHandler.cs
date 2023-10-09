@@ -9,8 +9,7 @@ public class DeleteChatUserCommandHandler : CommandHandler<ChatAggregate, ChatId
         aggregate.DeleteChatUser(command.RequestInfo,
             command.UserId,
             command.MessageActionData,
-            command.RandomId,
-            command.CorrelationId);
+            command.RandomId);
         return Task.CompletedTask;
     }
 }

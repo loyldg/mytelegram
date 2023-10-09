@@ -9,8 +9,7 @@ public class EditChannelTitleCommandHandler : CommandHandler<ChannelAggregate, C
         aggregate.EditTitle(command.RequestInfo,
             command.Title,
             command.MessageActionData,
-            command.RandomId,
-            command.CorrelationId);
+            command.RandomId);
         return Task.CompletedTask;
     }
 }

@@ -6,7 +6,7 @@ public class UpdateUserNameCommandHandler : CommandHandler<UserAggregate, UserId
         UpdateUserNameCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.UpdateUserName(command.ReqMsgId, command.UserName, command.CorrelationId);
+        aggregate.UpdateUserName(command.RequestInfo, command.UserName);
         return Task.CompletedTask;
     }
 }

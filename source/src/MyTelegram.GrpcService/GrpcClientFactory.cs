@@ -18,15 +18,22 @@ public static class GrpcClientFactory
         };
     }
 
-    public static IdGeneratorService.IdGeneratorServiceClient CreateIdGeneratorServiceClient(string address)
+    public static IdGeneratorService.IdGeneratorServiceClient CreateIdGeneratorServiceClient(string address, bool forceRecreate = false)
     {
-        if (_idGeneratorServiceClient == null)
+        if (_idGeneratorServiceClient == null || forceRecreate)
         {
-            var channel = GrpcChannel.ForAddress(address,
-                new GrpcChannelOptions
-                {
-                    HttpHandler = CreateHttpHandler()
-                });
+            var handler = new SocketsHttpHandler
+            {
+                PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan,
+                KeepAlivePingDelay = TimeSpan.FromSeconds(60),
+                KeepAlivePingTimeout = TimeSpan.FromSeconds(30),
+                EnableMultipleHttp2Connections = true,
+            };
+
+            var channel = GrpcChannel.ForAddress(address, new GrpcChannelOptions
+            {
+                HttpHandler = handler
+            });
             _idGeneratorServiceClient = new IdGeneratorService.IdGeneratorServiceClient(channel);
         }
 

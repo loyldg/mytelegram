@@ -10,8 +10,8 @@ public class ReadInboxMessageCommand2Handler : CommandHandler<DialogAggregate, D
             command.ReaderUid,
             command.OwnerPeerId,
             command.MaxMessageId,
-            command.ToPeer,
-            command.CorrelationId);
+            command.UnreadCount,
+            command.ToPeer);
         return Task.CompletedTask;
     }
 }

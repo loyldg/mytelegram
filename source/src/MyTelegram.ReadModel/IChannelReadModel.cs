@@ -23,7 +23,7 @@ public interface IChannelReadModel : IReadModel
     bool MegaGroup { get; }
     int? ParticipantsCount { get; }
 
-    byte[]? Photo { get; }
+    //byte[]? Photo { get; }
     int Pts { get; }
     bool Signatures { get; }
     bool SlowModeEnabled { get; }
@@ -34,4 +34,13 @@ public interface IChannelReadModel : IReadModel
     string? UserName { get; }
     bool Verified { get; }
     long? LinkedChatId { get; }
+    bool Forum { get; }
+    int? TtlPeriod { get; }
+    //ReactionType ReactionType { get; }
+    //bool AllowCustomReaction { get; }
+    //List<string>? AvailableReactions { get; }
+
+    long? PhotoId { get; }
+    bool NoForwards { get; }
+    //List<long>? BotUserIds { get; }
 }

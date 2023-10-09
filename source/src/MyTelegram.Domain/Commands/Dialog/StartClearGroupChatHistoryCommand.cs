@@ -1,13 +1,11 @@
 ﻿namespace MyTelegram.Domain.Commands.Dialog;
 
-public class StartClearGroupChatHistoryCommand : Command<ChatAggregate, ChatId, IExecutionResult>,
+public class StartClearGroupChatHistoryCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>,
     IHasCorrelationId
 {
     public StartClearGroupChatHistoryCommand(ChatId aggregateId,
-        Guid correlationId) : base(aggregateId)
+        RequestInfo requestInfo) : base(aggregateId, requestInfo)
     {
-        CorrelationId = correlationId;
     }
 
-    public Guid CorrelationId { get; }
 }

@@ -1,21 +1,21 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class EditChannelTitleSaga :
-    MyInMemoryAggregateSaga<EditChannelTitleSaga, EditChannelTitleSagaId, EditChannelTitleSagaLocator>,
+public class EditChannelTitleSaga : MyInMemoryAggregateSaga<EditChannelTitleSaga, EditChannelTitleSagaId, EditChannelTitleSagaLocator>,
     ISagaIsStartedBy<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>
 {
-    public EditChannelTitleSaga(EditChannelTitleSagaId id,
-        IEventStore eventStore) : base(id, eventStore)
+    private readonly IIdGenerator _idGenerator;
+
+    public EditChannelTitleSaga(EditChannelTitleSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
+        _idGenerator = idGenerator;
     }
 
-    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelTitleEditedEvent> domainEvent,
+    public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelTitleEditedEvent> domainEvent,
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        var outMessageId = 0;
-        var aggregateId =
-            MessageId.CreateWithRandomId(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.RandomId);
+        var outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, domainEvent.AggregateEvent.ChannelId, cancellationToken: cancellationToken);
+        var aggregateId = MessageId.Create(domainEvent.AggregateEvent.ChannelId, outMessageId);
         var ownerPeer = new Peer(PeerType.Channel, domainEvent.AggregateEvent.ChannelId);
         var senderPeer = new Peer(PeerType.User, domainEvent.AggregateEvent.RequestInfo.UserId);
         var messageItem = new MessageItem(
@@ -34,12 +34,11 @@ public class EditChannelTitleSaga :
             domainEvent.AggregateEvent.MessageActionData,
             MessageActionType.ChatEditTitle
         );
-        var command = new StartSendMessageCommand(aggregateId,
+        var command = new CreateOutboxMessageCommand(aggregateId,
             domainEvent.AggregateEvent.RequestInfo,
-            messageItem,
-            correlationId: domainEvent.AggregateEvent.CorrelationId);
+            messageItem);
 
         Publish(command);
-        return CompleteAsync(cancellationToken);
+        await CompleteAsync(cancellationToken);
     }
 }

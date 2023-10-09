@@ -6,17 +6,14 @@ public class ReadHistoryStartedEvent : RequestAggregateEvent2<ReadHistorySaga, R
         long readerUid,
         int readerMessageId,
         Peer toPeer,
-        string sourceCommandId,
-        Guid correlationId) : base(requestInfo)
+        string sourceCommandId) : base(requestInfo)
     {
         ReaderUid = readerUid;
         ReaderMessageId = readerMessageId;
         ToPeer = toPeer;
         SourceCommandId = sourceCommandId;
-        CorrelationId = correlationId;
     }
 
-    public Guid CorrelationId { get; }
     public int ReaderMessageId { get; }
     public long ReaderUid { get; }
     public string SourceCommandId { get; }

@@ -1,17 +1,9 @@
-﻿// ReSharper disable once CheckNamespace
-
-namespace MyTelegram;
+﻿namespace MyTelegram;
 
 public class ThrowHelper
 {
-    public static void ThrowUserFriendlyException(string message,
-        int errorCode = ErrorCodes.BadRequest)
+    public static void ThrowRpcError(RpcError rpcError)
     {
-        throw new UserFriendlyException(message, errorCode);
+        throw new RpcException(rpcError);
     }
-
-    public static void ThrowUserFriendlyException(UserFriendlyException exception)
-    {
-        throw exception;
-    }
-}
+}   

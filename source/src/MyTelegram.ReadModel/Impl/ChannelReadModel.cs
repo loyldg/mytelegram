@@ -1,9 +1,7 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
-
 public class ChannelReadModel : IChannelReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, IncrementParticipantCountEvent>,
-    //IAmReadModelFor<MessageSaga, MessageSagaId, SendChannelMessageSuccessEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, StartSendChannelMessageEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelAboutEditedEvent>,
@@ -15,9 +13,47 @@ public class ChannelReadModel : IChannelReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
+    IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, SetDiscussionGroupEvent>
-
 {
+    public string? About { get; private set; }
+    public long AccessHash { get; private set; }
+    public string? Address { get; private set; }
+    //public ChatAdminRights AdminRights { get; private set; }
+    public virtual List<ChatAdmin> AdminList { get; protected set; } = new();
+
+    public bool Broadcast { get; private set; }
+    public long ChannelId { get; private set; }
+    public long CreatorId { get; private set; }
+    public int Date { get; private set; }
+    public virtual ChatBannedRights? DefaultBannedRights { get; protected set; }
+    public virtual string Id { get; private set; } = null!;
+    public int LastSendDate { get; private set; }
+    public long LastSenderPeerId { get; private set; }
+    public bool MegaGroup { get; private set; }
+    public int? ParticipantsCount { get; private set; }
+    //public byte[]? Photo { get; private set; }
+    public int Pts { get; private set; }
+    public bool Signatures { get; private set; }
+    public bool SlowModeEnabled { get; private set; }
+
+    public string Title { get; private set; } = null!;
+    //public string Link { get; private set; }
+    //public string TopMessageBoxId { get; private set; }
+
+    public int TopMessageId { get; private set; }
+    public string? UserName { get; private set; }
+    public bool Verified { get; private set; }
+    public long? LinkedChatId { get; private set; }
+
+    public bool Forum { get; private set; }
+    public int? TtlPeriod { get; private set; }
+    public long? PhotoId { get; private set; }
+    public bool NoForwards { get; private set; }
+
+    //public ReactionType ReactionType { get; private set; }
+    //public bool AllowCustomReaction { get; private set; }
+    //public List<string>? AvailableReactions { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -32,26 +68,44 @@ public class ChannelReadModel : IChannelReadModel,
         IDomainEvent<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        var admin = AdminList.FirstOrDefault(p => p.UserId == domainEvent.AggregateEvent.UserId);
-        if (admin != null)
+        if (domainEvent.AggregateEvent.IsNewAdmin)
         {
-            if (domainEvent.AggregateEvent.AdminRights.HasNoRights())
-            {
-                AdminList.Remove(admin);
-            }
-            else
+            AdminList.Add(new ChatAdmin(domainEvent.AggregateEvent.PromotedBy, domainEvent.AggregateEvent.CanEdit, domainEvent.AggregateEvent.UserId, domainEvent.AggregateEvent.AdminRights, domainEvent.AggregateEvent.Rank));
+        }
+        else
+        {
+            var admin = AdminList.FirstOrDefault(p => p.UserId == domainEvent.AggregateEvent.UserId);
+            if (admin != null)
             {
                 admin.SetAdminRights(domainEvent.AggregateEvent.AdminRights);
             }
         }
-        else
+
+        if (domainEvent.AggregateEvent.RemoveAdminFromList)
         {
-            AdminList.Add(new ChatAdmin(domainEvent.AggregateEvent.PromotedBy,
-                domainEvent.AggregateEvent.CanEdit,
-                domainEvent.AggregateEvent.UserId,
-                domainEvent.AggregateEvent.AdminRights,
-                domainEvent.AggregateEvent.Rank));
+            AdminList.RemoveAll(p => p.UserId == domainEvent.AggregateEvent.UserId);
         }
+
+        //var admin = AdminList.FirstOrDefault(p => p.UserId == domainEvent.AggregateEvent.UserId);
+        //if (admin != null)
+        //{
+        //    if (domainEvent.AggregateEvent.AdminRights.HasNoRights())
+        //    {
+        //        AdminList.Remove(admin);
+        //    }
+        //    else
+        //    {
+        //        admin.SetAdminRights(domainEvent.AggregateEvent.AdminRights);
+        //    }
+        //}
+        //else
+        //{
+        //    AdminList.Add(new ChatAdmin(domainEvent.AggregateEvent.PromotedBy,
+        //        domainEvent.AggregateEvent.CanEdit,
+        //        domainEvent.AggregateEvent.UserId,
+        //        domainEvent.AggregateEvent.AdminRights,
+        //        domainEvent.AggregateEvent.Rank));
+        //}
 
         return Task.CompletedTask;
     }
@@ -76,6 +130,13 @@ public class ChannelReadModel : IChannelReadModel,
         Verified = false;
         Signatures = false;
         AdminList = new List<ChatAdmin>();
+        TtlPeriod = aggregateEvent.TtlPeriod;
+        PhotoId = aggregateEvent.PhotoId;
+
+        AdminList = new List<ChatAdmin>
+        {
+            new (CreatorId,true,CreatorId,ChatAdminRights.GetCreatorRights(), string.Empty)
+        };
 
         return Task.CompletedTask;
     }
@@ -92,7 +153,8 @@ public class ChannelReadModel : IChannelReadModel,
         IDomainEvent<ChannelAggregate, ChannelId, ChannelPhotoEditedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        Photo = domainEvent.AggregateEvent.Photo;
+        //Photo = domainEvent.AggregateEvent.Photo;
+        PhotoId = domainEvent.AggregateEvent.PhotoId;
         return Task.CompletedTask;
     }
 
@@ -116,7 +178,9 @@ public class ChannelReadModel : IChannelReadModel,
         IDomainEvent<ChannelAggregate, ChannelId, IncrementParticipantCountEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        ParticipantsCount++;
+        //ParticipantsCount++;
+        ParticipantsCount = domainEvent.AggregateEvent.NewParticipantCount;
+        Console.WriteLine($"Increment participant count:newCount={ParticipantsCount}");
         return Task.CompletedTask;
     }
 
@@ -128,23 +192,6 @@ public class ChannelReadModel : IChannelReadModel,
         TopMessageId = domainEvent.AggregateEvent.MessageId;
         LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
         LastSendDate = domainEvent.AggregateEvent.Date;
-        return Task.CompletedTask;
-    }
-
-    //public Task ApplyAsync(IReadModelContext context,
-    //    IDomainEvent<ChannelAggregate, ChannelId, CheckChannelStateCompletedEvent> domainEvent,
-    //    CancellationToken cancellationToken)
-    //{
-    //    TopMessageId = domainEvent.AggregateEvent.MessageId;
-    //    LastSendDate = domainEvent.AggregateEvent.Date;
-    //    LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
-    //    return Task.CompletedTask;
-    //}
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<ChannelAggregate, ChannelId, SetDiscussionGroupEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        LinkedChatId = domainEvent.AggregateEvent.GroupChannelId;
         return Task.CompletedTask;
     }
 
@@ -177,6 +224,10 @@ public class ChannelReadModel : IChannelReadModel,
         {
             ParticipantsCount--;
         }
+        else if (domainEvent.AggregateEvent.RemovedFromKicked)
+        {
+            ParticipantsCount++;
+        }
 
         return Task.CompletedTask;
     }
@@ -189,35 +240,33 @@ public class ChannelReadModel : IChannelReadModel,
         return Task.CompletedTask;
     }
 
-    public string? About { get; private set; }
-    public long AccessHash { get; private set; }
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<ChannelAggregate, ChannelId, CheckChannelStateCompletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    TopMessageId = domainEvent.AggregateEvent.MessageId;
+    //    LastSendDate = domainEvent.AggregateEvent.Date;
+    //    LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
+    //    return Task.CompletedTask;
+    //}
+    public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<ChannelAggregate, ChannelId, SetDiscussionGroupEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        LinkedChatId = domainEvent.AggregateEvent.GroupChannelId;
 
-    public string? Address { get; private set; }
+        return Task.CompletedTask;
+    }
 
-    //public ChatAdminRights AdminRights { get; private set; }
-    public virtual List<ChatAdmin> AdminList { get; protected set; } = new();
+    public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        if (domainEvent.AggregateEvent.IsRejoin)
+        {
+            ParticipantsCount++;
+        }
 
-    public bool Broadcast { get; private set; }
-    public long ChannelId { get; private set; }
-    public long CreatorId { get; private set; }
-    public int Date { get; private set; }
-    public virtual ChatBannedRights? DefaultBannedRights { get; protected set; }
-    public virtual string Id { get; private set; } = null!;
-    public int LastSendDate { get; private set; }
-    public long LastSenderPeerId { get; private set; }
-    public bool MegaGroup { get; private set; }
-    public int? ParticipantsCount { get; private set; }
-    public byte[]? Photo { get; private set; }
-    public int Pts { get; private set; }
-    public bool Signatures { get; private set; }
-    public bool SlowModeEnabled { get; private set; }
-
-    public string Title { get; private set; } = null!;
-    //public string Link { get; private set; }
-    //public string TopMessageBoxId { get; private set; }
-
-    public int TopMessageId { get; private set; }
-    public string? UserName { get; private set; }
-    public bool Verified { get; private set; }
-    public long? LinkedChatId { get; private set; }
+        return Task.CompletedTask;
+    }
 }

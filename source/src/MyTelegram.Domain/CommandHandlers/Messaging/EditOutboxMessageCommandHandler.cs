@@ -11,8 +11,8 @@ public class EditOutboxMessageCommandHandler : CommandHandler<MessageAggregate, 
             command.NewMessage,
             command.EditDate,
             command.Entities,
-            command.Media,
-            command.CorrelationId);
+            command.Media
+        );
 
         return Task.CompletedTask;
     }

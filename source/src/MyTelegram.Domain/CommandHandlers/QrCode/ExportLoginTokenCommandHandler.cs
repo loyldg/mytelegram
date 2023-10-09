@@ -6,7 +6,7 @@ public class ExportLoginTokenCommandHandler : CommandHandler<QrCodeAggregate, Qr
         ExportLoginTokenCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ExportLoginToken(command.ReqMsgId,
+        aggregate.ExportLoginToken(command.RequestInfo,
             command.TempAuthKeyId,
             command.PermAuthKeyId,
             command.Token,

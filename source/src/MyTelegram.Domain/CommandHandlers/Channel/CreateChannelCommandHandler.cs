@@ -18,7 +18,11 @@ public class CreateChannelCommandHandler : CommandHandler<ChannelAggregate, Chan
             command.Date,
             command.RandomId,
             command.MessageActionData,
-            command.CorrelationId
+            command.TtlPeriod,
+            command.MigratedFromChat,
+            command.MigrateFromChatId,
+            command.MigratedMaxId,
+            command.PhotoId
         );
         return Task.CompletedTask;
     }

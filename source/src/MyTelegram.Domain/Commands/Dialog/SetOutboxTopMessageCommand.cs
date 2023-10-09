@@ -1,29 +1,26 @@
 ﻿namespace MyTelegram.Domain.Commands.Dialog;
 
-public class SetOutboxTopMessageCommand : /*RequestInfo*/Command<DialogAggregate, DialogId, IExecutionResult>
+public class SetOutboxTopMessageCommand : /*Request*/Command<DialogAggregate, DialogId, IExecutionResult>
 {
     public SetOutboxTopMessageCommand(DialogId aggregateId,
         //long reqMsgId,
+        //RequestInfo requestInfo,
         int messageId,
         long ownerPeerId,
         //int pts,
         Peer toPeer,
-        bool clearDraft,
-        Guid correlationId
-    ) : base(aggregateId /*, reqMsgId*/)
+        bool clearDraft
+    ) : base(aggregateId)
     {
         //MessageBoxId = messageBoxId;
         MessageId = messageId;
         OwnerPeerId = ownerPeerId;
-        //Pts = pts;
-        CorrelationId = correlationId;
+        //Pts = pts; 
         ToPeer = toPeer;
         ClearDraft = clearDraft;
     }
 
     public bool ClearDraft { get; }
-
-    public Guid CorrelationId { get; }
 
     //public MessageBoxId MessageBoxId { get; }
     public int MessageId { get; }
@@ -31,4 +28,5 @@ public class SetOutboxTopMessageCommand : /*RequestInfo*/Command<DialogAggregate
     //public int Pts { get; }
     public long OwnerPeerId { get; }
     public Peer ToPeer { get; }
+
 }

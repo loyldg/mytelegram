@@ -1,26 +1,22 @@
 ﻿namespace MyTelegram.Domain.Commands.UserName;
 
-public class SetUserNameCommand : RequestCommand<UserNameAggregate, UserNameId, IExecutionResult>, IHasCorrelationId
+public class SetUserNameCommand : RequestCommand2<UserNameAggregate, UserNameId, IExecutionResult>
 {
     public SetUserNameCommand(UserNameId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long selfUserId,
         PeerType peerType,
         long peerId,
-        string userName,
-        Guid correlationId) : base(aggregateId, reqMsgId)
+        string userName) : base(aggregateId, requestInfo)
     {
         SelfUserId = selfUserId;
         PeerType = peerType;
         PeerId = peerId;
         UserName = userName;
-        CorrelationId = correlationId;
     }
 
     public long PeerId { get; }
     public PeerType PeerType { get; }
     public long SelfUserId { get; }
     public string UserName { get; }
-
-    public Guid CorrelationId { get; }
 }

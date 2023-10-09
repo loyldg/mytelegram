@@ -1,14 +1,15 @@
 ﻿namespace MyTelegram.Domain.Events.Messaging;
 
-public class SelfMessageDeletedEvent : AggregateEvent<MessageAggregate, MessageId>, IHasCorrelationId
+public class SelfMessageDeletedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
-    public SelfMessageDeletedEvent(long ownerPeerId,
+    public SelfMessageDeletedEvent(
+        RequestInfo requestInfo,
+        long ownerPeerId,
         int messageId,
         bool isOut,
         long senderPeerId,
         int senderMessageId,
-        IReadOnlyList<InboxItem>? inboxItems,
-        Guid correlationId)
+        IReadOnlyList<InboxItem>? inboxItems) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         MessageId = messageId;
@@ -16,8 +17,9 @@ public class SelfMessageDeletedEvent : AggregateEvent<MessageAggregate, MessageI
         SenderPeerId = senderPeerId;
         SenderMessageId = senderMessageId;
         InboxItems = inboxItems;
-        CorrelationId = correlationId;
+
     }
+
 
     public IReadOnlyList<InboxItem>? InboxItems { get; }
     public bool IsOut { get; }
@@ -26,5 +28,5 @@ public class SelfMessageDeletedEvent : AggregateEvent<MessageAggregate, MessageI
     public long OwnerPeerId { get; }
     public int SenderMessageId { get; }
     public long SenderPeerId { get; }
-    public Guid CorrelationId { get; }
+
 }

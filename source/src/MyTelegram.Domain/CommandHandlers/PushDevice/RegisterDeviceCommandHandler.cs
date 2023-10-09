@@ -6,7 +6,7 @@ public class RegisterDeviceCommandHandler : CommandHandler<PushDeviceAggregate, 
         RegisterDeviceCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.RegisterDevice(command.ReqMsgId,
+        aggregate.RegisterDevice(command.RequestInfo,
             command.UserId,
             command.AuthKeyId,
             command.TokenType,

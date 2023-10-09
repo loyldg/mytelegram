@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyTelegram.Core\MyTelegram.Core.csproj" />
+    <ProjectReference Include="..\MyTelegram.Domain.Shared\MyTelegram.Domain.Shared.csproj" />
+    <ProjectReference Include="..\MyTelegram.EventBus\MyTelegram.EventBus.csproj" />
+    <ProjectReference Include="..\MyTelegram.Schema\MyTelegram.Schema.csproj" />
+
+    <PackageReference Include="EventFlow" />
+    <PackageReference Include="HashedWheelTimer" />
+    <PackageReference Include="SharpZipLib" />
+  </ItemGroup>
+
+</Project>

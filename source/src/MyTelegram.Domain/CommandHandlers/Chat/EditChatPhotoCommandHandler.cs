@@ -8,10 +8,10 @@ public class EditChatPhotoCommandHandler : CommandHandler<ChatAggregate, ChatId,
     {
         aggregate.EditPhoto(command.RequestInfo,
             //command.FileId,
-            command.Photo,
+            //command.Photo,
+            command.PhotoId,
             command.MessageActionData,
-            command.RandomId,
-            command.CorrelationId);
+            command.RandomId);
         return Task.CompletedTask;
     }
 }

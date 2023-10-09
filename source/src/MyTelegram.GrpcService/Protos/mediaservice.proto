@@ -5,10 +5,13 @@ option csharp_namespace = "MyTelegram.GrpcService";
 package MyTelegram.GrpcService;
 
 service MediaService {
-	rpc GetFileMetadata(.MyTelegram.GrpcService.GetFileMetadataRequest) returns(.MyTelegram.GrpcService.GetFileMetadataResponse);
+	//rpc GetFileMetadata(.MyTelegram.GrpcService.GetFileMetadataRequest) returns(.MyTelegram.GrpcService.GetFileMetadataResponse);
 	rpc SaveEncryptedFile(.MyTelegram.GrpcService.SaveEncryptedFileRequest) returns(.MyTelegram.GrpcService.SaveEncryptedFileResponse);
 	rpc SavePhoto(.MyTelegram.GrpcService.SavePhotoRequest)returns(.MyTelegram.GrpcService.SavePhotoResponse);
 	rpc SaveMedia(.MyTelegram.GrpcService.SaveMediaRequest)returns (.MyTelegram.GrpcService.SaveMediaResponse);
+	rpc SaveStickerFile(.MyTelegram.GrpcService.SaveStickerFileRequest) returns(.MyTelegram.GrpcService.SaveStickerFileResponse);
+	rpc CreateDocument(.MyTelegram.GrpcService.CreateDocumentRequest) returns(.MyTelegram.GrpcService.CreateDocumentResponse);
+	rpc SaveFile(.MyTelegram.GrpcService.SaveFileDataRequest) returns (.MyTelegram.GrpcService.SaveFileDataResponse);
 }
 
 message GetFileMetadataRequest{
@@ -47,11 +50,13 @@ message SavePhotoResponse{
 	//int32 height=5;
 	//int32 width=6;
 	bytes photo=1;
+	int64 photoId=2;
 
 }
 
 message SaveMediaRequest{
 	bytes media=1;
+	int64 userId=2;
 }
 
 message SaveMediaResponse{
@@ -70,4 +75,58 @@ message SaveEncryptedFileResponse{
 	int64 id=3;
 	int32 keyFingerprint=4;
 	int64 size=5;
+}
+
+message SaveStickerFileRequest{
+	int64 StickerSetId=1;
+	int64 StickerSetAccessHash=2;	
+	int64 StickerId=3;
+	string MimeType=4;
+	int32 Size=5;
+	bytes Data=6;
+	string thumbSize=7;
+	string Emoji=8;
+	bool IsAnimated=9;
+	int64 AccessHash=10;
+	bytes FileReference=11;
+	string thumb=12;
+	string VideoThumb=13;
+	//int32 StickerFileType=13;//1.sticker thumb 2.sticker  3.sticker thumb 4.sticker video thumb
+	bool CreateMetadata=14;
+}
+
+message SaveStickerFileResponse{
+	bool Success=1;
+}
+
+message CreateDocumentRequest{
+	int64 StickerSetId=1;
+	int64 StickerSetAccessHash=2;	
+	int64 StickerId=3;
+	int64 AccessHash=4;
+	string MimeType=5;
+	int32 Size=6;
+	string thumbSize=7;
+	string Emoji=8;
+	bool IsAnimated=9;
+	string thumb=10;
+	string VideoThumb=11;
+	bytes FileReference=12;
+	string AttributeFileName=13;
+	int32 StickerType=14;
+}
+
+message CreateDocumentResponse{
+	bool Success=1;
+}
+
+message SaveFileDataRequest{
+	int64 Id=1;
+	int64 AccessHash=2;
+	bytes Data=3;
+	string ThumbSize=4;
+}
+
+message SaveFileDataResponse{
+	bool Success=1;
 }

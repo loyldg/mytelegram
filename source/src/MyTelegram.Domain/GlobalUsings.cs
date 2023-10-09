@@ -44,7 +44,6 @@ global using MyTelegram.Domain.Commands.QrCode;
 global using MyTelegram.Domain.Commands.RpcResult;
 global using MyTelegram.Domain.Commands.User;
 global using MyTelegram.Domain.Commands.UserName;
-global using MyTelegram.Domain.Entities;
 global using MyTelegram.Domain.EventFlow;
 global using MyTelegram.Domain.Events;
 global using MyTelegram.Domain.Events.AppCode;

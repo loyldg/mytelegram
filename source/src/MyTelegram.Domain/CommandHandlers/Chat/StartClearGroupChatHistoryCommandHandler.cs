@@ -8,7 +8,7 @@ public class
         StartClearGroupChatHistoryCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartClearGroupChatHistory(command.CorrelationId);
+        aggregate.StartClearGroupChatHistory(command.RequestInfo);
         return Task.CompletedTask;
     }
 }

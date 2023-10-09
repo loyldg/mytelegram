@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Commands.Chat;
 
-public class CreateChatCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>, IHasCorrelationId
+public class CreateChatCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>//, IHasCorrelationId
 {
     public CreateChatCommand(ChatId aggregateId,
         RequestInfo requestInfo,
@@ -11,7 +11,8 @@ public class CreateChatCommand : RequestCommand2<ChatAggregate, ChatId, IExecuti
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(aggregateId, requestInfo)
+        int? ttlPeriod = null
+    ) : base(aggregateId, requestInfo)
     {
         ChatId = chatId;
         CreatorUid = creatorUid;
@@ -20,7 +21,7 @@ public class CreateChatCommand : RequestCommand2<ChatAggregate, ChatId, IExecuti
         Date = date;
         RandomId = randomId;
         MessageActionData = messageActionData;
-        CorrelationId = correlationId;
+        TtlPeriod = ttlPeriod;
     }
 
     public long ChatId { get; }
@@ -28,7 +29,7 @@ public class CreateChatCommand : RequestCommand2<ChatAggregate, ChatId, IExecuti
     public int Date { get; }
     public IReadOnlyList<long> MemberUidList { get; }
     public string MessageActionData { get; }
+    public int? TtlPeriod { get; }
     public long RandomId { get; }
     public string Title { get; }
-    public Guid CorrelationId { get; }
 }

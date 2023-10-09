@@ -24,10 +24,17 @@ public interface IChannelFullReadModel : IReadModel
     int? PinnedMsgId { get; }
 
     List<int> PinnedMsgIdList { get; }
-    int ReadInboxMaxId { get; }
-    int ReadOutboxMaxId { get; }
+    int ReadInboxMaxId { get; set; }
+    int ReadOutboxMaxId { get; set; }
     int? SlowModeNextSendDate { get; }
     int? SlowModeSeconds { get; }
-    int UnreadCount { get; }
+    int UnreadCount { get; set; }
     string? UserName { get; }
+    ReactionType ReactionType { get; }
+    bool AllowCustomReaction { get; }
+    List<string>? AvailableReactions { get; }
+    bool AntiSpam { get; }
+    int? TtlPeriod { get; }
+    int? RequestsPending { get; }
+    List<long>? RecentRequesters { get; }
 }

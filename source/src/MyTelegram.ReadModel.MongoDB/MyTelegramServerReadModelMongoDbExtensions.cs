@@ -1,4 +1,6 @@
-﻿using MyTelegram.EventFlow.MongoDB;
+﻿using MongoDB.Bson.Serialization.Conventions;
+using MyTelegram.EventFlow.MongoDB;
+using MyTelegram.ReadModel.Impl;
 
 namespace MyTelegram.ReadModel.MongoDB;
 
@@ -6,6 +8,12 @@ public static class MyTelegramServerReadModelMongoDbExtensions
 {
     public static IEventFlowOptions AddMessengerMongoDbReadModel(this IEventFlowOptions options)
     {
+        var pack = new ConventionPack
+        {
+            new IgnoreExtraElementsConvention(true)
+        };
+        ConventionRegistry.Register("IgnoreExtraElements", pack, _ => true);
+
         options.ServiceCollection
             .AddTransient<IDialogReadModelLocator, DialogReadModelLocator>()
             .AddTransient<IDialogReadModelLocator, DialogReadModelLocator>()
@@ -16,6 +24,8 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .AddTransient<IChannelReadModelLocator, ChannelReadModelLocator>()
             .AddTransient<IChannelFullReadModelLocator, ChannelFullReadModelLocator>()
             .AddTransient<IPollAnswerVoterReadModelLocator, PollAnswerVoterReadModelLocator>()
+            .AddTransient<IAccessHashReadModelLocator, AccessHashReadModelLocator>()
+            .AddTransient<IChatAdminReadModelLocator, ChatAdminReadModelLocator>()
             ;
 
         return options.AddDefaults(typeof(MyTelegramServerReadModelMongoDbExtensions).Assembly)
@@ -41,6 +51,10 @@ public static class MyTelegramServerReadModelMongoDbExtensions
                 .UseMongoDbReadModel<DialogFilterReadModel>()
                 .UseMongoDbReadModel<PollAggregate, PollId, PollReadModel>()
                 .UseMongoDbReadModel<PollAnswerVoterReadModel, IPollAnswerVoterReadModelLocator>()
+                .UseMongoDbReadModel<AccessHashReadModel, IAccessHashReadModelLocator>()
+                .UseMongoDbReadModel<PeerSettingsAggregate, PeerSettingsId, PeerSettingsReadModel>()
+                .UseMongoDbReadModel<ChatAdminReadModel, IChatAdminReadModelLocator>()
+                .UseMongoDbReadModel<PhotoAggregate, PhotoId, PhotoReadModel>()
             ;
     }
 

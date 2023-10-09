@@ -1,9 +1,9 @@
 ﻿namespace MyTelegram.Domain.Commands.PushDevice;
 
-public class RegisterDeviceCommand : RequestCommand<PushDeviceAggregate, PushDeviceId, IExecutionResult>
+public class RegisterDeviceCommand : RequestCommand2<PushDeviceAggregate, PushDeviceId, IExecutionResult>
 {
     public RegisterDeviceCommand(PushDeviceId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long userId,
         long authKeyId,
         int tokenType,
@@ -12,7 +12,7 @@ public class RegisterDeviceCommand : RequestCommand<PushDeviceAggregate, PushDev
         bool appSandbox,
         byte[]? secret,
         IReadOnlyList<long>? otherUids
-    ) : base(aggregateId, reqMsgId)
+    ) : base(aggregateId, requestInfo)
     {
         UserId = userId;
         AuthKeyId = authKeyId;

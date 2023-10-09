@@ -12,9 +12,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
     private readonly IIdGenerator _idGenerator;
     private readonly ReadHistoryState _state = new();
 
-    public ReadHistorySaga(ReadHistorySagaId id,
-        IEventStore eventStore,
-        IIdGenerator idGenerator) : base(id, eventStore)
+    public ReadHistorySaga(ReadHistorySagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -29,6 +27,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         CompleteAsync();
     }
 
+
     public Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ReadLatestNoneBotOutboxMessageEvent> domainEvent,
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
@@ -38,9 +37,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         {
             SendReadOutboxMessageCommand(domainEvent.AggregateEvent.SenderPeerId,
                 new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId),
-                domainEvent.AggregateEvent.SenderMessageId,
-                domainEvent.AggregateEvent.SourceCommandId,
-                domainEvent.AggregateEvent.CorrelationId);
+                domainEvent.AggregateEvent.SenderMessageId);
         }
         else
         {
@@ -54,9 +51,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId,
-            domainEvent.AggregateEvent.NewMaxMessageId,
-            DateTime.UtcNow.ToTimestamp());
+        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, domainEvent.AggregateEvent.NewMaxMessageId);
 
         if (!_state.NeedReadLatestNoneBotOutboxMessage)
         {
@@ -70,16 +65,17 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new ReadHistoryOutboxHasReadEvent(domainEvent.AggregateEvent.OwnerPeerId,
-            domainEvent.AggregateEvent.MaxMessageId,
-            domainEvent.AggregateEvent.CorrelationId));
-        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId,
-            PtsChangeReason.OutboxMessageHasRead,
-            domainEvent.AggregateEvent.CorrelationId);
+        Emit(new ReadHistoryOutboxHasReadEvent(
+            _state.RequestInfo,
+            domainEvent.AggregateEvent.OwnerPeerId,
+            domainEvent.AggregateEvent.MaxMessageId));
+        await IncrementPtsAsync(
+            domainEvent.AggregateEvent.OwnerPeerId,
+            0,
+            0,
+            PtsChangeReason.OutboxMessageHasRead);
 
-        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId,
-            _state.SenderMessageId,
-            DateTime.UtcNow.ToTimestamp());
+        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, _state.SenderMessageId);
     }
 
     public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, InboxMessageHasReadEvent> domainEvent,
@@ -99,9 +95,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
 
             SendReadOutboxMessageCommand(domainEvent.AggregateEvent.SenderPeerId,
                 toPeerForSender,
-                domainEvent.AggregateEvent.SenderMessageId,
-                domainEvent.Metadata.SourceId.Value,
-                domainEvent.AggregateEvent.CorrelationId);
+                domainEvent.AggregateEvent.SenderMessageId);
         }
 
         if (needReadLatestNoneBotOutboxMessage)
@@ -109,8 +103,8 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
             var readLatestNoneBotOutboxMessageCommand =
                 new ReadLatestNoneBotOutboxMessageCommand(
                     ChatId.Create(domainEvent.AggregateEvent.ToPeer.PeerId),
-                    domainEvent.Metadata.SourceId.Value,
-                    domainEvent.AggregateEvent.CorrelationId);
+                    domainEvent.AggregateEvent.RequestInfo,
+                    domainEvent.Metadata.SourceId.Value);
             Publish(readLatestNoneBotOutboxMessageCommand);
         }
 
@@ -126,26 +120,25 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
             domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MaxMessageId,
             domainEvent.AggregateEvent.ToPeer,
-            domainEvent.Metadata.SourceId.Value,
-            domainEvent.AggregateEvent.CorrelationId));
+            domainEvent.Metadata.SourceId.Value));
 
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId,
-            PtsChangeReason.ReadInboxMessage,
-            domainEvent.AggregateEvent.CorrelationId);
+            domainEvent.AggregateEvent.ReadCount,
+            domainEvent.AggregateEvent.UnreadCount,
+            PtsChangeReason.ReadInboxMessage);
 
         var command = new ReadInboxHistoryCommand(
             MessageId.Create(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MaxMessageId),
-            domainEvent.AggregateEvent.RequestInfo.ReqMsgId,
-            domainEvent.AggregateEvent.ReaderUid,
-            domainEvent.AggregateEvent.CorrelationId
+            domainEvent.AggregateEvent.RequestInfo,
+            domainEvent.AggregateEvent.ReaderUserId,
+            DateTime.UtcNow.ToTimestamp()
         );
 
         Publish(command);
     }
 
     private void CreateReadHistory(long toPeerId,
-        int senderMsgId,
-        int date)
+        int senderMsgId)
     {
         if (_state.ReaderToPeer.PeerType == PeerType.Channel || _state.ReaderToPeer.PeerType == PeerType.Chat)
         {
@@ -155,7 +148,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
                 _state.ReaderUid,
                 toPeerId,
                 senderMsgId,
-                date);
+                DateTime.UtcNow.ToTimestamp());
 
             Publish(command);
         }
@@ -200,15 +193,25 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
     //}
 
     private async Task IncrementPtsAsync(long peerId,
-        PtsChangeReason reason,
-        Guid correlationId)
+        int readCount,
+        int unreadCount,
+        PtsChangeReason reason)
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);
+
+        var requestInfo = _state.RequestInfo;
+        if (reason == PtsChangeReason.OutboxMessageHasRead)
+        {
+            requestInfo = _state.RequestInfo with { PermAuthKeyId = 0 };
+        }
+
         Emit(new ReadHistoryPtsIncrementEvent(
+            requestInfo,
             peerId,
             pts,
-            reason,
-            correlationId));
+            readCount,
+            unreadCount,
+            reason));
         HandleReadHistoryCompleted();
     }
 
@@ -220,19 +223,17 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
     //    return Task.CompletedTask;
     //}
 
-    private void SendReadOutboxMessageCommand(long senderPeerId,
+    private void SendReadOutboxMessageCommand(
+        long senderPeerId,
         Peer toPeer,
-        int senderMessageId,
-        string sourceCommandId,
-        Guid correlationId)
+        int senderMessageId)
     {
         var senderDialogId = DialogId.Create(senderPeerId, toPeer);
         var outboxMessageHasReadCommand = new OutboxMessageHasReadCommand(senderDialogId,
-            _state.RequestInfo.ReqMsgId,
+            _state.RequestInfo,
             senderMessageId,
             senderPeerId,
-            sourceCommandId,
-            correlationId);
+            toPeer);
         Publish(outboxMessageHasReadCommand);
     }
 }

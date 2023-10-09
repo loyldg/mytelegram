@@ -1,25 +1,19 @@
 ﻿namespace MyTelegram.Domain.Commands.Dialog;
 
-public class OutboxMessageHasReadCommand : Command<DialogAggregate, DialogId, IExecutionResult>, IHasCorrelationId
+public class OutboxMessageHasReadCommand : RequestCommand2<DialogAggregate, DialogId, IExecutionResult>
 {
     public OutboxMessageHasReadCommand(DialogId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         int maxMessageId,
         long ownerPeerId,
-        string sourceCommandId,
-        Guid correlationId) : base(aggregateId)
+        Peer toPeer) : base(aggregateId, requestInfo)
     {
-        ReqMsgId = reqMsgId;
         MaxMessageId = maxMessageId;
         OwnerPeerId = ownerPeerId;
-        SourceCommandId = sourceCommandId;
-        CorrelationId = correlationId;
+        ToPeer = toPeer;
     }
 
     public int MaxMessageId { get; }
     public long OwnerPeerId { get; }
-    public long ReqMsgId { get; }
-    public string SourceCommandId { get; }
-
-    public Guid CorrelationId { get; }
+    public Peer ToPeer { get; }
 }

@@ -25,5 +25,9 @@ public interface IDialogReadModel : IReadModel
     PeerType ToPeerType { get; }
     int TopMessage { get; }
     int UnreadCount { get; }
+    bool IsDeleted { get; }
     void SetNewTopMessageId(int topMessageId);
+    int? TtlPeriod { get; }
+    int UnreadMentionsCount { get; }
+    int UnreadReactionsCount { get; }
 }

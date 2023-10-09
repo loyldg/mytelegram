@@ -7,7 +7,7 @@ public class
         LeaveChannelCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.LeaveChannel(command.ReqMsgId, command.ChannelId, command.MemberUid);
+        aggregate.LeaveChannel(command.RequestInfo, command.ChannelId, command.MemberUid);
         return Task.CompletedTask;
     }
 }

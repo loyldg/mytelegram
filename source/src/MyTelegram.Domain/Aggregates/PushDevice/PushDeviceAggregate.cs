@@ -16,7 +16,7 @@ public class PushDeviceAggregate : AggregateRoot<PushDeviceAggregate, PushDevice
     {
     }
 
-    public void RegisterDevice(long reqMsgId,
+    public void RegisterDevice(RequestInfo requestInfo,
         long userId,
         long authKeyId,
         int tokenType,
@@ -26,7 +26,7 @@ public class PushDeviceAggregate : AggregateRoot<PushDeviceAggregate, PushDevice
         byte[]? secret,
         IReadOnlyList<long>? otherUids)
     {
-        Emit(new PushDeviceRegisteredEvent(reqMsgId,
+        Emit(new PushDeviceRegisteredEvent(requestInfo,
             userId,
             authKeyId,
             tokenType,
@@ -37,12 +37,12 @@ public class PushDeviceAggregate : AggregateRoot<PushDeviceAggregate, PushDevice
             otherUids));
     }
 
-    public void UnRegisterDevice(long reqMsgId,
+    public void UnRegisterDevice(RequestInfo requestInfo,
         int tokenType,
         string token,
         IReadOnlyList<long> otherUids)
     {
         Specs.AggregateIsCreated.ThrowFirstDomainErrorIfNotSatisfied(this);
-        Emit(new PushDeviceUnRegisteredEvent(reqMsgId, tokenType, token, otherUids));
+        Emit(new PushDeviceUnRegisteredEvent(requestInfo, tokenType, token, otherUids));
     }
 }

@@ -1,26 +1,27 @@
 ﻿namespace MyTelegram.Domain.Events.Dialog;
 
-public class ReadChannelInboxMessageEvent : RequestAggregateEvent<DialogAggregate, DialogId>, IHasCorrelationId
+public class ReadChannelInboxMessageEvent : RequestAggregateEvent2<DialogAggregate, DialogId>
 {
-    public ReadChannelInboxMessageEvent(long reqMsgId,
-        long readerUid,
+    public ReadChannelInboxMessageEvent(RequestInfo requestInfo,
+        long readerUserId,
         long channelId,
         int maxId,
-        //string messageBoxId,
-        Guid correlationId) : base(reqMsgId)
+        long senderUserId,
+        int? topMsgId) : base(requestInfo)
     {
-        ReaderUid = readerUid;
+        ReaderUserId = readerUserId;
         ChannelId = channelId;
         MaxId = maxId;
+        SenderUserId = senderUserId;
+        TopMsgId = topMsgId;
         //MessageBoxId = messageBoxId;
-        CorrelationId = correlationId;
     }
 
     public long ChannelId { get; }
     public int MaxId { get; }
+    public long SenderUserId { get; }
+    public int? TopMsgId { get; }
 
-    public long ReaderUid { get; }
+    public long ReaderUserId { get; }
     //public string MessageBoxId { get; }
-
-    public Guid CorrelationId { get; }
 }

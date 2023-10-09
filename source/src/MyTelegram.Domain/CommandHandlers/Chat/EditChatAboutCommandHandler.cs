@@ -6,7 +6,7 @@ public class EditChatAboutCommandHandler : CommandHandler<ChatAggregate, ChatId,
         EditChatAboutCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditAbout(command.ReqMsgId, command.SelfUserId, command.About);
+        aggregate.EditAbout(command.RequestInfo, command.SelfUserId, command.About);
         return Task.CompletedTask;
     }
 }

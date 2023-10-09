@@ -34,7 +34,6 @@ public class UpdateUserNameSaga : AggregateSaga<UpdateUserNameSaga, UpdateUserNa
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        //Console.WriteLine("old user name deleted.");
         if (!string.IsNullOrEmpty(domainEvent.AggregateEvent.OldUserName))
         {
             var command = new DeleteUserNameCommand(UserNameId.Create(domainEvent.AggregateEvent.OldUserName));
@@ -55,25 +54,23 @@ public class UpdateUserNameSaga : AggregateSaga<UpdateUserNameSaga, UpdateUserNa
         switch (domainEvent.AggregateEvent.PeerType)
         {
             case PeerType.User:
-            {
-                var command = new UpdateUserNameCommand(UserId.Create(domainEvent.AggregateEvent.PeerId),
-                    domainEvent.AggregateEvent.ReqMsgId,
-                    domainEvent.AggregateEvent.UserName,
-                    domainEvent.AggregateEvent.CorrelationId
-                );
-                Publish(command);
-            }
+                {
+                    var command = new UpdateUserNameCommand(UserId.Create(domainEvent.AggregateEvent.PeerId),
+                        domainEvent.AggregateEvent.RequestInfo,
+                        domainEvent.AggregateEvent.UserName
+                    );
+                    Publish(command);
+                }
                 break;
             case PeerType.Channel:
-            {
-                var command = new UpdateChannelUserNameCommand(ChannelId.Create(domainEvent.AggregateEvent.PeerId),
-                    domainEvent.AggregateEvent.ReqMsgId,
-                    domainEvent.AggregateEvent.PeerId,
-                    domainEvent.AggregateEvent.UserName,
-                    domainEvent.AggregateEvent.CorrelationId
-                );
-                Publish(command);
-            }
+                {
+                    var command = new UpdateChannelUserNameCommand(ChannelId.Create(domainEvent.AggregateEvent.PeerId),
+                        domainEvent.AggregateEvent.RequestInfo,
+                        domainEvent.AggregateEvent.PeerId,
+                        domainEvent.AggregateEvent.UserName
+                    );
+                    Publish(command);
+                }
                 break;
         }
 

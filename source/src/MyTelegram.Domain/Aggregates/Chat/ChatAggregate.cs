@@ -9,55 +9,121 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Register(_state);
     }
 
+    public void EditAdmin(RequestInfo requestInfo,
+        long promotedBy,
+        bool canEdit,
+        long userId,
+        bool isBot,
+        ChatAdminRights adminRights,
+        string rank,
+        int date
+    )
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        if (_state.ChatAdmins.Count > MyTelegramServerDomainConsts.ChannelAdminMaxCount)
+        {
+            RpcErrors.RpcErrors400.AdminsTooMuch.ThrowRpcError();
+        }
+
+        CheckAdminRights(requestInfo, r => r.AddAdmins);
+        //var admin = _state.GetAdmin(selfUserId);
+        //CheckBannedRights(selfUserId, true, admin?.AdminRights.AddAdmins, RpcErrorMessages.ChatAdminRequired);
+
+        // flags value==0 means no rights(should remove member from admin list)
+        bool removeFromAdminList = adminRights.GetFlags().ToInt() == 0;
+        bool isNewAdmin = !_state.ChatAdmins.ContainsKey(userId);
+
+        Emit(new ChatAdminRightsEditedEvent(requestInfo,
+            _state.ChatId,
+            promotedBy,
+            canEdit,
+            userId,
+            isBot,
+            isNewAdmin,
+            adminRights,
+            rank,
+            removeFromAdminList,
+            date
+        ));
+    }
+
     public void AddChatUser(
         RequestInfo requestInfo,
         long inviterUserId,
         long userId,
         int date,
         string messageActionData,
-        long randomId,
-        Guid correlationId)
+        long randomId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        CheckBannedRights(_state.GetDefaultBannedRights().InviteUsers,
-            RpcErrorMessages.ChatAdminRequired,
-            inviterUserId);
+
+        //CheckBannedRights(_state.GetDefaultBannedRights().InviteUsers,
+        //    RpcErrorMessages.ChatAdminRequired,
+        //    inviterUserId);
+
+        CheckAdminRights(requestInfo, (rights => rights.InviteUsers));
 
         if (_state.ChatMembers.Count > MyTelegramServerDomainConsts.ChatMemberMaxCount)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UsersTooMuch);
+            RpcErrors.RpcErrors400.UsersTooMuch.ThrowRpcError();
         }
 
-        if (_state.MemberUidList.Contains(userId))
+        if (_state.ChatMembers.ContainsKey(userId))
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UserAlreadyParticipant);
+            RpcErrors.RpcErrors400.UserAlreadyParticipant.ThrowRpcError();
         }
+
+        var allMembers = _state.ChatMembers.Select(p => p.Key).ToList();
+        allMembers.Add(userId);
 
         Emit(new ChatMemberAddedEvent(requestInfo,
             _state.ChatId,
             new ChatMember(userId, inviterUserId, date),
             messageActionData,
-            randomId,
-            correlationId));
+            randomId, allMembers));
     }
 
-    private void CheckBannedRights(bool bannedRights,
-        string error,
-        long selfUserId)
+    private void CheckBannedRights(RequestInfo requestInfo, bool bannedRights, bool? adminRights, string error)
     {
-        if (_state.CreatorUid != selfUserId)
+
+    }
+
+    private void CheckBannedRights(long selfUserId, bool bannedRights,
+        bool? adminRights,
+        RpcError? rpcError = null)
+    {
+        if (_state.CreatorId != selfUserId)
         {
+            if (adminRights.HasValue && adminRights.Value)
+            {
+                return;
+            }
+
             if (bannedRights)
             {
-                ThrowHelper.ThrowUserFriendlyException(error);
+                //ThrowHelper.ThrowUserFriendlyException(error);
+                (rpcError ?? RpcErrors.RpcErrors400.ChatAdminRequired).ThrowRpcError();
             }
         }
     }
 
-    public void CheckChatState(Guid correlationId)
+    //private void CheckBannedRights(bool bannedRights,
+    //    string error,
+    //    long selfUserId)
+    //{
+    //    if (_state.CreatorUid != selfUserId)
+    //    {
+    //        if (bannedRights)
+    //        {
+    //            ThrowHelper.ThrowUserFriendlyException(error);
+    //        }
+    //    }
+    //}
+
+    public void CheckChatState(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new CheckChatStateCompletedEvent(_state.Title, _state.MemberUidList, correlationId));
+        Emit(new CheckChatStateCompletedEvent(requestInfo, _state.Title, _state.ChatMembers.Keys.ToList()));
     }
 
     public void Create(RequestInfo requestInfo,
@@ -68,12 +134,13 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId)
+        int? ttlPeriod
+    )
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
         if (memberUidList.Count > MyTelegramServerDomainConsts.ChatMemberMaxCount)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UsersTooMuch);
+            RpcErrors.RpcErrors400.UsersTooMuch.ThrowRpcError();
         }
 
         var memberList = memberUidList.Select(p => new ChatMember(p, creatorUid, date)).ToList();
@@ -86,48 +153,52 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
             date,
             randomId,
             messageActionData,
-            correlationId));
+            ttlPeriod));
     }
 
     protected override Task<ChatSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
     {
         return Task.FromResult(new ChatSnapshot(_state.ChatId,
             _state.Title,
-            _state.CreatorUid,
-            _state.ChatMembers,
+            _state.CreatorId,
+            _state.PhotoId,
+            _state.ChatMembers.Values.ToList(),
+            _state.ChatAdmins.Values.ToList(),
+            _state.BotUserIdList,
             _state.LatestSenderPeerId,
             _state.LatestSenderMessageId,
             _state.LatestDeletedMemberUid,
             _state.DefaultBannedRights,
-            _state.About
+            _state.About,
+            _state.TtlPeriod,
+            _state.MigrateToChannelId,
+            _state.NoForwards
         ));
     }
 
-    public void DeleteChat(RequestInfo requestInfo,
-        Guid correlationId)
+    public void DeleteChat(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (requestInfo.UserId != _state.CreatorUid)
+        if (requestInfo.UserId != _state.CreatorId)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
+            RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
         }
 
-        Emit(new ChatDeletedEvent(requestInfo, _state.ChatId, _state.Title, correlationId));
+        Emit(new ChatDeletedEvent(requestInfo, _state.ChatId, _state.Title));
     }
 
     public void DeleteChatUser(
         RequestInfo requestInfo,
         long userId,
         string messageActionData,
-        long randomId,
-        Guid correlationId)
+        long randomId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (_state.CreatorUid != requestInfo.UserId)
+        if (_state.CreatorId != requestInfo.UserId)
         {
             if (requestInfo.UserId != userId)
             {
-                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
+                RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
             }
         }
 
@@ -135,77 +206,80 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
             _state.ChatId,
             userId,
             messageActionData,
-            randomId,
-            correlationId));
+            randomId
+            ));
     }
 
-    public void EditAbout(long reqMsgId,
+    public void EditAbout(RequestInfo requestInfo,
         long selfUserId,
         string? about)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (selfUserId != _state.CreatorUid)
+        if (selfUserId != _state.CreatorId)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
+            RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
         }
 
         if (about?.Length > MyTelegramServerDomainConsts.ChatAboutMaxLength)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAboutTooLong);
+            RpcErrors.RpcErrors400.ChatAboutTooLong.ThrowRpcError();
         }
 
-        Emit(new ChatAboutEditedEvent(reqMsgId, about));
+        Emit(new ChatAboutEditedEvent(requestInfo, about));
     }
 
-    public void EditChatDefaultBannedRights(long reqMsgId,
+    public void EditChatDefaultBannedRights(RequestInfo requestInfo,
         ChatBannedRights bannedRights,
         long selfUserId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        CheckBannedRights(_state.GetDefaultBannedRights().ChangeInfo, RpcErrorMessages.ChatAdminRequired, selfUserId);
+        CheckAdminRights(selfUserId, r => r.ChangeInfo);
+        //CheckBannedRights(_state.GetDefaultBannedRights().ChangeInfo, RpcErrorMessages.ChatAdminRequired, selfUserId);
 
-        var value = bannedRights.ToIntValue();
-        var lastValue = _state.GetDefaultBannedRights().ToIntValue();
-        if (value == lastValue)
-        {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatNotModified);
-        }
 
-        Emit(new ChatDefaultBannedRightsEditedEvent(reqMsgId, _state.ChatId, bannedRights, Version));
+        //var value = bannedRights.ToIntValue();
+        //var lastValue = _state.GetDefaultBannedRights().ToIntValue();
+        //if (value == lastValue)
+        //{
+        //    ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatNotModified);
+        //}
+
+        Emit(new ChatDefaultBannedRightsEditedEvent(requestInfo, _state.ChatId, bannedRights, Version));
     }
 
     public void EditPhoto(RequestInfo requestInfo,
-        byte[] photo,
+        //byte[] photo,
+        long photoId,
         string messageActionData,
-        long randomId,
-        Guid correlationId)
+        long randomId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        CheckAdminRights(requestInfo, r => r.ChangeInfo);
         Emit(new ChatPhotoEditedEvent(requestInfo,
             _state.ChatId,
-            photo,
+            photoId,
+            //photo,
             messageActionData,
-            randomId,
-            correlationId));
+            randomId
+            ));
     }
 
     public void EditTitle(RequestInfo requestInfo,
         string title,
         string messageActionData,
-        long randomId,
-        Guid correlationId)
+        long randomId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        CheckBannedRights(_state.GetDefaultBannedRights().ChangeInfo,
-            RpcErrorMessages.ChatAdminRequired,
-            requestInfo.UserId);
+        //CheckBannedRights(_state.GetDefaultBannedRights().ChangeInfo,
+        //    RpcErrorMessages.ChatAdminRequired,
+        //    requestInfo.UserId);
+        CheckAdminRights(requestInfo, r => r.ChangeInfo);
 
         Emit(new ChatTitleEditedEvent(requestInfo,
             _state.ChatId,
             title,
             messageActionData,
-            randomId,
-            correlationId));
+            randomId));
     }
 
     protected override Task LoadSnapshotAsync(ChatSnapshot snapshot,
@@ -216,15 +290,13 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         return Task.CompletedTask;
     }
 
-    public void ReadLatestNoneBotOutboxMessage(string sourceCommandId,
-        Guid correlationId)
+    public void ReadLatestNoneBotOutboxMessage(RequestInfo requestInfo, string sourceCommandId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ReadLatestNoneBotOutboxMessageEvent(_state.ChatId,
+        Emit(new ReadLatestNoneBotOutboxMessageEvent(requestInfo, _state.ChatId,
             _state.LatestSenderPeerId,
             _state.LatestSenderMessageId,
-            sourceCommandId,
-            correlationId));
+            sourceCommandId));
     }
 
     public void SetPinnedMsgId(int pinnedMsgId)
@@ -233,42 +305,91 @@ public class ChatAggregate : MyInMemorySnapshotAggregateRoot<ChatAggregate, Chat
         Emit(new NewChatMsgIdPinnedEvent(pinnedMsgId));
     }
 
-    public void StartClearGroupChatHistory(Guid correlationId)
+    public void StartClearGroupChatHistory(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ClearGroupChatHistoryStartedEvent(_state.ChatId, _state.ChatMembers, correlationId));
+        Emit(new ClearGroupChatHistoryStartedEvent(requestInfo, _state.ChatId, _state.ChatMembers.Values.ToList()));
     }
 
     public void StartDeleteChatMessages(RequestInfo requestInfo,
         List<int> messageIds,
         bool revoke,
-        bool isClearHistory,
-        Guid correlationId)
+        bool isClearHistory)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new DeleteChatMessagesStartedEvent(requestInfo,
             messageIds,
             revoke,
-            _state.CreatorUid,
+            _state.CreatorId,
             _state.ChatMembers.Count,
-            isClearHistory,
-            correlationId));
+            isClearHistory));
     }
 
     public void StartSendChatMessage(
+        RequestInfo requestInfo,
         long senderPeerId,
         int senderMessageId,
-        bool senderIsBot,
-        Guid correlationId)
+        bool senderIsBot)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new StartSendChatMessageEvent(_state.ChatId,
+        Emit(new StartSendChatMessageEvent(
+            requestInfo,
+            _state.ChatId,
             _state.Title,
-            _state.MemberUidList,
+            _state.ChatMembers.Keys.ToList(),
             senderPeerId,
             senderMessageId,
             senderIsBot,
-            _state.LatestDeletedMemberUid,
-            correlationId));
+            _state.LatestDeletedMemberUid));
     }
+
+    #region Check admin rights and banned rights
+
+
+
+    private void CheckAdminRights(RequestInfo requestInfo, Func<ChatAdminRights, bool> rightsToCheck, RpcError? rpcError = null)
+    {
+        CheckAdminRights(requestInfo.UserId, rightsToCheck, rpcError);
+    }
+
+    private void CheckAdminRights(long userId, Func<ChatAdminRights, bool> rightsToCheck, RpcError? rpcError = null)
+    {
+        if (_state.CreatorId != userId)
+        {
+            var admin = _state.GetAdmin(userId);
+
+            if (admin == null)
+            {
+                //ThrowHelper.ThrowUserFriendlyException(errorMessage);
+                (rpcError ?? RpcErrors.RpcErrors400.ChatAdminRequired).ThrowRpcError();
+            }
+
+            if (admin!.UserId != _state.CreatorId)
+            {
+                var rights = rightsToCheck(admin.AdminRights);
+                if (!rights)
+                {
+                    (rpcError ?? RpcErrors.RpcErrors400.ChatAdminRequired).ThrowRpcError();
+                }
+            }
+        }
+    }
+
+    private void CheckBannedRights(RequestInfo requestInfo, bool bannedRights, RpcError? rpcError = null)
+    {
+        CheckBannedRights(requestInfo.UserId, bannedRights, rpcError);
+    }
+
+    private void CheckBannedRights(long userId, bool bannedRights, RpcError? rpcError = null)
+    {
+        if (_state.CreatorId != userId)
+        {
+            if (bannedRights)
+            {
+                (rpcError ?? RpcErrors.RpcErrors400.ChatAdminRequired).ThrowRpcError();
+            }
+        }
+    }
+    #endregion
+
 }

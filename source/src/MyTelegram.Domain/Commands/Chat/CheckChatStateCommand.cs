@@ -1,12 +1,14 @@
 ﻿namespace MyTelegram.Domain.Commands.Chat;
 
-public class CheckChatStateCommand : Command<ChatAggregate, ChatId, IExecutionResult>
+public class CheckChatStateCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>
 {
-    public CheckChatStateCommand(ChatId aggregateId,
-        Guid correlationId) : base(aggregateId)
+    public CheckChatStateCommand(ChatId aggregateId, RequestInfo requestInfo) : base(aggregateId, requestInfo)
     {
-        CorrelationId = correlationId;
+
     }
 
-    public Guid CorrelationId { get; }
+    protected override IEnumerable<byte[]> GetSourceIdComponents()
+    {
+        yield return RequestInfo.RequestId.ToByteArray();
+    }
 }

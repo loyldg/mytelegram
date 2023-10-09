@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class PreHistoryHiddenChangedEvent : RequestAggregateEvent<ChannelAggregate, ChannelId>
+public class PreHistoryHiddenChangedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>
 {
-    public PreHistoryHiddenChangedEvent(long reqMsgId,
+    public PreHistoryHiddenChangedEvent(RequestInfo requestInfo,
         long channelId,
         bool hidden
-    ) : base(reqMsgId)
+    ) : base(requestInfo)
     {
         ChannelId = channelId;
         Hidden = hidden;
@@ -14,3 +14,4 @@ public class PreHistoryHiddenChangedEvent : RequestAggregateEvent<ChannelAggrega
     public long ChannelId { get; }
     public bool Hidden { get; }
 }
+

@@ -6,7 +6,7 @@ public class ReplyToMessageCommandHandler : CommandHandler<MessageAggregate, Mes
         ReplyToMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ReplyToMessage(command.CorrelationId);
+        aggregate.ReplyToMessage(command.RequestInfo);
         return Task.CompletedTask;
     }
 }

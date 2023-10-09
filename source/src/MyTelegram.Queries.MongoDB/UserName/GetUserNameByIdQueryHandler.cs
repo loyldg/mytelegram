@@ -1,6 +1,5 @@
 ﻿namespace MyTelegram.QueryHandlers.MongoDB.UserName;
 
-// ReSharper disable once UnusedMember.Global
 public class GetUserNameByIdQueryHandler : IQueryHandler<GetUserNameByIdQuery, IUserNameReadModel?>
 {
     private readonly IMongoDbReadModelStore<UserNameReadModel> _store;
@@ -14,8 +13,8 @@ public class GetUserNameByIdQueryHandler : IQueryHandler<GetUserNameByIdQuery, I
         CancellationToken cancellationToken)
     {
         var item = await _store
-                .GetAsync(UserNameId.Create(query.UserName).Value, cancellationToken)
-            ;
+            .GetAsync(UserNameId.Create(query.UserName).Value, cancellationToken)
+     ;
 
         return item.ReadModel;
     }

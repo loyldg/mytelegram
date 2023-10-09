@@ -1,18 +1,9 @@
 ﻿namespace MyTelegram.Domain.Commands.Messaging;
 
-public class DeleteOtherPartyMessageCommand : Command<MessageAggregate, MessageId, IExecutionResult>,
-    IHasCorrelationId
+public class DeleteOtherPartyMessageCommand : RequestCommand2<MessageAggregate, MessageId, IExecutionResult>
 {
-    public DeleteOtherPartyMessageCommand(MessageId aggregateId,
-        //long reqMsgId,
-
-        //bool revoke,
-        Guid correlationId) : base(aggregateId)
+    public DeleteOtherPartyMessageCommand(MessageId aggregateId, RequestInfo requestInfo) : base(aggregateId, requestInfo)
     {
         //Revoke = revoke;
-        CorrelationId = correlationId;
     }
-
-    //public bool Revoke { get; }
-    public Guid CorrelationId { get; }
 }

@@ -1,10 +1,10 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class ChannelDefaultBannedRightsEditedEvent : RequestAggregateEvent<ChannelAggregate, ChannelId>
+public class ChannelDefaultBannedRightsEditedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>
 {
-    public ChannelDefaultBannedRightsEditedEvent(long reqMsgId,
+    public ChannelDefaultBannedRightsEditedEvent(RequestInfo requestInfo,
         long channelId,
-        ChatBannedRights defaultBannedRights) : base(reqMsgId)
+        ChatBannedRights defaultBannedRights) : base(requestInfo)
     {
         ChannelId = channelId;
         DefaultBannedRights = defaultBannedRights;

@@ -8,11 +8,12 @@ public class
         UpdateInboxMessagePinnedCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.UpdateInboxMessagePinned(command.Pinned,
-            command.PmOneSide,
+        aggregate.UpdateInboxMessagePinned(
+            command.RequestInfo,
+            command.Pinned,
+            command.PmOneSize,
             command.Silent,
-            command.Date,
-            command.CorrelationId);
+            command.Date);
         return Task.CompletedTask;
     }
 }

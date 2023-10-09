@@ -8,11 +8,12 @@ public class
         ReadChannelInboxMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ReadChannelInboxMessage(command.ReqMsgId,
-            command.ReaderUid,
+        aggregate.ReadChannelInboxMessage(command.RequestInfo,
+            command.ReaderUserId,
             command.ChannelId,
             command.MaxId,
-            command.CorrelationId);
+            command.SenderUserId,
+            command.TopMsgId);
         return Task.CompletedTask;
     }
 }

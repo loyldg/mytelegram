@@ -7,7 +7,7 @@ public class CreateChannelCreatorMemberCommandHandler : CommandHandler<ChannelMe
         CreateChannelCreatorMemberCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.CreateCreator(command.ReqMsgId, command.ChannelId, command.UserId, command.Date);
+        aggregate.CreateCreator(command.RequestInfo, command.ChannelId, command.UserId, command.Date);
         return Task.CompletedTask;
     }
 }

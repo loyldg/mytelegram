@@ -1,20 +1,17 @@
 ﻿namespace MyTelegram.Domain.Commands.Chat;
 
-public class DeleteChatUserCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>, IHasCorrelationId
+public class DeleteChatUserCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>//, IHasCorrelationId
 {
     public DeleteChatUserCommand(ChatId aggregateId,
         RequestInfo requestInfo,
         long userId,
         string messageActionData,
-        long randomId,
-        //int date,
-        Guid correlationId) : base(aggregateId, requestInfo)
+        long randomId) : base(aggregateId, requestInfo)
     {
         UserId = userId;
         MessageActionData = messageActionData;
         RandomId = randomId;
-        //Date = date;
-        CorrelationId = correlationId;
+        //Date = date; 
     }
 
     public string MessageActionData { get; }
@@ -22,6 +19,5 @@ public class DeleteChatUserCommand : RequestCommand2<ChatAggregate, ChatId, IExe
 
     public long UserId { get; }
 
-    //public int Date { get; }
-    public Guid CorrelationId { get; }
+    //public int Date { get; } 
 }

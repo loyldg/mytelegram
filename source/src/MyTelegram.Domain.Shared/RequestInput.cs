@@ -2,8 +2,14 @@
 
 namespace MyTelegram;
 
-public record RequestInput(uint ObjectId,
+public record RequestInput(
+    string ConnectionId,
+    Guid RequestId,
+    uint ObjectId,
     long ReqMsgId,
     long UserId,
     long AuthKeyId,
-    long PermAuthKeyId) : IRequestInput;
+    long PermAuthKeyId,
+    int Layer,
+    long Date
+) : IRequestInput;

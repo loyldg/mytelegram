@@ -1,15 +1,15 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class ForwardMessageSaga :
-    MyInMemoryAggregateSaga<ForwardMessageSaga, ForwardMessageSagaId, ForwardMessageSagaLocator>,
-    ISagaIsStartedBy<MessageAggregate, MessageId, ForwardMessageStartedEvent>,
-    ISagaHandles<MessageAggregate, MessageId, MessageForwardedEvent>
+public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, ForwardMessageSagaId, ForwardMessageSagaLocator>,
+        ISagaIsStartedBy<MessageAggregate, MessageId, ForwardMessageStartedEvent>,
+        ISagaHandles<MessageAggregate, MessageId, MessageForwardedEvent>
 {
+    private readonly IIdGenerator _idGenerator;
     private readonly ForwardMessageState _state = new();
 
-    public ForwardMessageSaga(ForwardMessageSagaId id,
-        IEventStore eventStore) : base(id, eventStore)
+    public ForwardMessageSaga(ForwardMessageSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
+        _idGenerator = idGenerator;
         Register(_state);
     }
 
@@ -31,8 +31,7 @@ public class ForwardMessageSaga :
             domainEvent.AggregateEvent.ToPeer,
             domainEvent.AggregateEvent.IdList,
             domainEvent.AggregateEvent.RandomIdList,
-            domainEvent.AggregateEvent.ForwardFromLinkedChannel,
-            domainEvent.AggregateEvent.CorrelationId
+            domainEvent.AggregateEvent.ForwardFromLinkedChannel
         ));
         ForwardMessage(domainEvent.AggregateEvent);
         return Task.CompletedTask;
@@ -49,8 +48,7 @@ public class ForwardMessageSaga :
             var randomId = aggregateEvent.RandomIdList[index];
             var command = new ForwardMessageCommand(MessageId.Create(ownerPeerId, messageId),
                 aggregateEvent.RequestInfo,
-                randomId,
-                aggregateEvent.CorrelationId);
+                randomId);
             Publish(command);
             index++;
         }
@@ -66,7 +64,7 @@ public class ForwardMessageSaga :
         return Task.CompletedTask;
     }
 
-    private Task SendMessageToTargetPeerAsync(MessageForwardedEvent aggregateEvent)
+    private async Task SendMessageToTargetPeerAsync(MessageForwardedEvent aggregateEvent)
     {
         var selfUserId = _state.RequestInfo.UserId;
         var ownerPeerId = _state.ToPeer.PeerType == PeerType.Channel
@@ -75,19 +73,20 @@ public class ForwardMessageSaga :
 
         var outMessageId = 0;
         var fromId = _state.FromPeer;
-        var channelPost = _state.FromPeer.PeerType == PeerType.Channel
-            ? aggregateEvent.OriginalMessageItem.MessageId
-            : 0;
+        var channelPost = _state.FromPeer.PeerType == PeerType.Channel ? aggregateEvent.OriginalMessageItem.MessageId : 0;
+        var senderPeer = new Peer(PeerType.User, _state.RequestInfo.UserId);
 
         var savedFromPeer = _state.ToPeer.PeerId == selfUserId ? _state.FromPeer : null;
-
         var savedFromMsgId = _state.ToPeer.PeerId == selfUserId ? aggregateEvent.OriginalMessageItem.MessageId : 0;
+        var isOut = true;
         if (_state.ForwardFromLinkedChannel)
         {
             savedFromPeer = _state.FromPeer;
             savedFromMsgId = aggregateEvent.OriginalMessageItem.MessageId;
+            senderPeer = _state.FromPeer;
+            isOut = false;
+            //senderPeer=new Peer(PeerType.Channel,_state.)
         }
-
         // TODO:Set fromName
         var fwdHeader = new MessageFwdHeader(fromId,
             null,
@@ -99,16 +98,18 @@ public class ForwardMessageSaga :
             savedFromPeer,
             savedFromMsgId);
 
-        var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, aggregateEvent.RandomId);
-        var senderPeer = new Peer(PeerType.User, _state.RequestInfo.UserId);
+        outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, ownerPeerId);
+        //var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, aggregateEvent.RandomId);
+        var aggregateId = MessageId.Create(ownerPeerId, outMessageId);
+
+
         var ownerPeer = _state.ToPeer.PeerType == PeerType.Channel
             ? _state.ToPeer
             : senderPeer;
         var toPeer = _state.ToPeer;
         var item = aggregateEvent.OriginalMessageItem;
 
-        var command = new StartSendMessageCommand(aggregateId,
-            aggregateEvent.RequestInfo,
+        var command = new CreateOutboxMessageCommand(aggregateId, aggregateEvent.RequestInfo,
             new MessageItem(
                 ownerPeer,
                 toPeer,
@@ -117,24 +118,25 @@ public class ForwardMessageSaga :
                 item.Message,
                 DateTime.UtcNow.ToTimestamp(),
                 aggregateEvent.RandomId,
-                true,
+                isOut,
                 SendMessageType.Text,
                 MessageType.Text,
                 MessageSubType.ForwardMessage,
-                item.ReplyToMsgId,
+                replyToMsgId: item.ReplyToMsgId,
                 entities: item.Entities,
                 media: item.Media,
                 fwdHeader: fwdHeader,
-                views: item.Views
-            ),
-            false,
-            1,
-            aggregateEvent.CorrelationId,
-            _state.ForwardFromLinkedChannel
+                views: item.Views,
+                pollId: item.PollId
+            )//,
+             //null,
+             //false,
+             //1//,
+             //forwardFromLinkedChannel: _state.ForwardFromLinkedChannel
         );
 
         Publish(command);
 
-        return Task.CompletedTask;
+        //return Task.CompletedTask;
     }
 }

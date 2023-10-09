@@ -6,10 +6,9 @@ public class StartSendChatMessageCommandHandler : CommandHandler<ChatAggregate, 
         StartSendChatMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartSendChatMessage( /*command.ReqMsgId,*/ command.SenderPeerId,
+        aggregate.StartSendChatMessage(command.RequestInfo, command.SenderPeerId,
             command.SenderMessageId,
-            command.SenderIsBot,
-            command.CorrelationId);
+            command.SenderIsBot);
         return Task.CompletedTask;
     }
 }

@@ -1,24 +1,24 @@
 ﻿namespace MyTelegram.Domain.Events.Chat;
 
-public class ReadLatestNoneBotOutboxMessageEvent : AggregateEvent<ChatAggregate, ChatId>, IHasCorrelationId
+public class ReadLatestNoneBotOutboxMessageEvent : RequestAggregateEvent2<ChatAggregate, ChatId>
 {
     public ReadLatestNoneBotOutboxMessageEvent(
+        RequestInfo requestInfo,
         long chatId,
         long senderPeerId,
         int senderMessageId,
-        string sourceCommandId,
-        Guid correlationId)
+        string sourceCommandId) : base(requestInfo)
     {
         ChatId = chatId;
         SenderPeerId = senderPeerId;
         SenderMessageId = senderMessageId;
         SourceCommandId = sourceCommandId;
-        CorrelationId = correlationId;
+
     }
 
     public long ChatId { get; }
     public int SenderMessageId { get; }
     public long SenderPeerId { get; }
     public string SourceCommandId { get; }
-    public Guid CorrelationId { get; }
+
 }

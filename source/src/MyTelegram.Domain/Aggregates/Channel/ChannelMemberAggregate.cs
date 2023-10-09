@@ -10,25 +10,29 @@ public class ChannelMemberAggregate : AggregateRoot<ChannelMemberAggregate, Chan
     }
 
     public void Create(
+        RequestInfo requestInfo,
         long channelId,
         long userId,
         long inviterId,
         int date,
         bool isBot,
-        Guid correlationId)
+        long? chatInviteId)
     {
         // Kicked user can not join channel by invite link
         if (_state.KickedBy != 0 && userId == inviterId)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChannelPrivate);
+            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChannelPrivate);
+            RpcErrors.RpcErrors400.ChannelPrivate.ThrowRpcError();
         }
 
         if (!IsNew && !_state.Left)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UserAlreadyParticipant);
+            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UserAlreadyParticipant);
+            RpcErrors.RpcErrors400.UserAlreadyParticipant.ThrowRpcError();
         }
 
         Emit(new ChannelMemberCreatedEvent(
+            requestInfo,
             channelId,
             userId,
             inviterId,
@@ -36,81 +40,102 @@ public class ChannelMemberAggregate : AggregateRoot<ChannelMemberAggregate, Chan
             !IsNew,
             _state.BannedRights,
             isBot,
-            correlationId));
+            chatInviteId));
     }
 
-    public void CreateCreator(long reqMsgId,
+    public void CreateCreator(RequestInfo requestInfo,
         long channelId,
         long userId,
         int date)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelCreatorCreatedEvent(reqMsgId,
+        Emit(new ChannelCreatorCreatedEvent(requestInfo,
             channelId,
             userId,
             userId,
             date));
     }
 
-    public void EditBanned(long reqMsgId,
+    public void EditBanned(RequestInfo requestInfo,
         long adminId,
         long channelId,
-        long memberUid,
+        long memberUserId,
         ChatBannedRights bannedRights)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        var needRemoveFromKicked = false;
-        var needRemoveFromBanned = false;
+
+        bool kicked;
+        long kickedBy;
+        bool left;
+        bool removedFromKicked = false;
+        bool removedFromBanned = false;
+        // User is banned all rights
+        if (bannedRights.ViewMessages)
+        {
+            kicked = true;
+            kickedBy = adminId;
+            left = true;
+        }
+        else
+        {
+            kicked = false;
+            kickedBy = 0;
+            left = false;
+        }
 
         if (_state.BannedRights != null)
         {
             if (_state.BannedRights.ViewMessages && !bannedRights.ViewMessages)
             {
-                needRemoveFromKicked = true;
+                removedFromKicked = true;
             }
             else if (bannedRights.ToIntValue() == ChatBannedRights.Default.ToIntValue())
             {
-                needRemoveFromBanned = true;
+                removedFromBanned = true;
             }
         }
 
-        Emit(new ChannelMemberBannedRightsChangedEvent(reqMsgId,
+        var banned = bannedRights.ToIntValue() != ChatBannedRights.Default.ToIntValue();
+
+        Emit(new ChannelMemberBannedRightsChangedEvent(requestInfo,
             adminId,
             channelId,
-            memberUid,
-            needRemoveFromKicked,
-            needRemoveFromBanned,
+            memberUserId,
+            kicked,
+            kickedBy,
+            left,
+            banned,
+            removedFromKicked,
+            removedFromBanned,
             bannedRights));
     }
 
-    public void Join(long reqMsgId,
+    public void Join(RequestInfo requestInfo,
         long channelId,
-        long memberUid,
-        Guid correlationId)
+        long memberUserId)
     {
         if (_state.KickedBy != 0)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChannelPrivate);
+            RpcErrors.RpcErrors400.ChannelPrivate.ThrowRpcError();
         }
 
         if (!IsNew && !_state.Kicked)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UserAlreadyParticipant);
+            RpcErrors.RpcErrors400.UserAlreadyParticipant.ThrowRpcError();
         }
 
-        Emit(new ChannelMemberJoinedEvent(reqMsgId,
+        Emit(new ChannelMemberJoinedEvent(requestInfo,
             channelId,
-            memberUid,
+            memberUserId,
             DateTime.UtcNow.ToTimestamp(),
-            !IsNew,
-            correlationId));
+            !IsNew));
     }
 
-    public void LeaveChannel(long reqMsgId,
+    public void LeaveChannel(RequestInfo requestInfo,
         long channelId,
-        long memberUid)
+        long memberUserId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelMemberLeftEvent(reqMsgId, channelId, memberUid));
+        Emit(new ChannelMemberLeftEvent(requestInfo, channelId, memberUserId));
     }
 }

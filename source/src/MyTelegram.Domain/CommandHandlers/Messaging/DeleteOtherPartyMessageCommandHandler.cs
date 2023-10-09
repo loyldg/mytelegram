@@ -1,13 +1,12 @@
 ﻿namespace MyTelegram.Domain.CommandHandlers.Messaging;
 
-public class
-    DeleteOtherPartyMessageCommandHandler : CommandHandler<MessageAggregate, MessageId, DeleteOtherPartyMessageCommand>
+public class DeleteOtherPartyMessageCommandHandler : CommandHandler<MessageAggregate, MessageId, DeleteOtherPartyMessageCommand>
 {
     public override Task ExecuteAsync(MessageAggregate aggregate,
         DeleteOtherPartyMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.DeleteOtherPartyMessage(command.CorrelationId);
+        aggregate.DeleteOtherPartyMessage(command.RequestInfo);
         return Task.CompletedTask;
     }
 }

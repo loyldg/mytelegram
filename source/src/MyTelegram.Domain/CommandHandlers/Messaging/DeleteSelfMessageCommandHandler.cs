@@ -6,7 +6,7 @@ public class DeleteSelfMessageCommandHandler : CommandHandler<MessageAggregate, 
         DeleteSelfMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.DeleteSelfMessage(command.MessageId, command.CorrelationId);
+        aggregate.DeleteSelfMessage(command.RequestInfo, command.MessageId);
         return Task.CompletedTask;
     }
 }

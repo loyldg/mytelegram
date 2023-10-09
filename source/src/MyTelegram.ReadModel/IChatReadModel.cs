@@ -9,9 +9,19 @@ public interface IChatReadModel : IReadModel
     int Date { get; }
     ChatBannedRights? DefaultBannedRights { get; }
     string Id { get; }
-    byte[]? Photo { get; }
+    //byte[]? Photo { get; }
+    long? PhotoId { get; }
     int PinnedMsgId { get; }
     string Title { get; }
     long? Version { get; set; }
     bool IsDeleted { get; set; }
+    //ReactionType ReactionType { get; }
+    bool AllowCustomReaction { get; }
+    List<string>? AvailableReactions { get; }
+    int? TtlPeriod { get; }
+    long? MigrateToChannelId { get; }
+    long? MigrateToChannelAccessHash { get; }
+    bool Deactivated { get; }
+
+    bool NoForwards { get; }
 }

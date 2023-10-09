@@ -1,17 +1,17 @@
 ﻿namespace MyTelegram.Domain.Events.Messaging;
 
-public class InboxMessageCreatedEvent : AggregateEvent<MessageAggregate, MessageId>, IHasCorrelationId
+public class InboxMessageCreatedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
-    public InboxMessageCreatedEvent(MessageItem inboxMessageItem,
-        int senderMessageId,
-        Guid correlationId)
+    public MessageItem InboxMessageItem { get; }
+    public int SenderMessageId { get; }
+
+
+    public InboxMessageCreatedEvent(
+        RequestInfo requestInfo,
+        MessageItem inboxMessageItem, int senderMessageId) : base(requestInfo)
     {
         InboxMessageItem = inboxMessageItem;
         SenderMessageId = senderMessageId;
-        CorrelationId = correlationId;
-    }
 
-    public MessageItem InboxMessageItem { get; }
-    public int SenderMessageId { get; }
-    public Guid CorrelationId { get; }
+    }
 }

@@ -6,13 +6,14 @@ public class EditChannelAdminCommandHandler : CommandHandler<ChannelAggregate, C
         EditChannelAdminCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditAdmin(command.ReqMsgId,
-            command.SelfUserId,
+        aggregate.EditAdmin(command.RequestInfo,
             command.PromotedBy,
             command.CanEdit,
             command.UserId,
+            command.IsBot,
             command.AdminRights,
-            command.Rank);
+            command.Rank,
+            command.Date);
         return Task.CompletedTask;
     }
 }

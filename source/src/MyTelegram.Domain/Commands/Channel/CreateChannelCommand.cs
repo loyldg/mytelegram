@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Commands.Channel;
 
-public class CreateChannelCommand : RequestCommand2<ChannelAggregate, ChannelId, IExecutionResult>, IHasCorrelationId
+public class CreateChannelCommand : RequestCommand2<ChannelAggregate, ChannelId, IExecutionResult>
 {
     public CreateChannelCommand(ChannelId aggregateId,
         RequestInfo requestInfo,
@@ -15,7 +15,11 @@ public class CreateChannelCommand : RequestCommand2<ChannelAggregate, ChannelId,
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(aggregateId, requestInfo)
+        int? ttlPeriod,
+        bool migratedFromChat,
+        long? migrateFromChatId,
+        int? migratedMaxId,
+        long? photoId) : base(aggregateId, requestInfo)
     {
         ChannelId = channelId;
         CreatorId = creatorId;
@@ -28,7 +32,11 @@ public class CreateChannelCommand : RequestCommand2<ChannelAggregate, ChannelId,
         Date = date;
         RandomId = randomId;
         MessageActionData = messageActionData;
-        CorrelationId = correlationId;
+        TtlPeriod = ttlPeriod;
+        MigratedFromChat = migratedFromChat;
+        MigrateFromChatId = migrateFromChatId;
+        MigratedMaxId = migratedMaxId;
+        PhotoId = photoId;
     }
 
     public string? About { get; }
@@ -41,8 +49,11 @@ public class CreateChannelCommand : RequestCommand2<ChannelAggregate, ChannelId,
     public int Date { get; }
     public bool MegaGroup { get; }
     public string MessageActionData { get; }
+    public int? TtlPeriod { get; }
+    public bool MigratedFromChat { get; }
+    public long? MigrateFromChatId { get; }
+    public int? MigratedMaxId { get; }
+    public long? PhotoId { get; }
     public long RandomId { get; }
     public string Title { get; }
-
-    public Guid CorrelationId { get; }
 }

@@ -10,11 +10,11 @@ public class
     {
         aggregate.StartSendChannelMessage(
             //command.ReqMsgId,
+            command.RequestInfo,
             command.SenderPeerId,
             command.SenderIsBot,
             command.MessageId,
-            command.SubType,
-            command.CorrelationId);
+            command.SubType);
         return Task.CompletedTask;
     }
 }

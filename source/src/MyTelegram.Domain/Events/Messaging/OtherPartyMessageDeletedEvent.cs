@@ -1,18 +1,19 @@
 ﻿namespace MyTelegram.Domain.Events.Messaging;
 
-public class OtherPartyMessageDeletedEvent : AggregateEvent<MessageAggregate, MessageId>, IHasCorrelationId
+public class OtherPartyMessageDeletedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
-    public OtherPartyMessageDeletedEvent(long ownerPeerId,
-        int messageId,
-        Guid correlationId)
+    public OtherPartyMessageDeletedEvent(
+        RequestInfo requestInfo,
+        long ownerPeerId,
+        int messageId) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         MessageId = messageId;
-        CorrelationId = correlationId;
+
     }
 
     public int MessageId { get; }
 
     public long OwnerPeerId { get; }
-    public Guid CorrelationId { get; }
+
 }

@@ -24,7 +24,6 @@ public class ForwardMessageState : AggregateState<ForwardMessageSaga, ForwardMes
         IdList = aggregateEvent.IdList;
         RandomIdList = aggregateEvent.RandomIdList;
         ForwardFromLinkedChannel = aggregateEvent.ForwardFromLinkedChannel;
-        CorrelationId = aggregateEvent.CorrelationId;
     }
 
     public void Apply(ForwardSingleMessageSuccessEvent aggregateEvent)

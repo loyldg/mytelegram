@@ -8,7 +8,7 @@ public class
         ReadLatestNoneBotOutboxMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ReadLatestNoneBotOutboxMessage(command.SourceCommandId, command.CorrelationId);
+        aggregate.ReadLatestNoneBotOutboxMessage(command.RequestInfo, command.SourceCommandId);
         return Task.CompletedTask;
     }
 }

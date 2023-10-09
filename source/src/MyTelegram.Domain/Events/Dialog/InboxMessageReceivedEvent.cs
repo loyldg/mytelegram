@@ -1,16 +1,16 @@
 ﻿namespace MyTelegram.Domain.Events.Dialog;
 
-public class InboxMessageReceivedEvent : AggregateEvent<DialogAggregate, DialogId>, IHasCorrelationId
+public class InboxMessageReceivedEvent : RequestAggregateEvent2<DialogAggregate, DialogId>
 {
     public InboxMessageReceivedEvent(
+        RequestInfo requestInfo,
         int messageId,
         long ownerPeerId,
-        Peer toPeer,
-        Guid correlationId
-    )
+        Peer toPeer
+    ) : base(requestInfo)
     {
         MessageId = messageId;
-        CorrelationId = correlationId;
+
         OwnerPeerId = ownerPeerId;
         ToPeer = toPeer;
     }
@@ -19,5 +19,4 @@ public class InboxMessageReceivedEvent : AggregateEvent<DialogAggregate, DialogI
     public long OwnerPeerId { get; }
     public Peer ToPeer { get; }
 
-    public Guid CorrelationId { get; }
 }

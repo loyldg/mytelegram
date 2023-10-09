@@ -1,14 +1,14 @@
 ﻿namespace MyTelegram.Domain.Commands.QrCode;
 
-public class ExportLoginTokenCommand : RequestCommand<QrCodeAggregate, QrCodeId, IExecutionResult>
+public class ExportLoginTokenCommand : RequestCommand2<QrCodeAggregate, QrCodeId, IExecutionResult>
 {
     public ExportLoginTokenCommand(QrCodeId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long tempAuthKeyId,
         long permAuthKeyId,
         byte[] token,
         int expireDate,
-        List<long> exceptUidList) : base(aggregateId, reqMsgId)
+        List<long> exceptUidList) : base(aggregateId, requestInfo)
     {
         TempAuthKeyId = tempAuthKeyId;
         PermAuthKeyId = permAuthKeyId;

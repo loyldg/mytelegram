@@ -9,6 +9,7 @@ public class UserCreatedEvent : AggregateEvent<UserAggregate, UserId>
         string phoneNumber,
         string firstName,
         string? lastName,
+        string? userName,
         bool bot,
         int? botInfoVersion,
         int accountTtl,
@@ -21,6 +22,7 @@ public class UserCreatedEvent : AggregateEvent<UserAggregate, UserId>
         PhoneNumber = phoneNumber;
         FirstName = firstName;
         LastName = lastName;
+        UserName = userName;
         Bot = bot;
         BotInfoVersion = botInfoVersion;
         AccountTtl = accountTtl;
@@ -34,6 +36,7 @@ public class UserCreatedEvent : AggregateEvent<UserAggregate, UserId>
     public DateTime CreationTime { get; }
     public string FirstName { get; }
     public string? LastName { get; }
+    public string? UserName { get; }
 
     public string PhoneNumber { get; }
     public RequestInfo RequestInfo { get; }

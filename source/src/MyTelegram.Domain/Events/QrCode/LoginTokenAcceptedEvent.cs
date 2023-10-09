@@ -1,12 +1,12 @@
 ﻿namespace MyTelegram.Domain.Events.QrCode;
 
-public class LoginTokenAcceptedEvent : RequestAggregateEvent<QrCodeAggregate, QrCodeId>
+public class LoginTokenAcceptedEvent : RequestAggregateEvent2<QrCodeAggregate, QrCodeId>
 {
-    public LoginTokenAcceptedEvent(long reqMsgId,
+    public LoginTokenAcceptedEvent(RequestInfo requestInfo,
         long qrCodeLoginRequestTempAuthKeyId,
         long qrCodeLoginRequestPermAuthKeyId,
         byte[] token,
-        long userId) : base(reqMsgId)
+        long userId) : base(requestInfo)
     {
         QrCodeLoginRequestTempAuthKeyId = qrCodeLoginRequestTempAuthKeyId;
         QrCodeLoginRequestPermAuthKeyId = qrCodeLoginRequestPermAuthKeyId;

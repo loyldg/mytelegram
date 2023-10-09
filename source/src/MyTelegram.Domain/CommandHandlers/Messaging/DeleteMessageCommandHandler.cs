@@ -6,7 +6,7 @@ public class DeleteMessageCommandHandler : CommandHandler<MessageAggregate, Mess
         DeleteMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.DeleteMessage(command.CorrelationId);
+        aggregate.DeleteMessage(command.RequestInfo);
         return Task.CompletedTask;
     }
 }

@@ -1,19 +1,19 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
 public class
-    ChannelCreatorCreatedEvent : RequestAggregateEvent<ChannelMemberAggregate, ChannelMemberId> //, IHasCorrelationId
+    ChannelCreatorCreatedEvent : RequestAggregateEvent2<ChannelMemberAggregate, ChannelMemberId> //, IHasCorrelationId
 {
-    public ChannelCreatorCreatedEvent(long reqMsgId,
+    public ChannelCreatorCreatedEvent(RequestInfo requestInfo,
         long channelId,
         long userId,
         long inviterId,
-        int date) : base(reqMsgId)
+        int date) : base(requestInfo)
     {
         ChannelId = channelId;
         UserId = userId;
         InviterId = inviterId;
         Date = date;
-        //CorrelationId = correlationId;
+        //
     }
 
     public long ChannelId { get; }
@@ -21,5 +21,5 @@ public class
     public long InviterId { get; }
     public long UserId { get; }
 
-    //public Guid CorrelationId { get; }
+    //
 }

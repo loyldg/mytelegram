@@ -1,5 +1,4 @@
 ﻿// ReSharper disable once CheckNamespace
-
 namespace MyTelegram;
 
 public enum MessageSubType
@@ -15,5 +14,10 @@ public enum MessageSubType
     DeleteChatUser = 8,
     ClearHistory = 9,
     LeaveChat = 10,
-    ForwardMessageToLinkedGroup = 11
+    ForwardMessageToLinkedGroup = 11,
+    PhoneCall = 12,
+    CreateGroupCall = 13,
+    CreateChannelForumTopic = 14,
+    EditForumTopic = 15,
+    MigrateChat = 16,
 }

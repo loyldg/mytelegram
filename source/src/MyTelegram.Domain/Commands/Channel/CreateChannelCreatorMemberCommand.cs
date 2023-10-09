@@ -1,13 +1,13 @@
 ﻿namespace MyTelegram.Domain.Commands.Channel;
 
 public class
-    CreateChannelCreatorMemberCommand : RequestCommand<ChannelMemberAggregate, ChannelMemberId, IExecutionResult>
+    CreateChannelCreatorMemberCommand : RequestCommand2<ChannelMemberAggregate, ChannelMemberId, IExecutionResult>
 {
     public CreateChannelCreatorMemberCommand(ChannelMemberId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long channelId,
         long userId,
-        int date) : base(aggregateId, reqMsgId)
+        int date) : base(aggregateId, requestInfo)
     {
         ChannelId = channelId;
         UserId = userId;

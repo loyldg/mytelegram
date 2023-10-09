@@ -6,7 +6,7 @@ public class CreateInboxMessageCommandHandler : CommandHandler<MessageAggregate,
         CreateInboxMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.CreateInboxMessage(command.InboxMessageItem, command.SenderMessageId, command.CorrelationId);
+        aggregate.CreateInboxMessage(command.RequestInfo, command.InboxMessageItem, command.SenderMessageId);
         return Task.CompletedTask;
     }
 }

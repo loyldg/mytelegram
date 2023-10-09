@@ -1,9 +1,9 @@
 ﻿namespace MyTelegram.Domain.Events.PushDevice;
 
-public class PushDeviceRegisteredEvent : RequestAggregateEvent<PushDeviceAggregate, PushDeviceId>
+public class PushDeviceRegisteredEvent : RequestAggregateEvent2<PushDeviceAggregate, PushDeviceId>
 {
     public PushDeviceRegisteredEvent(
-        long reqMsgId,
+        RequestInfo requestInfo,
         long userId,
         long authKeyId,
         int tokenType,
@@ -12,7 +12,7 @@ public class PushDeviceRegisteredEvent : RequestAggregateEvent<PushDeviceAggrega
         bool appSandbox,
         byte[]? secret,
         IReadOnlyList<long>? otherUids
-    ) : base(reqMsgId)
+    ) : base(requestInfo)
     {
         UserId = userId;
         AuthKeyId = authKeyId;

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Cuckoo\Microsoft.Cuckoo.csproj" />
+    <ProjectReference Include="..\MyTelegram.Caching.Redis\MyTelegram.Caching.Redis.csproj" />
+    <ProjectReference Include="..\MyTelegram.Domain\MyTelegram.Domain.csproj" />
+    <ProjectReference Include="..\MyTelegram.GrpcService\MyTelegram.GrpcService.csproj" />
+    <ProjectReference Include="..\MyTelegram.EventBus.RabbitMQ\MyTelegram.EventBus.RabbitMQ.csproj" />
+    <ProjectReference Include="..\MyTelegram.Schema\MyTelegram.Schema.csproj" />
+    <!--<ProjectReference Include="..\MyTelegram.Queries\MyTelegram.Queries.csproj" />-->
+    <!--<ProjectReference Include="..\MyTelegram.ReadModel\MyTelegram.ReadModel.csproj" />-->
+    <!--<ProjectReference Include="..\MyTelegram.ReadModel.MongoDB\MyTelegram.ReadModel.MongoDB.csproj" />-->
+    <ProjectReference Include="..\MyTelegram.Queries.MongoDB\MyTelegram.QueryHandlers.MongoDB.csproj" />
+    <ProjectReference Include="..\MyTelegram.ReadModel.InMemory\MyTelegram.ReadModel.InMemory.csproj" />
+    <ProjectReference Include="..\MyTelegram.Services\MyTelegram.Services.csproj" />
+
+  </ItemGroup>
+
+</Project>

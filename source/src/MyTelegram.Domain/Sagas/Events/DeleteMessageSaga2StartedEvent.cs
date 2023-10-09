@@ -8,8 +8,7 @@ public class DeleteMessageSaga2StartedEvent : AggregateEvent<DeleteMessageSaga2,
         long chatCreatorUserId,
         int chatMemberCount,
         bool isClearHistory,
-        PeerType toPeerType,
-        Guid correlationId
+        PeerType toPeerType
     )
     {
         RequestInfo = requestInfo;
@@ -19,14 +18,12 @@ public class DeleteMessageSaga2StartedEvent : AggregateEvent<DeleteMessageSaga2,
         ChatMemberCount = chatMemberCount;
         IsClearHistory = isClearHistory;
         ToPeerType = toPeerType;
-        CorrelationId = correlationId;
     }
 
     public long ChatCreatorUserId { get; }
     public int ChatMemberCount { get; }
     public bool IsClearHistory { get; }
     public PeerType ToPeerType { get; }
-    public Guid CorrelationId { get; }
     public IReadOnlyList<int> IdList { get; }
     public RequestInfo RequestInfo { get; }
     public bool Revoke { get; }

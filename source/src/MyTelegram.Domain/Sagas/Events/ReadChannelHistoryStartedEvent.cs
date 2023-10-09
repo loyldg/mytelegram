@@ -1,22 +1,18 @@
 ﻿namespace MyTelegram.Domain.Sagas.Events;
 
-public class ReadChannelHistoryStartedEvent : AggregateEvent<ReadChannelHistorySaga, ReadChannelHistorySagaId>,
-    IHasCorrelationId
+public class ReadChannelHistoryStartedEvent : RequestAggregateEvent2<ReadChannelHistorySaga, ReadChannelHistorySagaId>
 {
-    public ReadChannelHistoryStartedEvent(long reqMsgId,
-        long readerUid,
+    public ReadChannelHistoryStartedEvent(RequestInfo requestInfo,
+        long readerUserId,
         long channelId,
-        Guid correlationId)
+        int? topMsgId) : base(requestInfo)
     {
-        ReqMsgId = reqMsgId;
-        ReaderUid = readerUid;
+        ReaderUserId = readerUserId;
         ChannelId = channelId;
-        CorrelationId = correlationId;
+        TopMsgId = topMsgId;
     }
 
     public long ChannelId { get; }
-    public long ReaderUid { get; }
-
-    public long ReqMsgId { get; }
-    public Guid CorrelationId { get; }
+    public int? TopMsgId { get; }
+    public long ReaderUserId { get; }
 }

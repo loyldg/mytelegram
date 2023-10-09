@@ -1,16 +1,22 @@
 ﻿namespace MyTelegram.Domain.Commands.User;
 
-public class UpdateProfilePhotoCommand : RequestCommand<UserAggregate, UserId, IExecutionResult>
+public class UpdateProfilePhotoCommand : RequestCommand2<UserAggregate, UserId, IExecutionResult>
 {
     public UpdateProfilePhotoCommand(UserId aggregateId,
-        long reqMsgId,
-        long fileId,
-        byte[] photo) : base(aggregateId, reqMsgId)
+        RequestInfo requestInfo,
+        //long fileId,
+        long photoId,
+        bool fallback//,
+        //byte[]? photo,
+        //VideoSizeEmojiMarkup? videoEmojiMarkup = null
+    ) : base(aggregateId, requestInfo)
     {
-        FileId = fileId;
-        Photo = photo;
+        PhotoId = photoId;
+        Fallback = fallback;
+        //Photo = photo;
+        //VideoEmojiMarkup = videoEmojiMarkup;
     }
 
-    public long FileId { get; }
-    public byte[] Photo { get; }
+    public long PhotoId { get; }
+    public bool Fallback { get; }
 }

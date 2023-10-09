@@ -1,11 +1,12 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>, IHasCorrelationId
+public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>
 {
     public StartInviteToChannelEvent(RequestInfo requestInfo,
         long channelId,
         long inviterId,
         IReadOnlyList<long> memberUidList,
+        IReadOnlyList<long>? privacyRestrictedUserId,
         IReadOnlyList<long> botUidList,
         int date,
         int maxMessageId,
@@ -13,12 +14,12 @@ public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate
         long randomId,
         string messageActionData,
         //bool isBot,
-        bool broadcast,
-        Guid correlationId) : base(requestInfo)
+        bool broadcast) : base(requestInfo)
     {
         ChannelId = channelId;
         InviterId = inviterId;
         MemberUidList = memberUidList;
+        PrivacyRestrictedUserId = privacyRestrictedUserId;
         BotUidList = botUidList;
         Date = date;
         MaxMessageId = maxMessageId;
@@ -26,8 +27,6 @@ public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate
         RandomId = randomId;
         MessageActionData = messageActionData;
         Broadcast = broadcast;
-        //IsBot = isBot;
-        CorrelationId = correlationId;
     }
 
     public IReadOnlyList<long> BotUidList { get; }
@@ -37,10 +36,10 @@ public class StartInviteToChannelEvent : RequestAggregateEvent2<ChannelAggregate
     public long InviterId { get; }
     public int MaxMessageId { get; }
     public IReadOnlyList<long> MemberUidList { get; }
+    public IReadOnlyList<long>? PrivacyRestrictedUserId { get; }
     public string MessageActionData { get; }
     public bool Broadcast { get; }
     public long RandomId { get; }
 
-    //public bool IsBot { get; }
-    public Guid CorrelationId { get; }
+    //public bool IsBot { get; } 
 }

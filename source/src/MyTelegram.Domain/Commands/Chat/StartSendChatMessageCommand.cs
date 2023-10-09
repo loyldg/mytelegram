@@ -1,27 +1,24 @@
 ﻿namespace MyTelegram.Domain.Commands.Chat;
 
-public class StartSendChatMessageCommand : /*RequestInfo*/Command<ChatAggregate, ChatId, IExecutionResult>,
-    IHasCorrelationId
+public class StartSendChatMessageCommand : /*Request*/RequestCommand2<ChatAggregate, ChatId, IExecutionResult>//,
+    //IHasCorrelationId
 {
     public StartSendChatMessageCommand(ChatId aggregateId,
         //long reqMsgId,
+        RequestInfo requestInfo,
         long senderPeerId,
         int senderMessageId,
-        bool senderIsBot,
-        //int deletedUid,
-        Guid correlationId) : base(aggregateId /*, reqMsgId*/)
+        bool senderIsBot) : base(aggregateId, requestInfo)
     {
         SenderPeerId = senderPeerId;
         SenderMessageId = senderMessageId;
         SenderIsBot = senderIsBot;
-        CorrelationId = correlationId;
     }
 
     public bool SenderIsBot { get; }
     public int SenderMessageId { get; }
 
     public long SenderPeerId { get; }
-    public Guid CorrelationId { get; }
 
     //protected override IEnumerable<byte[]> GetSourceIdComponents()
     //{

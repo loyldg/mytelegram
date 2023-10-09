@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class ChannelCreatedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>, IHasCorrelationId
+public class ChannelCreatedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>
 {
     public ChannelCreatedEvent(RequestInfo requestInfo,
         long channelId,
@@ -14,7 +14,11 @@ public class ChannelCreatedEvent : RequestAggregateEvent2<ChannelAggregate, Chan
         int date,
         long randomId,
         string messageActionData,
-        Guid correlationId) : base(requestInfo)
+        int? ttlPeriod,
+        bool migratedFromChat,
+        long? migratedFromChatId,
+        int? migratedMaxId,
+        long? photoId) : base(requestInfo)
     {
         ChannelId = channelId;
         CreatorId = creatorId;
@@ -27,7 +31,11 @@ public class ChannelCreatedEvent : RequestAggregateEvent2<ChannelAggregate, Chan
         Date = date;
         RandomId = randomId;
         MessageActionData = messageActionData;
-        CorrelationId = correlationId;
+        TtlPeriod = ttlPeriod;
+        MigratedFromChat = migratedFromChat;
+        MigratedFromChatId = migratedFromChatId;
+        MigratedMaxId = migratedMaxId;
+        PhotoId = photoId;
     }
 
     public string? About { get; }
@@ -40,8 +48,11 @@ public class ChannelCreatedEvent : RequestAggregateEvent2<ChannelAggregate, Chan
     public int Date { get; }
     public bool MegaGroup { get; }
     public string MessageActionData { get; }
+    public int? TtlPeriod { get; }
+    public bool MigratedFromChat { get; }
+    public long? MigratedFromChatId { get; }
+    public int? MigratedMaxId { get; }
+    public long? PhotoId { get; }
     public long RandomId { get; }
     public string Title { get; }
-
-    public Guid CorrelationId { get; }
 }

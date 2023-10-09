@@ -11,73 +11,19 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
         Register(_state);
     }
 
-    public void Close(int closeDate)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new PollClosedEvent(_state.ToPeer, _state.PollId, closeDate));
-    }
-
-    public void Create(Peer toPeer,
-        long pollId,
-        bool multipleChoice,
-        bool quiz,
-        bool publicVoters,
-        string question,
-        IReadOnlyCollection<PollAnswer> answers,
-        IReadOnlyCollection<string>? correctAnswers,
-        string? solution,
-        byte[]? solutionEntities)
-    {
-        Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        if (answers.Count > MyTelegramServerDomainConsts.MaxVoteOptions)
-        {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.OptionsTooMuch);
-        }
-
-        Emit(new PollCreatedEvent(toPeer,
-            pollId,
-            multipleChoice,
-            quiz,
-            publicVoters,
-            question,
-            answers.ToList(),
-            correctAnswers,
-            solution,
-            solutionEntities));
-    }
-
-    public void CreateVoteAnswer(long pollId,
-        long voterPeerId,
-        string option,
-        bool correct)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new VoteAnswerCreatedEvent(pollId, voterPeerId, option, correct));
-    }
-
-    public void DeleteVoteAnswer(long pollId,
-        long voterPeerId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new VoteAnswerDeletedEvent(pollId, voterPeerId));
-    }
-
-    public void Vote(RequestInfo requestInfo,
-        long voteUserPeerId,
-        IReadOnlyCollection<string> options,
-        Guid correlationId)
+    public void Vote(RequestInfo requestInfo, long voteUserPeerId, IReadOnlyCollection<string> options)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         if (_state.Closed)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.MessagePollClosed);
+            RpcErrors.RpcErrors400.MessagePollClosed.ThrowRpcError();
         }
 
         if (!_state.MultipleChoice)
         {
             if (options.Count > 1)
             {
-                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.OptionInvalid);
+                RpcErrors.RpcErrors400.OptionInvalid.ThrowRpcError();
             }
         }
 
@@ -85,15 +31,16 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
         {
             if (_state.Quiz)
             {
-                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.RevoteNotAllowed);
+                RpcErrors.RpcErrors400.RevoteNotAllowed.ThrowRpcError();
             }
         }
+
 
         foreach (var option in options)
         {
             if (!_state.Options.Contains(option))
             {
-                ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.OptionInvalid);
+                RpcErrors.RpcErrors400.OptionInvalid.ThrowRpcError();
             }
         }
 
@@ -132,8 +79,58 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
             _state.CorrectAnswers,
             answerVoters,
             _state.ToPeer,
-            retractVoteOptions,
-            correlationId
+            retractVoteOptions
         ));
+    }
+
+    public void Close(int closeDate)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new PollClosedEvent(_state.ToPeer, _state.PollId, closeDate));
+    }
+
+    public void Create(Peer toPeer,
+        long pollId,
+        bool multipleChoice,
+        bool quiz,
+        bool publicVoters,
+        string question,
+        IReadOnlyCollection<PollAnswer> answers,
+        IReadOnlyCollection<string>? correctAnswers,
+        string? solution,
+        byte[]? solutionEntities)
+    {
+        Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+        if (answers.Count > MyTelegramServerDomainConsts.MaxVoteOptions)
+        {
+            RpcErrors.RpcErrors400.OptionsTooMuch.ThrowRpcError();
+        }
+
+        Emit(new PollCreatedEvent(toPeer,
+            pollId,
+            multipleChoice,
+            quiz,
+            publicVoters,
+            question,
+            answers.ToList(),
+            correctAnswers,
+            solution,
+            solutionEntities));
+    }
+
+    public void CreateVoteAnswer(long pollId,
+        long voterPeerId,
+        string option,
+        bool correct)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new VoteAnswerCreatedEvent(pollId, voterPeerId, option, correct));
+    }
+
+    public void DeleteVoteAnswer(long pollId,
+        long voterPeerId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new VoteAnswerDeletedEvent(pollId, voterPeerId));
     }
 }

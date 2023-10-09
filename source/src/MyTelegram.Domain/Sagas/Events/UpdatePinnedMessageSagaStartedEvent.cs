@@ -19,8 +19,7 @@ public class
         Peer toPeer,
         long randomId,
         int date,
-        string? messageActionData,
-        Guid correlationId
+        string? messageActionData
     ) : base(requestInfo)
     {
         NeedWaitForOutboxPinnedUpdated = needWaitForOutboxPinnedUpdated;
@@ -37,7 +36,6 @@ public class
         RandomId = randomId;
         Date = date;
         MessageActionData = messageActionData;
-        CorrelationId = correlationId;
     }
 
     public int Date { get; }
@@ -70,6 +68,5 @@ public class
     //public IReadOnlyList<InboxItem> InboxItems { get; }
     //public long SenderPeerId { get; }
     //public int SenderMessageId { get; }
-    //public long ToPeerId { get; }
-    public Guid CorrelationId { get; }
+    //public long ToPeerId { get; } 
 }

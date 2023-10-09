@@ -1,25 +1,28 @@
 ﻿namespace MyTelegram.Domain.Events.User;
 
-public class CheckUserStatusCompletedEvent : AggregateEvent<UserAggregate, UserId>, IHasCorrelationId
+public class CheckUserStatusCompletedEvent : RequestAggregateEvent2<UserAggregate, UserId>
 {
     public CheckUserStatusCompletedEvent(
+        RequestInfo requestInfo,
         long userId,
+        long accessHash,
         string phoneNumber,
         string firstName,
         string? lastName,
         //string userName,
         bool hasPassword,
-        bool isUserLocked,
-        Guid correlationId)
+        bool isUserLocked) : base(requestInfo)
     {
         UserId = userId;
+        AccessHash = accessHash;
         PhoneNumber = phoneNumber;
         FirstName = firstName;
         LastName = lastName;
         HasPassword = hasPassword;
         IsUserLocked = isUserLocked;
-        CorrelationId = correlationId;
+
     }
+
 
     public string FirstName { get; }
     public bool HasPassword { get; }
@@ -28,6 +31,5 @@ public class CheckUserStatusCompletedEvent : AggregateEvent<UserAggregate, UserI
     public string PhoneNumber { get; }
 
     public long UserId { get; }
-
-    public Guid CorrelationId { get; }
+    public long AccessHash { get; }
 }

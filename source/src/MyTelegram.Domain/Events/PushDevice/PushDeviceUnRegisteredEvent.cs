@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.Domain.Events.PushDevice;
 
-public class PushDeviceUnRegisteredEvent : RequestAggregateEvent<PushDeviceAggregate, PushDeviceId>
+public class PushDeviceUnRegisteredEvent : RequestAggregateEvent2<PushDeviceAggregate, PushDeviceId>
 {
-    public PushDeviceUnRegisteredEvent(long reqMsgId,
+    public PushDeviceUnRegisteredEvent(RequestInfo requestInfo,
         int tokenType,
         string token,
-        IReadOnlyList<long> otherUids) : base(reqMsgId)
+        IReadOnlyList<long> otherUids) : base(requestInfo)
     {
         TokenType = tokenType;
         Token = token;

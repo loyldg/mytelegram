@@ -1,21 +1,18 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class ChannelUserNameChangedEvent : RequestAggregateEvent<ChannelAggregate, ChannelId>, IHasCorrelationId
+public class ChannelUserNameChangedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>
 {
-    public ChannelUserNameChangedEvent(long reqMsgId,
+    public ChannelUserNameChangedEvent(RequestInfo requestInfo,
         long channelId,
         string userName,
-        string? oldUserName,
-        Guid correlationId) : base(reqMsgId)
+        string? oldUserName) : base(requestInfo)
     {
         ChannelId = channelId;
         UserName = userName;
         OldUserName = oldUserName;
-        CorrelationId = correlationId;
     }
 
     public long ChannelId { get; }
     public string? OldUserName { get; }
     public string UserName { get; }
-    public Guid CorrelationId { get; }
 }

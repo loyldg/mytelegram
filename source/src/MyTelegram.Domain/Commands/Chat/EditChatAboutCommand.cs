@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.Domain.Commands.Chat;
 
-public class EditChatAboutCommand : RequestCommand<ChatAggregate, ChatId, IExecutionResult>
+public class EditChatAboutCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>
 {
     public EditChatAboutCommand(ChatId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long selfUserId,
-        string? about) : base(aggregateId, reqMsgId)
+        string? about) : base(aggregateId, requestInfo)
     {
         SelfUserId = selfUserId;
         About = about;

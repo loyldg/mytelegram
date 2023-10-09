@@ -9,9 +9,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
     private readonly IIdGenerator _idGenerator;
     private readonly ClearHistoryState _state = new();
 
-    public ClearHistorySaga(ClearHistorySagaId id,
-        IEventStore eventStore,
-        IIdGenerator idGenerator) : base(id, eventStore)
+    public ClearHistorySaga(ClearHistorySagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -27,7 +25,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
         CancellationToken cancellationToken)
     {
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MessageId)
-            ;
+     ;
         DeleteMessagesForOtherParty(domainEvent.AggregateEvent);
     }
 
@@ -37,7 +35,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
         CancellationToken cancellationToken)
     {
         await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MessageId)
-            ;
+     ;
     }
 
     public Task HandleAsync(IDomainEvent<DialogAggregate, DialogId, HistoryClearedEvent> domainEvent,
@@ -88,7 +86,8 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
 
                     var command = new DeleteOtherPartyMessageCommand(
                         MessageId.Create(inboxItem.InboxOwnerPeerId, inboxItem.InboxMessageId),
-                        aggregateEvent.CorrelationId);
+                        _state.RequestInfo
+                        );
                     Publish(command);
                 }
             }
@@ -96,23 +95,20 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
         else if (_state.ToPeer.PeerType == PeerType.User)
         {
             var command = new DeleteOtherPartyMessageCommand(
-                MessageId.Create(aggregateEvent.SenderPeerId, aggregateEvent.SenderMessageId),
-                aggregateEvent.CorrelationId);
+                MessageId.Create(aggregateEvent.SenderPeerId, aggregateEvent.SenderMessageId), _state.RequestInfo);
             Publish(command);
         }
     }
 
-    private void DeleteMessagesForSelf(long selfUserId,
-        IReadOnlyList<int> messageIdList,
-        Guid correlationId)
-    {
-        foreach (var messageId in messageIdList)
-        {
-            var command = new DeleteMessageCommand(MessageId.Create(selfUserId, messageId),
-                correlationId);
-            Publish(command);
-        }
-    }
+    //private void DeleteMessagesForSelf(long selfUserId,
+    //    IReadOnlyList<int> messageIdList)
+    //{
+    //    foreach (var messageId in messageIdList)
+    //    {
+    //        var command = new DeleteMessageCommand(MessageId.Create(selfUserId, messageId));
+    //        Publish(command);
+    //    }
+    //}
 
     private Task HandleClearHistoryCompletedAsync(long peerId)
     {
@@ -122,7 +118,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
             {
                 if (_state.PeerToPts.TryGetValue(peerId, out var pts))
                 {
-                    Emit(new ClearSingleUserHistoryCompletedEvent(_state.RequestInfo.ReqMsgId,
+                    Emit(new ClearSingleUserHistoryCompletedEvent(_state.RequestInfo,
                         _state.RequestInfo.AuthKeyId,
                         _state.NextMaxId,
                         _state.RequestInfo.UserId == peerId,
@@ -151,10 +147,7 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
                     messageSubType: MessageSubType.ClearHistory,
                     messageActionData: _state.MessageActionData,
                     messageActionType: MessageActionType.HistoryClear);
-                var command = new StartSendMessageCommand(aggregateId,
-                    _state.RequestInfo,
-                    messageItem,
-                    correlationId: Guid.NewGuid());
+                var command = new StartSendMessageCommand(aggregateId, _state.RequestInfo with { RequestId = Guid.NewGuid() }, messageItem);
                 Publish(command);
 
                 Emit(new ClearHistorySagaCompletedEvent());

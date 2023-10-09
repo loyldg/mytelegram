@@ -6,9 +6,12 @@ public class UpdateProfilePhotoCommandHandler : CommandHandler<UserAggregate, Us
         UpdateProfilePhotoCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.UpdateProfilePhoto(command.ReqMsgId,
-            command.FileId,
-            command.Photo /*,command.HasVideo,command.VideoStartTs*/);
+        aggregate.UpdateProfilePhoto(command.RequestInfo,
+            command.PhotoId,
+            command.Fallback//,
+            //command.Photo,
+            //command.VideoEmojiMarkup
+        );
         return Task.CompletedTask;
     }
 }

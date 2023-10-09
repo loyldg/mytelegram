@@ -8,3 +8,5 @@ global using MongoDB.Driver;
 global using MyTelegram.ReadModel.ReadModelLocators;
 global using System.Linq.Expressions;
 global using MyTelegram.Domain.Aggregates.Poll;
+global using MyTelegram.Domain.Aggregates.PeerSettings;
+global using MyTelegram.Domain.Aggregates.Photo;

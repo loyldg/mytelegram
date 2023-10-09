@@ -1,20 +1,20 @@
 ﻿namespace MyTelegram.Domain.Events.Dialog;
 
-public class SetOutboxTopMessageSuccessEvent : AggregateEvent<DialogAggregate, DialogId>, IHasCorrelationId
+public class SetOutboxTopMessageSuccessEvent : AggregateEvent<DialogAggregate, DialogId>
 {
     public SetOutboxTopMessageSuccessEvent(
+        //RequestInfo requestInfo,
         //MessageBoxId messageBoxId,
         int messageId,
         long ownerPeerId,
         //int pts,
         Peer toPeer,
-        bool clearDraft,
-        Guid correlationId
+        bool clearDraft
     )
     {
         //MessageBoxId = messageBoxId;
         MessageId = messageId;
-        CorrelationId = correlationId;
+
         ClearDraft = clearDraft;
         OwnerPeerId = ownerPeerId;
         ToPeer = toPeer;
@@ -28,5 +28,5 @@ public class SetOutboxTopMessageSuccessEvent : AggregateEvent<DialogAggregate, D
     public Peer ToPeer { get; }
 
     //public MessageBoxId MessageBoxId { get; }
-    public Guid CorrelationId { get; }
+
 }

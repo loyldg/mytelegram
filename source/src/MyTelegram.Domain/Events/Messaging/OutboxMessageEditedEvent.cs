@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Events.Messaging;
 
-public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>, IHasCorrelationId
+public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
     public OutboxMessageEditedEvent(RequestInfo requestInfo,
         IReadOnlyCollection<InboxItem>? inboxItems,
@@ -10,7 +10,8 @@ public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate,
         int editDate,
         byte[]? entities,
         byte[]? media,
-        Guid correlationId) : base(requestInfo)
+        List<ReactionCount>? reactions,
+        List<Reaction>? recentReactions) : base(requestInfo)
     {
         InboxItems = inboxItems;
         OldMessageItem = oldMessageItem;
@@ -18,9 +19,13 @@ public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate,
         NewMessage = newMessage;
         Entities = entities;
         Media = media;
+        Reactions = reactions;
+        RecentReactions = recentReactions;
+        //ChatMembers = chatMembers;
         EditDate = editDate;
-        CorrelationId = correlationId;
+
     }
+
 
     public IReadOnlyCollection<InboxItem>? InboxItems { get; }
     public MessageItem OldMessageItem { get; }
@@ -28,7 +33,8 @@ public class OutboxMessageEditedEvent : RequestAggregateEvent2<MessageAggregate,
     public string NewMessage { get; }
     public byte[]? Entities { get; }
     public byte[]? Media { get; }
+    public List<ReactionCount>? Reactions { get; }
+    public List<Reaction>? RecentReactions { get; }
+    //public List<long>? ChatMembers { get; }
     public int EditDate { get; }
-
-    public Guid CorrelationId { get; }
 }

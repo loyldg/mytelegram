@@ -7,7 +7,7 @@ public class
         LoginWithTokenSuccessCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.LoginWithTokenSuccess(command.ReqMsgId);
+        aggregate.LoginWithTokenSuccess(command.RequestInfo);
         return Task.CompletedTask;
     }
 }

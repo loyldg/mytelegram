@@ -7,7 +7,7 @@ public class
         UnRegisterDeviceCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.UnRegisterDevice(command.ReqMsgId, command.TokenType, command.Token, command.OtherUids);
+        aggregate.UnRegisterDevice(command.RequestInfo, command.TokenType, command.Token, command.OtherUids);
         return Task.CompletedTask;
     }
 }

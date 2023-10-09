@@ -11,12 +11,14 @@ public class CreateUserCommand : RequestCommand2<UserAggregate, UserId, IExecuti
         string phoneNumber,
         string firstName,
         string? lastName,
+        string? userName = null,
         bool bot = false) : base(aggregateId, requestInfo)
     {
         UserId = userId;
         PhoneNumber = phoneNumber;
         FirstName = firstName;
         LastName = lastName;
+        UserName = userName;
         AccessHash = accessHash;
         Bot = bot;
     }
@@ -25,6 +27,7 @@ public class CreateUserCommand : RequestCommand2<UserAggregate, UserId, IExecuti
     public bool Bot { get; }
     public string FirstName { get; }
     public string? LastName { get; }
+    public string? UserName { get; }
     public string PhoneNumber { get; }
     public long UserId { get; }
 
@@ -33,7 +36,7 @@ public class CreateUserCommand : RequestCommand2<UserAggregate, UserId, IExecuti
         if (Bot)
         {
             yield return BitConverter.GetBytes(UserId);
-            yield return Encoding.UTF8.GetBytes(FirstName);
+            yield return Encoding.UTF8.GetBytes(UserName!);
         }
         else
         {

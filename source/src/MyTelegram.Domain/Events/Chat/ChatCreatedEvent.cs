@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Events.Chat;
 
-public class ChatCreatedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, IHasCorrelationId
+public class ChatCreatedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>
 {
     public ChatCreatedEvent(
         RequestInfo requestInfo,
@@ -10,8 +10,7 @@ public class ChatCreatedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, I
         IReadOnlyList<ChatMember> memberUidList,
         int date,
         long randomId,
-        string messageActionData,
-        Guid correlationId) : base(requestInfo)
+        string messageActionData, int? ttlPeriod) : base(requestInfo)
     {
         ChatId = chatId;
         CreatorUid = creatorUid;
@@ -20,7 +19,7 @@ public class ChatCreatedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, I
         Date = date;
         RandomId = randomId;
         MessageActionData = messageActionData;
-        CorrelationId = correlationId;
+        TtlPeriod = ttlPeriod;
     }
 
     public long ChatId { get; }
@@ -30,6 +29,5 @@ public class ChatCreatedEvent : RequestAggregateEvent2<ChatAggregate, ChatId>, I
     public string MessageActionData { get; }
     public long RandomId { get; }
     public string Title { get; }
-
-    public Guid CorrelationId { get; }
+    public int? TtlPeriod { get; }
 }

@@ -8,7 +8,7 @@ public class
         StartDeleteParticipantHistoryCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartDeleteParticipantHistory(command.RequestInfo, command.MessageIds, command.CorrelationId);
+        aggregate.StartDeleteParticipantHistory(command.RequestInfo, command.MessageIds);
 
         return Task.CompletedTask;
     }

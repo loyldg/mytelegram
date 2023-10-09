@@ -18,7 +18,7 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
     public int SelfNeedDeleteCount { get; private set; }
     public Peer ToPeer { get; private set; } = default!;
     public int TotalCount { get; private set; }
-
+    public long? ChatCreatorId { get; private set; }
     public void Apply(DeleteMessagePtsIncrementedEvent aggregateEvent)
     {
         if (_peerToPts.ContainsKey(aggregateEvent.PeerId))
@@ -29,14 +29,6 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
         {
             _peerToPts.TryAdd(aggregateEvent.PeerId, aggregateEvent.Pts);
         }
-    }
-
-    public void Apply(DeleteMessagesSagaStartedEvent aggregateEvent)
-    {
-        RequestInfo = aggregateEvent.RequestInfo;
-        SelfNeedDeleteCount = aggregateEvent.IdList.Count;
-        Revoke = aggregateEvent.Revoke;
-        ToPeer = aggregateEvent.ToPeer;
     }
 
     public void Apply(DeleteMessagesStartedEvent aggregateEvent)
@@ -109,5 +101,14 @@ public class DeleteMessageState : AggregateState<DeleteMessageSaga, DeleteMessag
         }
 
         return false;
+    }
+
+    public void Apply(DeleteMessagesSagaStartedEvent aggregateEvent)
+    {
+        RequestInfo = aggregateEvent.RequestInfo;
+        SelfNeedDeleteCount = aggregateEvent.IdList.Count;
+        Revoke = aggregateEvent.Revoke;
+        ToPeer = aggregateEvent.ToPeer;
+        ChatCreatorId = aggregateEvent.ChatCreatorId;
     }
 }

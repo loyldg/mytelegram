@@ -5,21 +5,21 @@ public class EditChatPhotoCommand : RequestCommand2<ChatAggregate, ChatId, IExec
     public EditChatPhotoCommand(ChatId aggregateId,
         RequestInfo requestInfo,
         long fileId,
-        byte[] photo,
+        //byte[] photo,
+        long photoId,
         string messageActionData,
-        long randomId,
-        Guid correlationId) : base(aggregateId, requestInfo)
+        long randomId) : base(aggregateId, requestInfo)
     {
         FileId = fileId;
-        Photo = photo;
+        PhotoId = photoId;
+        //Photo = photo;
         MessageActionData = messageActionData;
         RandomId = randomId;
-        CorrelationId = correlationId;
     }
-
-    public Guid CorrelationId { get; }
     public long FileId { get; }
+    public long PhotoId { get; }
+
     public string MessageActionData { get; }
-    public byte[] Photo { get; }
+    //public byte[] Photo { get; }
     public long RandomId { get; }
 }

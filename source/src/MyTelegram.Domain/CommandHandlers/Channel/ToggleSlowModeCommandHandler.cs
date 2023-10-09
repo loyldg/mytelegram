@@ -6,7 +6,7 @@ public class ToggleSlowModeCommandHandler : CommandHandler<ChannelAggregate, Cha
         ToggleSlowModeCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ToggleSlowMode(command.ReqMsgId, command.Seconds, command.SelfUserId);
+        aggregate.ToggleSlowMode(command.RequestInfo, command.Seconds, command.SelfUserId);
         return Task.CompletedTask;
     }
 }

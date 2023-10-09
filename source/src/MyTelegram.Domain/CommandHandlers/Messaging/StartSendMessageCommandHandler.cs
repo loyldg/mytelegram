@@ -6,12 +6,7 @@ public class StartSendMessageCommandHandler : CommandHandler<MessageAggregate, M
         StartSendMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartSendMessage(command.RequestInfo,
-            command.OutMessageItem,
-            command.ClearDraft,
-            command.GroupItemCount,
-            command.ForwardFromLinkedChannel,
-            command.CorrelationId);
+        aggregate.StartSendMessage(command.RequestInfo, command.OutMessageItem, command.MentionedUserIds, command.ClearDraft, command.GroupItemCount, command.ForwardFromLinkedChannel);
         return Task.CompletedTask;
     }
 }

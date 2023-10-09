@@ -1,9 +1,9 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class StartSendChannelMessageEvent : /*RequestInfo*/AggregateEvent<ChannelAggregate, ChannelId>,
-    IHasCorrelationId
+public class StartSendChannelMessageEvent : /*Request*/RequestAggregateEvent2<ChannelAggregate, ChannelId>
 {
     public StartSendChannelMessageEvent( //long reqMsgId,
+        RequestInfo requestInfo,
         long senderPeerId,
         bool senderIsBot,
         bool post,
@@ -11,8 +11,7 @@ public class StartSendChannelMessageEvent : /*RequestInfo*/AggregateEvent<Channe
         int messageId,
         IReadOnlyList<long> botUidList,
         long? linkedChannelId,
-        int date,
-        Guid correlationId) //: base(/*reqMsgId*/)
+        int date) : base(requestInfo)
     {
         SenderPeerId = senderPeerId;
         SenderIsBot = senderIsBot;
@@ -20,7 +19,6 @@ public class StartSendChannelMessageEvent : /*RequestInfo*/AggregateEvent<Channe
         Views = views;
         MessageId = messageId;
         BotUidList = botUidList;
-        CorrelationId = correlationId;
         LinkedChannelId = linkedChannelId;
         Date = date;
     }
@@ -29,15 +27,11 @@ public class StartSendChannelMessageEvent : /*RequestInfo*/AggregateEvent<Channe
     public int Date { get; }
     public long? LinkedChannelId { get; }
     public int MessageId { get; }
-
     /// <summary>
-    ///     Whether this is a channel post
+    /// Whether this is a channel post
     /// </summary>
     public bool Post { get; }
-
     public bool SenderIsBot { get; }
     public long SenderPeerId { get; }
     public int? Views { get; }
-
-    public Guid CorrelationId { get; }
 }

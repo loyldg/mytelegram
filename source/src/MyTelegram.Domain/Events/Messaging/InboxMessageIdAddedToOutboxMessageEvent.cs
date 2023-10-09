@@ -9,3 +9,13 @@ public class InboxMessageIdAddedToOutboxMessageEvent : AggregateEvent<MessageAgg
 
     public InboxItem InboxItem { get; }
 }
+
+public class InboxItemsAddedToOutboxMessageEvent : AggregateEvent<MessageAggregate, MessageId>
+{
+    public List<InboxItem> InboxItems { get; }
+
+    public InboxItemsAddedToOutboxMessageEvent(List<InboxItem> inboxItems)
+    {
+        InboxItems = inboxItems;
+    }
+}

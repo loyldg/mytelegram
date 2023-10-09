@@ -22,28 +22,10 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
     public void Apply(ChannelMemberBannedRightsChangedEvent aggregateEvent)
     {
         BannedRights = aggregateEvent.BannedRights;
-        if (aggregateEvent.BannedRights.ViewMessages)
-        {
-            Kicked = true;
-            Left = true;
-            KickedBy = aggregateEvent.AdminId;
-        }
-        else
-        {
-            Banned = aggregateEvent.BannedRights.ToIntValue() != ChatBannedRights.Default.ToIntValue();
-
-            if (aggregateEvent.NeedRemoveFromKicked)
-            {
-                Kicked = false;
-                KickedBy = 0;
-                Left = false;
-            }
-
-            if (aggregateEvent.NeedRemoveFromBanned)
-            {
-                Banned = false;
-            }
-        }
+        Kicked = aggregateEvent.Kicked;
+        KickedBy = aggregateEvent.KickedBy;
+        Left = aggregateEvent.Left;
+        Banned = aggregateEvent.Banned;
     }
 
     public void Apply(ChannelMemberCreatedEvent aggregateEvent)

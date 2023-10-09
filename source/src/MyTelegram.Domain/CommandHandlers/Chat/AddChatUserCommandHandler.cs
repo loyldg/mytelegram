@@ -11,8 +11,7 @@ public class AddChatUserCommandHandler : CommandHandler<ChatAggregate, ChatId, A
             command.UserId,
             command.Date,
             command.MessageActionData,
-            command.RandomId,
-            command.CorrelationId);
+            command.RandomId);
         return Task.CompletedTask;
     }
 }

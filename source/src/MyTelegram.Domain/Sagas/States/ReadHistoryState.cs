@@ -90,7 +90,6 @@ public class ReadHistoryState : AggregateState<ReadHistorySaga, ReadHistorySagaI
 
     //public void Apply(ReadHistoryCompletedEvent aggregateEvent)
     //{
-    //    Console.WriteLine($"read history completed.senderPts:{aggregateEvent.SenderPts} self pts:{aggregateEvent.ReaderPts}");
     //    //throw new NotImplementedException();
     //}
 
@@ -108,8 +107,6 @@ public class ReadHistoryState : AggregateState<ReadHistorySaga, ReadHistorySagaI
         ReaderMessageId = aggregateEvent.ReaderMessageId;
         ReaderToPeer = aggregateEvent.ToPeer;
         SourceCommandId = aggregateEvent.SourceCommandId;
-
-        CorrelationId = aggregateEvent.CorrelationId;
     }
 
     public void LoadSnapshot(ReadHistorySagaSnapshot snapshot)

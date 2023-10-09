@@ -13,6 +13,7 @@ public class CreateUserCommandHandler : CommandHandler<UserAggregate, UserId, Cr
             command.PhoneNumber,
             command.FirstName,
             command.LastName,
+            command.UserName,
             command.Bot);
         return Task.CompletedTask;
     }

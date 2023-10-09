@@ -6,12 +6,15 @@ public class CreateOutboxMessageCommandHandler : CommandHandler<MessageAggregate
         CreateOutboxMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.CreateOutboxMessage(command.ReqMsgId,
+        aggregate.CreateOutboxMessage(command.RequestInfo,
             command.OutboxMessageItem,
+            command.MentionedUserIds,
+            command.ReplyToMsgItems,
             command.ClearDraft,
             command.GroupItemCount,
             command.LinkedChannelId,
-            command.CorrelationId);
+            command.ChatMembers
+        );
         return Task.CompletedTask;
     }
 }

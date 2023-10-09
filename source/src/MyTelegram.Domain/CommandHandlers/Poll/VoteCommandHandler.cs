@@ -6,7 +6,7 @@ public class VoteCommandHandler : CommandHandler<PollAggregate, PollId, VoteComm
         VoteCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.Vote(command.RequestInfo, command.VoteUserPeerId, command.Options, command.CorrelationId);
+        aggregate.Vote(command.RequestInfo, command.VoteUserPeerId, command.Options);
 
         return Task.CompletedTask;
     }

@@ -1,8 +1,9 @@
 ﻿namespace MyTelegram.Domain.Events.Messaging;
 
-public class InboxMessagePinnedUpdatedEvent : AggregateEvent<MessageAggregate, MessageId>, IHasCorrelationId
+public class InboxMessagePinnedUpdatedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
     public InboxMessagePinnedUpdatedEvent(
+        RequestInfo requestInfo,
         long ownerPeerId,
         int messageId,
         //long channelId,
@@ -11,8 +12,7 @@ public class InboxMessagePinnedUpdatedEvent : AggregateEvent<MessageAggregate, M
         bool silent,
         int date,
         Peer toPeer,
-        int pts,
-        Guid correlationId)
+        int pts) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         MessageId = messageId;
@@ -22,7 +22,7 @@ public class InboxMessagePinnedUpdatedEvent : AggregateEvent<MessageAggregate, M
         Date = date;
         ToPeer = toPeer;
         Pts = pts;
-        CorrelationId = correlationId;
+
     }
 
     public int Date { get; }
@@ -35,5 +35,5 @@ public class InboxMessagePinnedUpdatedEvent : AggregateEvent<MessageAggregate, M
     public bool PmOneSide { get; }
     public int Pts { get; }
     public bool Silent { get; }
-    public Guid CorrelationId { get; }
+
 }

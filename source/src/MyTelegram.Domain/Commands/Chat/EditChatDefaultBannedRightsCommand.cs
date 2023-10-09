@@ -1,12 +1,12 @@
 ﻿namespace MyTelegram.Domain.Commands.Chat;
 
-public class EditChatDefaultBannedRightsCommand : RequestCommand<ChatAggregate, ChatId, IExecutionResult>
+public class EditChatDefaultBannedRightsCommand : RequestCommand2<ChatAggregate, ChatId, IExecutionResult>
 {
     public EditChatDefaultBannedRightsCommand(ChatId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         ChatBannedRights chatBannedRights,
         long selfUserId
-    ) : base(aggregateId, reqMsgId)
+    ) : base(aggregateId, requestInfo)
     {
         ChatBannedRights = chatBannedRights;
         SelfUserId = selfUserId;

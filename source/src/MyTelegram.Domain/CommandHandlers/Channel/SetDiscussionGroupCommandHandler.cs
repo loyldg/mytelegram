@@ -7,7 +7,7 @@ public class
         SetDiscussionGroupCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.SetDiscussionGroup(command.ReqMsgId,
+        aggregate.SetDiscussionGroup(command.RequestInfo,
             command.SelfUserId,
             command.BroadcastChannelId,
             command.GroupChannelId);

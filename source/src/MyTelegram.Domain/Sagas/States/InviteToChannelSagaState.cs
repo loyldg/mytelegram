@@ -2,7 +2,7 @@
 
 public class
     InviteToChannelSagaState : AggregateState<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelSagaState>,
-        IHasCorrelationId,
+        //IHasCorrelationId,
         IApply<InviteToChannelSagaStartEvent>,
         IApply<InviteToChannelSagaMemberCreatedEvent>
 {
@@ -17,6 +17,7 @@ public class
     public long InviterId { get; private set; }
     public int MaxMessageId { get; private set; }
     public IReadOnlyList<long> MemberUidList { get; private set; } = null!;
+    public IReadOnlyList<long>? PrivacyRestrictedUserId { get; private set; }
     public string MessageActionData { get; private set; } = null!;
 
     public long RandomId { get; private set; }
@@ -36,13 +37,11 @@ public class
         Date = aggregateEvent.Date;
         TotalCount = aggregateEvent.TotalCount;
         MemberUidList = aggregateEvent.MemberUidList;
-        CorrelationId = aggregateEvent.CorrelationId;
+        PrivacyRestrictedUserId = aggregateEvent.PrivacyRestrictedUserId;
         MaxMessageId = aggregateEvent.MaxMessageId;
         RandomId = aggregateEvent.RandomId;
         MessageActionData = aggregateEvent.MessageActionData;
         ChannelHistoryMinId = aggregateEvent.ChannelHistoryMinId;
         Broadcast = aggregateEvent.Broadcast;
     }
-
-    public Guid CorrelationId { get; private set; }
 }

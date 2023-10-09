@@ -15,7 +15,7 @@ public class
         CancellationToken cancellationToken)
     {
         var cursor = await _store.FindAsync(p =>
-                    p.Revoked == query.Revoked && p.ChannelId == query.ChannelId && p.AdminId == query.AdminId,
+                    p.Revoked == query.Revoked && p.PeerId == query.ChannelId && p.AdminId == query.AdminId,
                 cancellationToken: cancellationToken)
             ;
 

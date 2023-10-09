@@ -6,18 +6,7 @@ public class CheckUserStatusCommandHandler : CommandHandler<UserAggregate, UserI
         CheckUserStatusCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.CheckUserStatus(command.CorrelationId);
-        return Task.CompletedTask;
-    }
-}
-
-public class CheckUserStateCommandHandler : CommandHandler<UserAggregate, UserId, CheckUserStateCommand>
-{
-    public override Task ExecuteAsync(UserAggregate aggregate,
-        CheckUserStateCommand command,
-        CancellationToken cancellationToken)
-    {
-        aggregate.CheckUserState(command.CorrelationId);
+        aggregate.CheckUserStatus(command.RequestInfo);
         return Task.CompletedTask;
     }
 }

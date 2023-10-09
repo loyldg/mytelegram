@@ -1,19 +1,18 @@
 ﻿namespace MyTelegram.Domain.Events.UserName;
 
-public class SetUserNameSuccessEvent : RequestAggregateEvent<UserNameAggregate, UserNameId>, IHasCorrelationId
+public class SetUserNameSuccessEvent : RequestAggregateEvent2<UserNameAggregate, UserNameId>
 {
-    public SetUserNameSuccessEvent(long reqMsgId,
+    public SetUserNameSuccessEvent(RequestInfo requestInfo,
         long selfUserId,
         string userName,
         PeerType peerType,
-        long peerId,
-        Guid correlationId) : base(reqMsgId)
+        long peerId) : base(requestInfo)
     {
         SelfUserId = selfUserId;
         UserName = userName;
         PeerType = peerType;
         PeerId = peerId;
-        CorrelationId = correlationId;
+
     }
 
     public long PeerId { get; }
@@ -21,5 +20,5 @@ public class SetUserNameSuccessEvent : RequestAggregateEvent<UserNameAggregate, 
     public long SelfUserId { get; }
     public string UserName { get; }
 
-    public Guid CorrelationId { get; }
+
 }

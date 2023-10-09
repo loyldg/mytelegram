@@ -1,7 +1,16 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Poll;
 
-public class VoteSucceededEvent : RequestAggregateEvent2<PollAggregate, PollId>, IHasCorrelationId
+public class VoteSucceededEvent : RequestAggregateEvent2<PollAggregate, PollId>
 {
+    public long PollId { get; }
+    public long VoteUserPeerId { get; }
+    public IReadOnlyCollection<string> Options { get; }
+    public IReadOnlyCollection<PollAnswer> Answers { get; }
+    public IReadOnlyCollection<string>? CorrectAnswers { get; }
+    public IReadOnlyCollection<PollAnswerVoter> AnswerVoters { get; }
+    public Peer ToPeer { get; }
+    public IReadOnlyCollection<string>? RetractVoteOptions { get; }
+
     public VoteSucceededEvent(
         RequestInfo requestInfo,
         long pollId,
@@ -11,8 +20,7 @@ public class VoteSucceededEvent : RequestAggregateEvent2<PollAggregate, PollId>,
         IReadOnlyCollection<string>? correctAnswers,
         IReadOnlyCollection<PollAnswerVoter> answerVoters,
         Peer toPeer,
-        IReadOnlyCollection<string>? retractVoteOptions,
-        Guid correlationId
+        IReadOnlyCollection<string>? retractVoteOptions
     ) : base(requestInfo)
     {
         PollId = pollId;
@@ -23,17 +31,8 @@ public class VoteSucceededEvent : RequestAggregateEvent2<PollAggregate, PollId>,
         ToPeer = toPeer;
         RetractVoteOptions = retractVoteOptions;
         AnswerVoters = answerVoters;
-        CorrelationId = correlationId;
+
     }
 
-    public long PollId { get; }
-    public long VoteUserPeerId { get; }
-    public IReadOnlyCollection<string> Options { get; }
-    public IReadOnlyCollection<PollAnswer> Answers { get; }
-    public IReadOnlyCollection<string>? CorrectAnswers { get; }
-    public IReadOnlyCollection<PollAnswerVoter> AnswerVoters { get; }
-    public Peer ToPeer { get; }
-    public IReadOnlyCollection<string>? RetractVoteOptions { get; }
 
-    public Guid CorrelationId { get; }
 }

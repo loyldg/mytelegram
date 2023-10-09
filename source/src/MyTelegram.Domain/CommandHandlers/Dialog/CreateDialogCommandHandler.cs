@@ -6,11 +6,13 @@ public class CreateDialogCommandHandler : CommandHandler<DialogAggregate, Dialog
         CreateDialogCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.Create(command.OwnerId,
+        aggregate.Create(
+            command.RequestInfo,
+            command.OwnerId,
             command.ToPeer,
             command.ChannelHistoryMinId,
-            command.TopMessageId,
-            command.CorrelationId);
+            command.TopMessageId);
+
         return Task.CompletedTask;
     }
 }

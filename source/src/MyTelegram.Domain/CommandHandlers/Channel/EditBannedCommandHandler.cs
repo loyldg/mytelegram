@@ -6,10 +6,10 @@ public class EditBannedCommandHandler : CommandHandler<ChannelMemberAggregate, C
         EditBannedCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditBanned(command.ReqMsgId,
+        aggregate.EditBanned(command.RequestInfo,
             command.AdminId,
             command.ChannelId,
-            command.MemberUid,
+            command.MemberUserId,
             command.ChatBannedRights);
         return Task.CompletedTask;
     }

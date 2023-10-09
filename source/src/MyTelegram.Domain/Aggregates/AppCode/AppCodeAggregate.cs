@@ -22,18 +22,20 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
     {
         if (code.IsNullOrEmpty())
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PhoneCodeEmpty);
+            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PhoneCodeEmpty);
+            RpcErrors.RpcErrors400.PhoneCodeEmpty.ThrowRpcError();
         }
 
         if (_state.FailedCount > _maxFailedCount)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PhoneCodeInvalid);
+            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PhoneCodeInvalid);
+            RpcErrors.RpcErrors400.PhoneCodeInvalid.ThrowRpcError();
         }
 
         var now = DateTime.UtcNow.ToTimestamp();
         if (now > _state.Expire || _state.Canceled)
         {
-            ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PhoneCodeExpired);
+            RpcErrors.RpcErrors400.PhoneCodeExpired.ThrowRpcError();
         }
 
         // the validation failed count should be saved,so not throw exception

@@ -1,25 +1,25 @@
 ﻿namespace MyTelegram.Domain.Sagas.Events;
 
-public class InviteToChannelCompletedEvent : RequestAggregateEvent<InviteToChannelSaga, InviteToChannelSagaId>,
+public class InviteToChannelCompletedEvent : RequestAggregateEvent2<InviteToChannelSaga, InviteToChannelSagaId>,
     IHasCorrelationId
 {
-    public InviteToChannelCompletedEvent(long reqMsgId,
+    public InviteToChannelCompletedEvent(RequestInfo requestInfo,
         long channelId,
         long inviterId,
         bool broadcast,
         IReadOnlyList<long> memberUidList,
-        Guid correlationId) : base(reqMsgId)
+        IReadOnlyList<long>? privacyRestrictedUserId) : base(requestInfo)
     {
         ChannelId = channelId;
         InviterId = inviterId;
         Broadcast = broadcast;
         MemberUidList = memberUidList;
-        CorrelationId = correlationId;
+        PrivacyRestrictedUserId = privacyRestrictedUserId;
     }
 
     public long ChannelId { get; }
     public long InviterId { get; }
     public bool Broadcast { get; }
     public IReadOnlyList<long> MemberUidList { get; }
-    public Guid CorrelationId { get; }
+    public IReadOnlyList<long>? PrivacyRestrictedUserId { get; }
 }

@@ -828,3 +828,25 @@ public record GetMessageIdListByChannelIdQuery(long ChannelId,
 
 public record GetMessageReadParticipantsQuery(long TargetPeerId,
     long MessageId) : IQuery<IReadOnlyCollection<IReadingHistoryReadModel>>;
+
+public record GetAccessHashQueryByIdQuery(long Id) : IQuery<IAccessHashReadModel?>;
+
+public record GetPeerSettingsQuery(long SelfUserId, long PeerId) : IQuery<IPeerSettingsReadModel?>;
+
+public record GetPhotosByUserIdQuery(long UserId, IList<long> PhotoIds) : IQuery<IReadOnlyCollection<IPhotoReadModel>>;
+
+public record GetPhotosByPhotoIdLisQuery(IList<long> PhotoIds) : IQuery<IReadOnlyCollection<IPhotoReadModel>>;
+
+public record GetPhotoByIdQuery(long PhotoId) : IQuery<IPhotoReadModel?>;
+
+public record GetUpdatesQuery(
+    long SelfUserId,
+    long PeerId,
+    int MinPts,
+    int Date,
+    int Limit) : IQuery<IReadOnlyCollection<IUpdatesReadModel>>;
+
+public record GetChannelUpdatesByGlobalSeqNoQuery(List<long> ChannelIdList, long MinGlobalSeqNo, int Limit) : IQuery<IReadOnlyCollection<IUpdatesReadModel>>;
+
+public record GetReplyToMsgIdListQuery(long ToPeerId, long SenderUserId, int? ReplyToMsgId) : IQuery<IReadOnlyCollection<ReplyToMsgItem>?>;
+public record GetUserNameListByNamesQuery(List<string> UserNames, PeerType? PeerType = null) : IQuery<IReadOnlyCollection<IUserNameReadModel>>;

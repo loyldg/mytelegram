@@ -50,19 +50,20 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new ParticipantHistoryClearedEvent(_state.OwnerId, _state.TopMessage, correlationId));
     }
 
-    public void Create(long ownerId,
+    public void Create(
+        RequestInfo requestInfo,
+        long ownerId,
         Peer toPeer,
         int channelHistoryMinId,
-        int topMessageId,
-        Guid correlationId)
+        int topMessageId)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new DialogCreatedEvent(ownerId,
             toPeer,
             channelHistoryMinId,
             topMessageId,
-            DateTime.UtcNow,
-            correlationId));
+            DateTime.UtcNow
+        ));
     }
 
     protected override Task<DialogSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
@@ -95,71 +96,87 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new DialogUnreadMarkChangedEvent(unread));
     }
 
-    public void OutboxMessageHasRead(long reqMsgId,
+    public void OutboxMessageHasRead(RequestInfo requestInfo,
         int maxMessageId,
         long ownerPeerId,
-        Guid correlationId)
+        Peer toPeer
+    )
     {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        //Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         if (maxMessageId > _state.ReadOutboxMaxId)
         {
-            Emit(new OutboxMessageHasReadEvent(reqMsgId,
+            Emit(new OutboxMessageHasReadEvent(requestInfo,
                 maxMessageId,
                 ownerPeerId,
-                _state.ToPeer,
-                correlationId));
+                toPeer));
         }
         else
         {
-            Emit(new OutboxAlreadyReadEvent(correlationId, _state.ReadOutboxMaxId, maxMessageId, _state.ToPeer));
+            Emit(new OutboxAlreadyReadEvent(requestInfo, _state.ReadOutboxMaxId, maxMessageId, _state.ToPeer));
         }
     }
 
-    public void ReadChannelInboxMessage(long reqMsgId,
-        long readerUid,
+    public void ReadChannelInboxMessage(RequestInfo requestInfo,
+        long readerUserId,
         long channelId,
         int maxId,
-        Guid correlationId)
+        long senderUserId,
+        int? topMsgId)
     {
         // Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
 
-        // When reading channel messages and does not join the channel,
+        // When user reading channel messages and does not join the channel,
         // the dialog has not been created,no verification required
-        Emit(new ReadChannelInboxMessageEvent(reqMsgId,
-            readerUid,
+        Emit(new ReadChannelInboxMessageEvent(requestInfo,
+            readerUserId,
             channelId,
             maxId,
-            correlationId));
+            senderUserId,
+            topMsgId));
     }
 
     public void ReadInboxMessage2(RequestInfo requestInfo,
-        long readerUid,
+        long readerUserId,
         long ownerPeerId,
         int maxId,
-        Peer toPeer,
-        Guid correlationId
+        int unreadCount,
+        Peer toPeer
     )
     {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        //Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        //var unreadCount = _state.TopMessage - maxId;
+        //if (unreadCount < 0)
+        //{
+        //    unreadCount = 0;
+        //}
+
+        var readCount = _state.UnreadCount - unreadCount;
+        if (readCount < 0)
+        {
+            readCount = 0;
+        }
+
         Emit(new ReadInboxMessage2Event(requestInfo,
-            readerUid,
+            readerUserId,
             ownerPeerId,
             maxId,
-            toPeer,
-            correlationId));
+            readCount,
+            unreadCount,
+            toPeer));
     }
 
     public void ReceiveInboxMessage(
+        RequestInfo requestInfo,
         int messageId,
         long ownerPeerId,
-        Peer toPeer,
-        Guid correlationId)
+        Peer toPeer)
     {
         Emit(new InboxMessageReceivedEvent(
+            requestInfo,
             messageId,
             ownerPeerId,
-            toPeer,
-            correlationId));
+            toPeer
+        ));
     }
 
     public void SaveDraft(long reqMsgId,
@@ -182,19 +199,19 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
     }
 
     public void SetOutboxTopMessage(
+        //RequestInfo requestInfo,
         int messageId,
         long ownerPeerId,
         //int pts, 
         Peer toPeer,
-        bool clearDraft,
-        Guid correlationId)
+        bool clearDraft)
     {
         Emit(new SetOutboxTopMessageSuccessEvent(
+            //requestInfo,
             messageId,
             ownerPeerId,
             toPeer,
-            clearDraft,
-            correlationId));
+            clearDraft));
     }
 
     public void SetPinnedMsgId(int pinnedMsgId)

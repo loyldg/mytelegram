@@ -1,15 +1,13 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
 public class EditMessageSaga : MyInMemoryAggregateSaga<EditMessageSaga, EditMessageSagaId, EditMessageSagaLocator>,
-    ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
-    ISagaHandles<MessageAggregate, MessageId, InboxMessageEditedEvent>
+ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
+        ISagaHandles<MessageAggregate, MessageId, InboxMessageEditedEvent>
 {
     private readonly IIdGenerator _idGenerator;
     private readonly EditMessageState _state = new();
 
-    public EditMessageSaga(EditMessageSagaId id,
-        IEventStore eventStore,
-        IIdGenerator idGenerator) : base(id, eventStore)
+    public EditMessageSaga(EditMessageSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
@@ -19,11 +17,9 @@ public class EditMessageSaga : MyInMemoryAggregateSaga<EditMessageSaga, EditMess
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        Emit(new EditInboxMessageStartedEvent(domainEvent.AggregateEvent.InboxOwnerPeerId,
-            domainEvent.AggregateEvent.MessageId));
+        Emit(new EditInboxMessageStartedEvent(domainEvent.AggregateEvent.InboxOwnerPeerId, domainEvent.AggregateEvent.MessageId));
         await HandleEditInboxCompletedAsync(domainEvent.AggregateEvent.InboxOwnerPeerId,
-            domainEvent.AggregateEvent.MessageId,
-            domainEvent.AggregateEvent.ToPeer);
+            domainEvent.AggregateEvent.MessageId, domainEvent.AggregateEvent.ToPeer);
         await HandleEditCompletedAsync();
     }
 
@@ -56,12 +52,12 @@ public class EditMessageSaga : MyInMemoryAggregateSaga<EditMessageSaga, EditMess
             {
                 var command = new EditInboxMessageCommand(
                     MessageId.Create(inboxItem.InboxOwnerPeerId, inboxItem.InboxMessageId),
+                    _state.RequestInfo,
                     inboxItem.InboxMessageId,
                     aggregateEvent.NewMessage,
                     aggregateEvent.EditDate,
                     aggregateEvent.Entities,
-                    aggregateEvent.Media,
-                    aggregateEvent.CorrelationId
+                    aggregateEvent.Media
                 );
                 Publish(command);
             }
@@ -74,7 +70,6 @@ public class EditMessageSaga : MyInMemoryAggregateSaga<EditMessageSaga, EditMess
         {
             return CompleteAsync();
         }
-
         return Task.CompletedTask;
     }
 
@@ -94,7 +89,6 @@ public class EditMessageSaga : MyInMemoryAggregateSaga<EditMessageSaga, EditMess
             _state.Entities,
             _state.Media));
     }
-
     private async Task HandleEditOutboxCompletedAsync(long outboxOwnerPeerId)
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, outboxOwnerPeerId);

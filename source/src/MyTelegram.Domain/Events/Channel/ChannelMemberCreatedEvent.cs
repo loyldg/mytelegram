@@ -1,8 +1,9 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class ChannelMemberCreatedEvent : AggregateEvent<ChannelMemberAggregate, ChannelMemberId>, IHasCorrelationId
+public class ChannelMemberCreatedEvent : RequestAggregateEvent2<ChannelMemberAggregate, ChannelMemberId>
 {
     public ChannelMemberCreatedEvent( //long reqMsgId,
+        RequestInfo requestInfo,
         long channelId,
         long userId,
         long inviterId,
@@ -10,7 +11,7 @@ public class ChannelMemberCreatedEvent : AggregateEvent<ChannelMemberAggregate, 
         bool isRejoin,
         ChatBannedRights? bannedRights,
         bool isBot,
-        Guid correlationId) //: base(reqMsgId)
+        long? chatInviteId) : base(requestInfo)
     {
         ChannelId = channelId;
         UserId = userId;
@@ -19,7 +20,7 @@ public class ChannelMemberCreatedEvent : AggregateEvent<ChannelMemberAggregate, 
         IsRejoin = isRejoin;
         BannedRights = bannedRights;
         IsBot = isBot;
-        CorrelationId = correlationId;
+        ChatInviteId = chatInviteId;
     }
 
     public ChatBannedRights? BannedRights { get; }
@@ -27,8 +28,7 @@ public class ChannelMemberCreatedEvent : AggregateEvent<ChannelMemberAggregate, 
     public int Date { get; }
     public long InviterId { get; }
     public bool IsBot { get; }
+    public long? ChatInviteId { get; }
     public bool IsRejoin { get; }
     public long UserId { get; }
-
-    public Guid CorrelationId { get; }
 }

@@ -9,12 +9,13 @@ public class
     {
         aggregate.StartInviteToChannel(command.RequestInfo,
             command.InviterId,
+            command.MaxMessageId,
             command.MemberUidList,
+            command.PrivacyRestrictedUserIds,
             command.BotUidList,
             command.Date,
             command.RandomId,
-            command.MessageActionData,
-            command.CorrelationId);
+            command.MessageActionData);
         return Task.CompletedTask;
     }
 }

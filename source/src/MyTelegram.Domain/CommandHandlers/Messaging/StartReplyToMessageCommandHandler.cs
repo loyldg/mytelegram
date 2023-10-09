@@ -7,7 +7,7 @@ public class
         StartReplyToMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.StartReplyToMessage(command.ReplierPeer, command.ReplyToMsgId, command.CorrelationId);
+        aggregate.StartReplyToMessage(command.RequestInfo, command.ReplierPeer, command.ReplyToMsgId);
         return Task.CompletedTask;
     }
 }

@@ -7,11 +7,10 @@ public class EditChannelPhotoCommandHandler : CommandHandler<ChannelAggregate, C
         CancellationToken cancellationToken)
     {
         aggregate.EditPhoto(command.RequestInfo,
-            //command.FileId,
-            command.Photo,
+            command.FileId,
+            //command.Photo,
             command.MessageActionData,
-            command.RandomId,
-            command.CorrelationId);
+            command.RandomId);
         return Task.CompletedTask;
     }
 }

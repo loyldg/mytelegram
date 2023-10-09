@@ -14,7 +14,8 @@ public class CreateChatCommandHandler : CommandHandler<ChatAggregate, ChatId, Cr
             command.Date,
             command.RandomId,
             command.MessageActionData,
-            command.CorrelationId);
+            command.TtlPeriod
+        );
         return Task.CompletedTask;
     }
 }

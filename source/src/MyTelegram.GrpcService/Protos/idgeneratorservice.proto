@@ -17,13 +17,12 @@ message GetNextSeqIdRequest{
 	int64 IdKey=2;
 	int32 Step=3;
 }
-
+ 
 message GetNextSeqIdResponse{
 	int64 SeqId=1;
 }
 
 message GenerateServerMessageIdRequest{
-
 }
 
 message GenerateServerMessageIdResponse{

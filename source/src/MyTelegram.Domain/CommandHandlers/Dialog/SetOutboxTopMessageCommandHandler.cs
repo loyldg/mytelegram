@@ -6,12 +6,13 @@ public class SetOutboxTopMessageCommandHandler : CommandHandler<DialogAggregate,
         SetOutboxTopMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.SetOutboxTopMessage(command.MessageId,
+        aggregate.SetOutboxTopMessage(
+            //command.RequestInfo,
+            command.MessageId,
             command.OwnerPeerId,
             //command.Pts,
             command.ToPeer,
-            command.ClearDraft,
-            command.CorrelationId);
+            command.ClearDraft);
         return Task.CompletedTask;
     }
 }

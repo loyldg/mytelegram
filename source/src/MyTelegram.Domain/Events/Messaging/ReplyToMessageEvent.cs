@@ -1,18 +1,18 @@
 ﻿namespace MyTelegram.Domain.Events.Messaging;
 
-public class ReplyToMessageEvent : AggregateEvent<MessageAggregate, MessageId>, IHasCorrelationId
+public class ReplyToMessageEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
     public ReplyToMessageEvent(
+        RequestInfo requestInfo,
         int senderMessageId,
-        IReadOnlyList<InboxItem>? inboxItems,
-        Guid correlationId)
+        IReadOnlyList<InboxItem>? inboxItems) : base(requestInfo)
     {
         SenderMessageId = senderMessageId;
         InboxItems = inboxItems;
-        CorrelationId = correlationId;
+
     }
 
     public int SenderMessageId { get; }
     public IReadOnlyList<InboxItem>? InboxItems { get; }
-    public Guid CorrelationId { get; }
+
 }

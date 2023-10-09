@@ -7,20 +7,11 @@ public class DeleteParticipantHistorySaga : MyInMemoryAggregateSaga<DeletePartic
 {
     private readonly IIdGenerator _idGenerator;
     private readonly DeleteParticipantHistorySagaState _state = new();
-
     public DeleteParticipantHistorySaga(DeleteParticipantHistorySagaId id,
-        IEventStore eventStore,
-        IIdGenerator idGenerator) : base(id, eventStore)
+        IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
         _idGenerator = idGenerator;
         Register(_state);
-    }
-
-    public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, MessageDeletedEvent> domainEvent,
-        ISagaContext sagaContext,
-        CancellationToken cancellationToken)
-    {
-        return IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId);
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, DeleteParticipantHistoryStartedEvent> domainEvent,
@@ -30,32 +21,21 @@ public class DeleteParticipantHistorySaga : MyInMemoryAggregateSaga<DeletePartic
         Emit(new DeleteParticipantHistorySagaStartedEvent(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.OwnerPeerId,
             domainEvent.AggregateEvent.MessageIds
-        ));
+            ));
         foreach (var messageId in domainEvent.AggregateEvent.MessageIds)
         {
-            var command = new DeleteMessageCommand(MessageId.Create(domainEvent.AggregateEvent.OwnerPeerId, messageId),
-                domainEvent.AggregateEvent.CorrelationId);
+            var command = new DeleteMessageCommand(MessageId.Create(domainEvent.AggregateEvent.OwnerPeerId, messageId), _state.RequestInfo);
             Publish(command);
         }
 
         return Task.CompletedTask;
     }
 
-    private Task HandleDeleteMessageCompletedAsync()
+    public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, MessageDeletedEvent> domainEvent,
+        ISagaContext sagaContext,
+        CancellationToken cancellationToken)
     {
-        if (_state.TotalCount != 0 && _state.TotalCount == _state.DeletedCount)
-        {
-            var nextMaxId = _state.MessageIds.Min();
-            Emit(new DeleteParticipantHistoryCompletedEvent(_state.RequestInfo,
-                _state.OwnerPeerId,
-                _state.MessageIds,
-                _state.Pts,
-                _state.MessageIds.Count,
-                nextMaxId));
-            return CompleteAsync();
-        }
-
-        return Task.CompletedTask;
+        return IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId);
     }
 
     private async Task IncrementPtsAsync(long peerId)
@@ -63,5 +43,17 @@ public class DeleteParticipantHistorySaga : MyInMemoryAggregateSaga<DeletePartic
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, peerId);
         Emit(new DeleteParticipantHistoryPtsIncrementedEvent(peerId, pts));
         await HandleDeleteMessageCompletedAsync();
+    }
+
+    private Task HandleDeleteMessageCompletedAsync()
+    {
+        if (_state.TotalCount != 0 && _state.TotalCount == _state.DeletedCount)
+        {
+            var nextMaxId = _state.MessageIds.Min();
+            Emit(new DeleteParticipantHistoryCompletedEvent(_state.RequestInfo, _state.OwnerPeerId, _state.MessageIds, _state.Pts, _state.MessageIds.Count, nextMaxId));
+            return CompleteAsync();
+        }
+
+        return Task.CompletedTask;
     }
 }

@@ -6,7 +6,6 @@ public interface IChannelMemberReadModel : IReadModel
     long ChannelId { get; }
     int Date { get; }
     string Id { get; }
-
     // ReSharper disable once IdentifierTypo
     long InviterId { get; }
     bool IsBot { get; }
@@ -15,4 +14,5 @@ public interface IChannelMemberReadModel : IReadModel
     bool Left { get; }
     int UntilDate { get; }
     long UserId { get; }
+    long? ChatInviteId { get; }
 }

@@ -1,14 +1,15 @@
 ﻿namespace MyTelegram.Domain.Events.Dialog;
 
-public class OutboxAlreadyReadEvent : AggregateEvent<DialogAggregate, DialogId>, IHasCorrelationId
+public class OutboxAlreadyReadEvent : RequestAggregateEvent2<DialogAggregate, DialogId>
 {
-    public OutboxAlreadyReadEvent(Guid correlationId,
+    public OutboxAlreadyReadEvent(
+        RequestInfo requestInfo,
         int oldMaxMessageId,
         int newMaxMessageId,
         //long senderMsgId,
-        Peer toPeer)
+        Peer toPeer) : base(requestInfo)
     {
-        CorrelationId = correlationId;
+
         OldMaxMessageId = oldMaxMessageId;
         NewMaxMessageId = newMaxMessageId;
         ToPeer = toPeer;
@@ -22,5 +23,5 @@ public class OutboxAlreadyReadEvent : AggregateEvent<DialogAggregate, DialogId>,
 
     //public long SenderMsgId { get; } 
 
-    public Guid CorrelationId { get; }
+
 }

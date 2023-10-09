@@ -8,6 +8,19 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>
 
 {
+    public int BannedRights { get; private set; }
+    public long ChannelId { get; private set; }
+    public int Date { get; private set; }
+    public virtual string Id { get; private set; } = null!;
+    // ReSharper disable once IdentifierTypo
+    public long InviterId { get; private set; }
+    public bool IsBot { get; private set; }
+    public bool Kicked { get; private set; }
+    public long KickedBy { get; private set; }
+    public bool Left { get; private set; }
+    public int UntilDate { get; private set; }
+    public long UserId { get; private set; }
+    public long? ChatInviteId { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -29,22 +42,9 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
     {
         BannedRights = domainEvent.AggregateEvent.BannedRights.ToIntValue();
         UntilDate = domainEvent.AggregateEvent.BannedRights.UntilDate;
-        if (domainEvent.AggregateEvent.BannedRights.ViewMessages)
-        {
-            KickedBy = domainEvent.AggregateEvent.AdminId;
-            // Kicked = true;
-            Kicked = true;
-            Left = true;
-        }
-        else
-        {
-            if (domainEvent.AggregateEvent.NeedRemoveFromKicked)
-            {
-                Kicked = false;
-                KickedBy = 0;
-                Left = false;
-            }
-        }
+        Kicked = domainEvent.AggregateEvent.Kicked;
+        KickedBy = domainEvent.AggregateEvent.KickedBy;
+        Left = domainEvent.AggregateEvent.Left;
 
         return Task.CompletedTask;
     }
@@ -66,6 +66,8 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
         BannedRights = 0;
         UntilDate = 0;
 
+        ChatInviteId = domainEvent.AggregateEvent.ChatInviteId;
+
         return Task.CompletedTask;
     }
 
@@ -75,8 +77,8 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
     {
         Id = domainEvent.AggregateIdentity.Value;
         ChannelId = domainEvent.AggregateEvent.ChannelId;
-        UserId = domainEvent.AggregateEvent.MemberUid;
-        InviterId = domainEvent.AggregateEvent.MemberUid;
+        UserId = domainEvent.AggregateEvent.MemberUserId;
+        InviterId = domainEvent.AggregateEvent.MemberUserId;
         Date = domainEvent.AggregateEvent.Date;
         return Task.CompletedTask;
     }
@@ -88,18 +90,4 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
         Left = true;
         return Task.CompletedTask;
     }
-
-    public int BannedRights { get; private set; }
-    public long ChannelId { get; private set; }
-    public int Date { get; private set; }
-    public virtual string Id { get; private set; } = null!;
-
-    // ReSharper disable once IdentifierTypo
-    public long InviterId { get; private set; }
-    public bool IsBot { get; private set; }
-    public bool Kicked { get; private set; }
-    public long KickedBy { get; private set; }
-    public bool Left { get; private set; }
-    public int UntilDate { get; private set; }
-    public long UserId { get; private set; }
 }

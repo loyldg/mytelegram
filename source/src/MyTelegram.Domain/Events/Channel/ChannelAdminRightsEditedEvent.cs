@@ -1,21 +1,29 @@
 ﻿namespace MyTelegram.Domain.Events.Channel;
 
-public class ChannelAdminRightsEditedEvent : RequestAggregateEvent<ChannelAggregate, ChannelId>
+public class ChannelAdminRightsEditedEvent : RequestAggregateEvent2<ChannelAggregate, ChannelId>
 {
-    public ChannelAdminRightsEditedEvent(long reqMsgId,
+    public ChannelAdminRightsEditedEvent(RequestInfo requestInfo,
         long channelId,
         long promotedBy,
         bool canEdit,
         long userId,
+        bool isBot,
+        bool isNewAdmin,
         ChatAdminRights adminRights,
-        string rank) : base(reqMsgId)
+        string rank,
+        bool removeAdminFromList,
+        int date) : base(requestInfo)
     {
         ChannelId = channelId;
         PromotedBy = promotedBy;
         CanEdit = canEdit;
         UserId = userId;
+        IsBot = isBot;
+        IsNewAdmin = isNewAdmin;
         AdminRights = adminRights;
         Rank = rank;
+        RemoveAdminFromList = removeAdminFromList;
+        Date = date;
     }
 
     public ChatAdminRights AdminRights { get; }
@@ -29,5 +37,10 @@ public class ChannelAdminRightsEditedEvent : RequestAggregateEvent<ChannelAggreg
     /// </summary>
     public string Rank { get; }
 
+    public bool RemoveAdminFromList { get; }
+    public int Date { get; }
+
     public long UserId { get; }
+    public bool IsBot { get; }
+    public bool IsNewAdmin { get; }
 }

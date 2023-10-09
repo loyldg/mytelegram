@@ -1,21 +1,22 @@
 ﻿namespace MyTelegram.Domain.Sagas.Events;
 
-public class SignInSuccessEvent : AggregateEvent<SignInSaga, SignInSagaId>
+public class SignInSuccessEvent : RequestAggregateEvent2<SignInSaga, SignInSagaId>
 {
-    public SignInSuccessEvent(long reqMsgId,
+    public SignInSuccessEvent(RequestInfo requestInfo,
         long tempAuthKeyId,
         long permAuthKeyId,
         long userId,
+        long accessHash,
         bool signUpRequired,
         string phoneNumber,
         string firstName,
         string? lastName,
-        bool hasPassword)
+        bool hasPassword) : base(requestInfo)
     {
-        ReqMsgId = reqMsgId;
         TempAuthKeyId = tempAuthKeyId;
         PermAuthKeyId = permAuthKeyId;
         UserId = userId;
+        AccessHash = accessHash;
         SignUpRequired = signUpRequired;
         PhoneNumber = phoneNumber;
         FirstName = firstName;
@@ -29,8 +30,8 @@ public class SignInSuccessEvent : AggregateEvent<SignInSaga, SignInSagaId>
     public long PermAuthKeyId { get; }
     public string PhoneNumber { get; }
 
-    public long ReqMsgId { get; }
     public bool SignUpRequired { get; }
     public long TempAuthKeyId { get; }
     public long UserId { get; }
+    public long AccessHash { get; }
 }

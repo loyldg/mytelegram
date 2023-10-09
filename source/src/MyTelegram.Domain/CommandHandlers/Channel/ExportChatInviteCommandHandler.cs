@@ -6,8 +6,11 @@ public class ExportChatInviteCommandHandler : CommandHandler<ChannelAggregate, C
         ExportChatInviteCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ExportChatInvite(command.ReqMsgId,
+        aggregate.ExportChatInvite(command.RequestInfo,
             command.AdminId,
+            command.InviteId,
+            command.Title,
+            command.RequestNeeded,
             command.ExpireDate,
             command.UsageLimit,
             //command.LegacyRevokePermanent,

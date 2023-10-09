@@ -3,9 +3,11 @@
 public class CreateChatSaga : MyInMemoryAggregateSaga<CreateChatSaga, CreateChatSagaId, CreateChatSagaLocator>,
     ISagaIsStartedBy<ChatAggregate, ChatId, ChatCreatedEvent>
 {
-    public CreateChatSaga(CreateChatSagaId id,
-        IEventStore eventStore) : base(id, eventStore)
+    private readonly IIdGenerator _idGenerator;
+
+    public CreateChatSaga(CreateChatSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
+        _idGenerator = idGenerator;
     }
 
     public async Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatCreatedEvent> domainEvent,
@@ -14,9 +16,9 @@ public class CreateChatSaga : MyInMemoryAggregateSaga<CreateChatSaga, CreateChat
     {
         var ownerPeerId = domainEvent.AggregateEvent.CreatorUid;
         var chatId = domainEvent.AggregateEvent.ChatId;
-        var outMessageId = 0;
+        var outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, ownerPeerId, cancellationToken: cancellationToken);
 
-        var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, domainEvent.AggregateEvent.RandomId);
+        var aggregateId = MessageId.Create(ownerPeerId, outMessageId);
         var messageItem = new MessageItem(
             new Peer(PeerType.User, ownerPeerId),
             new Peer(PeerType.Chat, chatId),
@@ -33,10 +35,11 @@ public class CreateChatSaga : MyInMemoryAggregateSaga<CreateChatSaga, CreateChat
             domainEvent.AggregateEvent.MessageActionData,
             MessageActionType.ChatCreate
         );
-        var command = new StartSendMessageCommand(aggregateId,
-            domainEvent.AggregateEvent.RequestInfo,
+        var command = new CreateOutboxMessageCommand(aggregateId,
+            domainEvent.AggregateEvent.RequestInfo with { RequestId = Guid.NewGuid() },
             messageItem,
-            correlationId: domainEvent.AggregateEvent.CorrelationId);
+            chatMembers: domainEvent.AggregateEvent.MemberUidList.Select(p => p.UserId).ToList()
+        );
         Publish(command);
         await CompleteAsync(cancellationToken);
     }

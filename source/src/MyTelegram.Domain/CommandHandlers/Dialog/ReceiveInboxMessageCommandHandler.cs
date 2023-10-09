@@ -7,11 +7,11 @@ public class
         ReceiveInboxMessageCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.ReceiveInboxMessage(command.MessageId,
+        aggregate.ReceiveInboxMessage(command.RequestInfo,
+            command.MessageId,
             command.OwnerPeerId,
             //command.Pts,
-            command.ToPeer,
-            command.CorrelationId);
+            command.ToPeer);
         return Task.CompletedTask;
     }
 }

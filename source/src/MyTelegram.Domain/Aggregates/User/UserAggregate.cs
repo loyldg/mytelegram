@@ -16,17 +16,28 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         Emit(new CheckUserStateCompletedEvent(correlationId));
     }
 
-    public void CheckUserStatus(
-        Guid correlationId)
+    private void CheckUserDeletionState()
+    {
+        if (_state.IsDeleted)
+        {
+            RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
+        }
+    }
+
+    public void CheckUserStatus(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new CheckUserStatusCompletedEvent(_state.UserId,
+        CheckUserDeletionState();
+
+        Emit(new CheckUserStatusCompletedEvent(
+            requestInfo,
+            _state.UserId,
+            _state.AccessHash,
             _state.PhoneNumber,
             _state.FirstName,
             _state.LastName,
             _state.HasPassword,
-            false,
-            correlationId));
+            false));
     }
 
     public void Create(RequestInfo requestInfo,
@@ -35,6 +46,7 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         string phoneNumber,
         string firstName,
         string? lastName = null,
+        string? userName=null,
         bool bot = false)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
@@ -46,6 +58,7 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             phoneNumber,
             firstName,
             lastName,
+            userName,   
             bot,
             bot ? 0 : null,
             AccountDefaultTtl,
@@ -63,7 +76,15 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             _state.PhoneNumber,
             _state.UserName,
             _state.HasPassword,
-            _state.Photo));
+            _state.Photo,
+            _state.IsBot,
+            _state.IsDeleted,
+            _state.EmojiStatusDocumentId,
+            _state.EmojiStatusValidUntil,
+            _state.RecentEmojiStatus.ToList(),
+            _state.PhotoId,
+            _state.FallbackPhotoId
+        ));
     }
 
     protected override Task LoadSnapshotAsync(UserSnapshot snapshot,
@@ -99,36 +120,34 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             about));
     }
 
-    public void UpdateProfilePhoto(long reqMsgId,
-        long fileId,
-        byte[] photo /*, bool hasVideo, double videoStartTs*/)
+    public void UpdateProfilePhoto(RequestInfo requestInfo,
+            //long userId,
+            long photoId,
+            bool fallback)//,
+        //byte[]? photo, 
+        //VideoSizeEmojiMarkup? videoEmojiMarkup /*, bool hasVideo, double videoStartTs*/)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new UserProfilePhotoChangedEvent(reqMsgId,
-            fileId,
-            new UserItem(_state.UserId,
-                _state.AccessHash,
-                _state.PhoneNumber,
-                _state.FirstName,
-                _state.LastName,
-                _state.UserName,
-                photo) /*, hasVideo, videoStartTs*/));
+        Emit(new UserProfilePhotoChangedEvent(requestInfo,
+            _state.UserId,
+            photoId,
+            fallback
+            //videoEmojiMarkup
+            /*, hasVideo, videoStartTs*/));
     }
 
-    public void UpdateUserName(long reqMsgId,
-        string userName,
-        Guid correlationId)
+
+    public void UpdateUserName(RequestInfo requestInfo,
+        string userName)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new UserNameUpdatedEvent(reqMsgId,
+        Emit(new UserNameUpdatedEvent(requestInfo,
             new UserItem(_state.UserId,
                 _state.AccessHash,
                 _state.PhoneNumber,
                 _state.FirstName,
                 _state.LastName,
-                userName,
-                _state.Photo),
-            _state.UserName,
-            correlationId));
+                userName),
+            _state.UserName));
     }
 }

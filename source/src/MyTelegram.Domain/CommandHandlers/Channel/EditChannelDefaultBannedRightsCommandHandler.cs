@@ -8,7 +8,7 @@ public class
         EditChannelDefaultBannedRightsCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.EditChatDefaultBannedRights(command.ReqMsgId, command.ChatBannedRights, command.SelfUserId);
+        aggregate.EditChatDefaultBannedRights(command.RequestInfo, command.ChatBannedRights, command.SelfUserId);
         return Task.CompletedTask;
     }
 }

@@ -1,22 +1,22 @@
 ﻿namespace MyTelegram.Domain.Commands.Channel;
 
-public class EditBannedCommand : RequestCommand<ChannelMemberAggregate, ChannelMemberId, IExecutionResult>
+public class EditBannedCommand : RequestCommand2<ChannelMemberAggregate, ChannelMemberId, IExecutionResult>
 {
     public EditBannedCommand(ChannelMemberId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long adminId,
         long channelId,
-        long memberUid,
-        ChatBannedRights chatBannedRights) : base(aggregateId, reqMsgId)
+        long memberUserId,
+        ChatBannedRights chatBannedRights) : base(aggregateId, requestInfo)
     {
         AdminId = adminId;
         ChannelId = channelId;
-        MemberUid = memberUid;
+        MemberUserId = memberUserId;
         ChatBannedRights = chatBannedRights;
     }
 
     public long AdminId { get; }
     public long ChannelId { get; }
     public ChatBannedRights ChatBannedRights { get; }
-    public long MemberUid { get; }
+    public long MemberUserId { get; }
 }

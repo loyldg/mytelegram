@@ -1,27 +1,24 @@
 ﻿namespace MyTelegram.Domain.Commands.Dialog;
 
-public class CreateDialogCommand : Command<DialogAggregate, DialogId, IExecutionResult>
+public class CreateDialogCommand : RequestCommand2<DialogAggregate, DialogId, IExecutionResult>
 {
     public CreateDialogCommand(DialogId aggregateId,
+        RequestInfo requestInfo,
         long ownerId,
         Peer toPeer,
         int channelHistoryMinId,
-        int topMessageId,
-        //string topMessageBoxId,
-        Guid correlationId) : base(aggregateId)
+        int topMessageId) : base(aggregateId, requestInfo)
     {
         OwnerId = ownerId;
         ToPeer = toPeer;
         ChannelHistoryMinId = channelHistoryMinId;
         TopMessageId = topMessageId;
-        //TopMessageBoxId = topMessageBoxId;
-        CorrelationId = correlationId;
+        //TopMessageBoxId = topMessageBoxId; 
     }
 
     public int ChannelHistoryMinId { get; }
 
-    //public string TopMessageBoxId { get; }
-    public Guid CorrelationId { get; }
+    //public string TopMessageBoxId { get; } 
 
     public long OwnerId { get; }
     public Peer ToPeer { get; }

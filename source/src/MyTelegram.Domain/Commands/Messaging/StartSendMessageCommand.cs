@@ -2,26 +2,21 @@
 
 public class StartSendMessageCommand : RequestCommand2<MessageAggregate, MessageId, IExecutionResult>
 {
-    public StartSendMessageCommand(MessageId aggregateId,
-        RequestInfo requestInfo,
-        MessageItem outMessageItem,
-        bool clearDraft = false,
-        int groupItemCount = 1,
-        Guid correlationId = default,
-        bool forwardFromLinkedChannel = false) : base(aggregateId, requestInfo)
-    {
-        OutMessageItem = outMessageItem;
-        ClearDraft = clearDraft;
-        GroupItemCount = groupItemCount;
-        CorrelationId = correlationId;
-        ForwardFromLinkedChannel = forwardFromLinkedChannel;
-    }
-
     public MessageItem OutMessageItem { get; }
+    public List<long>? MentionedUserIds { get; }
     public bool ClearDraft { get; }
     public int GroupItemCount { get; }
-    public Guid CorrelationId { get; }
     public bool ForwardFromLinkedChannel { get; }
+
+    public StartSendMessageCommand(MessageId aggregateId,
+        RequestInfo requestInfo, MessageItem outMessageItem, List<long>? mentionedUserIds = null, bool clearDraft = false, int groupItemCount = 1, bool forwardFromLinkedChannel = false) : base(aggregateId, requestInfo)
+    {
+        OutMessageItem = outMessageItem;
+        MentionedUserIds = mentionedUserIds;
+        ClearDraft = clearDraft;
+        GroupItemCount = groupItemCount;
+        ForwardFromLinkedChannel = forwardFromLinkedChannel;
+    }
 
     protected override IEnumerable<byte[]> GetSourceIdComponents()
     {

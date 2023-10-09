@@ -1,8 +1,10 @@
-﻿namespace MyTelegram.Domain.Aggregates.Channel;
+﻿using System.Collections.Concurrent;
+
+namespace MyTelegram.Domain.Aggregates.Channel;
 
 public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelState>,
     IApply<ChannelCreatedEvent>,
-    IApply<ExportChatInviteEvent>,
+    IApply<ChannelInviteExportedEvent>,
     IApply<StartSendChannelMessageEvent>,
     IApply<StartInviteToChannelEvent>,
     IApply<IncrementParticipantCountEvent>,
@@ -19,13 +21,20 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     IApply<ChannelPhotoEditedEvent>,
     IApply<ChannelUserNameChangedEvent>,
     IApply<CheckChannelStateCompletedEvent>,
-    IApply<DeleteParticipantHistoryStartedEvent>
+    IApply<DeleteParticipantHistoryStartedEvent>,
+    IApply<ChannelInviteEditedEvent>
 {
-    private List<ChatAdmin> _adminList = new();
-    private List<long> _botUidList = new();
+    //private List<ChatAdmin> _adminList = new();
+    //public IReadOnlyList<ChatAdmin> AdminList => _adminList.AsReadOnly();
+
+    //public List<ChatAdmin> AdminList { get; set; } = new();
+    public ConcurrentDictionary<long, ChatAdmin> ChatAdmins { get; private set; } = new();
+
+    //private List<long> _botUidList = new();
     public static ChatBannedRights InitRights => ChatBannedRights.Default;
-    public IReadOnlyList<ChatAdmin> AdminList => _adminList.AsReadOnly();
-    public IReadOnlyList<long> BotUidList => _botUidList.AsReadOnly();
+    //public List<long> BotUidList { get; private set; } = new();
+    public List<long> BotUserIdList { get; private set; } = new();
+
     public bool Broadcast { get; private set; }
     public long ChannelId { get; private set; }
 
@@ -46,6 +55,20 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
 
     public int SlowModeSeconds { get; private set; }
     public string? UserName { get; private set; }
+    public bool Forum { get; private set; }
+    public int MaxTopicId { get; private set; }
+    public int? TtlPeriod { get; private set; }
+    public long? PhotoId { get; private set; }
+    public long? MigratedFromChatId { get; private set; }
+    public int? MigratedMaxId { get; private set; }
+    public bool NoForwards { get; private set; }
+    public bool IsFirstChatInviteCreated { get; private set; }
+    //public HashSet<long> RecentRequesters { get; private set; } = new();
+    public int? RequestsPending { get; private set; }
+    public List<long>? RecentRequesters { get; private set; } = new(MyTelegramServerDomainConsts.ChatInviteRecentRequesterMaxCount);
+
+    public bool SignatureEnabled { get; private set; }
+    public int ParticipantCount { get; private set; }
 
     public void Apply(ChannelAboutEditedEvent aggregateEvent)
     {
@@ -58,7 +81,8 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         {
             if (aggregateEvent.AdminRights.HasNoRights())
             {
-                _adminList.Remove(admin);
+                //AdminList.Remove(admin);
+                ChatAdmins.TryRemove(admin.UserId, out _);
             }
             else
             {
@@ -67,11 +91,17 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         }
         else
         {
-            _adminList.Add(new ChatAdmin(aggregateEvent.PromotedBy,
+            admin = new ChatAdmin(aggregateEvent.PromotedBy,
                 aggregateEvent.CanEdit,
                 aggregateEvent.UserId,
                 aggregateEvent.AdminRights,
-                aggregateEvent.Rank));
+                aggregateEvent.Rank);
+            ChatAdmins.TryAdd(admin.UserId, admin);
+
+            if (aggregateEvent.IsBot)
+            {
+                BotUserIdList.Add(aggregateEvent.UserId);
+            }
         }
     }
 
@@ -80,6 +110,13 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         ChannelId = aggregateEvent.ChannelId;
         CreatorId = aggregateEvent.CreatorId;
         Broadcast = aggregateEvent.Broadcast;
+        TtlPeriod = aggregateEvent.TtlPeriod;
+        PhotoId = aggregateEvent.PhotoId;
+        MigratedFromChatId = aggregateEvent.MigratedFromChatId;
+        MigratedMaxId = aggregateEvent.MigratedMaxId;
+        ParticipantCount = 1;
+
+        ChatAdmins.TryAdd(CreatorId, new ChatAdmin(CreatorId, true, CreatorId, ChatAdminRights.GetCreatorRights(), string.Empty));
     }
 
     public void Apply(ChannelDefaultBannedRightsEditedEvent aggregateEvent)
@@ -89,7 +126,8 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
 
     public void Apply(ChannelPhotoEditedEvent aggregateEvent)
     {
-        Photo = aggregateEvent.Photo;
+        //Photo = aggregateEvent.Photo;
+        PhotoId = aggregateEvent.PhotoId;
     }
 
     public void Apply(ChannelTitleEditedEvent aggregateEvent)
@@ -109,16 +147,14 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         LastSendDate = aggregateEvent.Date;
     }
 
-    public void Apply(DeleteParticipantHistoryStartedEvent aggregateEvent)
+    public void Apply(ChannelInviteExportedEvent aggregateEvent)
     {
-    }
-
-    public void Apply(ExportChatInviteEvent aggregateEvent)
-    {
+        IsFirstChatInviteCreated = true;
     }
 
     public void Apply(IncrementParticipantCountEvent aggregateEvent)
     {
+        ParticipantCount = aggregateEvent.NewParticipantCount;
     }
 
     public void Apply(NewMsgIdPinnedEvent aggregateEvent)
@@ -153,15 +189,18 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     {
         foreach (var memberUid in aggregateEvent.MemberUidList)
         {
-            if (memberUid <= MyTelegramServerDomainConsts.BotUserInitId)
+            if (memberUid > MyTelegramServerDomainConsts.BotUserInitId)
             {
-                continue;
+                if (!BotUserIdList.Contains(memberUid))
+                {
+                    BotUserIdList.Add(memberUid);
+                }
             }
 
-            if (!_botUidList.Contains(memberUid))
-            {
-                _botUidList.Add(memberUid);
-            }
+            //if (!_botUidList.Contains(memberUid))
+            //{
+            //    _botUidList.Add(memberUid);
+            //}
         }
     }
 
@@ -179,9 +218,12 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
 
     public ChatAdmin? GetAdmin(long adminId)
     {
-        var admin = _adminList.FirstOrDefault(p => p.UserId == adminId);
+        ChatAdmins.TryGetValue(adminId, out var admin);
 
         return admin;
+        //var admin = AdminList.FirstOrDefault(p => p.UserId == adminId);
+
+        //return admin;
     }
 
     public ChatBannedRights GetDefaultBannedRights()
@@ -196,16 +238,46 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         CreatorId = snapshot.CreatorUid;
         MaxMessageId = snapshot.MaxMessageId;
         PreHistoryHidden = snapshot.PreHistoryHidden;
-        _botUidList = new List<long>(snapshot.BotUidList);
+        //_botUidList = new List<long>(snapshot.BotUidList);
+        BotUserIdList = new List<long>(snapshot.BotUidList);
         LatestNoneBotSenderPeerId = snapshot.LatestNoneBotSenderPeerId;
         LatestNoneBotSenderMessageId = snapshot.LatestNoneBotSenderMessageId;
         DefaultBannedRights = snapshot.DefaultBannedRights;
         SlowModeSeconds = snapshot.SlowModeSeconds;
         LastSendDate = snapshot.LastSendDate;
-        _adminList = new List<ChatAdmin>(snapshot.AdminList);
+        //AdminList = new List<ChatAdmin>(snapshot.AdminList);
         PinnedMsgId = snapshot.PinnedMsgId;
         Photo = snapshot.Photo;
         LinkedChannelId = snapshot.LinkedChannelId;
         UserName = snapshot.UserName;
+        Forum = snapshot.Forum;
+        MaxTopicId = snapshot.MaxTopicId;
+        TtlPeriod = snapshot.TtlPeriod;
+        MigratedFromChatId = snapshot.MigratedFromChatId;
+        MigratedMaxId = snapshot.MigratedMaxId;
+        NoForwards = snapshot.NoForwards;
+        IsFirstChatInviteCreated = snapshot.IsFirstChatInviteCreated;
+
+        ChatAdmins = new();
+        foreach (var chatAdmin in snapshot.AdminList)
+        {
+            ChatAdmins.TryAdd(chatAdmin.UserId, chatAdmin);
+        }
+
+        RequestsPending = snapshot.RequestsPending;
+        RecentRequesters = snapshot.RecentRequesters ?? new List<long>();
+        SignatureEnabled = snapshot.SignatureEnabled;
+
+        ParticipantCount = snapshot.ParticipantCount;
+    }
+
+    public void Apply(DeleteParticipantHistoryStartedEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void Apply(ChannelInviteEditedEvent aggregateEvent)
+    {
+        //throw new NotImplementedException();
     }
 }

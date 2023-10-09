@@ -1,17 +1,13 @@
 ﻿namespace MyTelegram.Domain.Commands.Messaging;
 
-public class ReplyToMessageCommand : RequestCommand<MessageAggregate, MessageId, IExecutionResult>
+public class ReplyToMessageCommand : RequestCommand2<MessageAggregate, MessageId, IExecutionResult>
 {
+    public int MessageId { get; }
     public ReplyToMessageCommand(MessageId aggregateId,
-        long reqMsgId,
-        int messageId,
-        Guid correlationId
-    ) : base(aggregateId, reqMsgId)
+        RequestInfo requestInfo,
+        int messageId
+    ) : base(aggregateId, requestInfo)
     {
         MessageId = messageId;
-        CorrelationId = correlationId;
     }
-
-    public int MessageId { get; }
-    public Guid CorrelationId { get; }
 }
