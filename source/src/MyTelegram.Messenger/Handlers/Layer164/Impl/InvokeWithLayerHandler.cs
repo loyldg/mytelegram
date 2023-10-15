@@ -13,12 +13,51 @@ namespace MyTelegram.Handlers;
 /// 406 INVITE_HASH_EXPIRED The invite link has expired.
 /// See <a href="https://corefork.telegram.org/method/invokeWithLayer" />
 ///</summary>
-internal sealed class InvokeWithLayerHandler : RpcResultObjectHandler<MyTelegram.Schema.RequestInvokeWithLayer, IObject>,
+internal sealed class InvokeWithLayerHandler : BaseObjectHandler<MyTelegram.Schema.RequestInvokeWithLayer, IObject>,
     IInvokeWithLayerHandler
 {
-    protected override Task<IObject> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.RequestInvokeWithLayer obj)
+    private readonly IHandlerHelper _handlerHelper;
+    private readonly ILogger<InvokeWithLayerHandler> _logger;
+
+    public InvokeWithLayerHandler(IHandlerHelper handlerHelper,
+        ILogger<InvokeWithLayerHandler> logger)
     {
-        throw new NotImplementedException();
+        _handlerHelper = handlerHelper;
+        _logger = logger;
+    }
+
+    protected override async Task<IObject> HandleCoreAsync(IRequestInput input,
+        RequestInvokeWithLayer obj)
+    {
+        IObject? query = null;
+        if (obj.Query is RequestInitConnection initConnection)
+        {
+            query = initConnection.Query;
+        }
+
+        if (obj.Query is Schema.LayerN.RequestInitConnection initConnectionLayerN)
+        {
+            query = initConnectionLayerN.Query;
+        }
+
+        if (query == null)
+        {
+            throw new ArgumentException("InitConnection.query can not be null.");
+        }
+
+        if (!_handlerHelper.TryGetHandler(query.ConstructorId, out var handler))
+        {
+            throw new NotSupportedException($"Not supported query:{query.ConstructorId:x2}");
+        }
+
+        _handlerHelper.TryGetHandlerShortName(query.ConstructorId, out var handlerShortName);
+        _logger.LogDebug("UserId={UserId} InvokeWithLayer->{Layer},handler={HandlerShortName}",
+            input.UserId,
+            obj.Layer,
+            handlerShortName);
+
+        var result = await handler.HandleAsync(input, query);
+
+        return result;
     }
 }

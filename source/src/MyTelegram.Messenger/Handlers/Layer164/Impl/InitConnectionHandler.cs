@@ -9,7 +9,7 @@ namespace MyTelegram.Handlers;
 /// 400 CONNECTION_LAYER_INVALID Layer invalid.
 /// See <a href="https://corefork.telegram.org/method/initConnection" />
 ///</summary>
-internal sealed class InitConnectionHandler : RpcResultObjectHandler<MyTelegram.Schema.RequestInitConnection, IObject>,
+internal sealed class InitConnectionHandler : BaseObjectHandler<MyTelegram.Schema.RequestInitConnection, IObject>,
     IInitConnectionHandler
 {
     protected override Task<IObject> HandleCoreAsync(IRequestInput input,

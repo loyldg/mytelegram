@@ -1,10 +1,18 @@
 ﻿//namespace MyTelegram.Core;
 
-//public record EncryptedMessage(long AuthKeyId,
-//    byte[] MsgKey, //int128
-//    byte[] EncryptedData,
-//    string ConnectionId,
-//    string? ClientIp,
-//    Guid RequestId);
+////[MemoryPackable]
+namespace MyTelegram.Core;
 
-
+public partial record EncryptedMessage(long AuthKeyId,
+    byte[] MsgKey,
+    byte[] EncryptedData,
+    //ReadOnlyMemory<byte> MsgKey,
+    //ReadOnlyMemory<byte> EncryptedData,
+    string ConnectionId,
+    string? ClientIp,
+    Guid RequestId,
+    long Date
+)
+{ 
+    public string? ClientIp { get; set; } = ClientIp; 
+} 

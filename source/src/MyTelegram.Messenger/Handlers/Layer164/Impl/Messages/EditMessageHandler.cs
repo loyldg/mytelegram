@@ -45,9 +45,67 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class EditMessageHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditMessage, MyTelegram.Schema.IUpdates>,
     Messages.IEditMessageHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestEditMessage obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IMediaHelper _mediaHelper;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IQueryProcessor _queryProcessor;
+    public EditMessageHandler(IMediaHelper mediaHelper,
+        ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor)
     {
-        throw new NotImplementedException();
+        _mediaHelper = mediaHelper;
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestEditMessage obj)
+    {
+        IChatReadModel? chatReadModel = null;
+        switch (obj.Peer)
+        {
+            case TInputPeerChannel inputPeerChannel:
+                await _accessHashHelper.CheckAccessHashAsync(inputPeerChannel.ChannelId, inputPeerChannel.AccessHash);
+                break;
+            case TInputPeerChat inputPeerChat:
+                chatReadModel = await _queryProcessor.ProcessAsync(new GetChatByChatIdQuery(inputPeerChat.ChatId),default);
+                break;
+            case TInputPeerUser inputPeerUser:
+                await _accessHashHelper.CheckAccessHashAsync(inputPeerUser.UserId, inputPeerUser.AccessHash);
+                break;
+
+        }
+
+        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        var ownerPeerId = input.UserId;
+        if (peer.PeerType == PeerType.Channel)
+        {
+            ownerPeerId = peer.PeerId;
+        }
+
+        byte[]? mediaBytes = null;
+        if (obj.Media != null)
+        {
+            var media = await _mediaHelper.SaveMediaAsync(obj.Media);
+            mediaBytes = media.ToBytes();
+        }
+
+        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id),
+            input.ToRequestInfo(),
+            obj.Id,
+            obj.Message ?? string.Empty,
+            obj.Entities.ToBytes(),
+            CurrentDate,
+            mediaBytes,
+            chatReadModel?.ChatMembers.Select(p => p.UserId).ToList()
+        );
+        await _commandBus.PublishAsync(command, default);
+
+        return null!;
+        //throw new NotImplementedException();
     }
 }

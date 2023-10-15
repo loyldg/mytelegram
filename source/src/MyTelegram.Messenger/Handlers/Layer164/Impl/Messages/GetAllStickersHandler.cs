@@ -10,8 +10,10 @@ internal sealed class GetAllStickersHandler : RpcResultObjectHandler<MyTelegram.
     Messages.IGetAllStickersHandler
 {
     protected override Task<MyTelegram.Schema.Messages.IAllStickers> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetAllStickers obj)
+        RequestGetAllStickers obj)
     {
-        throw new NotImplementedException();
+        var r = new MyTelegram.Schema.Messages.TAllStickers { Sets = new TVector<MyTelegram.Schema.IStickerSet>() };
+
+        return Task.FromResult<IAllStickers>(r);
     }
 }

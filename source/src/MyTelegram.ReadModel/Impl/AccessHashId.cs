@@ -14,3 +14,16 @@ public class AccessHashId : Identity<AccessHashId>
         return NewDeterministic(GuidFactories.Deterministic.Namespaces.Commands, $"{id}_{accessHash}");
     }
 }
+
+public class PtsForAuthKeyId : Identity<PtsForAuthKeyId>
+{
+    public PtsForAuthKeyId(string value) : base(value)
+    {
+    }
+
+    public static PtsForAuthKeyId Create(long ownerPeerId, long permAuthKeyId)
+    {
+        return NewDeterministic(GuidFactories.Deterministic.Namespaces.Commands,
+            $"ptsforauthkeyidreadmodel-{ownerPeerId}-{permAuthKeyId}");
+    }
+}

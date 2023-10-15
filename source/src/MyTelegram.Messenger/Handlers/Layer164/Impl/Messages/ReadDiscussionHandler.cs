@@ -13,9 +13,46 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class ReadDiscussionHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadDiscussion, IBool>,
     Messages.IReadDiscussionHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestReadDiscussion obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IQueryProcessor _queryProcessor;
+    public ReadDiscussionHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestReadDiscussion obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        var selfDialogId = DialogId.Create(input.UserId, peer);
+
+        var messageReadModel =
+            await _queryProcessor.ProcessAsync(new GetMessageByIdQuery(MessageId.Create(peer.PeerId, obj.MsgId).Value), default);
+
+        if (messageReadModel == null)
+        {
+            RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
+        }
+
+        //Console.WriteLine($"ReqMsgId={input.ReqMsgId} {input.UserId} ReadDiscussion:{obj.MsgId} {obj.ReadMaxId}");
+        var command = new ReadChannelInboxMessageCommand(
+            selfDialogId,
+            input.ToRequestInfo(),
+            input.UserId,
+            peer.PeerId,
+            obj.ReadMaxId,
+            messageReadModel!.SenderPeerId,
+            obj.MsgId);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+
+        return new TBoolTrue();
     }
 }

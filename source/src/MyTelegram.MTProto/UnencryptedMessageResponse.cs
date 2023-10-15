@@ -1,4 +1,4 @@
-﻿namespace MyTelegram.Core;
+﻿namespace MyTelegram.MTProto;
 
 //[EventName("MyTelegram.Core.UnencryptedMessageResponse")]
 public record UnencryptedMessageResponse(long AuthKeyId,

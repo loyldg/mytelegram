@@ -22,9 +22,59 @@ namespace MyTelegram.Handlers.Photos;
 internal sealed class UploadProfilePhotoHandler : RpcResultObjectHandler<MyTelegram.Schema.Photos.RequestUploadProfilePhoto, MyTelegram.Schema.Photos.IPhoto>,
     Photos.IUploadProfilePhotoHandler
 {
-    protected override Task<MyTelegram.Schema.Photos.IPhoto> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly IMediaHelper _mediaHelper;
+
+    public UploadProfilePhotoHandler(IMediaHelper mediaHelper,
+        ICommandBus commandBus)
+    {
+        _mediaHelper = mediaHelper;
+        _commandBus = commandBus;
+    }
+
+    protected override async Task<MyTelegram.Schema.Photos.IPhoto> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Photos.RequestUploadProfilePhoto obj)
     {
-        throw new NotImplementedException();
+        var file = obj.File ?? obj.Video;
+        var md5 = string.Empty;
+
+        switch (file)
+        {
+            case TInputFile inputFile:
+                md5 = inputFile.Md5Checksum;
+                break;
+            case TInputFileBig inputFileBig:
+                break;
+        }
+
+        VideoSizeEmojiMarkup? videoSizeEmojiMarkup = null;
+        if (obj.VideoEmojiMarkup != null)
+        {
+            switch (obj.VideoEmojiMarkup)
+            {
+                case TVideoSizeEmojiMarkup videoSizeEmojiMarkup1:
+                    videoSizeEmojiMarkup = new VideoSizeEmojiMarkup(videoSizeEmojiMarkup1.EmojiId,
+                        videoSizeEmojiMarkup1.BackgroundColors.ToList());
+                    break;
+            }
+        }
+
+        var r = file == null ? null : await _mediaHelper.SavePhotoAsync(input.ReqMsgId,
+            file?.Id ?? 0,
+            obj.Video != null,
+            obj.VideoStartTs,
+            file?.Parts ?? 0,
+            file?.Name ?? string.Empty,
+            md5 ?? string.Empty);
+        var command = new UploadProfilePhotoCommand(UserId.Create(input.UserId),
+            input.ToRequestInfo(),
+            r.PhotoId,
+            obj.Fallback,
+            r.Photo.ToBytes(),
+            videoSizeEmojiMarkup
+        );
+        await _commandBus.PublishAsync(command, default);
+
+        return null!;
     }
 }

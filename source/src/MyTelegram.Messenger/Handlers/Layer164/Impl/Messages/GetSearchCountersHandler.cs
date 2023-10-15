@@ -15,6 +15,10 @@ internal sealed class GetSearchCountersHandler : RpcResultObjectHandler<MyTelegr
     protected override Task<TVector<MyTelegram.Schema.Messages.ISearchCounter>> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetSearchCounters obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(new TVector<ISearchCounter>(obj.Filters.Select(p => new TSearchCounter
+        {
+            Count = 0,
+            Filter = p
+        })));
     }
 }

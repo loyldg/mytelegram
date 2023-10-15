@@ -133,7 +133,7 @@ public interface IChatConverter : ILayeredConverter, IHasRequestLayer
         IReadOnlyCollection<IPhotoReadModel>? photoReadModels);
     //IPhotoConverter photoConverter);
 
-    //IExportedChatInvite ToExportedChatInvite(ChannelInviteExportedEvent eventData);
+    IExportedChatInvite ToExportedChatInvite(ChannelInviteExportedEvent eventData);
 
     IUpdates ToInviteToChannelUpdates(IChannelReadModel channelReadModel,
         IPhotoReadModel? photoReadModel,

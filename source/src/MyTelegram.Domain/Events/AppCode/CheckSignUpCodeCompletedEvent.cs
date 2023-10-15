@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Events.AppCode;
 
-public class CheckSignUpCodeCompletedEvent : RequestAggregateEvent2<AppCodeAggregate, AppCodeId>, IHasCorrelationId
+public class CheckSignUpCodeCompletedEvent : RequestAggregateEvent2<AppCodeAggregate, AppCodeId>
 {
     //public AppCodeCheckCompletedEvent(long reqMsgId,
     //    bool isCodeValid,
@@ -9,20 +9,19 @@ public class CheckSignUpCodeCompletedEvent : RequestAggregateEvent2<AppCodeAggre
     //{
     //    IsCodeValid = isCodeValid;
     //    ErrorMessage = errorMessage;
-    //    CorrelationId = correlationId;
+    //    
     //}
 
     //public bool IsCodeValid { get; }
     //public string ErrorMessage { get; }
-    //public Guid CorrelationId { get; }
+    //
     public CheckSignUpCodeCompletedEvent(RequestInfo requestInfo,
         bool isCodeValid,
         long userId,
         long accessHash,
         string phoneNumber,
         string firstName,
-        string? lastName,
-        Guid correlationId) : base(requestInfo)
+        string? lastName) : base(requestInfo)
     {
         IsCodeValid = isCodeValid;
         UserId = userId;
@@ -30,7 +29,6 @@ public class CheckSignUpCodeCompletedEvent : RequestAggregateEvent2<AppCodeAggre
         PhoneNumber = phoneNumber;
         FirstName = firstName;
         LastName = lastName;
-        CorrelationId = correlationId;
     }
 
     public long AccessHash { get; }
@@ -40,5 +38,4 @@ public class CheckSignUpCodeCompletedEvent : RequestAggregateEvent2<AppCodeAggre
     public string? LastName { get; }
     public string PhoneNumber { get; }
     public long UserId { get; }
-    public Guid CorrelationId { get; }
 }

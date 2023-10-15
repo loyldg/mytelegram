@@ -15,9 +15,21 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class ExportMessageLinkHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestExportMessageLink, MyTelegram.Schema.IExportedMessageLink>,
     Channels.IExportMessageLinkHandler
 {
-    protected override Task<MyTelegram.Schema.IExportedMessageLink> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestExportMessageLink obj)
+    private readonly IPeerHelper _peerHelper;
+
+    public ExportMessageLinkHandler(IPeerHelper peerHelper)
     {
-        throw new NotImplementedException();
+        _peerHelper = peerHelper;
+    }
+
+    protected override Task<IExportedMessageLink> HandleCoreAsync(IRequestInput input,
+        RequestExportMessageLink obj)
+    {
+        var peer = _peerHelper.GetChannel(obj.Channel);
+        return Task.FromResult<IExportedMessageLink>(new TExportedMessageLink
+        {
+            Link = $"Not support export link.Id={obj.Id},channelId={peer.PeerId}",
+            Html = "No html"
+        });
     }
 }

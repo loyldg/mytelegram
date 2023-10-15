@@ -9,10 +9,10 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Register(_state);
     }
 
-    public void ClearChannelHistory(long reqMsgId)
+    public void ClearChannelHistory(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelHistoryClearedEvent(reqMsgId, _state.TopMessage));
+        Emit(new ChannelHistoryClearedEvent(requestInfo, _state.TopMessage));
     }
 
     public void ClearDraft()
@@ -179,7 +179,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         ));
     }
 
-    public void SaveDraft(long reqMsgId,
+    public void SaveDraft(RequestInfo requestInfo,
         string message,
         bool noWebpage,
         int? replyMsgId,
@@ -188,7 +188,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
     )
     {
         //Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DraftSavedEvent(reqMsgId,
+        Emit(new DraftSavedEvent(requestInfo,
             _state.OwnerId,
             _state.ToPeer,
             new Draft(message,
@@ -241,10 +241,10 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
             correlationId));
     }
 
-    public void TogglePinned(long reqMsgId,
+    public void TogglePinned(RequestInfo requestInfo,
         bool pinned)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DialogPinChangedEvent(reqMsgId, _state.OwnerId, pinned));
+        Emit(new DialogPinChangedEvent(requestInfo, _state.OwnerId, pinned));
     }
 }

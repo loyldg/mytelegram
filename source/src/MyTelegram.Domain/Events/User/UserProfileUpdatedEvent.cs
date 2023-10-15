@@ -1,12 +1,12 @@
 ﻿namespace MyTelegram.Domain.Events.User;
 
-public class UserProfileUpdatedEvent : RequestAggregateEvent<UserAggregate, UserId>
+public class UserProfileUpdatedEvent : RequestAggregateEvent2<UserAggregate, UserId>
 {
-    public UserProfileUpdatedEvent(long reqMsgId,
+    public UserProfileUpdatedEvent(RequestInfo requestInfo,
         long userId,
         string? firstName,
         string? lastName,
-        string? about) : base(reqMsgId)
+        string? about) : base(requestInfo)
     {
         UserId = userId;
         FirstName = firstName;

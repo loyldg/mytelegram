@@ -15,8 +15,13 @@ public class DialogReadModelLocator : IDialogReadModelLocator
             {
                 case OutboxMessageCreatedEvent outboxCreatedEvent:
                     //yield return outboxCreatedEvent.DialogId.Value;
-                    yield return DialogId.Create(outboxCreatedEvent.OutboxMessageItem.OwnerPeer.PeerId,
+                    yield return DialogId.Create(outboxCreatedEvent.RequestInfo.UserId,
                         outboxCreatedEvent.OutboxMessageItem.ToPeer).Value;
+                    break;
+
+                case InboxMessageCreatedEvent inboxMessageCreatedEvent:
+                    yield return DialogId.Create(inboxMessageCreatedEvent.InboxMessageItem.OwnerPeer.PeerId,
+                        inboxMessageCreatedEvent.InboxMessageItem.ToPeer).Value;
                     break;
 
                 case PeerNotifySettingsUpdatedEvent peerNotifySettingsUpdateEvent:
@@ -33,6 +38,13 @@ public class DialogReadModelLocator : IDialogReadModelLocator
                 case InboxMessagePinnedUpdatedEvent inboxPinnedUpdatedEvent:
                     yield return DialogId.Create(inboxPinnedUpdatedEvent.OwnerPeerId,
                         inboxPinnedUpdatedEvent.ToPeer).Value;
+                    break;
+                case SendOutboxMessageCompletedEvent2 sendOutboxMessageCompletedEvent2:
+                    if (sendOutboxMessageCompletedEvent2.MessageItem.ToPeer.PeerType == PeerType.Channel)
+                    {
+                        yield return DialogId.Create(sendOutboxMessageCompletedEvent2.MessageItem.SenderPeer.PeerId,
+                            sendOutboxMessageCompletedEvent2.MessageItem.ToPeer).Value;
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(

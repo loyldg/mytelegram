@@ -13,9 +13,36 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class SearchGlobalHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSearchGlobal, MyTelegram.Schema.Messages.IMessages>,
     Messages.ISearchGlobalHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSearchGlobal obj)
+    private readonly IMessageAppService _messageAppService;
+    //private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ILayeredService<IRpcResultProcessor> _layeredService;
+
+    public SearchGlobalHandler(IMessageAppService messageAppService,
+        //IRpcResultProcessor rpcResultProcessor,
+        ILayeredService<IRpcResultProcessor> layeredService)
     {
-        throw new NotImplementedException();
+        _messageAppService = messageAppService;
+        _layeredService = layeredService;
+        //_rpcResultProcessor = rpcResultProcessor;
+    }
+
+    protected override async Task<IMessages> HandleCoreAsync(IRequestInput input,
+        RequestSearchGlobal obj)
+    {
+        //var userId = await GetUidAsync(input);
+        var userId = input.UserId;
+
+        var r = await _messageAppService.SearchGlobalAsync(new SearchGlobalInput
+        {
+            OwnerPeerId = userId,
+            SelfUserId = userId,
+            Limit = obj.Limit,
+            Q = obj.Q,
+            FolderId = obj.FolderId,
+            OffsetId = obj.OffsetId
+        });
+
+        //return _rpcResultProcessor.ToMessages(r, input.Layer);
+        return _layeredService.GetConverter(input.Layer).ToMessages(r, input.Layer);
     }
 }

@@ -1,5 +1,7 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Messenger.Services.Filters;
+
 namespace MyTelegram.Handlers.Account;
 
 ///<summary>
@@ -15,9 +17,33 @@ namespace MyTelegram.Handlers.Account;
 internal sealed class UpdateUsernameHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestUpdateUsername, MyTelegram.Schema.IUser>,
     Account.IUpdateUsernameHandler
 {
-    protected override Task<MyTelegram.Schema.IUser> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly ICuckooFilter _cuckooFilter;
+
+    public UpdateUsernameHandler(ICommandBus commandBus,
+        ICuckooFilter cuckooFilter)
+    {
+        _commandBus = commandBus;
+        _cuckooFilter = cuckooFilter;
+    }
+
+    protected override async Task<IUser> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestUpdateUsername obj)
     {
-        throw new NotImplementedException();
+        if (await _cuckooFilter
+                .ExistsAsync(Encoding.UTF8.GetBytes($"{MyTelegramServerDomainConsts.UserNameCuckooFilterKey}_{obj.Username}"))
+                .ConfigureAwait(false))
+        {
+            RpcErrors.RpcErrors400.UsernameOccupied.ThrowRpcError();
+        }
+
+        var command = new SetUserNameCommand(UserNameId.Create(obj.Username),
+            input.ToRequestInfo(),
+            input.UserId,
+            PeerType.User,
+            input.UserId,
+            obj.Username);
+        await _commandBus.PublishAsync(command, default);
+        return null!;
     }
 }

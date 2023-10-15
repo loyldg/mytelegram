@@ -1,0 +1,137 @@
+﻿<Directives>
+    <Application>
+        <!--<Assembly Name="Volo.Abp.Caching.StackExchangeRedis">
+          <Type Name="Volo.Abp.Caching.StackExchangeRedis.AbpCachingStackExchangeRedisModule" Activate="Required All" />
+        </Assembly>-->
+        <!--<Type Name="EventFlow.Subscribers.ISubscribeAsynchronousTo`3">
+          <Subtypes Dynamic="Required All" />
+        </Type>-->
+
+        <Assembly Name="MyTelegram.Messenger.CommandServer" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+
+
+        <Assembly Name="MyTelegram.Core" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.EventBus" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.Caching.Redis" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.EventBus.RabbitMQ" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.Handlers" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.Schema" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+
+        <Assembly Name="MyTelegram.Domain" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.Domain.Shared" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.ReadModel" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.ReadModel.MongoDB" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+        <Assembly Name="MyTelegram.QueryHandlers.MongoDB" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
+
+
+        <Assembly Name="EventFlow" Dynamic="Required All"  Serialize="Required All">
+        </Assembly>
+        <Assembly Name="EventFlow.MongoDB" Dynamic="Required All"  Serialize="Required All">
+        </Assembly>
+        <Assembly Name="MongoDB.Driver" Dynamic="Required All"  Serialize="Required All">
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.PeerType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.MessageType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.MessageSubType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.MessageActionType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.DeviceType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.MemberStateChangeType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.PhoneCallDiscardReason,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.PrivacyValueType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.PtsType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.SendMessageType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.AccessHashType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
+                Dynamic="Required All" Serialize="Required All"/>
+        </Assembly>
+        <Assembly Name="MongoDB.Driver.Core" Dynamic="Required All"  Serialize="Required All">
+        </Assembly>
+        <Assembly Name="MongoDB.Bson" Dynamic="Required All"  Serialize="Required All">
+        </Assembly>
+
+        <Assembly Name="Serilog.Sinks.Console" Serialize="Required All" Dynamic="Required All"></Assembly>
+        <Assembly Name="Serilog.Sinks.File" Serialize="Required All" Dynamic="Required All"></Assembly>
+        <Assembly Name="Serilog.Sinks.Async" Serialize="Required All" Dynamic="Required All"></Assembly>
+
+        <!--MongoDb-->
+        <!--<Assembly Name="MongoDB.Driver">
+            <Type Name="MongoDB.Driver.Linq.Linq2Implementation.Translators.ProjectedObject">
+                <Method Name="GetValue">
+                    <GenericArgument Name="System.Int64, System.Private.CoreLib"/>
+                    <Parameter Name="System.String, System.Private.CoreLib"/>
+                    <Parameter Name="System.Object, System.Private.CoreLib"/>
+                </Method>
+              <Method Name="GetValue">
+                <GenericArgument Name="System.Nullable`1[[System.Int64, System.Private.CoreLib]], System.Private.CoreLib"/>
+                <Parameter Name="System.String, System.Private.CoreLib"/>
+                <Parameter Name="System.Object, System.Private.CoreLib"/>
+              </Method>
+                <Method Name="GetValue">
+                    <GenericArgument Name="System.Int32, System.Private.CoreLib"/>
+                    <Parameter Name="System.String, System.Private.CoreLib"/>
+                    <Parameter Name="System.Object, System.Private.CoreLib"/>
+                </Method>
+                <Method Name="GetValue">
+                    <GenericArgument
+                            Name="System.Nullable`1[[System.Int32, System.Private.CoreLib]], System.Private.CoreLib"/>
+                    <Parameter Name="System.String, System.Private.CoreLib"/>
+                    <Parameter Name="System.Object, System.Private.CoreLib"/>
+                </Method>
+
+            </Type>
+
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.PeerType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.MessageType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.MessageSubType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.MessageActionType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.PrivacyType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.DeviceType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.MemberStateChangeType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.PhoneCallDiscardReason,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.PrivacyValueType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.PtsType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+            <Type Name="MongoDB.Driver.FieldValueSerializerHelper+EnumConvertingSerializer`2[[System.Int32, System.Private.CoreLib],[MyTelegram.SendMessageType,MyTelegram.Domain.Shared]]"
+                  Dynamic="Required All" Serialize="Required All"/>
+
+
+        </Assembly>
+
+        <Assembly Name="MongoDB.Bson">
+            <Type Name="MongoDB.Bson.Serialization.Serializers.EnumerableInterfaceImplementerSerializer`2[[System.Collections.Generic.List`1[[System.Int32, System.Private.CoreLib]], System.Private.CoreLib],[System.Int32, System.Private.CoreLib]]"
+                  Dynamic="Required All"></Type>
+            <Type Name="MongoDB.Bson.Serialization.Serializers.EnumerableInterfaceImplementerSerializer`2[[System.Collections.Generic.List`1[[System.Int64, System.Private.CoreLib]], System.Private.CoreLib],[System.Int64, System.Private.CoreLib]]"
+                  Dynamic="Required All"></Type>
+        </Assembly>-->
+
+    </Application>
+</Directives>

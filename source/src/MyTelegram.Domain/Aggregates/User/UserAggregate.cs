@@ -10,6 +10,26 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         Register(_state);
     }
 
+    public void UploadProfilePhoto(RequestInfo requestInfo,
+        long photoId,
+        bool fallback,
+        //byte[]? photo,
+        VideoSizeEmojiMarkup? videoEmojiMarkup /*, bool hasVideo, double videoStartTs*/)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new UserProfilePhotoUploadedEvent(requestInfo,
+            photoId,
+            fallback,
+            //new UserItem(_state.UserId,
+            //    _state.AccessHash,
+            //    _state.PhoneNumber,
+            //    _state.FirstName,
+            //    _state.LastName,
+            //    _state.UserName),
+            videoEmojiMarkup
+            /*, hasVideo, videoStartTs*/));
+    }
+
     public void CheckUserState(Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -107,13 +127,13 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         Emit(new UserVerifiedHasSetEvent(verified));
     }
 
-    public void UpdateProfile(long reqMsgId,
+    public void UpdateProfile(RequestInfo requestInfo,
         string? firstName,
         string? lastName,
         string? about)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new UserProfileUpdatedEvent(reqMsgId,
+        Emit(new UserProfileUpdatedEvent(requestInfo,
             _state.UserId,
             firstName,
             lastName,

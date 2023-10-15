@@ -2,6 +2,6 @@
 
 public interface IMtpMessage //: IDisposable
 {
-    string? ClientIp { get; set; }
+    string ClientIp { get; set; }
     string ConnectionId { get; set; }
 }

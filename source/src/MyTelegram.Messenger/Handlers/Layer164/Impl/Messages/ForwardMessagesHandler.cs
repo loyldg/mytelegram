@@ -51,9 +51,38 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class ForwardMessagesHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestForwardMessages, MyTelegram.Schema.IUpdates>,
     Messages.IForwardMessagesHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestForwardMessages obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public ForwardMessagesHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestForwardMessages obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.FromPeer);
+        await _accessHashHelper.CheckAccessHashAsync(obj.ToPeer);
+        await _accessHashHelper.CheckAccessHashAsync(obj.SendAs);
+
+        var fromPeer = _peerHelper.GetPeer(obj.FromPeer, input.UserId);
+        var toPeer = _peerHelper.GetPeer(obj.ToPeer, input.UserId);
+        var firstId = obj.Id.First();
+        var ownerPeerId = fromPeer.PeerType == PeerType.Channel ? fromPeer.PeerId : input.UserId;
+        var command = new StartForwardMessageCommand(MessageId.Create(ownerPeerId, firstId),
+            input.ToRequestInfo(),
+            fromPeer,
+            toPeer,
+            obj.Id.ToList(),
+            obj.RandomId.ToList(),
+            false,
+            Guid.NewGuid());
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+        return null!;
     }
 }

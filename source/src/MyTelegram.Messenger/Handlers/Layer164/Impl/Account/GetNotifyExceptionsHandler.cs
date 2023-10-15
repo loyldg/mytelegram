@@ -7,11 +7,17 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getNotifyExceptions" />
 ///</summary>
 internal sealed class GetNotifyExceptionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetNotifyExceptions, MyTelegram.Schema.IUpdates>,
-    Account.IGetNotifyExceptionsHandler
+    Account.IGetNotifyExceptionsHandler, IProcessedHandler
 {
     protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetNotifyExceptions obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IUpdates>(new TUpdates
+        {
+            Updates = new TVector<IUpdate>(),
+            Chats = new TVector<IChat>(),
+            Users = new TVector<IUser>(),
+            Date = CurrentDate
+        });
     }
 }

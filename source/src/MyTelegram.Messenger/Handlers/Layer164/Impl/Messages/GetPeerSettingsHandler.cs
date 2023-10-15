@@ -15,9 +15,49 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetPeerSettingsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetPeerSettings, MyTelegram.Schema.Messages.IPeerSettings>,
     Messages.IGetPeerSettingsHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IPeerSettings> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetPeerSettings obj)
+    private readonly IObjectMapper _objectMapper;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IPeerSettingsAppService _peerSettingsAppService;
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly ILayeredService<IPeerSettingsConverter> _layeredService;
+    public GetPeerSettingsHandler(IPeerSettingsAppService peerSettingsAppService,
+        IPeerHelper peerHelper,
+        IObjectMapper objectMapper,
+        IQueryProcessor queryProcessor,
+        IAccessHashHelper accessHashHelper, ILayeredService<IPeerSettingsConverter> layeredService)
     {
-        throw new NotImplementedException();
+        _peerSettingsAppService = peerSettingsAppService;
+        _peerHelper = peerHelper;
+        _objectMapper = objectMapper;
+        _queryProcessor = queryProcessor;
+        _accessHashHelper = accessHashHelper;
+        _layeredService = layeredService;
+    }
+
+    protected override async Task<MyTelegram.Schema.Messages.IPeerSettings> HandleCoreAsync(IRequestInput input,
+        RequestGetPeerSettings obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var userId = input.UserId;
+        var peer = _peerHelper.GetPeer(obj.Peer, userId);
+
+        IContactReadModel? contactReadModel = null;
+        if (peer.PeerType == PeerType.User)
+        {
+            contactReadModel = await _queryProcessor.ProcessAsync(new GetContactQuery(userId, peer.PeerId), default);
+        }
+
+        var r = await _peerSettingsAppService.GetPeerSettingsAsync(userId, peer.PeerId);
+        var settings = _layeredService.GetConverter(input.Layer).ToPeerSettings(r, contactReadModel != null);
+
+        var peerSettings = new MyTelegram.Schema.Messages.TPeerSettings
+        {
+            Chats = new TVector<IChat>(),
+            Users = new TVector<IUser>(),
+            Settings = settings
+        };
+
+        return peerSettings;
     }
 }

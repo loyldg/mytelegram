@@ -135,6 +135,7 @@ public static class MyTelegramMessengerServerExtensions
 
         services.AddTransient<IOffsetHelper, OffsetHelper>();
         //services.AddTransient<IReadModelCacheStrategy, MyTelegramReadModelCacheStrategy>();
+        services.AddSingleton<IBlockCacheAppService, BlockCacheAppService>();
 
         return services;
     }

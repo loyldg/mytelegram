@@ -16,3 +16,19 @@ public class UpdateGlobalSeqNoCommand : Command<PtsAggregate, PtsId, IExecutionR
     public long PeerId { get; }
     public long PermAuthKeyId { get; }
 }
+
+//public class UpdateChannelPtsForUserCommand : Command<ChannelPtsAggregate, ChannelPtsId, IExecutionResult>
+//{
+//    public long UserId { get; }
+//    public long ChannelId { get; }
+//    public int Pts { get; }
+//    public long GlobalSeqNo { get; }
+
+//    public UpdateChannelPtsForUserCommand(ChannelPtsId aggregateId,long userId,long channelId,int pts,long globalSeqNo) : base(aggregateId)
+//    {
+//        UserId = userId;
+//        ChannelId = channelId;
+//        Pts = pts;
+//        GlobalSeqNo = globalSeqNo;
+//    }
+//}

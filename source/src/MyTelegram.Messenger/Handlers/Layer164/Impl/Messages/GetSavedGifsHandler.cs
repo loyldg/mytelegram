@@ -12,6 +12,6 @@ internal sealed class GetSavedGifsHandler : RpcResultObjectHandler<MyTelegram.Sc
     protected override Task<MyTelegram.Schema.Messages.ISavedGifs> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetSavedGifs obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<ISavedGifs>(new TSavedGifs { Gifs = new TVector<IDocument>() });
     }
 }

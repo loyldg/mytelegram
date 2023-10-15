@@ -9,9 +9,11 @@ namespace MyTelegram.Handlers.Help;
 internal sealed class GetPromoDataHandler : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetPromoData, MyTelegram.Schema.Help.IPromoData>,
     Help.IGetPromoDataHandler
 {
-    protected override Task<MyTelegram.Schema.Help.IPromoData> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Help.RequestGetPromoData obj)
+    protected override Task<IPromoData> HandleCoreAsync(IRequestInput input,
+        RequestGetPromoData obj)
     {
-        throw new NotImplementedException();
+        IPromoData r = new TPromoDataEmpty { Expires = (int)DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds() };
+
+        return Task.FromResult(r);
     }
 }

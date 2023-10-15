@@ -6,7 +6,7 @@ public class UpdatePtsCommandHandler : CommandHandler<PtsAggregate, PtsId, Updat
         UpdatePtsCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.UpdatePts(command.PeerId, command.PermAuthKeyId, command.NewPts);
+        aggregate.UpdatePts(command.PeerId, command.PermAuthKeyId, command.NewPts,command.GlobalSeqNo,command.ChangedUnreadCount);
         return Task.CompletedTask;
     }
 }

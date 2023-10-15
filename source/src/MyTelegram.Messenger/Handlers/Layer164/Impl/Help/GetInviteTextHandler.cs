@@ -9,9 +9,11 @@ namespace MyTelegram.Handlers.Help;
 internal sealed class GetInviteTextHandler : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetInviteText, MyTelegram.Schema.Help.IInviteText>,
     Help.IGetInviteTextHandler
 {
-    protected override Task<MyTelegram.Schema.Help.IInviteText> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Help.RequestGetInviteText obj)
+    protected override Task<IInviteText> HandleCoreAsync(IRequestInput input,
+        RequestGetInviteText obj)
     {
-        throw new NotImplementedException();
+        IInviteText r = new TInviteText { Message = @"{0} invite you to use telegram." };
+
+        return Task.FromResult(r);
     }
 }

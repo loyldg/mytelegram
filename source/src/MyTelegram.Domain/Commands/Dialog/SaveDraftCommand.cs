@@ -1,14 +1,14 @@
 ﻿namespace MyTelegram.Domain.Commands.Dialog;
 
-public class SaveDraftCommand : RequestCommand<DialogAggregate, DialogId, IExecutionResult>
+public class SaveDraftCommand : RequestCommand2<DialogAggregate, DialogId, IExecutionResult>
 {
     public SaveDraftCommand(DialogId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         string message,
         bool noWebpage,
         int date,
         int? replyToMsgId,
-        byte[]? entities) : base(aggregateId, reqMsgId)
+        byte[]? entities) : base(aggregateId, requestInfo)
     {
         Message = message;
         NoWebpage = noWebpage;

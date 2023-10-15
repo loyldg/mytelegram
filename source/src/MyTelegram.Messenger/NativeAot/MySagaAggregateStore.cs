@@ -1,4 +1,5 @@
 ﻿using EventFlow.Sagas;
+using MyTelegram.Domain.Sagas.Identities;
 
 namespace MyTelegram.Messenger.NativeAot;
 
@@ -137,7 +138,10 @@ public class MySagaAggregateStore : SagaStore
             case UserSignUpSagaId userSignUpSagaId:
                 domainEvents = await _aggregateStore.UpdateAsync<UserSignUpSaga, UserSignUpSagaId>(userSignUpSagaId, sourceId, updateSaga, cancellationToken);
                 break;
-           
+            case SendMessageSagaId sendMessageSagaId:
+                domainEvents = await _aggregateStore.UpdateAsync<SendMessageSaga, SendMessageSagaId>(sendMessageSagaId, sourceId, updateSaga, cancellationToken);
+                break;
+
             case VoteSagaId voteSagaId:
                 domainEvents = await _aggregateStore
                     .UpdateAsync<VoteSaga, VoteSagaId>(voteSagaId, sourceId, updateSaga, cancellationToken)

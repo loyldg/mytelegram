@@ -1,18 +1,14 @@
-﻿//namespace MyTelegram.Domain.Commands.Pts;
+﻿namespace MyTelegram.Domain.Commands.Pts;
 
-//public class IncrementQtsCommand : Command<PtsAggregate, PtsId, IExecutionResult>, IHasCorrelationId
-//{
-//    public IncrementQtsCommand(PtsId aggregateId,
-//        string encryptedMessageBoxId,
-//        Guid correlationId
-//    ) : base(aggregateId)
-//    {
-//        CorrelationId = correlationId;
-//        EncryptedMessageBoxId = encryptedMessageBoxId;
-//    }
+public class IncrementQtsCommand : RequestCommand2<PtsAggregate, PtsId, IExecutionResult>
+{
+    public IncrementQtsCommand(PtsId aggregateId,
+        RequestInfo requestInfo,
+        string encryptedMessageBoxId
+    ) : base(aggregateId, requestInfo)
+    {
+        EncryptedMessageBoxId = encryptedMessageBoxId;
+    }
 
-//    public string EncryptedMessageBoxId { get; }
-//    public Guid CorrelationId { get; }
-//}
-
-
+    public string EncryptedMessageBoxId { get; }
+}

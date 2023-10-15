@@ -32,9 +32,69 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class SendMultiMediaHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendMultiMedia, MyTelegram.Schema.IUpdates>,
     Messages.ISendMultiMediaHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+    private readonly IMediaHelper _mediaHelper;
+
+    private readonly IMessageAppService _messageAppService;
+
+    //private readonly IRequestCacheAppService _requestCacheAppService;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+
+    public SendMultiMediaHandler(IMessageAppService messageAppService,
+    IMediaHelper mediaHelper,
+    //IRequestCacheAppService requestCacheAppService,
+    IPeerHelper peerHelper,
+    IRandomHelper randomHelper,
+    IAccessHashHelper accessHashHelper)
+    {
+        _messageAppService = messageAppService;
+        _mediaHelper = mediaHelper;
+        //_requestCacheAppService = requestCacheAppService;
+        _peerHelper = peerHelper;
+        _randomHelper = randomHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestSendMultiMedia obj)
     {
-        throw new NotImplementedException();
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        await _accessHashHelper.CheckAccessHashAsync(obj.SendAs);
+
+        var groupId = _randomHelper.NextLong();
+        var groupItemCount = obj.MultiMedia.Count;
+        var requestInfo = input.ToRequestInfo();
+        int? replyToMsgId = null;
+        int? topMsgId = null;
+        if (obj.ReplyTo is TInputReplyToMessage replyToMessage)
+        {
+            replyToMsgId = replyToMessage.ReplyToMsgId;
+            topMsgId = replyToMessage.TopMsgId;
+        }
+
+        foreach (var inputSingleMedia in obj.MultiMedia)
+        {
+            var media = await _mediaHelper.SaveMediaAsync(inputSingleMedia.Media);
+            var sendMessageInput = new SendMessageInput(requestInfo,
+                input.UserId,
+                _peerHelper.GetPeer(obj.Peer, input.UserId),
+                inputSingleMedia.Message,
+                inputSingleMedia.RandomId,
+                clearDraft: obj.ClearDraft,
+                entities: inputSingleMedia.Entities,
+                media: media.ToBytes(),
+                replyToMsgId: replyToMsgId,
+                sendMessageType: SendMessageType.Media,
+                messageType: _mediaHelper.GeMessageType(media),
+                groupId: groupId,
+                groupItemCount: groupItemCount,
+                topMsgId: topMsgId
+            );
+            await _messageAppService.SendMessageAsync(sendMessageInput);
+            //_requestCacheAppService.AddRequest(input.ReqMsgId, input.AuthKeyId, input.RequestSessionId, input.SeqNumber);
+        }
+
+        return null!;
     }
 }

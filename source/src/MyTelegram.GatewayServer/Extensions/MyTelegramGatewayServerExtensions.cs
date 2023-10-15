@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.GatewayServer.Extensions;
+﻿using MyTelegram.GatewayServer.NativeAot;
+
+namespace MyTelegram.GatewayServer.Extensions;
 
 public static class MyTelegramGatewayServerExtensions
 {
@@ -22,12 +24,16 @@ public static class MyTelegramGatewayServerExtensions
         services.AddTransient<UnencryptedMessageResponseEventHandler>();
         services.AddTransient<AuthKeyNotFoundEventHandler>();
         services.AddTransient<IClientDataSender, ClientDataSender>();
+
+        services.AddTransient<IDataProcessor<ClientDisconnectedEvent>, ClientDisconnectedDataProcessor>();
+
+        services.FixNativeAotIssues();
     }
 
     public static void ConfigureEventBus(this IEventBus eventBus)
     {
-        eventBus.Subscribe<EncryptedMessageResponse, EncryptedMessageResponseEventHandler>();
-        eventBus.Subscribe<UnencryptedMessageResponse, UnencryptedMessageResponseEventHandler>();
+        eventBus.Subscribe<MyTelegram.Core.EncryptedMessageResponse, EncryptedMessageResponseEventHandler>();
+        eventBus.Subscribe<MyTelegram.Core.UnencryptedMessageResponse, UnencryptedMessageResponseEventHandler>();
         eventBus.Subscribe<AuthKeyNotFoundEvent, AuthKeyNotFoundEventHandler>();
     }
 }

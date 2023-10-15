@@ -15,3 +15,21 @@ public interface IBlockCacheAppService
 
     //Task LoadAllBlockedAsync();
 }
+
+public class BlockCacheAppService : IBlockCacheAppService
+{
+    public Task BlockAsync(long userId, long targetPeerId)
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task<bool> IsBlockedAsync(long userId, long targetPeerId)
+    {
+        return Task.FromResult(false);
+    }
+
+    public Task UnblockAsync(long userId, long targetPeerId)
+    {
+        return Task.CompletedTask;
+    }
+}

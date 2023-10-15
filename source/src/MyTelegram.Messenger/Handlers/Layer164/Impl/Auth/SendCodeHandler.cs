@@ -20,11 +20,67 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.sendCode" />
 ///</summary>
 internal sealed class SendCodeHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestSendCode, MyTelegram.Schema.Auth.ISentCode>,
-    Auth.ISendCodeHandler
+    Auth.ISendCodeHandler, IProcessedHandler
 {
-    protected override Task<MyTelegram.Schema.Auth.ISentCode> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Auth.RequestSendCode obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
+    private readonly IQueryProcessor _queryProcessor;
+
+    public SendCodeHandler(
+        ICommandBus commandBus,
+        IRandomHelper randomHelper,
+        IPeerHelper peerHelper,
+        IOptions<MyTelegramMessengerServerOptions> options,
+        IQueryProcessor queryProcessor)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _randomHelper = randomHelper;
+        _peerHelper = peerHelper;
+        _options = options;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<ISentCode> HandleCoreAsync(IRequestInput input,
+        RequestSendCode obj)
+    {
+        var userReadModel = await _queryProcessor
+            .ProcessAsync(new GetUserByPhoneNumberQuery(obj.PhoneNumber.ToPhoneNumber()), default)
+     ;
+        if (userReadModel != null)
+        {
+            if (_peerHelper.IsBotUser(userReadModel.UserId) || userReadModel.UserId == MyTelegramServerDomainConsts.OfficialUserId)
+            {
+                RpcErrors.RpcErrors400.PhoneNumberInvalid.ThrowRpcError();
+            }
+        }
+
+        var code = _options.Value.FixedVerifyCode == 0
+            ? _randomHelper.NextInt(10000, 99999).ToString()
+            : _options.Value.FixedVerifyCode.ToString();
+
+        var phoneCodeHash = Guid.NewGuid().ToString("N");
+        var timeout = 300; //300s
+
+        var expire = DateTime.UtcNow.AddSeconds(timeout).ToTimestamp();
+        var appCodeId = AppCodeId.Create(obj.PhoneNumber.ToPhoneNumber(), phoneCodeHash);
+        var sendAppCodeCommand =
+            new SendAppCodeCommand(appCodeId,
+                input.ToRequestInfo(),
+                userReadModel?.UserId ?? 0,
+                obj.PhoneNumber.ToPhoneNumber(),
+                code,
+                phoneCodeHash,
+                expire,
+                DateTime.UtcNow.ToTimestamp());
+        await _commandBus.PublishAsync(sendAppCodeCommand, CancellationToken.None);
+
+        return new TSentCode
+        {
+            Type = new TSentCodeTypeSms { Length = code.Length },
+            PhoneCodeHash = phoneCodeHash,
+            Timeout = timeout
+        };
     }
 }

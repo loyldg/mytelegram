@@ -6,7 +6,7 @@ public class ToggleDialogPinnedCommandHandler : CommandHandler<DialogAggregate, 
         ToggleDialogPinnedCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.TogglePinned(command.ReqMsgId, command.Pinned);
+        aggregate.TogglePinned(command.RequestInfo, command.Pinned);
         return Task.CompletedTask;
     }
 }

@@ -22,9 +22,105 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class EditPhotoHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditPhoto, MyTelegram.Schema.IUpdates>,
     Channels.IEditPhotoHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestEditPhoto obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IMediaHelper _mediaHelper;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public EditPhotoHandler(IMediaHelper mediaHelper,
+        ICommandBus commandBus,
+        IRandomHelper randomHelper,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _mediaHelper = mediaHelper;
+        _commandBus = commandBus;
+        _randomHelper = randomHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestEditPhoto obj)
+    {
+        long channelId = 0;
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            channelId = inputChannel.ChannelId;
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+        }
+        else
+        {
+            throw new NotImplementedException();
+        }
+
+        long fileId = 0;
+        var parts = 0;
+        var md5 = string.Empty;
+        var name = string.Empty;
+        var hasVideo = false;
+        double? videoStartTs = 0;
+        switch (obj.Photo)
+        {
+            case Schema.TInputChatUploadedPhoto inputChatUploadedPhoto1:
+                {
+                    {
+                        var file = inputChatUploadedPhoto1.File ?? inputChatUploadedPhoto1.Video;
+                        if (file == null)
+                        {
+                            RpcErrors.RpcErrors400.PhotoInvalid.ThrowRpcError();
+                        }
+
+                        fileId = file!.Id;
+                        parts = file.Parts;
+                        name = file.Name;
+                        hasVideo = inputChatUploadedPhoto1.Video != null;
+                        videoStartTs = inputChatUploadedPhoto1.VideoStartTs;
+                        switch (file)
+                        {
+                            case TInputFile inputFile:
+                                md5 = inputFile.Md5Checksum;
+                                break;
+                            case TInputFileBig:
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException(nameof(file));
+                        }
+
+                    }
+                }
+                break;
+            case TInputChatPhoto inputChatPhoto:
+                switch (inputChatPhoto.Id)
+                {
+                    case TInputPhoto inputPhoto:
+                        fileId = inputPhoto.Id;
+                        break;
+                    case TInputPhotoEmpty:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(inputChatPhoto.Id));
+                }
+
+                break;
+            case TInputChatPhotoEmpty:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        var r = await _mediaHelper.SavePhotoAsync(input.ReqMsgId,
+            fileId,
+            hasVideo,
+            videoStartTs,
+            parts,
+            name,
+            md5);
+        var command = new EditChannelPhotoCommand(ChannelId.Create(channelId),
+            input.ToRequestInfo(),
+            r.PhotoId,
+            //photo.ToBytes(),
+            new TMessageActionChatEditPhoto { Photo = r.Photo }.ToBytes().ToHexString(),
+            _randomHelper.NextLong());
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+
+        return null!;
     }
 }

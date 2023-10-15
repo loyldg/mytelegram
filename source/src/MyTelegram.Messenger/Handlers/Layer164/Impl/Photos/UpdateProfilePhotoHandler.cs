@@ -19,9 +19,28 @@ namespace MyTelegram.Handlers.Photos;
 internal sealed class UpdateProfilePhotoHandler : RpcResultObjectHandler<MyTelegram.Schema.Photos.RequestUpdateProfilePhoto, MyTelegram.Schema.Photos.IPhoto>,
     Photos.IUpdateProfilePhotoHandler
 {
-    protected override Task<MyTelegram.Schema.Photos.IPhoto> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public UpdateProfilePhotoHandler(ICommandBus commandBus, IAccessHashHelper accessHashHelper)
+    {
+        _commandBus = commandBus;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<MyTelegram.Schema.Photos.IPhoto> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Photos.RequestUpdateProfilePhoto obj)
     {
-        throw new NotImplementedException();
+        var photoId = 0L;
+        switch (obj.Id)
+        {
+            case TInputPhoto inputPhoto:
+                await _accessHashHelper.CheckAccessHashAsync(inputPhoto.Id, inputPhoto.AccessHash);
+                photoId = inputPhoto.Id;
+                break;
+        }
+        var command = new UpdateProfilePhotoCommand(UserId.Create(input.UserId), input.ToRequestInfo(), photoId, obj.Fallback);
+        await _commandBus.PublishAsync(command, default);
+
+        return null!;
     }
 }

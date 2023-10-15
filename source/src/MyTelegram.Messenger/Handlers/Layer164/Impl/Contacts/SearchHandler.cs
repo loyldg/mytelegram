@@ -13,9 +13,22 @@ namespace MyTelegram.Handlers.Contacts;
 internal sealed class SearchHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestSearch, MyTelegram.Schema.Contacts.IFound>,
     Contacts.ISearchHandler
 {
-    protected override Task<MyTelegram.Schema.Contacts.IFound> HandleCoreAsync(IRequestInput input,
+    private readonly IContactAppService _contactAppService;
+    private readonly IRpcResultProcessor _rpcResultProcessor;
+
+    public SearchHandler(IContactAppService contactAppService,
+        IRpcResultProcessor rpcResultProcessor)
+    {
+        _contactAppService = contactAppService;
+        _rpcResultProcessor = rpcResultProcessor;
+    }
+
+    protected override async Task<IFound> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Contacts.RequestSearch obj)
     {
-        throw new NotImplementedException();
+        var userId = input.UserId;
+        var r = await _contactAppService.SearchAsync(userId, obj.Q);
+
+        return _rpcResultProcessor.ToFound(r, input.Layer);
     }
 }

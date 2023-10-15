@@ -15,9 +15,26 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetMessageReadParticipantsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetMessageReadParticipants, TVector<MyTelegram.Schema.IReadParticipantDate>>,
     Messages.IGetMessageReadParticipantsHandler
 {
-    protected override Task<TVector<MyTelegram.Schema.IReadParticipantDate>> HandleCoreAsync(IRequestInput input,
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IPeerHelper _peerHelper;
+    public GetMessageReadParticipantsHandler(IQueryProcessor queryProcessor,
+        IPeerHelper peerHelper)
+    {
+        _queryProcessor = queryProcessor;
+        _peerHelper = peerHelper;
+    }
+
+    protected override async Task<TVector<MyTelegram.Schema.IReadParticipantDate>> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetMessageReadParticipants obj)
     {
-        throw new NotImplementedException();
+        var peer = _peerHelper.GetPeer(obj.Peer);
+        var readModels = await _queryProcessor
+            .ProcessAsync(new GetMessageReadParticipantsQuery(peer.PeerId, obj.MsgId), default);
+
+        return new TVector<IReadParticipantDate>(readModels.Select(p => new TReadParticipantDate
+        {
+            Date = p.Date,
+            UserId = p.ReaderPeerId,
+        }));
     }
 }

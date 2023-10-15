@@ -10,9 +10,22 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetAllDraftsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetAllDrafts, MyTelegram.Schema.IUpdates>,
     Messages.IGetAllDraftsHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetAllDrafts obj)
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly ILayeredService<IUpdatesConverter> _layeredService;
+
+    public GetAllDraftsHandler(IQueryProcessor queryProcessor,
+        ILayeredService<IUpdatesConverter> layeredService)
     {
-        throw new NotImplementedException();
+        _queryProcessor = queryProcessor;
+        _layeredService = layeredService;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestGetAllDrafts obj)
+    {
+        var draftList = await _queryProcessor.ProcessAsync(new GetAllDraftQuery(input.UserId), CancellationToken.None)
+            ;
+
+        return _layeredService.GetConverter(input.Layer).ToDraftsUpdates(draftList);
     }
 }

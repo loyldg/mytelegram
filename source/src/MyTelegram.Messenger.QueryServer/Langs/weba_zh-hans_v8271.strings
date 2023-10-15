@@ -1,0 +1,1424 @@
+"Month1" = "1月";
+"Month2" = "2月";
+"Month3" = "3月";
+"Month4" = "4月";
+"Month5" = "5月";
+"Month6" = "6月";
+"Month7" = "7月";
+"Month8" = "8月";
+"Month9" = "9月";
+"Month10" = "10月";
+"Month11" = "11月";
+"Month12" = "12月";
+"GroupLeaveGroup" = "退出群组";
+"DeleteChatUser" = "删除对话";
+"AccDescrGroup" = "群组";
+"AccDescrChannel" = "频道";
+"ChatServiceGroupUpdatedPinnedMessage1" = "{user} 已置顶 \"{message}\"";
+"MessagePinnedGenericMessage" = "{user} 已置顶一条消息";
+"Nothing" = "无";
+"UserTyping" = "{user} 正在输入";
+"SendActionRecordVideo" = "正在录制视频";
+"SendActionUploadVideo" = "正在发送视频";
+"SendActionRecordAudio" = "正在录制语音消息";
+"SendActionUploadAudio" = "正在发送语音消息";
+"SendActionUploadPhoto" = "正在发送图片";
+"SendActionUploadFile" = "正在发送文件";
+"PlayingGame" = "正在玩游戏";
+"SendActionRecordRound" = "正在录制视频消息";
+"SendActionUploadRound" = "正在发送视频消息";
+"SendActionChooseSticker" = "正在选择表情";
+"UserActionWatchingAnimations" = "正在观看 {emoji}";
+"SetUrlAvailable" = "{url} 是可用的。";
+"SetUrlInUse" = "抱歉，此链接被占用了。";
+"UsernameAvailable" = "{username} 是可用的。";
+"UsernameInUse" = "抱歉，此用户名已被使用。";
+"CreateGroupError" = "Sorry, you can\'t create a group with these users because of their privacy settings.";
+"PasscodeControllerErrorCurrent" = "锁定码无效";
+"LimitReachedChatInFolders" = "Sorry, you can\'t add more than **{limit}** chats to a folder. You can increase this limit to **{limit2}** by subscribing to **Telegram Premium**.";
+"LimitReachedFileSize" = "此文件已超过 **{limit}** ，无法发送。您可以订阅 **Telegram 高级版**，将此上限翻倍至每个文件 **{limit2}**。";
+"LimitReachedFolders" = "您已达到 **{limit}** 个文件夹的限额。 您可以订阅 **Telegram 高级版**，将此上限翻倍至 **{limit2}** 个文件夹。";
+"LimitReachedPinDialogs" = "You can\'t pin more than {limit} chats to the top. Unpin some that are currently pinned – or subscribe to **Telegram Premium** to double the limit to **{limit2}** chats.";
+"LimitReachedPublicLinks" = "您保留了太多公开链接。您可以撤消其中一个较旧群组或频道的链接，或者订阅 **Telegram 高级版**，将此上限翻倍至 **{limit2}** 个公开链接。";
+"LimitReachedCommunities" = "您已加入 **{limit}** 个群组或频道。请在加入新的之前先退出一些——或者订阅 **Telegram 高级版**，将此上限翻倍至 **{limit2}** 个群组或频道。";
+"LimitReachedChatInFoldersLocked" = "抱歉，您无法在此文件夹中添加超过 **{limit}** 个聊天。请再创建一个新的文件夹。我们在以后将尽力为您提高此上限。";
+"LimitReachedFileSizeLocked" = "由于大小超过了 **{limit}**，文档无法发送。我们正在努力能让您在未来提高此上限。";
+
+"LimitReachedPinDialogsLocked" = "抱歉，您最多只能置顶 {limit} 个聊天，请先取消置顶一些当前已置顶的聊天。我们在以后将尽力为您提高该限制。";
+
+
+"LimitReachedChatInFoldersPremium" = "抱歉，您无法在一个文件夹中添加超过 **{limit}** 个聊天，请创建新的文件夹。";
+"LimitReachedFileSizePremium" = "由于大小已超过 **{limit}**，无法发送此文档。";
+"LimitReachedFoldersPremium" = "您已经达到此帐号 **{limit}** 个文件夹的上限。";
+"LimitReachedPinDialogsPremium" = "Sorry, you can\'t pin more than {limit} chats to the top. Unpin some that are currently pinned.";
+"LimitReachedPublicLinksPremium" = "您保留了太多公开链接，试着从旧的群组或频道中撤销一些。";
+"LimitReachedCommunitiesPremium" = "您已经成为 {limit} 个群组和频道的成员了。请先退出一些，然后才可以加入新的。";
+"PremiumPreviewLimits" = "双倍上限";
+"PremiumPreviewReactions" = "专属表情回应";
+"PremiumPreviewStickers" = "会员贴纸";
+"PremiumPreviewNoAds" = "无广告";
+"PremiumPreviewVoiceToText" = "语音转文字";
+"PremiumPreviewProfileBadge" = "用户资料页勋章";
+"PremiumPreviewDownloadSpeed" = "更快的下载速度";
+"PremiumPreviewUploads" = "4 GB 上传大小";
+"PremiumPreviewAdvancedChatManagement" = "高级聊天管理";
+"PremiumPreviewAnimatedProfiles" = "动态头像";
+"PremiumPreviewLimitsDescription" = "高达  {limit1} 个频道，{limit2} 个文件夹，{limit3} 个置顶，{limit4} 个公共链接，{limit5} 个账户以及更多。";
+"PremiumPreviewReactionsDescription" = "使用更多动画表情回应消息，仅高级版订阅者可用。";
+"PremiumPreviewStickersDescription" = "具有额外特效的专属放大贴纸，每月更新。";
+"PremiumPreviewNoAdsDescription" = "Telegram 有时会显示广告的公开频道中不再有广告。";
+"PremiumPreviewVoiceToTextDescription" = "能够将收到的语音消息转换成文字以方便阅读。";
+"PremiumPreviewProfileBadgeDescription" = "在您的名字后方显示徽章，以表示您为 Telegram 的支持。";
+"PremiumPreviewDownloadSpeedDescription" = "将不限制文件和媒体下载速度";
+"PremiumPreviewUploadsDescription" = "将单个文件上传限制从2GB提升到4GB，总体存储空间无限制。";
+"PremiumPreviewAdvancedChatManagementDescription" = "可设定默认文件夹、自动归档以及隐藏来自非联系人的新聊天。";
+"PremiumPreviewAnimatedProfilesDescription" = "视频头像会在聊天列表和聊天中动起来，为您提供更多自我表达空间。";
+"SendMessage" = "发送消息";
+"ConversationDefaultRestrictedMedia" = "该群组不允许发送媒体文件。";
+"AccDescrVoiceMessage" = "录制语音消息";
+"BotSettings" = "设置";
+"Privacy" = "隐私设置";
+"BotHelp" = "帮助";
+"ContextCopyImage" = "复制图片";
+"ContextCopyMessageLink" = "复制消息链接";
+"ProfileCopyPhone" = "复制手机号码";
+"ContextCopySelected" = "复制所选文本";
+"ContextCopyText" = "复制文本";
+"CallMessageVideoIncomingDeclined" = "拒绝视频通话";
+"CallMessageVideoOutgoingMissed" = "已取消的视频来电";
+"CallMessageVideoIncomingMissed" = "未接视频来电";
+"CallMessageVideoOutgoing" = "拨出视频通话";
+"CallMessageVideoIncoming" = "视频来电";
+"CallMessageIncomingDeclined" = "拒接";
+"CallMessageOutgoingMissed" = "通话已取消";
+"CallMessageIncomingMissed" = "未接";
+"CallMessageOutgoing" = "拨出";
+"CallMessageIncoming" = "来电";
+"FinalResults" = "最终结果";
+"QuizPoll" = "问答";
+"AnonymousQuizPoll" = "匿名问答";
+"PublicPoll" = "投票";
+"AnonymousPoll" = "匿名投票";
+"AccDescrReactionMentionDown" = "前往下一个未读表情回应";
+"AccDescrMentionDown" = "下一步";
+"AccDescrPageDown" = "转到底部";
+"ChannelPrivate" = "私密频道";
+"ChannelPrivateInfo" = "私密频道只能通过邀请链接关注。";
+"ChannelPublic" = "公开频道";
+"ChannelPublicInfo" = "公开频道可以被搜索到，且任何人都可以关注。";
+"MegaPrivate" = "私密群组";
+"MegaPrivateInfo" = "私密群组只能通过群成员的邀请，或邀请链接加入。";
+"MegaPublic" = "公开群组";
+"MegaPublicInfo" = "任何人都可以搜索、加入公开群组，并查看历史聊天记录。";
+"ChannelType" = "频道类型";
+"GroupType" = "群组类型";
+"ChannelPrivateLinkHelp" = "任何人都可以通过此链接关注您的频道。您可以随时废除此链接。";
+"MegaPrivateLinkHelp" = "任何人都可以通过此链接加入您的群组。您可以随时废除此链接。";
+"ChannelUsernameCreatePublicLinkHelp" = "所有人都可以与其他人分享此链接，并使用 Telegram 的搜索功能找到您的频道。";
+"GroupUsernameCreatePublicLinkHelp" = "所有人都可以与其他人分享此链接，并使用 Telegram 的搜索功能找到您的群组。";
+"UserRestrictionsNoSend" = "can\'t send messages";
+"UserRestrictionsNoSendMedia" = "无权发送媒体文件";
+"UserRestrictionsNoSendStickers" = "无权发送贴纸和 GIF 动态图";
+"UserRestrictionsNoEmbedLinks" = "无权嵌入链接";
+"UserRestrictionsNoSendPolls" = "无权发起投票";
+"UserRestrictionsNoChangeInfo" = "can\'t change Info";
+"UserRestrictionsInviteUsers" = "添加用户";
+"UserRestrictionsPinMessages" = "置顶消息";
+"StatsMessageInteractionsTitle" = "互动";
+"StatsGroupGrowthTitle" = "增长";
+"StatsGroupMembersTitle" = "群组成员";
+"StatsGroupLanguagesTitle" = "成员主要语言";
+"StatsGroupMessagesTitle" = "消息";
+"StatsGroupActionsTitle" = "操作";
+"StatsGroupTopHoursTitle" = "活跃时间";
+
+"ChannelStatsGraphFollowers" = "订阅者";
+"ChannelStatsGraphNotifications" = "通知";
+"ChannelStatsGraphViewsByHours" = "每小时浏览次数 (UTC)";
+"ChannelStatsGraphViewsBySource" = "浏览来源";
+"ChannelStatsGraphNewFollowersBySource" = "新订阅者的来源";
+"ChannelStatsGraphLanguage" = "语言";
+"ChannelStatsGraphInteractions" = "互动";
+"StatsMessageViews" = "浏览次数";
+"StatsMessagePrivateShares" = "私密分享";
+"StatsMessagePublicShares" = "公开分享";
+"StatsGroupMembers" = "成员";
+"StatsGroupMessages" = "消息";
+"StatsGroupViewers" = "查看成员";
+"StatsGroupPosters" = "发布成员";
+"ChannelStatsOverviewFollowers" = "订阅者";
+"ChannelStatsOverviewEnabledNotifications" = "启用通知";
+"ChannelStatsOverviewViewsPerPost" = "查看每则贴文";
+"ChannelStatsOverviewSharesPerPost" = "分享每则贴文";
+"WrongNumber" = "手机号码有误？";
+"SentAppCode" = "We\'ve sent the code to the **Telegram** app on your other device.";
+"LoginJustSentSms" = "我们已经向您的手机发送了一条包含验证码的短信。请在上方输入您的验证码。";
+"Code" = "验证码";
+"LoginHeaderPassword" = "输入密码";
+"LoginEnterPasswordDescription" = "您已启用了两步验证，因此您的帐号已受到额外密码的保护。";
+"StartText" = "请确认您的国际电话区号并输入您的手机号码。";
+"LoginPhonePlaceholder" = "您的手机号码";
+"LoginNext" = "下一步";
+"LoginQRLogin" = "扫描二维码登录";
+"LoginQRTitle" = "扫码登录 Telegram";
+"LoginQRHelp1" = "在您的手机上打开Telegram";
+"LoginQR2Help2" = "转到 \"设置\"->\"设备\"->\"关联桌面设备\"";
+"LoginQRHelp3" = "点击手机屏幕确认登录";
+"LoginQRCancel" = "手机号登录";
+"YourName" = "您的姓名";
+"LoginRegisterDesc" = "在此处输入您的名字，并上传头像。";
+"LoginRegisterFirstNamePlaceholder" = "名";
+"LoginRegisterLastNamePlaceholder" = "姓氏";
+"Next" = "下一步";
+"LoginSelectCountryTitle" = "国家/地区";
+"CountryNone" = "此国际电话区号不存在";
+"VoipGroupVoiceChat" = "语音通话";
+"AccDescrMoreOptions" = "更多选项";
+"AccExitFullscreen" = "退出全屏";
+"AccSwitchToFullscreen" = "切换到全屏";
+"VoipChatStopScreenCapture" = "停止共享屏幕";
+"VoipChatStartScreenCapture" = "分享屏幕";
+"VoipGroupLeaveAlertEndChat" = "退出通话";
+"VoipSpeaker" = "扬声器";
+"VoipCamera" = "相机";
+"VoipGroupLeave" = "挂断";
+"VoipGroupEndAlertTitle" = "结束语音通话";
+"VoipGroupLeaveAlertTitle" = "离开语音通话";
+"VoipGroupEndAlertText" = "你确定要结束此次通话吗？";
+"VoipGroupLeaveAlertText" = "您确定要离开当前通话吗？";
+"VoipGroupEndChat" = "结束语音通话";
+"VoipGroupEnd" = "结束";
+"Cancel" = "取消";
+"ThisIsYou" = "您本人";
+"VoipGroupMutedForMe" = "已被静音";
+"WantsToSpeak" = "想要发言";
+"SpeakingWithVolume" = "正以 {volume}% 音量发言";
+"Speaking" = "发言中";
+"Listening" = "接听中";
+"VoipGroupInviteMember" = "邀请成员";
+"VoipGroupCancelRaiseHand" = "取消发言请求";
+"VoipGroupOpenProfile" = "查看个人资料";
+"VoipGroupAllowToSpeak" = "允许讲话";
+"VoipMute" = "静音";
+"VoipGroupUnmuteForMe" = "取消静音";
+"VoipGroupMuteForMe" = "为我静音";
+"VoipGroupUserRemove" = "移除";
+"Back" = "返回";
+
+
+
+
+
+"Participants_other" = "{count} 名参与者";
+"VoipChatJoin" = "加入";
+"CallStatusHanging" = "挂断中…";
+"CallStatusRequesting" = "请求中…";
+"CallStatusRinging" = "拨号中…";
+"CallStatusIncoming" = "正在呼叫你…";
+"CallStatusWaiting" = "等待中…";
+"CallStatusExchanging" = "交换加密密钥中…";
+"CallEmojiKeyTooltip" = "如果 {user} 屏幕上的表情符号和此处一致，本次通话就是 100% 安全的。";
+"CallMuteAudio" = "静音";
+"CallUnmuteAudio" = "取消静音";
+"CallStopVideo" = "关闭摄像头";
+"CallStartVideo" = "开启摄像头";
+"VoipFlip" = "切换摄像头";
+"CallScreencast" = "屏幕共享";
+"CallAccept" = "接听";
+"CallDecline" = "挂断";
+"CallEndCall" = "结束通话";
+"CallRateLabel" = "请对您这次通话的质量作出评价 ";
+"CallRateComment" = "评价（选填）";
+"Send" = "发送";
+"SponsoredMessageInfo" = "什么是赞助消息？";
+
+"SponsoredMessageInfoDescription2" = "Unlike other apps, Telegram doesn\'t track whether you tapped on a sponsored message and doesn\'t profile you based on your activity. We also prevent external links in sponsored messages to ensure that third parties can’t spy on our users. We believe that everyone has the right to privacy, and technological platforms should respect that.";
+
+"SponsoredMessageAlertLearnMoreUrl" = "https://ads.telegram.org";
+
+"Close" = "关闭";
+"ConversationScheduleMessageSendToday" = "在今天 {time} 发送";
+"ConversationScheduleMessageSendOn" = "在 {date} {time} 发送";
+"Phone" = "手机号码";
+"Username" = "用户名";
+"UserBio" = "个人简介";
+"Info" = "个人信息";
+"SetUrlPlaceholder" = "链接";
+"Notifications" = "通知";
+"SavedMessagesInfo" = "转发到此以保存";
+"BlockedListNotFound" = "未找到符合条件的用户。";
+"TextCopied" = "已复制文本到剪贴板";
+"Copy" = "复制";
+
+
+"ChatListDeleteChatConfirmation" = "是否删除与 {chat} 的聊天？";
+"DeleteAndStop" = "删除并屏蔽";
+"ChatListDeleteForEveryone" = "为我和 {user} 删除";
+"DeleteForAll" = "为所有成员删除";
+"DeleteSingleMessagesTitle" = "删除消息";
+"AreYouSureDeleteSingleMessage" = "你确认是否删除这条消息？";
+
+
+
+
+
+"DeleteForMeChatHint_other" = "这些消息将只能从您（不包括其他成员）的消息记录中删除。";
+
+
+
+
+
+"DeleteForEveryoneHint_other" = "这将从所有人的消息记录中撤回这些消息。";
+"ConversationDeleteMessagesFor" = "为我和 {user} 删除";
+"ConversationDeleteMessagesForEveryone" = "为所有人删除";
+"ChatListDeleteForCurrentUser" = "仅在我的设备中删除";
+"Delete" = "删除";
+"FakeMessage" = "假冒";
+"ScamMessage" = "诈骗";
+"SendWithoutSound" = "无声发送";
+"SetReminder" = "设置提醒";
+"ScheduleMessage" = "定时消息";
+"Updating" = "正在刷新…";
+
+
+
+
+
+"OnlineCount_other" = "{count} 人在线";
+
+
+
+
+
+"Subscribers_other" = "{count} 位订阅者";
+
+
+
+
+
+"NMembers_other" = "{count} 名成员";
+"SelectChat" = "选择对话";
+"PinMessageAlertChannel" = "您确定要在频道中置顶此消息吗？";
+"PinMessageAlert" = "您确定要在群组中置顶此消息吗？";
+"PinMessageAlertChat" = "您确定要在对话中置顶此消息吗？";
+"PinMessageAlertTitle" = "置顶消息";
+"DialogPin" = "置顶";
+"ConversationPinMessagesFor" = "为我和 {user} 置顶";
+"ConversationPinMessageAlertPinAndNotifyMembers" = "置顶并提醒所有人";
+"SavedMessages" = "我的收藏";
+"AccDescrPrevious" = "上一个";
+"ReportReasonSpam" = "垃圾信息";
+"ReportReasonViolence" = "暴力";
+"ReportReasonPornography" = "色情";
+"ReportReasonChildAbuse" = "虐待儿童";
+"ReportPeerReasonCopyright" = "版权";
+"ReportReasonOther" = "其它";
+"ReportMessageTitle" = "举报消息";
+"ReportPeerReport" = "举报";
+"ReportReasonDescription" = "说明";
+"ReportButton" = "举报";
+"StickersRemoveFromFavorites" = "从收藏中移除";
+"StickersAddToFavorites" = "添加到收藏";
+"ViewPackPreview" = "查看对应表情包";
+"DeleteFromRecent" = "从最近使用文档列表中删除";
+"AccDescrStickerSet" = "贴纸设置";
+"ChatPanelUnpinAllMessages" = "取消所有置顶";
+
+
+
+
+
+"ChatUnpinAllMessagesConfirmation_other" = "您想要取消置顶聊天中的 {count} 条消息吗？";
+"DialogUnpin" = "取消置顶";
+"ArchivedChats" = "已归档对话";
+"FilterAddTo" = "添加至文件夹...";
+"Draft" = "草稿";
+"FilterAllChatsShort" = "所有";
+"FilterAllChats" = "所有聊天";
+"CreateNewContact" = "新建联系人信息";
+"FilterNoChatsToDisplay" = "文件夹为空";
+"ChatListEmptyChatListFilterText" = "该文件夹内暂无聊天内容";
+"ChatEmptyChat" = "暂无消息";
+"ChatListEmptyChatListEditFilter" = "编辑文件夹";
+"UpdateTelegram" = "升级 Telegram";
+"AccDescrOpenMenu2" = "打开菜单";
+"SettingsTipsUsername" = "Telegram 提示";
+"SearchFriends" = "搜索联系人";
+"Search" = "搜索";
+"Contacts" = "联系人";
+"Settings" = "设置";
+"MenuNightMode" = "夜间模式";
+"SettingsDisableNightTheme" = "关闭夜间模式";
+"SettingsEnableNightTheme" = "开启夜间模式";
+"TelegramPremium" = "Telegram 高级版";
+"New" = "新建";
+"TelegramFeatures" = "Telegram功能";
+"ShortcutsControllerOthersLockByPasscode" = "以锁定码锁定";
+"GroupAddMembers" = "添加成员";
+"SendMessageTo" = "发送消息给…";
+"NewChannel" = "新建频道";
+"NewGroup" = "新建群组";
+"AddPhoto" = "设置新头像";
+"EnterChannelName" = "频道名称";
+"GroupName" = "群组名称";
+"DescriptionOptionalPlaceholder" = "简介（可选）";
+"DescriptionInfo" = "您可以给您的频道添加一段简介。";
+
+
+
+
+
+"GroupInfoParticipantCount_other" = "{count} 名成员";
+"ChannelIntroCreateChannel" = "创建频道";
+"NewMessageTitle" = "新建对话";
+"ChatListSearchNoResults" = "无结果";
+"ChatListSearchNoResultsDescription" = "找不到结果，请重试";
+"ChatListSearchShowLess" = "显示更少";
+"ChatListSearchShowMore" = "显示更多";
+"DialogListSearchSectionDialogs" = "对话和联系人";
+"DialogListSearchSectionGlobal" = "全局搜索";
+"SearchMessages" = "消息";
+"Recent" = "最近访问";
+"BlockedUsersBlockUser" = "拉黑此用户";
+"FilterChatTypes" = "聊天类型";
+"FilterChats" = "聊天";
+"FilterIncludeInfo" = "\n选择将出现在此文件夹的聊天和聊天类型。";
+"FilterNameHint" = "文件夹名称";
+"FilterInclude" = "包含的对话";
+"FilterAddChats" = "添加对话";
+"FilterExclude" = "排除的对话";
+"CreateNewFilterInfo" = "为不同聊天类型创建资料夹以便快速切换。";
+"CreateNewFilter" = "创建新文件夹";
+"Filters" = "文件夹";
+"FilterRecommended" = "推荐的文件夹";
+"Add" = "添加";
+"EnterNewPasscode" = "请输入新的锁定码";
+"Continue" = "继续";
+"ReEnterYourPasscode" = "请再次输入新的锁定码";
+"PasscodeControllerCurrentPlaceholder" = "请输入您当前的锁定码";
+"PleaseEnterNewFirstPassword" = "请输入新密码";
+"PasscodeControllerReEnterPasscodePlaceholder" = "重新输入新锁定码";
+"PasscodeChange" = "更改锁定码";
+"PasscodeTurnOff" = "关闭密码锁";
+"EnablePasscode" = "启用锁定码";
+"SessionPreviewTitle" = "设备";
+"SessionPreviewTerminateSession" = "终止会话";
+"PrivacySettingsLastSeen" = "最后上线时间";
+"SessionPreviewApp" = "应用程序";
+"SessionPreviewIp" = "IP 地址";
+"SessionPreviewLocation" = "位置";
+"SessionPreviewIpDesc" = "该位置根据 IP 地址估算，可能并不准确。";
+"AuthSessionsViewAcceptTitle" = "该设备允许";
+"SessionPreviewAcceptSecret" = "新建私密聊天";
+"SessionPreviewAcceptCalls" = "接听来电";
+
+
+
+
+
+"Weeks_other" = "{count} 周";
+
+
+
+
+
+"Months_other" = "{count} 个月";
+"AuthSessionsCurrentSession" = "此设备";
+"TerminateAllSessions" = "注销所有其它设备上的会话";
+"OtherSessions" = "活跃会话";
+"TerminateOldSessionHeader" = "自动终止旧会话";
+"IfInactiveFor" = "如果我不上线";
+"AreYouSureSessions" = "您确定要注销所有其它设备上的会话吗？";
+"WebSessionsTitle" = "使用 Telegram 登录的网站";
+"AuthSessionsLogOut" = "退出";
+"AuthSessionsViewBrowser" = "浏览器";
+"AuthSessionsViewLocationInfo" = "此地点是根据 IP 地址大致定位的，它并不总是精确。";
+"AuthSessionsLogOutApplications" = "取消所有网站的授权";
+"ClearOtherWebSessionsHelp" = "您可以在支持的网站上使用 Telegram 登录。";
+"AreYouSureWebSessions" = "是否取消所有网站的授权？";
+"AutodownloadSizeLimitUpTo" = "上限为 {limit}";
+"FileSizeMB" = "{count} MB";
+"AutoDownloadMaxFileSize" = "文件大小限制";
+"AutoDownloadSettingsContacts" = "联系人";
+"AutoDownloadSettingsPrivateChats" = "其它私聊";
+"AutoDownloadSettingsGroupChats" = "群聊";
+"AutoDownloadSettingsChannels" = "频道";
+"AutoDownloadPhotosTitle" = "自动下载图片";
+"AutoDownloadVideosTitle" = "自动下载视频和 GIF 动态图 ";
+"AutoDownloadFilesTitle" = "自动下载文件";
+"AutoplayMedia" = "自动播放媒体";
+"GifsTab2" = "GIF动态图";
+"DataAndStorageAutoplayVideos" = "视频";
+"FirstName" = "名字（必填）";
+"LastName" = "姓氏";
+"SettingsAboutBio" = "您可以在此输入任何有关您个人的信息，诸如：年龄、工作或居住城市。\n示例：23岁，来自旧金山的设计师。";
+"UsernameHelp" = "您可以在 **Telegram** 上设置一个用户名。设置后，别人将能够在不知道您的电话号码的情况下，通过此用户名找到您并与您联系。\n\n您可以使用 **a-z**、**0-9** 和下划线。最小长度为 **5** 个字符。";
+"UsernameLink" = "通过此链接可以与您进行对话：";
+"SettingsExperimentalAbout" = "警告！这些是实验性功能设置。其中有一些可能无法正常工作，甚至导致应用程序崩溃。这里的任何设置随时都可能因版本更新而消失。使用风险自负。";
+"EmptyChatAppearanceLight" = "日间";
+"EmptyChatAppearanceDark" = "夜间";
+"EmptyChatAppearanceSystem" = "跟随系统";
+"SettingsSendEnter" = "按回车键发送消息";
+"SettingsSendCmdenter" = "按 Cmd+Enter 键发送消息";
+"SettingsSendCtrlenter" = "按 Ctrl+Enter 键发送消息";
+"TextSize" = "消息字号";
+"ChatBackground" = "聊天壁纸";
+"Theme" = "主题";
+"VoiceOverKeyboard" = "键盘";
+"AccDescrStickers" = "贴纸";
+"DoubleTapSetting" = "快速回应";
+"SuggestStickers" = "根据 emoji 联想/推荐表情";
+"LoopAnimatedStickers" = "循环播放动态贴纸";
+"UploadImage" = "上传图片";
+"SetColor" = "设置颜色";
+"ThemeResetToDefaults" = "恢复默认";
+"BackgroundBlurred" = "模糊";
+"SettingsInformation" = "编辑个人资料";
+"General" = "通用";
+"DataSettings" = "数据和存储";
+"PrivacySettings" = "隐私和安全";
+"Language" = "语言";
+"SettingsExperimental" = "实验性功能设置";
+"PrivacyPhone" = "手机号码";
+"PrivacyLastSeen" = "最后上线时间";
+"PrivacyProfilePhoto" = "头像";
+"PrivacyForwards" = "转发的消息";
+"AutodownloadGroupChats" = "群聊";
+"AlwaysShareWith" = "总是共享给";
+"NeverShareWith" = "从不共享给";
+"SessionsTitle" = "活跃会话";
+"OtherWebSessions" = "已授权网站";
+"BlockedUsers" = "已拉黑用户";
+"TwoStepVerification" = "两步验证";
+"PleaseEnterCurrentPassword" = "请输入密码";
+"PleaseReEnterPassword" = "请再次输入您的密码";
+"PasswordHint" = "密码提示";
+"RecoveryEmailTitle" = "恢复电子邮箱";
+"TwoStepVerificationPasswordSet" = "密码已设置！";
+"Passcode" = "密码锁";
+"PasscodeControllerDisableTitle" = "禁用锁定码";
+"PasscodeControllerChangeTitle" = "更改锁定码";
+"FilterNew" = "新文件夹";
+"FilterEdit" = "编辑文件夹";
+"AutoDeleteConfirm" = "确认";
+"LogOutTitle" = "退出";
+"AccDescrGoBack" = "返回";
+"SureLogout" = "您确定要退出登录吗？";
+"AccountSettingsLogout" = "退出";
+"TelegramGeneralSettingsViewController" = "通用设置";
+"UserInfoNotificationsEnabled" = "开启";
+"UserInfoNotificationsDisabled" = "关闭";
+"AutodownloadPrivateChats" = "私聊";
+"NotificationsForPrivateChats" = "私聊通知";
+"MessagePreview" = "消息预览";
+"FilterGroups" = "群组";
+"NotificationsForGroups" = "群组通知";
+"FilterChannels" = "频道";
+"NotificationsForChannels" = "频道通知";
+"PhoneOther" = "其它";
+"ContactJoined" = "联系人已加入 Telegram";
+"P2PEverybody" = "所有人";
+"P2PContacts" = "我的联系人";
+"P2PNobody" = "不允许任何人";
+
+
+
+
+
+"Users_other" = "{count} 位用户";
+"PrivacySettingsWebSessions" = "活跃网站";
+"PasswordOn" = "打开";
+"PasswordOff" = "关闭";
+"PrivacyTitle" = "隐私";
+"PrivacyPhoneTitle" = "谁可以看见我的手机号码？";
+"LastSeenTitle" = "谁可以看到您最后上线的时间？";
+"PrivacyProfilePhotoTitle" = "谁能看见我的头像？";
+"WhoCanCallMe" = "谁可以给我打电话？";
+"PrivacyP2P" = "在通话中使用端对端连接";
+"PrivacyForwardsTitle" = "转发我的消息时，谁可以链接至我的账号？";
+"WhoCanAddMe" = "谁可以邀请我加入群组？";
+"NewChatsFromNonContacts" = "未知用户的新聊天";
+"ArchiveAndMute" = "归档及静音";
+"ArchiveAndMuteInfo" = "自动归档及静音非联系人的新聊天、群组和频道。";
+"SettingsSensitiveTitle" = "敏感内容";
+"SettingsSensitiveDisableFiltering" = "禁用过滤";
+"SettingsSensitiveAbout" = "在您的所有 Telegram 设备上公开频道中显示敏感媒体。";
+"BlockedUsersInfo" = "Blocked users can\'t send you messages or add you to groups. They will not see your profile pictures, online and last seen status.";
+"NoBlocked" = "当前没有已拉黑的用户";
+"BlockContact" = "屏蔽";
+"CustomHelp" = "You won\'t see Last Seen or Online statuses for people with whom you don\'t share yours. Approximate times will be shown instead (recently, within a week, within a month).";
+"PrivacyExceptions" = "例外";
+"AlwaysAllow" = "总是允许";
+"EditAdminAddUsers" = "添加用户";
+"NeverAllow" = "永不允许";
+"AlwaysAllowPlaceholder" = "总是允许…";
+"NeverAllowPlaceholder" = "永不允许…";
+
+
+
+
+
+"StickerPackStickerCount_other" = "{count} 张贴纸";
+"PleaseEnterPassword" = "请输入您的新密码";
+"PasswordHintPlaceholder" = "提示";
+"TwoStepVerificationPasswordSetInfo" = "在新设备上登录时除了短信验证码还需要输入此两步验证密码。";
+"TwoStepVerificationPasswordReturnSettings" = "跳转到设置";
+"YourEmailCode" = "您的电子邮箱验证码";
+"EnabledPasswordText" = "You have enabled Two-Step verification.\nYou\'ll need the password you set up here to log in to your Telegram account.";
+"ChangePassword" = "更改密码";
+"TurnPasswordOff" = "停用密码";
+"SetRecoveryEmail" = "设置密码恢复电子邮箱";
+"YourEmailSkip" = "跳过";
+"YourEmailSkipWarning" = "警告";
+"YourEmailSkipWarningText" = "您确定不设置密码恢复邮箱吗？\n\n一旦您忘记了密码，您将无法再访问您的 Telegram 帐号，并且再也没有办法恢复帐号数据。";
+"SetAdditionalPasswordInfo" = "您可以设置一个密码。当登陆到新设备时，它将作为输入短信验证码后的附加验证。";
+"EditAdminTransferSetPassword" = "设置密码";
+"WebAppAddToAttachmentText" = "{bot} 请求将其作为选项添加到您的附件菜单中，以便您可以从任何聊天中访问它。";
+"BotOpenPageTitle" = "打开页面";
+
+"BotOpenPageMessage" = "**{bot}** 想要打开其网页应用以继续。\n\n它将能够访问您的 **IP 地址** 和基本设备信息。";
+"FilterDeleteAlert" = "您确认删除此文件夹吗？您的聊天记录将不会被删除。";
+"RequestToJoinChannelSentDescription" = "一旦频道管理员批准您的请求，您将被添加到频道中。";
+"RequestToJoinGroupSentDescription" = "待管理员同意后即可加入该群组";
+"ChannelJoin" = "加入";
+"JoinGroup" = "加入群组";
+"MemberRequestsRequestToJoinChannel" = "请求加入频道";
+"MemberRequestsRequestToJoinGroup" = "请求加入群组";
+"MemberRequestsRequestToJoinDescriptionChannel" = "此频道只接受其管理员批准的新订阅者。";
+"MemberRequestsRequestToJoinDescriptionGroup" = "此群组只接受其管理员批准的新成员。";
+"ShareYouPhoneNumberTitle" = "是否分享您的手机号码？";
+"AreYouSureShareMyContactInfoBot" = "机器人将会获取您的手机号码。这可能对机器人与其它服务的集成有用。";
+"OK" = "确定";
+"ForwardTo" = "转发到…";
+"AttachGame" = "游戏";
+"JumpToDate" = "跳转到此日期";
+"FloodWait" = "尝试次数过多，请稍后再试";
+"PasscodeWrong" = "锁定码错误";
+"PasscodeEnterPasscodePlaceholder" = "请输入锁定码";
+"MobileHidden" = "手机号码已隐藏";
+"NewContactPhoneHiddenText" = "一旦 {user} 将您添加为联系人，手机号码将对其**可见**。";
+"NewContactShare" = "分享我的手机号码";
+"AddContactSharedContactExceptionInfo" = "你可以令你的电话号码对 {user} 可见。";
+"ContactPhone" = "手机号码";
+"NewContact" = "新联系人";
+"Done" = "完成";
+"FileSizeGB" = "{count} GB";
+"LimitReached" = "达到上限";
+"IncreaseLimit" = "提升上限";
+"LimitFree" = "免费";
+"LimitPremium" = "会员";
+"SubscribeToPremium" = "以每月 {price} 的价格订阅";
+"TelegramPremiumUserDialogTitle" = "{user} 是 Telegram 高级版订阅者。";
+"TelegramPremiumSubscribedTitle" = "一切都已就绪！";
+"AboutPremiumDescription" = "Telegram 的免费版本已经为用户提供了远超其它聊天软件的便利，而 **Telegram 高级版**将给您带来更多功能。";
+"AboutPremiumDescription2" = "**Telegram 高级版** 需要付费，因为 Telegram 需要为大多数会员特性付出更多开销，如数据中心和服务器提供商。**Telegram 高级版** 用户能帮助我们支付这些开销，进而保持对所有人免费。";
+"OpenUrlTitle" = "打开链接";
+"OpenUrlAlert2" = "你要打开 {url} 吗？";
+"ConversationOpenBotLinkLogin" = "以 {user} 身份登录 **{url}**";
+"ConversationOpenBotLinkAllowMessages" = "允许 **{bot}** 给我发消息";
+"BotWebViewOpenBot" = "打开机器人";
+"WebAppReloadPage" = "重载页面";
+"WebAppRemoveBot" = "从菜单中移除";
+"WebAppAddToAttachmentAdd" = "添加";
+"AccActionDownload" = "下载";
+"Forward" = "转发";
+"MediaZoomOut" = "缩小";
+"MediaZoomIn" = "放大";
+"PeerInfoReportProfileVideo" = "举报个人资料视频";
+"PeerInfoReportProfilePhoto" = "举报头像";
+"MediaviewProfilePhoto" = "头像";
+"AccActionPlay" = "玩";
+"AttachAudio" = "语音消息";
+"NewContactAdd" = "增加联系人";
+"NewContactBlock" = "屏蔽用户";
+"ReportSpamAndLeave" = "举报垃圾信息并离开";
+"BlockUserTitle" = "屏蔽 {user}";
+
+"ChatConfirmReportSpamChannel" = "举报骚扰行为并退出频道";
+"Block" = "屏蔽";
+"DeleteThisChat" = "删除此对话";
+"ReportChat" = "举报 {peer}";
+
+
+
+
+
+"PreviewSenderSendPhoto_other" = "发送 {count} 张图片";
+
+
+
+
+
+"PreviewSenderSendVideo_other" = "发送 {count} 个视频";
+
+
+
+
+
+"PreviewSenderSendAudio_other" = "发送 {count} 个音频";
+
+
+
+
+
+"PreviewSenderSendFile_other" = "发送 {count} 个文件";
+
+
+
+
+
+"PreviewDraggingAddItems_other" = "添加多项";
+"Caption" = "说明";
+"AttachmentMenuPhotoOrVideo" = "图片或视频";
+"AttachDocument" = "文件";
+"Poll" = "投票";
+"SlowModeHint" = "慢速模式已启用，您可以在 {time} 后发送下一条消息。";
+"SendMessageAsTitle" = "以谁的身份发送";
+"Message" = "消息";
+"RecentStickers" = "最近使用";
+"PollsChooseQuestion" = "请输入一个问题。";
+"PollsChooseAnswers" = "请输入至少两个选项。";
+"NewPoll" = "发起投票";
+"Create" = "创建";
+"OptionHint" = "选项";
+"CreatePollAddOption" = "添加一个选项";
+"PollsChooseCorrect" = "请选择正确答案。";
+"AskAQuestion" = "向我们提问";
+"PollOptions" = "投票选项";
+"PollAnonymous" = "匿名投票";
+"PollMultiple" = "多项选择";
+"PollQuiz" = "问答模式";
+"PollsSolutionTitle" = "注释";
+"CreatePollExplanationInfo" = "选错的用户将看到这段注释，适合教学用途。";
+"VoipGroupPersonalAccount" = "个人账号";
+"FavoriteStickers" = "收藏夹";
+"PremiumStickers" = "Premium 贴纸";
+"GroupStickers" = "群组表情包";
+"ErrorSendRestrictedStickersAll" = "抱歉，该群组不允许发送贴纸。";
+"NoStickers" = "暂无表情";
+"ClearRecentEmoji" = "清空最近使用的 emoji 列表？";
+"TextFormatAddLinkTitle" = "添加链接";
+"Save" = "保存";
+"ConversationEmptyPlaceholder" = "暂无消息…";
+"ConversationGreetingText" = "发送信息或点击下方的问候语。";
+"ConversationDeleteManyMessages" = "删除消息";
+"AreYouSureDeleteFewMessages" = "您确定要清空这些消息吗？";
+"ProfileJoinChannel" = "关注频道";
+"ProfileJoinGroup" = "加入群组";
+"ChannelJoinRequest" = "申请加入聊天组";
+"BotStart" = "开始";
+"BotRestart" = "重新启用机器人";
+"SubscribeRequests" = "加入请求";
+"MemberRequests" = "加入请求";
+"AddContact" = "添加联系人";
+"Call" = "通话";
+"VideoCall" = "视频电话";
+"ChatsUnmute" = "开启通知";
+"ChatsMute" = "静音";
+"StartVoipChat" = "开始语音聊天";
+"VoipGroupJoinCall" = "加入语音通话";
+"ViewDiscussion" = "查看讨论";
+"ProfileViewChannel" = "查看频道";
+"ReportSelectMessages" = "选择消息";
+"Statistics" = "统计信息";
+"EventLogFilterPinnedMessages" = "已置顶消息";
+"UnpinMessageAlertTitle" = "取消此消息置顶";
+"PinnedMessage" = "置顶消息";
+
+
+
+
+
+"Comments_other" = "{count} 条评论";
+"LeaveAComment" = "留言";
+"PollsStopWarning" = "如果您现在停止这个投票，任何人都不能再进行投票了。 此操作无法撤消。";
+"PollsStopSure" = "停止";
+"PaymentTestInvoice" = "测试账单";
+"AttachLiveLocation" = "实时位置信息";
+"NoWordsRecognized" = "没有识别出单词。";
+"ViaBot" = "通过";
+"DiscussChannel" = "频道";
+"ForwardedMessage" = "转发的消息";
+"ContextForwardMsg" = "转发消息";
+"ShareLinkCopied" = "复制到剪贴板";
+"MessageScheduleSend" = "立即发送";
+"MessageScheduleEditTime" = "重设发送时间";
+"Reply" = "回复";
+"Edit" = "编辑";
+"AddToFavorites" = "添加到收藏";
+"ContextSaveGif" = "保存到 GIF 动态图库";
+"PollsRetract" = "撤回投票";
+"PollsStop" = "停止投票";
+"ContextCancelDownload" = "取消下载";
+"MediaDownload" = "下载";
+"CommonSelect" = "选择";
+"ContextReportMsg" = "举报消息";
+
+
+
+
+
+"ChatContextReactionCount_other" = "{count} 个表情回应";
+
+
+
+
+
+"ConversationContextMenuSeen_other" = "{count} 人已读";
+"ConversationContextMenuNoViews" = "无人已读";
+"HideAd" = "隐藏";
+"EditedDate" = "编辑时间：{date}";
+"ForwardedDate" = "原消息: {date}";
+"EditedMessage" = "已编辑";
+"CallAgain" = "再次呼叫";
+"CallBack" = "回拨";
+"CallMessageWithDuration" = "{time}（{duration}）";
+"PollSubmitVotes" = "提交投票";
+"PollViewResults" = "查看结果";
+"ChatQuizTotalVotesEmpty" = "暂无回答";
+"ChatPollTotalVotesResultEmpty" = "无人投票";
+
+
+
+
+
+"Answer_other" = "{count} 条答案";
+"Vote" = "提交投票";
+"MessageRecommendedLabel" = "推荐";
+"SponsoredMessage" = "赞助";
+"PremiumStickerTooltip" = "该贴纸包包含高级版贴纸，譬如该贴纸。";
+"ViewAction" = "查看";
+"Loading" = "加载中…";
+"NoMessages" = "暂无消息…";
+"BotInfoTitle" = "它能做什么？";
+"UnreadMessages" = "未读消息";
+"DiscussionStarted" = "讨论已开始";
+"MessageScheduledUntilOnline" = "直到在线后定时任务";
+
+
+
+
+
+
+"VoiceOverChatMessagesSelected_other" = "已选择 {count} 条消息";
+"ChatForwardActionHeader" = "转发消息";
+"ConversationReportMessages" = "举报消息";
+"ContextCopySelectedItems" = "复制为纯文本";
+"EditAdminGroupDeleteMessages" = "删除消息";
+
+
+
+
+
+"ChatPinnedUnpinAll_other" = "取消置顶 {count} 条消息";
+
+
+
+
+
+"CommentsCount_other" = "{count} 条评论";
+
+
+
+
+
+"PinnedMessagesCount_other" = "{count} 条置顶消息";
+"Reminders" = "提醒";
+
+
+
+
+
+"Messages_other" = "{count} 条消息";
+"ScheduledMessagesEmptyPlaceholder" = "暂无定时消息。。。";
+"ConversationCloudStorageInfoTitle" = "您的云存储";
+"ConversationClousStorageInfoDescription1" = "• 转发消息到此以保存它们";
+"ConversationClousStorageInfoDescription2" = "• 发送媒体/文件以存储它们";
+"ConversationClousStorageInfoDescription3" = "• 在任意设备上访问此对话";
+"ConversationClousStorageInfoDescription4" = "• 使用搜索以更快地查找";
+"EmptyGroupInfoTitle" = "您已创建了一个群组";
+"EmptyGroupInfoSubtitle" = "群组可以拥有：";
+"EmptyGroupInfoLine1" = "成员上限为 {count} 人";
+"EmptyGroupInfoLine2" = "• 永久聊天记录";
+"EmptyGroupInfoLine3" = "• 公开链接，例如：t.me/title";
+"EmptyGroupInfoLine4" = "• 具备不同权限的管理员";
+"Reactions" = "表情回应";
+"MarkAllAsRead" = "全部标记为已读";
+"PaymentCardNumber" = "卡号";
+"PaymentCheckoutAcceptRecurrent" = "我接受 {bot} 的 *使用条款*。";
+"CheckoutTotalAmount" = "总计";
+"PaymentCheckoutMethod" = "支付方式";
+"PaymentCheckoutProvider" = "支付服务提供商";
+"PaymentShippingAddress" = "配送地址";
+"PaymentCheckoutName" = "姓名";
+"PaymentCheckoutPhoneNumber" = "手机号码";
+"PaymentCheckoutShippingMethod" = "配送方式";
+"CheckoutWebConfirmationTitle" = "支付完成";
+"PaymentCardExpireDate" = "月/年";
+"PaymentCardTitle" = "付款卡";
+"CheckoutNewCardCardholderNamePlaceholder" = "持卡人姓名";
+"PaymentsCardCvc" = "安全码";
+"PaymentBillingAddress" = "账单地址";
+"PaymentShippingCountry" = "国家";
+"PaymentShippingZipPlaceholder" = "邮政编码";
+"PaymentCardSavePaymentInformation" = "保存付款信息";
+"PaymentShippingInfo" = "配送信息";
+"PaymentShippingMethod" = "配送方式";
+"PaymentCardInfo" = "付款信息";
+"PaymentCheckout" = "结算";
+"CheckoutPayPrice" = "支付 {amount}";
+"PaymentReceipt" = "收据";
+"PaymentShippingAddress1Placeholder" = "地址行 1（街道）";
+"PaymentShippingAddress2Placeholder" = "地址行 2（街道）";
+"PaymentShippingCityPlaceholder" = "城市";
+"PaymentShippingStatePlaceholder" = "省份/州";
+"PaymentShippingReceiver" = "收件人";
+"PaymentShippingName" = "姓名";
+"PaymentShippingEmailPlaceholder" = "电子邮箱";
+"PaymentShippingPhoneNumber" = "手机号码";
+"PaymentShippingSave" = "保存配送信息";
+"PaymentShippingSaveInfo" = "您可以保存您的配送信息以便在未来使用。";
+"ChannelAddUsers" = "添加用户";
+"GroupRemovedRemove" = "移除用户";
+"PeerInfoConfirmRemovePeer" = "要将 {user} 从群组中移除吗？";
+"BoxRemove" = "移除";
+"NoGIFsFound" = "找不到GIF";
+"ChannelAddToChannel" = "添加到频道";
+"ChannelAddToGroup" = "添加到群组";
+"DismissRequest" = "拒绝请求";
+"DescriptionPlaceholder" = "简介";
+"TypePublic" = "公开";
+"TypePrivate" = "私密";
+"Discussion" = "讨论";
+"DiscussionUnlink" = "取消关联";
+"GroupInfoInviteLinks" = "邀请链接";
+"ChannelSignMessages" = "消息署名";
+"ChannelAdministrators" = "管理员";
+"ChannelSubscribers" = "订阅者";
+"ChannelBlockedUsers" = "被移除的用户";
+"ChannelDelete" = "删除频道";
+"LeaveChannel" = "退出频道";
+"ChannelDeleteAlert" = "且慢！删除此频道将会移除所有关注者并且会丢失所有消息。确定要删除此频道？";
+"ChannelLeaveAlert" = "您确定要退出此频道吗？";
+"ChannelCreator" = "创建者";
+"EditAdminPromotedBy" = "由 {user} 设为管理员";
+"ChannelAdmin" = "管理员";
+"EventLog" = "近期操作";
+"EventLogInfoDetailChannel" = "此列表包含了在过去 48 小时内频道管理员执行的所有操作。";
+"EventLogInfoDetail" = "此列表包含了在过去 48 小时内群组成员/管理员执行的所有操作。";
+"ChannelManagementAddModerator" = "添加管理员";
+"ChannelVisibilityForwardingEnabled" = "允许转发";
+"ChannelVisibilityForwardingDisabled" = "拒绝转发";
+"RevokeLink" = "废除链接";
+"RevokeAlert" = "您确定要废除此邀请链接吗？一旦废除，其他人将不能通过此链接加入此群组。";
+"RevokeButton" = "废除";
+"ChannelVisibilityForwardingChannelTitle" = "从此频道转发";
+"ChannelVisibilityForwardingGroupTitle" = "从此群组转发";
+"ChannelVisibilityForwardingChannelInfo" = "订阅者将可以拷贝、保存及转发该频道的内容。";
+"ChannelVisibilityForwardingGroupInfo" = "成员将可以拷贝、保存及转发此群组中的内容。";
+
+"Unblock" = "移出黑名单";
+"NoBlockedChannel2" = "Users removed from the channel by admins can\'t rejoin via invite links.";
+"NoBlockedGroup2" = "Users removed from the group by admins can\'t rejoin via invite links.";
+"ChannelEditAdminPermissionBanUsers" = "封禁用户";
+"DiscussionUnlinkGroup" = "退出该群";
+"DiscussionUnlinkChannel" = "退出频道";
+"ChannelDiscussionGroupLinkGroup" = "关联群组";
+"DiscussionUnlinkChannelAlert" = "您确定要从这个频道取消 **{chat}** 的链接吗？";
+"DiscussionUnlinkGroupAlert" = "您确定要从这个群组中取消 **{channel}** 的链接吗？";
+"DiscussionChannelHelp" = "选择一个用于讨论的群组，它将显示在您的频道中。";
+"DiscussionCreateGroup" = "创建新群组";
+"DiscussionChannelHelp2" = "频道内发布的消息将会被转发到与该频道关联的群组";
+"DiscussionLinkGroup" = "关联群组";
+"ChannelSettingsJoinTitle" = "谁可以发送消息？";
+"ChannelSettingsJoinToSend" = "仅成员";
+"ChannelSettingsJoinRequest" = "新成员审核";
+"ChannelSettingsJoinRequestInfo" = "启用此选项后，新成员加入前需得到管理员的批准。";
+"ChannelSettingsJoinToSendInfo" = "如果您希望用户在能够发送信息之前加入您的群组，请开启此功能。";
+"LinkedChannel" = "已关联的频道";
+"ChannelPermissions" = "权限";
+"GroupMembers" = "成员";
+"ChatHistory" = "历史记录对新成员的可见性";
+"DeleteMega" = "解散群组";
+"AreYouSureDeleteAndExit" = "您确定要删除并退出此群组吗？";
+"AreYouSureDeleteThisChatWithGroup" = "你确定要删除聊天 **{chat}** 吗？";
+"DeleteGroupForAll" = "为所有用户删除该群组";
+"EditAdminWhatCanDo" = "这位管理员可以做什么？";
+"EditAdminChangeChannelInfo" = "修改频道信息";
+"EditAdminChangeGroupInfo" = "修改群组信息";
+"EditAdminPostMessages" = "发布消息";
+"EditAdminEditMessages" = "编辑其他用户的消息";
+"EditAdminDeleteMessages" = "删除其他用户的消息";
+"EditAdminBanUsers" = "封禁用户";
+"EditAdminPinMessages" = "置顶消息";
+"EditAdminAddAdmins" = "添加新的管理员";
+"StartVoipChatPermission" = "管理语音聊天";
+"EditAdminSendAnonymously" = "保持匿名";
+"ChannelEditAdminCannotEdit" = "您无法修改此管理员的权限。";
+"EditAdminRank" = "自定义标题";
+"EditAdminRemoveAdmin" = "解任管理员";
+"ChannelAdminDismiss" = "解任管理员";
+"ChannelPermissionsHeader" = "本群组成员有何权限?";
+"UserRestrictionsSend" = "发送消息";
+"UserRestrictionsSendMedia" = "发送媒体文件";
+"UserRestrictionsSendStickers" = "发送表情和 GIF 动态图";
+"UserRestrictionsSendPolls" = "发起投票";
+"UserRestrictionsEmbedLinks" = "嵌入链接预览";
+"UserRestrictionsChangeInfo" = "修改群组信息";
+"ChannelAddException" = "添加例外";
+"EventLogAllEvents" = "所有操作";
+"EventLogFilterNewAdmins" = "新任管理员";
+"EventLogFilterNewMembers" = "新成员";
+"EventLogFilterChannelInfo" = "频道信息";
+"EventLogFilterDeletedMessages" = "已删除消息";
+"EventLogFilterEditedMessages" = "已编辑消息";
+"EventLogFilterLeavingMembers" = "离开的成员";
+"ChannelManagementTitle" = "管理员";
+"EventLogAllAdmins" = "所有管理员";
+"UserRestrictionsCanDo" = "这位用户可以做什么？";
+"UserRestrictionsBlock" = "封禁并从群组中移除";
+"ApproveNewMembers" = "自动批准新成员";
+"ApproveNewMembersDescription" = "打开该选后，新成员加入前需要获得管理员的批准。";
+"LinkNameHint" = "链接名称（可选）";
+"LinkNameHelp" = "仅管理员有权查看该名称";
+"LimitByPeriod" = "时间限制";
+
+
+
+
+
+"Hours_other" = "{count} 小时";
+
+
+
+
+
+"Days_other" = "{count} 天";
+"NoLimit" = "无限制";
+"GroupInviteExpireCustom" = "自定义";
+"TimeLimitHelp" = "你可以设置该链接在一定时间后过期。";
+"LimitNumberOfUses" = "次数限制";
+"GroupInviteUsageCustom" = "自定义";
+"UsesLimitHelp" = "您可以设定链接在使用一定次数后自动失效。";
+"SaveLink" = "保存链接";
+"CreateLink" = "创建链接";
+"LinkCopied" = "链接已复制到剪贴板";
+
+
+
+
+
+"PeopleJoined_other" = "{count} 人已加入";
+"NoOneJoined" = "无人加入";
+
+
+
+
+
+"PeopleCanJoinViaLinkCount_other" = "该链接还能邀请 {count} 人加入。";
+"NoOneJoinedYet" = "没人加入";
+"CopyLink" = "复制链接";
+"ExpiredLink" = "失效的链接";
+"LinkExpiresIn" = "链接将于 {time} 过期";
+"LinkCreatedeBy" = "链接创建者";
+
+
+
+
+
+"CanJoin_other" = "可加入 {count} 人";
+"Revoked" = "已撤销";
+
+
+
+
+
+"JoinRequests_other" = "{count} 个加入请求";
+"LinkLimitReached" = "已达人数上限";
+"InviteLinkExpiresIn" = "于 {time} 后过期";
+"InviteLinkExpired" = "已失效";
+"Permanent" = "主要链接";
+"DeleteLink" = "删除链接";
+"PrimaryLinkHelpChannel" = "通过此链接，Telegram上的任何人都可以加入您的频道。";
+"PrimaryLinkHelp" = "Telegram上的任何人可以通过此链接加入您的群组。";
+"PublicLink" = "公开链接";
+"CreatePermanentLinkTitle" = "永久链接";
+"CreateNewLink" = "新建链接";
+"ManageLinksInfoHelp" = "您可以添加额外的限制时间或使用人数的邀请链接";
+"RevokedLinks" = "已废除的链接";
+"DeleteAllRevokedLinks" = "删除所有已废除的链接";
+"DeleteAllRevokedLinkHelp" = "此操作将删除所有已撤销的链接。";
+"DeleteAll" = "删除所有";
+"DeleteLinkHelp" = "这将会删除链接。";
+"NoMemberRequests" = "暂无加入请求";
+"NoSubscribeRequestsDescription" = "当前没有待处理的加入频道请求。";
+"NoMemberRequestsDescription" = "当前没有待处理的入群请求。";
+"EnableReactions" = "启用表情回应";
+"UserInfoFirstNamePlaceholder" = "名字";
+"UserInfoLastNamePlaceholder" = "姓氏";
+"DeleteContact" = "删除联系人信息";
+"AreYouSureDeleteContact" = "您确定要删除此联系人吗？";
+"ChannelBlockUser" = "封禁用户";
+"ContextRemoveFromGroup" = "从群组中移除";
+"NoGroupsInCommon" = "还没有共同加入的群组";
+"MediaFileEmpty" = "暂无文件";
+"MediaLinkEmpty" = "暂无已分享的链接";
+"MediaSongEmpty" = "暂无音频";
+"MediaAudioEmpty" = "暂无语音消息";
+"SharedMediaEmptyTitle" = "暂无媒体文件";
+"PollResults" = "最终结果";
+"ChannelAddSubscribers" = "添加订阅者";
+"ChannelTypeHeader" = "频道类型";
+"GroupTypeHeader" = "群组类型";
+"GroupInfoAdminLog" = "近期操作";
+"EditAdminRights" = "修改管理员权限";
+"SetAsAdmin" = "设为管理员";
+"UserRestrictions" = "用户权限";
+"GroupInviteTitle" = "邀请链接";
+"EditLink" = "编辑链接";
+"NewLink" = "新链接";
+"InviteLink" = "邀请链接";
+"SearchStickersHint" = "搜索表情包";
+"SearchGifsTitle" = "搜索 GIF 动态图";
+"ChannelStatsTitle" = "频道统计";
+"GroupStatsTitle" = "群组数据分析";
+"StatsMessageTitle" = "消息数据分析";
+"SharedMedia" = "分享的媒体文件";
+"CommonBack" = "返回";
+"CommonClose" = "关闭";
+"DlgSearchForMessages" = "搜索消息";
+"SearchNoResults" = "没有符合条件的消息";
+"GraphZoomOut" = "缩小";
+"ChannelStatsRecentHeader" = "近期贴文";
+"StatisticOverview" = "总览";
+
+
+
+
+
+"ChannelStatsViewsCount_other" = "{count} 次浏览";
+
+
+
+
+
+"ChannelStatsSharesCount_other" = "{count} 次分享";
+"Stickers" = "表情";
+"StickersInstalled" = "添加";
+"StickersInstall" = "添加";
+"CropImage" = "裁剪图片";
+"ReportPeerAlertSuccess" = "非常感谢！\n我们的团队会尽快核查您的举报。";
+"UsernameByPhoneNotFound" = "用户 {phone} 未找到。";
+"WebAppAddToAttachmentUnavailableError" = "无法将此机器人添加到附件菜单。";
+"LimitReachedFavoriteGifs" = "已达到 {count} 张 GIF 动态图的上限";
+"LimitReachedFavoriteGifsSubtitlePremium" = "一张旧的 GIF 动态图已被这张图替换。";
+"LimitReachedFavoriteGifsSubtitle" = "一张旧的 GIF 动态图已被这张图替换。您可以 **提升上限** 至 {count} 张 GIF 动态图。";
+
+"LimitReachedFavoriteStickersSubtitlePremium" = "一张旧的贴纸已被该贴纸替换。";
+
+"StickerPackErrorNotFound" = "抱歉，此表情包似乎不存在。";
+"ContactsPhoneNumberNotRegistred" = "此电话号码尚未在Telegram上注册。";
+"VoipPeerIncompatible" = "**{user}**\'s app is using an incompatible protocol. They need to update their app before you can call them.";
+"NoUsernameFound" = "未找到用户名。";
+"HiddenName" = "已销号用户";
+"ChannelPersmissionDeniedSendMessagesForever" = "该群组的管理员限制了您在此发送消息。";
+"ChannelPersmissionDeniedSendMessagesDefaultRestrictedText" = "此群组不允许发送消息。";
+"Chats" = "对话";
+"FilterBots" = "机器人";
+"FilterContacts" = "联系人";
+"FilterNonContacts" = "非联系人";
+"FromYou" = "您";
+"InDlgAlbum" = "多图";
+"AttachPhoto" = "图片";
+"AttachGif" = "GIF 动态图";
+"AttachVideo" = "视频";
+"AttachSticker" = "表情";
+"AttachMusic" = "音乐";
+"AttachContact" = "联系人";
+"PaymentInvoice" = "账单";
+"MessageLocation" = "位置信息";
+"MessageLiveLocation" = "实时位置信息";
+"ServiceNotifications" = "服务通知";
+"Bot" = "机器人";
+"ALongTimeAgo" = "很久没上线";
+"WithinAMonth" = "最近一个月内曾上线";
+"WithinAWeek" = "最近一周内曾上线";
+"LastSeenOffline" = "很久没上线";
+"LastSeenJustNow" = "上线于不久前";
+
+
+
+
+
+"LastSeenMinutesAgo_other" = "最近上线于 {count} 分钟前";
+
+
+
+
+
+"LastSeenHoursAgo_other" = "最近上线于{count} 小时前";
+"LastSeenTodayAt" = "今日最后上线于 {time}";
+"LastSeenYesterdayAt" = "最近上线于昨天{time}";
+"LastSeenAtDate" = "最近上线于 {date}";
+"Online" = "在线";
+"Lately" = "最近曾上线";
+"VoipMutedTapedForSpeak" = "举手发言";
+"VoipMutedByAdmin" = "被管理员静音";
+"VoipUnmute" = "取消静音";
+"VoipTapToMute" = "You\'re live";
+"Weekday1" = "周一";
+"Weekday2" = "周二";
+"Weekday3" = "周三";
+"Weekday4" = "周四";
+"Weekday5" = "周五";
+"Weekday6" = "周六";
+"Weekday7" = "周日";
+"WeekdayMonday" = "星期一";
+"WeekdayTuesday" = "星期二";
+"WeekdayWednesday" = "星期三";
+"WeekdayThursday" = "星期四";
+"WeekdayFriday" = "星期五";
+"WeekdaySaturday" = "星期六";
+"WeekdaySunday" = "星期天";
+"WeekdayToday" = "今天";
+"WeekdayYesterday" = "昨天";
+"User" = "用户";
+"SecretChat" = "私密聊天";
+"ChannelPermissionDeniedSendMessagesUntil" = "该群组的管理员限制了您在 {date} 之前发送消息。";
+"FormatDateAtTime" = "{date} {time}";
+
+"StickerPackRemoveStickerCount_other" = "移除 {count} 张贴纸";
+
+"StickerPackAddStickerCount_other" = "添加 {count} 张贴纸";
+"ChatListFilterErrorEmpty" = "请添加一些聊天或对话类型。";
+"ChatListFilterErrorTitleEmpty" = "请为该文件夹输入标题。";
+"FilterMuted" = "静音";
+"FilterRead" = "已读";
+"FilterArchived" = "已归档";
+"GroupsAndChannelsLimitTitle" = "群组与频道";
+"PinChatsLimitTitle" = "置顶聊天";
+"PublicLinksLimitTitle" = "公共链接";
+"SavedGifsLimitTitle" = "保存 GIF 动态图";
+"FavoriteStickersLimitTitle" = "贴纸收藏";
+"BioLimitTitle" = "个人简介";
+"CaptionsLimitTitle" = "说明文字";
+"FoldersLimitTitle" = "文件夹";
+"ChatPerFolderLimitTitle" = "文件夹内聊天数量";
+"GroupsAndChannelsLimitSubtitle" = "加入多达 {count} 个频道和大型群组";
+
+"PublicLinksLimitSubtitle" = "保留高达 {count} 个 t.me/username 链接";
+
+
+"BioLimitSubtitle" = "在个人介绍中添加更多文字，使用链接。";
+"CaptionsLimitSubtitle" = "在图片和视频下使用更长的说明文字";
+"FoldersLimitSubtitle" = "将您的聊天整理到 {count} 个文件夹中";
+
+"TelegramPremiumUserDialogSubtitle" = "**Telegram Premium** 账户的拥有者可以独家访问更多附加功能。";
+"TelegramPremiumSubscribedSubtitle" = "欢迎订阅 **Telegram 高级版**。\n您已成功解锁以下特权。";
+"TelegramPremiumSubtitle" = "通过订阅 **Telegram 高级版** 来 **超越限制**，获得 **独家功能** 并表达对我们的支持。";
+"EditMessageAriaLabel" = "保存已编辑的消息";
+"Emoji1" = "笑脸与人像";
+"Emoji2" = "动物与自然";
+"Emoji3" = "食物与饮料";
+"Emoji4" = "活动";
+"Emoji5" = "旅行与地点";
+"Emoji6" = "物体";
+"Emoji7" = "符号";
+"Emoji8" = "旗帜";
+"GroupInfoDeleteAndExit" = "删除并退出";
+"HidAccount" = "该帐号被用户隐藏";
+"ChatOutgoingContextMixedReactionCount" = "{count}/{total} 人已回应";
+"ConversationViewBot" = "查看机器人";
+"ConversationViewPost" = "查看帖子";
+"ConversationViewChannel" = "查看频道";
+"Telegram" = "Telegram";
+"ChatListFilterAddToFolder" = "添加至聊天文件夹...";
+"UnpinFromTop" = "取消置顶";
+"PinToTop" = "置顶";
+"MarkAsRead" = "标记为已读";
+"MarkAsUnread" = "标记为未读";
+"Unarchive" = "取消归档";
+"Archive" = "归档";
+"WaitingForNetwork" = "等待网络…";
+"ScheduleSendWhenOnline" = "在线时发送";
+"VoipIncoming" = "来电";
+"FileSizeB" = "{count} B";
+"FileSizeKB" = "{count} KB";
+
+
+
+
+
+"Years_other" = "{count} 年";
+"MessageTimerShortHours" = "{count} 小时";
+
+"LiveLocationUpdatedJustNow" = "刚刚更新";
+
+"LiveLocationUpdatedMinutesAgo_other" = "更新于 {count} 分钟前";
+"LiveLocationUpdatedTodayAt" = "上次更新于 {time}";
+
+
+
+
+
+"Seconds_other" = "{count} 秒";
+
+
+
+
+
+"Minutes_other" = "{count} 分钟";
+"AudioPause" = "暂停音频";
+"AudioPlay" = "播放音频";
+"ToggleUserNotifications" = "切换用户通知";
+"ToggleChatNotifications" = "切换聊天通知";
+"ChannelInaccessible" = "频道无法访问";
+"GroupInaccessible" = "此群组无法访问";
+"AriaPasswordToggle" = "切换密码可见性";
+"NothingFound" = "什么也没找到";
+"SetUrlShort" = "链接太短了";
+"SetUrlLong" = "链接太长了";
+"SetUrlInvalid" = "链接包含无效字符";
+"UsernameShort" = "用户名太短了";
+"UsernameLong" = "用户名太长了";
+"UsernameInvalid" = "用户名包含无效字符";
+"AriaCodeWordWrap" = "单词换行";
+"AriaBackToChatList" = "返回至聊天列表";
+"NoContactsFound" = "未找到联系人";
+"ContactListEmpty" = "联系人列表为空";
+
+"AriaNewGroupContinue" = "继续编辑群信息";
+
+
+
+"AriaCreateGroup" = "创建群组";
+"SearchAllMessagesTab" = "所有消息";
+"SearchMediaTab" = "媒体";
+"SearchLinksTab" = "链接";
+"SearchGifsTab" = "GIF 动态图";
+"SearchFilesTab" = "文件";
+"SearchMusicTab" = "音乐";
+"SearchVoiceTab" = "语音";
+"SearchGroupsTab" = "群组";
+"RecentChatsClear" = "清除最近的聊天";
+"EditProfileNoFirstName" = "请输入姓氏";
+"AriaEditProfilePhoto" = "编辑头像";
+
+"SettingsAnimations" = "动画级别";
+"SettingsAnimationsDescription" = "选择所需的动画量";
+"SettingsAnimationsLow" = "稳定";
+"SettingsAnimationsMedium" = "快速";
+"SettingsAnimationsHigh" = "内容丰富";
+"Settings12HourFormat" = "12小时";
+"Settings24HourFormat" = "24小时";
+"SettingsSendEnterDescription" = "以 Shift + Enter 开启新行";
+"SettingsSendCtrlEnterDescription" = "以 Enter 开启新行";
+
+"RecoveryEmailCode" = "恢复邮件验证码";
+"NotificationsWeb" = "Web 通知";
+"NotificationsOffline" = "离线通知";
+"NotificationsSound" = "音效音量";
+"SettingsPasswordEqual" = "密码应该相同";
+"SettingsSaveChanges" = "保存变更";
+"SettingsFolderCreate" = "新建文件夹";
+"SettingsFoldersEmpty" = "你暂无文件夹";
+"SettingsPasscodeSuccess" = "恭喜！\n现在你可以使用锁定码锁定应用，其他人不能使用它。";
+
+"SettingsPasscodeStart1" = "当您设置好锁定码后，聊天列表上方会出现一个锁形图标。\n点击它来锁定或解锁 Telegram WebZ。";
+"SettingsPasscodeStart2" = "注意：如果你忘记了本地锁定码，你需要登出 Telegram WebZ 并重新登入。";
+"CurrentPasswordPlaceholder" = "当前密码";
+"TooManyTabsTitle" = "啊偶，标签页过多";
+"TooManyTabsDescription" = "Telegram 仅支持在此应用中使用一个活跃的标签页。\n请重载此页面以继续使用此标签页或关掉它。";
+"TooManyTabsReload" = "重载";
+"SlowmodeEnabled" = "慢速模式已启用";
+"SomethingWentWrong" = "出错了";
+"MediaViewDownloading" = "已下载 {count}%...";
+"VideoPlayerBuffering" = "正在加载...";
+"VideoPlayerFullscreen" = "全屏";
+"PlayerVolume" = "音量";
+"PlayerPlaybackRate" = "播放速度";
+"AudioPlayerPrevious" = "上一首";
+"AudioPlayerNext" = "下一首";
+"AudioPlayerClose" = "关闭";
+
+
+
+"PinnedConfirmUnpin" = "您确定要取消置顶此消息吗？";
+"RestictionReasonPrivateChat" = "这是一个私密聊天";
+"RestictionReasonPrivateChannel" = "这是一个私密频道";
+"BotInfoImageAlt" = "机器人信息";
+"AriaExitMessageSelection" = "退出选择模式";
+"AriaSearchByDate" = "按照日期查找";
+"AriaCloseAttachmentModal" = "丢弃附件";
+"AriaAddAttachment" = "添加附件";
+"AttachMenuMediaBlocked" = "此群中不允许发布媒体内容。";
+"AriaOpenBotMenu" = "打开机器人菜单";
+
+
+
+
+"PreviewForwardedMessage_other" = "{count} 条转发的消息";
+"PreviewEditMessage" = "编辑消息";
+"FileDropZoneTitle" = "将文件拖放到此处以发送";
+
+"FileDropZoneNoCompression" = "无压缩";
+
+"GifPickerEmpty" = "暂无 GIF 动态图";
+"AriaCancelPollCreation" = "取消创建投票";
+
+
+"FormattingSpoilerAria" = "遮罩";
+"FormattingBoldAria" = "粗体";
+"FormattingItalicAria" = "斜体";
+"FormattingMonospaceAria" = "等宽";
+"FormattingUnderlineAria" = "下划线";
+"FormattingStrikethroughAria" = "删除线";
+"FormattingEnterUrl" = "输入 URL...";
+
+"MediaLocaltionImageAlt" = "地图上的位置";
+"MediaPollSolutionAria" = "显示答案";
+"GeneralError" = "发生了错误";
+"PaymentsProvidesNotSupported" = "抱歉，Telegram WebZ 还不支持与该提供商付款。\n\n请使用我们的移动应用程序之一来完成此付款。";
+
+"NoMembersFound" = "没有找到成员";
+"Profile" = "个人资料";
+
+"SearchMessagesFound_other" = "找到 {count} 条消息";
+"ChannelManagementAddAdminDescription" = "您可以添加管理员帮助您管理频道。";
+"GroupManagementAddAdminDescription" = "您可以添加管理员帮助您管理群组。";
+
+
+
+
+"NoSubscribersFound" = "没有找到订阅者";
+
+"NoLinksFound" = "没有找到链接";
+
+
+
+
+"StatsNoShares" = "无人分享";
+"AvatarChangeTitle" = "修改你的个人资料图片";
+"PleaseWait" = "请稍候...";
+"GeneralConfirm" = "确认";
+"ImageCropTitle" = "拖动以重新定位";
+"NewChatReturnBackAria" = "返回至成员选择";
+
+"RemoveSymbol" = "删除表情";
+"FocusMessage" = "焦点信息";
+
+
+
+
+"HiddenSendersNameDescription" = "发送者昵称被删除";
+"ShowSenderNames" = "显示发送者名称";
+"ShowSendersName" = "显示发送者名称";
+"HideSenderNames" = "隐藏发送者名称";
+"HideSendersName" = "隐藏发送者名称";
+"ConversationForwardOptionsShowCaption" = "显示说明";
+"ShowCaption" = "显示标题";
+"ConversationForwardOptionsHideCaption" = "隐藏说明";
+"HideCaption" = "隐藏说明";
+"ChangeRecipient" = "修改收件人";
+"DragToSortAria" = "拖动排序";
+"SettingsTimeFormat" = "时间格式";

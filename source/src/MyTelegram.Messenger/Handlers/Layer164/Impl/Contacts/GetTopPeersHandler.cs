@@ -15,6 +15,13 @@ internal sealed class GetTopPeersHandler : RpcResultObjectHandler<MyTelegram.Sch
     protected override Task<MyTelegram.Schema.Contacts.ITopPeers> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Contacts.RequestGetTopPeers obj)
     {
-        throw new NotImplementedException();
+        ITopPeers r = new TTopPeers
+        {
+            Categories = new TVector<ITopPeerCategoryPeers>(),
+            Chats = new TVector<IChat>(),
+            Users = new TVector<IUser>()
+        };
+
+        return Task.FromResult(r);
     }
 }

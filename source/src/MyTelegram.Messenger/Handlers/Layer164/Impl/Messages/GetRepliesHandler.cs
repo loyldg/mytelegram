@@ -16,9 +16,39 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetRepliesHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetReplies, MyTelegram.Schema.Messages.IMessages>,
     Messages.IGetRepliesHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetReplies obj)
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IMessageAppService _messageAppService;
+    private readonly IPeerHelper _peerHelper;
+    //private readonly IRpcResultProcessor _rpcResultProcessor;
+    private readonly ILayeredService<IRpcResultProcessor> _layeredService;
+
+    public GetRepliesHandler(
+        IPeerHelper peerHelper,
+        IMessageAppService messageAppService,
+        IAccessHashHelper accessHashHelper,
+        ILayeredService<IRpcResultProcessor> layeredService)
     {
-        throw new NotImplementedException();
+        _peerHelper = peerHelper;
+        _messageAppService = messageAppService;
+        _accessHashHelper = accessHashHelper;
+        _layeredService = layeredService;
+    }
+
+    protected override async Task<IMessages> HandleCoreAsync(IRequestInput input,
+        RequestGetReplies obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var peer = _peerHelper.GetPeer(obj.Peer);
+        var r = await _messageAppService.GetRepliesAsync(new GetRepliesInput
+        {
+            ReplyToMsgId = obj.MsgId,
+            OwnerPeerId = peer.PeerId,
+            AddOffset = obj.AddOffset,
+            Limit = obj.Limit,
+            //OffsetId = obj.OffsetId,
+            MinDate = obj.OffsetDate,
+            SelfUserId = input.UserId
+        });
+        return _layeredService.GetConverter(input.Layer).ToMessages(r, input.Layer);
     }
 }

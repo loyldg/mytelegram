@@ -19,9 +19,51 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class ExportChatInviteHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestExportChatInvite, MyTelegram.Schema.IExportedChatInvite>,
     Messages.IExportChatInviteHandler
 {
-    protected override Task<MyTelegram.Schema.IExportedChatInvite> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestExportChatInvite obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IIdGenerator _idGenerator;
+    public ExportChatInviteHandler(ICommandBus commandBus,
+        IRandomHelper randomHelper,
+        IAccessHashHelper accessHashHelper, IIdGenerator idGenerator)
     {
+        _commandBus = commandBus;
+        _randomHelper = randomHelper;
+        _accessHashHelper = accessHashHelper;
+        _idGenerator = idGenerator;
+    }
+
+    protected override async Task<MyTelegram.Schema.IExportedChatInvite> HandleCoreAsync(IRequestInput input,
+        RequestExportChatInvite obj)
+    {
+        if (obj.Peer is TInputPeerChannel inputPeerChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputPeerChannel.ChannelId, inputPeerChannel.AccessHash);
+
+            //var inviteUrl = _randomHelper.GenerateRandomString(16);
+
+            var chatInviteId = await _idGenerator.NextLongIdAsync(IdType.InviteId, inputPeerChannel.ChannelId);
+            var bytes = new byte[12];
+            _randomHelper.NextBytes(bytes);
+            var inviteHash = $"{Convert.ToBase64String(bytes)
+                .Replace($"+", "/")
+                .Replace("=", string.Empty)}";
+
+            var command = new ExportChatInviteCommand(ChannelId.Create(inputPeerChannel.ChannelId),
+                input.ToRequestInfo(),
+                input.UserId,
+                chatInviteId,
+                obj.Title,
+                obj.RequestNeeded,
+                obj.ExpireDate,
+                obj.UsageLimit,
+                obj.LegacyRevokePermanent,
+                inviteHash,
+                CurrentDate);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

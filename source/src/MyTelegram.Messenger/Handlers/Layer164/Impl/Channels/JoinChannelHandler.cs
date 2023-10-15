@@ -25,9 +25,46 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class JoinChannelHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestJoinChannel, MyTelegram.Schema.IUpdates>,
     Channels.IJoinChannelHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestJoinChannel obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IQueryProcessor _queryProcessor;
+    public JoinChannelHandler(ICommandBus commandBus,
+        IRandomHelper randomHelper,
+        IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor)
     {
+        _commandBus = commandBus;
+        _randomHelper = randomHelper;
+        _accessHashHelper = accessHashHelper;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestJoinChannel obj)
+    {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+            var channelReadModel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default);
+
+            var userIdList = new[] { input.UserId };
+            var command = new StartInviteToChannelCommand(
+                ChannelId.Create(inputChannel.ChannelId),
+                input.ToRequestInfo(),
+                inputChannel.ChannelId,
+                input.UserId,
+                channelReadModel!.TopMessageId,
+                userIdList,
+                null,
+                new List<long>(),
+                CurrentDate,
+                _randomHelper.NextLong(),
+                new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString());
+
+            await _commandBus.PublishAsync(command, default);
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

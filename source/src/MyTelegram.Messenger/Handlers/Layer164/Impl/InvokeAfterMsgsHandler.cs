@@ -6,7 +6,7 @@ namespace MyTelegram.Handlers;
 /// Invokes a query after a successful completion of previous queries
 /// See <a href="https://corefork.telegram.org/method/invokeAfterMsgs" />
 ///</summary>
-internal sealed class InvokeAfterMsgsHandler : RpcResultObjectHandler<MyTelegram.Schema.RequestInvokeAfterMsgs, IObject>,
+internal sealed class InvokeAfterMsgsHandler : BaseObjectHandler<MyTelegram.Schema.RequestInvokeAfterMsgs, IObject>,
     IInvokeAfterMsgsHandler
 {
     protected override Task<IObject> HandleCoreAsync(IRequestInput input,

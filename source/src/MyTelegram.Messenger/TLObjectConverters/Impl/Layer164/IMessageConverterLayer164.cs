@@ -1,3 +1,5 @@
 ﻿namespace MyTelegram.Messenger.TLObjectConverters.Impl.Layer164;
 
-public interface IMessageConverterLayer164 { }
+public interface IMessageConverterLayer164 : IMessageConverter
+{
+}

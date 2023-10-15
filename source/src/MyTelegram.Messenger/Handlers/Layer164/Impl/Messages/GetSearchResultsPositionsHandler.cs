@@ -12,6 +12,6 @@ internal sealed class GetSearchResultsPositionsHandler : RpcResultObjectHandler<
     protected override Task<MyTelegram.Schema.Messages.ISearchResultsPositions> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetSearchResultsPositions obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<ISearchResultsPositions>(new TSearchResultsPositions { Count = 0, Positions = new TVector<ISearchResultsPosition>() });
     }
 }

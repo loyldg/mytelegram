@@ -55,7 +55,7 @@ public class ExceptionProcessor : IExceptionProcessor
                 break;
 
             case NotImplementedException:
-                errorCode = MyTelegramServerDomainConsts.BadRequestErrorCode;
+                errorCode = MyTelegramServerDomainConsts.InternalErrorCode;
                 errorMessage = string.IsNullOrEmpty(ex.Message) ? "Api not implemented" : ex.Message;
                 break;
 

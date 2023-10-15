@@ -15,9 +15,43 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class DeleteMessagesHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteMessages, MyTelegram.Schema.Messages.IAffectedMessages>,
     Channels.IDeleteMessagesHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IAffectedMessages> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly IPtsHelper _ptsHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public DeleteMessagesHandler(ICommandBus commandBus,
+        IPtsHelper ptsHelper,
+        IAccessHashHelper accessHashHelper)
+    {
+        _commandBus = commandBus;
+        _ptsHelper = ptsHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IAffectedMessages> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestDeleteMessages obj)
     {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+
+            if (obj.Id.Count > 0)
+            {
+                var firstMessageId = obj.Id.First();
+                var command = new StartDeleteMessagesCommand(
+                    MessageId.Create(inputChannel.ChannelId, firstMessageId), input.ToRequestInfo(),
+                    false,
+                    obj.Id.ToList(),
+                    null,
+                    Guid.NewGuid());
+                await _commandBus.PublishAsync(command, CancellationToken.None);
+                return null!;
+            }
+
+            var pts = _ptsHelper.GetCachedPts(input.UserId);
+
+            return new TAffectedMessages { Pts = pts, PtsCount = 0 };
+        }
+
         throw new NotImplementedException();
     }
 }

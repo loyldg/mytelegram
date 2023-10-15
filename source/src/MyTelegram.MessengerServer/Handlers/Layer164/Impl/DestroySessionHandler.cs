@@ -1,4 +1,6 @@
-namespace MyTelegram.MessengerServer.Handlers.Impl;
+// ReSharper disable All
+
+namespace MyTelegram.Handlers;
 
 public class DestroySessionHandler : BaseObjectHandler<RequestDestroySession, IDestroySessionRes>,
     IDestroySessionHandler, IProcessedHandler

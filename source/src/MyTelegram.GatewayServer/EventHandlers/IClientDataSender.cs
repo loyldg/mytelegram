@@ -5,6 +5,6 @@ public interface IClientDataSender
     Task SendAsync(ReadOnlyMemory<byte> data,
         ClientData clientData);
 
-    Task SendAsync(UnencryptedMessageResponse data);
-    Task SendAsync(EncryptedMessageResponse data);
+    Task SendAsync(MyTelegram.MTProto.UnencryptedMessageResponse data);
+    Task SendAsync(MyTelegram.MTProto.EncryptedMessageResponse data);
 }

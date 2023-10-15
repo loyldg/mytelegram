@@ -47,7 +47,7 @@ public record ChannelMemberChangedEvent(long ChannelId,
     MemberStateChangeType MemberStateChangeType,
     IReadOnlyList<long> MemberUidList);
 
-public record NewDeviceCreatedEvent(long ReqMsgId,
+public partial record NewDeviceCreatedEvent(RequestInfo RequestInfo,
     long PermAuthKeyId,
     long TempAuthKeyId,
     long UserId,

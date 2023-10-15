@@ -93,7 +93,8 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
 
         var baseType = typeof(IObjectHandler);
         //var singletonType = typeof(ISingletonDependency);
-        var baseInterface = typeof(IProcessedHandler);
+        //var baseInterface = typeof(IProcessedHandler);
+        var baseInterface = baseType;
 
         var types = assembly.DefinedTypes
             .Where(p => baseType.IsAssignableFrom(p) && !p.IsAbstract)

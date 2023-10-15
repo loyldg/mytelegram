@@ -20,9 +20,46 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class EditChatAboutHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditChatAbout, IBool>,
     Messages.IEditChatAboutHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestEditChatAbout obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public EditChatAboutHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper)
     {
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestEditChatAbout obj)
+    {
+        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        switch (peer.PeerType)
+        {
+            case PeerType.Channel:
+            {
+                if (obj.Peer is TInputPeerChannel inputChannel)
+                {
+                    await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+                }
+
+                var command =
+                    new EditChannelAboutCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo(), input.UserId, obj.About);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
+                //return new TBoolTrue();
+                return null!;
+            }
+            case PeerType.Chat:
+            {
+                var command =
+                    new EditChatAboutCommand(ChatId.Create(peer.PeerId), input.ToRequestInfo(), input.UserId, obj.About);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
+                return null!;
+            }
+        }
+
         throw new NotImplementedException();
     }
 }

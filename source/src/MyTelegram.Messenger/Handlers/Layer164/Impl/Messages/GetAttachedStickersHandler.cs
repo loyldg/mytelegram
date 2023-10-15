@@ -9,9 +9,10 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetAttachedStickersHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetAttachedStickers, TVector<MyTelegram.Schema.IStickerSetCovered>>,
     Messages.IGetAttachedStickersHandler
 {
-    protected override Task<TVector<MyTelegram.Schema.IStickerSetCovered>> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetAttachedStickers obj)
+    protected override Task<TVector<IStickerSetCovered>> HandleCoreAsync(IRequestInput input,
+        RequestGetAttachedStickers obj)
     {
-        throw new NotImplementedException();
+        var r = new TVector<IStickerSetCovered>();
+        return Task.FromResult(r);
     }
 }

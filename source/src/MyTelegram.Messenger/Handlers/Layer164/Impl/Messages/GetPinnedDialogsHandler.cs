@@ -12,9 +12,38 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetPinnedDialogsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetPinnedDialogs, MyTelegram.Schema.Messages.IPeerDialogs>,
     Messages.IGetPinnedDialogsHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IPeerDialogs> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetPinnedDialogs obj)
+    private readonly IDialogAppService _dialogAppService;
+    private readonly IPtsHelper _ptsHelper;
+    private readonly ILayeredService<IDialogConverter> _layeredService;
+    public GetPinnedDialogsHandler(IDialogAppService dialogAppService,
+        IPtsHelper ptsHelper,
+        ILayeredService<IDialogConverter> layeredService)
     {
-        throw new NotImplementedException();
+        _dialogAppService = dialogAppService;
+        _ptsHelper = ptsHelper;
+        _layeredService = layeredService;
+    }
+
+    protected override async Task<IPeerDialogs> HandleCoreAsync(IRequestInput input,
+        RequestGetPinnedDialogs obj)
+    {
+        var userId = input.UserId;
+        var r = await _dialogAppService
+            .GetDialogsAsync(new GetDialogInput
+            {
+                Pinned = true,
+                OwnerId = userId,
+                Limit = DefaultPageSize,
+                FolderId = obj.FolderId
+            });
+
+        //var pts = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(input.UserId), default)
+        //    .;
+        var cachedPts = _ptsHelper.GetCachedPts(input.UserId);
+
+        //r.PtsReadModel = pts;
+        r.CachedPts = cachedPts;
+
+        return _layeredService.GetConverter(input.Layer).ToPeerDialogs(r);
     }
 }

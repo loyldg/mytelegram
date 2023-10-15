@@ -23,7 +23,7 @@ public class PeerNotifySettingsAggregate : MySnapshotAggregateRoot<PeerNotifySet
         return Task.CompletedTask;
     }
 
-    public void UpdatePeerNotifySettings(long reqMsgId,
+    public void UpdatePeerNotifySettings(RequestInfo requestInfo,
         long ownerPeerId,
         PeerType peerType,
         long peerId,
@@ -32,10 +32,11 @@ public class PeerNotifySettingsAggregate : MySnapshotAggregateRoot<PeerNotifySet
         int? muteUntil,
         string? sound)
     {
-        Emit(new PeerNotifySettingsUpdatedEvent(reqMsgId,
+        Emit(new PeerNotifySettingsUpdatedEvent(requestInfo,
             ownerPeerId,
             peerType,
             peerId,
             new ValueObjects.PeerNotifySettings(showPreviews, silent, muteUntil, sound)));
     }
+
 }

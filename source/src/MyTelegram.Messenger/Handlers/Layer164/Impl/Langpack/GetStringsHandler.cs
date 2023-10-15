@@ -13,9 +13,20 @@ namespace MyTelegram.Handlers.Langpack;
 internal sealed class GetStringsHandler : RpcResultObjectHandler<MyTelegram.Schema.Langpack.RequestGetStrings, TVector<MyTelegram.Schema.ILangPackString>>,
     Langpack.IGetStringsHandler
 {
-    protected override Task<TVector<MyTelegram.Schema.ILangPackString>> HandleCoreAsync(IRequestInput input,
+    protected override Task<TVector<ILangPackString>> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Langpack.RequestGetStrings obj)
     {
-        throw new NotImplementedException();
+        foreach (var objKey in obj.Keys)
+        {
+            Console.WriteLine($"Lang key:{objKey}");
+        }
+
+        var r = new TVector<ILangPackString>(obj.Keys.Select(p => new TLangPackString
+        {
+            Key = p,
+            Value = p
+        }));
+
+        return Task.FromResult(r);
     }
 }

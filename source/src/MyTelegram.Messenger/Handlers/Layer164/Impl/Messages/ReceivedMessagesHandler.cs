@@ -12,6 +12,6 @@ internal sealed class ReceivedMessagesHandler : RpcResultObjectHandler<MyTelegra
     protected override Task<TVector<MyTelegram.Schema.IReceivedNotifyMessage>> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestReceivedMessages obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(new TVector<IReceivedNotifyMessage> { new TReceivedNotifyMessage { Id = obj.MaxId } });
     }
 }

@@ -16,9 +16,38 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class DeleteChatUserHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteChatUser, MyTelegram.Schema.IUpdates>,
     Messages.IDeleteChatUserHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestDeleteChatUser obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public DeleteChatUserHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IRandomHelper randomHelper,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _randomHelper = randomHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestDeleteChatUser obj)
+    {
+        if (obj.UserId is TInputUser inputUser)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputUser.UserId, inputUser.AccessHash);
+        }
+
+        var peer = _peerHelper.GetPeer(obj.UserId, input.UserId);
+        var command = new DeleteChatUserCommand(ChatId.Create(obj.ChatId),
+            input.ToRequestInfo(),
+            peer.PeerId,
+            new TMessageActionChatDeleteUser { UserId = peer.PeerId }.ToBytes().ToHexString(),
+            _randomHelper.NextLong()
+        );
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+
+        return null!;
     }
 }

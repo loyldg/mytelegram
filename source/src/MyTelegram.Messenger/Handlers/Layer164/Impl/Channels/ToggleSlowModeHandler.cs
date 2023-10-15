@@ -15,9 +15,31 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class ToggleSlowModeHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestToggleSlowMode, MyTelegram.Schema.IUpdates>,
     Channels.IToggleSlowModeHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestToggleSlowMode obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public ToggleSlowModeHandler(ICommandBus commandBus,
+        IAccessHashHelper accessHashHelper)
     {
+        _commandBus = commandBus;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestToggleSlowMode obj)
+    {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+
+            var command = new ToggleSlowModeCommand(ChannelId.Create(inputChannel.ChannelId),
+                input.ToRequestInfo(),
+                obj.Seconds,
+                input.UserId);
+            await _commandBus.PublishAsync(command, CancellationToken.None);
+
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

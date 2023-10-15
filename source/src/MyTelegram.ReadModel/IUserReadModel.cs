@@ -35,13 +35,3 @@ public interface IUserReadModel : IReadModel
     long? PersonalPhotoId { get; }
     long? FallbackPhotoId { get; }
 }
-
-public interface IContactReadModel : IReadModel
-{
-
-}
-
-public interface IPrivacyReadModel : IReadModel
-{
-
-}

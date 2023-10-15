@@ -15,3 +15,13 @@ public class PtsAckedCommandHandler : CommandHandler<PtsAggregate, PtsId, PtsAck
         return Task.CompletedTask;
     }
 }
+
+//public class UpdateChannelPtsForUserCommandHandler : CommandHandler<ChannelPtsAggregate, ChannelPtsId, UpdateChannelPtsForUserCommand>
+//{
+//    public override Task ExecuteAsync(ChannelPtsAggregate aggregate, UpdateChannelPtsForUserCommand command, CancellationToken cancellationToken)
+//    {
+//        aggregate.UpdateChannelPtsForUser(command.UserId,command.ChannelId,command.Pts,command.GlobalSeqNo);
+
+//        return Task.CompletedTask;
+//    }
+//}

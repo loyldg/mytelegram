@@ -25,9 +25,49 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class AddChatUserHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestAddChatUser, MyTelegram.Schema.IUpdates>,
     Messages.IAddChatUserHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestAddChatUser obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IPrivacyAppService _privacyAppService;
+    public AddChatUserHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IRandomHelper randomHelper,
+        IAccessHashHelper accessHashHelper,
+        IPrivacyAppService privacyAppService)
     {
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _randomHelper = randomHelper;
+        _accessHashHelper = accessHashHelper;
+        _privacyAppService = privacyAppService;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestAddChatUser obj)
+    {
+        if (obj.UserId is TInputUser inputUser)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputUser.UserId, inputUser.AccessHash);
+            await _privacyAppService.ApplyPrivacyAsync(input.UserId,
+                inputUser.UserId,
+                () => RpcErrors.RpcErrors403.UserPrivacyRestricted.ThrowRpcError(),
+                new List<PrivacyType>
+                {
+                    PrivacyType.ChatInvite
+                });
+
+            var peer = _peerHelper.GetPeer(obj.UserId);
+            var command = new AddChatUserCommand(ChatId.Create(obj.ChatId),
+                input.ToRequestInfo(),
+                peer.PeerId,
+                CurrentDate,
+                new TMessageActionChatAddUser { Users = new TVector<long>(peer.PeerId) }.ToBytes().ToHexString(),
+                _randomHelper.NextLong());
+            await _commandBus.PublishAsync(command, CancellationToken.None);
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

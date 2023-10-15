@@ -12,5 +12,6 @@ public enum PrivacyType
     Forwards,
     ProfilePhoto,
     PhoneNumber,
-    AddedByPhone
+    AddedByPhone,
+    VoiceMessages
 }

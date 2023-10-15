@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.GatewayServer.EventHandlers;
 
-public class EncryptedMessageResponseEventHandler : IEventHandler<EncryptedMessageResponse>
+public class EncryptedMessageResponseEventHandler : IEventHandler<MyTelegram.Core.EncryptedMessageResponse>
 {
     private readonly IClientDataSender _clientDataSender;
 
@@ -10,8 +10,8 @@ public class EncryptedMessageResponseEventHandler : IEventHandler<EncryptedMessa
         _clientDataSender = clientDataSender;
     }
 
-    public Task HandleEventAsync(EncryptedMessageResponse eventData)
+    public Task HandleEventAsync(MyTelegram.Core.EncryptedMessageResponse eventData)
     {
-        return _clientDataSender.SendAsync(eventData);
+        return _clientDataSender.SendAsync(new MyTelegram.MTProto.EncryptedMessageResponse(eventData.AuthKeyId,eventData.Data,eventData.ConnectionId,eventData.SeqNumber));
     }
 }

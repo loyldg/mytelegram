@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.Domain.Commands.AppCode;
 
-public class CancelAppCodeCommand : RequestCommand<AppCodeAggregate, AppCodeId, IExecutionResult>
+public class CancelAppCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeId, IExecutionResult>
 {
     public CancelAppCodeCommand(AppCodeId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         string phoneNumber,
-        string phoneCodeHash) : base(aggregateId, reqMsgId)
+        string phoneCodeHash) : base(aggregateId, requestInfo)
     {
         PhoneNumber = phoneNumber;
         PhoneCodeHash = phoneCodeHash;

@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Rebus.Config;
+
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Async(c => c.Console(theme: AnsiConsoleTheme.Code))
@@ -18,17 +20,28 @@ builder.Host.UseSerilog((context,
     configuration.ReadFrom.Configuration(context.Configuration);
 });
 builder.Configuration.AddEnvironmentVariables();
+//builder.Services.AddMyTelegramRabbitMqEventBus();
+
 builder.Services.AddMyTelegramGatewayServer();
-builder.Services.AddMyTelegramRabbitMqEventBus();
 //services.AddSingleton<IEventBus, MyEventBusRabbitMq>();
 
 builder.Services.Configure<EventBusRabbitMqOptions>(builder.Configuration.GetRequiredSection("RabbitMQ:EventBus"));
 builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetRequiredSection("RabbitMQ:Connections:Default"));
 builder.Services.Configure<MyTelegramGatewayServerOption>(builder.Configuration.GetRequiredSection("App"));
+
+var eventBusOptions = builder.Configuration.GetRequiredSection("RabbitMQ:EventBus").Get<EventBusRabbitMqOptions>();
+var rabbitMqOptions = builder.Configuration.GetRequiredSection("RabbitMQ:Connections:Default").Get<RabbitMqOptions>();
+
+builder.Services.AddRebusEventBus(options =>
+{
+    options.Transport(t => t.UseRabbitMq($"amqp://{rabbitMqOptions.UserName}:{rabbitMqOptions.Password}@{rabbitMqOptions.HostName}:{rabbitMqOptions.Port}", eventBusOptions.ClientName));
+});
+
 var appConfig = builder.Configuration.GetRequiredSection("App").Get<MyTelegramGatewayServerOption>();
 
 builder.Services.AddHostedService<EncryptedDataProcessorBackgroundService>();
 builder.Services.AddHostedService<UnencryptedDataProcessorBackgroundService>();
+builder.Services.AddHostedService<ClientDisconnectedDataProcessorBackgroundService>();
 
 builder.Services.AddTransient<WebsocketMiddleware>();
 
@@ -90,5 +103,6 @@ app.MapGet("/", () => "Only websocket requests are supported.");
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.ConfigureEventBus();
+//app.Services.StartRebus();
 
 await app.RunAsync();

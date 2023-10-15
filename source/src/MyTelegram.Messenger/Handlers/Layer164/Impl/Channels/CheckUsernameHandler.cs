@@ -16,11 +16,38 @@ namespace MyTelegram.Handlers.Channels;
 /// See <a href="https://corefork.telegram.org/method/channels.checkUsername" />
 ///</summary>
 internal sealed class CheckUsernameHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestCheckUsername, IBool>,
-    Channels.ICheckUsernameHandler
+    Channels.ICheckUsernameHandler, IProcessedHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IAccessHashHelper _accessHashHelper;
+
+    public CheckUsernameHandler(IQueryProcessor queryProcessor,
+        IAccessHashHelper accessHashHelper)
+    {
+        _queryProcessor = queryProcessor;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestCheckUsername obj)
     {
-        throw new NotImplementedException();
+        switch (obj.Channel)
+        {
+            case TInputChannel inputChannel1:
+                await _accessHashHelper.CheckAccessHashAsync(inputChannel1.ChannelId, inputChannel1.AccessHash);
+                break;
+            case TInputChannelEmpty _:
+                break;
+        }
+
+        var item = await _queryProcessor
+            .ProcessAsync(new GetUserNameByIdQuery(obj.Username),
+                CancellationToken.None);
+        if (item == null)
+        {
+            return new TBoolTrue();
+        }
+
+        return new TBoolFalse();
     }
 }

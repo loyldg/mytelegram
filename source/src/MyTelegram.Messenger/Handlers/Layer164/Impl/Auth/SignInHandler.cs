@@ -16,11 +16,49 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.signIn" />
 ///</summary>
 internal sealed class SignInHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestSignIn, MyTelegram.Schema.Auth.IAuthorization>,
-    Auth.ISignInHandler
+    Auth.ISignInHandler, IProcessedHandler
 {
-    protected override Task<MyTelegram.Schema.Auth.IAuthorization> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Auth.RequestSignIn obj)
+    private readonly ICommandBus _commandBus;
+    private readonly ILogger<SignInHandler> _logger;
+    private readonly IQueryProcessor _queryProcessor;
+
+    public SignInHandler(
+        ICommandBus commandBus,
+        ILogger<SignInHandler> logger,
+        IQueryProcessor queryProcessor)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _logger = logger;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<MyTelegram.Schema.Auth.IAuthorization> HandleCoreAsync(IRequestInput input,
+        RequestSignIn obj)
+    {
+        _logger.LogTrace("User {PhoneNumber} start sign in", obj.PhoneNumber);
+
+        var userId = 0L;
+        var userReadModel = await _queryProcessor
+                .ProcessAsync(new GetUserByPhoneNumberQuery(obj.PhoneNumber.ToPhoneNumber()), default)
+            ;
+        if (userReadModel == null)
+        {
+            _logger.LogInformation(
+                "The phone number={PhoneNumber} not exists,user sign up required",
+                obj.PhoneNumber.ToPhoneNumber());
+        }
+        else
+        {
+            userId = userReadModel.UserId;
+        }
+
+        var command = new CheckSignInCodeCommand(AppCodeId.Create(obj.PhoneNumber.ToPhoneNumber(), obj.PhoneCodeHash),
+            input.ToRequestInfo(),
+            obj.PhoneCode,
+            userId
+        );
+
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+        return null!;
     }
 }

@@ -18,9 +18,35 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class LeaveChannelHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestLeaveChannel, MyTelegram.Schema.IUpdates>,
     Channels.ILeaveChannelHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestLeaveChannel obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public LeaveChannelHandler(IPeerHelper peerHelper,
+        ICommandBus commandBus,
+        IAccessHashHelper accessHashHelper)
     {
+        _peerHelper = peerHelper;
+        _commandBus = commandBus;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestLeaveChannel obj)
+    {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash)
+                ;
+
+            var channel = _peerHelper.GetChannel(obj.Channel);
+            var command = new LeaveChannelCommand(ChannelMemberId.Create(channel.PeerId, input.UserId),
+                input.ToRequestInfo(),
+                channel.PeerId,
+                input.UserId);
+            await _commandBus.PublishAsync(command, default);
+
+            return null!;
+        }
         throw new NotImplementedException();
     }
 }

@@ -12,6 +12,14 @@ internal sealed class GetEmojiKeywordsDifferenceHandler : RpcResultObjectHandler
     protected override Task<MyTelegram.Schema.IEmojiKeywordsDifference> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetEmojiKeywordsDifference obj)
     {
-        throw new NotImplementedException();
+        var r = new TEmojiKeywordsDifference
+        {
+            LangCode = "en",
+            FromVersion = 0,
+            Version = 0,
+            Keywords = new TVector<IEmojiKeyword>()
+        };
+
+        return Task.FromResult<IEmojiKeywordsDifference>(r);
     }
 }

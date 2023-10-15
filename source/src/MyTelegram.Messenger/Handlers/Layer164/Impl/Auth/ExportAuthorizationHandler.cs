@@ -12,9 +12,39 @@ namespace MyTelegram.Handlers.Auth;
 internal sealed class ExportAuthorizationHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestExportAuthorization, MyTelegram.Schema.Auth.IExportedAuthorization>,
     Auth.IExportAuthorizationHandler
 {
-    protected override Task<MyTelegram.Schema.Auth.IExportedAuthorization> HandleCoreAsync(IRequestInput input,
+    private readonly ICacheManager<string> _cacheManager;
+    private readonly IHashHelper _hashHelper;
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
+    private readonly IRandomHelper _randomHelper;
+
+    public ExportAuthorizationHandler(IOptions<MyTelegramMessengerServerOptions> options,
+        IRandomHelper randomHelper,
+        IHashHelper hashHelper,
+        ICacheManager<string> cacheManager)
+    {
+        _options = options;
+        _randomHelper = randomHelper;
+        _hashHelper = hashHelper;
+        _cacheManager = cacheManager;
+    }
+
+    protected override async Task<IExportedAuthorization> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Auth.RequestExportAuthorization obj)
     {
-        throw new NotImplementedException();
+        var dataCenter = _options.Value.DcOptions.FirstOrDefault(p => p.Id == obj.DcId);
+        if (dataCenter == null)
+        {
+            //throw new BadRequestException("DC_ID_INVALID");
+            RpcErrors.RpcErrors400.DcIdInvalid.ThrowRpcError();
+        }
+
+        var bytes = new byte[128];
+        _randomHelper.NextBytes(bytes);
+        var keyBytes = _hashHelper.Sha1(bytes);
+        var key = BitConverter.ToString(keyBytes).Replace("-", string.Empty);
+        var cacheKey = MyCacheKey.With("authorizations", key);
+        await _cacheManager.SetAsync(cacheKey, input.UserId.ToString());
+
+        return new TExportedAuthorization { Bytes = bytes, Id = input.UserId };
     }
 }

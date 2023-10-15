@@ -29,9 +29,91 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class InviteToChannelHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestInviteToChannel, MyTelegram.Schema.IUpdates>,
     Channels.IInviteToChannelHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestInviteToChannel obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IPrivacyAppService _privacyAppService;
+    private readonly IQueryProcessor _queryProcessor;
+
+    public InviteToChannelHandler(ICommandBus commandBus,
+        IRandomHelper randomHelper,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper, IPrivacyAppService privacyAppService, IQueryProcessor queryProcessor)
     {
+        _commandBus = commandBus;
+        _randomHelper = randomHelper;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+        _privacyAppService = privacyAppService;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestInviteToChannel obj)
+    {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+            var channelReadModel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(inputChannel.ChannelId), default);
+
+            if (obj.Users.Count == 1)
+            {
+                if (obj.Users[0] is TInputUser inputUser)
+                {
+                    await _privacyAppService.ApplyPrivacyAsync(input.UserId,
+                        inputUser.UserId,
+                        () => RpcErrors.RpcErrors403.UserPrivacyRestricted.ThrowRpcError(),
+                        new List<PrivacyType>()
+                        {
+                            PrivacyType.ChatInvite
+                        }
+                    );
+                }
+            }
+
+            var userIdList = new List<long>();
+            var botList = new List<long>();
+            foreach (TInputUser inputUser in obj.Users)
+            {
+                userIdList.Add(inputUser.UserId);
+                if (_peerHelper.IsBotUser(inputUser.UserId))
+                {
+                    botList.Add(inputUser.UserId);
+                }
+            }
+
+            var privacyRestrictedUserIdList = new List<long>();
+            await _privacyAppService.ApplyPrivacyListAsync(input.UserId, userIdList,
+                 privacyRestrictedUserIdList.Add, new List<PrivacyType>
+                {
+                    PrivacyType.ChatInvite
+                });
+            userIdList.RemoveAll(privacyRestrictedUserIdList.Contains);
+
+            // all selected users are rejected to be added to chat or channel
+            if (userIdList.Count == 0)
+            {
+
+            }
+
+            var command = new StartInviteToChannelCommand(
+                ChannelId.Create(inputChannel.ChannelId),
+                input.ToRequestInfo(),
+                inputChannel.ChannelId,
+                input.UserId,
+                channelReadModel!.TopMessageId,
+                userIdList,
+                privacyRestrictedUserIdList,
+                botList,
+                CurrentDate,
+                _randomHelper.NextLong(),
+                new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString());
+            await _commandBus.PublishAsync(command, CancellationToken.None);
+
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

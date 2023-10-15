@@ -12,6 +12,10 @@ internal sealed class GetAttachMenuBotsHandler : RpcResultObjectHandler<MyTelegr
     protected override Task<MyTelegram.Schema.IAttachMenuBots> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetAttachMenuBots obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.IAttachMenuBots>(new TAttachMenuBots
+        {
+            Users = new(),
+            Bots = new()
+        });
     }
 }

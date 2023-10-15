@@ -14,12 +14,14 @@ public class UnencryptedMessageParser : IUnencryptedMessageParser
         var messageData = data.Slice(offset, messageDataLength);
         var objectId = BinaryPrimitives.ReadUInt32LittleEndian(messageData);
         return new UnencryptedMessage(authKeyId,
-            null,
-            null,
+            string.Empty,
+            string.Empty,
             messageData.ToArray(),
             messageDataLength,
             messageId,
-            objectId
+            objectId,
+            Guid.NewGuid(),
+            DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
         );
     }
 }

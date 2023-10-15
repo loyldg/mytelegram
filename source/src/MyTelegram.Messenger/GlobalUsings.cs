@@ -92,3 +92,4 @@ global using MyTelegram.Services.TLObjectConverters;
 global using MyTelegram.Services.Services;
 global using MyTelegram.Services.Extensions;
 global using MyTelegram.Messenger.Services.IdGenerator;
+global using MyTelegram.Domain.Aggregates.PeerSettings;

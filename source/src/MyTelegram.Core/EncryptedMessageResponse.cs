@@ -1,8 +1,8 @@
-﻿//namespace MyTelegram.Core;
+﻿namespace MyTelegram.Core;
 
-//public record EncryptedMessageResponse(long AuthKeyId,
-//    byte[] Data,
-//    string ConnectionId,
-//    long SeqNumber);
-
-
+////[MemoryPackable]
+public partial record EncryptedMessageResponse(long AuthKeyId,
+        byte[] Data,
+    //ReadOnlyMemory<byte> Data,
+    string ConnectionId,
+    long SeqNumber);

@@ -21,9 +21,38 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class EditBannedHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditBanned, MyTelegram.Schema.IUpdates>,
     Channels.IEditBannedHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestEditBanned obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public EditBannedHandler(IPeerHelper peerHelper,
+        ICommandBus commandBus,
+        IAccessHashHelper accessHashHelper)
     {
+        _peerHelper = peerHelper;
+        _commandBus = commandBus;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestEditBanned obj)
+    {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+
+            var channel = _peerHelper.GetChannel(obj.Channel);
+            var peer = _peerHelper.GetPeer(obj.Participant);
+            var bannedRights = ChatBannedRights.FromValue(obj.BannedRights.Flags.ToInt(), obj.BannedRights.UntilDate);
+            var command = new EditBannedCommand(ChannelMemberId.Create(channel.PeerId, peer.PeerId),
+                input.ToRequestInfo(),
+                input.UserId,
+                channel.PeerId,
+                peer.PeerId,
+                bannedRights);
+            await _commandBus.PublishAsync(command, default);
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

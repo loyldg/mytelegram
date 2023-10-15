@@ -7,4 +7,116 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+
+  <ItemGroup>
+    <TrimmableAssembly Include="System.Private.CoreLib" />
+  </ItemGroup>
+  <ItemGroup>
+    <RdXmlFile Include="rd.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.Development.json" />
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.Async" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Settings.Configuration" />
+
+
+    <!--<PackageReference Include="Volo.Abp.Autofac" />
+
+    <PackageReference Include="Volo.Abp.EventBus.RabbitMQ" />-->
+
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="BloomFilter.NetCore" Version="1.1.1" />-->
+    <PackageReference Include="SharpZipLib" />
+    <PackageReference Include="Standart.Hash.xxHash" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client" />
+    <PackageReference Include="Google.Protobuf" />
+
+    <PackageReference Include="Grpc.Tools">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Cuckoo\Microsoft.Cuckoo.csproj" />
+    <ProjectReference Include="..\MyTelegram.Caching.Redis\MyTelegram.Caching.Redis.csproj" />
+    <ProjectReference Include="..\MyTelegram.Domain\MyTelegram.Domain.csproj" />
+    <ProjectReference Include="..\MyTelegram.GrpcService\MyTelegram.GrpcService.csproj" />
+    <ProjectReference Include="..\MyTelegram.EventBus.RabbitMQ\MyTelegram.EventBus.RabbitMQ.csproj" />
+    <ProjectReference Include="..\MyTelegram.EventBus.Rebus\MyTelegram.EventBus.Rebus.csproj" />
+    <ProjectReference Include="..\MyTelegram.Messenger\MyTelegram.Messenger.csproj" />
+    <ProjectReference Include="..\MyTelegram.Services\MyTelegram.Services.csproj" />
+    <!--<ProjectReference Include="..\MyTelegram.Queries\MyTelegram.Queries.csproj" />-->
+    <!--<ProjectReference Include="..\MyTelegram.ReadModel\MyTelegram.ReadModel.csproj" />-->
+    <!--<ProjectReference Include="..\MyTelegram.ReadModel.MongoDB\MyTelegram.ReadModel.MongoDB.csproj" />-->
+    <ProjectReference Include="..\MyTelegram.Queries.MongoDB\MyTelegram.QueryHandlers.MongoDB.csproj" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Langs\android_en_v33978726.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\android_zh-hans_v34553126.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\ios_en_v10761094.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\ios_zh-hans_v10785061.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\lang.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\macos_zh-hans_v938077.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\tdesktop_classic-zh-cn_v2183304.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\tdesktop_en_v2309693.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\tdesktop_zh-hans_v2322778.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\weba_en_v2254.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Langs\weba_zh-hans_v8271.strings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
 </Project>

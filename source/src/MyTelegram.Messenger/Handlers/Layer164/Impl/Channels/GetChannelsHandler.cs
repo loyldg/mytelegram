@@ -15,9 +15,51 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class GetChannelsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestGetChannels, MyTelegram.Schema.Messages.IChats>,
     Channels.IGetChannelsHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IChats> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestGetChannels obj)
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly ILayeredService<IChatConverter> _layeredService;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IPhotoAppService _photoAppService;
+
+    public GetChannelsHandler(IQueryProcessor queryProcessor,
+        ILayeredService<IChatConverter> layeredService,
+        IAccessHashHelper accessHashHelper, IPhotoAppService photoAppService)
     {
+        _queryProcessor = queryProcessor;
+        _layeredService = layeredService;
+        _accessHashHelper = accessHashHelper;
+        _photoAppService = photoAppService;
+    }
+
+    protected override async Task<IChats> HandleCoreAsync(IRequestInput input,
+        RequestGetChannels obj)
+    {
+        var channelIds = new List<long>();
+        foreach (var inputChannel in obj.Id)
+        {
+            if (inputChannel is TInputChannel tInputChannel)
+            {
+                channelIds.Add(tInputChannel.ChannelId);
+                await _accessHashHelper.CheckAccessHashAsync(tInputChannel.ChannelId, tInputChannel.AccessHash);
+            }
+        }
+
+        if (channelIds.Count > 0)
+        {
+            var channelReadModels = await _queryProcessor
+                .ProcessAsync(new GetChannelByChannelIdListQuery(channelIds), default);
+            var photoReadModels = await _photoAppService.GetPhotosAsync(channelReadModels);
+            var chats = _layeredService.GetConverter(input.Layer).ToChannelList(
+                input.UserId,
+                channelReadModels,
+                photoReadModels,
+                Array.Empty<long>(),
+                Array.Empty<IChannelMemberReadModel>());
+            return new TChats
+            {
+                Chats = new TVector<IChat>(chats)
+            };
+        }
+
         throw new NotImplementedException();
     }
 }

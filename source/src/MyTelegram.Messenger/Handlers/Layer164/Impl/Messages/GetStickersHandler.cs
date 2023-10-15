@@ -15,6 +15,8 @@ internal sealed class GetStickersHandler : RpcResultObjectHandler<MyTelegram.Sch
     protected override Task<MyTelegram.Schema.Messages.IStickers> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetStickers obj)
     {
-        throw new NotImplementedException();
+        var r = new TStickers { Hash = obj.Hash, Stickers = new TVector<IDocument>() };
+
+        return Task.FromResult<IStickers>(r);
     }
 }

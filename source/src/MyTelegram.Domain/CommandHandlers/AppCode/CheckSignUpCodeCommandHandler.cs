@@ -12,8 +12,7 @@ public class CheckSignUpCodeCommandHandler : CommandHandler<AppCodeAggregate, Ap
             command.AccessHash,
             command.PhoneNumber,
             command.FirstName,
-            command.LastName,
-            command.CorrelationId);
+            command.LastName);
         return Task.CompletedTask;
     }
 }

@@ -6,7 +6,7 @@ namespace MyTelegram.Handlers;
 /// Invoke with the given message range
 /// See <a href="https://corefork.telegram.org/method/invokeWithMessagesRange" />
 ///</summary>
-internal sealed class InvokeWithMessagesRangeHandler : RpcResultObjectHandler<MyTelegram.Schema.RequestInvokeWithMessagesRange, IObject>,
+internal sealed class InvokeWithMessagesRangeHandler : BaseObjectHandler<MyTelegram.Schema.RequestInvokeWithMessagesRange, IObject>,
     IInvokeWithMessagesRangeHandler
 {
     protected override Task<IObject> HandleCoreAsync(IRequestInput input,

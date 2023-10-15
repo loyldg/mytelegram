@@ -34,9 +34,41 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class EditAdminHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditAdmin, MyTelegram.Schema.IUpdates>,
     Channels.IEditAdminHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public EditAdminHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper)
+    {
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestEditAdmin obj)
     {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+
+            var peer = _peerHelper.GetPeer(obj.UserId);
+            var isBot = _peerHelper.IsBotUser(peer.PeerId);
+            var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId),
+                input.ToRequestInfo(),
+                input.UserId,
+                false,
+                peer.PeerId,
+                isBot,
+                new ChatAdminRights(obj.AdminRights.Flags),
+                obj.Rank,
+                CurrentDate
+            );
+            await _commandBus.PublishAsync(command, CancellationToken.None);
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

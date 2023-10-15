@@ -14,9 +14,19 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class DeleteChatHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteChat, IBool>,
     Messages.IDeleteChatHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestDeleteChat obj)
+    private readonly ICommandBus _commandBus;
+
+    public DeleteChatHandler(ICommandBus commandBus)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestDeleteChat obj)
+    {
+        var command = new DeleteChatCommand(ChatId.Create(obj.ChatId), input.ToRequestInfo());
+        await _commandBus.PublishAsync(command, default);
+
+        return new TBoolTrue();
     }
 }

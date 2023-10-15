@@ -1,6 +1,9 @@
-﻿//namespace MyTelegram.Core;
+﻿namespace MyTelegram.Core;
 
-//public record AuthKeyNotFoundEvent(long AuthKeyId,
-//    string ConnectionId);
+public partial record AuthKeyNotFoundEvent(long AuthKeyId,
+    string ConnectionId);
 
 
+public partial record ClientDisconnectedEvent(string ConnectionId,
+    long AuthKeyId,
+    long SessionId);

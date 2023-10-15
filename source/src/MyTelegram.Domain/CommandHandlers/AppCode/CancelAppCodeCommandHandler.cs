@@ -6,7 +6,7 @@ public class CancelAppCodeCommandHandler : CommandHandler<AppCodeAggregate, AppC
         CancelAppCodeCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.CancelCode(command.ReqMsgId, command.PhoneNumber, command.PhoneCodeHash);
+        aggregate.CancelCode(command.RequestInfo, command.PhoneNumber, command.PhoneCodeHash);
 
         return Task.CompletedTask;
     }

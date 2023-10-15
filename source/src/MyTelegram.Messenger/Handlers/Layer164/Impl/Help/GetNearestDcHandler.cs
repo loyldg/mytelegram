@@ -9,9 +9,23 @@ namespace MyTelegram.Handlers.Help;
 internal sealed class GetNearestDcHandler : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetNearestDc, MyTelegram.Schema.INearestDc>,
     Help.IGetNearestDcHandler
 {
-    protected override Task<MyTelegram.Schema.INearestDc> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Help.RequestGetNearestDc obj)
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
+
+    public GetNearestDcHandler(IOptions<MyTelegramMessengerServerOptions> options)
     {
-        throw new NotImplementedException();
+        _options = options;
+    }
+
+    protected override Task<INearestDc> HandleCoreAsync(IRequestInput input,
+        RequestGetNearestDc obj)
+    {
+        INearestDc r = new TNearestDc
+        {
+            Country = "US",
+            NearestDc = _options.Value.ThisDcId,
+            ThisDc = _options.Value.ThisDcId
+        };
+
+        return Task.FromResult(r);
     }
 }

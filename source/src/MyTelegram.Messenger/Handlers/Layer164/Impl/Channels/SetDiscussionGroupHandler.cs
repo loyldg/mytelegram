@@ -18,9 +18,56 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class SetDiscussionGroupHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSetDiscussionGroup, IBool>,
     Channels.ISetDiscussionGroupHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestSetDiscussionGroup obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public SetDiscussionGroupHandler(ICommandBus commandBus,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestSetDiscussionGroup obj)
+    {
+        if (obj.Broadcast is TInputChannel broadcastChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(broadcastChannel.ChannelId, broadcastChannel.AccessHash);
+        }
+        else
+        {
+            throw new NotImplementedException();
+        }
+
+        long? groupId = null;
+
+        if (obj.Group is TInputChannel groupChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(groupChannel.ChannelId, groupChannel.AccessHash);
+        }
+
+        switch (obj.Group)
+        {
+            case TInputChannel inputChannel:
+                groupId = inputChannel.ChannelId;
+                break;
+
+            case TInputChannelEmpty _:
+                break;
+
+            case TInputChannelFromMessage _:
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        var command = new SetDiscussionGroupCommand(ChannelId.Create(broadcastChannel.ChannelId),
+            input.ToRequestInfo(),
+            input.UserId,
+            broadcastChannel.ChannelId,
+            groupId);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+        return null!;
     }
 }

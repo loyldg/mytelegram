@@ -17,9 +17,27 @@ namespace MyTelegram.Handlers.Account;
 internal sealed class RegisterDeviceHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestRegisterDevice, IBool>,
     Account.IRegisterDeviceHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+
+    public RegisterDeviceHandler(ICommandBus commandBus)
+    {
+        _commandBus = commandBus;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestRegisterDevice obj)
     {
-        throw new NotImplementedException();
+        var command = new RegisterDeviceCommand(PushDeviceId.Create(obj.Token),
+            input.ToRequestInfo(),
+            input.UserId,
+            input.AuthKeyId,
+            obj.TokenType,
+            obj.Token,
+            obj.NoMuted,
+            obj.AppSandbox,
+            obj.Secret,
+            obj.OtherUids.ToList());
+        await _commandBus.PublishAsync(command, default);
+        return new TBoolTrue();
     }
 }

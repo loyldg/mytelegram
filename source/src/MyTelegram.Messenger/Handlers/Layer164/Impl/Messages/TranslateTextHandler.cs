@@ -18,6 +18,20 @@ internal sealed class TranslateTextHandler : RpcResultObjectHandler<MyTelegram.S
     protected override Task<MyTelegram.Schema.Messages.ITranslatedText> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestTranslateText obj)
     {
-        throw new NotImplementedException();
+        var r = new TTranslateResult
+        {
+            Result = new TVector<ITextWithEntities>(obj.Id?.Select(p => new TTextWithEntities
+            {
+                Entities = new(),
+                Text =
+                    $"The external translation API is not configured for MyTelegram,and the text will not be translated,ToLang:{obj.ToLang}"
+            }).ToList() ?? new List<TTextWithEntities>())
+        };
+
+        return Task.FromResult<ITranslatedText>(r);
+        //return new TTranslateResultText
+        //{
+        //    Text=$"The external translation API is not configured,ToLang:{obj.ToLang} Original text:{obj.Text}"
+        //};
     }
 }

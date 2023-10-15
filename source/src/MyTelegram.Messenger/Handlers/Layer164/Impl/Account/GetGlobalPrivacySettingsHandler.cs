@@ -7,11 +7,21 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getGlobalPrivacySettings" />
 ///</summary>
 internal sealed class GetGlobalPrivacySettingsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetGlobalPrivacySettings, MyTelegram.Schema.IGlobalPrivacySettings>,
-    Account.IGetGlobalPrivacySettingsHandler
+    Account.IGetGlobalPrivacySettingsHandler, IProcessedHandler
 {
-    protected override Task<MyTelegram.Schema.IGlobalPrivacySettings> HandleCoreAsync(IRequestInput input,
+    private readonly IPrivacyAppService _privacyAppService;
+
+    public GetGlobalPrivacySettingsHandler(IPrivacyAppService privacyAppService)
+    {
+        _privacyAppService = privacyAppService;
+    }
+
+    protected override async Task<MyTelegram.Schema.IGlobalPrivacySettings> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetGlobalPrivacySettings obj)
     {
-        throw new NotImplementedException();
+        var settings = await _privacyAppService.GetGlobalPrivacySettingsAsync(input.UserId);
+        var globalPrivacySettings = new TGlobalPrivacySettings { ArchiveAndMuteNewNoncontactPeers = settings?.ArchiveAndMuteNewNoncontactPeers ?? false };
+
+        return globalPrivacySettings;
     }
 }

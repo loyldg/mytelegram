@@ -69,6 +69,10 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                     if (r != null!)
                     {
                         //await _objectMessageSender.SendMessageToPeerAsync(obj.ReqMsgId, r);
+                        if (r is TRpcResult rpcResult1)
+                        {
+                            Console.WriteLine($"rpc:{rpcResult1.Result.ConstructorId:x2}");
+                        }
                         await SendMessageToPeerAsync(obj.ReqMsgId, r);
                     }
 

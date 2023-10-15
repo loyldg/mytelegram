@@ -1,10 +1,10 @@
 ﻿namespace MyTelegram.Domain.Commands.Dialog;
 
-public class ToggleDialogPinnedCommand : RequestCommand<DialogAggregate, DialogId, IExecutionResult>
+public class ToggleDialogPinnedCommand : RequestCommand2<DialogAggregate, DialogId, IExecutionResult>
 {
     public ToggleDialogPinnedCommand(DialogId aggregateId,
-        long reqMsgId,
-        bool pinned) : base(aggregateId, reqMsgId)
+        RequestInfo requestInfo,
+        bool pinned) : base(aggregateId, requestInfo)
     {
         Pinned = pinned;
     }

@@ -38,9 +38,9 @@ namespace MyTelegram.Services.Extensions
         public static IServiceCollection RegisterHandlers(this IServiceCollection services, Assembly handlerImplTypeInThisAssembly)
         {
             var baseType = typeof(IObjectHandler);
-            var baseInterface = typeof(IProcessedHandler);
+            //var baseInterface = typeof(IProcessedHandler);
             var types = handlerImplTypeInThisAssembly.DefinedTypes
-                .Where(p => baseType.IsAssignableFrom(p) && baseInterface.IsAssignableFrom(p) && !p.IsAbstract)
+                .Where(p => baseType.IsAssignableFrom(p) /*&& baseInterface.IsAssignableFrom(p)*/ && !p.IsAbstract)
                 .ToList();
             foreach (var typeInfo in types)
             {

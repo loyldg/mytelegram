@@ -12,6 +12,6 @@ internal sealed class GetAppUpdateHandler : RpcResultObjectHandler<MyTelegram.Sc
     protected override Task<MyTelegram.Schema.Help.IAppUpdate> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Help.RequestGetAppUpdate obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IAppUpdate>(new TNoAppUpdate());
     }
 }

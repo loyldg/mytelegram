@@ -1,0 +1,11 @@
+﻿<Directives>
+  <Application>
+    <Assembly Name="MyTelegram.GatewayServer" Serialize="Required All" Dynamic="Required All"></Assembly>
+    <Assembly Name="MyTelegram.MTProto" Serialize="Required All" Dynamic="Required All"></Assembly>
+    <Assembly Name="Serilog.Sinks.Console" Serialize="Required All" Dynamic="Required All"></Assembly>
+    <Assembly Name="Serilog.Sinks.File" Serialize="Required All" Dynamic="Required All"></Assembly>
+    <Assembly Name="Serilog.Sinks.Async" Serialize="Required All" Dynamic="Required All"></Assembly>
+    <Assembly Name="Serilog.Settings.Configuration" Serialize="Required All" Dynamic="Required All"></Assembly>
+    <Assembly Name="Serilog.Extensions.Hosting" Serialize="Required All" Dynamic="Required All"></Assembly>
+  </Application>
+</Directives>

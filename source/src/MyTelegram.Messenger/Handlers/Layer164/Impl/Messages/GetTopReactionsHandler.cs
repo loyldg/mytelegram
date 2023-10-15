@@ -12,6 +12,9 @@ internal sealed class GetTopReactionsHandler : RpcResultObjectHandler<MyTelegram
     protected override Task<MyTelegram.Schema.Messages.IReactions> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetTopReactions obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IReactions>(new TReactions
+        {
+            Reactions = new()
+        });
     }
 }

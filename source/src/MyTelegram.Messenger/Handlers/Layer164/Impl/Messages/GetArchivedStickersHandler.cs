@@ -9,9 +9,11 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetArchivedStickersHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetArchivedStickers, MyTelegram.Schema.Messages.IArchivedStickers>,
     Messages.IGetArchivedStickersHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IArchivedStickers> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetArchivedStickers obj)
+    protected override Task<IArchivedStickers> HandleCoreAsync(IRequestInput input,
+        RequestGetArchivedStickers obj)
     {
-        throw new NotImplementedException();
+        var r = new TArchivedStickers { Sets = new TVector<IStickerSetCovered>() };
+
+        return Task.FromResult<IArchivedStickers>(r);
     }
 }

@@ -12,6 +12,9 @@ internal sealed class GetEmojiProfilePhotoGroupsHandler : RpcResultObjectHandler
     protected override Task<MyTelegram.Schema.Messages.IEmojiGroups> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetEmojiProfilePhotoGroups obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IEmojiGroups>(new TEmojiGroups
+        {
+            Groups = new()
+        });
     }
 }

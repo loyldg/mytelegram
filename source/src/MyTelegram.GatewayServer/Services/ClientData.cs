@@ -5,7 +5,7 @@ public class ClientData : IClientData
     public ConnectionContext? ConnectionContext { get; set; }
     public WebSocket? WebSocket { get; set; }
     public ClientType ClientType { get; set; }
-    public string? ClientIp { get; set; }
+    public string ClientIp { get; set; } = null!;
     public ProtocolType MtProtoType { get; set; }
     public bool IsFirstPacketParsed { get; set; }
     public byte[] SendKey { get; set; } = null!;

@@ -1,5 +1,5 @@
-﻿namespace MyTelegram.GatewayServer.EventHandlers;
+﻿//namespace MyTelegram.GatewayServer.EventHandlers;
 
-[EventName("MyTelegram.Core.AuthKeyNotFoundEvent")]
-public record AuthKeyNotFoundEvent(long AuthKeyId,
-    string ConnectionId);
+//[EventName("MyTelegram.Core.AuthKeyNotFoundEvent")]
+//public record AuthKeyNotFoundEvent(long AuthKeyId,
+//    string ConnectionId);

@@ -14,9 +14,33 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class SaveDraftHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSaveDraft, IBool>,
     Messages.ISaveDraftHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSaveDraft obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public SaveDraftHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestSaveDraft obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        var dialogId = DialogId.Create(input.UserId, peer);
+        var saveDraftCommand = new SaveDraftCommand(dialogId,
+            input.ToRequestInfo(),
+            obj.Message,
+            obj.NoWebpage,
+            CurrentDate,
+            obj.ReplyToMsgId,
+            null);
+        await _commandBus.PublishAsync(saveDraftCommand, CancellationToken.None);
+
+        return new TBoolTrue();
     }
 }

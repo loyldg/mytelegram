@@ -8,8 +8,7 @@ public class CheckSignInCodeCommandHandler : CommandHandler<AppCodeAggregate, Ap
     {
         aggregate.CheckSignInCode(command.RequestInfo,
             command.Code,
-            command.UserId,
-            command.CorrelationId);
+            command.UserId);
         return Task.CompletedTask;
     }
 }

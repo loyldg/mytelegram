@@ -12,9 +12,16 @@ namespace MyTelegram.Handlers.Langpack;
 internal sealed class GetDifferenceHandler : RpcResultObjectHandler<MyTelegram.Schema.Langpack.RequestGetDifference, MyTelegram.Schema.ILangPackDifference>,
     Langpack.IGetDifferenceHandler
 {
-    protected override Task<MyTelegram.Schema.ILangPackDifference> HandleCoreAsync(IRequestInput input,
+    protected override Task<ILangPackDifference> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Langpack.RequestGetDifference obj)
     {
-        throw new NotImplementedException();
+        ILangPackDifference r = new TLangPackDifference
+        {
+            FromVersion = 0,
+            LangCode = obj.LangCode,
+            Strings = new(),
+            Version = 0
+        };
+        return Task.FromResult(r);
     }
 }

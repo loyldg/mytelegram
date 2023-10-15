@@ -16,6 +16,7 @@ internal sealed class CancelCodeHandler : RpcResultObjectHandler<MyTelegram.Sche
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Auth.RequestCancelCode obj)
     {
-        throw new NotImplementedException();
+        // todo:cancel code
+        return Task.FromResult<IBool>(new TBoolTrue());
     }
 }

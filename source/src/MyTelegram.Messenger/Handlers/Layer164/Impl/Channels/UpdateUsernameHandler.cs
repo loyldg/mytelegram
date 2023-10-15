@@ -21,9 +21,32 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class UpdateUsernameHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestUpdateUsername, IBool>,
     Channels.IUpdateUsernameHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public UpdateUsernameHandler(ICommandBus commandBus,
+        IAccessHashHelper accessHashHelper)
+    {
+        _commandBus = commandBus;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestUpdateUsername obj)
     {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+
+            var command = new SetUserNameCommand(UserNameId.Create(obj.Username),
+                input.ToRequestInfo(),
+                input.UserId,
+                PeerType.Channel,
+                inputChannel.ChannelId,
+                obj.Username);
+            await _commandBus.PublishAsync(command, default);
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

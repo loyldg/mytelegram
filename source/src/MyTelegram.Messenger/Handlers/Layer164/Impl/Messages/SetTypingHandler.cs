@@ -23,9 +23,74 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class SetTypingHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSetTyping, IBool>,
     Messages.ISetTypingHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSetTyping obj)
+    private readonly IBlockCacheAppService _blockCacheAppService;
+    private readonly IObjectMessageSender _messageSender;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public SetTypingHandler(IPeerHelper peerHelper,
+        IObjectMessageSender messageSender,
+        IBlockCacheAppService blockCacheAppService,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _peerHelper = peerHelper;
+        _messageSender = messageSender;
+        _blockCacheAppService = blockCacheAppService;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestSetTyping obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var userId = input.UserId;
+        var peer = _peerHelper.GetPeer(obj.Peer, userId);
+        IUpdate? update = null;
+        switch (peer.PeerType)
+        {
+            case PeerType.Unknown:
+                break;
+            case PeerType.Self:
+                break;
+            case PeerType.User:
+                update = new TUpdateUserTyping { Action = obj.Action, UserId = userId };
+
+                if (await _blockCacheAppService.IsBlockedAsync(peer.PeerId, userId).ConfigureAwait(false))
+                {
+                    return new TBoolTrue();
+                }
+
+                break;
+            case PeerType.Chat:
+                update = new TUpdateChatUserTyping
+                {
+                    Action = obj.Action,
+                    ChatId = peer.PeerId,
+                    FromId = new TPeerUser { UserId = userId }
+                    //UserId = session.UserId
+                };
+                break;
+            case PeerType.Channel:
+                update = new TUpdateChannelUserTyping
+                {
+                    Action = obj.Action,
+                    ChannelId = peer.PeerId,
+                    TopMsgId = obj.TopMsgId,
+                    //UserId = session.UserId,
+                    FromId = new TPeerUser { UserId = userId }
+                };
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        if (update == null)
+        {
+            return new TBoolTrue();
+        }
+
+        var updateShort = new TUpdateShort { Date = CurrentDate, Update = update };
+        await _messageSender.PushMessageToPeerAsync(peer, updateShort, excludeAuthKeyId: input.AuthKeyId);
+        return new TBoolTrue();
     }
 }

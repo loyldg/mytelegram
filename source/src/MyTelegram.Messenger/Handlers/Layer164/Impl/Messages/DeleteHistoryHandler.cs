@@ -20,9 +20,73 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class DeleteHistoryHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteHistory, MyTelegram.Schema.Messages.IAffectedHistory>,
     Messages.IDeleteHistoryHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IAffectedHistory> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IPtsHelper _ptsHelper;
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public DeleteHistoryHandler(ICommandBus commandBus,
+        //IRandomHelper randomHelper,
+        IPeerHelper peerHelper,
+        IQueryProcessor queryProcessor,
+        IPtsHelper ptsHelper,
+        IAccessHashHelper accessHashHelper)
+    {
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _queryProcessor = queryProcessor;
+        _ptsHelper = ptsHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IAffectedHistory> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestDeleteHistory obj)
     {
-        throw new NotImplementedException();
+        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        var pageSize = MyTelegramServerDomainConsts.ClearHistoryDefaultPageSize;
+        var messageIdList = await _queryProcessor
+            .ProcessAsync(new GetMessageIdListQuery(input.UserId,
+                    peer.PeerId,
+                    obj.MaxId,
+                    pageSize),
+                default);
+        if (messageIdList.Count == 0)
+        {
+            var cachedPts = _ptsHelper.GetCachedPts(input.UserId);
+            return new TAffectedHistory { Offset = 0, Pts = cachedPts, PtsCount = 0 };
+        }
+
+        switch (peer.PeerType)
+        {
+            case PeerType.Chat:
+                {
+                    var command = new StartDeleteChatMessagesCommand(ChatId.Create(peer.PeerId),
+                        input.ToRequestInfo(),
+                        messageIdList,
+                        obj.Revoke,
+                        true,
+                        Guid.NewGuid());
+                    await _commandBus.PublishAsync(command, default);
+                }
+                break;
+            case PeerType.User:
+                {
+                    if (obj.Peer is TInputPeerUser inputUser)
+                    {
+                        await _accessHashHelper.CheckAccessHashAsync(inputUser.UserId, inputUser.AccessHash);
+                    }
+                    var command = new StartDeleteUserMessagesCommand(DialogId.Create(input.UserId, peer),
+                        input.ToRequestInfo(),
+                        obj.Revoke,
+                        messageIdList,
+                        true,
+                        Guid.NewGuid());
+                    await _commandBus.PublishAsync(command, default);
+                }
+                break;
+        }
+
+
+        return null!;
     }
 }

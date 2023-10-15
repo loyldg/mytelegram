@@ -12,6 +12,10 @@ internal sealed class GetContactsHandler : RpcResultObjectHandler<MyTelegram.Sch
     protected override Task<MyTelegram.Schema.Contacts.IContacts> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Contacts.RequestGetContacts obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Contacts.IContacts>(new TContacts
+        {
+            Contacts = new(),
+            Users = new(),
+        });
     }
 }

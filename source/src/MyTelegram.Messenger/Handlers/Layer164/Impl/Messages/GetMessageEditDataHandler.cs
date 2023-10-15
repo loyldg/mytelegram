@@ -16,9 +16,28 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetMessageEditDataHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetMessageEditData, MyTelegram.Schema.Messages.IMessageEditData>,
     Messages.IGetMessageEditDataHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IMessageEditData> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetMessageEditData obj)
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public GetMessageEditDataHandler(IQueryProcessor queryProcessor,
+        IOptions<MyTelegramMessengerServerOptions> options,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _queryProcessor = queryProcessor;
+        _options = options;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IMessageEditData> HandleCoreAsync(IRequestInput input,
+        RequestGetMessageEditData obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var message = await _queryProcessor
+            .ProcessAsync(
+                new GetMessageByIdQuery(
+                    MessageId.Create(input.UserId, obj.Id).Value),
+                default);
+        var canEdit = message != null && message.Date + _options.Value.EditTimeLimit > CurrentDate;
+        return new TMessageEditData { Caption = canEdit };
     }
 }

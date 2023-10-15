@@ -1,8 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 using EventFlow.Provided.Jobs;
-using MyTelegram.Domain.Aggregates.PeerNotifySettings;
-using MyTelegram.Domain.Aggregates.Poll;
-using MyTelegram.Domain.Aggregates.UserName;
 using MyTelegram.Domain.Events.Poll;
 using MyTelegram.Domain.Events.Pts;
 using MyTelegram.Domain.Events.UserName;
@@ -12,9 +9,28 @@ namespace MyTelegram.Messenger.NativeAot;
 //[JsonSerializable(typeof(EventFlow.Aggregates.Metadata))]
 //DeleteChatMessagesStartedEvent
 //DeleteMessageSaga2StartedEvent
+[JsonSerializable(typeof(PtsForAuthKeyIdUpdatedEvent))]
+[JsonSerializable(typeof(CreateChannelSagaStartedEvent))]
+[JsonSerializable(typeof(InboxItemsAddedToOutboxMessageEvent))]
+[JsonSerializable(typeof(TempPtsIncrementedEvent))]
+[JsonSerializable(typeof(SendOutboxMessageCompletedEvent2))]
+[JsonSerializable(typeof(SendMessageSagaStartedEvent))]
+[JsonSerializable(typeof(ReceiveInboxMessageCompletedEvent2))]
+
 [JsonSerializable(typeof(MessengerQueryDataReceivedEvent))]
 [JsonSerializable(typeof(MessengerCommandDataReceivedEvent))]
 [JsonSerializable(typeof(DomainEventMessage))]
+
+
+[JsonSerializable(typeof(ChannelInviteDeletedEvent))]
+[JsonSerializable(typeof(ChannelInviteEditedEvent))]
+[JsonSerializable(typeof(ChatAdminRightsEditedEvent))]
+[JsonSerializable(typeof(UserProfilePhotoUploadedEvent))]
+[JsonSerializable(typeof(PeerSettingsBarHiddenEvent))]
+
+
+[JsonSerializable(typeof(Reaction))]
+[JsonSerializable(typeof(ReactionCount))]
 
 
 [JsonSerializable(typeof(DeleteUserMessagesStartedEvent))]
@@ -37,13 +53,14 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(DeleteParticipantHistorySagaStartedEvent))]
 [JsonSerializable(typeof(DeleteParticipantHistoryStartedEvent))]
 [JsonSerializable(typeof(LayeredPushMessageCreatedIntegrationEvent<ChannelReactionChangedData>))]
-
+[JsonSerializable(typeof(UserReaction))]
+[JsonSerializable(typeof(List<UserReaction>))]
 [JsonSerializable(typeof(ChannelReactionChangedData))]
-
 [JsonSerializable(typeof(Metadata))]
 [JsonSerializable(typeof(SnapshotMetadata))]
 [JsonSerializable(typeof(DispatchToAsynchronousEventSubscribersJob))]
 
+[JsonSerializable(typeof(UserNameCreatedEvent))]
 [JsonSerializable(typeof(PollClosedEvent))]
 [JsonSerializable(typeof(VoteAnswerDeletedEvent))]
 [JsonSerializable(typeof(VoteSagaCompletedEvent))]
@@ -154,6 +171,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.EditInboxMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.EditOutboxMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.PushUpdates.EncryptedPushUpdatesCreatedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.ChannelInviteExportedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ForwardMessageSagaStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.ForwardMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ForwardSingleMessageSuccessEvent))]
@@ -244,6 +262,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.UpdatePinnedMessageCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.UpdatePinnedMessageSagaStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.UpdatePinnedMessageStartedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.Updates.UpdatesCreatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.UpdateUserNameStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserCreatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.UserName.UserNameDeletedEvent))]

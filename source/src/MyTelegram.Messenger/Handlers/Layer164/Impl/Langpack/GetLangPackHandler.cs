@@ -13,9 +13,31 @@ namespace MyTelegram.Handlers.Langpack;
 internal sealed class GetLangPackHandler : RpcResultObjectHandler<MyTelegram.Schema.Langpack.RequestGetLangPack, MyTelegram.Schema.ILangPackDifference>,
     Langpack.IGetLangPackHandler
 {
-    protected override Task<MyTelegram.Schema.ILangPackDifference> HandleCoreAsync(IRequestInput input,
+    private readonly ILanguageManager _languageManager;
+
+    public GetLangPackHandler(ILanguageManager languageManager)
+    {
+        _languageManager = languageManager;
+    }
+
+    protected override async Task<ILangPackDifference> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Langpack.RequestGetLangPack obj)
     {
-        throw new NotImplementedException();
+
+        ILangPackDifference r = new TLangPackDifference
+        {
+            FromVersion = 0,
+            LangCode = obj.LangCode,
+            Strings = new TVector<ILangPackString>((await _languageManager.GetAllLangPacksAsync(obj.LangCode, obj.LangPack)).Select(p => new TLangPackString
+            {
+                Key = p.Key,
+                Value = p.Value
+            })),
+            Version = 0
+        };
+
+        Console.WriteLine($"Get lang:{obj.LangCode} {obj.LangPack} count={r.Strings.Count}");
+
+        return r;
     }
 }

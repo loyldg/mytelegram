@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Commands.AppCode;
 
-public class CheckSignUpCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeId, IExecutionResult>, IHasCorrelationId
+public class CheckSignUpCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeId, IExecutionResult>
 {
     public CheckSignUpCodeCommand(AppCodeId aggregateId,
         RequestInfo requestInfo,
@@ -11,8 +11,7 @@ public class CheckSignUpCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeI
         long accessHash,
         string phoneNumber,
         string firstName,
-        string? lastName,
-        Guid correlationId) : base(aggregateId, requestInfo)
+        string? lastName) : base(aggregateId, requestInfo)
     {
         //PhoneNumber = phoneNumber;
         PhoneCodeHash = phoneCodeHash;
@@ -22,7 +21,6 @@ public class CheckSignUpCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeI
         PhoneNumber = phoneNumber;
         FirstName = firstName;
         LastName = lastName;
-        CorrelationId = correlationId;
     }
 
     public long AccessHash { get; }
@@ -33,9 +31,6 @@ public class CheckSignUpCodeCommand : RequestCommand2<AppCodeAggregate, AppCodeI
 
     //public string PhoneNumber { get; }
     public string PhoneCodeHash { get; }
-
     //public string Code { get; } 
     public long UserId { get; }
-
-    public Guid CorrelationId { get; }
 }

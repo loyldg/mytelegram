@@ -1,0 +1,7957 @@
+﻿
+"Messages.UnreadMark" = "未读消息";
+"Messages.ForwardHeader" = "转发的消息";
+"Messages.File.State.FetchingIn_1" = "已下载 %d%%";
+"Messages.File.State.FetchingOut_1" = "已上传 %d%";
+
+"Messages.File.State.Remote" = "下载";
+"Messages.File.State.Local" = "在 Finder 中打开";
+"Messages.DeletedMessage" = "已删除消息";
+
+"SearchField.Search" = "搜索";
+"Contacts.ContacsSeparator" = "联系人";
+"Navigation.back" = "返回";
+"Navigation.Edit" = "编辑";
+"Navigation.Done" = "完成";
+"Navigation.Close" = "关闭";
+"Navigation.Cancel" = "取消";
+"Navigation.Next" = "下一步";
+
+
+
+"Peer.Status.online" = "在线";
+"Peer.Status.recently" = "最近曾上线";
+"Peer.Status.justNow" = "上线于不久前";
+"Peer.Status.lastWeek" = "最近一周内曾上线";
+"Peer.Status.lastMonth" = "最近一个月内有上线";
+"Peer.Status.longTimeAgo" = "很久没上线";
+
+"Peer.Status.Today" = "今天";
+"Peer.Status.Yesterday" = "昨天";
+"Peer.Status.LastSeenAt" = "最近上线于%@ %@";
+
+
+/* do not translate key with 'countable' suffix */
+
+"Peer.Status.Member_countable" = "%d";
+
+
+
+
+
+"Peer.Status.Member_other" = "%d 位成员";
+
+
+
+
+
+
+
+
+
+
+/* do not translate key with 'countable' suffix */
+"Peer.Status.Member.Online_countable" = "%d";
+
+
+
+
+
+"Peer.Status.Member.Online_other" = "%d 人在线";
+
+
+/* do not translate key with 'countable' suffix */
+"Peer.Status.minAgo_countable" = "%d";
+
+
+
+
+
+"Peer.Status.minAgo_other" = "最近上线于 %d 分钟前";
+
+"Peer.Status.channel" = "频道";
+"Peer.Status.group" = "群组";
+
+
+"Telegram.PeerInfoController" = "信息";
+"PeerInfo.SendMessage" = "发送消息";
+"PeerInfo.ShareContact" = "分享联系人信息";
+"PeerInfo.ShareMyInfo" = "分享我的联系信息";
+"PeerInfo.StartSecretChat" = "开始私密聊天";
+"PeerInfo.SharedMedia" = "分享的媒体";
+"PeerInfo.Notifications" = "通知";
+"PeerInfo.BlockUser" = "屏蔽此用户";
+"PeerInfo.Unarchive" = "未归档";
+"PeerInfo.Translate" = "翻译";
+
+"PeerInfo.UnblockUser" = "将此用户移出黑名单";
+"PeerInfo.username" = "用户名";
+"PeerInfo.about" = "关于";
+"PeerInfo.bio" = "个人简介";
+"PeerInfo.scam" = "欺诈";
+"PeerInfo.fake" = "假冒";
+"PeerInfo.info" = "信息";
+"PeerInfo.SetGroupPhoto" = "设置群组头像";
+"PeerInfo.AddMember" = "添加成员";
+"PeerInfo.DeleteAndExit" = "删除并退出";
+"PeerInfo.DeleteGroup" = "删除群组";
+"PeerInfo.Permissions" = "权限";
+"PeerInfo.Administrators" = "管理员";
+"PeerInfo.MembersRequest" = "加入请求";
+
+
+"PeerInfo.Usernames.List" = "%1$@\n同时 %2$@";
+
+
+"PeerInfo.Action.Message" = "消息";
+"PeerInfo.Action.Mute" = "静音";
+"PeerInfo.Action.Unmute" = "取消静音";
+"PeerInfo.Action.SecretChat" = "私密";
+"PeerInfo.Action.Call" = "呼叫";
+"PeerInfo.Action.VideoCall" = "视频";
+"PeerInfo.Action.More" = "更多";
+"PeerInfo.Action.Share" = "分享";
+"PeerInfo.Action.Report" = "报告";
+
+
+"PeerInfo.Action.DeleteGroup" = "删除";
+"PeerInfo.Action.AddMembers" = "添加";
+"PeerInfo.Action.Discussion" = "讨论";
+"PeerInfo.Action.GiftPremium" = "赠予高级版订阅";
+
+"PeerInfo.Action.VoiceChat" = "视频聊天";
+
+
+
+"PeerInfo.Confirm.DeleteGroupConfirmation" = "删除本群组将会移除所有成员并导致所有消息记录丢失，确认要这样做吗？";
+
+
+"PeerInfo.ShowMore" = "显示更多";
+"PeerInfo.LeaveGroup" = "退出群组";
+
+"PeerInfo.StopBot" = "屏蔽机器人";
+"PeerInfo.RestartBot" = "重新启用机器人";
+
+"PeerInfo.LeaveChannel" = "退出频道";
+"PeerInfo.Report" = "举报";
+"PeerInfo.sharelink" = "分享链接";
+"PeerInfo.Confirm.LeaveChannel" = "您确定要退出此频道吗？";
+"PeerInfo.Confirm.LeaveGroup" = "您确定要退出此群组吗？\n\n此操作无法撤消。";
+"PeerInfo.Confirm.DeleteChat" = "您确定要删除所有历史聊天记录并退出 \"%@\" 吗？\n\n此操作无法撤消。";
+"Confirm.DeleteAdminedChannel" = "删除此频道将会移除所有关注者并且会丢失所有消息。\n\n确定要删除此频道？";
+"Confirm.DeleteChatUser" = "您确定要删除所有消息记录吗？\n\n此操作无法撤消。";
+"Confirm.LeaveGroup" = "您确定要退出此群组吗？";
+
+
+"PeerInfo.Confirm.DeleteUserChat" = "您确定要删除此对话吗？";
+
+"PeerMedia.SharedMedia" = "分享的媒体";
+"EmptyPeer.Description" = "请选择一个会话开始聊天";
+
+"Emoji.Recent" = "常用";
+"Emoji.RecentNew" = "常用的表情";
+
+
+"Emoji.SmilesAndPeople" = "笑脸与人像";
+"Emoji.AnimalsAndNature" = "动物 & 自然";
+"Emoji.FoodAndDrink" = "食物 & 饮料";
+"Emoji.ActivityAndSport" = "活动 & 运动";
+"Emoji.TravelAndPlaces" = "旅行 & 地点";
+"Emoji.Objects" = "物品";
+"Emoji.Symbols" = "符号";
+"Emoji.Flags" = "旗帜";
+
+
+"Chat.DropTitle" = "拖拽文件到此处";
+"Chat.DropQuickDesc" = "快速发送";
+"Chat.DropAsFilesDesc" = "无损发送";
+
+"Chat.DropEditTitle" = "拖动文件至此以编辑";
+"Chat.DropEditDesc" = "编辑媒体文件";
+
+
+
+
+"Chat.DropFolder.Title" = "拖拽文件夹到此处以发送";
+"Chat.DropFolder.Desc" = "作为压缩文档";
+
+"Message.ActionsPanel.Delete" = "删除";
+"Message.ActionsPanel.Forward" = "转发";
+"Message.ActionsPanel.EmptySelected" = "选择消息";
+
+
+/* do not translate key with 'countable' suffix */
+"Message.ActionsPanel.SelectedCount_countable" = "%d";
+
+
+
+
+
+"Message.ActionsPanel.SelectedCount_other" = "已选择 %d 条消息";
+
+
+/* do not translate key with 'countable' suffix */
+"Message.AccessoryPanel.Forwarded_countable" = "%d";
+
+
+
+
+
+"Message.AccessoryPanel.Forwarded_other" = "%d 条转发的消息";
+
+
+
+/* do not translate key with 'countable' suffix */
+"ForwardModalAction.Title_countable" = "%d";
+
+
+
+
+
+"ForwardModalAction.Title_other" = "转发过的消息";
+
+
+/*
+ _zero
+ _one
+ _two
+ _few
+ _many
+ _other
+ */
+
+/* do not translate key with 'countable' suffix */
+"ForwardModalAction.description_countable" = "%d %@";
+
+
+
+
+
+"ForwardModalAction.description_other" = "选择您要将 %@ 的信息转发给 ...";
+
+
+"Alert.OK" = "确定";
+"Alert.Cancel" = "取消";
+"Alert.Discard" = "放弃";
+"Alert.NO" = "否";
+"Alert.Yes" = "确认";
+
+"Alert.Forward.Error" = "抱歉，您无法转发消息到此会话。";
+
+"PreviewSender.CompressFile" = "压缩并发送";
+"PreviewSender.CaptionPlaceholder" = "添加说明...";
+"PreviewSender.CommentPlaceholder" = "发表评论...";
+"PreviewSender.FileTooltip" = "发送原图";
+"PreviewSender.MediaTooltip" = "快速发送";
+"PreviewSender.CollageTooltip" = "将媒体合并至一条消息";
+"PreviewSender.ArchiveTooltip" = "将所有媒体压缩至一个文件";
+"PreviewSender.SpoilerTooltip.Enable" = "罩住图片";
+"PreviewSender.SpoilerTooltip.Disable" = "取消遮罩";
+
+
+
+
+"Modal.Send" = "发送";
+"Modal.Share" = "分享";
+"Modal.Report" = "举报";
+"Modal.CopyLink" = "拷贝链接";
+"Modal.Cancel" = "取消";
+"Modal.OK" = "确定";
+"Modal.Apply" = "应用";
+"Modal.Set" = "设置";
+"Modal.Yes" = "确定";
+"Modal.Save" = "保存";
+"Modal.Done" = "完成";
+"Modal.NotNow" = "暂时不要";
+"Modal.Reset" = "重置";
+"Modal.Remove" = "移除";
+
+"QuickLook.Preview" = "预览";
+
+
+"Chat.Service.You" = "你";
+
+"Chat.Service.Group.Created1" = "%1%@ 创建了群组 %2%@";
+"Chat.Service.Group.AddedMembers1" = "%1%@ 邀请 %2%@";
+"Chat.Service.Group.AddedSelf" = "%@ 已加入群组";
+"Chat.Service.Group.RemovedMembers1" = "%1%@ 移除 %2%@";
+"Chat.Service.Group.RemovedSelf" = "%@ 退出了群组";
+"Chat.Service.Group.UpdatedTitle1" = "%1$@ 已将群组名称更改为 “%2$@”";
+"Chat.Service.Group.UpdatedPinnedMessage1" = "%1$@ 已置顶 “%2$@”";
+"Chat.Service.Group.JoinedByLink" = "%@ 已通过邀请链接加入群组";
+"Chat.Service.Group.MigratedToSupergroup" = "此群组已升级为超级群组";
+"Chat.Service.Group.TookScreenshot" = "%@ 截了一张图";
+"Chat.Service.PinnedMessage" = "置顶消息";
+"Chat.Service.PeerJoinedTelegram" = "%@ 加入了 Telegram";
+
+
+
+
+
+
+
+
+
+"Chat.Service.Group.UpdatedPhoto" = "%@ 更换了群组头像";
+"Chat.Service.Group.RemovedPhoto" = "%@ 删除了群组头像";
+"Chat.Service.Channel.UpdatedPhoto" = "频道头像已更新";
+"Chat.Service.Channel.RemovedPhoto" = "频道头像已删除";
+
+"Chat.Service.Group.UpdatedVideo" = "%@ 已更改群组图片";
+"Chat.Service.Channel.UpdatedVideo" = "频道图片已更新";
+
+
+"Chat.Service.Channel.UpdatedTitle" = "频道名称已修改为 \"%@\"";
+
+
+//"Chat.Service.SecretChat.SetTimer" = "%@ set the self-destruct timer to %@";
+//"Chat.Service.SecretChat.SetTimer.Self" = "You set the self-destruct timer to %@";
+//"Chat.Service.SecretChat.DisabledTimer" = "%@ disabled the self-destruct timer";
+//"Chat.Service.SecretChat.DisabledTimer.Self" = "You disabled the self-destruct timer";
+
+"Chat.Service.SecretChat.SetTimer1" = "%@ 已设置在 %@ 之后自动删除消息";
+"Chat.Service.SecretChat.SetTimer.Self1" = "您已设置消息在 %@ 后自动删除";
+"Chat.Service.SecretChat.DisabledTimer1" = "%@ 已停用自动删除计时器";
+"Chat.Service.SecretChat.DisabledTimer.Self1" = "您已停用自动删除计时器";
+
+"Chat.Service.Group.SetTimer" = "群组管理员已设置在 %@ 之后自动删除消息";
+"Chat.Service.Group.DisabledTimer" = "群组管理员已停用自动删除计时器";
+
+
+
+
+
+"Chat.Service.Group.TopicCreated.Icon" = "%1$@ “%2$@” 已创建";
+"Chat.Service.Group.TopicCreated" = "话题 ”%2$@“ 已创建";
+
+
+"Chat.Service.Group.TopicEdited.Icon" = "%1$@ 已将主题图标更改为 %2$@";
+"Chat.Service.Group.TopicEdited.Icon.Removed" = "%1$@ 已移除图标";
+"Chat.Service.Group.TopicEdited.Title" = "%1$@ 已将主题名称更改为 \"%2$@\"";
+"Chat.Service.Group.TopicEdited.Mixed" = "%1$@ 已将话题重命名为 “%3$@” 并将图标更改为 %2$@";
+
+
+"Chat.Service.Group.TopicEdited.You.Icon" = "你已将主题图标更改为 %1$@";
+
+"Chat.Service.Group.TopicEdited.You.Title" = "你已将主题名称更改为 \"%1$@\"";
+
+
+
+
+
+"Chat.Service.Group.TopicEdited.Paused" = "%1$@ 已锁定话题";
+"Chat.Service.Group.TopicEdited.Resumed" = "%1$@ 已重新解锁话题";
+
+
+"Chat.Service.Group.TopicEdited.You.Hided" = "你已隐藏通用话题";
+"Chat.Service.Group.TopicEdited.You.Unhided" = "你取消隐藏通用话题";
+
+"Chat.Service.Group.TopicEdited.Hided" = "%1$@ 已隐藏通用话题";
+"Chat.Service.Group.TopicEdited.Unhided" = "%1$@ 已取消隐藏通用话题";
+
+
+"Chat.Input.Mute" = "静音";
+"Chat.Input.Unmute" = "取消免打扰";
+"Chat.Input.Return" = "返回群组";
+"Chat.Input.SecretChat.WaitingToUserOnline" = "等待 %@ 上线……";
+
+"Chat.Input.Delete" = "删除并退出";
+"Chat.Input.Join" = "加入";
+
+"Chat.Input.Unblock" = "取消屏蔽该用户";
+"Chat.Input.Restart" = "重新启动";
+
+
+"Chat.Input.TopicClosed" = "该话题已锁定";
+
+
+"Message.Context.Reply1" = "回复";
+"Message.Context.ReplyHelp" = "双击";
+"Message.Context.Report" = "举报";
+"Message.Context.Forward" = "转发";
+"Message.Context.Delete" = "删除";
+"Message.Context.Select" = "选择";
+"Message.Context.Edit" = "编辑";
+"Message.Context.Goto" = "显示消息";
+"Message.Context.Pin" = "置顶";
+"Message.Context.Unpin" = "取消置顶";
+"Message.Context.Share" = "分享";
+
+
+"Message.Context.Report.AlertOK" = "非常感谢！我们的团队会尽快核查您的举报。";
+
+
+"Message.Context.Confirm.Pin1" = "您确定要置顶此消息吗？";
+"Message.Context.Confirm.NotifyPin" = "通知所有成员";
+
+"Message.Context.ForwardToCloud" = "转发到「保存的消息」";
+
+"Entertainment.Switch.GifAndStickers" = "贴纸和 GIF 动态图";
+"Entertainment.Switch.Emoji" = "Emoji";
+"Telegram.LayoutAccountController" = "偏好设置";
+
+"AccountSettings.SetProfilePhoto" = "上传头像";
+"AccountSettings.General" = "通用";
+"AccountSettings.Proxy" = "代理";
+"AccountSettings.Proxy.Connecting" = "连接中";
+"AccountSettings.Proxy.Connected" = "已连接";
+"AccountSettings.Proxy.Disabled" = "已停用";
+"AccountSettings.Stickers" = "贴纸与表情";
+"AccountSettings.Notifications" = "通知";
+"AccountSettings.Username" = "用户名";
+"AccountSettings.Language" = "语言";
+"AccountSettings.PrivacyAndSecurity" = "隐私和安全";
+"AccountSettings.Filters" = "聊天分组";
+"AccountSettings.Premium" = "Telegram 高级版";
+
+
+"AccountSettings.StickersAndEmoji" = "贴纸和表情";
+
+"AccountSettings.About" = "关于";
+"AccountSettings.FAQ" = "Telegram 常见问题";
+"AccountSettings.AskQuestion" = "向我们提问";
+
+"AccountSettings.Wallet" = "Gram 钱包";
+
+
+"ConnectingStatus.connecting" = "连接中";
+"ConnectingStatus.online" = "在线";
+"ConnectingStatus.updating" = "获取中...";
+"ConnectingStatus.waitingNetwork" = "等待网络连接";
+"ConnectingStatus.connectingToProxy" = "正在连接代理";
+
+"Chat.ConnectingStatus.connecting" = "正在连接";
+"Chat.ConnectingStatus.updating" = "正在刷新";
+"Chat.ConnectingStatus.waitingNetwork" = "等待网络连接";
+"Chat.ConnectingStatus.connectingToProxy" = "正在连接代理";
+
+"InputAttach.Popover.PhotoOrVideo" = "照片或视频";
+"InputAttach.Popover.Picture" = "相机";
+"InputAttach.Popover.File" = "文档";
+"InputAttach.Popover.Location" = "位置";
+
+"InputAttach.Popover.Photo" = "图片";
+"InputAttach.Popover.Video" = "视频";
+"InputAttach.Popover.Gift" = "赠送高级版";
+
+"InputAttach.Popover.Music" = "音频文件";
+
+"Compose.Popover.NewGroup" = "新建群组";
+"Compose.Popover.NewChannel" = "新建频道";
+"Compose.Popover.NewSecretChat" = "新建私密聊天";
+
+
+"Chat.Cancel" = "取消";
+"Gallery.Context.SaveAs" = "另存为...";
+"Gallery.Context.ShowMessage" = "显示消息";
+"Gallery.Context.CopyToClipboard" = "拷贝媒体文件";
+"Gallery.ContextDeletePhoto" = "删除";
+
+"Gallery.WaitDownload.Photo" = "请等待照片下载完毕。";
+"Gallery.WaitDownload.Video" = "请等待视频下载完毕。";
+
+"Chat.Input.Accessory.EditMessage" = "编辑消息";
+"Chat.Message.edited" = "已编辑";
+"Chat.Message.Imported" = "导入于 %@";
+"Chat.Message.ImportedShort" = "已导入";
+"Chat.Message.Imported.Text" = "此信息由其他软件导入，无法保证其真实性。";
+
+
+"Chat.Input.Error.MessageTooLong_countable" = "%d";
+
+
+
+
+
+
+
+
+"PeerMedia.Popover.SharedMedia" = "分享的媒体";
+"PeerMedia.Popover.SharedFiles" = "分享的文件";
+"PeerMedia.Popover.SharedLinks" = "分享的链接";
+"PeerMedia.Popover.SharedAudio" = "转发的音频";
+
+
+"PeerMedia.Media" = "媒体";
+"PeerMedia.Files" = "文件";
+"PeerMedia.Links" = "链接";
+"PeerMedia.Audio" = "音频";
+"PeerMedia.Music" = "音乐";
+"PeerMedia.Members" = "成员";
+"PeerMedia.Voice" = "语音";
+"PeerMedia.CommonGroups" = "群组";
+"PeerMedia.Gifs" = "GIF 动态图";
+
+"Chat.Message.Via" = "通过";
+
+"Audio.UnknownArtist" = "未知艺术家";
+"Audio.UntitledSong" = "未命名";
+
+"AudioController.voiceMessage" = "语音消息";
+"AudioController.videoMessage" = "视频消息";
+"You" = "您";
+
+"Login.New.PhoneNumber" = "请确认你的国际电话区号并输入您的手机号码。";
+"Login.New.PhoneBannedError" = "手机号码已被封禁";
+
+"Login.New.Code.EnterSms" = "输入验证码";
+"Login.New.Code.EnterCode" = "查看您的 Telegram 消息";
+
+"Login.New.Code.SmsInfo" = "我们已发送一则包含激活码的短信到你的手机是 **%@** · [Edit]()";
+"Login.New.Code.CodeInfo" = "我们已经将验证码发送至\n你账号 **%@** 设备上的 Telegram App · [修改]()";
+"Login.New.Code.CallInfo" = "我们刚刚拨打了您的电话 **%@** · [Edit]()";
+
+
+
+"Login.New.Password.Info" = "你已启用两步验证，因此您的帐户受到额外密码的保护。";
+"Login.New.Password.Label" = "你的密码";
+"Login.New.Password.Placeholder" = "输入密码";
+
+"Login.New.Email.Header" = "邮箱代码";
+"Login.New.Email.Info" = "请查阅您电子邮箱中的邮件，并输入我们发送的六位数验证码。";
+"Login.New.Email.Alert" = "您剩余的选择仅有记住密码或者重置账户";
+"Login.New.Email.Alert.Reset" = "重置账户";
+"Login.New.Email.Footer" = "无法访问 [%@]()?";
+
+
+"Login.New.Register.Header" = "个人信息";
+
+"Login.New.Register.Next" = "注册";
+"Login.New.Register.Footer" = "注册即代表你同意[服务协议]()。";
+
+
+"Login.New.Register.Select" = "选择";
+"Login.New.Register.Remove" = "删除";
+
+
+"Login.New.Cancel.Confirm" = "取消登陆并重新开始?";
+
+
+
+"Login.New.Reset.Header" = "重置帐户";
+"Login.New.Reset.Info" = "由于该账号 **%@** 已经激活 并且有密码保护, 它将在一周内被删除。 延期是为了安全考虑。\n\n%@";
+
+"Login.New.Reset.Button" = "重置";
+
+
+"Login.New.Reset.Able" = "你可以立刻重置账户";
+
+
+
+
+
+"Login.WelcomeDescription" = "欢迎使用官方 macOS 客户端";
+"Login.countryLabel" = "国家/地区";
+"Login.phoneFieldPlaceholder" = "手机号码";
+"Login.Next" = "下一步";
+
+"Login.InvalidCountryCode" = "国际电话区号无效";
+"Login.codePlaceholder" = "验证码";
+
+
+"Login.QR.Title" = "扫码登录 Telegram";
+"Login.QR1.Help1" = "在您的手机上打开 Telegram";
+"Login.QR2.Help2" = "转到 \"设置\"->\"设备\"->\"关联桌面设备\"";
+"Login.QR1.Help3" = "使用手机扫描二维码以确认登录";
+"Login.QR.Cancel" = "使用手机号码登录";
+"Login.QR.Login" = "扫描二维码登录";
+
+"Login.EnterCodeFromApp" = "请输入从其他 Telegram 客户端收到的验证码。";
+"Login.SendSmsIfNotReceivedAppCode" = "没有收到验证码？";
+"Login.JustSentSms" = "我们通过短信向您发送了验证码，请在上方输入。";
+"Login.PhoneCalledCode" = "我们刚刚使用电话语音播放了验证码。\n请在上方输入您的验证码。";
+"Login.PhoneDialed" = "Telegram 已拨打您的电话";
+"Login.willCall" = "Telegram 会在 %d:%@ 后使用电话呼叫您播放验证码";
+"Login.willSendSms" = "我们会在 %d:%@ 后给您发送短信";
+"Login.passwordPlaceholder" = "密码";
+
+"Login.EnterPasswordDescription" = "您已经启用两步认证，这个附加的密码将保护您的帐号。";
+"Login.RecoveryMailFailed" = "因为您在设置密码时没有同时提供密码恢复邮箱，您剩下的选择就只有回忆起您的密码或重置您的帐号。";
+
+"Login.PasswordForgot" = "是否忘记密码？";
+"Login.ResetAccountText" = "重置帐号";
+
+
+
+
+"Login.ResetAccount" = "重置帐号";
+"Login.ResetAccountDescription" = "如果您确认重置帐号，您将丢失 Telegram 中所有的聊天、消息、媒体和文件。";
+
+
+
+
+"PHONE_NUMBER_INVALID" = "无效的手机号码";
+"Login.FloodWait" = "尝试次数过多，请稍后再试。";
+"PHONE_CODE_INVALID" = "验证码无效";
+"PHONE_CODE_EXPIRED" = "验证码已失效，请重新登录。";
+"PASSWORD_HASH_INVALID" = "密码不正确";
+
+
+
+"Chat.ForwardActionHeader" = "转发消息";
+
+
+"GeneralSettings.MediaKeysForInAppPlayer" = "处理应用内播放器中的媒体键";
+"GeneralSettings.EmojiReplacements" = "自动替换表情符号";
+"GeneralSettings.InputSettings" = "输入设置";
+"GeneralSettings.GeneralSettings" = "通用设置";
+
+"GeneralSettings.SendByEnter" = "用回车来发送";
+"GeneralSettings.SendByCmdEnter" = "用 ⌘ + 回车 来发送";
+
+"GeneralSettings.InterfaceHeader" = "接口";
+"GeneralSettings.AdvancedHeader" = "高级";
+"GeneralSettings.EmojiAndStickers" = "表情和贴纸";
+
+
+"GeneralSettings.EnergySaving" = "省电";
+"GeneralSettings.LiteMode" = "省电模式";
+
+"GeneralSettings.Emoji" = "表情";
+
+"Telegram.GeneralSettingsViewController" = "通用设置";
+"AccountSettings.Logout" = "登出";
+"NotificationSettings.ToggleNotifications.Header" = "通知";
+"NotificationSettings.ToggleNotifications" = "通知";
+"NotificationSettings.MessagesPreview" = "消息预览";
+"NotificationSettings.IncludeMutedChats" = "包含已静音的聊天";
+
+
+"NotificationSettings.CountUnreadMessages" = "统计未读消息";
+
+"NotificationSettings.IncludeGroups" = "包含群组";
+"NotificationSettings.IncludeChannels" = "包括频道";
+
+"NotificationSettings.BounceDockIcon" = "弹出状态栏图标";
+
+"NotificationSettings.BadgeHeader" = "角标计数器";
+"NotificationSettings.BadgeDesc" = "关闭以显示未读聊天数而非未读消息数。";
+
+
+"NotificationSettings.NotificationTone" = "通知声音";
+"NotificationSettings.ResetNotifications" = "重置通知设置";
+"NotificationSettings.ResetNotificationsText" = "您可以在下面为特定对话设置自定义通知。";
+"Telegram.NotificationSettingsViewController" = "通知";
+"AccountSettings.DataAndStorage" = "数据和存储";
+"DefaultSoundName" = "默认";
+"NotificationSettings.Tone.Default" = "默认";
+"NotificationSettingsToneNone" = "无";
+
+"NotificationSettings.Confirm.Reset" = "重置通知设置";
+
+
+"Weekday.ShortFriday" = "周五";
+"Weekday.ShortMonday" = "周一";
+"Weekday.ShortSaturday" = "周六";
+"Weekday.ShortSunday" = "周日";
+"Weekday.ShortThursday" = "周四";
+"Weekday.ShortTuesday" = "周二";
+"Weekday.ShortWednesday" = "周三";
+
+
+"Time.at" = "于";
+"Time.last_seen" = "最近上线";
+"Time.today" = "今天";
+"Time.yesterday" = "昨天";
+
+
+"Time.TomorrowAt" = "明天%@";
+
+
+"Chat.EmptyChat" = "暂无消息";
+
+"Chat.List.Sticker" = "%@ 张贴纸";
+"Chat.List.Voice" = "语音消息";
+"Chat.List.InstantVideo" = "视频消息";
+"Chat.List.Video" = "视频";
+
+"Chat.List.GIF" = "GIF 动态图";
+"Chat.List.Map" = "位置";
+"Chat.List.Contact" = "联系人";
+
+
+"Chat.List.Video1_countable" = "%d";
+
+
+
+
+
+"Chat.List.Video1_other" = "%d 个视频";
+
+
+"Chat.List.Photo1_countable" = "%d";
+
+
+
+
+
+"Chat.List.Photo1_other" = "%d 张照片";
+
+"UsernameSettings.ChangeDescription" = "您可以在 **Telegram** 上设置一个用户名。设置后，别人可以通过此用户名找到您并与您联系，而不需要您的手机号码。\n\n您可以使用 **a-z**、**0-9** 和下划线。最小长度为 **5** 个字符。";
+"UsernameSettings.InputPlaceholder" = "输入您的用户名";
+"Telegram.UsernameSettingsViewController" = "用户名";
+"UsernameSettings.available" = "%@ 可用";
+
+"Error.Username.UnderscopeStart" = "用户名不能以下划线开头。";
+"Error.Username.UnderscopeEnd" = "用户名不能以下划线结尾。";
+"Error.Username.NumberStart" = "用户名不能以数字开头。";
+"Error.Username.Invalid" = "此用户名不符合规范。";
+"Error.Username.MinimumLength" = "用户名必须包含至少 5 个字符。";
+"Error.Username.AlreadyTaken" = "此用户名已被占用。";
+"UsernameSettings.Done" = "完成";
+
+"Username.UsernamePurchaseAvailable" = "此用户名已被占用。但是目前可以购买。[了解更多](fragment.com)";
+"Channel.Username.UsernamePurchaseAvailable" = "此用户名已被占用。\n但是，目前可以购买。**了解更多...**";
+
+
+"Search.Separator.ChatsAndContacts" = "联系人与聊天";
+"Search.Separator.GlobalPeers" = "全局搜索";
+"Search.Separator.Messages" = "消息";
+"Search.Separator.Recent" = "最近";
+"Search.Separator.Popular" = "用户";
+"Search.Separator.Topics" = "话题";
+"PeerInfo.AdminLabel" = "管理员";
+"Share.Link.Copied" = "复制到剪贴板";
+
+
+"Presence.bot" = "机器人";
+"Presence.Support" = "支持";
+"CreateGroup.NameHolder" = "群组名称";
+"Telegram.ChannelIntroViewController" = "频道";
+"Channel.IntroDescriptionHeader" = "什么是频道？";
+"Channel.IntroDescription" = "频道是一种能够将您的消息广播给无数关注者的工具。";
+"Channel.Intro.CreateChannel" = "创建频道";
+"Channel.Create" = "创建";
+"Channel.NewChannel" = "新建频道";
+"Group.CreateGroup" = "新建群组";
+"Compose.Create" = "创建";
+"Compose.Next" = "下一步";
+"Channel.ChannelNameHolder" = "频道名称";
+"Channel.NameHeader" = "频道名字";
+"Channel.DescriptionHolder" = "简介";
+"Channel.DescHeader" = "描述";
+"Channel.DescriptionHolderDescrpiton" = "您可以给您的频道添加一段简介。";
+
+
+"Channel.TypeHeaderChannel" = "频道类型";
+"Channel.TypeHeaderGroup" = "群组类型";
+
+
+"Channel.Public" = "公开";
+"Channel.Private" = "私密";
+
+"Channel.RevokeLink" = "撤销链接";
+"Channel.RevokeLink.Confirm.Header" = "撤销链接";
+"Channel.RevokeLink.Confirm.Text" = "您确定要撤销此邀请链接吗？一旦撤销，其他人将不能通过此链接加入此群组。";
+"Channel.RevokeLink.Confirm.OK" = "撤销";
+
+"Channel.PrivateAboutChannel" = "私密频道只能通过邀请链接加入。";
+"Channel.PublicAboutChannel" = "公开频道可以通过搜索找到，任何人都可以加入。";
+"Channel.PrivateAboutGroup" = "私密群组只能通过他人的邀请或邀请链接加入。";
+"Channel.PublicAboutGroup" = "任何人都可以搜索、加入公开群组，并查看历史聊天记录。";
+
+"Channel.PublicNamesLimitError" = "您保留了太多公共用户名。您可以撤消其中一个较旧群组或频道的链接，也可以创建一个私人链接。";
+
+
+"Channel.ExportLinkAboutChannel" = "用户可通过以上链接加入您的频道。您可以随时撤销此链接。";
+"Channel.ExportLinkAboutGroup" = "用户可以通过此链接加入您的群组。您可以随时撤销此链接。";
+"Channel.UsernameAboutChannel" = "人们可以与他人分享这个链接，并使用 Telegram 搜索找到你的频道。";
+"Channel.UsernameAboutGroup" = "用户可以分享此链接给他人，并且能通过搜索找到您的群组。";
+
+
+"Group.NewGroup" = "新建群组";
+
+"Chat.Confirm.ActionUndonable" = "此操作无法撤消。";
+"Chat.Confirm.DeleteMessagesForEveryone" = "为所有人删除";
+
+
+
+
+
+
+
+
+"Chat.Confirm.DeleteMessages1_other" = "是否删除所选消息？";
+
+"Chat.Confirm.DeleteForEveryone_countable" = "%d";
+
+
+
+
+
+"Chat.Confirm.DeleteForEveryone_other" = "是否为所有人删除所选消息？";
+
+
+"Telegram.PrivacyAndSecurityViewController" = "隐私和安全";
+"PrivacySettings.PrivacyHeader" = "隐私";
+"PrivacySettings.BlockedUsers" = "已屏蔽的用户";
+"PrivacySettings.LastSeen" = "最后上线时间和在线状态";
+"PrivacySettings.Groups" = "群组与频道";
+"PrivacySettings.PhoneNumber" = "手机号码";
+"PrivacySettings.VoiceCalls" = "通话";
+"PrivacySettings.ProfilePhoto" = "头像";
+
+"PrivacySettings.VoiceMessages" = "语音消息";
+
+
+
+
+
+
+
+
+"PrivacySettings.GroupMembersCount_other" = "%d 位成员";
+
+"PrivacySettings.SecurityHeader" = "安全";
+"PrivacySettings.Passcode" = "锁定码";
+"PrivacySettings.ActiveSessions" = "所有设备";
+
+"PrivacySettings.UseProxy" = "使用代理";
+"PrivacySettings.ProxyHeader" = "连接类型";
+
+"PrivacySettings.TwoStepVerification" = "两步验证";
+
+"Telegram.PasscodeSettingsViewController" = "密码锁";
+"Passcode.Lost.Description" = "如果您忘记了锁定码，您可以[注销]()";
+
+
+
+
+
+"Chat.Input.StartBot" = "开始";
+
+"InlineModalAction.Title" = "分享机器人内容";
+"InlineModalAction.Desc" = "通过 %@ 给用户或会话分享内容";
+
+
+"ChatList.Context.HidePromo" = "隐藏";
+
+"ChatList.Context.Unmute" = "取消免打扰";
+"ChatList.Context.Mute" = "免打扰";
+"ChatList.Context.ClearHistory" = "清空历史记录";
+"ChatList.Context.Call" = "通话";
+"ChatList.Context.DeleteChat" = "删除聊天";
+"ChatList.Context.DeleteAndExit" = "删除并退出";
+"ChatList.Context.LeaveChannel" = "退出频道";
+"ChatList.Context.LeaveGroup" = "退出群组";
+"ChatList.Context.ReturnGroup" = "返回群组";
+"ChatList.Context.Pin" = "置顶";
+"ChatList.Context.Unpin" = "取消置顶";
+"ChatList.Context.Delete" = "删除";
+
+"ChatList.Context.Pause" = "关闭";
+"ChatList.Context.Start" = "重新启动";
+
+"ChatList.Context.HideGeneral" = "隐藏";
+"ChatList.Context.UnhideGeneral" = "取消隐藏";
+
+
+"ChatList.Context.Preview" = "预览";
+
+"ChatList.SecretChat.Terminated" = "私密聊天已取消";
+"ChatList.SecretChat.Joined" = "%@ 已加入您的私密聊天。";
+"ChatList.SecretChat.Created" = "%@ 创建了私密对话";
+"ChatList.SecretChat.ExKeys" = "等待用户上线";
+
+"ChatList.UnsupportedMessage" = "消息不被支持";
+"Chat.Message.Unsupported" = "当前 Telegram 版本不支持此消息。请在 AppStore 更新本应用到最新版或在这里下载: https://macos.telegram.org";
+"Text.Copy" = "拷贝所选内容";
+"Text.CopyText" = "拷贝文本";
+
+
+"Text.CopyLabel_About" = "拷贝关于";
+"Text.CopyLabel_Bio" = "拷贝简介";
+"Text.CopyLabel_PhoneNumber" = "拷贝手机号码";
+"Text.CopyLabel_Username" = "拷贝用户名";
+"Text.CopyLabel_ShareLink" = "拷贝分享链接";
+
+"Peer.Activity.User.PlayingGame" = "玩游戏";
+"Peer.Activity.User.TypingText" = "正在输入";
+"Peer.Activity.User.SendingPhoto" = "正在发送图片";
+"Peer.Activity.User.RecordingVideo" = "正在录制视频";
+"Peer.Activity.User.SendingVideo" = "正在发送视频";
+"Peer.Activity.User.RecordingAudio" = "正在录制语音";
+"Peer.Activity.User.SendingFile" = "正在发送文件";
+"Peer.Activity.User.ChoosingSticker" = "正在挑选贴纸";
+"Peer.Activity.User.EnjoyingAnimations" = "正在观看 %@";
+
+
+"Peer.Activity.Chat.TypingText" = "%@ 正在输入";
+"Peer.Activity.Chat.SendingPhoto" = "%@ 正在发送图片";
+"Peer.Activity.Chat.RecordingVideo" = "%@ 正在录制视频";
+"Peer.Activity.Chat.SendingVideo" = "%@ 正在发送视频";
+"Peer.Activity.Chat.RecordingAudio" = "%@ 正在录制语音";
+"Peer.Activity.Chat.SendingFile" = "%@ 正在发送文件";
+
+"Peer.Activity.Chat.EnjoyingAnimations" = "%@ 正在观看 %@";
+
+
+"Peer.Activity.Chat.Multi.PlayingGame1" = "%@ 和其他 %d 人正在玩游戏";
+"Peer.Activity.Chat.Multi.TypingText1" = "%@ 和其他 %d 人正在输入";
+"Peer.Activity.Chat.Multi.SendingPhoto1" = "%@ 和其他 %d 人正在发送图片";
+"Peer.Activity.Chat.Multi.RecordingVideo1" = "%@ 和其他 %d 人正在录制视频";
+"Peer.Activity.Chat.Multi.SendingVideo1" = "%@ 和其他 %d 人正在发送视频";
+"Peer.Activity.Chat.Multi.RecordingAudio1" = "%@ 和其他 %d 人正在录制语音";
+"Peer.Activity.Chat.Multi.SendingAudio1" = "%@ 和其他 %d 人正在发送音频";
+"Peer.Activity.Chat.Multi.SendingFile1" = "%@ 和其他 %d 人正在发送文件";
+"Peer.Activity.Chat.Multi.ChoosingSticker1" = "%@ 和其他 %d 人正在选择贴纸";
+
+
+
+"Peer.Media.SharedMediaEmptyList" = "快在这个对话里分享一些图片或者视频吧\n不然这个回形针会一直不开心的。";
+"Peer.Media.SharedFilesEmptyList1" = "可以发送或收取最大为2G的任意格式的文件，\n并在所有设备上查看。";
+"Peer.Media.SharedLinksEmptyList" = "此聊天中分享的所有链接都会显示在这里。";
+"Peer.Media.SharedMusicEmptyList" = "此聊天中共享的所有音乐都会在这里显示。";
+"Peer.Media.SharedVoiceEmptyList" = "此对话中共享的所有语音和视频消息都会在这里显示。";
+"SecretTimer.Off" = "关闭";
+
+
+"Timer.Seconds_countable" = "%d";
+
+
+
+
+
+"Timer.Seconds_other" = "%d 秒";
+
+
+"Timer.Days_countable" = "%d";
+
+
+
+
+
+"Timer.Days_other" = "%d 天";
+
+
+"Timer.Minutes_countable" = "%d";
+
+
+
+
+
+"Timer.Minutes_other" = "%d 分钟";
+
+"Timer.Hours_countable" = "%d";
+
+
+
+
+
+"Timer.Hours_other" = "%d 小时";
+
+
+
+
+
+
+
+
+"LastSeen.HoursAgo_other" = "最近上线于 %d 小时前";
+
+
+"Timer.Weeks_countable" = "%d";
+
+
+
+
+
+"Timer.Weeks_other" = "%d 周";
+
+"Timer.Months_countable" = "%d";
+
+
+
+
+
+"Timer.Months_other" = "%d 个月";
+
+"Timer.Months_countable" = "%d";
+
+
+
+
+
+"Timer.Months_other" = "%d 个月";
+
+"Timer.Years_countable" = "%d";
+
+
+
+
+
+"Timer.Years_other" = "%d 年";
+
+"Timer.Forever" = "永久";
+"Timer.Never" = "永不";
+
+"ChatList.Draft" = "草稿：";
+"ChatList.You" = "你";
+
+"Notification.LockedPreview" = "您有一条新消息";
+"JoinLink.Join" = "加入";
+
+"Group.Unavailable" = "抱歉，此群组似乎不存在。";
+
+"Link.Expired" = "抱歉，该链接已失效。";
+
+
+"Chat.Title.self" = "您的云存储";
+"Separator.ShowMore" = "显示更多";
+"Separator.ShowLess" = "显示更少";
+"Separator.Clear" = "清除";
+"Stickers.Recent" = "最近";
+"Stickers.Premium" = "高级版";
+"Stickers.Favorite" = "收藏";
+"Stickers.Trending" = "热门贴纸";
+"Stickers.SearchAdd" = "添加";
+"Stickers.Context.Archive" = "归档";
+
+"Emoji.Context.Remove" = "移除";
+
+
+"Stickers.SearchAdded" = "已添加";
+
+
+"Stickers.Confirm.ClearRecentText" = "你是否确定要清除最近的贴纸？";
+"Stickers.Confirm.ClearRecentOK" = "清除";
+
+
+"Stickers.Count_countable" = "%d";
+
+
+
+
+
+"Stickers.Count_other" = "%d 个贴纸";
+
+"Account.Confirm.AskQuestion" = "请注意：Telegram 的技术支持由志愿者提供，反馈时请使用英文。我们会尽快回复您，但是仍可能需要等待一段时间。\n\n请前往“常见问题” 看看：那里有各种常见问题和故障排除指南。";
+"Account.Confirm.GoToFaq" = "打开常见问题";
+
+"Chat.SecretChat.EmptyHeader" = "私密对话：";
+"Chat.SecretChat.1Feature" = "- 使用端到端加密";
+"Chat.SecretChat.2Feature" = "- 不会在服务器上留下任何痕迹";
+"Chat.SecretChat.3Feature" = "- 支持阅后即焚";
+"Chat.SecretChat.4Feature" = "- 不允许转发";
+
+
+"TextView.Transform.Bold" = "粗体";
+"TextView.Transform.Italic" = "斜体";
+"TextView.Transform.Code" = "等宽";
+"TextView.Transform.URL" = "转换为链接";
+
+"TextView.Transform.URL1" = "转换为链接";
+
+
+"AccountsController.NewAccount" = "新增帐号";
+
+"Account.Confirm.Logout" = "您确定要登出吗？";
+"Account.Confirm.LogoutText" = "请注意，退出会清空您所有的私密聊天记录。";
+
+"Telegram.ConvertGroupViewController" = "超级群组";
+
+"Supergroup.Convert.Description" = "**在超级群组中**： \n• 新成员可以看到所有历史聊天记录 \n• 所有成员将看不到已删除的消息 \n• 管理员可以置顶重要的消息 \n• 创建者可以给群组设置一个公开链接";
+"Supergroup.Convert.Undone" = "**注意**：此操作无法撤消。";
+"Supergroup.Convert.Button" = "转换为超级群组";
+
+
+"PeerInfo.MembersHeader_countable" = "%d";
+
+
+
+
+
+"PeerInfo.MembersHeader_other" = "%d  位成员";
+
+"PeerInfo.InviteLink" = "邀请链接";
+"PeerInfo.BlackList" = "黑名单";
+"PeerInfo.GroupType" = "群组类型";
+"PeerInfo.ChannelType" = "频道类型";
+"PeerInfo.GroupType.Public" = "公开";
+"PeerInfo.GroupType.Private" = "私密";
+"PeerInfo.SetAboutDescription" = "您可以给您的频道添加一段简介。";
+"PeerInfo.About.Placeholder" = "简介";
+"PeerInfo.ConvertToSupergroup" = "升级为超级群组";
+"PeerInfo.RemovedUsers" = "被移除的用户";
+
+"PeerInfo.ShowMoreText" = "[更多]()";
+"PeerInfo.GroupTitle.Pleceholder" = "群组名称";
+"PeerInfo.ChannelTitle.Pleceholder" = "频道名";
+
+"Telegram.ChannelBlacklistViewController" = "黑名单";
+"Telegram.ChannelAdminsViewController" = "管理员";
+
+"ChannelBlacklist.EmptyDescrpition" = "被加入黑名单的用户会从群组中移除，并且不能使用邀请链接重返群组，只能通过管理员的邀请返回。";
+
+"Admins.GroupAdmins" = "群组管理员";
+"Admins.ChannelAdmins" = "频道管理员";
+
+"Admins.OnlyAdminsCanAddMembers" = "只有管理员有权添加成员。";
+"Admins.EverbodyCanAddMembers" = "所有人都能添加成员。";
+"Admins.GroupDescription" = "您可以添加管理员帮助您管理群组。";
+"Admins.ChannelDescription" = "您可以添加管理员帮助您管理频道。";
+"Admins.SelectNewAdminTitle" = "联系人";
+"Admins.AddAdmin" = "添加管理员";
+"Admins.Admin" = "管理员";
+"Admins.WhoCanInvite.Text" = "谁可以邀请成员";
+"Admins.WhoCanInvite.Admins" = "仅管理员";
+"Admins.WhoCanInvite.Everyone" = "所有成员";
+
+"Admins.Owner" = "群主";
+
+
+"Telegram.ChannelVisibilityController.Channel" = "频道";
+
+"Telegram.ChannelVisibilityController.Group" = "群组";
+
+"PeerInfo.Confirm.AddMembers1_countable" = "%d";
+
+
+
+
+
+"PeerInfo.Confirm.AddMembers1_other" = "添加 %d 人到此群组？";
+
+
+
+"peerInfo.Confirm.Leave" = "退出";
+"PeerInfo.Confirm.Clear" = "清除";
+
+"peerInfo.Confirm.ClearHistory.User" = "此操作将会从你的 Telegram 云端中删除此聊天中的所有消息和媒体，但无法从对方的记录中删除。";
+"peerInfo.Confirm.ClearHistory.UserBothSides" = "您确定要删除聊天中的所有消息吗？";
+
+"peerInfo.Confirm.ClearHistory.SavedMesssages" = "此操作将从您的 Telegram 云端中，删除此对话中的所有的消息和媒体。";
+
+"peerInfo.Confirm.ClearHistory.Group" = "此操作将会从你的 Telegram 云端中删除此群组中的所有消息和媒体，但不会从其他群成员的记录中删除。";
+
+"PeerInfo.Confirm.AddMember" = "添加  \"%@\" 到此群组？";
+"PeerInfo.Confirm.RemovePeer" = "从群组中移除  \"%@\" ？";
+
+"PeerInfo.FirstName.Placeholder" = "姓氏";
+"PeerInfo.LastName.Placeholder" = "姓氏";
+
+"PeerInfo.GroupName.Placeholder" = "群组名称";
+"PeerInfo.ChannelName.Placeholder" = "频道名称";
+"PeerInfo.Phone" = "电话";
+"PeerInfo.AnonymousPhone" = "匿名电话";
+
+"ConvertToSupergroup.Alert.Error" = "抱歉，出现了一些问题，请重试。";
+"ConvertToSuperGroup.Confirm" = "您确定要这么做吗？此操作无法撤消！";
+"Telegram.LinkInvationController" = "邀请链接";
+
+"GroupInvation.CopyLink" = "拷贝链接";
+"GroupInvation.Revoke" = "撤销";
+"GroupInvation.Share" = "分享链接";
+
+"GroupInvation.GroupDescription" = "任何已安装 Telegram 的用户都将可以通过此链接加入您的群组。";
+"GroupInvation.ChannelDescription" = "任何已安装 Telegram 的用户都可以通过此链接关注您的频道。";
+
+"Chat.Header.PinnedMessage" = "置顶消息";
+"Chat.Header.PinnedPrevious" = "之前置顶的消息";
+
+"Chat.Header.PinnedMessage_Numer" = "置顶消息 #%d";
+
+"Chat.Header.ReportSpam" = "举报垃圾信息";
+"Chat.Confirm.Unpin" = "您确定要取消置顶此消息吗？";
+
+
+
+
+
+
+"Chat.Confirm.PinFor" = "为我和 %@ 置顶";
+
+"StickerPack.Add1_countable" = "%d";
+
+
+
+
+
+"StickerPack.Add1_other" = "添加 %d 张贴纸";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"EmojiPack.Add_countable" = "%d 个";
+
+
+
+
+
+"EmojiPack.Add_other" = "添加 %d 个表情";
+
+"Compose.Select.SecretChat" = "私密聊天";
+"Compose.Confirm.StartSecretChat" = "与 \"%@\" 创建私密对话";
+
+
+"ReportReason.Spam" = "垃圾信息";
+"ReportReason.Violence" = "暴力";
+"ReportReason.Porno" = "色情";
+"ReportReason.ChildAbuse" = "虐待儿童";
+"ReportReason.Copyright" = "版权";
+"ReportReason.Other" = "其他";
+"ReportReason.Other.Placeholder" = "描述";
+"ReportReason.Report" = "举报";
+"ReportReason.Fake" = "虚假";
+"ReportReason.PersonalDetails" = "个人信息";
+
+
+"PeerInfo.ChannelReported" = "非常感谢！我们的团队会尽快核查您的举报。";
+
+"PeerInfo.SignMessages.Desc" = "在管理员发送的消息后附上他们的名字。";
+"PeerInfo.SignMessages" = "消息署名";
+"PeerInfo.SetChannelPhoto" = "设置频道头像";
+"PeerInfo.Members" = "成员";
+"PeerInfo.Subscribers" = "订阅者";
+"PeerInfo.DeleteChannel" = "删除频道";
+"PeerInfo.DeleteSecretChat" = "删除私密聊天";
+
+"ChannelMembers.AddMembers" = "添加成员";
+"ChannelMembers.AddSubscribers" = "添加订阅者";
+
+"ChannelMembers.InviteLink" = "通过链接邀请";
+"ChannelMembers.MembersListDesc" = "此列表仅频道管理员可见。";
+"Telegram.ChannelMembersViewController" = "频道成员";
+
+"ChannelMembers.Contacts" = "此频道中的联系人";
+
+
+
+"ChannelMembers.Group.Contacts" = "本群的联系人";
+"ChannelMembers.Group.OtherMembers" = "其他成员";
+
+
+"ChannelMembers.Group.HideMembers" = "隐藏成员";
+"ChannelMembers.Group.HideMembers.Info" = "打开此选项可隐藏该群组的成员列表。管理员将仍然可见。";
+
+"LinkInvation.Group.Confirm.Revoke" = "您确定要撤销这个邀请链接吗？一旦撤销，其他人将无法使用此链接加入小组。";
+"LinkInvation.Channel.Confirm.Revoke" = "您确定要撤销这个邀请链接吗？一旦撤销，其他人将无法使用此链接加入这个频道。";
+"LinkInvation.Confirm.Ok" = "撤销";
+"ChannelMembers.Select.Title" = "添加成员";
+"PeerInfo.Confirm.SecretChat.Header" = "私密聊天";
+
+"PeerInfo.Confirm.StartSecretChat" = "您确定要与 “%@” 开始私密聊天吗？";
+
+
+
+"PeerInfo.BotStatus.HasNoAccess" = "无权读取消息";
+"PeerInfo.BotStatus.HasAccess" = "可读取消息";
+"PeerInfo.GroupsInCommon" = "共同加入的群组";
+"GroupsInCommon.Empty" = "没有共同加入的群组";
+"Telegram.GroupsInCommonViewController" = "共同加入的群组";
+
+"ChannelVisibility.Checking" = "正在检查…";
+"ChannelVisibility.Loading" = "加载中…";
+"ChannelVisibility.Confirm.Revoke" = "您确定要将此频道设为私密并删除其用户名吗？";
+
+
+
+
+
+
+"ChannelVisibility.Forwarding.GroupTitle" = "从该群组转发消息";
+"ChannelVisibility.Forwarding.ChannelTitle" = "从此频道转发";
+"ChannelVisibility.Forwarding.Restrict" = "限制保存内容";
+"ChannelVisibility.Forwarding.GroupInfo1" = "成员将可以拷贝、保存及转发此群组中的内容。";
+"ChannelVisibility.Forwarding.ChannelInfo1" = "订阅者将可以拷贝、保存及转发此群组中的内容。";
+
+"ChannelVisibility.Forwarding.GroupInfo1.Restrict" = "成员将无法拷贝、保存或转发此群组中的内容。";
+"ChannelVisibility.Forwarding.ChannelInfo1.Restrict" = "订阅者将无法拷贝、保存或转发此频道的内容。";
+
+
+"ChannelVisibility.Messages.Who" = "谁可以发送消息？";
+"ChannelVisibility.Messages.Everyone" = "所有人";
+"ChannelVisibility.Messages.Members" = "仅成员";
+
+"ChannelVisibility.Messages.Approve" = "新成员审核";
+"ChannelVisibility.Messages.Approve.Info" = "如果您希望用户只有在得到管理员批准后才能发送消息，请启用此选项。";
+
+
+"Peer.DeletedUser" = "已销号用户";
+
+"ChatList.Service.Call.incoming" = "来电 (%@)";
+"ChatList.Service.Call.outgoing" = "去电 (%@)";
+
+"ChatList.Service.VideoCall.incoming" = "呼入视频通话（%@）";
+"ChatList.Service.VideoCall.outgoing" = "呼出视频通话（%@）";
+
+"ChatList.Service.Call.Cancelled" = "取消的电话";
+"ChatList.Service.Call.Missed" = "未接电话";
+
+"ChatList.Service.VideoCall.Cancelled" = "已取消的视频来电";
+"ChatList.Service.VideoCall.Missed" = "未接视频来电";
+
+
+"Chat.Service.Call.Cancelled" = "已取消";
+"Chat.Service.Call.Missed" = "未接";
+
+"ChatList.Service.GameScored1_countable" = "%d %@";
+
+
+
+
+
+"ChatList.Service.GameScored1_other" = "获得 %d 分：%@";
+
+"About.Description" = "macOS 下基于 MTProto 的速度和安全性的免费聊天程序。";
+"ChatService.ChannelCreated" = "频道已创建";
+"Telegram.BlockedPeersViewController" = "已拉黑用户";
+"BlockedPeers.EmptyDescrpition" = "被您屏蔽的用户将无法向您发送消息，或邀请您加入群组。该用户也无法看到您的头像、在线状态及最后上线时间。";
+
+"Sessions.CurrentSessionHeader" = "此设备";
+"Sessions.TerminateOthers" = "终止所有其他会话";
+"Sessions.TerminateDescription" = "登出除此设备外的所有设备。";
+"Sessions.ActiveSessionsHeader" = "其他设备";
+
+
+"Passcode.TurnOn" = "开启密码锁";
+"Passcode.TurnOnDescription" = "当您设置好一个附加锁定码后，你可以使用快捷键  ⌘ + L 来上锁。\n\n注意：如果您忘记这个锁定码，你将只能删除然后重新安装Telegram。重装之后您将丢失所有的私密会话。";
+"Passcode.TurnOff" = "关闭密码锁";
+"Passcode.Change" = "更改锁定码";
+"Passcode.Autolock" = "自动锁定";
+"Passcode.AutoLock.Disabled" = "停用";
+"Passcode.AutoLock.IfAway" = "离开  %@ 分钟后";
+
+"Passcode.EnterPasscodePlaceholder" = "请输入锁定码";
+"Passcode.ReEnterPlaceholder" = "请再次输入锁定码";
+"Passcode.EnterCurrentPlaceholder" = "请输入当前的锁定码";
+"Passcode.EnterNewPlaceholder" = "请输入新的锁定码";
+
+"Passcode.Next" = "下一步";
+
+
+"Peer.ServiceNotifications" = "服务通知";
+
+"Peer.RepliesNotifications" = "回复通知";
+
+"Alert.SendError.Header" = "您的信息未发送成功";
+"Alert.SendError.Text" = "在发送上一条信息时遇到错误。是否重试？";
+"Alert.SendError.Resend" = "重新发送";
+"Alert.SendError.Delete" = "删除";
+"Alert.SendError.Ignore" = "忽略";
+
+
+"Alert.SendError.ResendItems_countable" = "%d";
+
+
+
+
+
+
+
+"GeneralSettings.EnableSidebar" = "侧栏";
+"Telegram.RecentSessionsController" = "所有设备";
+"RecentSessions.Confirm.TerminateOthers" = "您确定要终止所有其他的登录会话吗？";
+"RecentSessions.Confirm.Revoke" = "您确定要注销此设备？";
+"RecentSessions.Revoke" = "撤销";
+"RecentSessions.Error.FreshReset" = "出于安全原因，您无法终止刚刚连接的设备上的会话。 请使用之前的设备连接或等待几个小时。";
+
+
+
+
+
+"RecentSessions.TTL.Text" = "如果我不上线";
+
+"Legacy.Intro.Description1" = "欢迎使用超快又稳定的 macOS 版 Telegram，现全以 Swift 3.0 重写。";
+"Legacy.Intro.Description2" = "请注意您的现有私密对话将以只读方式显示。您可以创建一个新的私密对话来继续聊天。";
+"Legacy.Intro.Next" = "开始聊天";
+
+"Messages.ReplyLoading.Header" = "回复";
+"Messages.ReplyLoading.Loading" = "加载中…";
+"PeerInfo.DeleteContact" = "删除联系人";
+"PeerInfo.Confirm.DeleteContact" = "您确定要删除此联系人吗？";
+"Compose.SelectUsers" = "选择用户";
+"PeerInfo.AddContact" = "添加为联系人";
+"PeerInfo.AddUserToContact" = "添加 %@ 为联系人";
+"Telegram.GroupAdminsController" = "管理员";
+"GroupAdmins.AllMembersAdmins" = "将所有成员设为管理员";
+"GroupAdmins.Desc.AdminInvites" = "只有管理员有权添加或移除成员、编辑群组名称或头像。";
+"GroupAdmins.Desc.AllInvites" = "所有成员可以添加新成员、编辑群组名称及头像。";
+"Login.PhoneNumberNotRegistred" = "该电话号码尚未注册。如果您尚未拥有 Telegram 账号，请在您的移动设备上进行注册。";
+"Login.YourPhoneLabel" = "电话号码";
+"Login.YourCodeLabel" = "验证码";
+"Login.YourPasswordLabel" = "密码";
+
+
+
+"PeerInfo.EncryptionKey" = "加密密钥";
+
+"Telegram.SecretChatKeyViewController" = "加密密钥";
+"EncryptionKey.Description" = "这是您与 **%@** 的本次私密对话中，加密密钥的可视化图片和文本。\n\n如果它们看起来和 **%@** 设备上的完全一致，端到端加密则是安全的。";
+
+
+"GeneralSettings.InAppSounds" = "应用内提示音";
+"Chat.ShareInlineResultActionHeader" = "分享";
+"Context.ShowInFinder" = "在 Finder 中查看";
+"Telegram.InstalledStickerPacksController" = "表情";
+
+"Stickers.Set.Count1_countable" = "%d";
+
+
+
+
+
+"Stickers.Set.Count1_other" = "%d 张贴纸";
+
+"Telegram.FeaturedStickerPacksController" = "热门贴纸";
+"Telegram.ArchivedStickerPacksController" = "已归档表情";
+"ArchivedStickers.Description" = "您最多可以拥有 200 个贴纸包。\n当您添加更多的贴纸时，未使用的贴纸将会被归档。";
+"InstalledStickers.PacksTitle" = "您的贴纸包";
+"InstalledStickers.Descrpiption" = "用户可以通过机器人 @stickers 创建自己的贴纸包。\n\n点击贴纸可以预览及添加贴纸包。";
+"InstalledStickers.Archived" = "已归档贴纸包";
+"InstalledStickers.LoopAnimated" = "循环播放动态贴纸";
+"InstalledStickers.Tranding" = "热门贴纸";
+"InstalledStickers.QuickReaction1" = "快速回应";
+"InstalledStickers.CustomEmoji" = "自定义表情";
+"StickerSet.Remove" = "移除";
+"InstalledStickers.Remove.Description" = "此贴纸包将被存档，您可以在「已归档贴纸包」选项中快速将其恢复。";
+"InstalledStickers.Remove.Delete" = "删除";
+"Alert.UserDoesntExists" = "抱歉，这个用户好像不存在。";
+"Alert.PrivateChannel.AccessError" = "很遗憾，您无法打开此消息。 您不是消息所在聊天的成员。";
+
+"InstalledStickers.DynamicPackOrder" = "贴纸包动态顺序";
+"InstalledStickers.DynamicPackOrderInfo" = "最近使用的贴纸包将显示在旧的贴纸包上方。";
+
+
+"InAppLinks.Confirm.OpenExternalNew" = "你想打开 %@ ？";
+
+"InAppLinks.Confirm.OpenExternal.Header" = "打开链接";
+
+
+"Login.Header.Code" = "请输入验证码";
+"Login.Header.Password" = "输入密码";
+"Login.Header.SignUp" = "注册";
+
+"Contacts.AddContact" = "添加联系人";
+"Contacts.FirstName.Placeholder" = "名字";
+"Contacts.LastName.Placeholder" = "姓氏";
+"Contacts.PhoneNumber.Placeholder" = "电话号码";
+"Contacts.NotRegistredTitle" = "不是 Telegram 用户";
+"Contacts.NotRegistredDescription" = "该联系人尚未注册 Telegram 。\n\n当其完成注册时，您即可向其发送消息。";
+
+
+"Contacts.PhoneNumber.NotRegistred" = "此电话号码尚未在Telegram上注册。";
+
+
+"DataAndStorage.StorageUsage" = "存储用量";
+"DataAndStorage.NetworkUsage" = "网络用量";
+
+
+"DataAndStorage.AutomaticDownload.GroupsChannels" = "群组和频道";
+
+"DataAndStorage.AutomaticPhotoDownload.Header" = "自动下载图片";
+"DataAndStorage.AutomaticAudioDownload.Header" = "自动下载语音";
+"DataAndStorage.AutomaticVideoDownload.Header" = "自动下载视频";
+
+
+
+"Telegram.StorageUsageController" = "存储用量";
+"StorageUsage.KeepMedia" = "保留媒体文件";
+
+"StorageUsage.KeepMedia.Private" = "私聊";
+"StorageUsage.KeepMedia.Groups" = "群聊";
+"StorageUsage.KeepMedia.Channels" = "频道";
+
+
+"StorageUsage.TelegramUsage.Text" = "Telegram 占用你设备储存空间的 %@。";
+
+
+"StorageUsage.TelegramUsage.Text.Peer" = "此聊天使用 Telegram 缓存的 **%2$@%**。";
+
+
+
+"StorageUsage.KeepMedia.Exceptions_countable" = "%d";
+
+
+
+
+
+"StorageUsage.KeepMedia.Exceptions_other" = "%d 条例外";
+"StorageUsage.KeepMedia.Exceptions_ZeroValueHolder" = "添加例外";
+
+
+
+
+
+"StorageUsage.Limit.Header" = "缓存大小限制";
+"StorageUsage.Limit.InfoUpdated" = "如果缓存大小超过此限制，将从此设备中删除最早的未曾访问的媒体文件。";
+
+"StorageUsage.KeepMedia.Header" = "自动删除已缓存媒体";
+
+
+
+"StorageUsage.Limit.NoLimit" = "无限";
+
+
+
+"StorageUsage.KeepMedia.Description1" = "您在此期间**未访问的**云端聊天中的照片、视频和其他文件将从此设备中删除，以节省磁盘空间。";
+"StorageUsage.KeepMedia.Description" = "为节省磁盘空间，此期限内云端聊天中**未访问过**的图片、视频和其他文件将会被移除。\n\n所有媒体文件都会保留在 Telegram 云端，若您需要可再次下载。";
+"StorageUsage.ChatsHeader" = "对话";
+"StorageUsage.Calculating" = "Telegram 正在计算当前缓存占用空间。\n这可能需要几分钟。";
+
+"StorageUsage.CleaningProcess" = "你的本地缓存正在清空中...";
+
+
+"StorageUsage.CategoryText" = "所有媒体都将保留在 Telegram 云端中。如果您需要查看，可以重新下载。";
+
+
+"StorageUsage.ClearPart" = "清除所选的 %@";
+"StorageUsage.ClearDisabled" = "清除";
+
+
+"StorageUsage.Selected.ClearDisabled" = "清除所选内容";
+"StorageUsage.Selected.ClearPart" = "清除选定的 %@";
+
+
+"Message.Context.SaveGif" = "添加 GIF 动态图";
+"Message.Context.RemoveGif" = "移除 GIF 动态图";
+"Context.RecentGifRemove" = "移除";
+"Sidebar.Avalability" = "侧边栏仅在聊天时可用";
+"Sidebar.Peer.Restricted" = "该对话无法使用侧边栏";
+"Sidebar.Hide" = "隐藏频道";
+
+"PrivacySettingsController.Header" = "最近上线";
+"PrivacySettingsController.Everbody" = "所有人";
+"PrivacySettingsController.MyContacts" = "我的联系人";
+"PrivacySettingsController.Nobody" = "不允许任何人";
+"PrivacySettingsController.NeverShare" = "从不共享";
+"PrivacySettingsController.AlwaysShare" = "总是公开";
+"PrivacySettingsController.NeverShareWith" = "从不共享给";
+"PrivacySettingsController.AlwaysShareWith" = "总是共享给";
+"PrivacySettingsController.NeverAllow" = "从不允许";
+"PrivacySettingsController.AlwaysAllow" = "总是允许";
+
+"PrivacySettingsController.P2p.Always" = "总是";
+"PrivacySettingsController.P2p.Contacts" = "我的联系人";
+"PrivacySettingsController.P2p.Never" = "从不";
+"PrivacySettingsController.P2p.Header" = "端对端连接";
+"PrivacySettingsController.P2p.Desc" = "停用端对端连接后，所有通话流量将使用 Telegram 服务器中转以避免泄露您的 IP 地址，但可能会降低音质及画质。";
+
+
+
+
+
+
+
+"PrivacySettingsController.Forwards.WhoCanForward" = "转发我的消息时，谁可以链接至我的账号";
+
+"PrivacySettingsController.Forwards.AlwaysAllow.Title" = "总是允许";
+"PrivacySettingsController.Forwards.NeverAllow.Title" = "从不允许";
+
+
+"PrivacySettingsController.PhoneNumber.WhoCanSeePhoneNumber" = "谁能看到我的电话号码";
+"PrivacySettingsController.PhoneNumber.CustomHelp" = "已将您的手机号码保存到联系人的用户也将在 Telegram 上看到它。";
+
+
+
+"PrivacySettingsController.UserCount_countable" = "%d";
+
+
+
+
+
+"PrivacySettingsController.UserCount_other" = "%d 位用户";
+
+"PrivacySettingsController.AddUsers" = "添加用户";
+
+"PrivacySettingsController.LastSeenHeader" = "谁可以看到我最后上线的时间";
+"PrivacySettingsController.LastSeenDescription" = "注意：如果对方没有和你分享他们的最近在线时间，则你只能看到大致的时间段，如最近，一周内，一个月内等。";
+
+"PrivacySettingsController.GroupHeader" = "邀请权限控制";
+"PrivacySettingsController.GroupDescription" = "您可以详细控制哪些人能够将您加入到群组和频道中。";
+
+"PrivacySettingsController.PhoneCallHeader" = "谁可以呼叫我";
+"PrivacySettingsController.PhoneCallDescription" = "你可以限制其他人和你语音通话的权限";
+"PrivacySettingsController.PeerInfo" = "您可以将用户或整个群组设为例外，不受以上设置的限制。";
+
+
+"PrivacySettingsController.VoiceMessagesHeader" = "谁可以给我发送语音或视频消息？";
+"PrivacySettingsController.VoiceMessagesDescription" = "你可以精确地控制谁可以向你发送语音或视频消息。";
+
+
+"PrivacySettingsController.SetPublicPhoto" = "设置公共照片";
+"PrivacySettingsController.UpdatePublicPhoto" = "更新公共照片";
+
+"PrivacySettingsController.RemovePublicPhoto" = "移除公共照片";
+"PrivacySettingsController.SetPublicPhoto.Info" = "您可以为被限制查看真实个人资料照片的用户上传公开照片。";
+
+
+
+"Chat.Call.Outgoing" = "外拨电话";
+"Chat.Call.Incoming" = "来电";
+
+"Chat.VideoCall.Outgoing" = "呼出视频通话";
+"Chat.VideoCall.Incoming" = "视频来电";
+
+"CallHeader.EndCall" = "结束通话";
+"Call.ParticipantVersionOutdatedError" = "%@ 的应用不支持通话。在您能够呼叫他们之前，他们必须先更新他们的应用。";
+"Call.UndefinedError" = "未知错误，请稍后再试。";
+"Call.PrivacyErrorMessage" = "抱歉，由于其隐私设置，您无法呼叫 %@。您可以让其修改设置或呼叫您。";
+
+"Call.StatusRequesting" = "连接中…";
+"Call.StatusRinging" = "拨号中…";
+"Call.StatusConnecting" = "连接中…";
+"Call.StatusEnded" = "通话结束";
+"Call.StatusFailed" = "通话失败";
+"Call.StatusBusy" = "忙线";
+"Call.StatusCalling" = "正在呼叫...";
+"Call.StatusCallingAccount" = "正在呼叫 → %@...";
+
+
+
+"Call.Recent.Outgoing" = "外拨电话";
+"Call.Recent.Incoming" = "来电";
+"Call.Recent.Missed" = "未接";
+
+
+"Call.ShortSeconds_countable" = "%d";
+
+
+
+
+
+"Call.ShortSeconds_other" = "%d 秒";
+
+"Call.ShortMinutes_countable" = "%d";
+
+
+
+
+
+"Call.ShortMinutes_other" = "%d 分钟";
+
+
+"Telegram.LayoutRecentCallsViewController" = "最近通话";
+"RecentCalls.Empty" = "您最近的通话将在此显示";
+
+
+"RecentCalls.DeleteHeader" = "删除";
+"RecentCalls.DeleteCalls" = "您确定想要删除此次通话吗？";
+"RecentCalls.Delete" = "删除";
+"RecentCalls.DeleteForMeAnd" = "为我和 %@ 删除";
+
+
+"Call.Confirm.Discard.Voice.Header" = "正在进行视频聊天";
+"Call.Confirm.Discard.Voice.ToVoice.Text" = "是否要退出与 “%1$@” 的视频聊天并发起与 “%2$@” 的视频聊天？";
+
+
+
+"Call.Confirm.Discard.Call.ToVoice.Text" = "结束与\"%1$@\"的通话，并与\"%2$@\"开始新的通话？";
+"Call.Confirm.Discard.Call.ToCall.Text" = "是否结束与“%1$@”的通话并与“%2$@”开始视频聊天？";
+
+
+"Call.RatingModal.Placeholder" = "作出评价...";
+"Call.RatingModal.NotNow" = "不是现在";
+
+"Call.RatingModal.Text" = "请对您这次 Telegram 通话的质量作出评价";
+
+"GeneralSettings.CallSettings.Header" = "通话设置";
+"GeneralSettings.CallSettings.Text" = "通话设置";
+
+"CallFeedback.Title" = "通话反馈";
+"CallFeedback.WhatWentWrong" = "出了什么问题？";
+"CallFeedback.ReasonEcho" = "我听到了自己的回声";
+"CallFeedback.ReasonNoise" = "我听到了背景噪音";
+"CallFeedback.ReasonInterruption" = "对方声音断断续续";
+"CallFeedback.ReasonDistortedSpeech" = "声音失真";
+"CallFeedback.ReasonSilentLocal" = "我无法听到对方的声音";
+"CallFeedback.ReasonSilentRemote" = "对方无法听到我的声音";
+"CallFeedback.ReasonDropped" = "通话意外中断";
+"CallFeedback.VideoReasonDistorted" = "视频失真";
+"CallFeedback.VideoReasonLowQuality" = "视频被像素化";
+"CallFeedback.AddComment" = "添加评价（可选）";
+"CallFeedback.IncludeLogs" = "包含技术信息";
+"CallFeedback.IncludeLogsInfo" = "这不会泄露您的对话内容，但却能帮助我们尽快修复问题。";
+"CallFeedback.Send" = "发送";
+"CallFeedback.Success" = "感谢您的反馈";
+
+
+
+"QuickSwitcher.Recently" = "最近";
+"QuickSwitcher.Popular" = "人气";
+"QuickSwitcher.Description" = "按 **TAB** 或 **↑ ↓**  移动，按 **⮐** 选择，按 **ESC** 关闭";
+
+"Chat.Context.Edit1" = "编辑";
+"Chat.Context.EditHelp" = "点击日期";
+"Chat.Context.EnableNotifications" = "静音";
+"Chat.Context.DisableNotifications" = "取消免打扰";
+"Chat.Context.ClearHistory" = "清空历史记录";
+"Chat.Context.Info" = "简介";
+"Chat.Context.FeedInfo" = "频道信息";
+"Chat.Context.SharedMedia" = "分享的媒体文件";
+
+"Chat.Context.AutoDelete" = "自动删除信息";
+
+"Chat.Context.CreateGroup" = "新建群组";
+
+"Chat.Context.Archive" = "归档";
+"Chat.Context.Unarchive" = "取消归档";
+
+"Chat.Context.BlockUser" = "屏蔽用户";
+"Chat.Context.BlockGroup" = "屏蔽群组";
+
+"Chat.Context.BlockUser.Header" = "屏蔽用户";
+"Chat.Context.BlockUser.Info" = "您要屏蔽 %@ 的消息吗？";
+"Chat.Context.BlockUser.Third" = "举报垃圾信息";
+"Chat.Context.BlockUser.OK" = "屏蔽\n";
+"Chat.Context.BlockUser.Cancel" = "取消";
+
+"Chat.Context.BlockGroup.Header" = "屏蔽群组";
+
+"Chat.Context.BlockGroup.Third" = "举报垃圾信息";
+"Chat.Context.BlockGroup.OK" = "屏蔽";
+"Chat.Context.BlockGroup.Cancel" = "取消";
+
+"Chat.Context.SaveRingtone.Add" = "保存为通知铃声";
+
+
+"Chat.Context.SaveRingtone.RemoveSuccess" = "已成功移除音效";
+
+
+
+"Chat.Context.Peer.OpenInfo" = "打开个人信息";
+"Chat.Context.Peer.SendMessage" = "发送消息";
+"Chat.Context.Peer.Mention" = "提及";
+
+"Payments.Unsupported" = "抱歉，Telegram macOS 客户端暂不支持付款。请使用我们的移动端应用进行此操作。";
+
+"Chat.Service.PaymentSent1" = "您已成功转账 **%1$@** 给 **%2$@**，用途是 **%3$@**";
+
+"Chat.Service.PaymentSent1NoTitle" = "您已成功向 **%2$@** 转账 **%1$@**";
+
+
+
+"Chat.Service.PaymentSentRecurringInit" = "您已成功为 %3$@ 向 %2$@ 转账 %1$@，并已允许后续的定期付款";
+"Chat.Service.PaymentSentRecurringInitNoTitle" = "您已成功将 **%1$@** 转账给 **%2$@**，并已允许后续的定期付款";
+
+
+
+
+
+
+"Chat.List.Service.PaymentSent" = "支付：%@";
+
+
+"Telegram.LanguageViewController" = "语言";
+
+
+"1Xt-HY-uBw.title" = "Telegram";
+"2oI-Rn-ZJC.title" = "转换";
+
+"4J7-dP-txa.title" = "进入全屏幕";
+"4sb-4s-VLi.title" = "退出 Telegram";
+"5QF-Oa-p0T.title" = "编辑";
+
+"aMa-rb-kjV.title" = "全局搜索";
+
+"5kV-Vb-QxS.title" = "关于 Telegram";
+"6dh-zS-Vam.title" = "重做";
+"78Y-hA-62v.title" = "自动纠正拼写";
+"9ic-FL-obx.title" = "替换";
+"9yt-4B-nSM.title" = "智能拷贝/粘贴";
+"BOF-NM-1cW.title" = "偏好设置";
+"Cag-YX-WT6.title" = "隐藏 Telegram";
+"Dv1-io-Yv7.title" = "拼写和语法";
+
+"H8h-7b-M4v.title" = "查看";
+
+
+"HFQ-gK-NFA.title" = "文本替换";
+"HFo-cy-zxI.title" = "显示拼写和语法";
+"HyV-fh-RgO.title" = "查看";
+"Kd2-mp-pUS.title" = "显示全部窗口";
+"LE2-aR-0XJ.title" = "前置全部窗口";
+"OY7-WF-poV.title" = "最小化";
+"Olw-nP-bQN.title" = "隐藏";
+
+"R4o-n2-Eq4.title" = "缩放";
+"Ruw-6m-B2m.title" = "全选";
+
+"UEZ-Bs-lqG.title" = "首字母大写";
+"Vdr-fp-XzO.title" = "隐藏其他窗口";
+"W48-6f-4Dl.title" = "编辑";
+"WeT-3V-zwk.title" = "粘贴并匹配样式";
+"aUF-d1-5bR.title" = "窗口";
+
+
+"c8a-y6-VQd.title" = "转换";
+"cwL-P1-jid.title" = "智能链接";
+"d9M-CD-aMd.title" = "变为小写";
+"dRJ-4n-Yzg.title" = "撤销";
+"gVA-U4-sdL.title" = "粘贴";
+"hQb-2v-fYv.title" = "智能引号";
+"hz2-CU-CR7.title" = "立即检查文稿";
+"mK6-2p-4JG.title" = "检查拼写和语法";
+"pa3-QI-u2k.title" = "删除";
+"rbD-Rh-wIN.title" = "键入时检查拼写";
+"rgM-f4-ycn.title" = "智能破折号";
+"tRr-pd-1PS.title" = "数据检测器";
+"uQy-DD-JDr.title" = "Telegram";
+"uRl-iY-unG.title" = "剪切";
+"vmV-6d-7jI.title" = "变为大写";
+"x3v-GG-iWU.title" = "拷贝";
+"1000.title" = "检查更新";
+"z6F-FW-3nz.title" = "显示替换";
+"sZh-ct-GQS.title" = "快速搜索";
+
+"Login.ContinueOnLanguage" = "使用简体中文继续";
+"Date.Today" = "今天";
+
+/* This key for which language this file, for example: Italian -> Italiano, Russian -> Русский */
+"AccountSettings.CurrentLanguage" = "简体中文";
+"Suggest.Localization.Header" = "选择您的语言";
+"Suggest.Localization.Other" = "其它";
+
+"PrivacySettings.PeerSelect.AddNew" = "添加...";
+"PrivacySettings.PeerSelect.AddUserOrGroup" = "添加用户或群组";
+
+"Channel.EditAdmin.Permission.ChangeInfo" = "修改频道信息";
+"Group.EditAdmin.Permission.ChangeInfo" = "修改群组信息";
+"Channel.EditAdmin.Permission.DeleteMessages" = "删除消息";
+"Channel.EditAdmin.Permission.BanUsers" = "封禁用户";
+"Channel.EditAdmin.Permission.PinMessages" = "置顶消息";
+"Channel.EditAdmin.Permission.CreateTopics" = "创建话题";
+"Channel.EditAdmin.Permission.AddNewAdmins" = "添加新管理员";
+"Channel.EditAdmin.Permission.PostMessages" = "发布消息";
+"Channel.EditAdmin.Permission.EditMessages" = "编辑消息";
+"Channel.EditAdmin.PermissionInviteSubscribers" = "添加订阅者";
+"Channel.EditAdmin.PermissionInviteMembers" = "添加成员";
+"Channel.EditAdmin.PermissionAnonymous" = "匿名发送";
+
+"Channel.EditAdmin.PermissionInviteViaLink" = "通过链接邀请用户";
+
+"Channel.EditAdmin.ManageTopics" = "管理话题";
+
+"Channel.EditAdmin.Permission.SendPhotos" = "发送图片";
+"Channel.EditAdmin.Permission.SendVideos" = "发送视频";
+"Channel.EditAdmin.Permission.SendFiles" = "发送文件";
+"Channel.EditAdmin.Permission.SendMusic" = "发送音频";
+"Channel.EditAdmin.Permission.SendVoice" = "发送语音消息";
+"Channel.EditAdmin.Permission.SendInstantVideo" = "发送视频消息";
+
+
+"Channel.Persmission.Denied.SendMessages.Until" = "该群组的管理员限制了您在 %@ 之前发送消息。";
+"Channel.Persmission.Denied.SendMessages.Forever" = "此群组的管理员已限制您发送消息。";
+"Channel.Persmission.Denied.SendMessages.DefaultRestrictedText" = "此群组不允许发送消息。";
+
+"Channel.Persmission.Denied.SendMedia.Until" = "该群组的管理员限制了您在 %@ 之前发送媒体文件。";
+"Channel.Persmission.Denied.SendMedia.Forever" = "此群组的管理员已限制您发送媒体文件。";
+"Channel.Persmission.Denied.SendMedia.DefaultRestrictedText" = "该群组不允许发送媒体文件。";
+
+"Channel.Persmission.Denied.SendStickers.Until" = "该群组的管理员限制了您在 %@ 之前在此发送表情。";
+"Channel.Persmission.Denied.SendStickers.Forever" = "此群组的管理员已限制您发送贴纸。";
+"Channel.Persmission.Denied.SendStickers.DefaultRestrictedText" = "本群组禁止发送贴图表情。";
+
+"Channel.Persmission.Denied.SendGifs.Until" = "此群组的管理员已限制您发送 GIF 动态图直到 %@。";
+"Channel.Persmission.Denied.SendGifs.Forever" = "此群组的管理员已限制您发送 GIF 动态图。";
+"Channel.Persmission.Denied.SendGifs.DefaultRestrictedText" = "此群组不允许发送 GIF 动态图。";
+
+"Channel.Persmission.Denied.SendPoll.Until" = "该群租的管理员限制了您在 %@ 之前在此发起投票。";
+"Channel.Persmission.Denied.SendPoll.Forever" = "此群组的管理员已限制您发送投票。";
+"Channel.Persmission.Denied.SendPoll.DefaultRestrictedText" = "此群组不允许发布投票。";
+
+
+"Channel.Persmission.Denied.SendInline.Until" = "此群组的管理员已限制您在 %@ 之前发送机器人内容。";
+"Channel.Persmission.Denied.SendInline.Forever" = "此群组的管理员已限制您发送机器人内容。";
+"Channel.Persmission.Denied.SendInline.DefaultRestrictedText" = "此群组不允许发送机器人内容。";
+
+"Channel.Persmission.MessageBlock" = "不允许发送文本";
+
+
+
+"Channel.Persmission.Denied.SendVideo.Until" = "该群组的管理员已限制您在 %@ 前发送视频。";
+"Channel.Persmission.Denied.SendVideo.Forever" = "群管理员已限制您在本群发送视频消息。";
+"Channel.Persmission.Denied.SendVideo.DefaultRestrictedText" = "此群组不允许发送视频。";
+
+"Channel.Persmission.Denied.SendPhoto.Until" = "该群组的管理员已限制您在 %@ 前发送图片。";
+"Channel.Persmission.Denied.SendPhoto.Forever" = "该群组的管理员已限制您发送图片。";
+"Channel.Persmission.Denied.SendPhoto.DefaultRestrictedText" = "此群组不允许发送图片。";
+
+"Channel.Persmission.Denied.SendVoice.Until" = "该群组的管理员已限制您在 %@ 之前发送语音消息。";
+"Channel.Persmission.Denied.SendVoice.Forever" = "群组管理员已禁止你在群内发送语音消息。";
+"Channel.Persmission.Denied.SendVoice.DefaultRestrictedText" = "此群组不允许发送语音消息。";
+
+"Channel.Persmission.Denied.SendInstantVideo.Until" = "该群组的管理员已限制您在 %@ 之前发送视频消息。";
+"Channel.Persmission.Denied.SendInstantVideo.Forever" = "该群组的管理员已限制您在此发送视频消息。";
+"Channel.Persmission.Denied.SendInstantVideo.DefaultRestrictedText" = "对不起，你不能在本群内发送视频消息。";
+
+"Channel.Persmission.Denied.SendFile.Until" = "该群组的管理员已限制您在 %@ 之前在此发送文件。";
+"Channel.Persmission.Denied.SendFile.Forever" = "该群组的管理员已限制您在此发送文件。";
+"Channel.Persmission.Denied.SendFile.DefaultRestrictedText" = "此群组不允许发送文件。";
+
+"Channel.Persmission.Denied.SendMusic.Until" = "该群组的管理员已限制您在 %@ 前发送音乐。";
+"Channel.Persmission.Denied.SendMusic.Forever" = "群管理员已限制您在本群发送音乐消息。";
+"Channel.Persmission.Denied.SendMusic.DefaultRestrictedText" = "此群组不允许发送音频。";
+
+
+"Channel.Admin.Dismiss" = "解任管理员";
+"Channel.Admin.AdminAccess" = "此管理员将能够添加新的管理员，并赋予其与该管理员同等（或更少）的权限。";
+"Channel.Admin.AdminRestricted" = "该管理员不能添加新管理员。";
+
+"Channel.Admin.TransferOwnership.Group" = "转让群组";
+"Channel.Admin.TransferOwnership.Channel" = "转让频道所有权";
+
+"Channel.Admin.TransferOwnership.Password.Desc" = "请输入两步验证码以完成转让。";
+"Channel.Admin.TransferOwnership.Password.Title" = "两步验证";
+
+"Channel.Admin.TransferOwnership.Confirm.Group.Title" = "转让群组所有权";
+"Channel.Admin.TransferOwnership.Confirm.Group.Text" = "这将转让 **%@** 的所有权给 **%@**。\n\n您将不再被视为群组的创建者。 新的所有者可以自由地删除您的任何管理员权限，甚至封禁您。";
+"Channel.Admin.TransferOwnership.Confirm.Channel.Title" = "转让频道的所有权";
+"Channel.Admin.TransferOwnership.Confirm.Channel.Text" = "此操作会将频道 %@ 的所有权全部转让给 %@。\n\n您将不再是频道的创建者，新的频道所有者有权移除您的管理员特权，甚至可以封禁您。";
+"Channel.Admin.TransferOwnership.Confirm.OK" = "更改所有者";
+
+
+
+
+
+"Channel.Admin.WhatCanAdminDo" = "管理员权限";
+
+"Channel.EventLog.What" = "这是什么？";
+"Channel.EventLog.Alert.Header" = "事件日志是什么？";
+"Channel.EventLog.Alert.Info" = "此列表包含了在过去 48 小时内群组成员和管理员执行的所有服务操作。";
+
+
+"Group.EventLog.Service.TitleUpdated" = "%@ 更改了群组名称：";
+"Group.EventLog.Service.LinkUpdated" = "%@ 更改了群组链接：";
+"Group.EventLog.Service.AboutUpdated" = "%@ 更改了群组简介：";
+
+"Channel.EventLog.Service.TitleUpdated" = "%@ 更改了频道名称：";
+"Channel.EventLog.Service.LinkUpdated" = "%@ 更改了频道链接：";
+"Channel.EventLog.Service.AboutUpdated" = "%@ 更改了频道简介：";
+
+"Group.EventLog.Service.LinkRemoved" = "%@ 移除了群组链接：";
+"Group.EventLog.Service.AboutRemoved" = "%@ 移除了群组简介：";
+"Channel.EventLog.Service.LinkRemoved" = "%@ 移除了频道链接：";
+"Channel.EventLog.Service.AboutRemoved" = "%@ 移除了频道简介：";
+
+"Channel.EventLog.Service.AntispamEnabled" = "%@ 已启用反垃圾措施";
+"Channel.EventLog.Service.AntispamDisabled" = "%@ 已停用反垃圾措施";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"Channel.AdminLog.CanManageCalls" = "管理视频聊天";
+"Channel.AdminLog.CanManageTopics" = "环境话题";
+
+"EventLog.Service.PreviousTitle" = "旧名称";
+"EventLog.Service.PreviousLink" = "旧链接";
+"EventLog.Service.PreviousDesc" = "旧简介";
+
+
+"Channel.EventLog.Service.TopicCreated" = "%1$@ 已创建话题 ”%2$@\"";
+"Channel.EventLog.Service.TopicEdited" = "%1$@ 将话题名称编辑为 ”%2$@\"";
+
+"Channel.EventLog.Service.AboutRemoved" = "%@ 移除了频道简介：";
+
+
+
+"EventLog.Service.Demote.SendMessages" = "发送消息";
+"EventLog.Service.Demote.SendMedia" = "发送媒体";
+"EventLog.Service.Demote.SendStickers" = "发送贴纸";
+"EventLog.Service.Demote.ChangeInfo" = "修改信息";
+"EventLog.Service.Demote.SendGifs" = "发送 GIF 动态图";
+
+"EventLog.Service.Demote.AddMembers" = "添加成员";
+"EventLog.Service.Demote.PinMessages" = "置顶消息";
+"EventLog.Service.Demote.EmbedLinks" = "显示链接预览";
+"EventLog.Service.Demote.SendInline" = "发送机器人内容";
+
+"EventLog.Service.Promote.ChangeInfo" = "修改信息";
+"EventLog.Service.Promote.DeleteMessages" = "删除消息";
+"EventLog.Service.Promote.PostMessages" = "发布消息";
+"EventLog.Service.Promote.AddUsers" = "添加用户";
+"EventLog.Service.Promote.InviteViaLink" = "使用链接邀请用户";
+"EventLog.Service.Promote.PinMessages" = "置顶消息";
+"EventLog.Service.Promote.AddNewAdmins" = "添加新管理员";
+"EventLog.Service.Promote.BanUsers" = "封禁用户";
+"EventLog.Service.Promote.EditMessages" = "编辑消息";
+
+"EventLog.Service.Promote.RemainAnonymous" = "保持匿名";
+
+
+"EventLog.Service.ChangedDefaultsRights" = "默认权限已修改";
+
+
+
+
+
+
+
+
+
+
+
+"EventLog.Service.DeletedMessage" = "%@ 删除了消息:";
+"EventLog.Service.EditedMessage" = "%@ 编辑了消息:";
+"EventLog.Service.UpdatePinned" = "%@ 置顶了消息:";
+"EventLog.Service.RemovePinned" = "%@ 已将一条消息取消置顶";
+"EventLog.Service.ChangedStickerSet" = "%@ 已更改群组贴纸包";
+"EventLog.Service.RemovedStickerSet" = "%@ 已删除群组贴纸包";
+"EventLog.Service.PostMessage" = "%@ 发送了这条消息：";
+
+"EventLog.Service.EditedCaption" = "%@ 已编辑说明：";
+
+
+
+
+"Group.EventLog.Service.EnableInvites" = "%@ 启用了邀请权限";
+"Group.EventLog.Service.DisableInvites" = "%@ 已停用群组邀请";
+"Channel.EventLog.Service.EnableSignatures" = "%@ 启用了消息署名";
+"Channel.EventLog.Service.DisableSignatures" = "%@ 已停用频道消息署名";
+
+
+"Group.EventLog.Service.PhotoUpdated" = "%@ 更换了群组头像";
+"Group.EventLog.Service.PhotoRemoved" = "%@ 移除了群组头像";
+"Channel.EventLog.Service.PhotoUpdated" = "%@ 更换了频道头像";
+"Channel.EventLog.Service.PhotoRemoved" = "%@ 移除了频道头像";
+
+"Group.EventLog.Service.UpdateLeft" = "%@ 退出了群组";
+"Channel.EventLog.Service.UpdateLeft" = "%@ 已退出频道";
+
+"Group.EventLog.Service.UpdateJoin" = "%@ 加入了群组";
+"Channel.EventLog.Service.UpdateJoin" = "%@ 已加入频道";
+
+
+"Telegram.ChannelEventLogController" = "所有操作";
+
+"ChannelEventFilter.NewRestrictions" = "新限制";
+"ChannelEventFilter.NewAdmins" = "新管理员";
+"ChannelEventFilter.NewMembers" = "新成员";
+"ChannelEventFilter.GroupInfo" = "群组信息";
+"ChannelEventFilter.ChannelInfo" = "频道信息";
+"ChannelEventFilter.SendMessages" = "发送消息";
+"ChannelEventFilter.DeletedMessages" = "已删除消息";
+"ChannelEventFilter.EditedMessages" = "已编辑消息";
+"ChannelEventFilter.PinnedMessages" = "已置顶的消息";
+"ChannelEventFilter.LeavingMembers" = "成员退出";
+"ChannelEventFilter.VoiceChats" = "语音聊天";
+"ChannelEventFilter.Invites" = "邀请链接";
+
+"Group.EventLog.EmptyText" = "**暂无事件**\n\n在过去的 48 小时内群组成员和管理员没有执行任何操作。";
+"Channel.EventLog.EmptyText" = "**暂无操作记录**\n\n在过去的 48 小时内\n频道管理员没有执行\n任何值得注意的操作。";
+"Channel.EventLog.EmptySearch" = "**未找到操作记录**\n\n近期操作中找不到与您查询请求相符的结果。";
+
+"ChannelBlacklist.Restricted" = "受限制";
+"ChannelBlacklist.Blocked" = "已屏蔽";
+
+
+"Channel.Blacklist.Context.AddToGroup" = "添加到群组";
+
+
+"Channel.Blacklist.DescChannel" = "被管理员移除的用户不能通过邀请链接重新加入频道。";
+"Channel.Blacklist.DescGroup" = "被管理员移除的用户不能通过邀请链接再次加入群组。";
+
+
+"Channel.Blacklist.RestrictedBy" = "被 %@ 限制";
+"Channel.Blacklist.BlockedBy" = "被 %@ 拉黑";
+"Channel.Blacklist.DemoteAdminError" = "您无法封禁这位用户，因为该用户是此群组的管理员，并且您也无权移除其管理员权限。";
+
+
+"Channel.UserRestriction" = "用户限制";
+"Channel.BlockUser.CanReadMessages" = "能够查看消息";
+"Channel.BlockUser.CanSendMessages" = "能够发送消息";
+"Channel.BlockUser.CanSendMedia" = "发送媒体";
+"Channel.BlockUser.CanSendStickers" = "发送贴纸和 GIF 动态图";
+"Channel.BlockUser.CanEmbedLinks" = "显示链接预览";
+"Channel.BlockUser.BlockFor" = "封禁时长";
+"Channel.Blacklist.SelectNewUserTitle" = "成员";
+
+"Channel.Exception.DisabledOption.Group" = "对群组中的所有成员禁用此选项。";
+"Channel.Exception.DisabledOption.Channel" = "此选项在频道权限中对所有成员禁用。";
+
+"Channel.Admins.PromotedBy" = "被 %@ 设为管理员";
+"Channel.Admins.AddAdminError" = "抱歉，您不能将此用户设为管理员。";
+
+"Channel.Admins.Promote.BannedAdminError" = "抱歉，您无法将这位用户设为管理员。因为该用户在群组的黑名单中，且您也无法解除其封禁。";
+"Channel.Admins.Promote.UnmemberAdminError" = "抱歉，您无法将这位用户设为管理员。因为该用户不是此群组的成员，且您也无权邀请该用户。";
+"Channel.BanForever" = "永久";
+
+"Channel.EventFilter.EventsHeader" = "事件";
+"Channel.EventFilter.AdminsHeader" = "管理员";
+
+"Channel.SelectPeers.Contacts" = "联系人";
+"Channel.SelectPeers.Global" = "全局";
+
+"Supergroup.DeleteRestriction.Title" = "管理消息";
+"Supergroup.DeleteRestriction.DeleteMessage" = "删除消息";
+"Supergroup.DeleteRestriction.BanUser" = "封禁用户";
+"Supergroup.DeleteRestriction.ReportSpam" = "举报垃圾信息";
+"Supergroup.DeleteRestriction.DeleteAllMessages" = "删除该用户的所有消息";
+
+"ChannelAdmins.RecentActions" = "近期操作";
+"ChannelAdmins.AggressiveAntiSpam" = "积极的反垃圾信息策略";
+"ChannelAdmins.AggressiveAntiSpam.Info" = "Telegram 会过滤更多的垃圾信息，但偶尔可能会影响普通消息。您可以在最近的操作中申诉误报。";
+
+
+"Telegram.ProxySettingsViewController" = "代理";
+"ProxySettings.ConnectionHeader" = "连接信息";
+"ProxySettings.CredentialsHeader" = "认证信息（可选）";
+"ProxySettings.Disabled" = "已停用";
+"ProxySettings.Socks5" = "SOCKS5";
+"ProxySettings.MTP" = "MTPROTO";
+"ProxySettings.Type" = "代理类型";
+"ProxySettings.Server" = "服务器";
+"ProxySettings.Port" = "端口";
+"ProxySettings.Username" = "用户名";
+"ProxySettings.Password" = "密码";
+"ProxySettings.Save" = "保存";
+
+"ProxySettings.QR.Text" = "用户可通过相机扫描此二维码以添加此代理。";
+
+
+"Channel.EventLog.OriginalMessage" = "原始消息";
+"Channel.EventLog.Empty" = "无";
+"Channel.Admin.CantEditRights" = "您无法修改此管理员的权限。";
+"Channel.Blacklist.Unban" = "解除封禁";
+
+"ConnectingStatus.DisableProxy" = "点按这里禁用代理";
+"Proxy.ForceDisable" = "您确定要禁用代理服务器 %@ 吗？";
+"Proxy.ForceEnable.Header1" = "您想要添加这个代理服务器吗？";
+"Proxy.ForceEnable.OK" = "添加代理";
+"Proxy.ForceEnable.Enable" = "启用代理";
+"Proxy.ForceEnable.MTPDesc" = "这个代理可能会在您的会话列表中显示其赞助频道。代理服务器无法泄露任何您的 Telegram 内容。";
+"Proxy.ForceEnable.Connect" = "连接";
+
+"Proxy.ForceEnable.Text.IP" = "服务器: %@";
+"Proxy.ForceEnable.Text.Port" = "端口: %d";
+"Proxy.ForceEnable.Text.Username" = "用户名：%@";
+"Proxy.ForceEnable.Text.Password" = "密码：%@";
+"Proxy.ForceEnable.Text.Secret" = "密钥：%@";
+"Proxy.ForceEnable.Text" = "您可以稍后在「设置 - 数据和存储」中更改您的代理服务器。";
+"ProxySettings.Share" = "与朋友分享此链接，规避国家网络审查";
+"ProxySettings.ExportLink" = "从剪贴板导出链接";
+"ProxySettings.CopyLink" = "分享代理链接";
+
+"ProxySettings.IncorrectSecret" = "密码不正确，请重试。";
+
+
+"ProxySettings.ProxyNotFound" = "在剪贴板内未找到代理服务器设置。";
+"ProxySettings.ExportDescription" = "如果你的剪贴板内含有 socks5-link (**t.me/socks?server=127.0.0.1&port=80**) ，它将立即显示";
+"Confirm.AddBotToGroup" = "是否将机器人添加到 “%@”？";
+
+"AccountSettings.Theme" = "外观";
+"Telegram.AppearanceViewController" = "外观";
+"Telegram.SelectPeersController" = "选择用户";
+"GeneralSettings.DarkMode" = "深色模式";
+"GeneralSettings.DarkMode.Description" = "一套适用于夜间以及深色桌面的配色方案";
+"GeneralSettings.Font.Description" = "信息中使用大字体";
+
+
+"GeneralSettings.AcceptSecretChats" = "接受私密聊天";
+
+
+"MessageContext.CopyMessageLink1" = "拷贝消息链接";
+"Context.ViewStickerSet" = "预览贴纸包";
+"Context.ViewEmojiSet" = "查看表情包";
+
+"Storage.Clear.Photos" = "照片";
+"Storage.Clear.Videos" = "视频";
+"Storage.Clear.Audio" = "语音";
+"Storage.Clear.Documents" = "文件";
+"Storage.Clear" = "清空 %@";
+"AccountSettings.Bio" = "个人简介";
+
+"Telegram.BioViewController" = "个人简介";
+
+"Bio.Placeholder" = "您的自我介绍";
+"Bio.Description" = "您可以在此输入任何有关您个人的信息，诸如：年龄、工作或居住城市。\n示例：23岁，来自旧金山的设计师。";
+"Bio.Save" = "保存";
+"Bio.Header" = "简介";
+
+"ServiceMessage.ExpiredPhoto" = "图片已自毁";
+"ServiceMessage.ExpiredFile" = "文件已自毁";
+"ServiceMessage.ExpiredVideo" = "视频已自毁";
+
+"ServiceMessage.DesturctingPhoto" = "%@ 发送给您一张自毁照片，请在您的移动设备上查看。";
+"ServiceMessage.DesturctingPhoto.You" = "%@ 发送了一张自毁图片。";
+
+"ServiceMessage.DesturctingVideo" = "%@ 给您发送了一段阅后即焚视频，请在您的移动设备上查看。";
+"ServiceMessage.DesturctingVideo.You" = "%@ 发送了一张自毁视频。";
+"ChatList.Service.DestructingPhoto" = "自毁图片";
+"ChatList.Service.DestructingVideo" = "自毁视频";
+
+
+"ShareExtension.Share" = "分享";
+"ShareExtension.Cancel" = "取消";
+"ShareExtension.Search" = "搜索";
+"ShareExtension.Passcode.Placeholder" = "锁定码";
+"ShareExtension.Passcode.Next" = "下一步";
+"ShareExtension.Unauthorized.OK" = "确定";
+"ShareExtension.Unauthorized.Description" = "如需通过 Telegram 分享，请打开 Telegram 应用并登录。";
+
+"Chat.SearchFrom" = "来自：";
+"Chat.SearchCount" = "%d / %d";
+
+"Entertainment.Emoji" = "EMOJI";
+"Entertainment.Stickers" = "贴纸";
+"Entertainment.GIF" = "GIF 动态图";
+
+"Entertainment.Emoji.New" = "表情";
+"Entertainment.Stickers.New" = "贴纸";
+"Entertainment.GIF.New" = "GIF动态图";
+
+"ShareModal.Search.Placeholder" = "分享到...";
+"ShareModal.Search.ForwardPlaceholder" = "转发到…";
+"InstantPage.AuthorAndDateTitle" = "%1$@ 于 %2$@";
+"IV.Channel.Join" = "加入";
+
+"Chat.Context.AddFavoriteSticker" = "添加到收藏";
+"Chat.Context.RemoveFavoriteSticker" = "从收藏中移除";
+"Chat.InstantView" = "即时预览";
+"Context.RemoveFaveSticker" = "移除";
+"Stickers.GroupStickers" = "群组贴纸";
+
+"PeerInfo.SetGroupStickersSet" = "群组贴纸包";
+"Telegram.GroupStickerSetController" = "群组贴纸包";
+"GroupStickers.CreateDescription" = "您可以通过机器人 @stickers 创建您自己的贴纸包。";
+"GroupStickers.ChooseHeader" = "从您的贴纸包中选择";
+"GroupStickers.EmptyHeader" = "贴纸包未找到";
+"GroupStickers.EmptyDesc" = "请重试，或从下面列表中选取一个";
+
+"AccountSettings.SetBio" = "设置自我介绍";
+"AccountSettings.SetUsername" = "设置用户名";
+
+"FastSettings.EnableDarkMode" = "启用深色模式";
+"FastSettings.DisableDarkMode" = "关闭深色模式";
+"FastSettings.LockTelegram" = "锁定 Telegram";
+"FastSettings.Mute2Hours" = "免打扰 2 小时";
+"FastSettings.Unmute" = "取消免打扰";
+"FastSettings.SetPasscode" = "设置锁定码";
+
+"GeneralSettings.AppearanceSettings" = "显示设置";
+
+"Chat.Context.CopyBlock" = "拷贝预格式化文本块";
+
+"Compose.SelectGroupUsers.Placeholder" = "您想要同谁联系？";
+
+"PeerInfo.PreHistory" = "历史记录对新成员";
+"PeerInfo.PreHistory.Visible" = "可见";
+"PeerInfo.PreHistory.Hidden" = "隐藏";
+"Telegram.PreHistorySettingsController" = "历史记录设置";
+
+"PreHistorySettings.Header" = "历史记录对新用户";
+"PreHistorySettings.Description.Visible" = "新成员将可以查看所有消息记录。";
+"PreHistorySettings.Description.Hidden" = "新成员不能查看他们加入前的消息。";
+"PreHistorySettings.Description.Group.Hidden" = "新成员只能看到最近 100 条消息。";
+
+"Chat.AdminBadge" = "管理员";
+"Chat.OwnerBadge" = "拥有者";
+"Chat.TopicBadge" = "话题创建者";
+
+
+
+"ChangePhoneNumber.Intro.Description" = "您可以在此更换当前绑定到 Telegram 的手机号码。您的帐号和所有云端数据（消息、媒体文件、联系人等）都会迁移到新号码下。";
+"ChangePhoneNumber.Intro.Alert" = "如果您的 Telegram 联系人有您的旧号码，并且您没有在 Telegram 里拉黑他们，您的新号码将被添加到他们的通讯录里。";
+"Telegram.PhoneNumberConfirmController" = "更改号码";
+
+"ChangeNumber.SendData.Error.LimitExceeded" = "您请求验证码的次数过多，请稍后再试。";
+"ChangeNumber.SendData.Error.InvalidPhoneNumber" = "您输入的电话号码无效。请输入带国家码的正确电话号码。";
+"ChangeNumber.SendData.Error.PhoneNumberOccupied" = "你所输入的号码 %@ 已经注册了 Telegram。请先删除新号码对应的帐号，再进行迁移。";
+"ChangeNumber.SendData.Error.Generic" = "发生错误，请稍后再试。";
+
+
+"ChangeNumber.ConfirmCode.Error.Generic" = "发生错误";
+"ChangeNumber.ConfirmCode.Error.invalidCode" = "验证码无效，请重试。";
+"ChangeNumber.ConfirmCode.Error.codeExpired" = "验证码已失效。";
+"ChangeNumber.ConfirmCode.Error.limitExceeded" = "您输错验证码的次数过多，请稍后重试。";
+"ChangeNumber.ConfirmCode.Success" = "您已经将您的电话号码更换为 %@。";
+
+"Messages.Placeholder.Broadcast" = "广播...";
+"Messages.Placeholder.Reply" = "回复...";
+"Messages.Placeholder.Comment" = "评论……";
+"Messages.Placeholder.SentMessage" = "输入消息...";
+"Messages.Placeholder.SilentBroadcast" = "静默广播...";
+"Messages.Placeholder.Anonymous" = "匿名发送";
+
+
+
+"Messages.Placeholder.Broadcast.Small" = "广播信息... ";
+"Messages.Placeholder.SentMessage.Small" = "新消息...";
+
+
+
+"GeneralSettings.ForceTouchHeader" = "用力点按操作";
+"GeneralSettings.ForceTouch.Reply" = "回复消息";
+"GeneralSettings.ForceTouch.Edit" = "编辑消息";
+"GeneralSettings.ForceTouch.Forward" = "转发消息";
+
+"GeneralSettings.ForceTouch.React" = "添加表情回应";
+
+
+"ChatMessage.Tooltip.Views" = "次浏览";
+
+
+"Telegram.TwoStepVerificationUnlockController" = "两步验证";
+
+"TwoStepAuth.PasswordTitle" = "密码";
+
+"TwoStepAuth.SetPassword" = "添加密码保护";
+"TwoStepAuth.SetPasswordHelp" = "您可以设置一个密码，这将作为在一台新设备登录时输入短信验证码后额外的身份验证。";
+
+"TwoStepAuth.SetupPasswordTitle" = "您的密码";
+"TwoStepAuth.SetupHintTitle" = "密码提示";
+"TwoStepAuth.SetupEmailTitle" = "密码恢复邮箱";
+
+
+
+
+"TwoStepAuth.CancelReset" = "取消重置";
+"TwoStepAuth.Reset" = "重置密码";
+
+
+
+
+"TwoStepAuth.CancelReset.Confirm" = "取消重置";
+"TwoStepAuth.CancelReset.Text" = "是否取消重置密码？若要再次申请密码重置，需要再等 7 天。";
+
+"TwoStepAuth.SetupHintPlaceholder" = "提示";
+"TwoStepAuth.SetupHintDesc" = "您可以为您的密码创建可选提示。";
+
+"TwoStepAuth.ChangePassword" = "更改密码";
+"TwoStepAuth.RemovePassword" = "停用密码";
+"TwoStepAuth.SetupEmail" = "设置密码恢复邮箱";
+"TwoStepAuth.ChangeEmail" = "更改密码恢复邮箱";
+"TwoStepAuth.PendingEmailHelp" = "邮箱 %@ 正在等待验证，在完成验证之前此恢复邮箱不会启用。";
+"TwoStepAuth.GenericHelp" = "您已启用两步验证。\n您将需要此处设置的密码以登录到您的 Telegram 帐号。";
+
+"TwoStepAuth.ConfirmationTextNew" = "请检查你的电子邮件并输入验证码以完成两步验证设置。 请一定要检查邮箱内的垃圾邮件。";
+"TwoStepAuth.ConfirmationAbort" = "取消两步验证设置";
+
+"TwoStepAuth.SetupPasswordEnterPassword" = "请输入两步验证密码";
+"TwoStepAuth.SetupPasswordEnterPasswordNew" = "请输入新密码";
+
+"TwoStepAuth.SetupPasswordConfirmPassword" = "请再次输入密码";
+
+
+
+"TwoStepAuth.SetupPasswordConfirmFailed" = "密码不一致，请重新输入。";
+
+
+
+
+
+
+"TwoStepAuth.EnterPasswordPassword" = "密码";
+"TwoStepAuth.EnterPasswordHint" = "提示： %@";
+"TwoStepAuth.EnterPasswordHelp" = "您已启用了两步验证，因此您的帐号已受到额外密码的保护。";
+"TwoStepAuth.EnterPasswordForgot" = "是否忘记密码？";
+
+"TwoStep.AuthEmailSkip" = "跳过";
+
+"TwoStepAuth.EmailSkipAlert" = "您确定不设置密码恢复邮箱？\n\n一旦您忘记了密码，您将无法再访问您的 Telegram 帐户，并且我们没有任何恢复帐户数据的方法。";
+"TwoStepAuth.Email" = "邮箱";
+"TwoStepAuth.EmailHelp" = "请添加您的有效电子邮箱。这是忘记密码时唯一的恢复方法。";
+"TwoStepAuth.EmailInvalid" = "邮箱地址无效，请重新输入。";
+"TwoStepAuth.EmailSent" = "我们发送了一封邮件来验证此邮箱地址。";
+
+
+
+
+"TwoStepAuth.RecoveryUnavailable" = "因为您在设置密码时没有同时提供密码恢复邮箱，您剩下的选择就只有回忆起您的密码或重置您的帐号。";
+"TwoStepAuth.RecoveryFailed" = "您剩下的选择只有回忆起您的密码或重置您的帐号。";
+
+"TwoStepAuth.RecoveryTitle" = "邮件验证码";
+"TwoStepAuth.RecoverySent" = "我们发送了一个认证码到您的密码找回邮箱：\n\n%@";
+"TwoStepAuth.RecoveryCode" = "验证码";
+"TwoStepAuth.RecoveryCodeHelp" = "请检查您的邮箱并输入我们发送给您的六位认证码来关闭两步验证密码。";
+"TwoStepAuth.RecoveryCodeInvalid" = "验证码无效，请重试。";
+"TwoStepAuth.RecoveryCodeExpired" = "验证码已失效";
+
+
+
+
+
+
+
+
+"TwoStepAuth.FloodError" = "尝试次数过多。请稍后再试。";
+"TwoStepAuth.GenericError" = "出错了，请稍后再试。";
+"TwoStepAuth.InvalidPasswordError" = "密码错误，请重试。";
+
+
+"TwoStepAuth.AnError" = "发生错误，请稍后再试。";
+"TwoStepAuth.Error.HaventEmail" = "因为您未设置恢复密码的电子邮箱，您现在只能想办法回忆起您的密码或者是对您的帐号进行重置。";
+"TwoStepAuth.Error.LimitExceeded" = "您输错密码的次数过多，请稍后重试。";
+"TwoStepAuth.Error.Generic" = "出错了，请稍后再试。";
+"TwoStepAuth.Confirm.DisablePassword" = "您确定要删除您的密码吗？";
+"TwoStepAuth.Error.InvalidEmail" = "请输入有效的电子邮箱地址。";
+"TwoStepAuth.Error.PasswordsDontMatch" = "密码不一致。\n请重新输入";
+
+
+
+
+
+"TwoStepAuth.Error.HaventEmail.Reset" = "重置";
+"TwoStepAuth.Error.HaventEmail.ResetHeader" = "重置密码";
+
+
+
+
+
+"PreviewSender.SendFile_countable" = "%d";
+
+
+
+
+
+"PreviewSender.SendFile_other" = "发送 %d 个文件";
+
+"PreviewSender.SendMedia_countable" = "%d";
+
+
+
+
+
+"PreviewSender.SendMedia_other" = "发送 %d 个媒体文件";
+
+"PreviewSender.SendPhoto_countable" = "%d";
+
+
+
+
+
+"PreviewSender.SendPhoto_other" = "发送 %d 张照片";
+
+"PreviewSender.SendVideo_countable" = "%d";
+
+
+
+
+
+"PreviewSender.SendVideo_other" = "发送 %d 个视频";
+
+"PreviewSender.SendGif_countable" = "%d";
+
+
+
+
+
+"PreviewSender.SendGif_other" = "发送 %d 张 GIF 动态图";
+
+"PreviewSender.SendAudio_countable" = "%d";
+
+
+
+
+
+"PreviewSender.SendAudio_other" = "发送 %d 个音频";
+
+
+"Peer.SavedMessages" = "我的收藏";
+
+"Stickers.SuggestStickers" = "根据表情联想贴纸";
+"Stickers.SuggestAll" = "所有表情包";
+"Stickers.SuggestAdded" = "我的表情包";
+"Stickers.SuggestNone" = "不推荐";
+
+
+"PrivacySettings.LastSeenEverybodyMinus" = "所有人 (-%@)";
+"PrivacySettings.LastSeenContactsPlus" = "我的联系人 (+%@)";
+"PrivacySettings.LastSeenContactsMinus" = "我的联系人 (-%@)";
+"PrivacySettings.LastSeenContactsMinusPlus" = "我的联系人 (-%@, +%@)";
+"PrivacySettings.LastSeenNobodyPlus" = "不允许任何人 (+%@)";
+
+"PrivacySettings.DeleteAccountHeader" = "删除我的帐号";
+"PrivacySettings.DeleteAccountDescription" = "如果您在此期间内您的帐号未曾上线，您帐号的所有资料——包括消息记录、联系人都会被删除。";
+"PrivacySettings.DeleteAccount" = "如果离开";
+
+
+
+"PrivacySettings.GlobalTimer" = "自动删除消息";
+"PrivacySettings.GlobalTimer.Info" = "在开始的所有新聊天中，一段时间后自动删除所有消息。";
+
+"PrivacySettings.GlobalTimer.Never" = "关闭";
+"PrivacySettings.GlobalTimer.Disable" = "禁用";
+
+
+"Peer.CreatePeer.Context.UpdatePhoto" = "上传群组图片";
+"Peer.CreatePeer.Context.RemovePhoto" = "移除群组图片";
+
+
+
+"Passcode.UseTouchId" = "使用 Touch ID 解锁";
+"Passcode.UnlockTouchIdReason" = "解锁应用程序。";
+
+"Search.Global.Group1_countable" = "%@ %d";
+
+
+
+
+
+"Search.Global.Group1_other" = "%@, %d 位成员";
+
+"Search.Global.Channel1_countable" = "%@ %d";
+
+
+
+
+
+"Search.Global.Channel1_other" = "%@, %d 位订阅者";
+
+//"ChatList.Context.PinError" = "Sorry, you can pin no more than 5 chats to the top.";
+"ChatList.Context.PinErrorNew2" = "抱歉，您只能将 5 个聊天置顶在主列表的顶部。 您可以在聊天文件夹和归档中置顶更多聊天。";
+
+
+"ChatList.Context.PinError.Topics_countable" = "%d";
+
+
+
+
+
+"ChatList.Context.PinError.Topics_other" = "抱歉，您最多只能置顶 %d 个话题。请先取消置顶一些当前已置顶的话题。";
+
+
+
+
+
+"Storage.ClearAll" = "全部清除";
+"Storage.ClearAll.Confirm.Description" = "您确定要清除缓存吗？";
+
+
+"Chat.Bubbles.ForwardedFrom" = "转发自 [%@]()";
+
+
+"AppearanceSettings.TextSize.Header" = "文字大小";
+"AppearanceSettings.ChatPreview.Header" = "效果预览";
+"AppearanceSettings.ColorTheme.Header" = "主题颜色";
+"AppearanceSettings.ChatView.Header" = "会话样式";
+
+"AppearanceSettings.ColorTheme.day" = "标准亮色调";
+"AppearanceSettings.ColorTheme.dayClassic" = "日间经典";
+"AppearanceSettings.ColorTheme.system" = "系统";
+"AppearanceSettings.ColorTheme.nightAccent" = "深色模式";
+
+"AppearanceSettings.ChatView.Classic" = "简洁";
+"AppearanceSettings.ChatView.Bubbles" = "对话框";
+"AppearanceSettings.FollowSystemAppearance" = "跟随系统样式";
+"AppearanceSettings.FollowSystemAppearance.DefaultDark" = "选择在系统暗色模式中默认的暗色样式。";
+"AppearanceSettings.FollowSystemAppearance.DefaultDay" = "选择将用于系统日间模式的默认浅色主题。";
+"AppearanceSettings.FollowSystemAppearance.DefaultHeader" = "DEFAULT PALETTES";
+
+
+"AppearanceSettings.ChatPreview.UserName1" = "卢西奥";
+"AppearanceSettings.ChatPreview.UserName2" = "董先生";
+"AppearanceSettings.ChatPreview.ZeroText" = "莱因哈特，我们需要您找一些新的歌曲 🎶。";
+"AppearanceSettings.ChatPreview.FirstText" = "你们这群小屁孩就知道电子音乐。你们应该听听经典摇滚，比如哈塞尔霍夫！";
+"AppearanceSettings.ChatPreview.SecondText" = "我现在已经无法直视你了。";
+
+"AppearanceSettings.ChatPreview.1" = "早上好！👋";
+"AppearanceSettings.ChatPreview.2" = "你知道现在几点吗？";
+"AppearanceSettings.ChatPreview.3" = "现在是东京的早晨😎";
+
+
+
+"Chat.Empty.LinkPreview" = "链接预览";
+
+"Confirm.Delete" = "删除";
+"Chat.Message.DeleteForMeAndPerson" = "为我和 %@ 删除";
+"Chat.Message.DeleteForMe" = "仅为我删除";
+"Chat.Message.DeleteForEveryone" = "为所有人删除";
+
+
+"Chat.Message.UnsendMessages_countable" = "%d";
+
+
+
+
+
+
+
+"Chat.CopySelectedText" = "拷贝所选内容";
+
+"GeneralSettings.InstantView.ScrollBySpace" = "使用空格键向下滚动";
+"GeneralSettings.InstantViewHeader" = "即时预览";
+
+"GeneralSettings.AutoplayGifs" = "自动播放 GIF 动态图";
+"GeneralSettings.AccentColor" = "强调色";
+"GeneralSettings.ChatBackground" = "聊天壁纸";
+"Chat.LiveLocation" = "实时位置";
+"ArchivedStickers.Empty" = "您已归档的贴纸包将在此显示";
+"ChatList.TitleFeed" = "订阅";
+"Chat.TitleFeed" = "订阅";
+"ChatList.Feeds" = "频道";
+"ChatInput.ShowNext" = "显示下一项";
+"ChatList.GroupChannel" = "群组频道";
+
+"Preview.Dragging.AddItems_countable" = "%d";
+
+
+
+
+
+"Preview.Dragging.AddItems_other" = "添加多项";
+
+"Telegram.DataAndStorageViewController" = "数据和存储";
+"DataAndStorage.AutomaticDownload" = "自动下载媒体文件";
+"DataAndStorage.AutomaticDownload.Header" = "自动下载媒体文件";
+"DataAndStorage.AutomaticDownload.Reset" = "重置自动下载设置";
+"DataAndStorage.AutomaticDownload.Photo" = "照片";
+"DataAndStorage.AutomaticDownload.Video" = "视频";
+"DataAndStorage.AutomaticDownload.Files" = "文件";
+"DataAndStorage.AutomaticDownload.Voice" = "语音消息";
+"DataAndStorage.AutomaticDownload.InstantVideo" = "视频消息";
+"DataAndStorage.AutomaticDownload.GIFs" = "GIF 动态图";
+
+
+"DataAndStorage.CategorySettings.PrivateChats" = "私聊";
+"DataAndStorage.CategorySettings.GroupChats" = "群聊";
+"DataAndStorage.CategorySettings.Channels" = "频道";
+"DataAndStorage.CateroryFileSizeLimit.Header" = "大小限制";
+"DataAndStorage.CateroryFileSize.Unlimited" = "无限制的";
+"DataAndStorage.Confirm.ResetSettings" = "撤消全部自定义自动下载设置";
+"Chat.Confirm.ReportSpamUser" = "您要举报此用户发布垃圾信息吗？";
+"Chat.Confirm.ReportSpam" = "举报垃圾行为吗？";
+"Chat.Confirm.ReportSpam.Header" = "举报垃圾信息";
+"Chat.Confirm.ReportSpam.Channel" = "举报骚扰行为并退出频道";
+"Chat.Confirm.ReportSpam.Group" = "举报骚扰行为并退出群组";
+
+"Appearance.CustomBackground" = "自定义壁纸";
+"Appearance.CustomBackground.FileError" = "文件大小不得超过10MB，图像尺寸不得超过500x500像素。";
+
+"CrashOnLaunch.OK" = "登出";
+"CrashOnLaunch.Cancel" = "取消";
+"CrashOnLaunch.Message" = "发生了些问题。";
+"CrashOnLaunch.Information" = "如果 Telegram 依然在您打开它时崩溃，点击 OK 按钮来退出帐号。这应该能解决问题。";
+"ChatWallpaper.Empty" = "默认";
+
+"Chat.Service.BotPermissionAllowed" = "您允许该机器人在您使用 %@ 登录时向您发出消息。";
+
+"Compose.CreateGroup.LimitError" = "您能够在创建群组并升级到超级群组后添加更多的用户。";
+
+
+"PeerInfo.Bot.AddToGroup" = "添加到群组";
+"PeerInfo.Bot.Share" = "分享";
+"PeerInfo.Bot.Settings" = "设置";
+"PeerInfo.Bot.Help" = "帮助";
+"PeerInfo.Bot.Privacy" = "隐私";
+
+"Passcode.Or" = "或";
+"Passcode.UseTouchId" = "使用 Touch ID 解锁";
+
+
+"Text.Context.Copy.Link" = "拷贝链接";
+"Text.Context.Copy.Email" = "拷贝邮件";
+"Text.Context.Copy.Code" = "拷贝代码";
+
+"Text.Context.Copy.Username" = "拷贝用户名";
+"Text.Context.Copy.Hashtag" = "拷贝标签";
+"Text.Context.Copy.Command" = "拷贝命令文本";
+"Text.Context.Copy.StickerPack" = "拷贝贴纸包链接";
+"Text.Context.Copy.InviteLink" = "拷贝邀请链接";
+
+"Text.Context.Copy.EmojiPack" = "复制表情包";
+
+
+"Message.Context.OpenWith" = "打开方式";
+"Chat.InlineRequest.Loading" = "加载中…";
+
+"DataAndStorage.DownloadFolder" = "下载文件夹";
+"Context.OpenInQuickLook" = "通过快速查看打开";
+
+
+"Telegram.WebSessionsController" = "使用 Telegram 登录的网站";
+"PrivacyAndSecurity.WebAuthorizationHeader" = "已使用 Telegram 登录的网站";
+
+"WebAuthorizations.Logout" = "断开连接";
+"WebAuthorizations.LogoutAll.Description" = "您可以在在支持的网站上使用 Telegram 登录。";
+"WebAuthorizations.LoggedIn.Descrpiption" = "已授权网站";
+"WebAuthorizations.LogoutAll" = "取消与所有网站的关联";
+"WebAuthorizations.Confirm.Revoke" = "您想要断开与此网站的连接吗？";
+"WebAuthorizations.Confirm.RevokeAll" = "您确定您想要在所有的网站上停止使用您的 Telegram 账户吗？";
+
+
+"Telegram.PassportController" = "通行证";
+
+"SecureId.Request.Header1" = "**%@** 请求访问您的个人数据以便为您提供服务。";
+
+"SecureId.Request.Permission.Email" = "邮箱";
+"SecureId.Request.Permission.Phone" = "电话号码";
+"SecureId.Request.Permission.PersonalDetails" = "个人信息";
+"SecureId.Request.Permission.Passport" = "护照";
+"SecureId.Request.Permission.ResidentialAddress" = "住址";
+"SecureId.Request.Permission.IdentityDocument" = "身份证件";
+
+"SecureId.Request.Permission.UtilityBill" = "水电气费账单";
+"SecureId.Request.Permission.DriversLicense" = "驾驶证";
+"SecureId.Request.Permission.TenancyAgreement" = "租约";
+"SecureId.Request.Permission.IDCard" = "身份证";
+"SecureId.Request.Permission.BankStatement" = "银行对账单";
+"SecureId.Request.Permission.InternalPassport" = "户口本（Internal Passport）";
+"SecureId.Request.Permission.PassportRegistration" = "护照信息";
+"SecureId.Request.Permission.TemporaryRegistration" = "临时证明信息";
+
+"SecureId.Request.Accept" = "授权";
+
+"SecureId.Request.TwoDocuments.Title" = "%@或%@";
+
+
+"SecureId.UploadScan.Multi" = "上传一份%@或%@的扫描件";
+"SecureId.UploadScan.Single" = "上传一份%@的扫描件";
+
+
+"SecureId.Request.CreatePassword" = "创建密码";
+"SecureId.Request.Permission.Email.Empty" = "提供您的联系邮箱地址";
+"SecureId.Request.Permission.Phone.Empty" = "提供您的联系电话号码";
+"SecureId.Request.Permission.Identity.Empty" = "上传一份您的护照或其它身份证明的扫描件";
+"SecureId.Request.Permission.Address.Empty" = "上传您的地址证明";
+
+"SecureId.FileUpload.Progress" = "已上传 %@%%";
+"SecureId.ScanNumber" = "扫描 %d";
+
+"SecureId.Identity.Id" = "身份证";
+"SecureId.Identity.Passport" = "护照";
+"SecureId.Identity.DriverLicense" = "驾驶证";
+"SecureId.Identity.UtilityBill" = "水电气费账单";
+"SecureId.Identity.BankStatement" = "银行对账单";
+"SecureId.Identity.TenancyAgreement" = "租约";
+"SecureId.Identity.PassportRegistration" = "护照信息";
+
+"SecureId.IdentityDocument" = "身份证件";
+"SecureId.ResidentialAddress" = "住址";
+"SecureId.PhoneNumber" = "电话号码";
+"SecureId.Email" = "电子邮件地址";
+
+"SecureId.DeletePassport" = "删除 Telegram 通行证";
+
+"SecureId.Gender.Male" = "男";
+"SecureId.Gender.Female" = "女";
+
+
+"SecureId.Identity.Placeholder.Gender" = "性别";
+
+"SecureId.Identity.Placeholder.FirstName" = "名字";
+"SecureId.Identity.InputPlaceholder.FirstName" = "名字";
+
+"SecureId.Identity.Placeholder.MiddleName" = "中间名";
+"SecureId.Identity.InputPlaceholder.MiddleName" = "中间名";
+
+"SecureId.Identity.Placeholder.LastName" = "姓氏";
+"SecureId.Identity.InputPlaceholder.LastName" = "姓氏";
+
+"SecureId.Identity.Placeholder.Birthday" = "生日";
+
+"SecureId.Identity.Placeholder.Country" = "国家";
+
+"SecureId.Identity.Placeholder.Citizenship" = "国籍";
+"SecureId.Identity.Placeholder.Residence" = "居住地";
+
+"SecureId.Identity.Placeholder.IssuedDate" = "发件日期";
+"SecureId.Identity.Placeholder.ExpiryDate" = "失效日期";
+"SecureId.Identity.DocumentDetailsHeader" = "证件信息";
+
+"SecureId.Identity.CardId.InputPlaceholder" = "身份证编号";
+"SecureId.Identity.CardId.Placeholder" = "身份证编号";
+
+"SecureId.Identity.Passport.InputPlaceholder" = "证件号";
+"SecureId.Identity.Passport.Placeholder" = "护照编号";
+
+"SecureId.Identity.License.InputPlaceholder" = "驾照编号";
+"SecureId.Identity.License.Placeholder" = "驾照编号";
+
+
+
+"SecureId.Scans.Header" = "扫描件";
+"SecureId.UploadScan" = "上传扫描件";
+"SecureId.UploadAdditionalScan" = "上传更多扫描件";
+
+"SecureId.Address.Scans_countable" = "%d";
+
+
+
+
+
+"SecureId.Address.Scans_other" = "%d 份扫描件";
+
+
+"SecureId.IdentityScan.Description" = "这份文件必须包含您的姓名、住址、一份邮票/条形码/二维码/logo，发件日期不能在 3 个月之前。";
+
+
+"SecureId.RequestedInformation.Header" = "所需信息";
+"SecureId.Accept.Policy" = "您同意[登录部件示例隐私政策](_applyPolicy_)并允许他们的 **%@** 给您发送信息。";
+"SecureId.Accept.Help" = "您的文件将被直接发送给 **%@**。同时，也将允许 **%@** 给您发送信息。";
+"Chat.Service.SecureId.AccessGranted" = "%@ 已收到下列证件：%@";
+"SecureId.RemoveEmail" = "删除邮箱地址";
+"SecureId.RemovePhoneNumber" = "删除电话号码？";
+
+"SecureId.InstallEmail.Title" = "邮箱";
+"SecureId.InstallPhone.Title" = "手机号码";
+"SecureId.CreatePassword.Title" = "密码和邮箱";
+
+
+"SecureId.CreatePassword.Header" = "密码";
+"SecureId.CreatePassword.PasswordPlaceholder" = "密码";
+"SecureId.CreatePassword.PasswordInputPlaceholder" = "请输入您的密码";
+"SecureId.CreatePassword.RePasswordInputPlaceholder" = "请再次输入密码";
+"SecureId.CreatePassword.Description" = "请创建一个用于保护您的通行证信息的密码。您也需要在登录到 Telegram 时输入此密码。"; //WRONG
+"SecureId.CreatePassword.Hint.Header" = "提示";
+"SecureId.CreatePassword.Hint.Placeholder" = "提示";
+"SecureId.CreatePassword.Hint.InputPlaceholder" = "密码提示";
+"SecureId.CreatePassword.Email.Header" = "密码恢复邮箱";
+"SecureId.CreatePassword.Email.Placeholder" = "邮箱";
+"SecureId.CreatePassword.Email.InputPlaceholder" = "您的邮箱";
+"SecureId.CreatePassword.Email.Description" = "请添加您的有效电子邮箱。这是忘记密码时唯一的恢复方法。";
+
+"SecureId.EmailActivate.Code.Placeholder" = "验证码";
+"SecureId.EmailActivate.Code.InputPlaceholder" = "输入验证码";
+"SecureId.EmailActivate.Description" = "请输入我们刚刚向 %@ 发送的验证码";
+
+
+"SecureId.DeleteIdentity" = "删除证件";
+"SecureId.DeleteAddress" = "删除住址信息";
+
+"SecureId.InsertPassword.Password" = "请输入您的密码";
+"SecureId.InsertPassword.Next" = "下一步";
+"SecureId.InsertPassword.Description" = "请输入密码来访问个人数据";
+"SecureId.PhoneNumber.UseSame.Desc" = "使用当前 Telegram 帐号绑定的手机号。";
+"SecureId.PhoneNumber.UseSame" = "使用 %@";
+"SecureId.PhoneNumber.Note" = "注意：您将在您提供的手机号码上收到一份验证码。";
+"SecureId.PhoneNumber.Header" = "或输入其他的手机号码";
+
+"SecureId.InsertPassword.Settings.Description" = "请输入 Telegram 密码以解密您的数据";
+
+
+"SecureId.Email.UseSame" = "使用 %@";
+"SecureId.Email.UseSame.Desc" = "注意：您所提供的电子邮箱将会收到一份验证码。";
+"SecureId.Email.Email.Placeholder" = "邮箱";
+"SecureId.Email.Email.InputPlaceholder" = "请输入您的邮箱";
+
+"SecureId.PhoneNumber.ConfirmCode.Placeholder" = "验证码";
+"SecureId.PhoneNumber.ConfirmCode.InputPlaceholder" = "请输入验证码";
+"SecureId.PhoneNumber.ConfirmCode.Desc" = "请输入我们刚刚通过短信发送到 %@ 的验证码。";
+
+
+"SecureId.Address.Header" = "地址信息";
+"SecureId.Address.Street.Placeholder" = "街道";
+"SecureId.Address.Street.InputPlaceholder" = "街道、号码和邮箱";
+"SecureId.Address.Street1.InputPlaceholder" = "公寓，套间，单元，建筑，楼层";
+"SecureId.Address.City.Placeholder" = "城市";
+"SecureId.Address.City.InputPlaceholder" = "城市";
+"SecureId.Address.Region.Placeholder" = "地区";
+"SecureId.Address.Region.InputPlaceholder" = "州/省份/地区";
+"SecureId.Address.Country.Placeholder" = "国家/地区";
+"SecureId.Address.Postcode.Placeholder" = "邮政编码";
+"SecureId.Address.Postcode.InputPlaceholder" = "邮政编码";
+
+
+"SecureId.Identity.SelfieTitle" = "自拍认证";
+"SecureId.Identity.Selfie" = "自拍照";
+"SecureId.Identity.SelfieUpload" = "添加自拍照";
+"SecureId.Identity.SelfieUploadNew" = "重新拍摄自拍照";
+"SecureId.Identity.SelfieHelp" = "上传一张您手持该文件的自拍。请保证您的 ID 与脸清晰可见。";
+
+"SecureId.forgotPassword.NoEmail" = "因为您在设置密码时没有同时提供密码恢复邮箱，您剩下的选择就只有回忆起您的密码或重置您的账号。";
+"SecureId.Confirm.Cancel" = "您确定要停止授权吗？";
+
+
+
+"SecureId.RecoverPassword" = "找回密码";
+"SecureId.RecoverPassword.SentEmailCode" = "验证码已发送到 %@";
+
+"SecureId.Warning.DataLost" = "警告！所有存储在 Telegram 通行证里的数据都将丢失！";
+"SecureId.Upload.Main" = "上传证件第一页的照片";
+"SecureId.Upload.Front" = "上传证件正面照片";
+"SecureId.Upload.Reverse" = "上传证件反面照片";
+"SecureId.Upload.Selfie" = "上传您拿着证件的自拍照";
+
+"SecureId.Upload.Title.MainPage" = "文件主页";
+"SecureId.Upload.Title.FrontSide" = "正面";
+"SecureId.Upload.Title.ReverseSide" = "反面";
+
+"SecureId.Info.Title" = "Telegram 通行证是什么？";
+"SecureId.Info" = "有了 Telegram 通行证，您可以轻易地注册需要身份验证的网站和服务。\n\n您的信息、个人数据和证件都将受到端到端加密保护。未经您的允许，任何人（包括 Telegram）都无法读取它们。";
+"SecureId.Info.More" = "更多信息";
+"SecureId.Info.DeletePassport" = "您确定想要删除您的 Telegram 通行证吗？所有信息都将丢失。";
+
+"SecureId.Add.PersonalDetails" = "添加个人信息";
+"SecureId.Edit.PersonalDetails" = "编辑个人信息";
+"SecureId.Add.Passport" = "添加护照";
+"SecureId.Edit.Passport" = "编辑护照信息";
+"SecureId.Add.ID" = "添加身份证";
+"SecureId.Edit.ID" = "编辑身份证信息";
+"SecureId.Add.DriverLicense" = "添加驾驶证";
+"SecureId.Edit.DriverLicense" = "编辑驾驶证信息";
+"SecureId.Add.InternalPassport" = "添加户口（Internal Passport）";
+"SecureId.Edit.InternalPassport" = "编辑户口（Internal Passport）信息";
+
+"SecureId.Add.ResidentialAddress" = "添加住址";
+"SecureId.Edit.ResidentialAddress" = "编辑住址信息";
+"SecureId.Add.UtilityBill" = "添加水电气费账单";
+"SecureId.Edit.UtilityBill" = "编辑水电气费账单信息";
+"SecureId.Add.BankStatement" = "添加银行对账单";
+"SecureId.Edit.BankStatement" = "编辑银行对账单信息";
+"SecureId.Add.TenancyAgreement" = "添加租约信息";
+"SecureId.Edit.TenancyAgreement" = "编辑租约信息";
+"SecureId.Add.PassportRegistration" = "添加护照证明";
+"SecureId.Edit.PassportRegistration" = "编辑护照证明信息";
+"SecureId.Add.TemporaryRegistration" = "添加临时证明";
+"SecureId.Edit.TemporaryRegistration" = "编辑临时证明信息";
+
+"SecureId.Delete.PersonalDetails" = "删除个人信息";
+"SecureId.Delete.Confirm.PersonalDetails" = "您确定要删除个人信息吗？";
+"SecureId.Confirm.DeleteDocument" = "您确定要删除此证件吗？";
+"SecureId.Confirm.DeleteAddress" = "删除住址信息";
+"SecureId.AppVersionOutdated" = "抱歉，您的 Telegram 版本太低，无法处理此请求。 请升级 Telegram。";
+
+"SecureId.EmptyDescription.UtilityBill" = "上传一份水电气费的扫描件";
+"SecureId.EmptyDescription.BankStatement" = "上传一份银行对账单的扫描件";
+"SecureId.EmptyDescription.TenancyAgreement" = "上传一份租约的扫描件";
+"SecureId.EmptyDescription.PassportRegistration" = "上传一份护照注册信息的扫描件";
+"SecureId.EmptyDescription.TemporaryRegistration" = "上传一份您临时证明的扫描件";
+
+"SecureId.EmptyDescription.PersonalDetails" = "填写个人信息";
+"SecureId.EmptyDescription.Address" = "提供您的住址";
+
+"SecureId.EmptyDescription.Passport" = "上传一份护照的扫描件";
+"SecureId.EmptyDescription.DriversLicense" = "上传一份驾驶证扫描件";
+"SecureId.EmptyDescription.IdentityCard" = "上传一份身份证的扫描件";
+"SecureId.EmptyDescription.InternalPassport" = "上传一份户口本（Internal Passport）的扫描件";
+
+"SecureId.CreatePassword.Intro.Header" = "**%@请求访问您的个人数据** 以便为您提供服务。";
+"SecureId.CreatePassword.Intro" = "请创建一个密码来保护您的个人数据。\n\n每次您在新的设备登录到 Telegram 时也将需要输入这个密码。";
+
+"SecureId.Translation.Header" = "翻译";
+"SecureId.Translation.Desc" = "上传经过认证的证件英语翻译扫描件。";
+
+"ProxySettings.Item.Connected" = "已连接";
+"ProxySettings.Item.ConnectedPing" = "已连接（ping：%@ 毫秒）";
+"ProxySettings.Item.NeverConnected" = "不可用";
+"ProxySettings.Item.Available" = "可用（ping：%@ 毫秒）";
+"ProxySettings.Item.Checking" = "正在检查";
+
+"ProxySettings.Secret" = "密钥";
+"ProxySettings.Enable" = "代理";
+
+"Login.ConnectionError.Header" = "无法连接服务器";
+"Login.ConnectionError.Info" = "请检查您的互联网连接并重试。";
+"Login.ConnectionError.TryAgain" = "重试";
+"Login.ConnectionError.UseProxy" = "使用代理";
+
+"ProxySettings.Title" = "代理偏好设置";
+
+"ProxySettings.UseForCalls" = "用于通话";
+"ProxySettings.AddProxy" = "添加代理";
+
+"Error.AnError" = "出错了，请稍后再试。";
+
+"InputData.Date.Day.Placeholder1" = "日";
+"InputData.Date.Month.Placeholder1" = "月";
+"InputData.Date.Year.Placeholder1" = "年";
+
+
+
+"EditAccount.Logout" = "登出";
+"EditAccount.Username" = "用户名";
+"EditAccount.ChangeNumber" = "更改号码";
+"EditAccount.NameDesc" = "输入您的名字并添加头像";
+"EditAccount.AddAccount" = "添加帐号";
+
+"EditAccount.Title" = "编辑个人资料";
+
+
+"Chanel.EventFilter.AllAdmins" = "全部管理员";
+"Chanel.EventFilter.AllEvents" = "全选";
+
+
+"GeneralSettings.ShowCallsTab" = "显示呼叫面板";
+
+"NetworkUsage.BytesSent" = "发送字节";
+"NetworkUsage.BytesReceived" = "收取字节";
+"NetworkUsage.Header.Generic" = "消息";
+"NetworkUsage.Header.Images" = "照片";
+"NetworkUsage.Header.Videos" = "视频";
+"NetworkUsage.Header.Audio" = "音频";
+"NetworkUsage.Header.Files" = "文件";
+"NetworkUsage.Reset" = "重置统计数据";
+"NetworkUsage.NetworkUsage" = "网络用量";
+
+
+
+"NetworkUsage.Title.Generic" = "消息";
+"NetworkUsage.Title.Images" = "照片";
+"NetworkUsage.Title.Videos" = "视频";
+"NetworkUsage.Title.Audio" = "音乐";
+"NetworkUsage.Title.Files" = "文件";
+
+"NetworkUsage.NetworkUsageSince" = "自 %@ 的网络用量";
+"NetworkUsage.NetworkUsageSinceNever" = "自您登录此设备以来的储存空间使用情况。";
+
+"NetworkUsage.Section.Info" = "点击各部分以查看详细信息。";
+
+
+
+
+"NetworkUsage.ResetConfirm.Ok" = "重置";
+
+"Chat.Recording.Cancel" = "您确定要停止录制并放弃您的语音消息吗？";
+"ChatList.SponsoredChannel" = "代理赞助商";
+
+
+"AudioRecord.Help.Fixed" = "在圈外点击以取消录制";
+"AudioRecord.Help.Plain" = "在圈外释放鼠标以取消录制";
+
+"Chat.ProxySponsored.CapDesc" = "此频道由您的代理服务器展示";
+"Chat.ProxySponsored.CapTitle" = "代理赞助商";
+
+"Chat.ProxySponsored.AlertText" = "这个频道是由您的代理服务器所展示的。若要从您的会话列表中移除此频道，在 Telegram 设置中禁用代理即可。";
+"Chat.ProxySponsored.AlertSettings" = "设置";
+"Chat.ProxySponsored.AlertHeader" = "代理赞助商";
+
+"Chat.Channel.Unaccessible" = "抱歉，此频道已无法访问。";
+"Chat.Group.Unaccessible" = "抱歉，此群组已无法访问。";
+
+"ProxySettings.Mtp.Sponsor" = "这个代理可能会在您的会话列表中显示其赞助频道。代理服务器无法泄露任何您的 Telegram 内容。";
+
+
+"Chat.LiveLocation.Updated_countable" = "%d";
+
+
+
+
+
+"Chat.LiveLocation.Updated_other" = "更新于 %d 分钟前";
+
+"Chat.LiveLocation.UpdatedNow" = "刚刚更新";
+
+"StickerSet.DontExist" = "抱歉，这款贴纸包似乎不存在";
+
+"PrivacyAndSecurity.BlockedUsers" = "%@ 位用户";
+
+"PrivacyAndSecurity.ClearCloudDraftsHeader" = "聊天";
+"PrivacyAndSecurity.ClearCloudDrafts" = "删除所有云端草稿";
+
+"PrivacyAndSecurity.SensitiveHeader" = "敏感内容";
+"PrivacyAndSecurity.SensitiveText" = "停用过滤";
+"PrivacyAndSecurity.SensitiveDesc" = "在您的所有Telegram设备上公开频道中显示敏感媒体。";
+
+"PrivacyAndSecurity.AutoArchiveHeader" = "来自未知用户的新对话";
+"PrivacyAndSecurity.AutoArchiveText" = "归档并静音";
+"PrivacyAndSecurity.AutoArchiveDesc" = "自动归档及静音来自非联系人的新聊天、群组和频道。";
+
+"PrivacyAndSecurity.SecretChatWebPreview.Header" = "私密聊天";
+"PrivacyAndSecurity.SecretChatWebPreview.Text" = "链接预览";
+"PrivacyAndSecurity.SecretChatWebPreview.Desc" = "链接预览将在 Telegram 服务器上生成，我们不会储存与您所发送的链接有关的任何数据。";
+
+
+"Chat.SecretChat.Preview.Header" = "私密对话";
+"Chat.SecretChat.Preview.Text" = "您要启用私密聊天中的链接预览功能吗？注意，链接预览将在 Telegram 的服务器上生成。";
+"Chat.SecretChat.Preview.OK" = "是";
+"Chat.SecretChat.Preview.NO" = "否";
+
+
+"PrivacyAndSecurity.Confirm.ClearCloudDrafts" = "您确定要删除所有云端草稿吗？";
+
+
+"Location.Send.MyLocation" = "发送我当前的位置";
+"Location.Send.ThisLocation" = "发送此位置";
+"Location.Send.ThisLocation.Unknown" = "未知位置";
+
+"Location.Send.AccurateTo" = "精确到 %@";
+"Location.Send.Locating" = "定位中…";
+
+"Location.Send.Title" = "位置";
+"Location.Send.ShowNearby" = "显示附近地点";
+"Location.Send.HideNearby" = "隐藏附近地点";
+
+"Chat.ApplyProxy" = "添加代理";
+"Chat.Message.MTProxy.Config" = "MTProxy 配置";
+"Chat.Message.Socks5.Config" = "SOCKS5 配置";
+
+"Chat.Copy.ProxyConfiguration" = "拷贝代理链接";
+
+"Chat.MessageAction.ShowMessage" = "显示消息";
+"ProxySettings.ShareProxyList" = "分享代理列表";
+"TermsOfService.Title" = "服务条款";
+"TermsOfService.Accept" = "同意并继续";
+
+
+"TermsOfService.Disagree" = "拒绝";
+"TermsOfService.Disagree.Text" = "我们对此感到非常抱歉，但是这意味着我们必须在此离别了。与其它软件不同，我们不会利用您的个人数据来进行广告定位或其它商业目的。Telegram 储存的所有文件都是为了给您创造一个功能丰富的云服务体验。您可以在「隐私和安全」设置里调整我们使用您数据的方式（例如：删除已同步的联系人）。\n\n但若您完全无法接受 Telegram 的云数据政策，我们将无法为您提供服务。";
+"TermsOfService.Disagree.Text.Last" = "警告，这将不可逆转地删除您的 Telegram 帐号以及所有储存在 Telegram 云服务器中的数据。\n\n注意：为保留个人数据，您可以先行取消，在导出数据并保存后，再删除您的帐号。（若要导出个人数据，请打开 Telegram 最新桌面版，并进入设置 > 高级 > 导出 Telegram 数据 。）";
+"TermsOfService.Disagree.Text.Last.OK" = "立即删除";
+"TermsOfService.Disagree.OK" = "拒绝并删除帐号";
+"TermsOfService.ConfirmAge" = "我确认我已满 %@ 周岁。";
+"TermsOfService.ProceedBot" = "请同意以继续使用 %@。";
+"ChatList.Context.MaskAsRead" = "标记为已读";
+"ChatList.Context.MaskAsUnread" = "标记为未读";
+"AccountSettings.Passport" = "Telegram 通行证";
+"Chat.EditMessage.Media" = "点击以编辑媒体文件";
+
+
+"Alert.ButtonOK.UpdateApp" = "升级应用";
+
+"Suggest.Frequent.Contacts" = "推荐常用联系人";
+"Suggest.Frequent.Contacts.Desc" = "在搜索区域顶部显示常用联系人以便您快速访问。";
+"Suggest.Frequent.Contacts.Alert" = "这将删除所有您常联系用户与常用消息框内机器人的数据。";
+
+"Telegram.PeerMediaController" = "分享的媒体文件";
+"AccountSettings.ReadArticles" = "阅读文章";
+"Chat.Context.Restrict" = "限制";
+"Article.Read" = "已读";
+
+"Search.Popular.SavedMessages" = "已收藏";
+"Search.Popular.Articles" = "文章";
+
+"Article.MarkAsRead" = "标记为已读";
+"Article.MarkAsUnread" = "标记为未读";
+"Article.ReadAll" = "查阅全部";
+"Article.RemoveAll" = "全部移除";
+"Article.Remove" = "移除";
+"GeneralSettings.ShowArticlesInSearch" = "在搜索时推荐文章";
+
+"Search.Popular.Delete" = "删除";
+
+"Telegram.ForwardChatListController" = "转发消息";
+
+
+"UpdateApp.UpdateTelegram" = "升级 Telegram";
+"UpdateApp.TelegramUpdate" = "Telegram 升级";
+
+
+
+"SecureId.DiscardChanges.Header" = "放弃更改";
+"SecureId.DiscardChanges.Text" = "您确定要放弃所有更改吗？";
+
+"SecureId.CorrectErrors" = "请纠正错误";
+"SecureId.LoginText" = "请登录到您的帐号以使用 Telegram 通行证。";
+
+
+"ContactInfo.PhoneLabelHome" = "家庭";
+"ContactInfo.PhoneLabelWork" = "工作";
+"ContactInfo.PhoneLabelMobile" = "手机";
+"ContactInfo.PhoneLabelMain" = "主要";
+"ContactInfo.PhoneLabelHomeFax" = "家庭传真";
+"ContactInfo.PhoneLabelWorkFax" = "工作传真";
+"ContactInfo.PhoneLabelPager" = "寻呼机";
+"ContactInfo.PhoneLabelOther" = "其它";
+"ContactInfo.URLLabelHomepage" = "主页";
+"ContactInfo.BirthdayLabel" = "生日";
+"ContactInfo.Job" = "工作";
+
+
+"ContactInfo.ContactInfo" = "联系人信息";
+"Chat.ViewContact" = "查看联系人";
+
+
+"StorageUsage.Clear" = "清理";
+
+
+
+
+"ChatList.Swiping.Read" = "已读";
+"ChatList.Swiping.Unread" = "未读";
+"ChatList.Swiping.Delete" = "删除";
+"ChatList.Swiping.Pin" = "置顶";
+"ChatList.Swiping.Unpin" = "取消置顶";
+"ChatList.Swiping.Mute" = "关闭通知";
+"ChatList.Swiping.Unmute" = "开启通知";
+
+"ChatList.Swiping.Archive" = "归档";
+"ChatList.Swiping.Unarchive" = "取消归档";
+
+
+"PeerSelect.InviteViaLink" = "通过链接邀请加入群组";
+
+
+"Passport.Language.ar" = "阿拉伯语";
+"Passport.Language.az" = "阿塞拜疆语";
+"Passport.Language.bg" = "保加利亚语";
+"Passport.Language.bn" = "孟加拉语";
+"Passport.Language.cs" = "捷克语";
+"Passport.Language.da" = "丹麦语";
+"Passport.Language.de" = "德语";
+"Passport.Language.dv" = "迪维希语";
+"Passport.Language.dz" = "不丹语";
+"Passport.Language.el" = "希腊语";
+"Passport.Language.en" = "英语";
+"Passport.Language.es" = "西班牙语";
+"Passport.Language.et" = "爱沙尼亚语";
+"Passport.Language.fa" = "波斯语";
+"Passport.Language.fr" = "法语";
+"Passport.Language.he" = "希伯来语";
+"Passport.Language.hr" = "克罗艾西亚语";
+"Passport.Language.hu" = "匈牙利语";
+"Passport.Language.hy" = "亚美尼亚语";
+"Passport.Language.id" = "印度尼西亚语";
+"Passport.Language.is" = "冰岛语";
+"Passport.Language.it" = "意大利语";
+"Passport.Language.ja" = "日语";
+"Passport.Language.ka" = "佐治亚语";
+"Passport.Language.km" = "高棉语";
+"Passport.Language.ko" = "韩语";
+"Passport.Language.lo" = "老挝语";
+"Passport.Language.lt" = "立陶宛语";
+"Passport.Language.lv" = "拉脱维亚语";
+"Passport.Language.mk" = "马其顿语";
+"Passport.Language.mn" = "蒙古语";
+"Passport.Language.ms" = "马来西亚语";
+"Passport.Language.my" = "缅甸语";
+"Passport.Language.ne" = "尼泊尔语";
+"Passport.Language.nl" = "荷兰语";
+"Passport.Language.pl" = "波兰语";
+"Passport.Language.pt" = "葡萄牙语";
+"Passport.Language.ro" = "罗马尼亚语";
+"Passport.Language.ru" = "俄语";
+"Passport.Language.sk" = "斯洛伐克语";
+"Passport.Language.sl" = "斯洛文尼亚语";
+"Passport.Language.th" = "泰语";
+"Passport.Language.tk" = "土库曼语";
+"Passport.Language.tr" = "土耳其语";
+"Passport.Language.uk" = "乌克兰语";
+"Passport.Language.uz" = "乌兹别克斯坦语";
+"Passport.Language.vi" = "越南语";
+
+"SecureId.NameNative.HeaderEmpty" = "以您居住的国家语言填写名字";
+"SecureId.NameNative.Header" = "您的%@名";
+"SecureId.NameNative.Desc.Language" = "以您所居住的国家（%@）语言填写您的名字。";
+"SecureId.NameNative.Desc.Empty" = "以您所居住的国家语言填写您的名字。";
+
+"SecureId.Identity.NameInLatine" = "以拉丁字母形式输入您的姓名";
+
+
+"SecureId.Password.Error.Invalid" = "密码错误，请重试。";
+"SecureId.Password.Error.Limit" = "尝试次数过多。请稍后再试。";
+
+
+"SecureId.InputError.LatinOnly" = "只能使用拉丁字母。";
+
+"Alert.Confirm.Discard" = "舍弃";
+"Alert.Confirm.Stop" = "停止";
+
+"Appearance.Settings.AutoNight" = "自动切换夜间模式";
+"Appearance.Settings.AutoNightHeader" = "自动切换夜间模式";
+"Appearance.Settings.BubblesMode" = "气泡模式";
+"Appearance.Settings.DarkMode" = "深色模式";
+
+"Appearance.Settings.ShowMore" = "显示更多";
+"Appearance.Settings.ShowLess" = "显示更少";
+
+"SecureId.Error.ScansLimit" = "您同时最多只能上传二十个文件。";
+"SecureId.Request.Upload.Translation" = "上传您证件的翻译";
+"SecureId.Request.Upload.Selfie" = "上传一张您拿着证件的自拍照";
+
+
+"AutoNight.Settings.Sunrise.Desc" = "计算日落/日出时间需要对您的粗略位置进行一次性检测。请注意，此位置仅会存储在您目前的设备上。\n\n日落：%@\n日出：%@";
+"AutoNight.Settings.Sunrise.Desc.NA" = "计算日落/日出时间需要对您的粗略位置进行一次性检测。请注意，此位置仅会存储在您目前的设备上。\n\n日落：未知\n日出：未知";
+"AutoNight.Settings.Title" = "自动启用夜间主题";
+"AutoNight.Settings.From" = "从";
+"AutoNight.Settings.To" = "到";
+"AutoNight.Settings.UpdateLocation" = "更新位置";
+"AutoNight.Settings.SunsetAndSunrise" = "使用当地日落/日出时间";
+"AutoNight.Settings.Disabled" = "停用";
+"AutoNight.Settings.Scheduled" = "计划时段";
+"AutoNight.Settings.SystemBased" = "系统";
+
+
+
+"AutoNight.Settings.UpdateLocation.Error" = "无法获取您的位置，请检查系统设置然后重试。";
+
+"DarkMode.Confirm.NightMode.Header" = "夜间模式";
+"DarkMode.Confirm.NightMode.Text" = "您已启用跟随系统自动切换主题，你必须停用后才能切换为深色模式。";
+"DarkMode.Confirm.NightMode.OK" = "停用";
+
+"Gallery.Context.Share.ThisPhoto" = "这张图片";
+"Gallery.Context.Share.AllPhotos_countable" = "%d";
+
+
+
+
+
+"Gallery.Context.Share.AllPhotos_other" = "全部 %d 张图片";
+
+"Gallery.Context.Share.ThisFile" = "此文件";
+
+"Gallery.Context.Share.ThisVideo" = "这段视频";
+"Gallery.Context.Share.AllVideos_countable" = "%d";
+
+
+
+
+
+"Gallery.Context.Share.AllVideos_other" = "所有%d段视频";
+
+"Gallery.Context.Share.AllItems_countable" = "%d";
+
+
+
+
+
+"Gallery.Context.Share.AllItems_other" = "全部 %d 个项目";
+
+
+"Gallery.Context.ShowGallery" = "分享的媒体";
+"Gallery.Context.MainPhoto" = "设为主要照片";
+
+"TouchBar.Favorite" = "收藏";
+"TouchBar.Recent" = "最近";
+"TouchBar.EditMessage.ReplaceWithMedia" = "替换为媒体";
+"TouchBar.EditMessage.ReplaceWithFile" = "替换为文件";
+"TouchBar.StartSecretChat" = "开始私密聊天";
+"TouchBar.Call" = "通话";
+"TouchBar.SearchUsersOrMessages" = "搜索消息或用户";
+"TouchBar.Attach" = "发送附件";
+"TouchBar.RecentlyUsed" = "最近使用";
+
+
+"RequestAcces.Error.HaveNotAccess.Call" = "Telegram 需要访问麦克风，以便您拨打电话。";
+
+//"RequestAcces.Error.HaveNotAccess.VoiceMessage.Audio" = "Telegram needs access to your microphone to send voice messages";
+//"RequestAcces.Error.HaveNotAccess.VoiceMessage.Audio" = "Telegram needs access to your microphone to send voice messages";
+//"RequestAcces.Error.HaveNotAccess.VoiceMessage.Camera" = "Telegram needs access to your camera to send voice messages";
+
+"RequestAcces.Error.Conirm.Settings" = "设置";
+
+
+"RequestAcces.Error.HaveNotAccess.VideoMessages" = "Telegram 需要获取你的麦克风和相机权限来录制视频。";
+"RequestAcces.Error.HaveNotAccess.VoiceMessages" = "Telegram 需要获取麦克风权限录取语音消息。";
+
+
+/* new from translations.telegram.org */
+
+"ChatList.Context.PinError" = "抱歉，您最多只能置顶 5 个聊天。";
+"InputData.Date.Day.Placeholder" = "日：";
+"InputData.Date.Month.Placeholder" = "月：";
+"InputData.Date.Year.Placeholder" = "年：";
+"Notifications.Snooze" = "关闭通知";
+"ProxySettings.Item.LastConnection" = "上次连接 %@";
+"SecureId.Add.RentalAgreement" = "添加租约信息";
+"SecureId.Edit.RentalAgreement" = "编辑租约信息";
+"_NS103.title" = "编辑";
+"_NS167.title" = "窗口";
+"_NS70.title" = "显示";
+"_NS81.title" = "显示";
+"_NS88.title" = "编辑";
+
+
+"SelectAreaControl.Dimension.None" = "无";
+"SelectAreaControl.Dimension.Original" = "原始";
+"SelectAreaControl.Dimension.Square" = "正方形";
+
+"Td7-aD-5lo.title" = "窗口";
+
+
+"EditImageControl.Reset" = "重置";
+
+"Edit.Message.EditCurrentPhoto" = "编辑";
+
+"EditImageControl.Confirm.Discard" = "您确定要关闭并放弃所有变更吗？";
+//
+
+
+
+"Message.Status.Archiving" = "已压缩 %d%";
+"Message.Status.Archived" = "压缩的文件夹";
+"Message.Status.ArchivePreparing" = "准备压缩文件中";
+"Message.Status.Archive.Failed" = "压缩失败";
+"Message.Status.Archive.FailedSizeLimit" = "超过了文件大小限制";
+
+
+"Chat.SendMessageError.TooMuchScheduled" = "抱歉，您不能设置超过100条定时消息。";
+
+
+
+"Chat.SendMessageErrorFlood" = "抱歉，目前您只能给双向联系人发送消息。";
+"Chat.SendMessageErrorGroupRestricted" = "抱歉，目前您被限制在公开群组发送消息。";
+"Chat.SendMessageSlowmodeError" = "慢速模式已启用。";
+"Generic.ErrorMoreInfo" = "更多信息";
+
+
+"Forward.ToSavedMessages" = "转发消息到这里以便快速访问";
+
+
+"GalleryView.FastSave.Image1" = "图片保存至";
+"GalleryView.FastSave.Video1" = "视频保存到\n[下载]()";
+"GalleryView.FastSave.Gif1" = "GIF 保存到\n[下载]()";
+
+
+
+
+"ApplyLanguage.UnsufficientDataText" = "不幸的是，此自定义语言包（%@）不包含Telegram macOS 的数据。你可以使用翻译平台为这个语言包做出贡献。";
+
+
+
+"ApplyLanguage.ChangeLanguageTitle" = "是否更改语言？";
+"ApplyLanguage.ChangeLanguageUnofficialText1" = "您即将使用一个完成度为 %2$@% 的自定义语言包 **%1$@** 。\n\n此操作将会应用到整个界面。您可以通过 [翻译平台]() 提出修改建议。\n\n您可以随时在“偏好设置”中更改语言。";
+"ApplyLanguage.ChangeLanguageOfficialText" = "您将要应用语言包 **%@**。\n\n此操作将会应用到整个界面。您可以通过 [翻译平台]() 提出修改建议。\n\n您可以随时在“偏好设置”中更改语言。";
+"ApplyLanguage.ChangeLanguageAction" = "应用";
+"ApplyLanguage.ApplyLanguageAction" = "更改";
+"ApplyLanguage.ChangeLanguageAlreadyActive" = "此种语言 %@ 已激活。";
+
+"Language.OfficialTransationsHeader" = "官方翻译";
+
+
+
+"TwoStepAuth.EmailCodeInvalid" = "您输入的验证码无效，请重试。";
+"TwoStepAuth.EmailCodeExpired" = "此验证码已失效，请再试一次。";
+"UnknownError" = "出现未知错误，请稍后再试";
+
+
+"Chat.Poll.TotalVotes1_countable" = "%d";
+
+
+
+
+
+"Chat.Poll.TotalVotes1_other" = "%d 票";
+
+"Chat.Quiz.TotalVotes_countable" = "%d";
+
+
+
+
+
+"Chat.Quiz.TotalVotes_other" = "%d 个回答";
+
+
+"Chat.Poll.Tooltip.NoVotes" = "无人投票";
+
+
+
+
+
+
+
+
+
+"Chat.Quiz.Tooltip.NoVotes" = "暂无回答";
+"Chat.Quiz.Tooltip.Votes_countable" = "%d";
+
+
+
+
+
+"Chat.Quiz.Tooltip.Votes_other" = "%d 个回答";
+
+
+"Chat.Poll.TotalVotesEmpty" = "暂时无人投票";
+"Chat.Poll.TotalVotesResultEmpty" = "无人投票";
+
+"Chat.Quiz.TotalVotesEmpty" = "暂无回答";
+"Chat.Quiz.TotalVotesResultEmpty" = "无人回答";
+
+"Chat.Quiz.TextType" = "问答";
+
+
+"Chat.Poll.Type.Anonymous" = "匿名投票";
+"Chat.Poll.Type.Public" = "投票";
+"Chat.Poll.Type.AnonymousQuiz" = "匿名问答";
+"Chat.Poll.Type.Quiz" = "问答";
+"Chat.Poll.Type.Closed" = "最终结果";
+
+"Chat.Poll.Unvote" = "撤回投票";
+"Chat.Poll.Stop" = "停止投票";
+"Chat.Poll.Stop.Confirm.Header" = "停止投票？";
+"Chat.Poll.Stop.Confirm.Text" = "如果您现在停止这个投票，任何人都不能再进行投票了。 此操作无法撤消。";
+
+"Chat.Poll.ViewResults" = "查看结果";
+"Chat.Poll.SubmitVote" = "提交投票";
+
+"Chat.Quiz.Stop" = "结束问答";
+"Chat.Quiz.Stop.Confirm.Header" = "是否结束问答？";
+"Chat.Quiz.Stop.Confirm.Text" = "如果您现在结束此问答，将不再有人能够作答。该操作无法撤销。";
+
+
+
+"Language.RemovePack" = "您确定要移除这个语言包吗？";
+
+
+"NewPoll.Title.Quiz" = "新的问答";
+
+
+
+
+
+"NewPoll.OptionsHeader" = "投票选项";
+
+
+
+"NewPoll.QuizTooltip" = "点击选择正确的答案";
+
+"NewPoll.QuizMultiple.Error" = "问答模式下的投票只能有一个正确答案。";
+
+
+
+
+
+
+
+
+
+
+
+"NewPoll.Explanation.Header" = "注释";
+"NewPoll.Explanation.Placeholder" = "添加评论（可选）";
+"NewPoll.Explanation.Desc" = "选错的用户将看到这段文字，因此非常适合教育用途。";
+
+
+
+
+
+
+
+
+
+
+
+"NewPoll.OptionsDescriptionLimitReached" = "您添加的选项数量已经达到上限。";
+
+"NewPoll.DisacardConfirm" = "您确定要放弃此次投票吗？";
+
+
+
+
+
+
+"NewPoll.Anonymous" = "匿名投票";
+"NewPoll.MultipleChoice" = "可多选";
+"NewPoll.Quiz" = "问答模式";
+"NewPoll.QuizDesc" = "问答模式下的投票仅有一个正确答案，且用户无法撤回其选择。";
+
+"PollResults.Title.Poll" = "投票结果";
+"PollResults.Collapse" = "[折叠]()";
+"PollResults.Title.Quiz" = "问答结果";
+
+"PollResults.LoadMore_countable" = "%d";
+
+
+
+
+
+
+
+
+
+"Passport.ResetPassword.Confirm.Text" = "所有上传到您 Telegram 通行证的证件都将丢失。之后，您将能够上传新的证件。";
+
+
+
+"CancelResetAccount.Title" = "撤销帐号重置";
+"CancelResetAccount.TextSMS" = "某个人通过你的手机号码 **%@** 发送了删除你的 Telegram 帐号并重置你的两步验证密码的请求。\n\n如果那并非你本人，请输入我们刚刚通过短信给您的手机号码发送的验证码。";
+
+
+
+
+
+
+
+
+
+
+
+"Chat.Unsupported.UpdatedApp" = "更新";
+
+
+
+
+
+
+
+"Channel.BanUser.PermissionReadMessages" = "查看消息";
+"Channel.BanUser.PermissionSendMessages" = "发送消息";
+
+"Channel.BanUser.PermissionSendStickersAndGifs" = "发送贴纸和 GIF 动态图";
+"Channel.BanUser.PermissionEmbedLinks" = "嵌入链接预览";
+"Channel.BanUser.PermissionSendPolls" = "发起投票";
+"Channel.BanUser.PermissionChangeGroupInfo" = "修改群组信息";
+"Channel.BanUser.PermissionAddMembers" = "添加成员";
+
+
+
+
+"GroupPermission.NoSendMessages" = "无权发送消息";
+"GroupPermission.NoSendMedia" = "无权发送媒体";
+"GroupPermission.NoSendGifs" = "不能发送 GIF 动态图";
+"GroupPermission.NoSendPolls" = "无权发起投票";
+"GroupPermission.NoSendLinks" = "无权发送链接";
+"GroupPermission.NoChangeInfo" = "无权更改群信息";
+"GroupPermission.NoAddMembers" = "无权添加";
+"GroupPermission.NoPinMessages" = "无权置顶";
+"GroupPermission.NoPhotos" = "无权发送图片";
+"GroupPermission.NoVideos" = "无权发送视频";
+"GroupPermission.NoMusic" = "无权发送音频";
+"GroupPermission.NoFiles" = "无权发送文件";
+"GroupPermission.NoVoiceMessages" = "无权发送语音消息";
+"GroupPermission.NoVideoMessages" = "无权发送视频消息";
+"GroupPermission.NoTopics" = "无主题";
+
+"GroupPermission.Title" = "例外";
+"GroupPermission.NewTitle" = "新建例外";
+"GroupPermission.SectionTitle" = "此成员访问权限管理";
+"GroupPermission.Duration" = "时限";
+"GroupPermission.AddedInfo" = "例外由 %@ %@ 添加";
+"GroupPermission.Delete" = "删除例外";
+"GroupPermission.ApplyAlertText" = "您已在%@中更改了此用户的权限 。\n应用此更改吗？";
+
+"GroupPermission.AddSuccess" = "例外已添加";
+"GroupPermission.NotAvailableInPublicGroups" = "公开群组不具有此权限。";
+
+
+
+"Telegram.ChannelPermissionsController" = "权限";
+"GroupInfo.Permissions.SectionTitle" = "本群组成员有何权限?";
+"GroupInfo.Permissions.Removed" = "被移除的用户";
+"GroupInfo.Permissions.Exceptions" = "例外名单";
+"GroupInfo.Permissions.AddException" = "添加例外";
+"GroupInfo.Permissions.SearchPlaceholder" = "搜索例外";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"Time.PreciseMediumDate_m4" = "四月 %@日的 %@";
+
+
+
+
+
+"Time.PreciseMediumDate_m10" = "十月 %@日的%@";
+
+
+
+
+
+
+
+
+"EmptyGroupInfo.Title" = "您已创建一个群组";
+"EmptyGroupInfo.Subtitle" = "群组可以拥有：";
+"EmptyGroupInfo.Line1" = "• 最多 %@ 位成员";
+"EmptyGroupInfo.Line2" = "• 永久聊天记录";
+"EmptyGroupInfo.Line3" = "• 公开链接，例如：t.me/title";
+"EmptyGroupInfo.Line4" = "• 具备不同权限的管理员";
+
+
+"Chat.UndoManager.Undo" = "撤消";
+
+
+
+"Chat.UndoManager.ChatsDeleted_countable" = "%d";
+
+
+
+
+
+"Chat.UndoManager.ChatsDeleted_other" = "%d 对话已被删除";
+
+"Chat.UndoManager.ChatsHistoryCleared_countable" = "%d";
+
+
+
+
+
+"Chat.UndoManager.ChatsHistoryCleared_other" = "已清除 %d 聊天记录";
+
+
+"Chat.UndoManager.ChatsArchived_countable" = "%d";
+
+
+
+
+
+"Chat.UndoManager.ChatsArchived_other" = "%d 个聊天已归档";
+
+
+
+
+
+
+
+
+"Chat.UndoManager.ChatLeft_other" = "已退出 %d 个聊天";
+
+
+
+
+
+
+
+"Chat.UndoManager.ChannelLeft_other" = "已退出%d 个频道";
+
+"Chat.UndoManager.ChannelDeleted_countable" = "%d";
+
+
+
+
+
+"Chat.UndoManager.ChannelDeleted_other" = "%d 频道已被删除";
+
+
+
+"Gallery.SaveGif" = "保存 GIF 动态图";
+"Gallery.RemoveGif" = "移除 GIF 动态图";
+
+"WallpaperPreview.Blurred" = "模糊";
+"WallpaperPreview.Header" = "壁纸预览";
+//
+
+
+
+"Group.ErrorAddBlocked" = "抱歉，您无法将此用户加入到群组。";
+
+
+
+"Channel.ErrorAddTooMuch" = "抱歉，您只能在订阅者未满 200 人时手动添加用户。然而通过频道邀请链接关注的用户无此数量限制。";
+
+"WallpaperPreview.DoesntExists" = "对不起，该壁纸似乎不存在。";
+"WallpaperPreview.Apply" = "应用";
+"Chat.WP.BackgroundTitle" = "聊天壁纸";
+"Chat.WP.VoiceChatTitle" = "视频聊天";
+
+
+
+
+
+"Chat.WP.Color.FirstMessage" = "请按应用设置壁纸";
+"Chat.WP.Color.SecondMessage" = "看起来不错";
+
+"Chat.WP.Pattern.None" = "无";
+"Chat.WP.Pattern" = "图案";
+"Chat.WP.Color" = "颜色";
+"Chat.WP.Intensity" = "图案强度";
+
+
+
+"AccountViewController.Update" = "更新";
+"AccountViewController.Desc.Updated" = "更新";
+"AccountViewController.Desc.Failed" = "失败";
+
+"Update.UpdateTelegram" = "升级 Telegram";
+"AppUpdate.CheckForUpdates" = "检查更新";
+
+"AppUpdate.RetrievingInfo" = "正在获取信息…";
+"AppUpdate.Downloading" = "正在下载...";
+"AppUpdate.Unarchiving" = "正在解压…";
+"AppUpdate.Title" = "更新";
+"AppUpdate.Uptodate" = "您目前的 Telegram 版本是最新的。";
+"AppUpdate.NewestAvailable" = "请更新应用程序以获取最新功能与改进。";
+"AppUpdate.Title.New" = "新版本（您当前版本： %@）";
+"AppUpdate.Title.Previous" = "之前的版本";
+
+
+"DataAndStorage.Autoplay.Header" = "自动播放媒体";
+
+
+
+"DataAndStorage.Autoplay.SoundOnHover.Desc" = "将鼠标移到视频上时，声音将开始播放。";
+
+"DataAndStorage.Category.PreloadLargeVideos" = "预先载入较大的视频";
+
+
+
+
+
+
+
+
+"AutoDownloadSettings.OnForAll" = "对所有聊天启用";
+"AutoDownloadSettings.OnFor" = "%@";
+"AutoDownloadSettings.TypePrivateChats" = "私聊";
+"AutoDownloadSettings.TypeGroupChats" = "群组";
+"AutoDownloadSettings.TypeChannels" = "频道";
+"AutoDownloadSettings.UpToForAll" = "所有聊天最大 %@";
+
+"AutoDownloadSettings.OffForAll" = "对所有聊天关闭";
+
+
+
+
+
+"LogoutOptions.Title" = "登出";
+"LogoutOptions.AlternativeOptionsSection" = "其他选项";
+"LogoutOptions.AddAccountTitle" = "添加其他帐号";
+"LogoutOptions.AddAccountText" = "连接其他 Telegram 帐户并轻松切换。";
+"LogoutOptions.SetPasscodeTitle" = "设置锁定码";
+"LogoutOptions.SetPasscodeText" = "使用锁定码锁定应用程序以禁止他人打开。";
+"LogoutOptions.ClearCacheTitle" = "清空缓存";
+
+"LogoutOptions.ChangePhoneNumberTitle" = "更换手机号码";
+"LogoutOptions.ChangePhoneNumberText" = "将您的联系人、群组、消息以及媒体文件转移到新号码上。";
+"LogoutOptions.ContactSupportTitle" = "联系客服";
+"LogoutOptions.ContactSupportText" = "如遇问题，请告诉我们；登出通常无法解决此问题。";
+"LogoutOptions.LogOut" = "登出";
+"LogoutOptions.LogOutInfo" = "请注意，退出会清空您所有的私密聊天记录。";
+
+
+
+
+"CallSettings.Title" = "通话设置";
+"CallSettings.Input.Title" = "麦克风";
+"CallSettings.Input.Text" = "输入设备";
+"CallSettings.Camera.Title" = "相机";
+
+
+"Telegram.ChannelStatisticsController" = "频道统计";
+
+
+"AccountSettings.AddAccount" = "添加帐号";
+"AccountSettings.DeleteAccount" = "移除帐号";
+
+
+"AccountSettings.ChangeStatus" = "更改状态";
+
+
+"PasscodeController.Install.Title" = "锁定码";
+"PasscodeController.Change.Title" = "更改锁定码";
+"PasscodeController.Disable.Title" = "停用锁定码";
+
+"PasscodeController.EnterPasscode.Placeholder" = "请输入一个锁定码";
+"PasscodeController.ReEnterPasscode.Placeholder" = "重新输入新锁定码";
+
+
+
+
+
+"PasscodeController.Header.New" = "新密码";
+
+"PasscodeController.Text" = "要锁定，请将鼠标悬停在标签栏中的「设置」图标上，然后选择「锁定 Telegram」或使用 ⌘ + L。\n\n注意：如果您忘记了本地密码，您需要登出 macOS版 Telegram , 然后重新登录。";
+
+
+"PasscodeController.Error.Current" = "锁定码无效";
+
+
+"Passlock.EnterYourPasscode" = "输入您的锁定码";
+
+
+"Login.PhoneNumberAlreadyAuthorized" = "该帐号已在此应用中登录。";
+"Login.PhoneNumberAlreadyAuthorized.Switch" = "更换帐号";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"NotificationSettings.AllAccounts" = "全部账号";
+
+
+
+
+"NotificationSettings.SnoofHeader" = "当应用程序获取焦点时";
+
+
+
+
+
+
+
+"Login.Register.LastName.Placeholder" = "姓氏";
+
+"Login.InvalidFirstNameError" = "不符合规范的名字，请重新输入。";
+
+
+
+
+
+"ChatList.EmptyForum" = "暂无话题";
+
+"ChatList.Archive.Back" = "聊天";
+
+"ChatList.Popover.ReadAll" = "全部标记为已读";
+"ChatList.Popover.Confirm" = "您确定要将全部聊天标记为已读吗？";
+
+
+"Chat.Tooltip.HiddenForwardName" = "该账号被用户屏蔽";
+
+
+"GeneralSettings.EmojiPrediction.DisableText" = "是否禁用表情符号建议？您可以随时在“偏好设置”中重新启用它们。";
+"GeneralSettings.EmojiPrediction.Disable" = "停用";
+
+
+"GeneralSettings.StatusBarItem" = "在菜单栏中显示 Telegram";
+
+
+
+
+
+
+
+"Chat.ViewBackground" = "查看壁纸";
+
+
+"GeneralSettings.BigEmoji" = "大号表情";
+
+
+"App.Tooltip.VoiceRecord" = "长按以录制语音消息，点击切换为视频消息。";
+
+
+
+
+"StatusBar.Activate" = "打开Telegram";
+
+
+
+
+
+"TextView.Transform.RemoveAll" = "清除转换";
+"ChatList.ArchivedChats" = "已归档聊天";
+
+
+
+
+
+
+
+
+"Archive.Tooltip.First.Title" = "聊天已归档";
+
+
+"Archive.Tooltip.Second.Title" = "聊天已归档";
+"Archive.Tooltip.Second.Text" = "收到新消息时，静音的聊天将被保持归档。";
+
+"Archive.Tooltip.Third.Title" = "聊天已归档";
+"Archive.Tooltip.Third.Text" = "您可以将任意数量的归档聊天置顶。";
+
+"Archive.Tooltip.JustArchive.Title" = "聊天已归档。";
+
+
+"ChatList.RevealAction.Collapse" = "折叠";
+"ChatList.RevealAction.Expand" = "展开";
+
+
+
+"PeerInfo.ScamWarning" = "⚠️警告：此账号被大量用户举报欺诈。请小心，尤其是当该用户向你索要财物时。";
+
+
+
+
+
+
+
+
+
+
+
+
+"Mark.Scam" = "欺诈";
+"Mark.Fake" = "假冒";
+
+"GeneralSettings.CopyRTF" = "拷贝文本格式";
+
+
+
+
+
+
+
+"Bot.InlineAuth.Title" = "您想打开下面的链接吗？\n%@";
+
+
+
+"Bot.InlineAuth.Option.AllowSendMessages" = "允许 %@ 给我发送消息";
+
+
+
+"PeerInfo.LinkedChannel" = "已关联频道";
+
+
+
+
+
+"DiscussionController.Channel.Title" = "讨论群组";
+
+"DiscussionController.Channel.Empty.Header1" = "为您的频道选择一个评论群组。";
+"DiscussionController.Channel.Empty.CreateGroup" = "创建新群组";
+
+
+
+"DiscussionController.PrivateGroup" = "私密群组";
+
+
+
+
+
+"Discussion.Set.Modal.OK" = "关联群组";
+
+
+"Discussion.Set.Modal.Text.PublicChannelPublicGroup" = "您想将 **%@** 作为 **%@** 的讨论群吗？";
+
+
+
+"DiscussionController.Channel.Set.Header1" = "已选择 **%@** 为频道的留言群组。";
+
+
+"DiscussionController.Channel.Set.UnlinkGroup" = "取消关联群组";
+
+
+"DiscussionController.Group.Set.Header" = "此群组已作为 %@ 的关联讨论群组。";
+
+
+"DiscussionController.Group.Set.UnlinkChannel" = "取消关联频道";
+
+
+
+
+
+
+"PrivacyAndSecurity.Item.Off" = "关闭";
+"PrivacyAndSecurity.Item.On" = "开启";
+
+
+
+"DiscussionController.IconText" = "讨论";
+
+
+
+"Channel.EventLog.MessageChangedLinkedChannel" = "%@ 已将 %@ 关联到本群组";
+
+"Channel.EventLog.MessageChangedUnlinkedChannel" = "%@ 已将此群组与 %@ 取消关联";
+
+
+"DiscussionController.Error.PreHistory" = "警告：如果您将私密群组设为您的频道的讨论群，所有的频道订阅者都可以进入到这个群组中。“新成员加入前的聊天记录”将切换为“可见”。";
+"DiscussionController.Error.OK" = "确定";
+
+
+
+
+
+
+
+
+
+
+"Channel.AddBotErrorHaveRights" = "机器人只能作为管理员加入频道。";
+
+"Channel.AddBotErrorNoRights" = "机器人只能作为管理员加入频道。";
+
+
+"Search.Confirm.ClearHistory" = "您确定要清空搜索历史记录吗？";
+
+
+"InputPasswordController.Placeholder" = "密码";
+"InputPasswordController.Error.WrongPassword" = "密码错误，请重试";
+
+
+
+"NewContact.Title" = "新建联系人";
+
+"NewContact.Phone.Hidden" = "隐藏";
+"NewContact.Phone" = "手机号码";
+"NewContact.Phone.Hidden.Text" = "一旦 %@ 将您添加为联系人，手机号将对其可见。";
+"NewContact.Exception.ShareMyPhoneNumber" = "分享我的手机号码";
+"NewContact.Exception.ShareMyPhoneNumber.Desc" = "您可将手机号设置为对 %@ 可见。";
+
+
+
+"Channel.TransferOwner.Error.Text" = "确认此操作需满足以下条件：\n\n• 您的帐号启用两步验证已超过 **7天** 。\n\n• 最近一次更改两步验证密码已超过 **7天** 。\n\n• 在当前设备登录时长已超过 **24 小时** 。";
+"Channel.TransferOwner.Error.Enable2FA" = "启用两步验证";
+
+"BlockContact.Title" = "您想要阻止%@在 Telegram 上给您发消息及打电话吗？";
+
+
+"BlockContact.Options.Report" = "举报垃圾信息";
+"BlockContact.Options.DeleteChat" = "删除该次聊天";
+
+
+
+
+
+"Channel.TransferOwner.ErrorPublicChannelsTooMuch" = "抱歉，目标用户已经有太多的公开群组或频道。 请让他们先将他们现有的一个群组或频道设为私有。";
+
+
+"Channel.TransferOwner.ErrorAdminsTooMuch" = "抱歉，目前本频道的管理员太多，无法添加新所有者，请先删除一个现有管理员。";
+
+
+
+
+"Channel.BotDoesntSupportGroups" = "抱歉，这个机器人告诉我们它不想被添加到群组中。 除非开发人员改变主意，否则无法添加此机器人。";
+"Channel.TooMuchBots" = "抱歉，此群组的机器人数量已达上限。请先删除一些您不使用的机器人。";
+
+
+"Channel.Permissions.SlowMode.Text.Off" = "选择每个成员必须等多长时间才能发送下一条消息。";
+
+
+"Channel.Permissions.SlowMode.Header" = "慢速模式";
+
+"Channel.SlowMode.ToolTip" = "慢速模式已启用。\n您可以在 %@:%@ 后发送下一条消息。";
+
+"SlowMode.Multiple.Error" = "慢速模式已启用，您每次只能发送一条消息。";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"Channel.Admin.Role.Placeholder.Owner" = "群主";
+
+
+"Channel.Admin.Role.Admin.Desc" = "群组成员将看到此头衔，而不是“管理员”。";
+
+
+
+"Chat.Send.WithoutSound" = "静默发送";
+
+
+
+
+
+
+
+
+
+"Schedule.SendWhenOnline" = "上线后发送";
+
+
+"Chat.Send.SetReminder" = "新建提醒事项";
+
+"Chat.Send.SendWhenOnline" = "在线时发送";
+
+
+"ScheduleController.at" = "在";
+
+"Chat.Title.Reminder" = "提醒事项";
+
+"Chat.Context.ClearScheduled" = "取消所有";
+
+
+"Chat.Context.ClearScheduled.Confirm.OK" = "清除所有";
+
+"Chat.Date.ScheduledFor" = "计划于 %@发送";
+"Chat.Date.ScheduledUntilOnline" = "在线后发送";
+"Chat.Date.ScheduledForToday" = "今日日程";
+
+
+"Chat.Context.Scheduled.SendNow" = "立即发送";
+"Chat.Context.Scheduled.Reschedule" = "重设发送时间";
+
+
+"Chat.Right.Context.ScheduledMessages" = "定时消息";
+"Chat.Right.Context.Reminder" = "提醒事项";
+
+
+
+
+"Join.ChannelsTooMuch" = "抱歉，您已经加入了太多的群组和频道，请在加入新的之前退出一些。";
+"Create.ChannelsTooMuch" = "抱歉，您加入了太多的群组或频道。请在创建新的之前退出一些。";
+"Upgrade.ChannelsTooMuch" = "抱歉，您加入的群组与频道过多。由于技术原因，如果您需要继续修改群组设定，请退出一些群组和频道。";
+
+
+"Join.InactiveChannels" = "不活跃的聊天";
+
+
+
+
+"AccentColors.Tinted" = "深色";
+
+
+
+
+"TouchBarLabel.NewChat" = "新建聊天";
+
+
+"PrivacyPhoneNumberSettings.CustomDisabledHelp" = "对于将您的号码加入联系人列表的用户，只有当您将其添加为联系人后，对方才会看到您的号码。";
+
+"PrivacyPhoneNumberSettings.DiscoveryHeader" = "谁可以通过手机号码找到我";
+
+
+
+
+
+
+
+
+"NewTheme.EmptyTextError" = "名称不能为空。";
+
+
+"Appearance.Theme.Remove" = "移除";
+"Appearance.Theme.Edit" = "编辑";
+"Appearance.NewTheme" = "新主题";
+"Appearance.Reset" = "恢复默认";
+"Appearance.ExportTheme" = "导出主题";
+"Appearance.Theme.Share" = "分享";
+"Appearance.CloudThemes" = "云端主题";
+
+
+
+
+"EditTheme.Title" = "编辑主题";
+
+
+"EditTheme.SelectUpdatedFile" = "通过文件上传……";
+"EditTheme.SelectUpdatedFileDesc" = "您可以通过从文件上传手动更改来为所有用户更新主题。";
+
+
+"EditTheme.NamePlaceholder" = "主题名称";
+
+
+
+
+"EditTheme.Edit" = "保存";
+"EditThame.Name.AlreadyTaken" = "抱歉，此链接已被占用。";
+
+
+
+
+"Appearance.Confirm.RemoveOK" = "移除";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"SelectPeers.Title.SelectChat" = "选择聊天";
+"SelectPeers.Title.SearchMembers" = "搜索成员";
+
+
+"ChatList.Mute.1Hour" = "1 小时";
+"ChatList.Mute.4Hours" = "4 小时";
+"ChatList.Mute.8Hours" = "8 小时";
+"ChatList.Mute.1Day" = "1 天";
+"ChatList.Mute.3Days" = "3 天";
+"ChatList.Mute.Forever" = "永久";
+"ChatList.Mute.Until" = "静音直到...";
+
+
+"ChatList.Mute.Until.Title" = "静音直到";
+"ChatList.Mute.Until.OK" = "静音";
+
+
+
+
+
+"SettingsSearch.Synonyms.EditProfile.PhoneNumber" = " ";
+"SettingsSearch.Synonyms.EditProfile.Username" = "用户名";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"SettingsSearch.Synonyms.Notifications.GroupNotificationsPreview" = " ";
+"SettingsSearch.Synonyms.Notifications.GroupNotificationsSound" = " ";
+
+"SettingsSearch.Synonyms.Notifications.ChannelNotificationsAlert" = " ";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"SettingsSearch.Synonyms.Privacy.TwoStepAuth" = "密码";
+
+
+
+"SettingsSearch.Synonyms.Privacy.Data.Title" = " ";
+
+
+
+
+
+
+
+
+"SettingsSearch.Synonyms.Data.Storage.Title" = "缓存";
+
+
+
+
+
+
+
+
+
+
+
+
+
+"SettingsSearch.Synonyms.Proxy.Title" = "SOCKS5\nMTProto";
+
+
+
+
+"SettingsSearch.Synonyms.Appearance.TextSize" = "字体";
+"SettingsSearch.Synonyms.Appearance.ChatBackground" = "壁纸\n背景";
+
+
+
+
+"SettingsSearch.Synonyms.Appearance.ChatMode" = "对话框";
+
+
+
+
+"SettingsSearch.Synonyms.Passport" = " ";
+"SettingsSearch.Synonyms.Watch" = "Apple Watch";
+"SettingsSearch.Synonyms.Support" = "支持";
+"SettingsSearch.Synonyms.FAQ" = " ";
+
+
+"SettingsSearch.EmptyItem" = "“偏好设置”和“Telegram 常见问题”的搜索结果都将显示在这里。";
+
+
+"SettingsSearch.Recent" = "最近";
+"SettingsSearch.Recent.Clear" = "清除";
+
+
+"InactiveChannels.InactiveWeek_countable" = "%d";
+
+
+
+
+
+"InactiveChannels.InactiveWeek_other" = "%d周不活跃";
+
+"InactiveChannels.InactiveMonth_countable" = "%d";
+
+
+
+
+
+"InactiveChannels.InactiveMonth_other" = "%d个月不活跃";
+
+"InactiveChannels.InactiveYear_countable" = "%d";
+
+
+
+
+
+"InactiveChannels.InactiveYear_other" = "%d年不活跃";
+
+"Chat.Edit.Cancel.Text" = "确定放弃所有修改吗？";
+
+
+"InactiveChannels.Title" = "达到上限";
+"InactiveChannels.OK" = "离开";
+"InactiveChannels.Header" = "最不活跃";
+"InactiveChannels.BlockHeader" = "群组与频道过多";
+
+
+
+
+"Poll.Forward.Error" = "抱歉，投票不能被转到到此频道。";
+
+
+"ChatList.Filter.Back" = "对话";
+
+"ChatList.Filter.AllChats" = "所有聊天";
+
+//
+
+"ChatList.HideMuted" = "隐藏静音";
+"ChatList.UnhideMuted" = "显现静音";
+
+"ChatList.Filter.List.AddNew" = "创建新定义文件夹";
+"ChatList.Filter.List.Title" = "聊天分组";
+
+"ChatList.Filter.Title" = "文件夹";
+"ChatList.Filter.NewTitle" = "创建分组";
+"ChatList.Filter.Done" = "创建";
+
+"ChatList.Filter.Edit" = "编辑";
+"ChatList.Filter.Delete" = "删除";
+"ChatList.Filter.AddChats" = "添加聊天";
+"ChatList.Filter.EditFilters" = "编辑文件夹";
+
+
+
+
+
+"ChatList.Filter.Include.LimitReached.New" = "抱歉，你只能加起来最多 %d 个聊天。";
+"ChatList.Filter.Exclude.LimitReached.New" = "抱歉，你只能加起来最多 %d 个聊天。";
+
+
+"ChatList.Filter.ShowMore_countable" = "%d";
+
+
+
+
+
+"ChatList.Filter.ShowMore_other" = "显示其他 %d 个聊天";
+
+
+"ChatList.Filter.Hide_countable" = "%d";
+
+
+
+
+
+"ChatList.Filter.Hide_other" = "隐藏 %d 个对话";
+
+
+"ChatList.Filter.SetupEmpty" = "添加文件夹";
+
+"ChatList.Filter.All" = "所有";
+"ChatList.Filter.Contacts" = "联系人";
+"ChatList.Filter.NonContacts" = "非联系人";
+"ChatList.Filter.Groups" = "群组";
+"ChatList.Filter.SmallGroups" = "小群组";
+"ChatList.Filter.SecretChat" = "私密聊天";
+"ChatList.Filter.Channels" = "频道";
+"ChatList.Filter.Bots" = "机器人";
+"ChatList.Filter.MutedChats" = "已静音";
+"ChatList.Filter.ReadChats" = "已读";
+"ChatList.Filter.Archive" = "归档";
+"ChatList.Filter.Share" = "分享";
+
+"ChatList.Filter.List.Header" = "文件夹";
+"ChatList.Filter.List.Desc" = "拖放分组重新排序，右键单击删除。";
+"ChatList.Filter.List.Remove" = "移除";
+"ChatList.Filter.Recommended.Add" = "添加";
+"ChatList.Filter.Recommended.Header" = "推荐";
+"ChatList.Filter.Header" = "为不同聊天分组创建文件夹，并在它们之间快速切换。";
+
+
+"ChatList.Filter.TabBar.Header" = "标签预览";
+"ChatList.Filter.TabBar.OnTheTop" = "顶部标签";
+"ChatList.Filter.TabBar.OnTheLeft" = "移到左边";
+"ChatList.Filter.TabBar.Desc" = "如果文件夹过多，可以试试将分组移动到左侧。";
+
+"ChatList.Add.Placeholder" = "选择对话……";
+"ChatList.Add.Save" = "添加";
+
+"ChatList.Add.TopSeparator" = "聊天类型";
+"ChatList.Add.BottomSeparator" = "对话";
+
+"ChatList.CloseFilter" = "显示所有";
+"ChatList.CloseFilterShort" = "所有";
+
+"ChatList.Filter.Empty" = "**文件夹中没有任何聊天。**\n\n[编辑文件夹](filter)";
+
+
+"ChatList.Filter.Loading" = "**添加对话中**\n我们正在为您添加聊天到此文件夹，请稍候…";
+"ChatList.Empty.Loading" = "正在下载";
+
+
+"ChatList.Filter.Add.Done" = "完成";
+
+"ChatList.Filter.Error.Empty" = "请添加一些聊天或对话类型。";
+
+"ChatList.Filter.Include.Desc" = "选择将出现在此文件夹中的聊天和聊天类型。";
+"ChatList.Filter.Include.AddChat" = "所有对话";
+"ChatList.Filter.Include.Header" = "包含的聊天";
+"ChatList.Filter.Include.RemoveChat" = "移除";
+
+"ChatList.Filter.Exclude.Desc" = "选择不会出现在此文件夹中的聊天或聊天类型。";
+"ChatList.Filter.Exclude.AddChat" = "添加对话";
+"ChatList.Filter.Exclude.Header" = "排除的聊天";
+"ChatList.Filter.Exclude.RemoveChat" = "移除";
+
+
+"ChatList.Filter.ExcludeMuted" = "取消静音";
+"ChatList.Filter.ExcludeRead" = "排除已读";
+
+"ChatList.Filter.Categories.Header" = "包含对话类型";
+"ChatList.Filter.Name.Header" = "分组名";
+"ChatList.Filter.Name.Placeholder" = "文件夹名称";
+
+"ChatList.Filter.Confirm.Remove.Header" = "移除分组";
+"ChatList.Filter.Confirm.Remove.Text" = "您确定要删除这个分组吗？分组中的聊天不会被删除。";
+"ChatList.Filter.Confirm.Remove.OK" = "删除";
+
+"ChatList.Filter.Discard.Header" = "放弃修改";
+"ChatList.Filter.Discard.Text" = "您确定要放弃所有更改吗？";
+"ChatList.Filter.Discard.OK" = "放弃";
+"ChatList.Filter.Discard.Cancel" = "取消";
+
+
+
+"ChatList.Filter.Tilte.Default.Unmuted" = "未静音";
+
+"ChatList.Filter.Tilte.Default.Channels" = "频道";
+"ChatList.Filter.Tilte.Default.Groups" = "群组";
+"ChatList.Filter.Tilte.Default.Bots" = "机器人";
+"ChatList.Filter.Tilte.Default.Contacts" = "联系人";
+"ChatList.Filter.Tilte.Default.NonContacts" = "非联系人";
+
+
+
+"ChatList.Filter.InviteLink.header" = "邀请链接";
+"ChatList.Filter.InviteLink" = "创建一个新链接";
+"ChatList.Filter.InviteLink.Share" = "分享文件夹";
+"ChatList.Filter.InviteLink.Info" = "与其他人分享此文件夹中的群组和频道的访问权。";
+
+"ChatList.Filter.InviteLink.Info" = "与其他人分享此文件夹中的群组和频道的访问权。";
+
+"ChatList.Filter.InviteLink.IncludeExcludeError" = "您不能分享包含特定聊天类别（比如“群组”、“联系人”等）的分组。";
+
+
+"ChatList.Filter.InviteLink.Desc" = "包括 %d 个聊天";
+
+
+
+
+
+
+
+
+
+"ChatList.Filter.InviteLink.Delete" = "删除";
+
+"ChatList.Filter.InviteLink.Delete.Confirm" = "你确定要撤销并删除此邀请链接吗？";
+
+"ChannelStats.Title" = "频道统计";
+
+"ChannelStats.ViewsCount_countable" = "%d";
+
+
+
+
+
+"ChannelStats.ViewsCount_other" = "%d 次浏览";
+
+"ChannelStats.ViewsCount_ZeroValueHolder" = "无人观看";
+
+
+"ChannelStats.SharesCount_countable" = "%d";
+
+
+
+
+
+"ChannelStats.SharesCount_other" = "%d 次分享";
+
+"ChannelStats.SharesCount_ZeroValueHolder" = "无人分享";
+
+
+
+
+
+
+
+
+
+"ChannelStats.Graph.Followers" = "订阅者";
+
+
+
+
+
+
+
+"Graph.ZoomOut" = "缩小";
+
+
+
+"Stats.MessageTitle" = "消息数据分析";
+
+"Stats.MessageInteractionsTitle" = "互动";
+"Stats.MessagePublicForwardsTitle" = "公开分享";
+"Stats.MessagePrivateForwardsTitle" = "私密分享";
+"Stats.MessagePublicForwardsTitle.Header" = "公开分享";
+
+
+"ChannelStats.Recent.Header" = "近期贴文";
+
+"Chat.Emoji.Dice.ResultNew" = "发送骰子表情即可掷骰子。";
+"Chat.Emoji.Dart.ResultNew" = "发送飞镖表情试试运气。";
+"Chat.Emoji.Def.ResultNew" = "发送 %@ 表情试试运气。";
+"Chat.Emoji.Send" = "发送";
+
+"Channel.Stats.Loading" = "**准备图表中**\n正在生成图表，请稍等";
+
+
+"GroupInfo.AddUserLeftError" = "抱歉，如果某人已不再是群组的成员，您需要成为其 Telegram 联系人才能将对方添加回来。\n\n注意只要对方不在被移除用户列表中，就仍可通过群组的邀请链接加入。";
+"ChannelInfo.AddUserLeftError" = "若用户曾离开群组，您需要成为其联系人才能将其加回群组。\n\n只要其不在已移除用户列表中，该用户仍可通过邀请链接加入群组。";
+
+
+
+
+
+
+
+"GeneralSettings.ShortcutsHeader" = "快捷方式";
+"GeneralSettings.Shortcuts" = "快捷键";
+
+"ShortcutsController.Title" = "快捷方式";
+
+"ShortcutsController.Chat" = "对话";
+"ShortcutsController.Chat.OpenInfo" = "打开详情";
+"ShortcutsController.Chat.SelectMessageToReply" = "选择要回复的消息";
+
+"ShortcutsController.Chat.RecordVoiceMessage" = "录制语音或视频消息";
+"ShortcutsController.Chat.SearchMessages" = "搜索消息";
+
+
+"ShortcutsController.Search" = "搜索";
+"ShortcutsController.Search.QuickSearch" = "快速搜索";
+"ShortcutsController.Search.GlobalSearch" = "全局搜索";
+
+
+"ShortcutsController.VideoChat" = "视频聊天";
+"ShortcutsController.VideoChat.ToggleCamera" = "切换摄像头";
+"ShortcutsController.VideoChat.ToggleScreencast" = "切换屏幕共享";
+
+
+"ShortcutsController.Markdown" = "MARKDOWN";
+
+"ShortcutsController.Markdown.Italic" = "斜体";
+
+"ShortcutsController.Markdown.Hyperlink" = "超链接";
+
+
+"ShortcutsController.Mouse" = "鼠标";
+"ShortcutsController.Mouse.FastReply" = "快捷回复";
+"ShortcutsController.Mouse.FastReply.Value" = "双击";
+
+
+
+
+"ShortcutsController.Gestures" = "手势";
+
+"ShortcutsController.Gestures.ChatAction.Value" = "双向滑动";
+"ShortcutsController.Gestures.Reply" = "回复";
+
+"ShortcutsController.Gestures.Stickers" = "贴纸/表情/GIF 动态图面板";
+
+
+
+
+
+"ShortcutsController.Others" = "其他";
+
+
+"psa.chatlist" = "公共服务通告";
+"psa.text" = "此信息为您在列表中提供公共服务公告";
+"psa.title" = "公共服务通知";
+"psa.chat.title" = "公共服务通知";
+"psa.chat.text.covid" = "此信息为您提供正在发生的新冠肺炎疫情相关公共服务公告。了解有关此计划的更多咨询：https://telegram.org/blog/coronavirus";
+"psa.title.bubbles" = "公共服务公告通知\n来自：[%@]()";
+
+"PeerInfo.Group.Menu.Promote" = "提权";
+"PeerInfo.Group.Menu.Restrict" = "限制";
+"PeerInfo.Group.Menu.Delete" = "删除";
+
+"ChatList.Filter.AddToFolder" = "添加至聊天文件夹...";
+"ChatList.Filter.RemoveFromFolder" = "从聊天文件夹移除";
+"MessageTimer.ShortSeconds" = "%@秒";
+"MessageTimer.ShortMinutes" = "%@分钟";
+"MessageTimer.ShortHours" = "%@小时";
+"MessageTimer.ShortDays" = "%@天";
+"MessageTimer.ShortWeeks" = "%@周";
+"MessageTimer.ShortMonths" = "%@个月";
+
+"GifsPane.Trending" = "流行 GIF 动态图";
+"GifsPane.Reactions" = "表情回应";
+
+
+"Text.View.Transformations" = "转换";
+
+
+"PrivateChannel.Peek.Header" = "加入频道";
+"PrivateChannel.Peek.Text" = "该频道为私人频道。请加入后继续浏览。";
+"PrivateChannel.Peek.OK" = "加入频道";
+"PrivateChannel.Peek.Cancel" = "取消";
+
+
+"MediaSender.DiscardChanges.Header" = "放弃更改";
+"MediaSender.DiscardChanges.Text" = "您确定放弃所有更改？";
+"MediaSender.DiscardChanges.OK" = "放弃";
+
+
+"GroupStats.Title" = "群组数据";
+
+
+"Stats.GroupOverview" = "概况";
+"Stats.GroupMembers" = "成员";
+"Stats.GroupMessages" = "消息";
+"Stats.GroupViewers" = "浏览消息的成员";
+"Stats.GroupPosters" = "发布消息的成员";
+
+"Stats.GroupGrowthTitle" = "增长";
+"Stats.GroupMembersTitle" = "群组成员";
+"Stats.GroupNewMembersBySourceTitle" = "新成员的来源";
+"Stats.GroupLanguagesTitle" = "成员主要语言";
+"Stats.GroupMessagesTitle" = "消息";
+"Stats.GroupActionsTitle" = "操作";
+"Stats.GroupTopHoursTitle" = "活跃时间";
+"Stats.GroupTopWeekdaysTitle" = "本周活跃日";
+"Stats.GroupTopPostersTitle" = "活跃成员";
+"Stats.GroupTopAdminsTitle" = "活跃管理员";
+"Stats.GroupTopInvitersTitle" = "最佳邀请者";
+
+
+
+"Stats.GroupTopPosterMessages_countable" = "%d";
+
+
+
+
+
+"Stats.GroupTopPosterMessages_other" = "%d 条消息";
+
+"Stats.GroupTopPosterChars_countable" = "%d";
+
+
+
+
+
+"Stats.GroupTopPosterChars_other" = "每条消息 %d 个字符";
+
+"Stats.GroupTopPoster.History" = "历史";
+"Stats.GroupTopPoster.Promote" = "提权";
+
+
+"Stats.GroupTopAdminDeletions_countable" = "%d";
+
+
+
+
+
+"Stats.GroupTopAdminDeletions_other" = "%d 次删除";
+
+
+"Stats.GroupTopAdminKicks_countable" = "%d";
+
+
+
+
+
+"Stats.GroupTopAdminKicks_other" = "%d 次封禁";
+
+"Stats.GroupTopAdminBans_countable" = "%d";
+
+
+
+
+
+"Stats.GroupTopAdminBans_other" = "%d 次限制";
+
+"Stats.GroupTopAdmin.Actions" = "操作";
+"Stats.GroupTopAdmin.Promote" = "提权";
+
+"Stats.GroupTopInviterInvites_countable" = "%d";
+
+
+
+
+
+"Stats.GroupTopInviterInvites_other" = "%d 次邀请";
+
+"Stats.GroupTopInviter.History" = "历史";
+"Stats.GroupTopInviter.Promote" = "提权";
+
+"Stats.ShowMore_countable" = "%d";
+
+
+
+
+
+"Stats.ShowMore_other" = "显示 %d 条更多信息";
+
+
+"NotificationSettings.SendMessageEffect" = "发送消息";
+"NotificationSettings.SoundEffects" = "声音特效";
+
+"Alert.HideNewChats.Header" = "隐藏新聊天?";
+"Alert.HideNewChats.Text" = "您收到了很多来自陌生用户的新聊天会话。您是否想将这些聊天会话**自动静音**及**归档**？";
+"Alert.HideNewChats.Cancel" = "取消";
+"Alert.HideNewChats.OK" = "转到偏好设置";
+
+
+"System.MemoryWarning.Header" = "警告！";
+"System.MemoryWarning.Text" = "您的可用硬盘空间不足，请清理或修改缓存设置。\n可用空间：~%@";
+"System.MemoryWarning.FreeSpace" = "%d GB";
+"System.MemoryWarning.LessThen1GB" = "不足 1GB";
+
+"System.MemoryWarning.OK" = "OK";
+"System.MemoryWarning.DataAndStorage" = "应用数据存储";
+
+
+"VideoAvatar.ChooseDesc.Profile" = "选择一帧作为您的头像";
+"VideoAvatar.ChooseDesc.Group" = "选择群组视频封面";
+"VideoAvatar.ChooseDesc.Channel" = "选择频道视频封面";
+"VideoAvatar.Button.Set" = "设置";
+"VideoAvatar.Button.Cancel" = "取消";
+
+
+"Call.Accept" = "接受";
+"Call.Decline" = "拒绝";
+"Call.End" = "结束";
+"Call.Camera" = "相机";
+"Call.Mute" = "静音";
+"Call.Recall" = "重拨";
+"Call.Close" = "挂断";
+
+"Call.Screen" = "屏幕";
+
+//"RequestAcces.Error.HaveNotAccess.Call" = "Telegram needs access to your microphone to make calls";
+
+
+"Call.Camera.Error" = "Telegram 需要获取相机权限来视频通话。";
+
+"Call.VideoPaused" = "%@ 视频画面已暂停";
+
+
+"Call.CameraUnavailable" = "相机不可用 [设置]()";
+"Call.Toast.CameraOff" = "%@ 的相机处于关闭状态";
+"Call.Toast.MicroOff" = "%@'的麦克风处于关闭状态";
+"Call.Toast.LowBattery" = "%@ 的电池电量过低";
+
+
+"Message.Text.CopyMusicTitle" = "拷贝音频名称";
+
+"ShareCallLogs" = "分享通话记录";
+"Call.Context.Rate" = "评价此次通话";
+
+
+
+
+"Bot.TransferOwner.Error.Title" = "安全检查";
+"Bot.TransferOwner.Error.Text" = "所有权转移仅在以下情况下可用：\n\n• 您的帐户已启用两步验证超过7天。\n\n• 您在此设备上登录超过24小时。\n\n请稍后再试。";
+"Bot.TransferOwner.Error.Enable2FA" = "开启两步验证";
+
+
+"Bot.TransferOwnership.Password.Desc" = "请输入两步验证密码完成转移。";
+"Bot.TransferOwnership.Password.Title" = "两步验证";
+
+
+"Message.Context.ViewReplies_countable" = "%d";
+
+
+
+
+
+"Message.Context.ViewReplies_other" = "查看 %d 条回复";
+
+
+"Message.Context.ViewComments_countable" = "%d";
+
+
+
+
+
+"Message.Context.ViewComments_other" = "查看 %d 条评论";
+
+"Message.Context.ViewThread" = "查看跟评";
+
+
+"Search.Filter.ClearFilter" = "清除筛选";
+"Search.Filter.Photos" = "照片";
+"Search.Filter.Videos" = "视频";
+"Search.Filter.Links" = "链接";
+"Search.Filter.Music" = "音乐";
+"Search.Filter.Voice" = "语音";
+"Search.Filter.GIFs" = "GIF 动态图";
+"Search.Filter.Files" = "文件";
+
+
+
+"Channel.Comments.LeaveComment" = "留言";
+
+
+"Channel.Comments.Count_countable" = "%d";
+
+
+
+
+
+"Channel.Comments.Count_other" = " %d 次留言";
+
+
+"Channel.Comments.Short.LeaveComment" = "评论";
+"Channel.Comments.Short.Count_countable" = "%d";
+
+
+
+
+
+"Channel.Comments.Short.Count_other" = "%d";
+
+
+"Chat.Empty.Comments" = "暂无评论";
+"Chat.Empty.Replies" = "暂无回复";
+
+
+"Chat.Comments.Kicked" = "您已被禁止发评论。";
+
+
+
+"Chat.Title.Replies_countable" = "%d";
+
+
+
+
+
+"Chat.Title.Replies_other" = "%d 回复";
+"Chat.Title.Replies_ZeroValueHolder" = "回复";
+
+
+"Chat.Title.Topic_countable" = "%d";
+
+
+
+
+
+"Chat.Title.Topic_other" = "%d 条消息";
+"Chat.Title.Topic_ZeroValueHolder" = "消息";
+
+
+"Chat.Title.Comments_countable" = "%d";
+
+
+
+
+
+"Chat.Title.Comments_other" = "%d 条评论";
+"Chat.Title.Comments_ZeroValueHolder" = "评论";
+
+"PeerMedia.Title.Search.Media_countable" = "%d";
+
+
+
+
+
+"PeerMedia.Title.Search.Media_other" = "%d 个媒体文件";
+
+
+"PeerMedia.Title.Search.Photos_countable" = "%d";
+
+
+
+
+
+"PeerMedia.Title.Search.Photos_other" = "%d 张图片\n";
+
+"PeerMedia.Title.Search.Videos_countable" = "%d";
+
+
+
+
+
+"PeerMedia.Title.Search.Videos_other" = "%d个视频文件";
+
+"PeerMedia.Title.Search.Links_countable" = "%d";
+
+
+
+
+
+"PeerMedia.Title.Search.Links_other" = "%d 个链接";
+
+"PeerMedia.Title.Search.Music_countable" = "%d";
+
+
+
+
+
+"PeerMedia.Title.Search.Music_other" = "%d 个音频文件";
+
+"PeerMedia.Title.Search.GIFs_countable" = "%d";
+
+
+
+
+
+"PeerMedia.Title.Search.GIFs_other" = "%d 张 GIF 动态图";
+
+"PeerMedia.Title.Search.Files_countable" = "%d";
+
+
+
+
+
+"PeerMedia.Title.Search.Files_other" = "%d 个文件";
+
+
+"Chat.CommentsHeader.Empty" = "暂无留言...";
+"Chat.CommentsHeader.Full" = "讨论已开始";
+
+
+"Chat.TopicHeader.Empty" = "暂无消息...";
+"Chat.TopicHeader.Full" = "话题已开始";
+
+
+
+
+
+"Chat.Discussion.MessageDeleted" = "抱歉，该贴文已从讨论群组中移除。";
+
+
+"Chat.Title.Discussion" = "讨论";
+
+"Chat.Title.PinnedMessages_countable" = "%d";
+
+
+
+
+
+"Chat.Title.PinnedMessages_other" = "%d 条置顶消息";
+
+"Chat.Pinned.UnpinAll_countable" = "%d";
+
+
+
+
+
+"Chat.Pinned.UnpinAll_other" = "取消置顶 %d 条消息";
+
+"Chat.Pinned.DontShow" = "不显示置顶消息";
+
+
+"Chat.File.QuickLook.Svg" = "\n打开此文件可能会将您的IP地址暴露给发送者。您确定继续吗？";
+
+"Chat.UnpinAllMessagesConfirmation_countable" = "%d";
+
+
+
+
+
+"Chat.UnpinAllMessagesConfirmation_other" = "您想取消置顶聊天中的 %d 条消息吗？";
+
+"Chat.Context.CancelEditing" = "取消编辑";
+
+
+
+
+"CallSettings.InputLevel" = "输入音量";
+"Chat.GroupCall.Join" = "加入";
+"Chat.GroupCall.Title" = "视频通话";
+"Chat.GroupCall.Live.Title" = "直播流";
+
+"Chat.GroupCall.Scheduled.Title" = "预定的视频聊天";
+
+"Chat.GroupCall.Scheduled.Status" = "开始于%@";
+
+
+
+
+
+
+
+
+"Chat.GroupCall.Members_other" = "%d 位成员";
+"Chat.GroupCall.Members_ZeroValueHolder" = "点击以加入";
+
+
+
+
+
+
+
+
+"Chat.GroupCall.Speakers_other" = "%d 位成员正在发言";
+"Chat.GroupCall.Speakers_ZeroValueHolder" = "无人说话";
+
+
+"VoiceChat.Status.Connecting" = "连接中...";
+
+
+
+
+
+
+
+"VoiceChat.Status.Members_other" = "%d 名参与者";
+"VoiceChat.Status.Members_ZeroValueHolder" = "暂无参与者";
+
+"VoiceChat.Status.Viewers_countable" = "%d 个";
+
+
+
+
+
+"VoiceChat.Status.Viewers_other" = "%d 个观看者";
+"VoiceChat.Status.Viewers_ZeroValueHolder" = "无人观看";
+
+"VoiceChat.Status.Stream" = "直播";
+
+"VoiceChat.LeaveCall" = "退出";
+
+"VoiceChat.Status.Loading" = "连接中...";
+
+
+"VoiceChat.Settings" = "设置";
+"VoiceChat.ClickToUnmute" = "点击以开启麦克风";
+"VoiceChat.ClickToUnmute.Secondary.Press" = "按下 ⎵ 或 %@";
+
+"VoiceChat.ClickToUnmute.Secondary.HoldDefault" = "按住 ⎵";
+
+
+"VoiceChat.YouLive" = "你正在说话";
+"VoiceChat.Connecting" = "连接中...";
+"VoiceChat.ListenMode" = "你处于收听模式";
+
+"VoiceChat.StartNow" = "立即开始";
+
+
+"VoiceChat.SetReminder" = "设置提醒";
+"VoiceChat.RemoveReminder" = "取消提醒";
+
+
+"VoiceChat.RemovePeerRemove" = "移除";
+
+"VoiceChat.UserInvited" = "您已邀请 **%@** 加入视频聊天";
+
+
+
+
+
+"ChatList.Service.VoiceChatInvitation" = "%1$@ 已邀请 %2$@ 加入视频聊天";
+"ChatList.Service.VoiceChatInvitationByYou" = "您已邀请 %1$@ 加入视频聊天";
+"ChatList.Service.VoiceChatInvitationForYou" = "%1$@ 邀请您加入视频聊天";
+
+
+"Chat.Service.VoiceChatStarted" = "%1$@ 已开始 [视频通话](open)";
+"Chat.Service.VoiceChatStartedYou" = "您开启了一个 [语音聊天](open)";
+
+
+
+
+
+"ChatList.Service.VoiceChatStarted" = "%1$@ 已发起视频聊天";
+"ChatList.Service.VoiceChatStartedYou" = "您已发起视频聊天";
+
+"ChatList.Service.VoiceChatScheduled" = "%1$@ 已预约 %2$@ 开始的视频聊天";
+"ChatList.Service.VoiceChatScheduledYou" = "你预约了%2$@的视频聊天";
+
+
+
+"ChatList.Service.VoiceChatStarted.Channel1" = "直播已开始";
+"ChatList.Service.VoiceChatFinished.Channel1" = "直播已结束 (%1$@)";
+
+
+"ChatList.Service.VoiceChatScheduled.Channel1" = "预定 %@进行直播";
+
+
+
+"Chat.Service.VoiceChatFinishedYou" = "你已结束语音通话 (%@)";
+
+
+"Chat.Service.PeerRequested" = "您已将 %1$@ 分享给 %2$@。";
+
+"Chat.Service.PeerRequest.Confirm.Plain" = "您确定要将 %1$@ 发送至 %2$@ 吗？";
+"Chat.Service.PeerRequest.Confirm.Permission" = "您确定要将 %1$@ 发送到 %2$@ 吗？这也会将 %3$@ 添加到 %4$@，并具有以下权限：%5$@";
+"Chat.Service.PeerRequest.Confirm.Ok" = "发送";
+
+
+"VoiceChat.Settings.Title" = "语音通话设置";
+"VoiceChat.Settings.End" = "结束视频通话";
+
+"VoiceChat.Settings.End.Confirm.Title" = "结束视频聊天";
+
+
+
+
+
+"VoiceChat.Settings.AllMembers" = "新加入者可发言";
+"VoiceChat.Settings.OnlyAdmins" = "新参与者被静音";
+
+"VoiceChat.Settings.PushToTalk.Title" = "麦克风控制";
+"VoiceChat.Settings.PushToTalk.Enabled" = "按下说话";
+
+
+"VoiceChat.Settings.InputMode.Always" = "按下并松开";
+"VoiceChat.Settings.InputMode.PushToTalk" = "按下并保持";
+"VoiceChat.Settings.InputMode.SoundEffects" = "声音特效";
+
+"VoiceChat.Settings.Output" = "输出";
+
+
+"VoiceChat.Settings.PushToTalk" = "快捷键";
+"VoiceChat.Settings.PushToTalk.EditKeybind" = "修改快捷键";
+"VoiceChat.Settings.PushToTalk.StopRecording" = "取消";
+"VoiceChat.Settings.PushToTalk.Undefined" = "未定义";
+
+"VoiceChat.MutePeer" = "静音";
+"VoiceChat.UnmutePeer" = "允许发言";
+"VoiceChat.RemovePeer" = "移除";
+"VoiceChat.OpenProfile" = "查看个人资料";
+"VoiceChat.ShowInfo" = "显示详情";
+
+"VoiceChat.RemovePeer.Confirm.Channel" = "确定将 %1$@ 移除此频道吗？";
+
+"VoiceChat.RemovePeer.Confirm.OK" = "移除";
+"VoiceChat.RemovePeer.Confirm.Cancel" = "取消";
+
+
+
+
+"VoiceChat.Settings.PushToTalk.Desc" = " 当视频聊天的视窗处于焦点状态时，无论此设置为何，你都可以使用⎵ 键发言。";
+
+
+"VoiceChat.Settings.Performance.Header" = "性能";
+"VoiceChat.Settings.Performance.Desc" = "停用噪声抑制可以提高性能";
+
+"VoiceChat.Settings.NoiseSuppression" = "噪音抑制";
+"VoiceChat.Settings.ReduceMotion" = "减弱动态效果";
+
+
+
+"VoiceChat.RequestAccess" = "Telegram 需要麦克风权限, 以便您可以发言";
+
+
+"VoiceChat.Join.Error.TooMany" = "抱歉，此语音群聊已经满员。";
+
+
+"VoiceChat.AnonymousDisabledAlertText" = "抱歉，您不能以匿名管理员的身份加入视频聊天。";
+"VoiceChat.ChatFullAlertText" = "抱歉，此视频聊天目前已有过多参与者。";
+
+
+"VoiceChat.End.Title" = "退出视频聊天";
+"VoiceChat.End.Text" = "您确定要退出当前视频聊天吗？";
+"VoiceChat.End.Third" = "结束视频聊天";
+"VoiceChat.End.OK" = "退出";
+
+
+
+"VoiceChat.Status.Invited" = "已邀请";
+"VoiceChat.Title.Invited" = "已邀请";
+
+
+
+"Channel.AdminLog.StartedVoiceChat" = "%1$@ 已发起视频聊天";
+"Channel.AdminLog.EndedVoiceChat" = "%1$@ 已结束视频聊天";
+"Channel.AdminLog.MutedParticipant" = "%1$@ 已在视频聊天中将 %2$@ 静音";
+"Channel.AdminLog.UnmutedMutedParticipant" = "%1$@ 在视频聊天中已取消 %2$@ 的静音";
+"Channel.AdminLog.AllowedNewMembersToSpeak" = "%1$@ 已允许新视频聊天参与者发言";
+"Channel.AdminLog.MutedNewMembers" = "%1$@ 已将新加入视频聊天的参与者静音";
+
+
+
+"VoiceChat.InviteMemberToGroupFirstAdd" = "添加";
+
+
+"VoiceChat.Invite.Chats" = "最近聊天";
+"VoiceChat.Invite.Contacts" = "联系人";
+"VoiceChat.Invite.GroupMembers" = "群组成员";
+"VoiceChat.Invite.GlobalSearch" = "全局搜索";
+"VoiceChat.Invite.Title" = "添加成员";
+
+
+"VoiceChat.Invite.CopyInviteLink" = "拷贝邀请链接";
+
+"VoiceChat.Invite.CopyListenersLink" = "拷贝收听者邀请链接";
+"VoiceChat.Invite.CopySpeakersLink" = "拷贝发言人邀请链接";
+
+"VoiceChat.Invite.Invite" = "发送";
+
+
+"VoiceChat.Invite.Confirm.Header" = "视频聊天";
+"VoiceChat.Invite.Confirm.Text" = "要将邀请链接发送到所选的聊天吗？";
+"VoiceChat.Invite.Confirm.OK" = "发送";
+"VoiceChat.Invite.Confirm.Third" = "发送发言邀请链接";
+
+"VoiceChat.Invite.InviteMembers" = "邀请成员";
+
+
+
+"VoiceChat.ClickToRaiseHand" = "想要发言时请点此举手";
+
+"VoiceChat.RaisedHand.Title" = "举手发言";
+"VoiceChat.RaisedHand.Text" = "举手让管理员知道你想要发言";
+
+
+"VoiceChat.Chat.StartNew" = "视频聊天已结束。要发起新的视频聊天吗？";
+
+
+
+
+"VoiceChat.Video.VideoSource" = "视频资源";
+
+
+"DeleteChat.DeleteGroupForAll" = "为所有成员删除";
+
+
+"Toast.Muted" = "静音";
+"Toast.Unmuted" = "取消静音";
+
+
+"ExportedInvitation.Title" = "邀请链接";
+
+"ExportedInvitation.Status.Expired" = "已失效";
+
+
+
+
+
+
+
+"ExportedInvitation.PeopleJoined_countable" = "%d";
+
+
+
+
+
+"ExportedInvitation.PeopleJoined_other" = "已邀请 %d 人";
+
+
+"ExportedInvitation.JoinedViaFolder" = "已通过文件夹邀请链接加入";
+
+
+
+
+
+
+
+"ExportedInvitation.PeopleRequested_other" = "%d份加入请求";
+
+
+"ExportedInvitation.Context.Copy" = "拷贝";
+
+"ExportedInvitation.Done" = "完成";
+
+
+"EditInvitation.LimitedByPeriod" = "使用时间限制";
+
+"EditInvitation.Save" = "保存";
+"EditInvitation.ExpiryDate" = "有效日期";
+"EditInvitation.ExpiryDesc" = "你可以设置该链接在一定时间后过期。";
+
+
+
+
+
+
+"EditInvitation.LimitedByCount" = "次数限制";
+"EditInvitation.Unlimited" = "无限制";
+
+
+
+
+
+"EditInvitation.EditTitle" = "编辑链接";
+
+
+"EditInvitation.OK.Create" = "创建";
+
+
+
+"EditInvitation.RequestApproval" = "请求管理员批准";
+"EditInvitation.RequestApproval.Channel.Off" = "如果您希望用户仅在获得管理员批准后加入，请启用此选项";
+"EditInvitation.RequestApproval.Channel.On" = "如果你希望用户仅在获得管理员批准后加入，请启用此选项。";
+"EditInvitation.RequestApproval.Group.Off" = "如果你希望用户仅在获得管理员批准后加入，请启用此选项。";
+"EditInvitation.RequestApproval.Group.On" = "启用此选项后，新成员加入前需得到管理员的批准。";
+
+
+
+"ChannelVisibiltiy.Context.Copy" = "拷贝";
+
+
+"ChannelVisibiltiy.ManageLinks" = "管理链接";
+
+
+"InviteLink.ShareLink" = "分享链接";
+
+
+
+
+
+
+
+"InviteLink.JoinedNew_other" = "%d 已加入";
+"InviteLink.JoinedNew_ZeroValueHolder" = "尚无人加入";
+
+"InviteLink.JoinedRevoked" = "无人加入";
+
+
+
+"InviteLink.Requested_countable" = "%d";
+
+
+
+
+
+"InviteLink.Requested_other" = "%d份请求";
+
+
+
+
+
+
+
+
+
+
+"InviteLink.Remaining_other" = "剩余  %d  次";
+
+
+
+
+
+
+
+"InviteLink.CanJoin_other" = "%d 可以加入";
+
+
+
+
+"PeerInfo.InviteLinks" = "邀请链接";
+
+
+"InviteLink.Sticker.Expired" = " • 已失效";
+
+
+"InviteLink.EmptyJoinDesc_countable" = "%d";
+
+
+
+
+
+"InviteLink.EmptyJoinDesc_other" = "该链接还能邀请 %d 人加入。";
+
+"InviteLink.Create.Copied" = "创建链接并保存到剪贴板";
+
+
+
+
+
+
+
+
+"ManageLinks.Context.Copy" = "拷贝链接";
+"ManageLinks.Context.Share" = "分享链接";
+"ManageLinks.Context.Edit" = "编辑链接";
+
+"ManageLinks.Header.Group.Desc" = "任何已安装 Telegram 的用户都将可以通过此链接加入您的群组。";
+
+
+"ManageLinks.Permanent" = "永久链接";
+"ManageLinks.InviteLink" = "邀请链接";
+
+
+"ManageLinks.AdditionLinks" = "其他链接";
+"ManageLinks.CreateNew" = "新建一个链接";
+
+"ManageLinks.DeleteAll" = "删除所有已撤销的链接";
+"ManageLinks.Delete" = "删除";
+
+"ManageLinks.TitleNew" = "邀请链接";
+
+
+"ManageLinks.TitleCount_countable" = "%d 个";
+
+
+
+
+
+"ManageLinks.TitleCount_other" = "%d 条邀请链接";
+
+
+"ManageLinks.Admin.Permanent.Desc" = "**%1$@** 将可以看到此链接并邀请新成员至 **%2$@**.";
+
+
+"VoiceChat.Status.Speaking" = "在发言中";
+
+"VoiceChat.Status.WantsSpeak" = "想要发言";
+"VoiceChat.Status.Muted" = "已静音";
+
+
+
+"VoiceChat.MuteForMe" = "为我静音";
+"VoiceChat.UnmuteForMe" = "为我取消静音";
+
+
+
+
+
+
+
+
+
+"VoiceChat.Video.VideoSource" = "视频资源";
+"VoiceChat.Video.VideoSource.Cancel" = "取消";
+"VoiceChat.Video.VideoSource.Share" = "分享";
+
+
+"VoiceChat.Video.Stream.Video" = "视频";
+"VoiceChat.Video.Stream.Screencast" = "屏幕";
+"VoiceChat.Video.Stream.More" = "更多";
+
+"VoiceChat.Video.Stream.Share" = "分享";
+
+"VoiceChat.PinVideo" = "置顶视频";
+
+
+"VoiceChat.PinScreencast" = "置顶屏幕共享";
+"VoiceChat.UnpinScreencast" = "取消置顶屏幕共享";
+
+"VoiceChat.Tooltip.VideoFailed" = "发生错误，屏幕共享已停止。";
+"VoiceChat.Tooltip.ScreencastFailed" = "发生错误，屏幕共享已停止。";
+
+
+
+
+"VoiceChat.Status.You" = "您";
+
+"VoiceChat.Video.ShortPin" = "置顶";
+"VoiceChat.Video.ShortUnpin" = "取消顶置";
+
+
+"VoiceChat.Tooltip.Error.ScreenUnavailable" = "屏幕共享和视频目前可供前 %d 名参与者使用。";
+
+
+
+"VoiceChat.Tooltip.ScreenPinned" = "已置顶 %@ 的屏幕共享";
+
+
+"VoiceChat.Tooltip.ScreenUnpinned" = "%@ 的屏幕共享已取消置顶";
+
+
+
+"VoiceChat.Tooltip.YourScreenPinned" = "您的屏幕共享已置顶";
+
+
+"VoiceChat.Tooltip.YourScreenUnpinned" = "您的屏幕共享已取消顶置。";
+
+
+
+"VoiceChat.Screencast.Confirm.Header" = "视频聊天";
+"VoiceChat.Screencast.Confirm.Text" = "%@ 正在共享屏幕，此操作会为所有成员置顶您的屏幕共享。";
+"VoiceChat.Screencast.Confirm.OK" = "继续";
+
+"PeerInfo.Group.AutoDeleteMessages" = "自动删除信息";
+"PeerInfo.Group.Timer.Never" = "从不";
+
+
+"AutoremoveMessages.Desc" = "在一定时间后自动删除本聊天中发送的新消息。";
+"AutoremoveMessages.Never" = "从不";
+"AutoremoveMessages.Day1" = "1天";
+"AutoremoveMessages.Week1" = "1周";
+"AutoremoveMessages.Month1" = "1个月";
+"AutoremoveMessages.Title" = "清除聊天记录";
+"AutoremoveMessages.Title.DeleteOnly" = "自动删除";
+
+"AutoremoveMessages.Header" = "自动删除消息";
+
+
+
+
+"Chat.Input.AutoDelete.1Day" = "此聊天中的消息发出1天后将自动删除";
+
+
+"Chat.Toast.ReportSuccess" = "Telegram版主将对您的举报进行评估。谢谢！";
+
+
+"PeerInfo.Report.SelectMessages" = "选择信息";
+
+
+
+
+"Tip.AutoDelete.TimerSetOff" = "已停用自动删除计时器。";
+
+
+
+
+"Channel.AdminLog.CanInviteUsersViaLink" = "通过链接邀请用户";
+"Channel.AdminLog.MessageChangedAutoremoveTimeoutSet" = "%1$@ 已将自动删除计时器设为 %2$@";
+"Channel.AdminLog.MessageChangedAutoremoveTimeoutRemove" = "%1$@ 已停用自动删除计时器";
+
+
+"Channel.AdminLog.UpdatedParticipantVolume" = "%1$@ 已将 %2$@ 的音量调整为 %3$@";
+
+"Channel.AdminLog.DeletedInviteLink" = "%1$@ 已删除邀请链接 %2$@";
+
+"Channel.AdminLog.EditedInviteLink" = "%1$@ 已编辑邀请链接 %2$@";
+"Channel.AdminLog.CreatedInviteLink" = "%1$@ 已创建邀请链接 %2$@";
+
+"Channel.AdminLog.JoinedViaInviteLink" = "\n%1$@ 已通过邀请链接 %2$@ 加入";
+
+"Channel.AdminLog.JoinedViaInviteLink.ViaFolder" = "%1$@ 通过文件夹邀请链接加入 %2$@";
+
+
+"BroadcastGroups.IntroTitle" = "广播群组";
+
+"BroadcastGroups.Convert" = "转换为广播群组";
+"BroadcastGroups.Cancel" = "保持为普通群组";
+
+
+"BroadcastGroups.ConfirmationAlert.Text" = "该群组的普通成员（非管理员）将 **不可恢复地** 失去在该组中发送消息的权限。\n\n此操作 **无法** 撤消。";
+"BroadcastGroups.ConfirmationAlert.Convert" = "转换";
+
+
+
+"BroadcastGroups.LimitAlert.Title" = "群成员已达上限";
+"BroadcastGroups.LimitAlert.Text" = "您的群组已经达到了 **%@** 名成员的上限。\n\n通过将该群组转换为只有管理员才能发布的消息的 **广播群组** 可以提升成员上限。\n您感兴趣吗？";
+
+
+
+
+"GroupInfo.Permissions.BroadcastTitle" = "广播群组";
+"GroupInfo.Permissions.BroadcastConvert" = "转换为广播组";
+"GroupInfo.Permissions.BroadcastConvertInfo" = "广播群组可以拥有超过 %@ 名成员，但仅管理员可以发送消息。";
+
+
+
+
+
+
+"Report.AdditionText" = "请输入与您的举报有关的任何其他细节。";
+
+"Report.AdditionText.Button" = "报告";
+
+
+"Chat.ContextMenu.AutoDelete" = "在 %@ 之后自动删除";
+
+
+"Group.UsersTooMuchError" = "抱歉，此群组已经满员。无法添加更多成员。";
+
+
+"ChatTitle.ReportMessages" = "举报信息";
+
+
+"PeerInfo.Block.Header" = "屏蔽用户";
+"PeerInfo.Block.Text" = "你想要阻止来自 %@ 的 Telegram 消息和通话吗？";
+"PeerInfo.Block.OK" = "屏蔽";
+
+
+
+
+
+
+
+"Checkout.PriceHeader" = "价目";
+
+
+
+"Checkout.TotalPaidAmount" = "总计支付";
+"Checkout.PaymentMethod" = "付款方式";
+"Checkout.ShippingMethod" = "配送方式";
+"Checkout.ShippingAddress" = "配送信息";
+"Checkout.Name" = "姓名";
+"Checkout.Email" = "电子邮箱";
+"Checkout.Phone" = "电话";
+"Checkout.PayPrice" = "支付 %@";
+
+
+"Checkout.PaymentMethod.Title" = "付款方式";
+"Checkout.PaymentMethod.New" = "添加银行卡…";
+
+"Checkout.NewCard.Title" = "添加银行卡";
+"Checkout.NewCard.PaymentCard" = "付款卡";
+"Checkout.NewCard.SaveInfo" = "保存付款信息";
+"Checkout.NewCard.SaveInfoEnableHelp" = "您可以保存您的付款信息以便在未来使用。\n请先[开启两步验证]后再启用此功能。";
+
+"Checkout.NewCard.CardholderNameTitle" = "持卡人";
+"Checkout.NewCard.CardholderNamePlaceholder" = "持卡人姓名";
+"Checkout.NewCard.PostcodeTitle" = "账单地址";
+"Checkout.NewCard.PostcodePlaceholder" = "邮政编码";
+
+"Checkout.ShippingOption.Title" = "配送方式";
+
+"Checkout.ErrorProviderAccountInvalid" = "此机器人目前无法接受支付请求，请稍后再试。";
+"Checkout.ErrorProviderAccountTimeout" = "这个机器人现在无法处理付款，请稍后再试。";
+"Checkout.ErrorInvoiceAlreadyPaid" = "您已经支付过此商品。";
+
+"Checkout.Success" = "您的付款已成功进行!";
+
+
+"Checkout.ErrorGeneric" = "处理您的付款时出错。您的银行卡没有被扣款。";
+
+"Checkout.ErrorPrecheckoutFailed" = "此机器人无法处理您的付款。您的银行卡没有被扣款。";
+
+"CheckoutInfo.Title" = "配送信息";
+"CheckoutInfo.ShippingInfoTitle" = "配送地址";
+"CheckoutInfo.ShippingInfoAddress1" = "地址 1";
+"CheckoutInfo.ShippingInfoAddress1Placeholder" = "地址";
+"CheckoutInfo.ShippingInfoAddress2" = "地址 2";
+"CheckoutInfo.ShippingInfoAddress2Placeholder" = "地址";
+"CheckoutInfo.ShippingInfoState" = "省份/州";
+"CheckoutInfo.ShippingInfoStatePlaceholder" = "省份/州";
+"CheckoutInfo.ShippingInfoCity" = "城市";
+"CheckoutInfo.ShippingInfoCityPlaceholder" = "城市";
+"CheckoutInfo.ShippingInfoCountry" = "国家及地区";
+"CheckoutInfo.ShippingInfoCountryPlaceholder" = "国家";
+"CheckoutInfo.ShippingInfoPostcode" = "邮政编码";
+"CheckoutInfo.ShippingInfoPostcodePlaceholder" = "邮政编码";
+"CheckoutInfo.ReceiverInfoTitle" = "收件人";
+"CheckoutInfo.ReceiverInfoName" = "姓名";
+"CheckoutInfo.ReceiverInfoNamePlaceholder" = "姓名";
+"CheckoutInfo.ReceiverInfoEmail" = "电子邮箱";
+"CheckoutInfo.ReceiverInfoEmailPlaceholder" = "电子邮箱";
+"CheckoutInfo.ReceiverInfoPhone" = "电话";
+"CheckoutInfo.SaveInfo" = "保存信息";
+
+
+
+"Checkout.Receipt.Title" = "收据";
+
+"Message.ReplyActionButtonShowReceipt" = "显示收据";
+"Message.InvoiceLabel" = "账单";
+
+"CheckoutInfo.ErrorShippingNotAvailable" = "无法配送到您所选择的国家。";
+"CheckoutInfo.ErrorPostcodeInvalid" = "请输入有效的邮政编码。";
+"CheckoutInfo.ErrorStateInvalid" = "请输入有效的省份/州。";
+"CheckoutInfo.ErrorCityInvalid" = "请输入有效的城市。";
+"CheckoutInfo.ErrorNameInvalid" = "请输入有效的姓名。";
+"CheckoutInfo.ErrorEmailInvalid" = "请输入有效的电子邮箱地址。";
+"CheckoutInfo.ErrorPhoneInvalid" = "请输入有效的手机号码。";
+
+"Checkout.WebConfirmation.Title" = "付款完成";
+"Checkout.PasswordEntry.Title" = "支付确认";
+
+
+
+"Checkout.SavePasswordTimeout" = "您是否要在 %@ 内保存密码？";
+//"Checkout.SavePasswordTimeoutAndTouchId" = "Would you like to save your password for %@ and use Touch ID instead?";
+//"Checkout.PayWithTouchId" = "Pay with Touch ID";
+"Checkout.EnterPassword" = "输入密码";
+
+"Your_card_has_expired" = "您的银行卡已过期。";
+
+/* Error when the card was declined by the credit card networks */
+"Your_card_was_declined" = "您的银行卡被拒绝。";
+
+/* Error when the card's expiration month is not valid */
+
+
+/* Error when the card's expiration year is not valid */
+
+
+/* Error when the card number is not valid */
+
+
+/* Error when the card's CVC is not valid */
+"Your_cards_security_code_is_invalid" = "您输入的安全码无效。";
+
+/* Error when the card's CVC is not valid */
+"Your_cards_zip_code_is_invalid" = "您输入的邮政编码无效。";
+
+
+"Checkout.2FA.Text" = "开启两步验证后才能保存付款详情。";
+
+
+"MESSAGE_INVOICE" = "%1$@ 向您发送了一份金额为 %2$@ 的账单";
+"CHAT_MESSAGE_INVOICE" = "%1$@ 在群组 %2$@ 中发送了一份金额为 %3$@ 的账单";
+"PINNED_INVOICE" = "%1$@ 已置顶一份账单";
+
+"Message.PinnedInvoice" = "已置顶一份账单";
+
+"Message.PaymentSent" = "付款：%@";
+
+
+
+"Message.ReplyActionButtonShowReceipt" = "显示收据";
+
+
+
+
+
+
+
+
+
+
+
+"VoiecChat.Settings.Record.Live.Title" = "录制直播流";
+
+
+
+
+
+"VoiceChat.Settings.Permissions.Title" = "权限";
+
+
+"VoiceChat.Recording.Start.Title" = "开始录制";
+
+"VoiceChat.Recording.Start.OK" = "开始";
+
+
+
+"VoiceChat.Recording.Stop.Text" = "是否停止录制音频?";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"VoiceChat.JoinAs.Channel_other" = "%d名订阅者";
+
+
+
+
+"VoiceChat.Toast.YouCanSpeak" = "您现在可以发言了。";
+
+
+"VoiceChat.Info.SendMessage" = "发送信息";
+"VoiceChat.Info.OpenProfile" = "查看个人资料";
+
+"VoiceChat.Info.JoinChannel" = "加入频道";
+"VoiceChat.Info.LeaveChannel" = "退出频道";
+
+
+"Chat.Message.JoinVoiceChat.AsSpeaker" = "作为发言人加入";
+
+
+
+"Chat.Message.ViewBot" = "查看机器人";
+"Chat.Message.ViewGroup" = "查看群组";
+"Chat.Message.SendMessage" = "发送消息";
+"Chat.VoiceChat.JoinLink.Title" = "语音聊天";
+
+
+"Chat.VoiceChat.JoinLink.OK" = "加入";
+
+"Chat.VoiceChat.JoinLink.Participants_countable" = "%d";
+
+
+
+
+
+"Chat.VoiceChat.JoinLink.Participants_other" = "%d个参与者";
+
+
+
+"VoiceChat.DownHand" = "驳回发言请求";
+
+"VoiceChat.Alert.Recording" = "正在录制音频流。";
+
+"VoiceChat.Settings.Title" = "语音通话设置";
+
+
+"VoiceChat.Settings.DisplayAs.Title" = "显示我的身份为";
+"VoiceChat.Settings.DisplayAs.PersonalAccount" = "个人帐号";
+
+
+
+"DisplayMeAs.PersonalAccount" = "个人帐号";
+
+"DisplayMeAs.ContinueAs" = "以 %@ 的身份继续";
+
+"DisplayMeAs.Text" = "选择您希望显示为个人帐号还是频道。";
+"DisplayMeAs.Text.Group" = "选择是以个人账户还是以团体账户显示。";
+
+
+
+
+
+"DisplayMeAs.New.Title" = "新建视频通话";
+
+//"DisplayMeAs.New.Done" = "Continue";
+"DisplayMeAs.Scheduled" = "已预约视频聊天";
+"DisplayMeAs.Scheduled.Desc" = "频道订阅者将收到通知，直播将在 %@ 后开始。";
+
+
+"DisplayMeAs.New.StartAs" = "以 %@ 身份开始视频聊天";
+
+"DisplayMeAs.Alone" = "您将显示为您的个人帐户。";
+"DisplayMeAs.Alone.Desc" = "您还可以创建一个公共频道，作为频道参与视频聊天。";
+
+
+"DisplayMeAs.Modern.Start" = "开始视频聊天";
+"DisplayMeAs.Modern.Schedule" = "预约视频聊天";
+
+"DisplayMeAs.StartWith" = "以其它方式直播...";
+
+
+
+
+
+
+"VoiceChat.Settings.RTMP" = "直播数据";
+
+
+"FileSize.B" = "%@ B";
+"FileSize.KB" = "%@ KB";
+"FileSize.MB" = "%@ MB";
+"FileSize.GB" = "%@ GB";
+
+
+"Login.Sms.AppErr" = "如果您已注册Telegram，请输入发送到你的Telegram app的验证码。\n\n如果您尚未注册，请先通过手机或平板电脑注册。";
+
+"Login.Sms.AppErr.GotoSite" = "打开网站";
+
+
+"Payments.TipLabel" = "小费（可选）";
+
+"Payments.WarninTitle" = "警告";
+"Payments.WarningText" = "无论是Telegram还是 %1$@ 都无法访问您的信用卡信息。信用卡详细信息将仅由支付系统 %2$@ 处理。\n\n付款将直接支付给 %3$@ 的开发人员。Telegram 不能提供任何保证，所以请自行承担风险。如有问题，请联系 %4$@ 的开发人员或您的银行。";
+
+"Payments.Receipt.Tip" = "小费";
+
+
+
+"Payments.Recurrent.Accept" = "我同意**%@**的 [服务条款]()。";
+
+"VoiceChat.Scheduled.Header" = "开始于";
+"VoiceChat.Scheduled.HeaderLate" = "已过预定时间";
+
+"VoiceChat.Title.Scheduled" = "视频聊天";
+"VoiceChat.Title.Scheduled.Soon" = "预定";
+
+
+"Chat.Header.VoiceChat.StartsIn" = " 开始于%@";
+
+"VoiceChat.Tooltip.Subscribe" = "我们将在开始前通知您。";
+
+
+"VoiceChat.Tooltip.ShareVideo" = "你正在共享视频";
+"VoiceChat.Tooltip.ShareScreen" = "您正在分享屏幕";
+
+
+
+
+
+
+
+
+
+"VoiceChat.Tooltip.EnableCamera" = "您的摄像头未开启，点击此处开启摄像头。";
+
+
+
+"VoiceChat.ShareVideo.MutedError" = "你现在无法分享您的摄像头，请先举手请求发言。";
+"VoiceChat.ShareScreen.MutedError" = "你现在无法共享屏幕画面，请先举手请求发言。";
+
+
+"VoiceChat.Tooltip.PinWindow" = "窗口已置顶";
+"VoiceChat.Tooltip.UnpinWindow" = "窗口已取消置顶";
+
+
+"VoiceChat.Video.Paused" = "视频已暂停";
+"VoiceChat.Screencast.Paused" = "屏幕共享已暂停";
+
+
+"ChatInput.BotMenu" = "菜单";
+
+
+"VoiceChat.ScreenShare.Unavailable" = "无法共享你的屏幕，请在[系统设置](screen)里给予Telegram权限";
+"VoiceChat.VideoShare.Unavailable" = "无法启动你的摄像头，请在[系统设置](camera)里给予Telegram权限";
+
+
+"VoiceChat.Sharing.Placeholder" = "你正在共享屏幕";
+"VoiceChat.Sharing.Stop" = "停止";
+
+
+"EmptyChat.Appearance" = "主题";
+"EmptyChat.Appearance.System" = "跟随系统";
+"EmptyChat.Appearance.Dark" = "深色";
+"EmptyChat.Appearance.Light" = "日间";
+"EmptyChat.Appearance.Min" = "极简风格";
+"EmptyChat.Appearance.Colorful" = "彩色风格";
+"EmptyChat.Appearance.Desc" = "您可以随时在“偏好设置 ”>“[外观](appearance)”中进行个性化设置。";
+
+
+"EmptyChat.StorageUsage.Data" = "最大缓存大小";
+"EmptyChat.StorageUsage.Low" = "8 GB";
+"EmptyChat.StorageUsage.Medium" = "32 GB";
+"EmptyChat.StorageUsage.NoLimit" = "无限制";
+
+
+"EmptyChat.StorageUsage" = "存储使用";
+
+"EmptyChat.StorageUsage.Tooltip.System" = "系统\n%@";
+"EmptyChat.StorageUsage.Tooltip.App" = "Telegram\n%@";
+
+"EmptyChat.StorageUsage.CacheDesc" = "Telegram 使用您存储空间的 %@ 。";
+"EmptyChat.StorageUsage.CacheDescEmpty" = "Telegram 缓存为空。";
+
+"EmptyChat.StorageUsage.Clear" = "清空缓存";
+
+
+"EmptyChat.StorageUsage.Clearing" = "正在清理...";
+
+
+
+
+
+"EmptyChat.Navigation.Prev" = "上一个技巧";
+"EmptyChat.Navigation.Next" = "下一个技巧";
+
+"EmptyChat.Appearance.ChatMode" = "聊天模式";
+
+
+
+"EmptyChat.Stickers" = "根据表情联想贴纸";
+"EmptyChat.Stickers.None" = "不推荐";
+"EmptyChat.Stickers.MySets" = "我的表情包";
+"EmptyChat.Stickers.AllSets" = "所有表情包";
+"EmptyChat.Stickers.Trending" = "热门表情";
+
+
+
+"Appearance.Theme.Accent.Messages" = "信息颜色";
+"Appearance.Theme.Accent" = "强调色";
+
+
+"Chat.Alert.Forward.Header_countable" = "%d";
+
+
+
+
+
+"Chat.Alert.Forward.Header_other" = "%d  条消息";
+
+
+"Chat.Alert.Forward.Text.Inner_countable" = "%d";
+
+
+
+
+
+"Chat.Alert.Forward.Text.Inner_other" = "%d 条消息";
+
+
+"Chat.Alert.Forward.Action.Another" = "转发至其他聊天";
+"Chat.Alert.Forward.Action.Hide" = "隐藏发送者名称";
+"Chat.Alert.Forward.Action.Show" = "显示发送者名称";
+"Chat.Alert.Forward.Action.Cancel" = "取消转发";
+
+
+
+
+"NotificationSettings.TurnOn" = "在系统设置允许";
+"NotificationSettings.TurnOn.Text.Title" = "允许通知";
+"NotificationSettings.TurnOn.Text.Text" = "别错过来自家人和朋友的重要消息。";
+
+
+
+
+
+
+
+
+
+"Chat.Edit.Attach.Error" = "抱歉, 编辑消息时不能附加新媒体。";
+
+
+"EditAvatar.StickerOrGif" = "贴纸或 GIF 动态图";
+"EditAvatar.PhotoOrVideo" = "图片或视频";
+
+
+
+"Chat.Service.UpdateTheme.You" = "您已将聊天主题更改为 %@";
+
+
+
+"Chat.Service.DisabledTheme.You" = "您已停用聊天主题";
+
+
+
+
+
+
+
+"Chat.Message.Sponsored" = "赞助消息";
+"Chat.Message.Recommended" = "推荐";
+
+
+"Chat.Accessory.Forward_countable" = "%d";
+
+
+
+
+
+"Chat.Accessory.Forward_other" = "转发%d条信息";
+"Chat.Accessory.Forward_ZeroValueHolder" = "转发消息";
+
+
+
+
+
+
+
+"Chat.Accessory.Hidden_other" = "转发的 %d 条消息（发送者姓名已隐藏）";
+"Chat.Accessory.Hidden_ZeroValueHolder" = "转发消息（发件人姓名已隐藏）";
+
+
+"Chat.Accessory.Forward.You" = "你";
+"Chat.Accessory.Forward.From" = "来自";
+
+"Chat.Message.Sponsored.What" = "什么是赞助消息？";
+
+"Chat.Message.Sponsored.Link" = "https://promote.telegram.org";
+
+"Chat.Message.Sponsored.Advertiser" = "广告者";
+
+
+
+"Notification.Reply" = "回复";
+"Notification.Title.Reply" = "回复";
+"Notification.Input.Reply" = "输入消息...";
+
+
+"Chat.Alert.Forward.Action.Hide1_countable" = "%d";
+
+
+
+
+
+"Chat.Alert.Forward.Action.Hide1_other" = "隐藏发送者姓名";
+
+"Chat.Alert.Forward.Action.Show1_countable" = "%d";
+
+
+
+
+
+"Chat.Alert.Forward.Action.Show1_other" = "显示发送者姓名";
+
+
+"Chat.Alert.Forward.Action.ShowCaption_countable" = "%d";
+
+
+
+
+
+"Chat.Alert.Forward.Action.ShowCaption_other" = "显示说明";
+"Chat.Alert.Forward.Action.HideCaption_countable" = "%d";
+
+
+
+
+
+"Chat.Alert.Forward.Action.HideCaption_other" = "隐藏说明";
+
+
+
+
+
+"VoiceChat.Settings.Record.Orientation.Portrait" = "竖屏";
+"VoiceChat.Settings.Record.Orientation.Landscape" = "横屏";
+
+
+"Widget.Recent.Title" = "聊天";
+
+
+
+"Widget.Recent.Mixed" = "同时满足";
+
+
+
+
+
+
+
+
+"Chat.Message.ReadStats.Seen_other" = "%d 人已读";
+
+
+
+
+
+
+
+
+"Chat.Message.ReadStats.Listened_other" = "%d 人已收听";
+
+
+
+
+
+
+
+
+
+
+
+
+"Chat.Message.ReadStats.EmptyViews" = "无人已读";
+
+
+"Chat.Context.Forward.More" = "更多...";
+"Chat.Context.Folders" = "文件夹";
+
+"Chat.Context.Copy" = "拷贝";
+"Chat.Context.SaveMedia" = "另存为...";
+"Chat.Context.CopyMedia" = "拷贝媒体";
+
+
+"Context.Copy" = "拷贝";
+"Context.SaveMedia" = "另存为…";
+
+
+"Chat.ChatTheme.Cancel" = "取消";
+
+"Chat.ChatTheme.SelectBackground" = "选择新壁纸";
+"Chat.ChatTheme.ResetToDefault" = "移除壁纸";
+
+
+"PeerInfo.ChatColors" = "变换色彩";
+"PeerInfo.ChatBackground" = "设置壁纸";
+
+
+"NotificationsSound.None" = "无";
+"NotificationsSound.Note" = "音符";
+"NotificationsSound.Aurora" = "极光";
+"NotificationsSound.Bamboo" = "竹子";
+"NotificationsSound.Chord" = "和弦";
+"NotificationsSound.Circles" = "圆圈";
+"NotificationsSound.Complete" = "完成";
+"NotificationsSound.Hello" = "哈喽";
+"NotificationsSound.Input" = "输入";
+"NotificationsSound.Keys" = "按键";
+"NotificationsSound.Popcorn" = "爆米花";
+"NotificationsSound.Pulse" = "脉冲";
+"NotificationsSound.Synth" = "合成";
+
+"NotificationsSound.Tritone" = "三全音";
+"NotificationsSound.Tremolo" = "颤音";
+"NotificationsSound.Alert" = "提醒";
+"NotificationsSound.Bell" = "铃声";
+"NotificationsSound.Calypso" = "即兴曲调";
+"NotificationsSound.Chime" = "风铃";
+"NotificationsSound.Glass" = "玻璃声";
+"NotificationsSound.Telegraph" = "敲打电报";
+
+
+"PeerInfo.NotificationsDefault" = "默认";
+
+
+
+"RequestJoin.Button" = "请求加入";
+
+"RequestJoin.Desc.Channel" = "此频道仅在管理员批准后才接受新订阅者。";
+"RequestJoin.Desc.Group" = "此群组仅在其管理员批准后才接受新成员。";
+"RequestJoin.Sent" = "加入请求已发送";
+
+"RequestJoin.Error.AlreadySent.Group" = "您已请求加入此群组";
+"RequestJoin.Error.AlreadySent.Channel" = "你已请求加入此频道";
+
+
+"RequestJoin.List.Approve.Channel" = "添加至频道";
+"RequestJoin.List.Approve.Group" = "添加到群组";
+"RequestJoin.List.Approve.Dismiss" = "拒绝";
+
+"RequestJoin.List.ListHeader_countable" = "%d";
+
+
+
+
+
+"RequestJoin.List.ListHeader_other" = " %d 个加入请求";
+
+
+
+"RequestJoin.List.Tooltip.Approved.Channel" = "已将 %@ 加入频道。";
+"RequestJoin.List.Tooltip.Approved.Group" = "**%@**已添加到群组中。";
+
+
+"RequestJoin.List.Description" = "一些 [附加链接]() 被设置用来接受加入频道的请求。";
+"RequestJoin.List.Title" = "加入请求";
+
+"RequestJoin.List.Empty1" = "暂无加入请求";
+"RequestJoin.List.Empty2.Group" = "无加入此群组的请求。";
+"RequestJoin.List.Empty2.Channel" = "没有待处理的加入频道请求";
+
+
+"RequestJoin.List.SearchEmpty" = "没有找到“%@”的相关结果。\n请重新搜索。";
+"RequestJoin.List.SearchEmpty.Header" = "无结果";
+
+"ChatService.JoinedGroupByRequest" = "您已获批加入群组";
+"ChatService.JoinedChannelByRequest" = "您已获批加入群组";
+
+
+"ChatService.UserJoinedGroupByRequest" = "%@ 获批加入群组";
+"ChatService.UserJoinedChannelByRequest" = "%@ 通过请求已加入频道";
+
+
+
+
+"ConnectionStatus.Connecting" = "正在连接……";
+"ConnectionStatus.ConnectingToProxy" = "正在连接代理";
+"ConnectionStatus.WaitingForNetwork" = "等待网络…";
+"ConnectionStatus.Updating" = "正在更新...";
+
+
+"JoinLink.FloodError" = "超出限制。请稍后重试。";
+
+
+
+"Chat.Message.Ad.Text" = "与其他应用不同，Telegram 不会将您的隐私数据用于投放定向广告。赞助商消息的投放完全基于公开频道内所发布的内容。这意味着 Telegram 不会通过挖掘和分析用户画像来投放广告，查看频道的所有用户都会看到同样的赞助商消息。\n\n与其他应用不同，Telegram 不会追踪您是否点击赞助商消息，也不会基于您的活跃数据生成用户画像。为了避免来自第三方的窥探，我们还禁止在赞助商消息中插入外部链接。我们相信每个人都有保护隐私的权利，而科技平台应该尊重用户的隐私权。\n\nTelegram 向数以亿计的用户提供免费服务的同时，也需要承担由此产生的高昂运营成本，包括服务器和流量开销。为了保持独立并延续其价值观，Telegram 将用户隐私权谨记于心，开发了这套付费工具。欢迎有责任的广告商与我们取得联系：\n\n%@\n\n赞助商消息目前仍然处于测试阶段。全面启动赞助商消息系统，并且 Telegram 能够平衡运营成本之后，我们将与显示赞助商消息的频道所有者共同分享广告收入。\n\n线上广告不应再是滥用用户隐私的代名词。让我们共同携手，重新定义科技公司的运营模式。";
+
+
+
+
+"Chat.Header.RequestToJoin_countable" = "%d";
+
+
+
+
+
+"Chat.Header.RequestToJoin_other" = "%d 个加入请求";
+
+
+"Channel.AdminLog.JoinedViaRequest" = "%3$@ 已批准 %1$@ 通过邀请链接 %2$@ 加入群组";
+
+
+"Calendar.WeekDays.Monday" = "一";
+"Calendar.WeekDays.Tuesday" = "二";
+"Calendar.WeekDays.Wednesday" = "三";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"Peer.Media.Calendar.Media_other" = "%d 则媒体文件";
+
+
+"SavedAs.ModalOk" = "已保存！\n[在 访达 中查看]()";
+
+
+
+"Chat.SendAs.Group_countable" = "%d 个";
+
+
+
+
+
+"Chat.SendAs.Group_other" = "%d 位成员";
+
+"Chat.SendAs.Channel_countable" = "%d 位";
+
+
+
+
+
+"Chat.SendAs.Channel_other" = "%d 位订阅者";
+
+
+"Chat.SendAs.Header" = "以哪个身份发送消息…";
+
+
+"CopyRestricted.Channel" = "抱歉，管理员已禁止拷贝本频道中的内容。";
+"CopyRestricted.Group" = "抱歉，管理员已禁止从本群拷贝任何内容。";
+
+
+"SessionPreview.Title" = "设备";
+"SessionPreview.App" = "应用程序";
+"SessionPreview.Location" = "位置";
+"SessionPreview.Ip" = "IP 地址";
+"SessionPreview.IpDesc" = "该位置根据 IP 地址估算，可能并不准确。";
+
+"SessionPreview.AcceptHeader" = "允许在此设备上";
+"SessionPreview.Accept.Secret" = "新建私密聊天";
+"SessionPreview.Accept.Calls" = "接听来电";
+
+"SessionPreview.TerminateSession" = "终止会话";
+
+
+"Chat.InviteRequestAdminGroup" = "**%1$@** 是您曾申请加入的 %2$@ 群组管理员。";
+"Chat.InviteRequestAdminChannel" = "**%1$@** 是您请求加入频道 **%2$@** 的管理员。";
+"Chat.InviteRequestInfo" = "您收到这条消息是因为您曾在 %2$@ 申请加入 %1$@。";
+
+
+"Context.Alert.CopyPrivate" = "此链接只对该聊天的成员有效";
+"Context.Alert.Copied" = "已拷贝到剪贴板";
+
+"Chat.Context.CopyText" = "拷贝文本";
+
+
+"Chat.Context.Reacted" = "%1$@/%2$@ 人已回应";
+
+
+"Chat.Context.ReactedFast_countable" = "%d";
+
+
+
+
+
+"Chat.Context.ReactedFast_other" = "%d 人已回应";
+
+
+
+"Reaction.Settings.Title" = "回应";
+"Reaction.Settings.Quick.Title" = "快速回应";
+
+
+"Reaction.Settings.Allow" = "允许回应";
+"Reaction.Settings.Allow.Channel.Info" = "允许订阅者对频道消息作出回应。";
+"Reaction.Settings.Allow.Group.Info" = "允许成员对群组消息作出表情回应。";
+"Reaction.Settings.Available.Info" = "可用的回应";
+"Reaction.Settings.Allow.Channel.Info" = "允许订阅者对频道消息作出回应。";
+"Reaction.Settings.Quick.Info" = "快速回应";
+
+
+
+
+
+"Reaction.Settings.Group.All" = "所有表情回应";
+"Reaction.Settings.Group.Some" = "部分表情回应";
+"Reaction.Settings.Group.None" = "禁用表情回应";
+
+
+"PeerInfo.Reactions" = "表情回应";
+
+
+
+
+
+"PeerInfo.Reactions.All" = "全部";
+"PeerInfo.Reactions.Disabled" = "已停用";
+"PeerInfo.Reactions.Part" = "%1$@/%2$@";
+
+
+
+
+
+
+
+
+"Notification.Contact.Reacted" = "对您的 “%2$@” %1$@";
+
+
+
+"Channel.AdminLog.AllowedReactionsUpdated" = "%1$@ 更新了可用的回应: %2$@";
+"Channel.AdminLog.ReactionsDisabled" = "%1$@ 已停用表情回应";
+"Channel.AdminLog.ReactionsEnabled" = "%1$@ 已启用所有表情回应";
+
+
+"Translate.ShowMore" = "更多";
+"Translate.Title" = "翻译";
+
+
+"Chat.Open.MessageNotExist" = "消息不存在";
+
+
+
+"TextView.Transform.Spoiler" = "遮罩";
+"TextView.Transform.Underline" = "下划线";
+
+
+"GroupCall.StatusBar.StopVideo" = "停止视频";
+
+"GroupCall.StatusBar.StartScreen" = "分享屏幕";
+"GroupCall.StatusBar.StartVideo" = "分享视频";
+
+
+
+
+
+
+
+
+
+
+"Translate.From" = "从: %@";
+"Translate.To" = "至: %@";
+
+
+"Chat.Context.Translate" = "翻译";
+
+
+"VoiceChat.RTMP.Title" = "以其他方式直播…";
+"VoiceChat.RTMP.Info" = "若要使用其他应用程序直播视频，请在直播应用程序中输入以下服务器网址和推流密钥。";
+"VoiceChat.RTMP.ServerURL" = "服务器URL";
+"VoiceChat.RTMP.StreamKey" = "串流密钥";
+
+"VoiceChat.RTMP.OK" = "开始直播";
+
+"VoiceChat.RTMP.Error" = "**糟糕！** Telegram 没有接收到来自您的直播程序的推流。请确保您在直播程序中输入了正确的服务器 URL 和串流码。";
+
+"VoiceChat.RTMP.ViewerError" = "Telegram无法检测到来自 %@ 的任何实时流";
+
+
+
+
+
+
+
+
+"DownloadsManager.Recently" = "最近下载";
+"DownloadsManager.Recently.Clear" = "清空";
+
+
+"DownloadsManager.Control.Title_countable" = "%d";
+
+
+
+
+
+"DownloadsManager.Control.Title_other" = "%d 个文件";
+
+
+
+
+
+
+
+"Translate.Language.en" = "英语";
+
+
+
+
+
+
+
+
+"Translate.Language.ru" = "俄语";
+
+
+
+"Translate.Language.Amharic" = "阿姆哈拉语";
+"Translate.Language.Arabic" = "阿拉伯语";
+"Translate.Language.Armenian" = "亚美尼亚语";
+"Translate.Language.Azerbaijani" = "阿塞拜疆语";
+"Translate.Language.Basque" = "巴士克语";
+"Translate.Language.Belarusian" = "比利时语";
+"Translate.Language.Bengali" = "孟加拉语";
+"Translate.Language.Bosnian" = "波斯尼亚语";
+"Translate.Language.Bulgarian" = "保加利亚语";
+
+"Translate.Language.Cebuano" = "宿务";
+
+
+"Translate.Language.Corsican" = "科西嘉岛";
+"Translate.Language.Croatian" = "克罗地亚语";
+"Translate.Language.Czech" = "捷克语";
+"Translate.Language.Danish" = "丹麦语";
+"Translate.Language.Dutch" = "荷兰语";
+"Translate.Language.English" = "英语";
+"Translate.Language.Esperanto" = "世界语";
+"Translate.Language.Estonian" = "爱沙尼亚语";
+"Translate.Language.Finnish" = "芬兰语";
+"Translate.Language.French" = "法语";
+"Translate.Language.Frisian" = "弗里斯兰语";
+"Translate.Language.Galician" = "加利西亚语";
+"Translate.Language.Georgian" = "乔治亚语";
+"Translate.Language.German" = "德语";
+"Translate.Language.Greek" = "希腊语";
+"Translate.Language.Gujarati" = "古吉拉特语";
+
+"Translate.Language.Hausa" = "豪撒语";
+"Translate.Language.Hawaiian" = "夏威夷人";
+"Translate.Language.Hebrew" = "希伯来语";
+"Translate.Language.Hindi" = "印地语";
+"Translate.Language.Hmong" = "苗族";
+"Translate.Language.Hungarian" = "匈牙利语";
+"Translate.Language.Icelandic" = "冰岛语";
+"Translate.Language.Igbo" = "伊博语";
+"Translate.Language.Indonesian" = "印度尼西亚语";
+"Translate.Language.Irish" = "爱尔兰语";
+"Translate.Language.Italian" = "意大利语";
+"Translate.Language.Japanese" = "日语";
+"Translate.Language.Javanese" = "爪哇语";
+"Translate.Language.Kannada" = "卡纳拉语";
+"Translate.Language.Kazakh" = "哈萨克语";
+"Translate.Language.Khmer" = "高棉语";
+"Translate.Language.Kinyarwanda" = "基尼亚卢旺达语";
+"Translate.Language.Korean" = "韩语";
+"Translate.Language.Kurdish" = "库尔德语";
+"Translate.Language.Kyrgyz" = "吉尔吉斯语";
+"Translate.Language.Lao" = "老挝语";
+"Translate.Language.Latvian" = "拉脱维亚语";
+"Translate.Language.Lithuanian" = "立陶宛语";
+"Translate.Language.Luxembourgish" = "卢森堡语";
+"Translate.Language.Macedonian" = "马其顿语";
+"Translate.Language.Malagasy" = "马达加斯加语";
+"Translate.Language.Malay" = "马来语";
+"Translate.Language.Malayalam" = "马拉雅拉姆语";
+"Translate.Language.Maltese" = "马耳他语";
+"Translate.Language.Maori" = "毛利语";
+"Translate.Language.Marathi" = "马拉地语";
+"Translate.Language.Mongolian" = "蒙古语";
+
+"Translate.Language.Nepali" = "尼泊尔语";
+"Translate.Language.Norwegian" = "挪威语";
+
+
+"Translate.Language.Pashto" = "普什图语";
+"Translate.Language.Persian" = "波斯语";
+"Translate.Language.Polish" = "波兰语";
+
+"Translate.Language.Punjabi" = "旁遮普语";
+"Translate.Language.Romanian" = "罗马尼亚";
+"Translate.Language.Russian" = "俄语";
+"Translate.Language.Samoan" = "萨摩亚语";
+
+"Translate.Language.Serbian" = "塞尔维亚语";
+"Translate.Language.Sesotho" = "塞索托语";
+"Translate.Language.Shona" = "绍纳语";
+"Translate.Language.Sindhi" = "信德语";
+
+"Translate.Language.Slovak" = "斯洛伐克语";
+"Translate.Language.Slovenian" = "斯洛文尼亚语";
+"Translate.Language.Somali" = "索马里语";
+"Translate.Language.Spanish" = "西班牙语";
+"Translate.Language.Sundanese" = "巽他语";
+"Translate.Language.Swahili" = "斯瓦希里语";
+"Translate.Language.Swedish" = "瑞典语";
+
+"Translate.Language.Tajik" = "塔吉克斯坦";
+"Translate.Language.Tamil" = "泰米尔语";
+"Translate.Language.Tatar" = "鞑靼语";
+"Translate.Language.Telugu" = "泰卢固语";
+"Translate.Language.Thai" = "泰语";
+"Translate.Language.Turkish" = "土耳其语";
+"Translate.Language.Turkmen" = "土库曼语";
+"Translate.Language.Ukrainian" = "乌克兰语";
+"Translate.Language.Urdu" = "乌都语";
+"Translate.Language.Uyghur" = "维吾尔语";
+"Translate.Language.Uzbek" = "乌兹别克语";
+"Translate.Language.Vietnamese" = "越南语";
+"Translate.Language.Welsh" = "威尔士语";
+"Translate.Language.Xhosa" = "班图语";
+"Translate.Language.Yiddish" = "意第绪语";
+"Translate.Language.Yoruba" = "约鲁巴语";
+"Translate.Language.Zulu" = "祖鲁语";
+
+
+"Chat.Translate.To" = "翻译为 %1$@";
+"Chat.Translate.ShowOriginal" = "显示原文";
+
+"Chat.Translate.Menu.Hide" = "隐藏";
+
+"Chat.Translate.Menu.Hide.Channel.Tooltip" = "您已经在此频道隐藏了翻译栏，可以在频道简介里重新启用。";
+"Chat.Translate.Menu.Hide.Group.Tooltip" = "翻译栏已隐藏。\n您可以在群组简介中重新启用。";
+"Chat.Translate.Menu.Hide.User.Tooltip" = "在此聊天中已隐藏翻译栏。\n您可以在信息页面上重新启用。";
+"Chat.Translate.Menu.Hide.Bot.Tooltip" = "翻译栏已隐藏。\n您可以在机器人简介中重新启用。";
+
+
+"Chat.Translate.Menu.HidePaywall.Tooltip" = "您始终可以在语言设置中启用它。";
+
+
+"Chat.Translate.Menu.To" = "选择其他语言";
+
+
+"Chat.Translate.Menu.DoNotTranslate" = "无需翻译%@";
+
+
+"ChatList.DownloadsTag" = "下载";
+
+
+
+"StickerPack.Emoji" = "表情符号";
+"StickerPack.Stickers" = "贴纸";
+
+
+
+
+
+"PhoneNumber.ChangePhoneNumber" = "修改电话号码";
+
+
+
+
+
+
+
+
+
+
+
+
+"PeerInfo.BotAddTo.Info" = "该机器人可以管理群组或频道。";
+"PeerInfo.BotAddTo" = "添加到群组或频道";
+
+
+
+
+"Channel.AddBot.Title" = "添加机器人";
+"Channel.AddBot.Button.Admin" = "添加此机器人为管理员";
+"Channel.AddBot.Button.Member" = "添加机器人为成员";
+
+
+
+"Channel.AddBot.Confirm.Title.Member" = "是否添加此机器人为成员？";
+
+"Channel.AddBot.Confirm.Info" = "你确定要将此机器人设为群组 %@的管理员吗?";
+"Channel.AddBot.Confirm.Ok.Admin" = "添加为管理员";
+"Channel.AddBot.Confirm.Ok.Member" = "是否添加为成员？";
+
+
+
+
+
+
+"ChatTheme.Theme" = "聊天主题";
+
+
+"ChatTheme.Theme.Info" = "主题也将应用于 %@";
+
+"Channel.AddBot.AdminRights" = "管理员权限";
+"Channel.AddBot.CustomTitle" = "管理员";
+
+
+
+
+"WebApp.Attach.Confirm" = "“%@” 请求作为选项添加到您的附件菜单，以便您可以从任何聊天中访问它。";
+"WebApp.Attach.Confirm.OK" = "添加";
+"WebApp.Attach.Success" = "“%@” 已添加到您的附件菜单中。";
+
+
+
+"WebApp.Settings" = "设置";
+
+
+"WebApp.Reload" = "重新加载";
+
+
+"WebApp.RemoveBot" = "从菜单中移除";
+"WebApp.InstallBot" = "安装机器人";
+
+
+"WebApp.Attach.NotSupport" = "抱歉， %@ 不能从附件菜单中使用。";
+
+
+"WebApp.FirstOpen.Title" = "打开网页应用";
+
+
+
+"NotificationSound.Title" = "通知声音";
+"NotificationSound.Tones.Title" = "Telegram 提示音";
+
+"NotificationSound.Tones.Upload" = "上传铃声";
+
+"NotificationSound.Tones.SizeError" = "文件大小应小于等于 %@";
+
+"NotificationSound.Tone.Voice" = "语音消息";
+
+
+"Chat.Message.DeleteForAll" = "为所有人删除";
+
+
+
+
+"Message.InvoiceLabel" = "账单";
+"Checkout.Receipt.Title" = "收据";
+
+
+"Context.Remove" = "删除";
+
+
+
+
+
+
+
+
+"WebApp.Access.Allow" = "允许";
+
+
+"ChatList.Context.Sound" = "提示音";
+
+
+"Chat.Context.ViewStatistics" = "查看统计数据";
+
+
+
+
+
+"Chat.SendJoinRequest.Title" = "已发送加入请求";
+"Chat.SendJoinRequest.Info" = "管理员批准您的请求后，您将能够发送消息。";
+
+
+"Channel.AddUserKickedError" = "抱歉，由于该用户在被移除用户名单上，您无法将其加入频道或解除其封禁。";
+"Channel.AddAdminKickedError" = "抱歉，由于该用户在被移除的用户列表中，您不能将其添加为管理员或解除其封禁。";
+
+
+
+
+
+
+
+"Stickers.Preview.Premium" = "订阅 Telegram 高级版即可解锁这个和更多贴纸。";
+"Stickers.Premium.Unlock" = "解锁高级贴纸";
+
+
+"Reactions.Preview.Premium" = "通过订阅 Telegram 高级版来解锁更多的回应";
+"Reactions.Preview.Unlock" = "解锁高级版消息反馈";
+
+
+
+"Premium.Limit.Increase" = "提升上限";
+"Premium.Limit.Reached" = "达到上限";
+
+
+"Premium.Limit.Pin.Info" = "抱歉， 您无法置顶超过 **%1$@** 个聊天。请取消一些置顶的聊天，或者订阅 **Telegram 高级版**，将此上限翻倍至 **%2$@** 个聊天。";
+"Premium.Limit.PinInArchive.Info" = "抱歉，您最多只能在归档中置顶 **%1$@** 个聊天，请先取消置顶一些当前已置顶的聊天，或者订阅 **Telegram 高级版**，将此上限翻倍至 **%2$@** 个聊天。";
+"Premium.Limit.SavedGifs.Info" = "抱歉，您不能保存超过 **%1$@** 个 GIF 动态图。替换较旧的 GIF 动态图，或订阅 **Telegram 高级版**，将此上限翻倍至 **%2$@** 个 GIF 动态图。";
+"Premium.Limit.PublicLink.Info" = "您保留了太多公开链接。您可以撤消其中一个较旧群组或频道的链接，或者订阅 **Telegram 高级版**，将此上限翻倍至 **%1$@** 个公开链接。";
+"Premium.Limit.Folders.Info" = "您已达到 **%1$@** 个文件夹的限额。 您可以通过订阅 **Telegram 高级版**，将此上限翻倍至 **%2$@** 个文件夹。";
+"Premium.Limit.FaveStickers.Info" = "抱歉，您不能添加超过 **%1$@**贴纸到收藏夹。替换较旧的已保存贴纸，或者订阅 **Telegram 高级版**，将收藏贴纸上限翻倍至 **%2$@** 个。";
+
+"Premium.Limit.PinInFolders.Info" = "抱歉，您最多只能置顶 **%1$@** 个聊天，请先取消置顶一些当前已置顶的聊天，或者订阅 **Telegram 高级版**，将此上限翻倍至 **%2$@** 个聊天。";
+"Premium.Limit.Channels.Info" = "您已加入 **%1$@** 个群组或频道。请在加入新的之前先退出一些——或者订阅 **Telegram 高级版**，将此上限翻倍至 **%2$@** 个群组或频道。";
+"Premium.Limit.FileSize.Info" = "此文档已超过 **%1$@** ，无法发送。您可以订阅 **Telegram 高级版**，将此上限翻倍至每个文件 **%2$@**。";
+
+
+"Premium.Limit.About.Info" = "“个人简介”部分不能超过 **%1$@** 个字符。您可以订阅 **Telegram 高级版**，将此上限翻倍至 **%2$@** 个字符。";
+
+"Premium.Limit.SharedFolders.Info" = "您只能添加 **%1$@** 个可分享文件夹。升级至 **Telegram 高级版**并将上限提升至 **%2$@ 个**。";
+"Premium.Limit.SharedFoldersInvites.Info" = "您只能创建 “%1$@” 个邀请链接。\n升级至 **Telegram 高级版** 并将上限提升至 **%2$@** 个。";
+
+
+"Premium.Limit.Locked.Pin.Info" = "抱歉，您最多只能置顶 **%1$@** 个聊天。我们在以后将尽力为您提高该限制。";
+"Premium.Limit.Locked.PinInArchive.Info" = "抱歉，您最多只能在归档中置顶 **%1$@** 个聊天。我们在以后将尽力为您提高该限制。";
+
+"Premium.Limit.Locked.PublicLink.Info" = "您保留了太多公开链接。您可以撤消其中一个较旧群组或频道的链接。我们正在努力能让您在未来提高此上限。";
+"Premium.Limit.Locked.Folders.Info" = "你已达到 ** %1$@** 文件夹的上限。我们正在努力让你在未来提高此上限。";
+
+"Premium.Limit.Locked.ChatInFolders.Info" = "抱歉，您无法在此文件夹中添加超过 **%1$@** 个聊天。我们在以后将尽力为您提高该限制。";
+"Premium.Limit.Locked.PinInFolders.Info" = "抱歉，您最多只能置顶 **%1$@** 个聊天。我们在以后将尽力为您提高该限制。";
+
+"Premium.Limit.Locked.FileSize.Info" = "由于大小超过了 **%1$@**，文档无法发送。我们正在努力能让您在未来提高此上限。";
+
+
+
+
+"Premium.Limit.Locked.SharedFolders.Info" = "您只能添加 **%1$@ 个**可共享的文件夹。我们正在努力让您在未来增加此上限。";
+"Premium.Limit.Locked.SharedFoldersInvites.Info" = "抱歉，您只能创建 %1$@ 个邀请链接。我们在以后将尽力为您提高此上限。";
+
+
+
+"Premium.Limit.Free" = "免费";
+"Premium.Limit.Premium" = "高级版";
+
+
+
+
+
+
+"Chat.Context.FavoriteStickers.Limit.Title" = "收藏的贴纸数目已达到上限";
+"Chat.Context.FavoriteStickers.Limit.Info" = "一张旧的贴纸已被这张贴纸替换。您可以 [提升上限](premium) 至 %@ 张贴纸。";
+
+"Chat.Context.FavoriteGifs.Limit.Title" = "已达到保存 GIF 动态图的上限";
+"Chat.Context.FavoriteGifs.Limit.Info" = "一张旧的 GIF 动态图已被这张图替换。您可以 [提升上限](premium) 至 %@ 张 GIF 动态图。";
+
+
+"Chat.Context.Sticker.AddedToFavorites" = "贴纸已添加到收藏夹";
+"Chat.Context.Sticker.RemovedFromFavorites" = "已从收藏中删除贴纸";
+
+
+"Chat.Context.Gif.Removed" = "已移除 GIF 动态图";
+
+
+"App.MaxFileSizeNew" = "最大文件大小为 %@";
+
+
+"Payments.Invoice.NotExists" = "账单不存在";
+
+
+
+
+"Premium.Boarding.Double.Title" = "双倍上限";
+"Premium.Boarding.Double.Info" = "多达 %1$@ 个频道、%2$@ 个文件夹、%3$@ 个置顶、%4$@ 个公开链接等等。";
+
+"Premium.Boarding.FileSize.Title" = "%1$@ 上传大小";
+"Premium.Boarding.FileSize.Info" = "单个文档上传限制从 %1$@ 提升到 %2$@，总体存储空间无限制。";
+
+"Premium.Boarding.Download.Title" = "更快的下载速度";
+"Premium.Boarding.Download.Info" = "下载媒体文件和文档时不再受到速度限制。";
+
+"Premium.Boarding.NoAds.Title" = "无广告";
+"Premium.Boarding.NoAds.Info" = "Telegram 公开频道中不再有不定期展示的广告。";
+
+"Premium.Boarding.ReactionsNew.Title" = "无限表情回应";
+"Premium.Boarding.ReactionsNew.Info" = "用数千个表情作出回应——可使用多个表情回应单条消息。";
+
+"Premium.Boarding.Status.Title" = "表情状态";
+"Premium.Boarding.Status.Info" = "从数千个表情中选择一个展示当前的活动，显示在您的名字旁边。";
+
+
+"Premium.Boarding.Stickers.Title" = "高级会员贴纸";
+"Premium.Boarding.Stickers.Info" = "具有额外特效的专属放大贴纸，每月更新。";
+
+"Premium.Boarding.Badge.Title" = "形象勋章";
+"Premium.Boarding.Badge.Info" = "在您的名字后方显示徽章，以表示您为 Telegram 的支持。";
+
+"Premium.Boarding.Emoji.Title" = "动态表情";
+"Premium.Boarding.Emoji.Info" = "在您发送的任何消息中包含来自不同表情包的动态表情。";
+
+
+"Premium.Boarding.Avatar.Title" = "动态头像";
+"Premium.Boarding.Avatar.Info" = "视频头像会在聊天列表和聊天中动起来，为您提供更多自我表达空间。";
+
+"Premium.Boarding.Voice.Title" = "语音转文字";
+"Premium.Boarding.Voice.Info" = "能够将收到的语音消息转换成文字以方便阅读。";
+
+"Premium.Boarding.Chats.Title" = "高级聊天管理";
+"Premium.Boarding.Chats.Info" = "可设定默认文件夹、自动归档以及隐藏来自非联系人的新聊天。";
+
+"Premium.Boarding.Translate.Title" = "即时翻译";
+"Premium.Boarding.Translate.Info" = "将频道和聊天内容即时翻译成其他语言。";
+
+
+"Premium.Boarding.Payment.NotAvailalbe" = "不可用";
+
+
+"Premium.Boarding.Title" = "Telegram 高级版";
+"Premium.Boarding.Info" = "**超越限制**，获得 **独家功能** 并通过订阅 **Telegram 高级版** 来支持我们。";
+
+
+"Premium.Boarding.Got.Title" = "一切都已就绪！";
+
+
+
+"Premium.Boarding.Peer.Title" = "[%@](profile) 是 Telegram 高级版的订阅者";
+"Premium.Boarding.Peer.Info" = "拥有 **Telegram 高级版** 帐号即可专享多项附加功能。";
+
+
+"Premium.Boarding.PeerStatus.Default.Title" = "这是 %@ 的当前状态。";
+"Premium.Boarding.PeerStatus.Custom.Title" = "这是 %@ 的当前状态，该表情来自 🤡 [%@]()。";
+"Premium.Boarding.PeerStatus.Info" = "表情状态是一项高级功能。**Telegram 高级版** 包含的其它功能：";
+
+
+"Premium.Boarding.Peer.Gift.You.Title" = "您已赠予 [%1$@](profile) %2$@ 个月的 Telegram 高级版订阅。";
+"Premium.Boarding.Peer.Gift.You.Info" = "对方现在可以使用额外的功能了。";
+
+"Premium.Boarding.Peer.Gift.Title" = "[%1$@](profile) 已赠予您 %2$@ 个月的 Telegram 高级版订阅。";
+"Premium.Boarding.Peer.Gift.Info" = "您现在可以使用额外的功能了。";
+
+
+"Premium.Boarding.About.Title" = "关于 Telegram 高级版";
+"Premium.Boarding.About.Text" = "虽然免费版本的 Telegram 已经为用户提供了比其他任何即时通讯应用程序更多的功能，但 **Telegram 高级版** 进一步推动了它。\n\n**Telegram 高级版** 是付费选项，因为大多数高级功能需要 Telegram 向第三方（如数据中心提供商和服务器制造商）支付额外费用。 **Telegram P\n高级版** 用户的贡献使我们能够支付此类费用，并帮助 Telegram 保持为所有人免费提供。";
+
+"Premium.Boarding.About.Tos" = "购买高级版订阅，即表示你同意 Telegram 的 [服务条款](terms) 和 [隐私政策](privacy)。";
+
+
+"Premium.Boarding.AppStore.Cancelled" = "购买已取消或失败。";
+"Premium.Boarding.AppStore.Success" = "你已经成功订阅 Telegram 高级会员！";
+
+"Premium.Boarding.Subscribe" = "以每月 %@ 的价格订阅";
+
+"Sticker.Premium.Click.Info" = "这套产品包含像这样的高级贴纸。[查看套餐]()";
+
+
+"Chat.Context.HideAd" = "隐藏广告";
+"Gallery.SendHere" = "编辑并发送";
+"Premium.Offset.AlreadyHave" = "您已经拥有 Telegram 高级版。";
+"Auth.Login.ConfirmPhone" = "您的手机号码是 %@ 吗？";
+
+
+
+
+
+
+
+
+"Premium.Boarding.Double.Title" = "双倍上限";
+
+"Premium.Boarding.Double.GroupsAndChannels" = "群组和频道";
+"Premium.Boarding.Double.PinnedChats" = "已置顶聊天";
+"Premium.Boarding.Double.PublicLinks" = "公共链接";
+"Premium.Boarding.Double.SavedGifs" = "保存 GIF 动态图";
+"Premium.Boarding.Double.FavedStickers" = "贴纸收藏";
+
+"Premium.Boarding.Double.Captions" = "说明文字";
+"Premium.Boarding.Double.Folders" = "文件夹";
+"Premium.Boarding.Double.ChatsPerFolder" = "每个文件夹内聊天数量";
+"Premium.Boarding.Double.Accounts" = "关联帐户";
+
+
+"Premium.Boarding.Double.GroupsAndChannels.Info" = "加入多达 %@ 个频道和大型群组";
+"Premium.Boarding.Double.PinnedChats.Info" = "在主聊天列表中置顶高达 %@ 个聊天";
+"Premium.Boarding.Double.PublicLinks.Info" = "最多保留 %@ 个t.me/name 链接";
+"Premium.Boarding.Double.SavedGifs.Info" = "在 GIF 动态图收藏中存储高达 %@ 张 GIF 动态图";
+"Premium.Boarding.Double.FavedStickers.Info" = "在贴纸收藏中存储高达 %@ 张贴纸";
+"Premium.Boarding.Double.Bio.Info" = "在个人介绍中添加更多标志并使用链接。";
+"Premium.Boarding.Double.Captions.Info" = "在图片和视频下使用更长的说明文字";
+"Premium.Boarding.Double.Folders.Info" = "将您的聊天整理到 %@ 个文件夹中";
+"Premium.Boarding.Double.ChatsPerFolder.Info" = "在每个文件夹内添加高达 %@ 个聊天 ";
+
+
+
+
+"Premium.Purchase.ErrorUnknown" = "发生了错误，请重试。";
+"Premium.Purchase.ErrorNetwork" = "请检查你的互联网连接并重试。";
+"Premium.Purchase.ErrorNotAllowed" = "此设备不允许进行付款操作。";
+"Premium.Purchase.ErrorCantMakePayments" = "此设备不允许应用内付款。";
+
+
+"Premium.Restore.Success" = "完成";
+"Premium.Restore.ErrorUnknown" = "发生了错误，请重试。";
+
+
+"Premium.Gift.Title" = "赠予 Telegram 高级版";
+"Premium.Gift.Text" = "将 **Telegram 高级版** 的专属功能赠予 **%@**。";
+
+
+"Webpage.Confirm.Close" = "所作的更改可能不会保存。";
+"Webpage.Confirm.Ok" = "仍然关闭";
+
+
+"Chat.Context.ViewEmojiSet" = "查看表情包";
+
+
+
+
+
+
+
+"Chat.Context.ViewEmojiSetNew_other" = "查看表情包";
+
+
+"StickerPack.Added.Title" = "已添加贴纸";
+
+
+"StickerPack.Removed.Title" = "贴纸已移除";
+"StickerPack.Removed.Info" = "%@ 不再存在于你的表情包中。";
+
+
+"EmojiPack.Added.Title" = "表情已添加";
+"EmojiPack.Added.Info" = "%@ 已添加至您的表情中。";
+
+"EmojiPack.Removed.Title" = "表情已移除";
+"EmojiPack.Removed.Info" = "%@ 不再出现于您的表情包中。";
+
+
+"EmojiPack.PremiumAlert" = "订阅 Telegram 高级版解锁该表情。[阅读更多]()";
+"CustomReaction.PremiumAlert" = "订阅 Telegram 高级版 以解锁此表情回应。[了解更多]()";
+"CustomEmoji.PremiumAlert" = "订阅 Telegram 高级版以解锁此表情符号。[了解更多]()";
+
+
+"EmojiPack.Unlock" = "解锁";
+"EmojiPack.Restore" = "恢复";
+
+
+
+
+"PremiumGift.Month" = "%@ / 月";
+"PremiumGift.ButtonText" = "花费 %@ 赠予订阅";
+
+
+"Chat.Service.PremiumGift.Sent" = "%1$@ 已花费 %2$@ 赠予您一份礼物";
+"Chat.Service.PremiumGift.SentYou" = "您已花费 %@ 赠予礼物";
+
+
+"Chat.Service.PremiumGift.Info_countable" = "%d 个";
+
+
+
+
+
+"Chat.Service.PremiumGift.Info_other" = "%d 个月的 **Telegram 高级版**";
+
+
+"Chat.SendVoice.PrivacyError" = "%@ 不接受语音或视频消息";
+
+
+
+"PrivacySettings.Voice.PremiumError" = "只有 [Telegram 高级版]() 订阅者才可以限制接受语音或视频消息。";
+
+"CustomEmoji.Info" = "欢迎各位画师使用 [@stickers]() 机器人添加自己的表情包。";
+
+"CustomEmoji.Suggest" = "推荐动态表情";
+
+
+"Emoji.Search.AnimatedEmoji" = "动态表情";
+"Emoji.Search.Emoji" = "表情";
+
+
+
+
+
+
+
+
+"Chat.Context.Message.ContainsEmoji_other" = "这条消息包含了\n来自[%d 个表情包]()的表情。";
+
+
+
+
+
+"Reactions.RecentlyUsed" = "最近使用";
+"Reactions.Popular" = "热门";
+
+
+"CustomStatus.Menu.Timer" = "设置为 %@小时";
+"CustomStatus.Expires" = "你的状态将在 %@ 分钟后过期";
+
+
+
+"CustomStatus.ReportSpam" = "此帐号在其名称旁边使用了自定义状态 🤡。所有订阅[Telegram 高级版]()的用户都可以使用这样的表情状态。";
+
+
+
+"ForumTopic.Name.Placeholder" = "话题名称";
+
+"ForumTopic.Title.Create" = "新的话题";
+"ForumTopic.Title.Edit" = "编辑话题";
+
+"ForumTopic.New.TopicName" = "输入话题名称";
+"ForumTopic.New.TopicIcon" = "选择话题图标";
+
+"ForumTopic.Edit.TopicName" = "话题名称";
+"ForumTopic.Edit.TopicIcon" = "话题图标";
+
+"ForumTopic.Done.New" = "创建";
+"ForumTopic.Done.Edit" = "完成";
+
+
+"ForumTopic.Context.Info" = "群组信息";
+"ForumTopic.Context.AddMember" = "添加成员";
+"ForumTopic.Context.ShowAsMessages" = "以消息模式查看";
+
+"ForumTopic.Context.New" = "创建话题";
+
+
+"PeerInfo.Forum" = "话题";
+
+
+
+
+
+
+
+
+"PeerInfo.TopicsLimitedParticipantCountText_other" = "只有拥有超过 %d 名成员的群组才能启用话题功能。";
+
+"PeerInfo.TopicsLimitedDiscussionGroups" = "话题目前在频道的讨论群中还不可用。";
+
+
+"Chat.Context.EditTopic" = "编辑话题";
+
+
+"Username.Active" = "活跃";
+"Username.NotActive" = "不可用";
+
+"Username.List.Title" = "用户名顺序";
+"Username.List.Info" = "拖放链接以更改它们在您的信息页面上的显示顺序。";
+
+"Username.Activate.Title" = "激活用户名";
+
+"Username.Activate.Ok" = "显示";
+
+"Username.Deactivate.Title" = "停用用户名";
+"Username.Deactivate.Info" = "是否在您的信息页面上隐藏此链接？";
+"Username.Deactivate.Ok" = "隐藏";
+
+
+"Channel.Username.List.Title" = "链接顺序";
+
+"Channel.Username.List.Info.Group" = "拖放链接以更改它们在群组信息页面上的显示顺序。";
+
+
+
+
+"Channel.Username.Activate.Ok.Channel" = "显示";
+
+"Channel.Username.Deactivate.Title.Channel" = "停用用户名";
+
+"Channel.Username.Deactivate.Ok.Channel" = "隐藏";
+
+
+"Channel.Username.Activate.Title.Group" = "激活用户名";
+"Channel.Username.Activate.Info.Group" = "您想在群组信息页上显示此链接吗？";
+"Channel.Username.Activate.Ok.Group" = "显示";
+
+
+"Channel.Username.Deactivate.Info.Group" = "是否要将此链接从群组信息页中隐藏？";
+"Channel.Username.Deactivate.Ok.Group" = "隐藏";
+
+
+"ChatList.Empty.CreateTopic" = "创建新话题";
+"ChatList.Empty.DisableForum" = "显示为消息";
+
+
+"Chat.Context.DeleteTopic" = "你确定想要删除该话题吗？";
+
+
+"Text.Arrow" = "%1$@ → %2$@";
+
+"ChatHeader.RestartTopic" = "解锁话题";
+
+
+
+
+"ForumTopic.Edit.General.Show" = "在话题中显示";
+"ForumTopic.Edit.General.Info" = "如果“常规”主题处于隐藏状态，则群组成员可以在主题列表中下拉以查看该主题。";
+
+
+"Chat.Context.ReportFalsePositive" = "申诉误报";
+
+
+
+"PrivacySettings.GlobalTimer.Group" = "一段时间后，自动为所有人删除此群组中的消息。";
+
+
+"GlobalTimer.Title" = "自动删除消息";
+"GlobalTimer.Block.Header" = "自毁定时器";
+
+
+
+"GlobalTimer.Block.Enabled.Info" = "您发起的聊天中的所有新消息将在发送后 %@ 为所有人自动删除。您还可以[将此设置应用于现有聊天]()。";
+
+
+"GlobalTimer.Off" = "关闭";
+
+
+"GlobalTimer.Confirm.Title" = "自毁计时器";
+"GlobalTimer.Confirm.Text" = "您确定要于消息发送 %1$@ 后为所有人自动删除您新建的私聊和群组中的所有消息吗？";
+"GlobalTimer.Confirm.Ok" = "启用自动删除";
+
+
+"PeerInfo.Phone.AnonymousInfo" = "此号码获取自 [Fragment]()，并未绑定到 SIM 卡。";
+
+
+
+"Chat.AutoremoveTimerSetUserGlobal" = "%1$@ 为所有聊天设置自毁计时器。\n此聊天中的所有新消息将在 %2$@ 后自动删除。";
+
+
+"Login.Next.Fragment" = "打开 Fragment";
+
+"GlobalTimer.Select.StatusEnabled" = "%@后自动删除";
+"GlobalTimer.Select.StatusDisabled" = "自动删除已禁用";
+"GlobalTimer.Select.Apply" = "应用自毁计时器 %@";
+
+
+"UserInfo.SuggestPhoto" = "为 %@ 建议照片";
+"UserInfo.SetPhoto" = "为 %@ 设置照片";
+"UserInfo.ResetPhoto" = "重置为原始照片";
+
+"UserInfo.Suggest.Confirm" = "您想向 %@ 推荐此图片作为头像吗？";
+"UserInfo.SetPhoto.Confirm" = "是否将此图片设置为 %@ 的头像？该头像将替代 %@ 设置的其他头像——只有您将会看到该头像。";
+
+
+"UserInfo.Suggest.Title" = "推荐图片";
+"UserInfo.SetPhoto.Title" = "设定照片";
+
+
+"UserInfo.Suggest.Confirm.OK" = "推荐";
+"UserInfo.SetPhoto.Confirm.OK" = "设定";
+
+
+
+"UserInfo.SetByYou" = "您设置的头像";
+
+"UserInfo.SetPhoto.Tooltip" = "你将会在 %@ 的帐号中看到这个头像。";
+"UserInfo.Suggest.Tooltip" = "您为 %@ 的 Telegram 个人资料推荐了一张新图片";
+
+"UserInfo.ResetPhoto.Confirm" = "您确定要为 %@ 重置原始照片吗？";
+"UserInfo.ResetPhoto.Confirm.OK" = "重置";
+
+"UserInfo.SetPhoto.BlockInfo" = "你可以用另一张只有你才能查看的照片替换 %@ 的照片。";
+
+"Gallery.Contact.PhotoByYou" = "只有你可以看到该照片。";
+
+
+
+
+
+"Chat.Service.SuggestedPhoto" = "%@ 为您的 Telegram 资料推荐了一张图片";
+"Chat.Service.YouSuggestedPhoto" = "您推荐了个人资料图片";
+
+
+"Chat.Service.SuggestPhoto.Title" = "已建议的图片";
+
+"Chat.Service.SuggestPhoto.Info.You" = "您已向 %@ 推荐此图片作为头像。";
+
+
+
+"ChatService.Suggest.View" = "查看图片";
+
+
+"Chat.Service.BotWriteAllowed" = "当您将此机器人添加到附件菜单中时，您已允许此机器人向您发送消息。";
+
+
+"WebApp.AddToAttachmentAllowMessages" = "允许 %@ 给我发送消息";
+
+
+"Privacy.ResetPhoto.Confirm" = "你确定要删除公开照片吗？";
+
+
+"StorageExceptions.Title.Private" = "私聊";
+"StorageExceptions.Add.Private" = "添加私人聊天";
+
+"StorageExceptions.Title.Group" = "群聊";
+"StorageExceptions.Add.Group" = "添加群组";
+
+"StorageExceptions.Title.Channel" = "频道";
+"StorageExceptions.Add.Channel" = "添加频道";
+
+
+"StorageExceptions.Remove" = "移除";
+"StorageExceptions.RemoveAll" = "删除所有例外";
+"StorageExceptions.RemoveAll.Confirm" = "你确定要移除所有例外吗？";
+
+
+
+
+
+
+
+
+
+
+"Gallery.PublicPhoto" = "公开图片";
+
+
+"StorageUsage.Category.Photos" = "照片";
+"StorageUsage.Category.Videos" = "视频";
+"StorageUsage.Category.Files" = "文件";
+"StorageUsage.Category.Music" = "音乐";
+"StorageUsage.Category.Other" = "其他";
+"StorageUsage.Category.Stickers" = "贴纸";
+"StorageUsage.Category.Avatars" = "头像";
+"StorageUsage.Category.Miscellaneous" = "杂项";
+
+"StorageUsage.Header" = "存储空间用量";
+"StorageUsage.Cleared" = "存储已清除";
+"StorageUsage.Cleared.Info" = "所有媒体都可于需要时从 Telegram 云端下载。";
+
+
+
+
+
+
+"StorageUsage.Media.Voice" = "语音消息";
+"StorageUsage.Media.VideoMessage" = "视频消息";
+
+
+"StorageUsage.Clear.Confirm.Info" = "媒体和文件将保留在云端中，你需要时，可以重新下载。";
+
+"StorageUsage.Clear.Confirm.OK.All" = "清理全部缓存";
+"StorageUsage.Clear.Confirm.OK.Part" = "清除所选";
+
+"StorageUsage.ClearedText" = "已在你的设备上释放 %@ 空间！";
+
+
+"StorageUsage.ClearedText" = "已在你的设备上释放 %@ 空间！";
+
+
+"StorageUsage.ClearedText" = "已在你的设备上释放 %@ 空间！";
+
+
+"StorageUsage.Message.Context.Preview" = "预览";
+"StorageUsage.Message.Context.Select" = "选择";
+"StorageUsage.Message.Context.ShowInChat" = "显示消息";
+"StorageUsage.Message.Context.Delete" = "删除";
+"StorageUsage.Message.Context.Clear" = "清除";
+
+
+"StorageUsage.Segment.Chats" = "聊天";
+"StorageUsage.Segment.Media" = "媒体";
+"StorageUsage.Segment.Files" = "文件";
+"StorageUsage.Segment.Music" = "音乐";
+"StorageUsage.Segment.Voice" = "语音";
+
+
+"Emoji.Context.SetStatus" = "设为当前账号状态";
+"Emoji.Context.SetStatus.Success" = "您的表情状态已更新。";
+
+"AccountSettings.ProtectAccount.Title" = "保护你的账户";
+"AccountSettings.ProtectAccount.Info" = "设置密码，每次使用此手机号码登录时都需要输入该密码。";
+"AccountSettings.ProtectAccount.Set" = "设定额外密码";
+
+
+"CreateGroup.AddMember.Error" = "您无法创建没有成员的群组。";
+
+
+
+
+
+"CreateChannel.Forum.Error" = "话题功能必须启用。";
+
+"CreateGroup.Requires.Username.Header" = "设置公开链接";
+"CreateGroup.Requires.Username.Placeholder" = "链接";
+"CreateGroup.Requires.Username.Info" = "您可以使用 a-z、0-9 和下划线。最小长度为 5 个字符。";
+
+
+"ChoosePeer.Title.User" = "选择用户";
+"ChoosePeer.Title.Bot" = "选择机器人";
+"ChoosePeer.Title.Group" = "选择群组";
+"ChoosePeer.Title.Channel" = "选择频道";
+
+
+"ChoosePeer.Requirements.Title" = "要求：";
+
+"ChoosePeer.Requirements.User.Premium" = "• 用户必须拥有 Telegram 高级版订阅。";
+
+
+"ChoosePeer.Requirements.Group.Private" = "• 必须是私密群组。";
+"ChoosePeer.Requirements.Group.Public" = "该群组必须是公开的。";
+"ChoosePeer.Requirements.Group.NonForum" = "群组必须关闭话题功能。";
+"ChoosePeer.Requirements.Group.Forum" = "群组必须开启话题功能。";
+"ChoosePeer.Requirements.Group.Owner" = "• 您必须是群组的所有者。";
+"ChoosePeer.Requirements.Group.NonOwner" = "•  你不可以是群主。";
+"ChoosePeer.Requirements.Group.AdminRights" = "您必须拥有以下管理员权限：%1$@";
+"ChoosePeer.Requirements.Group.Create" = "为此创建一个新群组";
+"ChoosePeer.Requirements.Group.Empty" = "您没有满足以下要求的群组：";
+
+
+"ChoosePeer.Requirements.Channel.Private" = "• 频道必须为私密状态。";
+"ChoosePeer.Requirements.Channel.Public" = "• 频道必须为公开状态。";
+"ChoosePeer.Requirements.Channel.Owner" = "你必须是频道的拥有者。";
+
+"ChoosePeer.Requirements.Channel.AdminRights" = "• 您必须拥有管理员权限才能 %1$@";
+"ChoosePeer.Requirements.Channel.Create" = "为此创建新频道";
+"ChoosePeer.Requirements.Channel.Empty" = "您没有满足以下要求的频道：";
+
+
+
+
+
+"Language.TranslateMessages.Header" = "翻译消息";
+"Language.TranslateMessages.DoNotTranslate" = "无需翻译";
+"Language.TranslateMessages.Channel" = "翻译全部聊天记录";
+"Language.TranslateMessages.Channel.Info" = "翻译聊天中的全部记录。只对 [高级版用户]() 开放。";
+
+
+"Language.TranslateMessages.Channel.Premium" = "订阅 [Telegram 高级版](premium) 以翻译所有聊天。";
+
+
+
+"Premium.Period.Monthly" = "按月";
+"Premium.Period.Annual" = "按年";
+"Premium.Period.SixMonth" = "六个月";
+"Premium.Period.Price" = "%@/月";
+
+
+"Premium.Boarding.Subscribe.Month" = "以 %@/月 的价格订阅";
+"Premium.Boarding.Subscribe.Year" = "%@ /年";
+"Premium.Boarding.Subscribe.SixMonth" = "以 %@ /半年 的价格订阅";
+
+"LiteMode.Title" = "省电";
+
+
+"LiteMode.Key.emoji_effects.Title" = "表情特效";
+"LiteMode.Key.emoji.Title" = "表情动画";
+"LiteMode.Key.blur.Title" = "模糊效果";
+"LiteMode.Key.gif.Title" = "自动播放 GIF 动态图";
+"LiteMode.Key.video.Title" = "自动播放视频";
+"LiteMode.Key.stickers.Title" = "贴纸动画";
+"LiteMode.Key.animations.Title" = "界面效果";
+"LiteMode.Key.menu_animations.Title" = "动画菜单";
+
+
+"LiteMode.Key.emoji_effects.Info" = "显示表情回应和高级贴纸的动画特效。";
+
+
+
+
+"LiteMode.Key.stickers.Info" = "在聊天和键盘中循环动态贴纸。";
+"LiteMode.Key.animations.Info" = "使 Telegram 看起来超棒的各种特效和动画。";
+"LiteMode.Key.menu_animations.Info" = "在上下文菜单中动画图标。";
+
+
+"LiteMode.Info" = "减少所有耗电量的动画并提高性能。";
+"LiteMode.EnableText" = "省电模式";
+
+"LiteMode.DisableAlert" = "禁用省电模式";
+
+
+"LiteMode.Enabled" = "已启用";
+"LiteMode.Disabled" = "已禁用";
+
+
+"LiteMode.LowPower" = "低电量模式";
+"LiteMode.LowPower.Info" = "当您的电池电量低于 %1$@% 时，打开省电模式。";
+"LiteMode.LowPower.InfoFull" = "可以根据电池电量自动打开省电模式。";
+
+
+
+"GeneralSettings.Spelling.Title" = "拼写和语法";
+"GeneralSettings.Spelling.CheckWhileTyping" = "键入时检查拼写";
+"GeneralSettings.Spelling.CheckGrammarSpelling" = "检查拼写和语法";
+"GeneralSettings.Spelling.CheckSpellingAutomatically" = "自动更正拼写";
+
+
+"ChatMessage.OpenApp" = "打开应用";
+
+"ChatList.Search.Placeholder" = "搜索 (⌘K)";
+
+"ChatList.Filter.ReadAll" = "全部标记已读";
+"ChatList.Filter.Share" = "分享";
+"ChatList.Filter.MuteAll" = "全部静音";
+"ChatList.Filter.UnmuteAll" = "全部取消静音";
+
+
+
+"InviteFailed.Title" = "通过链接邀请";
+"InviteFailed.OK" = "发送邀请链接";
+"InviteFailed.Skip" = "跳过";
+
+
+"InviteFailed.Text.Single" = "**%@** 限制将其加入群组，您可以给对方发送邀请链接。";
+"InviteFailed.Text.Multiple_countable" = "%d";
+
+
+
+
+
+
+
+
+
+"InviteFailed.Text.Cant.Single" = "%@ 只能通过邀请链接邀请，但您无权分享此群组的邀请链接。";
+"InviteFailed.Text.Cant.Multiple_countable" = "%d";
+
+
+
+
+
+"InviteFailed.Text.Cant.Multiple_other" = "**%d 名用户**只能通过链接邀请，但是您无权分享本群组的邀请链接。 ";
+
+
+"ChatEmpty.Topic" = "发送第一条消息以开始话题。";
+
+
+"PlaybackSpeed.SetToDefault" = "默认设置";
+
+
+"Deprecated.Title" = "更新 macOS";
+"Deprecated.Text" = "您的 macOS 系统版本不再受支持，请更新您的 Mac。";
+"Deprecated.Alert.Third" = "隐藏一个月";
+"Deprecated.Alert.Title" = "更新您的系统";
+"Deprecated.Alert.Text" = "我们不再为您的系统版本更新应用程序。请更新您的系统以接收最新的 Telegram 更新。";
+
+
+"Chat.SendMessage.Error.TooFast" = "您发信息的速度太快了，请稍等一下。";
+
+
+"ChatList.FolderUpdates.Title_countable" = "%d";
+
+
+
+
+
+"ChatList.FolderUpdates.Title_other" = "%d 个可用的新聊天";
+
+"ChatList.FolderUpdates.Info" = "点击此处查看";
+
+"PeerInfo.BotEdit.Username" = "用户名";
+"PeerInfo.BotEdit.Intro" = "修改简介";
+
+
+"PeerInfo.BotEdit.Info" = "使用 [@BotFather]() 以管理此机器人。";
+
+
+"BotUsername.Title" = "用户名";
+"BotUsername.Header" = "用户名";
+"BotUsername.Info" = "此链接不可编辑，你可以在 [Fragment]() 上获取更多用户名。";
+
+"BotUsername.Active" = "已启用";
+"BotUsername.NotActive" = "不活跃";
+
+
+"BotUsername.List.Info" = "拖拽以调整机器人信息页中链接显示的顺序。";
+
+
+"BotUsername.Activate.Info" = "您想要在机器人的信息页面上显示此链接吗？";
+
+
+
+"BotUsername.Deactivate.Info" = "您想要在机器人的信息页面中隐藏此链接吗？";
+
+
+
+
+"ChatMessage.ViewChatList" = "查看聊天列表";
+"ChatMessage.Folder.Expired" = "文件夹链接已失效";
+
+
+
+"SharedFolder.Title.AllChats" = "所有聊天";
+"SharedFolder.Title.Personal" = "个人";
+
+"SharedFolder.Status.FullyAdded" = "您已添加过此文件夹以及其中的所有聊天。";
+
+
+
+
+
+
+
+
+"SharedFolder.Status.AddChats_other" = "你想要将 **%1$d** 个聊天添加到您的文件夹 **%2$@** 吗？";
+"SharedFolder.Status.AddChats_ZeroValueHolder" = "选择聊天以将它们添加到您的文件夹中";
+
+"SharedFolder.Status.AddNew" = "你想要添加一个新的聊天文件夹并加入其群组和频道吗？";
+"SharedFolder.Status.Remove" = "你想要离开添加文件夹 **%1$@** 时加入的聊天吗？";
+"SharedFolder.Status.Links" = "创建更多链接，为不同的人设置不同的访问级别。";
+
+
+"SharedFolder.Error.SomeUserTooMany" = "无法将其中一个群组添加至文件夹中，因为其中一位管理员加入了过多群组和频道。";
+
+
+
+
+
+
+
+
+
+"SharedFolder.ListHeader.ChatsToJoin_other" = "即将加入的 %d 个聊天";
+
+
+
+
+
+
+
+"SharedFolder.ListHeader.Updates_other" = "%d 聊天加入";
+
+
+
+
+
+
+
+
+"SharedFolder.ListHeader.Quit_other" = "即将退出 %d 个聊天";
+
+
+"SharedFolder.ListHeader.InviteLinks" = "邀请链接";
+
+
+"SharedFolder.SelectAll" = "选择所有";
+"SharedFolder.DeselectAll" = "全部取消选择";
+
+
+
+
+
+
+
+
+
+"SharedFolder.ListHeader.Already_other" = "已加入 %d 个聊天";
+
+
+"SharedFolder.CreateLink" = "新建链接";
+
+
+"SharedFolder.Alert.AlreadyMember.Channel" = "您已订阅此频道。";
+"SharedFolder.Alert.AlreadyMember.Group" = "你已经是此群组的成员了。";
+
+
+"SharedFolder.Tooltip.Added.Title" = "已添加 %@ 文件夹";
+
+
+
+
+
+
+
+"SharedFolder.Tooltip.Added.Text_other" = "你已加入 %d 个新聊天";
+
+
+
+
+
+
+
+
+
+
+
+"SharedFolder.Tooltip.Updated.Text_other" = "你已加入 %d 个新聊天";
+
+
+"SharedFolder.Confirm.Delete" = "删除文件夹？";
+"SharedFolder.Confirm.Delete.Text" = "您确定要删除此文件夹吗？这将同时停用所有用来分享此文件夹的邀请链接。";
+
+
+"SharedFolder.Done.AddFolder" = "添加文件夹";
+"SharedFolder.Done.JoinChats" = "加入聊天";
+"SharedFolder.Done.DonNotJoinChats" = "不加入任何聊天";
+"SharedFolder.Done.RemoveFolder" = "删除文件夹";
+"SharedFolder.Done.RemoveFolderAndChats" = "移除文件夹和聊天";
+
+
+"SharedFolder.Title.AddFolder" = "添加文件夹";
+"SharedFolder.Title.RemoveFolder" = "移除文件夹";
+"SharedFolder.Title.ShareFolder" = "共享文件夹";
+
+
+
+
+
+
+
+
+
+"SharedFolder.Title.AddChats_other" = "添加 %d 个聊天";
+
+
+
+
+
+
+
+
+
+
+
+
+"ShareFolder.Title.Text_other" = "获得此链接的所有人都可以添加 **%1$@** 文件夹并加入以下选择的 %2$d 个聊天。";
+"ShareFolder.Title.Text_ZeroValueHolder" = "请在下面选择聊天以共享文件夹。";
+
+
+"ShareFolder.InviteLink.Title" = "邀请链接";
+"ShareFolder.Context.NameLink" = "为此链接命名";
+"ShareFolder.Context.Delete" = "删除";
+"ShareFolder.SelectAll" = "全选";
+"ShareFolder.DeselectAll" = "取消全选";
+"ShareFolder.Header.Empty.Title" = "无法分享这些聊天";
+"ShareFolder.Header.Empty.Info" = "您只能分享允许您创建邀请链接的群组和频道。";
+
+
+
+
+
+
+"ShareFolder.Header.Title_other" = "已选择 %d 个聊天";
+"ShareFolder.Header.Title_ZeroValueHolder" = "聊天";
+"ShareFolder.Header.Info" = "选择所有通过邀请链接添加文件夹的用户可以加入的群组和频道。";
+"ShareFolder.Status.Allowed" = "您可以邀请其他用户加入";
+"ShareFolder.Status.Disallowed.NoLonger" = "此聊天已经不在文件夹中";
+"ShareFolder.Status.Disallowed.Bot" = "你不能分享机器人";
+"ShareFolder.Status.Disallowed.PrivateChats" = "您不能分享私聊";
+"ShareFolder.Status.Disallowed.Others" = "您无法邀请用户加入";
+"ShareFolder.Status.Disallowed.Alert.NoLonger" = "此聊天已不在此文件夹中。请先将其添加到文件夹中。";
+"ShareFolder.Status.Disallowed.Alert.PrivateChats" = "您无法分享私聊。";
+"ShareFolder.Status.Disallowed.Alert.Bot" = "您不能分享与机器人的聊天";
+"ShareFolder.Status.Disallowed.Alert.Channel" = "您没有管理员权限，无法分享此频道的邀请链接。";
+
+"ShareFolder.NameLink.Title" = "为此链接命名";
+"ShareFolder.NameLink.Placeholder" = "链接名称";
+"ShareFolder.Title" = "分享文件夹";
+"ShareFolder.Discard.Text" = "你已更改此文件夹的设置。放弃更改？";
+"ShareFolder.Discard.Ok" = "放弃";
+"ShareFolder.Done.Delete" = "删除";
+"ShareFolder.Done.Done" = "完成";
+
+
+
+"ChatService.ChangedWallpaper" = "%1$@ 为此聊天已设置新壁纸。";
+"ChatService.YouChangedWallpaper" = "您已为此聊天设置新壁纸。";
+
+
+"ChatService.ChangedToSameWallpaper" = "%1$@ 已为此聊天设置相同的壁纸。";
+"ChatService.YouChangedToSameWallpaper" = "您已设置与对方相同的壁纸。";
+
+"ChatService.ViewBackground" = "查看壁纸";
+"ChatService.UpdateBackground" = "更新壁纸";
+
+"Wallpaper.Background.NoApplyToPeer" = "%1$@ 将能够应用此壁纸";
+
+
+
+
+
+/* new from translations.telegram.org */
+
+"Admins.Creator" = "所有者";
+"App.MaxFileSize" = "文件大小上限为 1.5 GB";
+"App.MaxFileSize1" = "最大文件大小为 2GB";
+"AppearanceSettings.ColorTheme.dark" = "标准暗色调";
+"AppearanceSettings.ColorTheme.day_classic" = "传统亮色调";
+"AppearanceSettings.ColorTheme.mojave" = "深色模式";
+"AppearanceSettings.ColorTheme.night_blue" = "夜间蓝";
+"ApplyLanguage.ChangeLanguageUnofficialText" = "您将要使用一个完成度为 %@% 的自定义语言包（**%@**）。\n\n此操作将会翻译整个界面。您可以通过 [翻译平台]() 提出修改建议。\n\n您可以随时在“偏好设置”中更改语言。";
+"AutoremoveMessages.Day" = "1 天以后";
+"AutoremoveMessages.Week" = "1 周以后";
+"Call.Confirm.DiscardCurrent.Description" = "您是否要挂断与 %@ 的通话并与 %@ 开始新通话？";
+"Call.Confirm.DiscardCurrent.Header" = "正在通话";
+"CallSettings.OtherSettings.Title" = "其他设置";
+"CallSettings.Output.Text" = "输出设备";
+"CallSettings.Output.Title" = "声音";
+"Channel.EditAdmin.Permission.InviteUsers" = "邀请用户";
+"Channel.EventLog.MessageTransferedName" = "已将所有权转让给 %@（%@）";
+"ChannelBlacklist.AddMember" = "添加成员";
+"ChannelEventFilter.Calls" = "电话";
+"ChannelVisibility.Forwarding.ChannelInfo" = "订阅者将可以拷贝、保存及转发该频道的内容。";
+"ChannelVisibility.Forwarding.Disabled" = "拒绝转发";
+"ChannelVisibility.Forwarding.Enabled" = "允许转发";
+"ChannelVisibility.Forwarding.GroupInfo" = "成员将可以拷贝、保存及转发此群组中的内容。";
+"Chat.Confirm.DeleteMessages" = "删除所选的消息？";
+"Chat.Confirm.DeleteMessages_countable" = "%d";
+"Chat.Dice.Result" = "发送 🎲 表情至任意聊天，Telegram 将为您随机生成点数。";
+"Chat.Input.SecretChat.WaitingToOnline" = "等待用户上线...";
+"Chat.List.Photo_countable" = "%d";
+"Chat.List.Video_countable" = "%d";
+"Chat.Poll.TotalVotes_other" = "%d 人已投票";
+"Chat.Service.Group.AddedMembers" = "%@ 邀请了 %@";
+"Chat.Service.Group.Created" = "%@ 已创建群组 “%@”";
+"Chat.Service.Group.RemovedMembers" = "%@ 移除了 %@";
+"Chat.Service.Group.UpdatedPinnedMessage" = "%@ 已置顶 \"%@\"";
+"Chat.Service.Group.UpdatedTitle" = "%@ 将群组名称更改为 \"%@\"";
+"Chat.Service.PaymentSent" = "您已成功为 **%@** 向 **%@** 转账 **%@**";
+"Chat.Service.SecretChat.DisabledTimer" = "%@ 取消了阅后即焚计时器";
+"Chat.Service.SecretChat.DisabledTimer.Self" = "您已停用阅后即焚计时器";
+"Chat.Service.SecretChat.SetTimer" = "%@ 已将阅后即焚计时器设定为 %@";
+"Chat.Service.SecretChat.SetTimer.Self" = "您已将阅后即焚计时器设定为 %@";
+"Chat.Service.VoiceChatFinished.Channel" = "视频聊天已结束 (%1$@)";
+"Chat.Service.VoiceChatScheduled.Channel" = "[视频聊天](open)计划于 %@ 开始";
+"Chat.Service.VoiceChatStarted.Channel" = "[视频聊天](open) 开始";
+"Chat.Translate.Menu.Hide.Tooltip" = "已在此频道中隐藏翻译栏。";
+"Chat.Webpage.MediaCount" = "%d / %d";
+"ChatList.Context.PinErrorNew" = "抱歉，您最多只能置顶 5 个聊天。";
+"ChatList.Service.VoiceChatScheduled.Channel" = "视频聊天已预约于 %@";
+"ChatList.Service.VoiceChatStarted.Channel" = "视频聊天已开始";
+"Context.CopyMedia" = "另存为...";
+"Discussion.Set.Modal.Text.Public" = "您想将 **%@** 作为 **%@** 的讨论群吗？";
+"DiscussionController.Channel.Empty.Header" = "选择要在您的频道上显示的一个讨论群组";
+"EventLog.Service.Banned" = "封禁了 %@ %@";
+"EventLog.Service.Demoted" = "已永久限制 %@ %@ ";
+"EventLog.Service.Demoted.Changed" = "更改了对 %@ %@ 的永久性限制";
+"EventLog.Service.Demoted.Changed.Until" = "更改了对 %@ %@ 的限制直到 %@:";
+"EventLog.Service.Demoted.Until" = "限制了 %@ %@ 直到 %@\n";
+"EventLog.Service.Promoted" = "将 %@ %@ 设为管理员:";
+"EventLog.Service.Promoted.Changed" = "修改了 %@ %@ 的权限:";
+"GalleryView.FastSave.Gif" = "GIF 动态图已保存到您的 [下载]() 文件夹";
+"GalleryView.FastSave.Image" = "图像已保存到您的 [下载]() 文件夹";
+"GalleryView.FastSave.Video" = "视频已保存到您的 [下载]() 文件夹";
+"GeneralSettings.LargeFonts" = "大字体";
+"InAppLinks.Confirm.OpenExternal" = "打开 %@？";
+"InstalledStickers.QuickReaction" = "快速回应";
+"InviteLink.Joined_other" = "%d 人已加入";
+"InviteLink.Joined_countable" = "%d 人";
+"InviteLink.PeopleJoined_other" = "%d 人已加入";
+"Login.QR.Help1" = "在您的手机上打开Telegram";
+"Login.QR.Help2" = "请转到【设置 -> 设备 -> 扫码】";
+"Login.QR.Help3" = "点击手机屏幕确认登录";
+"ManageLinks.Title" = "标题";
+"NotificationSettings.IncludePublicGroups" = "包括公开群组";
+"Peer.Media.SharedFilesEmptyList" = "您可以发送或收取最大为1.5G的任意格式的文件，\n并在所有设备上查看。";
+"PeerInfo.Admins" = "管理员";
+"PeerInfo.SetAdmins" = "设置管理员";
+"PeerInfo.Statistics" = "统计信息";
+"Premium.Boarding.Reactions.Info" = "使用更多动画表情回应消息，仅高级版订阅者可用。";
+"Premium.Boarding.Reactions.Title" = "专属表情回应";
+"StickerPack.Featured.Title" = "热门贴纸";
+"StickerPack.ShowMore" = "探索更多";
+"Telegram.ChannelVisibilityController" = "群组";
+"Text.CopyLabel" = "拷贝 %@";
+"Translate.Language.Chinese_Simplified" = "简体中文";
+"Translate.Language.Chinese_Traditional" = "繁体中文";
+"Translate.Language.Haitian_Creole" = "海地克里奥尔语";
+"Translate.Language.Myanmar_Burmese" = "缅甸（缅甸语）";
+"Translate.Language.Nyanja_Chichewa" = "尼扬贾（奇切瓦）";
+"Translate.Language.Odia_Oriya" = "奥迪亚（奥里亚）";
+"Translate.Language.Portuguese_Portugal_Brazil" = "葡萄牙语（葡萄牙、巴西）";
+"Translate.Language.Scots_Gaelic" = "苏格兰盖尔语";
+"Translate.Language.Sinhala_Sinhalese" = "僧伽罗语（僧伽罗语）";
+"Translate.Language.Tagalog_Filipino" = "他加禄语（菲律宾语）";
+"TwoStepAuth.ConfirmationText" = "请检查您的电子邮箱，并点击验证链接来完成两步验证的设置。请务必也检查垃圾邮件文件夹。";
+"TwoStepAuth.RecoveryEmailUnavailable" = "无法访问电子邮箱（%@）？";
+"TwoStepAuth.SetupHint" = "请为您的密码建立提示";
+"VoiceChat.Listening" = "收听中";
+"VoiceChat.Recording.Start.Text" = "是否录制此次聊天并保存为音频文件？\n\n其他参与者会看到聊天正在被录音。";
+"VoiceChat.Settings.NoiseText" = "噪音抑制";
+"VoiceChat.Settings.NoiseTitle" = "背景噪音";
+"VoiceChat.Settings.Perfomance.Header" = "性能";
+"VoiceChat.Speaking" = "发言中";
+"VoiceChat.Video.Stream" = "直播";
+"VoiecChat.ReduceMotion.Desc" = "您可以减弱动态效果以获得更好的性能。";
+"VoiecChat.ReduceMotion.Text" = "减弱动态效果";
+"VoiecChat.Settings.Record.Placeholder" = "音频标题（可选）";
+"VoiecChat.Settings.ReduceMotion.Desc" = "减弱动态效果并停用噪音抑制可以增强性能。";
+"WallpaperPreview.Plain" = "空白";
+"_NS:103.title" = "编辑";
+"_NS:167.title" = "窗口";
+"_NS:81.title" = "View";
+"psa.chat.alert.learnmore" = "了解更多";
+"psa.chat.alert.learnmore.covid" = "了解更多";
+"psa.chat.alert.learnmore.psa" = "了解更多";
+"psa.chatlist.covid" = "新冠病毒肺炎";
+"psa.text.covid" = "此信息为您提供正在发生的新冠肺炎疫情相关公共服务公告。了解有关此计划的更多咨询：https://telegram.org/blog/coronavirus";
+"psa.title.bubbles.covid" = "新冠病毒肺炎通知\n来自：%@";
+"psa.title.bubbles.psa" = "公告：[%@]()";
+"psa.title.covid" = "新冠病毒肺炎通知";
+"psa.title.psa" = "公告";

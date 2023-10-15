@@ -9,9 +9,28 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class GetDialogFiltersHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetDialogFilters, TVector<MyTelegram.Schema.IDialogFilter>>,
     Messages.IGetDialogFiltersHandler
 {
-    protected override Task<TVector<MyTelegram.Schema.IDialogFilter>> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetDialogFilters obj)
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IObjectMapper _objectMapper;
+    public GetDialogFiltersHandler(IQueryProcessor queryProcessor,
+        IObjectMapper objectMapper)
     {
-        throw new NotImplementedException();
+        _queryProcessor = queryProcessor;
+        _objectMapper = objectMapper;
+    }
+
+    protected override async Task<TVector<IDialogFilter>> HandleCoreAsync(IRequestInput input,
+        RequestGetDialogFilters obj)
+    {
+        var filterReadModels = await _queryProcessor.ProcessAsync(new GetDialogFiltersQuery(input.UserId), default)
+            ;
+
+        var filters = new TVector<IDialogFilter>();
+        foreach (var filterReadModel in filterReadModels)
+        {
+            var filter = _objectMapper.Map<DialogFilter, TDialogFilter>(filterReadModel.Filter);
+            filters.Add(filter);
+        }
+
+        return filters;
     }
 }

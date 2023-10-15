@@ -9,9 +9,23 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class HidePeerSettingsBarHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestHidePeerSettingsBar, IBool>,
     Messages.IHidePeerSettingsBarHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestHidePeerSettingsBar obj)
+    private readonly IPeerHelper _peerHelper;
+    private readonly ICommandBus _commandBus;
+
+    public HidePeerSettingsBarHandler(IPeerHelper peerHelper, ICommandBus commandBus)
     {
-        throw new NotImplementedException();
+        _peerHelper = peerHelper;
+        _commandBus = commandBus;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestHidePeerSettingsBar obj)
+    {
+        var peer = _peerHelper.GetPeer(obj.Peer);
+        var command = new HidePeerSettingsBarCommand(PeerSettingsId.Create(input.UserId, peer.PeerId),
+            input.ToRequestInfo(), peer.PeerId);
+        await _commandBus.PublishAsync(command, default);
+
+        return new TBoolTrue();
     }
 }

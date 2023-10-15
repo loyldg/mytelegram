@@ -7,7 +7,8 @@ public class PtsSnapshot : ISnapshot
         int qts,
         int unreadCount,
         int date,
-        long globalSeqNo
+        long globalSeqNo,
+        long permAuthKeyId
     )
     {
         PeerId = peerId;
@@ -16,10 +17,12 @@ public class PtsSnapshot : ISnapshot
         UnreadCount = unreadCount;
         Date = date;
         GlobalSeqNo = globalSeqNo;
+        PermAuthKeyId = permAuthKeyId;
     }
 
     public int Date { get; }
     public long GlobalSeqNo { get; }
+    public long PermAuthKeyId { get; }
 
     public long PeerId { get; }
     public int Pts { get; }

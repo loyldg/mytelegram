@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.Domain.Events.Dialog;
 
-public class DraftSavedEvent : RequestAggregateEvent<DialogAggregate, DialogId>
+public class DraftSavedEvent : RequestAggregateEvent2<DialogAggregate, DialogId>
 {
-    public DraftSavedEvent(long reqMsgId,
+    public DraftSavedEvent(RequestInfo requestInfo,
         long ownerPeerId,
         Peer peer,
-        Draft draft) : base(reqMsgId)
+        Draft draft) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         Peer = peer;

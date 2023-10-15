@@ -6,7 +6,7 @@ public class SaveDraftCommandHandler : CommandHandler<DialogAggregate, DialogId,
         SaveDraftCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.SaveDraft(command.ReqMsgId,
+        aggregate.SaveDraft(command.RequestInfo,
             command.Message,
             command.NoWebpage,
             command.ReplyToMsgId,

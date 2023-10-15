@@ -18,9 +18,52 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class EditChatDefaultBannedRightsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditChatDefaultBannedRights, MyTelegram.Schema.IUpdates>,
     Messages.IEditChatDefaultBannedRightsHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestEditChatDefaultBannedRights obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public EditChatDefaultBannedRightsHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestEditChatDefaultBannedRights obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+
+        switch (peer.PeerType)
+        {
+            case PeerType.Chat:
+                {
+                    var command = new EditChatDefaultBannedRightsCommand(ChatId.Create(peer.PeerId),
+                        input.ToRequestInfo(),
+                        GetChatBannedRights(obj.BannedRights)
+                        ,
+                        input.UserId);
+                    await _commandBus.PublishAsync(command, CancellationToken.None);
+                }
+                break;
+            case PeerType.Channel:
+                {
+                    var command = new EditChannelDefaultBannedRightsCommand(ChannelId.Create(peer.PeerId),
+                        input.ToRequestInfo(),
+                       GetChatBannedRights(obj.BannedRights),
+                        input.UserId);
+                    await _commandBus.PublishAsync(command, CancellationToken.None);
+                }
+                break;
+        }
+
+        return null!;
+    }
+
+    private ChatBannedRights GetChatBannedRights(IChatBannedRights chatBannedRights)
+    {
+        return ChatBannedRights.FromValue(chatBannedRights.Flags.ToInt(), chatBannedRights.UntilDate);
     }
 }

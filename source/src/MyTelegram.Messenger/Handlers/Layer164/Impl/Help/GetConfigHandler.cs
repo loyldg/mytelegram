@@ -9,9 +9,26 @@ namespace MyTelegram.Handlers.Help;
 internal sealed class GetConfigHandler : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetConfig, MyTelegram.Schema.IConfig>,
     Help.IGetConfigHandler
 {
-    protected override Task<MyTelegram.Schema.IConfig> HandleCoreAsync(IRequestInput input,
+    private readonly IDataCenterHelper _dataCenterHelper;
+
+    private readonly MyTelegramMessengerServerOptions _options;
+    private readonly ILayeredService<IConfigConverter> _layeredService;
+
+    public GetConfigHandler(IOptions<MyTelegramMessengerServerOptions> optionsAccessor,
+        IDataCenterHelper dataCenterHelper,
+        ILayeredService<IConfigConverter> layeredService)
+    {
+        _options = optionsAccessor.Value;
+        _dataCenterHelper = dataCenterHelper;
+        _layeredService = layeredService;
+    }
+
+    protected override Task<IConfig> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Help.RequestGetConfig obj)
     {
-        throw new NotImplementedException();
+        //todo: desktop and app returns different config
+        var r = _layeredService.GetConverter(input.Layer)
+            .ToConfig(_options.DcOptions, _options.ThisDcId, _dataCenterHelper.GetMediaDcId());
+        return Task.FromResult(r);
     }
 }

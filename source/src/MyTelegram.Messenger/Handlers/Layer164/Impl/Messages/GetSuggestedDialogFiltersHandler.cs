@@ -12,6 +12,8 @@ internal sealed class GetSuggestedDialogFiltersHandler : RpcResultObjectHandler<
     protected override Task<TVector<MyTelegram.Schema.IDialogFilterSuggested>> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetSuggestedDialogFilters obj)
     {
-        throw new NotImplementedException();
+        var r = new TVector<IDialogFilterSuggested>();
+
+        return Task.FromResult(r);
     }
 }

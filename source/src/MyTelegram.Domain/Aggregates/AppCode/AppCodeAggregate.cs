@@ -10,12 +10,12 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         Register(_state);
     }
 
-    public void CancelCode(long reqMsgId,
+    public void CancelCode(RequestInfo requestInfo,
         string phoneNumber,
         string phoneCodeHash)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new AppCodeCanceledEvent(reqMsgId, phoneNumber, phoneCodeHash));
+        Emit(new AppCodeCanceledEvent(requestInfo, phoneNumber, phoneCodeHash));
     }
 
     private bool CheckCode(string code)
@@ -35,6 +35,7 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
         var now = DateTime.UtcNow.ToTimestamp();
         if (now > _state.Expire || _state.Canceled)
         {
+            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.PhoneCodeExpired);
             RpcErrors.RpcErrors400.PhoneCodeExpired.ThrowRpcError();
         }
 
@@ -45,28 +46,27 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
     public void CheckSignInCode(RequestInfo requestInfo,
         //string phoneCodeHash,
         string code,
-        long userId,
-        Guid correlationId)
+        long userId)
     {
         var isCodeValid = CheckCode(code);
 
         Emit(new CheckSignInCodeCompletedEvent(requestInfo,
             isCodeValid,
-            userId,
-            correlationId));
+            userId));
     }
 
     public void CheckSignUpCode(RequestInfo requestInfo,
         long userId,
         string phoneCodeHash,
+        //string code,
         long accessHash,
         string phoneNumber,
         string firstName,
-        string? lastName,
-        Guid correlationId)
+        string? lastName)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         //var isCodeValid = CheckCode(code);
+        // Sign up only check phoneCodeHash,AppCodeAggregate.AggregateIsCreated means phoneCodeHash is right,because AppCodeAggregate is created with the phoneCodeHash
 
         Emit(new CheckSignUpCodeCompletedEvent(requestInfo,
             true,
@@ -74,8 +74,8 @@ public class AppCodeAggregate : AggregateRoot<AppCodeAggregate, AppCodeId>
             accessHash,
             phoneNumber,
             firstName,
-            lastName,
-            correlationId));
+            lastName
+            ));
     }
 
     public void Create(RequestInfo requestInfo,

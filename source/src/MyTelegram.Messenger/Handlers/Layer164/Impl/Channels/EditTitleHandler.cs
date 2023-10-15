@@ -17,9 +17,35 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class EditTitleHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditTitle, MyTelegram.Schema.IUpdates>,
     Channels.IEditTitleHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestEditTitle obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public EditTitleHandler(ICommandBus commandBus,
+        IRandomHelper randomHelper,
+        IAccessHashHelper accessHashHelper)
     {
+        _commandBus = commandBus;
+        _randomHelper = randomHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestEditTitle obj)
+    {
+        if (obj.Channel is TInputChannel inputChannel)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
+
+            var command = new EditChannelTitleCommand(ChannelId.Create(inputChannel.ChannelId),
+                input.ToRequestInfo(),
+                obj.Title,
+                new TMessageActionChatEditTitle { Title = obj.Title }.ToBytes().ToHexString(),
+                _randomHelper.NextLong()
+            );
+            await _commandBus.PublishAsync(command, CancellationToken.None);
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

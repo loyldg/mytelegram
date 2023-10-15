@@ -14,9 +14,9 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class ReadMessageContentsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestReadMessageContents, IBool>,
     Channels.IReadMessageContentsHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestReadMessageContents obj)
     {
-        throw new NotImplementedException();
+        return new TBoolTrue();
     }
 }

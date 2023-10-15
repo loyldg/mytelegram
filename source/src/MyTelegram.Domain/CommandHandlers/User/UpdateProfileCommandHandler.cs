@@ -6,7 +6,7 @@ public class UpdateProfileCommandHandler : CommandHandler<UserAggregate, UserId,
         UpdateProfileCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.UpdateProfile(command.ReqMsgId, command.FirstName, command.LastName, command.About);
+        aggregate.UpdateProfile(command.RequestInfo, command.FirstName, command.LastName, command.About);
         return Task.CompletedTask;
     }
 }

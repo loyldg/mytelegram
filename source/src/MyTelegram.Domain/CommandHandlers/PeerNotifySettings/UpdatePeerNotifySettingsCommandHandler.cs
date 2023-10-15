@@ -9,7 +9,7 @@ public class UpdatePeerNotifySettingsCommandHandler : CommandHandler<PeerNotifyS
         UpdatePeerNotifySettingsCommand command,
         CancellationToken cancellationToken)
     {
-        aggregate.UpdatePeerNotifySettings(command.ReqMsgId,
+        aggregate.UpdatePeerNotifySettings(command.RequestInfo,
             command.OwnerPeerId,
             command.PeerType,
             command.PeerId,

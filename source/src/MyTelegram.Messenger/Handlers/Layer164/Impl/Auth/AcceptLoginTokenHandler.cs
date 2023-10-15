@@ -13,11 +13,24 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.acceptLoginToken" />
 ///</summary>
 internal sealed class AcceptLoginTokenHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestAcceptLoginToken, MyTelegram.Schema.IAuthorization>,
-    Auth.IAcceptLoginTokenHandler
+    Auth.IAcceptLoginTokenHandler, IProcessedHandler
 {
-    protected override Task<MyTelegram.Schema.IAuthorization> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Auth.RequestAcceptLoginToken obj)
+    private readonly ICommandBus _commandBus;
+
+    public AcceptLoginTokenHandler(ICommandBus commandBus)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+    }
+
+    protected override async Task<MyTelegram.Schema.IAuthorization> HandleCoreAsync(IRequestInput input,
+        RequestAcceptLoginToken obj)
+    {
+        var command = new AcceptLoginTokenCommand(QrCodeId.Create(BitConverter.ToString(obj.Token)),
+            input.ToRequestInfo(),
+            input.UserId,
+            obj.Token);
+        await _commandBus.PublishAsync(command, default);
+
+        return null!;
     }
 }

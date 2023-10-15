@@ -13,6 +13,26 @@ internal sealed class GetAppChangelogHandler : RpcResultObjectHandler<MyTelegram
     protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Help.RequestGetAppChangelog obj)
     {
-        throw new NotImplementedException();
+        var updates = new TUpdates
+        {
+            Users = new(),
+            Chats = new(),
+            Seq = 0,
+            Date = CurrentDate,
+            Updates = new()
+            {
+                new TUpdateServiceNotification
+                {
+                    Popup = true,
+                    InboxDate = CurrentDate,
+                    Type="",
+                    Message="Updated to the latest version",
+                    Media = new TMessageMediaEmpty(),
+                    Entities=new(),
+                }
+            }
+        };
+
+        return Task.FromResult<IUpdates>(updates);
     }
 }

@@ -28,4 +28,14 @@ public class ClientManager : IClientManager
         clientData = default;
         return false;
     }
+
+    public bool TryRemoveClient(string connectionId, [NotNullWhen(true)] out ClientData? clientData)
+    {
+        return _clients.TryRemove(connectionId, out clientData);
+    }
+
+    public int GetOnlineCount()
+    {
+        return _clients.Count;
+    }
 }

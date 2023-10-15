@@ -11,6 +11,7 @@ public static class MyEventFlowExtensions
         services.AddTransient<IAggregateFactory, MyAggregateFactory>();
         services.AddTransient<IJsonSerializer, SystemTextJsonSerializer>();
         services.AddSingleton<IInMemoryEventPersistence, MyInMemoryEventPersistence>();
+        services.AddSingleton<INullEventPersistence, NullEventPersistence>();
 
         services.AddTransient<IEventStore, MyEventStoreBase>();
 

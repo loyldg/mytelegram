@@ -1,9 +1,9 @@
 ﻿namespace MyTelegram.Domain.Commands.Device;
 
-public class CreateDeviceCommand : RequestCommand<DeviceAggregate, DeviceId, IExecutionResult>
+public class CreateDeviceCommand : RequestCommand2<DeviceAggregate, DeviceId, IExecutionResult>
 {
     public CreateDeviceCommand(DeviceId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long permAuthKeyId,
         long tempAuthKeyId,
         long userId,
@@ -21,7 +21,7 @@ public class CreateDeviceCommand : RequestCommand<DeviceAggregate, DeviceId, IEx
         string langCode,
         string ip,
         int layer
-    ) : base(aggregateId, reqMsgId)
+    ) : base(aggregateId, requestInfo)
     {
         PermAuthKeyId = permAuthKeyId;
         TempAuthKeyId = tempAuthKeyId;

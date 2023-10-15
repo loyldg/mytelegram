@@ -17,7 +17,7 @@ namespace MyTelegram.Handlers.Account;
 ///     See <a href="https://corefork.telegram.org/method/account.checkUsername" />
 /// </summary>
 internal sealed class CheckUsernameHandler : RpcResultObjectHandler<RequestCheckUsername, IBool>,
-    Account.ICheckUsernameHandler
+    Account.ICheckUsernameHandler, IProcessedHandler
 {
     private readonly ICuckooFilter _cuckooFilter;
 

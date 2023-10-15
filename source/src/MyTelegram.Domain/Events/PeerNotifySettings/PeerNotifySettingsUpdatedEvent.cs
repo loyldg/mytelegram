@@ -1,12 +1,12 @@
 ﻿namespace MyTelegram.Domain.Events.PeerNotifySettings;
 
-public class PeerNotifySettingsUpdatedEvent : RequestAggregateEvent<PeerNotifySettingsAggregate, PeerNotifySettingsId>
+public class PeerNotifySettingsUpdatedEvent : RequestAggregateEvent2<PeerNotifySettingsAggregate, PeerNotifySettingsId>
 {
-    public PeerNotifySettingsUpdatedEvent(long reqMsgId,
+    public PeerNotifySettingsUpdatedEvent(RequestInfo requestInfo,
         long ownerPeerId,
         PeerType peerType,
         long peerId,
-        ValueObjects.PeerNotifySettings peerNotifySettings) : base(reqMsgId)
+        ValueObjects.PeerNotifySettings peerNotifySettings) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         PeerType = peerType;

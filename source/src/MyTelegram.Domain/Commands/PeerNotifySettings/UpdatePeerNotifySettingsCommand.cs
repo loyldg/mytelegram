@@ -1,18 +1,18 @@
 ﻿namespace MyTelegram.Domain.Commands.PeerNotifySettings;
 
 public class
-    UpdatePeerNotifySettingsCommand : RequestCommand<PeerNotifySettingsAggregate, PeerNotifySettingsId,
+    UpdatePeerNotifySettingsCommand : RequestCommand2<PeerNotifySettingsAggregate, PeerNotifySettingsId,
         IExecutionResult>
 {
     public UpdatePeerNotifySettingsCommand(PeerNotifySettingsId aggregateId,
-        long reqMsgId,
+        RequestInfo requestInfo,
         long ownerPeerId,
         PeerType peerType,
         long peerId,
         bool? showPreviews,
         bool? silent,
         int? muteUntil,
-        string? sound) : base(aggregateId, reqMsgId)
+        string? sound) : base(aggregateId, requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         PeerType = peerType;

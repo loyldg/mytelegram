@@ -15,9 +15,35 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class ToggleDialogPinHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestToggleDialogPin, IBool>,
     Messages.IToggleDialogPinHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestToggleDialogPin obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public ToggleDialogPinHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
+        RequestToggleDialogPin obj)
+    {
+        switch (obj.Peer)
+        {
+            case TInputDialogPeer inputDialogPeer:
+                await _accessHashHelper.CheckAccessHashAsync(inputDialogPeer.Peer);
+                var peer = _peerHelper.GetPeer(inputDialogPeer.Peer, input.UserId);
+                //var ownerUid = peer.PeerType == PeerType.Channel ? peer.PeerId : input.UserId;
+                var command =
+                    new ToggleDialogPinnedCommand(DialogId.Create(input.UserId, peer), input.ToRequestInfo(), obj.Pinned);
+                await _commandBus.PublishAsync(command, CancellationToken.None);
+                return null!;
+            case TInputDialogPeerFolder:
+                return new TBoolTrue();
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }

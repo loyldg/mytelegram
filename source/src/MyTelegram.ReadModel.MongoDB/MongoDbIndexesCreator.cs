@@ -1,58 +1,60 @@
-﻿namespace MyTelegram.ReadModel.MongoDB;
+﻿using MyTelegram.EventFlow.MongoDB;
 
-public interface IMongoDbIndexesCreator
-{
-    Task CreateAllIndexesAsync();
-}
+namespace MyTelegram.ReadModel.MongoDB;
 
-public abstract class MongoDbIndexesCreatorBase : IMongoDbIndexesCreator
-{
-    private readonly IMongoDatabase _database;
-    private readonly IReadModelDescriptionProvider _descriptionProvider;
-    private readonly IMongoDbEventPersistenceInitializer _eventPersistenceInitializer;
+//public interface IMongoDbIndexesCreator
+//{
+//    Task CreateAllIndexesAsync();
+//}
 
-    protected MongoDbIndexesCreatorBase(IMongoDatabase database,
-        IReadModelDescriptionProvider descriptionProvider,
-        IMongoDbEventPersistenceInitializer eventPersistenceInitializer)
-    {
-        _database = database;
-        _descriptionProvider = descriptionProvider;
-        _eventPersistenceInitializer = eventPersistenceInitializer;
-    }
+//public abstract class MongoDbIndexesCreatorBase : IMongoDbIndexesCreator
+//{
+//    private readonly IMongoDatabase _database;
+//    private readonly IReadModelDescriptionProvider _descriptionProvider;
+//    private readonly IMongoDbEventPersistenceInitializer _eventPersistenceInitializer;
 
-    public async Task CreateAllIndexesAsync()
-    {
-        _eventPersistenceInitializer.Initialize();
-        var snapShotCollectionName = "snapShots";
-        await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateId, snapShotCollectionName)
-            ;
-        await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateName, snapShotCollectionName)
-            ;
-        await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateSequenceNumber, snapShotCollectionName)
-            ;
+//    protected MongoDbIndexesCreatorBase(IMongoDatabase database,
+//        IReadModelDescriptionProvider descriptionProvider,
+//        IMongoDbEventPersistenceInitializer eventPersistenceInitializer)
+//    {
+//        _database = database;
+//        _descriptionProvider = descriptionProvider;
+//        _eventPersistenceInitializer = eventPersistenceInitializer;
+//    }
 
-        await CreateAllIndexesCoreAsync();
-    }
+//    public async Task CreateAllIndexesAsync()
+//    {
+//        _eventPersistenceInitializer.Initialize();
+//        var snapShotCollectionName = "snapShots";
+//        await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateId, snapShotCollectionName)
+//            ;
+//        await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateName, snapShotCollectionName)
+//            ;
+//        await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateSequenceNumber, snapShotCollectionName)
+//            ;
 
-    protected abstract Task CreateAllIndexesCoreAsync();
+//        await CreateAllIndexesCoreAsync();
+//    }
 
-    protected async Task CreateIndexAsync<TReadModel>(Expression<Func<TReadModel, object>> field)
-        where TReadModel : IMongoDbReadModel
-    {
-        var indexDefine = Builders<TReadModel>.IndexKeys.Ascending(field);
-        var collectionName = _descriptionProvider.GetReadModelDescription<TReadModel>().RootCollectionName;
-        await _database.GetCollection<TReadModel>(collectionName.Value).Indexes
-            .CreateOneAsync(new CreateIndexModel<TReadModel>(indexDefine));
-    }
+//    protected abstract Task CreateAllIndexesCoreAsync();
 
-    protected async Task CreateIndexAsync<TSnapshot>(Expression<Func<TSnapshot, object>> field,
-        string collectionName)
-    {
-        var indexDefine = Builders<TSnapshot>.IndexKeys.Ascending(field);
-        await _database.GetCollection<TSnapshot>(collectionName).Indexes
-            .CreateOneAsync(new CreateIndexModel<TSnapshot>(indexDefine));
-    }
-}
+//    protected async Task CreateIndexAsync<TReadModel>(Expression<Func<TReadModel, object>> field)
+//        where TReadModel : IMongoDbReadModel
+//    {
+//        var indexDefine = Builders<TReadModel>.IndexKeys.Ascending(field);
+//        var collectionName = _descriptionProvider.GetReadModelDescription<TReadModel>().RootCollectionName;
+//        await _database.GetCollection<TReadModel>(collectionName.Value).Indexes
+//            .CreateOneAsync(new CreateIndexModel<TReadModel>(indexDefine));
+//    }
+
+//    protected async Task CreateIndexAsync<TSnapshot>(Expression<Func<TSnapshot, object>> field,
+//        string collectionName)
+//    {
+//        var indexDefine = Builders<TSnapshot>.IndexKeys.Ascending(field);
+//        await _database.GetCollection<TSnapshot>(collectionName).Indexes
+//            .CreateOneAsync(new CreateIndexModel<TSnapshot>(indexDefine));
+//    }
+//}
 
 public class MongoDbIndexesCreator : MongoDbIndexesCreatorBase
 {

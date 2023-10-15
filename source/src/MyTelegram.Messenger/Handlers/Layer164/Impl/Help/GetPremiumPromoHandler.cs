@@ -9,9 +9,17 @@ namespace MyTelegram.Handlers.Help;
 internal sealed class GetPremiumPromoHandler : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetPremiumPromo, MyTelegram.Schema.Help.IPremiumPromo>,
     Help.IGetPremiumPromoHandler
 {
+    private readonly ILayeredService<IPremiumPromoConverter> _layeredPremiumPromoService;
+
+    public GetPremiumPromoHandler(ILayeredService<IPremiumPromoConverter> layeredPremiumPromoService)
+    {
+        _layeredPremiumPromoService = layeredPremiumPromoService;
+    }
+
     protected override Task<MyTelegram.Schema.Help.IPremiumPromo> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Help.RequestGetPremiumPromo obj)
     {
-        throw new NotImplementedException();
+        var r = _layeredPremiumPromoService.GetConverter(input.Layer).ToPremiumPromo();
+        return Task.FromResult(r);
     }
 }

@@ -29,9 +29,17 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class UploadMediaHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestUploadMedia, MyTelegram.Schema.IMessageMedia>,
     Messages.IUploadMediaHandler
 {
-    protected override Task<MyTelegram.Schema.IMessageMedia> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestUploadMedia obj)
+    private readonly IMediaHelper _mediaHelper;
+
+    public UploadMediaHandler(IMediaHelper mediaHelper)
     {
-        throw new NotImplementedException();
+        _mediaHelper = mediaHelper;
+    }
+
+    protected override async Task<IMessageMedia> HandleCoreAsync(IRequestInput input,
+        RequestUploadMedia obj)
+    {
+        var media = await _mediaHelper.SaveMediaAsync(obj.Media);
+        return media;
     }
 }

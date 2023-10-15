@@ -56,9 +56,114 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class SendMessageHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendMessage, MyTelegram.Schema.IUpdates>,
     Messages.ISendMessageHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+    private readonly IMessageAppService _messageAppService;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IOptions<MyTelegramMessengerServerOptions> _options;
+    private readonly IQueryProcessor _queryProcessor;
+    public SendMessageHandler(IMessageAppService messageAppService,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper, IOptions<MyTelegramMessengerServerOptions> options, IQueryProcessor queryProcessor)
+    {
+        _messageAppService = messageAppService;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+        _options = options;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestSendMessage obj)
     {
-        throw new NotImplementedException();
+        var media = await ProcessUrlsInMessageAsync(obj);
+        if (obj.Message.StartsWith("/"))
+        {
+            if (obj.Entities == null)
+            {
+                obj.Entities = new TVector<IMessageEntity>();
+            }
+            obj.Entities.Add(new TMessageEntityBotCommand
+            {
+                Length = obj.Message.Length,
+                Offset = 0
+            });
+        }
+
+        int? replyToMsgId = null;
+        int? topMsgId = null;
+        if (obj.ReplyTo is TInputReplyToMessage replyToMessage)
+        {
+            replyToMsgId = replyToMessage.ReplyToMsgId;
+            topMsgId = replyToMessage.TopMsgId;
+        }
+
+        //await Task.Delay(TimeSpan.FromMilliseconds(1200));
+        var sendMessageInput = new SendMessageInput(input.ToRequestInfo(),
+            input.UserId,
+            _peerHelper.GetPeer(obj.Peer, input.UserId),
+            obj.Message,
+            obj.RandomId,
+            obj.Entities,
+            replyToMsgId,
+            obj.ClearDraft,
+            media: media.ToBytes(),
+            topMsgId: topMsgId
+        );
+
+        await _messageAppService.SendMessageAsync(sendMessageInput);
+
+        return null!;
+    }
+
+    private async Task<TMessageMediaWebPage?> ProcessUrlsInMessageAsync(MyTelegram.Schema.Messages.RequestSendMessage obj)
+    {
+        var pattern = @"(?:^|\s)(https?://[^\s]+)(?=\s|$)";
+        var pattern2 = @$"{_options.Value.JoinChatDomain}/\+([\S]{{16}})";
+        var matches = Regex.Matches(obj.Message, pattern);
+        var isInviteUrlAdded = false;
+        TMessageMediaWebPage? media = null;
+        foreach (Match match in matches)
+        {
+            if (obj.Entities == null)
+            {
+                obj.Entities = new();
+            }
+
+            var url = match.Groups[1].Value;
+            var m2 = Regex.Match(url, pattern2);
+            if (m2.Success && !isInviteUrlAdded)
+            {
+                var link = m2.Groups[1].Value;
+                var chatInvite = await _queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(link), default);
+                if (chatInvite != null)
+                {
+                    var channelReadModel =
+                        await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(chatInvite.PeerId), default);
+                    media = new TMessageMediaWebPage
+                    {
+                        Webpage = new TWebPage
+                        {
+                            Id = Random.Shared.NextInt64(),
+                            Url = $"{_options.Value.JoinChatDomain}/+{link}",
+                            DisplayUrl = $"{_options.Value.JoinChatDomain}/+{link}",
+                            //Type = "telegram_megagroup",
+                            Type = channelReadModel.Broadcast ? "telegram_channel" : "telegram_megagroup",
+                            SiteName = "MyTelegram",
+                            Title = channelReadModel.Title,
+                            Description = $"Join this group on MyTelegram.",
+                        }
+                    };
+                    isInviteUrlAdded = true;
+                }
+            }
+
+            obj.Entities.Add(new TMessageEntityUrl
+            {
+                Offset = match.Groups[1].Index,
+                Length = match.Groups[1].Value.Length,
+            });
+        }
+
+        return media;
     }
 }

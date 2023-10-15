@@ -7,5 +7,4 @@ global using Microsoft.Extensions.Logging;
 global using System.Collections.Concurrent;
 global using System.Threading.Channels;
 global using System.Diagnostics.CodeAnalysis;
-global using MyTelegram.Core;
 global using MyTelegram.MTProto;

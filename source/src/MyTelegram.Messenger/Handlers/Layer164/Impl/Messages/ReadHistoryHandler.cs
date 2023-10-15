@@ -15,9 +15,40 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class ReadHistoryHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadHistory, MyTelegram.Schema.Messages.IAffectedMessages>,
     Messages.IReadHistoryHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IAffectedMessages> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    private readonly IQueryProcessor _queryProcessor;
+    public ReadHistoryHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor)
+    {
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<IAffectedMessages> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestReadHistory obj)
     {
-        throw new NotImplementedException();
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        var selfDialogId = DialogId.Create(input.UserId, peer);
+
+        var unreadCount =
+            await _queryProcessor.ProcessAsync(new GetUnreadCountQuery(input.UserId, peer.PeerId, obj.MaxId), default);
+
+        var readInboxMessageCommand = new ReadInboxMessageCommand2(selfDialogId,
+            input.ToRequestInfo(),
+            input.UserId,
+            input.UserId,
+            obj.MaxId,
+            unreadCount,
+            peer);
+        // Console.WriteLine("SourceId:{0}",readInboxMessageCommand.GetSourceId().Value);
+        await _commandBus.PublishAsync(readInboxMessageCommand, default);
+
+        return null!;
     }
 }

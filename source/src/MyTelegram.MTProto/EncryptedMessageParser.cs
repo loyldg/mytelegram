@@ -16,8 +16,8 @@ public class EncryptedMessageParser : IEncryptedMessageParser
         return new EncryptedMessage(authKeyId,
             msgKey.ToArray(),
             encryptedData.ToArray(),
-            null,
-            null,
-            Guid.NewGuid());
+            string.Empty,
+            string.Empty,
+            Guid.NewGuid(),DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
     }
 }

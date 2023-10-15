@@ -20,9 +20,37 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class UpdatePinnedMessageHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestUpdatePinnedMessage, MyTelegram.Schema.IUpdates>,
     Messages.IUpdatePinnedMessageHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestUpdatePinnedMessage obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IRandomHelper _randomHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public UpdatePinnedMessageHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IRandomHelper randomHelper,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _randomHelper = randomHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestUpdatePinnedMessage obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        var ownerPeerId = peer.PeerType == PeerType.Channel ? peer.PeerId : input.UserId;
+        var command = new StartUpdatePinnedMessageCommand(MessageId.Create(ownerPeerId, obj.Id),
+            input.ToRequestInfo(),
+            !obj.Unpin,
+            obj.Silent,
+            obj.PmOneside,
+            CurrentDate,
+            _randomHelper.NextLong(),
+            new TMessageActionPinMessage().ToBytes().ToHexString(),
+            Guid.NewGuid());
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+        return null!;
     }
 }

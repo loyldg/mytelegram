@@ -18,9 +18,53 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class CreateChannelHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestCreateChannel, MyTelegram.Schema.IUpdates>,
     Channels.ICreateChannelHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestCreateChannel obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IIdGenerator _idGenerator;
+    private readonly IRandomHelper _randomHelper;
+
+    public CreateChannelHandler(ICommandBus commandBus,
+        IIdGenerator idGenerator,
+        IRandomHelper randomHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _idGenerator = idGenerator;
+        _randomHelper = randomHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestCreateChannel obj)
+    {
+        var channelId = await _idGenerator.NextLongIdAsync(IdType.ChannelId);
+        var accessHash = _randomHelper.NextLong();
+        var date = DateTime.UtcNow.ToTimestamp();
+
+        var megagroup = obj.Megagroup;
+        if (!obj.Broadcast)
+        {
+            megagroup = true;
+        }
+
+        var command = new CreateChannelCommand(ChannelId.Create(channelId),
+            input.ToRequestInfo(),
+            channelId,
+            input.UserId,
+            obj.Title,
+            obj.Broadcast,
+            megagroup,
+            obj.About ?? string.Empty,
+            obj.Address,
+            accessHash,
+            date,
+            _randomHelper.NextLong(),
+            new TMessageActionChannelCreate { Title = obj.Title }.ToBytes().ToHexString(),
+            null,
+            false,
+            null,
+            null,
+            null
+        );
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+
+        return null!;
     }
 }

@@ -20,9 +20,39 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class SendVoteHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendVote, MyTelegram.Schema.IUpdates>,
     Messages.ISendVoteHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSendVote obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public SendVoteHandler(ICommandBus commandBus,
+        IQueryProcessor queryProcessor,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _queryProcessor = queryProcessor;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestSendVote obj)
+    {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+
+        var peer = _peerHelper.GetPeer(obj.Peer);
+        var pollId = await _queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default);
+        if (pollId == null)
+        {
+            RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
+        }
+
+        var command = new VoteCommand(PollId.Create(peer.PeerId, pollId!.Value),
+            input.ToRequestInfo(),
+            input.UserId,
+            obj.Options.Select(p => Encoding.UTF8.GetString(p)).ToList());
+        await _commandBus.PublishAsync(command, default);
+
+        return null!;
     }
 }
