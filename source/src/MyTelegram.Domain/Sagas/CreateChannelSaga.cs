@@ -64,7 +64,7 @@ public class CreateChannelSaga : MyInMemoryAggregateSaga<CreateChannelSaga, Crea
         );
         Publish(exportChatInviteCommand);
 
-        await CompleteAsync(cancellationToken);
+        //await CompleteAsync(cancellationToken);
     }
 
     public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelInviteExportedEvent> domainEvent, ISagaContext sagaContext, CancellationToken cancellationToken)
