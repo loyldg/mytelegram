@@ -16,6 +16,6 @@ internal sealed class GetStickerSetHandler : RpcResultObjectHandler<MyTelegram.S
     protected override Task<MyTelegram.Schema.Messages.IStickerSet> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetStickerSet obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.IStickerSet>(new TStickerSetNotModified());
     }
 }

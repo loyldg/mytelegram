@@ -12,6 +12,10 @@ internal sealed class GetFavedStickersHandler : RpcResultObjectHandler<MyTelegra
     protected override Task<MyTelegram.Schema.Messages.IFavedStickers> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetFavedStickers obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.IFavedStickers>(new TFavedStickers
+        {
+            Packs = new(),
+            Stickers = new(),
+        });
     }
 }

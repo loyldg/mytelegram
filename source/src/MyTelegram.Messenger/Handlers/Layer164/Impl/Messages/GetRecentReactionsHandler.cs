@@ -12,6 +12,9 @@ internal sealed class GetRecentReactionsHandler : RpcResultObjectHandler<MyTeleg
     protected override Task<MyTelegram.Schema.Messages.IReactions> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetRecentReactions obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.IReactions>(new TReactions
+        {
+            Reactions = new(),
+        });
     }
 }

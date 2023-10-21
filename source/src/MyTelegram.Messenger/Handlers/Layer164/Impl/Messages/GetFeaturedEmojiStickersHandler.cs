@@ -12,6 +12,10 @@ internal sealed class GetFeaturedEmojiStickersHandler : RpcResultObjectHandler<M
     protected override Task<MyTelegram.Schema.Messages.IFeaturedStickers> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetFeaturedEmojiStickers obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.IFeaturedStickers>(new TFeaturedStickers
+        {
+            Sets = new(),
+            Unread = new()
+        });
     }
 }

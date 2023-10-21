@@ -12,6 +12,11 @@ internal sealed class GetRecentStickersHandler : RpcResultObjectHandler<MyTelegr
     protected override Task<MyTelegram.Schema.Messages.IRecentStickers> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetRecentStickers obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.IRecentStickers>(new TRecentStickers
+        {
+            Dates = new(),
+            Packs = new(),
+            Stickers = new(),
+        });
     }
 }
