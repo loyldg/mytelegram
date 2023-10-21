@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Messenger.Services.Impl;
 
-public class DialogAppService : BaseAppService, IDialogAppService //, ISingletonDependency
+public class DialogAppService : BaseAppService, IDialogAppService
 {
     private readonly ICommandBus _commandBus;
     private readonly IQueryProcessor _queryProcessor;
@@ -41,7 +41,6 @@ public class DialogAppService : BaseAppService, IDialogAppService //, ISingleton
             offsetDate = dialog?.CreationTime;
         }
 
-        //        Console.WriteLine($"get dialogs:{System.Text.Json.JsonSerializer.Serialize(input)}");
         var query = new GetDialogsQuery(input.OwnerId,
             input.Pinned,
             offsetDate,
@@ -64,7 +63,7 @@ public class DialogAppService : BaseAppService, IDialogAppService //, ISingleton
         var channelList = channelIdList.Count == 0
             ? new List<IChannelReadModel>()
             : await _queryProcessor
-                .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), CancellationToken.None)
+                .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList))
          ;
 
         //
@@ -75,14 +74,7 @@ public class DialogAppService : BaseAppService, IDialogAppService //, ISingleton
             .Select(p => MessageId.Create(input.OwnerId, p.ChannelHistoryMinId).Value).ToList();
         topMessageIdList.RemoveAll(p => minIdList.Contains(p));
         var messageBoxList =
-            await _queryProcessor.ProcessAsync(new GetMessagesByIdListQuery(topMessageIdList),
-                CancellationToken.None);
-
-        // 删除的消息为topMessage时，需要重新读取topMessage，由于在domain层获取topMessage不是很方便，所以在读取的时候，如果发现topMessage不存在时，
-        // 就重新从ReadModel读取一下最新的topMessage
-        if (messageBoxList.Count != topMessageIdList.Count)
-        {
-        }
+            await _queryProcessor.ProcessAsync(new GetMessagesByIdListQuery(topMessageIdList));
 
         var extraChatUserIdList = new List<long>();
         foreach (var box in messageBoxList)
@@ -105,10 +97,7 @@ public class DialogAppService : BaseAppService, IDialogAppService //, ISingleton
         }
 
         var chatIdList = messageBoxList.Where(p => p.ToPeerType == PeerType.Chat).Select(p => p.ToPeerId).ToList();
-
         var userIdList = messageBoxList.Where(p => p.ToPeerType == PeerType.User).Select(p => p.ToPeerId).ToList();
-        //var channelIdList = messageBoxList.Where(p => p.ToPeerType == PeerType.Channel).Select(p => p.ToPeerId)
-        //    .ToList();
 
         if (dialogList.Count > 0 || messageBoxList.Count > 0)
         {

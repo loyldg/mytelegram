@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IPhoto = MyTelegram.Schema.Photos.IPhoto;
+﻿using IPhoto = MyTelegram.Schema.Photos.IPhoto;
 using IUserFull = MyTelegram.Schema.Users.IUserFull;
 using TPeerSettings = MyTelegram.Schema.TPeerSettings;
 using TPhoto = MyTelegram.Schema.Photos.TPhoto;
@@ -280,7 +275,6 @@ public class UserConverterLayer164 : UserConverterBase, IUserConverterLayer164
     )
     {
         user.Status = _userStatusCacheAppService.GetUserStatus(user.Id);
-        //user.Photo = profilePhoto;
         user.Photo = GetPhotoConverter().ToProfilePhoto(profilePhoto);
     }
 
@@ -291,9 +285,6 @@ public class UserConverterLayer164 : UserConverterBase, IUserConverterLayer164
 
     protected virtual ILayeredUser ToUser(UserItem userItem)
     {
-        var tUser = ObjectMapper.Map<UserItem, TUser>(userItem);
-        //SetUserStatusAndPhoto(tUser, userItem.ProfilePhoto);
-
-        return tUser;
+        return  ObjectMapper.Map<UserItem, TUser>(userItem);
     }
 }

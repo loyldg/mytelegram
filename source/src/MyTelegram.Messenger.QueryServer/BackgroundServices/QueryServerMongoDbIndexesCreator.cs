@@ -1,7 +1,6 @@
 ﻿using EventFlow.MongoDB.EventStore;
 using EventFlow.MongoDB.ReadStores;
 using MongoDB.Driver;
-using MyTelegram.ReadModel.MongoDB;
 
 namespace MyTelegram.Messenger.QueryServer.BackgroundServices;
 

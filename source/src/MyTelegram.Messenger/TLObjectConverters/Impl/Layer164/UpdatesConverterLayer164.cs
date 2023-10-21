@@ -397,11 +397,6 @@ public class UpdatesConverterLayer164 : LayeredConverterBase, IUpdatesConverterL
             null,
             null, false);
 
-        //var channel = GetChatConverter().ToChannel(channelReadModel,
-        //    null,
-        //    createUpdatesForSelf ? item.SenderPeer.PeerId : 0,
-        //    false);
-
         return new TUpdates
         {
             Chats = new TVector<IChat>(channel),
@@ -418,8 +413,6 @@ public class UpdatesConverterLayer164 : LayeredConverterBase, IUpdatesConverterL
         int date)
     {
         var update = new TUpdateChannel { ChannelId = channel.Id };
-        //var channel = GetChatConverter().ToChannel(channelReadModel, null, 0, false);
-        //var user = ToUser(senderUserReadModel, 0);
         return new TUpdates
         {
             Chats = new TVector<IChat>(channel),
@@ -431,28 +424,6 @@ public class UpdatesConverterLayer164 : LayeredConverterBase, IUpdatesConverterL
 
     public IUpdates ToReadHistoryUpdates(ReadHistoryCompletedEvent eventData)
     {
-        //var peer = eventData.ReaderToPeerType == PeerType.User
-        //    ? new TPeerUser { UserId = eventData.ReaderUid }
-        //    : new Peer(eventData.ReaderToPeerType, eventData.ReaderToPeerId).ToPeer();
-        //var updateReadHistoryOutbox = new TUpdateReadHistoryOutbox
-        //{
-        //    Pts = eventData.SenderPts,
-        //    MaxId = eventData.SenderMessageId,
-        //    PtsCount = 1,
-        //    Peer = peer
-        //};
-
-        //var updates = new TUpdates
-        //{
-        //    Chats = new TVector<IChat>(),
-        //    Date = DateTime.UtcNow.ToTimestamp(),
-        //    Updates = new TVector<IUpdate>(updateReadHistoryOutbox),
-        //    Users = new TVector<IUser>(),
-        //    Seq = 0
-        //};
-
-        //return updates;
-
         var peer = eventData.ReaderToPeer.PeerType == PeerType.User
             ? new TPeerUser { UserId = eventData.ReaderUid }
             : eventData.ReaderToPeer.ToPeer();

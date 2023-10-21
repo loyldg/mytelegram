@@ -1,5 +1,4 @@
 ﻿using MyTelegram.Messenger.CommandServer.EventHandlers;
-using MyTelegram.Messenger.CommandServer.Services;
 
 namespace MyTelegram.Messenger.CommandServer.Extensions;
 public static class MyTelegramMessengerCommandServerExtensions

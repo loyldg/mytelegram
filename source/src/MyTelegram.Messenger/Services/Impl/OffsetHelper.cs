@@ -1,6 +1,4 @@
-﻿using MyTelegram.Messenger.Services.Interfaces;
-
-namespace MyTelegram.Messenger.Services.Impl;
+﻿namespace MyTelegram.Messenger.Services.Impl;
 
 public class OffsetHelper : IOffsetHelper
 {
@@ -105,7 +103,4 @@ public class OffsetHelper : IOffsetHelper
 
         return LoadType.Forward;
     }
-
-    //private static LoadType GetOffsetLoadType(GetPagedListInput input) =>
-    //    GetOffsetLoadType(input.Limit, input.AddOffset, input.MaxId);
 }

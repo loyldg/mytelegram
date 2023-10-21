@@ -1,10 +1,5 @@
 ﻿namespace MyTelegram.Messenger.Services.Impl;
 
-//public interface IUserAppService
-//{
-
-//}
-
 public class PhotoAppService : IPhotoAppService
 {
     private readonly IQueryProcessor _queryProcessor;

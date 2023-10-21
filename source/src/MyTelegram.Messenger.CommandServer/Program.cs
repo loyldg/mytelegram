@@ -4,13 +4,11 @@ using Microsoft.Extensions.Hosting;
 using MyTelegram;
 using MyTelegram.Caching.Redis;
 using MyTelegram.Messenger;
-//using MyTelegram.Messenger.CommandServer.Abp;
 using MyTelegram.Messenger.CommandServer.BackgroundServices;
 using MyTelegram.Messenger.CommandServer.Extensions;
 using MyTelegram.Messenger.Extensions;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-//using Volo.Abp;
 
 Console.Title = "MyTelegram messenger command server";
 
@@ -56,7 +54,6 @@ builder.ConfigureAppConfiguration(options => { options.AddEnvironmentVariables()
 builder.ConfigureServices((ctx,
     services) =>
 {
-    //services.AddSingleton<Volo.Abp.Modularity.IModuleLoader>(new MyModuleLoader());
     services.Configure<MyTelegramMessengerServerOptions>(ctx.Configuration.GetRequiredSection("App"));
     services.Configure<EventBusRabbitMqOptions>(ctx.Configuration.GetRequiredSection("RabbitMQ:EventBus"));
     services.Configure<RabbitMqOptions>(ctx.Configuration.GetRequiredSection("RabbitMQ:Connections:Default"));
@@ -83,7 +80,6 @@ builder.ConfigureServices((ctx,
         options.Configuration = ctx.Configuration.GetValue<string>("Redis:Configuration");
     });
     services.AddMyTelegramMessengerCommandServer();
-    //services.AddHostedService<CheckRabbitMqStatusBackgroundService>();
 
     services.AddHostedService<MyTelegramMessengerServerInitBackgroundService>();
     services.AddHostedService<DataProcessorBackgroundService>();
@@ -94,18 +90,10 @@ builder.ConfigureServices((ctx,
     {
         options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
     });
-
-    //services.AddApplication<MyTelegram.Messenger.CommandServer.Abp.MyTelegramMessengerQueryServerModule>(options =>
-    //{
-    //    options.Services.ReplaceConfiguration(services.GetConfiguration());
-    //    //options.Services.AddLogging(logging => logging.AddSerilog());
-    //});
 });
 
 
 var app = builder.Build();
-//await app.Services.GetRequiredService<Volo.Abp.IAbpApplicationWithExternalServiceProvider>().InitializeAsync(app.Services);
-//await app.RunAsync();
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.ConfigureEventBus();

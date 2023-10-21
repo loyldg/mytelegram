@@ -6,25 +6,24 @@ public class MtpConnectionHandler : ConnectionHandler
     private readonly ILogger<MtpConnectionHandler> _logger;
     private readonly IMtpMessageDispatcher _messageDispatcher;
     private readonly IMtpMessageParser _messageParser;
-    private readonly IEventBus _eventBus;
     private readonly IMessageQueueProcessor<ClientDisconnectedEvent> _messageQueueProcessor;
 
     public MtpConnectionHandler(IClientManager clientManager,
         IMtpMessageParser messageParser,
         IMtpMessageDispatcher messageDispatcher,
-        ILogger<MtpConnectionHandler> logger, IEventBus eventBus, IMessageQueueProcessor<ClientDisconnectedEvent> messageQueueProcessor)
+        ILogger<MtpConnectionHandler> logger, IMessageQueueProcessor<ClientDisconnectedEvent> messageQueueProcessor)
     {
         _clientManager = clientManager;
         _messageParser = messageParser;
         _messageDispatcher = messageDispatcher;
         _logger = logger;
-        _eventBus = eventBus;
         _messageQueueProcessor = messageQueueProcessor;
     }
 
     public override async Task OnConnectedAsync(ConnectionContext connection)
     {
-        _logger.LogInformation("[ConnectionId={ConnectionId}] New client connected,RemoteEndPoint:{RemoteEndPoint},online count:{OnlineCount}",
+        _logger.LogInformation(
+            "[ConnectionId={ConnectionId}] New client connected,RemoteEndPoint:{RemoteEndPoint},online count:{OnlineCount}",
             connection.ConnectionId,
             connection.RemoteEndPoint, _clientManager.GetOnlineCount());
         _clientManager.AddClient(connection.ConnectionId,
@@ -39,9 +38,11 @@ public class MtpConnectionHandler : ConnectionHandler
             if (_clientManager.TryRemoveClient(connection.ConnectionId, out var clientData))
             {
                 //_eventBus.PublishAsync(new ClientDisconnectedEvent(connection.ConnectionId, clientData.AuthKeyId, 0));
-                _messageQueueProcessor.Enqueue(new ClientDisconnectedEvent(clientData.ConnectionId, clientData.AuthKeyId, 0), clientData.AuthKeyId);
-
+                _messageQueueProcessor.Enqueue(
+                    new ClientDisconnectedEvent(clientData.ConnectionId, clientData.AuthKeyId, 0),
+                    clientData.AuthKeyId);
             }
+
             _logger.LogInformation("[ConnectionId={ConnectionId}] Client disconnected,RemoteEndPoint:{RemoteEndPoint}",
                 connection.ConnectionId,
                 connection.RemoteEndPoint);
@@ -57,16 +58,11 @@ public class MtpConnectionHandler : ConnectionHandler
             }
 
             var buffer = result.Buffer;
-            //_logger.LogInformation("[ConnectionId={ConnectionId}] Receive data:{Length}", connection.ConnectionId, buffer.Length);
-            //while (TryReadData(connection.ConnectionId, ref buffer, out var data, out var clientData/*, out consumed*/))
-            //{
-            //    await ProcessDataAsync(data, clientData);
-            //}
+            
             if (!_clientManager.TryGetClientData(connection.ConnectionId, out var clientData))
             {
                 _logger.LogWarning("Can not find client data,connectionId={ConnectionId}", connection.ConnectionId);
                 break;
-                //throw new InvalidOperationException($"Can not find client data,connectionId={connection.ConnectionId}");
             }
 
             if (!clientData.IsFirstPacketParsed)
@@ -93,7 +89,8 @@ public class MtpConnectionHandler : ConnectionHandler
         if (clientData.IsFirstPacketParsed)
         {
             mtpMessage.ConnectionId = clientData.ConnectionId;
-            mtpMessage.ClientIp = (clientData.ConnectionContext!.RemoteEndPoint as IPEndPoint)?.Address.ToString() ?? string.Empty;
+            mtpMessage.ClientIp = (clientData.ConnectionContext!.RemoteEndPoint as IPEndPoint)?.Address.ToString() ??
+                                  string.Empty;
             return _messageDispatcher.DispatchAsync(mtpMessage);
         }
 

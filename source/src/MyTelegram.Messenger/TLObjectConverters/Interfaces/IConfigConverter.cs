@@ -1,6 +1,4 @@
-﻿using MyTelegram.MessengerServer;
-
-namespace MyTelegram.Messenger.TLObjectConverters.Interfaces;
+﻿namespace MyTelegram.Messenger.TLObjectConverters.Interfaces;
 
 public interface IConfigConverter : ILayeredConverter
 {

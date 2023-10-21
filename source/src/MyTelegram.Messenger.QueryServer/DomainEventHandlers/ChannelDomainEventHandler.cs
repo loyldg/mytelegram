@@ -80,27 +80,13 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         IDomainEvent<ChannelAggregate, ChannelId, ChannelDefaultBannedRightsEditedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo,
-                domainEvent.AggregateEvent.ChannelId)
-     ;
-        //var updates = new TUpdateShort
-        //{
-        //    Date = DateTime.UtcNow.ToTimestamp(),
-        //    Update = new TUpdateChannel
-        //    {
-        //        ChannelId = domainEvent.AggregateEvent.ChannelId
-        //    }
-        //};
-        //// todo:这里应该返回TUpdates给发送者,只包含频道信息即可
-        //await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.ReqMsgId, () => updates);
-        //await SendMessageToPeerAsync(new Peer(PeerType.Channel, domainEvent.AggregateEvent.ChannelId), updates);
+        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo, domainEvent.AggregateEvent.ChannelId);
     }
 
     public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelTitleEditedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo with { ReqMsgId = 0 }, domainEvent.AggregateEvent.ChannelId)
-     ;
+        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo with { ReqMsgId = 0 }, domainEvent.AggregateEvent.ChannelId);
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent> domainEvent,
@@ -122,9 +108,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         IDomainEvent<ChannelAggregate, ChannelId, PreHistoryHiddenChangedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo,
-                domainEvent.AggregateEvent.ChannelId)
-     ;
+        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo, domainEvent.AggregateEvent.ChannelId);
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, SetDiscussionGroupEvent> domainEvent,
@@ -137,16 +121,9 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
     public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, SlowModeChangedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo,
-                domainEvent.AggregateEvent.ChannelId)
-     ;
+        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo, domainEvent.AggregateEvent.ChannelId);
     }
 
-    //public Task HandleAsync(IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
-    //    CancellationToken cancellationToken)
-    //{
-    //    throw new NotImplementedException();
-    //}
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,
         CancellationToken cancellationToken)
     {
@@ -167,10 +144,8 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        // 这里直接从ReadModel获取频道信息
         var channelReadModel = await _queryProcessor
-            .ProcessAsync(new GetChannelByIdQuery(domainEvent.AggregateEvent.ChannelId), default)
-     ;
+            .ProcessAsync(new GetChannelByIdQuery(domainEvent.AggregateEvent.ChannelId));
         var photoReadModel = await _photoAppService.GetPhotoAsync(channelReadModel.PhotoId);
 
         var updates = new TUpdates
@@ -204,7 +179,6 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
     public async Task HandleAsync(IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        // only process broadcast channel
         if (domainEvent.AggregateEvent.Broadcast)
         {
             var updates = new TUpdateShort

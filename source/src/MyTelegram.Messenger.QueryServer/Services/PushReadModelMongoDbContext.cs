@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace MyTelegram.Messenger.QueryServer.Extensions;
+namespace MyTelegram.Messenger.QueryServer.Services;
 
 public class PushReadModelMongoDbContext : DefaultReadModelMongoDbContext
 {

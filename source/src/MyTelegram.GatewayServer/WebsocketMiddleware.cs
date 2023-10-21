@@ -5,19 +5,17 @@ public class WebsocketMiddleware : IMiddleware
     private readonly IClientManager _clientManager;
     private readonly IMtpMessageDispatcher _messageDispatcher;
     private readonly IMtpMessageParser _messageParser;
-    private readonly IEventBus _eventBus;
     private readonly IMessageQueueProcessor<ClientDisconnectedEvent> _messageQueueProcessor;
     private readonly string _subProtocol = "binary";
     private bool _isWebSocketConnected;
 
     public WebsocketMiddleware(IMtpMessageParser messageParser,
         IMtpMessageDispatcher messageDispatcher,
-        IClientManager clientManager, IEventBus eventBus, IMessageQueueProcessor<ClientDisconnectedEvent> messageQueueProcessor)
+        IClientManager clientManager, IMessageQueueProcessor<ClientDisconnectedEvent> messageQueueProcessor)
     {
         _messageParser = messageParser;
         _messageDispatcher = messageDispatcher;
         _clientManager = clientManager;
-        _eventBus = eventBus;
         _messageQueueProcessor = messageQueueProcessor;
     }
 
@@ -69,7 +67,6 @@ public class WebsocketMiddleware : IMiddleware
         var readTask = ReadPipeAsync(pipe.Reader, clientData);
         await Task.WhenAll(writeTask, readTask);
         _clientManager.RemoveClient(clientData.ConnectionId);
-        //await _eventBus.PublishAsync(new ClientDisconnectedEvent(clientData.ConnectionId, clientData.AuthKeyId, 0));
         _messageQueueProcessor.Enqueue(new ClientDisconnectedEvent(clientData.ConnectionId, clientData.AuthKeyId, 0), clientData.AuthKeyId);
     }
 

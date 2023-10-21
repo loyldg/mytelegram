@@ -1,8 +1,6 @@
 ﻿using EventFlow.Exceptions;
 using MyTelegram.Domain.Aggregates.Device;
 using MyTelegram.Domain.Commands.Device;
-using MyTelegram.Domain.Commands.User;
-using MyTelegram.Schema.Extensions;
 
 namespace MyTelegram.Messenger.CommandServer.EventHandlers;
 
@@ -16,24 +14,16 @@ public class MessengerEventHandler :
     private readonly ILogger<MessengerEventHandler> _logger;
     private readonly IObjectMessageSender _objectMessageSender;
     private readonly IMessageQueueProcessor<MessengerCommandDataReceivedEvent> _processor;
-    private readonly IQueryProcessor _queryProcessor;
-    private readonly IRandomHelper _randomHelper;
-
-    private static long _count = 0;
 
     public MessengerEventHandler(ICommandBus commandBus,
         IMessageQueueProcessor<MessengerCommandDataReceivedEvent> processor,
         IObjectMessageSender objectMessageSender,
-        ILogger<MessengerEventHandler> logger,
-        IQueryProcessor queryProcessor,
-        IRandomHelper randomHelper)
+        ILogger<MessengerEventHandler> logger)
     {
         _commandBus = commandBus;
         _processor = processor;
         _objectMessageSender = objectMessageSender;
         _logger = logger;
-        _queryProcessor = queryProcessor;
-        _randomHelper = randomHelper;
     }
 
     public Task HandleEventAsync(AuthKeyUnRegisteredIntegrationEvent eventData)

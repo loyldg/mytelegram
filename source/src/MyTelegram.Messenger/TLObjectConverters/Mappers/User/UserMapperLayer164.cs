@@ -52,7 +52,7 @@ public class UserMapperLayer164 : ILayeredMapper,
     public TUser Map(SignInSuccessEvent source, TUser destination)
     {
         destination.Id = source.UserId;
-        //destination.AccessHash = source.AccessHash;
+        destination.AccessHash = source.AccessHash;
         destination.Photo = new TUserProfilePhotoEmpty();
         destination.Phone = source.PhoneNumber;
         destination.FirstName = source.FirstName;

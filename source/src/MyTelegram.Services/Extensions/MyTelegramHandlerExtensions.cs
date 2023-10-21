@@ -13,7 +13,6 @@ namespace MyTelegram.Services.Extensions
             services.AddTransient<IGZipHelper, GZipHelper>();
             services.AddSingleton<IMessageIdGenerator, MessageIdGenerator>();
             services.AddSingleton<IScheduleAppService, ScheduleAppService>();
-            //services.AddTransient<IObjectMessageSender, ObjectMessageSender>();
             services.AddSingleton<IObjectMessageSender, QueuedObjectMessageSender>();
 
             services.AddTransient<IExceptionProcessor, ExceptionProcessor>();
@@ -23,14 +22,11 @@ namespace MyTelegram.Services.Extensions
 
             services.AddSingleton(typeof(IInMemoryRepository<,>), typeof(InMemoryRepository<,>));
             services.AddTransient(typeof(IDataProcessor<>), typeof(DefaultDataProcessor<>));
-            //services.AddSingleton(typeof(IMessageQueueProcessor<>), typeof(MessageQueueProcessor<>));
             services.AddSingleton(typeof(IMessageQueueProcessor<>), typeof(MessageQueueProcessor2<>));
             services.AddTransient<IDataProcessor<ISessionMessage>, SessionMessageDataProcessor>();
 
             services.AddSingleton<ICacheSerializer, CacheSerializer>();
             services.AddSingleton<IInvokeAfterMsgProcessor, InvokeAfterMsgProcessor>();
-            //services.AddSingleton<ISequenceService, NullSequenceService>();
-            //services.AddSingleton<ISequenceService, DefaultSequenceService>();
 
             return services;
         }
@@ -49,16 +45,5 @@ namespace MyTelegram.Services.Extensions
 
             return services;
         }
-
-        //public static IServiceCollection AddMyTelegramEventFlow(this IServiceCollection services,Assembly assembly)
-        //{
-        //    services.AddEventFlow(options =>
-        //    {
-        //        options.AddDefaults(assembly);
-
-        //    });
-
-        //    return services;
-        //}
     }
 }

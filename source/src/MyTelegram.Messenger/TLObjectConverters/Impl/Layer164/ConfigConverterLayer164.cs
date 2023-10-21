@@ -1,6 +1,4 @@
-﻿using MyTelegram.MessengerServer;
-
-namespace MyTelegram.Messenger.TLObjectConverters.Impl.Layer164;
+﻿namespace MyTelegram.Messenger.TLObjectConverters.Impl.Layer164;
 
 public class ConfigConverterLayer164 : IConfigConverterLayer164
 {

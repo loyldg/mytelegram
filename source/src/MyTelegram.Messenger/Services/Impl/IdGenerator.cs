@@ -43,8 +43,6 @@ public class IdGenerator : IIdGenerator
                 var blockSize = _stateBlockSizeHelper.GetBlockSize(idType);
 
                 var channelReadModel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(id), cancellationToken);
-                //var channelMaxMessageId =
-                //    await _queryProcessor.ProcessAsync(new GetChannelMaxMessageIdQuery(id), cancellationToken);
                 var channelMaxMessageId = channelReadModel!.TopMessageId;
                 var high = channelMaxMessageId / blockSize;
                 var low = channelMaxMessageId % blockSize;
@@ -52,16 +50,10 @@ public class IdGenerator : IIdGenerator
                 {
                     high++;
                 }
-                //// 100 ,990  ->low 990%100=9 high=9
-                //// 10  ,990  ->low 990%10 =0 high=99
-
-                //Console.WriteLine($"###Get channel message id from database,channelId={id},maxId={channelMaxMessageId},high={high * blockSize},low={low}");
 
                 return new HiLoValueGeneratorState(blockSize, channelMaxMessageId, high * blockSize + 1);
 
             });
-
-            //state = _cache.GetOrAdd(idType, id);
         }
         else
         {
@@ -85,7 +77,7 @@ public class IdGenerator : IIdGenerator
         return idType switch
         {
             IdType.ChannelId => MyTelegramServerDomainConsts.ChannelInitId,
-            IdType.UserId => MyTelegramServerDomainConsts.UserIdInitId + 10000, //前10000个用户为测试用户
+            IdType.UserId => MyTelegramServerDomainConsts.UserIdInitId + 10000, // Reserve the first 10,000 users for testing
             IdType.BotUserId => MyTelegramServerDomainConsts.BotUserInitId,
             IdType.ChatId => MyTelegramServerDomainConsts.ChatIdInitId,
             _ => 0

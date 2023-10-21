@@ -357,7 +357,6 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
         {
             var channelId = aggregateEvent.MessageItem.ToPeer.PeerId;
             var item = aggregateEvent.MessageItem;
-            // TODO: Create channel info from domain events
             var channelReadModel = await _queryProcessor
                 .ProcessAsync(new GetChannelByIdQuery(item.ToPeer.PeerId));
 
@@ -380,12 +379,7 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
                     updates,
                     excludeAuthKeyId: aggregateEvent.RequestInfo.AuthKeyId,
                     onlySendToUserId: aggregateEvent.RequestInfo.UserId,
-                    layeredData: layeredData)
-                ;
-
-            //await PushUpdatesToPeerAsync(item.SenderPeer, updates,
-            //    excludeAuthKeyId: aggregateEvent.RequestInfo.AuthKeyId,
-            //    onlySendToUserId: aggregateEvent.RequestInfo.UserId, layeredData: layeredData);
+                    layeredData: layeredData);
 
             var updatesForChannelMember = _updatesLayeredService.Converter.ToInviteToChannelUpdates(aggregateEvent,
                 startInviteToChannelEvent,

@@ -1,6 +1,4 @@
-﻿using MyTelegram.Messenger.Services.Interfaces;
-
-namespace MyTelegram.Messenger.Services;
+﻿namespace MyTelegram.Messenger.Services;
 
 // todo:impl media helper
 public class NullMediaHelper : IMediaHelper

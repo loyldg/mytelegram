@@ -39,7 +39,6 @@ public static class ObjectMapperExtensions
 
         if (givenTypeInfo.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
         {
-            //result.AddIfNotContains(givenType);
             if (!result.Contains(givenType))
             {
                 result.Add(givenType);
@@ -50,7 +49,6 @@ public static class ObjectMapperExtensions
         {
             if (interfaceType.GetTypeInfo().IsGenericType && interfaceType.GetGenericTypeDefinition() == genericType)
             {
-                //result.AddIfNotContains(interfaceType);
                 if (!result.Contains(interfaceType))
                 {
                     result.Add(interfaceType);

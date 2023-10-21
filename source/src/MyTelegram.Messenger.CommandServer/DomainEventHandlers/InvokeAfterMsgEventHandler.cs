@@ -18,11 +18,7 @@ public class InvokeAfterMsgEventHandler : ISubscribeSynchronousToAll
         foreach (var domainEvent in domainEvents)
         {
             var aggregateEvent = domainEvent.GetAggregateEvent();
-            //var reqMsgId = aggregateEvent switch
-            //{
-            //    IHasRequestInfo hasRequestInfo => hasRequestInfo.RequestInfo.AddRequestIdToCache ? hasRequestInfo.RequestInfo.ReqMsgId : 0,
-            //    _ => 0L
-            //};
+    
             var reqMsgId = 0L;
             switch (aggregateEvent)
             {
@@ -35,7 +31,6 @@ public class InvokeAfterMsgEventHandler : ISubscribeSynchronousToAll
                     var timespan = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - requestInfo.RequestInfo.Date;
                     if (timespan > 500)
                     {
-                        //Console.WriteLine($"{aggregateEvent.GetType().Name} mill seconds:{timespan} ReqMsgId:{requestInfo.RequestInfo.ReqMsgId}");
                         _logger.LogWarning("{Name} mill seconds:{Timespan} reqMsgId:{ReqMsgId}", aggregateEvent.GetType().Name, timespan, requestInfo.RequestInfo.ReqMsgId);
                     }
 

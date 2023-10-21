@@ -125,7 +125,6 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
             var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == input.SenderPeerId);
             if (admin == null || !admin.AdminRights.PostMessages)
             {
-                //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatWriteForbidden);
                 RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
             }
         }
@@ -133,7 +132,6 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
         var bannedDefaultRights = channelReadModel.DefaultBannedRights ?? ChatBannedRights.Default;
         if (bannedDefaultRights.SendMessages)
         {
-            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatWriteForbidden);
             RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
         }
 
@@ -143,7 +141,6 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
 
         if (channelMemberReadModel == null)
         {
-            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChannelPrivate);
             RpcErrors.RpcErrors400.ChannelPrivate.ThrowRpcError();
         }
 
@@ -205,7 +202,6 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
         var chatReadModel = await _queryProcessor.ProcessAsync(new GetChatByChatIdQuery(input.ToPeer.PeerId), default);
         if (chatReadModel == null)
         {
-            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatIdInvalid);
             RpcErrors.RpcErrors400.ChatIdInvalid.ThrowRpcError();
         }
 
@@ -274,52 +270,6 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
             );
         await _commandBus.PublishAsync(command, default);
     }
-
-    //public async Task SendMessageAsync2(SendMessageInput input)
-    //{
-    //    await CheckAccessHashAsync(input);
-    //    await CheckBlockedAsync(input);
-    //    await CheckChannelBannedRightsAsync(input);
-
-    //    var ownerPeerId = input.ToPeer.PeerType == PeerType.Channel ? input.ToPeer.PeerId : input.SenderPeerId;
-
-    //    var item = await GetMessageEntitiesAsync(input);
-
-    //    var date = CurrentDate;
-    //    //var aggregateId = MessageId.Create(ownerPeerId, outboxMessageId);
-    //    var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, input.RandomId);
-    //    var messageItem = new MessageItem(
-    //        input.ToPeer with { PeerId = ownerPeerId },
-    //        input.ToPeer,
-    //        new Peer(PeerType.User, input.SenderPeerId),
-    //        0,
-    //        input.Message,
-    //        date,
-    //        input.RandomId,
-    //        true,
-    //        input.SendMessageType,
-    //        (MessageType)input.SendMessageType,
-    //        MessageSubType.Normal,
-    //        input.ReplyToMsgId,
-    //        input.MessageActionData,
-    //        MessageActionType.None,
-    //        item.entities.ToBytes(),
-    //        input.Media,
-    //        input.GroupId,
-    //        pollId: input.PollId,
-    //        replyMarkup: input.ReplyMarkup,
-    //        topMsgId: input.TopMsgId
-    //    );
-
-    //    var command = new StartSendMessageCommand(aggregateId,
-    //        input.RequestInfo with { RequestId = Guid.NewGuid() },
-    //        messageItem,
-    //        item.mentionedUserIds,
-    //        input.ClearDraft,
-    //        input.GroupItemCount);
-
-    //    await _commandBus.PublishAsync(command, default);
-    //}
 
     private (List<TMessageEntityMention> mentions, List<string> userNameList) GetMentions(string message)
     {

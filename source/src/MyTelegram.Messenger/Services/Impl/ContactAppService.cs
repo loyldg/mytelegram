@@ -1,6 +1,4 @@
-﻿using MyTelegram.Messenger.Services.Interfaces;
-
-namespace MyTelegram.Messenger.Services.Impl;
+﻿namespace MyTelegram.Messenger.Services.Impl;
 
 public class ContactAppService : BaseAppService, IContactAppService
 {

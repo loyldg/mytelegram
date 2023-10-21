@@ -19,10 +19,13 @@ public class AllDomainEventsHandler : ISubscribeSynchronousToAll
             var aggregateEvent = domainEvent.GetAggregateEvent();
             if (aggregateEvent is IHasRequestInfo requestInfo)
             {
-                var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - requestInfo.RequestInfo.Date;
-                if (timestamp > 100)
+                var totalMilliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - requestInfo.RequestInfo.Date;
+                if (totalMilliseconds > 100)
                 {
-                    _logger.LogWarning("{Event} {Timestamp}", aggregateEvent.GetType().Name, timestamp);
+                    _logger.LogWarning("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms,reqMsgId={ReqMsgId}",
+                        domainEvent.GetAggregateEvent().GetType().Name,
+                        totalMilliseconds,
+                        requestInfo.RequestInfo.ReqMsgId);
                 }
             }
             var message = _domainEventMessageFactory.CreateDomainEventMessage(domainEvent);

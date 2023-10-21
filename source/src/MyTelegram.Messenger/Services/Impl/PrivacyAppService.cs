@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Messenger.Services.Impl;
 
-public class PrivacyAppService : BaseAppService, IPrivacyAppService //, ISingletonDependency
+public class PrivacyAppService : BaseAppService, IPrivacyAppService
 {
     private readonly ICacheManager<GlobalPrivacySettingsCacheItem> _cacheManager;
 
@@ -77,13 +77,11 @@ public class PrivacyAppService : BaseAppService, IPrivacyAppService //, ISinglet
         {
             case TInputUser inputUser:
                 return inputUser.UserId;
-                break;
-            case TInputUserEmpty inputUserEmpty:
+            case TInputUserEmpty:
                 break;
             case TInputUserFromMessage inputUserFromMessage:
                 return inputUserFromMessage.UserId;
-                break;
-            case TInputUserSelf inputUserSelf:
+            case TInputUserSelf:
                 break;
         }
 

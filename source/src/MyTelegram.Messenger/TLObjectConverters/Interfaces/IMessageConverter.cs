@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Messenger.TLObjectConverters.Interfaces;
 
-public interface IMessageConverter : ILayeredConverter, IHasRequestLayer
+public interface IMessageConverter : ILayeredConverter
 {
     IMessage ToMessage(MessageItem item,
         long selfUserId = 0, long? linkedChannelId = null, int pts = 0,

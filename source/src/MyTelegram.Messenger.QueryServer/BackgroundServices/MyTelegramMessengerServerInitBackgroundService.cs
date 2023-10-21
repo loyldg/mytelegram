@@ -1,16 +1,9 @@
 ﻿using EventFlow.ReadStores;
 using Microsoft.Extensions.Hosting;
-using MyTelegram.Messenger.Extensions;
 using MyTelegram.Messenger.Services.Filters;
 using MyTelegram.Messenger.Services.Interfaces;
-using MyTelegram.ReadModel.MongoDB;
 
 namespace MyTelegram.Messenger.QueryServer.BackgroundServices;
-
-//public class TestBackgroundService : BackgroundService
-//{
-
-//}
 
 public class MyTelegramMessengerServerInitBackgroundService : BackgroundService
 {
@@ -48,31 +41,8 @@ public class MyTelegramMessengerServerInitBackgroundService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        //try
-        //{
-        //    var a = _serviceProvider
-        //        .GetService<IMyMongoDbReadModelStore<MyTelegram.ReadModel.InMemory.UserReadModel>>();
-        //    Console.WriteLine(a.GetType().FullName);
-        //}
-        //catch (Exception ex)
-        //{
-        //    Console.WriteLine(ex);
-        //}
-
-        //var application = AbpApplicationFactory.Create<MyTelegramMessengerQueryServerModule>(options =>
-        //{
-        //    options.UseAutofac();
-        //});
-        //await application.InitializeAsync();
-        var list = _readStoreManagers.ToList().OrderBy(p => p.ReadModelType.Name);
-        foreach (var manager in list)
-        {
-            _logger.LogInformation("{Name}", manager.ReadModelType);
-        }
-
         _logger.LogInformation("App init starting...");
         _handlerHelper.InitAllHandlers(typeof(MyTelegramMessengerServerExtensions).Assembly);
-        //IdGeneratorFactory.SetDefaultIdGenerator(_idGenerator);
         await _mongoDbIndexesCreator.CreateAllIndexesAsync();
         if (_options.UseInMemoryFilters)
         {

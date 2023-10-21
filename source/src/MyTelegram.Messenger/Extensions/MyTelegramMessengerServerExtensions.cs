@@ -1,36 +1,18 @@
 ﻿using EventFlow.Core.Caching;
-using EventFlow.MongoDB;
 using EventFlow.MongoDB.Extensions;
-using EventFlow.MongoDB.ReadStores;
-using EventFlow.ReadStores.InMemory.Queries;
-using EventFlow.ReadStores.InMemory;
-using EventFlow.ReadStores;
 using EventFlow.Sagas;
 using MyTelegram.Domain.EventFlow;
 using MyTelegram.Messenger.NativeAot;
-using MyTelegram.Messenger.Services;
-using MyTelegram.Messenger.Services.Caching;
 using MyTelegram.Messenger.Services.Filters;
 using MyTelegram.Messenger.Services.Impl;
-using MyTelegram.Messenger.Services.Interfaces;
 using MyTelegram.QueryHandlers.MongoDB;
-using MyTelegram.ReadModel.InMemory;
 using MyTelegram.ReadModel.MongoDB;
-using MyTelegram.ReadModel.ReadModelLocators;
 using MyTelegram.Services.NativeAot;
-using PtsForAuthKeyIdReadModel = MyTelegram.ReadModel.MongoDB.PtsForAuthKeyIdReadModel;
-using PtsReadModel = MyTelegram.ReadModel.MongoDB.PtsReadModel;
-//using PushUpdatesReadModel = MyTelegram.ReadModel.MongoDB.PushUpdatesReadModel;
 
 namespace MyTelegram.Messenger.Extensions;
 
 public static class MyTelegramMessengerServerExtensions
 {
-    //public static void ConfigureEventBus(this IEventBus eventBus)
-    //{
-
-    //}
-
     public static void UseMyTelegramMessengerServer(this IServiceCollection services,
        Action<IEventFlowOptions>? configure = null)
     {
@@ -44,12 +26,8 @@ public static class MyTelegramMessengerServerExtensions
             options.UseMongoDbEventStore();
             options.UseMongoDbSnapshotStore();
 
-            //options.AddInMemoryReadModels();
             options.AddMessengerMongoDbReadModel();
             options.AddMongoDbQueryHandlers();
-
-            //options.AddPushUpdatesMongoDbReadModel();
-
 
             options.UseSystemTextJson(jsonSerializerOptions =>
             {
@@ -57,7 +35,6 @@ public static class MyTelegramMessengerServerExtensions
                     new SystemTextJsonSingleValueObjectConverter<CacheKey>());
             });
             configure?.Invoke(options);
-            //options.UseSpanJson();
         })
             .AddMyTelegramCoreServices()
             .AddMyTelegramHandlerServices()

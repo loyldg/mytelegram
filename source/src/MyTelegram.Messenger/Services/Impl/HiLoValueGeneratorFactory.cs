@@ -1,6 +1,4 @@
-﻿using MyTelegram.Messenger.Services.IdGenerator;
-
-namespace MyTelegram.Messenger.Services.Impl;
+﻿namespace MyTelegram.Messenger.Services.Impl;
 
 public class HiLoValueGeneratorFactory : IHiLoValueGeneratorFactory
 {

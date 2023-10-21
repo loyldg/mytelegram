@@ -2,8 +2,6 @@
 
 namespace MyTelegram.Messenger.QueryServer.EventHandlers;
 public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
-//,
-//IDistributedEventHandler<DomainEventMessage>, ITransientDependency
 {
     private readonly IEventJsonSerializer _eventJsonSerializer;
     private readonly IDispatchToEventSubscribers _dispatchToEventSubscribers;
@@ -17,34 +15,23 @@ public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
         _dispatchToReadStores = dispatchToReadStores;
     }
 
-    public async Task HandleEventAsync(DomainEventMessage eventData)
+    public Task HandleEventAsync(DomainEventMessage eventData)
     {
-        //var sw = Stopwatch.StartNew();
-
-
-
-        //Task.Run(() =>
-        //{
-        //    _dispatchToReadStores.DispatchAsync(new[] { domainEvent }, default);
-        //});
-
-
-
-        //await _dispatchToReadStores.DispatchAsync(new[] { domainEvent }, default);
-
         Task.Run(async () =>
         {
+            var maxMillSeconds = 500;
             var sw = Stopwatch.StartNew();
             var domainEvent = _eventJsonSerializer.Deserialize(eventData.Message, new Metadata(eventData.Headers));
-            //Console.WriteLine($"domain event:{domainEvent.GetAggregateEvent().GetType().Name}");
             if (domainEvent.GetAggregateEvent() is IHasRequestInfo hasRequestInfo)
             {
-                var ts = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - hasRequestInfo.RequestInfo.Date;
+                var totalMilliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - hasRequestInfo.RequestInfo.Date;
 
-                if (ts > 500)
+                if (totalMilliseconds > maxMillSeconds)
                 {
-                    _logger.LogWarning("DomainEvent:{EventName},timespan:{TimeSpan} {Id} ",
-                        domainEvent.GetAggregateEvent().GetType().Name, ts, hasRequestInfo.RequestInfo.ReqMsgId);
+                    _logger.LogWarning("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms,reqMsgId={ReqMsgId}",
+                        domainEvent.GetAggregateEvent().GetType().Name,
+                        totalMilliseconds,
+                        hasRequestInfo.RequestInfo.ReqMsgId);
                 }
             }
 
@@ -52,26 +39,14 @@ public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
             await _dispatchToEventSubscribers.DispatchToSynchronousSubscribersAsync(new[] { domainEvent }, default);
             sw.Stop();
 
-            //if (sw.Elapsed.TotalMilliseconds > 50)
-            //{
-            //    Console.WriteLine($"##### [{sw.Elapsed}]domain event:{domainEvent.GetAggregateEvent().GetType().Name}");
-            //}
+            if (sw.Elapsed.TotalMilliseconds > maxMillSeconds)
+            {
+                _logger.LogWarning("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms",
+                    domainEvent.GetAggregateEvent().GetType().Name,
+                    sw.Elapsed);
+            }
         });
 
-
-        //_dispatchToReadStores.DispatchAsync(new[] { domainEvent }, default);
-        // _dispatchToEventSubscribers.DispatchToSynchronousSubscribersAsync(new[] { domainEvent }, default);
-        //Console.WriteLine($"Receive domain event:{eventData.EventId} {domainEvent.GetAggregateEvent().GetType().Name}");
-
-        //await _dispatchToEventSubscribers.DispatchToAsynchronousSubscribersAsync(domainEvent, default);
-        //sw.Stop();
-
-        //if (sw.Elapsed.TotalMilliseconds > 100)
-        //{
-        //    _logger.LogWarning("DomainEvent:{EventName},timespan:{TimeSpan}  {Total}",
-        //        domainEvent.GetAggregateEvent().GetType().Name, sw.Elapsed,sw.Elapsed.TotalMilliseconds);
-        //}
-
-
+        return Task.CompletedTask;
     }
 }

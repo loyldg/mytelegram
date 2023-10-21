@@ -56,7 +56,6 @@ public class MediaHelper : IMediaHelper
         }).ResponseAsync;
 
         return new SavePhotoResult(r.PhotoId, r.Photo.Span.ToArray().ToTObject<IPhoto>());
-        //return r.Photo.Span.ToArray().ToTObject<IPhoto>();
     }
 
     public async Task<IMessageMedia> SaveMediaAsync(IInputMedia media)

@@ -1,4 +1,4 @@
-﻿namespace MyTelegram.MessengerServer;
+﻿namespace MyTelegram.Messenger;
 
 public record WebRtcConnection
 {

@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyTelegram.Messenger.TLObjectConverters.Impl.Layer164;
+﻿namespace MyTelegram.Messenger.TLObjectConverters.Impl.Layer164;
 
 public class PhotoConverterLayer164 : IPhotoConverterLayer164
 {
-    private readonly IDataCenterHelper _dataCenterHelper;
-
-    public PhotoConverterLayer164(IDataCenterHelper dataCenterHelper)
-    {
-        _dataCenterHelper = dataCenterHelper;
-    }
-
     public virtual int Layer => Layers.Layer164;
 
     public int RequestLayer { get; set; }
@@ -49,21 +36,6 @@ public class PhotoConverterLayer164 : IPhotoConverterLayer164
                     Type = s.Type
                 });
             }
-
-            //if (photoReadModel.Sizes.Any(p => p.Type == "a"))
-            //{
-            //    var bytes = File.ReadAllBytes(@"C:\work\t1.jpg").AsSpan();
-            //    var newBytes = bytes[620..^2];
-            //    newBytes[0] = 0x01;
-            //    newBytes[1] = bytes[164];
-            //    newBytes[2] = bytes[166];
-
-            //    photo.Sizes.Add(new TPhotoStrippedSize
-            //    {
-            //        Type = "i",
-            //        Bytes = newBytes.ToArray()
-            //    });
-            //}
         }
 
         if (photoReadModel.VideoSizes?.Count > 0)

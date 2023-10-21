@@ -1,6 +1,4 @@
-﻿using MyTelegram.MessengerServer;
-
-namespace MyTelegram.Messenger;
+﻿namespace MyTelegram.Messenger;
 #nullable disable
 public class MyTelegramMessengerServerOptions
 {

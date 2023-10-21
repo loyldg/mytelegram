@@ -1,6 +1,4 @@
-﻿using MyTelegram.Messenger.Services.Caching;
-
-namespace MyTelegram.Messenger.Services.Interfaces;
+﻿namespace MyTelegram.Messenger.Services.Interfaces;
 
 public interface IPrivacyAppService
 {

@@ -1,6 +1,4 @@
-﻿using MyTelegram.Services.TLObjectConverters;
-
-namespace MyTelegram.Messenger.Extensions;
+﻿namespace MyTelegram.Messenger.Extensions;
 
 // ReSharper disable once InconsistentNaming
 public static class TLObjectConverterExtensions

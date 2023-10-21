@@ -1,5 +1,5 @@
 ﻿#pragma warning disable CS8618
-namespace MyTelegram.MessengerServer;
+namespace MyTelegram.Messenger;
 
 public class DcOption
 {

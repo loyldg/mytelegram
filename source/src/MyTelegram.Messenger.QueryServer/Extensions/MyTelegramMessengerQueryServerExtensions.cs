@@ -9,12 +9,10 @@ using MyTelegram.Domain.EventFlow;
 using MyTelegram.Domain.Events.PushUpdates;
 using MyTelegram.Domain.Events.RpcResult;
 using MyTelegram.Domain.Events.Updates;
-using MyTelegram.Messenger.Extensions;
 using MyTelegram.Messenger.NativeAot;
 using MyTelegram.Messenger.QueryServer.BackgroundServices;
 using MyTelegram.Messenger.QueryServer.EventHandlers;
 using MyTelegram.Messenger.QueryServer.Services;
-using MyTelegram.Messenger.Services.Impl;
 using MyTelegram.QueryHandlers.MongoDB;
 using MyTelegram.ReadModel.MongoDB;
 using MyTelegram.ReadModel.ReadModelLocators;
@@ -29,15 +27,6 @@ public static class MyTelegramMessengerQueryServerExtensions
     {
         eventBus.Subscribe<MessengerQueryDataReceivedEvent, MessengerEventHandler>();
         eventBus.Subscribe<StickerDataReceivedEvent, MessengerEventHandler>();
-        //eventBus.Subscribe<BotCommandResponse, MessengerEventHandler>();
-        //eventBus.Subscribe<NewDeviceCreatedEvent, MessengerEventHandler>();
-        //eventBus.Subscribe<BindUidToAuthKeyIntegrationEvent, MessengerEventHandler>();
-        //eventBus.Subscribe<AuthKeyUnRegisteredIntegrationEvent, MessengerEventHandler>();
-        //eventBus.Subscribe<DuplicateCommandEvent, MessengerEventHandler>();
-        //eventBus.Subscribe<CreateBotUserRequest, MessengerEventHandler>();
-        //eventBus.Subscribe<DeleteBotUserRequest, MessengerEventHandler>();
-        //eventBus.Subscribe<BotPicChangedEvent, MessengerEventHandler>();
-
         eventBus.Subscribe<NewPtsMessageHasSentEvent, PtsEventHandler>();
         eventBus.Subscribe<RpcMessageHasSentEvent, PtsEventHandler>();
         eventBus.Subscribe<AcksDataReceivedEvent, PtsEventHandler>();
@@ -59,8 +48,6 @@ public static class MyTelegramMessengerQueryServerExtensions
 
         services.AddEventFlow(options =>
         {
-            //options.AddInMemoryReadModels();
-
             options.AddMessengerMongoDbReadModel();
             options.AddQueryHandlers();
             options.AddEvents(typeof(MyTelegram.Domain.Aggregates.AppCode.AppCodeAggregate).Assembly);

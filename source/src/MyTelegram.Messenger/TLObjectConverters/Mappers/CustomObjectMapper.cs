@@ -1,53 +1,30 @@
-﻿using MyTelegram.Messenger.Services;
-using MyTelegram.MessengerServer;
-using MyTelegram.Schema.Updates;
+﻿using MyTelegram.Schema.Updates;
 using TPeerSettings = MyTelegram.Schema.TPeerSettings;
 
 namespace MyTelegram.Messenger.TLObjectConverters.Mappers;
 
-public class CustomObjectMapper : ILayeredMapper, //ITransientDependency,
-                                                  //IObjectMapper<ChannelCreatedEvent, TChannel>,
-
+public class CustomObjectMapper : ILayeredMapper, 
     IObjectMapper<IPtsReadModel, TState>,
     IObjectMapper<PeerSettings, TPeerSettings>,
     IObjectMapper<SearchGlobalInput, GetMessagesQuery>,
     IObjectMapper<SearchInput, GetMessagesQuery>,
     IObjectMapper<GetHistoryInput, GetMessagesQuery>,
     IObjectMapper<GetMessagesInput, GetMessagesQuery>,
-    //IObjectMapper<IDialogReadModel, TDialog>,
     IObjectMapper<BotCommand, TBotCommand>,
     IObjectMapper<IReadOnlyList<BotCommand>, List<TBotCommand>>,
-    //IObjectMapper<IChatReadModel, TChat>,
     IObjectMapper<ChannelInviteExportedEvent, TChatInviteExported>,
-    //IObjectMapper<IChannelReadModel, TChannel>,
-    //IObjectMapper<IChannelFullReadModel, TChannelFull>,
-    //IObjectMapper<ChatBannedRights, TChatBannedRights>,
-    //IObjectMapper<ChatBannedRights, TChatBannedRights>,
-    //IObjectMapper<ChatAdminRights, TChatAdminRights>,
-    //IObjectMapper<ChatAdminRights, TChatAdminRights>,
-    //IObjectMapper<RequestCallCompletedEvent, TPhoneCallWaiting>,
-    //IObjectMapper<RequestCallCompletedEvent, TPhoneCallRequested>,
-    //IObjectMapper<PhoneCallProtocol, IPhoneCallProtocol>,
-    //IObjectMapper<AcceptCallCompletedEvent, TPhoneCallAccepted>,
-    //IObjectMapper<AcceptCallCompletedEvent, TPhoneCallWaiting>,
     IObjectMapper<WebRtcConnection, TPhoneConnectionWebrtc>,
     IObjectMapper<List<WebRtcConnection>, List<TPhoneConnectionWebrtc>>,
-    //IObjectMapper<ConfirmCallCompletedEvent, TPhoneCall>,
     IObjectMapper<PeerNotifySettings, Schema.Messages.TPeerSettings>,
     IObjectMapper<IDeviceReadModel, TWebAuthorization>,
     IObjectMapper<IChatInviteReadModel, TChatInviteExported>,
-    //IObjectMapper<EncryptionRequestedEvent, TEncryptedChatWaiting>,
-    //IObjectMapper<EncryptionRequestedEvent, TEncryptedChatRequested>,
-    //IObjectMapper<EncryptionAcceptedEvent, TEncryptedChat>,
     IObjectMapper<IFileReadModel, FileItem>,
     IObjectMapper<DcOption, TDcOption>,
     IObjectMapper<List<DcOption>, List<TDcOption>>,
     IObjectMapper<TInputMediaVenue, TMessageMediaVenue>,
     IObjectMapper<MessageFwdHeader, TMessageFwdHeader>,
     IObjectMapper<GetRepliesInput, GetMessagesQuery>,
-    //IObjectMapper<DialogFilter, TDialogFilter>,
     IObjectMapper<InputPeer, IInputPeer>
-
 {
 
     public TBotCommand Map(BotCommand source)

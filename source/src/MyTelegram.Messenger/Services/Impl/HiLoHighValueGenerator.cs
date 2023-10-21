@@ -1,7 +1,4 @@
-﻿using MyTelegram.Messenger.Services.IdGenerator;
-using MyTelegram.MessengerServer;
-
-namespace MyTelegram.Messenger.Services.Impl;
+﻿namespace MyTelegram.Messenger.Services.Impl;
 
 
 public class MongoDbHighValueGenerator : IHiLoHighValueGenerator
@@ -46,11 +43,6 @@ public class HiLoHighValueGenerator : IHiLoHighValueGenerator
         long key,
         CancellationToken cancellationToken = default)
     {
-        if ((byte)idType > 25)
-        {
-            Console.WriteLine($"############ new high value error:{idType}");
-        }
-
         try
         {
             var client = GrpcClientFactory.CreateIdGeneratorServiceClient(_options.Value.IdGeneratorGrpcServiceUrl);

@@ -6,7 +6,6 @@ namespace MyTelegram.Messenger.Services.Impl;
 
 public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, ISingletonDependency
 {
-    //private readonly IBloomFilter _bloomFilter;
     private readonly ICommandBus _commandBus;
     private readonly IQueryProcessor _queryProcessor;
     private readonly ICuckooFilter _cuckooFilter;
@@ -106,7 +105,6 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
                 messageViewsToClient.Add(new Schema.TMessageViews
                 {
                     Views = needIncrement ? views.Views + 1 : views.Views,
-                    //Replies = new TMessageReplies { ChannelId = channelId }
                     Replies = new TMessageReplies
                     {
                         ChannelId = linkedChannelId,

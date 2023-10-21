@@ -1,15 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using MyTelegram.Messenger.Extensions;
 using MyTelegram.Messenger.Services.Filters;
-using MyTelegram.Messenger.Services.Interfaces;
-using MyTelegram.ReadModel.MongoDB;
 
 namespace MyTelegram.Messenger.CommandServer.BackgroundServices;
-
-//public class TestBackgroundService : BackgroundService
-//{
-
-//}
 
 public class MyTelegramMessengerServerInitBackgroundService : BackgroundService
 {

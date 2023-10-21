@@ -2,7 +2,7 @@
 
 namespace MyTelegram.Messenger.TLObjectConverters.Interfaces;
 
-public interface IUserConverter : ILayeredConverter, IHasRequestLayer
+public interface IUserConverter : ILayeredConverter
 {
     ILayeredUser ToUser(
         long selfUserId,
@@ -37,5 +37,4 @@ public interface IUserConverter : ILayeredConverter, IHasRequestLayer
         IReadOnlyCollection<IPrivacyReadModel>? privacies = null);
 
     IPhoto ToUserPhoto(IUserReadModel userReadModel, IPhotoReadModel? photoReadModel);
-    //IPhoto ToUserPhoto(UserProfilePhotoUploadedEvent aggregateEvent, IPhotoReadModel photoReadModel);
 }

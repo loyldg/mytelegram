@@ -51,12 +51,9 @@ builder.ConfigureAppConfiguration(options => { options.AddEnvironmentVariables()
 builder.ConfigureServices((ctx,
     services) =>
 {
-    //services.AddSingleton<Volo.Abp.Modularity.IModuleLoader>(new MyModuleLoader());
     services.Configure<MyTelegramMessengerServerOptions>(ctx.Configuration.GetRequiredSection("App"));
     services.Configure<EventBusRabbitMqOptions>(ctx.Configuration.GetRequiredSection("RabbitMQ:EventBus"));
     services.Configure<RabbitMqOptions>(ctx.Configuration.GetRequiredSection("RabbitMQ:Connections:Default"));
-
-    //services.AddMyTelegramRabbitMqEventBus();
 
     var eventBusOptions = ctx.Configuration.GetRequiredSection("RabbitMQ:EventBus").Get<EventBusRabbitMqOptions>();
     var rabbitMqOptions = ctx.Configuration.GetRequiredSection("RabbitMQ:Connections:Default").Get<RabbitMqOptions>();
@@ -89,19 +86,9 @@ builder.ConfigureServices((ctx,
     {
         options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
     });
-
-    //services.AddApplication<MyTelegram.Messenger.QueryServer.Abp.MyTelegramMessengerQueryServerModule>(options =>
-    //{
-    //    options.Services.ReplaceConfiguration(services.GetConfiguration());
-    //    //options.Services.AddLogging(logging => logging.AddSerilog());
-    //});
 });
-//.UseAutofac();
 
 var app = builder.Build();
-
-//await app.Services.GetRequiredService<Volo.Abp.IAbpApplicationWithExternalServiceProvider>().InitializeAsync(app.Services);
-//await app.RunAsync();
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.ConfigureEventBus();
