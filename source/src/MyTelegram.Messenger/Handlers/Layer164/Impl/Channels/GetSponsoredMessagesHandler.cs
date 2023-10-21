@@ -17,6 +17,6 @@ internal sealed class GetSponsoredMessagesHandler : RpcResultObjectHandler<MyTel
     protected override Task<MyTelegram.Schema.Messages.ISponsoredMessages> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestGetSponsoredMessages obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<ISponsoredMessages>(new TSponsoredMessagesEmpty());
     }
 }

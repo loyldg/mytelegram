@@ -62,7 +62,9 @@ public class CreateDeviceCommand : RequestCommand2<DeviceAggregate, DeviceId, IE
 
     protected override IEnumerable<byte[]> GetSourceIdComponents()
     {
+        yield return BitConverter.GetBytes(RequestInfo.ReqMsgId);
         yield return BitConverter.GetBytes(PermAuthKeyId);
+        yield return BitConverter.GetBytes(TempAuthKeyId);
         yield return BitConverter.GetBytes(Hash);
     }
 }

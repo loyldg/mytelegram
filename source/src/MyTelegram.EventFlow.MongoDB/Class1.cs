@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using EventFlow.Aggregates;
+﻿using EventFlow.Aggregates;
 using EventFlow.Core;
 using EventFlow.Core.Caching;
 using EventFlow.Core.RetryStrategies;
@@ -14,12 +7,11 @@ using EventFlow.Extensions;
 using EventFlow.MongoDB.ReadStores;
 using EventFlow.MongoDB.ValueObjects;
 using EventFlow.ReadStores;
-using EventFlow.ReadStores.InMemory;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace MyTelegram.EventFlow.MongoDB;
 
@@ -68,35 +60,6 @@ public class DefaultReadModelMongoDbContext : IMongoDbContext
     protected virtual string GetConnectionStringName() => "Default";
     protected virtual string GetKeyOfDatabaseNameInConfiguration() => "App:DatabaseName";
 }
-
-
-
-//public interface IMongoDbReadModelDatabaseFactory
-//{
-//    IMongoDatabase CreateMongoDatabase<TReadModel>();
-//    void TryAddMongoDatabase<TReadModel>(IMongoDatabase database);
-//}
-
-//public class MongoDbReadModelDatabaseFactory : IMongoDbReadModelDatabaseFactory
-//{
-//    private readonly ConcurrentDictionary<Type, IMongoDatabase> _readModelTypeToDatabases = new();
-
-//    public IMongoDatabase CreateMongoDatabase<TReadModel>()
-//    {
-//        if (_readModelTypeToDatabases.TryGetValue(typeof(TReadModel), out var db))
-//        {
-//            return db;
-//        }
-
-//        throw new Exception($"Not configure mongodb database for readModel '{typeof(TReadModel)}'");
-//    }
-
-//    public void TryAddMongoDatabase<TReadModel>(IMongoDatabase database)
-//    {
-//        _readModelTypeToDatabases.TryAdd(typeof(TReadModel), database);
-//    }
-//}
-
 
 public interface IMyMongoDbReadModelStore<TReadModel> : IMongoDbReadModelStore<TReadModel> where TReadModel : class, IReadModel
 {
@@ -250,12 +213,12 @@ where TDbContext : IMongoDbContext
         if (updateStrategy == UpdateStrategy.All || updateStrategy == UpdateStrategy.UpdateCache)
         {
             var item = await _memoryCache.GetOrCreateAsync(CacheKey.With(typeof(TReadModel), id),
-                 cacheEntry =>
-             {
-                 cacheEntry.SlidingExpiration = TimeSpan.FromDays(3);
-                 Console.WriteLine($"Get from db to cache:{id}");
-                 return base.GetAsync(id, cancellationToken);
-             });
+                cacheEntry =>
+                {
+                    cacheEntry.SlidingExpiration = TimeSpan.FromDays(3);
+                    Console.WriteLine($"Get from db to cache:{id}");
+                    return base.GetAsync(id, cancellationToken);
+                });
 
             if (item == null)
             {
@@ -271,32 +234,29 @@ where TDbContext : IMongoDbContext
     public override async Task UpdateAsync(IReadOnlyCollection<ReadModelUpdate> readModelUpdates, IReadModelContextFactory readModelContextFactory,
         Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken, Task<ReadModelUpdateResult<TReadModel>>> updateReadModel, CancellationToken cancellationToken)
     {
-        //if (!await _readModelUpdateStrategy.ShouldUpdateReadModelAsync<TReadModel>())
-        //{
-        //    return;
-        //}
-
         var updateStrategy = await _readModelUpdateManager.GetReadModelUpdateStrategyAsync<TReadModel>();
 
-        await base.UpdateAsync(readModelUpdates, readModelContextFactory, updateReadModel, cancellationToken);
+        //await base.UpdateAsync(readModelUpdates, readModelContextFactory, updateReadModel, cancellationToken);
         switch (updateStrategy)
         {
             case UpdateStrategy.None:
                 return;
             case UpdateStrategy.All:
-                Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken,
-                    Task<ReadModelUpdateResult<TReadModel>>> updateReadModelWithCaching = (context, events, envelope, token) =>
-                    updateReadModel(context, events, envelope, token).ContinueWith(result =>
-                    {
-                        if (!result.IsFaulted)
+
+                Task<ReadModelUpdateResult<TReadModel>> UpdateReadModelWithCaching(IReadModelContext context, IReadOnlyCollection<IDomainEvent> events, ReadModelEnvelope<TReadModel> envelope, CancellationToken token) =>
+                    updateReadModel(context, events, envelope, token)
+                        .ContinueWith(result =>
                         {
-                            _memoryCache.Set(CacheKey.With(result.Result.Envelope.ReadModelId), result.Result.Envelope);
-                        }
+                            if (!result.IsFaulted)
+                            {
+                                //_memoryCache.Set(CacheKey.With(typeof(TReadModel), result.Result.Envelope.ReadModelId), result.Result.Envelope);
+                                UpdateInMemoryReadModelAsync(result.Result.Envelope);
+                            }
 
-                        return result.Result;
-                    }, token);
+                            return result.Result;
+                        }, token);
 
-                await base.UpdateAsync(readModelUpdates, readModelContextFactory, updateReadModelWithCaching, cancellationToken);
+                await base.UpdateAsync(readModelUpdates, readModelContextFactory, UpdateReadModelWithCaching, cancellationToken);
                 //await UpdateReadModelInCacheAsync(readModelUpdates, readModelContextFactory, updateReadModel,
                 //    cancellationToken);
                 break;
@@ -343,225 +303,17 @@ where TDbContext : IMongoDbContext
                 }
                 else
                 {
-                    var aggregateEvent= readModelUpdate.DomainEvents.ElementAt(0).GetAggregateEvent();
-                    _memoryCache.Set(CacheKey.With(typeof(TReadModel), readModelId), readModelEnvelope);
-                    Console.WriteLine($"Update in memory readmodel:{readModelId},{aggregateEvent.GetType().Name}");
+                    await UpdateInMemoryReadModelAsync(readModelEnvelope);
                 }
             }
         }
     }
 
-    //protected virtual TimeSpan SlidingExpiration { get; set; } = TimeSpan.FromDays(3);
-}
-
-//public class MyInMemoryCacheReadModelStore<TReadModel>
-//where TReadModel : class, IMongoDbReadModel
-//{
-//    public Task UpdateAsync(IReadOnlyCollection<ReadModelUpdate> readModelUpdates,
-//          IReadModelContextFactory readModelContextFactory,
-//          Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken,
-//              Task<ReadModelUpdateResult<TReadModel>>> updateReadModel, CancellationToken cancellationToken)
-//    {
-
-//    }
-//}
-
-//public interface IMyInMemoryReadStore<TReadModel> : IInMemoryReadStore<TReadModel> where TReadModel : class, IReadModel
-//{
-//    Task<IQueryable<TReadModel>> AsQueryable(CancellationToken cancellationToken = default);
-
-//    void Add(string id, TReadModel readModel, long? version);
-//}
-//public class MyInMemoryReadStore<TReadModel> : ReadModelStore<TReadModel>, IMyInMemoryReadStore<TReadModel>
-//        where TReadModel : class, IReadModel
-//{
-//    private readonly ConcurrentDictionary<string, ReadModelEnvelope<TReadModel>> _readModels = new();
-
-//    public MyInMemoryReadStore(ILogger<MyInMemoryReadStore<TReadModel>> logger) : base(logger)
-//    {
-//    }
-
-//    public override Task<ReadModelEnvelope<TReadModel>> GetAsync(string id, CancellationToken cancellationToken)
-//    {
-//        if (_readModels.TryGetValue(id, out var readModelEnvelope))
-//        {
-//            return Task.FromResult(readModelEnvelope);
-//        }
-
-//        return Task.FromResult(ReadModelEnvelope<TReadModel>.Empty(id));
-//    }
-
-//    public override async Task UpdateAsync(IReadOnlyCollection<ReadModelUpdate> readModelUpdates, IReadModelContextFactory readModelContextFactory,
-//        Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken, Task<ReadModelUpdateResult<TReadModel>>> updateReadModel, CancellationToken cancellationToken)
-//    {
-//        foreach (var readModelUpdate in readModelUpdates)
-//        {
-//            var readModelId = readModelUpdate.ReadModelId;
-
-//            //var isNew = !_readModels.TryGetValue(readModelId, out var readModelEnvelope);
-//            var isNew = !_readModels.TryGetValue(readModelId, out var readModelEnvelope);
-
-//            if (isNew)
-//            {
-//                continue;
-//            }
-
-//            if (isNew)
-//            {
-//                readModelEnvelope = ReadModelEnvelope<TReadModel>.Empty(readModelId);
-//            }
-
-//            Console.WriteLine($"isNew:{isNew} version:{readModelEnvelope.Version}");
-//            var readModelContext = readModelContextFactory.Create(readModelId, isNew);
-
-//            var readModelUpdateResult = await updateReadModel(
-//                    readModelContext,
-//                    readModelUpdate.DomainEvents,
-//                    readModelEnvelope,
-//                    cancellationToken)
-//                .ConfigureAwait(false);
-//            if (!readModelUpdateResult.IsModified)
-//            {
-//                continue;
-//            }
-//            var oldReadModelEnvelope = readModelEnvelope;
-//            var oldVersion = readModelEnvelope.Version;
-//            readModelEnvelope = readModelUpdateResult.Envelope;
-//            var newVersion = readModelEnvelope.Version;
-//            Console.WriteLine($"After update version={readModelUpdateResult.Envelope.Version} oldVersion:{oldVersion} newVersion:{newVersion}");
-
-//            if (readModelContext.IsMarkedForDeletion)
-//            {
-//                _readModels.TryRemove(readModelId, out _);
-//            }
-//            else
-//            {
-//                //_readModels.AddOrUpdate(readModelId, readModelEnvelope, (rid, oldData) => readModelEnvelope);
-//                //_readModels.TryUpdate(readModelId, readModelEnvelope, null);
-//                //if (_readModels.ContainsKey(readModelId))
-//                //{
-//                //    _readModels.TryRemove(readModelId,out _);
-//                //}
-
-//                //_readModels.TryAdd(readModelId, readModelEnvelope);
-//                if (isNew)
-//                {
-//                    _readModels.TryAdd(readModelId, readModelEnvelope);
-//                }
-//                else
-//                {
-//                    if (!_readModels.TryUpdate(readModelId, readModelEnvelope, oldReadModelEnvelope))
-//                    {
-//                        Console.WriteLine("Update inmemory readmodel failed");
-//                    }
-//                }
-
-//                Console.WriteLine($"Update in-memory readmodel({typeof(TReadModel)}) {readModelUpdates.Count} ({readModelUpdate.DomainEvents.FirstOrDefault()?.GetAggregateEvent().GetType().Name}):{readModelEnvelope.ReadModelId} total:{_readModels.Count} version:{oldVersion}->{readModelEnvelope.Version}");
-//            }
-//        }
-//    }
-
-//    public async Task<IReadOnlyCollection<TReadModel>> FindAsync(Predicate<TReadModel> predicate, CancellationToken cancellationToken)
-//    {
-//        return _readModels.Values
-//            .Where(p => predicate(p.ReadModel))
-//            .Select(p => p.ReadModel)
-//            .ToList();
-//    }
-
-//    public Task<IQueryable<TReadModel>> AsQueryable(CancellationToken cancellationToken = default)
-//    {
-//        return Task.FromResult(_readModels.Values.Select(p => p.ReadModel).AsQueryable());
-//    }
-
-//    public void Add(string id, TReadModel readModel, long? version)
-//    {
-//        _readModels.TryAdd(id, ReadModelEnvelope<TReadModel>.With(id, readModel, version));
-//    }
-
-//    public override Task DeleteAsync(string id, CancellationToken cancellationToken)
-//    {
-//        _readModels.TryRemove(id, out _);
-
-//        return Task.CompletedTask;
-//    }
-
-//    public override Task DeleteAllAsync(CancellationToken cancellationToken)
-//    {
-//        _readModels.Clear();
-
-//        return Task.CompletedTask;
-//    }
-//}
-
-
-public abstract class CachedReadModelStore<TReadModel> : IReadModelStore<TReadModel>
-        where TReadModel : class, IReadModel
-{
-    private readonly IMemoryCache _memoryCache;
-
-    protected ILogger Logger { get; }
-
-    protected CachedReadModelStore(
-        ILogger logger,
-        IMemoryCache memoryCache)
+    private Task UpdateInMemoryReadModelAsync(ReadModelEnvelope<TReadModel> envelope)
     {
-        Logger = logger;
-        this._memoryCache = memoryCache;
+        _memoryCache.Set(CacheKey.With(typeof(TReadModel), envelope.ReadModelId), envelope);
+        return Task.CompletedTask;
     }
-
-    public async Task<ReadModelEnvelope<TReadModel>> GetAsync(string id, CancellationToken cancellationToken)
-    {
-        return await _memoryCache.GetOrCreateAsync(CacheKey.With(this.GetType(), id), entry =>
-        {
-            entry.SetSlidingExpiration(TimeSpan.FromMinutes(30)); //Make configurable
-            return GetEntryAsync(id, cancellationToken);
-        });
-    }
-    public async Task DeleteAsync(string id, CancellationToken cancellationToken)
-    {
-        _memoryCache.Remove(CacheKey.With(this.GetType(), id));
-
-        await DeleteEntryAsync(id, cancellationToken);
-    }
-
-    public async Task UpdateAsync(IReadOnlyCollection<ReadModelUpdate> readModelUpdates,
-        IReadModelContextFactory readModelContextFactory,
-        Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken,
-            Task<ReadModelUpdateResult<TReadModel>>> updateReadModel,
-        CancellationToken cancellationToken)
-    {
-        Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken,
-            Task<ReadModelUpdateResult<TReadModel>>> updateReadModelWithCaching = (context, events, envelope, token) => updateReadModel(context, events, envelope, token)
-            .ContinueWith(result =>
-            {
-                var cacheNonFaulted = !result.IsFaulted;
-                if (cacheNonFaulted)
-                {
-                    _memoryCache.Set(CacheKey.With(result.Result.Envelope.ReadModelId), result.Result.Envelope);
-                }
-                return result.Result;
-            });
-
-        await UpdateEntryAsync(readModelUpdates, readModelContextFactory, updateReadModelWithCaching, cancellationToken);
-    }
-
-    public abstract Task<ReadModelEnvelope<TReadModel>> GetEntryAsync(
-        string id,
-        CancellationToken cancellationToken);
-
-    public abstract Task DeleteEntryAsync(
-        string id,
-        CancellationToken cancellationToken);
-
-    public abstract Task DeleteAllAsync(
-        CancellationToken cancellationToken);
-
-    public abstract Task UpdateEntryAsync(IReadOnlyCollection<ReadModelUpdate> readModelUpdates,
-        IReadModelContextFactory readModelContextFactory,
-        Func<IReadModelContext, IReadOnlyCollection<IDomainEvent>, ReadModelEnvelope<TReadModel>, CancellationToken,
-            Task<ReadModelUpdateResult<TReadModel>>> updateReadModel,
-        CancellationToken cancellationToken);
 }
 
 public class MongoDbReadModelStore<TReadModel> : IMongoDbReadModelStore<TReadModel>

@@ -12,6 +12,6 @@ internal sealed class DeactivateAllUsernamesHandler : RpcResultObjectHandler<MyT
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestDeactivateAllUsernames obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IBool>(new TBoolTrue());
     }
 }

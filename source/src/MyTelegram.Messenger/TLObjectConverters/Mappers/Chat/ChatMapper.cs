@@ -8,7 +8,7 @@ public class ChatMapper :
     IObjectMapper<IChannelFullReadModel, TChannelFull>,
     IObjectMapper<ChatCreatedEvent, TChat>,
     IObjectMapper<IChatReadModel, TChat>,
-    //IObjectMapper<IChatReadModel, TChatFull>,
+    IObjectMapper<IChatReadModel, TChatFull>,
     IObjectMapper<ChatBannedRights, TChatBannedRights>,
     IObjectMapper<ChatAdminRights, TChatAdminRights>,
     IObjectMapper<TChatBannedRights, ChatBannedRights>,
@@ -140,7 +140,10 @@ public class ChatMapper :
         destination.LinkedChatId = source.LinkedChatId;
         destination.SlowmodeSeconds = source.SlowModeSeconds;
         destination.SlowmodeNextSendDate = source.SlowModeNextSendDate;
-        
+        if (source.AvailableReactions?.Count > 0)
+        {
+        }
+
 
         return destination;
     }
@@ -201,6 +204,26 @@ public class ChatMapper :
         destination.Noforwards = source.NoForwards;
 
         return destination;
+    }
+
+    public TChatFull Map(IChatReadModel source,
+        TChatFull destination)
+    {
+        destination.About = source.About ?? string.Empty;
+        destination.CanSetUsername = true;
+        destination.Id = source.ChatId;
+        //destination.ChatPhoto = source.Photo.ToTObject<IPhoto>() ?? new TPhotoEmpty();
+
+        if (source.AvailableReactions?.Count > 0)
+        {
+        }
+
+        return destination;
+    }
+
+    TChatFull IObjectMapper<IChatReadModel, TChatFull>.Map(IChatReadModel source)
+    {
+        return Map(source, new TChatFull());
     }
 
     public ChatAdminRights Map(TChatAdminRights source)

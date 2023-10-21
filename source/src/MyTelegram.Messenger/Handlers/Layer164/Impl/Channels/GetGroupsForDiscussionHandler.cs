@@ -10,9 +10,34 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class GetGroupsForDiscussionHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestGetGroupsForDiscussion, MyTelegram.Schema.Messages.IChats>,
     Channels.IGetGroupsForDiscussionHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IChats> HandleCoreAsync(IRequestInput input,
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly ILayeredService<IChatConverter> _layeredService;
+    private readonly ILayeredService<IPhotoConverter> _layeredPhotoService;
+    private readonly IPhotoAppService _photoAppService;
+    public GetGroupsForDiscussionHandler(IQueryProcessor queryProcessor,
+        ILayeredService<IChatConverter> layeredService,
+        ILayeredService<IPhotoConverter> layeredPhotoService, IPhotoAppService photoAppService)
+    {
+        _queryProcessor = queryProcessor;
+        _layeredService = layeredService;
+        _layeredPhotoService = layeredPhotoService;
+        _photoAppService = photoAppService;
+    }
+
+    protected override async Task<MyTelegram.Schema.Messages.IChats> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestGetGroupsForDiscussion obj)
     {
-        throw new NotImplementedException();
+        var channelReadModels = await _queryProcessor.ProcessAsync(new GetMegaGroupByUidQuery(input.UserId));
+        var photoReadModels = await _photoAppService.GetPhotosAsync(channelReadModels);
+
+        var channelList = _layeredService.GetConverter(input.Layer).ToChannelList(
+            input.UserId,
+            channelReadModels,
+            photoReadModels,
+            channelReadModels.Select(p => p.ChannelId).ToList(),
+            Array.Empty<IChannelMemberReadModel>(),
+            true);
+
+        return new TChats { Chats = new TVector<IChat>(channelList) };
     }
 }

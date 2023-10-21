@@ -18,7 +18,7 @@ public class CustomObjectMapper : ILayeredMapper, //ITransientDependency,
     IObjectMapper<BotCommand, TBotCommand>,
     IObjectMapper<IReadOnlyList<BotCommand>, List<TBotCommand>>,
     //IObjectMapper<IChatReadModel, TChat>,
-    //IObjectMapper<ChannelInviteExportedEvent, TChatInviteExported>,
+    IObjectMapper<ChannelInviteExportedEvent, TChatInviteExported>,
     //IObjectMapper<IChannelReadModel, TChannel>,
     //IObjectMapper<IChannelFullReadModel, TChannelFull>,
     //IObjectMapper<ChatBannedRights, TChatBannedRights>,
@@ -434,5 +434,29 @@ public class CustomObjectMapper : ILayeredMapper, //ITransientDependency,
     TWebAuthorization? IObjectMapper<IDeviceReadModel, TWebAuthorization>.Map(IDeviceReadModel source)
     {
         return Map(source, new TWebAuthorization());
+    }
+
+    public TChatInviteExported Map(ChannelInviteExportedEvent source)
+    {
+        return Map(source, new TChatInviteExported());
+    }
+
+    public TChatInviteExported Map(ChannelInviteExportedEvent source,
+        TChatInviteExported destination)
+    {
+        destination.Date = source.Date;
+        destination.AdminId = source.AdminId;
+        destination.ExpireDate = source.ExpireDate;
+        destination.Link = source.Link;
+        destination.Permanent = source.Permanent;
+        destination.RequestNeeded = source.RequestNeeded;
+        destination.Revoked = false;
+        destination.StartDate = source.StartDate;
+        //destination.Requested = 0;
+        destination.Title = source.Title;
+        destination.Usage = 0;
+        destination.UsageLimit = source.UsageLimit;
+
+        return destination;
     }
 }

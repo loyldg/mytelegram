@@ -1,5 +1,7 @@
 ﻿// ReSharper disable All
 
+using MyTelegram.Schema.Stories;
+
 namespace MyTelegram.Handlers.Stories;
 
 ///<summary>
@@ -11,6 +13,11 @@ internal sealed class GetPinnedStoriesHandler : RpcResultObjectHandler<MyTelegra
     protected override Task<MyTelegram.Schema.Stories.IStories> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Stories.RequestGetPinnedStories obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Stories.IStories>(new TStories
+        {
+            Chats = new(),
+            Stories = new(),
+            Users = new(),
+        });
     }
 }
