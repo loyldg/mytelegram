@@ -1,4 +1,4 @@
-﻿namespace MyTelegram.Domain.Sagas;
+﻿namespace MyTelegram.Domain.Sagas.Identities;
 
 [JsonConverter(typeof(SystemTextJsonSingleValueObjectConverter<VoteSagaId>))]
 public class VoteSagaId : SingleValueObject<string>, ISagaId

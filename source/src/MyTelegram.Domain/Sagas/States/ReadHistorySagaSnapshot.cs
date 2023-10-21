@@ -1,4 +1,4 @@
-﻿namespace MyTelegram.Domain.Sagas;
+﻿namespace MyTelegram.Domain.Sagas.States;
 
 public class ReadHistorySagaSnapshot : ISnapshot
 {

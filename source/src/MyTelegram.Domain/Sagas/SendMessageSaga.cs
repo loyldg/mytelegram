@@ -6,85 +6,6 @@ using System.Threading.Tasks;
 
 namespace MyTelegram.Domain.Sagas;
 
-[JsonConverter(typeof(SystemTextJsonSingleValueObjectConverter<SendMessageSagaId>))]
-public class SendMessageSagaId : SingleValueObject<string>, ISagaId
-{
-    public SendMessageSagaId(string value) : base(value)
-    {
-    }
-}
-
-public class SendMessageSagaLocator : DefaultSagaLocator<SendMessageSaga, SendMessageSagaId>
-{
-    protected override SendMessageSagaId CreateSagaId(string requestId)
-    {
-        return new SendMessageSagaId(requestId);
-    }
-}
-
-public class SendMessageSagaState : AggregateState<SendMessageSaga, SendMessageSagaId, SendMessageSagaState>,
-    IApply<SendMessageSagaStartedEvent>,
-    IApply<SendOutboxMessageCompletedEvent2>,
-    IApply<ReceiveInboxMessageCompletedEvent2>
-{
-    public RequestInfo RequestInfo { get; set; } = default!;
-    public MessageItem MessageItem { get; set; } = default!;
-    public List<long>? MentionedUserIds { get; private set; }
-    public int GroupItemCount { get; set; }
-    public long? LinkedChannelId { get; set; }
-    //public List<long>? BotUserIds { get; set; }
-    public long ReplyToMessageSavedFromPeerId { get; private set; }
-    //public int ReplyToMsgId { get; set; }
-    //public bool ForwardFromLinkedChannel { get; set; }
-    //public int Pts { get; private set; }
-
-    //public List<ReplyToMsgItem>? ReplyToMsgItems { get; private set; }
-    public List<long>? ChatMembers { get; private set; } = new();
-    public List<InboxItem> InboxItems { get; private set; } = new();
-
-    public Dictionary<long, int> ReplyToMsgItems { get; private set; } = new();
-
-    public void Apply(SendMessageSagaStartedEvent aggregateEvent)
-    {
-        RequestInfo = aggregateEvent.RequestInfo;
-        MessageItem = aggregateEvent.MessageItem;
-        MentionedUserIds = aggregateEvent.MentionedUserIds;
-        GroupItemCount = aggregateEvent.GroupItemCount;
-        LinkedChannelId = aggregateEvent.LinkedChannelId;
-        ChatMembers = aggregateEvent.ChatMembers;
-        //ReplyToMsgItems=aggregateEvent.ReplyToMsgItems;
-
-        if (aggregateEvent.ReplyToMsgItems?.Count > 0)
-        {
-            ReplyToMsgItems = aggregateEvent.ReplyToMsgItems.ToDictionary(k => k.UserId, v => v.MessageId);
-        }
-    }
-
-    public void Apply(SendOutboxMessageCompletedEvent2 aggregateEvent)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void Apply(ReceiveInboxMessageCompletedEvent2 aggregateEvent)
-    {
-        //throw new NotImplementedException();
-        InboxItems.Add(new(aggregateEvent.MessageItem.OwnerPeer.PeerId, aggregateEvent.MessageItem.MessageId));
-    }
-
-    public bool IsCreateInboxMessagesCompleted()
-    {
-        switch (MessageItem.ToPeer.PeerType)
-        {
-            case PeerType.User:
-                return InboxItems.Count == 1;
-            case PeerType.Chat:
-                return InboxItems.Count == ChatMembers?.Count - 1;
-        }
-
-        return false;
-    }
-}
-
 public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMessageSagaId, SendMessageSagaLocator>,
     ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageCreatedEvent>,
     ISagaHandles<MessageAggregate, MessageId, InboxMessageCreatedEvent>
@@ -329,19 +250,6 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
     }
 }
 
-public class ReceiveInboxMessageCompletedEvent2 : AggregateEvent<SendMessageSaga, SendMessageSagaId>
-{
-    public MessageItem MessageItem { get; }
-    public int Pts { get; }
-    public string? ChatTitle { get; }
-    public ReceiveInboxMessageCompletedEvent2(MessageItem messageItem, int pts, string? chatTitle)
-    {
-        MessageItem = messageItem;
-        Pts = pts;
-        ChatTitle = chatTitle;
-    }
-}
-
 //public class ReplyToChannelMessageCompletedEvent2 : AggregateEvent<SendMessageSaga, SendMessageSagaId>
 //{
 //    public ReplyToChannelMessageCompletedEvent2(int replyToMsgId,
@@ -370,58 +278,3 @@ public class ReceiveInboxMessageCompletedEvent2 : AggregateEvent<SendMessageSaga
 //    public int SavedFromMsgId { get; }
 //    public IReadOnlyCollection<Peer> RecentRepliers { get; }
 //}
-
-public class SendOutboxMessageCompletedEvent2 : RequestAggregateEvent2<SendMessageSaga, SendMessageSagaId>
-{
-    public MessageItem MessageItem { get; }
-    public List<long>? MentionedUserIds { get; }
-    public int Pts { get; }
-    public int GroupItemCount { get; }
-    public long? LinkedChannelId { get; }
-    public IReadOnlyCollection<long>? BotUserIds { get; }
-    //public long GlobalSeqNo { get; }
-
-    public SendOutboxMessageCompletedEvent2(RequestInfo requestInfo, MessageItem messageItem,
-        List<long>? mentionedUserIds,
-        int pts, int groupItemCount,
-        long? linkedChannelId, IReadOnlyCollection<long>? botUserIds/*, long globalSeqNo*/) : base(requestInfo)
-    {
-        MessageItem = messageItem;
-        MentionedUserIds = mentionedUserIds;
-        Pts = pts;
-        GroupItemCount = groupItemCount;
-        LinkedChannelId = linkedChannelId;
-        BotUserIds = botUserIds;
-        //GlobalSeqNo = globalSeqNo;
-    }
-}
-
-public class SendMessageSagaStartedEvent : RequestAggregateEvent2<SendMessageSaga, SendMessageSagaId>
-{
-    public MessageItem MessageItem { get; }
-    public List<long>? MentionedUserIds { get; }
-    public List<ReplyToMsgItem>? ReplyToMsgItems { get; }
-    public bool ClearDraft { get; }
-    public int GroupItemCount { get; }
-    public long? LinkedChannelId { get; }
-
-    public List<long>? ChatMembers { get; }
-    //public bool ForwardFromLinkedChannel { get; }
-
-    public SendMessageSagaStartedEvent(RequestInfo requestInfo, MessageItem messageItem, List<long>? mentionedUserIds,
-        List<ReplyToMsgItem>? replyToMsgItems,
-        bool clearDraft,
-        int groupItemCount,
-        long? linkedChannelId,
-        List<long>? chatMembers) : base(requestInfo)
-    {
-        MessageItem = messageItem;
-        MentionedUserIds = mentionedUserIds;
-        ReplyToMsgItems = replyToMsgItems;
-        ClearDraft = clearDraft;
-        GroupItemCount = groupItemCount;
-        LinkedChannelId = linkedChannelId;
-        ChatMembers = chatMembers;
-        //ForwardFromLinkedChannel = forwardFromLinkedChannel;
-    }
-}

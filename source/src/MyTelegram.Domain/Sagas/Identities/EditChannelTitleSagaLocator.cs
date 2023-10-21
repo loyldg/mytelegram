@@ -1,16 +1,9 @@
 ﻿namespace MyTelegram.Domain.Sagas.Identities;
 
-public class EditChannelTitleSagaLocator : ISagaLocator
+public class EditChannelTitleSagaLocator : DefaultSagaLocator<EditChannelTitleSaga, EditChannelTitleSagaId>
 {
-    public Task<ISagaId> LocateSagaAsync(IDomainEvent domainEvent,
-        CancellationToken cancellationToken)
+    protected override EditChannelTitleSagaId CreateSagaId(string requestId)
     {
-        if (domainEvent.GetAggregateEvent() is not IHasCorrelationId id)
-        {
-            throw new NotSupportedException(
-                $"{domainEvent.GetAggregateEvent().GetType().FullName} should impl IHasCorrelationId.");
-        }
-
-        return Task.FromResult<ISagaId>(new EditChannelTitleSagaId($"editchanneltitlesaga-{id.CorrelationId}"));
+        return new EditChannelTitleSagaId(requestId);
     }
 }

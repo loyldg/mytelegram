@@ -1,16 +1,9 @@
 ﻿namespace MyTelegram.Domain.Sagas.Identities;
 
-public class EditChannelPhotoSagaLocator : ISagaLocator
+public class EditChannelPhotoSagaLocator : DefaultSagaLocator<EditChannelPhotoSaga, EditChannelPhotoSagaId>
 {
-    public Task<ISagaId> LocateSagaAsync(IDomainEvent domainEvent,
-        CancellationToken cancellationToken)
+    protected override EditChannelPhotoSagaId CreateSagaId(string requestId)
     {
-        if (domainEvent.GetAggregateEvent() is not IHasCorrelationId id)
-        {
-            throw new NotSupportedException(
-                $"Domain event:{domainEvent.GetAggregateEvent().GetType().FullName} should impl IHasCorrelationId ");
-        }
-
-        return Task.FromResult<ISagaId>(new EditChannelPhotoSagaId($"editchannelphotosaga-{id.CorrelationId}"));
+        return new EditChannelPhotoSagaId(requestId);
     }
 }

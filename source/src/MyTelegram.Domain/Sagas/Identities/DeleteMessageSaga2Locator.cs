@@ -1,16 +1,9 @@
 namespace MyTelegram.Domain.Sagas.Identities;
 
-public class DeleteMessageSaga2Locator : ISagaLocator
+public class DeleteMessageSaga2Locator : DefaultSagaLocator<DeleteMessageSaga2, DeleteMessageSaga2Id>
 {
-    public Task<ISagaId> LocateSagaAsync(IDomainEvent domainEvent,
-        CancellationToken cancellationToken)
+    protected override DeleteMessageSaga2Id CreateSagaId(string requestId)
     {
-        if (domainEvent.GetAggregateEvent() is not IHasCorrelationId id)
-        {
-            throw new NotSupportedException(
-                $"Domain event:{domainEvent.GetAggregateEvent().GetType().FullName} should impl IHasCorrelationId ");
-        }
-
-        return Task.FromResult<ISagaId>(new DeleteMessageSaga2Id($"deletemessagesaga2-{id.CorrelationId}"));
+        return new DeleteMessageSaga2Id(requestId);
     }
 }

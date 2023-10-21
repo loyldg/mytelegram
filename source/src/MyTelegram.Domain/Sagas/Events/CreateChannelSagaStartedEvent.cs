@@ -1,4 +1,4 @@
-﻿namespace MyTelegram.Domain.Sagas;
+﻿namespace MyTelegram.Domain.Sagas.Events;
 
 public class CreateChannelSagaStartedEvent : AggregateEvent<CreateChannelSaga, CreateChannelSagaId>
 {

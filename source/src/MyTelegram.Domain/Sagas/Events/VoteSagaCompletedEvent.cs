@@ -1,4 +1,4 @@
-﻿namespace MyTelegram.Domain.Sagas;
+﻿namespace MyTelegram.Domain.Sagas.Events;
 
 public class VoteSagaCompletedEvent : RequestAggregateEvent2<VoteSaga, VoteSagaId>
 {

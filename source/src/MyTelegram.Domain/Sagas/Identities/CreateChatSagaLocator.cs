@@ -1,16 +1,9 @@
 ﻿namespace MyTelegram.Domain.Sagas.Identities;
 
-public class CreateChatSagaLocator : ISagaLocator
+public class CreateChatSagaLocator : DefaultSagaLocator<CreateChatSaga, CreateChatSagaId>
 {
-    public Task<ISagaId> LocateSagaAsync(IDomainEvent domainEvent,
-        CancellationToken cancellationToken)
+    protected override CreateChatSagaId CreateSagaId(string requestId)
     {
-        if (domainEvent.GetAggregateEvent() is not IHasCorrelationId id)
-        {
-            throw new NotSupportedException(
-                $"Domain event:{domainEvent.GetAggregateEvent().GetType().FullName} should impl IHasCorrelationId ");
-        }
-
-        return Task.FromResult<ISagaId>(new CreateChatSagaId($"createchatsaga-{id.CorrelationId}"));
+        return new CreateChatSagaId(requestId);
     }
 }
