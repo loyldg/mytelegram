@@ -48,7 +48,6 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                         obj.ReqMsgId,
                         handler.GetType().Name);
 
-                    //await _objectMessageSender.SendMessageToPeerAsync(obj.ReqMsgId, rpcResult);
                     await SendMessageToPeerAsync(obj.ReqMsgId, rpcResult);
                     return;
                 }
@@ -68,18 +67,10 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
 
                     if (r != null!)
                     {
-                        //await _objectMessageSender.SendMessageToPeerAsync(obj.ReqMsgId, r);
-                        if (r is TRpcResult rpcResult1)
-                        {
-                            Console.WriteLine($"rpc:{rpcResult1.Result.ConstructorId:x2}");
-                        }
                         await SendMessageToPeerAsync(obj.ReqMsgId, r);
                     }
 
-                    // Console.WriteLine($"####### Execute query ok,ReqMsgId:{obj.ReqMsgId}");
-                    //await _invokeAfterMsgProcessor.HandleAsync(obj.ReqMsgId);
                     await _invokeAfterMsgProcessor.AddCompletedReqMsgIdAsync(obj.ReqMsgId);
-                    //Task.Run(() => { _invokeAfterMsgProcessor.HandleAsync(obj.ReqMsgId); });
                 }
                 catch (Exception ex)
                 {
@@ -101,17 +92,6 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
         return obj.Data.ToTObject<IObject>();
     }
 
-    //private async Task SendAckAsync(uint objectId, int seqNo, long reqMsgId)
-    //{
-    //    if (seqNo % 2 == 1 && !ObjectIdConsts.NotNeedAckObjectIdToNames.ContainsKey(objectId))
-    //    {
-    //        var ack = new TMsgsAck
-    //        {
-    //            MsgIds = new TVector<long>(reqMsgId)
-    //        };
-    //        //await _objectMessageSender.PushMessageToPeerAsync();
-    //    }
-    //}
 
     protected virtual IRequestInput GetRequestInput(TData obj)
     {
