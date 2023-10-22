@@ -103,7 +103,7 @@ where TDbContext : IMongoDbContext
                 cacheEntry =>
                 {
                     cacheEntry.SlidingExpiration = TimeSpan.FromDays(3);
-                    Console.WriteLine($"Get from db to cache:{id}");
+                    // Console.WriteLine($"Get from db to cache:{id}");
                     return base.GetAsync(id, cancellationToken);
                 });
 
@@ -186,7 +186,7 @@ where TDbContext : IMongoDbContext
                 {
                     _memoryCache.Remove(CacheKey.With(typeof(TReadModel), readModelId));
 
-                    Console.WriteLine($"Delete in memory readModel:{readModelId}");
+                    // Console.WriteLine($"Delete in memory readModel:{readModelId}");
                 }
                 else
                 {

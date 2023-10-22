@@ -166,7 +166,6 @@ public class DifferenceConverterLayer164 : LayeredConverterBase, IDifferenceConv
     protected IUserConverter GetUserConverter()
     {
         var converter = _userConverter ??= _layeredUserService.GetConverter(GetLayer());
-        Console.WriteLine($"UserConverter:GetLayer()={GetLayer()} {converter.Layer} {converter.GetType().Namespace}.{converter.GetType().Name}");
         return converter;
     }
 

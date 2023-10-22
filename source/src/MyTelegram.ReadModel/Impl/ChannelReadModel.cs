@@ -180,7 +180,6 @@ public class ChannelReadModel : IChannelReadModel,
     {
         //ParticipantsCount++;
         ParticipantsCount = domainEvent.AggregateEvent.NewParticipantCount;
-        Console.WriteLine($"Increment participant count:newCount={ParticipantsCount}");
         return Task.CompletedTask;
     }
 

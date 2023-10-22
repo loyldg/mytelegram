@@ -12,7 +12,6 @@ internal sealed class GetAvailableReactionsHandler : RpcResultObjectHandler<MyTe
     protected override Task<MyTelegram.Schema.Messages.IAvailableReactions> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetAvailableReactions obj)
     {
-        Console.WriteLine("GetAvailableReactionsHandler");
         return Task.FromResult<IAvailableReactions>(new TAvailableReactions
         {
             Reactions = new()

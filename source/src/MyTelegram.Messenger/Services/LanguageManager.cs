@@ -43,7 +43,7 @@ public class LanguageManager : ILanguageManager
         {
             if (dict.TryGetValue(langPack, out var existsLanguageItems))
             {
-                Console.WriteLine($"###Get lang packs:langCode:{langCode} {langPack} count={existsLanguageItems.Count}");
+                // Console.WriteLine($"###Get lang packs:langCode:{langCode} {langPack} count={existsLanguageItems.Count}");
                 return existsLanguageItems;
             }
             //else
@@ -63,7 +63,7 @@ public class LanguageManager : ILanguageManager
             }
             else
             {
-                Console.WriteLine($"get langPack failed2:{langPack}");
+                // Console.WriteLine($"get langPack failed2:{langPack}");
 
                 return new List<LangItem>();
             }
@@ -103,7 +103,7 @@ public class LanguageManager : ILanguageManager
             langDict.TryAdd(langPack, languageItems);
         }
 
-        Console.WriteLine($"Get all languages success,count={languageItems.Count}");
+        // Console.WriteLine($"Get all languages success,count={languageItems.Count}");
         return languageItems;
     }
 
