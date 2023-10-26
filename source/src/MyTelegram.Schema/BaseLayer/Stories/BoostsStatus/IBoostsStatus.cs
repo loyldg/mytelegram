@@ -42,4 +42,5 @@ public interface IBoostsStatus : IObject
     /// See <a href="https://corefork.telegram.org/type/StatsPercentValue" />
     ///</summary>
     MyTelegram.Schema.IStatsPercentValue? PremiumAudience { get; set; }
+    string BoostUrl { get; set; }
 }

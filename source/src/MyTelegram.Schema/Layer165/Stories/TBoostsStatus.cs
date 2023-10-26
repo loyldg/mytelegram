@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Stories;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/stories.boostsStatus" />
 ///</summary>
-[TlObject(0x66ea1fef)]
+[TlObject(0xe5c1aa5c)]
 public sealed class TBoostsStatus : IBoostsStatus
 {
-    public uint ConstructorId => 0x66ea1fef;
+    public uint ConstructorId => 0xe5c1aa5c;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -46,12 +46,14 @@ public sealed class TBoostsStatus : IBoostsStatus
     /// See <a href="https://corefork.telegram.org/type/StatsPercentValue" />
     ///</summary>
     public MyTelegram.Schema.IStatsPercentValue? PremiumAudience { get; set; }
+    public string BoostUrl { get; set; }
 
     public void ComputeFlag()
     {
         if (MyBoost) { Flags[2] = true; }
         if (/*NextLevelBoosts != 0 && */NextLevelBoosts.HasValue) { Flags[0] = true; }
         if (PremiumAudience != null) { Flags[1] = true; }
+
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -64,6 +66,7 @@ public sealed class TBoostsStatus : IBoostsStatus
         writer.Write(Boosts);
         if (Flags[0]) { writer.Write(NextLevelBoosts.Value); }
         if (Flags[1]) { writer.Write(PremiumAudience); }
+        writer.Write(BoostUrl);
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -75,5 +78,6 @@ public sealed class TBoostsStatus : IBoostsStatus
         Boosts = reader.ReadInt32();
         if (Flags[0]) { NextLevelBoosts = reader.ReadInt32(); }
         if (Flags[1]) { PremiumAudience = reader.Read<MyTelegram.Schema.IStatsPercentValue>(); }
+        BoostUrl = reader.ReadString();
     }
 }

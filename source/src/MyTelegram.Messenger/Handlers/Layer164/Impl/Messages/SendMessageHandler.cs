@@ -141,7 +141,7 @@ internal sealed class SendMessageHandler : RpcResultObjectHandler<MyTelegram.Sch
                         await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(chatInvite.PeerId), default);
                     media = new TMessageMediaWebPage
                     {
-                        Webpage = new TWebPage
+                        Webpage = new MyTelegram.Schema.TWebPage
                         {
                             Id = Random.Shared.NextInt64(),
                             Url = $"{_options.Value.JoinChatDomain}/+{link}",

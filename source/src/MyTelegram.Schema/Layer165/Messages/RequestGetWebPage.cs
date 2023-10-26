@@ -10,10 +10,10 @@ namespace MyTelegram.Schema.Messages;
 /// 400 WC_CONVERT_URL_INVALID WC convert URL invalid.
 /// See <a href="https://corefork.telegram.org/method/messages.getWebPage" />
 ///</summary>
-[TlObject(0x32ca8f91)]
-public sealed class RequestGetWebPage : IRequest<MyTelegram.Schema.IWebPage>
+[TlObject(0x8d9692a3)]
+public sealed class RequestGetWebPage : IRequest<MyTelegram.Schema.Messages.IWebPage>
 {
-    public uint ConstructorId => 0x32ca8f91;
+    public uint ConstructorId => 0x8d9692a3;
     ///<summary>
     /// URL of IV page to fetch
     ///</summary>
