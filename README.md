@@ -10,9 +10,9 @@ WebK:[https://webk.mytelegram.top](https://webk.mytelegram.top/)
 
 **Verification Code:22222**
 ## Features
-* Supported Api Layer:**`143`~`158`**  
-Open source version: **`158`**  
-Pro version:**`143`**~**`158`**  
+* Supported Api Layer:**`143`~`165`**  
+Open source version: **`165`**  
+Pro version:**`143`**~**`165`**  
 Pro version supports client communication with different layers,open source version only supports single layer  
 * [MTProto transports](https://corefork.telegram.org/mtproto/mtproto-transports):**`Abridged`**,**`Intermediate`**(also support [Transport error](https://corefork.telegram.org/mtproto/mtproto-transports#transport-errors) and [Transport obfuscation](https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation))  
 * Private chat
@@ -28,13 +28,15 @@ Pro version supports client communication with different layers,open source vers
 * ForumTopics(Pro version)
 
 ## Build MyTelegram Server
-1. Install [.NET SDK 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+1. Install [.NET SDK 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 2. Execute the following command using powershell or Linux terminal
 ```
 git clone https://github.com/loyldg/mytelegram.git 
 cd mytelegram/source
 dotnet restore
-cd ./src/MyTelegram.MessengerServer
+cd ./src/MyTelegram.Messenger.CommandServer
+dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
+cd ./src/MyTelegram.Messenger.QueryServer
 dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
 cd ../MyTelegram.GatewayServer
 dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false 
@@ -64,10 +66,10 @@ dotnet publish -c Release -p:PublishSingleFile=true -p:PublishTrimmed=false
 8. Run `start-all.bat`/`start-all.ps1`/`start-all.sh`
 
 - ### Test with compiled client
-1. Download [TDesktop client(4.8.0)](https://github.com/loyldg/mytelegram/releases/download/v0.13.421/Telegram-4.8.0-x64.zip)
+1. Download [TDesktop client(v4.10.5)](https://github.com/loyldg/mytelegram/releases/download/v0.14.1026/Telegram-4.10.5-x64.zip)
 2. Add the IP address of the gateway server to hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line to hosts file
 ```
-192.168.1.100    demos.telegram2.com
+192.168.1.100    demos2.mytelegram.top
 ```
 3. Run Telegram.exe
 4. Default verification code is `22222`
@@ -103,7 +105,7 @@ The default fingerprint of the public key is **`0xce27f5081215bda4`**(Android cl
 if you want to use your own public key,replace `private.pkcs8.key` in auth folder
 
 - ### Build [Tdesktop client](https://github.com/telegramdesktop/tdesktop)
-1. Switch to the branch which the layer is 158(version 4.8.x)
+1. Switch to the branch which the layer is 165(version 4.10.5)
 2. Replace server addresses,port and RSA public key in **Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**
 
 - ### Build [Android client](https://github.com/DrKLO/Telegram)
@@ -150,22 +152,22 @@ Line 64:
 replace the IPAddress and port
 
 - ### Build [Telegram Web A](https://github.com/Ajaxy/telegram-tt)
-Note:The following documents are based on this version:https://github.com/Ajaxy/telegram-tt/tree/61a26749d02460c012e451e17cdb06a830f82a7d
-1. Make sure the client layer is 158,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
+Note:The following documents are based on this version:https://github.com/Ajaxy/telegram-tt/commit/9787a4dead12555d9b5ed34d9e37d48026fa664e
+1. Make sure the client layer is 165,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
 2. **src\api\gramjs\gramjsBuilders\index.ts**  
-Line 36:
+Line 39:
 `const CHANNEL_ID_MIN_LENGTH = 11; ` to `const CHANNEL_ID_MIN_LENGTH = 13; `  
-Line 56:
-`chatOrUserId <= -1000000000` to `chatOrUserId <= -800000000000`
+Line 42:
+`return id.startsWith('-100')` to `return id.startsWith('-800')`
 3. **src\api\gramjs\methods\client.ts**  
-Line 76: `useWSS: true,` to `useWSS: false,`
+Line 89: `useWSS: true,` to `useWSS: false,`
 
 4. **src\api\gramjs\methods\calls.ts**  
-Line 272: `userId: buildInputPeer(user.id, user.accessHash),`  
+Line 307: `userId: buildInputPeer(user.id, user.accessHash),`  
 to `userId: new GramJs.InputUser({ userId: BigInt(user.id), accessHash: BigInt(user.accessHash!) }),`
 
 5. **src\api\gramjs\methods\users.ts**  
-Line 161:
+Line 159:
 ```
 const result = await invokeRequest(new GramJs.users.GetUsers({
     id: users.map(({ id, accessHash }) => buildInputPeer(id, accessHash)),
@@ -178,13 +180,13 @@ to
   }));
 ```
 6. **src\lib\gramjs\Utils.js**  
-Line 641:
+Line 644:
 to
 ```
 return { id: 2, ipAddress: 'Your Server IP', port: 30444 };
 ```
 7. **src\lib\gramjs\client\TelegramClient.js**  
-Line 229:
+Line 255:
 to
 ```
 this.session.setDC(this.defaultDcId, DC.ipAddress, this._args.useWSS ? 30443 : 30444);
