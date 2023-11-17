@@ -34,4 +34,6 @@ public interface IUserReadModel : IReadModel
     long? ProfilePhotoId { get; }
     long? PersonalPhotoId { get; }
     long? FallbackPhotoId { get; }
+    int? Color { get; }
+    long? BackgroundEmojiId { get; }
 }

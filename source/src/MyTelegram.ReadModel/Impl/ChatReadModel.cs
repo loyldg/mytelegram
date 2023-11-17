@@ -36,7 +36,7 @@ public class ChatReadModel : IChatReadModel,
 
     public virtual long? Version { get; set; }
     public bool IsDeleted { get; set; }
-    //public ReactionType ReactionType { get; private set; }
+    public ReactionType ReactionType { get; private set; }
     public bool AllowCustomReaction { get; private set; }
     public List<string>? AvailableReactions { get; private set; }
     public int? TtlPeriod { get; private set; }

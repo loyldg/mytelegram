@@ -43,4 +43,6 @@ public interface IChannelReadModel : IReadModel
     long? PhotoId { get; }
     bool NoForwards { get; }
     //List<long>? BotUserIds { get; }
+    int? Color { get; }
+    long? BackgroundEmojiId { get; }
 }

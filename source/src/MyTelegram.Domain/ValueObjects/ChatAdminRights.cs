@@ -1,7 +1,5 @@
 ﻿namespace MyTelegram.Domain.ValueObjects;
 
-public record ReplyToMsgItem(long UserId, int MessageId);
-
 public class ChatAdminRights : ValueObject
 {
     private readonly BitArray _flags = new(32);
@@ -16,11 +14,16 @@ public class ChatAdminRights : ValueObject
         true,
         false,
         true,
-        true);
+        true,
+        true,
+        true,
+        true,
+        true
+    );
 
     public ChatAdminRights()
     {
-
+        
     }
 
     public ChatAdminRights(BitArray flags)
@@ -28,7 +31,7 @@ public class ChatAdminRights : ValueObject
         _flags = flags;
         InitFromFlags();
     }
-
+    
     public ChatAdminRights(bool changeInfo,
         bool postMessages,
         bool editMessages,
@@ -40,8 +43,11 @@ public class ChatAdminRights : ValueObject
         bool anonymous,
         bool manageCall,
         bool other,
-        bool manageTopics = true
-    )
+        bool manageTopics,
+        bool postStories,
+        bool editStories,
+        bool deleteStories
+        )
     {
         ChangeInfo = changeInfo;
         PostMessages = postMessages;
@@ -55,6 +61,9 @@ public class ChatAdminRights : ValueObject
         ManageCall = manageCall;
         Other = other;
         ManageTopics = manageTopics;
+        PostStories= postStories;
+        EditStories = editStories;
+        DeleteStories = deleteStories;
 
         ComputeFlag();
     }
@@ -72,6 +81,9 @@ public class ChatAdminRights : ValueObject
     public bool ManageTopics { get; set; }
     public bool PinMessages { get; set; }
     public bool PostMessages { get; set; }
+    public bool PostStories { get; set; }
+    public bool EditStories { get; set; }
+    public bool DeleteStories { get; set; }
 
     public bool HasNoRights()
     {
@@ -86,8 +98,11 @@ public class ChatAdminRights : ValueObject
                !Anonymous &&
                !ManageCall &&
                !Other &&
-               !ManageTopics
-            ;
+               !ManageTopics&&
+               !PostStories&&
+               !EditStories&&
+               !DeleteStories
+               ;
     }
 
     public void ComputeFlag()
@@ -104,6 +119,10 @@ public class ChatAdminRights : ValueObject
         if (ManageCall) { _flags[11] = true; }
         if (Other) { _flags[12] = true; }
         if (ManageTopics) { _flags[13] = true; }
+        if (PostStories) { _flags[14] = true; }
+        if (EditStories) { _flags[15] = true; }
+        if (DeleteStories) { _flags[16] = true; }
+
     }
 
     public BitArray GetFlags()
@@ -127,5 +146,8 @@ public class ChatAdminRights : ValueObject
         if (_flags[11]) { ManageCall = true; }
         if (_flags[12]) { Other = true; }
         if (_flags[13]) { ManageTopics = true; }
+        if (_flags[14]) { PostStories = true; }
+        if (_flags[15]) { EditStories = true; }
+        if (_flags[16]) { DeleteStories = true; }
     }
 }

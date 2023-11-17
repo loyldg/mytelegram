@@ -16,20 +16,20 @@ public class ChatAdmin : ValueObject
         Rank = rank;
     }
 
-    public ChatAdminRights AdminRights { get; private set; }
+    public ChatAdminRights AdminRights { get; internal set; }
 
     /// <summary>
     ///     Can this admin promote other admins with the same permissions?
     /// </summary>
-    public bool CanEdit { get; private set; }
+    public bool CanEdit { get; init; }
 
     /// <summary>
     ///     User that promoted the user to admin
     /// </summary>
-    public long PromotedBy { get; private set; }
+    public long PromotedBy { get; init; }
 
-    public string Rank { get; private set; }
-    public long UserId { get; private set; }
+    public string Rank { get; init; }
+    public long UserId { get; init; }
 
     public void SetAdminRights(ChatAdminRights adminRights)
     {

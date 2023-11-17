@@ -50,6 +50,8 @@ public class ChannelReadModel : IChannelReadModel,
     public int? TtlPeriod { get; private set; }
     public long? PhotoId { get; private set; }
     public bool NoForwards { get; private set; }
+    public int? Color { get; private set; }
+    public long? BackgroundEmojiId { get; private set; }
 
     //public ReactionType ReactionType { get; private set; }
     //public bool AllowCustomReaction { get; private set; }

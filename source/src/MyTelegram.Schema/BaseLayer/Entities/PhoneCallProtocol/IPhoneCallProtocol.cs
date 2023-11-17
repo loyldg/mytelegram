@@ -32,4 +32,6 @@ public interface IPhoneCallProtocol : IObject
     /// Maximum layer for remote libtgvoip
     ///</summary>
     int MaxLayer { get; set; }
+
+    TVector<string> LibraryVersions { get; set; }
 }

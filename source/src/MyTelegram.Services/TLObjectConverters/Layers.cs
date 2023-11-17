@@ -19,4 +19,6 @@ public class Layers
     public const int Layer158 = 158;
     public const int Layer160 = 160;
     public const int Layer164 = 164;
+    public const int Layer165 = 165;
+    public const int Layer166 = 166;
 }

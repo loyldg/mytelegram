@@ -42,6 +42,7 @@ public interface IStickerSet : IObject
     /// This is a custom emoji stickerset
     ///</summary>
     bool Emojis { get; set; }
+    bool TextColor { get; set; }
 
     ///<summary>
     /// When was this stickerset installed

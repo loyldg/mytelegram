@@ -15,7 +15,7 @@ public interface IChatReadModel : IReadModel
     string Title { get; }
     long? Version { get; set; }
     bool IsDeleted { get; set; }
-    //ReactionType ReactionType { get; }
+    ReactionType ReactionType { get; }
     bool AllowCustomReaction { get; }
     List<string>? AvailableReactions { get; }
     int? TtlPeriod { get; }

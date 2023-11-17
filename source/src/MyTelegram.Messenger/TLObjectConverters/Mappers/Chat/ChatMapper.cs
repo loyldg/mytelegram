@@ -54,6 +54,10 @@ public class ChatMapper :
         destination.Anonymous = source.Anonymous;
         destination.ManageCall = source.ManageCall;
         destination.Other = source.Other;
+        destination.ManageTopics = source.ManageTopics;
+        destination.PostStories = source.PostStories;
+        destination.EditStories = source.EditStories;
+        destination.DeleteStories = source.DeleteStories;
 
         return destination;
     }
@@ -79,6 +83,14 @@ public class ChatMapper :
         destination.ChangeInfo = source.ChangeInfo;
         destination.InviteUsers = source.InviteUsers;
         destination.PinMessages = source.PinMessages;
+        destination.ManageTopics = source.ManageTopics;
+        destination.SendPhotos = source.SendPhotos;
+        destination.SendVideos = source.SendVideos;
+        destination.SendRoundvideos = source.SendRoundVideos;
+        destination.SendAudios = source.SendAudios;
+        destination.SendVoices = source.SendVoices;
+        destination.SendDocs = source.SendDocs;
+        destination.SendPlain = source.SendPlain;
         destination.UntilDate = source.UntilDate;
 
         return destination;
@@ -140,9 +152,35 @@ public class ChatMapper :
         destination.LinkedChatId = source.LinkedChatId;
         destination.SlowmodeSeconds = source.SlowModeSeconds;
         destination.SlowmodeNextSendDate = source.SlowModeNextSendDate;
-        if (source.AvailableReactions?.Count > 0)
+        switch (source.ReactionType)
         {
+            case ReactionType.ReactionNone:
+                destination.AvailableReactions = new TChatReactionsNone();
+                break;
+            case ReactionType.ReactionAll:
+                destination.AvailableReactions = new TChatReactionsAll
+                {
+                    AllowCustom = source.AllowCustomReaction
+                };
+                break;
+            case ReactionType.ReactionSome:
+                if (source.AvailableReactions?.Count > 0)
+                {
+                    destination.AvailableReactions = new TChatReactionsSome
+                    {
+                        Reactions = new TVector<IReaction>(source.AvailableReactions.Select(p => new TReactionEmoji
+                        {
+                            Emoticon = p
+                        }))
+                    };
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
+        destination.Antispam = source.AntiSpam;
+        destination.TtlPeriod = source.TtlPeriod;
+        destination.TranslationsDisabled = false;
 
 
         return destination;
@@ -173,6 +211,8 @@ public class ChatMapper :
 
         destination.HasLink = source.LinkedChatId.HasValue;
         destination.Noforwards = source.NoForwards;
+        destination.Color = source.Color;
+        destination.BackgroundEmojiId = source.BackgroundEmojiId;
 
         return destination;
     }
@@ -213,10 +253,33 @@ public class ChatMapper :
         destination.CanSetUsername = true;
         destination.Id = source.ChatId;
         //destination.ChatPhoto = source.Photo.ToTObject<IPhoto>() ?? new TPhotoEmpty();
-
-        if (source.AvailableReactions?.Count > 0)
+        switch (source.ReactionType)
         {
+            case ReactionType.ReactionNone:
+                destination.AvailableReactions = new TChatReactionsNone();
+                break;
+            case ReactionType.ReactionAll:
+                destination.AvailableReactions = new TChatReactionsAll
+                {
+                    AllowCustom = source.AllowCustomReaction
+                };
+                break;
+            case ReactionType.ReactionSome:
+                if (source.AvailableReactions?.Count > 0)
+                {
+                    destination.AvailableReactions = new TChatReactionsSome
+                    {
+                        Reactions = new TVector<IReaction>(source.AvailableReactions.Select(p => new TReactionEmoji
+                        {
+                            Emoticon = p
+                        }))
+                    };
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
+        destination.TranslationsDisabled = false;
 
         return destination;
     }
@@ -244,6 +307,7 @@ public class ChatMapper :
         destination.Anonymous = source.Anonymous;
         destination.ManageCall = source.ManageCall;
         destination.Other = source.Other;
+        destination.ManageTopics = source.ManageTopics;
 
         return destination;
     }
@@ -268,6 +332,14 @@ public class ChatMapper :
         destination.ChangeInfo = source.ChangeInfo;
         destination.InviteUsers = source.InviteUsers;
         destination.PinMessages = source.PinMessages;
+        destination.ManageTopics = source.ManageTopics;
+        destination.SendPhotos = source.SendPhotos;
+        destination.SendVideos = source.SendVideos;
+        destination.SendRoundVideos = source.SendRoundvideos;
+        destination.SendAudios = source.SendAudios;
+        destination.SendVoices = source.SendVoices;
+        destination.SendDocs = source.SendDocs;
+        destination.SendPlain = source.SendPlain;
 
         destination.UntilDate = source.UntilDate;
 

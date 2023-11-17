@@ -43,6 +43,8 @@ public class UserReadModel : IUserReadModel,
     public long? ProfilePhotoId { get; private set; }
     public long? PersonalPhotoId { get; private set; }
     public long? FallbackPhotoId { get; private set; }
+    public int? Color { get; private set; }
+    public long? BackgroundEmojiId { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -167,7 +169,7 @@ public class UserReadModel : IUserReadModel,
             PinnedMsgId = PinnedMsgIdList.LastOrDefault();
         }
     }
-   
+
     public Task ApplyAsync(IReadModelContext context, IDomainEvent<UserAggregate, UserId, UserProfilePhotoUploadedEvent> domainEvent, CancellationToken cancellationToken)
     {
         if (domainEvent.AggregateEvent.Fallback)

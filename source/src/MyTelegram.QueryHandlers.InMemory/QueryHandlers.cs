@@ -292,7 +292,7 @@ public class
     {
         return await (await CreateQueryAsync().ConfigureAwait(false))
                 .Where(p =>
-                    p.Revoked == query.Revoked && p.ChannelId == query.ChannelId && p.AdminId == query.AdminId)
+                    p.Revoked == query.Revoked && p.PeerId == query.PeerId && p.AdminId == query.AdminId)
                 .ToListAsync(cancellationToken)
             ;
     }
