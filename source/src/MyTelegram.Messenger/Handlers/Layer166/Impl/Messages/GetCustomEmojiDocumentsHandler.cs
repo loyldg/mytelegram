@@ -12,6 +12,7 @@ internal sealed class GetCustomEmojiDocumentsHandler : RpcResultObjectHandler<My
     protected override Task<TVector<MyTelegram.Schema.IDocument>> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetCustomEmojiDocuments obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<TVector<MyTelegram.Schema.IDocument>>(new TVector<IDocument>());
+        //throw new NotImplementedException();
     }
 }

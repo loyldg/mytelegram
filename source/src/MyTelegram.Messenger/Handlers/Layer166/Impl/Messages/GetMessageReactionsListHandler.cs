@@ -16,6 +16,11 @@ internal sealed class GetMessageReactionsListHandler : RpcResultObjectHandler<My
     protected override Task<MyTelegram.Schema.Messages.IMessageReactionsList> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetMessageReactionsList obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.IMessageReactionsList>(new TMessageReactionsList
+        {
+            Chats = new(),
+            Reactions = new(),
+            Users = new(),
+        });
     }
 }

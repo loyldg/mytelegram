@@ -73,10 +73,11 @@ public class ConfigConverterLayer166 : IConfigConverterLayer166
             SuggestedLangCode = "en",
             LangPackVersion = 0,
             BaseLangPackVersion = 0,
-            ReactionsDefault = new TReactionEmoji
-            {
-                Emoticon = "👍"
-            }
+            ReactionsDefault = new TReactionEmpty(),
+            //ReactionsDefault = new TReactionEmoji
+            //{
+            //    Emoticon = "👍"
+            //}
         };
 
         return config;
