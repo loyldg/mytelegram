@@ -12,6 +12,9 @@ internal sealed class GetSavedRingtonesHandler : RpcResultObjectHandler<MyTelegr
     protected override Task<MyTelegram.Schema.Account.ISavedRingtones> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetSavedRingtones obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<Schema.Account.ISavedRingtones>(new TSavedRingtones
+        {
+            Ringtones = new TVector<IDocument>()
+        });
     }
 }

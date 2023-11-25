@@ -9,9 +9,9 @@ namespace MyTelegram.Handlers.Contacts;
 internal sealed class GetStatusesHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestGetStatuses, TVector<MyTelegram.Schema.IContactStatus>>,
     Contacts.IGetStatusesHandler
 {
-    protected override Task<TVector<MyTelegram.Schema.IContactStatus>> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Contacts.RequestGetStatuses obj)
+    protected override Task<TVector<IContactStatus>> HandleCoreAsync(IRequestInput input,
+        RequestGetStatuses obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(new TVector<IContactStatus>());
     }
 }

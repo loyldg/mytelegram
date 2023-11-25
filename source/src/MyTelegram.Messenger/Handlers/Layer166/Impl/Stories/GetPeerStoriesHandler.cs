@@ -11,6 +11,15 @@ internal sealed class GetPeerStoriesHandler : RpcResultObjectHandler<MyTelegram.
     protected override Task<MyTelegram.Schema.Stories.IPeerStories> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Stories.RequestGetPeerStories obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Stories.IPeerStories>(new MyTelegram.Schema.Stories.TPeerStories
+        {
+            Stories = new TPeerStories
+            {
+                Stories = new(),
+                Peer = obj.Peer.ToPeer().ToPeer(),
+            },
+            Chats = new(),
+            Users = new()
+        });
     }
 }

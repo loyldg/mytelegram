@@ -11,6 +11,12 @@ internal sealed class GetAllReadPeerStoriesHandler : RpcResultObjectHandler<MyTe
     protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Stories.RequestGetAllReadPeerStories obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IUpdates>(new TUpdates
+        {
+            Updates = new(),
+            Chats = new(),
+            Users = new(),
+            Date = CurrentDate,
+        });
     }
 }

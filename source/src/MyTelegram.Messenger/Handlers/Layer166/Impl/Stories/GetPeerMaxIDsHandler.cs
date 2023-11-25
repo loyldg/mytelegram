@@ -11,6 +11,6 @@ internal sealed class GetPeerMaxIDsHandler : RpcResultObjectHandler<MyTelegram.S
     protected override Task<TVector<int>> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Stories.RequestGetPeerMaxIDs obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(new TVector<int>());
     }
 }

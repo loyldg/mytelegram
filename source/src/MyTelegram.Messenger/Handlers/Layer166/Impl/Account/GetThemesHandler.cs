@@ -12,6 +12,8 @@ internal sealed class GetThemesHandler : RpcResultObjectHandler<MyTelegram.Schem
     protected override Task<MyTelegram.Schema.Account.IThemes> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetThemes obj)
     {
-        throw new NotImplementedException();
+        var r = new TThemes { Themes = new TVector<ITheme>(), Hash = obj.Hash };
+
+        return Task.FromResult<IThemes>(r);
     }
 }
