@@ -4,16 +4,44 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// React to a story.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 400 REACTION_INVALID The specified reaction is invalid.
+/// 400 STORY_ID_EMPTY You specified no story IDs.
 /// See <a href="https://corefork.telegram.org/method/stories.sendReaction" />
 ///</summary>
 [TlObject(0x7fd736b2)]
 public sealed class RequestSendReaction : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x7fd736b2;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether to add this reaction to the <a href="https://corefork.telegram.org/api/reactions#recent-reactions">recent reactions list »</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool AddToRecent { get; set; }
+
+    ///<summary>
+    /// The peer that sent the story
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// ID of the story to react to
+    ///</summary>
     public int StoryId { get; set; }
+
+    ///<summary>
+    /// Reaction
+    /// See <a href="https://corefork.telegram.org/type/Reaction" />
+    ///</summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
     public void ComputeFlag()

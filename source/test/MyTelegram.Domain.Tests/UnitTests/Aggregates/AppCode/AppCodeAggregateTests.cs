@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Domain.Tests.UnitTests.Aggregates.AppCode;
+﻿using Shouldly;
+
+namespace MyTelegram.Domain.Tests.UnitTests.Aggregates.AppCode;
 
 public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
 {
@@ -16,7 +18,7 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
     {
         CreateAppCodeAggregate();
 
-        Sut.CancelCode(A<long>(), _phoneNumber, _validPhoneCodeHash);
+        Sut.CancelCode(A<RequestInfo>(), _phoneNumber, _validPhoneCodeHash);
 
         Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<AppCodeCanceledEvent>();
     }
@@ -25,16 +27,16 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
     public void CheckSignInCode_Exceeded_Max_Failed_Count_Throws_Exception()
     {
         CreateAppCodeAggregate();
-        var aggregateEvent = new CheckSignInCodeCompletedEvent(A<RequestInfo>(), false, 1, A<Guid>());
+        var aggregateEvent = new CheckSignInCodeCompletedEvent(A<RequestInfo>(), false, 1);
         var aggregateEvents = Enumerable.Repeat(aggregateEvent, _maxFailedCount + 1);
         var domainEvents = aggregateEvents.Select((p,
                 index) => ADomainEvent<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>(p, Sut.Version + index + 1))
             .ToList();
         Sut.ApplyEvents(domainEvents);
 
-        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckSignInCode(A<RequestInfo>(), _validPhoneCodeHash, A<long>(), A<Guid>()));
+        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckSignInCode(A<RequestInfo>(), _validPhoneCodeHash, A<long>()));
 
-        exception.Message.ShouldBe(RpcErrorMessages.PhoneCodeInvalid);
+        exception.Message.ShouldBe(RpcErrors.RpcErrors400.PhoneCodeInvalid.Message);
     }
 
     [Fact]
@@ -44,9 +46,9 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
         var domainEvent = ADomainEvent<AppCodeAggregate, AppCodeId, AppCodeCanceledEvent>(Sut.Version + 1);
         Sut.ApplyEvents(new IDomainEvent[] { domainEvent });
 
-        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckSignInCode(A<RequestInfo>(), _validPhoneCodeHash, A<long>(), A<Guid>()));
+        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckSignInCode(A<RequestInfo>(), _validPhoneCodeHash, A<long>()));
 
-        exception.Message.ShouldBe(RpcErrorMessages.PhoneCodeExpired);
+        exception.Message.ShouldBe(RpcErrors.RpcErrors400.PhoneCodeExpired.Message);
     }
 
     [Fact]
@@ -54,7 +56,7 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
     {
         CreateAppCodeAggregate();
 
-        Sut.CheckSignInCode(A<RequestInfo>(), _validPhoneCodeHash, A<long>(), A<Guid>());
+        Sut.CheckSignInCode(A<RequestInfo>(), _validPhoneCodeHash, A<long>());
 
         Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<CheckSignInCodeCompletedEvent>();
     }
@@ -64,9 +66,9 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
     {
         CreateAppCodeAggregate(expireMinutes: -5);
 
-        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckSignInCode(A<RequestInfo>(), string.Empty, A<long>(), A<Guid>()));
+        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckSignInCode(A<RequestInfo>(), string.Empty, A<long>()));
 
-        exception.Message.ShouldBe(RpcErrorMessages.PhoneCodeEmpty);
+        exception.Message.ShouldBe(RpcErrors.RpcErrors400.PhoneCodeEmpty.Message);
     }
 
     [Fact]
@@ -74,9 +76,9 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
     {
         CreateAppCodeAggregate(expireMinutes: -5);
 
-        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckSignInCode(A<RequestInfo>(), _validPhoneCodeHash, A<long>(), A<Guid>()));
+        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckSignInCode(A<RequestInfo>(), _validPhoneCodeHash, A<long>()));
 
-        exception.Message.ShouldBe(RpcErrorMessages.PhoneCodeExpired);
+        exception.Message.ShouldBe(RpcErrors.RpcErrors400.PhoneCodeExpired.Message);
     }
 
     [Fact]
@@ -84,7 +86,7 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
     {
         CreateAppCodeAggregate();
 
-        Sut.CheckSignInCode(A<RequestInfo>(), _inValidPhoneCodeHash, A<long>(), A<Guid>());
+        Sut.CheckSignInCode(A<RequestInfo>(), _inValidPhoneCodeHash, A<long>());
 
         var checkSignUpCodeCompletedEvent = Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<CheckSignInCodeCompletedEvent>();
         checkSignUpCodeCompletedEvent.IsCodeValid.ShouldBeFalse();
@@ -139,7 +141,7 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
 
         Sut.CheckSignUpCode(
             A<RequestInfo>(),
-            0, _validPhoneCodeHash, 0, _phoneNumber, "0", null, Guid.Empty);
+            0, _validPhoneCodeHash, 0, _phoneNumber, "0", null);
 
         //Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<SignUpRequiredEvent>();
         var uncommittedEvent = Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<CheckSignUpCodeCompletedEvent>();
@@ -152,7 +154,7 @@ public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
         var oldUid = 1;
         CreateAppCodeAggregate(oldUid);
 
-        Sut.CheckSignUpCode(A<RequestInfo>(), oldUid, _validPhoneCodeHash, 0, _phoneNumber, "0", null, Guid.Empty);
+        Sut.CheckSignUpCode(A<RequestInfo>(), oldUid, _validPhoneCodeHash, 0, _phoneNumber, "0", null);
 
         var checkSignUpCodeCompletedEvent = Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<CheckSignUpCodeCompletedEvent>();
         checkSignUpCodeCompletedEvent.IsCodeValid.ShouldBeTrue();

@@ -129,7 +129,7 @@ public class ChatState : AggregateState<ChatAggregate, ChatId, ChatState>,
         //{
         //    _chatMembers.Add(member);
         //}
-
+        ChatMembers.TryAdd(member.UserId, member);
     }
 
     public ChatBannedRights GetDefaultBannedRights()

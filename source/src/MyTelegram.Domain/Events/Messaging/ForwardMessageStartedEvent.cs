@@ -8,15 +8,13 @@ public class ForwardMessageStartedEvent : RequestAggregateEvent2<MessageAggregat
         Peer toPeer,
         IReadOnlyList<int> idList,
         IReadOnlyList<long> randomIdList,
-        bool forwardFromLinkedChannel,
-        Guid correlationId) : base(requestInfo)
+        bool forwardFromLinkedChannel) : base(requestInfo)
     {
         FromPeer = fromPeer;
         ToPeer = toPeer;
         IdList = idList;
         RandomIdList = randomIdList;
         ForwardFromLinkedChannel = forwardFromLinkedChannel;
-        CorrelationId = correlationId;
     }
 
     public Peer FromPeer { get; }
@@ -25,5 +23,4 @@ public class ForwardMessageStartedEvent : RequestAggregateEvent2<MessageAggregat
     public bool ForwardFromLinkedChannel { get; }
 
     public Peer ToPeer { get; }
-    public Guid CorrelationId { get; }
 }

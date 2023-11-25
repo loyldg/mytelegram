@@ -4,15 +4,36 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Report a story.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stories.report" />
 ///</summary>
 [TlObject(0x1923fa8c)]
 public sealed class RequestReport : IRequest<IBool>
 {
     public uint ConstructorId => 0x1923fa8c;
+    ///<summary>
+    /// The peer that uploaded the story.
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// IDs of the stories to report.
+    ///</summary>
     public TVector<int> Id { get; set; }
+
+    ///<summary>
+    /// Why are these storeis being reported.
+    /// See <a href="https://corefork.telegram.org/type/ReportReason" />
+    ///</summary>
     public MyTelegram.Schema.IReportReason Reason { get; set; }
+
+    ///<summary>
+    /// Comment for report moderation
+    ///</summary>
     public string Message { get; set; }
 
     public void ComputeFlag()

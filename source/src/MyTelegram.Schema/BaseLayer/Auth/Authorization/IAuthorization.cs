@@ -6,6 +6,8 @@ namespace MyTelegram.Schema.Auth;
 /// Object contains info on user authorization.
 /// See <a href="https://corefork.telegram.org/constructor/auth.Authorization" />
 ///</summary>
+[JsonDerivedType(typeof(TAuthorization), nameof(TAuthorization))]
+[JsonDerivedType(typeof(TAuthorizationSignUpRequired), nameof(TAuthorizationSignUpRequired))]
 public interface IAuthorization : IObject
 {
     ///<summary>

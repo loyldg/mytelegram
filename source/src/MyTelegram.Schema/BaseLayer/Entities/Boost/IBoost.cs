@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/Boost" />
 ///</summary>
+[JsonDerivedType(typeof(TBoost), nameof(TBoost))]
 public interface IBoost : IObject
 {
     BitArray Flags { get; set; }

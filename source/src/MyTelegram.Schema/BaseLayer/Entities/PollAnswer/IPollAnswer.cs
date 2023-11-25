@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Indicates a possible answer to a <a href="https://corefork.telegram.org/type/Poll">poll</a>.
 /// See <a href="https://corefork.telegram.org/constructor/PollAnswer" />
 ///</summary>
+[JsonDerivedType(typeof(TPollAnswer), nameof(TPollAnswer))]
 public interface IPollAnswer : IObject
 {
     ///<summary>

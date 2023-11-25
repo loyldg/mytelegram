@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Public key to use <strong>only</strong> during handshakes to <a href="https://corefork.telegram.org/cdn">CDN</a> DCs.
 /// See <a href="https://corefork.telegram.org/constructor/CdnPublicKey" />
 ///</summary>
+[JsonDerivedType(typeof(TCdnPublicKey), nameof(TCdnPublicKey))]
 public interface ICdnPublicKey : IObject
 {
     ///<summary>

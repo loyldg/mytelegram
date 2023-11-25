@@ -12,6 +12,6 @@ internal sealed class LogOutHandler : RpcResultObjectHandler<MyTelegram.Schema.A
     protected override Task<MyTelegram.Schema.Auth.ILoggedOut> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Auth.RequestLogOut obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<ILoggedOut>(new TLoggedOut());
     }
 }

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Contact status: online / offline.
 /// See <a href="https://corefork.telegram.org/constructor/ContactStatus" />
 ///</summary>
+[JsonDerivedType(typeof(TContactStatus), nameof(TContactStatus))]
 public interface IContactStatus : IObject
 {
     ///<summary>

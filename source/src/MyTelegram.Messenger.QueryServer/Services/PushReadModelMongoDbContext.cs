@@ -8,5 +8,5 @@ public class PushReadModelMongoDbContext : DefaultReadModelMongoDbContext
     {
     }
 
-    protected override string GetKeyOfDatabaseNameInConfiguration() => "App:ReadModelDatabaseName";
+    protected override string GetKeyOfDatabaseNameInConfiguration() => "App:QueryServerReadModelDatabaseName";
 }

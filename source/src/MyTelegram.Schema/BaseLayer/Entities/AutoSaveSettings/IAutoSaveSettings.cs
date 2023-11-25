@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Media autosave settings
 /// See <a href="https://corefork.telegram.org/constructor/AutoSaveSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TAutoSaveSettings), nameof(TAutoSaveSettings))]
 public interface IAutoSaveSettings : IObject
 {
     ///<summary>

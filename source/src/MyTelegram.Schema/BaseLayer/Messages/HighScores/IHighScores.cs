@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// High scores (in games)
 /// See <a href="https://corefork.telegram.org/constructor/messages.HighScores" />
 ///</summary>
+[JsonDerivedType(typeof(THighScores), nameof(THighScores))]
 public interface IHighScores : IObject
 {
     ///<summary>

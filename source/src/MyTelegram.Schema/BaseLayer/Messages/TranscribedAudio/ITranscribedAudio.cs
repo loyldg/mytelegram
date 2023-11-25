@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// <a href="https://corefork.telegram.org/api/transcribe">Transcribed text</a> from a voice message
 /// See <a href="https://corefork.telegram.org/constructor/messages.TranscribedAudio" />
 ///</summary>
+[JsonDerivedType(typeof(TTranscribedAudio), nameof(TTranscribedAudio))]
 public interface ITranscribedAudio : IObject
 {
     ///<summary>

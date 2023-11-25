@@ -27,6 +27,7 @@ namespace MyTelegram.Services.Extensions
 
             services.AddSingleton<ICacheSerializer, CacheSerializer>();
             services.AddSingleton<IInvokeAfterMsgProcessor, InvokeAfterMsgProcessor>();
+            services.AddSystemTextJson();
 
             return services;
         }

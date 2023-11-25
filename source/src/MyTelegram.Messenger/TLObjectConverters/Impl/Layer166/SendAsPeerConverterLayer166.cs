@@ -1,10 +1,14 @@
 ﻿namespace MyTelegram.Messenger.TLObjectConverters.Impl.Layer166;
+using TSendAsPeers = MyTelegram.Schema.Channels.TSendAsPeers;
+//using IPeer=MyTelegram.Schema.Channels.IPeer;
 
 public class SendAsPeerConverterLayer166 : ISendAsPeerConverterLayer166
 {
-    public int Layer => Layers.Layer166;
+    public virtual int Layer => Layers.Layer166;
 
-    public ISendAsPeers ToSendAsPeers(long userId,
+    public int RequestLayer { get; set; }
+
+    public virtual ISendAsPeers ToSendAsPeers(long userId,
         long channelId,
         long channelCreatorId,
         IChat? channel,
@@ -33,6 +37,4 @@ public class SendAsPeerConverterLayer166 : ISendAsPeerConverterLayer166
             })
         };
     }
-
-    public int RequestLayer { get; set; }
 }

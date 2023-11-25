@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Message edit data for media
 /// See <a href="https://corefork.telegram.org/constructor/messages.MessageEditData" />
 ///</summary>
+[JsonDerivedType(typeof(TMessageEditData), nameof(TMessageEditData))]
 public interface IMessageEditData : IObject
 {
     ///<summary>

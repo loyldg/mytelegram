@@ -9,6 +9,7 @@
     <PackageReference Include="EventFlow" />
     <!--<ProjectReference Include="..\EventFlow\EventFlow.csproj" />-->
     <ProjectReference Include="..\MyTelegram.Domain.Shared\MyTelegram.Domain.Shared.csproj" />
+    <ProjectReference Include="..\MyTelegram.Schema\MyTelegram.Schema.csproj" />
   </ItemGroup>
 
   <ItemGroup>

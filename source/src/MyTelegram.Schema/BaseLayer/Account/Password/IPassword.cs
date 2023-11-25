@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// Configuration for two-factor authorization
 /// See <a href="https://corefork.telegram.org/constructor/account.Password" />
 ///</summary>
+[JsonDerivedType(typeof(TPassword), nameof(TPassword))]
 public interface IPassword : IObject
 {
     ///<summary>

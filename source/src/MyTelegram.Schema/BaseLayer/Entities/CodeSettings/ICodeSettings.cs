@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Settings for the code type to send
 /// See <a href="https://corefork.telegram.org/constructor/CodeSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TCodeSettings), nameof(TCodeSettings))]
 public interface ICodeSettings : IObject
 {
     ///<summary>

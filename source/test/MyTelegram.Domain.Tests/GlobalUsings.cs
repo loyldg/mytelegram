@@ -7,7 +7,6 @@ global using MyTelegram.Domain.Aggregates.Channel;
 global using MyTelegram.Domain.Aggregates.Chat;
 global using MyTelegram.Domain.Aggregates.Messaging;
 global using MyTelegram.Domain.Aggregates.User;
-global using MyTelegram.Domain.Entities;
 global using MyTelegram.Domain.Events.AppCode;
 global using MyTelegram.Domain.Events.Channel;
 global using MyTelegram.Domain.Events.Chat;

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Invoice
 /// See <a href="https://corefork.telegram.org/constructor/Invoice" />
 ///</summary>
+[JsonDerivedType(typeof(TInvoice), nameof(TInvoice))]
 public interface IInvoice : IObject
 {
     ///<summary>

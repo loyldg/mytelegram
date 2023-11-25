@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Encrypted secure credentials
 /// See <a href="https://corefork.telegram.org/constructor/SecureCredentialsEncrypted" />
 ///</summary>
+[JsonDerivedType(typeof(TSecureCredentialsEncrypted), nameof(TSecureCredentialsEncrypted))]
 public interface ISecureCredentialsEncrypted : IObject
 {
     ///<summary>

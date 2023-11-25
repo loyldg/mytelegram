@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Payments;
 /// Payment receipt
 /// See <a href="https://corefork.telegram.org/constructor/payments.PaymentReceipt" />
 ///</summary>
+[JsonDerivedType(typeof(TPaymentReceipt), nameof(TPaymentReceipt))]
 public interface IPaymentReceipt : IObject
 {
     ///<summary>

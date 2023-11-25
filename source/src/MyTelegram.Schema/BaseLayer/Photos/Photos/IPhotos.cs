@@ -6,6 +6,8 @@ namespace MyTelegram.Schema.Photos;
 /// Object contains list of photos with auxiliary data.
 /// See <a href="https://corefork.telegram.org/constructor/photos.Photos" />
 ///</summary>
+[JsonDerivedType(typeof(TPhotos), nameof(TPhotos))]
+[JsonDerivedType(typeof(TPhotosSlice), nameof(TPhotosSlice))]
 public interface IPhotos : IObject
 {
     ///<summary>

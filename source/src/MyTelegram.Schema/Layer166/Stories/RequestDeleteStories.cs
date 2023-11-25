@@ -4,13 +4,25 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Deletes some posted <a href="https://corefork.telegram.org/api/stories">stories</a>.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stories.deleteStories" />
 ///</summary>
 [TlObject(0xae59db5f)]
 public sealed class RequestDeleteStories : IRequest<TVector<int>>
 {
     public uint ConstructorId => 0xae59db5f;
+    ///<summary>
+    /// Channel/user from where to delete stories.
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// IDs of stories to delete.
+    ///</summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

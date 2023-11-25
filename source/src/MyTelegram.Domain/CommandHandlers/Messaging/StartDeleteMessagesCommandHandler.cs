@@ -9,8 +9,7 @@ public class StartDeleteMessagesCommandHandler : CommandHandler<MessageAggregate
         aggregate.StartDeleteMessages(command.RequestInfo,
             command.Revoke,
             command.IdList,
-            command.ChatCreatorId,
-            command.CorrelationId);
+            command.ChatCreatorId);
         return Task.CompletedTask;
     }
 }

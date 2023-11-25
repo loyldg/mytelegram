@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Identifier of a <a href="https://corefork.telegram.org/api/import">history import session, click here for more info »</a>.
 /// See <a href="https://corefork.telegram.org/constructor/messages.HistoryImport" />
 ///</summary>
+[JsonDerivedType(typeof(THistoryImport), nameof(THistoryImport))]
 public interface IHistoryImport : IObject
 {
     ///<summary>

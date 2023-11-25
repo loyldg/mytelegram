@@ -3,6 +3,7 @@ using EventFlow.Provided.Jobs;
 using MyTelegram.Domain.Events.Poll;
 using MyTelegram.Domain.Events.Pts;
 using MyTelegram.Domain.Events.UserName;
+using SendOutboxMessageCompletedEvent = MyTelegram.Domain.Sagas.Events.SendOutboxMessageCompletedEvent;
 
 namespace MyTelegram.Messenger.NativeAot;
 
@@ -13,9 +14,9 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(CreateChannelSagaStartedEvent))]
 [JsonSerializable(typeof(InboxItemsAddedToOutboxMessageEvent))]
 [JsonSerializable(typeof(TempPtsIncrementedEvent))]
-[JsonSerializable(typeof(SendOutboxMessageCompletedEvent2))]
+[JsonSerializable(typeof(SendOutboxMessageCompletedEvent))]
 [JsonSerializable(typeof(SendMessageSagaStartedEvent))]
-[JsonSerializable(typeof(ReceiveInboxMessageCompletedEvent2))]
+[JsonSerializable(typeof(ReceiveInboxMessageCompletedEvent))]
 
 [JsonSerializable(typeof(MessengerQueryDataReceivedEvent))]
 [JsonSerializable(typeof(MessengerCommandDataReceivedEvent))]
@@ -72,8 +73,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(DialogFilterUpdatedEvent))]
 
 [JsonSerializable(typeof(ChatDeletedEvent))]
-[JsonSerializable(typeof(ReplyToChannelMessageStartedEvent))]
-[JsonSerializable(typeof(ReplyToChannelMessageCompletedEvent))]
+[JsonSerializable(typeof(ReplyToChannelMessageCompletedEvent2))]
 [JsonSerializable(typeof(BindUidToSessionEvent))]
 [JsonSerializable(typeof(UserCacheItem))]
 [JsonSerializable(typeof(NewPtsMessageHasSentEvent))]
@@ -190,7 +190,6 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Events.QrCode.LoginTokenAcceptedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.MessageDeletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.MessageForwardedEvent))]
-[JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.MessageSagaStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.MessageViewsIncrementedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Chat.NewChatMsgIdPinnedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.NewMsgIdPinnedEvent))]
@@ -200,7 +199,6 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.OutboxMessageEditCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.OutboxMessageEditedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Dialog.OutboxMessageHasReadEvent))]
-[JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.OutboxMessageIdGeneratedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.OutboxMessagePinnedUpdatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Dialog.ParticipantHistoryClearedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.PeerNotifySettings.PeerNotifySettingsUpdatedEvent))]
@@ -231,15 +229,10 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Dialog.ReadInboxMessage2Event))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.ReadingHistoryCreatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Chat.ReadLatestNoneBotOutboxMessageEvent))]
-[JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.ReceiveInboxMessageCompletedEvent))]
-[JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.ReplyToMessageCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.ReplyToMessageEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.ReplyToMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.RpcResult.RpcResultCreatedEvent))]
-[JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.SendChannelMessageStartedEvent))]
-[JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.SendChatMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.SendMessageStartedEvent))]
-[JsonSerializable(typeof(MyTelegram.Domain.Events.Messaging.SendOutboxMessageCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.SendUserMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.SetChannelPtsEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.SetDiscussionGroupEvent))]

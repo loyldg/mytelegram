@@ -9,3 +9,4 @@ global using System.Linq.Expressions;
 global using System.Buffers;
 global using MyTelegram.Schema;
 global using MyTelegram.Schema.Extensions;
+global using System.Text.Json.Serialization;

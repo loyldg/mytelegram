@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Auth;
 /// Recovery info of a <a href="https://corefork.telegram.org/api/srp">2FA password</a>, only for accounts with a <a href="https://corefork.telegram.org/api/srp#email-verification">recovery email configured</a>.
 /// See <a href="https://corefork.telegram.org/constructor/auth.PasswordRecovery" />
 ///</summary>
+[JsonDerivedType(typeof(TPasswordRecovery), nameof(TPasswordRecovery))]
 public interface IPasswordRecovery : IObject
 {
     ///<summary>

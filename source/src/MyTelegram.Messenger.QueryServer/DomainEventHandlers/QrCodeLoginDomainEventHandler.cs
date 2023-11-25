@@ -39,7 +39,6 @@ public class QrCodeLoginDomainEventHandler : DomainEventHandlerBase,
     public async Task HandleAsync(IDomainEvent<QrCodeAggregate, QrCodeId, LoginTokenAcceptedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        // 这里最好不要从ReadModel读取设备信息
         var deviceReadModel = await _queryProcessor
             .ProcessAsync(new GetDeviceByAuthKeyIdQuery(domainEvent.AggregateEvent.QrCodeLoginRequestPermAuthKeyId),
                 default);

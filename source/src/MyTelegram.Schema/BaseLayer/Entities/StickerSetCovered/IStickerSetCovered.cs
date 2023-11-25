@@ -6,6 +6,10 @@ namespace MyTelegram.Schema;
 /// Stickerset preview
 /// See <a href="https://corefork.telegram.org/constructor/StickerSetCovered" />
 ///</summary>
+[JsonDerivedType(typeof(TStickerSetCovered), nameof(TStickerSetCovered))]
+[JsonDerivedType(typeof(TStickerSetMultiCovered), nameof(TStickerSetMultiCovered))]
+[JsonDerivedType(typeof(TStickerSetFullCovered), nameof(TStickerSetFullCovered))]
+[JsonDerivedType(typeof(TStickerSetNoCovered), nameof(TStickerSetNoCovered))]
 public interface IStickerSetCovered : IObject
 {
     ///<summary>

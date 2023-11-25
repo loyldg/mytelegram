@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Information about found messages sent on a specific day, used to split the <code>messages</code> in <a href="https://corefork.telegram.org/constructor/messages.searchResultsCalendar">messages.searchResultsCalendar</a> constructors by days.
 /// See <a href="https://corefork.telegram.org/constructor/SearchResultsCalendarPeriod" />
 ///</summary>
+[JsonDerivedType(typeof(TSearchResultsCalendarPeriod), nameof(TSearchResultsCalendarPeriod))]
 public interface ISearchResultsCalendarPeriod : IObject
 {
     ///<summary>

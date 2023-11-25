@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// A single media in an <a href="https://corefork.telegram.org/api/files#albums-grouped-media">album or grouped media</a> sent with <a href="https://corefork.telegram.org/method/messages.sendMultiMedia">messages.sendMultiMedia</a>.
 /// See <a href="https://corefork.telegram.org/constructor/InputSingleMedia" />
 ///</summary>
+[JsonDerivedType(typeof(TInputSingleMedia), nameof(TInputSingleMedia))]
 public interface IInputSingleMedia : IObject
 {
     ///<summary>

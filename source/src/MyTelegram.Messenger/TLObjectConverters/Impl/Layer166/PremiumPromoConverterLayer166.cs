@@ -4,7 +4,9 @@ public class PremiumPromoConverterLayer166 : IPremiumPromoConverterLayer166
 {
     public virtual int Layer => Layers.Layer166;
 
-    public IPremiumPromo ToPremiumPromo()
+    public int RequestLayer { get; set; }
+
+    public virtual IPremiumPromo ToPremiumPromo()
     {
         return new TPremiumPromo
         {
@@ -30,6 +32,4 @@ public class PremiumPromoConverterLayer166 : IPremiumPromoConverterLayer166
             }
         };
     }
-
-    public int RequestLayer { get; set; }
 }

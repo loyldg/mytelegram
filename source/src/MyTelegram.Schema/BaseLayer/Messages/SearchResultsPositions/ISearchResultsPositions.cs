@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Information about sparse positions of messages
 /// See <a href="https://corefork.telegram.org/constructor/messages.SearchResultsPositions" />
 ///</summary>
+[JsonDerivedType(typeof(TSearchResultsPositions), nameof(TSearchResultsPositions))]
 public interface ISearchResultsPositions : IObject
 {
     ///<summary>

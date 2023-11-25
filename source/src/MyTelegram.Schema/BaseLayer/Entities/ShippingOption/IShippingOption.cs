@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Shipping options
 /// See <a href="https://corefork.telegram.org/constructor/ShippingOption" />
 ///</summary>
+[JsonDerivedType(typeof(TShippingOption), nameof(TShippingOption))]
 public interface IShippingOption : IObject
 {
     ///<summary>

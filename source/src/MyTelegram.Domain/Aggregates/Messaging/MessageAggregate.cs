@@ -241,8 +241,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     public void StartDeleteMessages(RequestInfo requestInfo,
         bool revoke,
         IReadOnlyList<int> idList,
-        long? chatCreatorId,
-        Guid correlationId)
+        long? chatCreatorId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new DeleteMessagesStartedEvent(requestInfo,
@@ -254,8 +253,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             idList,
             revoke,
             _state.InboxItems,
-            chatCreatorId,
-            correlationId));
+            chatCreatorId));
     }
 
     public void StartForwardMessage(RequestInfo requestInfo,
@@ -263,8 +261,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         Peer toPeer,
         IReadOnlyList<int> idList,
         IReadOnlyList<long> randomIdList,
-        bool forwardFromLinkedChannel,
-        Guid correlationId)
+        bool forwardFromLinkedChannel)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new ForwardMessageStartedEvent(requestInfo,
@@ -272,12 +269,10 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             toPeer,
             idList,
             randomIdList,
-            forwardFromLinkedChannel,
-            correlationId));
+            forwardFromLinkedChannel));
     }
 
-    public void StartReplyToMessage(RequestInfo requestInfo, Peer replierPeer,
-        int replyToMsgId)
+    public void StartReplyToMessage(RequestInfo requestInfo, Peer replierPeer, IInputReplyTo inputReplyTo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         var recentRepliers = _state.RecentRepliers.ToList();
@@ -291,7 +286,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         recentRepliers.Insert(0, replierPeer);
         Emit(new ReplyToMessageStartedEvent(
             requestInfo,
-            replyToMsgId,
+            inputReplyTo,
             _state.MessageItem.IsOut,
             _state.InboxItems,
             _state.MessageItem.OwnerPeer,
@@ -326,8 +321,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         bool silent,
         int date,
         long randomId,
-        string messageActionData,
-        Guid correlationId)
+        string messageActionData)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         var oldPmOneSide = pmOneSide;
@@ -350,8 +344,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             _state.SenderMessageId,
             item.ToPeer,
             randomId,
-            messageActionData,
-            correlationId
+            messageActionData
         ));
     }
 

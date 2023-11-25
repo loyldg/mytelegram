@@ -18,7 +18,7 @@ public class UserSignUpSagaTests : TestsFor<UserSignUpSaga>
     [Fact]
     public async Task SignUp_For_New_User_Success()
     {
-        var aggregateEvent = new CheckSignUpCodeCompletedEvent(A<RequestInfo>(), true, 0, 0, "0", "0", null, Guid.Empty);
+        var aggregateEvent = new CheckSignUpCodeCompletedEvent(A<RequestInfo>(), true, 0, 0, "0", "0", null);
         var domainEvent = new DomainEvent<AppCodeAggregate, AppCodeId, CheckSignUpCodeCompletedEvent>(aggregateEvent,
             Metadata.Empty,
             A<DateTimeOffset>(),

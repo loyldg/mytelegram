@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/MediaAreaCoordinates" />
 ///</summary>
+[JsonDerivedType(typeof(TMediaAreaCoordinates), nameof(TMediaAreaCoordinates))]
 public interface IMediaAreaCoordinates : IObject
 {
     ///<summary>

@@ -6,6 +6,9 @@ namespace MyTelegram.Schema.Updates;
 /// Contains the difference (new messages) between our local channel state and the remote state
 /// See <a href="https://corefork.telegram.org/constructor/updates.ChannelDifference" />
 ///</summary>
+[JsonDerivedType(typeof(TChannelDifferenceEmpty), nameof(TChannelDifferenceEmpty))]
+[JsonDerivedType(typeof(TChannelDifferenceTooLong), nameof(TChannelDifferenceTooLong))]
+[JsonDerivedType(typeof(TChannelDifference), nameof(TChannelDifference))]
 public interface IChannelDifference : IObject
 {
     ///<summary>

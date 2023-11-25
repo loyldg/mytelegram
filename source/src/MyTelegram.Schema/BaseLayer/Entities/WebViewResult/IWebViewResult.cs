@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Contains the webview URL with appropriate theme and user info parameters added
 /// See <a href="https://corefork.telegram.org/constructor/WebViewResult" />
 ///</summary>
+[JsonDerivedType(typeof(TWebViewResultUrl), nameof(TWebViewResultUrl))]
 public interface IWebViewResult : IObject
 {
     ///<summary>

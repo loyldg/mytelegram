@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Contains information about multiple <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topics</a>
 /// See <a href="https://corefork.telegram.org/constructor/messages.ForumTopics" />
 ///</summary>
+[JsonDerivedType(typeof(TForumTopics), nameof(TForumTopics))]
 public interface IForumTopics : IObject
 {
     ///<summary>

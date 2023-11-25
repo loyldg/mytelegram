@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// A folder
 /// See <a href="https://corefork.telegram.org/constructor/Folder" />
 ///</summary>
+[JsonDerivedType(typeof(TFolder), nameof(TFolder))]
 public interface IFolder : IObject
 {
     ///<summary>

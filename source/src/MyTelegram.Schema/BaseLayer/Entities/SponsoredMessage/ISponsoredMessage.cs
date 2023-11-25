@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// A sponsored message
 /// See <a href="https://corefork.telegram.org/constructor/SponsoredMessage" />
 ///</summary>
+[JsonDerivedType(typeof(TSponsoredMessage), nameof(TSponsoredMessage))]
 public interface ISponsoredMessage : IObject
 {
     ///<summary>

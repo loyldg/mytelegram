@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Reaction and view counters for a list of <a href="https://corefork.telegram.org/api/stories">stories</a>
 /// See <a href="https://corefork.telegram.org/constructor/stories.storyViews" />
 ///</summary>
 [TlObject(0xde9eed1d)]
@@ -11,12 +12,12 @@ public sealed class TStoryViews : IStoryViews
 {
     public uint ConstructorId => 0xde9eed1d;
     ///<summary>
-    /// &nbsp;
+    /// View date and reaction information of multiple stories
     ///</summary>
     public TVector<MyTelegram.Schema.IStoryViews> Views { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned users
     ///</summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 

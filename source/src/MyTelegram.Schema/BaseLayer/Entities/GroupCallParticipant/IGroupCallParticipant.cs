@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Info about a group call participant
 /// See <a href="https://corefork.telegram.org/constructor/GroupCallParticipant" />
 ///</summary>
+[JsonDerivedType(typeof(TGroupCallParticipant), nameof(TGroupCallParticipant))]
 public interface IGroupCallParticipant : IObject
 {
     ///<summary>

@@ -9,7 +9,8 @@ public record SendMessageInput
         long randomId,
         //byte[]? entities = null,
         IList<IMessageEntity>? entities = null,
-        int? replyToMsgId = null,
+        //int? replyToMsgId = null,
+        IInputReplyTo? inputReplyTo = null,
         bool clearDraft = false,
         byte[]? media = null,
         //Peer? peer = null,
@@ -33,9 +34,10 @@ public record SendMessageInput
         ToPeer = toPeer;
         Message = message;
         RandomId = randomId;
-        ReplyToMsgId = replyToMsgId;
+        //ReplyToMsgId = replyToMsgId;
         MessageActionData = messageActionData;
         Entities = entities;
+        InputReplyTo = inputReplyTo;
         ClearDraft = clearDraft;
         Media = media;
         GroupId = groupId;
@@ -47,6 +49,7 @@ public record SendMessageInput
 
     public bool ClearDraft { get; }
     public IList<IMessageEntity>? Entities { get; }
+    public IInputReplyTo? InputReplyTo { get; }
     public long GroupId { get; }
     public int GroupItemCount { get; } = 1;
     public long? PollId { get; }
@@ -59,7 +62,7 @@ public record SendMessageInput
     public MessageType MessageType { get; }
     //public Peer? Peer { get; }
     public long RandomId { get; }
-    public int? ReplyToMsgId { get; }
+    //public int? ReplyToMsgId { get; }
     public long SenderPeerId { get; }
     public RequestInfo RequestInfo { get; }
     public SendMessageType SendMessageType { get; }

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Channel statistics date range
 /// See <a href="https://corefork.telegram.org/constructor/StatsDateRangeDays" />
 ///</summary>
+[JsonDerivedType(typeof(TStatsDateRangeDays), nameof(TStatsDateRangeDays))]
 public interface IStatsDateRangeDays : IObject
 {
     ///<summary>

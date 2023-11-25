@@ -1,6 +1,9 @@
-﻿using EventFlow.Core.Caching;
+﻿using System.Text.Json.Serialization;
+using EventFlow.Core.Caching;
 using EventFlow.MongoDB.Extensions;
 using EventFlow.Sagas;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MyTelegram.Domain.EventFlow;
 using MyTelegram.Messenger.NativeAot;
 using MyTelegram.Messenger.Services.Filters;
@@ -13,7 +16,30 @@ namespace MyTelegram.Messenger.Extensions;
 
 public static class MyTelegramMessengerServerExtensions
 {
-    public static void UseMyTelegramMessengerServer(this IServiceCollection services,
+    private static void RegisterMongoDbSerializer(this IServiceCollection services)
+    {
+        var baseType = typeof(IObject);
+        var objectSerializer = new ObjectSerializer(type => type.IsAssignableTo(baseType));
+        BsonSerializer.RegisterSerializer(objectSerializer);
+        var asm = baseType.Assembly;
+        var baseInterfaceTypes = asm
+                .GetTypes()
+                .Where(t => t.IsInterface && t.IsAssignableTo(baseType) &&
+                            t.GetCustomAttributes<JsonDerivedTypeAttribute>().Any())
+                .ToList();
+        var types = asm.GetTypes()
+            .Where(t => baseInterfaceTypes.Any(t.IsAssignableTo) &&
+                        t is { IsAbstract: false, IsInterface: false })
+        ;
+        foreach (var type in types)
+        {
+            var cm = new BsonClassMap(type);
+            cm.AutoMap();
+            cm.SetDiscriminator(type.Name);
+            BsonClassMap.RegisterClassMap(cm);
+        }
+    }
+    public static void AddMyTelegramMessengerServer(this IServiceCollection services,
        Action<IEventFlowOptions>? configure = null)
     {
         services.AddTransient<IMongoDbIndexesCreator, MongoDbIndexesCreator>();
@@ -29,10 +55,11 @@ public static class MyTelegramMessengerServerExtensions
             options.AddMessengerMongoDbReadModel();
             options.AddMongoDbQueryHandlers();
 
-            options.UseSystemTextJson(jsonSerializerOptions =>
+            options.AddSystemTextJson(jsonSerializerOptions =>
             {
                 jsonSerializerOptions.AddSingleValueObjects(
                     new SystemTextJsonSingleValueObjectConverter<CacheKey>());
+                jsonSerializerOptions.TypeInfoResolverChain.Add(MyMessengerJsonContext.Default);
             });
             configure?.Invoke(options);
         })
@@ -42,7 +69,7 @@ public static class MyTelegramMessengerServerExtensions
             .AddMyTelegramIdGeneratorServices()
             .AddMyEventFlow()
             ;
-        services.AddSingleton<IJsonSerializer, MyNativeAotSystemTextJsonSerializer>();
+
         services.AddMyNativeAot();
     }
 
@@ -62,6 +89,7 @@ public static class MyTelegramMessengerServerExtensions
 
     public static IServiceCollection AddMyTelegramMessengerServices(this IServiceCollection services)
     {
+        services.RegisterMongoDbSerializer();
         services.AddLayeredServices();
 
         //services.AddSingleton<IJsonContextProvider, MyJsonContextProvider>();
@@ -98,8 +126,6 @@ public static class MyTelegramMessengerServerExtensions
         services.AddTransient<IMediaHelper, MediaHelper>();
         services.AddTransient<IIdGenerator, IdGenerator>();
 
-        services.AddSingleton<IJsonContextProvider, MyJsonContextProvider>();
-        //services.AddTransient<IRabbitMqSerializer, NativeAotUtf8JsonRabbitMqSerializer>();
 
         services.AddSingleton<ISagaStore, MySagaAggregateStore>();
 

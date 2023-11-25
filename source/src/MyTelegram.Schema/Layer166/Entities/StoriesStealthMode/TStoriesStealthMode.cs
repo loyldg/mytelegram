@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Information about the current <a href="https://corefork.telegram.org/api/stories#stealth-mode">stealth mode</a> session.
 /// See <a href="https://corefork.telegram.org/constructor/storiesStealthMode" />
 ///</summary>
 [TlObject(0x712e27fd)]
@@ -16,12 +17,12 @@ public sealed class TStoriesStealthMode : IStoriesStealthMode
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// The date up to which stealth mode will be active.
     ///</summary>
     public int? ActiveUntilDate { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The date starting from which the user will be allowed to re-enable stealth mode again.
     ///</summary>
     public int? CooldownUntilDate { get; set; }
 

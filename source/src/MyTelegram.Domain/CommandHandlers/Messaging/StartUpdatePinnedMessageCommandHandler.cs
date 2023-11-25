@@ -14,8 +14,7 @@ public class
             command.Silent,
             command.Date,
             command.RandomId,
-            command.MessageActionData,
-            command.CorrelationId);
+            command.MessageActionData);
         return Task.CompletedTask;
     }
 }

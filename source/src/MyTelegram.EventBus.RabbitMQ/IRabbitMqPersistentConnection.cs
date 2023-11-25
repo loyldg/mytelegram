@@ -6,7 +6,7 @@ public interface IRabbitMqPersistentConnection
 {
     bool IsConnected { get; }
 
-    IModel CreateModel();
-
     bool TryConnect();
+
+    IModel CreateModel();
 }

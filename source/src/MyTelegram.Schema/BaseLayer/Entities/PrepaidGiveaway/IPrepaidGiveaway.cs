@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/PrepaidGiveaway" />
 ///</summary>
+[JsonDerivedType(typeof(TPrepaidGiveaway), nameof(TPrepaidGiveaway))]
 public interface IPrepaidGiveaway : IObject
 {
     long Id { get; set; }

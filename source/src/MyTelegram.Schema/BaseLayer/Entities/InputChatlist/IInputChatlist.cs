@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents a folder
 /// See <a href="https://corefork.telegram.org/constructor/InputChatlist" />
 ///</summary>
+[JsonDerivedType(typeof(TInputChatlistDialogFilter), nameof(TInputChatlistDialogFilter))]
 public interface IInputChatlist : IObject
 {
     ///<summary>

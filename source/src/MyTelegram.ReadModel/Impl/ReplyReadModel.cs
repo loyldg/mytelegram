@@ -1,13 +1,13 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
 public class ReplyReadModel : IReplyReadModel,
-    IAmReadModelFor<MessageSaga, MessageSagaId, ReplyToChannelMessageCompletedEvent>
+    IAmReadModelFor<SendMessageSaga, SendMessageSagaId, ReplyToChannelMessageCompletedEvent2>
 {
     public string Id { get; private set; } = default!;
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<MessageSaga, MessageSagaId, ReplyToChannelMessageCompletedEvent> domainEvent,
+        IDomainEvent<SendMessageSaga, SendMessageSagaId, ReplyToChannelMessageCompletedEvent2> domainEvent,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(Id))

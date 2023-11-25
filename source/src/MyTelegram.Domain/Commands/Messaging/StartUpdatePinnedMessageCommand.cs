@@ -9,8 +9,7 @@ public class StartUpdatePinnedMessageCommand : RequestCommand2<MessageAggregate,
         bool silent,
         int date,
         long randomId,
-        string messageActionData,
-        Guid correlationId) : base(aggregateId, requestInfo)
+        string messageActionData) : base(aggregateId, requestInfo)
     {
         Pinned = pinned;
         PmOneSide = pmOneSide;
@@ -18,7 +17,6 @@ public class StartUpdatePinnedMessageCommand : RequestCommand2<MessageAggregate,
         Date = date;
         RandomId = randomId;
         MessageActionData = messageActionData;
-        CorrelationId = correlationId;
     }
 
     public bool Pinned { get; }
@@ -27,5 +25,4 @@ public class StartUpdatePinnedMessageCommand : RequestCommand2<MessageAggregate,
     public int Date { get; }
     public long RandomId { get; }
     public string MessageActionData { get; }
-    public Guid CorrelationId { get; }
 }

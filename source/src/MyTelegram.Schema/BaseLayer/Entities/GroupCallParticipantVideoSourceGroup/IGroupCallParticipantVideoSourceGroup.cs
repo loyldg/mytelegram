@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Describes a group of video synchronization source identifiers
 /// See <a href="https://corefork.telegram.org/constructor/GroupCallParticipantVideoSourceGroup" />
 ///</summary>
+[JsonDerivedType(typeof(TGroupCallParticipantVideoSourceGroup), nameof(TGroupCallParticipantVideoSourceGroup))]
 public interface IGroupCallParticipantVideoSourceGroup : IObject
 {
     ///<summary>

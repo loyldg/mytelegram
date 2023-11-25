@@ -12,8 +12,7 @@ public class DeleteMessagesStartedEvent : RequestAggregateEvent2<MessageAggregat
         IReadOnlyList<int> idList,
         bool revoke,
         IReadOnlyList<InboxItem> inboxItems,
-        long? chatCreatorId,
-        Guid correlationId) : base(requestInfo)
+        long? chatCreatorId) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         IsOut = isOut;
@@ -24,7 +23,6 @@ public class DeleteMessagesStartedEvent : RequestAggregateEvent2<MessageAggregat
         Revoke = revoke;
         InboxItems = inboxItems;
         ChatCreatorId = chatCreatorId;
-        CorrelationId = correlationId;
     }
 
     public IReadOnlyList<int> IdList { get; }
@@ -36,5 +34,4 @@ public class DeleteMessagesStartedEvent : RequestAggregateEvent2<MessageAggregat
     public int SenderMessageId { get; }
     public Peer ToPeer { get; }
     public long SenderPeerId { get; }
-    public Guid CorrelationId { get; }
 }

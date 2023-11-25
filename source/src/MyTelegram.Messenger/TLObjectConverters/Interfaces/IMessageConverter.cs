@@ -18,6 +18,7 @@ public interface IMessageConverter : ILayeredConverter
         long selfUserId);
     IMessageFwdHeader? ToMessageFwdHeader(MessageFwdHeader? messageFwdHeader);
     IMessageReplyHeader? ToMessageReplyHeader(int? replyToMessageId, int? topMsgId);
+    IMessageReplyHeader? ToMessageReplyHeader(IInputReplyTo? inputReplyTo);
 
     IList<IMessage> ToMessages(IReadOnlyCollection<IMessageReadModel> readModels,
         IReadOnlyCollection<IPollReadModel>? pollReadModels,

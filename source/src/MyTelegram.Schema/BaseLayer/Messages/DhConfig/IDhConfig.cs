@@ -6,6 +6,8 @@ namespace MyTelegram.Schema.Messages;
 /// Contains Diffie-Hellman key generation protocol parameters.
 /// See <a href="https://corefork.telegram.org/constructor/messages.DhConfig" />
 ///</summary>
+[JsonDerivedType(typeof(TDhConfigNotModified), nameof(TDhConfigNotModified))]
+[JsonDerivedType(typeof(TDhConfig), nameof(TDhConfig))]
 public interface IDhConfig : IObject
 {
     ///<summary>

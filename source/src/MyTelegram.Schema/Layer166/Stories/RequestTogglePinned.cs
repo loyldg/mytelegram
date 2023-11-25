@@ -4,14 +4,31 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Pin or unpin one or more stories
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stories.togglePinned" />
 ///</summary>
 [TlObject(0x9a75a1ef)]
 public sealed class RequestTogglePinned : IRequest<TVector<int>>
 {
     public uint ConstructorId => 0x9a75a1ef;
+    ///<summary>
+    /// Peer where to pin or unpin stories
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// IDs of stories to pin or unpin
+    ///</summary>
     public TVector<int> Id { get; set; }
+
+    ///<summary>
+    /// Whether to pin or unpin the stories
+    /// See <a href="https://corefork.telegram.org/type/Bool" />
+    ///</summary>
     public bool Pinned { get; set; }
 
     public void ComputeFlag()

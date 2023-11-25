@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Specifies a document that will have to be downloaded from the URL by the telegram servers
 /// See <a href="https://corefork.telegram.org/constructor/InputWebDocument" />
 ///</summary>
+[JsonDerivedType(typeof(TInputWebDocument), nameof(TInputWebDocument))]
 public interface IInputWebDocument : IObject
 {
     ///<summary>

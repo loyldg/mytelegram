@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Most active inviter in a <a href="https://corefork.telegram.org/api/channel">supergroup</a>
 /// See <a href="https://corefork.telegram.org/constructor/StatsGroupTopInviter" />
 ///</summary>
+[JsonDerivedType(typeof(TStatsGroupTopInviter), nameof(TStatsGroupTopInviter))]
 public interface IStatsGroupTopInviter : IObject
 {
     ///<summary>

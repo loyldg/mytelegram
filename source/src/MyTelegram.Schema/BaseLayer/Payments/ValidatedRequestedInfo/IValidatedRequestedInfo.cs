@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Payments;
 /// Validated requested info
 /// See <a href="https://corefork.telegram.org/constructor/payments.ValidatedRequestedInfo" />
 ///</summary>
+[JsonDerivedType(typeof(TValidatedRequestedInfo), nameof(TValidatedRequestedInfo))]
 public interface IValidatedRequestedInfo : IObject
 {
     ///<summary>

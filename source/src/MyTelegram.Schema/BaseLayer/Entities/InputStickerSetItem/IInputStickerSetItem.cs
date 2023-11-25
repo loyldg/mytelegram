@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Sticker
 /// See <a href="https://corefork.telegram.org/constructor/InputStickerSetItem" />
 ///</summary>
+[JsonDerivedType(typeof(TInputStickerSetItem), nameof(TInputStickerSetItem))]
 public interface IInputStickerSetItem : IObject
 {
     ///<summary>

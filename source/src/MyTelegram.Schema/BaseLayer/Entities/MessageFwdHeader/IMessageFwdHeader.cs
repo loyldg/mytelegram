@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Info about a forwarded message
 /// See <a href="https://corefork.telegram.org/constructor/MessageFwdHeader" />
 ///</summary>
+[JsonDerivedType(typeof(TMessageFwdHeader), nameof(TMessageFwdHeader))]
 public interface IMessageFwdHeader : IObject
 {
     ///<summary>

@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Phone call connection
 /// See <a href="https://corefork.telegram.org/constructor/PhoneConnection" />
 ///</summary>
+[JsonDerivedType(typeof(TPhoneConnection), nameof(TPhoneConnection))]
+[JsonDerivedType(typeof(TPhoneConnectionWebrtc), nameof(TPhoneConnectionWebrtc))]
 public interface IPhoneConnection : IObject
 {
     ///<summary>

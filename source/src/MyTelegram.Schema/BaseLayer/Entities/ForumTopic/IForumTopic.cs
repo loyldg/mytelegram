@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Contains information about a <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a>
 /// See <a href="https://corefork.telegram.org/constructor/ForumTopic" />
 ///</summary>
+[JsonDerivedType(typeof(TForumTopicDeleted), nameof(TForumTopicDeleted))]
+[JsonDerivedType(typeof(TForumTopic), nameof(TForumTopic))]
 public interface IForumTopic : IObject
 {
     ///<summary>

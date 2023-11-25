@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Theme settings
 /// See <a href="https://corefork.telegram.org/constructor/ThemeSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TThemeSettings), nameof(TThemeSettings))]
 public interface IThemeSettings : IObject
 {
     ///<summary>

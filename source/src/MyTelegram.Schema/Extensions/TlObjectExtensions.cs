@@ -64,6 +64,20 @@ public static class TlObjectExtensions
     //    return stream.ToArray();
     //}
 
+    [return:NotNullIfNotNull(nameof(inputReplyTo))]
+    public static int? ToReplyToMsgId(this IInputReplyTo? inputReplyTo)
+    {
+        switch (inputReplyTo)
+        {
+            case TInputReplyToMessage inputReplyToMessage:
+                return inputReplyToMessage.ReplyToMsgId;
+            case TInputReplyToStory inputReplyToStory:
+                return inputReplyToStory.StoryId;
+        }
+
+        return null;
+    }
+
     public static int GetLength(this IObject? obj)
     {
         if (obj == null)

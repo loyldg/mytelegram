@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.Messenger.Services.Impl;
 
-public class RpcResultProcessorLayer143 : IRpcResultProcessorLayer143
+public class RpcResultProcessorLayer166 : IRpcResultProcessorLayer166
 {
     private readonly ILayeredService<IChatConverter> _layeredChatService;
     private readonly ILayeredService<IMessageConverter> _layeredMessageService;
     private readonly ILayeredService<IUserConverter> _layeredUserService;
-    public RpcResultProcessorLayer143(ILayeredService<IMessageConverter> layeredMessageService,
+    public RpcResultProcessorLayer166(ILayeredService<IMessageConverter> layeredMessageService,
         ILayeredService<IUserConverter> layeredUserService,
         ILayeredService<IChatConverter> layeredChatService)
     {
@@ -14,7 +14,7 @@ public class RpcResultProcessorLayer143 : IRpcResultProcessorLayer143
         _layeredChatService = layeredChatService;
     }
 
-    public virtual int Layer => Layers.Layer143;
+    public virtual int Layer => Layers.Layer166;
 
     public int RequestLayer { get; set; }
 
@@ -113,14 +113,15 @@ public class RpcResultProcessorLayer143 : IRpcResultProcessorLayer143
 
     protected virtual IMessages ToChannelMessages(IEnumerable<IChat> chats, IList<IMessage> messages, IEnumerable<IUser> users, int channelPts, int offsetIdOffset)
     {
-        return new TChannelMessages
+        return new Schema.Messages.TChannelMessages
         {
             Chats = new TVector<IChat>(chats),
             Messages = new TVector<IMessage>(messages),
             Users = new TVector<IUser>(users),
             Pts = channelPts,
             Count = messages.Count,
-            OffsetIdOffset = offsetIdOffset
+            OffsetIdOffset = offsetIdOffset,
+            Topics = new()
         };
     }
 }

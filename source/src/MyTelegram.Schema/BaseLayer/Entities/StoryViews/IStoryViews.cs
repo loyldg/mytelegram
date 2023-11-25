@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/StoryViews" />
 ///</summary>
+[JsonDerivedType(typeof(TStoryViews), nameof(TStoryViews))]
 public interface IStoryViews : IObject
 {
     ///<summary>
@@ -18,17 +19,17 @@ public interface IStoryViews : IObject
     bool HasViewers { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// View counter of the story
     ///</summary>
     int ViewsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Forward counter of the story
     ///</summary>
     int? ForwardsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// All reactions sent to this story
     /// See <a href="https://corefork.telegram.org/type/ReactionCount" />
     ///</summary>
     TVector<MyTelegram.Schema.IReactionCount>? Reactions { get; set; }
@@ -39,7 +40,7 @@ public interface IStoryViews : IObject
     int? ReactionsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// User IDs of some recent viewers of the story
     ///</summary>
     TVector<long>? RecentViewers { get; set; }
 }

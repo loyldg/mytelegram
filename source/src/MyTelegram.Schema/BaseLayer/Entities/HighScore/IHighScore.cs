@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Game high score
 /// See <a href="https://corefork.telegram.org/constructor/HighScore" />
 ///</summary>
+[JsonDerivedType(typeof(THighScore), nameof(THighScore))]
 public interface IHighScore : IObject
 {
     ///<summary>

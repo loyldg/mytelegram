@@ -10,6 +10,9 @@ namespace MyTelegram.Schema.Stories;
 public sealed class RequestGetPeerMaxIDs : IRequest<TVector<int>>
 {
     public uint ConstructorId => 0x535983c3;
+    ///<summary>
+    /// &nbsp;
+    ///</summary>
     public TVector<MyTelegram.Schema.IInputPeer> Id { get; set; }
 
     public void ComputeFlag()

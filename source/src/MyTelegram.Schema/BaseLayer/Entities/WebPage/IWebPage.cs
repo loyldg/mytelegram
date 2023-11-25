@@ -6,6 +6,10 @@ namespace MyTelegram.Schema;
 /// <a href="https://instantview.telegram.org/">Instant View</a> webpage preview
 /// See <a href="https://corefork.telegram.org/constructor/WebPage" />
 ///</summary>
+[JsonDerivedType(typeof(TWebPageEmpty), nameof(TWebPageEmpty))]
+[JsonDerivedType(typeof(TWebPagePending), nameof(TWebPagePending))]
+[JsonDerivedType(typeof(TWebPage), nameof(TWebPage))]
+[JsonDerivedType(typeof(TWebPageNotModified), nameof(TWebPageNotModified))]
 public interface IWebPage : IObject
 {
     ///<summary>

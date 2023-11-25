@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// HTTP link and embed info of channel message
 /// See <a href="https://corefork.telegram.org/constructor/ExportedMessageLink" />
 ///</summary>
+[JsonDerivedType(typeof(TExportedMessageLink), nameof(TExportedMessageLink))]
 public interface IExportedMessageLink : IObject
 {
     ///<summary>

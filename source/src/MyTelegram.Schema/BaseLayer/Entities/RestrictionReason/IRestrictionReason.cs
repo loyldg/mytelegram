@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Restriction reason
 /// See <a href="https://corefork.telegram.org/constructor/RestrictionReason" />
 ///</summary>
+[JsonDerivedType(typeof(TRestrictionReason), nameof(TRestrictionReason))]
 public interface IRestrictionReason : IObject
 {
     ///<summary>

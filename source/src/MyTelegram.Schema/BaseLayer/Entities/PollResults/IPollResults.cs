@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Results of poll
 /// See <a href="https://corefork.telegram.org/constructor/PollResults" />
 ///</summary>
+[JsonDerivedType(typeof(TPollResults), nameof(TPollResults))]
 public interface IPollResults : IObject
 {
     ///<summary>

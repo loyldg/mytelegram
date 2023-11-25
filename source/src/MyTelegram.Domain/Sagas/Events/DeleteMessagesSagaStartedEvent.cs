@@ -12,8 +12,8 @@ public class DeleteMessagesSagaStartedEvent : RequestAggregateEvent2<DeleteMessa
         long randomId,
         string? messageActionData,
         long? chatCreatorId
-    ) : base(requestInfo)
-    {
+        ):base(requestInfo)
+    { 
         Revoke = revoke;
         IdList = idList;
         ToPeer = toPeer;
@@ -31,5 +31,5 @@ public class DeleteMessagesSagaStartedEvent : RequestAggregateEvent2<DeleteMessa
     public string? MessageActionData { get; }
     public long? ChatCreatorId { get; }
     public long RandomId { get; }
-    public bool Revoke { get; }
+    public bool Revoke { get; } 
 }

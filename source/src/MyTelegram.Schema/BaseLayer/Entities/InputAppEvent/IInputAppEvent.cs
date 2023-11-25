@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Object contains info about an event that occurred in the application.
 /// See <a href="https://corefork.telegram.org/constructor/InputAppEvent" />
 ///</summary>
+[JsonDerivedType(typeof(TInputAppEvent), nameof(TInputAppEvent))]
 public interface IInputAppEvent : IObject
 {
     ///<summary>

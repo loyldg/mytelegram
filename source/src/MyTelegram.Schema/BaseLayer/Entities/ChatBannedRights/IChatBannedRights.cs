@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents the rights of a normal user in a <a href="https://corefork.telegram.org/api/channel">supergroup/channel/chat</a>.
 /// See <a href="https://corefork.telegram.org/constructor/ChatBannedRights" />
 ///</summary>
+[JsonDerivedType(typeof(TChatBannedRights), nameof(TChatBannedRights))]
 public interface IChatBannedRights : IObject
 {
     ///<summary>

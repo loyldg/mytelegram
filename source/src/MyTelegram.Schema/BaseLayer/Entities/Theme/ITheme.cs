@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Cloud theme
 /// See <a href="https://corefork.telegram.org/constructor/Theme" />
 ///</summary>
+[JsonDerivedType(typeof(TTheme), nameof(TTheme))]
 public interface ITheme : IObject
 {
     ///<summary>

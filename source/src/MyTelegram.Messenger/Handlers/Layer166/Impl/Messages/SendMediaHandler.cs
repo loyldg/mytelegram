@@ -111,6 +111,8 @@ internal sealed class SendMediaHandler : RpcResultObjectHandler<MyTelegram.Schem
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
         RequestSendMedia obj)
     {
+        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
+        await _accessHashHelper.CheckAccessHashAsync(obj.SendAs);
         var needCheckAudioMessagePrivacy = false;
         switch (obj.Media)
         {
@@ -135,8 +137,6 @@ internal sealed class SendMediaHandler : RpcResultObjectHandler<MyTelegram.Schem
                 });
         }
 
-        await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
-        await _accessHashHelper.CheckAccessHashAsync(obj.SendAs);
         var toPeer = _peerHelper.GetPeer(obj.Peer, input.UserId);
         long? pollId = null;
         if (obj.Media is TInputMediaPoll inputMediaPoll)
@@ -164,10 +164,12 @@ internal sealed class SendMediaHandler : RpcResultObjectHandler<MyTelegram.Schem
             clearDraft: obj.ClearDraft,
             entities: obj.Entities,
             media: media.ToBytes(),
-            replyToMsgId: replyToMsgId,
+            //replyToMsgId: replyToMsgId,
+            inputReplyTo: obj.ReplyTo,
             sendMessageType: SendMessageType.Media,
             messageType: _mediaHelper.GeMessageType(media),
-            pollId: pollId
+            pollId: pollId,
+            topMsgId: topMsgId
         );
         await _messageAppService.SendMessageAsync(sendMessageInput);
 

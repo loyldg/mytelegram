@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// How users voted in a poll
 /// See <a href="https://corefork.telegram.org/constructor/messages.VotesList" />
 ///</summary>
+[JsonDerivedType(typeof(TVotesList), nameof(TVotesList))]
 public interface IVotesList : IObject
 {
     ///<summary>

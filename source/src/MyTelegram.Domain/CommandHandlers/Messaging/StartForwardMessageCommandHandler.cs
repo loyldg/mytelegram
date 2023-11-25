@@ -12,8 +12,7 @@ public class
             command.ToPeer,
             command.IdList,
             command.RandomIdList,
-            command.ForwardFromLinkedChannel,
-            command.CorrelationId);
+            command.ForwardFromLinkedChannel);
         return Task.CompletedTask;
     }
 }

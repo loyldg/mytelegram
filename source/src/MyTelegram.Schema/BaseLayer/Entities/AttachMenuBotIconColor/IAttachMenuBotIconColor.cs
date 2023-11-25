@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents an attachment menu icon color for <a href="https://corefork.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu">bot web apps »</a>
 /// See <a href="https://corefork.telegram.org/constructor/AttachMenuBotIconColor" />
 ///</summary>
+[JsonDerivedType(typeof(TAttachMenuBotIconColor), nameof(TAttachMenuBotIconColor))]
 public interface IAttachMenuBotIconColor : IObject
 {
     ///<summary>

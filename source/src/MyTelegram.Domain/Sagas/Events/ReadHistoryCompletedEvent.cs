@@ -4,7 +4,7 @@ public class ReadHistoryCompletedEvent : RequestAggregateEvent2<ReadHistorySaga,
 {
     public ReadHistoryCompletedEvent(RequestInfo requestInfo,
         bool senderIsBot,
-        long readerUid,
+        long readerUserId,
         int readerMessageId,
         int readerPts,
         Peer readerToPeer,
@@ -16,7 +16,7 @@ public class ReadHistoryCompletedEvent : RequestAggregateEvent2<ReadHistorySaga,
         string sourceCommandId) : base(requestInfo)
     {
         SenderIsBot = senderIsBot;
-        ReaderUid = readerUid;
+        ReaderUserId = readerUserId;
         ReaderMessageId = readerMessageId;
         ReaderPts = readerPts;
         ReaderToPeer = readerToPeer;
@@ -33,7 +33,7 @@ public class ReadHistoryCompletedEvent : RequestAggregateEvent2<ReadHistorySaga,
     public int ReaderMessageId { get; }
     public int ReaderPts { get; }
     public Peer ReaderToPeer { get; }
-    public long ReaderUid { get; }
+    public long ReaderUserId { get; } 
     public bool SenderIsBot { get; }
     public int SenderMessageId { get; }
     public int SenderPts { get; }

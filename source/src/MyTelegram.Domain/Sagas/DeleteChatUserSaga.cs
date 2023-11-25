@@ -3,8 +3,11 @@
 public class DeleteChatUserSaga : MyInMemoryAggregateSaga<DeleteChatUserSaga, DeleteChatUserSagaId, DeleteChatUserSagaLocator>,
     ISagaIsStartedBy<ChatAggregate, ChatId, ChatMemberDeletedEvent>
 {
-    public DeleteChatUserSaga(DeleteChatUserSagaId id, IEventStore eventStore) : base(id, eventStore)
+    private readonly IIdGenerator _idGenerator;
+
+    public DeleteChatUserSaga(DeleteChatUserSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
+        _idGenerator = idGenerator;
     }
 
     public async Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatMemberDeletedEvent> domainEvent,
@@ -12,8 +15,8 @@ public class DeleteChatUserSaga : MyInMemoryAggregateSaga<DeleteChatUserSaga, De
         CancellationToken cancellationToken)
     {
         var ownerPeerId = domainEvent.AggregateEvent.RequestInfo.UserId;
-        var outMessageId = 0;
-        var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, domainEvent.AggregateEvent.RandomId);
+        var outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId,ownerPeerId, cancellationToken: cancellationToken);
+        var aggregateId = MessageId.Create(ownerPeerId, outMessageId);
         var messageItem = new MessageItem(
             new Peer(PeerType.User, ownerPeerId),
             new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId),
@@ -29,7 +32,7 @@ public class DeleteChatUserSaga : MyInMemoryAggregateSaga<DeleteChatUserSaga, De
             messageActionData: domainEvent.AggregateEvent.MessageActionData,
             messageActionType: MessageActionType.ChatDeleteUser
         );
-        var command = new StartSendMessageCommand(aggregateId,
+        var command = new CreateOutboxMessageCommand(aggregateId,
             domainEvent.AggregateEvent.RequestInfo with { RequestId = Guid.NewGuid() },
             messageItem);
 

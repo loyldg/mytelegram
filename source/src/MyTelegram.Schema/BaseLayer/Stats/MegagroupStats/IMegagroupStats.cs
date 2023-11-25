@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Stats;
 /// Supergroup statistics
 /// See <a href="https://corefork.telegram.org/constructor/stats.MegagroupStats" />
 ///</summary>
+[JsonDerivedType(typeof(TMegagroupStats), nameof(TMegagroupStats))]
 public interface IMegagroupStats : IObject
 {
     ///<summary>

@@ -5,8 +5,8 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessageCreatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageEditedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessageEditedEvent>,
-    IAmReadModelFor<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent>,
-    IAmReadModelFor<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent>,
+    //IAmReadModelFor<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent>,
+    //IAmReadModelFor<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessagePinnedUpdatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessagePinnedUpdatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent>,
@@ -15,8 +15,8 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageDeletedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessageDeletedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, SelfMessageDeletedEvent>,
-    IAmReadModelFor<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent2>,
-    IAmReadModelFor<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent2>
+    IAmReadModelFor<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent>,
+    IAmReadModelFor<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent>
 {
     public int Date { get; private set; }
     public int EditDate { get; private set; }
@@ -53,6 +53,7 @@ public class MessageReadModel : IMessageReadModel,
     public virtual long? Version { get; set; }
     public long? PollId { get; private set; }
     public byte[]? ReplyMarkup { get; private set; }
+    public IInputReplyTo? ReplyTo { get; private set; }
     public List<UserReaction>? UserReactions { get; set; }
     //public List<long>? ReactionUserIds { get; private set; }
     public List<ReactionCount>? Reactions { get; private set; }
@@ -77,7 +78,7 @@ public class MessageReadModel : IMessageReadModel,
         SenderMessageId = messageItem.MessageId;
         MessageActionData = messageItem.MessageActionData;
         MessageActionType = messageItem.MessageActionType;
-        ReplyToMsgId = messageItem.ReplyToMsgId;
+        //ReplyToMsgId = messageItem.ReplyToMsgId;
         TopMsgId = messageItem.TopMsgId;
         FwdHeader = messageItem.FwdHeader;
         SendMessageType = messageItem.SendMessageType;
@@ -102,6 +103,7 @@ public class MessageReadModel : IMessageReadModel,
         Silent = false;
         PollId = messageItem.PollId;
         ReplyMarkup = messageItem.ReplyMarkup;
+        ReplyTo = messageItem.InputReplyTo;
 
         return Task.CompletedTask;
     }
@@ -124,7 +126,7 @@ public class MessageReadModel : IMessageReadModel,
         SenderMessageId = domainEvent.AggregateEvent.SenderMessageId;
         MessageActionData = messageItem.MessageActionData;
         MessageActionType = messageItem.MessageActionType;
-        ReplyToMsgId = messageItem.ReplyToMsgId;
+        //ReplyToMsgId = messageItem.ReplyToMsgId;
         FwdHeader = messageItem.FwdHeader;
         SendMessageType = messageItem.SendMessageType;
         Media = messageItem.Media;
@@ -135,6 +137,7 @@ public class MessageReadModel : IMessageReadModel,
         Silent = false;
         PollId = messageItem.PollId;
         ReplyMarkup = messageItem.ReplyMarkup;
+        ReplyTo = messageItem.InputReplyTo;
 
         return Task.CompletedTask;
     }
@@ -159,8 +162,36 @@ public class MessageReadModel : IMessageReadModel,
         return Task.CompletedTask;
     }
 
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    if (string.IsNullOrEmpty(Id))
+    //    {
+    //        Id = MyTelegram.Domain.Aggregates.Messaging.MessageId.Create(
+    //            domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
+    //            domainEvent.AggregateEvent.MessageItem.MessageId).Value;
+    //    }
+    //    Pts = domainEvent.AggregateEvent.Pts;
+    //    return Task.CompletedTask;
+    //}
+
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<SendMessageSaga, SendMessageSagaId, MyTelegram.Domain.Sagas.Events.ReceiveInboxMessageCompletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    if (string.IsNullOrEmpty(Id))
+    //    {
+    //        Id = MyTelegram.Domain.Aggregates.Messaging.MessageId.Create(
+    //            domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
+    //            domainEvent.AggregateEvent.MessageItem.MessageId).Value;
+    //    }
+    //    Pts = domainEvent.AggregateEvent.Pts;
+    //    return Task.CompletedTask;
+    //}
+
     public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent> domainEvent,
+        IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(Id))
@@ -174,35 +205,7 @@ public class MessageReadModel : IMessageReadModel,
     }
 
     public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrEmpty(Id))
-        {
-            Id = MyTelegram.Domain.Aggregates.Messaging.MessageId.Create(
-                domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
-                domainEvent.AggregateEvent.MessageItem.MessageId).Value;
-        }
-        Pts = domainEvent.AggregateEvent.Pts;
-        return Task.CompletedTask;
-    }
-
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent2> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrEmpty(Id))
-        {
-            Id = MyTelegram.Domain.Aggregates.Messaging.MessageId.Create(
-                domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
-                domainEvent.AggregateEvent.MessageItem.MessageId).Value;
-        }
-        Pts = domainEvent.AggregateEvent.Pts;
-        return Task.CompletedTask;
-    }
-
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent2> domainEvent,
+        IDomainEvent<SendMessageSaga, SendMessageSagaId, MyTelegram.Domain.Sagas.Events.ReceiveInboxMessageCompletedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(Id))

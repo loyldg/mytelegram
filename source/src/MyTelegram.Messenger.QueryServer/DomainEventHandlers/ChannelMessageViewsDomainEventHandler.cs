@@ -2,7 +2,7 @@
 
 namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
 
-public class ChannelMessageViewsDomainEventHandler : ISubscribeSynchronousTo<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent>
+public class ChannelMessageViewsDomainEventHandler : ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent>
 {
     private readonly IChannelMessageViewsAppService _channelMessageViewsAppService;
 
@@ -11,7 +11,7 @@ public class ChannelMessageViewsDomainEventHandler : ISubscribeSynchronousTo<Mes
         _channelMessageViewsAppService = channelMessageViewsAppService;
     }
 
-    public async Task HandleAsync(IDomainEvent<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent> domainEvent,
+    public async Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
         var item = domainEvent.AggregateEvent.MessageItem;

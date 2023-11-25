@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// Authorization form
 /// See <a href="https://corefork.telegram.org/constructor/account.AuthorizationForm" />
 ///</summary>
+[JsonDerivedType(typeof(TAuthorizationForm), nameof(TAuthorizationForm))]
 public interface IAuthorizationForm : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// JSON key: value pair
 /// See <a href="https://corefork.telegram.org/constructor/JSONObjectValue" />
 ///</summary>
+[JsonDerivedType(typeof(TJsonObjectValue), nameof(TJsonObjectValue))]
 public interface IJSONObjectValue : IObject
 {
     ///<summary>

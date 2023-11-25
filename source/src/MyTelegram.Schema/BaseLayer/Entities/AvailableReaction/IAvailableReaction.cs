@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Animations associated with a message reaction
 /// See <a href="https://corefork.telegram.org/constructor/AvailableReaction" />
 ///</summary>
+[JsonDerivedType(typeof(TAvailableReaction), nameof(TAvailableReaction))]
 public interface IAvailableReaction : IObject
 {
     ///<summary>

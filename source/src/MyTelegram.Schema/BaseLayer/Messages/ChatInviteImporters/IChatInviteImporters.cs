@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// List of users that imported a chat invitation link.
 /// See <a href="https://corefork.telegram.org/constructor/messages.ChatInviteImporters" />
 ///</summary>
+[JsonDerivedType(typeof(TChatInviteImporters), nameof(TChatInviteImporters))]
 public interface IChatInviteImporters : IObject
 {
     ///<summary>

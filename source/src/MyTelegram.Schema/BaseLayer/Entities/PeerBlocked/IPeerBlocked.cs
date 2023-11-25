@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Info about a blocked user
 /// See <a href="https://corefork.telegram.org/constructor/PeerBlocked" />
 ///</summary>
+[JsonDerivedType(typeof(TPeerBlocked), nameof(TPeerBlocked))]
 public interface IPeerBlocked : IObject
 {
     ///<summary>

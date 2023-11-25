@@ -4,17 +4,20 @@ public class
     EditChatPhotoSaga : MyInMemoryAggregateSaga<EditChatPhotoSaga, EditChatPhotoSagaId, EditChatPhotoSagaLocator>,
         ISagaIsStartedBy<ChatAggregate, ChatId, ChatPhotoEditedEvent>
 {
-    public EditChatPhotoSaga(EditChatPhotoSagaId id, IEventStore eventStore) : base(id, eventStore)
+    private readonly IIdGenerator _idGenerator;
+
+    public EditChatPhotoSaga(EditChatPhotoSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
+        _idGenerator = idGenerator;
     }
 
-    public Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatPhotoEditedEvent> domainEvent,
+    public async Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatPhotoEditedEvent> domainEvent,
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
         var ownerPeerId = domainEvent.AggregateEvent.RequestInfo.UserId;
-        var outMessageId = 0;
-        var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, domainEvent.AggregateEvent.RandomId);
+        var outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, ownerPeerId, cancellationToken: cancellationToken);
+        var aggregateId = MessageId.Create(ownerPeerId, outMessageId);
         var ownerPeer = new Peer(PeerType.User, ownerPeerId);
         var toPeer = new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId);
         var senderPeer = new Peer(PeerType.User, ownerPeerId);
@@ -34,11 +37,11 @@ public class
             domainEvent.AggregateEvent.MessageActionData,
             MessageActionType.ChatEditPhoto
         );
-        var command = new StartSendMessageCommand(aggregateId,
+        var command = new CreateOutboxMessageCommand(aggregateId,
             domainEvent.AggregateEvent.RequestInfo,
             messageItem);
 
         Publish(command);
-        return CompleteAsync(cancellationToken);
+        await CompleteAsync(cancellationToken);
     }
 }

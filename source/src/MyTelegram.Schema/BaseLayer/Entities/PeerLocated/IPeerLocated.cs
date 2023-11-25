@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Geolocated peer
 /// See <a href="https://corefork.telegram.org/constructor/PeerLocated" />
 ///</summary>
+[JsonDerivedType(typeof(TPeerLocated), nameof(TPeerLocated))]
+[JsonDerivedType(typeof(TPeerSelfLocated), nameof(TPeerSelfLocated))]
 public interface IPeerLocated : IObject
 {
     ///<summary>

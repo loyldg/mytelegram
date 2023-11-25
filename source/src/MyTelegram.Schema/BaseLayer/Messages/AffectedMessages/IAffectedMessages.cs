@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Messages affected by changes
 /// See <a href="https://corefork.telegram.org/constructor/messages.AffectedMessages" />
 ///</summary>
+[JsonDerivedType(typeof(TAffectedMessages), nameof(TAffectedMessages))]
 public interface IAffectedMessages : IObject
 {
     ///<summary>

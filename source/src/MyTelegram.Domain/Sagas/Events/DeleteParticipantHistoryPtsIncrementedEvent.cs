@@ -4,8 +4,7 @@ public class
     DeleteParticipantHistoryPtsIncrementedEvent : AggregateEvent<DeleteParticipantHistorySaga,
         DeleteParticipantHistorySagaId>
 {
-    public DeleteParticipantHistoryPtsIncrementedEvent(long peerId,
-        int pts)
+    public DeleteParticipantHistoryPtsIncrementedEvent(long peerId, int pts)
     {
         PeerId = peerId;
         Pts = pts;

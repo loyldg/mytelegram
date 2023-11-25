@@ -2,10 +2,10 @@
 
 //public class AddReplyToInboxItemEvent : AggregateEvent<MessageSaga, MessageSagaId>
 //{
-//    public AddReplyToInboxItemEvent(long senderPeerId,
+//    public AddReplyToInboxItemEvent(long senderUid,
 //        int senderMessageId)
 //    {
-//        SenderPeerId = senderPeerId;
+//        SenderPeerId = senderUid;
 //        SenderMessageId = senderMessageId;
 //    }
 
@@ -13,5 +13,3 @@
 
 //    public long SenderPeerId { get; }
 //}
-
-

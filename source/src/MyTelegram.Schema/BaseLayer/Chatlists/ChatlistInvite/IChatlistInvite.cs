@@ -6,6 +6,8 @@ namespace MyTelegram.Schema.Chatlists;
 /// Info about a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
 /// See <a href="https://corefork.telegram.org/constructor/chatlists.ChatlistInvite" />
 ///</summary>
+[JsonDerivedType(typeof(TChatlistInviteAlready), nameof(TChatlistInviteAlready))]
+[JsonDerivedType(typeof(TChatlistInvite), nameof(TChatlistInvite))]
 public interface IChatlistInvite : IObject
 {
     ///<summary>

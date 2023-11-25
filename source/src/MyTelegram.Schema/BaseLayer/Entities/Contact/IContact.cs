@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// A contact of the current user.
 /// See <a href="https://corefork.telegram.org/constructor/Contact" />
 ///</summary>
+[JsonDerivedType(typeof(TContact), nameof(TContact))]
 public interface IContact : IObject
 {
     ///<summary>

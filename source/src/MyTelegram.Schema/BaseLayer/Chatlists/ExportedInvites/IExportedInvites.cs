@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Chatlists;
 /// A list of exported <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep links »</a>.
 /// See <a href="https://corefork.telegram.org/constructor/chatlists.ExportedInvites" />
 ///</summary>
+[JsonDerivedType(typeof(TExportedInvites), nameof(TExportedInvites))]
 public interface IExportedInvites : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Contains information about a username
 /// See <a href="https://corefork.telegram.org/constructor/Username" />
 ///</summary>
+[JsonDerivedType(typeof(TUsername), nameof(TUsername))]
 public interface IUsername : IObject
 {
     ///<summary>

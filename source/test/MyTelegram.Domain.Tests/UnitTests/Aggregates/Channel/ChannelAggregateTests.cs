@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Domain.Tests.UnitTests.Aggregates.Channel;
+﻿using EventFlow.Aggregates;
+
+namespace MyTelegram.Domain.Tests.UnitTests.Aggregates.Channel;
 
 public class ChannelAggregateTests : TestsFor<ChannelAggregate>
 {
@@ -10,7 +12,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
     [Fact]
     public void EditAbout_For_Not_Exists_Channel_Throws_Exception()
     {
-        Assert.Throws<DomainError>(() => Sut.EditAbout(0, 1, "test"));
+        Assert.Throws<DomainError>(() => Sut.EditAbout(A<RequestInfo>(), 1, "test"));
     }
 
     [Fact]
@@ -20,8 +22,9 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         var aggregateEvent = A<ChannelCreatedEvent>();
         var channelCreatedEvent = ADomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent>(aggregateEvent, 1);
         Sut.ApplyEvents(new IDomainEvent[] { channelCreatedEvent });
+        var requestInfo = A<RequestInfo>() with { UserId = aggregateEvent.CreatorId };
 
-        Sut.EditAbout(0, aggregateEvent.CreatorId, about);
+        Sut.EditAbout(requestInfo, aggregateEvent.CreatorId, about);
 
         var uncommittedEvent = Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<ChannelAboutEditedEvent>();
         uncommittedEvent.About.ShouldBe(about);
@@ -34,10 +37,11 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         var aggregateEvent = A<ChannelCreatedEvent>();
         var channelCreatedEvent = ADomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent>(aggregateEvent, 1);
         Sut.ApplyEvents(new IDomainEvent[] { channelCreatedEvent });
+        var requestInfo = A<RequestInfo>() with { UserId = aggregateEvent.CreatorId };
 
-        var exception = Assert.Throws<UserFriendlyException>(() => Sut.EditAbout(0, aggregateEvent.CreatorId, longAbout));
+        var exception = Assert.Throws<RpcException>(() => Sut.EditAbout(requestInfo, aggregateEvent.CreatorId, longAbout));
 
-        exception.Message.ShouldBe(RpcErrorMessages.ChatAboutTooLong);
+        exception.Message.ShouldBe(RpcErrors.RpcErrors400.ChatAboutTooLong.Message);
     }
 
     [Fact]
@@ -48,19 +52,19 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         var channelCreatedEvent = ADomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent>(aggregateEvent, 1);
         Sut.ApplyEvents(new IDomainEvent[] { channelCreatedEvent });
 
-        var exception = Assert.Throws<UserFriendlyException>(() => Sut.EditAbout(0, aggregateEvent.CreatorId + 1, about));
+        var exception = Assert.Throws<RpcException>(() => Sut.EditAbout(A<RequestInfo>(), aggregateEvent.CreatorId + 1, about));
 
-        exception.Message.ShouldBe(RpcErrorMessages.ChatAdminRequired);
+        exception.Message.ShouldBe(RpcErrors.RpcErrors400.ChatAdminRequired.Message);
     }
 
     [Fact]
     public void CheckChannelState_For_Not_Exists_Channel_Throws_Exception()
     {
-        Assert.Throws<DomainError>(() => Sut.CheckChannelState(1,
+        Assert.Throws<DomainError>(() => Sut.CheckChannelState(A<RequestInfo>(),
             1,
             1,
-            MessageSubType.Normal,
-            Guid.Empty));
+            0,
+            MessageSubType.Normal));
     }
 
     [Fact]
@@ -83,16 +87,15 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             1,
             1,
             "test",
-            Guid.Empty);
+            0, false, null, null, null);
 
-        var exception = Assert.Throws<UserFriendlyException>(() =>
-            Sut.CheckChannelState(senderPeerId,
+        var exception = Assert.Throws<RpcException>(() =>
+            Sut.CheckChannelState(A<RequestInfo>(), senderPeerId,
                 1,
                 1,
-                MessageSubType.Normal,
-                Guid.Empty));
+                MessageSubType.Normal));
 
-        exception.Message.ShouldBe(RpcErrorMessages.ChatWriteForbidden);
+        exception.RpcError.ShouldBe(RpcErrors.RpcErrors403.ChatWriteForbidden);
     }
 
     [Fact]
@@ -100,7 +103,8 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
     {
         var creatorId = 1;
         var senderPeerId = 2;
-        Sut.Create(A<RequestInfo>(),
+        var requestInfo = A<RequestInfo>() with { UserId = creatorId };
+        Sut.Create(requestInfo,
             1,
             creatorId,
             false,
@@ -112,7 +116,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             1,
             1,
             "test",
-            Guid.Empty);
+            0, false, null, null, null);
         var bannedWriteMessageRights = new ChatBannedRights(false,
             true,
             true,
@@ -125,18 +129,17 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             true,
             true,
             true,
-            int.MaxValue,
-            true);
-        Sut.EditChatDefaultBannedRights(1, bannedWriteMessageRights, creatorId);
+            true, true, true, true, true, true, true, true,
+            int.MaxValue);
+        Sut.EditChatDefaultBannedRights(requestInfo, bannedWriteMessageRights, creatorId);
 
-        var exception = Assert.Throws<UserFriendlyException>(() =>
-            Sut.CheckChannelState(senderPeerId,
+        var exception = Assert.Throws<RpcException>(() =>
+            Sut.CheckChannelState(A<RequestInfo>(), senderPeerId,
                 1,
                 1,
-                MessageSubType.Normal,
-                Guid.Empty));
+                MessageSubType.Normal));
 
-        exception.Message.ShouldBe(RpcErrorMessages.ChatWriteForbidden);
+        exception.RpcError.ShouldBe(RpcErrors.RpcErrors403.ChatWriteForbidden);
     }
 
     [Fact]
@@ -156,22 +159,24 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             1,
             1,
             "test",
-            Guid.Empty);
-        Sut.ToggleSlowMode(1, 60, 1);
-        var checkStateCompletedEvent = new CheckChannelStateCompletedEvent(senderPeerId,
+            0,
+            false, null, null, null);
+        Sut.ToggleSlowMode(A<RequestInfo>(), 60, 1);
+        var checkStateCompletedEvent = new CheckChannelStateCompletedEvent(
+            A<RequestInfo>(),
+            senderPeerId,
             1,
             DateTime.UtcNow.ToTimestamp(),
             false,
             null,
             new List<long>(),
-            null,
-            Guid.Empty);
+            null);
         var domainEvent = ADomainEvent<ChannelAggregate, ChannelId, CheckChannelStateCompletedEvent>(checkStateCompletedEvent, 3);
         Sut.ApplyEvents(new IDomainEvent[] { domainEvent });
 
-        var exception = Assert.Throws<UserFriendlyException>(() => Sut.CheckChannelState(senderPeerId, 2, DateTime.UtcNow.ToTimestamp(), MessageSubType.Normal, Guid.Empty));
+        var exception = Assert.Throws<RpcException>(() => Sut.CheckChannelState(A<RequestInfo>(), senderPeerId, 2, DateTime.UtcNow.ToTimestamp(), MessageSubType.Normal));
 
-        exception.Message.ShouldStartWith("SLOWMODE_WAIT_");
+        exception.RpcError.Message.ShouldStartWith("SLOWMODE_WAIT_");
     }
 
     [Fact]
@@ -191,10 +196,10 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             1,
             1,
             "test",
-            Guid.Empty);
+            0, false, null, null, null);
         Sut.ApplyEvents(new IDomainEvent[] { ADomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent>(aggregateEvent, 1) });
 
-        Sut.CheckChannelState(senderPeerId, 1, DateTime.UtcNow.ToTimestamp(), MessageSubType.Normal, Guid.Empty);
+        Sut.CheckChannelState(A<RequestInfo>(), senderPeerId, 1, DateTime.UtcNow.ToTimestamp(), MessageSubType.Normal);
 
         Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<CheckChannelStateCompletedEvent>();
     }

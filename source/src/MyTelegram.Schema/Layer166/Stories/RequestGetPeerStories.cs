@@ -4,12 +4,20 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Fetch the full active <a href="https://corefork.telegram.org/api/stories#watching-stories">story list</a> of a specific peer.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stories.getPeerStories" />
 ///</summary>
 [TlObject(0x2c4ada50)]
 public sealed class RequestGetPeerStories : IRequest<MyTelegram.Schema.Stories.IPeerStories>
 {
     public uint ConstructorId => 0x2c4ada50;
+    ///<summary>
+    /// Peer whose stories should be fetched
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Object contains info on nearest data center.
 /// See <a href="https://corefork.telegram.org/constructor/NearestDc" />
 ///</summary>
+[JsonDerivedType(typeof(TNearestDc), nameof(TNearestDc))]
 public interface INearestDc : IObject
 {
     ///<summary>

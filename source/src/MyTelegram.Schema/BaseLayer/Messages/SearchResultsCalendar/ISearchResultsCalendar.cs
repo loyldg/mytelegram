@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Information about found messages sent on a specific day
 /// See <a href="https://corefork.telegram.org/constructor/messages.SearchResultsCalendar" />
 ///</summary>
+[JsonDerivedType(typeof(TSearchResultsCalendar), nameof(TSearchResultsCalendar))]
 public interface ISearchResultsCalendar : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Describes a <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a>.
 /// See <a href="https://corefork.telegram.org/constructor/ExportedContactToken" />
 ///</summary>
+[JsonDerivedType(typeof(TExportedContactToken), nameof(TExportedContactToken))]
 public interface IExportedContactToken : IObject
 {
     ///<summary>

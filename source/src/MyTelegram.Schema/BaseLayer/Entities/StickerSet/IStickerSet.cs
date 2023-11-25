@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents a stickerset (stickerpack)
 /// See <a href="https://corefork.telegram.org/constructor/StickerSet" />
 ///</summary>
+[JsonDerivedType(typeof(TStickerSet), nameof(TStickerSet))]
 public interface IStickerSet : IObject
 {
     ///<summary>

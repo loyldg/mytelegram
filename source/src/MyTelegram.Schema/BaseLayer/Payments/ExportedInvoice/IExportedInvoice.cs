@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Payments;
 /// Exported invoice
 /// See <a href="https://corefork.telegram.org/constructor/payments.ExportedInvoice" />
 ///</summary>
+[JsonDerivedType(typeof(TExportedInvoice), nameof(TExportedInvoice))]
 public interface IExportedInvoice : IObject
 {
     ///<summary>

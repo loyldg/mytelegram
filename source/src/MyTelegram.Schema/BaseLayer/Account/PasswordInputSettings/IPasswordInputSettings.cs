@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// Constructor for setting up a new <a href="https://corefork.telegram.org/api/srp">2FA SRP password</a>
 /// See <a href="https://corefork.telegram.org/constructor/account.PasswordInputSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TPasswordInputSettings), nameof(TPasswordInputSettings))]
 public interface IPasswordInputSettings : IObject
 {
     ///<summary>

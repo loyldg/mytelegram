@@ -6,6 +6,9 @@ namespace MyTelegram.Schema.Messages;
 /// Object contains a list of chats with messages and auxiliary data.
 /// See <a href="https://corefork.telegram.org/constructor/messages.Dialogs" />
 ///</summary>
+[JsonDerivedType(typeof(TDialogs), nameof(TDialogs))]
+[JsonDerivedType(typeof(TDialogsSlice), nameof(TDialogsSlice))]
+[JsonDerivedType(typeof(TDialogsNotModified), nameof(TDialogsNotModified))]
 public interface IDialogs : IObject
 {
 

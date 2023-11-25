@@ -229,7 +229,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
             },
             eventData.Date,
             0,
-            0
+            inputReplyTo: null
         );
         var chat = GetChatConverter().ToChat(aggregateEvent.MessageItem.OwnerPeer.PeerId, chatReadModel, null);
         var updates = new TUpdates
@@ -430,7 +430,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
     public IUpdates ToReadHistoryUpdates(ReadHistoryCompletedEvent eventData)
     {
         var peer = eventData.ReaderToPeer.PeerType == PeerType.User
-            ? new TPeerUser { UserId = eventData.ReaderUid }
+            ? new TPeerUser { UserId = eventData.ReaderUserId }
             : eventData.ReaderToPeer.ToPeer();
         var updateReadHistoryOutbox = new TUpdateReadHistoryOutbox
         {
@@ -478,7 +478,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
                         item.FwdHeader == null
                             ? null
                             : _objectMapper.Map<MessageFwdHeader, TMessageFwdHeader>(item.FwdHeader),
-                    ReplyTo = GetMessageConverter().ToMessageReplyHeader(item.ReplyToMsgId, item.TopMsgId),
+                        ReplyTo = GetMessageConverter().ToMessageReplyHeader(item.InputReplyTo),
                     Entities = item.Entities.ToTObject<TVector<IMessageEntity>>()
                 };
                 return updates;
@@ -501,7 +501,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
                         item.FwdHeader == null
                             ? null
                             : _objectMapper.Map<MessageFwdHeader, TMessageFwdHeader>(item.FwdHeader),
-                    ReplyTo = GetMessageConverter().ToMessageReplyHeader(item.ReplyToMsgId, item.TopMsgId),
+                        ReplyTo = item.InputReplyTo.ToMessageReplyHeader(),
                     Entities = item.Entities.ToTObject<TVector<IMessageEntity>>()
                 };
                 return updates;
@@ -619,7 +619,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
             new TMessageActionPinMessage(),
             item.Date,
             0,
-            item.ReplyToMsgId);
+            item.InputReplyTo);
         return new TUpdates
         {
             Date = item.Date,
@@ -648,7 +648,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
         {
             Pinned = true,
             Peer = item.ToPeer.ToPeer(),
-            Messages = new TVector<int> { item.ReplyToMsgId!.Value },
+            Messages = new TVector<int> { item.InputReplyTo.ToReplyToMsgId() ?? 0 },
             Pts = aggregateEvent.Pts,
             PtsCount = 1
         };
@@ -660,7 +660,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
             new TMessageActionPinMessage(),
             item.Date,
             0,
-            item.ReplyToMsgId);
+            item.InputReplyTo);
         return new TUpdates
         {
             Date = item.Date,
@@ -687,7 +687,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
             new TMessageActionPinMessage(),
             item.Date,
             item.OwnerPeer.PeerId,
-            item.ReplyToMsgId);
+            item.InputReplyTo);
         return new TUpdates
         {
             Updates = new TVector<IUpdate>(update),
@@ -718,7 +718,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
                 messageAction,
                 item.Date,
                 item.OwnerPeer.PeerId,
-                item.ReplyToMsgId);
+                item.InputReplyTo);
 
             var r = new TUpdates
             {
@@ -784,7 +784,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
                     Pts = aggregateEvent.Pts,
                     PtsCount = 1,
                     Mentioned = true,
-                    ReplyTo = GetMessageConverter().ToMessageReplyHeader(item.ReplyToMsgId, item.TopMsgId)
+                        ReplyTo = GetMessageConverter().ToMessageReplyHeader(item.InputReplyTo)
                 };
                 return updates;
             }
@@ -802,7 +802,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
                     ChatId = item.ToPeer.PeerId,
                     Pts = aggregateEvent.Pts,
                     PtsCount = 1,
-                    ReplyTo = GetMessageConverter().ToMessageReplyHeader(item.ReplyToMsgId, item.TopMsgId)
+                        ReplyTo = GetMessageConverter().ToMessageReplyHeader(item.InputReplyTo)
                 };
                 return updates;
             }
@@ -946,7 +946,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
         };
     }
 
-    private static IUpdate ToMessageServiceUpdate(int messageId,
+    private IUpdate ToMessageServiceUpdate(int messageId,
         //long randomId,
         int pts,
         Peer? fromPeer,
@@ -954,7 +954,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
         IMessageAction messageAction,
         int date,
         long selfUserId,
-        int? replyToMsgId)
+        IInputReplyTo? inputReplyTo)
     {
         var isOut = false;
         if (fromPeer != null)
@@ -970,9 +970,7 @@ public class UpdatesConverterLayer166 : LayeredConverterBase, IUpdatesConverterL
             Out = isOut,
             PeerId = toPeer.ToPeer(),
             Id = messageId,
-            ReplyTo = replyToMsgId == null
-                ? null
-                : new TMessageReplyHeader { ReplyToMsgId = replyToMsgId.Value }
+            ReplyTo = GetMessageConverter().ToMessageReplyHeader(inputReplyTo)
         };
 
         if (toPeer.PeerType == PeerType.Channel)

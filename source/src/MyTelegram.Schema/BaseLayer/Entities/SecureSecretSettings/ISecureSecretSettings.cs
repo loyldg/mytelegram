@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Telegram <a href="https://corefork.telegram.org/passport">passport</a> settings
 /// See <a href="https://corefork.telegram.org/constructor/SecureSecretSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TSecureSecretSettings), nameof(TSecureSecretSettings))]
 public interface ISecureSecretSettings : IObject
 {
     ///<summary>

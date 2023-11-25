@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Upload;
 /// Remote file
 /// See <a href="https://corefork.telegram.org/constructor/upload.WebFile" />
 ///</summary>
+[JsonDerivedType(typeof(TWebFile), nameof(TWebFile))]
 public interface IWebFile : IObject
 {
     ///<summary>

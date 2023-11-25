@@ -4,13 +4,26 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Generate a <a href="https://corefork.telegram.org/api/links#story-links">story deep link</a> for a specific story
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 400 USER_PUBLIC_MISSING &nbsp;
 /// See <a href="https://corefork.telegram.org/method/stories.exportStoryLink" />
 ///</summary>
 [TlObject(0x7b8def20)]
 public sealed class RequestExportStoryLink : IRequest<MyTelegram.Schema.IExportedStoryLink>
 {
     public uint ConstructorId => 0x7b8def20;
+    ///<summary>
+    /// Peer where the story was posted
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// Story ID
+    ///</summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

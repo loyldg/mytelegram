@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Info about <a href="https://corefork.telegram.org/api/threads">post comments (for channels) or message replies (for groups)</a>
 /// See <a href="https://corefork.telegram.org/constructor/MessageReplies" />
 ///</summary>
+[JsonDerivedType(typeof(TMessageReplies), nameof(TMessageReplies))]
 public interface IMessageReplies : IObject
 {
     ///<summary>

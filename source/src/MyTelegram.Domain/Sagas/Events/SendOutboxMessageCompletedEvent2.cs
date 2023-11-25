@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Sagas.Events;
 
-public class SendOutboxMessageCompletedEvent2 : RequestAggregateEvent2<SendMessageSaga, SendMessageSagaId>
+public class SendOutboxMessageCompletedEvent : RequestAggregateEvent2<SendMessageSaga, SendMessageSagaId>
 {
     public MessageItem MessageItem { get; }
     public List<long>? MentionedUserIds { get; }
@@ -10,7 +10,7 @@ public class SendOutboxMessageCompletedEvent2 : RequestAggregateEvent2<SendMessa
     public IReadOnlyCollection<long>? BotUserIds { get; }
     //public long GlobalSeqNo { get; }
 
-    public SendOutboxMessageCompletedEvent2(RequestInfo requestInfo, MessageItem messageItem,
+    public SendOutboxMessageCompletedEvent(RequestInfo requestInfo, MessageItem messageItem,
         List<long>? mentionedUserIds,
         int pts, int groupItemCount,
         long? linkedChannelId, IReadOnlyCollection<long>? botUserIds/*, long globalSeqNo*/) : base(requestInfo)

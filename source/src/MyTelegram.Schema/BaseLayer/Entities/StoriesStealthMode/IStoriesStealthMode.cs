@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/StoriesStealthMode" />
 ///</summary>
+[JsonDerivedType(typeof(TStoriesStealthMode), nameof(TStoriesStealthMode))]
 public interface IStoriesStealthMode : IObject
 {
     ///<summary>
@@ -13,12 +14,12 @@ public interface IStoriesStealthMode : IObject
     BitArray Flags { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The date up to which stealth mode will be active.
     ///</summary>
     int? ActiveUntilDate { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The date starting from which the user will be allowed to re-enable stealth mode again.
     ///</summary>
     int? CooldownUntilDate { get; set; }
 }

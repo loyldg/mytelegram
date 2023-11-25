@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Related articles
 /// See <a href="https://corefork.telegram.org/constructor/PageRelatedArticle" />
 ///</summary>
+[JsonDerivedType(typeof(TPageRelatedArticle), nameof(TPageRelatedArticle))]
 public interface IPageRelatedArticle : IObject
 {
     ///<summary>

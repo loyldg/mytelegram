@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/PeerStories" />
 ///</summary>
+[JsonDerivedType(typeof(TPeerStories), nameof(TPeerStories))]
 public interface IPeerStories : IObject
 {
     ///<summary>

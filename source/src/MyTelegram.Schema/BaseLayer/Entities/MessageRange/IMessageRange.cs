@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Indicates a range of chat messages
 /// See <a href="https://corefork.telegram.org/constructor/MessageRange" />
 ///</summary>
+[JsonDerivedType(typeof(TMessageRange), nameof(TMessageRange))]
 public interface IMessageRange : IObject
 {
     ///<summary>

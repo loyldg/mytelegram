@@ -25,7 +25,7 @@ public class AddChatUserSaga : MyInMemoryAggregateSaga<AddChatUserSaga, AddChatU
             ownerPeer,
             new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId),
             ownerPeer,
-            0,
+            outMessageId,
             string.Empty,
             domainEvent.AggregateEvent.ChatMember.Date,
             domainEvent.AggregateEvent.RandomId,

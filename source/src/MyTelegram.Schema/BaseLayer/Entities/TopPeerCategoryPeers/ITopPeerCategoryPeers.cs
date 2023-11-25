@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Top peers by top peer category
 /// See <a href="https://corefork.telegram.org/constructor/TopPeerCategoryPeers" />
 ///</summary>
+[JsonDerivedType(typeof(TTopPeerCategoryPeers), nameof(TTopPeerCategoryPeers))]
 public interface ITopPeerCategoryPeers : IObject
 {
     ///<summary>

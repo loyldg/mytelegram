@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Notifications settings.
 /// See <a href="https://corefork.telegram.org/constructor/InputPeerNotifySettings" />
 ///</summary>
+[JsonDerivedType(typeof(TInputPeerNotifySettings), nameof(TInputPeerNotifySettings))]
 public interface IInputPeerNotifySettings : IObject
 {
     ///<summary>

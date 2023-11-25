@@ -117,7 +117,7 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
         }
     }
 
-    private Task HandleUpdatePinnedCompletedAsync()
+    private async Task HandleUpdatePinnedCompletedAsync()
     {
         if (_state.IsCompleted)
         {
@@ -138,10 +138,10 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
             if (_state.Pinned)
             {
                 var ownerPeerId = _state.StartUpdatePinnedOwnerPeerId;
-                var outMessageId = 0;
+                var outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, ownerPeerId);
 
-                var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, _state.RandomId);
-                var command = new StartSendMessageCommand(aggregateId,
+                var aggregateId = MessageId.Create(ownerPeerId, outMessageId);
+                var command = new CreateOutboxMessageCommand(aggregateId,
                     _state.RequestInfo with { RequestId = Guid.NewGuid() },
                     new MessageItem(new Peer(PeerType.User, ownerPeerId),
                         _state.ToPeer,
@@ -155,17 +155,19 @@ public class UpdatePinnedMessageSaga : MyInMemoryAggregateSaga<UpdatePinnedMessa
                         MessageType.Text,
                         MessageSubType.UpdatePinnedMessage,
                         messageActionData: _state.MessageActionData,
-                        replyToMsgId: _state.ReplyToMsgId,
+                        //replyToMsgId: _state.ReplyToMsgId,
+                        inputReplyTo: new TInputReplyToMessage
+                        {
+                            ReplyToMsgId = _state.ReplyToMsgId
+                        },
                         messageActionType: MessageActionType.PinMessage
                         ));
 
                 Publish(command);
             }
 
-            return CompleteAsync();
+            await CompleteAsync();
         }
-
-        return Task.CompletedTask;
     }
 
     private async Task IncrementPtsAsync(long peerId)

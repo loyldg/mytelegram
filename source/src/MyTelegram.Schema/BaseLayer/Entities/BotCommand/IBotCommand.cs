@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Describes a bot command that can be used in a chat
 /// See <a href="https://corefork.telegram.org/constructor/BotCommand" />
 ///</summary>
+[JsonDerivedType(typeof(TBotCommand), nameof(TBotCommand))]
 public interface IBotCommand : IObject
 {
     ///<summary>

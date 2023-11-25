@@ -18,19 +18,19 @@ public class UserSignInSagaTests : TestsFor<SignInSaga>
     [Fact]
     public async Task SignIn_With_Invalid_PhoneCode_Throws_Exception()
     {
-        var aggregateEvent = new CheckSignInCodeCompletedEvent(A<RequestInfo>(), false, 1, Guid.Empty);
+        var aggregateEvent = new CheckSignInCodeCompletedEvent(A<RequestInfo>(), false, 1);
         var domainEvent =
             ADomainEvent<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>(aggregateEvent, A<AppCodeId>(), 1);
 
-        var exception = await Assert.ThrowsAsync<UserFriendlyException>(async () => await Sut.HandleAsync(domainEvent, _sagaContext.Object, CancellationToken.None).ConfigureAwait(false));
+        var exception = await Assert.ThrowsAsync<RpcException>(async () => await Sut.HandleAsync(domainEvent, _sagaContext.Object, CancellationToken.None).ConfigureAwait(false));
 
-        exception.Message.ShouldBe(RpcErrorMessages.PhoneCodeInvalid);
+        exception.RpcError.ShouldBe(RpcErrors.RpcErrors400.PhoneCodeInvalid);
     }
 
     [Fact]
     public async Task SignIn_With_Correct_PhoneCode_Success()
     {
-        var aggregateEvent = new CheckSignInCodeCompletedEvent(A<RequestInfo>(), true, 1, Guid.Empty);
+        var aggregateEvent = new CheckSignInCodeCompletedEvent(A<RequestInfo>(), true, 1);
         var domainEvent =
             ADomainEvent<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>(aggregateEvent, A<AppCodeId>(), 1);
 

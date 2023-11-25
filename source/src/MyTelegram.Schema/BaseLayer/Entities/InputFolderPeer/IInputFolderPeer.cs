@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Peer in a folder
 /// See <a href="https://corefork.telegram.org/constructor/InputFolderPeer" />
 ///</summary>
+[JsonDerivedType(typeof(TInputFolderPeer), nameof(TInputFolderPeer))]
 public interface IInputFolderPeer : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// When and which user joined the chat using a chat invite
 /// See <a href="https://corefork.telegram.org/constructor/ChatInviteImporter" />
 ///</summary>
+[JsonDerivedType(typeof(TChatInviteImporter), nameof(TChatInviteImporter))]
 public interface IChatInviteImporter : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Time-to-live of current account
 /// See <a href="https://corefork.telegram.org/constructor/AccountDaysTTL" />
 ///</summary>
+[JsonDerivedType(typeof(TAccountDaysTTL), nameof(TAccountDaysTTL))]
 public interface IAccountDaysTTL : IObject
 {
     ///<summary>

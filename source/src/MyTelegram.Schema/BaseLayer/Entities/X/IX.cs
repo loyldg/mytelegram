@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/X" />
 ///</summary>
+//[JsonDerivedType(typeof(TInitConnection), nameof(TInitConnection))]
 public interface IX : IObject
 {
     ///<summary>

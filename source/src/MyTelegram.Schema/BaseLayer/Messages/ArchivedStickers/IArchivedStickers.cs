@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Archived stickers
 /// See <a href="https://corefork.telegram.org/constructor/messages.ArchivedStickers" />
 ///</summary>
+[JsonDerivedType(typeof(TArchivedStickers), nameof(TArchivedStickers))]
 public interface IArchivedStickers : IObject
 {
     ///<summary>

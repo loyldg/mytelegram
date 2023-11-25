@@ -78,7 +78,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
 
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
                 affectedMessages,
-                domainEvent.AggregateEvent.ReaderUid)
+                domainEvent.AggregateEvent.ReaderUserId)
      ;
         var peer = domainEvent.AggregateEvent.ReaderToPeer;
         var updateReadHistoryInbox = new TUpdateReadHistoryInbox
@@ -95,7 +95,7 @@ public class ReadHistoryDomainEventHandler : DomainEventHandlerBase,
             Chats = new TVector<IChat>(),
             Date = DateTime.UtcNow.ToTimestamp()
         };
-        await PushUpdatesToPeerAsync(new Peer(PeerType.User, domainEvent.AggregateEvent.ReaderUid),
+        await PushUpdatesToPeerAsync(new Peer(PeerType.User, domainEvent.AggregateEvent.ReaderUserId),
             selfOtherDevicesUpdates,
             domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
             pts: domainEvent.AggregateEvent.ReaderPts

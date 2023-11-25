@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/PremiumGiftCodeOption" />
 ///</summary>
+[JsonDerivedType(typeof(TPremiumGiftCodeOption), nameof(TPremiumGiftCodeOption))]
 public interface IPremiumGiftCodeOption : IObject
 {
     BitArray Flags { get; set; }

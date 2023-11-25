@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Indicates a peer that can be used to send messages
 /// See <a href="https://corefork.telegram.org/constructor/SendAsPeer" />
 ///</summary>
+[JsonDerivedType(typeof(TSendAsPeer), nameof(TSendAsPeer))]
 public interface ISendAsPeer : IObject
 {
     ///<summary>

@@ -6,6 +6,15 @@ namespace MyTelegram.Schema;
 /// Secure value error
 /// See <a href="https://corefork.telegram.org/constructor/SecureValueError" />
 ///</summary>
+[JsonDerivedType(typeof(TSecureValueErrorData), nameof(TSecureValueErrorData))]
+[JsonDerivedType(typeof(TSecureValueErrorFrontSide), nameof(TSecureValueErrorFrontSide))]
+[JsonDerivedType(typeof(TSecureValueErrorReverseSide), nameof(TSecureValueErrorReverseSide))]
+[JsonDerivedType(typeof(TSecureValueErrorSelfie), nameof(TSecureValueErrorSelfie))]
+[JsonDerivedType(typeof(TSecureValueErrorFile), nameof(TSecureValueErrorFile))]
+[JsonDerivedType(typeof(TSecureValueErrorFiles), nameof(TSecureValueErrorFiles))]
+[JsonDerivedType(typeof(TSecureValueError), nameof(TSecureValueError))]
+[JsonDerivedType(typeof(TSecureValueErrorTranslationFile), nameof(TSecureValueErrorTranslationFile))]
+[JsonDerivedType(typeof(TSecureValueErrorTranslationFiles), nameof(TSecureValueErrorTranslationFiles))]
 public interface ISecureValueError : IObject
 {
     ///<summary>

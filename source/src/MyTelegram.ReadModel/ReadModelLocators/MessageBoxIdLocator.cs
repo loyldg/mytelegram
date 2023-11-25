@@ -9,7 +9,7 @@ public class MessageIdLocator : IMessageIdLocator
         {
             yield return domainEvent.GetIdentity().Value;
         }
-        else if (domainEvent.AggregateType == typeof(MessageSaga))
+        else if (domainEvent.AggregateType == typeof(SendMessageSaga))
         {
             switch (aggregateEvent)
             {

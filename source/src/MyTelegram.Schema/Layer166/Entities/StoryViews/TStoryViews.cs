@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Aggregated view and reaction information of a <a href="https://corefork.telegram.org/api/stories">story</a>.
 /// See <a href="https://corefork.telegram.org/constructor/storyViews" />
 ///</summary>
 [TlObject(0x8d595cd6)]
@@ -22,17 +23,17 @@ public sealed class TStoryViews : IStoryViews
     public bool HasViewers { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// View counter of the story
     ///</summary>
     public int ViewsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Forward counter of the story
     ///</summary>
     public int? ForwardsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// All reactions sent to this story
     ///</summary>
     public TVector<MyTelegram.Schema.IReactionCount>? Reactions { get; set; }
 
@@ -42,7 +43,7 @@ public sealed class TStoryViews : IStoryViews
     public int? ReactionsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// User IDs of some recent viewers of the story
     ///</summary>
     public TVector<long>? RecentViewers { get; set; }
 

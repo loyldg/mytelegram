@@ -6,6 +6,8 @@ namespace MyTelegram.Schema.Help;
 /// Update of Telegram's terms of service
 /// See <a href="https://corefork.telegram.org/constructor/help.TermsOfServiceUpdate" />
 ///</summary>
+[JsonDerivedType(typeof(TTermsOfServiceUpdateEmpty), nameof(TTermsOfServiceUpdateEmpty))]
+[JsonDerivedType(typeof(TTermsOfServiceUpdate), nameof(TTermsOfServiceUpdate))]
 public interface ITermsOfServiceUpdate : IObject
 {
     ///<summary>

@@ -39,7 +39,7 @@ public class CreateChatSaga : MyInMemoryAggregateSaga<CreateChatSaga, CreateChat
             domainEvent.AggregateEvent.RequestInfo with { RequestId = Guid.NewGuid() },
             messageItem,
             chatMembers: domainEvent.AggregateEvent.MemberUidList.Select(p => p.UserId).ToList()
-        );
+            );
         Publish(command);
         await CompleteAsync(cancellationToken);
     }

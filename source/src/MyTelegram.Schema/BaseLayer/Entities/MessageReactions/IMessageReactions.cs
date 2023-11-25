@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// <a href="https://corefork.telegram.org/api/reactions">Message reactions »</a>
 /// See <a href="https://corefork.telegram.org/constructor/MessageReactions" />
 ///</summary>
+[JsonDerivedType(typeof(TMessageReactions), nameof(TMessageReactions))]
 public interface IMessageReactions : IObject
 {
     ///<summary>

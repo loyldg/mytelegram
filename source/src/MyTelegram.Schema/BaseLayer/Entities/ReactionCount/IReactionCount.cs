@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Number of users that reacted with a certain emoji
 /// See <a href="https://corefork.telegram.org/constructor/ReactionCount" />
 ///</summary>
+[JsonDerivedType(typeof(TReactionCount), nameof(TReactionCount))]
 public interface IReactionCount : IObject
 {
     ///<summary>

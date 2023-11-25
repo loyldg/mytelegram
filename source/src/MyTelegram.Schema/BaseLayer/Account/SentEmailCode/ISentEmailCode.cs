@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// The email code that was sent
 /// See <a href="https://corefork.telegram.org/constructor/account.SentEmailCode" />
 ///</summary>
+[JsonDerivedType(typeof(TSentEmailCode), nameof(TSentEmailCode))]
 public interface ISentEmailCode : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Contains info about when a certain participant has read a message
 /// See <a href="https://corefork.telegram.org/constructor/ReadParticipantDate" />
 ///</summary>
+[JsonDerivedType(typeof(TReadParticipantDate), nameof(TReadParticipantDate))]
 public interface IReadParticipantDate : IObject
 {
     ///<summary>

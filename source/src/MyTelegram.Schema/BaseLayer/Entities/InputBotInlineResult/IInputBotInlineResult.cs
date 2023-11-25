@@ -6,6 +6,10 @@ namespace MyTelegram.Schema;
 /// Inline bot result
 /// See <a href="https://corefork.telegram.org/constructor/InputBotInlineResult" />
 ///</summary>
+[JsonDerivedType(typeof(TInputBotInlineResult), nameof(TInputBotInlineResult))]
+[JsonDerivedType(typeof(TInputBotInlineResultPhoto), nameof(TInputBotInlineResultPhoto))]
+[JsonDerivedType(typeof(TInputBotInlineResultDocument), nameof(TInputBotInlineResultDocument))]
+[JsonDerivedType(typeof(TInputBotInlineResultGame), nameof(TInputBotInlineResultGame))]
 public interface IInputBotInlineResult : IObject
 {
     ///<summary>

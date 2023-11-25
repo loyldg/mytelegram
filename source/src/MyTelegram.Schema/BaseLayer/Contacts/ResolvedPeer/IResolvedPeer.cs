@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Contacts;
 /// Peer returned after resolving a <code>@username</code>
 /// See <a href="https://corefork.telegram.org/constructor/contacts.ResolvedPeer" />
 ///</summary>
+[JsonDerivedType(typeof(TResolvedPeer), nameof(TResolvedPeer))]
 public interface IResolvedPeer : IObject
 {
     ///<summary>

@@ -11,13 +11,15 @@ public class ChatConverterLayer166 : ChatConverterBase, IChatConverterLayer166
     private IPhotoConverter? _photoConverter;
     private readonly IOptions<MyTelegramMessengerServerOptions> _options;
     private readonly ILayeredService<IPhotoConverter> _layeredPhotoService;
+    private readonly ILayeredService<IPeerNotifySettingsConverter> _layeredPeerNotifySettingsService;
     public ChatConverterLayer166(IObjectMapper objectMapper,
         IOptions<MyTelegramMessengerServerOptions> options,
-        ILayeredService<IPhotoConverter> layeredPhotoService)
+        ILayeredService<IPhotoConverter> layeredPhotoService, ILayeredService<IPeerNotifySettingsConverter> layeredPeerNotifySettingsService)
     {
         ObjectMapper = objectMapper;
         _options = options;
         _layeredPhotoService = layeredPhotoService;
+        _layeredPeerNotifySettingsService = layeredPeerNotifySettingsService;
     }
 
     protected IObjectMapper ObjectMapper { get; }
@@ -105,9 +107,10 @@ public class ChatConverterLayer166 : ChatConverterBase, IChatConverterLayer166
         //channelFull.ChatPhoto = chatFullPhoto; // channelReadModel.Photo.ToTObject<IPhoto>() ?? new TPhotoEmpty();
         //channelFull.ChatPhoto = channelReadModel.Photo.ToTObject<IPhoto>() ?? new TPhotoEmpty();
         channelFull.ChatPhoto = GetPhotoConverter().ToPhoto(photoReadModel);
-        channelFull.NotifySettings =
-            ObjectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
-                peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
+        //channelFull.NotifySettings =
+        //    ObjectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
+        //        peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
+        channelFull.NotifySettings = GetPeerNotifySettings(peerNotifySettingsReadModel?.NotifySettings);
 
         channelFull.BotInfo = new TVector<IBotInfo>();
         channelFull.Pts = channelReadModel.Pts;
@@ -314,8 +317,9 @@ public class ChatConverterLayer166 : ChatConverterBase, IChatConverterLayer166
         var fullChat = ToChatFull(chat);
 
         fullChat.ChatPhoto = GetPhotoConverter().ToPhoto(photoReadModel);
-        fullChat.NotifySettings = ObjectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
-            peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
+        //fullChat.NotifySettings = ObjectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
+        //    peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
+        fullChat.NotifySettings = GetPeerNotifySettings(peerNotifySettingsReadModel?.NotifySettings);
         fullChat.Participants = chat.IsDeleted
             ? new TChatParticipants
             {
@@ -709,5 +713,9 @@ public class ChatConverterLayer166 : ChatConverterBase, IChatConverterLayer166
             Participants = new TVector<IChatParticipant>(participants),
             Version = chatVersion
         };
+    }
+    protected virtual IPeerNotifySettings GetPeerNotifySettings(PeerNotifySettings? peerNotifySettings)
+    {
+        return _layeredPeerNotifySettingsService.GetConverter(GetLayer()).ToPeerNotifySettings(peerNotifySettings);
     }
 }

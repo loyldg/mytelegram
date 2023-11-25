@@ -4,18 +4,21 @@ public class
     EditChatTitleSaga : MyInMemoryAggregateSaga<EditChatTitleSaga, EditChatTitleSagaId, EditChatTitleSagaLocator>,
         ISagaIsStartedBy<ChatAggregate, ChatId, ChatTitleEditedEvent>
 {
-    public EditChatTitleSaga(EditChatTitleSagaId id, IEventStore eventStore) : base(id, eventStore)
+    private readonly IIdGenerator _idGenerator;
+
+    public EditChatTitleSaga(EditChatTitleSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
+        _idGenerator = idGenerator;
     }
 
-    public Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatTitleEditedEvent> domainEvent,
+    public async Task HandleAsync(IDomainEvent<ChatAggregate, ChatId, ChatTitleEditedEvent> domainEvent,
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
         var ownerPeerId = domainEvent.AggregateEvent.RequestInfo.UserId;
         var toPeerId = domainEvent.AggregateEvent.ChatId;
-        var outMessageId = 0;
-        var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, domainEvent.AggregateEvent.RandomId);
+        var outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, ownerPeerId, cancellationToken: cancellationToken);
+        var aggregateId = MessageId.Create(ownerPeerId, outMessageId);
         var ownerPeer = new Peer(PeerType.User, ownerPeerId);
         var toPeer = new Peer(PeerType.Chat, toPeerId);
         var senderPeer = new Peer(PeerType.User, ownerPeerId);
@@ -36,12 +39,12 @@ public class
             MessageActionType.ChatEditTitle
         );
 
-        var command = new StartSendMessageCommand(
+        var command = new CreateOutboxMessageCommand(
             aggregateId,
             domainEvent.AggregateEvent.RequestInfo,
             messageItem
         );
         Publish(command);
-        return CompleteAsync(cancellationToken);
+        await CompleteAsync(cancellationToken);
     }
 }

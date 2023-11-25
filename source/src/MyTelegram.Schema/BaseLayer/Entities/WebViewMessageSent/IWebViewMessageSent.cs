@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Contains information about an inline message sent by a <a href="https://core.telegram.org/bots/webapps">Web App</a> on behalf of a user.
 /// See <a href="https://corefork.telegram.org/constructor/WebViewMessageSent" />
 ///</summary>
+[JsonDerivedType(typeof(TWebViewMessageSent), nameof(TWebViewMessageSent))]
 public interface IWebViewMessageSent : IObject
 {
     ///<summary>

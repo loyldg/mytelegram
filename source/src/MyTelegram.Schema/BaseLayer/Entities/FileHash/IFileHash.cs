@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Hash of an uploaded file, to be checked for validity after download
 /// See <a href="https://corefork.telegram.org/constructor/FileHash" />
 ///</summary>
+[JsonDerivedType(typeof(TFileHash), nameof(TFileHash))]
 public interface IFileHash : IObject
 {
     ///<summary>

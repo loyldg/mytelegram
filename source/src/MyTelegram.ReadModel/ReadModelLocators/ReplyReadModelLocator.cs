@@ -9,11 +9,11 @@ public class ReplyReadModelLocator : IReplyReadModelLocator
         {
             yield return domainEvent.GetIdentity().Value;
         }
-        else if (domainEvent.AggregateType == typeof(MessageSaga))
+        else if (domainEvent.AggregateType == typeof(SendMessageSaga))
         {
             switch (aggregateEvent)
             {
-                case ReplyToChannelMessageCompletedEvent replyToChannelMessageCompletedEvent:
+                case ReplyToChannelMessageCompletedEvent2 replyToChannelMessageCompletedEvent:
                     yield return MessageId.Create(replyToChannelMessageCompletedEvent.ChannelId,
                         replyToChannelMessageCompletedEvent.ReplyToMsgId).Value;
                     break;

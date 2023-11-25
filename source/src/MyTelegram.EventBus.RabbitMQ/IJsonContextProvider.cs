@@ -1,8 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿//using System.Text.Json.Serialization;
 
-namespace MyTelegram.EventBus.RabbitMQ;
+//namespace MyTelegram.EventBus.RabbitMQ;
 
-public interface IJsonContextProvider
-{
-    JsonSerializerContext GetSerializerContext();
-}
+//public interface IJsonContextProvider
+//{
+//    JsonSerializerContext GetSerializerContext();
+//}

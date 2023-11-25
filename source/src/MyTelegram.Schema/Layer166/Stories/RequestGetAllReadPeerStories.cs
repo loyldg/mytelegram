@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Obtain the latest read story ID for all peers when first logging in, returned as a list of <a href="https://corefork.telegram.org/constructor/updateReadStories">updateReadStories</a> updates, see <a href="https://corefork.telegram.org/api/stories#watching-stories">here »</a> for more info.
 /// See <a href="https://corefork.telegram.org/method/stories.getAllReadPeerStories" />
 ///</summary>
 [TlObject(0x9b5ae7f9)]

@@ -1,13 +1,13 @@
-﻿using MyTelegram.Domain.Sagas;
+﻿//using MyTelegram.Domain.Sagas;
 
-namespace MyTelegram.Domain.Events.Messaging;
+//namespace MyTelegram.Domain.Events.Messaging;
 
-public class ReplyToMessageCompletedEvent : AggregateEvent<MessageSaga, MessageSagaId>
-{
-    public ReplyToMessageCompletedEvent(IReadOnlyList<InboxItem> inboxItems)
-    {
-        InboxItems = inboxItems;
-    }
+//public class ReplyToMessageCompletedEvent : AggregateEvent<MessageSaga, MessageSagaId>
+//{
+//    public ReplyToMessageCompletedEvent(IReadOnlyList<InboxItem> inboxItems)
+//    {
+//        InboxItems = inboxItems;
+//    }
 
-    public IReadOnlyList<InboxItem> InboxItems { get; }
-}
+//    public IReadOnlyList<InboxItem> InboxItems { get; }
+//}

@@ -68,7 +68,7 @@ builder.ConfigureServices((ctx,
         options.Transport(t => t.UseRabbitMq($"amqp://{rabbitMqOptions.UserName}:{rabbitMqOptions.Password}@{rabbitMqOptions.HostName}:{rabbitMqOptions.Port}", eventBusOptions.ClientName));
     });
 
-    services.UseMyTelegramMessengerServer(options =>
+    services.AddMyTelegramMessengerServer(options =>
     {
         options.AddDefaults(Assembly.GetEntryAssembly());
         options.ConfigureMongoDb(ctx.Configuration.GetConnectionString("Default"),

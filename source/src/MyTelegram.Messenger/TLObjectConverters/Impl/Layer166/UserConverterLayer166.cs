@@ -15,12 +15,13 @@ public class UserConverterLayer166 : UserConverterBase, IUserConverterLayer166
     private readonly IUserStatusCacheAppService _userStatusCacheAppService;
     private IPhotoConverter? _photoConverter;
     private readonly ILayeredService<IPeerSettingsConverter> _layeredPeerSettingsConverter;
+    private readonly ILayeredService<IPeerNotifySettingsConverter> _layeredPeerNotifySettingsService;
     public UserConverterLayer166(IObjectMapper objectMapper,
         IUserStatusCacheAppService userStatusCacheAppService,
         //ITlPhotoConverterLayer143 photoConverter,
         IPrivacyHelper privacyHelper,
         IBlockCacheAppService blockCacheAppService,
-        ILayeredService<IPhotoConverter> layeredPhotoService, ILayeredService<IPeerSettingsConverter> layeredPeerSettingsConverter)
+        ILayeredService<IPhotoConverter> layeredPhotoService, ILayeredService<IPeerSettingsConverter> layeredPeerSettingsConverter, ILayeredService<IPeerNotifySettingsConverter> layeredPeerNotifySettingsService)
     {
         ObjectMapper = objectMapper;
         _userStatusCacheAppService = userStatusCacheAppService;
@@ -28,6 +29,7 @@ public class UserConverterLayer166 : UserConverterBase, IUserConverterLayer166
         _blockCacheAppService = blockCacheAppService;
         _layeredPhotoService = layeredPhotoService;
         _layeredPeerSettingsConverter = layeredPeerSettingsConverter;
+        _layeredPeerNotifySettingsService = layeredPeerNotifySettingsService;
         //_layeredPhotoService = layeredPhotoService;
     }
 
@@ -93,15 +95,16 @@ public class UserConverterLayer166 : UserConverterBase, IUserConverterLayer166
         var tUser = ToUser(selfUserId, user, photos, contactReadModel, privacies);
         var isBlocked = await _blockCacheAppService.IsBlockedAsync(selfUserId, user.UserId);
 
-        var notifySettings = ObjectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
-            peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
-        notifySettings.AndroidSound = new TNotificationSoundDefault();
-        notifySettings.IosSound = new TNotificationSoundDefault();
-        notifySettings.OtherSound = new TNotificationSoundLocal
-        {
-            Data = "default",
-            Title = "default"
-        };
+        //var notifySettings = ObjectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
+        //    peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
+        //notifySettings.AndroidSound = new TNotificationSoundDefault();
+        //notifySettings.IosSound = new TNotificationSoundDefault();
+        //notifySettings.OtherSound = new TNotificationSoundLocal
+        //{
+        //    Data = "default",
+        //    Title = "default"
+        var notifySettings = GetPeerNotifySettings(peerNotifySettingsReadModel?.NotifySettings);
+
         var fullUser = await GetUserFullCoreAsync(selfUserId, user, photos);
         fullUser.NotifySettings = notifySettings;
         fullUser.Blocked = isBlocked;
@@ -262,7 +265,8 @@ public class UserConverterLayer166 : UserConverterBase, IUserConverterLayer166
             PinnedMsgId = user.PinnedMsgId,
             //ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
             Settings = new TPeerSettings(),
-            ProfilePhoto = GetPhotoConverter().ToPhoto(photos?.FirstOrDefault(p => p.PhotoId == user.ProfilePhotoId))
+            ProfilePhoto = GetPhotoConverter().ToPhoto(photos?.FirstOrDefault(p => p.PhotoId == user.ProfilePhotoId)),
+            FallbackPhoto = GetPhotoConverter().ToPhoto(photos?.FirstOrDefault(p => p.PhotoId == user.FallbackPhotoId))
         };
 
         return Task.FromResult<Schema.IUserFull>(fullUser);
@@ -286,5 +290,9 @@ public class UserConverterLayer166 : UserConverterBase, IUserConverterLayer166
     protected virtual ILayeredUser ToUser(UserItem userItem)
     {
         return  ObjectMapper.Map<UserItem, TUser>(userItem);
+    }
+    protected virtual IPeerNotifySettings GetPeerNotifySettings(PeerNotifySettings? peerNotifySettings)
+    {
+        return _layeredPeerNotifySettingsService.GetConverter(GetLayer()).ToPeerNotifySettings(peerNotifySettings);
     }
 }

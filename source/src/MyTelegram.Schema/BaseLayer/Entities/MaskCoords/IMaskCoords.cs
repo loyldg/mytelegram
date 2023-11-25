@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Mask coordinates (if this is a mask sticker, attached to a photo)
 /// See <a href="https://corefork.telegram.org/constructor/MaskCoords" />
 ///</summary>
+[JsonDerivedType(typeof(TMaskCoords), nameof(TMaskCoords))]
 public interface IMaskCoords : IObject
 {
     ///<summary>

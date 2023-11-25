@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Number of results that would be returned by a search
 /// See <a href="https://corefork.telegram.org/constructor/messages.SearchCounter" />
 ///</summary>
+[JsonDerivedType(typeof(TSearchCounter), nameof(TSearchCounter))]
 public interface ISearchCounter : IObject
 {
     ///<summary>

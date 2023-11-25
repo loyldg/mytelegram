@@ -6,6 +6,8 @@ namespace MyTelegram.Schema.Messages;
 /// Contains info on message sent to an encrypted chat.
 /// See <a href="https://corefork.telegram.org/constructor/messages.SentEncryptedMessage" />
 ///</summary>
+[JsonDerivedType(typeof(TSentEncryptedMessage), nameof(TSentEncryptedMessage))]
+[JsonDerivedType(typeof(TSentEncryptedFile), nameof(TSentEncryptedFile))]
 public interface ISentEncryptedMessage : IObject
 {
     ///<summary>

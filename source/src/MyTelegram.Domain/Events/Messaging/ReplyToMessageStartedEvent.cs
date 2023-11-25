@@ -2,21 +2,11 @@
 
 public class ReplyToMessageStartedEvent : RequestAggregateEvent2<MessageAggregate, MessageId>
 {
-    public int ReplyToMsgId { get; }
-    public bool IsOut { get; }
-    public IReadOnlyList<InboxItem> InboxItems { get; }
-    public Peer OwnerPeer { get; }
-    public Peer SenderPeer { get; }
-    public Peer ToPeer { get; }
-    public int SenderMessageId { get; }
-    public long? SavedFromPeerId { get; }
-    public int? SavedFromMsgId { get; }
-    public IReadOnlyCollection<Peer> RecentRepliers { get; }
-
-
     public ReplyToMessageStartedEvent(
         RequestInfo requestInfo,
-        int replyToMsgId, bool isOut, IReadOnlyList<InboxItem> inboxItems,
+        //int replyToMsgId, 
+        IInputReplyTo replyTo,
+        bool isOut, IReadOnlyList<InboxItem> inboxItems,
         Peer ownerPeer,
         Peer senderPeer,
         Peer toPeer,
@@ -25,7 +15,8 @@ public class ReplyToMessageStartedEvent : RequestAggregateEvent2<MessageAggregat
         int? savedFromMsgId,
         IReadOnlyCollection<Peer> recentRepliers) : base(requestInfo)
     {
-        ReplyToMsgId = replyToMsgId;
+        //ReplyToMsgId = replyToMsgId;
+        ReplyTo = replyTo;
         IsOut = isOut;
         InboxItems = inboxItems;
         OwnerPeer = ownerPeer;
@@ -37,4 +28,16 @@ public class ReplyToMessageStartedEvent : RequestAggregateEvent2<MessageAggregat
         SavedFromMsgId = savedFromMsgId;
         RecentRepliers = recentRepliers;
     }
+
+    //public int ReplyToMsgId { get; }
+    public IInputReplyTo ReplyTo { get; }
+    public bool IsOut { get; }
+    public IReadOnlyList<InboxItem> InboxItems { get; }
+    public Peer OwnerPeer { get; }
+    public Peer SenderPeer { get; }
+    public Peer ToPeer { get; }
+    public int SenderMessageId { get; }
+    public long? SavedFromPeerId { get; }
+    public int? SavedFromMsgId { get; }
+    public IReadOnlyCollection<Peer> RecentRepliers { get; }
 }

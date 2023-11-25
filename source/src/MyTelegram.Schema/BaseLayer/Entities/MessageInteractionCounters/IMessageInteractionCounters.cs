@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Message interaction counters
 /// See <a href="https://corefork.telegram.org/constructor/MessageInteractionCounters" />
 ///</summary>
+[JsonDerivedType(typeof(TMessageInteractionCounters), nameof(TMessageInteractionCounters))]
 public interface IMessageInteractionCounters : IObject
 {
     ///<summary>

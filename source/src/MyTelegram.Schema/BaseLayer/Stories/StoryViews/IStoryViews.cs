@@ -5,16 +5,17 @@ namespace MyTelegram.Schema.Stories;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/stories.StoryViews" />
 ///</summary>
+[JsonDerivedType(typeof(TStoryViews), nameof(TStoryViews))]
 public interface IStoryViews : IObject
 {
     ///<summary>
-    /// &nbsp;
+    /// View date and reaction information of multiple stories
     /// See <a href="https://corefork.telegram.org/type/StoryViews" />
     ///</summary>
     TVector<MyTelegram.Schema.IStoryViews> Views { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
     ///</summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }

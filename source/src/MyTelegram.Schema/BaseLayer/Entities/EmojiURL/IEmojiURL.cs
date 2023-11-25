@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Emoji URL
 /// See <a href="https://corefork.telegram.org/constructor/EmojiURL" />
 ///</summary>
+[JsonDerivedType(typeof(TEmojiURL), nameof(TEmojiURL))]
 public interface IEmojiURL : IObject
 {
     ///<summary>

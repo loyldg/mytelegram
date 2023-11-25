@@ -7,6 +7,7 @@ public class DialogConverterLayer166 : LayeredConverterBase, IDialogConverterLay
     private readonly ILayeredService<IChatConverter> _layeredChatService;
     private readonly ILayeredService<IUserConverter> _layeredUserService;
     private readonly ILayeredService<IMessageConverter> _layeredMessageService;
+    private readonly ILayeredService<IPeerNotifySettingsConverter> _layeredPeerNotifySettingsService;
     private IChatConverter? _chatConverter;
     private IUserConverter? _userConverter;
     private IMessageConverter? _messageConverter;
@@ -14,12 +15,13 @@ public class DialogConverterLayer166 : LayeredConverterBase, IDialogConverterLay
         ILayeredService<IChatConverter> layeredChatService,
         ILayeredService<IUserConverter> layeredUserService,
         ILayeredService<IMessageConverter> layeredMessageService,
-        IObjectMapper objectMapper)
+        IObjectMapper objectMapper, ILayeredService<IPeerNotifySettingsConverter> layeredPeerNotifySettingsService)
     {
         _layeredChatService = layeredChatService;
         _layeredUserService = layeredUserService;
         _layeredMessageService = layeredMessageService;
         ObjectMapper = objectMapper;
+        _layeredPeerNotifySettingsService = layeredPeerNotifySettingsService;
     }
 
     protected virtual IObjectMapper ObjectMapper { get; }
@@ -152,6 +154,8 @@ public class DialogConverterLayer166 : LayeredConverterBase, IDialogConverterLay
         Dictionary<string, IMessageReadModel> messages, IChannelReadModel? channelReadModel)
     {
         var tDialog = ObjectMapper.Map<IDialogReadModel, TDialog>(dialogReadModel);
+        tDialog.NotifySettings = GetPeerNotifySettings(dialogReadModel.NotifySettings);
+        // Console.WriteLine($"Request layer:{GetLayer()}");
         if (dialogReadModel.ReadOutboxMaxId == 0 && dialogReadModel.ReadInboxMaxId != 0)
         {
             tDialog.ReadInboxMaxId = dialogReadModel.ReadInboxMaxId;
@@ -163,7 +167,8 @@ public class DialogConverterLayer166 : LayeredConverterBase, IDialogConverterLay
             {
                 var maxId = new[]
                 {
-                    dialogReadModel.MaxSendOutMessageId, dialogReadModel.ReadOutboxMaxId, dialogReadModel.ReadInboxMaxId,
+                    dialogReadModel.MaxSendOutMessageId, dialogReadModel.ReadOutboxMaxId,
+                    dialogReadModel.ReadInboxMaxId,
                     dialogReadModel.ChannelHistoryMinId
                 }.Max();
 
@@ -200,7 +205,6 @@ public class DialogConverterLayer166 : LayeredConverterBase, IDialogConverterLay
             //{
             //    tDialog.UnreadCount = 0;
             //}
-
             Console.WriteLine($"{dialogReadModel.ToPeerId} Unread count:{tDialog.UnreadCount}");
         }
         else
@@ -224,5 +228,15 @@ public class DialogConverterLayer166 : LayeredConverterBase, IDialogConverterLay
     protected virtual IUserConverter GetUserConverter()
     {
         return _userConverter ??= _layeredUserService.GetConverter(GetLayer());
+    }
+
+    protected virtual IPeerNotifySettings? GetPeerNotifySettings(PeerNotifySettings? peerNotifySettings)
+    {
+        var layer = GetLayer();
+        var converter = _layeredPeerNotifySettingsService.GetConverter(layer);
+        var settings = converter.ToPeerNotifySettings(peerNotifySettings);
+
+        return _layeredPeerNotifySettingsService.GetConverter(GetLayer()).ToPeerNotifySettings(peerNotifySettings);
+
     }
 }

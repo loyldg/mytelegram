@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Indicates a poll message
 /// See <a href="https://corefork.telegram.org/constructor/Poll" />
 ///</summary>
+[JsonDerivedType(typeof(TPoll), nameof(TPoll))]
 public interface IPoll : IObject
 {
     ///<summary>

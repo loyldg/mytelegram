@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Help;
 /// Country code and phone number pattern of a specific country
 /// See <a href="https://corefork.telegram.org/constructor/help.CountryCode" />
 ///</summary>
+[JsonDerivedType(typeof(TCountryCode), nameof(TCountryCode))]
 public interface ICountryCode : IObject
 {
     ///<summary>

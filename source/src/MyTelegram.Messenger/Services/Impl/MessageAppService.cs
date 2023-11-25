@@ -217,16 +217,16 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
 
         var item = await GetMessageEntitiesAsync(input);
         var ownerPeerId = input.ToPeer.PeerType == PeerType.Channel ? input.ToPeer.PeerId : input.SenderPeerId;
+        int? replyToMsgId = input.InputReplyTo.ToReplyToMsgId();
         var replyToMsgItems =
-            await _queryProcessor.ProcessAsync(new GetReplyToMsgIdListQuery(input.ToPeer.PeerId, input.SenderPeerId,
-                input.ReplyToMsgId), default);
+            await _queryProcessor.ProcessAsync(new GetReplyToMsgIdListQuery(input.ToPeer, input.SenderPeerId, replyToMsgId));
         //var idType = input.ToPeer.PeerType == PeerType.Channel ? IdType.ChannelMessageId : IdType.MessageId;
         var idType = IdType.MessageId;
         var post = channelReadModel?.Broadcast ?? false;
         string? postAuthor = null;
         if (post && channelReadModel!.Signatures)
         {
-            var user = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(input.RequestInfo.UserId), default);
+            var user = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(input.RequestInfo.UserId));
             postAuthor = $"{user!.FirstName} {user.LastName}";
         }
 
@@ -245,7 +245,7 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
             input.SendMessageType,
             (MessageType)input.SendMessageType,
             MessageSubType.Normal,
-            input.ReplyToMsgId,
+            input.InputReplyTo,
             input.MessageActionData,
             MessageActionType.None,
             item.entities.ToBytes(),

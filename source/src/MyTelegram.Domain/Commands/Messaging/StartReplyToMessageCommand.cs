@@ -5,12 +5,14 @@ public class StartReplyToMessageCommand : RequestCommand2<MessageAggregate, Mess
     public StartReplyToMessageCommand(MessageId aggregateId,
         RequestInfo requestInfo,
         Peer replierPeer,
-        int replyToMsgId) : base(aggregateId, requestInfo)
+        //int replyToMsgId
+        IInputReplyTo replyTo
+        ) : base(aggregateId, requestInfo)
     {
         ReplierPeer = replierPeer;
-        ReplyToMsgId = replyToMsgId;
+        ReplyTo = replyTo;
     }
 
     public Peer ReplierPeer { get; }
-    public int ReplyToMsgId { get; }
+    public IInputReplyTo ReplyTo { get; }
 }

@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// A group call
 /// See <a href="https://corefork.telegram.org/constructor/GroupCall" />
 ///</summary>
+[JsonDerivedType(typeof(TGroupCallDiscarded), nameof(TGroupCallDiscarded))]
+[JsonDerivedType(typeof(TGroupCall), nameof(TGroupCall))]
 public interface IGroupCall : IObject
 {
     ///<summary>

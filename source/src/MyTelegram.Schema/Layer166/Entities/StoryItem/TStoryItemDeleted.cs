@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents a previously active story, that was deleted
 /// See <a href="https://corefork.telegram.org/constructor/storyItemDeleted" />
 ///</summary>
 [TlObject(0x51e6ee4f)]
@@ -11,7 +12,7 @@ public sealed class TStoryItemDeleted : IStoryItem
 {
     public uint ConstructorId => 0x51e6ee4f;
     ///<summary>
-    /// &nbsp;
+    /// Story ID
     ///</summary>
     public int Id { get; set; }
 

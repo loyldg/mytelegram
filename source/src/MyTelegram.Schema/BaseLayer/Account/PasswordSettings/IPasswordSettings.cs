@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// Private info associated to the password info (recovery email, telegram <a href="https://corefork.telegram.org/passport">passport</a> info &amp; so on)
 /// See <a href="https://corefork.telegram.org/constructor/account.PasswordSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TPasswordSettings), nameof(TPasswordSettings))]
 public interface IPasswordSettings : IObject
 {
     ///<summary>

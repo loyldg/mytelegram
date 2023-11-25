@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Wallpaper rendering information.
 /// See <a href="https://corefork.telegram.org/constructor/WallPaperSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TWallPaperSettings), nameof(TWallPaperSettings))]
 public interface IWallPaperSettings : IObject
 {
     ///<summary>

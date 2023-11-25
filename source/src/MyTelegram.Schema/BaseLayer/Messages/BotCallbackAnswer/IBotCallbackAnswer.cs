@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Callback answer of bot
 /// See <a href="https://corefork.telegram.org/constructor/messages.BotCallbackAnswer" />
 ///</summary>
+[JsonDerivedType(typeof(TBotCallbackAnswer), nameof(TBotCallbackAnswer))]
 public interface IBotCallbackAnswer : IObject
 {
     ///<summary>

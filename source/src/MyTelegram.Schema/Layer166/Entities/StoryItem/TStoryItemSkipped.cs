@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents an active story, whose full information was omitted for space and performance reasons; use <a href="https://corefork.telegram.org/method/stories.getStoriesByID">stories.getStoriesByID</a> to fetch full info about the skipped story when and if needed.
 /// See <a href="https://corefork.telegram.org/constructor/storyItemSkipped" />
 ///</summary>
 [TlObject(0xffadc913)]
@@ -22,17 +23,17 @@ public sealed class TStoryItemSkipped : IStoryItem
     public bool CloseFriends { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Story ID
     ///</summary>
     public int Id { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// When was the story posted.
     ///</summary>
     public int Date { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// When does the story expire.
     ///</summary>
     public int ExpireDate { get; set; }
 

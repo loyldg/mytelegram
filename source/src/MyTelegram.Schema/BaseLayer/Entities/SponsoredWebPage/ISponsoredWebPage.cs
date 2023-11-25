@@ -5,6 +5,7 @@ namespace MyTelegram.Schema;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/SponsoredWebPage" />
 ///</summary>
+[JsonDerivedType(typeof(TSponsoredWebPage), nameof(TSponsoredWebPage))]
 public interface ISponsoredWebPage : IObject
 {
     ///<summary>

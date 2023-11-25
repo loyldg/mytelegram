@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Page caption
 /// See <a href="https://corefork.telegram.org/constructor/PageCaption" />
 ///</summary>
+[JsonDerivedType(typeof(TPageCaption), nameof(TPageCaption))]
 public interface IPageCaption : IObject
 {
     ///<summary>

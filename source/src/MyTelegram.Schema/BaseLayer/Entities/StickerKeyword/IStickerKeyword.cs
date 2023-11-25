@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Keywords for a certain sticker
 /// See <a href="https://corefork.telegram.org/constructor/StickerKeyword" />
 ///</summary>
+[JsonDerivedType(typeof(TStickerKeyword), nameof(TStickerKeyword))]
 public interface IStickerKeyword : IObject
 {
     ///<summary>

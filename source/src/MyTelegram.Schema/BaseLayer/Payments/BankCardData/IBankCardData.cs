@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Payments;
 /// Credit card info, provided by the card's bank(s)
 /// See <a href="https://corefork.telegram.org/constructor/payments.BankCardData" />
 ///</summary>
+[JsonDerivedType(typeof(TBankCardData), nameof(TBankCardData))]
 public interface IBankCardData : IObject
 {
     ///<summary>

@@ -2,18 +2,39 @@
 
 namespace MyTelegram.EventBus.RabbitMQ;
 
-// taken from https://github.com/dotnet-architecture/eShopOnContainers/blob/dev/src/BuildingBlocks/EventBus/EventBusRabbitMQ/DefaultRabbitMQPersistentConnection.cs
+public interface IRabbitMqConnectionFactory
+{
+    IRabbitMqPersistentConnection CreateConnection();
+}
+
+public class RabbitMqConnectionFactory : IRabbitMqConnectionFactory
+{
+    private readonly IOptions<RabbitMqOptions> _options;
+    private readonly ILogger<DefaultRabbitMqPersistentConnection> _logger;
+    public RabbitMqConnectionFactory(IOptions<RabbitMqOptions> options, ILogger<DefaultRabbitMqPersistentConnection> logger)
+    {
+        _options = options;
+        _logger = logger;
+    }
+
+    public IRabbitMqPersistentConnection CreateConnection()
+    {
+        return new DefaultRabbitMqPersistentConnection(_logger, _options);
+    }
+}
+
+// Original https://github.com/dotnet-architecture/eShopOnContainers/blob/dev/src/BuildingBlocks/EventBus/EventBusRabbitMQ/DefaultRabbitMQPersistentConnection.cs
 public class DefaultRabbitMqPersistentConnection
     : IRabbitMqPersistentConnection
 {
     private readonly ILogger<DefaultRabbitMqPersistentConnection> _logger;
     private readonly IOptions<RabbitMqOptions> _options;
+    private readonly int _retryCount = 5;
 
     private readonly object _syncRoot = new();
     private IConnection? _connection;
     private IConnectionFactory? _connectionFactory;
     private bool _disposed;
-    private readonly int _retryCount = 5;
 
     public DefaultRabbitMqPersistentConnection(ILogger<DefaultRabbitMqPersistentConnection> logger,
         IOptions<RabbitMqOptions> options)
@@ -26,24 +47,25 @@ public class DefaultRabbitMqPersistentConnection
 
     public IModel CreateModel()
     {
-        if (!IsConnected)
+        //if (!IsConnected)
+        //{
+        //    throw new InvalidOperationException("No RabbitMQ connections are available to perform this action");
+        //}
+
+        try
         {
-            throw new InvalidOperationException("No RabbitMQ connections are available to perform this action");
+            if (_connection != null)
+            {
+                return _connection.CreateModel();
+            }
+        }
+        catch (TimeoutException)
+        {
+            Dispose();
+
+            TryConnect();
         }
 
-        //try
-        //{
-        //    return _connection.CreateModel();
-        //}
-        //catch (TimeoutException)
-        //{
-        //    Dispose();
-        //}
-
-        //if (TryConnect())
-        //{
-
-        //}
 
         if (_connection == null)
         {
@@ -62,7 +84,7 @@ public class DefaultRabbitMqPersistentConnection
         }
 
         _disposed = true;
-
+        _logger.LogInformation("Dispose RabbitMQ connection");
         try
         {
             if (_connection == null)
@@ -105,6 +127,7 @@ public class DefaultRabbitMqPersistentConnection
             {
                 _connection = CreateConnectionFactory()
                     .CreateConnection();
+                _disposed = false;
             });
 
             if (IsConnected)
@@ -136,7 +159,7 @@ public class DefaultRabbitMqPersistentConnection
                 Port = _options.Value.Port,
                 UserName = _options.Value.UserName,
                 Password = _options.Value.Password,
-                DispatchConsumersAsync = true
+                DispatchConsumersAsync = true,
             };
 
             _connectionFactory = factory;
@@ -176,6 +199,7 @@ public class DefaultRabbitMqPersistentConnection
     {
         if (_disposed)
         {
+            _logger.LogWarning("A RabbitMQ connection is on shutdown.");
             return;
         }
 

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Updates;
 /// Object contains info on state for further updates.
 /// See <a href="https://corefork.telegram.org/constructor/updates.State" />
 ///</summary>
+[JsonDerivedType(typeof(TState), nameof(TState))]
 public interface IState : IObject
 {
     ///<summary>

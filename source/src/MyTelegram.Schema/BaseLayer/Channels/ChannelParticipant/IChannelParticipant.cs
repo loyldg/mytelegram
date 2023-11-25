@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Channels;
 /// Channel participant
 /// See <a href="https://corefork.telegram.org/constructor/channels.ChannelParticipant" />
 ///</summary>
+[JsonDerivedType(typeof(TChannelParticipant), nameof(TChannelParticipant))]
 public interface IChannelParticipant : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// Temporary password
 /// See <a href="https://corefork.telegram.org/constructor/account.TmpPassword" />
 ///</summary>
+[JsonDerivedType(typeof(TTmpPassword), nameof(TTmpPassword))]
 public interface ITmpPassword : IObject
 {
     ///<summary>

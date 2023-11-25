@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Requested payment info
 /// See <a href="https://corefork.telegram.org/constructor/PaymentRequestedInfo" />
 ///</summary>
+[JsonDerivedType(typeof(TPaymentRequestedInfo), nameof(TPaymentRequestedInfo))]
 public interface IPaymentRequestedInfo : IObject
 {
     ///<summary>

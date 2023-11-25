@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Information for connection to data center.
 /// See <a href="https://corefork.telegram.org/constructor/DcOption" />
 ///</summary>
+[JsonDerivedType(typeof(TDcOption), nameof(TDcOption))]
 public interface IDcOption : IObject
 {
     ///<summary>

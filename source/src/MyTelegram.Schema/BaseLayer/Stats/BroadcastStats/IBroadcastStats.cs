@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Stats;
 /// Channel statistics
 /// See <a href="https://corefork.telegram.org/constructor/stats.BroadcastStats" />
 ///</summary>
+[JsonDerivedType(typeof(TBroadcastStats), nameof(TBroadcastStats))]
 public interface IBroadcastStats : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Help;
 /// Contains info about the latest telegram Terms Of Service.
 /// See <a href="https://corefork.telegram.org/constructor/help.TermsOfService" />
 ///</summary>
+[JsonDerivedType(typeof(TTermsOfService), nameof(TTermsOfService))]
 public interface ITermsOfService : IObject
 {
     ///<summary>

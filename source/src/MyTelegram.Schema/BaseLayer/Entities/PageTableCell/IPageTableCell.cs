@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents a table in an <a href="https://instantview.telegram.org/">instant view table</a>
 /// See <a href="https://corefork.telegram.org/constructor/PageTableCell" />
 ///</summary>
+[JsonDerivedType(typeof(TPageTableCell), nameof(TPageTableCell))]
 public interface IPageTableCell : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Shipping address
 /// See <a href="https://corefork.telegram.org/constructor/PostAddress" />
 ///</summary>
+[JsonDerivedType(typeof(TPostAddress), nameof(TPostAddress))]
 public interface IPostAddress : IObject
 {
     ///<summary>

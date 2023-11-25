@@ -61,13 +61,85 @@ public class
 
         var findOptions = new FindOptions<MessageReadModel, ReplyToMsgItem>
         {
-            Projection = new ProjectionDefinitionBuilder<MessageReadModel>().Expression(p => new ReplyToMsgItem(p.OwnerPeerId, p.MessageId)),
+            Projection = new ProjectionDefinitionBuilder<MessageReadModel>()
+                .Expression(p => new ReplyToMsgItem(p.OwnerPeerId, p.MessageId)),
         };
 
-        var cursor = await _store.FindAsync(p =>
-            p.ToPeerId == query.ToPeerId && p.SenderPeerId == query.SenderUserId &&
-            p.MessageId == query.ReplyToMsgId, findOptions, cancellationToken);
+        var findOptions2 = new FindOptions<MessageReadModel, ReplyToMsgItem>
+        {
+            Projection = new ProjectionDefinitionBuilder<MessageReadModel>()
+                .Expression(p => new ReplyToMsgItem(p.OwnerPeerId, p.SenderMessageId)),
+        };
 
-        return await cursor.ToListAsync(cancellationToken: cancellationToken);
+        switch (query.ToPeer.PeerType)
+        {
+            case PeerType.User:
+                {
+                    var cursor = await _store.FindAsync(p =>
+                        p.OwnerPeerId == query.SelfUserId && p.ToPeerId == query.ToPeer.PeerId &&
+                        p.MessageId == query.ReplyToMsgId, cancellationToken: cancellationToken);
+                    var messageReadModel = await cursor.FirstOrDefaultAsync(cancellationToken: cancellationToken);
+                    if (messageReadModel == null)
+                    {
+                        return null;
+                    }
+
+                    // Reply to a message sent by ToPeerId
+                    if (!messageReadModel.Out)
+                    {
+                        return new[] { new ReplyToMsgItem(messageReadModel.SenderPeerId, messageReadModel.SenderMessageId) };
+                    }
+
+                    // Reply to a message sent by myself
+                    var item = await (await _store.FindAsync(p =>
+                        p.OwnerPeerId == query.ToPeer.PeerId && p.ToPeerId == query.SelfUserId &&
+                        p.SenderMessageId == query.ReplyToMsgId, findOptions, cancellationToken))
+                        .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+                    return new[] { item };
+                }
+            case PeerType.Chat:
+                {
+                    var selfMessageReadModel = await (await _store.FindAsync(p =>
+                        p.ToPeerId == query.ToPeer.PeerId && p.OwnerPeerId ==
+                            query.SelfUserId && p.MessageId == query.ReplyToMsgId, cancellationToken: cancellationToken))
+                        .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+                    if (selfMessageReadModel == null)
+                    {
+                        return null;
+                    }
+
+                    var senderUserId = selfMessageReadModel.SenderPeerId;
+                    var senderMessageId = selfMessageReadModel.SenderMessageId;
+
+                    var cursor = await _store.FindAsync(p =>
+                        p.ToPeerId == query.ToPeer.PeerId && p.SenderPeerId == senderUserId &&
+                        p.SenderMessageId == senderMessageId, findOptions, cancellationToken: cancellationToken);
+
+
+                    return await cursor.ToListAsync(cancellationToken: cancellationToken);
+                }
+            case PeerType.Channel:
+                {
+                    var cursor = await _store.FindAsync(p =>
+                        p.OwnerPeerId == query.ToPeer.PeerId &&
+                        p.MessageId == query.ReplyToMsgId, findOptions, cancellationToken: cancellationToken);
+
+                    return await cursor.ToListAsync(cancellationToken: cancellationToken);
+                }
+        }
+        return null;
+
+        //var cursor = await _store.FindAsync(p =>
+        //    p.OwnerPeerId == query.SelfUserId && p.ToPeerId == query.ToPeer.PeerId &&
+        //    p.MessageId == query.ReplyToMsgId);
+
+
+        //var cursor = await _store.FindAsync(p =>
+        //    p.ToPeerId == query.ToPeer.PeerId && p.SenderPeerId == query.SenderUserId &&
+        //    p.MessageId == query.ReplyToMsgId, findOptions, cancellationToken);
+
+        //return await cursor.ToListAsync(cancellationToken: cancellationToken);
     }
 }

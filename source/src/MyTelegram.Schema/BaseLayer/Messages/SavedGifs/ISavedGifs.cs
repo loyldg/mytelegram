@@ -6,6 +6,8 @@ namespace MyTelegram.Schema.Messages;
 /// Saved GIFs
 /// See <a href="https://corefork.telegram.org/constructor/messages.SavedGifs" />
 ///</summary>
+[JsonDerivedType(typeof(TSavedGifsNotModified), nameof(TSavedGifsNotModified))]
+[JsonDerivedType(typeof(TSavedGifs), nameof(TSavedGifs))]
 public interface ISavedGifs : IObject
 {
 

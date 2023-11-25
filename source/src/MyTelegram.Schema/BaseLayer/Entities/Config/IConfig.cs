@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Object contains info on API configuring parameters.
 /// See <a href="https://corefork.telegram.org/constructor/Config" />
 ///</summary>
+[JsonDerivedType(typeof(TConfig), nameof(TConfig))]
 public interface IConfig : IObject
 {
     ///<summary>

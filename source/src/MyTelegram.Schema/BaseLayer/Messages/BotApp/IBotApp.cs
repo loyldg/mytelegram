@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Contains information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-bot-web-apps">named bot web app</a>
 /// See <a href="https://corefork.telegram.org/constructor/messages.BotApp" />
 ///</summary>
+[JsonDerivedType(typeof(TBotApp), nameof(TBotApp))]
 public interface IBotApp : IObject
 {
     ///<summary>

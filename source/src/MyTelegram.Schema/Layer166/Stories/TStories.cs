@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// List of <a href="https://corefork.telegram.org/api/stories#pinnedarchived-stories">stories</a>
 /// See <a href="https://corefork.telegram.org/constructor/stories.stories" />
 ///</summary>
 [TlObject(0x5dd8c3c8)]
@@ -11,22 +12,22 @@ public sealed class TStories : IStories
 {
     public uint ConstructorId => 0x5dd8c3c8;
     ///<summary>
-    /// &nbsp;
+    /// Total number of stories that can be fetched
     ///</summary>
     public int Count { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Stories
     ///</summary>
     public TVector<MyTelegram.Schema.IStoryItem> Stories { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned chats
     ///</summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned users
     ///</summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 

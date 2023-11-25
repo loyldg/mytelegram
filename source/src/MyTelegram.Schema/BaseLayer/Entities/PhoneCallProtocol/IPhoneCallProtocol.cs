@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Phone call protocol
 /// See <a href="https://corefork.telegram.org/constructor/PhoneCallProtocol" />
 ///</summary>
+[JsonDerivedType(typeof(TPhoneCallProtocol), nameof(TPhoneCallProtocol))]
 public interface IPhoneCallProtocol : IObject
 {
     ///<summary>
@@ -32,6 +33,5 @@ public interface IPhoneCallProtocol : IObject
     /// Maximum layer for remote libtgvoip
     ///</summary>
     int MaxLayer { get; set; }
-
     TVector<string> LibraryVersions { get; set; }
 }

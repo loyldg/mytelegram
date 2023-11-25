@@ -9,7 +9,6 @@ using MyTelegram.Domain.Commands.Channel;
 using MyTelegram.Domain.Commands.Chat;
 using MyTelegram.Domain.Commands.Messaging;
 using MyTelegram.Domain.Commands.User;
-using MyTelegram.Domain.Entities;
 using MyTelegram.Domain.EventFlow;
 using MyTelegram.Queries;
 using MyTelegram.QueryHandlers.InMemory;
@@ -21,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MyTelegram.Domain.ValueObjects;
 using Xunit;
 
 namespace MyTelegram.Domain.IntegrationTests.Aggregates.Sagas;
@@ -33,13 +33,13 @@ public class MessageSagaIntegrationTests : IntegrationTest
         var senderPeerId = 1;
         var recipientPeerId = 2;
         var message = A<string>();
-        await CreateUserAsync(senderPeerId).ConfigureAwait(false);
-        await CreateUserAsync(recipientPeerId).ConfigureAwait(false);
+        await CreateUserAsync(senderPeerId);
+        await CreateUserAsync(recipientPeerId);
 
-        await SendMessageToPeerAsync(senderPeerId.ToUserPeer(), recipientPeerId.ToUserPeer(), message).ConfigureAwait(false);
+        await SendMessageToPeerAsync(senderPeerId.ToUserPeer(), recipientPeerId.ToUserPeer(), message);
 
-        var outboxMessageReadModel = await GetLatestMessageAsync(senderPeerId).ConfigureAwait(false);
-        var inboxMessageReadModel = await GetLatestMessageAsync(recipientPeerId).ConfigureAwait(false);
+        var outboxMessageReadModel = await GetLatestMessageAsync(senderPeerId);
+        var inboxMessageReadModel = await GetLatestMessageAsync(recipientPeerId);
         outboxMessageReadModel.Message.ShouldBe(message);
         outboxMessageReadModel.Out.ShouldBeTrue();
         inboxMessageReadModel.Message.ShouldBe(message);
@@ -53,14 +53,14 @@ public class MessageSagaIntegrationTests : IntegrationTest
         var recipientPeerId = 2L;
         var message = A<string>();
         var chatId = MyTelegramServerDomainConsts.ChatIdInitId + 1;
-        await CreateUserAsync(senderPeerId).ConfigureAwait(false);
-        await CreateUserAsync(recipientPeerId).ConfigureAwait(false);
-        await CreateChatAsync(chatId, senderPeerId, new[] { recipientPeerId }).ConfigureAwait(false);
+        await CreateUserAsync(senderPeerId);
+        await CreateUserAsync(recipientPeerId);
+        await CreateChatAsync(chatId, senderPeerId, new[] { recipientPeerId });
 
-        await SendMessageToPeerAsync(senderPeerId.ToUserPeer(), chatId.ToChatPeer(), message).ConfigureAwait(false);
+        await SendMessageToPeerAsync(senderPeerId.ToUserPeer(), chatId.ToChatPeer(), message);
 
-        var member1MessageReadModel = await GetLatestMessageAsync(senderPeerId).ConfigureAwait(false);
-        var member2MessageReadModel = await GetLatestMessageAsync(recipientPeerId).ConfigureAwait(false);
+        var member1MessageReadModel = await GetLatestMessageAsync(senderPeerId);
+        var member2MessageReadModel = await GetLatestMessageAsync(recipientPeerId);
         member1MessageReadModel.Out.ShouldBeTrue();
         member1MessageReadModel.SenderPeerId.ShouldBe(senderPeerId);
         member1MessageReadModel.ToPeerId.ShouldBe(chatId);
@@ -79,22 +79,22 @@ public class MessageSagaIntegrationTests : IntegrationTest
         var recipientPeerId = 2;
         var message = A<string>();
         var channelId = MyTelegramServerDomainConsts.ChannelInitId + 1;
-        await CreateUserAsync(senderPeerId).ConfigureAwait(false);
-        await CreateUserAsync(recipientPeerId).ConfigureAwait(false);
-        await CreateChannelAsync(channelId, senderPeerId).ConfigureAwait(false);
-        await AddChannelMemberAsync(channelId, recipientPeerId, senderPeerId).ConfigureAwait(false);
+        await CreateUserAsync(senderPeerId);
+        await CreateUserAsync(recipientPeerId);
+        await CreateChannelAsync(channelId, senderPeerId);
+        await AddChannelMemberAsync(channelId, recipientPeerId, senderPeerId);
 
         // Act
-        await SendMessageToPeerAsync(senderPeerId.ToUserPeer(), channelId.ToChannelPeer(), message).ConfigureAwait(false);
+        await SendMessageToPeerAsync(senderPeerId.ToUserPeer(), channelId.ToChannelPeer(), message);
 
         // Assert
-        var readModel = await GetLatestMessageAsync(channelId).ConfigureAwait(false);
+        var readModel = await GetLatestMessageAsync(channelId);
         readModel.Message.ShouldBe(message);
         readModel.Out.ShouldBeTrue();
         readModel.OwnerPeerId.ShouldBe(channelId);
         readModel.SenderPeerId.ShouldBe(senderPeerId);
         var channelReadModel = await QueryProcessor.ProcessAsync(new GetChannelByIdQuery(channelId), default)
-            .ConfigureAwait(false);
+            ;
         channelReadModel.TopMessageId.ShouldBe(readModel.MessageId);
     }
 
@@ -109,7 +109,7 @@ public class MessageSagaIntegrationTests : IntegrationTest
             null,
             null,
             0,
-            0), default).ConfigureAwait(false);
+            0), default);
 
         var maxMessageId = readModels.Max(p => p.MessageId);
         return readModels.Single(p => p.MessageId == maxMessageId);
@@ -120,15 +120,18 @@ public class MessageSagaIntegrationTests : IntegrationTest
         long inviterId)
     {
         var command = new StartInviteToChannelCommand(ChannelId.Create(channelId),
-            A<RequestInfo>(),
+            A<RequestInfo>() with { UserId = inviterId },
             channelId,
             inviterId,
+            0,
             new[] { memberPeerId },
+            Array.Empty<long>(),
+            //A<int>(),
+            //A<long>(),
             Array.Empty<long>(),
             A<int>(),
             A<long>(),
-            A<string>(),
-            Guid.NewGuid());
+            A<string>());
         return CommandBus.PublishAsync(command, default);
     }
 
@@ -145,7 +148,7 @@ public class MessageSagaIntegrationTests : IntegrationTest
             A<int>(),
             randomId,
             true);
-        var command = new StartSendMessageCommand(aggregateId, A<RequestInfo>(), item, correlationId: Guid.NewGuid());
+        var command = new StartSendMessageCommand(aggregateId, A<RequestInfo>() with { UserId = senderPeer.PeerId }, item);
         return CommandBus.PublishAsync(command, default);
     }
 
@@ -153,7 +156,7 @@ public class MessageSagaIntegrationTests : IntegrationTest
     {
         var title = A<string>();
         var command = new CreateChannelCommand(ChannelId.Create(channelId),
-            A<RequestInfo>(),
+            A<RequestInfo>() with { UserId = creatorId },
             channelId,
             creatorId,
             title,
@@ -165,22 +168,24 @@ public class MessageSagaIntegrationTests : IntegrationTest
             A<int>(),
             A<long>(),
             A<string>(),
-            Guid.NewGuid());
+            0,
+            false,
+            null, null, null
+            );
         return CommandBus.PublishAsync(command, default);
     }
 
     private Task CreateChatAsync(long chatId, long creatorId, IReadOnlyList<long> memberUidList)
     {
         var command = new CreateChatCommand(ChatId.Create(chatId),
-            A<RequestInfo>(),
+            A<RequestInfo>() with { UserId = creatorId },
             chatId,
             creatorId,
             A<string>(),
             memberUidList,
             A<int>(),
             A<long>(),
-            A<string>(),
-            Guid.NewGuid());
+            A<string>());
         return CommandBus.PublishAsync(command, default);
     }
 

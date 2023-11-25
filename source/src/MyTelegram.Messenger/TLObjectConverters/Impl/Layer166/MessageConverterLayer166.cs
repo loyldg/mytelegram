@@ -3,13 +3,11 @@
 public class MessageConverterLayer166 : LayeredConverterBase, IMessageConverterLayer166
 {
     private readonly ILayeredService<IPollConverter> _layeredPollService;
-    //private readonly ILayeredService<IReactionConverter> _layeredReactionService;
     private readonly IPeerHelper _peerHelper;
     private IPollConverter? _pollConverter;
-    //private IReactionConverter? _reactionConverter;
 
     public MessageConverterLayer166(IPeerHelper peerHelper,
-        ILayeredService<IPollConverter> layeredPollService)
+        ILayeredService<IPollConverter> layeredPollService )
     {
         _peerHelper = peerHelper;
         _layeredPollService = layeredPollService;
@@ -71,7 +69,7 @@ public class MessageConverterLayer166 : LayeredConverterBase, IMessageConverterL
                     //Out = item.IsOut,
                     Out = isOut,
                     Action = bytes.ToTObject<IMessageAction>(),
-                    ReplyTo = ToMessageReplyHeader(item.ReplyToMsgId, item.TopMsgId),
+                    ReplyTo = item.InputReplyTo.ToMessageReplyHeader(),
                     Mentioned = mentioned,
                     MediaUnread = mentioned
                 };
@@ -121,13 +119,18 @@ public class MessageConverterLayer166 : LayeredConverterBase, IMessageConverterL
                 }
 
 
-                m.ReplyTo = ToMessageReplyHeader(item.ReplyToMsgId, item.TopMsgId);
+                m.ReplyTo = item.InputReplyTo.ToMessageReplyHeader();
                 m.ReplyMarkup = item.ReplyMarkup.ToTObject<IReplyMarkup>();
 
                 return m;
             }
             //break;
         }
+    }
+
+    public IMessageReplyHeader? ToMessageReplyHeader(IInputReplyTo? inputReplyTo)
+    {
+        return inputReplyTo.ToMessageReplyHeader();
     }
 
     public IList<IMessage> ToMessages(IReadOnlyCollection<IMessageReadModel> readModels,

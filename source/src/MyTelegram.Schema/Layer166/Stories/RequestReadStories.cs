@@ -4,13 +4,26 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Mark all stories up to a certain ID as read, for a given peer; will emit an <a href="https://corefork.telegram.org/constructor/updateReadStories">updateReadStories</a> update to all logged-in sessions.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 MAX_ID_INVALID The provided max ID is invalid.
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stories.readStories" />
 ///</summary>
 [TlObject(0xa556dac8)]
 public sealed class RequestReadStories : IRequest<TVector<int>>
 {
     public uint ConstructorId => 0xa556dac8;
+    ///<summary>
+    /// The peer whose stories should be marked as read.
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// Mark all stories up to and including this ID as read
+    ///</summary>
     public int MaxId { get; set; }
 
     public void ComputeFlag()

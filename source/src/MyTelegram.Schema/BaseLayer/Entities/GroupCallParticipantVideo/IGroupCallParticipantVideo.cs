@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Info about a video stream
 /// See <a href="https://corefork.telegram.org/constructor/GroupCallParticipantVideo" />
 ///</summary>
+[JsonDerivedType(typeof(TGroupCallParticipantVideo), nameof(TGroupCallParticipantVideo))]
 public interface IGroupCallParticipantVideo : IObject
 {
     ///<summary>

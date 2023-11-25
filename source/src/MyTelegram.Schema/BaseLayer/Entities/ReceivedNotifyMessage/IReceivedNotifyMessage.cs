@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Confirmation of message receipt
 /// See <a href="https://corefork.telegram.org/constructor/ReceivedNotifyMessage" />
 ///</summary>
+[JsonDerivedType(typeof(TReceivedNotifyMessage), nameof(TReceivedNotifyMessage))]
 public interface IReceivedNotifyMessage : IObject
 {
     ///<summary>

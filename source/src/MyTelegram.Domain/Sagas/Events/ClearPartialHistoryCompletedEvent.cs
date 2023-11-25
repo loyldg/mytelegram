@@ -1,12 +1,12 @@
 ﻿namespace MyTelegram.Domain.Sagas.Events;
 
-public class ClearPartialHistoryCompletedEvent : RequestAggregateEvent<DeleteMessageSaga, DeleteMessageSagaId>
+public class ClearPartialHistoryCompletedEvent : RequestAggregateEvent2<DeleteMessageSaga, DeleteMessageSagaId>
 {
-    public ClearPartialHistoryCompletedEvent(long reqMsgId,
+    public ClearPartialHistoryCompletedEvent(RequestInfo requestInfo,
         long ownerPeerId,
         int pts,
         int ptsCount
-    ) : base(reqMsgId)
+    ) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
         Pts = pts;

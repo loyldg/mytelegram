@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Most active admin in a <a href="https://corefork.telegram.org/api/channel">supergroup</a>
 /// See <a href="https://corefork.telegram.org/constructor/StatsGroupTopAdmin" />
 ///</summary>
+[JsonDerivedType(typeof(TStatsGroupTopAdmin), nameof(TStatsGroupTopAdmin))]
 public interface IStatsGroupTopAdmin : IObject
 {
     ///<summary>

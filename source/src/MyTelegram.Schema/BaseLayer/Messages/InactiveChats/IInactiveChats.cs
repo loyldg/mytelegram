@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Inactive chat list
 /// See <a href="https://corefork.telegram.org/constructor/messages.InactiveChats" />
 ///</summary>
+[JsonDerivedType(typeof(TInactiveChats), nameof(TInactiveChats))]
 public interface IInactiveChats : IObject
 {
     ///<summary>

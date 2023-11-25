@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Saved contact
 /// See <a href="https://corefork.telegram.org/constructor/SavedContact" />
 ///</summary>
+[JsonDerivedType(typeof(TSavedPhoneContact), nameof(TSavedPhoneContact))]
 public interface ISavedContact : IObject
 {
     ///<summary>

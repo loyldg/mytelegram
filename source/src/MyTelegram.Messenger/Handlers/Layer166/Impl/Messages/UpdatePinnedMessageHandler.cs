@@ -48,8 +48,7 @@ internal sealed class UpdatePinnedMessageHandler : RpcResultObjectHandler<MyTele
             obj.PmOneside,
             CurrentDate,
             _randomHelper.NextLong(),
-            new TMessageActionPinMessage().ToBytes().ToHexString(),
-            Guid.NewGuid());
+            new TMessageActionPinMessage().ToBytes().ToHexString());
         await _commandBus.PublishAsync(command, CancellationToken.None);
         return null!;
     }

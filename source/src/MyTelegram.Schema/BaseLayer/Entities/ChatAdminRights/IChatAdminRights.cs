@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents the rights of an admin in a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>.
 /// See <a href="https://corefork.telegram.org/constructor/ChatAdminRights" />
 ///</summary>
+[JsonDerivedType(typeof(TChatAdminRights), nameof(TChatAdminRights))]
 public interface IChatAdminRights : IObject
 {
     ///<summary>

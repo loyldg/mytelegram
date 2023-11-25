@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Help;
 /// Telegram Premium promotion information
 /// See <a href="https://corefork.telegram.org/constructor/help.PremiumPromo" />
 ///</summary>
+[JsonDerivedType(typeof(TPremiumPromo), nameof(TPremiumPromo))]
 public interface IPremiumPromo : IObject
 {
     ///<summary>

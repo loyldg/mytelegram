@@ -5,6 +5,7 @@ namespace MyTelegram.Schema.Messages;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/messages.WebPage" />
 ///</summary>
+[JsonDerivedType(typeof(TWebPage), nameof(TWebPage))]
 public interface IWebPage : IObject
 {
     MyTelegram.Schema.IWebPage Webpage { get; set; }

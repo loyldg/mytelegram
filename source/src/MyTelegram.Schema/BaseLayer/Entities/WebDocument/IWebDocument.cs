@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Remote document
 /// See <a href="https://corefork.telegram.org/constructor/WebDocument" />
 ///</summary>
+[JsonDerivedType(typeof(TWebDocument), nameof(TWebDocument))]
+[JsonDerivedType(typeof(TWebDocumentNoProxy), nameof(TWebDocumentNoProxy))]
 public interface IWebDocument : IObject
 {
     ///<summary>

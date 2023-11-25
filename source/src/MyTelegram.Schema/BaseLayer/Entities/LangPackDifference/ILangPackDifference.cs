@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Language pack changes
 /// See <a href="https://corefork.telegram.org/constructor/LangPackDifference" />
 ///</summary>
+[JsonDerivedType(typeof(TLangPackDifference), nameof(TLangPackDifference))]
 public interface ILangPackDifference : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// New emoji keywords
 /// See <a href="https://corefork.telegram.org/constructor/EmojiKeywordsDifference" />
 ///</summary>
+[JsonDerivedType(typeof(TEmojiKeywordsDifference), nameof(TEmojiKeywordsDifference))]
 public interface IEmojiKeywordsDifference : IObject
 {
     ///<summary>

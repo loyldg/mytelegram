@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// Privacy rules
 /// See <a href="https://corefork.telegram.org/constructor/account.PrivacyRules" />
 ///</summary>
+[JsonDerivedType(typeof(TPrivacyRules), nameof(TPrivacyRules))]
 public interface IPrivacyRules : IObject
 {
     ///<summary>

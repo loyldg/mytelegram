@@ -5,6 +5,7 @@ namespace MyTelegram.Schema.Stories;
 ///<summary>
 /// See <a href="https://corefork.telegram.org/constructor/stories.StoryViewsList" />
 ///</summary>
+[JsonDerivedType(typeof(TStoryViewsList), nameof(TStoryViewsList))]
 public interface IStoryViewsList : IObject
 {
     ///<summary>
@@ -13,7 +14,7 @@ public interface IStoryViewsList : IObject
     BitArray Flags { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Total number of results that can be fetched
     ///</summary>
     int Count { get; set; }
 
@@ -23,19 +24,19 @@ public interface IStoryViewsList : IObject
     int ReactionsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Story view date and reaction information
     /// See <a href="https://corefork.telegram.org/type/StoryView" />
     ///</summary>
     TVector<MyTelegram.Schema.IStoryView> Views { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
     ///</summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Offset for pagination
     ///</summary>
     string? NextOffset { get; set; }
 }

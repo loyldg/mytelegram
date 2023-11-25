@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Help;
 /// Object contains info on the text of a message with an invitation.
 /// See <a href="https://corefork.telegram.org/constructor/help.InviteText" />
 ///</summary>
+[JsonDerivedType(typeof(TInviteText), nameof(TInviteText))]
 public interface IInviteText : IObject
 {
     ///<summary>

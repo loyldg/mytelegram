@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Help;
 /// Info about the support user, relevant to the current user.
 /// See <a href="https://corefork.telegram.org/constructor/help.Support" />
 ///</summary>
+[JsonDerivedType(typeof(TSupport), nameof(TSupport))]
 public interface ISupport : IObject
 {
     ///<summary>

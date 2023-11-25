@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Help;
 /// Recent t.me URLs
 /// See <a href="https://corefork.telegram.org/constructor/help.RecentMeUrls" />
 ///</summary>
+[JsonDerivedType(typeof(TRecentMeUrls), nameof(TRecentMeUrls))]
 public interface IRecentMeUrls : IObject
 {
     ///<summary>

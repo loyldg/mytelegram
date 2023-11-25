@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Labeled pricetag
 /// See <a href="https://corefork.telegram.org/constructor/LabeledPrice" />
 ///</summary>
+[JsonDerivedType(typeof(TLabeledPrice), nameof(TLabeledPrice))]
 public interface ILabeledPrice : IObject
 {
     ///<summary>

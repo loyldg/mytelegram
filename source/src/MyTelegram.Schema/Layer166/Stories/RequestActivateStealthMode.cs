@@ -4,14 +4,28 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Activates <a href="https://corefork.telegram.org/api/stories#stealth-mode">stories stealth mode</a>, see <a href="https://corefork.telegram.org/api/stories#stealth-mode">here »</a> for more info.Will return an <a href="https://corefork.telegram.org/constructor/updateStoriesStealthMode">updateStoriesStealthMode</a>.
 /// See <a href="https://corefork.telegram.org/method/stories.activateStealthMode" />
 ///</summary>
 [TlObject(0x57bbd166)]
 public sealed class RequestActivateStealthMode : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x57bbd166;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether to erase views from any stories opened in the past <a href="https://corefork.telegram.org/api/config#stories-stealth-past-period"><code>stories_stealth_past_period</code> seconds »</a>, as specified by the <a href="https://corefork.telegram.org/api/config#client-configuration">client configuration</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Past { get; set; }
+
+    ///<summary>
+    /// Whether to hide future story views for the next <a href="https://corefork.telegram.org/api/config#stories-stealth-future-period"><code>stories_stealth_future_period</code> seconds »</a>, as specified by the <a href="https://corefork.telegram.org/api/config#client-configuration">client configuration</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Future { get; set; }
 
     public void ComputeFlag()

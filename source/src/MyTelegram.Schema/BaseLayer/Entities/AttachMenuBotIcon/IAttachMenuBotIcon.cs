@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents an attachment menu icon for <a href="https://corefork.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu">bot web apps »</a>
 /// See <a href="https://corefork.telegram.org/constructor/AttachMenuBotIcon" />
 ///</summary>
+[JsonDerivedType(typeof(TAttachMenuBotIcon), nameof(TAttachMenuBotIcon))]
 public interface IAttachMenuBotIcon : IObject
 {
     ///<summary>

@@ -15,8 +15,7 @@ public class UpdatePinnedMessageStartedEvent : RequestAggregateEvent2<MessageAgg
         int senderMessageId,
         Peer toPeer,
         long randomId,
-        string messageActionData,
-        Guid correlationId
+        string messageActionData
     ) : base(requestInfo)
     {
         OwnerPeerId = ownerPeerId;
@@ -32,7 +31,6 @@ public class UpdatePinnedMessageStartedEvent : RequestAggregateEvent2<MessageAgg
         ToPeer = toPeer;
         RandomId = randomId;
         MessageActionData = messageActionData;
-        CorrelationId = correlationId;
     }
 
     public long OwnerPeerId { get; }
@@ -48,5 +46,4 @@ public class UpdatePinnedMessageStartedEvent : RequestAggregateEvent2<MessageAgg
     public Peer ToPeer { get; }
     public long RandomId { get; }
     public string MessageActionData { get; }
-    public Guid CorrelationId { get; }
 }

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// List of peers that reacted to a specific message
 /// See <a href="https://corefork.telegram.org/constructor/messages.MessageReactionsList" />
 ///</summary>
+[JsonDerivedType(typeof(TMessageReactionsList), nameof(TMessageReactionsList))]
 public interface IMessageReactionsList : IObject
 {
     ///<summary>

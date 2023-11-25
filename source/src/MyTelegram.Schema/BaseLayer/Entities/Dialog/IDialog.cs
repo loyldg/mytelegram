@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Chat info.
 /// See <a href="https://corefork.telegram.org/constructor/Dialog" />
 ///</summary>
+[JsonDerivedType(typeof(TDialog), nameof(TDialog))]
+[JsonDerivedType(typeof(TDialogFolder), nameof(TDialogFolder))]
 public interface IDialog : IObject
 {
     ///<summary>

@@ -2,17 +2,16 @@
 using MyTelegram.Messenger.Services.Interfaces;
 using MyTelegram.Messenger.TLObjectConverters.Interfaces;
 using MyTelegram.Services.TLObjectConverters;
+using SendOutboxMessageCompletedEvent = MyTelegram.Domain.Sagas.Events.SendOutboxMessageCompletedEvent;
 
 namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
 
 public class MessageDomainEventHandler : DomainEventHandlerBase,
-    ISubscribeSynchronousTo<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent>,
-    ISubscribeSynchronousTo<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent>,
     ISubscribeSynchronousTo<EditMessageSaga, EditMessageSagaId, OutboxMessageEditCompletedEvent>,
     ISubscribeSynchronousTo<EditMessageSaga, EditMessageSagaId, InboxMessageEditCompletedEvent>,
 
-    ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent2>,
-    ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent2>
+    ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent>,
+    ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent>
 
 
 {
@@ -115,12 +114,6 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
         }
     }
 
-    public Task HandleAsync(IDomainEvent<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        return HandleReceiveMessageCompletedAsync(domainEvent.AggregateEvent);
-    }
-
     private Task HandleReceiveMessageCompletedAsync(ReceiveInboxMessageCompletedEvent aggregateEvent)
     {
         return aggregateEvent.MessageItem.MessageSubType switch
@@ -131,28 +124,6 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
             MessageSubType.ForwardMessage => HandleForwardMessageAsync(aggregateEvent),
             _ => HandleReceiveMessageAsync(aggregateEvent)
         };
-    }
-
-    public Task HandleAsync(IDomainEvent<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        return HandleSendOutboxMessageCompletedAsync(domainEvent.AggregateEvent);
-        //return domainEvent.AggregateEvent.MessageItem.MessageSubType switch
-        //{
-        //    MessageSubType.CreateChat => HandleCreateChatAsync(domainEvent.AggregateEvent,
-        //        domainEvent.Metadata.SourceId.Value),
-        //    MessageSubType.CreateChannel => HandleCreateChannelAsync(domainEvent.AggregateEvent,
-        //        domainEvent.Metadata.SourceId.Value),
-        //    MessageSubType.InviteToChannel => HandleInviteToChannelAsync(domainEvent.AggregateEvent,
-        //        domainEvent.Metadata.SourceId.Value),
-        //    MessageSubType.UpdatePinnedMessage => HandleUpdatePinnedMessageAsync(domainEvent.AggregateEvent,
-        //        domainEvent.Metadata.SourceId.Value),
-        //    MessageSubType.CreateGroupCall => HandleCreateGroupCallAsync(domainEvent.AggregateEvent,
-        //        domainEvent.Metadata.SourceId.Value),
-        //    MessageSubType.MigrateChat => HandleMigrateChatAsync(domainEvent.AggregateEvent,
-        //        domainEvent.Metadata.SourceId.Value),
-        //    _ => HandleSendMessageAsync(domainEvent.AggregateEvent)
-        //};
     }
 
     private Task HandleSendOutboxMessageCompletedAsync(SendOutboxMessageCompletedEvent aggregateEvent)
@@ -612,17 +583,13 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
         }
     }
 
-    public Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent2> domainEvent, CancellationToken cancellationToken)
+    public Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent> domainEvent, CancellationToken cancellationToken)
     {
-        var d = domainEvent.AggregateEvent;
-        return HandleSendOutboxMessageCompletedAsync(new SendOutboxMessageCompletedEvent(d.RequestInfo, d.MessageItem,
-            d.MentionedUserIds, d.Pts, d.GroupItemCount, d.LinkedChannelId, d.BotUserIds));
+        return HandleSendOutboxMessageCompletedAsync(domainEvent.AggregateEvent);
     }
 
-    public Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent2> domainEvent, CancellationToken cancellationToken)
+    public Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent> domainEvent, CancellationToken cancellationToken)
     {
-        var d = domainEvent.AggregateEvent;
-        return HandleReceiveMessageCompletedAsync(
-            new ReceiveInboxMessageCompletedEvent(d.MessageItem, d.Pts, d.ChatTitle));
+        return HandleReceiveMessageCompletedAsync(domainEvent.AggregateEvent);
     }
 }

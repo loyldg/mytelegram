@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// How users voted on a certain poll answer
 /// See <a href="https://corefork.telegram.org/constructor/PollAnswerVoters" />
 ///</summary>
+[JsonDerivedType(typeof(TPollAnswerVoters), nameof(TPollAnswerVoters))]
 public interface IPollAnswerVoters : IObject
 {
     ///<summary>

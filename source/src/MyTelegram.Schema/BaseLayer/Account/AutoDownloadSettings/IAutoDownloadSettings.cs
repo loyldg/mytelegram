@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// Media autodownload settings
 /// See <a href="https://corefork.telegram.org/constructor/account.AutoDownloadSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TAutoDownloadSettings), nameof(TAutoDownloadSettings))]
 public interface IAutoDownloadSettings : IObject
 {
     ///<summary>

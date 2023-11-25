@@ -11,11 +11,9 @@ public static class NativeAotExtensions
 {
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(global::EventFlow.MongoDB.SnapshotStores.MongoDbSnapshotPersistence))]
     public static IServiceCollection AddMyNativeAot(this IServiceCollection services)
-    {
-        services.AddTransient<IJsonContextProvider, MyJsonContextProvider>();
-        services.AddTransient<IJsonContextProvider, MyJsonContextProvider>();
+    { 
         services.AddTransient<ISagaStore, MySagaAggregateStore>();
-        services.AddTransient<IRabbitMqSerializer, NativeAotUtf8JsonRabbitMqSerializer>();
+        //services.AddTransient<IRabbitMqSerializer, NativeAotUtf8JsonRabbitMqSerializer>();
         FixMyTelegramServices(services);
         FixEventFlowServices();
         FixMongodbServices();

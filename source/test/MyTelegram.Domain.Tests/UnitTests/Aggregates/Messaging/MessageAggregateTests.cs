@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Domain.Tests.UnitTests.Aggregates.Messaging;
+﻿using Shouldly;
+
+namespace MyTelegram.Domain.Tests.UnitTests.Aggregates.Messaging;
 
 public class MessageAggregateTests : TestsFor<MessageAggregate>
 {
@@ -20,8 +22,7 @@ public class MessageAggregateTests : TestsFor<MessageAggregate>
             newMessage,
             DateTime.UtcNow.ToTimestamp(),
             null,
-            null,
-            Guid.Empty);
+            null);
 
         var uncommittedEvent = Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<OutboxMessageEditedEvent>();
         uncommittedEvent.NewMessage.ShouldBe(newMessage);
@@ -34,16 +35,15 @@ public class MessageAggregateTests : TestsFor<MessageAggregate>
         var creationTime = DateTime.UtcNow.ToTimestamp() - MyTelegramServerDomainConsts.EditTimeLimit - 1000;
         CreateMessage(creationTime);
 
-        var exception = Assert.Throws<UserFriendlyException>(() =>
+        var exception = Assert.Throws<RpcException>(() =>
             Sut.EditOutboxMessage(A<RequestInfo>(),
                 _messageId,
                 newMessage,
                 DateTime.UtcNow.ToTimestamp(),
                 null,
-                null,
-                Guid.Empty));
+                null));
 
-        exception.Message.ShouldBe(RpcErrorMessages.MessageEditTimeExpired);
+        exception.Message.ShouldBe(RpcErrors.RpcErrors400.MessageEditTimeExpired.Message);
     }
 
     [Fact(DisplayName = "Only message author can edit message")]
@@ -52,24 +52,25 @@ public class MessageAggregateTests : TestsFor<MessageAggregate>
         var newMessage = "new message";
         CreateMessage(DateTime.UtcNow.ToTimestamp(), false);
 
-        var exception = Assert.Throws<UserFriendlyException>(() =>
+        var exception = Assert.Throws<RpcException>(() =>
             Sut.EditOutboxMessage(A<RequestInfo>(),
                 _messageId,
                 newMessage,
                 DateTime.UtcNow.ToTimestamp(),
                 null,
-                null,
-                Guid.Empty));
+                null));
 
-        exception.Message.ShouldBe(RpcErrorMessages.MessageAuthorRequired);
+        exception.Message.ShouldBe(RpcErrors.RpcErrors403.MessageAuthorRequired.Message);
     }
 
-    private void CreateMessage(int creationDate, bool isOut = true)
+    private MessageItem CreateMessage(int creationDate, bool isOut = true)
     {
         var ownerPeerId = 1;
+        var toPeerUserId = A<long>();
+        //var aggregateId = MessageId.Create(ownerPeerId, _messageId);
         var messageItem = new MessageItem(
             new Peer(PeerType.User, ownerPeerId),
-            new Peer(PeerType.User, 10),
+            new Peer(PeerType.User, toPeerUserId),
             new Peer(PeerType.User, ownerPeerId),
             _messageId,
             "test message",
@@ -77,13 +78,14 @@ public class MessageAggregateTests : TestsFor<MessageAggregate>
             1,
             isOut
         );
-        var outboxMessageCreatedEvent = new OutboxMessageCreatedEvent(0,
+        var outboxMessageCreatedEvent = new OutboxMessageCreatedEvent(A<RequestInfo>(),
             messageItem,
+            null, null,
             true,
             1,
-            null,
-            Guid.NewGuid());
+            null, null);
 
         Sut.ApplyEvents(new IDomainEvent[] { ADomainEvent<MessageAggregate, MessageId, OutboxMessageCreatedEvent>(outboxMessageCreatedEvent, 1) });
+        return messageItem;
     }
 }

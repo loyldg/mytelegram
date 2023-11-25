@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Reaction and view counters for a <a href="https://corefork.telegram.org/api/stories">story</a>
 /// See <a href="https://corefork.telegram.org/constructor/stories.storyViewsList" />
 ///</summary>
 [TlObject(0x46e9b9ec)]
@@ -16,7 +17,7 @@ public sealed class TStoryViewsList : IStoryViewsList
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Total number of results that can be fetched
     ///</summary>
     public int Count { get; set; }
 
@@ -26,17 +27,17 @@ public sealed class TStoryViewsList : IStoryViewsList
     public int ReactionsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Story view date and reaction information
     ///</summary>
     public TVector<MyTelegram.Schema.IStoryView> Views { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned users
     ///</summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Offset for pagination
     ///</summary>
     public string? NextOffset { get; set; }
 

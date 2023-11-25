@@ -36,3 +36,4 @@ global using MyTelegram.Domain.Sagas.Events;
 global using MyTelegram.Domain.Sagas.Identities;
 global using MyTelegram.Domain.ValueObjects;
 global using MyTelegram.ReadModel.ReadModelLocators;
+global using MyTelegram.Schema;

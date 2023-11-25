@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Theme settings
 /// See <a href="https://corefork.telegram.org/constructor/InputThemeSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TInputThemeSettings), nameof(TInputThemeSettings))]
 public interface IInputThemeSettings : IObject
 {
     ///<summary>

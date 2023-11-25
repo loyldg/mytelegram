@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Charged payment
 /// See <a href="https://corefork.telegram.org/constructor/PaymentCharge" />
 ///</summary>
+[JsonDerivedType(typeof(TPaymentCharge), nameof(TPaymentCharge))]
 public interface IPaymentCharge : IObject
 {
     ///<summary>

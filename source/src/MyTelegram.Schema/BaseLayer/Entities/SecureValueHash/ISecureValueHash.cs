@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Secure value hash
 /// See <a href="https://corefork.telegram.org/constructor/SecureValueHash" />
 ///</summary>
+[JsonDerivedType(typeof(TSecureValueHash), nameof(TSecureValueHash))]
 public interface ISecureValueHash : IObject
 {
     ///<summary>

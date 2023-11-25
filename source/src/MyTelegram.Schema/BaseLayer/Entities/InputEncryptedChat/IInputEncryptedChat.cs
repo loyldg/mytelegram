@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Object sets an encrypted chat ID.
 /// See <a href="https://corefork.telegram.org/constructor/InputEncryptedChat" />
 ///</summary>
+[JsonDerivedType(typeof(TInputEncryptedChat), nameof(TInputEncryptedChat))]
 public interface IInputEncryptedChat : IObject
 {
     ///<summary>

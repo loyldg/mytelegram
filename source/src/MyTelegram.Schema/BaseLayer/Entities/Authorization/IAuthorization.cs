@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents a logged-in session
 /// See <a href="https://corefork.telegram.org/constructor/Authorization" />
 ///</summary>
+[JsonDerivedType(typeof(TAuthorization), nameof(TAuthorization))]
 public interface IAuthorization : IObject
 {
     ///<summary>

@@ -1,14 +1,21 @@
-﻿// ReSharper disable once CheckNamespace
-
-namespace MyTelegram;
+﻿namespace MyTelegram;
 
 public class UserFriendlyException : Exception
 {
-    public UserFriendlyException(string message,
-        int errorCode = ErrorCodes.BadRequest) : base(message)
+    public int ErrorCode { get; }
+
+    public UserFriendlyException()
+    {
+
+    }
+
+    public UserFriendlyException(string message, int errorCode = 400) : base(message)
     {
         ErrorCode = errorCode;
     }
 
-    public int ErrorCode { get; }
+    public UserFriendlyException(string message, Exception inner) : base(message, inner)
+    {
+
+    }
 }

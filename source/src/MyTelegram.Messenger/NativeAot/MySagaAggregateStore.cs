@@ -114,9 +114,9 @@ public class MySagaAggregateStore : SagaStore
             case JoinChannelSagaId joinChannelSagaId:
                 domainEvents = await _aggregateStore.UpdateAsync<JoinChannelSaga, JoinChannelSagaId>(joinChannelSagaId, sourceId, updateSaga, cancellationToken);
                 break;
-            case MessageSagaId messageSagaId:
-                domainEvents = await _aggregateStore.UpdateAsync<MessageSaga, MessageSagaId>(messageSagaId, sourceId, updateSaga, cancellationToken);
-                break;
+            //case MessageSagaId messageSagaId:
+            //    domainEvents = await _aggregateStore.UpdateAsync<MessageSaga, MessageSagaId>(messageSagaId, sourceId, updateSaga, cancellationToken);
+            //    break;
             
             case ReadChannelHistorySagaId readChannelHistorySagaId:
                 domainEvents = await _aggregateStore.UpdateAsync<ReadChannelHistorySaga, ReadChannelHistorySagaId>(readChannelHistorySagaId, sourceId, updateSaga, cancellationToken);

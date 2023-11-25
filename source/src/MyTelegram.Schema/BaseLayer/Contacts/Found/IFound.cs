@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Contacts;
 /// Object contains info on users found by name substring and auxiliary data.
 /// See <a href="https://corefork.telegram.org/constructor/contacts.Found" />
 ///</summary>
+[JsonDerivedType(typeof(TFound), nameof(TFound))]
 public interface IFound : IObject
 {
     ///<summary>

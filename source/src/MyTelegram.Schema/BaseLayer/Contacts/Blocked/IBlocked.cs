@@ -6,6 +6,8 @@ namespace MyTelegram.Schema.Contacts;
 /// Info on users from the current user's black list.
 /// See <a href="https://corefork.telegram.org/constructor/contacts.Blocked" />
 ///</summary>
+[JsonDerivedType(typeof(TBlocked), nameof(TBlocked))]
+[JsonDerivedType(typeof(TBlockedSlice), nameof(TBlockedSlice))]
 public interface IBlocked : IObject
 {
     ///<summary>

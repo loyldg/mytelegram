@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Info about chat invites exported by a certain admin.
 /// See <a href="https://corefork.telegram.org/constructor/messages.ExportedChatInvites" />
 ///</summary>
+[JsonDerivedType(typeof(TExportedChatInvites), nameof(TExportedChatInvites))]
 public interface IExportedChatInvites : IObject
 {
     ///<summary>

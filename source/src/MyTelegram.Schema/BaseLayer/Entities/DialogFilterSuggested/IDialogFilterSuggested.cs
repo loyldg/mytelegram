@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Suggested dialog filters (<a href="https://corefork.telegram.org/api/folders">folder »</a>)
 /// See <a href="https://corefork.telegram.org/constructor/DialogFilterSuggested" />
 ///</summary>
+[JsonDerivedType(typeof(TDialogFilterSuggested), nameof(TDialogFilterSuggested))]
 public interface IDialogFilterSuggested : IObject
 {
     ///<summary>

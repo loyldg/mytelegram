@@ -110,9 +110,9 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
     //    }
     //}
 
-    private Task HandleClearHistoryCompletedAsync(long peerId)
+    private async Task HandleClearHistoryCompletedAsync(long peerId)
     {
-        if (_state.IsCompletedForUid(peerId))
+        if (_state.IsCompletedForUserId(peerId))
         {
             if (_state.OwnerToMessageIdList.TryGetValue(peerId, out var deletedMessageIdList))
             {
@@ -132,8 +132,8 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
             {
                 // after messages cleared should send history cleared service message
                 var ownerPeerId = _state.RequestInfo.UserId;
-                var outMessageId = 0;
-                var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, _state.RandomId);
+                var outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, ownerPeerId);
+                var aggregateId = MessageId.Create(ownerPeerId, outMessageId);
                 var messageItem = new MessageItem(
                     new Peer(PeerType.User, ownerPeerId),
                     _state.ToPeer,
@@ -147,14 +147,12 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
                     messageSubType: MessageSubType.ClearHistory,
                     messageActionData: _state.MessageActionData,
                     messageActionType: MessageActionType.HistoryClear);
-                var command = new StartSendMessageCommand(aggregateId, _state.RequestInfo with { RequestId = Guid.NewGuid() }, messageItem);
+                var command = new CreateOutboxMessageCommand(aggregateId, _state.RequestInfo with { RequestId = Guid.NewGuid() }, messageItem);
                 Publish(command);
 
                 Emit(new ClearHistorySagaCompletedEvent());
             }
         }
-
-        return Task.CompletedTask;
     }
 
     private async Task IncrementPtsAsync(long peerId,

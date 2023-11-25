@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Full info about a <a href="https://corefork.telegram.org/api/channel#channels">channel</a>, <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a>, <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a> or <a href="https://corefork.telegram.org/api/channel#basic-groups">basic group</a>.
 /// See <a href="https://corefork.telegram.org/constructor/ChatFull" />
 ///</summary>
+[JsonDerivedType(typeof(TChatFull), nameof(TChatFull))]
+[JsonDerivedType(typeof(TChannelFull), nameof(TChannelFull))]
 public interface IChatFull : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Filter for fetching events in the channel admin log
 /// See <a href="https://corefork.telegram.org/constructor/ChannelAdminLogEventsFilter" />
 ///</summary>
+[JsonDerivedType(typeof(TChannelAdminLogEventsFilter), nameof(TChannelAdminLogEventsFilter))]
 public interface IChannelAdminLogEventsFilter : IObject
 {
     ///<summary>

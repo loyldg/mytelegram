@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Phone;
 /// RTMP URL and stream key to be used in streaming software
 /// See <a href="https://corefork.telegram.org/constructor/phone.GroupCallStreamRtmpUrl" />
 ///</summary>
+[JsonDerivedType(typeof(TGroupCallStreamRtmpUrl), nameof(TGroupCallStreamRtmpUrl))]
 public interface IGroupCallStreamRtmpUrl : IObject
 {
     ///<summary>

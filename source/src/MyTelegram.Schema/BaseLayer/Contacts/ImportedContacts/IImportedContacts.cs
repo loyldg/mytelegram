@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Contacts;
 /// Object contains info on successfully imported contacts.
 /// See <a href="https://corefork.telegram.org/constructor/contacts.ImportedContacts" />
 ///</summary>
+[JsonDerivedType(typeof(TImportedContacts), nameof(TImportedContacts))]
 public interface IImportedContacts : IObject
 {
     ///<summary>

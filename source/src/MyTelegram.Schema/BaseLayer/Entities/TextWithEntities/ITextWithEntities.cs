@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Styled text with <a href="https://corefork.telegram.org/api/entities">message entities</a>
 /// See <a href="https://corefork.telegram.org/constructor/TextWithEntities" />
 ///</summary>
+[JsonDerivedType(typeof(TTextWithEntities), nameof(TTextWithEntities))]
 public interface ITextWithEntities : IObject
 {
     ///<summary>

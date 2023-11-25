@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Object contains info on affected part of communication history with the user or in a chat.
 /// See <a href="https://corefork.telegram.org/constructor/messages.AffectedHistory" />
 ///</summary>
+[JsonDerivedType(typeof(TAffectedHistory), nameof(TAffectedHistory))]
 public interface IAffectedHistory : IObject
 {
     ///<summary>

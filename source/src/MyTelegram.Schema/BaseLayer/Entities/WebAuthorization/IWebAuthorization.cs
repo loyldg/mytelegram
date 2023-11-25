@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Web authorization
 /// See <a href="https://corefork.telegram.org/constructor/WebAuthorization" />
 ///</summary>
+[JsonDerivedType(typeof(TWebAuthorization), nameof(TWebAuthorization))]
 public interface IWebAuthorization : IObject
 {
     ///<summary>

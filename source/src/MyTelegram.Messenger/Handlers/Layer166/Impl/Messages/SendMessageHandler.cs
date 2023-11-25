@@ -104,7 +104,8 @@ internal sealed class SendMessageHandler : RpcResultObjectHandler<MyTelegram.Sch
             obj.Message,
             obj.RandomId,
             obj.Entities,
-            replyToMsgId,
+            //replyToMsgId,
+            obj.ReplyTo,
             obj.ClearDraft,
             media: media.ToBytes(),
             topMsgId: topMsgId

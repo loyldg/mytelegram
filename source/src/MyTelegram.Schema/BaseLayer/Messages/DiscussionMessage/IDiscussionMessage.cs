@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Info about a message thread
 /// See <a href="https://corefork.telegram.org/constructor/messages.DiscussionMessage" />
 ///</summary>
+[JsonDerivedType(typeof(TDiscussionMessage), nameof(TDiscussionMessage))]
 public interface IDiscussionMessage : IObject
 {
     ///<summary>

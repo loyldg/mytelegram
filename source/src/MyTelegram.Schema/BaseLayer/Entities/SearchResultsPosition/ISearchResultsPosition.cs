@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Information about a message in a specific position
 /// See <a href="https://corefork.telegram.org/constructor/SearchResultsPosition" />
 ///</summary>
+[JsonDerivedType(typeof(TSearchResultPosition), nameof(TSearchResultPosition))]
 public interface ISearchResultsPosition : IObject
 {
     ///<summary>

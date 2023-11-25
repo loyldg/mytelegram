@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Secure Telegram Passport value
 /// See <a href="https://corefork.telegram.org/constructor/SecureValue" />
 ///</summary>
+[JsonDerivedType(typeof(TSecureValue), nameof(TSecureValue))]
 public interface ISecureValue : IObject
 {
     ///<summary>

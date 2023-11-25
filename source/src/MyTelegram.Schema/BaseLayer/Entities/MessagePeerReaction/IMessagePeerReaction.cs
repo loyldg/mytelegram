@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// How a certain peer reacted to the message
 /// See <a href="https://corefork.telegram.org/constructor/MessagePeerReaction" />
 ///</summary>
+[JsonDerivedType(typeof(TMessagePeerReaction), nameof(TMessagePeerReaction))]
 public interface IMessagePeerReaction : IObject
 {
     ///<summary>

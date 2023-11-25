@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Info about an RTMP stream in a group call or livestream
 /// See <a href="https://corefork.telegram.org/constructor/GroupCallStreamChannel" />
 ///</summary>
+[JsonDerivedType(typeof(TGroupCallStreamChannel), nameof(TGroupCallStreamChannel))]
 public interface IGroupCallStreamChannel : IObject
 {
     ///<summary>

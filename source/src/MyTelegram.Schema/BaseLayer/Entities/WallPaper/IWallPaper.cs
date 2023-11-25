@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Object contains info on a <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a>.
 /// See <a href="https://corefork.telegram.org/constructor/WallPaper" />
 ///</summary>
+[JsonDerivedType(typeof(TWallPaper), nameof(TWallPaper))]
+[JsonDerivedType(typeof(TWallPaperNoFile), nameof(TWallPaperNoFile))]
 public interface IWallPaper : IObject
 {
     ///<summary>

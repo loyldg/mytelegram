@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Obtain a list of channels where the user can post <a href="https://corefork.telegram.org/api/stories">stories</a>
 /// See <a href="https://corefork.telegram.org/method/stories.getChatsToSend" />
 ///</summary>
 [TlObject(0xa56a8b60)]

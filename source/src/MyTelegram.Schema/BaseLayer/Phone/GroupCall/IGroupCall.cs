@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Phone;
 /// Contains info about a group call, and partial info about its participants.
 /// See <a href="https://corefork.telegram.org/constructor/phone.GroupCall" />
 ///</summary>
+[JsonDerivedType(typeof(TGroupCall), nameof(TGroupCall))]
 public interface IGroupCall : IObject
 {
     ///<summary>

@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Emoji keyword
 /// See <a href="https://corefork.telegram.org/constructor/EmojiKeyword" />
 ///</summary>
+[JsonDerivedType(typeof(TEmojiKeyword), nameof(TEmojiKeyword))]
+[JsonDerivedType(typeof(TEmojiKeywordDeleted), nameof(TEmojiKeywordDeleted))]
 public interface IEmojiKeyword : IObject
 {
     ///<summary>

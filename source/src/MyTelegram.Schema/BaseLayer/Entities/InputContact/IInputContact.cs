@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Object defines a contact from the user's phone book.
 /// See <a href="https://corefork.telegram.org/constructor/InputContact" />
 ///</summary>
+[JsonDerivedType(typeof(TInputPhoneContact), nameof(TInputPhoneContact))]
 public interface IInputContact : IObject
 {
     ///<summary>

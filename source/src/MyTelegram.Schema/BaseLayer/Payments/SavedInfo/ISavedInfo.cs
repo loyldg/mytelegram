@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Payments;
 /// Saved payment info
 /// See <a href="https://corefork.telegram.org/constructor/payments.SavedInfo" />
 ///</summary>
+[JsonDerivedType(typeof(TSavedInfo), nameof(TSavedInfo))]
 public interface ISavedInfo : IObject
 {
     ///<summary>

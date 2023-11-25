@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Phone;
 /// A list of peers that can be used to join a group call, presenting yourself as a specific user/channel.
 /// See <a href="https://corefork.telegram.org/constructor/phone.JoinAsPeers" />
 ///</summary>
+[JsonDerivedType(typeof(TJoinAsPeers), nameof(TJoinAsPeers))]
 public interface IJoinAsPeers : IObject
 {
     ///<summary>

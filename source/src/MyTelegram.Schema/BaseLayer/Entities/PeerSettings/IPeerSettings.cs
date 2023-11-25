@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// List of actions that are possible when interacting with this user, to be shown as suggested actions in the chat bar
 /// See <a href="https://corefork.telegram.org/constructor/PeerSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TPeerSettings), nameof(TPeerSettings))]
 public interface IPeerSettings : IObject
 {
     ///<summary>

@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Object contains extended user info.
 /// See <a href="https://corefork.telegram.org/constructor/UserFull" />
 ///</summary>
+[JsonDerivedType(typeof(TUserFull), nameof(TUserFull))]
 public interface IUserFull : IObject
 {
     ///<summary>

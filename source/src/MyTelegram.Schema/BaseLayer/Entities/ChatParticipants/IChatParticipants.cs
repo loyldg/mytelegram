@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Object contains info on group members.
 /// See <a href="https://corefork.telegram.org/constructor/ChatParticipants" />
 ///</summary>
+[JsonDerivedType(typeof(TChatParticipantsForbidden), nameof(TChatParticipantsForbidden))]
+[JsonDerivedType(typeof(TChatParticipants), nameof(TChatParticipants))]
 public interface IChatParticipants : IObject
 {
     ///<summary>

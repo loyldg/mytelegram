@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Telegram Premium gift option
 /// See <a href="https://corefork.telegram.org/constructor/PremiumGiftOption" />
 ///</summary>
+[JsonDerivedType(typeof(TPremiumGiftOption), nameof(TPremiumGiftOption))]
 public interface IPremiumGiftOption : IObject
 {
     ///<summary>

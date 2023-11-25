@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Account;
 /// Sensitive content settings
 /// See <a href="https://corefork.telegram.org/constructor/account.ContentSettings" />
 ///</summary>
+[JsonDerivedType(typeof(TContentSettings), nameof(TContentSettings))]
 public interface IContentSettings : IObject
 {
     ///<summary>

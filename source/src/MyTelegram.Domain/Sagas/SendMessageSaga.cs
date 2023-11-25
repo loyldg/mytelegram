@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SendOutboxMessageCompletedEvent = MyTelegram.Domain.Sagas.Events.SendOutboxMessageCompletedEvent;
 
 namespace MyTelegram.Domain.Sagas;
 
@@ -104,7 +100,7 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
     private async Task HandleReceiveInboxMessageCompletedAsync(MessageItem inboxMessageItem)
     {
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, inboxMessageItem.OwnerPeer.PeerId);
-        Emit(new ReceiveInboxMessageCompletedEvent2(inboxMessageItem, pts, string.Empty));
+        Emit(new ReceiveInboxMessageCompletedEvent(inboxMessageItem, pts, string.Empty));
 
         if (_state.IsCreateInboxMessagesCompleted())
         {
@@ -127,7 +123,7 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
         var linkedChannelId = _state.LinkedChannelId;
         //var globalSeqNo = _state.MessageItem.ToPeer.PeerType == PeerType.Channel ? await _idGenerator.NextLongIdAsync(IdType.GlobalSeqNo) : 0;
 
-        Emit(new SendOutboxMessageCompletedEvent2(_state.RequestInfo,
+        Emit(new SendOutboxMessageCompletedEvent(_state.RequestInfo,
             _state.MessageItem,
             _state.MentionedUserIds,
             pts,
@@ -210,10 +206,19 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
         var outMessageItem = _state.MessageItem!;
         var toPeer = outMessageItem.ToPeer.PeerType == PeerType.Chat ? outMessageItem.ToPeer : outMessageItem.OwnerPeer;
 
-        int? replyToMsgId = null;
-        if (!_state.ReplyToMsgItems.TryGetValue(inboxOwnerUserId, out var replyToMsgId2))
+        var replyTo = outMessageItem.InputReplyTo.ToBytes().ToTObject<IInputReplyTo>();
+
+        if (_state.ReplyToMsgItems.TryGetValue(inboxOwnerUserId, out var replyToMsgId))
         {
-            replyToMsgId = replyToMsgId2;
+            switch (replyTo)
+            {
+                case TInputReplyToMessage inputReplyToMessage:
+                    inputReplyToMessage.ReplyToMsgId = replyToMsgId;
+                    break;
+                case TInputReplyToStory inputReplyToStory:
+                    inputReplyToStory.StoryId=replyToMsgId;
+                    break;
+            }
         }
 
         // Channel only create outbox message,
@@ -232,7 +237,7 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
             outMessageItem.SendMessageType,
             outMessageItem.MessageType,
             outMessageItem.MessageSubType,
-            replyToMsgId,
+            replyTo,
             outMessageItem.MessageActionData,
             outMessageItem.MessageActionType,
             outMessageItem.Entities,
@@ -250,31 +255,35 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
     }
 }
 
-//public class ReplyToChannelMessageCompletedEvent2 : AggregateEvent<SendMessageSaga, SendMessageSagaId>
-//{
-//    public ReplyToChannelMessageCompletedEvent2(int replyToMsgId,
+public class ReplyToChannelMessageCompletedEvent2 : AggregateEvent<SendMessageSaga, SendMessageSagaId>
+{
+    public ReplyToChannelMessageCompletedEvent2(
 //        long channelId,
-//        int repliesPts,
-//        int maxId,
-//        long savedFromPeerId,
-//        int savedFromMsgId,
-//        IReadOnlyCollection<Peer> recentRepliers
-//    )
-//    {
+        IInputReplyTo replyTo,
+        long channelId,
+        int repliesPts,
+        int maxId,
+        long savedFromPeerId,
+        int savedFromMsgId,
+        IReadOnlyCollection<Peer> recentRepliers
+    )
+    {
 //        ReplyToMsgId = replyToMsgId;
-//        ChannelId = channelId;
-//        RepliesPts = repliesPts;
-//        MaxId = maxId;
-//        SavedFromPeerId = savedFromPeerId;
-//        SavedFromMsgId = savedFromMsgId;
-//        RecentRepliers = recentRepliers;
-//    }
+        ReplyTo = replyTo;
+        ChannelId = channelId;
+        RepliesPts = repliesPts;
+        MaxId = maxId;
+        SavedFromPeerId = savedFromPeerId;
+        SavedFromMsgId = savedFromMsgId;
+        RecentRepliers = recentRepliers;
+    }
 
-//    public int ReplyToMsgId { get; }
-//    public long ChannelId { get; }
-//    public int RepliesPts { get; }
-//    public int MaxId { get; }
-//    public long SavedFromPeerId { get; }
-//    public int SavedFromMsgId { get; }
-//    public IReadOnlyCollection<Peer> RecentRepliers { get; }
-//}
+    public int ReplyToMsgId { get; }
+    public IInputReplyTo ReplyTo { get; }
+    public long ChannelId { get; }
+    public int RepliesPts { get; }
+    public int MaxId { get; }
+    public long SavedFromPeerId { get; }
+    public int SavedFromMsgId { get; }
+    public IReadOnlyCollection<Peer> RecentRepliers { get; }
+}

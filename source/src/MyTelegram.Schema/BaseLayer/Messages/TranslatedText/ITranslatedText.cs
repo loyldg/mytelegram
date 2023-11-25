@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Translated text with <a href="https://corefork.telegram.org/api/entities">entities</a>.
 /// See <a href="https://corefork.telegram.org/constructor/messages.TranslatedText" />
 ///</summary>
+[JsonDerivedType(typeof(TTranslateResult), nameof(TTranslateResult))]
 public interface ITranslatedText : IObject
 {
     ///<summary>

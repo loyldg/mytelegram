@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// The bot requested the user to message them in private
 /// See <a href="https://corefork.telegram.org/constructor/InlineBotSwitchPM" />
 ///</summary>
+[JsonDerivedType(typeof(TInlineBotSwitchPM), nameof(TInlineBotSwitchPM))]
 public interface IInlineBotSwitchPM : IObject
 {
     ///<summary>

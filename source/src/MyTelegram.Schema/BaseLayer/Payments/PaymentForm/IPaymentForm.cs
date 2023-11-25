@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Payments;
 /// Payment form
 /// See <a href="https://corefork.telegram.org/constructor/payments.PaymentForm" />
 ///</summary>
+[JsonDerivedType(typeof(TPaymentForm), nameof(TPaymentForm))]
 public interface IPaymentForm : IObject
 {
     ///<summary>

@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Object contains encrypted message.
 /// See <a href="https://corefork.telegram.org/constructor/EncryptedMessage" />
 ///</summary>
+[JsonDerivedType(typeof(TEncryptedMessage), nameof(TEncryptedMessage))]
+[JsonDerivedType(typeof(TEncryptedMessageService), nameof(TEncryptedMessageService))]
 public interface IEncryptedMessage : IObject
 {
     ///<summary>

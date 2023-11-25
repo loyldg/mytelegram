@@ -67,7 +67,7 @@ builder.ConfigureServices((ctx,
     {
         ////options.AddDefaults(Assembly.GetEntryAssembly());
         options.ConfigureMongoDb(ctx.Configuration.GetConnectionString("Default"),
-            ctx.Configuration["App:EventStoreDatabaseName"]);
+            ctx.Configuration["App:QueryServerEventStoreDatabaseName"]);
 
     });
 

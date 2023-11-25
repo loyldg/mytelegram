@@ -82,7 +82,7 @@ public class DeleteMessageSaga :
     {
         foreach (var messageId in messageIdList)
         {
-            var command = new DeleteMessageCommand(MessageId.Create(selfUserId, messageId), _state.RequestInfo);
+            var command = new DeleteMessageCommand(MessageId.Create(selfUserId, messageId),_state.RequestInfo);
             Publish(command);
         }
     }

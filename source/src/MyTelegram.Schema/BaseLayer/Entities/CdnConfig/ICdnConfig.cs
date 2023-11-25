@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Configuration for <a href="https://corefork.telegram.org/cdn">CDN</a> file downloads.
 /// See <a href="https://corefork.telegram.org/constructor/CdnConfig" />
 ///</summary>
+[JsonDerivedType(typeof(TCdnConfig), nameof(TCdnConfig))]
 public interface ICdnConfig : IObject
 {
     ///<summary>

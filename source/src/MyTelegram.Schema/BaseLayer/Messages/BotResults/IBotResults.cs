@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Result of a query to an inline bot
 /// See <a href="https://corefork.telegram.org/constructor/messages.BotResults" />
 ///</summary>
+[JsonDerivedType(typeof(TBotResults), nameof(TBotResults))]
 public interface IBotResults : IObject
 {
     ///<summary>

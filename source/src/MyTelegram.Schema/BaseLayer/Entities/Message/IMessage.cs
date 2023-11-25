@@ -6,6 +6,9 @@ namespace MyTelegram.Schema;
 /// Object describing a message.
 /// See <a href="https://corefork.telegram.org/constructor/Message" />
 ///</summary>
+[JsonDerivedType(typeof(TMessageEmpty), nameof(TMessageEmpty))]
+[JsonDerivedType(typeof(TMessage), nameof(TMessage))]
+[JsonDerivedType(typeof(TMessageService), nameof(TMessageService))]
 public interface IMessage : IObject
 {
     ///<summary>

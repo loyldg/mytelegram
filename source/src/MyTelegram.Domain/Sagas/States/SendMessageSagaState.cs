@@ -1,9 +1,11 @@
-﻿namespace MyTelegram.Domain.Sagas.States;
+﻿using SendOutboxMessageCompletedEvent = MyTelegram.Domain.Sagas.Events.SendOutboxMessageCompletedEvent;
+
+namespace MyTelegram.Domain.Sagas.States;
 
 public class SendMessageSagaState : AggregateState<SendMessageSaga, SendMessageSagaId, SendMessageSagaState>,
     IApply<SendMessageSagaStartedEvent>,
-    IApply<SendOutboxMessageCompletedEvent2>,
-    IApply<ReceiveInboxMessageCompletedEvent2>
+    IApply<SendOutboxMessageCompletedEvent>,
+    IApply<ReceiveInboxMessageCompletedEvent>
 {
     public RequestInfo RequestInfo { get; set; } = default!;
     public MessageItem MessageItem { get; set; } = default!;
@@ -38,12 +40,12 @@ public class SendMessageSagaState : AggregateState<SendMessageSaga, SendMessageS
         }
     }
 
-    public void Apply(SendOutboxMessageCompletedEvent2 aggregateEvent)
+    public void Apply(SendOutboxMessageCompletedEvent aggregateEvent)
     {
         //throw new NotImplementedException();
     }
 
-    public void Apply(ReceiveInboxMessageCompletedEvent2 aggregateEvent)
+    public void Apply(ReceiveInboxMessageCompletedEvent aggregateEvent)
     {
         //throw new NotImplementedException();
         InboxItems.Add(new(aggregateEvent.MessageItem.OwnerPeer.PeerId, aggregateEvent.MessageItem.MessageId));

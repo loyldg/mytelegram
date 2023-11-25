@@ -1,5 +1,5 @@
-﻿namespace MyTelegram.Messenger.Services.Impl;
+﻿//namespace MyTelegram.Messenger.Services.Impl;
 
-public interface IRpcResultProcessorLayer149 : IRpcResultProcessor
-{
-}
+//public interface IRpcResultProcessorLayer149 : IRpcResultProcessor
+//{
+//}

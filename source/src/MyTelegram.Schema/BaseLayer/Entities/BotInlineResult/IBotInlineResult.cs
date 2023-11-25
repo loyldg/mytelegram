@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Results of an inline query
 /// See <a href="https://corefork.telegram.org/constructor/BotInlineResult" />
 ///</summary>
+[JsonDerivedType(typeof(TBotInlineResult), nameof(TBotInlineResult))]
+[JsonDerivedType(typeof(TBotInlineMediaResult), nameof(TBotInlineMediaResult))]
 public interface IBotInlineResult : IObject
 {
     ///<summary>

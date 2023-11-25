@@ -848,7 +848,7 @@ public record GetUpdatesQuery(
 
 public record GetChannelUpdatesByGlobalSeqNoQuery(List<long> ChannelIdList, long MinGlobalSeqNo, int Limit) : IQuery<IReadOnlyCollection<IUpdatesReadModel>>;
 
-public record GetReplyToMsgIdListQuery(long ToPeerId, long SenderUserId, int? ReplyToMsgId) : IQuery<IReadOnlyCollection<ReplyToMsgItem>?>;
+public record GetReplyToMsgIdListQuery(Peer ToPeer, long SelfUserId, int? ReplyToMsgId) : IQuery<IReadOnlyCollection<ReplyToMsgItem>?>;
 public record GetUserNameListByNamesQuery(List<string> UserNames, PeerType? PeerType = null) : IQuery<IReadOnlyCollection<IUserNameReadModel>>;
 public record GetPermanentChatInviteQuery(long PeerId) : IQuery<IChatInviteReadModel?>;
 public record GetChatAdminListByChannelIdQuery(long PeerId, int Skip, int Limit) : IQuery<IReadOnlyCollection<IChatAdminReadModel>>;

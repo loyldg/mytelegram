@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Global privacy settings
 /// See <a href="https://corefork.telegram.org/constructor/GlobalPrivacySettings" />
 ///</summary>
+[JsonDerivedType(typeof(TGlobalPrivacySettings), nameof(TGlobalPrivacySettings))]
 public interface IGlobalPrivacySettings : IObject
 {
     ///<summary>

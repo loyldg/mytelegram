@@ -92,7 +92,7 @@ public class ClearHistoryState : AggregateState<ClearHistorySaga, ClearHistorySa
         return false;
     }
 
-    public bool IsCompletedForUid(long userId)
+    public bool IsCompletedForUserId(long userId)
     {
         if (OwnerToMessageIdList.TryGetValue(userId, out var messageIdList))
         {

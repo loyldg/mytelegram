@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Indicates an already sent game
 /// See <a href="https://corefork.telegram.org/constructor/Game" />
 ///</summary>
+[JsonDerivedType(typeof(TGame), nameof(TGame))]
 public interface IGame : IObject
 {
     ///<summary>

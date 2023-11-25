@@ -6,6 +6,8 @@ namespace MyTelegram.Schema;
 /// Represents a message <a href="https://corefork.telegram.org/api/drafts">draft</a>.
 /// See <a href="https://corefork.telegram.org/constructor/DraftMessage" />
 ///</summary>
+[JsonDerivedType(typeof(TDraftMessageEmpty), nameof(TDraftMessageEmpty))]
+[JsonDerivedType(typeof(TDraftMessage), nameof(TDraftMessage))]
 public interface IDraftMessage : IObject
 {
     ///<summary>

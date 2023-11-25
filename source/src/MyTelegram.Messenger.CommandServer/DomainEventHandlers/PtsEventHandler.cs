@@ -1,13 +1,12 @@
 ﻿using MyTelegram.Messenger.Services.Caching;
+using SendOutboxMessageCompletedEvent = MyTelegram.Domain.Sagas.Events.SendOutboxMessageCompletedEvent;
 
 namespace MyTelegram.Messenger.CommandServer.DomainEventHandlers;
 
 public class PtsEventHandler :
     ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedBoxPtsCompletedEvent>,
-    ISubscribeSynchronousTo<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent>,
-    ISubscribeSynchronousTo<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent>,
-    ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent2>,
-    ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent2>,
+    ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent>,
+    ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent>,
     ISubscribeSynchronousTo<ClearHistorySaga, ClearHistorySagaId, ClearSingleUserHistoryCompletedEvent>,
     ISubscribeSynchronousTo<DeleteMessageSaga, DeleteMessageSagaId, DeleteMessagePtsIncrementedEvent>,
     ISubscribeSynchronousTo<ReadHistorySaga, ReadHistorySagaId, ReadHistoryPtsIncrementEvent>,
@@ -55,21 +54,21 @@ public class PtsEventHandler :
         return Task.CompletedTask;
     }
 
-    public Task HandleAsync(IDomainEvent<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        _ptsHelper.IncrementPtsAsync(domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
-            domainEvent.AggregateEvent.Pts);
-        return Task.CompletedTask;
-    }
+    //public Task HandleAsync(IDomainEvent<MessageSaga, MessageSagaId, ReceiveInboxMessageCompletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    _ptsHelper.IncrementPtsAsync(domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
+    //        domainEvent.AggregateEvent.Pts);
+    //    return Task.CompletedTask;
+    //}
 
-    public Task HandleAsync(IDomainEvent<MessageSaga, MessageSagaId, SendOutboxMessageCompletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        _ptsHelper.IncrementPtsAsync(domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
-            domainEvent.AggregateEvent.Pts);
-        return Task.CompletedTask;
-    }
+    //public Task HandleAsync(IDomainEvent<MessageSaga, MessageSagaId, Domain.Events.Messaging.SendOutboxMessageCompletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    _ptsHelper.IncrementPtsAsync(domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
+    //        domainEvent.AggregateEvent.Pts);
+    //    return Task.CompletedTask;
+    //}
 
     public Task HandleAsync(IDomainEvent<ReadHistorySaga, ReadHistorySagaId, ReadHistoryPtsIncrementEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -86,14 +85,14 @@ public class PtsEventHandler :
         return Task.CompletedTask;
     }
 
-    public Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent2> domainEvent, CancellationToken cancellationToken)
+    public Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent> domainEvent, CancellationToken cancellationToken)
     {
         _ptsHelper.IncrementPtsAsync(domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
             domainEvent.AggregateEvent.Pts);
         return Task.CompletedTask;
     }
 
-    public Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent2> domainEvent, CancellationToken cancellationToken)
+    public Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent> domainEvent, CancellationToken cancellationToken)
     {
         _ptsHelper.IncrementPtsAsync(domainEvent.AggregateEvent.MessageItem.OwnerPeer.PeerId,
             domainEvent.AggregateEvent.Pts);

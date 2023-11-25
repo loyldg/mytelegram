@@ -6,6 +6,7 @@ namespace MyTelegram.Schema;
 /// Represents an <a href="https://corefork.telegram.org/api/custom-emoji#emoji-categories">emoji category</a>.
 /// See <a href="https://corefork.telegram.org/constructor/EmojiGroup" />
 ///</summary>
+[JsonDerivedType(typeof(TEmojiGroup), nameof(TEmojiGroup))]
 public interface IEmojiGroup : IObject
 {
     ///<summary>
