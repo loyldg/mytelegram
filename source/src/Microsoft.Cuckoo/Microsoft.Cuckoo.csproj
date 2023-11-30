@@ -1,34 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-  </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>Microsoft.Cuckoo</PackageId>
-    <Version>1.0.0</Version>
-    <Authors>Microsoft</Authors>
-    <Company>Microsoft Corporation</Company>
-	  <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-	  <RepositoryType>GitHub</RepositoryType>
-    <RepositoryUrl>https://github.com/microsoft/mixer-cuckoo</RepositoryUrl>
-    <ProjectUrl>https://github.com/microsoft/mixer-cuckoo</ProjectUrl>
-    <Description>A cuckoo filter implementation for C#</Description>
-    <License>MIT</License>
-    <RequireLicenseAcceptance>true</RequireLicenseAcceptance>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Sigil" />
-    <PackageReference Include="Standart.Hash.xxHash" />
-  </ItemGroup>
+    <PropertyGroup>
+        <PackageId>Microsoft.Cuckoo</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Microsoft</Authors>
+        <Company>Microsoft Corporation</Company>
+        <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+        <RepositoryType>GitHub</RepositoryType>
+        <RepositoryUrl>https://github.com/microsoft/mixer-cuckoo</RepositoryUrl>
+        <ProjectUrl>https://github.com/microsoft/mixer-cuckoo</ProjectUrl>
+        <Description>A cuckoo filter implementation for C#</Description>
+        <License>MIT</License>
+        <RequireLicenseAcceptance>true</RequireLicenseAcceptance>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Fody">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Sigil" />
+        <PackageReference Include="Standart.Hash.xxHash" />
+    </ItemGroup>
 
 </Project>

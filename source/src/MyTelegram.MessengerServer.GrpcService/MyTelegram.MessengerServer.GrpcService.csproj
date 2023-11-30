@@ -10,7 +10,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DebuggerSupport>false</DebuggerSupport>
+    <!--<InvariantGlobalization>true</InvariantGlobalization>-->
+    <!--<DebuggerSupport>false</DebuggerSupport>
     <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
     <EventSourceSupport>false</EventSourceSupport>
     <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
@@ -21,12 +22,8 @@
     <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <PublishSingleFile>true</PublishSingleFile>
-    <DockerfileContext>..\..</DockerfileContext>
 
-    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
-    <!--<IlcTrimMetadata>true</IlcTrimMetadata>-->
-    <!--<IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>-->
-    <!--<IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>-->
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,6 +33,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />-->
     <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
   </ItemGroup>
 
   <ItemGroup>

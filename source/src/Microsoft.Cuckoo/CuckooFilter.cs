@@ -109,40 +109,6 @@ public class CuckooFilter : ICuckooFilter, IEquatable<CuckooFilter>
     }
 
     /// <summary>
-    ///     Creates a new CuckooFilter.
-    /// </summary>
-    /// <param name="contents">Contents of th efilter</param>
-    /// <param name="entriesPerBucket">
-    ///     Number of fingerprints stored
-    ///     in each bucket.
-    /// </param>
-    /// <param name="fingerprintLength">Length of the fingerprint to use</param>
-    /// <param name="maxKicks">
-    ///     Maximum number of times to relocate a value
-    ///     on a collision.
-    /// </param>
-    /// <param name="hashAlgorithm">Hashing algorithm to use</param>
-    internal CuckooFilter(
-        byte[] contents,
-        uint entriesPerBucket,
-        uint fingerprintLength,
-        uint maxKicks,
-        IHashAlgorithm hashAlgorithm = null)
-    {
-        Contents = contents;
-        MaxKicks = maxKicks;
-        EntriesPerBucket = entriesPerBucket;
-        BytesPerBucket = entriesPerBucket * fingerprintLength;
-        Buckets = (uint)contents.Length / BytesPerBucket;
-        _fingerprintBuffer = new byte[fingerprintLength];
-        _fingerprintSwapBuffer = new byte[_fingerprintBuffer.Length];
-        _hashAlgorithm = hashAlgorithm ?? XxHashAlgorithm.Instance;
-        _zeroCheck = CodegenHelpers.CreateZeroChecker(fingerprintLength);
-        _comparator = CodegenHelpers.CreateFingerprintComparator(fingerprintLength, 4);
-        _insertIntoBucket = CodegenHelpers.CreateInsertIntoBucket(fingerprintLength, entriesPerBucket);
-    }
-
-    /// <summary>
     ///     Creates a new optimally-sized CuckooFilter with a target
     ///     false-positive-at-capacity.
     /// </summary>
@@ -190,6 +156,40 @@ public class CuckooFilter : ICuckooFilter, IEquatable<CuckooFilter>
         _zeroCheck = CodegenHelpers.CreateZeroChecker(fingerprintLength);
         _comparator = CodegenHelpers.CreateFingerprintComparator(fingerprintLength, 4);
         _insertIntoBucket = CodegenHelpers.CreateInsertIntoBucket(fingerprintLength, EntriesPerBucket);
+    }
+
+    /// <summary>
+    ///     Creates a new CuckooFilter.
+    /// </summary>
+    /// <param name="contents">Contents of th efilter</param>
+    /// <param name="entriesPerBucket">
+    ///     Number of fingerprints stored
+    ///     in each bucket.
+    /// </param>
+    /// <param name="fingerprintLength">Length of the fingerprint to use</param>
+    /// <param name="maxKicks">
+    ///     Maximum number of times to relocate a value
+    ///     on a collision.
+    /// </param>
+    /// <param name="hashAlgorithm">Hashing algorithm to use</param>
+    internal CuckooFilter(
+        byte[] contents,
+        uint entriesPerBucket,
+        uint fingerprintLength,
+        uint maxKicks,
+        IHashAlgorithm hashAlgorithm = null)
+    {
+        Contents = contents;
+        MaxKicks = maxKicks;
+        EntriesPerBucket = entriesPerBucket;
+        BytesPerBucket = entriesPerBucket * fingerprintLength;
+        Buckets = (uint)contents.Length / BytesPerBucket;
+        _fingerprintBuffer = new byte[fingerprintLength];
+        _fingerprintSwapBuffer = new byte[_fingerprintBuffer.Length];
+        _hashAlgorithm = hashAlgorithm ?? XxHashAlgorithm.Instance;
+        _zeroCheck = CodegenHelpers.CreateZeroChecker(fingerprintLength);
+        _comparator = CodegenHelpers.CreateFingerprintComparator(fingerprintLength, 4);
+        _insertIntoBucket = CodegenHelpers.CreateInsertIntoBucket(fingerprintLength, entriesPerBucket);
     }
 
     /// <summary>
@@ -291,6 +291,7 @@ public class CuckooFilter : ICuckooFilter, IEquatable<CuckooFilter>
             return true;
         }
 
+
         var index2 = DeriveIndex2(fingerprint, index1);
         offset = IndexToOffset(index2);
         removal = _comparator(Contents, offset, fingerprint);
@@ -341,68 +342,6 @@ public class CuckooFilter : ICuckooFilter, IEquatable<CuckooFilter>
                && MaxKicks == other.MaxKicks;
     }
 
-    /// <summary>
-    ///     Ensures the value is less than or equal to the number of Buckets.
-    /// </summary>
-    /// <param name="value">Value to bound</param>
-    /// <returns>Truncated value</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private long BoundToBucketCount(long value)
-    {
-        // this.Buckets is always a power of 2, so to ensure index1 is <=1
-        // the number of Buckets, we mask it against Buckets - 1. So if
-        // Buckets is 16 (0b10000), we mask it against (0b01111).
-        return value & (Buckets - 1);
-    }
-
-    private static byte[] CreateEmptyBucketData(long buckets,
-        uint itemsPerBucket,
-        uint bytesPerItem)
-    {
-        return new byte[buckets * itemsPerBucket * bytesPerItem];
-    }
-
-    /// <summary>
-    ///     Get the alternative index for an item, given its primary
-    ///     index and fingerprint.
-    /// </summary>
-    /// <param name="fingerprint">Fingerprint value</param>
-    /// <param name="index1">Primary index</param>
-    /// <returns>The secondary index</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private long DeriveIndex2(byte[] fingerprint,
-        long index1)
-    {
-        _hashAlgorithm.Hash(_valuesBuffer, fingerprint, Uint32Bytes);
-        return index1 ^ BoundToBucketCount(ToInt32(_valuesBuffer));
-    }
-
-    /// <summary>
-    ///     Returns a nicely formatted version of the filter. Used for
-    ///     examining internal state while testing.
-    /// </summary>
-    /// <returns></returns>
-    internal IList<IList<string>> DumpDebug()
-    {
-        var list = new List<IList<string>>();
-        for (var offset = 0L; offset < Contents.Length; offset += BytesPerBucket)
-        {
-            var items = new List<string>();
-            for (var i = 0; i < EntriesPerBucket; i++)
-            {
-                var target = (int)offset + i * _fingerprintBuffer.Length;
-                if (!_zeroCheck(Contents, target))
-                {
-                    items.Add(Encoding.ASCII.GetString(Contents, target, _fingerprintBuffer.Length));
-                }
-            }
-
-            list.Add(items);
-        }
-
-        return list;
-    }
-
     /// <summary>Determines whether the specified object is equal to the current object.</summary>
     /// <param name="obj">The object to compare with the current object.</param>
     /// <returns>true if the specified object  is equal to the current object; otherwise, false.</returns>
@@ -426,21 +365,6 @@ public class CuckooFilter : ICuckooFilter, IEquatable<CuckooFilter>
         return Equals((CuckooFilter)obj);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private byte[] GetFingerprint(byte[] input)
-    {
-        _hashAlgorithm.Hash(_fingerprintBuffer, input, _fingerprintBuffer.Length);
-        if (_zeroCheck(_fingerprintBuffer, 0))
-        {
-            for (var i = 0; i < _fingerprintBuffer.Length; i++)
-            {
-                _fingerprintBuffer[i] = 0xff;
-            }
-        }
-
-        return _fingerprintBuffer;
-    }
-
     /// <summary>Serves as the default hash function.</summary>
     /// <returns>A hash code for the current object.</returns>
     public override int GetHashCode()
@@ -459,46 +383,6 @@ public class CuckooFilter : ICuckooFilter, IEquatable<CuckooFilter>
             hashCode = (hashCode * 397) ^ (int)MaxKicks;
             return hashCode;
         }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private int IndexToOffset(long index)
-    {
-        return (int)(index * BytesPerBucket);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private byte[] SwapIntoBucket(byte[] fingerprint,
-        long bucket)
-    {
-        var subIndex = Random.Next((int)EntriesPerBucket);
-        var offset = IndexToOffset(bucket) + subIndex * fingerprint.Length;
-        var newFingerprint = _fingerprintSwapBuffer;
-
-        Array.Copy(Contents,
-            offset,
-            _fingerprintSwapBuffer,
-            0,
-            fingerprint.Length);
-        Array.Copy(fingerprint,
-            0,
-            Contents,
-            offset,
-            fingerprint.Length);
-        _fingerprintSwapBuffer = fingerprint;
-        _fingerprintBuffer = newFingerprint;
-
-        return newFingerprint;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int ToInt32(byte[] data)
-    {
-        var x = data[0] << 24;
-        x |= data[1] << 16;
-        x |= data[2] << 8;
-        x |= data[3];
-        return x;
     }
 
     /// <summary>
@@ -545,6 +429,47 @@ public class CuckooFilter : ICuckooFilter, IEquatable<CuckooFilter>
         return false;
     }
 
+    /// <summary>
+    ///     Returns a nicely formatted version of the filter. Used for
+    ///     examining internal state while testing.
+    /// </summary>
+    /// <returns></returns>
+    internal IList<IList<string>> DumpDebug()
+    {
+        var list = new List<IList<string>>();
+        for (var offset = 0L; offset < Contents.Length; offset += BytesPerBucket)
+        {
+            var items = new List<string>();
+            for (var i = 0; i < EntriesPerBucket; i++)
+            {
+                var target = (int)offset + i * _fingerprintBuffer.Length;
+                if (!_zeroCheck(Contents, target))
+                {
+                    items.Add(Encoding.ASCII.GetString(Contents, target, _fingerprintBuffer.Length));
+                }
+            }
+
+            list.Add(items);
+        }
+
+        return list;
+    }
+
+    private static byte[] CreateEmptyBucketData(long buckets, uint itemsPerBucket, uint bytesPerItem)
+    {
+        return new byte[buckets * itemsPerBucket * bytesPerItem];
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int ToInt32(byte[] data)
+    {
+        var x = data[0] << 24;
+        x |= data[1] << 16;
+        x |= data[2] << 8;
+        x |= data[3];
+        return x;
+    }
+
     private static uint UpperPower2(uint x)
     {
         x--;
@@ -556,5 +481,69 @@ public class CuckooFilter : ICuckooFilter, IEquatable<CuckooFilter>
         x |= x >> 32;
         x++;
         return x;
+    }
+
+    /// <summary>
+    ///     Ensures the value is less than or equal to the number of Buckets.
+    /// </summary>
+    /// <param name="value">Value to bound</param>
+    /// <returns>Truncated value</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private long BoundToBucketCount(long value)
+    {
+        // this.Buckets is always a power of 2, so to ensure index1 is <=1
+        // the number of Buckets, we mask it against Buckets - 1. So if
+        // Buckets is 16 (0b10000), we mask it against (0b01111).
+        return value & (Buckets - 1);
+    }
+
+    /// <summary>
+    ///     Get the alternative index for an item, given its primary
+    ///     index and fingerprint.
+    /// </summary>
+    /// <param name="fingerprint">Fingerprint value</param>
+    /// <param name="index1">Primary index</param>
+    /// <returns>The secondary index</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private long DeriveIndex2(byte[] fingerprint, long index1)
+    {
+        _hashAlgorithm.Hash(_valuesBuffer, fingerprint, Uint32Bytes);
+        return index1 ^ BoundToBucketCount(ToInt32(_valuesBuffer));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private byte[] GetFingerprint(byte[] input)
+    {
+        _hashAlgorithm.Hash(_fingerprintBuffer, input, _fingerprintBuffer.Length);
+        if (_zeroCheck(_fingerprintBuffer, 0))
+        {
+            for (var i = 0; i < _fingerprintBuffer.Length; i++)
+            {
+                _fingerprintBuffer[i] = 0xff;
+            }
+        }
+
+        return _fingerprintBuffer;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private int IndexToOffset(long index)
+    {
+        return (int)(index * BytesPerBucket);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private byte[] SwapIntoBucket(byte[] fingerprint, long bucket)
+    {
+        var subIndex = Random.Next((int)EntriesPerBucket);
+        var offset = IndexToOffset(bucket) + subIndex * fingerprint.Length;
+        var newFingerprint = _fingerprintSwapBuffer;
+
+        Array.Copy(Contents, offset, _fingerprintSwapBuffer, 0, fingerprint.Length);
+        Array.Copy(fingerprint, 0, Contents, offset, fingerprint.Length);
+        _fingerprintSwapBuffer = fingerprint;
+        _fingerprintBuffer = newFingerprint;
+
+        return newFingerprint;
     }
 }

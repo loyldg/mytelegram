@@ -10,6 +10,7 @@ namespace MyTelegram.Messenger.NativeAot;
 public static class NativeAotExtensions
 {
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(global::EventFlow.MongoDB.SnapshotStores.MongoDbSnapshotPersistence))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegramMessengerServerOptions))]
     public static IServiceCollection AddMyNativeAot(this IServiceCollection services)
     { 
         services.AddTransient<ISagaStore, MySagaAggregateStore>();

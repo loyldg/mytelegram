@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <!--<PackageReference Include="Rebus.Kafka" />-->
-    <PackageReference Include="Rebus.MsgPack" />
+    <!--<PackageReference Include="Rebus.MsgPack" />-->
     <PackageReference Include="Rebus.RabbitMq" />
     <PackageReference Include="Rebus.ServiceProvider" />
   </ItemGroup>

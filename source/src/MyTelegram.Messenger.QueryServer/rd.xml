@@ -7,7 +7,7 @@
           <Subtypes Dynamic="Required All" />
         </Type>-->
 
-        <Assembly Name="MyTelegram.Messenger.CommandServer" Serialize="Required All" Dynamic="Required All">
+        <Assembly Name="MyTelegram.Messenger.QueryServer" Serialize="Required All" Dynamic="Required All">
         </Assembly>
 
 

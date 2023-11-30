@@ -32,9 +32,7 @@ public class XxHashAlgorithm : IHashAlgorithm
     /// <param name="target">Target array to hash to</param>
     /// <param name="value">Value to hash</param>
     /// <param name="hashLength">Desired length of the fingerprint.</param>
-    public void Hash(byte[] target,
-        byte[] value,
-        int hashLength)
+    public void Hash(byte[] target, byte[] value, int hashLength)
     {
         var hash = xxHash64.ComputeHash(value, value.Length, _seed);
         for (var i = 0; i < hashLength; i++)

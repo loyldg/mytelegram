@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MyTelegram.Messenger.QueryServer": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

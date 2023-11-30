@@ -1,11 +1,10 @@
-﻿using System.Buffers;
-using System.ComponentModel.Design;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Rebus.Config;
 using Rebus.Handlers;
-using Rebus.Persistence.InMem;
-using Rebus.Pipeline.Receive;
 using Rebus.Pipeline;
+using Rebus.Pipeline.Receive;
+using Rebus.Serialization.Json;
+using System.Text.Json;
 
 namespace MyTelegram.EventBus.Rebus;
 
@@ -32,12 +31,20 @@ public static class Extensions
                         typeof(ActivateHandlersStep));
                 });
             });
-            configure.Serialization(x => x.UseMsgPack());
+            //configure.Serialization(x => x.UseMsgPack());
             //MessagePack.MessagePackSerializer.Deserialize(new ReadOnlySequence<byte>())
             configureAction?.Invoke(configure);
             return configure;
         });
 
         return services;
+    }
+
+    public static void AddSystemTextJson(this RebusConfigurer rebusConfigurer,
+        Action<JsonSerializerOptions>? configureAction = null)
+    {
+        var jsonOptions = new JsonSerializerOptions(JsonSerializerOptions.Default);
+        rebusConfigurer.Serialization(x => x.UseSystemTextJson(jsonOptions));
+        configureAction?.Invoke(jsonOptions);
     }
 }

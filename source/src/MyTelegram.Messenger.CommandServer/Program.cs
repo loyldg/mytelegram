@@ -7,6 +7,7 @@ using MyTelegram.Messenger;
 using MyTelegram.Messenger.CommandServer.BackgroundServices;
 using MyTelegram.Messenger.CommandServer.Extensions;
 using MyTelegram.Messenger.Extensions;
+using MyTelegram.Services.NativeAot;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
@@ -66,6 +67,10 @@ builder.ConfigureServices((ctx,
     services.AddRebusEventBus(options =>
     {
         options.Transport(t => t.UseRabbitMq($"amqp://{rabbitMqOptions.UserName}:{rabbitMqOptions.Password}@{rabbitMqOptions.HostName}:{rabbitMqOptions.Port}", eventBusOptions.ClientName));
+        options.AddSystemTextJson(jsonOptions =>
+        {
+            jsonOptions.TypeInfoResolverChain.Add(MyJsonSerializeContext.Default);
+        });
     });
 
     services.AddMyTelegramMessengerServer(options =>

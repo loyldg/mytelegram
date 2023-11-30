@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Rebus.Config;
+using MyTelegram.GatewayServer.NativeAot;
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -35,6 +35,10 @@ var rabbitMqOptions = builder.Configuration.GetRequiredSection("RabbitMQ:Connect
 builder.Services.AddRebusEventBus(options =>
 {
     options.Transport(t => t.UseRabbitMq($"amqp://{rabbitMqOptions.UserName}:{rabbitMqOptions.Password}@{rabbitMqOptions.HostName}:{rabbitMqOptions.Port}", eventBusOptions.ClientName));
+    options.AddSystemTextJson(jsonOptions =>
+    {
+        jsonOptions.TypeInfoResolverChain.Add(GatewayServerJsonContext.Default);
+    });
 });
 
 var appConfig = builder.Configuration.GetRequiredSection("App").Get<MyTelegramGatewayServerOption>();

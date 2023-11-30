@@ -20,8 +20,7 @@ public class SimpleStreamSerializer : ICuckooSerializer
     /// </summary>
     /// <param name="source">Source stream to read</param>
     /// <param name="hashAlgorithm">Hash algorithm</param>
-    public virtual CuckooFilter Deserialize(Stream source,
-        IHashAlgorithm hashAlgorithm = null)
+    public virtual CuckooFilter Deserialize(Stream source, IHashAlgorithm hashAlgorithm = null)
     {
         var paramsReadBuffer = new byte[16];
         source.Read(paramsReadBuffer, 0, 16);
@@ -47,8 +46,7 @@ public class SimpleStreamSerializer : ICuckooSerializer
     /// </summary>
     /// <param name="target">Target stream to write to</param>
     /// <param name="filter">Filter to serialize</param>
-    public virtual void Serialize(Stream target,
-        CuckooFilter filter)
+    public virtual void Serialize(Stream target, CuckooFilter filter)
     {
         var writeBuffer = new byte[16];
         WriteBigEndianUint(writeBuffer, filter.EntriesPerBucket, 0);
@@ -59,8 +57,7 @@ public class SimpleStreamSerializer : ICuckooSerializer
         target.Write(filter.Contents, 0, filter.Contents.Length);
     }
 
-    private static uint ReadBigEndianUint(byte[] target,
-        int offset)
+    private static uint ReadBigEndianUint(byte[] target, int offset)
     {
         uint x = 0;
         x |= (uint)(target[offset] << 24);
@@ -71,9 +68,7 @@ public class SimpleStreamSerializer : ICuckooSerializer
         return x;
     }
 
-    private static void WriteBigEndianUint(byte[] target,
-        uint number,
-        int offset)
+    private static void WriteBigEndianUint(byte[] target, uint number, int offset)
     {
         target[offset] = (byte)(number >> 24);
         target[offset + 1] = (byte)(number >> 16);

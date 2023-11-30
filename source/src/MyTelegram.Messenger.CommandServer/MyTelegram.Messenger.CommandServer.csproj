@@ -5,6 +5,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
 
@@ -36,6 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <!--<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />-->
     <PackageReference Include="Serilog.Extensions.Hosting" />
     <PackageReference Include="Serilog.Sinks.Console" />
     <PackageReference Include="Serilog.Sinks.Async" />
@@ -71,7 +74,7 @@
     <ProjectReference Include="..\MyTelegram.Caching.Redis\MyTelegram.Caching.Redis.csproj" />
     <ProjectReference Include="..\MyTelegram.Domain\MyTelegram.Domain.csproj" />
     <ProjectReference Include="..\MyTelegram.GrpcService\MyTelegram.GrpcService.csproj" />
-    <ProjectReference Include="..\MyTelegram.EventBus.RabbitMQ\MyTelegram.EventBus.RabbitMQ.csproj" />
+    <!--<ProjectReference Include="..\MyTelegram.EventBus.RabbitMQ\MyTelegram.EventBus.RabbitMQ.csproj" />-->
     <ProjectReference Include="..\MyTelegram.EventBus.Rebus\MyTelegram.EventBus.Rebus.csproj" />
     <ProjectReference Include="..\MyTelegram.Messenger\MyTelegram.Messenger.csproj" />
     <ProjectReference Include="..\MyTelegram.Services\MyTelegram.Services.csproj" />

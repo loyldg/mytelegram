@@ -36,7 +36,6 @@ global using MyTelegram.Domain.Sagas.Events;
 global using MyTelegram.Domain.Sagas.Identities;
 global using MyTelegram.Domain.ValueObjects;
 global using MyTelegram.EventBus;
-global using MyTelegram.EventBus.RabbitMQ;
 global using MyTelegram.EventBus.Rebus;
 global using MyTelegram.EventFlow.MongoDB;
 global using MyTelegram.Messenger.Extensions;

@@ -30,8 +30,7 @@ public class GzipStreamSerializer : SimpleStreamSerializer
     /// </summary>
     /// <param name="source">Source stream to read</param>
     /// <param name="hashAlgorithm">Hash algorithm</param>
-    public override CuckooFilter Deserialize(Stream source,
-        IHashAlgorithm hashAlgorithm = null)
+    public override CuckooFilter Deserialize(Stream source, IHashAlgorithm hashAlgorithm = null)
     {
         var compressionStream = new GZipStream(source, CompressionMode.Decompress);
         return base.Deserialize(compressionStream, hashAlgorithm);
@@ -42,8 +41,7 @@ public class GzipStreamSerializer : SimpleStreamSerializer
     /// </summary>
     /// <param name="target">Target stream to write to</param>
     /// <param name="filter">Filter to serialize</param>
-    public override void Serialize(Stream target,
-        CuckooFilter filter)
+    public override void Serialize(Stream target, CuckooFilter filter)
     {
         var compressionStream = new GZipStream(target, _compressionLevel);
         base.Serialize(compressionStream, filter);
