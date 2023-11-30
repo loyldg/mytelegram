@@ -160,6 +160,7 @@ services:
        Redis__Configuration: ${RedsConfiguration}
        App__MessengerServerGrpcServiceUrl: ${MessengerServerGrpcServiceUrl}
        App__IdGeneratorGrpcServiceUrl: ${IdGeneratorGrpcServiceUrl}
+       App__DatabaseName: ${DatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
     volumes:
       - ./data/mytelegram/session/logs:/data/Logs
@@ -204,6 +205,7 @@ services:
        App__DcOptions__0__IpAddress: ${DcOptions0IpAddress}
        App__DcOptions__0__Port: ${DcOptions0Port}
        App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
+       App__DatabaseName: ${DatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
        Minio__Endpoint: ${MinioEndpoint}
        Minio__AccessKey: ${MinioAccessKey}
@@ -214,9 +216,9 @@ services:
       - mongodb
       - rabbitmq
 
-  ### 7.Messenger server
-  messenger-server:
-    image: mytelegram/mytelegram-messenger-server:${MyTelegramVersion}
+  ### 7.Messenger command server
+  messenger-command-server:
+    image: mytelegram/mytelegram-messenger-command-server:${MyTelegramVersion}
     restart: always
     networks:
       - tg-net
@@ -233,9 +235,42 @@ services:
        App__DcOptions__0__Port: ${DcOptions0Port}
        App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
        App__FixedVerifyCode: ${FixedVerifyCode}
+       App__DatabaseName: ${DatabaseName}
+       App__QueryServerEventStoreDatabaseName: ${QueryServerEventStoreDatabaseName}
+       App__QueryServerReadModelDatabaseName: ${QueryServerReadModelDatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
     volumes:
-      - ./data/mytelegram/messenger/logs:/data/Logs
+      - ./data/mytelegram/messenger-command-server/logs:/data/Logs
+    depends_on:
+      - mongodb
+      - rabbitmq
+      - redis
+
+  ### 7.Messenger query server
+  messenger-query-server:
+    image: mytelegram/mytelegram-messenger-query-server:${MyTelegramVersion}
+    restart: always
+    networks:
+      - tg-net
+    environment:
+       ConnectionStrings__Default: ${DefaultConnectionStrings} 
+       RabbitMQ__Connections__Default__HostName: ${RabbitMqConnectionsDefaultHostName}
+       RabbitMQ__Connections__Default__Port: ${RabbitMqConnectionsDefaultPort}
+       RabbitMQ__Connections__Default__UserName: ${RabbitMqConnectionsDefaultUserName}
+       RabbitMQ__Connections__Default__Password: ${RabbitMqConnectionsDefaultPassword}
+       Redis__Configuration: ${RedsConfiguration}
+       App__FileServerGrpcServiceUrl: ${FileServerGrpcServiceUrl}
+       App__IdGeneratorGrpcServiceUrl: ${IdGeneratorGrpcServiceUrl}
+       App__DcOptions__0__IpAddress: ${DcOptions0IpAddress}
+       App__DcOptions__0__Port: ${DcOptions0Port}
+       App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
+       App__FixedVerifyCode: ${FixedVerifyCode}
+       App__DatabaseName: ${DatabaseName}
+       App__QueryServerEventStoreDatabaseName: ${QueryServerEventStoreDatabaseName}
+       App__QueryServerReadModelDatabaseName: ${QueryServerReadModelDatabaseName}
+       Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+    volumes:
+      - ./data/mytelegram/messenger-query-server/logs:/data/Logs
     depends_on:
       - mongodb
       - rabbitmq
