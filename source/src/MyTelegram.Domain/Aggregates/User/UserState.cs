@@ -10,7 +10,8 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
     IApply<UserVerifiedHasSetEvent>,
     IApply<UserNameUpdatedEvent>,
     IApply<UserProfilePhotoChangedEvent>,
-    IApply<CheckUserStateCompletedEvent>
+    IApply<CheckUserStateCompletedEvent>,
+    IApply<UserProfilePhotoUploadedEvent>
 {
     public long AccessHash { get; private set; }
     public string FirstName { get; private set; } = default!;
@@ -32,8 +33,8 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
     public long? PhotoId { get; private set; }
     public long? FallbackPhotoId { get; private set; }
     public CircularBuffer<long> RecentEmojiStatus { get; private set; } = new(10);
-
-
+    public int Color { get; private set; }
+    public long? BackgroundEmojiId { get; private set; }
     public void Apply(CheckUserStatusCompletedEvent aggregateEvent)
     {
         //throw new NotImplementedException();
@@ -113,5 +114,11 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
 
         PhotoId = snapshot.PhotoId;
         FallbackPhotoId = snapshot.FallbackPhotoId;
+    }
+
+
+    public void Apply(UserProfilePhotoUploadedEvent aggregateEvent)
+    {
+        PhotoId = aggregateEvent.PhotoId;
     }
 }
