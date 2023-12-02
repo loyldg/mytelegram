@@ -10,18 +10,18 @@ public class UploadProfilePhotoCommand : RequestCommand2<UserAggregate, UserId, 
         //long fileId,
         long photoId,
         bool fallback,
-        byte[]? photo,
+        //byte[]? photo,
         VideoSizeEmojiMarkup? videoEmojiMarkup = null
     ) : base(aggregateId, requestInfo)
     {
         PhotoId = photoId;
         Fallback = fallback;
-        Photo = photo;
+        //Photo = photo;
         VideoEmojiMarkup = videoEmojiMarkup;
     }
 
     public long PhotoId { get; }
     public bool Fallback { get; }
-    public byte[]? Photo { get; }
+    //public byte[]? Photo { get; }
     public VideoSizeEmojiMarkup? VideoEmojiMarkup { get; }
 }

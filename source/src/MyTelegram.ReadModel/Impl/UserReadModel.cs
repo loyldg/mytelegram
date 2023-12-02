@@ -8,7 +8,8 @@ public class UserReadModel : IUserReadModel,
     IAmReadModelFor<UserAggregate, UserId, UserSupportHasSetEvent>,
     IAmReadModelFor<UserAggregate, UserId, UserVerifiedHasSetEvent>,
     IAmReadModelFor<UserAggregate, UserId, UserNameUpdatedEvent>,
-    IAmReadModelFor<UserAggregate, UserId, UserProfilePhotoChangedEvent>
+    IAmReadModelFor<UserAggregate, UserId, UserProfilePhotoChangedEvent>,
+    IAmReadModelFor<UserAggregate,UserId, UserProfilePhotoUploadedEvent>
 {
     public virtual string? About { get; private set; }
     public virtual long AccessHash { get; private set; }

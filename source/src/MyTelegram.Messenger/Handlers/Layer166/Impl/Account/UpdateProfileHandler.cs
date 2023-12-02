@@ -14,9 +14,24 @@ namespace MyTelegram.Handlers.Account;
 internal sealed class UpdateProfileHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestUpdateProfile, MyTelegram.Schema.IUser>,
     Account.IUpdateProfileHandler
 {
-    protected override Task<MyTelegram.Schema.IUser> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestUpdateProfile obj)
+    private readonly ICommandBus _commandBus;
+
+    public UpdateProfileHandler(ICommandBus commandBus)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+    }
+
+    protected override async Task<IUser> HandleCoreAsync(IRequestInput input,
+        RequestUpdateProfile obj)
+    {
+        var userId = UserId.Create(input.UserId);
+        var command = new UpdateProfileCommand(userId,
+            input.ToRequestInfo(),
+            obj.FirstName,
+            obj.LastName,
+            obj.About);
+        await _commandBus.PublishAsync(command, CancellationToken.None);
+
+        return null!;
     }
 }
