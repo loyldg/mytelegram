@@ -12,10 +12,10 @@ public class UserStatus
         LastUpdateDate = DateTime.UtcNow;
     }
 
-    public DateTime LastUpdateDate { get; private set; }
-    public bool Online { get; private set; }
+    public DateTime LastUpdateDate { get; internal set; }
+    public bool Online { get; internal set; }
 
-    public long UserId { get; private set; }
+    public long UserId { get; internal set; }
 
     public void UpdateStatus(bool online)
     {

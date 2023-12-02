@@ -31,7 +31,6 @@ public static class EventFlowOptionsSystemTextJsonExtensions
             configure?.Invoke(jsonOptions);
         });
         services.AddSingleton<IJsonSerializer>(serializer);
-        services.AddSingleton<ISystemTextJsonSerializer>(serializer);
 
         return services;
     }

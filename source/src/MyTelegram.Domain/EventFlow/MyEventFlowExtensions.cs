@@ -9,7 +9,7 @@ public static class MyEventFlowExtensions
         services.AddTransient<IDomainEventFactory, MyDomainEventFactory>();
         services.AddTransient(typeof(IReadModelFactory<>), typeof(MyReadModelFactory<>));
         services.AddTransient<IAggregateFactory, MyAggregateFactory>();
-        services.AddTransient<IJsonSerializer, SystemTextJsonSerializer>();
+        //services.AddTransient<IJsonSerializer, SystemTextJsonSerializer>();
         services.AddSingleton<IInMemoryEventPersistence, MyInMemoryEventPersistence>();
         services.AddSingleton<INullEventPersistence, NullEventPersistence>();
 

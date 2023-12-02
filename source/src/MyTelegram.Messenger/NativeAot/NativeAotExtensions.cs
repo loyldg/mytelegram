@@ -1,6 +1,12 @@
 ﻿using System.Collections.ObjectModel;
+using EventFlow.MongoDB.EventStore;
+using EventFlow.MongoDB.SnapshotStores;
+using EventFlow.MongoDB.ValueObjects;
 using EventFlow.Sagas;
 using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver.Core.Operations;
+using MyTelegram.Messenger.Handlers.Impl;
+
 //using MyTelegram.Domain.Aggregates.Bot;
 using DialogReadModel = MyTelegram.ReadModel.MongoDB.DialogReadModel;
 
@@ -9,8 +15,59 @@ namespace MyTelegram.Messenger.NativeAot;
 
 public static class NativeAotExtensions
 {
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(global::EventFlow.MongoDB.SnapshotStores.MongoDbSnapshotPersistence))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegramMessengerServerOptions))]
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IAuthorizationConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IChatConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IConfigConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IDialogConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IDifferenceConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IMessageConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IPeerConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IPeerNotifySettingsConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IPhotoConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IPollConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IPremiumPromoConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<ISendAsPeerConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<ITranslationTextConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IUpdatesConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ILayeredService<IUserConverter>))]
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IAuthorizationConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IChatConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IConfigConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IDialogConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IDifferenceConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IMessageConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IPeerConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IPeerNotifySettingsConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IPhotoConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IPollConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IPremiumPromoConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<ISendAsPeerConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<ITranslationTextConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IUpdatesConverter>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IUserConverter>))]
+
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<CachedFutureSalt>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<string>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<UserCacheItem>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<GlobalPrivacySettingsCacheItem>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDbEventPersistence))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDbSnapshotPersistence))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDbEventDataModel))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MyTelegramMessengerServerOptions))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.Int64Serializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.StringSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.Int32Serializer))]
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.GuidSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.BooleanSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.BitArraySerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.DoubleSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.ObjectSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.ExpandoObjectSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.NullableSerializer<long>))]
     public static IServiceCollection AddMyNativeAot(this IServiceCollection services)
     { 
         services.AddTransient<ISagaStore, MySagaAggregateStore>();
@@ -89,6 +146,17 @@ public static class NativeAotExtensions
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageView))]
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.Int64Serializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.StringSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.Int32Serializer))]
+
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.GuidSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.BooleanSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.BitArraySerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.DoubleSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.ObjectSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.ExpandoObjectSerializer))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MongoDB.Bson.Serialization.Serializers.NullableSerializer<long>))]
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(NullableSerializer<Guid>))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(NullableSerializer<int>))]
@@ -145,7 +213,10 @@ public static class NativeAotExtensions
         Fix<EnumSerializer<PrivacyType>>();
         Fix<EnumSerializer<PrivacyValueType>>();
         Fix<EnumSerializer<PtsChangeReason>>();
+        Fix<EnumSerializer<UpdatesType>>();
+        Fix<EnumSerializer<ReactionType>>();
         Fix<EnumSerializer<SendMessageType>>();
+        Fix<EnumSerializer<UpdateType>>();
     }
 
     private static void FixEventFlowServices()

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using MyTelegram.Core;
+using MyTelegram.Services.NativeAot;
 using MyTelegram.Services.Services;
 
 namespace MyTelegram.Services.Extensions
@@ -27,7 +28,6 @@ namespace MyTelegram.Services.Extensions
 
             services.AddSingleton<ICacheSerializer, CacheSerializer>();
             services.AddSingleton<IInvokeAfterMsgProcessor, InvokeAfterMsgProcessor>();
-            services.AddSystemTextJson();
 
             return services;
         }

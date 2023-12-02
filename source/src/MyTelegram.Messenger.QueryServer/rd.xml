@@ -9,7 +9,8 @@
 
         <Assembly Name="MyTelegram.Messenger.QueryServer" Serialize="Required All" Dynamic="Required All">
         </Assembly>
-
+        <Assembly Name="MyTelegram.Messenger" Serialize="Required All" Dynamic="Required All">
+        </Assembly>
 
         <Assembly Name="MyTelegram.Core" Serialize="Required All" Dynamic="Required All">
         </Assembly>
@@ -39,6 +40,7 @@
         <Assembly Name="EventFlow" Dynamic="Required All"  Serialize="Required All">
         </Assembly>
         <Assembly Name="EventFlow.MongoDB" Dynamic="Required All"  Serialize="Required All">
+          <Type Name="EventFlow.MongoDB.EventStore.MongoDbEventPersistence" Dynamic="Required All" Serialize="Required All"/>
         </Assembly>
         <Assembly Name="MongoDB.Driver" Dynamic="Required All"  Serialize="Required All">
           <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.PeerType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
@@ -73,6 +75,10 @@
         <Assembly Name="Serilog.Sinks.File" Serialize="Required All" Dynamic="Required All"></Assembly>
         <Assembly Name="Serilog.Sinks.Async" Serialize="Required All" Dynamic="Required All"></Assembly>
 
+        <Assembly Name="Rebus" Serialize="Required All" Dynamic="Required All"></Assembly>
+        <Assembly Name="Rebus.RabbitMq" Serialize="Required All" Dynamic="Required All"></Assembly>
+        <Assembly Name="Rebus.ServiceProvider" Serialize="Required All" Dynamic="Required All"></Assembly>
+      
         <!--MongoDb-->
         <!--<Assembly Name="MongoDB.Driver">
             <Type Name="MongoDB.Driver.Linq.Linq2Implementation.Translators.ProjectedObject">

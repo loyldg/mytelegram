@@ -1,8 +1,10 @@
 ﻿using System.Text.Json.Serialization;
+using EventFlow.MongoDB.ValueObjects;
 using EventFlow.Provided.Jobs;
 using MyTelegram.Domain.Events.Poll;
 using MyTelegram.Domain.Events.Pts;
 using MyTelegram.Domain.Events.UserName;
+using MyTelegram.Messenger.Handlers.Impl;
 using SendOutboxMessageCompletedEvent = MyTelegram.Domain.Sagas.Events.SendOutboxMessageCompletedEvent;
 
 namespace MyTelegram.Messenger.NativeAot;
@@ -10,6 +12,12 @@ namespace MyTelegram.Messenger.NativeAot;
 //[JsonSerializable(typeof(EventFlow.Aggregates.Metadata))]
 //DeleteChatMessagesStartedEvent
 //DeleteMessageSaga2StartedEvent
+
+[JsonSerializable(typeof(CachedFutureSalt))]
+[JsonSerializable(typeof(UserCacheItem))]
+[JsonSerializable(typeof(GlobalPrivacySettingsCacheItem))]
+
+[JsonSerializable(typeof(MongoDbEventDataModel))]
 [JsonSerializable(typeof(PtsForAuthKeyIdUpdatedEvent))]
 [JsonSerializable(typeof(CreateChannelSagaStartedEvent))]
 [JsonSerializable(typeof(InboxItemsAddedToOutboxMessageEvent))]

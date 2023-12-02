@@ -7,6 +7,7 @@ using MyTelegram.Messenger;
 using MyTelegram.Messenger.CommandServer.BackgroundServices;
 using MyTelegram.Messenger.CommandServer.Extensions;
 using MyTelegram.Messenger.Extensions;
+using MyTelegram.Messenger.NativeAot;
 using MyTelegram.Services.NativeAot;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -84,6 +85,12 @@ builder.ConfigureServices((ctx,
     {
         options.Configuration = ctx.Configuration.GetValue<string>("Redis:Configuration");
     });
+    services.AddCacheJsonSerializer(options =>
+    {
+        options.TypeInfoResolverChain.Add(MyJsonSerializeContext.Default);
+        options.TypeInfoResolverChain.Add(MyMessengerJsonContext.Default);
+    });
+
     services.AddMyTelegramMessengerCommandServer();
 
     services.AddHostedService<MyTelegramMessengerServerInitBackgroundService>();
@@ -102,5 +109,4 @@ var app = builder.Build();
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 eventBus.ConfigureEventBus();
-
 await app.RunAsync();

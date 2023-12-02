@@ -55,12 +55,6 @@ public static class MyTelegramMessengerServerExtensions
             options.AddMessengerMongoDbReadModel();
             options.AddMongoDbQueryHandlers();
 
-            options.AddSystemTextJson(jsonSerializerOptions =>
-            {
-                jsonSerializerOptions.AddSingleValueObjects(
-                    new SystemTextJsonSingleValueObjectConverter<CacheKey>());
-                jsonSerializerOptions.TypeInfoResolverChain.Add(MyMessengerJsonContext.Default);
-            });
             configure?.Invoke(options);
         })
             .AddMyTelegramCoreServices()

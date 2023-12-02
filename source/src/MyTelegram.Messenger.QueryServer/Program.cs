@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using MyTelegram;
 using MyTelegram.Caching.Redis;
 using MyTelegram.Messenger;
+using MyTelegram.Messenger.NativeAot;
 using MyTelegram.Messenger.QueryServer.BackgroundServices;
 using MyTelegram.Messenger.QueryServer.Extensions;
 using MyTelegram.Services.NativeAot;
@@ -37,6 +38,7 @@ TaskScheduler.UnobservedTaskException += (s,
     Log.Error(e.Exception.ToString());
 };
 var builder = Host.CreateDefaultBuilder(args);
+
 builder.UseSerilog((context,
     configuration) =>
 {
@@ -79,6 +81,11 @@ builder.ConfigureServices((ctx,
     services.AddMyTelegramStackExchangeRedisCache(options =>
     {
         options.Configuration = ctx.Configuration.GetValue<string>("Redis:Configuration");
+    });
+    services.AddCacheJsonSerializer(options =>
+    {
+        options.TypeInfoResolverChain.Add(MyJsonSerializeContext.Default);
+        options.TypeInfoResolverChain.Add(MyMessengerJsonContext.Default);
     });
 
     services.AddHostedService<MyTelegramMessengerServerInitBackgroundService>();

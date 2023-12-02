@@ -9,7 +9,7 @@ public class InboxItem : ValueObject
         InboxMessageId = inboxMessageId;
     }
 
-    public int InboxMessageId { get; }
+    public int InboxMessageId { get; init; }
 
-    public long InboxOwnerPeerId { get; }
+    public long InboxOwnerPeerId { get; init; }
 }

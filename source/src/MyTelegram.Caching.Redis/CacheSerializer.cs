@@ -5,22 +5,20 @@ namespace MyTelegram.Caching.Redis;
 
 public class CacheSerializer : ICacheSerializer
 {
-    //private readonly IJsonSerializer _jsonSerializer;
+    private readonly JsonSerializerOptions _options;
 
-    //public CacheSerializer(IJsonSerializer jsonSerializer)
-    //{
-    //    _jsonSerializer = jsonSerializer;
-    //}
+    public CacheSerializer(JsonSerializerOptions options)
+    {
+        _options = options ?? throw new ArgumentNullException(nameof(options));
+    }
 
     public byte[] Serialize<T>(T obj)
     {
-        //return Encoding.UTF8.GetBytes(_jsonSerializer.Serialize(obj));
-        return JsonSerializer.SerializeToUtf8Bytes(obj);
+        return JsonSerializer.SerializeToUtf8Bytes(obj, _options);
     }
 
     public T? Deserialize<T>(byte[] bytes)
     {
-        //return _jsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(bytes));
-        return JsonSerializer.Deserialize<T>(bytes);
+        return JsonSerializer.Deserialize<T>(bytes, _options);
     }
 }

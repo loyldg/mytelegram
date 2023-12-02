@@ -9,6 +9,6 @@ public class BotCommand : ValueObject
         Description = description;
     }
 
-    public string Command { get; private set; }
-    public string Description { get; private set; }
+    public string Command { get; init; }
+    public string Description { get; init; }
 }

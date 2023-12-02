@@ -113,14 +113,7 @@ public static class MyTelegramMessengerQueryServerExtensions
             //options.UseMongoDbReadModel<BotAggregate, BotId, ReadModel.MongoDB.BotReadModel, BotMongoDbContext>();
 
             //options.AddMyMongoDbReadModelServices();
-
-
-            options.AddSystemTextJson(jsonSerializerOptions =>
-            {
-                jsonSerializerOptions.AddSingleValueObjects(
-                    new SystemTextJsonSingleValueObjectConverter<CacheKey>());
-                jsonSerializerOptions.TypeInfoResolverChain.Add(MyMessengerJsonContext.Default);
-            });
+             
             configure?.Invoke(options);
         });
 
@@ -139,6 +132,13 @@ public static class MyTelegramMessengerQueryServerExtensions
         //services.AddTransient<IReadModelUpdateManager, MyTelegramQueryServerReadModelUpdateManager>();
 
         services.AddSingleton(typeof(ICommandExecutor<,,>), typeof(CommandExecutor<,,>));
+
+        services.AddSystemTextJson(options =>
+        {
+            options.AddSingleValueObjects();
+            options.TypeInfoResolverChain.Add(MyJsonSerializeContext.Default);
+            options.TypeInfoResolverChain.Add(MyMessengerJsonContext.Default);
+        });
 
         services.AddMyNativeAot();
 

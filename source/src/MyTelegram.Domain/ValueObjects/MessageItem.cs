@@ -92,6 +92,6 @@ public class MessageItem : ValueObject
     public long? PollId { get; init; }
     public byte[]? ReplyMarkup { get; init; }
     public long? LinkedChannelId { get; internal set; }
-    public int? TopMsgId { get; }
-    public string? PostAuthor { get; }
+    public int? TopMsgId { get; init; }
+    public string? PostAuthor { get; init; }
 }

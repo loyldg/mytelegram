@@ -11,7 +11,7 @@ Log.Logger = new LoggerConfiguration()
 Log.Information("{Info} {Version}", "MyTelegram Gateway Server", typeof(Program).Assembly.GetName().Version);
 Log.Information("{Description} {Url}", "For more information, please visit", "https://github.com/loyldg/mytelegram");
 
-Log.Information("MyTelegram gateway server starting...");
+Log.Information("MyTelegram gateway server starting 2...");
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context,

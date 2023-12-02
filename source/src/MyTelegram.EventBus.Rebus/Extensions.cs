@@ -44,7 +44,9 @@ public static class Extensions
         Action<JsonSerializerOptions>? configureAction = null)
     {
         var jsonOptions = new JsonSerializerOptions(JsonSerializerOptions.Default);
-        rebusConfigurer.Serialization(x => x.UseSystemTextJson(jsonOptions));
         configureAction?.Invoke(jsonOptions);
+        Console.WriteLine($"jsonOptions.TypeInfoResolverChain.Count:{jsonOptions.TypeInfoResolverChain.Count}");
+        
+        rebusConfigurer.Serialization(x => x.UseSystemTextJson(jsonOptions));
     }
 }
