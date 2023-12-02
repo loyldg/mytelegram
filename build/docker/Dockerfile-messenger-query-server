@@ -97,7 +97,9 @@ RUN dotnet build "./MyTelegram.Messenger.QueryServer.csproj" -c $BUILD_CONFIGURA
 
 FROM build AS publish
 RUN dotnet publish "./MyTelegram.Messenger.QueryServer.csproj" -r $RUNTIME_PLATFORM -c $BUILD_CONFIGURATION -o /app/publish -p:PublishAot=true &&\
-	strip /app/publish/MyTelegram.Messenger.QueryServer
+	strip /app/publish/MyTelegram.Messenger.QueryServer &&\
+	rm /app/publish/*.pdb /app/publish/*.dbg
+
 FROM alpine AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
