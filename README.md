@@ -1,4 +1,4 @@
-# MyTelegram  [中文](README-zh-cn.md)|English
+# MyTelegram
 [![API Layer](https://img.shields.io/badge/API_Layer-166-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![Support Chat](https://img.shields.io/badge/Chat_with_us-on_Telegram-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
@@ -49,7 +49,7 @@ dotnet publish -c Release
     https://github.com/loyldg/mytelegram/blob/dev/docker/compose/docker-compose.yml
     https://github.com/loyldg/mytelegram/blob/dev/docker/compose/.env
     ```
-2. Change the IP address configuration in **.env**,replace `127.0.0.1` with the IP address of gateway server
+2. Change the IP address configuration in **.env**,replace `192.168.1.100` with the IP address of gateway server
 3. Run the following command in the directory where the docker-compose.yml file is located
     ```
     docker compose up
@@ -62,11 +62,11 @@ dotnet publish -c Release
 4. Install MongoDB
 5. Intall RabbitMQ
 6. Install Minio
-7. Modify server configuration in `start-all.bat`/`start-all.ps1`/`start-all.sh`,replace `127.0.0.1` with the IP address of gateway server
-8. Run `start-all.bat`/`start-all.ps1`/`start-all.sh`
+7. Modify server configuration in `start-all.bat`/`start-all.sh`,replace `192.168.1.100` with the IP address of gateway server
+8. Run `start-all.bat`/`start-all.sh`
 
 - ### Test with compiled client
-1. Download [TDesktop client(v4.11.7)](https://github.com/loyldg/mytelegram/releases/download/v0.15.1122/Telegram-4.11.7-x64.zip)
+1. Download [TDesktop client(v4.11.7)](https://github.com/loyldg/mytelegram/releases/download/v0.15.1125/Telegram-4.11.7-x64.zip)
 2. Add the IP address of the gateway server to hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line to hosts file
 ```
 192.168.1.100    demos2.mytelegram.top
