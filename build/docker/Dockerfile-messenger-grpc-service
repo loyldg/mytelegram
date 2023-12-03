@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
@@ -36,6 +36,7 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./MyTelegram.MessengerServer.GrpcService.csproj" -c $BUILD_CONFIGURATION -o /app/publish
 
 FROM base AS final
+#ENV ASPNETCORE_URLS=http://+:80 DOTNET_RUNNING_IN_CONTAINER=true DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "MyTelegram.MessengerServer.GrpcService.dll"]

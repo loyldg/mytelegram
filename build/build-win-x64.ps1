@@ -1,10 +1,11 @@
-$version="0.13.421"
+$version="0.15.1125"
 $currentDir=(Get-Item .).FullName
 $parentFolder=(Get-Item $currentDir).Parent
 $outputRootFolder=Join-Path $parentFolder "out" $version 
 $sourceRootFolder=Join-Path $parentFolder "./source/src"
 
-$messengerOutputFolder=Join-Path $outputRootFolder "messenger"
+$messengerCommandServerOutputFolder=Join-Path $outputRootFolder "messenger-command"
+$messengerQueryServerOutputFolder=Join-Path $outputRootFolder "messenger-query"
 $messengerGrpcServiceOutputFolder=Join-Path $outputRootFolder "messenger-grpc-service"
 $smsSenderOutputFolder=Join-Path $outputRootFolder "sms-sender"
 
@@ -31,7 +32,8 @@ function Build-Server([System.String]$srcFolder,[System.String] $outputFolder) {
 
 # Set-Location ../source/
 #dotnet restore ./MyTelegram.sln
-Build-Server "./MyTelegram.MessengerServer" $messengerOutputFolder
+Build-Server "./MyTelegram.Messenger.CommandServer" $messengerCommandServerOutputFolder
+Build-Server "./MyTelegram.Messenger.QueryServer" $messengerQueryServerOutputFolder
 Build-Server "./MyTelegram.MessengerServer.GrpcService" $messengerGrpcServiceOutputFolder
 Build-Server "./MyTelegram.SmsSender" $smsSenderOutputFolder
 Set-Location $currentDir

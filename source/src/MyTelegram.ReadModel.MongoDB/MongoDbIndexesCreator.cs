@@ -104,7 +104,6 @@ public class MongoDbIndexesCreator : MongoDbIndexesCreatorBase
 
         await CreateIndexAsync<PushUpdatesReadModel>(p => p.PeerId);
         await CreateIndexAsync<PushUpdatesReadModel>(p => p.Pts);
-        await CreateIndexAsync<PushUpdatesReadModel>(p => p.PtsType);
         await CreateIndexAsync<PushUpdatesReadModel>(p => p.SeqNo);
 
         await CreateIndexAsync<ReadingHistoryReadModel>(p => p.MessageId);

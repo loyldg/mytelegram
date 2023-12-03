@@ -43,6 +43,11 @@
           <Type Name="EventFlow.MongoDB.EventStore.MongoDbEventPersistence" Dynamic="Required All" Serialize="Required All"/>
         </Assembly>
         <Assembly Name="MongoDB.Driver" Dynamic="Required All"  Serialize="Required All">
+
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.WrappedValueSerializer`1[[System.Nullable`1[[System.Int64, System.Private.CoreLib]], System.Private.CoreLib]]" Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.WrappedValueSerializer`1[[System.Nullable`1[[System.Int32, System.Private.CoreLib]], System.Private.CoreLib]]" Dynamic="Required All" Serialize="Required All"/>
+          <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.WrappedValueSerializer`1[[System.Nullable`1[[System.Boolean, System.Private.CoreLib]], System.Private.CoreLib]]" Dynamic="Required All" Serialize="Required All"/>
+
           <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.PeerType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
                 Dynamic="Required All" Serialize="Required All"/>
           <Type Name="MongoDB.Driver.Linq.Linq3Implementation.Serializers.EnumUnderlyingTypeSerializer`2[[MyTelegram.MessageType,MyTelegram.Domain.Shared],[System.Int32,System.Private.CoreLib]]"
