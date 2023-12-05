@@ -4,6 +4,7 @@ $parentFolder=(Get-Item $currentDir).Parent
 $outputRootFolder=Join-Path $parentFolder "out" $version 
 $sourceRootFolder=Join-Path $parentFolder "./source/src"
 
+$gatewayServerOutputFolder=Join-Path $outputRootFolder "gateway"
 $messengerCommandServerOutputFolder=Join-Path $outputRootFolder "messenger-command"
 $messengerQueryServerOutputFolder=Join-Path $outputRootFolder "messenger-query"
 $messengerGrpcServiceOutputFolder=Join-Path $outputRootFolder "messenger-grpc-service"
@@ -19,19 +20,15 @@ function CreateFolderIfNotExists([System.String] $folder){
     }
 }
 
-function Build-Server([System.String]$srcFolder,[System.String] $outputFolder) {
-    # Set-Location $sourceRootFolder
-    # Set-Location $srcFolder
-    # dotnet publish -r win-x64 -c Release
-    # CreateFolderIfNotExists $outputFolder
-    # Copy-Item -Force -Path "./bin/Release/net6.0/win-x64/publish/*" -Include appsettings.json,*.key,*.exe,*.dll $outputFolder
+function Build-Server([System.String]$srcFolder,[System.String] $outputFolder) {   
 	$sourceFolder = Join-Path $sourceRootFolder $srcFolder
-    dotnet publish $sourceFolder -r win-x64 -c Release -o $outputFolder -p:PublishSingleFile=true -p:PublishTrimmed=true
+    dotnet publish $sourceFolder -c Release -o $outputFolder
     Get-ChildItem -Path $outputFolder *.pdb | ForEach-Object { Remove-Item -Path $_.FullName }
 }
 
 # Set-Location ../source/
 #dotnet restore ./MyTelegram.sln
+Build-Server "./MyTelegram.GatewayServer" $gatewayServerOutputFolder
 Build-Server "./MyTelegram.Messenger.CommandServer" $messengerCommandServerOutputFolder
 Build-Server "./MyTelegram.Messenger.QueryServer" $messengerQueryServerOutputFolder
 Build-Server "./MyTelegram.MessengerServer.GrpcService" $messengerGrpcServiceOutputFolder
