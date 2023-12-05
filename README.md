@@ -29,18 +29,8 @@ Pro version supports client communication with different layers,open source vers
 
 ## Build MyTelegram Server
 1. Install [.NET SDK 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-2. Execute the following command using powershell or Linux terminal
-```
-git clone https://github.com/loyldg/mytelegram.git 
-cd mytelegram/source
-dotnet restore
-cd ./src/MyTelegram.Messenger.CommandServer
-dotnet publish -c Release
-cd ../src/MyTelegram.Messenger.QueryServer
-dotnet publish -c Release
-cd ../MyTelegram.GatewayServer
-dotnet publish -c Release
-```
+2. Run `build/build.ps1`
+3. Build output folder is `out/{version}`
 
 ## Run MyTelegram server
 - ### Run MyTelegram server with docker
