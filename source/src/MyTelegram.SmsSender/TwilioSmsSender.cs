@@ -1,20 +1,16 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
-using Volo.Abp.DependencyInjection;
-using Volo.Abp.Sms;
 
 namespace MyTelegram.SmsSender;
 
-public class TwilioSmsSender : ISmsSender, ITransientDependency
+public class TwilioSmsSender : ISmsSender
 {
-    private readonly ILogger<TwilioSmsSender> _logger;
     private readonly IOptionsSnapshot<TwilioSmsOptions> _optionsSnapshot;
-    private readonly SemaphoreSlim _semaphore = new(1);
     private bool _isTwilioClientInited;
-
+    private readonly SemaphoreSlim _semaphore = new(1);
+    private readonly ILogger<TwilioSmsSender> _logger;
     public TwilioSmsSender(IOptionsSnapshot<TwilioSmsOptions> optionsSnapshot,
         ILogger<TwilioSmsSender> logger)
     {
@@ -27,12 +23,9 @@ public class TwilioSmsSender : ISmsSender, ITransientDependency
     {
         if (!_optionsSnapshot.Value.Enabled)
         {
-            _logger.LogWarning("Twilio sms sender disabled,the code will not be sent.PhoneNumber:{To} Text:{Text}",
-                smsMessage.PhoneNumber,
-                smsMessage.Text);
+            _logger.LogWarning("Twilio sms sender disabled,the code will not be sent.PhoneNumber:{To} Text:{Text}", smsMessage.PhoneNumber, smsMessage.Text);
             return;
         }
-
         // InitTwilioClientIfNeed();
         if (!_isTwilioClientInited)
         {
@@ -43,8 +36,7 @@ public class TwilioSmsSender : ISmsSender, ITransientDependency
             from: new PhoneNumber(_optionsSnapshot.Value.FromNumber),
             body: smsMessage.Text);
         _logger.LogDebug("Send SMS result:{@Resource}", resource);
-        _logger.LogInformation(
-            "Send SMS completed,To={To},Status={Status} DateSent={DateSent} ErrorCode={ErrorCode} ErrorMessage={ErrorMessage} ",
+        _logger.LogInformation("Send SMS completed,To={To},Status={Status} DateSent={DateSent} ErrorCode={ErrorCode} ErrorMessage={ErrorMessage} ",
             resource.To,
             resource.Status,
             resource.DateSent,
@@ -64,7 +56,6 @@ public class TwilioSmsSender : ISmsSender, ITransientDependency
         {
             return;
         }
-
         //await _semaphore.WaitAsync();
         _semaphore.Wait();
 

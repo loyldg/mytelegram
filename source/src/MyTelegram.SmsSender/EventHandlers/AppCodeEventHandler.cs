@@ -1,17 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
-using Volo.Abp.DependencyInjection;
-using Volo.Abp.EventBus.Distributed;
-using Volo.Abp.Sms;
+﻿namespace MyTelegram.SmsSender.EventHandlers;
 
-namespace MyTelegram.SmsSender;
-
-public class AppCodeEventHandler : IDistributedEventHandler<AppCodeCreatedIntegrationEvent>, ITransientDependency
+public class AppCodeEventHandler : IEventHandler<AppCodeCreatedIntegrationEvent>
 {
-    private readonly ILogger<AppCodeEventHandler> _logger;
     private readonly ISmsSender _smsSender;
+    private readonly ILogger<AppCodeEventHandler> _logger;
 
-    public AppCodeEventHandler(ISmsSender smsSender,
-        ILogger<AppCodeEventHandler> logger)
+    public AppCodeEventHandler(ISmsSender smsSender, ILogger<AppCodeEventHandler> logger)
     {
         _smsSender = smsSender;
         _logger = logger;

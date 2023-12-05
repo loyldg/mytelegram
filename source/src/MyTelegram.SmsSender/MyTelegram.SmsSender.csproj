@@ -1,33 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!--<Import Project="..\..\common.props"/>-->
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Title>MyTelegram sms sender</Title>
-    <Description>MyTelegram sms sender</Description>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <!--<InvariantGlobalization>true</InvariantGlobalization>-->
-    <!--<DebuggerSupport>false</DebuggerSupport>
-    <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
-    <EventSourceSupport>false</EventSourceSupport>
-    <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
-    <InvariantGlobalization>true</InvariantGlobalization>
-    <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
-    <PublishTrimmed>true</PublishTrimmed>
-    <TrimMode>link</TrimMode>
-    <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
-    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
-    <PublishSingleFile>true</PublishSingleFile>
-    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
-    <StripSymbols>true</StripSymbols>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>-->
-
-  </PropertyGroup>
-
 
   <ItemGroup>
     <None Remove="appsettings.json" />
@@ -42,11 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Twilio" />
-    <PackageReference Include="Volo.Abp.Autofac" />
-    <PackageReference Include="Volo.Abp.EventBus.RabbitMQ" />
-    <PackageReference Include="Volo.Abp.Sms" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,10 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Fody">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <ProjectReference Include="..\MyTelegram.Core\MyTelegram.Core.csproj" />
+    <ProjectReference Include="..\MyTelegram.EventBus.Rebus\MyTelegram.EventBus.Rebus.csproj" />
+    <ProjectReference Include="..\MyTelegram.Services\MyTelegram.Services.csproj" />
   </ItemGroup>
 
 </Project>
