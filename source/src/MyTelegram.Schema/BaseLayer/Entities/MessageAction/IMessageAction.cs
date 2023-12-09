@@ -44,9 +44,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionSuggestProfilePhoto), nameof(TMessageActionSuggestProfilePhoto))]
 [JsonDerivedType(typeof(TMessageActionRequestedPeer), nameof(TMessageActionRequestedPeer))]
 [JsonDerivedType(typeof(TMessageActionSetChatWallPaper), nameof(TMessageActionSetChatWallPaper))]
-[JsonDerivedType(typeof(TMessageActionSetSameChatWallPaper), nameof(TMessageActionSetSameChatWallPaper))]
 [JsonDerivedType(typeof(TMessageActionGiftCode), nameof(TMessageActionGiftCode))]
 [JsonDerivedType(typeof(TMessageActionGiveawayLaunch), nameof(TMessageActionGiveawayLaunch))]
+[JsonDerivedType(typeof(TMessageActionGiveawayResults), nameof(TMessageActionGiveawayResults))]
 public interface IMessageAction : IObject
 {
 

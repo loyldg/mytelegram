@@ -44,8 +44,10 @@ public class UserReadModel : IUserReadModel,
     public long? ProfilePhotoId { get; private set; }
     public long? PersonalPhotoId { get; private set; }
     public long? FallbackPhotoId { get; private set; }
-    public int? Color { get; private set; }
-    public long? BackgroundEmojiId { get; private set; }
+    public PeerColor? Color { get; private set; }
+    public PeerColor? ProfileColor { get; private set; }
+    //public int? Color { get; private set; }
+    //public long? BackgroundEmojiId { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,

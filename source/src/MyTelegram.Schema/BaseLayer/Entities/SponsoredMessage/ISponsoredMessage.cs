@@ -61,6 +61,7 @@ public interface ISponsoredMessage : IObject
     /// See <a href="https://corefork.telegram.org/type/SponsoredWebPage" />
     ///</summary>
     MyTelegram.Schema.ISponsoredWebPage? Webpage { get; set; }
+    MyTelegram.Schema.IBotApp? App { get; set; }
 
     ///<summary>
     /// Sponsored message
@@ -72,6 +73,7 @@ public interface ISponsoredMessage : IObject
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
     ///</summary>
     TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
+    string? ButtonText { get; set; }
 
     ///<summary>
     /// If set, contains additional information about the sponsor to be shown along with the message.

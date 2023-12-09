@@ -123,6 +123,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateStoryID), nameof(TUpdateStoryID))]
 [JsonDerivedType(typeof(TUpdateStoriesStealthMode), nameof(TUpdateStoriesStealthMode))]
 [JsonDerivedType(typeof(TUpdateSentStoryReaction), nameof(TUpdateSentStoryReaction))]
+[JsonDerivedType(typeof(TUpdateBotChatBoost), nameof(TUpdateBotChatBoost))]
+[JsonDerivedType(typeof(TUpdateChannelViewForumAsMessages), nameof(TUpdateChannelViewForumAsMessages))]
+[JsonDerivedType(typeof(TUpdatePeerWallpaper), nameof(TUpdatePeerWallpaper))]
 public interface IUpdate : IObject
 {
 

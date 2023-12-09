@@ -45,8 +45,8 @@ public class UserMapper : ILayeredMapper,
             }
         }
 
-        destination.Color = source.Color;
-        destination.BackgroundEmojiId=source.BackgroundEmojiId;
+        destination.Color = source.Color.ToPeerColor();
+        destination.ProfileColor = source.ProfileColor.ToPeerColor();
 
         return destination;
     }

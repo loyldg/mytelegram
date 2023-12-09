@@ -32,6 +32,10 @@ public interface IBroadcastStats : IObject
     /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
     ///</summary>
     MyTelegram.Schema.IStatsAbsValueAndPrev SharesPerPost { get; set; }
+    MyTelegram.Schema.IStatsAbsValueAndPrev ReactionsPerPost { get; set; }
+    MyTelegram.Schema.IStatsAbsValueAndPrev ViewsPerStory { get; set; }
+    MyTelegram.Schema.IStatsAbsValueAndPrev SharesPerStory { get; set; }
+    MyTelegram.Schema.IStatsAbsValueAndPrev ReactionsPerStory { get; set; }
 
     ///<summary>
     /// Percentage of subscribers with enabled notifications
@@ -92,10 +96,8 @@ public interface IBroadcastStats : IObject
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
     ///</summary>
     MyTelegram.Schema.IStatsGraph LanguagesGraph { get; set; }
-
-    ///<summary>
-    /// Recent message interactions
-    /// See <a href="https://corefork.telegram.org/type/MessageInteractionCounters" />
-    ///</summary>
-    TVector<MyTelegram.Schema.IMessageInteractionCounters> RecentMessageInteractions { get; set; }
+    MyTelegram.Schema.IStatsGraph ReactionsByEmotionGraph { get; set; }
+    MyTelegram.Schema.IStatsGraph StoryInteractionsGraph { get; set; }
+    MyTelegram.Schema.IStatsGraph StoryReactionsByEmotionGraph { get; set; }
+    TVector<MyTelegram.Schema.IPostInteractionCounters> RecentPostsInteractions { get; set; }
 }

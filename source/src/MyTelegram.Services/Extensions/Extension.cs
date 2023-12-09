@@ -5,6 +5,17 @@ namespace MyTelegram.Services.Extensions;
 
 public static class Extension
 {
+    public static Peer ToChannelPeer(this IInputChannel channel)
+    {
+        if (channel is TInputChannel inputChannel)
+        {
+            return new Peer(PeerType.Channel, inputChannel.ChannelId, inputChannel.AccessHash);
+        }
+
+        RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
+        return null!;
+    }
+
     public static IMessageReplyHeader? ToMessageReplyHeader(this IInputReplyTo? inputReplyTo)
     {
         return inputReplyTo switch
@@ -28,16 +39,6 @@ public static class Extension
         };
     }
 
-    public static Peer ToChannelPeer(this IInputChannel channel)
-    {
-        if (channel is TInputChannel inputChannel)
-        {
-            return new Peer(PeerType.Channel, inputChannel.ChannelId, inputChannel.AccessHash);
-        }
-
-        RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
-        return null!;
-    }
     public static Peer ToPeer(this IInputPeer peer,
         long selfUserId = 0)
     {
@@ -88,7 +89,6 @@ public static class Extension
         return new Peer(peerType, peerId, accessHash);
     }
 
-
     public static Peer ToPeer(this IInputUser userPeer,
         long selfUserId)
     {
@@ -118,23 +118,6 @@ public static class Extension
         return new Peer(peerType, peerId, accessHash);
     }
 
-    public static TRpcError ToRpcError(this string rpcErrorMessage, int rpcCode = 400)
-    {
-        return new TRpcError
-        {
-            ErrorCode = rpcCode,
-            ErrorMessage = rpcErrorMessage
-        };
-    }
-
-    public static RequestInfo ToRequestInfo(this IRequestInput requestInput)
-    {
-        return new RequestInfo(requestInput.ReqMsgId,
-            requestInput.UserId,
-            requestInput.AuthKeyId,
-            requestInput.PermAuthKeyId, requestInput.RequestId, requestInput.Layer, requestInput.Date);
-    }
-
     [return: NotNullIfNotNull("peer")]
     public static IPeer? ToPeer(this Peer? peer)
     {
@@ -159,5 +142,35 @@ public static class Extension
             default:
                 throw new ArgumentOutOfRangeException($"Peer type is invalid:peerType={peer.PeerType} peerId={peer.PeerId}");
         }
+    }
+
+    public static IPeerColor? ToPeerColor(this PeerColor? peerColor)
+    {
+        if (peerColor == null || (!peerColor.Color.HasValue && !peerColor.BackgroundEmojiId.HasValue))
+        {
+            return default;
+        }
+
+        return new TPeerColor
+        {
+            Color = peerColor.Color,
+            BackgroundEmojiId = peerColor.BackgroundEmojiId
+        };
+    }
+    public static RequestInfo ToRequestInfo(this IRequestInput requestInput)
+    {
+        return new RequestInfo(requestInput.ReqMsgId,
+            requestInput.UserId,
+            requestInput.AuthKeyId,
+            requestInput.PermAuthKeyId, requestInput.RequestId, requestInput.Layer, requestInput.Date);
+    }
+
+    public static TRpcError ToRpcError(this string rpcErrorMessage, int rpcCode = 400)
+    {
+        return new TRpcError
+        {
+            ErrorCode = rpcCode,
+            ErrorMessage = rpcErrorMessage
+        };
     }
 }
