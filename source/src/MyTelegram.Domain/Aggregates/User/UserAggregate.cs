@@ -10,6 +10,12 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         Register(_state);
     }
 
+    public void UpdateColor(RequestInfo requestInfo, PeerColor? color, bool forProfile)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new UserColorUpdatedEvent(requestInfo, _state.UserId, color, forProfile));
+    }
+
     public void UploadProfilePhoto(RequestInfo requestInfo,
         long photoId,
         bool fallback,
@@ -103,7 +109,9 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             _state.EmojiStatusValidUntil,
             _state.RecentEmojiStatus.ToList(),
             _state.PhotoId,
-            _state.FallbackPhotoId
+            _state.FallbackPhotoId,
+            _state.Color,
+            _state.ProfileColor
         ));
     }
 

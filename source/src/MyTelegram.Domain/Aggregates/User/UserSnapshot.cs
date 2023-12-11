@@ -17,8 +17,10 @@ public class UserSnapshot : ISnapshot
         int? emojiStatusValidUntil,
         List<long> recentEmojiStatuses,
         long? photoId,
-        long? fallbackPhotoId
-    )
+        long? fallbackPhotoId,
+        PeerColor? color,
+        PeerColor? profileColor
+        )
     {
         UserId = userId;
         IsOnline = isOnline;
@@ -36,6 +38,8 @@ public class UserSnapshot : ISnapshot
         RecentEmojiStatuses = recentEmojiStatuses;
         PhotoId = photoId;
         FallbackPhotoId = fallbackPhotoId;
+        Color = color;
+        ProfileColor = profileColor;
     }
 
     public long AccessHash { get; }
@@ -55,6 +59,8 @@ public class UserSnapshot : ISnapshot
     public List<long> RecentEmojiStatuses { get; }
     public long? PhotoId { get; }
     public long? FallbackPhotoId { get; }
+    public PeerColor? Color { get; }
+    public PeerColor? ProfileColor { get; }
 
     public long UserId { get; }
     public string? UserName { get; }
