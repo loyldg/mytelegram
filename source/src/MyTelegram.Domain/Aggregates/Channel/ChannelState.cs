@@ -22,7 +22,8 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     IApply<ChannelUserNameChangedEvent>,
     IApply<CheckChannelStateCompletedEvent>,
     IApply<DeleteParticipantHistoryStartedEvent>,
-    IApply<ChannelInviteEditedEvent>
+    IApply<ChannelInviteEditedEvent>,
+    IApply<ChannelColorUpdatedEvent>
 {
     //private List<ChatAdmin> _adminList = new();
     //public IReadOnlyList<ChatAdmin> AdminList => _adminList.AsReadOnly();
@@ -69,6 +70,7 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
 
     public bool SignatureEnabled { get; private set; }
     public int ParticipantCount { get; private set; }
+    public PeerColor? Color { get; private set; }
 
     public void Apply(ChannelAboutEditedEvent aggregateEvent)
     {
@@ -279,5 +281,10 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     public void Apply(ChannelInviteEditedEvent aggregateEvent)
     {
         //throw new NotImplementedException();
+    }
+
+    public void Apply(ChannelColorUpdatedEvent aggregateEvent)
+    {
+        Color = aggregateEvent.Color;
     }
 }

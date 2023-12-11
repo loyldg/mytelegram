@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace MyTelegram.Services.NativeAot;
 
-// Generation time:2023-11-30 01:26:22Z
+// Generation time:2023-12-09 05:52:02Z ,count:72
 // MyTelegram.Core
 [JsonSerializable(typeof(MyTelegram.Core.AcksDataReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.AppCodeCreatedIntegrationEvent))]
@@ -48,20 +48,27 @@ namespace MyTelegram.Services.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Core.UpdateSelfPtsEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UpdatesDataReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UploadDataReceivedEvent))]
+[JsonSerializable(typeof(MyTelegram.Core.UserCacheItem))]
 [JsonSerializable(typeof(MyTelegram.Core.UserIsOnlineEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UserSignInSuccessEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UserSignUpSuccessIntegrationEvent))]
 
 // MyTelegram.Domain.Shared
 [JsonSerializable(typeof(MyTelegram.Peer))]
+[JsonSerializable(typeof(MyTelegram.PeerColor))]
 [JsonSerializable(typeof(MyTelegram.PhotoSize))]
 [JsonSerializable(typeof(MyTelegram.VideoSize))]
 [JsonSerializable(typeof(MyTelegram.VideoSizeEmojiMarkup))]
 
 // EventFlow
 [JsonSerializable(typeof(EventFlow.Aggregates.Metadata))]
-[JsonSerializable(typeof(EventFlow.Snapshots.SnapshotMetadata))]
 [JsonSerializable(typeof(EventFlow.Provided.Jobs.DispatchToAsynchronousEventSubscribersJob))]
+[JsonSerializable(typeof(EventFlow.Snapshots.SnapshotMetadata))]
+[JsonSerializable(typeof(MyTelegram.Peer))]
+[JsonSerializable(typeof(MyTelegram.RequestInfo))]
+[JsonSerializable(typeof(MyTelegram.Core.UserCacheItem))]
+[JsonSerializable(typeof(MyTelegram.Services.Services.AckCacheItem))]
+[JsonSerializable(typeof(MyTelegram.Services.Services.PtsCacheItem))]
 
 [JsonSerializable(typeof(System.Collections.Generic.List<PhotoSize>))]
 [JsonSerializable(typeof(System.Collections.Generic.List<VideoSize>))]

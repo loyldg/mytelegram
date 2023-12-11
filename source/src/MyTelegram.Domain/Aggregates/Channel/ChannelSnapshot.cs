@@ -31,7 +31,8 @@ public class ChannelSnapshot : ISnapshot
         int? requestsPending,
         List<long>? recentRequesters,
         bool signatureEnabled,
-        int participantCount
+        int participantCount,
+        PeerColor? color
             )
     {
         Broadcast = broadcast;
@@ -64,6 +65,7 @@ public class ChannelSnapshot : ISnapshot
         RecentRequesters = recentRequesters;
         SignatureEnabled = signatureEnabled;
         ParticipantCount = participantCount;
+        Color = color;
     }
 
     //public long LastSenderPeerId { get; private set; }
@@ -101,4 +103,5 @@ public class ChannelSnapshot : ISnapshot
     public List<long>? RecentRequesters { get; }
     public bool SignatureEnabled { get; }
     public int ParticipantCount { get; }
+    public PeerColor? Color { get; }
 }

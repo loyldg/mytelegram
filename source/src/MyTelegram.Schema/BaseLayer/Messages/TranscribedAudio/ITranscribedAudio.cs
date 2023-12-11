@@ -28,4 +28,6 @@ public interface ITranscribedAudio : IObject
     /// Transcripted text
     ///</summary>
     string Text { get; set; }
+    int? TrialRemainsNum { get; set; }
+    int? TrialRemainsUntilDate { get; set; }
 }

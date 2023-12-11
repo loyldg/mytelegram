@@ -63,6 +63,7 @@ public interface IUserFull : IObject
     /// &nbsp;
     ///</summary>
     bool BlockedMyStoriesFrom { get; set; }
+    bool WallpaperOverridden { get; set; }
 
     ///<summary>
     /// User ID

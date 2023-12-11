@@ -4,11 +4,7 @@
 [![Support Chat](https://img.shields.io/badge/Chat_with_us-on_Telegram-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
 
 MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment
-## Demo
-WebA:[https://weba.mytelegram.top](https://weba.mytelegram.top/)  
-WebK:[https://webk.mytelegram.top](https://webk.mytelegram.top/)  
 
-**Verification Code:22222**
 ## Features
 * Supported API Layer:**`166`**  
 Open source version: **`166`**  
