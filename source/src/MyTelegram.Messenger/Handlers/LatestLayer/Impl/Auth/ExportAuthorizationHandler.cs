@@ -43,7 +43,8 @@ internal sealed class ExportAuthorizationHandler : RpcResultObjectHandler<MyTele
         var keyBytes = _hashHelper.Sha1(bytes);
         var key = BitConverter.ToString(keyBytes).Replace("-", string.Empty);
         var cacheKey = MyCacheKey.With("authorizations", key);
-        await _cacheManager.SetAsync(cacheKey, input.UserId.ToString());
+        var cacheSeconds = 600;//10m
+        await _cacheManager.SetAsync(cacheKey, input.UserId.ToString(), cacheSeconds);
 
         return new TExportedAuthorization { Bytes = bytes, Id = input.UserId };
     }
