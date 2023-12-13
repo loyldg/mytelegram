@@ -12,6 +12,9 @@ internal sealed class GetDefaultHistoryTTLHandler : RpcResultObjectHandler<MyTel
     protected override Task<MyTelegram.Schema.IDefaultHistoryTTL> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetDefaultHistoryTTL obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.IDefaultHistoryTTL>(new TDefaultHistoryTTL
+        {
+            Period = 1 * 30 * 24 * 60 * 60
+        });
     }
 }
