@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace MyTelegram.Messenger.NativeAot;
 
-// Generation time:2023-12-09 05:52:02Z
+// Generation time:2023-12-13 09:25:06Z
 // MyTelegram.Domain
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Channel.ChannelSnapshot))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Chat.ChatSnapshot))]
@@ -31,6 +31,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Events.AppCode.CheckSignUpCodeCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.ChannelAboutEditedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.ChannelAdminRightsEditedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.ChannelColorUpdatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.ChannelCreatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.ChannelCreatorCreatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Channel.ChannelDefaultBannedRightsEditedEvent))]
@@ -136,6 +137,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.CheckUserStateCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.CheckUserStatusCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.SendUserMessageStartedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserColorUpdatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserCreatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserNameUpdatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserProfilePhotoChangedEvent))]
@@ -152,6 +154,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ClearHistorySagaStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ClearPartialHistoryCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ClearSingleUserHistoryCompletedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.CreateChannelSagaStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.CreateChannelSuccessEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.DeleteMessagePtsIncrementedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.DeleteMessageSaga2StartedEvent))]
@@ -183,6 +186,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ReadHistoryReadLatestNoneBotOutboxMessageEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ReadHistoryStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ReceiveInboxMessageCompletedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.SendMessageSagaStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.SendOutboxMessageCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.SignInStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.SignInSuccessEvent))]
