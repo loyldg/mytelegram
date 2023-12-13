@@ -44,15 +44,15 @@ internal sealed class ImportAuthorizationHandler : RpcResultObjectHandler<MyTele
     {
         var keyBytes = _hashHelper.Sha1(obj.Bytes);
         var key = BitConverter.ToString(keyBytes).Replace("-", string.Empty);
-        var uidText = await _cacheManager.GetAsync(key);
+        var userIdText = await _cacheManager.GetAsync(key);
 
-        RpcErrors.RpcErrors400.AuthBytesInvalid.ThrowRpcError();
+        //RpcErrors.RpcErrors400.AuthBytesInvalid.ThrowRpcError();
 
-        if (int.TryParse(uidText, out var userId))
+        if (int.TryParse(userIdText, out var userId))
         {
             if (userId != obj.Id)
             {
-                RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
+                RpcErrors.RpcErrors400.AuthBytesInvalid.ThrowRpcError();
             }
 
             await _eventBus.PublishAsync(new BindUidToSessionEvent(input.UserId, input.AuthKeyId, input.PermAuthKeyId));
