@@ -44,9 +44,8 @@ internal sealed class ImportAuthorizationHandler : RpcResultObjectHandler<MyTele
     {
         var keyBytes = _hashHelper.Sha1(obj.Bytes);
         var key = BitConverter.ToString(keyBytes).Replace("-", string.Empty);
-        var userIdText = await _cacheManager.GetAsync(key);
-
-        //RpcErrors.RpcErrors400.AuthBytesInvalid.ThrowRpcError();
+        var cacheKey = MyCacheKey.With("authorizations", key);
+        var userIdText = await _cacheManager.GetAsync(cacheKey);
 
         if (int.TryParse(userIdText, out var userId))
         {
