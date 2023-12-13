@@ -12,6 +12,11 @@ internal sealed class GetBlockedHandler : RpcResultObjectHandler<MyTelegram.Sche
     protected override Task<MyTelegram.Schema.Contacts.IBlocked> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Contacts.RequestGetBlocked obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IBlocked>(new TBlocked
+        {
+            Blocked = new(),
+            Chats = new(),
+            Users = new()
+        });
     }
 }
