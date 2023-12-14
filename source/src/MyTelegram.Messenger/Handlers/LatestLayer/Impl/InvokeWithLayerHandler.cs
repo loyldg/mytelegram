@@ -51,7 +51,8 @@ internal sealed class InvokeWithLayerHandler : BaseObjectHandler<MyTelegram.Sche
         }
 
         _handlerHelper.TryGetHandlerShortName(query.ConstructorId, out var handlerShortName);
-        _logger.LogDebug("UserId={UserId} InvokeWithLayer->{Layer},handler={HandlerShortName}",
+        _logger.LogInformation("ReqMsgId={ReqMsgId} UserId={UserId} InvokeWithLayer->{Layer},handler={HandlerShortName}",
+            input.ReqMsgId,
             input.UserId,
             obj.Layer,
             handlerShortName);
