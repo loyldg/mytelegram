@@ -11,6 +11,6 @@ internal sealed class CanSendStoryHandler : RpcResultObjectHandler<MyTelegram.Sc
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Stories.RequestCanSendStory obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IBool>(new TBoolFalse());
     }
 }

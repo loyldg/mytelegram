@@ -15,6 +15,11 @@ internal sealed class GetPrivacyHandler : RpcResultObjectHandler<MyTelegram.Sche
     protected override Task<MyTelegram.Schema.Account.IPrivacyRules> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetPrivacy obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IPrivacyRules>(new TPrivacyRules
+        {
+            Chats = new TVector<IChat>(),
+            Rules = new TVector<IPrivacyRule>(),
+            Users = new TVector<IUser>()
+        });
     }
 }

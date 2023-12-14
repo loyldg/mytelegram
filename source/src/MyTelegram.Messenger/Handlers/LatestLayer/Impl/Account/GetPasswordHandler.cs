@@ -9,9 +9,27 @@ namespace MyTelegram.Handlers.Account;
 internal sealed class GetPasswordHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetPassword, MyTelegram.Schema.Account.IPassword>,
     Account.IGetPasswordHandler
 {
+    private readonly IRandomHelper _randomHelper;
+
+    public GetPasswordHandler(IRandomHelper randomHelper)
+    {
+        _randomHelper = randomHelper;
+    }
+
     protected override Task<MyTelegram.Schema.Account.IPassword> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetPassword obj)
     {
-        throw new NotImplementedException();
+        var password = new TPassword();
+
+        password.NewAlgo = new TPasswordKdfAlgoUnknown();
+        password.NewSecureAlgo = new TSecurePasswordKdfAlgoUnknown();
+
+        var secureRandom = new byte[256];
+        _randomHelper.NextBytes(secureRandom);
+
+        password.SecureRandom=secureRandom;
+
+
+        return Task.FromResult<IPassword>(password);
     }
 }
