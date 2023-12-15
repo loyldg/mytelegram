@@ -180,6 +180,7 @@ services:
     environment:
        ConnectionStrings__Default: ${DefaultConnectionStrings}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       App__DatabaseName: ${DatabaseName}
     volumes:
       - ./data/mytelegram/messenger-grpc/logs:/data/Logs
     depends_on:
@@ -234,6 +235,9 @@ services:
        App__DcOptions__0__IpAddress: ${DcOptions0IpAddress}
        App__DcOptions__0__Port: ${DcOptions0Port}
        App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
+       App__DcOptions__1__IpAddress: ${DcOptions1IpAddress}
+       App__DcOptions__1__Port: ${DcOptions1Port}
+       App__DcOptions__1__Ipv6: ${DcOptions1Ipv6}
        App__FixedVerifyCode: ${FixedVerifyCode}
        App__DatabaseName: ${DatabaseName}
        App__QueryServerEventStoreDatabaseName: ${QueryServerEventStoreDatabaseName}
@@ -264,6 +268,9 @@ services:
        App__DcOptions__0__IpAddress: ${DcOptions0IpAddress}
        App__DcOptions__0__Port: ${DcOptions0Port}
        App__DcOptions__0__Ipv6: ${DcOptions0Ipv6}
+       App__DcOptions__1__IpAddress: ${DcOptions1IpAddress}
+       App__DcOptions__1__Port: ${DcOptions1Port}
+       App__DcOptions__1__Ipv6: ${DcOptions1Ipv6}
        App__FixedVerifyCode: ${FixedVerifyCode}
        App__DatabaseName: ${DatabaseName}
        App__QueryServerEventStoreDatabaseName: ${QueryServerEventStoreDatabaseName}
