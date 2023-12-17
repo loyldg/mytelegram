@@ -52,14 +52,13 @@ build\docker\5.build-gateway-server.sh
     ```
 
 - ### Run MyTelegram manually
-1. Download mytelegram server from [https://github.com/loyldg/mytelegram/releases](https://github.com/loyldg/mytelegram/releases),supported platform:`win-x64` and `linux-x64`
-2. Uncompress downloaded file
-3. Install Redis
-4. Install MongoDB
-5. Intall RabbitMQ
-6. Install Minio
-7. Modify server configuration in `start-all.bat`/`start-all.sh`,replace `192.168.1.100` with the IP address of gateway server
-8. Run `start-all.bat`/`start-all.sh`
+1. Download mytelegram server from [https://github.com/loyldg/mytelegram/releases](https://github.com/loyldg/mytelegram/releases)
+2. Install Redis
+3. Install MongoDB
+4. Intall RabbitMQ
+5. Install Minio
+6. Modify server configuration in `start-all.bat`/`start-all.sh`,replace `192.168.1.100` with the IP address of gateway server
+7. Run `start-all.bat`/`start-all.sh`
 
 - ### Test with compiled client
 1. Download [TDesktop client(v4.12.2)](https://github.com/loyldg/mytelegram/releases/download/v0.15.1214/Telegram-4.12.2-x64.zip)
@@ -97,7 +96,7 @@ ncvozYOePrH9jGcnmzUmj42x/H28IjJQ9EjEc22sPOuauK0IF2QiCGh+TfsKCK18
 -----END PUBLIC KEY-----
 ```
 
-The default fingerprint of the public key is **`0xce27f5081215bda4`**(Android client need calculate fingerpint and replace it using this value),
+The default fingerprint of the public key is **`0xce27f5081215bda4`**(Android client need calculate fingerprint and replace it using this value),
 if you want to use your own public key,replace `private.pkcs8.key` in auth folder
 
 - ### Build [Tdesktop client](https://github.com/telegramdesktop/tdesktop)
