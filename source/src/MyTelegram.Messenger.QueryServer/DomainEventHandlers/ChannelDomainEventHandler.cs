@@ -6,9 +6,9 @@ using MyTelegram.Services.TLObjectConverters;
 namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
 
 public class ChannelDomainEventHandler : DomainEventHandlerBase,
-    ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
+    //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
     ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelInviteExportedEvent>,
-    ISubscribeSynchronousTo<ChannelAggregate, ChannelId, StartInviteToChannelEvent>,
+    //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, StartInviteToChannelEvent>,
     ISubscribeSynchronousTo<ChannelAggregate, ChannelId, SetDiscussionGroupEvent>,
     ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>,
     ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelAboutEditedEvent>,

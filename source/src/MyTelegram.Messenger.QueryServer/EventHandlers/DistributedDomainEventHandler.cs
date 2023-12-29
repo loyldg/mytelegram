@@ -1,4 +1,5 @@
 ﻿using EventFlow.ReadStores;
+using MyTelegram.Messenger.Services.Caching;
 
 namespace MyTelegram.Messenger.QueryServer.EventHandlers;
 public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
@@ -7,12 +8,14 @@ public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
     private readonly IDispatchToEventSubscribers _dispatchToEventSubscribers;
     private readonly ILogger<DistributedDomainEventHandler> _logger;
     private readonly IDispatchToReadStores _dispatchToReadStores;
-    public DistributedDomainEventHandler(IEventJsonSerializer eventJsonSerializer, IDispatchToEventSubscribers dispatchToEventSubscribers, ILogger<DistributedDomainEventHandler> logger, IDispatchToReadStores dispatchToReadStores)
+    private readonly IChatEventCacheHelper _chatEventCacheHelper;
+    public DistributedDomainEventHandler(IEventJsonSerializer eventJsonSerializer, IDispatchToEventSubscribers dispatchToEventSubscribers, ILogger<DistributedDomainEventHandler> logger, IDispatchToReadStores dispatchToReadStores, IChatEventCacheHelper chatEventCacheHelper)
     {
         _eventJsonSerializer = eventJsonSerializer;
         _dispatchToEventSubscribers = dispatchToEventSubscribers;
         _logger = logger;
         _dispatchToReadStores = dispatchToReadStores;
+        _chatEventCacheHelper = chatEventCacheHelper;
     }
 
     public Task HandleEventAsync(DomainEventMessage eventData)
@@ -22,7 +25,9 @@ public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
             var maxMillSeconds = 500;
             var sw = Stopwatch.StartNew();
             var domainEvent = _eventJsonSerializer.Deserialize(eventData.Message, new Metadata(eventData.Headers));
-            if (domainEvent.GetAggregateEvent() is IHasRequestInfo hasRequestInfo)
+
+            var aggregateEvent = domainEvent.GetAggregateEvent();
+            if (aggregateEvent is IHasRequestInfo hasRequestInfo)
             {
                 var totalMilliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - hasRequestInfo.RequestInfo.Date;
 
@@ -33,6 +38,19 @@ public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
                         totalMilliseconds,
                         hasRequestInfo.RequestInfo.ReqMsgId);
                 }
+            }
+
+            switch (aggregateEvent)
+            {
+                case ChatCreatedEvent chatCreatedEvent:
+                    _chatEventCacheHelper.Add(chatCreatedEvent);
+                    break;
+                case ChannelCreatedEvent channelCreatedEvent:
+                    _chatEventCacheHelper.Add(channelCreatedEvent);
+                    break;
+                case StartInviteToChannelEvent startInviteToChannelEvent:
+                    _chatEventCacheHelper.Add(startInviteToChannelEvent);
+                    break;
             }
 
             await _dispatchToReadStores.DispatchAsync(new[] { domainEvent }, default);

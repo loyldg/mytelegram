@@ -3,7 +3,7 @@
 namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
 
 public class ChatDomainEventHandler : DomainEventHandlerBase,
-    ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatCreatedEvent>,
+    //ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatCreatedEvent>,
     ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatDefaultBannedRightsEditedEvent>,
     ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatAboutEditedEvent>,
     ISubscribeSynchronousTo<ChatAggregate, ChatId, ChatDeletedEvent>
