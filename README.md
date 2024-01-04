@@ -22,7 +22,7 @@ MyTelegram is [Telegram server side api](https://core.telegram.org/api) implemen
 
 ## Build MyTelegram Server
 1. Install [.NET SDK 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-2. Run `build/build.ps1`
+2. Run `build/build.ps1` ([PowerShell7+](https://github.com/PowerShell/PowerShell))
 3. Build output folder is `out/{version}`
 ## Build docker images
 Run the following scripts
