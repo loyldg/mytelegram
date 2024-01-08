@@ -155,7 +155,7 @@ public class QueuedObjectMessageSender : IObjectMessageSender
         TData data,
         int pts = 0) where TData : IObject
     {
-        var rpcResult = new TRpcResult { ReqMsgId = reqMsgId, Result = data };
+        var rpcResult = CreateRpcResult(reqMsgId, data);
         _sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(reqMsgId, rpcResult.ToBytes()),
             reqMsgId % _maxQueueCount);
         return Task.CompletedTask;
@@ -165,9 +165,24 @@ public class QueuedObjectMessageSender : IObjectMessageSender
         long authKeyId, long permAuthKeyId, long userId,
         int pts = 0) where TData : IObject
     {
-        var rpcResult = new TRpcResult { ReqMsgId = reqMsgId, Result = data };
+        var rpcResult = CreateRpcResult(reqMsgId, data);
         _sessionMessageQueueProcessor.Enqueue(new DataResultResponseWithUserIdReceivedEvent(reqMsgId, rpcResult.ToBytes(), userId, authKeyId, permAuthKeyId),
             reqMsgId % _maxQueueCount);
         return Task.CompletedTask;
+    }
+    private TRpcResult CreateRpcResult<TData>(long reqMsgId, TData data) where TData : IObject
+    {
+        var newData = data;
+        var rpcResult = new TRpcResult { ReqMsgId = reqMsgId, Result = data };
+        var length = data.GetLength();
+        if (length > 500)
+        {
+            var gzipPacked = new TGzipPacked
+            {
+                PackedData = _gzipHelper.Compress(newData.ToBytes())
+            };
+            rpcResult.Result = gzipPacked;
+        }
+        return rpcResult;
     }
 }

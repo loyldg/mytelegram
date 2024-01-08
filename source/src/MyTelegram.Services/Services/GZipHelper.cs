@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using MyTelegram.Core;
 
@@ -20,9 +21,9 @@ public class GZipHelper : IGZipHelper //, ISingletonDependency
     public byte[] Compress(byte[] data)
     {
         //data.Dump("compress data");
+        var stream = new MemoryStream(data);
         using var compressedStream = new MemoryStream();
-        using var compressor = new GZipStream(compressedStream, CompressionMode.Compress);
-        compressor.Write(data, 0, data.Length);
+        GZip.Compress(stream, compressedStream, true);
         return compressedStream.ToArray();
 
         //using var compressedStream = new MemoryStream();
