@@ -126,6 +126,10 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateBotChatBoost), nameof(TUpdateBotChatBoost))]
 [JsonDerivedType(typeof(TUpdateChannelViewForumAsMessages), nameof(TUpdateChannelViewForumAsMessages))]
 [JsonDerivedType(typeof(TUpdatePeerWallpaper), nameof(TUpdatePeerWallpaper))]
+[JsonDerivedType(typeof(TUpdateBotMessageReaction), nameof(TUpdateBotMessageReaction))]
+[JsonDerivedType(typeof(TUpdateBotMessageReactions), nameof(TUpdateBotMessageReactions))]
+[JsonDerivedType(typeof(TUpdateSavedDialogPinned), nameof(TUpdateSavedDialogPinned))]
+[JsonDerivedType(typeof(TUpdatePinnedSavedDialogs), nameof(TUpdatePinnedSavedDialogs))]
 public interface IUpdate : IObject
 {
 

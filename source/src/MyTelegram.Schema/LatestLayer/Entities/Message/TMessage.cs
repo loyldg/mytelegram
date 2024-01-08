@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// A message
 /// See <a href="https://corefork.telegram.org/constructor/message" />
 ///</summary>
-[TlObject(0x38116ee0)]
+[TlObject(0x76bec211)]
 public sealed class TMessage : IMessage
 {
-    public uint ConstructorId => 0x38116ee0;
+    public uint ConstructorId => 0x76bec211;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -71,10 +71,15 @@ public sealed class TMessage : IMessage
     public bool Pinned { get; set; }
 
     ///<summary>
-    /// Whether this message is <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">protected</a> and thus cannot be forwarded
+    /// Whether this message is <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">protected</a> and thus cannot be forwarded; clients should also prevent users from saving attached media (i.e. videos should only be streamed, photos should be kept in RAM, et cetera).
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Noforwards { get; set; }
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
 
     ///<summary>
@@ -93,6 +98,7 @@ public sealed class TMessage : IMessage
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }
+    public MyTelegram.Schema.IPeer? SavedPeerId { get; set; }
 
     ///<summary>
     /// Info about forwarded messages
@@ -199,6 +205,7 @@ public sealed class TMessage : IMessage
         if (Noforwards) { Flags[26] = true; }
         if (InvertMedia) { Flags[27] = true; }
         if (FromId != null) { Flags[8] = true; }
+        if (SavedPeerId != null) { Flags[28] = true; }
         if (FwdFrom != null) { Flags[2] = true; }
         if (/*ViaBotId != 0 &&*/ ViaBotId.HasValue) { Flags[11] = true; }
         if (ReplyTo != null) { Flags[3] = true; }
@@ -224,6 +231,7 @@ public sealed class TMessage : IMessage
         writer.Write(Id);
         if (Flags[8]) { writer.Write(FromId); }
         writer.Write(PeerId);
+        if (Flags[28]) { writer.Write(SavedPeerId); }
         if (Flags[2]) { writer.Write(FwdFrom); }
         if (Flags[11]) { writer.Write(ViaBotId.Value); }
         if (Flags[3]) { writer.Write(ReplyTo); }
@@ -260,6 +268,7 @@ public sealed class TMessage : IMessage
         Id = reader.ReadInt32();
         if (Flags[8]) { FromId = reader.Read<MyTelegram.Schema.IPeer>(); }
         PeerId = reader.Read<MyTelegram.Schema.IPeer>();
+        if (Flags[28]) { SavedPeerId = reader.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags[2]) { FwdFrom = reader.Read<MyTelegram.Schema.IMessageFwdHeader>(); }
         if (Flags[11]) { ViaBotId = reader.ReadInt64(); }
         if (Flags[3]) { ReplyTo = reader.Read<MyTelegram.Schema.IMessageReplyHeader>(); }

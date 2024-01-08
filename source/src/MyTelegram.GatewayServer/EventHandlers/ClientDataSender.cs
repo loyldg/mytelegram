@@ -44,6 +44,10 @@ public class ClientDataSender : IClientDataSender
         }
 
         var encodedBytes = ArrayPool<byte>.Shared.Rent(GetEncodedByteLength(data.Data.Length));
+        if (d.AuthKeyId == 0)
+        {
+            d.AuthKeyId = data.AuthKeyId;
+        }
         try
         {
             var totalCount = _messageEncoder.Encode(d, data, encodedBytes);

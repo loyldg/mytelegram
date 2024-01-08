@@ -33,6 +33,10 @@ public sealed class RequestGetDifference : IRequest<MyTelegram.Schema.Updates.ID
     /// PTS, see <a href="https://corefork.telegram.org/api/updates">updates</a>.
     ///</summary>
     public int Pts { get; set; }
+
+    ///<summary>
+    /// PTS limit
+    ///</summary>
     public int? PtsLimit { get; set; }
 
     ///<summary>
@@ -49,6 +53,10 @@ public sealed class RequestGetDifference : IRequest<MyTelegram.Schema.Updates.ID
     /// QTS, see <a href="https://corefork.telegram.org/api/updates">updates</a>.
     ///</summary>
     public int Qts { get; set; }
+
+    ///<summary>
+    /// QTS limit
+    ///</summary>
     public int? QtsLimit { get; set; }
 
     public void ComputeFlag()

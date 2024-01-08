@@ -53,7 +53,7 @@ public sealed class RequestGetChatInviteImporters : IRequest<MyTelegram.Schema.M
     public int OffsetDate { get; set; }
 
     ///<summary>
-    /// User ID for <a href="https://corefork.telegram.org/api/offsets">pagination</a>: if set, <code>offset_date</code> <strong>must also be set</strong>.
+    /// User ID for <a href="https://corefork.telegram.org/api/offsets">pagination</a>: if set, <code>offset_date</code> must also be set.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
     ///</summary>
     public MyTelegram.Schema.IInputUser OffsetUser { get; set; }

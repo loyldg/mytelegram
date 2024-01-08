@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Contains info about a forward of a <a href="https://corefork.telegram.org/api/stories">story</a> as a message.
 /// See <a href="https://corefork.telegram.org/constructor/publicForwardMessage" />
 ///</summary>
 [TlObject(0x1f2bf4a)]
@@ -11,7 +12,7 @@ public sealed class TPublicForwardMessage : IPublicForward
 {
     public uint ConstructorId => 0x1f2bf4a;
     ///<summary>
-    /// &nbsp;
+    /// Info about the message with the reposted story.
     /// See <a href="https://corefork.telegram.org/type/Message" />
     ///</summary>
     public MyTelegram.Schema.IMessage Message { get; set; }

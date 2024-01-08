@@ -91,7 +91,7 @@ public sealed class TInvoice : IInvoice
     public TVector<long>? SuggestedTipAmounts { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Terms of service URL
     ///</summary>
     public string? TermsUrl { get; set; }
 

@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// Full info about a <a href="https://corefork.telegram.org/api/channel#channels">channel</a>, <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a> or <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a>.
 /// See <a href="https://corefork.telegram.org/constructor/channelFull" />
 ///</summary>
-[TlObject(0x723027bd)]
+[TlObject(0xf2bcb6f)]
 public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelFull
 {
-    public uint ConstructorId => 0x723027bd;
+    public uint ConstructorId => 0xf2bcb6f;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -94,10 +94,15 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
     public bool TranslationsDisabled { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether this user has some <a href="https://corefork.telegram.org/api/stories#pinned-or-archived-stories">pinned stories</a>.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool StoriesPinnedAvailable { get; set; }
+
+    ///<summary>
+    /// Users may also choose to display messages from all topics of a <a href="https://corefork.telegram.org/api/forum">forum</a> as if they were sent to a normal group, using a "View as messages" setting in the local client.  <br>This setting only affects the current account, and is synced to other logged in sessions using the <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages">channels.toggleViewForumAsMessages</a> method; invoking this method will update the value of this flag.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ViewForumAsMessages { get; set; }
 
     ///<summary>
@@ -285,10 +290,11 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
     public MyTelegram.Schema.IChatReactions? AvailableReactions { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Channel <a href="https://corefork.telegram.org/api/stories">stories</a>
     /// See <a href="https://corefork.telegram.org/type/PeerStories" />
     ///</summary>
     public MyTelegram.Schema.IPeerStories? Stories { get; set; }
+    public MyTelegram.Schema.IWallPaper? Wallpaper { get; set; }
 
     public void ComputeFlag()
     {
@@ -305,6 +311,7 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
         if (ParticipantsHidden) { Flags2[2] = true; }
         if (TranslationsDisabled) { Flags2[3] = true; }
         if (StoriesPinnedAvailable) { Flags2[5] = true; }
+        if (ViewForumAsMessages) { Flags2[6] = true; }
         if (/*ParticipantsCount != 0 && */ParticipantsCount.HasValue) { Flags[0] = true; }
         if (/*AdminsCount != 0 && */AdminsCount.HasValue) { Flags[1] = true; }
         if (/*KickedCount != 0 && */KickedCount.HasValue) { Flags[2] = true; }
@@ -332,6 +339,7 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
         if (DefaultSendAs != null) { Flags[29] = true; }
         if (AvailableReactions != null) { Flags[30] = true; }
         if (Stories != null) { Flags2[4] = true; }
+        if (Wallpaper != null) { Flags2[7] = true; }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -376,6 +384,7 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
         if (Flags[29]) { writer.Write(DefaultSendAs); }
         if (Flags[30]) { writer.Write(AvailableReactions); }
         if (Flags2[4]) { writer.Write(Stories); }
+        if (Flags2[7]) { writer.Write(Wallpaper); }
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -395,6 +404,7 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
         if (Flags2[2]) { ParticipantsHidden = true; }
         if (Flags2[3]) { TranslationsDisabled = true; }
         if (Flags2[5]) { StoriesPinnedAvailable = true; }
+        if (Flags2[6]) { ViewForumAsMessages = true; }
         Id = reader.ReadInt64();
         About = reader.ReadString();
         if (Flags[0]) { ParticipantsCount = reader.ReadInt32(); }
@@ -431,5 +441,6 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
         if (Flags[29]) { DefaultSendAs = reader.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags[30]) { AvailableReactions = reader.Read<MyTelegram.Schema.IChatReactions>(); }
         if (Flags2[4]) { Stories = reader.Read<MyTelegram.Schema.IPeerStories>(); }
+        if (Flags2[7]) { Wallpaper = reader.Read<MyTelegram.Schema.IWallPaper>(); }
     }
 }

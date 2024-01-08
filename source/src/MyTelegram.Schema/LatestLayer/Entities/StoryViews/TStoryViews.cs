@@ -17,7 +17,7 @@ public sealed class TStoryViews : IStoryViews
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// If set, indicates that the viewers list is currently viewable, and was not yet deleted because the story has expired while the user didn't have a <a href="https://corefork.telegram.org/api/premium">Premium</a> account.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool HasViewers { get; set; }
@@ -38,7 +38,7 @@ public sealed class TStoryViews : IStoryViews
     public TVector<MyTelegram.Schema.IReactionCount>? Reactions { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of reactions added to the story
     ///</summary>
     public int? ReactionsCount { get; set; }
 

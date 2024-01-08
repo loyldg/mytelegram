@@ -23,7 +23,17 @@ public sealed class TFutureSalts : IFutureSalts
         writer.Write(ConstructorId);
         writer.Write(ReqMsgId);
         writer.Write(Now);
-        writer.Write(Salts);
+        //writer.Write(Salts);
+
+        // future_salts#ae500895 req_msg_id:long now:int salts:vector<future_salt> = FutureSalts;
+
+        writer.Write(Salts.Count);
+        foreach (var futureSalt in Salts)
+        {
+            writer.Write(futureSalt.ValidSince);
+            writer.Write(futureSalt.ValidUntil);
+            writer.Write(futureSalt.Salt);
+        }
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)

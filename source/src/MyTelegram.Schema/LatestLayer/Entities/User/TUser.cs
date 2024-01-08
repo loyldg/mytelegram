@@ -136,19 +136,19 @@ public sealed class TUser : IUser, ILayeredUser
     public bool BotCanEdit { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether we marked this user as a <a href="https://corefork.telegram.org/api/privacy">close friend, see here » for more info</a>
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool CloseFriend { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether we have <a href="https://corefork.telegram.org/api/stories#hiding-stories-of-other-users">hidden »</a> all active stories of this user.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool StoriesHidden { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// No stories from this user are visible.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool StoriesUnavailable { get; set; }
@@ -227,10 +227,20 @@ public sealed class TUser : IUser, ILayeredUser
     public TVector<MyTelegram.Schema.IUsername>? Usernames { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// ID of the maximum read <a href="https://corefork.telegram.org/api/stories">story</a>.
     ///</summary>
     public int? StoriesMaxId { get; set; }
+
+    ///<summary>
+    /// The user's <a href="https://corefork.telegram.org/api/colors">accent color</a>.
+    /// See <a href="https://corefork.telegram.org/type/PeerColor" />
+    ///</summary>
     public MyTelegram.Schema.IPeerColor? Color { get; set; }
+
+    ///<summary>
+    /// The user's <a href="https://corefork.telegram.org/api/colors">profile color</a>.
+    /// See <a href="https://corefork.telegram.org/type/PeerColor" />
+    ///</summary>
     public MyTelegram.Schema.IPeerColor? ProfileColor { get; set; }
 
     public void ComputeFlag()

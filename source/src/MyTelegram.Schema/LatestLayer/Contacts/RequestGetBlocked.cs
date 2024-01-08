@@ -11,7 +11,15 @@ namespace MyTelegram.Schema.Contacts;
 public sealed class RequestGetBlocked : IRequest<MyTelegram.Schema.Contacts.IBlocked>
 {
     public uint ConstructorId => 0x9a868f80;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether to fetch the story blocklist; if not set, will fetch the main blocklist. See <a href="https://corefork.telegram.org/api/block">here »</a> for differences between the two.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool MyStoriesFrom { get; set; }
 
     ///<summary>

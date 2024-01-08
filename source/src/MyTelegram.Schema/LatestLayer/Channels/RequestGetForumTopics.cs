@@ -9,6 +9,7 @@ namespace MyTelegram.Schema.Channels;
 /// Code Type Description
 /// 400 CHANNEL_FORUM_MISSING This supergroup is not a forum.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
+/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// See <a href="https://corefork.telegram.org/method/channels.getForumTopics" />
 ///</summary>
 [TlObject(0xde560d1)]
@@ -32,22 +33,22 @@ public sealed class RequestGetForumTopics : IRequest<MyTelegram.Schema.Messages.
     public string? Q { get; set; }
 
     ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
+    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>, date of the last message of the last found topic. Use 0 or any date in the future to get results from the last topic.
     ///</summary>
     public int OffsetDate { get; set; }
 
     ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
+    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>, ID of the last message of the last found topic (or initially <code>0</code>).
     ///</summary>
     public int OffsetId { get; set; }
 
     ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
+    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>, ID of the last found topic (or initially <code>0</code>).
     ///</summary>
     public int OffsetTopic { get; set; }
 
     ///<summary>
-    /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
+    /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>. For optimal performance, the number of returned topics is chosen by the server and can be smaller than the specified limit.
     ///</summary>
     public int Limit { get; set; }
 

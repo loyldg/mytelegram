@@ -4,6 +4,10 @@
 namespace MyTelegram.Schema.Channels;
 
 ///<summary>
+/// Users may also choose to display messages from all topics of a <a href="https://corefork.telegram.org/api/forum">forum</a> as if they were sent to a normal group, using a "View as messages" setting in the local client: this setting only affects the current account, and is synced to other logged in sessions using this method.Invoking this method will update the value of the <code>view_forum_as_messages</code> flag of <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> or <a href="https://corefork.telegram.org/constructor/dialog">dialog</a> and emit an <a href="https://corefork.telegram.org/constructor/updateChannelViewForumAsMessages">updateChannelViewForumAsMessages</a>.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 CHANNEL_INVALID The provided channel is invalid.
 /// See <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages" />
 ///</summary>
 [TlObject(0x9738bb15)]
@@ -11,13 +15,13 @@ public sealed class RequestToggleViewForumAsMessages : IRequest<MyTelegram.Schem
 {
     public uint ConstructorId => 0x9738bb15;
     ///<summary>
-    /// &nbsp;
+    /// The forum
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
     ///</summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The new value of the <code>view_forum_as_messages</code> flag.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     ///</summary>
     public bool Enabled { get; set; }

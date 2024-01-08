@@ -30,7 +30,8 @@ public class MessageItem : ValueObject
         byte[]? replyMarkup = null,
         long? linkedChannelId = null,
         int? topMsgId = null,
-        string? postAuthor = null
+        string? postAuthor = null,
+        Peer? savedPeerId = null
     )// : base(id)
     {
         OwnerPeer = ownerPeer;
@@ -61,6 +62,7 @@ public class MessageItem : ValueObject
         LinkedChannelId = linkedChannelId;
         TopMsgId = topMsgId;
         PostAuthor = postAuthor;
+        SavedPeerId = savedPeerId;
     }
 
     public int Date { get; init; }
@@ -92,6 +94,7 @@ public class MessageItem : ValueObject
     public long? PollId { get; init; }
     public byte[]? ReplyMarkup { get; init; }
     public long? LinkedChannelId { get; internal set; }
-    public int? TopMsgId { get; init; }
-    public string? PostAuthor { get; init; }
+    public int? TopMsgId { get; }
+    public string? PostAuthor { get; }
+    public Peer? SavedPeerId { get; }
 }

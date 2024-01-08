@@ -31,7 +31,15 @@ public sealed class TTranscribedAudio : ITranscribedAudio
     /// Transcripted text
     ///</summary>
     public string Text { get; set; }
+
+    ///<summary>
+    /// For non-<a href="https://corefork.telegram.org/api/premium">Premium</a> users, this flag will be set, indicating the remaining transcriptions in the free trial period.
+    ///</summary>
     public int? TrialRemainsNum { get; set; }
+
+    ///<summary>
+    /// For non-<a href="https://corefork.telegram.org/api/premium">Premium</a> users, this flag will be set, indicating the date when the <code>trial_remains_num</code> counter will be reset to the maximum value of <a href="https://corefork.telegram.org/api/config#transcribe-audio-trial-weekly-number">transcribe_audio_trial_weekly_number</a>.
+    ///</summary>
     public int? TrialRemainsUntilDate { get; set; }
 
     public void ComputeFlag()

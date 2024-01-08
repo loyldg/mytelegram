@@ -41,7 +41,7 @@ public sealed class TAutoDownloadSettings : IAutoDownloadSettings
     public bool PhonecallsLessData { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether to preload <a href="https://corefork.telegram.org/api/stories">stories</a>; in particular, the first <a href="https://corefork.telegram.org/constructor/documentAttributeVideo">documentAttributeVideo</a>.<code>preload_prefix_size</code> bytes of story videos should be preloaded.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool StoriesPreload { get; set; }
@@ -67,12 +67,12 @@ public sealed class TAutoDownloadSettings : IAutoDownloadSettings
     public int VideoUploadMaxbitrate { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// A limit, specifying the maximum number of files that should be downloaded in parallel from the same DC, for files smaller than 20MB.
     ///</summary>
     public int SmallQueueActiveOperationsMax { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// A limit, specifying the maximum number of files that should be downloaded in parallel from the same DC, for files bigger than 20MB.
     ///</summary>
     public int LargeQueueActiveOperationsMax { get; set; }
 

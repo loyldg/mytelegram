@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Interaction counters for a story.
 /// See <a href="https://corefork.telegram.org/constructor/postInteractionCountersStory" />
 ///</summary>
 [TlObject(0x8a480e27)]
@@ -11,22 +12,22 @@ public sealed class TPostInteractionCountersStory : IPostInteractionCounters
 {
     public uint ConstructorId => 0x8a480e27;
     ///<summary>
-    /// &nbsp;
+    /// Story ID
     ///</summary>
     public int StoryId { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of views
     ///</summary>
     public int Views { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of forwards and reposts to public chats and channels
     ///</summary>
     public int Forwards { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of reactions
     ///</summary>
     public int Reactions { get; set; }
 

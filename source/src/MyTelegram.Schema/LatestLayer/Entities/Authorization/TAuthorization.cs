@@ -47,7 +47,7 @@ public sealed class TAuthorization : IAuthorization
     public bool CallRequestsDisabled { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the session is <a href="https://corefork.telegram.org/api/auth#confirming-login">unconfirmed, see here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Unconfirmed { get; set; }

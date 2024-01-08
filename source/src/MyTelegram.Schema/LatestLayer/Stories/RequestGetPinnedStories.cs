@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
-/// Fetch the <a href="https://corefork.telegram.org/api/stories#pinnedarchived-stories">stories</a> pinned on a peer's profile.
+/// Fetch the <a href="https://corefork.telegram.org/api/stories#pinned-or-archived-stories">stories</a> pinned on a peer's profile.
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 PEER_ID_INVALID The provided peer id is invalid.

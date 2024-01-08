@@ -1,32 +1,29 @@
-﻿namespace MyTelegram.Core;
+﻿using System.Security.Cryptography;
 
-public class HashHelper : IHashHelper
+namespace MyTelegram.Core;
+
+public class HashHelper : IHashHelper//, ISingletonDependency
 {
-    public byte[] Md5(byte[] data)
+    public byte[] Md5(ReadOnlySpan<byte> source)
     {
-        using var md5 = MD5.Create();
-
-        return md5.ComputeHash(data);
+        return MD5.HashData(source);
     }
 
-    public byte[] Sha1(byte[] data)
+    public byte[] Sha1(ReadOnlySpan<byte> source)
     {
-        using var sha1 = SHA1.Create();
+        return SHA1.HashData(source);
+        //using var sha1 = SHA1.Create();
 
-        return sha1.ComputeHash(data);
+        //return sha1.ComputeHash(data);
     }
 
-    public byte[] Sha256(byte[] data)
+    public byte[] Sha256(ReadOnlySpan<byte> source)
     {
-        using var sha2 = SHA256.Create();
-
-        return sha2.ComputeHash(data);
+        return SHA256.HashData(source);
     }
 
-    public byte[] Sha512(byte[] data)
+    public byte[] Sha512(ReadOnlySpan<byte> source)
     {
-        using var sha512 = SHA512.Create();
-
-        return sha512.ComputeHash(data);
+        return SHA512.HashData(source);
     }
 }

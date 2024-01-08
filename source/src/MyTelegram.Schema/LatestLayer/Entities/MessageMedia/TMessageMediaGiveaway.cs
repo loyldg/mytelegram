@@ -4,24 +4,57 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Contains info about a <a href="https://corefork.telegram.org/api/giveaways">giveaway, see here »</a> for more info.
 /// See <a href="https://corefork.telegram.org/constructor/messageMediaGiveaway" />
 ///</summary>
-[TlObject(0x58260664)]
+[TlObject(0xdaad85b0)]
 public sealed class TMessageMediaGiveaway : IMessageMedia
 {
-    public uint ConstructorId => 0x58260664;
+    public uint ConstructorId => 0xdaad85b0;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// If set, only new subscribers starting from the giveaway creation date will be able to participate to the giveaway.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool OnlyNewSubscribers { get; set; }
+    public bool WinnersAreVisible { get; set; }
+
+    ///<summary>
+    /// The channels that the user must join to participate in the giveaway.
+    ///</summary>
     public TVector<long> Channels { get; set; }
+
+    ///<summary>
+    /// If set, only users residing in these countries can participate in the giveaway, (specified as a list of two-letter ISO 3166-1 alpha-2 country codes); otherwise there are no country-based limitations.
+    ///</summary>
     public TVector<string>? CountriesIso2 { get; set; }
+    public string? PrizeDescription { get; set; }
+
+    ///<summary>
+    /// Number of <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscriptions given away.
+    ///</summary>
     public int Quantity { get; set; }
+
+    ///<summary>
+    /// Duration in months of each <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription in the giveaway.
+    ///</summary>
     public int Months { get; set; }
+
+    ///<summary>
+    /// The end date of the giveaway.
+    ///</summary>
     public int UntilDate { get; set; }
 
     public void ComputeFlag()
     {
         if (OnlyNewSubscribers) { Flags[0] = true; }
+        if (WinnersAreVisible) { Flags[2] = true; }
         if (CountriesIso2?.Count > 0) { Flags[1] = true; }
+        if (PrizeDescription != null) { Flags[3] = true; }
 
     }
 
@@ -32,6 +65,7 @@ public sealed class TMessageMediaGiveaway : IMessageMedia
         writer.Write(Flags);
         writer.Write(Channels);
         if (Flags[1]) { writer.Write(CountriesIso2); }
+        if (Flags[3]) { writer.Write(PrizeDescription); }
         writer.Write(Quantity);
         writer.Write(Months);
         writer.Write(UntilDate);
@@ -41,8 +75,10 @@ public sealed class TMessageMediaGiveaway : IMessageMedia
     {
         Flags = reader.ReadBitArray();
         if (Flags[0]) { OnlyNewSubscribers = true; }
+        if (Flags[2]) { WinnersAreVisible = true; }
         Channels = reader.Read<TVector<long>>();
         if (Flags[1]) { CountriesIso2 = reader.Read<TVector<string>>(); }
+        if (Flags[3]) { PrizeDescription = reader.ReadString(); }
         Quantity = reader.ReadInt32();
         Months = reader.ReadInt32();
         UntilDate = reader.ReadInt32();

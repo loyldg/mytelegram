@@ -38,6 +38,11 @@ public sealed class RequestProlongWebView : IRequest<IBool>
     /// Web app interaction ID obtained from <a href="https://corefork.telegram.org/method/messages.requestWebView">messages.requestWebView</a>
     ///</summary>
     public long QueryId { get; set; }
+
+    ///<summary>
+    /// If set, indicates that the inline message that will be sent by the bot on behalf of the user once the web app interaction is <a href="https://corefork.telegram.org/method/messages.sendWebViewResultMessage">terminated</a> should be sent in reply to the specified message or story.
+    /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
+    ///</summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
     ///<summary>

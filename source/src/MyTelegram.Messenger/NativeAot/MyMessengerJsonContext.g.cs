@@ -215,7 +215,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(List<UserReaction>))]
 [JsonSerializable(typeof(Reaction))]
 [JsonSerializable(typeof(ReactionCount))]
-[JsonSerializable(typeof(MyTelegram.Messenger.Handlers.Impl.CachedFutureSalt))]
+[JsonSerializable(typeof(MyTelegram.Core.FutureAuthTokenCacheItem))]
 [JsonSerializable(typeof(global::EventFlow.MongoDB.ValueObjects.MongoDbEventDataModel))]
 [JsonSerializable(typeof(global::EventFlow.MongoDB.ValueObjects.MongoDbCounterDataModel))]
 [JsonSerializable(typeof(global::EventFlow.MongoDB.ValueObjects.MongoDbSnapshotDataModel))]

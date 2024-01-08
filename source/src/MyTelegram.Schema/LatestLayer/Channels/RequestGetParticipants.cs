@@ -10,6 +10,7 @@ namespace MyTelegram.Schema.Channels;
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
+/// 400 MSG_ID_INVALID Invalid message ID provided.
 /// See <a href="https://corefork.telegram.org/method/channels.getParticipants" />
 ///</summary>
 [TlObject(0x77ced9d0)]

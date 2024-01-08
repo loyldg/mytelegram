@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Contacts;
 
 ///<summary>
-/// Get all contacts
+/// Get all contacts, requires a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
 /// See <a href="https://corefork.telegram.org/method/contacts.getSaved" />
 ///</summary>
 [TlObject(0x82f1e39f)]

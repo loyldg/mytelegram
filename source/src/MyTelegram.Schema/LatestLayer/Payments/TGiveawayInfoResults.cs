@@ -4,19 +4,53 @@
 namespace MyTelegram.Schema.Payments;
 
 ///<summary>
+/// A <a href="https://corefork.telegram.org/api/giveaways">giveaway</a> has ended.
 /// See <a href="https://corefork.telegram.org/constructor/payments.giveawayInfoResults" />
 ///</summary>
 [TlObject(0xcd5570)]
 public sealed class TGiveawayInfoResults : IGiveawayInfo
 {
     public uint ConstructorId => 0xcd5570;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether we're one of the winners of this giveaway.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Winner { get; set; }
+
+    ///<summary>
+    /// Whether the giveaway was canceled and was fully refunded.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Refunded { get; set; }
+
+    ///<summary>
+    /// Start date of the giveaway
+    ///</summary>
     public int StartDate { get; set; }
+
+    ///<summary>
+    /// If we're one of the winners of this giveaway, contains the <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Premium gift code</a>, see <a href="https://corefork.telegram.org/api/giveaways">here »</a> for more info on the full giveaway flow.
+    ///</summary>
     public string? GiftCodeSlug { get; set; }
+
+    ///<summary>
+    /// End date of the giveaway. May be bigger than the end date specified in parameters of the giveaway.
+    ///</summary>
     public int FinishDate { get; set; }
+
+    ///<summary>
+    /// Number of winners in the giveaway
+    ///</summary>
     public int WinnersCount { get; set; }
+
+    ///<summary>
+    /// Number of winners, which activated their <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">gift codes</a>.
+    ///</summary>
     public int ActivatedCount { get; set; }
 
     public void ComputeFlag()

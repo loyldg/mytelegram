@@ -4,21 +4,67 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Specifies options that must be used to generate the link preview for the message, or even a standalone link preview without an attached message.
 /// See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaWebPage" />
 ///</summary>
 [TlObject(0x809ad9a6)]
 public sealed class TBotInlineMessageMediaWebPage : IBotInlineMessage
 {
     public uint ConstructorId => 0x809ad9a6;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
+
+    ///<summary>
+    /// If set, specifies that a large media preview should be used.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ForceLargeMedia { get; set; }
+
+    ///<summary>
+    /// If set, specifies that a small media preview should be used.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ForceSmallMedia { get; set; }
+
+    ///<summary>
+    /// If set, indicates that the URL used for the webpage preview was specified manually using <a href="https://corefork.telegram.org/constructor/inputMediaWebPage">inputMediaWebPage</a>, and may not be related to any of the URLs specified in the message.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Manual { get; set; }
+
+    ///<summary>
+    /// If set, the link can be opened directly without user confirmation.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Safe { get; set; }
+
+    ///<summary>
+    /// The message, can be empty.
+    ///</summary>
     public string Message { get; set; }
+
+    ///<summary>
+    /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
+    ///</summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
+
+    ///<summary>
+    /// The URL to use for the link preview.
+    ///</summary>
     public string Url { get; set; }
+
+    ///<summary>
+    /// Reply markup for sending bot buttons
+    /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
+    ///</summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
     public void ComputeFlag()

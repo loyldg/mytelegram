@@ -48,7 +48,7 @@ public sealed class RequestEditStory : IRequest<MyTelegram.Schema.IUpdates>
     public string? Caption { get; set; }
 
     ///<summary>
-    /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text in the caption</a>
+    /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text in the caption</a>, if allowed by the <a href="https://corefork.telegram.org/api/config#stories-entities"><code>stories_entities</code> client configuration parameter »</a>.
     ///</summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 

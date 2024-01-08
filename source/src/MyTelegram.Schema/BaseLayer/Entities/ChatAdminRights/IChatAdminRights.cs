@@ -75,17 +75,17 @@ public interface IChatAdminRights : IObject
     bool ManageTopics { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, allows the admin to post <a href="https://corefork.telegram.org/api/stories">stories</a> as the <a href="https://corefork.telegram.org/api/channel">channel</a>.
     ///</summary>
     bool PostStories { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, allows the admin to edit <a href="https://corefork.telegram.org/api/stories">stories</a> posted by the other admins of the <a href="https://corefork.telegram.org/api/channel">channel</a>.
     ///</summary>
     bool EditStories { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, allows the admin to delete <a href="https://corefork.telegram.org/api/stories">stories</a> posted by the other admins of the <a href="https://corefork.telegram.org/api/channel">channel</a>.
     ///</summary>
     bool DeleteStories { get; set; }
 }

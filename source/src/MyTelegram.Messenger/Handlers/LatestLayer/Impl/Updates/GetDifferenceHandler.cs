@@ -55,7 +55,10 @@ internal sealed class GetDifferenceHandler : RpcResultObjectHandler<MyTelegram.S
         var userId = input.UserId;
         if (userId == 0)
         {
-            return new TDifferenceEmpty();
+            return new TDifferenceEmpty
+            {
+                Date = CurrentDate
+            };
         }
 
         var cachedPts = _ptsHelper.GetCachedPts(userId);
@@ -119,12 +122,11 @@ internal sealed class GetDifferenceHandler : RpcResultObjectHandler<MyTelegram.S
                 limit, messageIds, users, chats));
 
         var allUpdateList = updatesReadModels.Where(p => p.UpdatesType == UpdatesType.Updates)
-            .SelectMany(p => p.Updates.ToTObject<TVector<IUpdate>>()).ToList();
-        allUpdateList.AddRange(channelUpdatesReadModels.Where(p => p.UpdatesType == UpdatesType.Updates).SelectMany(p => p.Updates.ToTObject<TVector<IUpdate>>()));
+            .SelectMany(p => p.Updates ?? new List<IUpdate>()).ToList();
+        allUpdateList.AddRange(channelUpdatesReadModels.Where(p => p.UpdatesType == UpdatesType.Updates).SelectMany(p => p.Updates ?? new List<IUpdate>()));
+
         var hasEncryptedMessage = false;// updatesReadModels.Any(p => p.UpdatesType == UpdatesType.NewEncryptedMessages);
-
         var encryptedMessages = Array.Empty<IEncryptedMessageReadModel>();
-
 
         var maxPts = 0;
         if (updatesReadModels.Any() || channelUpdatesReadModels.Any())

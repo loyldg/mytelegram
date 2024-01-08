@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents a geolocation tag attached to a <a href="https://corefork.telegram.org/api/stories">story</a>.
 /// See <a href="https://corefork.telegram.org/constructor/mediaAreaGeoPoint" />
 ///</summary>
 [TlObject(0xdf8b3b22)]
@@ -11,13 +12,13 @@ public sealed class TMediaAreaGeoPoint : IMediaArea
 {
     public uint ConstructorId => 0xdf8b3b22;
     ///<summary>
-    /// &nbsp;
+    /// The size and position of the media area corresponding to the location sticker on top of the story media.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
     ///</summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Coordinates of the geolocation tag.
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
     ///</summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }

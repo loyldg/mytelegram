@@ -89,19 +89,19 @@ public sealed class TChatAdminRights : IChatAdminRights
     public bool ManageTopics { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, allows the admin to post <a href="https://corefork.telegram.org/api/stories">stories</a> as the <a href="https://corefork.telegram.org/api/channel">channel</a>.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool PostStories { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, allows the admin to edit <a href="https://corefork.telegram.org/api/stories">stories</a> posted by the other admins of the <a href="https://corefork.telegram.org/api/channel">channel</a>.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool EditStories { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, allows the admin to delete <a href="https://corefork.telegram.org/api/stories">stories</a> posted by the other admins of the <a href="https://corefork.telegram.org/api/channel">channel</a>.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool DeleteStories { get; set; }

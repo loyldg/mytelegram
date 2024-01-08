@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents a reaction bubble.
 /// See <a href="https://corefork.telegram.org/constructor/mediaAreaSuggestedReaction" />
 ///</summary>
 [TlObject(0x14455871)]
@@ -16,25 +17,25 @@ public sealed class TMediaAreaSuggestedReaction : IMediaArea
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the reaction bubble has a dark background.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Dark { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the reaction bubble is mirrored (see <a href="https://corefork.telegram.org/api/stories#reactions">here »</a> for more info).
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Flipped { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The coordinates of the media area corresponding to the reaction button.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
     ///</summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The reaction that should be sent when this area is clicked.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
     ///</summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }

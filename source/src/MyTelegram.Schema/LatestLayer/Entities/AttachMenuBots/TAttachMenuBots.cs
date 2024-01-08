@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Represents a list of <a href="https://corefork.telegram.org/api/bots/attach">bot web apps that can be launched from the attachment menu »</a>
+/// Represents a list of <a href="https://corefork.telegram.org/api/bots/attach">bot mini apps that can be launched from the attachment menu »</a>
 /// See <a href="https://corefork.telegram.org/constructor/attachMenuBots" />
 ///</summary>
 [TlObject(0x3c4301c0)]
@@ -17,7 +17,7 @@ public sealed class TAttachMenuBots : IAttachMenuBots
     public long Hash { get; set; }
 
     ///<summary>
-    /// List of <a href="https://corefork.telegram.org/api/bots/attach">bot web apps that can be launched from the attachment menu »</a>
+    /// List of <a href="https://corefork.telegram.org/api/bots/attach">bot mini apps that can be launched from the attachment menu »</a>
     ///</summary>
     public TVector<MyTelegram.Schema.IAttachMenuBot> Bots { get; set; }
 

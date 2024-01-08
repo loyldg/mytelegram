@@ -49,8 +49,10 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChannelAdminLogEventActionDeleteTopic), nameof(TChannelAdminLogEventActionDeleteTopic))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionPinTopic), nameof(TChannelAdminLogEventActionPinTopic))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionToggleAntiSpam), nameof(TChannelAdminLogEventActionToggleAntiSpam))]
-[JsonDerivedType(typeof(TChannelAdminLogEventActionChangeColor), nameof(TChannelAdminLogEventActionChangeColor))]
-[JsonDerivedType(typeof(TChannelAdminLogEventActionChangeBackgroundEmoji), nameof(TChannelAdminLogEventActionChangeBackgroundEmoji))]
+[JsonDerivedType(typeof(TChannelAdminLogEventActionChangePeerColor), nameof(TChannelAdminLogEventActionChangePeerColor))]
+[JsonDerivedType(typeof(TChannelAdminLogEventActionChangeProfilePeerColor), nameof(TChannelAdminLogEventActionChangeProfilePeerColor))]
+[JsonDerivedType(typeof(TChannelAdminLogEventActionChangeWallpaper), nameof(TChannelAdminLogEventActionChangeWallpaper))]
+[JsonDerivedType(typeof(TChannelAdminLogEventActionChangeEmojiStatus), nameof(TChannelAdminLogEventActionChangeEmojiStatus))]
 public interface IChannelAdminLogEventAction : IObject
 {
 

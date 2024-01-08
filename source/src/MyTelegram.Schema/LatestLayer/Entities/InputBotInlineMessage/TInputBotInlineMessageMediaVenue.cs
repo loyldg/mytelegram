@@ -33,7 +33,7 @@ public sealed class TInputBotInlineMessageMediaVenue : IInputBotInlineMessage
     public string Address { get; set; }
 
     ///<summary>
-    /// Venue provider: currently only "foursquare" needs to be supported
+    /// Venue provider: currently only "foursquare" and "gplaces" (Google Places) need to be supported
     ///</summary>
     public string Provider { get; set; }
 

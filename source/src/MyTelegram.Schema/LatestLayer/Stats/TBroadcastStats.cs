@@ -24,19 +24,39 @@ public sealed class TBroadcastStats : IBroadcastStats
     public MyTelegram.Schema.IStatsAbsValueAndPrev Followers { get; set; }
 
     ///<summary>
-    /// <code>total_viewcount/postcount</code>, for posts posted during the period in consideration (<code>views_per_post</code>). <br>Note that in this case, <code>current</code> refers to the <code>period</code> in consideration (<code>min_date</code> till <code>max_date</code>), and <code>prev</code> refers to the previous period (<code>(min_date - (max_date - min_date))</code> till <code>min_date</code>).
+    /// <code>total_viewcount/postcount</code>, for posts posted during the period in consideration. <br>Note that in this case, <code>current</code> refers to the <code>period</code> in consideration (<code>min_date</code> till <code>max_date</code>), and <code>prev</code> refers to the previous period (<code>(min_date - (max_date - min_date))</code> till <code>min_date</code>).
     /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
     ///</summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev ViewsPerPost { get; set; }
 
     ///<summary>
-    /// <code>total_viewcount/postcount</code>, for posts posted during the period in consideration (<code>views_per_post</code>). <br>Note that in this case, <code>current</code> refers to the <code>period</code> in consideration (<code>min_date</code> till <code>max_date</code>), and <code>prev</code> refers to the previous period (<code>(min_date - (max_date - min_date))</code> till <code>min_date</code>)
+    /// <code>total_sharecount/postcount</code>, for posts posted during the period in consideration. <br>Note that in this case, <code>current</code> refers to the <code>period</code> in consideration (<code>min_date</code> till <code>max_date</code>), and <code>prev</code> refers to the previous period (<code>(min_date - (max_date - min_date))</code> till <code>min_date</code>)
     /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
     ///</summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev SharesPerPost { get; set; }
+
+    ///<summary>
+    /// <code>total_reactions/postcount</code>, for posts posted during the period in consideration. <br>Note that in this case, <code>current</code> refers to the <code>period</code> in consideration (<code>min_date</code> till <code>max_date</code>), and <code>prev</code> refers to the previous period (<code>(min_date - (max_date - min_date))</code> till <code>min_date</code>)
+    /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
+    ///</summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev ReactionsPerPost { get; set; }
+
+    ///<summary>
+    /// <code>total_views/storycount</code>, for posts posted during the period in consideration. <br>Note that in this case, <code>current</code> refers to the <code>period</code> in consideration (<code>min_date</code> till <code>max_date</code>), and <code>prev</code> refers to the previous period (<code>(min_date - (max_date - min_date))</code> till <code>min_date</code>)
+    /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
+    ///</summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev ViewsPerStory { get; set; }
+
+    ///<summary>
+    /// <code>total_shares/storycount</code>, for posts posted during the period in consideration. <br>Note that in this case, <code>current</code> refers to the <code>period</code> in consideration (<code>min_date</code> till <code>max_date</code>), and <code>prev</code> refers to the previous period (<code>(min_date - (max_date - min_date))</code> till <code>min_date</code>)
+    /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
+    ///</summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev SharesPerStory { get; set; }
+
+    ///<summary>
+    /// <code>total_reactions/storycount</code>, for posts posted during the period in consideration. <br>Note that in this case, <code>current</code> refers to the <code>period</code> in consideration (<code>min_date</code> till <code>max_date</code>), and <code>prev</code> refers to the previous period (<code>(min_date - (max_date - min_date))</code> till <code>min_date</code>)
+    /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
+    ///</summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev ReactionsPerStory { get; set; }
 
     ///<summary>
@@ -98,9 +118,28 @@ public sealed class TBroadcastStats : IBroadcastStats
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
     ///</summary>
     public MyTelegram.Schema.IStatsGraph LanguagesGraph { get; set; }
+
+    ///<summary>
+    /// A graph containing the number of reactions on posts categorized by emotion
+    /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
+    ///</summary>
     public MyTelegram.Schema.IStatsGraph ReactionsByEmotionGraph { get; set; }
+
+    ///<summary>
+    /// A graph containing the number of story views and shares
+    /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
+    ///</summary>
     public MyTelegram.Schema.IStatsGraph StoryInteractionsGraph { get; set; }
+
+    ///<summary>
+    /// A graph containing the number of reactions on stories categorized by emotion
+    /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
+    ///</summary>
     public MyTelegram.Schema.IStatsGraph StoryReactionsByEmotionGraph { get; set; }
+
+    ///<summary>
+    /// Detailed statistics about number of views and shares of recently sent messages and stories
+    ///</summary>
     public TVector<MyTelegram.Schema.IPostInteractionCounters> RecentPostsInteractions { get; set; }
 
     public void ComputeFlag()

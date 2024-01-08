@@ -7,10 +7,10 @@ namespace MyTelegram.Schema.Messages;
 /// Send a chosen peer, as requested by a <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a> button.
 /// See <a href="https://corefork.telegram.org/method/messages.sendBotRequestedPeer" />
 ///</summary>
-[TlObject(0xfe38d01b)]
+[TlObject(0x91b2d060)]
 public sealed class RequestSendBotRequestedPeer : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xfe38d01b;
+    public uint ConstructorId => 0x91b2d060;
     ///<summary>
     /// The bot that sent the <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a> button.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
@@ -26,12 +26,7 @@ public sealed class RequestSendBotRequestedPeer : IRequest<MyTelegram.Schema.IUp
     /// The <code>button_id</code> field from the <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a> constructor.
     ///</summary>
     public int ButtonId { get; set; }
-
-    ///<summary>
-    /// The chosen peer.
-    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
-    public MyTelegram.Schema.IInputPeer RequestedPeer { get; set; }
+    public TVector<MyTelegram.Schema.IInputPeer> RequestedPeers { get; set; }
 
     public void ComputeFlag()
     {
@@ -45,7 +40,7 @@ public sealed class RequestSendBotRequestedPeer : IRequest<MyTelegram.Schema.IUp
         writer.Write(Peer);
         writer.Write(MsgId);
         writer.Write(ButtonId);
-        writer.Write(RequestedPeer);
+        writer.Write(RequestedPeers);
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -53,6 +48,6 @@ public sealed class RequestSendBotRequestedPeer : IRequest<MyTelegram.Schema.IUp
         Peer = reader.Read<MyTelegram.Schema.IInputPeer>();
         MsgId = reader.ReadInt32();
         ButtonId = reader.ReadInt32();
-        RequestedPeer = reader.Read<MyTelegram.Schema.IInputPeer>();
+        RequestedPeers = reader.Read<TVector<MyTelegram.Schema.IInputPeer>>();
     }
 }

@@ -7,11 +7,12 @@ namespace MyTelegram.Schema.Upload;
 /// Returns content of a whole file or its part.
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 CDN_METHOD_INVALID You can't call this method in a CDN DC.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 FILE_REFERENCE_* The file reference expired, it <a href="https://corefork.telegram.org/api/file_reference">must be refreshed</a>.
 /// 406 FILEREF_UPGRADE_NEEDED The client has to be updated in order to support <a href="https://corefork.telegram.org/api/file_reference">file references</a>.
 /// 400 FILE_ID_INVALID The provided file id is invalid.
+/// 400 FILE_REFERENCE_* The file reference expired, it <a href="https://corefork.telegram.org/api/file_reference">must be refreshed</a>.
 /// 400 FILE_REFERENCE_EXPIRED File reference expired, it must be refetched as described in <a href="https://corefork.telegram.org/api/file_reference">the documentation</a>.
 /// 400 LIMIT_INVALID The provided limit is invalid.
 /// 400 LOCATION_INVALID The provided location is invalid.

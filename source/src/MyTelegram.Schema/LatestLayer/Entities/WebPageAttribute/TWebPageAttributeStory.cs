@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Webpage preview of a Telegram story
 /// See <a href="https://corefork.telegram.org/constructor/webPageAttributeStory" />
 ///</summary>
 [TlObject(0x2e94c3e7)]
@@ -16,18 +17,18 @@ public sealed class TWebPageAttributeStory : IWebPageAttribute
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Peer that posted the story
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// <a href="https://corefork.telegram.org/api/stories#watching-stories">Story ID</a>
     ///</summary>
     public int Id { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// May contain the story, if not the story should be fetched when and if needed using <a href="https://corefork.telegram.org/method/stories.getStoriesByID">stories.getStoriesByID</a> with the above <code>id</code> and <code>peer</code>.
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
     ///</summary>
     public MyTelegram.Schema.IStoryItem? Story { get; set; }

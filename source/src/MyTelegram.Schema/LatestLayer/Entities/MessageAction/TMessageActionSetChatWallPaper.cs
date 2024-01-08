@@ -11,8 +11,21 @@ namespace MyTelegram.Schema;
 public sealed class TMessageActionSetChatWallPaper : IMessageAction
 {
     public uint ConstructorId => 0x5060a3f4;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// If set, indicates the user applied a <a href="https://corefork.telegram.org/api/wallpapers">wallpaper »</a> previously sent by the other user in a <a href="https://corefork.telegram.org/constructor/messageActionSetChatWallPaper">messageActionSetChatWallPaper</a> message.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Same { get; set; }
+
+    ///<summary>
+    /// If set, indicates the wallpaper was forcefully applied for both sides, without explicit confirmation from the other side. <br>If the message is incoming, and we did not like the new wallpaper the other user has chosen for us, we can re-set our previous wallpaper just on our side, by invoking <a href="https://corefork.telegram.org/method/messages.setChatWallPaper">messages.setChatWallPaper</a>, providing only the <code>revert</code> flag (and obviously the <code>peer</code> parameter).
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ForBoth { get; set; }
 
     ///<summary>

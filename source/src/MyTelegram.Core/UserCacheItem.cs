@@ -7,6 +7,7 @@ public class UserCacheItem
 
     public static string GetCacheKey(string phoneNumber)
     {
-        return $"user_{phoneNumber.ToPhoneNumber()}";
+        return MyCacheKey.With("user", "phone", phoneNumber.ToPhoneNumber());
+        //$"users:user_{phoneNumber.ToPhoneNumber()}";
     }
 }

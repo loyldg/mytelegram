@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents a <a href="https://corefork.telegram.org/api/stories">Telegram Story</a>
 /// See <a href="https://corefork.telegram.org/constructor/StoryItem" />
 ///</summary>
 [JsonDerivedType(typeof(TStoryItemDeleted), nameof(TStoryItemDeleted))]

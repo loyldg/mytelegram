@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// A specific user has voted in a poll
+/// A specific peer has voted in a poll
 /// See <a href="https://corefork.telegram.org/constructor/updateMessagePollVote" />
 ///</summary>
 [TlObject(0x24f40e77)]
@@ -17,7 +17,7 @@ public sealed class TUpdateMessagePollVote : IUpdate
     public long PollId { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The peer that voted in the poll
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }

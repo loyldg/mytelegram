@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Help;
 
 ///<summary>
+/// Contains info about multiple <a href="https://corefork.telegram.org/api/colors">color palettes »</a>.
 /// See <a href="https://corefork.telegram.org/constructor/help.peerColors" />
 ///</summary>
 [TlObject(0xf8ed08)]
@@ -16,7 +17,7 @@ public sealed class TPeerColors : IPeerColors
     public int Hash { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Usable <a href="https://corefork.telegram.org/api/colors">color palettes</a>.
     ///</summary>
     public TVector<MyTelegram.Schema.Help.IPeerColorOption> Colors { get; set; }
 

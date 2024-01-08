@@ -32,25 +32,25 @@ public interface IInputPeerNotifySettings : IObject
     int? MuteUntil { get; set; }
 
     ///<summary>
-    /// Name of an audio file for notification
+    /// Identifier of an audio file to play for notifications.
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
     ///</summary>
     MyTelegram.Schema.INotificationSound? Sound { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether story notifications should be disabled.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     ///</summary>
     bool? StoriesMuted { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the sender name should be displayed in story notifications.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     ///</summary>
     bool? StoriesHideSender { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Identifier of an audio file to play for story notifications.
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
     ///</summary>
     MyTelegram.Schema.INotificationSound? StoriesSound { get; set; }

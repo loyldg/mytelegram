@@ -4,12 +4,19 @@
 namespace MyTelegram.Schema.Payments;
 
 ///<summary>
+/// Obtain information about a <a href="https://corefork.telegram.org/api/giveaways">Telegram Premium giftcode »</a>
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 GIFT_SLUG_INVALID The specified slug is invalid.
 /// See <a href="https://corefork.telegram.org/method/payments.checkGiftCode" />
 ///</summary>
 [TlObject(0x8e51b4c1)]
 public sealed class RequestCheckGiftCode : IRequest<MyTelegram.Schema.Payments.ICheckedGiftCode>
 {
     public uint ConstructorId => 0x8e51b4c1;
+    ///<summary>
+    /// The giftcode to check
+    ///</summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

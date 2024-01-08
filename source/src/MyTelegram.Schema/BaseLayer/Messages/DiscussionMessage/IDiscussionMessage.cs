@@ -15,7 +15,7 @@ public interface IDiscussionMessage : IObject
     BitArray Flags { get; set; }
 
     ///<summary>
-    /// Discussion messages
+    /// The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing message ID).
     /// See <a href="https://corefork.telegram.org/type/Message" />
     ///</summary>
     TVector<MyTelegram.Schema.IMessage> Messages { get; set; }

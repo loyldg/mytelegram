@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Contains info about the original poster of a reposted story.
 /// See <a href="https://corefork.telegram.org/constructor/storyFwdHeader" />
 ///</summary>
 [TlObject(0xb826e150)]
@@ -16,24 +17,24 @@ public sealed class TStoryFwdHeader : IStoryFwdHeader
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the story media was modified before reposting it (for example by overlaying a round video with a reaction).
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Modified { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Peer that originally posted the story; will be empty for stories forwarded from a user with forwards privacy enabled, in which case <code>from_name</code> will be set, instead.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer? From { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Will be set for stories forwarded from a user with forwards privacy enabled, in which case <code>from</code> will also be empty.
     ///</summary>
     public string? FromName { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// , contains the story ID
     ///</summary>
     public int? StoryId { get; set; }
 

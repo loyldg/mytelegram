@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Whether people can see your bio
 /// See <a href="https://corefork.telegram.org/constructor/privacyKeyAbout" />
 ///</summary>
 [TlObject(0xa486b761)]

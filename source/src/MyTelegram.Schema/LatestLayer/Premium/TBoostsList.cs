@@ -4,16 +4,36 @@
 namespace MyTelegram.Schema.Premium;
 
 ///<summary>
+/// List of <a href="https://corefork.telegram.org/api/boost">boosts</a> that were applied to a peer by multiple users.
 /// See <a href="https://corefork.telegram.org/constructor/premium.boostsList" />
 ///</summary>
 [TlObject(0x86f8613c)]
 public sealed class TBoostsList : IBoostsList
 {
     public uint ConstructorId => 0x86f8613c;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Total number of results
+    ///</summary>
     public int Count { get; set; }
+
+    ///<summary>
+    /// <a href="https://corefork.telegram.org/api/boost">Boosts</a>
+    ///</summary>
     public TVector<MyTelegram.Schema.IBoost> Boosts { get; set; }
+
+    ///<summary>
+    /// Offset that can be used for <a href="https://corefork.telegram.org/api/offsets">pagination</a>.
+    ///</summary>
     public string? NextOffset { get; set; }
+
+    ///<summary>
+    /// Mentioned users
+    ///</summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

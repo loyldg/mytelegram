@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Stories;
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 400 STORY_ID_INVALID The specified story ID is invalid.
 /// See <a href="https://corefork.telegram.org/method/stories.getStoryViewsList" />
 ///</summary>
 [TlObject(0x7ed23c57)]
@@ -26,10 +27,11 @@ public sealed class RequestGetStoryViewsList : IRequest<MyTelegram.Schema.Storie
     public bool JustContacts { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether to return <a href="https://corefork.telegram.org/constructor/storyView">storyView</a> info about users that reacted to the story (i.e. if set, the server will first sort results by view date as usual, and then also additionally sort the list by putting <a href="https://corefork.telegram.org/constructor/storyView">storyView</a>s with an associated reaction first in the list).
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool ReactionsFirst { get; set; }
+    public bool ForwardsFirst { get; set; }
 
     ///<summary>
     /// Peer where the story was posted
@@ -61,6 +63,7 @@ public sealed class RequestGetStoryViewsList : IRequest<MyTelegram.Schema.Storie
     {
         if (JustContacts) { Flags[0] = true; }
         if (ReactionsFirst) { Flags[2] = true; }
+        if (ForwardsFirst) { Flags[3] = true; }
         if (Q != null) { Flags[1] = true; }
 
     }
@@ -82,6 +85,7 @@ public sealed class RequestGetStoryViewsList : IRequest<MyTelegram.Schema.Storie
         Flags = reader.ReadBitArray();
         if (Flags[0]) { JustContacts = true; }
         if (Flags[2]) { ReactionsFirst = true; }
+        if (Flags[3]) { ForwardsFirst = true; }
         Peer = reader.Read<MyTelegram.Schema.IInputPeer>();
         if (Flags[1]) { Q = reader.ReadString(); }
         Id = reader.ReadInt32();

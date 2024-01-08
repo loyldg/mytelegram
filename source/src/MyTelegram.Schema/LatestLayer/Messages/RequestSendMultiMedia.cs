@@ -26,6 +26,7 @@ namespace MyTelegram.Schema.Messages;
 /// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
 /// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
 /// 420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+/// 400 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.
 /// 400 TOPIC_DELETED The specified topic was deleted.
 /// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
 /// See <a href="https://corefork.telegram.org/method/messages.sendMultiMedia" />
@@ -68,6 +69,11 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool UpdateStickersetsOrder { get; set; }
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
 
     ///<summary>
@@ -75,6 +81,11 @@ public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// If set, indicates that the message should be sent in reply to the specified message or story.
+    /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
+    ///</summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
     ///<summary>

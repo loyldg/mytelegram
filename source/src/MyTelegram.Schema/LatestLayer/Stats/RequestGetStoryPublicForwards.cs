@@ -4,6 +4,10 @@
 namespace MyTelegram.Schema.Stats;
 
 ///<summary>
+/// Obtain forwards of a <a href="https://corefork.telegram.org/api/stories">story</a> as a message to public chats and reposts by public channels.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stats.getStoryPublicForwards" />
 ///</summary>
 [TlObject(0xa6437ef6)]
@@ -11,18 +15,18 @@ public sealed class RequestGetStoryPublicForwards : IRequest<MyTelegram.Schema.S
 {
     public uint ConstructorId => 0xa6437ef6;
     ///<summary>
-    /// &nbsp;
+    /// Peer where the story was originally posted
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// <a href="https://corefork.telegram.org/api/stories">Story</a> ID
     ///</summary>
     public int Id { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Offset for pagination, from <a href="https://corefork.telegram.org/constructor/stats.publicForwards">stats.PublicForwards</a>.<code>next_offset</code>.
     ///</summary>
     public string Offset { get; set; }
 

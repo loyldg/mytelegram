@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
-/// Contains information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-bot-web-apps">named bot web app</a>
+/// Contains information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-mini-apps">named Mini App</a>
 /// See <a href="https://corefork.telegram.org/constructor/messages.botApp" />
 ///</summary>
 [TlObject(0xeb50adf5)]
@@ -29,7 +29,7 @@ public sealed class TBotApp : IBotApp
     public bool RequestWriteAccess { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Deprecated flag, can be ignored.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool HasSettings { get; set; }

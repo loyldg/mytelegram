@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// A new channel is available
+/// A new channel or supergroup is available, or info about an existing channel has changed and must be refeteched.
 /// See <a href="https://corefork.telegram.org/constructor/updateChannel" />
 ///</summary>
 [TlObject(0x635b4c09)]

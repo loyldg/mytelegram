@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
-/// Should be called after the user hides the report spam/add as contact bar of a new chat, effectively prevents the user from executing the actions specified in the <a href="https://corefork.telegram.org/constructor/peerSettings">peer's settings</a>.
+/// Should be called after the user hides the <a href="https://corefork.telegram.org/api/action-bar">report spam/add as contact bar</a> of a new chat, effectively prevents the user from executing the actions specified in the <a href="https://corefork.telegram.org/api/action-bar">action bar »</a>.
 /// See <a href="https://corefork.telegram.org/method/messages.hidePeerSettingsBar" />
 ///</summary>
 [TlObject(0x4facb138)]

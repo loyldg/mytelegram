@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
-/// Returns found messages
+/// Search for messages.
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
@@ -21,17 +21,17 @@ namespace MyTelegram.Schema.Messages;
 /// 400 USER_ID_INVALID The provided user ID is invalid.
 /// See <a href="https://corefork.telegram.org/method/messages.search" />
 ///</summary>
-[TlObject(0xa0fda762)]
+[TlObject(0xa7b4e929)]
 public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
-    public uint ConstructorId => 0xa0fda762;
+    public uint ConstructorId => 0xa7b4e929;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// User or chat, histories with which are searched, or <a href="https://corefork.telegram.org/constructor/inputPeerEmpty">(inputPeerEmpty)</a> constructor for global search
+    /// User or chat, histories with which are searched, or <a href="https://corefork.telegram.org/constructor/inputPeerEmpty">(inputPeerEmpty)</a> constructor to search in all private chats and <a href="https://corefork.telegram.org/api/channel">normal groups (not channels) »</a>. Use <a href="https://corefork.telegram.org/method/messages.searchGlobal">messages.searchGlobal</a> to search globally in all chats, groups, supergroups and channels.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
@@ -46,6 +46,7 @@ public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessage
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer? FromId { get; set; }
+    public MyTelegram.Schema.IInputPeer? SavedPeerId { get; set; }
 
     ///<summary>
     /// <a href="https://corefork.telegram.org/api/threads">Thread ID</a>
@@ -101,6 +102,7 @@ public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessage
     public void ComputeFlag()
     {
         if (FromId != null) { Flags[0] = true; }
+        if (SavedPeerId != null) { Flags[2] = true; }
         if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags[1] = true; }
 
     }
@@ -113,6 +115,7 @@ public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessage
         writer.Write(Peer);
         writer.Write(Q);
         if (Flags[0]) { writer.Write(FromId); }
+        if (Flags[2]) { writer.Write(SavedPeerId); }
         if (Flags[1]) { writer.Write(TopMsgId.Value); }
         writer.Write(Filter);
         writer.Write(MinDate);
@@ -131,6 +134,7 @@ public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessage
         Peer = reader.Read<MyTelegram.Schema.IInputPeer>();
         Q = reader.ReadString();
         if (Flags[0]) { FromId = reader.Read<MyTelegram.Schema.IInputPeer>(); }
+        if (Flags[2]) { SavedPeerId = reader.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags[1]) { TopMsgId = reader.ReadInt32(); }
         Filter = reader.Read<MyTelegram.Schema.IMessagesFilter>();
         MinDate = reader.ReadInt32();

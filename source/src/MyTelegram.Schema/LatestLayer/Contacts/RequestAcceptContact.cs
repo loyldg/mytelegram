@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Contacts;
 
 ///<summary>
-/// If the <a href="https://corefork.telegram.org/constructor/peerSettings">peer settings</a> of a new user allow us to add them as contact, add that user as contact
+/// If the <a href="https://corefork.telegram.org/api/action-bar#add-contact">add contact action bar is active</a>, add that user as contact
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 CONTACT_ADD_MISSING Contact to add is missing.

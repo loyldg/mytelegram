@@ -4,16 +4,42 @@
 namespace MyTelegram.Schema.Premium;
 
 ///<summary>
+/// Obtains info about the boosts that were applied to a certain channel (admins only)
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/premium.getBoostsList" />
 ///</summary>
 [TlObject(0x60f67660)]
 public sealed class RequestGetBoostsList : IRequest<MyTelegram.Schema.Premium.IBoostsList>
 {
     public uint ConstructorId => 0x60f67660;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether to return only info about boosts received from <a href="https://corefork.telegram.org/api/giveaways">gift codes and giveaways created by the channel »</a>
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Gifts { get; set; }
+
+    ///<summary>
+    /// The channel
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// Offset for pagination, obtained from <a href="https://corefork.telegram.org/constructor/premium.boostsList">premium.boostsList</a>.<code>next_offset</code>
+    ///</summary>
     public string Offset { get; set; }
+
+    ///<summary>
+    /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
+    ///</summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

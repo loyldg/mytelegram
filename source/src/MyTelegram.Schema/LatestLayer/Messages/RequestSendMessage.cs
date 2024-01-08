@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Messages;
 /// Sends a message to a chat
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 ADMIN_RIGHTS_EMPTY &nbsp;
 /// 400 BOT_DOMAIN_INVALID Bot domain invalid.
 /// 400 BOT_INVALID This is not a valid bot.
 /// 400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.
@@ -39,12 +40,15 @@ namespace MyTelegram.Schema.Messages;
 /// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
 /// 400 REPLY_MARKUP_INVALID The provided reply markup is invalid.
 /// 400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.
+/// 400 REPLY_TO_INVALID The specified <code>reply_to</code> field is invalid.
+/// 400 REPLY_TO_USER_INVALID The replied-to user is invalid.
 /// 400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.
 /// 400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.
 /// 400 SCHEDULE_STATUS_PRIVATE Can't schedule until user is online, if the user's last seen timestamp is hidden by their privacy settings.
 /// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
 /// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
 /// 420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+/// 400 STORY_ID_INVALID The specified story ID is invalid.
 /// 406 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.
 /// 406 TOPIC_DELETED The specified topic was deleted.
 /// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
@@ -98,6 +102,11 @@ public sealed class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool UpdateStickersetsOrder { get; set; }
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
 
     ///<summary>
@@ -105,6 +114,11 @@ public sealed class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// If set, indicates that the message should be sent in reply to the specified message or story.
+    /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
+    ///</summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
     ///<summary>

@@ -5,6 +5,9 @@ namespace MyTelegram.Schema.Account;
 
 ///<summary>
 /// Set an <a href="https://corefork.telegram.org/api/emoji-status">emoji status</a>
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 DOCUMENT_INVALID The specified document is invalid.
 /// See <a href="https://corefork.telegram.org/method/account.updateEmojiStatus" />
 ///</summary>
 [TlObject(0xfbd3de6b)]

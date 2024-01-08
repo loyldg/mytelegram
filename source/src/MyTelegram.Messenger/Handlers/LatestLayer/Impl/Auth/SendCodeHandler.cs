@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Auth;
 
@@ -27,32 +27,67 @@ internal sealed class SendCodeHandler : RpcResultObjectHandler<MyTelegram.Schema
     private readonly IRandomHelper _randomHelper;
     private readonly IOptions<MyTelegramMessengerServerOptions> _options;
     private readonly IQueryProcessor _queryProcessor;
-
+    private readonly ICacheManager<FutureAuthTokenCacheItem> _cacheManager;
+    private readonly IHashHelper _hashHelper;
+    private readonly ILayeredService<IAuthorizationConverter> _authorizationLayeredService;
+    private readonly ILayeredService<IUserConverter> _userLayeredService;
+    private readonly IEventBus _eventBus;
+    private readonly int _maxFutureAuthTokens = 20;
     public SendCodeHandler(
         ICommandBus commandBus,
         IRandomHelper randomHelper,
         IPeerHelper peerHelper,
         IOptions<MyTelegramMessengerServerOptions> options,
-        IQueryProcessor queryProcessor)
+        IQueryProcessor queryProcessor, ICacheManager<FutureAuthTokenCacheItem> cacheManager, IHashHelper hashHelper, ILayeredService<IAuthorizationConverter> authorizationLayeredService, ILayeredService<IUserConverter> userLayeredService, IEventBus eventBus)
     {
         _commandBus = commandBus;
         _randomHelper = randomHelper;
         _peerHelper = peerHelper;
         _options = options;
         _queryProcessor = queryProcessor;
+        _cacheManager = cacheManager;
+        _hashHelper = hashHelper;
+        _authorizationLayeredService = authorizationLayeredService;
+        _userLayeredService = userLayeredService;
+        _eventBus = eventBus;
     }
 
     protected override async Task<ISentCode> HandleCoreAsync(IRequestInput input,
         RequestSendCode obj)
     {
-        var userReadModel = await _queryProcessor
-            .ProcessAsync(new GetUserByPhoneNumberQuery(obj.PhoneNumber.ToPhoneNumber()), default)
-     ;
+        var userReadModel = await _queryProcessor.ProcessAsync(new GetUserByPhoneNumberQuery(obj.PhoneNumber.ToPhoneNumber()));
         if (userReadModel != null)
         {
             if (_peerHelper.IsBotUser(userReadModel.UserId) || userReadModel.UserId == MyTelegramServerDomainConsts.OfficialUserId)
             {
                 RpcErrors.RpcErrors400.PhoneNumberInvalid.ThrowRpcError();
+            }
+
+            if (obj.Settings.LogoutTokens?.Count > 0)
+            {
+                var cacheKeys = obj.Settings.LogoutTokens.Take(_maxFutureAuthTokens).Select(p => FutureAuthTokenCacheItem.GetCacheKey(BitConverter.ToString(_hashHelper.Sha1(p)).Replace("-", string.Empty))).ToList();
+                var cachedFutureTokens = await _cacheManager.GetManyAsync(cacheKeys);
+
+                if (cachedFutureTokens.Any(p => p.Value.UserId == userReadModel.UserId))
+                {
+                    if (userReadModel.HasPassword)
+                    {
+                        RpcErrors.RpcErrors401.SessionPasswordNeeded.ThrowRpcError();
+                    }
+                    else
+                    {
+                        var user = _userLayeredService.GetConverter(input.Layer)
+                            .ToUser(userReadModel.UserId, userReadModel, null);
+
+                        await _eventBus.PublishAsync(new UserSignInSuccessEvent(input.AuthKeyId, input.PermAuthKeyId,
+                            user.Id, PasswordState.None));
+
+                        return new TSentCodeSuccess
+                        {
+                            Authorization = _authorizationLayeredService.GetConverter(input.Layer).CreateAuthorization(user)
+                        };
+                    }
+                }
             }
         }
 

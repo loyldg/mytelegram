@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Represents an attachment menu icon color for <a href="https://corefork.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu">bot web apps »</a>
+/// Represents an attachment menu icon color for <a href="https://corefork.telegram.org/bots/webapps#launching-mini-apps-from-the-attachment-menu">bot mini apps »</a>
 /// See <a href="https://corefork.telegram.org/constructor/AttachMenuBotIconColor" />
 ///</summary>
 [JsonDerivedType(typeof(TAttachMenuBotIconColor), nameof(TAttachMenuBotIconColor))]

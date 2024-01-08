@@ -12,7 +12,7 @@ public sealed class TLoginToken : ILoginToken
 {
     public uint ConstructorId => 0x629f1980;
     ///<summary>
-    /// Expiry date of QR code
+    /// Expiration date of QR code
     ///</summary>
     public int Expires { get; set; }
 

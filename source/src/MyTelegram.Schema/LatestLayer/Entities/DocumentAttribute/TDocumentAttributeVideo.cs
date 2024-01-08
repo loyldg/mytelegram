@@ -29,7 +29,7 @@ public sealed class TDocumentAttributeVideo : IDocumentAttribute
     public bool SupportsStreaming { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the specified document is a video file with no audio tracks (a GIF animation (even as MPEG4), for example)
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Nosound { get; set; }
@@ -50,7 +50,7 @@ public sealed class TDocumentAttributeVideo : IDocumentAttribute
     public int H { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of bytes to preload when preloading videos (particularly <a href="https://corefork.telegram.org/api/stories">video stories</a>).
     ///</summary>
     public int? PreloadPrefixSize { get; set; }
 

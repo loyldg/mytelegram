@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Account;
 
 ///<summary>
-/// Change authorization settings
+/// Change settings related to a session.
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 HASH_INVALID The provided hash is invalid.
@@ -18,6 +18,11 @@ public sealed class RequestChangeAuthorizationSettings : IRequest<IBool>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// If set, <a href="https://corefork.telegram.org/api/auth#confirming-login">confirms a newly logged in session »</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Confirmed { get; set; }
 
     ///<summary>

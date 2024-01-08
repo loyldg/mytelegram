@@ -4,14 +4,26 @@
 namespace MyTelegram.Schema.Premium;
 
 ///<summary>
+/// A list of peers we are currently <a href="https://corefork.telegram.org/api/boost">boosting</a>, and how many <a href="https://corefork.telegram.org/api/boost">boost slots</a> we have left.
 /// See <a href="https://corefork.telegram.org/constructor/premium.myBoosts" />
 ///</summary>
 [TlObject(0x9ae228e2)]
 public sealed class TMyBoosts : IMyBoosts
 {
     public uint ConstructorId => 0x9ae228e2;
+    ///<summary>
+    /// Info about boosted peers and remaining boost slots.
+    ///</summary>
     public TVector<MyTelegram.Schema.IMyBoost> MyBoosts { get; set; }
+
+    ///<summary>
+    /// Referenced chats
+    ///</summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
+
+    ///<summary>
+    /// Referenced users
+    ///</summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

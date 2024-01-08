@@ -8,6 +8,7 @@ public enum AccessHashType
     Photo,
     StickerSet,
     Sticker,
+    WallPaper
 }
 
 public record UserReaction(long UserId,

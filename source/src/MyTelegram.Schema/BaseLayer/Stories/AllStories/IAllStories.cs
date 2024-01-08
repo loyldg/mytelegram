@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Full list of active (or active and hidden) <a href="https://corefork.telegram.org/api/stories#watching-stories">stories</a>.
 /// See <a href="https://corefork.telegram.org/constructor/stories.AllStories" />
 ///</summary>
 [JsonDerivedType(typeof(TAllStoriesNotModified), nameof(TAllStoriesNotModified))]

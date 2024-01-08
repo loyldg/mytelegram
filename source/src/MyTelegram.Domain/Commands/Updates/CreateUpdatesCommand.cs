@@ -15,7 +15,7 @@ public class CreateUpdatesCommand : Command<UpdatesAggregate, UpdatesId, IExecut
     public int? MessageId { get; }
     public int Date { get; }
     public long SeqNo { get; }
-    public byte[]? Updates { get; }
+    public IList<IUpdate>? Updates { get; }
     public List<long>? Users { get; }
     public List<long>? Chats { get; }
 
@@ -27,7 +27,7 @@ public class CreateUpdatesCommand : Command<UpdatesAggregate, UpdatesId, IExecut
         long? onlySendToUserId,
         long? onlySendToThisAuthKeyId,
         UpdatesType updatesType, int pts, int? messageId, int date, long seqNo,
-        byte[]? updates,
+        IList<IUpdate>? updates,
         List<long>? users, List<long>? chats) : base(aggregateId)
     {
         OwnerPeerId = ownerPeerId;

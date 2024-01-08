@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// How a user voted in a poll
 /// See <a href="https://corefork.telegram.org/constructor/MessagePeerVote" />
 ///</summary>
 [JsonDerivedType(typeof(TMessagePeerVote), nameof(TMessagePeerVote))]
@@ -11,13 +12,13 @@ namespace MyTelegram.Schema;
 public interface IMessagePeerVote : IObject
 {
     ///<summary>
-    /// &nbsp;
+    /// Peer ID
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// When did the peer cast their votes
     ///</summary>
     int Date { get; set; }
 }

@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Empty constructor for takeout
+/// Used to download a JSON file that will contain all personal data related to features that do not have a specialized <a href="https://corefork.telegram.org/api/takeout">takeout method</a> yet, see <a href="https://corefork.telegram.org/api/takeout">here »</a> for more info on the takeout API.
 /// See <a href="https://corefork.telegram.org/constructor/inputTakeoutFileLocation" />
 ///</summary>
 [TlObject(0x29be5899)]

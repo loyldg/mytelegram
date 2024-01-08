@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents a reply to a <a href="https://corefork.telegram.org/api/stories">story</a>
 /// See <a href="https://corefork.telegram.org/constructor/messageReplyStoryHeader" />
 ///</summary>
 [TlObject(0x9c98bfc1)]
@@ -11,12 +12,12 @@ public sealed class TMessageReplyStoryHeader : IMessageReplyHeader
 {
     public uint ConstructorId => 0x9c98bfc1;
     ///<summary>
-    /// &nbsp;
+    /// ID of the user that posted a story
     ///</summary>
     public long UserId { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Story ID
     ///</summary>
     public int StoryId { get; set; }
 

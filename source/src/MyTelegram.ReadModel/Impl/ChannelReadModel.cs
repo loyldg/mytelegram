@@ -14,7 +14,8 @@ public class ChannelReadModel : IChannelReadModel,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
-    IAmReadModelFor<ChannelAggregate, ChannelId, SetDiscussionGroupEvent>
+    IAmReadModelFor<ChannelAggregate, ChannelId, SetDiscussionGroupEvent>,
+IAmReadModelFor<ChannelAggregate, ChannelId, ChannelColorUpdatedEvent>
 {
     public string? About { get; private set; }
     public long AccessHash { get; private set; }
@@ -51,7 +52,9 @@ public class ChannelReadModel : IChannelReadModel,
     public long? PhotoId { get; private set; }
     public bool NoForwards { get; private set; }
     public PeerColor? Color { get; private set; }
+    public PeerColor? ProfileColor { get; private set; }
     public long? BackgroundEmojiId { get; private set; }
+    public int? Level { get; private set; }
 
     //public ReactionType ReactionType { get; private set; }
     //public bool AllowCustomReaction { get; private set; }
@@ -268,6 +271,19 @@ public class ChannelReadModel : IChannelReadModel,
             ParticipantsCount++;
         }
 
+        return Task.CompletedTask;
+    }
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<ChannelAggregate, ChannelId, ChannelColorUpdatedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        if (domainEvent.AggregateEvent.ForProfile)
+        {
+            Color = domainEvent.AggregateEvent.Color;
+        }
+        else
+        {
+            ProfileColor = domainEvent.AggregateEvent.Color;
+        }
+        BackgroundEmojiId = domainEvent.AggregateEvent.BackgroundEmojiId;
         return Task.CompletedTask;
     }
 }

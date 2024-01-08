@@ -7,10 +7,11 @@ namespace MyTelegram.Schema.Channels;
 /// Create a <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a>.
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 ADDRESS_INVALID The specified geopoint address is invalid.
 /// 400 CHANNELS_ADMIN_LOCATED_TOO_MUCH The user has reached the limit of public geogroups.
 /// 400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.
-/// 500 CHANNEL_ID_GENERATE_FAILED &nbsp;
 /// 400 CHAT_ABOUT_TOO_LONG Chat about too long.
+/// 500 CHAT_INVALID Invalid chat.
 /// 400 CHAT_TITLE_EMPTY No chat title provided.
 /// 400 TTL_PERIOD_INVALID The specified TTL period is invalid.
 /// 406 USER_RESTRICTED You're spamreported, you can't create channels or chats.
@@ -60,13 +61,13 @@ public sealed class RequestCreateChannel : IRequest<MyTelegram.Schema.IUpdates>
     public string About { get; set; }
 
     ///<summary>
-    /// Geogroup location
+    /// Geogroup location, see <a href="https://corefork.telegram.org/api/nearby">here »</a> for more info on geogroups.
     /// See <a href="https://corefork.telegram.org/type/InputGeoPoint" />
     ///</summary>
     public MyTelegram.Schema.IInputGeoPoint? GeoPoint { get; set; }
 
     ///<summary>
-    /// Geogroup address
+    /// Geogroup address, see <a href="https://corefork.telegram.org/api/nearby">here »</a> for more info on geogroups.
     ///</summary>
     public string? Address { get; set; }
 

@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Contacts;
 
 ///<summary>
-/// Get contacts near you
+/// Get users and geochats near you, see <a href="https://corefork.telegram.org/api/nearby">here »</a> for more info.
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 GEO_POINT_INVALID Invalid geoposition provided.

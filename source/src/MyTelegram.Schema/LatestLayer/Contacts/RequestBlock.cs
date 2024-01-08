@@ -4,9 +4,10 @@
 namespace MyTelegram.Schema.Contacts;
 
 ///<summary>
-/// Adds the user to the blacklist.
+/// Adds a peer to a blocklist, see <a href="https://corefork.telegram.org/api/block">here »</a> for more info.
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 CONTACT_ID_INVALID The provided contact ID is invalid.
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
@@ -17,11 +18,19 @@ namespace MyTelegram.Schema.Contacts;
 public sealed class RequestBlock : IRequest<IBool>
 {
     public uint ConstructorId => 0x2e2e8734;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether the peer should be added to the story blocklist; if not set, the peer will be added to the main blocklist, see <a href="https://corefork.telegram.org/api/block">here »</a> for more info.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool MyStoriesFrom { get; set; }
 
     ///<summary>
-    /// User ID
+    /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Id { get; set; }

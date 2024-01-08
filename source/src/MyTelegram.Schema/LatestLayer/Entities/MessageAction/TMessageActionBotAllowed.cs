@@ -23,7 +23,7 @@ public sealed class TMessageActionBotAllowed : IMessageAction
     public bool AttachMenu { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// We have allowed the bot to send us messages using <a href="https://corefork.telegram.org/method/bots.allowSendMessage">bots.allowSendMessage »</a>.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool FromRequest { get; set; }
@@ -34,7 +34,7 @@ public sealed class TMessageActionBotAllowed : IMessageAction
     public string? Domain { get; set; }
 
     ///<summary>
-    /// We have authorized the bot to send us messages by opening the specified <a href="https://corefork.telegram.org/api/bots/webapps">bot web app</a>.
+    /// We have authorized the bot to send us messages by opening the specified <a href="https://corefork.telegram.org/api/bots/webapps">bot mini app</a>.
     /// See <a href="https://corefork.telegram.org/type/BotApp" />
     ///</summary>
     public MyTelegram.Schema.IBotApp? App { get; set; }

@@ -2,8 +2,6 @@
 
 namespace MyTelegram.Domain.Aggregates.Updates;
 
-public class UpdatesSnapshot : ISnapshot { }
-
 public class UpdatesAggregate : MyInMemorySnapshotAggregateRoot<UpdatesAggregate, UpdatesId, UpdatesSnapshot>, INotSaveAggregateEvents
 {
     private readonly UpdatesState _state = new();
@@ -16,7 +14,7 @@ public class UpdatesAggregate : MyInMemorySnapshotAggregateRoot<UpdatesAggregate
         long? onlySendToUserId,
         long? onlySendToThisAuthKeyId,
         UpdatesType updatesType, int pts, int? messageId, int date, long globalSeqNo,
-        byte[] updates,
+        IList<IUpdate>? updates,
         List<long>? users, List<long>? chats)
     {
         Emit(new UpdatesCreatedEvent(ownerPeerId,
@@ -44,26 +42,5 @@ public class UpdatesAggregate : MyInMemorySnapshotAggregateRoot<UpdatesAggregate
     {
         return Task.CompletedTask;
         //throw new NotImplementedException();
-    }
-}
-
-public class UpdatesState : AggregateState<UpdatesAggregate, UpdatesId, UpdatesState>,
-    IApply<UpdatesCreatedEvent>
-{
-    //public long OwnerPeerId { get; private set; }
-    //public long? ExcludeAuthKeyId { get; private set; }
-    //public long? ExcludeUserId { get; private set; }
-    //public long? OnlySendToThisAuthKeyId { get; private set; }
-    //public PtsType PtsType { get; private set; }
-    //public int Pts { get; private set; }
-    //public int? MessageId { get; private set; }
-    //public int Date { get; private set; }
-    //public long SeqNo { get; private set; }
-    //public byte[] Updates { get; private set; }
-    //public List<long>? Users { get; private set; }
-    //public List<long>? Chats { get; private set; }
-    public void Apply(UpdatesCreatedEvent aggregateEvent)
-    {
-
     }
 }

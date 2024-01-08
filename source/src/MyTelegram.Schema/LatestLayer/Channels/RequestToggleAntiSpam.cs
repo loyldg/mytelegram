@@ -5,6 +5,9 @@ namespace MyTelegram.Schema.Channels;
 
 ///<summary>
 /// Enable or disable the <a href="https://corefork.telegram.org/api/antispam">native antispam system</a>.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
 /// See <a href="https://corefork.telegram.org/method/channels.toggleAntiSpam" />
 ///</summary>
 [TlObject(0x68f3e4eb)]

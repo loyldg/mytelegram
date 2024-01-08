@@ -7,7 +7,10 @@ namespace MyTelegram.Schema.Stories;
 /// Obtain info about the view count, forward count, reactions and recent viewers of one or more <a href="https://corefork.telegram.org/api/stories">stories</a>.
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 CHANNEL_INVALID The provided channel is invalid.
+/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 400 STORY_ID_EMPTY You specified no story IDs.
 /// See <a href="https://corefork.telegram.org/method/stories.getStoriesViews" />
 ///</summary>
 [TlObject(0x28e16cc8)]

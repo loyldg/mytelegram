@@ -20,13 +20,13 @@ public interface IReactionCount : IObject
     int? ChosenOrder { get; set; }
 
     ///<summary>
-    /// Reaction (a UTF8 emoji)
+    /// The reaction.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
     ///</summary>
     MyTelegram.Schema.IReaction Reaction { get; set; }
 
     ///<summary>
-    /// NUmber of users that reacted with this emoji
+    /// Number of users that reacted with this emoji.
     ///</summary>
     int Count { get; set; }
 }

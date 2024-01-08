@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// A story was successfully uploaded.Once a story is successfully uploaded, an <a href="https://corefork.telegram.org/constructor/updateStoryID">updateStoryID</a> will be returned, indicating the story ID (<code>id</code>) that was attributed to the story (like for messages, <code>random_id</code> indicates the <code>random_id</code> that was passed to <a href="https://corefork.telegram.org/method/stories.sendStory">stories.sendStory</a>: this way, you can tell which story was assigned a specific <code>id</code> by checking which <a href="https://corefork.telegram.org/method/stories.sendStory">stories.sendStory</a> call has the returned <code>random_id</code>).
 /// See <a href="https://corefork.telegram.org/constructor/updateStoryID" />
 ///</summary>
 [TlObject(0x1bf335b9)]
@@ -11,12 +12,12 @@ public sealed class TUpdateStoryID : IUpdate
 {
     public uint ConstructorId => 0x1bf335b9;
     ///<summary>
-    /// &nbsp;
+    /// The <code>id</code> that was attributed to the story.
     ///</summary>
     public int Id { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The <code>random_id</code> that was passed to <a href="https://corefork.telegram.org/method/stories.sendStory">stories.sendStory</a>.
     ///</summary>
     public long RandomId { get; set; }
 

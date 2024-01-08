@@ -21,6 +21,11 @@ public sealed class TUpdateServiceNotification : IUpdate
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Popup { get; set; }
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
 
     ///<summary>

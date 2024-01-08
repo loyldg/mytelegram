@@ -4,15 +4,35 @@
 namespace MyTelegram.Schema.Account;
 
 ///<summary>
+/// Update the <a href="https://corefork.telegram.org/api/colors">accent color and background custom emoji »</a> of the current account.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 COLOR_INVALID The specified color palette ID was invalid.
 /// See <a href="https://corefork.telegram.org/method/account.updateColor" />
 ///</summary>
 [TlObject(0x7cefa15d)]
 public sealed class RequestUpdateColor : IRequest<IBool>
 {
     public uint ConstructorId => 0x7cefa15d;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether to change the accent color emoji pattern of the profile page; otherwise, the accent color and emoji pattern of messages will be changed.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ForProfile { get; set; }
+
+    ///<summary>
+    /// <a href="https://corefork.telegram.org/api/colors">ID of the accent color palette »</a> to use (not RGB24, see <a href="https://corefork.telegram.org/api/colors">here »</a> for more info).
+    ///</summary>
     public int? Color { get; set; }
+
+    ///<summary>
+    /// Custom emoji ID used in the accent color pattern.
+    ///</summary>
     public long? BackgroundEmojiId { get; set; }
 
     public void ComputeFlag()

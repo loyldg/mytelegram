@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Contacts;
 
 ///<summary>
-/// Stop getting notifications about <a href="https://corefork.telegram.org/api/threads">thread replies</a> of a certain user in <code>@replies</code>
+/// Stop getting notifications about <a href="https://corefork.telegram.org/api/discussion">discussion replies</a> of a certain user in <code>@replies</code>
 /// See <a href="https://corefork.telegram.org/method/contacts.blockFromReplies" />
 ///</summary>
 [TlObject(0x29a8962c)]
@@ -35,7 +35,7 @@ public sealed class RequestBlockFromReplies : IRequest<MyTelegram.Schema.IUpdate
     public bool ReportSpam { get; set; }
 
     ///<summary>
-    /// ID of the message in the <a href="https://corefork.telegram.org/api/threads#replies">@replies</a> chat
+    /// ID of the message in the <a href="https://corefork.telegram.org/api/discussion#replies">@replies</a> chat
     ///</summary>
     public int MsgId { get; set; }
 

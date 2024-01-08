@@ -13,10 +13,10 @@ namespace MyTelegram.Handlers.Stats;
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stats.getMessagePublicForwards" />
 ///</summary>
-internal sealed class GetMessagePublicForwardsHandler : RpcResultObjectHandler<MyTelegram.Schema.Stats.RequestGetMessagePublicForwards, MyTelegram.Schema.Messages.IMessages>,
+internal sealed class GetMessagePublicForwardsHandler : RpcResultObjectHandler<MyTelegram.Schema.Stats.RequestGetMessagePublicForwards, MyTelegram.Schema.Stats.IPublicForwards>,
     Stats.IGetMessagePublicForwardsHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input,
+    protected override Task<MyTelegram.Schema.Stats.IPublicForwards> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Stats.RequestGetMessagePublicForwards obj)
     {
         throw new NotImplementedException();

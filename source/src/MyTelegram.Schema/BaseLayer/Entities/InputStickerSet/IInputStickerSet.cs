@@ -16,6 +16,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputStickerSetEmojiGenericAnimations), nameof(TInputStickerSetEmojiGenericAnimations))]
 [JsonDerivedType(typeof(TInputStickerSetEmojiDefaultStatuses), nameof(TInputStickerSetEmojiDefaultStatuses))]
 [JsonDerivedType(typeof(TInputStickerSetEmojiDefaultTopicIcons), nameof(TInputStickerSetEmojiDefaultTopicIcons))]
+[JsonDerivedType(typeof(TInputStickerSetEmojiChannelDefaultStatuses), nameof(TInputStickerSetEmojiChannelDefaultStatuses))]
 public interface IInputStickerSet : IObject
 {
 

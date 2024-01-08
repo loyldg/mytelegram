@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Used to fetch information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-bot-web-apps">named bot web app</a> by its ID
+/// Used to fetch information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-mini-apps">named Mini App</a> by its ID
 /// See <a href="https://corefork.telegram.org/constructor/inputBotAppID" />
 ///</summary>
 [TlObject(0xa920bd7a)]
@@ -12,7 +12,7 @@ public sealed class TInputBotAppID : IInputBotApp
 {
     public uint ConstructorId => 0xa920bd7a;
     ///<summary>
-    /// <a href="https://corefork.telegram.org/api/bots/webapps#named-bot-web-apps">named bot web app</a> ID.
+    /// <a href="https://corefork.telegram.org/api/bots/webapps#named-mini-apps">named Mini App</a> ID.
     ///</summary>
     public long Id { get; set; }
 

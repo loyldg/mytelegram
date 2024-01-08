@@ -4,7 +4,11 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
-/// Open a <a href="https://corefork.telegram.org/bots/webapps">bot web app</a>, sending over user information after user confirmation.After calling this method, until the user closes the webview, <a href="https://corefork.telegram.org/method/messages.prolongWebView">messages.prolongWebView</a> must be called every 60 seconds.
+/// Open a <a href="https://corefork.telegram.org/bots/webapps">bot mini app</a>, sending over user information after user confirmation.After calling this method, until the user closes the webview, <a href="https://corefork.telegram.org/method/messages.prolongWebView">messages.prolongWebView</a> must be called every 60 seconds.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 BOT_INVALID This is not a valid bot.
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/messages.requestWebView" />
 ///</summary>
 [TlObject(0x269dc2c1)]
@@ -46,7 +50,7 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
     public string? Url { get; set; }
 
     ///<summary>
-    /// If the web app was opened from the attachment menu using a <a href="https://corefork.telegram.org/api/links#bot-attachment-menu-links">attachment menu deep link</a>, <code>start_param</code> should contain the <code>data</code> from the <code>startattach</code> parameter.
+    /// If the web app was opened from the attachment menu using a <a href="https://corefork.telegram.org/api/links#bot-attachment-or-side-menu-links">attachment menu deep link</a>, <code>start_param</code> should contain the <code>data</code> from the <code>startattach</code> parameter.
     ///</summary>
     public string? StartParam { get; set; }
 
@@ -60,6 +64,11 @@ public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewR
     /// Short name of the application; 0-64 English letters, digits, and underscores
     ///</summary>
     public string Platform { get; set; }
+
+    ///<summary>
+    /// If set, indicates that the inline message that will be sent by the bot on behalf of the user once the web app interaction is <a href="https://corefork.telegram.org/method/messages.sendWebViewResultMessage">terminated</a> should be sent in reply to the specified message or story.
+    /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
+    ///</summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
     ///<summary>

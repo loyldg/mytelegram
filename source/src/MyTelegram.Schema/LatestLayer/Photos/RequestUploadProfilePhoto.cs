@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Photos;
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 ALBUM_PHOTOS_TOO_MANY You have uploaded too many profile photos, delete some before retrying.
+/// 400 BOT_INVALID This is not a valid bot.
 /// 400 EMOJI_MARKUP_INVALID The specified <code>video_emoji_markup</code> was invalid.
 /// 400 FILE_PARTS_INVALID The number of file parts is invalid.
 /// 400 IMAGE_PROCESS_FAILED Failure while processing image.

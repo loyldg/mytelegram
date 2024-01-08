@@ -2,6 +2,7 @@
 
 public record SessionRequestInput(
     string ConnectionId,
+    ConnectionType? ConnectionType,
     Guid RequestId,
     uint ObjectId,
     long ReqMsgId,

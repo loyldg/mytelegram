@@ -27,6 +27,11 @@ public sealed class TMessageReplyHeader : IMessageReplyHeader
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool ForumTopic { get; set; }
+
+    ///<summary>
+    /// Whether this message is quoting a part of another message.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Quote { get; set; }
 
     ///<summary>
@@ -39,15 +44,37 @@ public sealed class TMessageReplyHeader : IMessageReplyHeader
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer? ReplyToPeerId { get; set; }
+
+    ///<summary>
+    /// When replying to a message sent by a certain peer to another chat, contains info about the peer that originally sent the message to that other chat.
+    /// See <a href="https://corefork.telegram.org/type/MessageFwdHeader" />
+    ///</summary>
     public MyTelegram.Schema.IMessageFwdHeader? ReplyFrom { get; set; }
+
+    ///<summary>
+    /// When replying to a media sent by a certain peer to another chat, contains the media of the replied-to message.
+    /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
+    ///</summary>
     public MyTelegram.Schema.IMessageMedia? ReplyMedia { get; set; }
 
     ///<summary>
     /// ID of the message that started this <a href="https://corefork.telegram.org/api/threads">message thread</a>
     ///</summary>
     public int? ReplyToTopId { get; set; }
+
+    ///<summary>
+    /// Used to quote-reply to only a certain section (specified here) of the original message.
+    ///</summary>
     public string? QuoteText { get; set; }
+
+    ///<summary>
+    /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a> from the <code>quote_text</code> field.
+    ///</summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? QuoteEntities { get; set; }
+
+    ///<summary>
+    /// Offset of the message <code>quote_text</code> within the original message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>).
+    ///</summary>
     public int? QuoteOffset { get; set; }
 
     public void ComputeFlag()

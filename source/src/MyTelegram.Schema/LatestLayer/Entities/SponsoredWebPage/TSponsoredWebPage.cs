@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents a sponsored website.
 /// See <a href="https://corefork.telegram.org/constructor/sponsoredWebPage" />
 ///</summary>
 [TlObject(0x3db8ec63)]
@@ -16,17 +17,17 @@ public sealed class TSponsoredWebPage : ISponsoredWebPage
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Web page URL.
     ///</summary>
     public string Url { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Website name.
     ///</summary>
     public string SiteName { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Optional image preview.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
     ///</summary>
     public MyTelegram.Schema.IPhoto? Photo { get; set; }

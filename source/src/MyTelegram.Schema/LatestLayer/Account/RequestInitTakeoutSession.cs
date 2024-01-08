@@ -4,10 +4,10 @@
 namespace MyTelegram.Schema.Account;
 
 ///<summary>
-/// Initialize account takeout session
+/// Initialize a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
 /// <para>Possible errors</para>
 /// Code Type Description
-/// 420 TAKEOUT_INIT_DELAY_%d Wait %d seconds before initializing takeout.
+/// 420 TAKEOUT_INIT_DELAY_%d Sorry, for security reasons, you will be able to begin downloading your data in %d seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
 /// See <a href="https://corefork.telegram.org/method/account.initTakeoutSession" />
 ///</summary>
 [TlObject(0x8ef3eab0)]

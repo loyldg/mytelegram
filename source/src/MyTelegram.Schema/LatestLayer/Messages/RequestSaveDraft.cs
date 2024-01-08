@@ -26,7 +26,17 @@ public sealed class RequestSaveDraft : IRequest<IBool>
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool NoWebpage { get; set; }
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
+
+    ///<summary>
+    /// If set, indicates that the message should be sent in reply to the specified message or story.
+    /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
+    ///</summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
     ///<summary>
@@ -44,6 +54,11 @@ public sealed class RequestSaveDraft : IRequest<IBool>
     /// Message <a href="https://corefork.telegram.org/api/entities">entities</a> for styled text
     ///</summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
+
+    ///<summary>
+    /// Attached media
+    /// See <a href="https://corefork.telegram.org/type/InputMedia" />
+    ///</summary>
     public MyTelegram.Schema.IInputMedia? Media { get; set; }
 
     public void ComputeFlag()

@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Reaction and view counters for a <a href="https://corefork.telegram.org/api/stories">story</a>
 /// See <a href="https://corefork.telegram.org/constructor/stories.StoryViewsList" />
 ///</summary>
 [JsonDerivedType(typeof(TStoryViewsList), nameof(TStoryViewsList))]
@@ -17,9 +18,11 @@ public interface IStoryViewsList : IObject
     /// Total number of results that can be fetched
     ///</summary>
     int Count { get; set; }
+    int ViewsCount { get; set; }
+    int ForwardsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of reactions that were added to the story
     ///</summary>
     int ReactionsCount { get; set; }
 
@@ -28,6 +31,7 @@ public interface IStoryViewsList : IObject
     /// See <a href="https://corefork.telegram.org/type/StoryView" />
     ///</summary>
     TVector<MyTelegram.Schema.IStoryView> Views { get; set; }
+    TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
     ///<summary>
     /// Mentioned users

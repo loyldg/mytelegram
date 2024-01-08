@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// A <a href="https://corefork.telegram.org/api/giveaways">giveaway</a> has ended.
 /// See <a href="https://corefork.telegram.org/constructor/messageActionGiveawayResults" />
 ///</summary>
 [TlObject(0x2a9fadc5)]
@@ -11,12 +12,12 @@ public sealed class TMessageActionGiveawayResults : IMessageAction
 {
     public uint ConstructorId => 0x2a9fadc5;
     ///<summary>
-    /// &nbsp;
+    /// Number of winners in the giveaway
     ///</summary>
     public int WinnersCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of undistributed prizes
     ///</summary>
     public int UnclaimedCount { get; set; }
 

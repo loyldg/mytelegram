@@ -5,9 +5,6 @@ namespace MyTelegram.Schema.Account;
 
 ///<summary>
 /// Updates online user status.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
 /// See <a href="https://corefork.telegram.org/method/account.updateStatus" />
 ///</summary>
 [TlObject(0x6628562c)]
