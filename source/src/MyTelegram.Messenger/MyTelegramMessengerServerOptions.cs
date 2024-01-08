@@ -29,4 +29,5 @@ public class MyTelegramMessengerServerOptions
     public int ThisDcId { get; set; }
     public List<DcOption> DcOptions { get; set; }
     public bool AutoCreateSuperGroup { get; set; }
+    public bool EnableFutureAuthToken { get; set; }
 }
