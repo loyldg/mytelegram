@@ -8,7 +8,7 @@ public class UpdatesCreatedEvent : AggregateEvent<UpdatesAggregate, UpdatesId>
         //long channelId,
         long? excludeAuthKeyId, long? excludeUserId, long? onlySendToUserId, long? onlySendToThisAuthKeyId,
         UpdatesType updatesType, int pts, int? messageId, int date, long globalSeqNo,
-        byte[] updates,
+        IList<IUpdate>? updates,
         List<long>? users, List<long>? chats)
 
     {
@@ -39,7 +39,7 @@ public class UpdatesCreatedEvent : AggregateEvent<UpdatesAggregate, UpdatesId>
     public int? MessageId { get; }
     public int Date { get; }
     public long GlobalSeqNo { get; }
-    public byte[] Updates { get; }
+    public IList<IUpdate>? Updates { get; }
     public List<long>? Users { get; }
     public List<long>? Chats { get; }
 }

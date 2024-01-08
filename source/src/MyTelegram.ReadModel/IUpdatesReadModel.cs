@@ -19,7 +19,7 @@ public interface IUpdatesReadModel : IReadModel
     int Pts { get; }
     int Date { get; }
     long GlobalSeqNo { get; }
-    byte[] Updates { get; }
+    IList<IUpdate>? Updates { get; }
     List<long>? Users { get; }
     List<long>? Chats { get; }
 }
