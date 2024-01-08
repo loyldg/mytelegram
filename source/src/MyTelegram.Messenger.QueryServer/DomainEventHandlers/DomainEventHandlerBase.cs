@@ -332,7 +332,7 @@ public abstract class DomainEventHandlerBase
                 messageId,
                 date,
                 globalSeqNo,
-                allUpdates?.Length > 0 ? new TVector<IUpdate>(allUpdates).ToBytes() : null,
+                allUpdates,
                 userIds,
                 chatIds
             );

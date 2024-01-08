@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Commands.PushDevice;
 
-public class RegisterDeviceCommand : RequestCommand2<PushDeviceAggregate, PushDeviceId, IExecutionResult>
+public class RegisterDeviceCommand : Command<PushDeviceAggregate, PushDeviceId, IExecutionResult>, IHasRequestInfo
 {
     public RegisterDeviceCommand(PushDeviceId aggregateId,
         RequestInfo requestInfo,
@@ -12,8 +12,9 @@ public class RegisterDeviceCommand : RequestCommand2<PushDeviceAggregate, PushDe
         bool appSandbox,
         byte[]? secret,
         IReadOnlyList<long>? otherUids
-    ) : base(aggregateId, requestInfo)
+    ) : base(aggregateId)
     {
+        RequestInfo = requestInfo;
         UserId = userId;
         AuthKeyId = authKeyId;
         TokenType = tokenType;
@@ -70,4 +71,5 @@ public class RegisterDeviceCommand : RequestCommand2<PushDeviceAggregate, PushDe
     // 
     //  For 10 web push, the token must be a JSON-encoded object containing the keys described in PUSH updates
     public long UserId { get; }
+    public RequestInfo RequestInfo { get; }
 }

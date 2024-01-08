@@ -118,10 +118,10 @@ internal sealed class GetDifferenceHandler : RpcResultObjectHandler<MyTelegram.S
                 limit, messageIds, users, chats));
 
         var allUpdateList = updatesReadModels.Where(p => p.UpdatesType == UpdatesType.Updates)
-            .SelectMany(p => p.Updates.ToTObject<TVector<IUpdate>>()).ToList();
-        allUpdateList.AddRange(channelUpdatesReadModels.Where(p => p.UpdatesType == UpdatesType.Updates).SelectMany(p => p.Updates.ToTObject<TVector<IUpdate>>()));
-        var hasEncryptedMessage = false;// updatesReadModels.Any(p => p.UpdatesType == UpdatesType.NewEncryptedMessages);
+            .SelectMany(p => p.Updates ?? new List<IUpdate>()).ToList();
+        allUpdateList.AddRange(channelUpdatesReadModels.Where(p => p.UpdatesType == UpdatesType.Updates).SelectMany(p => p.Updates ?? new List<IUpdate>()));
 
+        var hasEncryptedMessage = false;// updatesReadModels.Any(p => p.UpdatesType == UpdatesType.NewEncryptedMessages);
         var encryptedMessages = Array.Empty<IEncryptedMessageReadModel>();
 
 

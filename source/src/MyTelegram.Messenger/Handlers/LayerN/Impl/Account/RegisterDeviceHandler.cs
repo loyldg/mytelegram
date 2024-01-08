@@ -18,10 +18,11 @@ internal sealed class RegisterDeviceHandler : RpcResultObjectHandler<MyTelegram.
     Account.LayerN.IRegisterDeviceHandler, IProcessedHandler
 {
     private readonly ICommandBus _commandBus;
-
-    public RegisterDeviceHandler(ICommandBus commandBus)
+    private readonly IEventBus _eventBus;
+    public RegisterDeviceHandler(ICommandBus commandBus, IEventBus eventBus)
     {
         _commandBus = commandBus;
+        _eventBus = eventBus;
     }
 
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
@@ -38,6 +39,17 @@ internal sealed class RegisterDeviceHandler : RpcResultObjectHandler<MyTelegram.
             null,
             null);
         await _commandBus.PublishAsync(command, CancellationToken.None);
+
+        // tokenType:7 - MTProto separate session
+        if (obj.TokenType == 7)
+        {
+            if (long.TryParse(obj.Token, out var sessionId))
+            {
+                await _eventBus.PublishAsync(new DeviceRegisteredEvent(input.AuthKeyId, input.PermAuthKeyId,
+                    sessionId));
+            }
+        }
+
         return new TBoolTrue();
     }
 }

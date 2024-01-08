@@ -9,6 +9,7 @@ public partial record EncryptedMessage(long AuthKeyId,
     //ReadOnlyMemory<byte> MsgKey,
     //ReadOnlyMemory<byte> EncryptedData,
     string ConnectionId,
+    ConnectionType? ConnectionType,
     string? ClientIp,
     Guid RequestId,
     long Date

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Core;
 
-public class RandomHelper : IRandomHelper
+public class RandomHelper : IRandomHelper//, ISingletonDependency
 {
     private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -23,7 +23,7 @@ public class RandomHelper : IRandomHelper
 
     public string GenerateRandomString(int length)
     {
-        return new string(Enumerable.Repeat(Characters, length)
+        return new(Enumerable.Repeat(Characters, length)
             .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
     }
 

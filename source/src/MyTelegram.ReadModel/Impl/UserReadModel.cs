@@ -9,7 +9,8 @@ public class UserReadModel : IUserReadModel,
     IAmReadModelFor<UserAggregate, UserId, UserVerifiedHasSetEvent>,
     IAmReadModelFor<UserAggregate, UserId, UserNameUpdatedEvent>,
     IAmReadModelFor<UserAggregate, UserId, UserProfilePhotoChangedEvent>,
-    IAmReadModelFor<UserAggregate,UserId, UserProfilePhotoUploadedEvent>
+    IAmReadModelFor<UserAggregate,UserId, UserProfilePhotoUploadedEvent>,
+	IAmReadModelFor<UserAggregate,UserId,UserColorUpdatedEvent>
 {
     public virtual string? About { get; private set; }
     public virtual long AccessHash { get; private set; }
@@ -182,6 +183,20 @@ public class UserReadModel : IUserReadModel,
         else
         {
             ProfilePhotoId = domainEvent.AggregateEvent.PhotoId;
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<UserAggregate, UserId, UserColorUpdatedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        if (domainEvent.AggregateEvent.ForProfile)
+        {
+            ProfileColor=domainEvent.AggregateEvent.Color;
+        }
+        else
+        {
+            Color = domainEvent.AggregateEvent.Color;
         }
 
         return Task.CompletedTask;

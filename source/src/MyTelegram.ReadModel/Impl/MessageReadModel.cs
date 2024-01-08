@@ -45,6 +45,7 @@ public class MessageReadModel : IMessageReadModel,
     public bool Silent { get; private set; }
     public long ToPeerId { get; private set; }
     public PeerType ToPeerType { get; private set; }
+    public Peer? SavedPeerId { get; private set; }
     public int? Views { get; private set; }
     public long? LinkedChannelId { get; private set; }
     public int Replies { get; private set; }

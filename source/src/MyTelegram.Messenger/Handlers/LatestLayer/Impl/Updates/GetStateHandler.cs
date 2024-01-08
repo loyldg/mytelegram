@@ -29,6 +29,10 @@ internal sealed class GetStateHandler : RpcResultObjectHandler<MyTelegram.Schema
     protected override async Task<IState> HandleCoreAsync(IRequestInput input,
         RequestGetState obj)
     {
+        if (input.UserId == 0)
+        {
+            RpcErrors.RpcErrors401.AuthKeyInvalid.ThrowRpcError();
+        }
         //var userId = await GetUidAsync(input);
         var pts = await _queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(input.UserId), default);
         TState state;

@@ -5,7 +5,6 @@ using EventFlow.MongoDB.ValueObjects;
 using EventFlow.Sagas;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver.Core.Operations;
-using MyTelegram.Messenger.Handlers.Impl;
 
 //using MyTelegram.Domain.Aggregates.Bot;
 using DialogReadModel = MyTelegram.ReadModel.MongoDB.DialogReadModel;
@@ -49,7 +48,7 @@ public static class NativeAotExtensions
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(LayeredService<IUserConverter>))]
 
 
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<CachedFutureSalt>))]
+    //[DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<CachedFutureSalt>))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<string>))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<UserCacheItem>))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All,typeof(MyTelegram.Caching.Redis.CacheManager<GlobalPrivacySettingsCacheItem>))]

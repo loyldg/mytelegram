@@ -1,44 +1,4 @@
-﻿using MyTelegram.Domain.Aggregates.Updates;
-using MyTelegram.Domain.Events.Updates;
-using MyTelegram.Schema;
-
-namespace MyTelegram.ReadModel.Impl;
-
-//public class PushUpdatesReadModel : IPushUpdatesReadModel,
-//    IAmReadModelFor<PushUpdatesAggregate, PushUpdatesId, PushUpdatesCreatedEvent>
-//{
-//    public virtual long? Version { get; set; }
-
-//    public Task ApplyAsync(IReadModelContext context,
-//        IDomainEvent<PushUpdatesAggregate, PushUpdatesId, PushUpdatesCreatedEvent> domainEvent,
-//        CancellationToken cancellationToken)
-//    {
-//        Id = domainEvent.AggregateIdentity.Value;
-//        PeerId = domainEvent.AggregateEvent.ToPeer.PeerId;
-//        OnlySendToThisAuthKeyId = domainEvent.AggregateEvent.OnlySendToThisAuthKeyId;
-//        ExcludeAuthKeyId = domainEvent.AggregateEvent.ExcludeAuthKeyId;
-//        Data = domainEvent.AggregateEvent.Data;
-//        Pts = domainEvent.AggregateEvent.Pts;
-//        PtsType = domainEvent.AggregateEvent.PtsType;
-//        SeqNo = domainEvent.AggregateEvent.SeqNo;
-//        PeerIdList= domainEvent.AggregateEvent.PeerIdList;
-//        MessageId= domainEvent.AggregateEvent.MessageId;
-
-//        return Task.CompletedTask;
-//    }
-
-//    public virtual string Id { get; private set; } = null!;
-//    public long OwnerPeerId { get; }
-//    public long? ExcludeAuthKeyId { get; }
-//    public long? OnlySendToThisAuthKeyId { get; }
-//    public PtsType PtsType { get; }
-//    public int Pts { get; }
-//    public int? MessageId { get; }
-//    public int Date { get; }
-//    public long SeqNo { get; }
-//    public List<long>? Users { get; }
-//    public List<long>? Chats { get; }
-//}
+﻿namespace MyTelegram.ReadModel.Impl;
 
 public class UpdatesReadModel : IUpdatesReadModel,
     IAmReadModelFor<UpdatesAggregate, UpdatesId, UpdatesCreatedEvent>

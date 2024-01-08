@@ -30,6 +30,7 @@ public interface IMessageReadModel : IReadModel, IHasReactions
     bool Silent { get; }
     long ToPeerId { get; }
     PeerType ToPeerType { get; }
+    Peer? SavedPeerId { get; }
     int? Views { get; }
     long? LinkedChannelId { get; }
     int Replies { get; }
@@ -40,4 +41,5 @@ public interface IMessageReadModel : IReadModel, IHasReactions
     //List<long>? ReactionUserIds { get; }
     //List<ReactionCount>? Reactions { get; }
     //List<Reaction>? RecentReactions { get; }
+    IInputReplyTo? ReplyTo { get; }
 }
