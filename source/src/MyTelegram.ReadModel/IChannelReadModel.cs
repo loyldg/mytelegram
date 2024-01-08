@@ -46,4 +46,7 @@ public interface IChannelReadModel : IReadModel
     //int? Color { get; }
     //long? BackgroundEmojiId { get; }
     PeerColor? Color { get; }
+    PeerColor? ProfileColor { get; }
+    long? BackgroundEmojiId { get; }
+    int? Level { get; }
 }

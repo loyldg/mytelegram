@@ -10,11 +10,11 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Register(_state);
     }
 
-    public void UpdateColor(RequestInfo requestInfo, PeerColor color)
+    public void UpdateColor(RequestInfo requestInfo, PeerColor color, long? backgroundEmojiId, bool forProfile)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         CheckAdminRights(requestInfo, rights => rights.ChangeInfo);
-        Emit(new ChannelColorUpdatedEvent(requestInfo, _state.ChannelId, color));
+        Emit(new ChannelColorUpdatedEvent(requestInfo, _state.ChannelId, color, backgroundEmojiId, forProfile));
     }
 
     //private void CheckBannedRights(long selfUserId,

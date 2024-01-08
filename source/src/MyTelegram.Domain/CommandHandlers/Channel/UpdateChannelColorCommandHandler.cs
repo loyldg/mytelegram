@@ -4,7 +4,7 @@ public class UpdateChannelColorCommandHandler : CommandHandler<ChannelAggregate,
 {
     public override Task ExecuteAsync(ChannelAggregate aggregate, UpdateChannelColorCommand command, CancellationToken cancellationToken)
     {
-        aggregate.UpdateColor(command.RequestInfo,command.Color);
+        aggregate.UpdateColor(command.RequestInfo, command.Color, command.BackgroundEmojiId, command.ForProfile);
         return Task.CompletedTask;
     }
 }
