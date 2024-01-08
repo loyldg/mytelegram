@@ -47,19 +47,19 @@ public sealed class TChatInvite : IChatInvite
     public bool RequestNeeded { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Is this chat or channel verified by Telegram?
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Verified { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// This chat is probably a scam
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Scam { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, this chat was reported by many users as a fake or scam: be careful when interacting with it.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Fake { get; set; }
@@ -89,6 +89,10 @@ public sealed class TChatInvite : IChatInvite
     /// A few of the participants that are in the group
     ///</summary>
     public TVector<MyTelegram.Schema.IUser>? Participants { get; set; }
+
+    ///<summary>
+    /// <a href="https://corefork.telegram.org/api/colors">Profile color palette ID</a>
+    ///</summary>
     public int Color { get; set; }
 
     public void ComputeFlag()

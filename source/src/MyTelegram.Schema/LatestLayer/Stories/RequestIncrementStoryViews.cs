@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Stories;
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 400 STORY_ID_EMPTY You specified no story IDs.
 /// See <a href="https://corefork.telegram.org/method/stories.incrementStoryViews" />
 ///</summary>
 [TlObject(0xb2028afb)]

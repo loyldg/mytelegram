@@ -15,6 +15,11 @@ public sealed class TInputBotInlineMessageMediaAuto : IInputBotInlineMessage
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
 
     ///<summary>

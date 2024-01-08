@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Button to open a <a href="https://corefork.telegram.org/api/bots/webapps">bot web app</a> using <a href="https://corefork.telegram.org/method/messages.requestWebView">messages.requestWebView</a>, sending over user information after user confirmation.Can only be sent or received as part of an inline keyboard, use <a href="https://corefork.telegram.org/constructor/keyboardButtonSimpleWebView">keyboardButtonSimpleWebView</a> for reply keyboards.
+/// Button to open a <a href="https://corefork.telegram.org/api/bots/webapps">bot mini app</a> using <a href="https://corefork.telegram.org/method/messages.requestWebView">messages.requestWebView</a>, sending over user information after user confirmation.Can only be sent or received as part of an inline keyboard, use <a href="https://corefork.telegram.org/constructor/keyboardButtonSimpleWebView">keyboardButtonSimpleWebView</a> for reply keyboards.
 /// See <a href="https://corefork.telegram.org/constructor/keyboardButtonWebView" />
 ///</summary>
 [TlObject(0x13767230)]

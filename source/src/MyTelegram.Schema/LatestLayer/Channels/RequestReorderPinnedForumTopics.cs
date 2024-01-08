@@ -17,7 +17,7 @@ public sealed class RequestReorderPinnedForumTopics : IRequest<MyTelegram.Schema
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// If set, topics pinned server-side but not present in the order field will be unpinned.
+    /// If not set, the order of only the topics present both server-side and in <code>order</code> will be changed (i.e. mentioning topics not pinned server-side in <code>order</code> will not pin them, and not mentioning topics pinned server-side will not unpin them).  <br>If set, the entire server-side pinned topic list will be replaced with <code>order</code> (i.e. mentioning topics not pinned server-side in <code>order</code> will pin them, and not mentioning topics pinned server-side will unpin them)
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Force { get; set; }

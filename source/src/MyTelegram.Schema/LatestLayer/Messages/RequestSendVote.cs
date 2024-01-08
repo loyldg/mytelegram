@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
-/// Vote in a <a href="https://corefork.telegram.org/constructor/poll">poll</a>
+/// Vote in a <a href="https://corefork.telegram.org/constructor/poll">poll</a>Starting from layer 159, the vote will be sent from the peer specified using <a href="https://corefork.telegram.org/method/messages.saveDefaultSendAs">messages.saveDefaultSendAs</a>.
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.

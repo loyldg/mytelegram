@@ -21,12 +21,14 @@ namespace MyTelegram.Schema.Messages;
 /// 400 DOCUMENT_INVALID The specified document is invalid.
 /// 400 ENTITIES_TOO_LONG You provided too many styled message entities.
 /// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.
+/// 400 FILE_PARTS_INVALID The number of file parts is invalid.
 /// 400 IMAGE_PROCESS_FAILED Failure while processing image.
 /// 403 INLINE_BOT_REQUIRED Only the inline bot can edit message.
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
 /// 400 MEDIA_CAPTION_TOO_LONG The caption is too long.
 /// 400 MEDIA_EMPTY The provided media object is invalid.
 /// 400 MEDIA_GROUPED_INVALID You tried to send media of different types in an album.
+/// 400 MEDIA_INVALID Media invalid.
 /// 400 MEDIA_NEW_INVALID The new media is invalid.
 /// 400 MEDIA_PREV_INVALID Previous media invalid.
 /// 400 MEDIA_TTL_INVALID The specified media TTL is invalid.
@@ -37,6 +39,7 @@ namespace MyTelegram.Schema.Messages;
 /// 400 MESSAGE_NOT_MODIFIED The provided message data is identical to the previous message data, the message wasn't modified.
 /// 400 MESSAGE_TOO_LONG The provided message is too long.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
+/// 500 MSG_WAIT_FAILED A waiting call returned an error.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 REPLY_MARKUP_INVALID The provided reply markup is invalid.
 /// 400 SCHEDULE_DATE_INVALID Invalid schedule date provided.
@@ -57,6 +60,11 @@ public sealed class RequestEditMessage : IRequest<MyTelegram.Schema.IUpdates>
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool NoWebpage { get; set; }
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
 
     ///<summary>

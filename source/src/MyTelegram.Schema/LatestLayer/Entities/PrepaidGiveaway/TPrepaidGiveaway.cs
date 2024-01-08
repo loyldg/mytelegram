@@ -4,15 +4,31 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Contains info about a <a href="https://corefork.telegram.org/api/giveaways">prepaid giveaway »</a>.
 /// See <a href="https://corefork.telegram.org/constructor/prepaidGiveaway" />
 ///</summary>
 [TlObject(0xb2539d54)]
 public sealed class TPrepaidGiveaway : IPrepaidGiveaway
 {
     public uint ConstructorId => 0xb2539d54;
+    ///<summary>
+    /// Prepaid giveaway ID.
+    ///</summary>
     public long Id { get; set; }
+
+    ///<summary>
+    /// Duration in months of each gifted <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription.
+    ///</summary>
     public int Months { get; set; }
+
+    ///<summary>
+    /// Number of given away <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscriptions.
+    ///</summary>
     public int Quantity { get; set; }
+
+    ///<summary>
+    /// Payment date.
+    ///</summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

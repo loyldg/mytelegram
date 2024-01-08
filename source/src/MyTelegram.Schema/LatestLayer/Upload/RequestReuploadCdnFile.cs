@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Upload;
 /// Request a reupload of a certain file to a <a href="https://corefork.telegram.org/cdn">CDN DC</a>.
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 CDN_METHOD_INVALID You can't call this method in a CDN DC.
 /// 500 CDN_UPLOAD_TIMEOUT A server-side timeout occurred while reuploading the file to the CDN DC.
 /// 400 FILE_TOKEN_INVALID The specified file token is invalid.
 /// 400 RSA_DECRYPT_FAILED Internal RSA decryption failed.

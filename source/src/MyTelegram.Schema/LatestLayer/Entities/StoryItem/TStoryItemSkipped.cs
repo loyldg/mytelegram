@@ -17,7 +17,7 @@ public sealed class TStoryItemSkipped : IStoryItem
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Whether this story can only be viewed by <a href="https://corefork.telegram.org/api/privacy">our close friends, see here »</a> for more info
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool CloseFriends { get; set; }

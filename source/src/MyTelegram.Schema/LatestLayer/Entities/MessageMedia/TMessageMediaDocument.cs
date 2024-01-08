@@ -27,6 +27,9 @@ public sealed class TMessageMediaDocument : IMessageMedia
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Spoiler { get; set; }
+    public bool Video { get; set; }
+    public bool Round { get; set; }
+    public bool Voice { get; set; }
 
     ///<summary>
     /// Attached document
@@ -35,7 +38,7 @@ public sealed class TMessageMediaDocument : IMessageMedia
     public MyTelegram.Schema.IDocument? Document { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Currently only used for story videos, may contain an alternative version of the story video, explicitly encoded using H.264 (in MPEG4 transport) at a lower resolution than <code>document</code>.
     /// See <a href="https://corefork.telegram.org/type/Document" />
     ///</summary>
     public MyTelegram.Schema.IDocument? AltDocument { get; set; }
@@ -49,6 +52,9 @@ public sealed class TMessageMediaDocument : IMessageMedia
     {
         if (Nopremium) { Flags[3] = true; }
         if (Spoiler) { Flags[4] = true; }
+        if (Video) { Flags[6] = true; }
+        if (Round) { Flags[7] = true; }
+        if (Voice) { Flags[8] = true; }
         if (Document != null) { Flags[0] = true; }
         if (AltDocument != null) { Flags[5] = true; }
         if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags[2] = true; }
@@ -69,6 +75,9 @@ public sealed class TMessageMediaDocument : IMessageMedia
         Flags = reader.ReadBitArray();
         if (Flags[3]) { Nopremium = true; }
         if (Flags[4]) { Spoiler = true; }
+        if (Flags[6]) { Video = true; }
+        if (Flags[7]) { Round = true; }
+        if (Flags[8]) { Voice = true; }
         if (Flags[0]) { Document = reader.Read<MyTelegram.Schema.IDocument>(); }
         if (Flags[5]) { AltDocument = reader.Read<MyTelegram.Schema.IDocument>(); }
         if (Flags[2]) { TtlSeconds = reader.ReadInt32(); }

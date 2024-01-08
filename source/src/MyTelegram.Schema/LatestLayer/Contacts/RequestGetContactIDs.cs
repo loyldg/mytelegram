@@ -4,7 +4,8 @@
 namespace MyTelegram.Schema.Contacts;
 
 ///<summary>
-/// Get contact by telegram IDs
+/// Get the telegram IDs of all contacts.<br>
+/// Returns an array of Telegram user IDs for all contacts (0 if a contact does not have an associated Telegram account or have hidden their account using privacy settings).
 /// See <a href="https://corefork.telegram.org/method/contacts.getContactIDs" />
 ///</summary>
 [TlObject(0x7adc669d)]

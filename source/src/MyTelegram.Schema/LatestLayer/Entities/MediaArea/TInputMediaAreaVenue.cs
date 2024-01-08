@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents a <a href="https://corefork.telegram.org/api/stories#media-areas">location tag</a> attached to a <a href="https://corefork.telegram.org/api/stories">story</a>, with additional venue information.
 /// See <a href="https://corefork.telegram.org/constructor/inputMediaAreaVenue" />
 ///</summary>
 [TlObject(0xb282217f)]
@@ -11,18 +12,18 @@ public sealed class TInputMediaAreaVenue : IMediaArea
 {
     public uint ConstructorId => 0xb282217f;
     ///<summary>
-    /// &nbsp;
+    /// The size and location of the media area corresponding to the location sticker on top of the story media.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
     ///</summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The <code>query_id</code> from <a href="https://corefork.telegram.org/constructor/messages.botResults">messages.botResults</a>, see <a href="https://corefork.telegram.org/api/stories#media-areas">here »</a> for more info.
     ///</summary>
     public long QueryId { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The <code>id</code> of the chosen result, see <a href="https://corefork.telegram.org/api/stories#media-areas">here »</a> for more info.
     ///</summary>
     public string ResultId { get; set; }
 

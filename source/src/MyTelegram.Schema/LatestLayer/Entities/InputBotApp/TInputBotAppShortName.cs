@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Used to fetch information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-bot-web-apps">named bot web app</a> by its short name
+/// Used to fetch information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-mini-apps">named Mini App</a> by its short name
 /// See <a href="https://corefork.telegram.org/constructor/inputBotAppShortName" />
 ///</summary>
 [TlObject(0x908c0407)]
@@ -12,13 +12,13 @@ public sealed class TInputBotAppShortName : IInputBotApp
 {
     public uint ConstructorId => 0x908c0407;
     ///<summary>
-    /// ID of the bot that owns the bot web app
+    /// ID of the bot that owns the bot mini app
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
     ///</summary>
     public MyTelegram.Schema.IInputUser BotId { get; set; }
 
     ///<summary>
-    /// Short name, obtained from a <a href="https://corefork.telegram.org/api/links#named-bot-web-app-links">named bot web app deep link</a>
+    /// Short name, obtained from a <a href="https://corefork.telegram.org/api/links#named-mini-app-links">named Mini App deep link</a>
     ///</summary>
     public string ShortName { get; set; }
 

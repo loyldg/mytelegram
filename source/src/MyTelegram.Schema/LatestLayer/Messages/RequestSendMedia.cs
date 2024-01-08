@@ -23,6 +23,7 @@ namespace MyTelegram.Schema.Messages;
 /// 403 CHAT_SEND_GIFS_FORBIDDEN You can't send gifs in this chat.
 /// 403 CHAT_SEND_MEDIA_FORBIDDEN You can't send media in this chat.
 /// 403 CHAT_SEND_PHOTOS_FORBIDDEN You can't send photos in this chat.
+/// 403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.
 /// 403 CHAT_SEND_POLL_FORBIDDEN You can't send polls in this chat.
 /// 403 CHAT_SEND_STICKERS_FORBIDDEN You can't send stickers in this chat.
 /// 403 CHAT_SEND_VIDEOS_FORBIDDEN You can't send videos in this chat.
@@ -44,6 +45,7 @@ namespace MyTelegram.Schema.Messages;
 /// 400 MEDIA_CAPTION_TOO_LONG The caption is too long.
 /// 400 MEDIA_EMPTY The provided media object is invalid.
 /// 400 MEDIA_INVALID Media invalid.
+/// 400 MESSAGE_EMPTY The provided message is empty.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 PAYMENT_PROVIDER_INVALID The specified payment provider is invalid.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
@@ -80,6 +82,8 @@ namespace MyTelegram.Schema.Messages;
 /// 400 WEBDOCUMENT_MIME_INVALID Invalid webdocument mime type provided.
 /// 400 WEBPAGE_CURL_FAILED Failure while fetching the webpage with cURL.
 /// 400 WEBPAGE_MEDIA_EMPTY Webpage media empty.
+/// 400 WEBPAGE_NOT_FOUND A preview for the specified webpage <code>url</code> could not be generated.
+/// 400 WEBPAGE_URL_INVALID The specified webpage <code>url</code> is invalid.
 /// 400 YOU_BLOCKED_USER You blocked this user.
 /// See <a href="https://corefork.telegram.org/method/messages.sendMedia" />
 ///</summary>
@@ -121,6 +125,11 @@ public sealed class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdates>
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool UpdateStickersetsOrder { get; set; }
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
 
     ///<summary>
@@ -128,6 +137,11 @@ public sealed class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdates>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// If set, indicates that the message should be sent in reply to the specified message or story.
+    /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
+    ///</summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
     ///<summary>

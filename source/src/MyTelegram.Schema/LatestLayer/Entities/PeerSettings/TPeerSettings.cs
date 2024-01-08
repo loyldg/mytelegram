@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// List of actions that are possible when interacting with this user, to be shown as suggested actions in the chat bar
+/// List of actions that are possible when interacting with this user, to be shown as suggested actions in the <a href="https://corefork.telegram.org/api/action-bar">chat action bar »</a>, see <a href="https://corefork.telegram.org/api/action-bar">here »</a> for more info.
 /// See <a href="https://corefork.telegram.org/constructor/peerSettings" />
 ///</summary>
 [TlObject(0xa518110d)]

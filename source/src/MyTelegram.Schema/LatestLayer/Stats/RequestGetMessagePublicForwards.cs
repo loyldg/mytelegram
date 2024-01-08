@@ -14,10 +14,10 @@ namespace MyTelegram.Schema.Stats;
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stats.getMessagePublicForwards" />
 ///</summary>
-[TlObject(0x5630281b)]
-public sealed class RequestGetMessagePublicForwards : IRequest<MyTelegram.Schema.Messages.IMessages>
+[TlObject(0x5f150144)]
+public sealed class RequestGetMessagePublicForwards : IRequest<MyTelegram.Schema.Stats.IPublicForwards>
 {
-    public uint ConstructorId => 0x5630281b;
+    public uint ConstructorId => 0x5f150144;
     ///<summary>
     /// Source channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
@@ -28,22 +28,7 @@ public sealed class RequestGetMessagePublicForwards : IRequest<MyTelegram.Schema
     /// Source message ID
     ///</summary>
     public int MsgId { get; set; }
-
-    ///<summary>
-    /// Initially 0, then set to the <code>next_rate</code> parameter of <a href="https://corefork.telegram.org/constructor/messages.messagesSlice">messages.messagesSlice</a>
-    ///</summary>
-    public int OffsetRate { get; set; }
-
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
-    public MyTelegram.Schema.IInputPeer OffsetPeer { get; set; }
-
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
-    public int OffsetId { get; set; }
+    public string Offset { get; set; }
 
     ///<summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
@@ -61,9 +46,7 @@ public sealed class RequestGetMessagePublicForwards : IRequest<MyTelegram.Schema
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(MsgId);
-        writer.Write(OffsetRate);
-        writer.Write(OffsetPeer);
-        writer.Write(OffsetId);
+        writer.Write(Offset);
         writer.Write(Limit);
     }
 
@@ -71,9 +54,7 @@ public sealed class RequestGetMessagePublicForwards : IRequest<MyTelegram.Schema
     {
         Channel = reader.Read<MyTelegram.Schema.IInputChannel>();
         MsgId = reader.ReadInt32();
-        OffsetRate = reader.ReadInt32();
-        OffsetPeer = reader.Read<MyTelegram.Schema.IInputPeer>();
-        OffsetId = reader.ReadInt32();
+        Offset = reader.ReadString();
         Limit = reader.ReadInt32();
     }
 }

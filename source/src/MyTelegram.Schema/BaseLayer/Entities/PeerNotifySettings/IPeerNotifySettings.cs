@@ -50,31 +50,31 @@ public interface IPeerNotifySettings : IObject
     MyTelegram.Schema.INotificationSound? OtherSound { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether story notifications should be disabled.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     ///</summary>
     bool? StoriesMuted { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the sender name should be displayed in story notifications.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     ///</summary>
     bool? StoriesHideSender { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Sound for story notifications on the official iOS application
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
     ///</summary>
     MyTelegram.Schema.INotificationSound? StoriesIosSound { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Sound for story notifications on the official Android application
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
     ///</summary>
     MyTelegram.Schema.INotificationSound? StoriesAndroidSound { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Sound for story notifications on other applications
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
     ///</summary>
     MyTelegram.Schema.INotificationSound? StoriesOtherSound { get; set; }

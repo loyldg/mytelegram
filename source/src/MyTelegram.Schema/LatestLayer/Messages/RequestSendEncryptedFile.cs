@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Messages;
 /// Sends a message with a file attachment to a secret chat
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 CHAT_ID_INVALID The provided chat id is invalid.
 /// 400 DATA_TOO_LONG Data too long.
 /// 400 ENCRYPTION_DECLINED The secret chat was declined.
 /// 400 FILE_EMTPY An empty file was provided.

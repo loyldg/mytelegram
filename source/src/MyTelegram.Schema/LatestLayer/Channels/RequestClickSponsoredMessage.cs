@@ -4,13 +4,25 @@
 namespace MyTelegram.Schema.Channels;
 
 ///<summary>
+/// Informs the server that the user has either:
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 CHANNEL_INVALID The provided channel is invalid.
 /// See <a href="https://corefork.telegram.org/method/channels.clickSponsoredMessage" />
 ///</summary>
 [TlObject(0x18afbc93)]
 public sealed class RequestClickSponsoredMessage : IRequest<IBool>
 {
     public uint ConstructorId => 0x18afbc93;
+    ///<summary>
+    /// Channel where the sponsored message was posted
+    /// See <a href="https://corefork.telegram.org/type/InputChannel" />
+    ///</summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
+
+    ///<summary>
+    /// Message ID
+    ///</summary>
     public byte[] RandomId { get; set; }
 
     public void ComputeFlag()

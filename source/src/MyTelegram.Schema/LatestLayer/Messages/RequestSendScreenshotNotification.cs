@@ -9,6 +9,7 @@ namespace MyTelegram.Schema.Messages;
 /// Code Type Description
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 400 STORY_ID_INVALID The specified story ID is invalid.
 /// 400 YOU_BLOCKED_USER You blocked this user.
 /// See <a href="https://corefork.telegram.org/method/messages.sendScreenshotNotification" />
 ///</summary>
@@ -21,6 +22,11 @@ public sealed class RequestSendScreenshotNotification : IRequest<MyTelegram.Sche
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// Indicates the message that was screenshotted (the specified message ID can also be <code>0</code> to avoid indicating any specific message).
+    /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
+    ///</summary>
     public MyTelegram.Schema.IInputReplyTo ReplyTo { get; set; }
 
     ///<summary>

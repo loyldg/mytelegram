@@ -17,13 +17,13 @@ public sealed class TStoryView : IStoryView
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Whether we have <a href="https://corefork.telegram.org/api/block">completely blocked</a> this user, including from viewing more of our stories.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Blocked { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether we have <a href="https://corefork.telegram.org/api/block">blocked</a> this user from viewing more of our stories.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool BlockedMyStoriesFrom { get; set; }

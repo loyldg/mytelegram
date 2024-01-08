@@ -17,7 +17,7 @@ public sealed class TChannelAdminLogEventsFilter : IChannelAdminLogEventsFilter
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoin">Join events</a>
+    /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoin">Join events</a>, including <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite">joins using invite links</a> and <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest">join requests</a>.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Join { get; set; }
@@ -71,13 +71,13 @@ public sealed class TChannelAdminLogEventsFilter : IChannelAdminLogEventsFilter
     public bool Demote { get; set; }
 
     ///<summary>
-    /// Info change events (when <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAbout">about</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat">linked chat</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLocation">location</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangePhoto">photo</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet">stickerset</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeTitle">title</a> or <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsername">username</a> data of a channel gets modified)
+    /// Info change events (when <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAbout">about</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat">linked chat</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLocation">location</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangePhoto">photo</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet">stickerset</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeTitle">title</a> or <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsername">username</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode">slowmode</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL">history TTL</a> settings of a channel gets modified)
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Info { get; set; }
 
     ///<summary>
-    /// Settings change events (<a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleInvites">invites</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden">hidden prehistory</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSignatures">signatures</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights">default banned rights</a>)
+    /// Settings change events (<a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleInvites">invites</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden">hidden prehistory</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSignatures">signatures</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights">default banned rights</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleForum">forum toggle events</a>)
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Settings { get; set; }

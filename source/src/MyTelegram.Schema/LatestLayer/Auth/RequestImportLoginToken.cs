@@ -11,6 +11,7 @@ namespace MyTelegram.Schema.Auth;
 /// 400 AUTH_TOKEN_EXPIRED The authorization token has expired.
 /// 400 AUTH_TOKEN_INVALID The specified auth token is invalid.
 /// 400 AUTH_TOKEN_INVALIDX The specified auth token is invalid.
+/// 500 MEMBER_NOT_FOUND &nbsp;
 /// See <a href="https://corefork.telegram.org/method/auth.importLoginToken" />
 ///</summary>
 [TlObject(0x95ac5ce4)]

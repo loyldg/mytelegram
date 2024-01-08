@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Chatlists;
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 INVITE_SLUG_EMPTY The specified invite slug is empty.
+/// 400 INVITE_SLUG_EXPIRED The specified chat folder link has expired.
 /// See <a href="https://corefork.telegram.org/method/chatlists.checkChatlistInvite" />
 ///</summary>
 [TlObject(0x41c10fff)]

@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Coordinates and size of a clicable rectangular area on top of a story.
 /// See <a href="https://corefork.telegram.org/constructor/mediaAreaCoordinates" />
 ///</summary>
 [TlObject(0x3d1ea4e)]
@@ -11,27 +12,27 @@ public sealed class TMediaAreaCoordinates : IMediaAreaCoordinates
 {
     public uint ConstructorId => 0x3d1ea4e;
     ///<summary>
-    /// &nbsp;
+    /// The abscissa of the rectangle's center, as a percentage of the media width (0-100).
     ///</summary>
     public double X { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The ordinate of the rectangle's center, as a percentage of the media height (0-100).
     ///</summary>
     public double Y { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The width of the rectangle, as a percentage of the media width (0-100).
     ///</summary>
     public double W { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The height of the rectangle, as a percentage of the media height (0-100).
     ///</summary>
     public double H { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Clockwise rotation angle of the rectangle, in degrees (0-360).
     ///</summary>
     public double Rotation { get; set; }
 

@@ -26,7 +26,7 @@ public interface IVotesList : IObject
     TVector<MyTelegram.Schema.IMessagePeerVote> Votes { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
     ///</summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }

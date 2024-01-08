@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Help;
 
 ///<summary>
+/// Get the set of <a href="https://corefork.telegram.org/api/colors">accent color palettes »</a> that can be used in profile page backgrounds.
 /// See <a href="https://corefork.telegram.org/method/help.getPeerProfileColors" />
 ///</summary>
 [TlObject(0xabcfa9fd)]

@@ -7,20 +7,15 @@ namespace MyTelegram.Schema;
 /// Contains info about a peer that the user shared with the bot after clicking on a <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a> button.
 /// See <a href="https://corefork.telegram.org/constructor/messageActionRequestedPeer" />
 ///</summary>
-[TlObject(0xfe77345d)]
+[TlObject(0x31518e9b)]
 public sealed class TMessageActionRequestedPeer : IMessageAction
 {
-    public uint ConstructorId => 0xfe77345d;
+    public uint ConstructorId => 0x31518e9b;
     ///<summary>
     /// <code>button_id</code> contained in the <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a>
     ///</summary>
     public int ButtonId { get; set; }
-
-    ///<summary>
-    /// The shared peer
-    /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
-    public MyTelegram.Schema.IPeer Peer { get; set; }
+    public TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
 
     public void ComputeFlag()
     {
@@ -32,12 +27,12 @@ public sealed class TMessageActionRequestedPeer : IMessageAction
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ButtonId);
-        writer.Write(Peer);
+        writer.Write(Peers);
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
     {
         ButtonId = reader.ReadInt32();
-        Peer = reader.Read<MyTelegram.Schema.IPeer>();
+        Peers = reader.Read<TVector<MyTelegram.Schema.IPeer>>();
     }
 }

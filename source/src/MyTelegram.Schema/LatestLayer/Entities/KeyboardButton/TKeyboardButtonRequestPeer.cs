@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// Prompts the user to select and share a peer with the bot using <a href="https://corefork.telegram.org/method/messages.sendBotRequestedPeer">messages.sendBotRequestedPeer</a>
 /// See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer" />
 ///</summary>
-[TlObject(0xd0b468c)]
+[TlObject(0x53d7bfd8)]
 public sealed class TKeyboardButtonRequestPeer : IKeyboardButton
 {
-    public uint ConstructorId => 0xd0b468c;
+    public uint ConstructorId => 0x53d7bfd8;
     ///<summary>
     /// Button text
     ///</summary>
@@ -26,6 +26,7 @@ public sealed class TKeyboardButtonRequestPeer : IKeyboardButton
     /// See <a href="https://corefork.telegram.org/type/RequestPeerType" />
     ///</summary>
     public MyTelegram.Schema.IRequestPeerType PeerType { get; set; }
+    public int MaxQuantity { get; set; }
 
     public void ComputeFlag()
     {
@@ -39,6 +40,7 @@ public sealed class TKeyboardButtonRequestPeer : IKeyboardButton
         writer.Write(Text);
         writer.Write(ButtonId);
         writer.Write(PeerType);
+        writer.Write(MaxQuantity);
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -46,5 +48,6 @@ public sealed class TKeyboardButtonRequestPeer : IKeyboardButton
         Text = reader.ReadString();
         ButtonId = reader.ReadInt32();
         PeerType = reader.Read<MyTelegram.Schema.IRequestPeerType>();
+        MaxQuantity = reader.ReadInt32();
     }
 }

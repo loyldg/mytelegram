@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Invoke a method within a takeout session
+/// Invoke a method within a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
 /// See <a href="https://corefork.telegram.org/method/invokeWithTakeout" />
 ///</summary>
 [TlObject(0xaca9fd2e)]
@@ -12,7 +12,7 @@ public sealed class RequestInvokeWithTakeout : IRequest<IObject>
 {
     public uint ConstructorId => 0xaca9fd2e;
     ///<summary>
-    /// Takeout session ID
+    /// <a href="https://corefork.telegram.org/api/takeout">Takeout session ID »</a>
     ///</summary>
     public long TakeoutId { get; set; }
 

@@ -4,12 +4,16 @@
 namespace MyTelegram.Schema.Contacts;
 
 ///<summary>
+/// Edit the <a href="https://corefork.telegram.org/api/privacy">close friends list, see here »</a> for more info.
 /// See <a href="https://corefork.telegram.org/method/contacts.editCloseFriends" />
 ///</summary>
 [TlObject(0xba6705f0)]
 public sealed class RequestEditCloseFriends : IRequest<IBool>
 {
     public uint ConstructorId => 0xba6705f0;
+    ///<summary>
+    /// Full list of user IDs of close friends, see <a href="https://corefork.telegram.org/api/privacy">here</a> for more info.
+    ///</summary>
     public TVector<long> Id { get; set; }
 
     public void ComputeFlag()

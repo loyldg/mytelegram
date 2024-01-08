@@ -17,7 +17,7 @@ public sealed class TDiscussionMessage : IDiscussionMessage
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// Discussion messages
+    /// The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing message ID).
     ///</summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 

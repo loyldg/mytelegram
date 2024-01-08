@@ -39,7 +39,7 @@ public sealed class TBotResults : IBotResults
     public MyTelegram.Schema.IInlineBotSwitchPM? SwitchPm { get; set; }
 
     ///<summary>
-    /// Shown as a button on top of the remaining inline result list; if clicked, opens the specified <a href="https://corefork.telegram.org/api/bots/webapps#simple-web-apps">bot web app</a>.
+    /// Shown as a button on top of the remaining inline result list; if clicked, opens the specified <a href="https://corefork.telegram.org/api/bots/webapps#inline-mode-mini-apps">inline mode mini app</a>.
     /// See <a href="https://corefork.telegram.org/type/InlineBotWebView" />
     ///</summary>
     public MyTelegram.Schema.IInlineBotWebView? SwitchWebview { get; set; }

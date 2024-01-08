@@ -55,14 +55,18 @@ public interface IUserFull : IObject
     bool TranslationsDisabled { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether this user has some <a href="https://corefork.telegram.org/api/stories#pinned-or-archived-stories">pinned stories</a>.
     ///</summary>
     bool StoriesPinnedAvailable { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether we've <a href="https://corefork.telegram.org/api/block">blocked this user, preventing them from seeing our stories »</a>.
     ///</summary>
     bool BlockedMyStoriesFrom { get; set; }
+
+    ///<summary>
+    /// Whether the other user has chosen a custom wallpaper for us using <a href="https://corefork.telegram.org/method/messages.setChatWallPaper">messages.setChatWallPaper</a> and the <code>for_both</code> flag, see <a href="https://corefork.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat">here »</a> for more info.
+    ///</summary>
     bool WallpaperOverridden { get; set; }
 
     ///<summary>
@@ -166,7 +170,7 @@ public interface IUserFull : IObject
     MyTelegram.Schema.IWallPaper? Wallpaper { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Active <a href="https://corefork.telegram.org/api/stories">stories »</a>
     /// See <a href="https://corefork.telegram.org/type/PeerStories" />
     ///</summary>
     MyTelegram.Schema.IPeerStories? Stories { get; set; }

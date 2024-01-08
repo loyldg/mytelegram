@@ -7,8 +7,11 @@ namespace MyTelegram.Schema.Channels;
 /// Create a <a href="https://corefork.telegram.org/api/forum">forum topic</a>; requires <a href="https://corefork.telegram.org/api/rights"><code>manage_topics</code> rights</a>.
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 CHANNEL_FORUM_MISSING This supergroup is not a forum.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
+/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
+/// 400 TOPIC_TITLE_EMPTY The specified topic title is empty.
 /// See <a href="https://corefork.telegram.org/method/channels.createForumTopic" />
 ///</summary>
 [TlObject(0xf40c0224)]

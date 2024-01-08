@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Represents a <a href="https://corefork.telegram.org/api/bots/attach">bot web app that can be launched from the attachment menu »</a>
+/// Represents a <a href="https://corefork.telegram.org/api/bots/attach">bot mini app that can be launched from the attachment/side menu »</a>At least one of the <code>show_in_attach_menu</code> or the <code>show_in_side_menu</code> flags will always be set.
 /// See <a href="https://corefork.telegram.org/constructor/attachMenuBot" />
 ///</summary>
 [TlObject(0xd90d8dfe)]
@@ -17,13 +17,13 @@ public sealed class TAttachMenuBot : IAttachMenuBot
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// Whether this bot attachment menu entry should be shown in the attachment menu (toggle using <a href="https://corefork.telegram.org/method/messages.toggleBotInAttachMenu">messages.toggleBotInAttachMenu</a>)
+    /// If set, before launching the mini app the client should ask the user to add the mini app to the attachment/side menu, and only if the user accepts, after invoking <a href="https://corefork.telegram.org/method/messages.toggleBotInAttachMenu">messages.toggleBotInAttachMenu</a> the app should be opened.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Inactive { get; set; }
 
     ///<summary>
-    /// True, if the bot supports the <a href="https://corefork.telegram.org/api/bots/webapps#settings-button-pressed">"settings_button_pressed" event »</a>
+    /// Deprecated flag, can be ignored.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool HasSettings { get; set; }
@@ -35,19 +35,19 @@ public sealed class TAttachMenuBot : IAttachMenuBot
     public bool RequestWriteAccess { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether, when installed, an attachment menu entry should be shown for the Mini App.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool ShowInAttachMenu { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether, when installed, an entry in the main view side menu should be shown for the Mini App.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool ShowInSideMenu { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If <code>inactive</code> if set and the user hasn't previously accepted the third-party mini apps <a href="https://telegram.org/tos/mini-apps">Terms of Service</a> for this bot, when showing the mini app installation prompt, an additional mandatory checkbox to accept the <a href="https://telegram.org/tos/mini-apps">mini apps TOS</a> and a disclaimer indicating that this Mini App is not affiliated to Telegram should be shown.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool SideMenuDisclaimerNeeded { get; set; }

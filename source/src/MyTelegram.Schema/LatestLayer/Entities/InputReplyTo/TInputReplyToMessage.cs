@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Reply to a message.
 /// See <a href="https://corefork.telegram.org/constructor/inputReplyToMessage" />
 ///</summary>
 [TlObject(0x22c0f6d5)]
@@ -16,17 +17,34 @@ public sealed class TInputReplyToMessage : IInputReplyTo
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// The message ID to reply to.
     ///</summary>
     public int ReplyToMsgId { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// This field must contain the topic ID <strong>only</strong> when replying to messages in forum topics different from the "General" topic (i.e. <code>reply_to_msg_id</code> is set and <code>reply_to_msg_id != topicID</code> and <code>topicID != 1</code>).  <br>If the replied-to message is deleted before the method finishes execution, the value in this field will be used to send the message to the correct topic, instead of the "General" topic.
     ///</summary>
     public int? TopMsgId { get; set; }
+
+    ///<summary>
+    /// Used to reply to messages sent to another chat (specified here), can only be used for non-<code>protected</code> chats and messages.
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer? ReplyToPeerId { get; set; }
+
+    ///<summary>
+    /// Used to quote-reply to only a certain section (specified here) of the original message. The maximum UTF-8 length for quotes is specified in the <a href="https://corefork.telegram.org/api/config#quote-length-max">quote_length_max</a> config key.
+    ///</summary>
     public string? QuoteText { get; set; }
+
+    ///<summary>
+    /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a> from the <code>quote_text</code> field.
+    ///</summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? QuoteEntities { get; set; }
+
+    ///<summary>
+    /// Offset of the message <code>quote_text</code> within the original message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>).
+    ///</summary>
     public int? QuoteOffset { get; set; }
 
     public void ComputeFlag()

@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Authorized to the current user's account through an unknown device.
+/// A new session logged into the current user's account through an unknown device.
 /// See <a href="https://corefork.telegram.org/constructor/updateNewAuthorization" />
 ///</summary>
 [TlObject(0x8951abef)]
@@ -17,7 +17,7 @@ public sealed class TUpdateNewAuthorization : IUpdate
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the session is <a href="https://corefork.telegram.org/api/auth#confirming-login">unconfirmed, see here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Unconfirmed { get; set; }

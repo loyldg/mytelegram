@@ -4,13 +4,23 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Used if the user wishes to start a channel <a href="https://corefork.telegram.org/api/giveaways">giveaway</a> or send some <a href="https://corefork.telegram.org/api/giveaways">giftcodes</a> to members of a channel, in exchange for <a href="https://corefork.telegram.org/api/boost">boosts</a>.
 /// See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumGiftCode" />
 ///</summary>
 [TlObject(0x98986c0d)]
 public sealed class TInputInvoicePremiumGiftCode : IInputInvoice
 {
     public uint ConstructorId => 0x98986c0d;
+    ///<summary>
+    /// Should be populated with <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumGiveaway">inputStorePaymentPremiumGiveaway</a> for <a href="https://corefork.telegram.org/api/giveaways">giveaways</a> and <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumGiftCode">inputStorePaymentPremiumGiftCode</a> for <a href="https://corefork.telegram.org/api/giveaways">gifts</a>.
+    /// See <a href="https://corefork.telegram.org/type/InputStorePaymentPurpose" />
+    ///</summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
+
+    ///<summary>
+    /// Should be populated with one of the giveaway options returned by <a href="https://corefork.telegram.org/method/payments.getPremiumGiftCodeOptions">payments.getPremiumGiftCodeOptions</a>, see the <a href="https://corefork.telegram.org/api/giveaways">giveaways »</a> documentation for more info.
+    /// See <a href="https://corefork.telegram.org/type/PremiumGiftCodeOption" />
+    ///</summary>
     public MyTelegram.Schema.IPremiumGiftCodeOption Option { get; set; }
 
     public void ComputeFlag()

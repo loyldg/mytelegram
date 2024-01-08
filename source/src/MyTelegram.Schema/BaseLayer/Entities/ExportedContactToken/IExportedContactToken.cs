@@ -15,7 +15,7 @@ public interface IExportedContactToken : IObject
     string Url { get; set; }
 
     ///<summary>
-    /// Its expiry date
+    /// Its expiration date
     ///</summary>
     int Expires { get; set; }
 }

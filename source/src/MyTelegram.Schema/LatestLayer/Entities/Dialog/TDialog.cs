@@ -27,6 +27,11 @@ public sealed class TDialog : IDialog
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool UnreadMark { get; set; }
+
+    ///<summary>
+    /// Users may also choose to display messages from all topics of a <a href="https://corefork.telegram.org/api/forum">forum</a> as if they were sent to a normal group, using a "View as messages" setting in the local client.  <br>This setting only affects the current account, and is synced to other logged in sessions using the <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages">channels.toggleViewForumAsMessages</a> method; invoking this method will update the value of this flag.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ViewForumAsMessages { get; set; }
 
     ///<summary>

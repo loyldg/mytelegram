@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// The list of bot web apps hasn't changed
+/// The list of bot mini apps hasn't changed
 /// See <a href="https://corefork.telegram.org/constructor/attachMenuBotsNotModified" />
 ///</summary>
 [TlObject(0xf1d88a5c)]

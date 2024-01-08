@@ -93,7 +93,7 @@ public sealed class RequestSetInlineBotResults : IRequest<IBool>
     public MyTelegram.Schema.IInlineBotSwitchPM? SwitchPm { get; set; }
 
     ///<summary>
-    /// If passed, clients will display a button on top of the remaining inline result list with the specified text, that switches the user to the specified <a href="https://corefork.telegram.org/api/bots/webapps#simple-web-apps">bot web app</a>.
+    /// If passed, clients will display a button on top of the remaining inline result list with the specified text, that switches the user to the specified <a href="https://corefork.telegram.org/api/bots/webapps#inline-mode-mini-apps">inline mode mini app</a>.
     /// See <a href="https://corefork.telegram.org/type/InlineBotWebView" />
     ///</summary>
     public MyTelegram.Schema.IInlineBotWebView? SwitchWebview { get; set; }

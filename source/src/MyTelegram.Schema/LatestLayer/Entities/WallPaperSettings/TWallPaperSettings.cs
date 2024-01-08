@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> rendering information.
 /// See <a href="https://corefork.telegram.org/constructor/wallPaperSettings" />
 ///</summary>
-[TlObject(0x1dc1bca4)]
+[TlObject(0x372efcd0)]
 public sealed class TWallPaperSettings : IWallPaperSettings
 {
-    public uint ConstructorId => 0x1dc1bca4;
+    public uint ConstructorId => 0x372efcd0;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -57,6 +57,7 @@ public sealed class TWallPaperSettings : IWallPaperSettings
     /// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45.
     ///</summary>
     public int? Rotation { get; set; }
+    public string? Emoticon { get; set; }
 
     public void ComputeFlag()
     {
@@ -68,6 +69,7 @@ public sealed class TWallPaperSettings : IWallPaperSettings
         if (/*FourthBackgroundColor != 0 && */FourthBackgroundColor.HasValue) { Flags[6] = true; }
         if (/*Intensity != 0 && */Intensity.HasValue) { Flags[3] = true; }
         if (/*Rotation != 0 && */Rotation.HasValue) { Flags[4] = true; }
+        if (Emoticon != null) { Flags[7] = true; }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -81,6 +83,7 @@ public sealed class TWallPaperSettings : IWallPaperSettings
         if (Flags[6]) { writer.Write(FourthBackgroundColor.Value); }
         if (Flags[3]) { writer.Write(Intensity.Value); }
         if (Flags[4]) { writer.Write(Rotation.Value); }
+        if (Flags[7]) { writer.Write(Emoticon); }
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -94,5 +97,6 @@ public sealed class TWallPaperSettings : IWallPaperSettings
         if (Flags[6]) { FourthBackgroundColor = reader.ReadInt32(); }
         if (Flags[3]) { Intensity = reader.ReadInt32(); }
         if (Flags[4]) { Rotation = reader.ReadInt32(); }
+        if (Flags[7]) { Emoticon = reader.ReadString(); }
     }
 }

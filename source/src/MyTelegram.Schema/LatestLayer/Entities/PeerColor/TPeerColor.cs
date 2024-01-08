@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Represents a <a href="https://corefork.telegram.org/api/colors">color palette »</a>.
 /// See <a href="https://corefork.telegram.org/constructor/peerColor" />
 ///</summary>
 [TlObject(0xb54b5acf)]
@@ -16,12 +17,12 @@ public sealed class TPeerColor : IPeerColor
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// <a href="https://corefork.telegram.org/api/colors">Color palette ID, see here »</a> for more info.
     ///</summary>
     public int? Color { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// <a href="https://corefork.telegram.org/api/custom-emoji">Custom emoji ID</a> used to generate the pattern.
     ///</summary>
     public long? BackgroundEmojiId { get; set; }
 

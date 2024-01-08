@@ -4,14 +4,31 @@
 namespace MyTelegram.Schema.Bots;
 
 ///<summary>
+/// Send a custom request from a <a href="https://corefork.telegram.org/api/bots/webapps">mini bot app</a>, triggered by a <a href="https://corefork.telegram.org/api/web-events#web-app-invoke-custom-method">web_app_invoke_custom_method event »</a>.The response should be sent using a <a href="https://corefork.telegram.org/api/bots/webapps#custom-method-invoked">custom_method_invoked</a> event, <a href="https://corefork.telegram.org/api/web-events#web-app-invoke-custom-method">see here »</a> for more info on the flow.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 BOT_INVALID This is not a valid bot.
 /// See <a href="https://corefork.telegram.org/method/bots.invokeWebViewCustomMethod" />
 ///</summary>
 [TlObject(0x87fc5e7)]
 public sealed class RequestInvokeWebViewCustomMethod : IRequest<MyTelegram.Schema.IDataJSON>
 {
     public uint ConstructorId => 0x87fc5e7;
+    ///<summary>
+    /// Identifier of the bot associated to the <a href="https://corefork.telegram.org/api/bots/webapps">mini bot app</a>
+    /// See <a href="https://corefork.telegram.org/type/InputUser" />
+    ///</summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
+
+    ///<summary>
+    /// Identifier of the custom method to invoke
+    ///</summary>
     public string CustomMethod { get; set; }
+
+    ///<summary>
+    /// Method parameters
+    /// See <a href="https://corefork.telegram.org/type/DataJSON" />
+    ///</summary>
     public MyTelegram.Schema.IDataJSON Params { get; set; }
 
     public void ComputeFlag()

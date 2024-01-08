@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Data from an opened <a href="https://corefork.telegram.org/api/bots/webapps">reply keyboard bot web app</a> was relayed to the bot that owns it (bot side service message).
+/// Data from an opened <a href="https://corefork.telegram.org/api/bots/webapps">reply keyboard bot mini app</a> was relayed to the bot that owns it (bot side service message).
 /// See <a href="https://corefork.telegram.org/constructor/messageActionWebViewDataSentMe" />
 ///</summary>
 [TlObject(0x47dd8079)]

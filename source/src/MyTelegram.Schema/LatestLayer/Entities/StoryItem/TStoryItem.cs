@@ -23,19 +23,19 @@ public sealed class TStoryItem : IStoryItem
     public bool Pinned { get; set; }
 
     ///<summary>
-    /// Whether this story is public
+    /// Whether this story is public and can be viewed by everyone
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Public { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether this story can only be viewed by <a href="https://corefork.telegram.org/api/privacy">our close friends, see here »</a> for more info
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool CloseFriends { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Full information about this story was omitted for space and performance reasons; use <a href="https://corefork.telegram.org/method/stories.getStoriesByID">stories.getStoriesByID</a> to fetch full info about this story when and if needed.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Min { get; set; }
@@ -53,13 +53,13 @@ public sealed class TStoryItem : IStoryItem
     public bool Edited { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether this story can only be viewed by our contacts
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Contacts { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether this story can only be viewed by a select list of our contacts
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool SelectedContacts { get; set; }
@@ -79,6 +79,11 @@ public sealed class TStoryItem : IStoryItem
     /// When was the story posted.
     ///</summary>
     public int Date { get; set; }
+
+    ///<summary>
+    /// For <a href="https://corefork.telegram.org/api/stories#reposting-stories">reposted stories »</a>, contains info about the original story.
+    /// See <a href="https://corefork.telegram.org/type/StoryFwdHeader" />
+    ///</summary>
     public MyTelegram.Schema.IStoryFwdHeader? FwdFrom { get; set; }
 
     ///<summary>

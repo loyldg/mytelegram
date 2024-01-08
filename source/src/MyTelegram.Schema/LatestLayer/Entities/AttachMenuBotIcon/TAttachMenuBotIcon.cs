@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Represents an attachment menu icon for <a href="https://corefork.telegram.org/api/bots/attach">bot web apps »</a>
+/// Represents an attachment menu icon for <a href="https://corefork.telegram.org/api/bots/attach">bot mini apps »</a>
 /// See <a href="https://corefork.telegram.org/constructor/attachMenuBotIcon" />
 ///</summary>
 [TlObject(0xb2a7386b)]
@@ -17,7 +17,7 @@ public sealed class TAttachMenuBotIcon : IAttachMenuBotIcon
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// One of the following values: note that animated icons must be played when the user clicks on the button, activating the bot web app. <br><br><code>default_static</code> - Default attachment menu icon in SVG format <br><code>placeholder_static</code> - Default placeholder for opened Web Apps in SVG format <br><code>ios_static</code> - Attachment menu icon in SVG format for the official iOS app <br><code>ios_animated</code> - Animated attachment menu icon in TGS format for the official iOS app <br><code>android_animated</code> - Animated attachment menu icon in TGS format for the official Android app <br><code>macos_animated</code> - Animated attachment menu icon in TGS format for the official native Mac OS app
+    /// One of the following values: note that animated icons must be played when the user clicks on the button, activating the bot mini app. <br><br><code>default_static</code> - Default attachment menu icon in SVG format <br><code>placeholder_static</code> - Default placeholder for opened Web Apps in SVG format <br><code>ios_static</code> - Attachment menu icon in SVG format for the official iOS app <br><code>ios_animated</code> - Animated attachment menu icon in TGS format for the official iOS app <br><code>android_animated</code> - Animated attachment menu icon in TGS format for the official Android app <br><code>macos_animated</code> - Animated attachment menu icon in TGS format for the official native Mac OS app <br><code>ios_side_menu_static</code> - Side menu icon in PNG format for the official iOS app <br><code>android_side_menu_static</code> - Side menu icon in SVG format for the official android app <br><code>macos_side_menu_static</code> - Side menu icon in PNG format for the official native Mac OS app
     ///</summary>
     public string Name { get; set; }
 

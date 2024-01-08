@@ -27,6 +27,11 @@ public sealed class RequestEditInlineBotMessage : IRequest<IBool>
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool NoWebpage { get; set; }
+
+    ///<summary>
+    /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool InvertMedia { get; set; }
 
     ///<summary>

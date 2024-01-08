@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// A peer was blocked
+/// We blocked a peer, see <a href="https://corefork.telegram.org/api/block">here »</a> for more info on blocklists.
 /// See <a href="https://corefork.telegram.org/constructor/updatePeerBlocked" />
 ///</summary>
 [TlObject(0xebe07752)]
@@ -23,13 +23,13 @@ public sealed class TUpdatePeerBlocked : IUpdate
     public bool Blocked { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the peer was added/removed to/from the story blocklist; if not set, this update affects the main blocklist, see <a href="https://corefork.telegram.org/api/block">here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool BlockedMyStoriesFrom { get; set; }
 
     ///<summary>
-    /// The blocked peer
+    /// The (un)blocked peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }

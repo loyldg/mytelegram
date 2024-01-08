@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Help;
 
 ///<summary>
+/// Represents a <a href="https://corefork.telegram.org/api/colors">color palette that can be used in message accents »</a>.
 /// See <a href="https://corefork.telegram.org/constructor/help.peerColorSet" />
 ///</summary>
 [TlObject(0x26219a58)]
@@ -11,7 +12,7 @@ public sealed class TPeerColorSet : IPeerColorSet
 {
     public uint ConstructorId => 0x26219a58;
     ///<summary>
-    /// &nbsp;
+    /// A list of 1-3 colors in RGB format, describing the accent color.
     ///</summary>
     public TVector<int> Colors { get; set; }
 

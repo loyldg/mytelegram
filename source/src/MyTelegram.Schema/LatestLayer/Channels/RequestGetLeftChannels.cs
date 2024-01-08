@@ -4,10 +4,10 @@
 namespace MyTelegram.Schema.Channels;
 
 ///<summary>
-/// Get a list of <a href="https://corefork.telegram.org/api/channel">channels/supergroups</a> we left
+/// Get a list of <a href="https://corefork.telegram.org/api/channel">channels/supergroups</a> we left, requires a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
 /// <para>Possible errors</para>
 /// Code Type Description
-/// 403 TAKEOUT_REQUIRED A takeout session has to be initialized, first.
+/// 403 TAKEOUT_REQUIRED A <a href="https://corefork.telegram.org/api/takeout">takeout</a> session needs to be initialized first, <a href="https://corefork.telegram.org/api/takeout">see here » for more info</a>.
 /// See <a href="https://corefork.telegram.org/method/channels.getLeftChannels" />
 ///</summary>
 [TlObject(0x8341ecc0)]

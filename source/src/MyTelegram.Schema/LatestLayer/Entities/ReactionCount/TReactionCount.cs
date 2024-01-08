@@ -22,13 +22,13 @@ public sealed class TReactionCount : IReactionCount
     public int? ChosenOrder { get; set; }
 
     ///<summary>
-    /// Reaction (a UTF8 emoji)
+    /// The reaction.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
     ///</summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
     ///<summary>
-    /// NUmber of users that reacted with this emoji
+    /// Number of users that reacted with this emoji.
     ///</summary>
     public int Count { get; set; }
 

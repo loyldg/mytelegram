@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
-/// Open a <a href="https://corefork.telegram.org/bots/webapps">bot web app</a> from a <a href="https://corefork.telegram.org/api/links#named-bot-web-app-links">named bot web app deep link</a>, sending over user information after user confirmation.After calling this method, until the user closes the webview, <a href="https://corefork.telegram.org/method/messages.prolongWebView">messages.prolongWebView</a> must be called every 60 seconds.
+/// Open a <a href="https://corefork.telegram.org/bots/webapps">bot mini app</a> from a <a href="https://corefork.telegram.org/api/links#named-mini-app-links">named Mini App deep link</a>, sending over user information after user confirmation.After calling this method, until the user closes the webview, <a href="https://corefork.telegram.org/method/messages.prolongWebView">messages.prolongWebView</a> must be called every 60 seconds.
 /// See <a href="https://corefork.telegram.org/method/messages.requestAppWebView" />
 ///</summary>
 [TlObject(0x8c5a3b3c)]
@@ -17,7 +17,7 @@ public sealed class RequestRequestAppWebView : IRequest<MyTelegram.Schema.IAppWe
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// Set this flag if the bot is asking permission to send messages to the user as specified in the <a href="https://corefork.telegram.org/api/links#named-bot-web-app-links">named bot web app deep link</a> docs, and the user agreed.
+    /// Set this flag if the bot is asking permission to send messages to the user as specified in the <a href="https://corefork.telegram.org/api/links#named-mini-app-links">named Mini App deep link</a> docs, and the user agreed.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool WriteAllowed { get; set; }
@@ -29,13 +29,13 @@ public sealed class RequestRequestAppWebView : IRequest<MyTelegram.Schema.IAppWe
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     ///<summary>
-    /// The app obtained by invoking <a href="https://corefork.telegram.org/method/messages.getBotApp">messages.getBotApp</a> as specified in the <a href="https://corefork.telegram.org/api/links#named-bot-web-app-links">named bot web app deep link</a> docs.
+    /// The app obtained by invoking <a href="https://corefork.telegram.org/method/messages.getBotApp">messages.getBotApp</a> as specified in the <a href="https://corefork.telegram.org/api/links#named-mini-app-links">named Mini App deep link</a> docs.
     /// See <a href="https://corefork.telegram.org/type/InputBotApp" />
     ///</summary>
     public MyTelegram.Schema.IInputBotApp App { get; set; }
 
     ///<summary>
-    /// If the <code>startapp</code> query string parameter is present in the <a href="https://corefork.telegram.org/api/links#named-bot-web-app-links">named bot web app deep link</a>, pass it to <code>start_param</code>.
+    /// If the <code>startapp</code> query string parameter is present in the <a href="https://corefork.telegram.org/api/links#named-mini-app-links">named Mini App deep link</a>, pass it to <code>start_param</code>.
     ///</summary>
     public string? StartParam { get; set; }
 

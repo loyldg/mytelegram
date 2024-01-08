@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// Reaction and view counters for a list of <a href="https://corefork.telegram.org/api/stories">stories</a>
 /// See <a href="https://corefork.telegram.org/constructor/stories.StoryViews" />
 ///</summary>
 [JsonDerivedType(typeof(TStoryViews), nameof(TStoryViews))]

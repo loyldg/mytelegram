@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// A <a href="https://corefork.telegram.org/api/boost">channel boost</a> has changed (bots only)
 /// See <a href="https://corefork.telegram.org/constructor/updateBotChatBoost" />
 ///</summary>
 [TlObject(0x904dd49c)]
@@ -11,19 +12,19 @@ public sealed class TUpdateBotChatBoost : IUpdate
 {
     public uint ConstructorId => 0x904dd49c;
     ///<summary>
-    /// &nbsp;
+    /// Channel
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// New boost information
     /// See <a href="https://corefork.telegram.org/type/Boost" />
     ///</summary>
     public MyTelegram.Schema.IBoost Boost { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// <a href="https://corefork.telegram.org/api/updates">QTS</a> event sequence identifier
     ///</summary>
     public int Qts { get; set; }
 

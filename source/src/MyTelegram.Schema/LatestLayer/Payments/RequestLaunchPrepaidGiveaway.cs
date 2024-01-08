@@ -4,14 +4,31 @@
 namespace MyTelegram.Schema.Payments;
 
 ///<summary>
+/// Launch a <a href="https://corefork.telegram.org/api/giveaways">prepaid giveaway »</a>.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/payments.launchPrepaidGiveaway" />
 ///</summary>
 [TlObject(0x5ff58f20)]
 public sealed class RequestLaunchPrepaidGiveaway : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x5ff58f20;
+    ///<summary>
+    /// The peer where to launch the giveaway.
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+
+    ///<summary>
+    /// The prepaid giveaway ID.
+    ///</summary>
     public long GiveawayId { get; set; }
+
+    ///<summary>
+    /// Giveway parameters
+    /// See <a href="https://corefork.telegram.org/type/InputStorePaymentPurpose" />
+    ///</summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
     public void ComputeFlag()

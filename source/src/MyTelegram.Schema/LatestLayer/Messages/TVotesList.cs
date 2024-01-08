@@ -27,7 +27,7 @@ public sealed class TVotesList : IVotesList
     public TVector<MyTelegram.Schema.IMessagePeerVote> Votes { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned chats
     ///</summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 

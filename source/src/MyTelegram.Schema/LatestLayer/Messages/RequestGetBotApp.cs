@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
-/// Obtain information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-bot-web-apps">named bot web app</a>
+/// Obtain information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-mini-apps">named Mini App</a>
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 BOT_APP_INVALID The specified bot app is invalid.
@@ -15,7 +15,7 @@ public sealed class RequestGetBotApp : IRequest<MyTelegram.Schema.Messages.IBotA
 {
     public uint ConstructorId => 0x34fdc5c3;
     ///<summary>
-    /// Bot app information obtained from a <a href="https://corefork.telegram.org/api/links#named-bot-web-app-links">named bot web app deep link »</a>.
+    /// Bot app information obtained from a <a href="https://corefork.telegram.org/api/links#named-mini-app-links">named Mini App deep link »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputBotApp" />
     ///</summary>
     public MyTelegram.Schema.IInputBotApp App { get; set; }

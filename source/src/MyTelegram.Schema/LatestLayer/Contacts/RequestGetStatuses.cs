@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Contacts;
 
 ///<summary>
-/// Returns the list of contact statuses.
+/// Use this method to obtain the online statuses of all contacts with an accessible associated Telegram account.
 /// See <a href="https://corefork.telegram.org/method/contacts.getStatuses" />
 ///</summary>
 [TlObject(0xc4a353ee)]

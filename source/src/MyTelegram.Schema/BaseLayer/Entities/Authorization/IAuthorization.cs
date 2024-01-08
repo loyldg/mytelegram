@@ -40,7 +40,7 @@ public interface IAuthorization : IObject
     bool CallRequestsDisabled { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Whether the session is <a href="https://corefork.telegram.org/api/auth#confirming-login">unconfirmed, see here »</a> for more info.
     ///</summary>
     bool Unconfirmed { get; set; }
 

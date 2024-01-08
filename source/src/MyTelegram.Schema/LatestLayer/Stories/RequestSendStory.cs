@@ -14,9 +14,9 @@ namespace MyTelegram.Schema.Stories;
 /// 400 MEDIA_VIDEO_STORY_MISSING &nbsp;
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 400 STORIES_TOO_MUCH You have hit the maximum active stories limit as specified by the <a href="https://corefork.telegram.org/api/config#stories-sent-weekly-limit-default"><code>story_expiring_limit_*</code> client configuration parameters</a>: you should buy a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription, delete an active story, or wait for the oldest story to expire.
+/// 400 STORIES_TOO_MUCH You have hit the maximum active stories limit as specified by the <a href="https://corefork.telegram.org/api/config#story-expiring-limit-default"><code>story_expiring_limit_*</code> client configuration parameters</a>: you should buy a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription, delete an active story, or wait for the oldest story to expire.
 /// 400 STORY_PERIOD_INVALID The specified story period is invalid for this account.
-/// 400 VENUE_ID_INVALID &nbsp;
+/// 400 VENUE_ID_INVALID The specified venue ID is invalid.
 /// See <a href="https://corefork.telegram.org/method/stories.sendStory" />
 ///</summary>
 [TlObject(0xe4e6694b)]
@@ -39,6 +39,11 @@ public sealed class RequestSendStory : IRequest<MyTelegram.Schema.IUpdates>
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Noforwards { get; set; }
+
+    ///<summary>
+    /// Set this flag when reposting stories with <code>fwd_from_id</code>+<code>fwd_from_id</code>, if the <code>media</code> was modified before reposting.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool FwdModified { get; set; }
 
     ///<summary>
@@ -64,7 +69,7 @@ public sealed class RequestSendStory : IRequest<MyTelegram.Schema.IUpdates>
     public string? Caption { get; set; }
 
     ///<summary>
-    /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
+    /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>, if allowed by the <a href="https://corefork.telegram.org/api/config#stories-entities"><code>stories_entities</code> client configuration parameter »</a>.
     ///</summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
@@ -82,7 +87,16 @@ public sealed class RequestSendStory : IRequest<MyTelegram.Schema.IUpdates>
     /// Period after which the story is moved to archive (and to the profile if <code>pinned</code> is set), in seconds; must be one of <code>6 * 3600</code>, <code>12 * 3600</code>, <code>86400</code>, or <code>2 * 86400</code> for Telegram Premium users, and <code>86400</code> otherwise.
     ///</summary>
     public int? Period { get; set; }
+
+    ///<summary>
+    /// If set, indicates that this story is a repost of story with ID <code>fwd_from_story</code> posted by the peer in <code>fwd_from_id</code>.
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    ///</summary>
     public MyTelegram.Schema.IInputPeer? FwdFromId { get; set; }
+
+    ///<summary>
+    /// If set, indicates that this story is a repost of story with ID <code>fwd_from_story</code> posted by the peer in <code>fwd_from_id</code>.
+    ///</summary>
     public int? FwdFromStory { get; set; }
 
     public void ComputeFlag()

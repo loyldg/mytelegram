@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Channels;
 /// Hide or display the participants list in a <a href="https://corefork.telegram.org/api/channel">supergroup</a>.The supergroup must have at least <code>hidden_members_group_size_min</code> participants in order to use this method, as specified by the <a href="https://corefork.telegram.org/api/config#client-configuration">client configuration parameters »</a>.
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
 /// 400 PARTICIPANTS_TOO_FEW Not enough participants.
 /// See <a href="https://corefork.telegram.org/method/channels.toggleParticipantsHidden" />
 ///</summary>

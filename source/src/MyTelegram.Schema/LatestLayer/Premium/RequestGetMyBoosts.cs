@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Premium;
 
 ///<summary>
+/// Obtain which peers are we currently <a href="https://corefork.telegram.org/api/boost">boosting</a>, and how many <a href="https://corefork.telegram.org/api/boost">boost slots</a> we have left.
 /// See <a href="https://corefork.telegram.org/method/premium.getMyBoosts" />
 ///</summary>
 [TlObject(0xbe77b4a)]

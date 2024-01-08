@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Allow only <a href="https://corefork.telegram.org/api/privacy">close friends »</a>
 /// See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowCloseFriends" />
 ///</summary>
 [TlObject(0x2f453e49)]

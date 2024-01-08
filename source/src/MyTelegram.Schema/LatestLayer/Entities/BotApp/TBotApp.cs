@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Contains information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-bot-web-apps">named bot web app</a>.
+/// Contains information about a <a href="https://corefork.telegram.org/api/bots/webapps#named-mini-apps">named Mini App</a>.
 /// See <a href="https://corefork.telegram.org/constructor/botApp" />
 ///</summary>
 [TlObject(0x95fcd1d6)]
@@ -17,38 +17,38 @@ public sealed class TBotApp : IBotApp
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// Bot web app ID
+    /// bot mini app ID
     ///</summary>
     public long Id { get; set; }
 
     ///<summary>
-    /// Bot web app access hash
+    /// bot mini app access hash
     ///</summary>
     public long AccessHash { get; set; }
 
     ///<summary>
-    /// Bot web app short name, used to generate <a href="https://corefork.telegram.org/api/links#named-bot-web-app-links">named bot web app deep links</a>.
+    /// bot mini app short name, used to generate <a href="https://corefork.telegram.org/api/links#named-mini-app-links">named Mini App deep links</a>.
     ///</summary>
     public string ShortName { get; set; }
 
     ///<summary>
-    /// Bot web app title.
+    /// bot mini app title.
     ///</summary>
     public string Title { get; set; }
 
     ///<summary>
-    /// Bot web app description.
+    /// bot mini app description.
     ///</summary>
     public string Description { get; set; }
 
     ///<summary>
-    /// Bot web app photo.
+    /// bot mini app photo.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
     ///</summary>
     public MyTelegram.Schema.IPhoto Photo { get; set; }
 
     ///<summary>
-    /// Bot web app animation.
+    /// bot mini app animation.
     /// See <a href="https://corefork.telegram.org/type/Document" />
     ///</summary>
     public MyTelegram.Schema.IDocument? Document { get; set; }

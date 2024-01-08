@@ -7,10 +7,10 @@ namespace MyTelegram.Schema.Stories;
 /// Reaction and view counters for a <a href="https://corefork.telegram.org/api/stories">story</a>
 /// See <a href="https://corefork.telegram.org/constructor/stories.storyViewsList" />
 ///</summary>
-[TlObject(0x46e9b9ec)]
+[TlObject(0x59d78fc5)]
 public sealed class TStoryViewsList : IStoryViewsList
 {
-    public uint ConstructorId => 0x46e9b9ec;
+    public uint ConstructorId => 0x59d78fc5;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -20,9 +20,11 @@ public sealed class TStoryViewsList : IStoryViewsList
     /// Total number of results that can be fetched
     ///</summary>
     public int Count { get; set; }
+    public int ViewsCount { get; set; }
+    public int ForwardsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of reactions that were added to the story
     ///</summary>
     public int ReactionsCount { get; set; }
 
@@ -30,6 +32,7 @@ public sealed class TStoryViewsList : IStoryViewsList
     /// Story view date and reaction information
     ///</summary>
     public TVector<MyTelegram.Schema.IStoryView> Views { get; set; }
+    public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
     ///<summary>
     /// Mentioned users
@@ -52,8 +55,11 @@ public sealed class TStoryViewsList : IStoryViewsList
         writer.Write(ConstructorId);
         writer.Write(Flags);
         writer.Write(Count);
+        writer.Write(ViewsCount);
+        writer.Write(ForwardsCount);
         writer.Write(ReactionsCount);
         writer.Write(Views);
+        writer.Write(Chats);
         writer.Write(Users);
         if (Flags[0]) { writer.Write(NextOffset); }
     }
@@ -62,8 +68,11 @@ public sealed class TStoryViewsList : IStoryViewsList
     {
         Flags = reader.ReadBitArray();
         Count = reader.ReadInt32();
+        ViewsCount = reader.ReadInt32();
+        ForwardsCount = reader.ReadInt32();
         ReactionsCount = reader.ReadInt32();
         Views = reader.Read<TVector<MyTelegram.Schema.IStoryView>>();
+        Chats = reader.Read<TVector<MyTelegram.Schema.IChat>>();
         Users = reader.Read<TVector<MyTelegram.Schema.IUser>>();
         if (Flags[0]) { NextOffset = reader.ReadString(); }
     }

@@ -18,6 +18,7 @@ public interface IMessageFwdHeader : IObject
     /// Whether this message was <a href="https://corefork.telegram.org/api/import">imported from a foreign chat service, click here for more info »</a>
     ///</summary>
     bool Imported { get; set; }
+    bool SavedOut { get; set; }
 
     ///<summary>
     /// The ID of the user that originally sent the message
@@ -55,6 +56,9 @@ public interface IMessageFwdHeader : IObject
     /// Only for messages forwarded to the current user (inputPeerSelf), ID of the message that was forwarded from the original user/channel
     ///</summary>
     int? SavedFromMsgId { get; set; }
+    MyTelegram.Schema.IPeer? SavedFromId { get; set; }
+    string? SavedFromName { get; set; }
+    int? SavedDate { get; set; }
 
     ///<summary>
     /// PSA type

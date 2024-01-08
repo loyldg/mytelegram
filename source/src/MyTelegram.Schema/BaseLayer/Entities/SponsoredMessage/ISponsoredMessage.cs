@@ -57,10 +57,15 @@ public interface ISponsoredMessage : IObject
     string? StartParam { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Sponsored website
     /// See <a href="https://corefork.telegram.org/type/SponsoredWebPage" />
     ///</summary>
     MyTelegram.Schema.ISponsoredWebPage? Webpage { get; set; }
+
+    ///<summary>
+    /// <a href="https://corefork.telegram.org/api/bots/webapps">Mini App »</a> to open when the sponsored message is clicked.
+    /// See <a href="https://corefork.telegram.org/type/BotApp" />
+    ///</summary>
     MyTelegram.Schema.IBotApp? App { get; set; }
 
     ///<summary>
@@ -73,6 +78,10 @@ public interface ISponsoredMessage : IObject
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
     ///</summary>
     TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
+
+    ///<summary>
+    /// Text of the sponsored message button.
+    ///</summary>
     string? ButtonText { get; set; }
 
     ///<summary>

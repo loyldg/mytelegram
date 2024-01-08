@@ -11,15 +11,18 @@ namespace MyTelegram.Schema.Messages;
 /// 400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.
 /// See <a href="https://corefork.telegram.org/method/messages.getSearchResultsCalendar" />
 ///</summary>
-[TlObject(0x49f0bde9)]
+[TlObject(0x6aa3f6bd)]
 public sealed class RequestGetSearchResultsCalendar : IRequest<MyTelegram.Schema.Messages.ISearchResultsCalendar>
 {
-    public uint ConstructorId => 0x49f0bde9;
+    public uint ConstructorId => 0x6aa3f6bd;
+    public BitArray Flags { get; set; } = new BitArray(32);
+
     ///<summary>
     /// Peer where to search
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
+    public MyTelegram.Schema.IInputPeer? SavedPeerId { get; set; }
 
     ///<summary>
     /// Message filter, <a href="https://corefork.telegram.org/constructor/inputMessagesFilterEmpty">inputMessagesFilterEmpty</a>, <a href="https://corefork.telegram.org/constructor/inputMessagesFilterMyMentions">inputMessagesFilterMyMentions</a> filters are not supported by this method.
@@ -39,6 +42,7 @@ public sealed class RequestGetSearchResultsCalendar : IRequest<MyTelegram.Schema
 
     public void ComputeFlag()
     {
+        if (SavedPeerId != null) { Flags[2] = true; }
 
     }
 
@@ -46,7 +50,9 @@ public sealed class RequestGetSearchResultsCalendar : IRequest<MyTelegram.Schema
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Peer);
+        if (Flags[2]) { writer.Write(SavedPeerId); }
         writer.Write(Filter);
         writer.Write(OffsetId);
         writer.Write(OffsetDate);
@@ -54,7 +60,9 @@ public sealed class RequestGetSearchResultsCalendar : IRequest<MyTelegram.Schema
 
     public void Deserialize(ref SequenceReader<byte> reader)
     {
+        Flags = reader.ReadBitArray();
         Peer = reader.Read<MyTelegram.Schema.IInputPeer>();
+        if (Flags[2]) { SavedPeerId = reader.Read<MyTelegram.Schema.IInputPeer>(); }
         Filter = reader.Read<MyTelegram.Schema.IMessagesFilter>();
         OffsetId = reader.ReadInt32();
         OffsetDate = reader.ReadInt32();

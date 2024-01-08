@@ -45,7 +45,7 @@ public sealed class RequestAddContact : IRequest<MyTelegram.Schema.IUpdates>
     public string LastName { get; set; }
 
     ///<summary>
-    /// User's phone number
+    /// User's phone number, may be omitted to simply add the user to the contact list, without a phone number.
     ///</summary>
     public string Phone { get; set; }
 

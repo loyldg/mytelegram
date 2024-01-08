@@ -32,7 +32,7 @@ public sealed class TUpdateReadMessagesContents : IUpdate
     public int PtsCount { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// When was the last message in <code>messages</code> marked as read.
     ///</summary>
     public int? Date { get; set; }
 

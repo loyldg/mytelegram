@@ -9,6 +9,7 @@ namespace MyTelegram.Schema.Messages;
 /// Code Type Description
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 WALLPAPER_INVALID The specified wallpaper is invalid.
+/// 400 WALLPAPER_NOT_FOUND The specified wallpaper could not be found.
 /// See <a href="https://corefork.telegram.org/method/messages.setChatWallPaper" />
 ///</summary>
 [TlObject(0x8ffacae1)]
@@ -19,7 +20,17 @@ public sealed class RequestSetChatWallPaper : IRequest<MyTelegram.Schema.IUpdate
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Only for <a href="https://corefork.telegram.org/api/premium">Premium</a> users, sets the specified wallpaper for both users of the chat, without requiring confirmation from the other user.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ForBoth { get; set; }
+
+    ///<summary>
+    /// If we don't like the new wallpaper the other user of the chat has chosen for us using the <code>for_both</code> flag, we can re-set our previous wallpaper just on our side using this flag.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Revert { get; set; }
 
     ///<summary>

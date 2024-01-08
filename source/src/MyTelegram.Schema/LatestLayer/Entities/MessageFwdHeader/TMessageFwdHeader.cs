@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// Info about a forwarded message
 /// See <a href="https://corefork.telegram.org/constructor/messageFwdHeader" />
 ///</summary>
-[TlObject(0x5f777dce)]
+[TlObject(0x4e4df4bb)]
 public sealed class TMessageFwdHeader : IMessageFwdHeader
 {
-    public uint ConstructorId => 0x5f777dce;
+    public uint ConstructorId => 0x4e4df4bb;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -21,6 +21,7 @@ public sealed class TMessageFwdHeader : IMessageFwdHeader
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Imported { get; set; }
+    public bool SavedOut { get; set; }
 
     ///<summary>
     /// The ID of the user that originally sent the message
@@ -58,6 +59,9 @@ public sealed class TMessageFwdHeader : IMessageFwdHeader
     /// Only for messages forwarded to the current user (inputPeerSelf), ID of the message that was forwarded from the original user/channel
     ///</summary>
     public int? SavedFromMsgId { get; set; }
+    public MyTelegram.Schema.IPeer? SavedFromId { get; set; }
+    public string? SavedFromName { get; set; }
+    public int? SavedDate { get; set; }
 
     ///<summary>
     /// PSA type
@@ -67,12 +71,16 @@ public sealed class TMessageFwdHeader : IMessageFwdHeader
     public void ComputeFlag()
     {
         if (Imported) { Flags[7] = true; }
+        if (SavedOut) { Flags[11] = true; }
         if (FromId != null) { Flags[0] = true; }
         if (FromName != null) { Flags[5] = true; }
         if (/*ChannelPost != 0 && */ChannelPost.HasValue) { Flags[2] = true; }
         if (PostAuthor != null) { Flags[3] = true; }
         if (SavedFromPeer != null) { Flags[4] = true; }
         if (/*SavedFromMsgId != 0 && */SavedFromMsgId.HasValue) { Flags[4] = true; }
+        if (SavedFromId != null) { Flags[8] = true; }
+        if (SavedFromName != null) { Flags[9] = true; }
+        if (/*SavedDate != 0 && */SavedDate.HasValue) { Flags[10] = true; }
         if (PsaType != null) { Flags[6] = true; }
     }
 
@@ -88,6 +96,9 @@ public sealed class TMessageFwdHeader : IMessageFwdHeader
         if (Flags[3]) { writer.Write(PostAuthor); }
         if (Flags[4]) { writer.Write(SavedFromPeer); }
         if (Flags[4]) { writer.Write(SavedFromMsgId.Value); }
+        if (Flags[8]) { writer.Write(SavedFromId); }
+        if (Flags[9]) { writer.Write(SavedFromName); }
+        if (Flags[10]) { writer.Write(SavedDate.Value); }
         if (Flags[6]) { writer.Write(PsaType); }
     }
 
@@ -95,6 +106,7 @@ public sealed class TMessageFwdHeader : IMessageFwdHeader
     {
         Flags = reader.ReadBitArray();
         if (Flags[7]) { Imported = true; }
+        if (Flags[11]) { SavedOut = true; }
         if (Flags[0]) { FromId = reader.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags[5]) { FromName = reader.ReadString(); }
         Date = reader.ReadInt32();
@@ -102,6 +114,9 @@ public sealed class TMessageFwdHeader : IMessageFwdHeader
         if (Flags[3]) { PostAuthor = reader.ReadString(); }
         if (Flags[4]) { SavedFromPeer = reader.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags[4]) { SavedFromMsgId = reader.ReadInt32(); }
+        if (Flags[8]) { SavedFromId = reader.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags[9]) { SavedFromName = reader.ReadString(); }
+        if (Flags[10]) { SavedDate = reader.ReadInt32(); }
         if (Flags[6]) { PsaType = reader.ReadString(); }
     }
 }

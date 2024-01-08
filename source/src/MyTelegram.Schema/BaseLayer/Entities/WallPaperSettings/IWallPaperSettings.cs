@@ -53,4 +53,5 @@ public interface IWallPaperSettings : IObject
     /// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45.
     ///</summary>
     int? Rotation { get; set; }
+    string? Emoticon { get; set; }
 }

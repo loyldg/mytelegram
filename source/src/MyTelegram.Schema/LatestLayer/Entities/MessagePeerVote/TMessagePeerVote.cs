@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// How a peer voted in a poll
 /// See <a href="https://corefork.telegram.org/constructor/messagePeerVote" />
 ///</summary>
 [TlObject(0xb6cc2d5c)]
@@ -11,18 +12,18 @@ public sealed class TMessagePeerVote : IMessagePeerVote
 {
     public uint ConstructorId => 0xb6cc2d5c;
     ///<summary>
-    /// &nbsp;
+    /// Peer ID
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The option chosen by the peer
     ///</summary>
     public byte[] Option { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// When did the peer cast the vote
     ///</summary>
     public int Date { get; set; }
 

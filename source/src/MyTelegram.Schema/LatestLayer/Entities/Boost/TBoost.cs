@@ -4,22 +4,69 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Info about one or more <a href="https://corefork.telegram.org/api/boost">boosts</a> applied by a specific user.
 /// See <a href="https://corefork.telegram.org/constructor/boost" />
 ///</summary>
 [TlObject(0x2a1c8c71)]
 public sealed class TBoost : IBoost
 {
     public uint ConstructorId => 0x2a1c8c71;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether this boost was applied because the channel <a href="https://corefork.telegram.org/api/giveaways">directly gifted a subscription to the user</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Gift { get; set; }
+
+    ///<summary>
+    /// Whether this boost was applied because the user was chosen in a <a href="https://corefork.telegram.org/api/giveaways">giveaway started by the channel</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Giveaway { get; set; }
+
+    ///<summary>
+    /// If set, the user hasn't yet invoked <a href="https://corefork.telegram.org/method/payments.applyGiftCode">payments.applyGiftCode</a> to claim a subscription gifted <a href="https://corefork.telegram.org/api/giveaways">directly or in a giveaway by the channel</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Unclaimed { get; set; }
+
+    ///<summary>
+    /// Unique ID for this set of boosts.
+    ///</summary>
     public string Id { get; set; }
+
+    ///<summary>
+    /// ID of the user that applied the boost.
+    ///</summary>
     public long? UserId { get; set; }
+
+    ///<summary>
+    /// The message ID of the <a href="https://corefork.telegram.org/api/giveaways">giveaway</a>
+    ///</summary>
     public int? GiveawayMsgId { get; set; }
+
+    ///<summary>
+    /// When was the boost applied
+    ///</summary>
     public int Date { get; set; }
+
+    ///<summary>
+    /// When does the boost expire
+    ///</summary>
     public int Expires { get; set; }
+
+    ///<summary>
+    /// The created Telegram Premium gift code, only set if either <code>gift</code> or <code>giveaway</code> are set AND it is either a gift code for the currently logged in user or if it was already claimed.
+    ///</summary>
     public string? UsedGiftSlug { get; set; }
+
+    ///<summary>
+    /// If set, this boost counts as <code>multiplier</code> boosts, otherwise it counts as a single boost.
+    ///</summary>
     public int? Multiplier { get; set; }
 
     public void ComputeFlag()

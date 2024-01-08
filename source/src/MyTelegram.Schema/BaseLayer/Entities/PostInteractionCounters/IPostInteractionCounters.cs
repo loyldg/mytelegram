@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Interaction counters
 /// See <a href="https://corefork.telegram.org/constructor/PostInteractionCounters" />
 ///</summary>
 [JsonDerivedType(typeof(TPostInteractionCountersMessage), nameof(TPostInteractionCountersMessage))]
@@ -10,17 +11,17 @@ namespace MyTelegram.Schema;
 public interface IPostInteractionCounters : IObject
 {
     ///<summary>
-    /// &nbsp;
+    /// Number of views
     ///</summary>
     int Views { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of forwards and reposts to public chats and channels
     ///</summary>
     int Forwards { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of reactions
     ///</summary>
     int Reactions { get; set; }
 }

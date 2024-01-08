@@ -7,7 +7,9 @@ namespace MyTelegram.Schema.Chatlists;
 /// Import a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>, joining some or all the chats in the folder.
 /// <para>Possible errors</para>
 /// Code Type Description
+/// 400 FILTER_INCLUDE_EMPTY The include_peers vector of the filter is empty.
 /// 400 INVITE_SLUG_EMPTY The specified invite slug is empty.
+/// 400 INVITE_SLUG_EXPIRED The specified chat folder link has expired.
 /// See <a href="https://corefork.telegram.org/method/chatlists.joinChatlistInvite" />
 ///</summary>
 [TlObject(0xa6b1e39a)]

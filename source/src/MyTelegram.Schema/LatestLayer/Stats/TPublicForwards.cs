@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Stats;
 
 ///<summary>
+/// Contains info about the forwards of a <a href="https://corefork.telegram.org/api/stories">story</a> as a message to public chats and reposts by public channels.
 /// See <a href="https://corefork.telegram.org/constructor/stats.publicForwards" />
 ///</summary>
 [TlObject(0x93037e20)]
@@ -16,27 +17,27 @@ public sealed class TPublicForwards : IPublicForwards
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Total number of results
     ///</summary>
     public int Count { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Info about the forwards of a story.
     ///</summary>
     public TVector<MyTelegram.Schema.IPublicForward> Forwards { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Offset used for <a href="https://corefork.telegram.org/api/offsets">pagination</a>.
     ///</summary>
     public string? NextOffset { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned chats
     ///</summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Mentioned users
     ///</summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 

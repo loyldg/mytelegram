@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// <a href="https://corefork.telegram.org/api/stories#stealth-mode">Story stealth mode status</a>
 /// See <a href="https://corefork.telegram.org/constructor/StoriesStealthMode" />
 ///</summary>
 [JsonDerivedType(typeof(TStoriesStealthMode), nameof(TStoriesStealthMode))]

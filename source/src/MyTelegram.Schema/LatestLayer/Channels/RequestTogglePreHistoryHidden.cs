@@ -13,6 +13,7 @@ namespace MyTelegram.Schema.Channels;
 /// 400 CHAT_ID_INVALID The provided chat id is invalid.
 /// 400 CHAT_LINK_EXISTS The chat is public, you can't hide the history to new users.
 /// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
+/// 400 FORUM_ENABLED You can't execute the specified action because the group is a <a href="https://corefork.telegram.org/api/forum">forum</a>, disable forum functionality to continue.
 /// See <a href="https://corefork.telegram.org/method/channels.togglePreHistoryHidden" />
 ///</summary>
 [TlObject(0xeabbb94c)]

@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Upload;
 /// <para>Possible errors</para>
 /// Code Type Description
 /// 400 CDN_METHOD_INVALID You can't call this method in a CDN DC.
+/// 400 FILE_TOKEN_INVALID The specified file token is invalid.
 /// 400 RSA_DECRYPT_FAILED Internal RSA decryption failed.
 /// See <a href="https://corefork.telegram.org/method/upload.getCdnFileHashes" />
 ///</summary>

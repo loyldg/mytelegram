@@ -81,7 +81,7 @@ public interface IInvoice : IObject
     TVector<long>? SuggestedTipAmounts { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Terms of service URL
     ///</summary>
     string? TermsUrl { get; set; }
 }

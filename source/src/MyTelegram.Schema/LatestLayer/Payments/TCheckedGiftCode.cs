@@ -4,26 +4,69 @@
 namespace MyTelegram.Schema.Payments;
 
 ///<summary>
+/// Contains info about a <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Telegram Premium giftcode link</a>.
 /// See <a href="https://corefork.telegram.org/constructor/payments.checkedGiftCode" />
 ///</summary>
-[TlObject(0xb722f158)]
+[TlObject(0x284a1096)]
 public sealed class TCheckedGiftCode : ICheckedGiftCode
 {
-    public uint ConstructorId => 0xb722f158;
+    public uint ConstructorId => 0x284a1096;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether this giftcode was created by a <a href="https://corefork.telegram.org/api/giveaways">giveaway</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ViaGiveaway { get; set; }
-    public MyTelegram.Schema.IPeer FromId { get; set; }
+
+    ///<summary>
+    /// The peer that created the gift code.
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    ///</summary>
+    public MyTelegram.Schema.IPeer? FromId { get; set; }
+
+    ///<summary>
+    /// Message ID of the giveaway in the channel specified in <code>from_id</code>.
+    ///</summary>
     public int? GiveawayMsgId { get; set; }
+
+    ///<summary>
+    /// The destination user of the gift.
+    ///</summary>
     public long? ToId { get; set; }
+
+    ///<summary>
+    /// Creation date of the gift code.
+    ///</summary>
     public int Date { get; set; }
+
+    ///<summary>
+    /// Duration in months of the gifted <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription.
+    ///</summary>
     public int Months { get; set; }
+
+    ///<summary>
+    /// When was the giftcode imported, if it was imported.
+    ///</summary>
     public int? UsedDate { get; set; }
+
+    ///<summary>
+    /// Mentioned chats
+    ///</summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
+
+    ///<summary>
+    /// Mentioned users
+    ///</summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()
     {
         if (ViaGiveaway) { Flags[2] = true; }
+        if (FromId != null) { Flags[4] = true; }
         if (/*GiveawayMsgId != 0 && */GiveawayMsgId.HasValue) { Flags[3] = true; }
         if (/*ToId != 0 &&*/ ToId.HasValue) { Flags[0] = true; }
         if (/*UsedDate != 0 && */UsedDate.HasValue) { Flags[1] = true; }
@@ -35,7 +78,7 @@ public sealed class TCheckedGiftCode : ICheckedGiftCode
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
-        writer.Write(FromId);
+        if (Flags[4]) { writer.Write(FromId); }
         if (Flags[3]) { writer.Write(GiveawayMsgId.Value); }
         if (Flags[0]) { writer.Write(ToId.Value); }
         writer.Write(Date);
@@ -49,7 +92,7 @@ public sealed class TCheckedGiftCode : ICheckedGiftCode
     {
         Flags = reader.ReadBitArray();
         if (Flags[2]) { ViaGiveaway = true; }
-        FromId = reader.Read<MyTelegram.Schema.IPeer>();
+        if (Flags[4]) { FromId = reader.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags[3]) { GiveawayMsgId = reader.ReadInt32(); }
         if (Flags[0]) { ToId = reader.ReadInt64(); }
         Date = reader.ReadInt32();

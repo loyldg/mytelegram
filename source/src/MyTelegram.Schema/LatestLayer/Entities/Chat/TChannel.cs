@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// Channel/supergroup info
 /// See <a href="https://corefork.telegram.org/constructor/channel" />
 ///</summary>
-[TlObject(0x8e87ccd8)]
+[TlObject(0xaadfc8f)]
 public sealed class TChannel : MyTelegram.Schema.IChat, ILayeredChannel
 {
-    public uint ConstructorId => 0x8e87ccd8;
+    public uint ConstructorId => 0xaadfc8f;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -23,7 +23,7 @@ public sealed class TChannel : MyTelegram.Schema.IChat, ILayeredChannel
     public bool Creator { get; set; }
 
     ///<summary>
-    /// Whether the current user has left this channel
+    /// Whether the current user has left or is not a member of this channel
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Left { get; set; }
@@ -142,19 +142,19 @@ public sealed class TChannel : MyTelegram.Schema.IChat, ILayeredChannel
     public BitArray Flags2 { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Whether we have <a href="https://corefork.telegram.org/api/stories#hiding-stories-of-other-users">hidden all stories posted by this channel »</a>.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool StoriesHidden { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, indicates that the <code>stories_hidden</code> flag was not populated, and its value must cannot be relied on; use the previously cached value, or re-fetch the constructor using <a href="https://corefork.telegram.org/method/channels.getChannels">channels.getChannels</a> to obtain the latest value of the <code>stories_hidden</code> flag.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool StoriesHiddenMin { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// No stories from the channel are visible.
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool StoriesUnavailable { get; set; }
@@ -224,10 +224,18 @@ public sealed class TChannel : MyTelegram.Schema.IChat, ILayeredChannel
     public TVector<MyTelegram.Schema.IUsername>? Usernames { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// ID of the maximum read <a href="https://corefork.telegram.org/api/stories">story</a>.
     ///</summary>
     public int? StoriesMaxId { get; set; }
+
+    ///<summary>
+    /// The channel's <a href="https://corefork.telegram.org/api/colors">accent color</a>.
+    /// See <a href="https://corefork.telegram.org/type/PeerColor" />
+    ///</summary>
     public MyTelegram.Schema.IPeerColor? Color { get; set; }
+    public MyTelegram.Schema.IPeerColor? ProfileColor { get; set; }
+    public MyTelegram.Schema.IEmojiStatus? EmojiStatus { get; set; }
+    public int? Level { get; set; }
 
     public void ComputeFlag()
     {
@@ -264,6 +272,9 @@ public sealed class TChannel : MyTelegram.Schema.IChat, ILayeredChannel
         if (Usernames?.Count > 0) { Flags2[0] = true; }
         if (/*StoriesMaxId != 0 && */StoriesMaxId.HasValue) { Flags2[4] = true; }
         if (Color != null) { Flags2[7] = true; }
+        if (ProfileColor != null) { Flags2[8] = true; }
+        if (EmojiStatus != null) { Flags2[9] = true; }
+        if (/*Level != 0 && */Level.HasValue) { Flags2[10] = true; }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -286,6 +297,9 @@ public sealed class TChannel : MyTelegram.Schema.IChat, ILayeredChannel
         if (Flags2[0]) { writer.Write(Usernames); }
         if (Flags2[4]) { writer.Write(StoriesMaxId.Value); }
         if (Flags2[7]) { writer.Write(Color); }
+        if (Flags2[8]) { writer.Write(ProfileColor); }
+        if (Flags2[9]) { writer.Write(EmojiStatus); }
+        if (Flags2[10]) { writer.Write(Level.Value); }
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -329,5 +343,8 @@ public sealed class TChannel : MyTelegram.Schema.IChat, ILayeredChannel
         if (Flags2[0]) { Usernames = reader.Read<TVector<MyTelegram.Schema.IUsername>>(); }
         if (Flags2[4]) { StoriesMaxId = reader.ReadInt32(); }
         if (Flags2[7]) { Color = reader.Read<MyTelegram.Schema.IPeerColor>(); }
+        if (Flags2[8]) { ProfileColor = reader.Read<MyTelegram.Schema.IPeerColor>(); }
+        if (Flags2[9]) { EmojiStatus = reader.Read<MyTelegram.Schema.IEmojiStatus>(); }
+        if (Flags2[10]) { Level = reader.ReadInt32(); }
     }
 }

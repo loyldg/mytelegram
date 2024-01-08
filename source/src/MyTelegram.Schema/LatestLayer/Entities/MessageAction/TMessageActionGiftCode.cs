@@ -4,25 +4,59 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Contains a <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Telegram Premium giftcode link</a>.
 /// See <a href="https://corefork.telegram.org/constructor/messageActionGiftCode" />
 ///</summary>
-[TlObject(0xd2cfdb0e)]
+[TlObject(0x678c2e09)]
 public sealed class TMessageActionGiftCode : IMessageAction
 {
-    public uint ConstructorId => 0xd2cfdb0e;
+    public uint ConstructorId => 0x678c2e09;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// If set, this gift code was received from a <a href="https://corefork.telegram.org/api/giveaways">giveaway »</a> started by a channel we're subscribed to.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ViaGiveaway { get; set; }
+
+    ///<summary>
+    /// If set, the link was not <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">redeemed</a> yet.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Unclaimed { get; set; }
+
+    ///<summary>
+    /// Identifier of the channel that created the gift code <a href="https://corefork.telegram.org/api/giveaways">either directly or through a giveaway</a>: if we import this giftcode link, we will also automatically <a href="https://corefork.telegram.org/api/boost">boost</a> this channel.
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    ///</summary>
     public MyTelegram.Schema.IPeer? BoostPeer { get; set; }
+
+    ///<summary>
+    /// Duration in months of the gifted <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a>.
+    ///</summary>
     public int Months { get; set; }
+
+    ///<summary>
+    /// Slug of the <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Telegram Premium giftcode link</a>
+    ///</summary>
     public string Slug { get; set; }
+    public string? Currency { get; set; }
+    public long? Amount { get; set; }
+    public string? CryptoCurrency { get; set; }
+    public long? CryptoAmount { get; set; }
 
     public void ComputeFlag()
     {
         if (ViaGiveaway) { Flags[0] = true; }
         if (Unclaimed) { Flags[2] = true; }
         if (BoostPeer != null) { Flags[1] = true; }
-
+        if (Currency != null) { Flags[2] = true; }
+        if (/*Amount != 0 &&*/ Amount.HasValue) { Flags[2] = true; }
+        if (CryptoCurrency != null) { Flags[3] = true; }
+        if (/*CryptoAmount != 0 &&*/ CryptoAmount.HasValue) { Flags[3] = true; }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -33,6 +67,10 @@ public sealed class TMessageActionGiftCode : IMessageAction
         if (Flags[1]) { writer.Write(BoostPeer); }
         writer.Write(Months);
         writer.Write(Slug);
+        if (Flags[2]) { writer.Write(Currency); }
+        if (Flags[2]) { writer.Write(Amount.Value); }
+        if (Flags[3]) { writer.Write(CryptoCurrency); }
+        if (Flags[3]) { writer.Write(CryptoAmount.Value); }
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -43,5 +81,9 @@ public sealed class TMessageActionGiftCode : IMessageAction
         if (Flags[1]) { BoostPeer = reader.Read<MyTelegram.Schema.IPeer>(); }
         Months = reader.ReadInt32();
         Slug = reader.ReadString();
+        if (Flags[2]) { Currency = reader.ReadString(); }
+        if (Flags[2]) { Amount = reader.ReadInt64(); }
+        if (Flags[3]) { CryptoCurrency = reader.ReadString(); }
+        if (Flags[3]) { CryptoAmount = reader.ReadInt64(); }
     }
 }

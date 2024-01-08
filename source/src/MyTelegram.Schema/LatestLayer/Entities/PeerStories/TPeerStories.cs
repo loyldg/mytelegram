@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// <a href="https://corefork.telegram.org/api/stories">Stories</a> associated to a peer
 /// See <a href="https://corefork.telegram.org/constructor/peerStories" />
 ///</summary>
 [TlObject(0x9a35e999)]
@@ -16,18 +17,18 @@ public sealed class TPeerStories : IPeerStories
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, contains the ID of the maximum read story
     ///</summary>
     public int? MaxReadId { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Stories
     ///</summary>
     public TVector<MyTelegram.Schema.IStoryItem> Stories { get; set; }
 

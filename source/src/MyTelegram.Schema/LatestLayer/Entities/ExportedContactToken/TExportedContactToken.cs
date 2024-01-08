@@ -17,7 +17,7 @@ public sealed class TExportedContactToken : IExportedContactToken
     public string Url { get; set; }
 
     ///<summary>
-    /// Its expiry date
+    /// Its expiration date
     ///</summary>
     public int Expires { get; set; }
 

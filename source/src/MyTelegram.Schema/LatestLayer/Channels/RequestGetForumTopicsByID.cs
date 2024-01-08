@@ -9,7 +9,7 @@ namespace MyTelegram.Schema.Channels;
 /// Code Type Description
 /// 400 CHANNEL_FORUM_MISSING This supergroup is not a forum.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 TOPICS_EMPTY &nbsp;
+/// 400 TOPICS_EMPTY You specified no topic IDs.
 /// See <a href="https://corefork.telegram.org/method/channels.getForumTopicsByID" />
 ///</summary>
 [TlObject(0xb0831eb9)]

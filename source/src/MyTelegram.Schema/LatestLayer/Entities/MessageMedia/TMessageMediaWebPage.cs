@@ -11,10 +11,33 @@ namespace MyTelegram.Schema;
 public sealed class TMessageMediaWebPage : IMessageMedia
 {
     public uint ConstructorId => 0xddf10c3b;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// If set, specifies that a large media preview should be used.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ForceLargeMedia { get; set; }
+
+    ///<summary>
+    /// If set, specifies that a small media preview should be used.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool ForceSmallMedia { get; set; }
+
+    ///<summary>
+    /// If set, indicates that the URL used for the webpage preview was specified manually using <a href="https://corefork.telegram.org/constructor/inputMediaWebPage">inputMediaWebPage</a>, and may not be related to any of the URLs specified in the message.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Manual { get; set; }
+
+    ///<summary>
+    /// If set, the webpage can be opened directly without user confirmation; otherwise, user confirmation is required, showing the exact URL that will be opened.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool Safe { get; set; }
 
     ///<summary>

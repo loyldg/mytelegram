@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
-/// Represents an attachment menu icon color for <a href="https://corefork.telegram.org/api/bots/attach">bot web apps »</a>
+/// Represents an attachment menu icon color for <a href="https://corefork.telegram.org/api/bots/attach">bot mini apps »</a>
 /// See <a href="https://corefork.telegram.org/constructor/attachMenuBotIconColor" />
 ///</summary>
 [TlObject(0x4576f3f0)]

@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Help;
 
 ///<summary>
+/// The list of color palettes has not changed.
 /// See <a href="https://corefork.telegram.org/constructor/help.peerColorsNotModified" />
 ///</summary>
 [TlObject(0x2ba1f5ce)]

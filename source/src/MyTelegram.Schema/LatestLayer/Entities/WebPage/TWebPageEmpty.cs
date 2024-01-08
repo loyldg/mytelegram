@@ -11,12 +11,19 @@ namespace MyTelegram.Schema;
 public sealed class TWebPageEmpty : IWebPage,IEmpty
 {
     public uint ConstructorId => 0x211a1788;
+    ///<summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
     /// Preview ID
     ///</summary>
     public long Id { get; set; }
+
+    ///<summary>
+    /// URL of the webpage.
+    ///</summary>
     public string? Url { get; set; }
 
     public void ComputeFlag()

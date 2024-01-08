@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// Aggregated view and reaction information of a <a href="https://corefork.telegram.org/api/stories">story</a>
 /// See <a href="https://corefork.telegram.org/constructor/StoryViews" />
 ///</summary>
 [JsonDerivedType(typeof(TStoryViews), nameof(TStoryViews))]
@@ -14,7 +15,7 @@ public interface IStoryViews : IObject
     BitArray Flags { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// If set, indicates that the viewers list is currently viewable, and was not yet deleted because the story has expired while the user didn't have a <a href="https://corefork.telegram.org/api/premium">Premium</a> account.
     ///</summary>
     bool HasViewers { get; set; }
 
@@ -35,7 +36,7 @@ public interface IStoryViews : IObject
     TVector<MyTelegram.Schema.IReactionCount>? Reactions { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Number of reactions added to the story
     ///</summary>
     int? ReactionsCount { get; set; }
 

@@ -4,12 +4,19 @@
 namespace MyTelegram.Schema.Payments;
 
 ///<summary>
+/// Apply a <a href="https://corefork.telegram.org/api/giveaways">Telegram Premium giftcode »</a>
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 406 GIFTCODE_NOT_ALLOWED &nbsp;
 /// See <a href="https://corefork.telegram.org/method/payments.applyGiftCode" />
 ///</summary>
 [TlObject(0xf6e26854)]
 public sealed class RequestApplyGiftCode : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf6e26854;
+    ///<summary>
+    /// The code to apply
+    ///</summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

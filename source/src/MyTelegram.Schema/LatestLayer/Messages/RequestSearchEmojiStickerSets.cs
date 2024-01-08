@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
+/// Search for <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickersets »</a>
 /// See <a href="https://corefork.telegram.org/method/messages.searchEmojiStickerSets" />
 ///</summary>
 [TlObject(0x92b4494c)]
@@ -16,13 +17,13 @@ public sealed class RequestSearchEmojiStickerSets : IRequest<MyTelegram.Schema.M
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Exclude featured stickersets from results
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool ExcludeFeatured { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Query string
     ///</summary>
     public string Q { get; set; }
 

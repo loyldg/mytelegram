@@ -3,6 +3,7 @@
 namespace MyTelegram.Schema.Stories;
 
 ///<summary>
+/// List of <a href="https://corefork.telegram.org/api/stories#pinned-or-archived-stories">stories</a>
 /// See <a href="https://corefork.telegram.org/constructor/stories.Stories" />
 ///</summary>
 [JsonDerivedType(typeof(TStories), nameof(TStories))]

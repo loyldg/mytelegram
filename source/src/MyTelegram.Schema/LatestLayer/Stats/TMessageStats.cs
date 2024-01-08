@@ -16,6 +16,11 @@ public sealed class TMessageStats : IMessageStats
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
     ///</summary>
     public MyTelegram.Schema.IStatsGraph ViewsGraph { get; set; }
+
+    ///<summary>
+    /// A graph containing the number of reactions on stories categorized by emotion
+    /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
+    ///</summary>
     public MyTelegram.Schema.IStatsGraph ReactionsByEmotionGraph { get; set; }
 
     public void ComputeFlag()

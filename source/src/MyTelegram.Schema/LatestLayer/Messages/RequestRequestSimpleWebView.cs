@@ -4,7 +4,7 @@
 namespace MyTelegram.Schema.Messages;
 
 ///<summary>
-/// Open a <a href="https://corefork.telegram.org/api/bots/webapps">bot web app</a>.
+/// Open a <a href="https://corefork.telegram.org/api/bots/webapps">bot mini app</a>.
 /// See <a href="https://corefork.telegram.org/method/messages.requestSimpleWebView" />
 ///</summary>
 [TlObject(0x1a46500a)]
@@ -21,18 +21,27 @@ public sealed class RequestRequestSimpleWebView : IRequest<MyTelegram.Schema.ISi
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool FromSwitchWebview { get; set; }
+
+    ///<summary>
+    /// Set this flag if opening the Mini App from the installed <a href="https://corefork.telegram.org/api/bots/attach">side menu entry »</a> or from a <a href="https://corefork.telegram.org/api/links#mini-app-links">Mini App link »</a>.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool FromSideMenu { get; set; }
 
     ///<summary>
-    /// Bot that owns the webapp
+    /// Bot that owns the mini app
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
     ///</summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
     ///<summary>
-    /// Web app URL
+    /// Web app URL, if opening from a keyboard button or inline result
     ///</summary>
     public string? Url { get; set; }
+
+    ///<summary>
+    /// Start parameter, if opening from a <a href="https://corefork.telegram.org/api/links#mini-app-links">Mini App link »</a>.
+    ///</summary>
     public string? StartParam { get; set; }
 
     ///<summary>

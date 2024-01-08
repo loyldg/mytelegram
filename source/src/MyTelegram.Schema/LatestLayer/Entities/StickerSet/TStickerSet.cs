@@ -51,7 +51,13 @@ public sealed class TStickerSet : IStickerSet
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Emojis { get; set; }
+
+    ///<summary>
+    /// Whether the color of this TGS custom emoji stickerset should be changed to the text color when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool TextColor { get; set; }
+    public bool ChannelEmojiStatus { get; set; }
 
     ///<summary>
     /// When was this stickerset installed
@@ -117,6 +123,7 @@ public sealed class TStickerSet : IStickerSet
         if (Videos) { Flags[6] = true; }
         if (Emojis) { Flags[7] = true; }
         if (TextColor) { Flags[9] = true; }
+        if (ChannelEmojiStatus) { Flags[10] = true; }
         if (/*InstalledDate != 0 && */InstalledDate.HasValue) { Flags[0] = true; }
         if (Thumbs?.Count > 0) { Flags[4] = true; }
         if (/*ThumbDcId != 0 && */ThumbDcId.HasValue) { Flags[4] = true; }
@@ -153,6 +160,7 @@ public sealed class TStickerSet : IStickerSet
         if (Flags[6]) { Videos = true; }
         if (Flags[7]) { Emojis = true; }
         if (Flags[9]) { TextColor = true; }
+        if (Flags[10]) { ChannelEmojiStatus = true; }
         if (Flags[0]) { InstalledDate = reader.ReadInt32(); }
         Id = reader.ReadInt64();
         AccessHash = reader.ReadInt64();

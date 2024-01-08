@@ -17,10 +17,15 @@ public sealed class RequestGetNotifyExceptions : IRequest<MyTelegram.Schema.IUpd
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// If true, chats with non-default sound will also be returned
+    /// If set, chats with non-default sound will be returned
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool CompareSound { get; set; }
+
+    ///<summary>
+    /// If set, chats with non-default notification settings for stories will be returned
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool CompareStories { get; set; }
 
     ///<summary>

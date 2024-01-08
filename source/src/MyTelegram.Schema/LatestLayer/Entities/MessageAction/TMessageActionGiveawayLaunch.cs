@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema;
 
 ///<summary>
+/// A <a href="https://corefork.telegram.org/api/giveaways">giveaway</a> was started.
 /// See <a href="https://corefork.telegram.org/constructor/messageActionGiveawayLaunch" />
 ///</summary>
 [TlObject(0x332ba9ed)]

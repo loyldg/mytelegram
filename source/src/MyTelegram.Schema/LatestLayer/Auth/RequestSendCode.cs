@@ -17,7 +17,6 @@ namespace MyTelegram.Schema.Auth;
 /// 406 PHONE_PASSWORD_FLOOD You have tried logging in too many times.
 /// 400 PHONE_PASSWORD_PROTECTED This phone is password protected.
 /// 400 SMS_CODE_CREATE_FAILED An error occurred while creating the SMS code.
-/// 400 Sorry, too many invalid attempts to enter your password. Please try again later. &nbsp;
 /// See <a href="https://corefork.telegram.org/method/auth.sendCode" />
 ///</summary>
 [TlObject(0xa677244f)]

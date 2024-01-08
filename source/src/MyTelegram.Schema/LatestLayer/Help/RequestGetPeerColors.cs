@@ -4,6 +4,7 @@
 namespace MyTelegram.Schema.Help;
 
 ///<summary>
+/// Get the set of <a href="https://corefork.telegram.org/api/colors">accent color palettes »</a> that can be used for message accents.
 /// See <a href="https://corefork.telegram.org/method/help.getPeerColors" />
 ///</summary>
 [TlObject(0xda80f42f)]

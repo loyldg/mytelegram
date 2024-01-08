@@ -15,6 +15,11 @@ public sealed class TWebPage : IWebPage
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
     public BitArray Flags { get; set; } = new BitArray(32);
+
+    ///<summary>
+    /// Whether the size of the media in the preview can be changed.
+    /// See <a href="https://corefork.telegram.org/type/true" />
+    ///</summary>
     public bool HasLargeMedia { get; set; }
 
     ///<summary>

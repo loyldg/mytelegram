@@ -28,7 +28,7 @@ public sealed class RequestGetUserPhotos : IRequest<MyTelegram.Schema.Photos.IPh
     public int Offset { get; set; }
 
     ///<summary>
-    /// If a positive value was transferred, the method will return only photos with IDs less than the set one
+    /// If a positive value was transferred, the method will return only photos with IDs less than the set one. This parameter is often useful when <a href="https://corefork.telegram.org/api/file_reference">refetching file references »</a>, as in conjuction with <code>limit=1</code> and <code>offset=-1</code> the <a href="https://corefork.telegram.org/constructor/photo">photo</a> object with the <code>id</code> specified in <code>max_id</code> can be fetched.
     ///</summary>
     public long MaxId { get; set; }
 

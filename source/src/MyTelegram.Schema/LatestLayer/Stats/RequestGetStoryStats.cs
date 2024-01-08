@@ -4,6 +4,10 @@
 namespace MyTelegram.Schema.Stats;
 
 ///<summary>
+/// Get <a href="https://corefork.telegram.org/api/stats">statistics</a> for a certain <a href="https://corefork.telegram.org/api/stories">story</a>.
+/// <para>Possible errors</para>
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/stats.getStoryStats" />
 ///</summary>
 [TlObject(0x374fef40)]
@@ -16,19 +20,19 @@ public sealed class RequestGetStoryStats : IRequest<MyTelegram.Schema.Stats.ISto
     public BitArray Flags { get; set; } = new BitArray(32);
 
     ///<summary>
-    /// &nbsp;
+    /// Whether to enable the dark theme for graph colors
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool Dark { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// The peer that posted the story
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     ///</summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     ///<summary>
-    /// &nbsp;
+    /// Story ID
     ///</summary>
     public int Id { get; set; }
 
