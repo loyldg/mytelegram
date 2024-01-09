@@ -2,7 +2,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <!-- <VersionSuffix>0.6.$([System.DateTime]::Now.ToString(MMdd)).$([System.DateTime]::Now.ToString("HHmm"))</VersionSuffix> -->
-    <VersionSuffix>0.15.1214</VersionSuffix>
+    <VersionSuffix>0.16.108</VersionSuffix>
     <AssemblyVersion Condition="'$(VersionSuffix)' =='' ">0.0.0.1</AssemblyVersion>
     <AssemblyVersion Condition="'$(VersionSuffix)' !='' ">$(VersionSuffix)</AssemblyVersion>
     <Version Condition="'$(VersionSuffix)' =='' ">0.0.1.0</Version>
@@ -11,7 +11,7 @@
     <Authors>Loyldg</Authors>
     <RepositoryUrl>https://github.com/loyldg/mytelegram</RepositoryUrl>
     <Company>Loyldg</Company>
-    <Copyright>Copyright (c) loyldg 2021 - 2022</Copyright>
+    <Copyright>Copyright (c) loyldg 2021 - 2024</Copyright>
 
     <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
     <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
