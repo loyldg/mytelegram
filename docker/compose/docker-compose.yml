@@ -162,6 +162,7 @@ services:
        App__IdGeneratorGrpcServiceUrl: ${IdGeneratorGrpcServiceUrl}
        App__DatabaseName: ${DatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       App__TempAuthKeyExpirationMinutes: ${TempAuthKeyExpirationMinutes}
     volumes:
       - ./data/mytelegram/session/logs:/data/Logs
     depends_on:
@@ -243,6 +244,7 @@ services:
        App__QueryServerEventStoreDatabaseName: ${QueryServerEventStoreDatabaseName}
        App__QueryServerReadModelDatabaseName: ${QueryServerReadModelDatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       App__EnableFutureAuthToken: ${EnableFutureAuthToken}
     volumes:
       - ./data/mytelegram/messenger-command-server/logs:/data/Logs
     depends_on:
@@ -276,6 +278,7 @@ services:
        App__QueryServerEventStoreDatabaseName: ${QueryServerEventStoreDatabaseName}
        App__QueryServerReadModelDatabaseName: ${QueryServerReadModelDatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       App__EnableFutureAuthToken: ${EnableFutureAuthToken}
     volumes:
       - ./data/mytelegram/messenger-query-server/logs:/data/Logs
     depends_on:
