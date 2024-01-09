@@ -1,12 +1,12 @@
 # MyTelegram
-[![API Layer](https://img.shields.io/badge/API_Layer-167-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-170-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![Support Chat](https://img.shields.io/badge/Chat_with_us-on_Telegram-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
 
 MyTelegram is [Telegram server side api](https://core.telegram.org/api) implementation written in c#,support private deployment
 
 ## Features
-* API Layer: **`167`**  
+* API Layer: **`170`**  
 * [MTProto transports](https://corefork.telegram.org/mtproto/mtproto-transports): **`Abridged`**,**`Intermediate`**  
 * Private chat
 * Group chat
@@ -58,7 +58,7 @@ build\docker\5.build-gateway-server.sh
 7. Run `start-all.bat`/`start-all.sh`
 
 - ### Test with compiled client
-1. Download [TDesktop client(v4.12.2)](https://github.com/loyldg/mytelegram/releases/download/v0.15.1214/Telegram-4.12.2-x64.zip)
+1. Download [TDesktop client(v4.14)](https://github.com/loyldg/mytelegram/releases/download/v0.16.109/Telegram-4.14-x64.zip)
 2. Add the IP address of the gateway server to hosts file(`%SystemRoot%/system32/drivers/etc/hosts`),for example, the IP address of the gateway server is `192.168.1.100`,add the following line to hosts file
 ```
 192.168.1.100    demos2.mytelegram.top
@@ -97,11 +97,11 @@ The default fingerprint of the public key is **`0xce27f5081215bda4`**(Android cl
 if you want to use your own public key,replace `private.pkcs8.key` in auth folder
 
 - ### Build [Tdesktop client](https://github.com/telegramdesktop/tdesktop)
-1. Switch to the branch which the layer is 167(version 4.12.x+)
+1. Switch to the branch which the layer is 170(version 4.14.x+)
 2. Replace server addresses,port and RSA public key in **Telegram/SourceFiles/mtproto/mtproto_dc_options.cpp**
 
 - ### Build [Android client](https://github.com/DrKLO/Telegram)
-1. Switch to the branch which the layer is **167**
+1. Switch to the branch which the layer is **170**
 2. **Telegram\TMessagesProj\src\main\java\org\telegram\ui\Components\StickerEmptyView.java** Mytelegram not support Stickers in current version,need comment the following code in method `setSticker`  
    ``` java
    MediaDataController.getInstance(currentAccount).loadStickersByEmojiOrName(AndroidUtilities.STICKERS_PLACEHOLDER_PACK_NAME, false, set == null);
@@ -114,7 +114,7 @@ if you want to use your own public key,replace `private.pkcs8.key` in auth folde
 - ### Build [iOS client](https://github.com/TelegramMessenger/Telegram-iOS)
   Coming soon
 - ### Build [Telegram Web K](https://github.com/morethanwords/tweb)
-1. Make sure the client layer is 167,check it in **src\scripts\out\schema.json**
+1. Make sure the client layer is 170,check it in **src\scripts\out\schema.json**
 2. **src\lib\mtproto\rsaKeysManager.ts** Replace **modulus** with the following value
   ```
   bbededbec7160c0944bd5ca54de32be45a54d808e0ab3a101cf8f3a7af6bd1802dab46bcad7d0c51eefc17f15102a05a11b656e960731770233a5358a4eb6fbf01a197dac60a0ce2ba76ddf67c1c28904c0d64bd3bb333ffcc63cffb30201e15e7a5dc8ce86b8d41c9fc69e214aa2e9b4d317847189ebe719cb7acbe954cabdec66ba6fec6ddc745fb4763f672d5d1b9cecf2ea6e8803a51222a2961bb522d85f323146dcd17a4e21ab3bd614dd88b115b272ebb8ed1e4bf915aaec70cd9f0b989643678fd72ea35d1eb8b065374239dcbe8cd839e3eb1fd8c67279b35268f8db1fc7dbc223250f448c4736dac3ceb9ab8ad0817642208687e4dfb0a08ad7cf7
@@ -144,7 +144,7 @@ replace the IPAddress and port
 Line 254: add `docIds=docIds.filter(p=>p!=undefined);`
 
 - ### Build [Telegram Web A](https://github.com/Ajaxy/telegram-tt)
-1. Make sure the client layer is **167**,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
+1. Make sure the client layer is **170**,check it in **src\lib\gramjs\tl\AllTLObjects.js** 
 2. **src\api\gramjs\gramjsBuilders\index.ts**  
 Line 39:
 `const CHANNEL_ID_MIN_LENGTH = 11; ` to `const CHANNEL_ID_MIN_LENGTH = 13; `  
@@ -246,7 +246,7 @@ Line 43:
 ```
 connect-src 'self' wss://*.web.telegram.org blob: http: https: ${APP_ENV === 'development' ? 'wss:' : ''};
 ```
-Replace **wss://*.web.telegram.org** with your server address such as **ws://192.168.1.100:30444**
+Replace **wss://*.web.telegram.org** with your server address(ws://192.168.1.100)
 
 ## Support MyTelegram
 Love MyTelegram? Please give a star to this repository ⭐
