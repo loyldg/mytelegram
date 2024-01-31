@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Messenger.Services.Caching;
 
-public class UserStatusCacheAppService : IUserStatusCacheAppService //, ISingletonDependency
+public class UserStatusCacheAppService : IUserStatusCacheAppService
 {
     private readonly IInMemoryRepository<UserStatus, long> _inMemoryRepository;
 
@@ -8,11 +8,6 @@ public class UserStatusCacheAppService : IUserStatusCacheAppService //, ISinglet
     {
         _inMemoryRepository = inMemoryRepository;
     }
-
-    //public UserStatus GetUserStatus(long userId)
-    //{
-    //    return _inMemoryRepository.Find(userId);
-    //}
 
     public void UpdateStatus(long userId,
         bool online)
@@ -22,7 +17,8 @@ public class UserStatusCacheAppService : IUserStatusCacheAppService //, ISinglet
         {
             item = new UserStatus(userId, online);
             _inMemoryRepository.Insert(userId, item);
-        } else
+        }
+        else
         {
             item.UpdateStatus(online);
         }

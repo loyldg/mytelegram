@@ -47,7 +47,7 @@ public class PrivacyAppService : BaseAppService, IPrivacyAppService
     public async Task<GlobalPrivacySettingsCacheItem?> GetGlobalPrivacySettingsAsync(long userId)
     {
         var cacheKey = GlobalPrivacySettingsCacheItem.GetCacheKey(userId);
-        var item=await _cacheManager.GetAsync(cacheKey);
+        var item = await _cacheManager.GetAsync(cacheKey);
         var globalPrivacySettings = await _queryProcessor.ProcessAsync(new GetGlobalPrivacySettingsQuery(userId));
         if (globalPrivacySettings != null)
         {
@@ -58,10 +58,6 @@ public class PrivacyAppService : BaseAppService, IPrivacyAppService
         }
         return item;
     }
-
-
-
-    //private string GetGlobalPrivacySettingsCacheKey(long selfUserId) => MyCacheKey.With("global_privacy", $"{selfUserId}");
 
     public async Task<SetPrivacyOutput> SetPrivacyAsync(RequestInfo requestInfo,
         long selfUserId,

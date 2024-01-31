@@ -42,7 +42,7 @@ public class OffsetHelper : IOffsetHelper
                 break;
 
             default:
-                throw new ArgumentOutOfRangeException($"unsuporrted load type:{loadType}");
+                throw new ArgumentOutOfRangeException($"Unsuporrted load type:{loadType}");
         }
 
         //Logger.LogDebug($"input:AddOffset={input.AddOffset} OffsetId={input.OffsetId} Limit={input.Limit} MaxId={input.MaxId} {loadType} fromId:{fromId}  maxId:{maxId} limit:{input.Limit}");

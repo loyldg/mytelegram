@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Messenger.Services.Impl;
 
-public class MessageAppService : BaseAppService, IMessageAppService //, ISingletonDependency
+public class MessageAppService : BaseAppService, IMessageAppService
 {
     private readonly IBlockCacheAppService _blockCacheAppService;
     private readonly ICommandBus _commandBus;
@@ -199,7 +199,7 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
             return null;
         }
 
-        var chatReadModel = await _queryProcessor.ProcessAsync(new GetChatByChatIdQuery(input.ToPeer.PeerId), default);
+        var chatReadModel = await _queryProcessor.ProcessAsync(new GetChatByChatIdQuery(input.ToPeer.PeerId));
         if (chatReadModel == null)
         {
             RpcErrors.RpcErrors400.ChatIdInvalid.ThrowRpcError();
@@ -272,7 +272,7 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
             channelReadModel?.LinkedChatId,
             chatMembers
             );
-        await _commandBus.PublishAsync(command, default);
+        await _commandBus.PublishAsync(command);
     }
 
     private (List<TMessageEntityMention> mentions, List<string> userNameList) GetMentions(string message)
@@ -310,7 +310,7 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
     private async Task<GetMessageOutput> GetMessagesInternalAsync(GetMessagesQuery query, IReadOnlyCollection<long>? users,
         IReadOnlyCollection<long>? chats)
     {
-        var messageList = await _queryProcessor.ProcessAsync(query, CancellationToken.None);
+        var messageList = await _queryProcessor.ProcessAsync(query);
 
         var extraChatUserIdList = new List<long>();
         if (users?.Count > 0)
@@ -354,16 +354,16 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
             channelIdList.AddRange(chatOrChannelPeers.Where(p => p.PeerType == PeerType.Channel).Select(p => p.PeerId));
         }
 
-        var userList = await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIdList), default);
+        var userList = await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIdList));
         var chatList = chatIdList.Count == 0
             ? new List<IChatReadModel>()
             : await _queryProcessor
-                .ProcessAsync(new GetChatByChatIdListQuery(chatIdList), default);
+                .ProcessAsync(new GetChatByChatIdListQuery(chatIdList));
 
         var channelList = channelIdList.Count == 0
                 ? new List<IChannelReadModel>()
                 : await _queryProcessor
-                    .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList), default);
+                    .ProcessAsync(new GetChannelByChannelIdListQuery(channelIdList));
 
         var contactList = new List<IContactReadModel>();
         var photoIds = new List<long>();
@@ -380,7 +380,7 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
         if (channelIdList.Count > 0)
         {
             joinedChannelIdList = await _queryProcessor
-                .ProcessAsync(new GetJoinedChannelIdListQuery(query.SelfUserId, channelIdList), default);
+                .ProcessAsync(new GetJoinedChannelIdListQuery(query.SelfUserId, channelIdList));
         }
 
         var privacyList = await _privacyAppService.GetPrivacyListAsync(userIdList);
@@ -389,7 +389,7 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
         {
             channelMemberList = await _queryProcessor
                 .ProcessAsync(
-                    new GetChannelMemberListByChannelIdListQuery(query.SelfUserId, joinedChannelIdList.ToList()), default);
+                    new GetChannelMemberListByChannelIdListQuery(query.SelfUserId, joinedChannelIdList.ToList()));
         }
 
         var pts = query.Pts;
@@ -404,9 +404,9 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
 
         if (pollIdList.Count > 0)
         {
-            pollReadModels = await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default);
+            pollReadModels = await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList));
             chosenOptions = await _queryProcessor
-                .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.SelfUserId), default);
+                .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.SelfUserId));
         }
 
         return new GetMessageOutput(channelList,

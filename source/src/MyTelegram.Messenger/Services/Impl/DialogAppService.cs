@@ -107,7 +107,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
         userIdList.AddRange(extraChatUserIdList);
 
         var userList =
-            await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIdList), default)
+            await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIdList))
          ;
         //   var contactList = await _queryProcessor
         //       .ProcessAsync(new GetContactListQuery(input.OwnerId, userIdList))
@@ -117,7 +117,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
         var chatList = chatIdList.Count == 0
             ? new List<IChatReadModel>()
             : await _queryProcessor
-                .ProcessAsync(new GetChatByChatIdListQuery(chatIdList), default);
+                .ProcessAsync(new GetChatByChatIdListQuery(chatIdList));
 
         var privacyList = await _privacyAppService.GetPrivacyListAsync(userIdList);
         // reset dialog top message box id
@@ -148,9 +148,9 @@ public class DialogAppService : BaseAppService, IDialogAppService
         if (pollIdList.Count > 0)
         {
             pollReadModels =
-                await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList), default);
+                await _queryProcessor.ProcessAsync(new GetPollsQuery(pollIdList));
             chosenOptions = await _queryProcessor
-                .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.OwnerId), default)
+                .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.OwnerId))
          ;
         }
 

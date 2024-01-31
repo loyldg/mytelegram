@@ -2,17 +2,15 @@
 
 public class InMemoryFilterDataLoader : IInMemoryFilterDataLoader
 {
-    //private readonly IBloomFilter _bloomFilter;
     private readonly ICuckooFilter _cuckooFilter;
     private readonly IQueryProcessor _queryProcessor;
     private readonly int _pageSize = 1000;
     private readonly ILogger<InMemoryFilterDataLoader> _logger;
-    public InMemoryFilterDataLoader(//IBloomFilter bloomFilter,
+    public InMemoryFilterDataLoader(
         ICuckooFilter cuckooFilter,
         IQueryProcessor queryProcessor,
         ILogger<InMemoryFilterDataLoader> logger)
     {
-        //_bloomFilter = bloomFilter;
         _cuckooFilter = cuckooFilter;
         _queryProcessor = queryProcessor;
         _logger = logger;
@@ -27,8 +25,7 @@ public class InMemoryFilterDataLoader : IInMemoryFilterDataLoader
 
         while (hasMoreData)
         {
-            var userNameList = await _queryProcessor.ProcessAsync(new GetAllUserNameQuery(skip, _pageSize), default)
-         ;
+            var userNameList = await _queryProcessor.ProcessAsync(new GetAllUserNameQuery(skip, _pageSize));
             hasMoreData = userNameList.Count == _pageSize;
             count += userNameList.Count;
             foreach (var userName in userNameList)

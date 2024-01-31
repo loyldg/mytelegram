@@ -15,7 +15,7 @@ public class ClientDataSender : IClientDataSender
         _messageEncoder = messageEncoder;
     }
 
-    public Task SendAsync(MyTelegram.MTProto.UnencryptedMessageResponse data)
+    public Task SendAsync(MTProto.UnencryptedMessageResponse data)
     {
         if (!_clientManager.TryGetClientData(data.ConnectionId, out var d))
         {
@@ -35,7 +35,7 @@ public class ClientDataSender : IClientDataSender
         }
     }
 
-    public Task SendAsync(MyTelegram.MTProto.EncryptedMessageResponse data)
+    public Task SendAsync(MTProto.EncryptedMessageResponse data)
     {
         if (!_clientManager.TryGetClientData(data.ConnectionId, out var d))
         {

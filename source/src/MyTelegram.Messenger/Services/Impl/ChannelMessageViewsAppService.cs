@@ -4,7 +4,7 @@ using IMessageViews = MyTelegram.Schema.IMessageViews;
 
 namespace MyTelegram.Messenger.Services.Impl;
 
-public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, ISingletonDependency
+public class ChannelMessageViewsAppService : IChannelMessageViewsAppService
 {
     private readonly ICommandBus _commandBus;
     private readonly IQueryProcessor _queryProcessor;
@@ -63,7 +63,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
         }
 
         var messageViews = (await _queryProcessor
-                    .ProcessAsync(new GetMessageViewsQuery(channelId, messageIdGreaterThanZeroList), default)
+                    .ProcessAsync(new GetMessageViewsQuery(channelId, messageIdGreaterThanZeroList))
                     .ConfigureAwait(false))
                 .ToDictionary(k => k.MessageId, v => v)
             ;
@@ -73,7 +73,7 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             try
             {
                 var command = new IncrementViewsCommand(MessageId.Create(channelId, messageId));
-                await _commandBus.PublishAsync(command, default);
+                await _commandBus.PublishAsync(command);
             }
             catch (DomainError)
             {
@@ -81,10 +81,10 @@ public class ChannelMessageViewsAppService : IChannelMessageViewsAppService //, 
             }
         }
 
-        var linkedChannelId = await _queryProcessor.ProcessAsync(new GetLinkedChannelIdQuery(channelId), default)
+        var linkedChannelId = await _queryProcessor.ProcessAsync(new GetLinkedChannelIdQuery(channelId))
      ;
 
-        var replies = (await _queryProcessor.ProcessAsync(new GetRepliesQuery(channelId, messageIdList), default)
+        var replies = (await _queryProcessor.ProcessAsync(new GetRepliesQuery(channelId, messageIdList))
             .ConfigureAwait(false))
                 .ToDictionary(k => k.SavedFromMsgId, v => v)
             ;

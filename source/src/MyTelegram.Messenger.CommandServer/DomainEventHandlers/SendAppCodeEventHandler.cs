@@ -5,8 +5,7 @@ using MyTelegram.Domain.Extensions;
 namespace MyTelegram.Messenger.CommandServer.DomainEventHandlers;
 
 public class SendAppCodeEventHandler :
-    ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent>//,
-                                                                             //ISubscribeSynchronousTo<UserAggregate, UserId, UserCreatedEvent>
+    ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent>
 {
     private readonly ILogger<SendAppCodeEventHandler> _logger;
     private readonly IMessageAppService _messageAppService;
@@ -16,8 +15,6 @@ public class SendAppCodeEventHandler :
         ILogger<SendAppCodeEventHandler> logger,
         IEventBus eventBus, IMessageAppService messageAppService, IRandomHelper randomHelper)
     {
-        //_messageAppService = messageAppService;
-        //_randomHelper = randomHelper;
         _logger = logger;
         _eventBus = eventBus;
         _messageAppService = messageAppService;

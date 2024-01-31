@@ -3,8 +3,6 @@
 public class ClientManager : IClientManager
 {
     private readonly ConcurrentDictionary<string, ClientData> _clients = new();
-
-    //private readonly ConcurrentDictionary<string, ConnectionContext> _connections = new();
     public void AddClient(string connectionId,
         ClientData clientData)
     {

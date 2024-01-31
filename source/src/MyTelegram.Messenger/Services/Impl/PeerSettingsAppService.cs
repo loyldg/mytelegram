@@ -1,8 +1,6 @@
-﻿using MyTelegram.Messenger.Services.Interfaces;
+﻿namespace MyTelegram.Messenger.Services.Impl;
 
-namespace MyTelegram.Messenger.Services.Impl;
-
-public class PeerSettingsAppService : IPeerSettingsAppService //, ISingletonDependency
+public class PeerSettingsAppService : IPeerSettingsAppService
 {
     private readonly IQueryProcessor _queryProcessor;
 

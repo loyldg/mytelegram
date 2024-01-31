@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using EventFlow.Core.Caching;
-using EventFlow.MongoDB.Extensions;
+﻿using EventFlow.MongoDB.Extensions;
 using EventFlow.Sagas;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -10,7 +8,7 @@ using MyTelegram.Messenger.Services.Filters;
 using MyTelegram.Messenger.Services.Impl;
 using MyTelegram.QueryHandlers.MongoDB;
 using MyTelegram.ReadModel.MongoDB;
-using MyTelegram.Services.NativeAot;
+using System.Text.Json.Serialization;
 
 namespace MyTelegram.Messenger.Extensions;
 

@@ -17,9 +17,4 @@ public class ClientData : IClientData
     public bool ObfuscationEnabled { get; set; }
     public int CurrentPacketLength { get; set; }
     public int SkipCount { get; set; }
-
-    //public IAesCtrHelper SendAesCtrHelper { get; set; } = null!;
-    //public IAesCtrHelper ReceiveAesCtrHelper { get; set; } = null!;
-
-    //public ArrayPool<byte> ArrayPool { get; set; } = ArrayPool<byte>.Shared;
 }
