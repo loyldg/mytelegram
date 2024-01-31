@@ -139,7 +139,6 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Events.QrCode.QrCodeLoginTokenExportedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.RpcResult.RpcResultCreatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Updates.UpdatesCreatedEvent))]
-[JsonSerializable(typeof(MyTelegram.Domain.Events.User.CheckUserStateCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.CheckUserStatusCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.SendUserMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserColorUpdatedEvent))]

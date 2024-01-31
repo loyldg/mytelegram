@@ -10,7 +10,6 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
     IApply<UserVerifiedHasSetEvent>,
     IApply<UserNameUpdatedEvent>,
     IApply<UserProfilePhotoChangedEvent>,
-    IApply<CheckUserStateCompletedEvent>,
     IApply<UserProfilePhotoUploadedEvent>,
     IApply<UserColorUpdatedEvent>,
     IApply<UserGlobalPrivacySettingsChangedEvent>,
@@ -98,10 +97,6 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
     {
         Verified = aggregateEvent.Verified;
     }
-    public void Apply(CheckUserStateCompletedEvent aggregateEvent)
-    {
-    }
-
     public void LoadFromSnapshot(UserSnapshot snapshot)
     {
         UserId = snapshot.UserId;

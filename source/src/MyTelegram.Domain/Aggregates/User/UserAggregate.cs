@@ -10,12 +10,6 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         Register(_state);
     }
 
-    public void CheckUserState(Guid correlationId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new CheckUserStateCompletedEvent(correlationId));
-    }
-
     public void CheckUserStatus(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
