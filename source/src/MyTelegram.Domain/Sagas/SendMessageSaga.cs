@@ -80,7 +80,8 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
             case PeerType.Chat:
                 if (outbox.ChatMembers?.Count > 0)
                 {
-                    foreach (var chatMemberUserId in outbox.ChatMembers)
+                    var chatMembers = outbox.ChatMembers.ToHashSet();
+                    foreach (var chatMemberUserId in chatMembers)
                     {
                         if (chatMemberUserId == outbox.RequestInfo.UserId)
                         {
