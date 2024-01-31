@@ -12,9 +12,32 @@ namespace MyTelegram.Handlers.Account;
 internal sealed class SetGlobalPrivacySettingsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestSetGlobalPrivacySettings, MyTelegram.Schema.IGlobalPrivacySettings>,
     Account.ISetGlobalPrivacySettingsHandler
 {
-    protected override Task<MyTelegram.Schema.IGlobalPrivacySettings> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+
+    public SetGlobalPrivacySettingsHandler(ICommandBus commandBus)
+    {
+        _commandBus = commandBus;
+    }
+
+    protected override async Task<IGlobalPrivacySettings> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestSetGlobalPrivacySettings obj)
     {
-        throw new NotImplementedException();
+        var command = new UpdateUserGlobalPrivacySettingsCommand(UserId.Create(input.UserId), input.ToRequestInfo(),
+            new GlobalPrivacySettings(obj.Settings.ArchiveAndMuteNewNoncontactPeers,
+                obj.Settings.KeepArchivedUnmuted,
+                obj.Settings.KeepArchivedFolders,
+                obj.Settings.HideReadMarks,
+                obj.Settings.NewNoncontactPeersRequirePremium)
+        );
+        await _commandBus.PublishAsync(command, default);
+
+        return new TGlobalPrivacySettings
+        {
+            ArchiveAndMuteNewNoncontactPeers = obj.Settings.ArchiveAndMuteNewNoncontactPeers,
+            HideReadMarks = obj.Settings.HideReadMarks,
+            KeepArchivedFolders = obj.Settings.KeepArchivedFolders,
+            KeepArchivedUnmuted = obj.Settings.KeepArchivedUnmuted,
+            NewNoncontactPeersRequirePremium = obj.Settings.NewNoncontactPeersRequirePremium
+        };
     }
 }

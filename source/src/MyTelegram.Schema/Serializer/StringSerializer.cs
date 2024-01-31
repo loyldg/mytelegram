@@ -27,14 +27,14 @@ public class StringSerializer : ISerializer<string>//, ISerializer2<string>
     {
         if (reader.TryRead(out var firstByte))
         {
-            var length = 0;
             var padding = 0;
-
+            var length = 0;
             if (firstByte == 254)
             {
                 if (reader.UnreadSequence.Length > 3)
                 {
                     length = reader.UnreadSpan[0] | (reader.UnreadSpan[1] << 8) | reader.UnreadSpan[2] << 16;
+                    padding = length % 4;
                 }
                 else
                 {

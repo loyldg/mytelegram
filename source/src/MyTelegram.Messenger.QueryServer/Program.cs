@@ -7,11 +7,34 @@ using MyTelegram.Messenger;
 using MyTelegram.Messenger.NativeAot;
 using MyTelegram.Messenger.QueryServer.BackgroundServices;
 using MyTelegram.Messenger.QueryServer.Extensions;
+using MyTelegram.Schema.Extensions;
 using MyTelegram.Services.NativeAot;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
 Console.Title = "MyTelegram messenger query server";
+var entities = new TVector<IMessageEntity>
+{
+    new TMessageEntityBold { Offset = 0, Length = 11 },
+    new TMessageEntitySpoiler{Offset = 11,Length = 5},
+    new TMessageEntityBold { Offset = 22, Length = 3 }
+};
+var updates = new TUpdateShortMessage
+{
+    Out = true,
+    Id = 3001,
+    UserId = 2000001,
+    Message = "Login code: 22222. Do not give this code to anyone, even if they say they are from Telegram!\n\nThis code can be used to log in to your Telegram account. We never ask it for anything else.\n\nIf you didn\u0027t request this code by trying to log in on another device, simply ignore this message.",
+    Pts = 3001,
+    PtsCount = 1,
+    Date = 1706607593,
+    FwdFrom = null,
+    ReplyTo = null,
+    Entities = entities
+};
+
+Console.WriteLine("b5");
+Console.WriteLine(BitConverter.ToString(updates.ToBytes()));
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()

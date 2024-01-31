@@ -1,20 +1,33 @@
-﻿using MyTelegram.Messenger.Services;
+﻿namespace MyTelegram.Messenger.CommandServer.DomainEventHandlers;
 
-namespace MyTelegram.Messenger.CommandServer.DomainEventHandlers;
 public class UserDomainEventHandler :
     ISubscribeSynchronousTo<UserAggregate, UserId, UserCreatedEvent>
 {
+    private readonly ICommandBus _commandBus;
     private readonly IMessageAppService _messageAppService;
+    private readonly IOptionsMonitor<MyTelegramMessengerServerOptions> _options;
     private readonly IRandomHelper _randomHelper;
+
     public UserDomainEventHandler(IMessageAppService messageAppService,
-        IRandomHelper randomHelper)
+        IRandomHelper randomHelper,
+        IOptionsMonitor<MyTelegramMessengerServerOptions> options,
+        ICommandBus commandBus)
     {
         _messageAppService = messageAppService;
         _randomHelper = randomHelper;
+        _options = options;
+        _commandBus = commandBus;
     }
 
-    public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserCreatedEvent> domainEvent, CancellationToken cancellationToken)
+    public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserCreatedEvent> domainEvent,
+        CancellationToken cancellationToken)
     {
+        if (_options.CurrentValue.SetUserAsPremiumAfterCreated)
+        {
+            var command = new UpdateUserPremiumStatusCommand(domainEvent.AggregateIdentity, true);
+            await _commandBus.PublishAsync(command, default);
+        }
+
         if (!domainEvent.AggregateEvent.Bot)
         {
             var welcomeMessage = "Welcome to use MyTelegram!";
@@ -24,7 +37,7 @@ public class UserDomainEventHandler :
                     domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
                     Guid.NewGuid(), 0, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()),
                 MyTelegramServerDomainConsts.OfficialUserId,
-                new Peer(PeerType.User, domainEvent.AggregateEvent.UserId,domainEvent.AggregateEvent.AccessHash),
+                new Peer(PeerType.User, domainEvent.AggregateEvent.UserId, domainEvent.AggregateEvent.AccessHash),
                 welcomeMessage,
                 _randomHelper.NextLong());
 

@@ -7,26 +7,29 @@ namespace MyTelegram.Schema;
 /// Online status: last seen last month
 /// See <a href="https://corefork.telegram.org/constructor/userStatusLastMonth" />
 ///</summary>
-[TlObject(0x77ebc742)]
+[TlObject(0x65899777)]
 public sealed class TUserStatusLastMonth : IUserStatus
 {
-    public uint ConstructorId => 0x77ebc742;
-
+    public uint ConstructorId => 0x65899777;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public bool ByMe { get; set; }
 
     public void ComputeFlag()
     {
-
+        if (ByMe) { Flags[0] = true; }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
 
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
     {
-
+        Flags = reader.ReadBitArray();
+        if (Flags[0]) { ByMe = true; }
     }
 }

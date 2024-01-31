@@ -210,7 +210,11 @@ public class MessageAppService : BaseAppService, IMessageAppService //, ISinglet
 
     public async Task SendMessageAsync(SendMessageInput input)
     {
-        await CheckAccessHashAsync(input);
+        if (input.SenderPeerId != MyTelegramServerDomainConsts.OfficialUserId)
+        {
+            await CheckAccessHashAsync(input);
+        }
+
         await CheckBlockedAsync(input);
         var channelReadModel = await CheckChannelBannedRightsAsync(input);
         var chatMembers = await GetChatMembersAsync(input);

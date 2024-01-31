@@ -68,6 +68,8 @@ public interface IUserFull : IObject
     /// Whether the other user has chosen a custom wallpaper for us using <a href="https://corefork.telegram.org/method/messages.setChatWallPaper">messages.setChatWallPaper</a> and the <code>for_both</code> flag, see <a href="https://corefork.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat">here »</a> for more info.
     ///</summary>
     bool WallpaperOverridden { get; set; }
+    bool ContactRequirePremium { get; set; }
+    bool ReadDatesPrivate { get; set; }
 
     ///<summary>
     /// User ID

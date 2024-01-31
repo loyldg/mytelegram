@@ -10,44 +10,10 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         Register(_state);
     }
 
-    public void UpdateColor(RequestInfo requestInfo, PeerColor? color, bool forProfile)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new UserColorUpdatedEvent(requestInfo, _state.UserId, color, forProfile));
-    }
-
-    public void UploadProfilePhoto(RequestInfo requestInfo,
-        long photoId,
-        bool fallback,
-        //byte[]? photo,
-        VideoSizeEmojiMarkup? videoEmojiMarkup /*, bool hasVideo, double videoStartTs*/)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new UserProfilePhotoUploadedEvent(requestInfo,
-            photoId,
-            fallback,
-            //new UserItem(_state.UserId,
-            //    _state.AccessHash,
-            //    _state.PhoneNumber,
-            //    _state.FirstName,
-            //    _state.LastName,
-            //    _state.UserName),
-            videoEmojiMarkup
-            /*, hasVideo, videoStartTs*/));
-    }
-
     public void CheckUserState(Guid correlationId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new CheckUserStateCompletedEvent(correlationId));
-    }
-
-    private void CheckUserDeletionState()
-    {
-        if (_state.IsDeleted)
-        {
-            RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
-        }
     }
 
     public void CheckUserStatus(RequestInfo requestInfo)
@@ -72,7 +38,7 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         string phoneNumber,
         string firstName,
         string? lastName = null,
-        string? userName=null,
+        string? userName = null,
         bool bot = false)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
@@ -84,43 +50,12 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             phoneNumber,
             firstName,
             lastName,
-            userName,   
+            userName,
             bot,
             bot ? 0 : null,
             AccountDefaultTtl,
             DateTime.UtcNow
         ));
-    }
-
-    protected override Task<UserSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
-    {
-        return Task.FromResult(new UserSnapshot(_state.UserId,
-            _state.IsOnline,
-            _state.AccessHash,
-            _state.FirstName,
-            _state.LastName,
-            _state.PhoneNumber,
-            _state.UserName,
-            _state.HasPassword,
-            _state.Photo,
-            _state.IsBot,
-            _state.IsDeleted,
-            _state.EmojiStatusDocumentId,
-            _state.EmojiStatusValidUntil,
-            _state.RecentEmojiStatus.ToList(),
-            _state.PhotoId,
-            _state.FallbackPhotoId,
-            _state.Color,
-            _state.ProfileColor
-        ));
-    }
-
-    protected override Task LoadSnapshotAsync(UserSnapshot snapshot,
-        ISnapshotMetadata metadata,
-        CancellationToken cancellationToken)
-    {
-        _state.LoadFromSnapshot(snapshot);
-        return Task.CompletedTask;
     }
 
     public void SetSupport(bool support)
@@ -133,6 +68,18 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new UserVerifiedHasSetEvent(verified));
+    }
+
+    public void UpdateColor(RequestInfo requestInfo, PeerColor? color, bool forProfile)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new UserColorUpdatedEvent(requestInfo, _state.UserId, color, forProfile));
+    }
+
+    public void UpdateGlobalPrivacySettings(RequestInfo requestInfo, GlobalPrivacySettings globalPrivacySettings)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new UserGlobalPrivacySettingsChangedEvent(requestInfo, globalPrivacySettings));
     }
 
     public void UpdateProfile(RequestInfo requestInfo,
@@ -152,8 +99,8 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             //long userId,
             long photoId,
             bool fallback)//,
-        //byte[]? photo, 
-        //VideoSizeEmojiMarkup? videoEmojiMarkup /*, bool hasVideo, double videoStartTs*/)
+                          //byte[]? photo, 
+                          //VideoSizeEmojiMarkup? videoEmojiMarkup /*, bool hasVideo, double videoStartTs*/)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new UserProfilePhotoChangedEvent(requestInfo,
@@ -163,7 +110,6 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             //videoEmojiMarkup
             /*, hasVideo, videoStartTs*/));
     }
-
 
     public void UpdateUserName(RequestInfo requestInfo,
         string userName)
@@ -177,5 +123,70 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
                 _state.LastName,
                 userName),
             _state.UserName));
+    }
+
+    public void UpdateUserPremiumStatus(bool premium)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new UserPremiumStatusChangedEvent(_state.UserId, _state.PhoneNumber, premium));
+    }
+    public void UploadProfilePhoto(RequestInfo requestInfo,
+        long photoId,
+        bool fallback,
+        //byte[]? photo,
+        VideoSizeEmojiMarkup? videoEmojiMarkup /*, bool hasVideo, double videoStartTs*/)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new UserProfilePhotoUploadedEvent(requestInfo,
+            photoId,
+            fallback,
+            //new UserItem(_state.UserId,
+            //    _state.AccessHash,
+            //    _state.PhoneNumber,
+            //    _state.FirstName,
+            //    _state.LastName,
+            //    _state.UserName),
+            videoEmojiMarkup
+            /*, hasVideo, videoStartTs*/));
+    }
+    protected override Task<UserSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
+    {
+        return Task.FromResult(new UserSnapshot(_state.UserId,
+            _state.IsOnline,
+            _state.AccessHash,
+            _state.FirstName,
+            _state.LastName,
+            _state.PhoneNumber,
+            _state.UserName,
+            _state.HasPassword,
+            _state.Photo,
+            _state.IsBot,
+            _state.IsDeleted,
+            _state.EmojiStatusDocumentId,
+            _state.EmojiStatusValidUntil,
+            _state.RecentEmojiStatus.ToList(),
+            _state.PhotoId,
+            _state.FallbackPhotoId,
+            _state.Color,
+            _state.ProfileColor,
+            _state.GlobalPrivacySettings,
+            _state.Premium
+        ));
+    }
+
+    protected override Task LoadSnapshotAsync(UserSnapshot snapshot,
+        ISnapshotMetadata metadata,
+        CancellationToken cancellationToken)
+    {
+        _state.LoadFromSnapshot(snapshot);
+        return Task.CompletedTask;
+    }
+
+    private void CheckUserDeletionState()
+    {
+        if (_state.IsDeleted)
+        {
+            RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
+        }
     }
 }

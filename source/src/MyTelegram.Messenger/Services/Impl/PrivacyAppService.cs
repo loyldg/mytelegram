@@ -2,11 +2,13 @@
 
 public class PrivacyAppService : BaseAppService, IPrivacyAppService
 {
+    private readonly IQueryProcessor _queryProcessor;
     private readonly ICacheManager<GlobalPrivacySettingsCacheItem> _cacheManager;
 
-    public PrivacyAppService(ICacheManager<GlobalPrivacySettingsCacheItem> cacheManager)
+    public PrivacyAppService(ICacheManager<GlobalPrivacySettingsCacheItem> cacheManager, IQueryProcessor queryProcessor)
     {
         _cacheManager = cacheManager;
+        _queryProcessor = queryProcessor;
     }
 
     public Task<IReadOnlyCollection<IPrivacyReadModel>> GetPrivacyListAsync(IReadOnlyList<long> userIds)
@@ -37,20 +39,29 @@ public class PrivacyAppService : BaseAppService, IPrivacyAppService
 
     }
 
-    public Task SetGlobalPrivacySettingsAsync(long selfUserId, bool? archiveAndMuteNewNoncontactPeers)
+    public Task SetGlobalPrivacySettingsAsync(long selfUserId, GlobalPrivacySettings globalPrivacySettings)
     {
-        return _cacheManager.SetAsync(GetGlobalPrivacySettingsCacheKey(selfUserId),
-              new GlobalPrivacySettingsCacheItem(archiveAndMuteNewNoncontactPeers));
+        throw new NotImplementedException();
     }
 
-    public Task<GlobalPrivacySettingsCacheItem?> GetGlobalPrivacySettingsAsync(long selfUserId)
+    public async Task<GlobalPrivacySettingsCacheItem?> GetGlobalPrivacySettingsAsync(long userId)
     {
-        return _cacheManager.GetAsync(GetGlobalPrivacySettingsCacheKey(selfUserId));
+        var cacheKey = GlobalPrivacySettingsCacheItem.GetCacheKey(userId);
+        var item=await _cacheManager.GetAsync(cacheKey);
+        var globalPrivacySettings = await _queryProcessor.ProcessAsync(new GetGlobalPrivacySettingsQuery(userId));
+        if (globalPrivacySettings != null)
+        {
+            item = new(globalPrivacySettings.ArchiveAndMuteNewNoncontactPeers,
+                globalPrivacySettings.KeepArchivedUnmuted, globalPrivacySettings.KeepArchivedFolders,
+                globalPrivacySettings.HideReadMarks, globalPrivacySettings.NewNoncontactPeersRequirePremium);
+            await _cacheManager.SetAsync(cacheKey, item);
+        }
+        return item;
     }
 
 
 
-    private string GetGlobalPrivacySettingsCacheKey(long selfUserId) => MyCacheKey.With("global_privacy", $"{selfUserId}");
+    //private string GetGlobalPrivacySettingsCacheKey(long selfUserId) => MyCacheKey.With("global_privacy", $"{selfUserId}");
 
     public async Task<SetPrivacyOutput> SetPrivacyAsync(RequestInfo requestInfo,
         long selfUserId,

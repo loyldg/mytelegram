@@ -23,6 +23,7 @@ public interface IMessageReactions : IObject
     /// Whether <a href="https://corefork.telegram.org/method/messages.getMessageReactionsList">messages.getMessageReactionsList</a> can be used to see how each specific peer reacted to the message
     ///</summary>
     bool CanSeeList { get; set; }
+    bool ReactionsAsTags { get; set; }
 
     ///<summary>
     /// Reactions

@@ -33,12 +33,16 @@ public sealed class TGlobalPrivacySettings : IGlobalPrivacySettings
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool KeepArchivedFolders { get; set; }
+    public bool HideReadMarks { get; set; }
+    public bool NewNoncontactPeersRequirePremium { get; set; }
 
     public void ComputeFlag()
     {
         if (ArchiveAndMuteNewNoncontactPeers) { Flags[0] = true; }
         if (KeepArchivedUnmuted) { Flags[1] = true; }
         if (KeepArchivedFolders) { Flags[2] = true; }
+        if (HideReadMarks) { Flags[3] = true; }
+        if (NewNoncontactPeersRequirePremium) { Flags[4] = true; }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -55,5 +59,7 @@ public sealed class TGlobalPrivacySettings : IGlobalPrivacySettings
         if (Flags[0]) { ArchiveAndMuteNewNoncontactPeers = true; }
         if (Flags[1]) { KeepArchivedUnmuted = true; }
         if (Flags[2]) { KeepArchivedFolders = true; }
+        if (Flags[3]) { HideReadMarks = true; }
+        if (Flags[4]) { NewNoncontactPeersRequirePremium = true; }
     }
 }

@@ -47,6 +47,7 @@ public class UserMapper : ILayeredMapper,
 
         destination.Color = source.Color.ToPeerColor();
         destination.ProfileColor = source.ProfileColor.ToPeerColor();
+        destination.ContactRequirePremium = source.GlobalPrivacySettings?.NewNoncontactPeersRequirePremium ?? false;
 
         return destination;
     }

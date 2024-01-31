@@ -174,10 +174,18 @@ public class UserConverterLatest : UserConverterBase, IUserConverterLatest
         user.Photo = null;
         userFull.ProfilePhoto = null;
         //_privacyHelper.ApplyPrivacy(privacy, () =>
-        //{
-        //    user.Photo = null;
-        //    userFull.ProfilePhoto = null;
-        //}, selfUserId, user.Contact);
+        switch (userFull.FallbackPhoto)
+        {
+            case Schema.TPhoto photo:
+                user.Photo = new TUserProfilePhoto
+                {
+                    DcId = photo.DcId,
+                    HasVideo = photo.VideoSizes?.Count > 0,
+                    Personal = false,
+                    PhotoId = photo.Id
+                };
+                break;
+        }
     }
 
     protected virtual void ApplyVoiceMessagePrivacyToUserFull(Schema.IUserFull userFull)
@@ -219,7 +227,8 @@ public class UserConverterLatest : UserConverterBase, IUserConverterLatest
             //ProfilePhoto = user.ProfilePhoto.ToTObject<Schema.IPhoto>() ?? new TPhotoEmpty(),
             Settings = new TPeerSettings(),
             ProfilePhoto = GetPhotoConverter().ToPhoto(photos?.FirstOrDefault(p => p.PhotoId == user.ProfilePhotoId)),
-            FallbackPhoto = GetPhotoConverter().ToPhoto(photos?.FirstOrDefault(p => p.PhotoId == user.FallbackPhotoId))
+            FallbackPhoto = GetPhotoConverter().ToPhoto(photos?.FirstOrDefault(p => p.PhotoId == user.FallbackPhotoId)),
+            ReadDatesPrivate = user.GlobalPrivacySettings?.HideReadMarks ?? false,
         };
 
         return Task.FromResult<Schema.IUserFull>(fullUser);

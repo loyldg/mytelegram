@@ -23,3 +23,5 @@ global using MyTelegram.Schema;
 global using MyTelegram.Services.Services;
 global using Rebus.Config;
 global using System.Reflection;
+global using MyTelegram.Domain.Commands.User;
+global using MyTelegram.Messenger.Services;

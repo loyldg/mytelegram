@@ -81,6 +81,8 @@ public sealed class TUserFull : IUserFull
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool WallpaperOverridden { get; set; }
+    public bool ContactRequirePremium { get; set; }
+    public bool ReadDatesPrivate { get; set; }
 
     ///<summary>
     /// User ID
@@ -200,6 +202,8 @@ public sealed class TUserFull : IUserFull
         if (StoriesPinnedAvailable) { Flags[26] = true; }
         if (BlockedMyStoriesFrom) { Flags[27] = true; }
         if (WallpaperOverridden) { Flags[28] = true; }
+        if (ContactRequirePremium) { Flags[29] = true; }
+        if (ReadDatesPrivate) { Flags[30] = true; }
         if (About != null) { Flags[1] = true; }
         if (PersonalPhoto != null) { Flags[21] = true; }
         if (ProfilePhoto != null) { Flags[2] = true; }
@@ -257,6 +261,8 @@ public sealed class TUserFull : IUserFull
         if (Flags[26]) { StoriesPinnedAvailable = true; }
         if (Flags[27]) { BlockedMyStoriesFrom = true; }
         if (Flags[28]) { WallpaperOverridden = true; }
+        if (Flags[29]) { ContactRequirePremium = true; }
+        if (Flags[30]) { ReadDatesPrivate = true; }
         Id = reader.ReadInt64();
         if (Flags[1]) { About = reader.ReadString(); }
         Settings = reader.Read<MyTelegram.Schema.IPeerSettings>();

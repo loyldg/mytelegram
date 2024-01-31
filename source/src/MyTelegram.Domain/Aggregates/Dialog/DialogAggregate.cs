@@ -140,7 +140,8 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         long ownerPeerId,
         int maxId,
         int unreadCount,
-        Peer toPeer
+        Peer toPeer,
+        int date
     )
     {
         //Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -162,7 +163,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
             maxId,
             readCount,
             unreadCount,
-            toPeer));
+            toPeer, date));
     }
 
     public void ReceiveInboxMessage(

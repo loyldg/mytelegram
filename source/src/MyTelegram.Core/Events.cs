@@ -92,7 +92,7 @@ public record AuthKeyUnRegisteredIntegrationEvent(long PermAuthKeyId,
     long TempAuthKeyId);
 
 public record AuthKeyCreatedIntegrationEvent(byte[] Data,
-    byte[] ServerSalt,
+    long ServerSalt,
     bool IsPermanent);
 
 public interface ISessionMessage

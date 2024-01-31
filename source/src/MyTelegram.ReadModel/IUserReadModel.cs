@@ -38,4 +38,5 @@ public interface IUserReadModel : IReadModel
     //long? BackgroundEmojiId { get; }
     PeerColor? Color { get; }
     PeerColor? ProfileColor { get; }
+    GlobalPrivacySettings? GlobalPrivacySettings { get; }
 }

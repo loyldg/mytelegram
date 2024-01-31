@@ -906,3 +906,7 @@ public class SearchContactQuery : IQuery<IReadOnlyCollection<IContactReadModel>>
 public record GetUnreadCountQuery(long OwnerUserId, long ToPeerId, int MaxMessageId) : IQuery<int>;
 public record GetChatInviteByLinkQuery(string Link) : IQuery<IChatInviteReadModel?>;
 public record GetRpcResultQuery(long UserId, long ReqMsgId) : IQuery<IRpcResultReadModel?>;
+public record GetGlobalPrivacySettingsQuery(long UserId) : IQuery<GlobalPrivacySettings?>;
+public record GetGlobalPrivacySettingsListQuery(List<long> UserIds) : IQuery<IReadOnlyDictionary<long, GlobalPrivacySettings?>>;
+
+public record GetOutboxReadDateQuery(long UserId, int MessageId, Peer ToPeer) : IQuery<int>;

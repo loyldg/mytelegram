@@ -28,4 +28,6 @@ public interface IGlobalPrivacySettings : IObject
     /// Whether unmuted chats that are always included or pinned in a <a href="https://corefork.telegram.org/api/folders">folder</a>, will be kept in the Archive chat list when they get a new message. Ignored if <code>keep_archived_unmuted</code> is set.
     ///</summary>
     bool KeepArchivedFolders { get; set; }
+    bool HideReadMarks { get; set; }
+    bool NewNoncontactPeersRequirePremium { get; set; }
 }

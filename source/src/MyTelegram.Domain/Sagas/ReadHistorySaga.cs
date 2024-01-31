@@ -33,7 +33,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         CancellationToken cancellationToken)
     {
         Emit(new ReadHistoryReadLatestNoneBotOutboxMessageEvent(domainEvent.AggregateEvent.SenderPeerId));
-        if (domainEvent.AggregateEvent.SenderPeerId != _state.ReaderUid)
+        if (domainEvent.AggregateEvent.SenderPeerId != _state.ReaderUserId)
         {
             SendReadOutboxMessageCommand(domainEvent.AggregateEvent.SenderPeerId,
                 new Peer(PeerType.Chat, domainEvent.AggregateEvent.ChatId),
@@ -51,7 +51,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, domainEvent.AggregateEvent.NewMaxMessageId);
+        CreateReadHistory(domainEvent.AggregateEvent.NewMaxMessageId);
 
         if (!_state.NeedReadLatestNoneBotOutboxMessage)
         {
@@ -75,7 +75,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
             0,
             PtsChangeReason.OutboxMessageHasRead);
 
-        CreateReadHistory(domainEvent.AggregateEvent.ToPeer.PeerId, _state.SenderMessageId);
+        CreateReadHistory(_state.SenderMessageId);
     }
 
     public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, InboxMessageHasReadEvent> domainEvent,
@@ -137,15 +137,16 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
         Publish(command);
     }
 
-    private void CreateReadHistory(long toPeerId,
-        int senderMsgId)
+    private void CreateReadHistory(int senderMsgId)
     {
-        if (_state.ReaderToPeer.PeerType == PeerType.Channel || _state.ReaderToPeer.PeerType == PeerType.Chat)
+        var toPeerId = _state.ReaderToPeer.PeerId;
+        //if (_state.ReaderToPeer.PeerType == PeerType.Channel || _state.ReaderToPeer.PeerType == PeerType.Chat)
         {
-            var command = new CreateReadingHistoryCommand(ReadingHistoryId.Create(_state.ReaderUid,
+            var command = new CreateReadingHistoryCommand(ReadingHistoryId.Create(_state.ReaderUserId,
+                    //toPeerId,
                     toPeerId,
                     senderMsgId),
-                _state.ReaderUid,
+                _state.ReaderUserId,
                 toPeerId,
                 senderMsgId,
                 DateTime.UtcNow.ToTimestamp());
@@ -172,7 +173,7 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
             //Complete();
             Emit(new ReadHistoryCompletedEvent(_state.RequestInfo,
                 _state.SenderIsBot,
-                _state.ReaderUid,
+                _state.ReaderUserId,
                 _state.ReaderMessageId,
                 _state.ReaderPts,
                 _state.ReaderToPeer,

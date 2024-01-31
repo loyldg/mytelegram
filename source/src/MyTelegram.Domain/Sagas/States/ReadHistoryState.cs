@@ -25,7 +25,7 @@ public class ReadHistoryState : AggregateState<ReadHistorySaga, ReadHistorySagaI
     public int ReaderMessageId { get; private set; }
     public int ReaderPts { get; private set; }
     public Peer ReaderToPeer { get; private set; } = default!;
-    public long ReaderUid { get; private set; }
+    public long ReaderUserId { get; private set; }
 
     //private bool _outboxHasRead;
     //internal bool ReadHistoryCompleted => Out || _outboxHasRead;
@@ -103,7 +103,7 @@ public class ReadHistoryState : AggregateState<ReadHistorySaga, ReadHistorySagaI
     public void Apply(ReadHistoryStartedEvent aggregateEvent)
     {
         RequestInfo = aggregateEvent.RequestInfo;
-        ReaderUid = aggregateEvent.ReaderUid;
+        ReaderUserId = aggregateEvent.ReaderUid;
         ReaderMessageId = aggregateEvent.ReaderMessageId;
         ReaderToPeer = aggregateEvent.ToPeer;
         SourceCommandId = aggregateEvent.SourceCommandId;
@@ -112,7 +112,7 @@ public class ReadHistoryState : AggregateState<ReadHistorySaga, ReadHistorySagaI
     public void LoadSnapshot(ReadHistorySagaSnapshot snapshot)
     {
         RequestInfo = snapshot.RequestInfo;
-        ReaderUid = snapshot.ReaderUid;
+        ReaderUserId = snapshot.ReaderUid;
         ReaderMessageId = snapshot.ReaderMessageId;
         ReaderPts = snapshot.ReaderPts;
         SenderIsBot = snapshot.SenderIsBot;

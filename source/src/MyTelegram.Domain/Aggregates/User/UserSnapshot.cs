@@ -19,7 +19,9 @@ public class UserSnapshot : ISnapshot
         long? photoId,
         long? fallbackPhotoId,
         PeerColor? color,
-        PeerColor? profileColor
+        PeerColor? profileColor,
+        GlobalPrivacySettings globalPrivacySettings,
+        bool premium
         )
     {
         UserId = userId;
@@ -40,6 +42,8 @@ public class UserSnapshot : ISnapshot
         FallbackPhotoId = fallbackPhotoId;
         Color = color;
         ProfileColor = profileColor;
+        GlobalPrivacySettings = globalPrivacySettings;
+        Premium = premium;
     }
 
     public long AccessHash { get; }
@@ -61,6 +65,8 @@ public class UserSnapshot : ISnapshot
     public long? FallbackPhotoId { get; }
     public PeerColor? Color { get; }
     public PeerColor? ProfileColor { get; }
+    public GlobalPrivacySettings GlobalPrivacySettings { get; }
+    public bool Premium { get; }
 
     public long UserId { get; }
     public string? UserName { get; }

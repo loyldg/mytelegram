@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace MyTelegram.Messenger.NativeAot;
 
-// Generation time:2023-12-13 09:55:24Z
+// Generation time:2024-01-30 07:58:03Z
 // MyTelegram.Domain
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Channel.ChannelSnapshot))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Chat.ChatSnapshot))]
@@ -144,7 +144,9 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.SendUserMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserColorUpdatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserCreatedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserGlobalPrivacySettingsChangedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserNameUpdatedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserPremiumStatusChangedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserProfilePhotoChangedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserProfilePhotoUploadedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.User.UserProfileUpdatedEvent))]
@@ -215,7 +217,6 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(List<UserReaction>))]
 [JsonSerializable(typeof(Reaction))]
 [JsonSerializable(typeof(ReactionCount))]
-[JsonSerializable(typeof(MyTelegram.Core.FutureAuthTokenCacheItem))]
 [JsonSerializable(typeof(global::EventFlow.MongoDB.ValueObjects.MongoDbEventDataModel))]
 [JsonSerializable(typeof(global::EventFlow.MongoDB.ValueObjects.MongoDbCounterDataModel))]
 [JsonSerializable(typeof(global::EventFlow.MongoDB.ValueObjects.MongoDbSnapshotDataModel))]

@@ -30,4 +30,5 @@ public class MyTelegramMessengerServerOptions
     public List<DcOption> DcOptions { get; set; }
     public bool AutoCreateSuperGroup { get; set; }
     public bool EnableFutureAuthToken { get; set; }
+    public bool SetUserAsPremiumAfterCreated { get; set; }
 }

@@ -11,6 +11,8 @@ global using MyTelegram.Queries;
 global using MyTelegram.ReadModel;
 global using MyTelegram.EventFlow.MongoDB;
 global using System.Linq.Expressions;
+global using MyTelegram.Domain.ValueObjects;
+
 global using AppCodeReadModel = MyTelegram.ReadModel.MongoDB.AppCodeReadModel;
 //global using BotReadModel = MyTelegram.ReadModel.MongoDB.BotReadModel;
 global using ChannelFullReadModel = MyTelegram.ReadModel.MongoDB.ChannelFullReadModel;

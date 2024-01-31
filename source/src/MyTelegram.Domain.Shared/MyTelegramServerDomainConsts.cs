@@ -3,7 +3,7 @@ namespace MyTelegram;
 
 public class MyTelegramServerDomainConsts
 {
-    public const int Layer = 170;
+    public const int Layer = 172;
 
     public const string RepositoryUrl = "https://github.com/loyldg/mytelegram";
     public const long UserIdInitId = 2000000;
@@ -39,6 +39,7 @@ public class MyTelegramServerDomainConsts
 
     public const int ReactionUniqueMax = 11;
     public const int ChatInviteRecentRequesterMaxCount = 10;
+    public const int ChatReadMarkExpirePeriod = 604800;
 
     public const string BlockedCuckooFilterKey = "MyTelegarm.CuckooFilter.Blocked";
     public const string UserNameCuckooFilterKey = "MyTelegarm.CuckooFilter.UserName";

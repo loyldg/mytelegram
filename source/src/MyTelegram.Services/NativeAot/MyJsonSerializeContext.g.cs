@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace MyTelegram.Services.NativeAot;
 
-// Generation time:2023-12-13 09:55:24Z ,count:59
+// Generation time:2024-01-30 07:58:03Z ,count:64
 // MyTelegram.Core
 [JsonSerializable(typeof(MyTelegram.Core.AcksDataReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.AppCodeCreatedIntegrationEvent))]
@@ -21,12 +21,16 @@ namespace MyTelegram.Services.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Core.DataReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.DataResultResponseReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.DataResultResponseWithUserIdReceivedEvent))]
+[JsonSerializable(typeof(MyTelegram.Core.DeviceRegisteredEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.DomainEventMessage))]
 [JsonSerializable(typeof(MyTelegram.Core.DownloadDataReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.DuplicateCommandEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.EncryptedMessage))]
 [JsonSerializable(typeof(MyTelegram.Core.EncryptedMessageResponse))]
 [JsonSerializable(typeof(MyTelegram.Core.FileDataResultResponseReceivedEvent))]
+[JsonSerializable(typeof(MyTelegram.Core.FutureAuthTokenCacheItem))]
+[JsonSerializable(typeof(MyTelegram.Core.FutureSaltCacheItem))]
+[JsonSerializable(typeof(MyTelegram.Core.GlobalPrivacySettingsCacheItem))]
 [JsonSerializable(typeof(MyTelegram.Core.ISessionMessage))]
 [JsonSerializable(typeof(MyTelegram.Core.LayeredAuthKeyIdMessageCreatedIntegrationEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.LayeredPushMessageCreatedIntegrationEvent))]
@@ -50,6 +54,7 @@ namespace MyTelegram.Services.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Core.UploadDataReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UserCacheItem))]
 [JsonSerializable(typeof(MyTelegram.Core.UserIsOnlineEvent))]
+[JsonSerializable(typeof(MyTelegram.Core.UserLoggedOutEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UserSignInSuccessEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UserSignUpSuccessIntegrationEvent))]
 
@@ -72,6 +77,8 @@ namespace MyTelegram.Services.NativeAot;
 
 [JsonSerializable(typeof(System.Collections.Generic.List<PhotoSize>))]
 [JsonSerializable(typeof(System.Collections.Generic.List<VideoSize>))]
+[JsonSerializable(typeof(System.Collections.Generic.List<FutureAuthTokenCacheItem>))]
+[JsonSerializable(typeof(System.Collections.Generic.List<FutureSaltCacheItem>))]
 
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 public partial class MyJsonSerializeContext : JsonSerializerContext

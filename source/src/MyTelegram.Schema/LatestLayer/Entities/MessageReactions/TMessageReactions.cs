@@ -27,6 +27,7 @@ public sealed class TMessageReactions : IMessageReactions
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool CanSeeList { get; set; }
+    public bool ReactionsAsTags { get; set; }
 
     ///<summary>
     /// Reactions
@@ -42,6 +43,7 @@ public sealed class TMessageReactions : IMessageReactions
     {
         if (Min) { Flags[0] = true; }
         if (CanSeeList) { Flags[2] = true; }
+        if (ReactionsAsTags) { Flags[3] = true; }
         if (RecentReactions?.Count > 0) { Flags[1] = true; }
     }
 
@@ -59,6 +61,7 @@ public sealed class TMessageReactions : IMessageReactions
         Flags = reader.ReadBitArray();
         if (Flags[0]) { Min = true; }
         if (Flags[2]) { CanSeeList = true; }
+        if (Flags[3]) { ReactionsAsTags = true; }
         Results = reader.Read<TVector<MyTelegram.Schema.IReactionCount>>();
         if (Flags[1]) { RecentReactions = reader.Read<TVector<MyTelegram.Schema.IMessagePeerReaction>>(); }
     }

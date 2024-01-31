@@ -15,13 +15,14 @@ public class ReadingHistoryReadModel : IReadingHistoryReadModel,
         //PeerType = domainEvent.AggregateEvent.PeerType;
         TargetPeerId = domainEvent.AggregateEvent.TargetPeerId;
         MessageId = domainEvent.AggregateEvent.MessageId;
+        Date=domainEvent.AggregateEvent.Date;
 
         return Task.CompletedTask;
     }
 
     public virtual string Id { get; private set; } = null!;
     public virtual long ReaderPeerId { get; private set; }
-    public int Date { get; }
+    public int Date { get; private set; }
     public virtual long TargetPeerId { get; private set; }
     public virtual long MessageId { get; private set; }
 }

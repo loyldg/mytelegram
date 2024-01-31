@@ -7,9 +7,9 @@ public interface IAuthKeyReadModel : IReadModel
     string Id { get; }
     bool IsActive { get; }
     DateTime LastUpdateTime { get; }
-    byte[] ServerSalt { get; }
+    long ServerSalt { get; }
     byte[] TempAuthKeyData { get; }
     long TempAuthKeyId { get; }
-    byte[] TempServerSalt { get; }
+    long TempServerSalt { get; }
     long UserId { get; }
 }

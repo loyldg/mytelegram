@@ -19,6 +19,6 @@ public interface IPrivacyAppService
     Task ApplyPrivacyListAsync(long selfUserId, IReadOnlyList<long> targetUserIdList, Action<long> executeOnPrivacyNotMatch,
         List<PrivacyType> privacyTypes);
 
-    Task SetGlobalPrivacySettingsAsync(long selfUserId, bool? archiveAndMuteNewNoncontactPeers);
-    Task<GlobalPrivacySettingsCacheItem?> GetGlobalPrivacySettingsAsync(long selfUserId);
+    Task SetGlobalPrivacySettingsAsync(long userId, GlobalPrivacySettings globalPrivacySettings);
+    Task<GlobalPrivacySettingsCacheItem?> GetGlobalPrivacySettingsAsync(long userId);
 }

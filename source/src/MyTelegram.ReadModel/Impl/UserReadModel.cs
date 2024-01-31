@@ -10,7 +10,9 @@ public class UserReadModel : IUserReadModel,
     IAmReadModelFor<UserAggregate, UserId, UserNameUpdatedEvent>,
     IAmReadModelFor<UserAggregate, UserId, UserProfilePhotoChangedEvent>,
     IAmReadModelFor<UserAggregate,UserId, UserProfilePhotoUploadedEvent>,
-	IAmReadModelFor<UserAggregate,UserId,UserColorUpdatedEvent>
+    IAmReadModelFor<UserAggregate,UserId,UserColorUpdatedEvent>,
+    IAmReadModelFor<UserAggregate,UserId,UserGlobalPrivacySettingsChangedEvent>,
+    IAmReadModelFor<UserAggregate,UserId,UserPremiumStatusChangedEvent>
 {
     public virtual string? About { get; private set; }
     public virtual long AccessHash { get; private set; }
@@ -47,6 +49,7 @@ public class UserReadModel : IUserReadModel,
     public long? FallbackPhotoId { get; private set; }
     public PeerColor? Color { get; private set; }
     public PeerColor? ProfileColor { get; private set; }
+    public GlobalPrivacySettings? GlobalPrivacySettings { get; private set; }
     //public int? Color { get; private set; }
     //public long? BackgroundEmojiId { get; private set; }
     public virtual long? Version { get; set; }
@@ -94,7 +97,6 @@ public class UserReadModel : IUserReadModel,
         ShowContactSignUpNotification = false;
         UserName = domainEvent.AggregateEvent.UserName;
 
-        Premium = true;
 
         return Task.CompletedTask;
     }
@@ -199,6 +201,16 @@ public class UserReadModel : IUserReadModel,
             Color = domainEvent.AggregateEvent.Color;
         }
 
+        return Task.CompletedTask;
+    }
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<UserAggregate, UserId, UserGlobalPrivacySettingsChangedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        GlobalPrivacySettings=domainEvent.AggregateEvent.GlobalPrivacySettings;
+        return Task.CompletedTask;
+    }
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<UserAggregate, UserId, UserPremiumStatusChangedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        Premium=domainEvent.AggregateEvent.Premium;
         return Task.CompletedTask;
     }
 }

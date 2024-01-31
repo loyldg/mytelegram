@@ -45,7 +45,9 @@ internal sealed class ReadHistoryHandler : RpcResultObjectHandler<MyTelegram.Sch
             input.UserId,
             obj.MaxId,
             unreadCount,
-            peer);
+            peer,
+            CurrentDate
+            );
         // Console.WriteLine("SourceId:{0}",readInboxMessageCommand.GetSourceId().Value);
         await _commandBus.PublishAsync(readInboxMessageCommand, default);
 

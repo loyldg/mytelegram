@@ -152,6 +152,7 @@ public sealed class TUser : IUser, ILayeredUser
     /// See <a href="https://corefork.telegram.org/type/true" />
     ///</summary>
     public bool StoriesUnavailable { get; set; }
+    public bool ContactRequirePremium { get; set; }
 
     ///<summary>
     /// ID of the user
@@ -267,6 +268,7 @@ public sealed class TUser : IUser, ILayeredUser
         if (CloseFriend) { Flags2[2] = true; }
         if (StoriesHidden) { Flags2[3] = true; }
         if (StoriesUnavailable) { Flags2[4] = true; }
+        if (ContactRequirePremium) { Flags2[10] = true; }
         if (/*AccessHash != 0 &&*/ AccessHash.HasValue) { Flags[0] = true; }
         if (FirstName != null) { Flags[1] = true; }
         if (LastName != null) { Flags[2] = true; }
@@ -336,6 +338,7 @@ public sealed class TUser : IUser, ILayeredUser
         if (Flags2[2]) { CloseFriend = true; }
         if (Flags2[3]) { StoriesHidden = true; }
         if (Flags2[4]) { StoriesUnavailable = true; }
+        if (Flags2[10]) { ContactRequirePremium = true; }
         Id = reader.ReadInt64();
         if (Flags[0]) { AccessHash = reader.ReadInt64(); }
         if (Flags[1]) { FirstName = reader.ReadString(); }

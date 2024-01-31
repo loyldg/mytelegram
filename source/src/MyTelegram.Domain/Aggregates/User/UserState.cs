@@ -12,7 +12,9 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
     IApply<UserProfilePhotoChangedEvent>,
     IApply<CheckUserStateCompletedEvent>,
     IApply<UserProfilePhotoUploadedEvent>,
-    IApply<UserColorUpdatedEvent>
+    IApply<UserColorUpdatedEvent>,
+    IApply<UserGlobalPrivacySettingsChangedEvent>,
+    IApply<UserPremiumStatusChangedEvent>
 {
     public long AccessHash { get; private set; }
     public string FirstName { get; private set; } = default!;
@@ -39,6 +41,8 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
 
     public PeerColor? Color { get; private set; }
     public PeerColor? ProfileColor { get; private set; }
+    public GlobalPrivacySettings GlobalPrivacySettings { get; private set; }
+    public bool Premium { get; private set; }
 
     public void Apply(CheckUserStatusCompletedEvent aggregateEvent)
     {
@@ -138,5 +142,13 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
         {
             Color = aggregateEvent.Color;
         }
+    }
+    public void Apply(UserGlobalPrivacySettingsChangedEvent aggregateEvent)
+    {
+        GlobalPrivacySettings= aggregateEvent.GlobalPrivacySettings;
+    }
+    public void Apply(UserPremiumStatusChangedEvent aggregateEvent)
+    {
+        Premium=aggregateEvent.Premium;
     }
 }

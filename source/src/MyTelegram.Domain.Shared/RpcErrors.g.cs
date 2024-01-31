@@ -5019,6 +5019,22 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError VoiceMessagesForbidden = new(ErrorCode, "VOICE_MESSAGES_FORBIDDEN");
+ 
+       /// <summary>
+       /// YOUR_PRIVACY_RESTRICTED
+       /// <code>
+       
+       /// </code>
+       /// </summary>
+       public static readonly RpcError YourPrivacyRestricted = new(ErrorCode, "YOUR_PRIVACY_RESTRICTED");
+ 
+       /// <summary>
+       /// MESSAGE_TOO_OLD
+       /// <code>
+       
+       /// </code>
+       /// </summary>
+       public static readonly RpcError MessageTooOld = new(ErrorCode, "MESSAGE_TOO_OLD");
      }
 
     /// <summary>

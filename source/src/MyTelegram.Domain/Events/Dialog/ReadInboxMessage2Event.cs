@@ -9,7 +9,8 @@ public class ReadInboxMessage2Event : RequestAggregateEvent2<DialogAggregate, Di
         int maxMessageId,
         int readCount,
         int unreadCount,
-        Peer toPeer
+        Peer toPeer,
+        int date
         //bool isOut, 
     ) : base(requestInfo)
     {
@@ -20,6 +21,7 @@ public class ReadInboxMessage2Event : RequestAggregateEvent2<DialogAggregate, Di
         ReadCount = readCount;
         UnreadCount = unreadCount;
         ToPeer = toPeer;
+        Date = date;
         //IsOut = isOut;
 
     }
@@ -29,6 +31,7 @@ public class ReadInboxMessage2Event : RequestAggregateEvent2<DialogAggregate, Di
     public int ReadCount { get; }
     public int UnreadCount { get; }
     public Peer ToPeer { get; }
+    public int Date { get; }
     public long OwnerPeerId { get; }
     public long ReaderUserId { get; }
 

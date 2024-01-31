@@ -212,6 +212,14 @@ public class ChatMapper :
         destination.HasLink = source.LinkedChatId.HasValue;
         destination.Noforwards = source.NoForwards;
         destination.Color=source.Color.ToPeerColor();
+        destination.ProfileColor = source.ProfileColor.ToPeerColor();
+        if (source.BackgroundEmojiId.HasValue)
+        {
+            destination.EmojiStatus = new TEmojiStatus
+            {
+                DocumentId = source.BackgroundEmojiId.Value
+            };
+        }
 
         return destination;
     }

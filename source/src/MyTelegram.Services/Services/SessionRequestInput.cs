@@ -14,7 +14,7 @@ public record SessionRequestInput(
     int SeqNumber,
     bool IsAuthKeyActive,
     byte[] AuthKeyData,
-    byte[] ServerSalt,
+    long ServerSalt,
     int Layer,
     long Date
 ) : RequestInput(

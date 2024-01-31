@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Account;
 
@@ -10,18 +10,27 @@ internal sealed class GetGlobalPrivacySettingsHandler : RpcResultObjectHandler<M
     Account.IGetGlobalPrivacySettingsHandler, IProcessedHandler
 {
     private readonly IPrivacyAppService _privacyAppService;
-
-    public GetGlobalPrivacySettingsHandler(IPrivacyAppService privacyAppService)
+    public GetGlobalPrivacySettingsHandler( IPrivacyAppService privacyAppService)
     {
-        _privacyAppService = privacyAppService;
+        _privacyAppService = privacyAppService; 
     }
 
     protected override async Task<MyTelegram.Schema.IGlobalPrivacySettings> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetGlobalPrivacySettings obj)
     {
-        var settings = await _privacyAppService.GetGlobalPrivacySettingsAsync(input.UserId);
-        var globalPrivacySettings = new TGlobalPrivacySettings { ArchiveAndMuteNewNoncontactPeers = settings?.ArchiveAndMuteNewNoncontactPeers ?? false };
+        var globalPrivacySettings = await _privacyAppService.GetGlobalPrivacySettingsAsync(input.UserId);
+        if (globalPrivacySettings == null)
+        {
+            return new TGlobalPrivacySettings();
+        }
 
-        return globalPrivacySettings;
+        return new TGlobalPrivacySettings
+        {
+            ArchiveAndMuteNewNoncontactPeers = globalPrivacySettings.ArchiveAndMuteNewNoncontactPeers,
+            HideReadMarks = globalPrivacySettings.HideReadMarks,
+            KeepArchivedFolders = globalPrivacySettings.KeepArchivedFolders,
+            KeepArchivedUnmuted = globalPrivacySettings.KeepArchivedUnmuted,
+            NewNoncontactPeersRequirePremium = globalPrivacySettings.NewNoncontactPeersRequirePremium,
+        };
     }
 }

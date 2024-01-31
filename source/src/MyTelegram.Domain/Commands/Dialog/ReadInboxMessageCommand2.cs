@@ -8,13 +8,14 @@ public class ReadInboxMessageCommand2 : RequestCommand2<DialogAggregate, DialogI
         long ownerPeerId,
         int maxMessageId,
         int unreadCount,
-        Peer toPeer) : base(aggregateId, requestInfo)
+        Peer toPeer,int date) : base(aggregateId, requestInfo)
     {
         ReaderUid = readerUid;
         OwnerPeerId = ownerPeerId;
         MaxMessageId = maxMessageId;
         UnreadCount = unreadCount;
         ToPeer = toPeer;
+        Date = date;
     }
 
     public int MaxMessageId { get; }
@@ -23,6 +24,7 @@ public class ReadInboxMessageCommand2 : RequestCommand2<DialogAggregate, DialogI
     public long ReaderUid { get; }
 
     public Peer ToPeer { get; }
+    public int Date { get; }
 
     //protected override IEnumerable<byte[]> GetSourceIdComponents()
     //{

@@ -21,10 +21,10 @@ namespace MyTelegram.Schema.Messages;
 /// 400 USER_ID_INVALID The provided user ID is invalid.
 /// See <a href="https://corefork.telegram.org/method/messages.search" />
 ///</summary>
-[TlObject(0xa7b4e929)]
+[TlObject(0x29ee847a)]
 public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
-    public uint ConstructorId => 0xa7b4e929;
+    public uint ConstructorId => 0x29ee847a;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -47,6 +47,7 @@ public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessage
     ///</summary>
     public MyTelegram.Schema.IInputPeer? FromId { get; set; }
     public MyTelegram.Schema.IInputPeer? SavedPeerId { get; set; }
+    public TVector<MyTelegram.Schema.IReaction>? SavedReaction { get; set; }
 
     ///<summary>
     /// <a href="https://corefork.telegram.org/api/threads">Thread ID</a>
@@ -103,6 +104,7 @@ public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessage
     {
         if (FromId != null) { Flags[0] = true; }
         if (SavedPeerId != null) { Flags[2] = true; }
+        if (SavedReaction?.Count > 0) { Flags[3] = true; }
         if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags[1] = true; }
 
     }
@@ -116,6 +118,7 @@ public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessage
         writer.Write(Q);
         if (Flags[0]) { writer.Write(FromId); }
         if (Flags[2]) { writer.Write(SavedPeerId); }
+        if (Flags[3]) { writer.Write(SavedReaction); }
         if (Flags[1]) { writer.Write(TopMsgId.Value); }
         writer.Write(Filter);
         writer.Write(MinDate);
@@ -135,6 +138,7 @@ public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessage
         Q = reader.ReadString();
         if (Flags[0]) { FromId = reader.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags[2]) { SavedPeerId = reader.Read<MyTelegram.Schema.IInputPeer>(); }
+        if (Flags[3]) { SavedReaction = reader.Read<TVector<MyTelegram.Schema.IReaction>>(); }
         if (Flags[1]) { TopMsgId = reader.ReadInt32(); }
         Filter = reader.Read<MyTelegram.Schema.IMessagesFilter>();
         MinDate = reader.ReadInt32();

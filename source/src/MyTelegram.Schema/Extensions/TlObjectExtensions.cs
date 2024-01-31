@@ -179,6 +179,17 @@ public static class TlObjectExtensions
         return default;
     }
 
+    public static TObject ToTObject<TObject>(this ReadOnlyMemory<byte> readOnlyMemory) where TObject : IObject
+    {
+        if (readOnlyMemory.Length > 0)
+        {
+            var reader = new SequenceReader<byte>(new ReadOnlySequence<byte>(readOnlyMemory));
+            return reader.Read<TObject>();
+        }
+
+        return default;
+    }
+
 
     [return: NotNullIfNotNull("bytes")]
     public static TObject? ToTObject<TObject>(this byte[]? bytes) where TObject : IObject
