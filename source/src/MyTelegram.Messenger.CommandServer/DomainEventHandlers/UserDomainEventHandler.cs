@@ -22,7 +22,7 @@ public class UserDomainEventHandler :
     public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserCreatedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        if (_options.CurrentValue.SetUserAsPremiumAfterCreated)
+        if (_options.CurrentValue.SetPremiumToTrueAfterUserCreated)
         {
             var command = new UpdateUserPremiumStatusCommand(domainEvent.AggregateIdentity, true);
             await _commandBus.PublishAsync(command, default);
