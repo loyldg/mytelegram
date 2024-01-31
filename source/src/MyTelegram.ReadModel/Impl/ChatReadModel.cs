@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.ValueObjects;
-
-namespace MyTelegram.ReadModel.Impl;
+﻿namespace MyTelegram.ReadModel.Impl;
 
 public class ChatReadModel : IChatReadModel,
     IAmReadModelFor<ChatAggregate, ChatId, ChatCreatedEvent>,
@@ -84,7 +82,12 @@ public class ChatReadModel : IChatReadModel,
         IDomainEvent<ChatAggregate, ChatId, ChatMemberAddedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        ChatMembers.Add(domainEvent.AggregateEvent.ChatMember);
+        if (ChatMembers.All(p => p.UserId != domainEvent.AggregateEvent.ChatMember.UserId))
+        {
+            ChatMembers.Add(domainEvent.AggregateEvent.ChatMember);
+        }
+
+
         return Task.CompletedTask;
     }
 
