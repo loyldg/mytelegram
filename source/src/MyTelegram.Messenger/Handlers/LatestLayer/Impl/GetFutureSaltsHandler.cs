@@ -5,7 +5,7 @@
 //namespace MyTelegram.Handlers.Impl;
 
 //internal sealed class GetFutureSaltsHandler : BaseObjectHandler<RequestGetFutureSalts, IFutureSalts>,
-//    IGetFutureSaltsHandler, IProcessedHandler
+//    IGetFutureSaltsHandler
 //{
 //    //private readonly IDistributedCache<List<CachedFutureSalt>> _distributedCache;
 //    private readonly ICacheManager<List<CachedFutureSalt>> _cacheManager;

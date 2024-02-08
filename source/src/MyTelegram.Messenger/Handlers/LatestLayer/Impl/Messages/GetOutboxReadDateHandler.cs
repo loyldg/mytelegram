@@ -6,7 +6,7 @@ namespace MyTelegram.Handlers.Messages;
 /// See <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate" />
 ///</summary>
 internal sealed class GetOutboxReadDateHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetOutboxReadDate, MyTelegram.Schema.IOutboxReadDate>,
-    Messages.IGetOutboxReadDateHandler, IProcessedHandler
+    Messages.IGetOutboxReadDateHandler
 {
     private readonly IQueryProcessor _queryProcessor;
     private readonly IPeerHelper _peerHelper;

@@ -16,7 +16,7 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.signIn" />
 ///</summary>
 internal sealed class SignInHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestSignIn, MyTelegram.Schema.Auth.IAuthorization>,
-    Auth.ISignInHandler, IProcessedHandler
+    Auth.ISignInHandler
 {
     private readonly ICommandBus _commandBus;
     private readonly ILogger<SignInHandler> _logger;

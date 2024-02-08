@@ -3,7 +3,7 @@
 namespace MyTelegram.Handlers.Impl;
 
 internal sealed class PingDelayDisconnectHandler : BaseObjectHandler<RequestPingDelayDisconnect, IPong>,
-    IPingDelayDisconnectHandler, IProcessedHandler
+    IPingDelayDisconnectHandler
 {
     protected override Task<IPong> HandleCoreAsync(IRequestInput input,
         RequestPingDelayDisconnect obj)

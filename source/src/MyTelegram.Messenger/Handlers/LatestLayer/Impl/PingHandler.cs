@@ -3,7 +3,7 @@
 namespace MyTelegram.Handlers.Impl;
 
 internal sealed class PingHandler : BaseObjectHandler<RequestPing, IPong>,
-    IPingHandler, IProcessedHandler
+    IPingHandler
 {
     protected override Task<IPong> HandleCoreAsync(IRequestInput input,
         RequestPing obj)

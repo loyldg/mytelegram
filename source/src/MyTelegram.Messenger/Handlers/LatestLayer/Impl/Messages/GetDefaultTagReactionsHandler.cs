@@ -6,7 +6,7 @@ namespace MyTelegram.Handlers.Messages;
 /// See <a href="https://corefork.telegram.org/method/messages.getDefaultTagReactions" />
 ///</summary>
 internal sealed class GetDefaultTagReactionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetDefaultTagReactions, MyTelegram.Schema.Messages.IReactions>,
-    Messages.IGetDefaultTagReactionsHandler, IProcessedHandler
+    Messages.IGetDefaultTagReactionsHandler
 {
     protected override Task<MyTelegram.Schema.Messages.IReactions> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetDefaultTagReactions obj)

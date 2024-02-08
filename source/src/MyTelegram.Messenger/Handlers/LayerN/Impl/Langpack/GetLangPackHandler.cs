@@ -11,7 +11,7 @@ namespace MyTelegram.Handlers.Langpack.LayerN;
 /// See <a href="https://corefork.telegram.org/method/langpack.getLangPack" />
 ///</summary>
 internal sealed class GetLangPackHandler : RpcResultObjectHandler<MyTelegram.Schema.Langpack.LayerN.RequestGetLangPack, ILangPackDifference>,
-    Langpack.LayerN.IGetLangPackHandler, IProcessedHandler
+    Langpack.LayerN.IGetLangPackHandler
 {
     private readonly ILanguageManager _languageManager;
 

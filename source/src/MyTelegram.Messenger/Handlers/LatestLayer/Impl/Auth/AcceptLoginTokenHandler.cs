@@ -13,7 +13,7 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.acceptLoginToken" />
 ///</summary>
 internal sealed class AcceptLoginTokenHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestAcceptLoginToken, MyTelegram.Schema.IAuthorization>,
-    Auth.IAcceptLoginTokenHandler, IProcessedHandler
+    Auth.IAcceptLoginTokenHandler
 {
     private readonly ICommandBus _commandBus;
 

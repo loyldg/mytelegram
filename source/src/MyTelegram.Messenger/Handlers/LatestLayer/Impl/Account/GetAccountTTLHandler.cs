@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getAccountTTL" />
 ///</summary>
 internal sealed class GetAccountTTLHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetAccountTTL, MyTelegram.Schema.IAccountDaysTTL>,
-    Account.IGetAccountTTLHandler, IProcessedHandler
+    Account.IGetAccountTTLHandler
 {
     private readonly IQueryProcessor _queryProcessor;
 

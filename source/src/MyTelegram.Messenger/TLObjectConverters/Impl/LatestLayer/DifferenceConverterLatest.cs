@@ -98,6 +98,11 @@ public class DifferenceConverterLatest : LayeredConverterBase, IDifferenceConver
         chatList.AddRange(channelList);
 
         var qts = pts?.Qts ?? 0;
+        var unreadCount = pts?.UnreadCount ?? 0;
+        if (unreadCount < 0)
+        {
+            unreadCount = 0;
+        }
 
         if (updateList.Count == limit)
         {
@@ -114,7 +119,7 @@ public class DifferenceConverterLatest : LayeredConverterBase, IDifferenceConver
                         Date = DateTime.UtcNow.ToTimestamp(),
                         Qts = qts,
                         Pts = pts?.Pts ?? 0,
-                        UnreadCount = pts?.UnreadCount ?? 0
+                        UnreadCount = unreadCount
                     }
                     : _objectMapper.Map<IPtsReadModel, TState>(pts)
             };
@@ -143,7 +148,7 @@ public class DifferenceConverterLatest : LayeredConverterBase, IDifferenceConver
                     Date = DateTime.UtcNow.ToTimestamp(),
                     Qts = qts,
                     Pts = pts?.Pts ?? 0,
-                    UnreadCount = pts?.UnreadCount ?? 0
+                    UnreadCount = unreadCount
                 }
                 : _objectMapper.Map<IPtsReadModel, TState>(pts)
         };

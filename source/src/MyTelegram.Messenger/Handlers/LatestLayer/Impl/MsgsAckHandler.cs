@@ -1,7 +1,7 @@
 ﻿// ReSharper disable All
 namespace MyTelegram.Handlers.Impl;
 
-internal sealed class MsgsAckHandler : BaseObjectHandler<TMsgsAck, IObject>, IMsgsAckHandler, IProcessedHandler
+internal sealed class MsgsAckHandler : BaseObjectHandler<TMsgsAck, IObject>, IMsgsAckHandler
 {
     private readonly ILogger<MsgsAckHandler> _logger;
 

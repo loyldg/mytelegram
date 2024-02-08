@@ -6,7 +6,7 @@ namespace MyTelegram.Handlers.Messages;
 /// See <a href="https://corefork.telegram.org/method/messages.getSavedReactionTags" />
 ///</summary>
 internal sealed class GetSavedReactionTagsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetSavedReactionTags, MyTelegram.Schema.Messages.ISavedReactionTags>,
-    Messages.IGetSavedReactionTagsHandler, IProcessedHandler
+    Messages.IGetSavedReactionTagsHandler
 {
     protected override Task<MyTelegram.Schema.Messages.ISavedReactionTags> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetSavedReactionTags obj)

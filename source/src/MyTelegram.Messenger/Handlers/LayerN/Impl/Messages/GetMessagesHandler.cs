@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Messages.LayerN;
 /// See <a href="https://corefork.telegram.org/method/messages.getMessages" />
 ///</summary>
 internal sealed class GetMessagesHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.LayerN.RequestGetMessages, MyTelegram.Schema.Messages.IMessages>,
-    Messages.LayerN.IGetMessagesHandler, IProcessedHandler
+    Messages.LayerN.IGetMessagesHandler
 {
     private readonly IMessageAppService _messageAppService;
     //private readonly IRpcResultProcessor _rpcResultProcessor;

@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getAuthorizations" />
 ///</summary>
 internal sealed class GetAuthorizationsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetAuthorizations, MyTelegram.Schema.Account.IAuthorizations>,
-    Account.IGetAuthorizationsHandler, IProcessedHandler
+    Account.IGetAuthorizationsHandler
 {
     private readonly IQueryProcessor _queryProcessor;
     private readonly ILayeredService<IAuthorizationConverter> _layeredService;

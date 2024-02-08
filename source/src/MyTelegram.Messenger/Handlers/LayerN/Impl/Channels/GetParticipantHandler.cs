@@ -16,7 +16,7 @@ namespace MyTelegram.Handlers.Channels.LayerN;
 /// See <a href="https://corefork.telegram.org/method/channels.getParticipant" />
 ///</summary>
 internal sealed class GetParticipantHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.LayerN.RequestGetParticipant, MyTelegram.Schema.Channels.IChannelParticipant>,
-    Channels.LayerN.IGetParticipantHandler, IProcessedHandler
+    Channels.LayerN.IGetParticipantHandler
 {
     private readonly IPeerHelper _peerHelper;
     private readonly IQueryProcessor _queryProcessor;

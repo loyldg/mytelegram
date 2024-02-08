@@ -1,5 +1,5 @@
-﻿namespace MyTelegram.Services.Services;
+﻿//namespace MyTelegram.Services.Services;
 
-public interface IProcessedHandler //: ITransientDependency
-{
-}
+//public interface IProcessedHandler //: ITransientDependency
+//{
+//}

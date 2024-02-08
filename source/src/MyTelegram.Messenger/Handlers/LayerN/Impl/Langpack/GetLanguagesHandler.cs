@@ -10,7 +10,7 @@ namespace MyTelegram.Handlers.Langpack.LayerN;
 /// See <a href="https://corefork.telegram.org/method/langpack.getLanguages" />
 ///</summary>
 internal sealed class GetLanguagesHandler : RpcResultObjectHandler<MyTelegram.Schema.Langpack.LayerN.RequestGetLanguages, TVector<ILangPackLanguage>>,
-    Langpack.LayerN.IGetLanguagesHandler, IProcessedHandler
+    Langpack.LayerN.IGetLanguagesHandler
 {
     protected override Task<TVector<ILangPackLanguage>> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Langpack.LayerN.RequestGetLanguages obj)

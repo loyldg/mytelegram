@@ -20,7 +20,7 @@ namespace MyTelegram.Handlers.Auth.LayerN;
 /// See <a href="https://corefork.telegram.org/method/auth.sendCode" />
 ///</summary>
 internal sealed class SendCodeHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.LayerN.RequestSendCode, MyTelegram.Schema.Auth.ISentCode>,
-    Auth.LayerN.ISendCodeHandler, IProcessedHandler
+    Auth.LayerN.ISendCodeHandler
 {
     protected override Task<MyTelegram.Schema.Auth.ISentCode> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Auth.LayerN.RequestSendCode obj)

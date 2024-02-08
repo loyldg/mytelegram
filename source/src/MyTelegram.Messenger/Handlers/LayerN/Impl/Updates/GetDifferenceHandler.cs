@@ -22,7 +22,7 @@ namespace MyTelegram.Handlers.Updates.LayerN;
 /// See <a href="https://corefork.telegram.org/method/updates.getDifference" />
 ///</summary>
 internal sealed class GetDifferenceHandler : RpcResultObjectHandler<MyTelegram.Schema.Updates.LayerN.RequestGetDifference, MyTelegram.Schema.Updates.IDifference>,
-    Updates.IGetDifferenceHandler, IProcessedHandler
+    Updates.IGetDifferenceHandler
 {
     private readonly IAckCacheService _ackCacheService;
     private readonly ILogger<GetDifferenceHandler> _logger;

@@ -12,7 +12,7 @@ namespace MyTelegram.Handlers.Messages;
 /// See <a href="https://corefork.telegram.org/method/messages.saveDraft" />
 ///</summary>
 internal sealed class SaveDraftHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSaveDraft, IBool>,
-    Messages.ISaveDraftHandler, IProcessedHandler
+    Messages.ISaveDraftHandler
 {
     private readonly ICommandBus _commandBus;
     private readonly IPeerHelper _peerHelper;

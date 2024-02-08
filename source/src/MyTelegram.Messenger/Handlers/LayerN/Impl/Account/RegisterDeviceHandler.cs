@@ -15,7 +15,7 @@ namespace MyTelegram.Handlers.Account.LayerN;
 /// See <a href="https://corefork.telegram.org/method/account.registerDevice" />
 ///</summary>
 internal sealed class RegisterDeviceHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.LayerN.RequestRegisterDevice, IBool>,
-    Account.LayerN.IRegisterDeviceHandler, IProcessedHandler
+    Account.LayerN.IRegisterDeviceHandler
 {
     private readonly ICommandBus _commandBus;
     private readonly IEventBus _eventBus;

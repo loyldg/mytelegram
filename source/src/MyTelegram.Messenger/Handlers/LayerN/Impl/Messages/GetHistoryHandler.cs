@@ -14,7 +14,7 @@ namespace MyTelegram.Handlers.Messages.LayerN;
 /// See <a href="https://corefork.telegram.org/method/messages.getHistory" />
 ///</summary>
 internal sealed class GetHistoryHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.LayerN.RequestGetHistory, MyTelegram.Schema.Messages.IMessages>,
-    Messages.LayerN.IGetHistoryHandler, IProcessedHandler
+    Messages.LayerN.IGetHistoryHandler
 {
     private readonly IMessageAppService _messageAppService;
     private readonly IPeerHelper _peerHelper;
