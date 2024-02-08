@@ -52,7 +52,7 @@ internal sealed class GetParticipantHandler : RpcResultObjectHandler<MyTelegram.
             await _accessHashHelper.CheckAccessHashAsync(inputChannel.ChannelId, inputChannel.AccessHash);
 
             var channelMemberReadModel = await _queryProcessor
-                    .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, peer.PeerId), default)
+                    .ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId), default)
                 ;
 
             if (channelMemberReadModel == null)

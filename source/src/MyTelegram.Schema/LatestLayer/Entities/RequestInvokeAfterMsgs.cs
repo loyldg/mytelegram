@@ -8,7 +8,7 @@ namespace MyTelegram.Schema;
 /// See <a href="https://corefork.telegram.org/method/invokeAfterMsgs" />
 ///</summary>
 [TlObject(0x3dc4b4f0)]
-public sealed class RequestInvokeAfterMsgs : IRequest<IObject>
+public sealed class RequestInvokeAfterMsgs : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0x3dc4b4f0;
     ///<summary>

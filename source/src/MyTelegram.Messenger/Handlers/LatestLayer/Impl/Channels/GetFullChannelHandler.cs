@@ -67,7 +67,7 @@ internal sealed class GetFullChannelHandler : RpcResultObjectHandler<MyTelegram.
             }
 
             var channelMember = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default);
+                .ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, input.UserId), default);
             var migratedFromChatReadModel = channelFull!.MigratedFromChatId == null ? null :
                 await _queryProcessor.ProcessAsync(new GetChatByChatIdQuery(channelFull.MigratedFromChatId.Value),default);
 

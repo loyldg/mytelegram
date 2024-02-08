@@ -8,13 +8,12 @@ public abstract class MyInMemoryAggregateSaga<TSaga, TIdentity, TLocator> : Aggr
 {
     private readonly IEventStore _eventStore;
 
-    protected MyInMemoryAggregateSaga(TIdentity id,
-        IEventStore eventStore) : base(id)
+    protected MyInMemoryAggregateSaga(TIdentity id, IEventStore eventStore) : base(id)
     {
         _eventStore = eventStore;
     }
 
-    public async Task<bool> HandleAsync(ISagaId sagaId,
+    public virtual async Task<bool> HandleAsync(ISagaId sagaId,
         SagaDetails sagaDetails,
         Exception exception,
         CancellationToken cancellationToken)

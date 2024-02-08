@@ -2,14 +2,24 @@
 
 public class MessageFwdHeader : ValueObject
 {
-    public MessageFwdHeader(Peer fromId,
+    public MessageFwdHeader(
+        bool imported,
+        bool savedOut,
+        Peer fromId,
         string? fromName,
         int channelPost,
         string postAuthor,
         int date,
         Peer? savedFromPeer,
-        int savedFromMsgId)
+        int savedFromMsgId,
+        Peer? savedFromId,
+        string? savedFromName,
+        int? savedDate,
+        string? psaType
+        )
     {
+        Imported = imported;
+        SavedOut = savedOut;
         FromId = fromId;
         FromName = fromName;
         ChannelPost = channelPost;
@@ -17,6 +27,10 @@ public class MessageFwdHeader : ValueObject
         Date = date;
         SavedFromPeer = savedFromPeer;
         SavedFromMsgId = savedFromMsgId;
+        SavedFromId = savedFromId;
+        SavedFromName = savedFromName;
+        SavedDate = savedDate;
+        PsaType = psaType;
     }
 
     /// <summary>
@@ -28,6 +42,9 @@ public class MessageFwdHeader : ValueObject
     ///     When was the message originally sent
     /// </summary>
     public int Date { get; init; }
+
+    public bool Imported { get; init; }
+    public bool SavedOut { get; init; }
 
     /// <summary>
     ///     The ID of the user that originally sent the message
@@ -49,6 +66,11 @@ public class MessageFwdHeader : ValueObject
     ///     original user/channel
     /// </summary>
     public int SavedFromMsgId { get; init; }
+
+    public Peer? SavedFromId { get; init; }
+    public string? SavedFromName { get; init; }
+    public int? SavedDate { get; init; }
+    public string? PsaType { get; }
 
     /// <summary>
     ///     Only for messages forwarded to the current user (inputPeerSelf), full info about the user/channel that originally

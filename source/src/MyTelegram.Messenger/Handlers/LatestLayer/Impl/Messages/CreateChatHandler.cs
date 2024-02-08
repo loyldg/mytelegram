@@ -117,7 +117,9 @@ internal sealed class CreateChatHandler : RpcResultObjectHandler<MyTelegram.Sche
                 botList,
                 CurrentDate,
                 _randomHelper.NextLong(),
-                new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString());
+                new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString(),
+                ChatJoinType.InvitedByAdmin
+                );
             await _commandBus.PublishAsync(command, CancellationToken.None);
 
         }
@@ -137,7 +139,8 @@ internal sealed class CreateChatHandler : RpcResultObjectHandler<MyTelegram.Sche
                 memberUidList,
                 CurrentDate,
                 randomId,
-                messageActionData
+                messageActionData,
+                obj.TtlPeriod
                 );
             await _commandBus.PublishAsync(command, CancellationToken.None);
         }

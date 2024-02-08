@@ -48,7 +48,7 @@ internal sealed class GetHistoryHandler : RpcResultObjectHandler<MyTelegram.Sche
         if (peer.PeerType == PeerType.Channel)
         {
             var channelMember = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberByUidQuery(peer.PeerId, input.UserId), default)
+                .ProcessAsync(new GetChannelMemberByUserIdQuery(peer.PeerId, input.UserId), default)
          ;
             if (channelMember?.Kicked == true)
             {

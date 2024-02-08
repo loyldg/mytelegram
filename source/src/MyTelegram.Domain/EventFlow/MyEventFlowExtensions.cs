@@ -1,7 +1,6 @@
 ﻿using EventFlow.ReadStores;
 
 namespace MyTelegram.Domain.EventFlow;
-
 public static class MyEventFlowExtensions
 {
     public static IServiceCollection AddMyEventFlow(this IServiceCollection services)
@@ -17,7 +16,8 @@ public static class MyEventFlowExtensions
 
         services.AddTransient<ISnapshotStore, SnapshotWithInMemoryCacheStore>();
         services.AddSingleton<IMyInMemorySnapshotPersistence, MyInMemorySnapshotPersistence>();
-
+        services.AddTransient<IChatInviteLinkHelper, ChatInviteLinkHelper>();
+        
         return services;
     }
 }

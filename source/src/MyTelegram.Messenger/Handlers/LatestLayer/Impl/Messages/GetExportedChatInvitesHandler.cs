@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 using IExportedChatInvite = MyTelegram.Schema.IExportedChatInvite;
 
@@ -27,10 +27,11 @@ internal sealed class GetExportedChatInvitesHandler : RpcResultObjectHandler<MyT
     private readonly IPhotoAppService _photoAppService;
     private readonly IPrivacyAppService _privacyAppService;
     private readonly ILayeredService<IUserConverter> _layeredUserService;
+    private readonly IChatInviteLinkHelper _chatInviteLinkHelper;
 
     public GetExportedChatInvitesHandler(IPeerHelper peerHelper,
         IOptions<MyTelegramMessengerServerOptions> options,
-        IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor, IObjectMapper objectMapper, IPhotoAppService photoAppService, IPrivacyAppService privacyAppService, ILayeredService<IUserConverter> layeredUserService)
+        IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor, IObjectMapper objectMapper, IPhotoAppService photoAppService, IPrivacyAppService privacyAppService, ILayeredService<IUserConverter> layeredUserService, IChatInviteLinkHelper chatInviteLinkHelper)
     {
         _peerHelper = peerHelper;
         _options = options;
@@ -40,6 +41,7 @@ internal sealed class GetExportedChatInvitesHandler : RpcResultObjectHandler<MyT
         _photoAppService = photoAppService;
         _privacyAppService = privacyAppService;
         _layeredUserService = layeredUserService;
+        _chatInviteLinkHelper = chatInviteLinkHelper;
     }
 
     protected async override Task<MyTelegram.Schema.Messages.IExportedChatInvites> HandleCoreAsync(IRequestInput input,
@@ -50,7 +52,7 @@ internal sealed class GetExportedChatInvitesHandler : RpcResultObjectHandler<MyT
 
         // todo:impl get chat invites
         var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
-        var channelReadModel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(peer.PeerId), default);
+        var channelReadModel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(peer.PeerId));
         if (channelReadModel == null)
         {
             RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
@@ -62,27 +64,6 @@ internal sealed class GetExportedChatInvitesHandler : RpcResultObjectHandler<MyT
         }
 
         var admin = _peerHelper.GetPeer(obj.AdminId, input.UserId);
-        //return new TExportedChatInvites
-        //{
-        //    Count = 1,
-        //    Users = new TVector<IUser>(),
-        //    Invites = new TVector<IExportedChatInvite> {
-        //        new TChatInviteExported {
-        //            AdminId = admin.PeerId,
-        //            Date = CurrentDate,
-        //            ExpireDate = DateTime.UtcNow.AddDays(30).ToTimestamp(),
-        //            Link =
-        //                $"{_options.Value.JoinChatDomain}/AAAAA{peer.PeerId}/{_randomHelper.GenerateRandomString(8)}",
-        //            Permanent = true,
-        //            Revoked = false,
-        //            StartDate = CurrentDate,
-        //            Usage = 0,
-        //            UsageLimit = 0
-        //        }
-        //    }
-        //};
-
-
 
         var invites = await _queryProcessor
             .ProcessAsync(new GetChatInvitesQuery(obj.Revoked,
@@ -90,17 +71,17 @@ internal sealed class GetExportedChatInvitesHandler : RpcResultObjectHandler<MyT
                     admin.PeerId,
                     obj.OffsetDate,
                     obj.OffsetLink,
-                    obj.Limit),default);
+                    obj.Limit));
         var userIds = invites.Select(p => p.AdminId).ToList();
-        var userReadModels = await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIds), default);
-        var contactReadModels = new List<IContactReadModel>();
+        var userReadModels = await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery(userIds));
+        var contactReadModels = await _queryProcessor.ProcessAsync(new GetContactListQuery(input.UserId, userIds));
         var photoReadModels = await _photoAppService.GetPhotosAsync(userReadModels, contactReadModels);
         var privacyReadModels = await _privacyAppService.GetPrivacyListAsync(userIds);
         var users = _layeredUserService.GetConverter(input.Layer).ToUserList(input.UserId, userReadModels,
             photoReadModels, contactReadModels, privacyReadModels);
 
         var tInvites = invites.Select(p => _objectMapper.Map<IChatInviteReadModel, TChatInviteExported>(p)).ToList();
-        tInvites.ForEach(p => p.Link = $"{_options.Value.JoinChatDomain}/+{p.Link}");
+        tInvites.ForEach(p => p.Link = _chatInviteLinkHelper.GetFullLink(_options.Value.JoinChatDomain, p.Link));
 
         var r = new TExportedChatInvites
         {

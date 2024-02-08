@@ -104,9 +104,9 @@ public class GetChannelIdListByUidQuery : IQuery<IReadOnlyCollection<long>>
     public long UserId { get; }
 }
 
-public class GetChannelMemberByUidQuery : IQuery<IChannelMemberReadModel?>
+public class GetChannelMemberByUserIdQuery : IQuery<IChannelMemberReadModel?>
 {
-    public GetChannelMemberByUidQuery(long channelId,
+    public GetChannelMemberByUserIdQuery(long channelId,
         long userId)
     {
         ChannelId = channelId;
@@ -904,9 +904,25 @@ public class SearchContactQuery : IQuery<IReadOnlyCollection<IContactReadModel>>
 }
 
 public record GetUnreadCountQuery(long OwnerUserId, long ToPeerId, int MaxMessageId) : IQuery<int>;
+public record AdminWithInvites(long AdminId, int InvitesCount, int RevokedInvitesCount);
+
+public record GetAdminInvitesQuery(long ChannelId) : IQuery<IReadOnlyCollection<AdminWithInvites>>;
+
+public record GetChatInviteQuery(long PeerId, string Link) : IQuery<IChatInviteReadModel?>;
+
 public record GetChatInviteByLinkQuery(string Link) : IQuery<IChatInviteReadModel?>;
+
+//public record GetChatInviteByLinkQuery(string Link) : IQuery<IChatInviteReadModel>;
+public record GetRevokedChatInvitesQuery(long PeerId, long AdminId) : IQuery<IReadOnlyCollection<IChatInviteReadModel>>;
+
+public record GetChatInviteImportersQuery(long PeerId, ChatInviteRequestState? ChatInviteRequestState, int? InviteId,
+    int OffsetDate, long OffsetUserId, string? Q,
+    int Limit) : IQuery<IReadOnlyCollection<IChatInviteImporterReadModel>>;
 public record GetRpcResultQuery(long UserId, long ReqMsgId) : IQuery<IRpcResultReadModel?>;
 public record GetGlobalPrivacySettingsQuery(long UserId) : IQuery<GlobalPrivacySettings?>;
 public record GetGlobalPrivacySettingsListQuery(List<long> UserIds) : IQuery<IReadOnlyDictionary<long, GlobalPrivacySettings?>>;
 
 public record GetOutboxReadDateQuery(long UserId, int MessageId, Peer ToPeer) : IQuery<int>;
+public record GetChatAdminQuery(long PeerId, long AdminId) : IQuery<IChatAdminReadModel?>;
+public record GetChatInviteImporterQuery(long PeerId, long UserId) : IQuery<IChatInviteImporterReadModel?>;
+public record GetChatInviteImporterListForApprovalQuery(long PeerId,long InviteId) : IQuery<IReadOnlyCollection<IChatInviteImporterReadModel>>;

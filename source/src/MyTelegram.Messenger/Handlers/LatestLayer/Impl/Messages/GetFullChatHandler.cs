@@ -53,7 +53,7 @@ internal sealed class GetFullChatHandler : RpcResultObjectHandler<MyTelegram.Sch
 
 
                     var channelMember = await _queryProcessor
-                        .ProcessAsync(new GetChannelMemberByUidQuery(obj.ChatId, input.UserId), default)
+                        .ProcessAsync(new GetChannelMemberByUserIdQuery(obj.ChatId, input.UserId), default)
                  ;
                     var peerNotifySettings = await _queryProcessor
                         .ProcessAsync(

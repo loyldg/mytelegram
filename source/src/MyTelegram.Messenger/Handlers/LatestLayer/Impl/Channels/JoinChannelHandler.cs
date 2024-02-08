@@ -59,7 +59,9 @@ internal sealed class JoinChannelHandler : RpcResultObjectHandler<MyTelegram.Sch
                 new List<long>(),
                 CurrentDate,
                 _randomHelper.NextLong(),
-                new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString());
+                new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString(),
+                ChatJoinType.ByRequest
+                );
 
             await _commandBus.PublishAsync(command, default);
             return null!;

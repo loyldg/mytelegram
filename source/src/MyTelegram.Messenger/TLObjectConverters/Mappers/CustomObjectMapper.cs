@@ -12,7 +12,8 @@ public class CustomObjectMapper : ILayeredMapper,
     IObjectMapper<GetMessagesInput, GetMessagesQuery>,
     IObjectMapper<BotCommand, TBotCommand>,
     IObjectMapper<IReadOnlyList<BotCommand>, List<TBotCommand>>,
-    IObjectMapper<ChannelInviteExportedEvent, TChatInviteExported>,
+    //IObjectMapper<ChannelInviteExportedEvent, TChatInviteExported>,
+    IObjectMapper<ChatInviteCreatedEvent, TChatInviteExported>,
     IObjectMapper<WebRtcConnection, TPhoneConnectionWebrtc>,
     IObjectMapper<List<WebRtcConnection>, List<TPhoneConnectionWebrtc>>,
     IObjectMapper<PeerNotifySettings, Schema.Messages.TPeerSettings>,
@@ -285,6 +286,8 @@ public class CustomObjectMapper : ILayeredMapper,
     public TMessageFwdHeader Map(MessageFwdHeader source,
         TMessageFwdHeader destination)
     {
+        destination.Imported = source.Imported;
+        destination.SavedOut=source.SavedOut;
         destination.FromId = source.FromId.ToPeer();
         destination.FromName = source.FromName;
         destination.ChannelPost = source.ChannelPost;
@@ -292,6 +295,10 @@ public class CustomObjectMapper : ILayeredMapper,
         destination.Date = source.Date;
         destination.SavedFromPeer = source.SavedFromPeer!.ToPeer();
         destination.SavedFromMsgId = source.SavedFromMsgId;
+        destination.SavedFromId = source.SavedFromId.ToPeer();
+        destination.SavedFromName = source.SavedFromName;
+        destination.SavedDate = source.SavedDate;
+        destination.PsaType = source.PsaType;
 
         return destination;
     }
@@ -413,18 +420,17 @@ public class CustomObjectMapper : ILayeredMapper,
         return Map(source, new TWebAuthorization());
     }
 
-    public TChatInviteExported Map(ChannelInviteExportedEvent source)
+    public TChatInviteExported? Map(ChatInviteCreatedEvent source)
     {
         return Map(source, new TChatInviteExported());
     }
 
-    public TChatInviteExported Map(ChannelInviteExportedEvent source,
-        TChatInviteExported destination)
+    public TChatInviteExported? Map(ChatInviteCreatedEvent source, TChatInviteExported destination)
     {
         destination.Date = source.Date;
         destination.AdminId = source.AdminId;
         destination.ExpireDate = source.ExpireDate;
-        destination.Link = source.Link;
+        destination.Link = source.Hash;
         destination.Permanent = source.Permanent;
         destination.RequestNeeded = source.RequestNeeded;
         destination.Revoked = false;

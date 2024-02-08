@@ -59,15 +59,13 @@ public abstract class MyIdentity<T> : SingleValueObject<string>, IIdentity
         return With(guid);
     }
 
-    public static T NewDeterministic(Guid namespaceId,
-        string name)
+    public static T NewDeterministic(Guid namespaceId, string name)
     {
         var guid = GuidFactories.Deterministic.Create(namespaceId, name);
         return With(guid);
     }
 
-    public static T NewDeterministic(Guid namespaceId,
-        byte[] nameBytes)
+    public static T NewDeterministic(Guid namespaceId, byte[] nameBytes)
     {
         var guid = GuidFactories.Deterministic.Create(namespaceId, nameBytes);
         return With(guid);

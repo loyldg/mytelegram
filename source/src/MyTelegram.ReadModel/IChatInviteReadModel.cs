@@ -14,8 +14,8 @@ public interface IChatInviteReadModel : IReadModel
     string Link { get; set; }
     bool Permanent { get; }
     bool Revoked { get; }
-    int StartDate { get; }
-    int Usage { get; }
+    int? StartDate { get; }
+    int? Usage { get; }
     int? UsageLimit { get; }
     int? Requested { get; }
 }

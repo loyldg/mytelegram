@@ -8,7 +8,7 @@ namespace MyTelegram.Schema;
 /// See <a href="https://corefork.telegram.org/method/invokeWithMessagesRange" />
 ///</summary>
 [TlObject(0x365275f2)]
-public sealed class RequestInvokeWithMessagesRange : IRequest<IObject>
+public sealed class RequestInvokeWithMessagesRange : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0x365275f2;
     ///<summary>

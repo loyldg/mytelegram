@@ -12,16 +12,17 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
     private readonly ILayeredService<IPhotoConverter> _layeredPhotoService;
     private readonly IOptions<MyTelegramMessengerServerOptions> _options;
     private IPhotoConverter? _photoConverter;
-
+    private readonly IChatInviteLinkHelper _chatInviteLinkHelper;
     public ChatConverterLatest(IObjectMapper objectMapper,
         IOptions<MyTelegramMessengerServerOptions> options,
         ILayeredService<IPhotoConverter> layeredPhotoService,
-        ILayeredService<IPeerNotifySettingsConverter> layeredPeerNotifySettingsService)
+        ILayeredService<IPeerNotifySettingsConverter> layeredPeerNotifySettingsService, IChatInviteLinkHelper chatInviteLinkHelper)
     {
         ObjectMapper = objectMapper;
         _options = options;
         _layeredPhotoService = layeredPhotoService;
         _layeredPeerNotifySettingsService = layeredPeerNotifySettingsService;
+        _chatInviteLinkHelper = chatInviteLinkHelper;
     }
 
     public override int Layer => Layers.LayerLatest;
@@ -256,7 +257,7 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
         //IChatPhoto chatPhoto,
         //IUserReadModel userReadModel,
         IUser user //,
-        //IReadOnlyCollection<IPrivacyReadModel>? privacies = null
+                   //IReadOnlyCollection<IPrivacyReadModel>? privacies = null
     )
     {
         var participant = ToChannelParticipantCore(selfUserId, channelReadModel, channelMemberReadModel);
@@ -278,15 +279,15 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
         //IUserReadModel userReadModel,
         //IChatPhoto chatPhoto,
         IUser user
-        //,
-        //IReadOnlyCollection<IPrivacyReadModel>? privacies = null
+    //,
+    //IReadOnlyCollection<IPrivacyReadModel>? privacies = null
     )
     {
         var participant = ToChannelParticipantCore(selfUserId, channelReadModel, channelMemberReadModel);
         //var user = GetUserConverter().ToUser(userReadModel, selfUserId, privacies: privacies);
         //var channel = ToChannel(channelReadModel, selfUserId);
         return new Schema.Channels.LayerN.TChannelParticipant
-            { Participant = participant, Users = new TVector<IUser>(user) };
+        { Participant = participant, Users = new TVector<IUser>(user) };
     }
 
     public IChannelParticipants ToChannelParticipants(
@@ -300,8 +301,8 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
         IEnumerable<IUser> users,
         DeviceType deviceType,
         bool forceNotLeft //,
-        //IReadOnlyCollection<IContactReadModel>? contactReadModels = null,
-        //IReadOnlyCollection<IPrivacyReadModel>? privacies = null
+                          //IReadOnlyCollection<IContactReadModel>? contactReadModels = null,
+                          //IReadOnlyCollection<IPrivacyReadModel>? privacies = null
     )
     {
         var participants =
@@ -347,7 +348,7 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
         long selfUserId,
         IChatReadModel chat,
         IPhotoReadModel? photoReadModel
-        //IChatPhoto chatPhoto,
+    //IChatPhoto chatPhoto,
     )
     {
         if (chat.ChatMembers.All(p => p.UserId != selfUserId))
@@ -388,9 +389,9 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
         IPeerNotifySettingsReadModel peerNotifySettingsReadModel,
         IChannelReadModel? migratedToChannelReadModel = null,
         IChatInviteReadModel? chatInviteReadModel = null
-        //,
-        //IReadOnlyCollection<IContactReadModel>? contactReadModels = null,
-        //IReadOnlyCollection<IPrivacyReadModel>? privacies = null
+    //,
+    //IReadOnlyCollection<IContactReadModel>? contactReadModels = null,
+    //IReadOnlyCollection<IPrivacyReadModel>? privacies = null
     )
     {
         var tChat = ToChat(selfUserId, chat, photoReadModel);
@@ -400,6 +401,7 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
         //fullChat.NotifySettings = ObjectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(
         //    peerNotifySettingsReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
         fullChat.NotifySettings = GetPeerNotifySettings(peerNotifySettingsReadModel?.NotifySettings);
+
         fullChat.Participants = chat.IsDeleted
             ? new TChatParticipants
             {
@@ -487,7 +489,7 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
                 long selfUserId,
         IReadOnlyCollection<IChatReadModel> chats,
         IReadOnlyCollection<IPhotoReadModel>? photoReadModels
-        //IPhotoConverter photoConverter,
+    //IPhotoConverter photoConverter,
     )
     {
         var chatList = new List<IChat>();
@@ -503,13 +505,73 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
         return chatList;
     }
 
-    public IExportedChatInvite ToExportedChatInvite(ChannelInviteExportedEvent eventData)
+    //public IExportedChatInvite ToExportedChatInvite(ChannelInviteExportedEvent eventData)
+    //{
+    //    var item = ObjectMapper.Map<ChannelInviteExportedEvent, TChatInviteExported>(eventData);
+    //    //item.Link = $"{_appSettingManager.GetSetting(MyTelegramServerConsts.JoinChatDomain)}/{item.Link}";
+    //    item.Link = $"{_options.Value.JoinChatDomain}/+{item.Link}";
+
+    //    return item;
+    //}
+
+    public IExportedChatInvite ToExportedChatInvite(ChatInviteCreatedEvent eventData)
     {
-        var item = ObjectMapper.Map<ChannelInviteExportedEvent, TChatInviteExported>(eventData);
-        //item.Link = $"{_appSettingManager.GetSetting(MyTelegramServerConsts.JoinChatDomain)}/{item.Link}";
+        var item = ObjectMapper.Map<ChatInviteCreatedEvent, TChatInviteExported>(eventData);
+
         item.Link = $"{_options.Value.JoinChatDomain}/+{item.Link}";
 
         return item;
+    }
+
+    public MyTelegram.Schema.Messages.IExportedChatInvite ToExportedChatInvite(ChatInviteEditedEvent aggregateEvent)
+    {
+        var oldExportedChatInvite = new TChatInviteExported
+        {
+            RequestNeeded = aggregateEvent.RequestNeeded,
+            Link = _chatInviteLinkHelper.GetFullLink(_options.Value.JoinChatDomain, aggregateEvent.Hash),
+            AdminId = aggregateEvent.AdminId,
+            Date = DateTime.UtcNow.ToTimestamp(),
+            StartDate = aggregateEvent.StartDate,
+            ExpireDate = aggregateEvent.ExpireDate,
+            Permanent = aggregateEvent.Permanent,
+            Requested = aggregateEvent.Requested,
+            Revoked = aggregateEvent.Revoked,
+            Title = aggregateEvent.Title,
+            UsageLimit = aggregateEvent.UsageLimit,
+            Usage = aggregateEvent.Usage,
+        };
+
+        if (aggregateEvent.Revoked)
+        {
+            var newExportedChatInvite = new TChatInviteExported
+            {
+                RequestNeeded = aggregateEvent.RequestNeeded,
+                Link = _chatInviteLinkHelper.GetFullLink(_options.Value.JoinChatDomain, aggregateEvent.NewHash),
+                AdminId = aggregateEvent.AdminId,
+                Date = DateTime.UtcNow.ToTimestamp(),
+                StartDate = aggregateEvent.StartDate,
+                ExpireDate = aggregateEvent.ExpireDate,
+                Permanent = aggregateEvent.Permanent,
+                Requested = aggregateEvent.Requested,
+                Revoked = false,
+                Title = aggregateEvent.Title,
+                UsageLimit = aggregateEvent.UsageLimit,
+                Usage = aggregateEvent.Usage,
+            };
+
+            return new TExportedChatInviteReplaced
+            {
+                Invite = oldExportedChatInvite,
+                NewInvite = newExportedChatInvite,
+                Users = new(),
+            };
+        }
+
+        return new TExportedChatInvite
+        {
+            Invite = oldExportedChatInvite,
+            Users = new()
+        };
     }
 
     public IUpdates ToInviteToChannelUpdates(
@@ -616,7 +678,7 @@ public class ChatConverterLatest : ChatConverterBase, IChatConverterLatest
         IChannelReadModel channelReadModel,
         IPhotoReadModel? photoReadModel,
         IChannelMemberReadModel? channelMemberReadModel
-        //IChatPhoto chatPhoto,
+    //IChatPhoto chatPhoto,
     )
     {
         return ToChannel(

@@ -10,9 +10,9 @@ public class
         aggregate.StartInviteToChannel(command.RequestInfo,
             command.InviterId,
             command.MaxMessageId,
-            command.MemberUidList,
+            command.MemberUserIdList,
             command.PrivacyRestrictedUserIds,
-            command.BotUidList,
+            command.BotUserIdList,
             command.Date,
             command.RandomId,
             command.MessageActionData);

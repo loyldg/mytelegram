@@ -1,6 +1,4 @@
-﻿using MyTelegram.ReadModel.Impl;
-
-namespace MyTelegram.ReadModel.ReadModelLocators;
+﻿namespace MyTelegram.ReadModel.ReadModelLocators;
 
 public class PtsForAuthKeyIdReadModelLocator : IPtsForAuthKeyIdReadModelLocator
 {

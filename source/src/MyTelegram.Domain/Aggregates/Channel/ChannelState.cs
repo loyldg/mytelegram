@@ -4,7 +4,6 @@ namespace MyTelegram.Domain.Aggregates.Channel;
 
 public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelState>,
     IApply<ChannelCreatedEvent>,
-    IApply<ChannelInviteExportedEvent>,
     IApply<StartSendChannelMessageEvent>,
     IApply<StartInviteToChannelEvent>,
     IApply<IncrementParticipantCountEvent>,
@@ -22,7 +21,6 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     IApply<ChannelUserNameChangedEvent>,
     IApply<CheckChannelStateCompletedEvent>,
     IApply<DeleteParticipantHistoryStartedEvent>,
-    IApply<ChannelInviteEditedEvent>,
     IApply<ChannelColorUpdatedEvent>
 {
     //private List<ChatAdmin> _adminList = new();
@@ -149,10 +147,6 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         LastSendDate = aggregateEvent.Date;
     }
 
-    public void Apply(ChannelInviteExportedEvent aggregateEvent)
-    {
-        IsFirstChatInviteCreated = true;
-    }
 
     public void Apply(IncrementParticipantCountEvent aggregateEvent)
     {
@@ -278,10 +272,6 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         //throw new NotImplementedException();
     }
 
-    public void Apply(ChannelInviteEditedEvent aggregateEvent)
-    {
-        //throw new NotImplementedException();
-    }
 
     public void Apply(ChannelColorUpdatedEvent aggregateEvent)
     {

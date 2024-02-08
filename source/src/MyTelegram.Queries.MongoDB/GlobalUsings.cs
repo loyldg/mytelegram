@@ -41,3 +41,4 @@ global using PeerSettingsReadModel = MyTelegram.ReadModel.MongoDB.PeerSettingsRe
 global using PhotoReadModel = MyTelegram.ReadModel.MongoDB.PhotoReadModel;
 global using ChatAdminReadModel = MyTelegram.ReadModel.MongoDB.ChatAdminReadModel;
 global using UpdatesReadModel = MyTelegram.ReadModel.MongoDB.UpdatesReadModel;
+global using ChatInviteImporterReadModel = MyTelegram.ReadModel.MongoDB.ChatInviteImporterReadModel;

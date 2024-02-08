@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Messages;
 
@@ -24,9 +24,76 @@ namespace MyTelegram.Handlers.Messages;
 internal sealed class ImportChatInviteHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestImportChatInvite, MyTelegram.Schema.IUpdates>,
     Messages.IImportChatInviteHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestImportChatInvite obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IQueryProcessor _queryProcessor;
+    public ImportChatInviteHandler(ICommandBus commandBus, IQueryProcessor queryProcessor)
     {
-        throw new NotImplementedException();
+        _commandBus = commandBus;
+        _queryProcessor = queryProcessor;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestImportChatInvite obj)
+    {
+        if (string.IsNullOrEmpty(obj.Hash))
+        {
+            RpcErrors.RpcErrors400.InviteHashEmpty.ThrowRpcError();
+        }
+
+        var chatInviteReadModel = await _queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(obj.Hash));
+        if (chatInviteReadModel == null)
+        {
+            RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
+        }
+
+        if (chatInviteReadModel!.ExpireDate > 0)
+        {
+            if (chatInviteReadModel.ExpireDate.Value < CurrentDate)
+            {
+                RpcErrors.RpcErrors400.InviteHashExpired.ThrowRpcError();
+            }
+        }
+
+        if (chatInviteReadModel.Revoked)
+        {
+            RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
+        }
+
+        if (chatInviteReadModel.UsageLimit.HasValue)
+        {
+            if (chatInviteReadModel.Usage >= chatInviteReadModel.UsageLimit.Value)
+            {
+                RpcErrors.RpcErrors400.UsersTooMuch.ThrowRpcError();
+            }
+        }
+
+        var channelMember =
+            await _queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(chatInviteReadModel.PeerId,
+                input.UserId));
+        if (channelMember != null && !channelMember.Left && !channelMember.Kicked)
+        {
+            RpcErrors.RpcErrors400.UserAlreadyParticipant.ThrowRpcError();
+        }
+
+        var chatInviteImporterReadModel =
+            await _queryProcessor.ProcessAsync(new GetChatInviteImporterQuery(chatInviteReadModel.PeerId,
+                input.UserId));
+        if (chatInviteImporterReadModel != null &&
+            (chatInviteImporterReadModel.ChatInviteRequestState == ChatInviteRequestState.NeedApprove ||
+             chatInviteImporterReadModel.ChatInviteRequestState == ChatInviteRequestState.Approved
+             ))
+        {
+            RpcErrors.RpcErrors400.InviteRequestSent.ThrowRpcError();
+        }
+
+        var command = new ImportChatInviteCommand(ChatInviteId.Create(chatInviteReadModel.PeerId, chatInviteReadModel.InviteId),
+            input.ToRequestInfo(),
+            chatInviteReadModel.RequestNeeded ? ChatInviteRequestState.NeedApprove : ChatInviteRequestState.NotNeedApprove,
+            CurrentDate
+        );
+
+        await _commandBus.PublishAsync(command, default);
+
+        return null!;
     }
 }
