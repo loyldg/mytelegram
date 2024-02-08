@@ -21,7 +21,9 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     IApply<ChannelUserNameChangedEvent>,
     IApply<CheckChannelStateCompletedEvent>,
     IApply<DeleteParticipantHistoryStartedEvent>,
-    IApply<ChannelColorUpdatedEvent>
+    IApply<ChannelColorUpdatedEvent>,
+    IApply<ChatJoinRequestHiddenEvent>,
+    IApply<ChatInviteRequestPendingUpdatedEvent>
 {
     //private List<ChatAdmin> _adminList = new();
     //public IReadOnlyList<ChatAdmin> AdminList => _adminList.AsReadOnly();
@@ -276,5 +278,17 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     public void Apply(ChannelColorUpdatedEvent aggregateEvent)
     {
         Color = aggregateEvent.Color;
+    }
+
+    public void Apply(ChatJoinRequestHiddenEvent aggregateEvent)
+    {
+        RequestsPending = aggregateEvent.RequestsPending;
+        RecentRequesters = aggregateEvent.RecentRequesters;
+    }
+
+    public void Apply(ChatInviteRequestPendingUpdatedEvent aggregateEvent)
+    {
+        RequestsPending = aggregateEvent.RequestsPending;
+        RecentRequesters = aggregateEvent.RecentRequesters;
     }
 }
