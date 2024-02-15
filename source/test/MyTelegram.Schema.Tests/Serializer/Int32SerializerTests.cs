@@ -1,7 +1,4 @@
-﻿using System.Buffers;
-using MyTelegram.Schema.Extensions;
-
-namespace MyTelegram.Schema.Serializer;
+﻿namespace MyTelegram.Schema.Serializer;
 
 public class Int32SerializerTests
 {

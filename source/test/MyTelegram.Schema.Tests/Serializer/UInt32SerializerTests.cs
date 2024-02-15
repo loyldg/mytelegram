@@ -1,6 +1,4 @@
-﻿using MyTelegram.Schema.Extensions;
-
-namespace MyTelegram.Schema.Serializer;
+﻿namespace MyTelegram.Schema.Serializer;
 
 //public abstract class SerializeTestBase
 //{
