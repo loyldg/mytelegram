@@ -3,7 +3,7 @@
 public interface IMessageReadModel : IReadModel, IHasReactions
 {
     int Date { get; }
-    int EditDate { get; }
+    int? EditDate { get; }
     bool EditHide { get; }
     byte[]? Entities { get; }
     MessageFwdHeader? FwdHeader { get; }

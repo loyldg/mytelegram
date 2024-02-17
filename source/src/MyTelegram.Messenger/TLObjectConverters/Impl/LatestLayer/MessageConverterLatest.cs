@@ -64,100 +64,105 @@ public class MessageConverterLatest : LayeredConverterBase, IMessageConverterLat
         switch (item.SendMessageType)
         {
             case SendMessageType.MessageService:
-            {
-                if (string.IsNullOrEmpty(item.MessageActionData))
                 {
-                    throw new ArgumentNullException(nameof(item),
-                        "MessageActionData can not be null for service message");
+                    if (string.IsNullOrEmpty(item.MessageActionData))
+                    {
+                        throw new ArgumentNullException(nameof(item),
+                            "MessageActionData can not be null for service message");
+                    }
+
+                    var bytes = item.MessageActionData.ToBytes();
+                    var fromId = item.SenderPeer.ToPeer();
+                    //if (box.ToPeer.PeerType == PeerType.Channel && box.Post)
+                    //{
+                    //    fromId = null;
+                    //}
+
+                    if (item.ToPeer.PeerType == PeerType.Channel && item.Post)
+                    {
+                        fromId = null;
+                    }
+
+                    var m = new TMessageService
+                    {
+                        Date = item.Date,
+                        //Silent = outbox.Silent,
+                        Post = false, // outbox.Post,
+                        PeerId = item.ToPeer.ToPeer(),
+                        FromId = fromId,
+                        Id = item.MessageId,
+                        //Out = item.IsOut,
+                        Out = isOut,
+                        Action = bytes.ToTObject<IMessageAction>(),
+                        ReplyTo = item.InputReplyTo.ToMessageReplyHeader(),
+                        Mentioned = mentioned,
+                        MediaUnread = mentioned
+                    };
+
+                    return m;
                 }
-
-                var bytes = item.MessageActionData.ToBytes();
-                var fromId = item.SenderPeer.ToPeer();
-                //if (box.ToPeer.PeerType == PeerType.Channel && box.Post)
-                //{
-                //    fromId = null;
-                //}
-
-                if (item.ToPeer.PeerType == PeerType.Channel && item.Post)
-                {
-                    fromId = null;
-                }
-
-                var m = new TMessageService
-                {
-                    Date = item.Date,
-                    //Silent = outbox.Silent,
-                    Post = false, // outbox.Post,
-                    PeerId = item.ToPeer.ToPeer(),
-                    FromId = fromId,
-                    Id = item.MessageId,
-                    //Out = item.IsOut,
-                    Out = isOut,
-                    Action = bytes.ToTObject<IMessageAction>(),
-                    ReplyTo = item.InputReplyTo.ToMessageReplyHeader(),
-                    Mentioned = mentioned,
-                    MediaUnread = mentioned
-                };
-
-                return m;
-            }
             //break;
 
             default:
-            {
-                var m = new TMessage
                 {
-                    Date = item.Date,
-                    EditDate = editDate,
-                    EditHide = editHide,
-                    Entities = item.Entities.ToTObject<TVector<IMessageEntity>>(),
-                    FromId = item.SenderPeer.ToPeer(),
-                    PeerId = item.ToPeer.ToPeer(),
-                    Id = item.MessageId,
-                    Message = item.Message,
-                    Out = isOut,
-                    FwdFrom = ToMessageFwdHeader(item.FwdHeader),
-                    GroupedId = item.GroupId,
-                    Media = item.Media.ToTObject<IMessageMedia>(),
-                    Views = item.Views,
-                    Forwards = item.Views.HasValue ? 0 : null,
-                    Post = item.Post,
-                    Mentioned = mentioned,
-                    MediaUnread = mentioned,
-                    PostAuthor = item.PostAuthor,
-                    SavedPeerId = item.SavedPeerId.ToPeer()
-                };
-                if (item.ToPeer.PeerType == PeerType.Channel)
-                {
-                    //m.FromId = null;
-                    if (item.Post /*|| item.SenderPeer.PeerId == selfUserId*/)
+                    var m = new TMessage
                     {
-                        m.FromId = null;
+                        Date = item.Date,
+                        EditDate = editDate,
+                        EditHide = editHide,
+                        Entities = item.Entities.ToTObject<TVector<IMessageEntity>>(),
+                        FromId = item.SenderPeer.ToPeer(),
+                        PeerId = item.ToPeer.ToPeer(),
+                        Id = item.MessageId,
+                        Message = item.Message,
+                        Out = isOut,
+                        FwdFrom = ToMessageFwdHeader(item.FwdHeader),
+                        GroupedId = item.GroupId,
+                        Media = item.Media.ToTObject<IMessageMedia>(),
+                        Views = item.Views,
+                        Forwards = item.Views.HasValue ? 0 : null,
+                        Post = item.Post,
+                        Mentioned = mentioned,
+                        MediaUnread = mentioned,
+                        PostAuthor = item.PostAuthor,
+                        SavedPeerId = item.SavedPeerId.ToPeer()
+                    };
+                    if (item.ToPeer.PeerType == PeerType.Channel)
+                    {
+                        //m.FromId = null;
+                        if (item.Post /*|| item.SenderPeer.PeerId == selfUserId*/)
+                        {
+                            m.FromId = null;
+                        }
+
+                        m.Replies = ToMessageReplies(item.Post, linkedChannelId, pts);
+                        if (m.Replies != null && item.FwdHeader?.SavedFromPeer != null) // forward from linked channel
+                        {
+                            //m.FromId = _peerHelper.ToPeer(PeerType.Channel, item.FwdHeader.SavedFromPeer.PeerId);
+                            m.FromId = item.FwdHeader.SavedFromPeer.ToPeer();
+                            m.Out = false;
+                        }
                     }
 
-                    m.Replies = ToMessageReplies(item.Post, linkedChannelId, pts);
-                    if (m.Replies != null && item.FwdHeader?.SavedFromPeer != null) // forward from linked channel
+                    // Process existing data
+                    if (editDate == 0)
                     {
-                        //m.FromId = _peerHelper.ToPeer(PeerType.Channel, item.FwdHeader.SavedFromPeer.PeerId);
-                        m.FromId = item.FwdHeader.SavedFromPeer.ToPeer();
-                        m.Out = false;
+                        m.EditDate = null;
                     }
+
+                    m.ReplyTo = item.InputReplyTo.ToMessageReplyHeader();
+                    m.ReplyMarkup = item.ReplyMarkup.ToTObject<IReplyMarkup>();
+
+                    //m.Reactions = GetReactionConverter().ToMessageReactions(selfUserId,
+                    //    item.ToPeer,
+                    //    reactions,
+                    //    recentReactions,
+                    //    canSeeList,
+                    //    userReactions);
+
+                    return m;
                 }
-
-
-                m.ReplyTo = item.InputReplyTo.ToMessageReplyHeader();
-                m.ReplyMarkup = item.ReplyMarkup.ToTObject<IReplyMarkup>();
-
-                //m.Reactions = GetReactionConverter().ToMessageReactions(selfUserId,
-                //    item.ToPeer,
-                //    reactions,
-                //    recentReactions,
-                //    canSeeList,
-                //    userReactions);
-
-                return m;
-            }
-            //break;
+                //break;
         }
     }
 
@@ -228,7 +233,7 @@ public class MessageConverterLatest : LayeredConverterBase, IMessageConverterLat
         if (replyToMsgId > 0)
         {
             return new TMessageReplyHeader
-                { ReplyToMsgId = replyToMsgId.Value, ReplyToTopId = topMsgId /*, ForumTopic = topMsgId.HasValue*/ };
+            { ReplyToMsgId = replyToMsgId.Value, ReplyToTopId = topMsgId /*, ForumTopic = topMsgId.HasValue*/ };
         }
 
         return null;
@@ -276,90 +281,96 @@ public class MessageConverterLatest : LayeredConverterBase, IMessageConverterLat
         switch (readModel.SendMessageType)
         {
             case SendMessageType.MessageService:
-            {
-                ArgumentNullException.ThrowIfNull(readModel.MessageActionData);
-
-                var bytes = readModel.MessageActionData.ToBytes();
-                var fromId = _peerHelper.ToPeer(PeerType.User, readModel.SenderPeerId);
-                if (readModel.ToPeerType == PeerType.Channel && readModel.Post &&
-                    readModel.MessageActionType != MessageActionType.ChatAddUser)
                 {
-                    fromId = null;
-                }
+                    ArgumentNullException.ThrowIfNull(readModel.MessageActionData);
 
-                var m = new TMessageService
-                {
-                    Date = readModel.Date,
-                    Silent = readModel.Silent,
-                    Post = readModel.Post,
-                    PeerId = _peerHelper.ToPeer(readModel.ToPeerType, readModel.ToPeerId),
-                    FromId = fromId,
-                    Id = readModel.MessageId,
-                    Out = readModel.SenderPeerId == selfUserId,
-                    Action = bytes.ToTObject<IMessageAction>(),
-                    ReplyTo = ToMessageReplyHeader(readModel.ReplyTo)
-                };
-
-                return m;
-            }
-            default:
-            {
-                var fromId = _peerHelper.ToPeer(PeerType.User, readModel.SenderPeerId);
-                var toPeerId = _peerHelper.ToPeer(readModel.ToPeerType, readModel.ToPeerId);
-
-                var m = new TMessage
-                {
-                    Date = readModel.Date,
-                    EditDate = readModel.EditDate,
-                    EditHide = readModel.EditHide,
-                    Message = readModel.Message,
-                    Silent = readModel.Silent,
-                    Post = readModel.Post,
-                    PostAuthor = readModel.PostAuthor,
-                    GroupedId = readModel.GroupedId,
-                    Views = readModel.Views,
-                    Forwards = readModel.Views.HasValue ? 0 : null,
-                    Entities = readModel.Entities.ToTObject<TVector<IMessageEntity>>(),
-                    PeerId = toPeerId,
-                    FromId = fromId,
-                    Id = readModel.MessageId,
-                    Out = readModel.SenderPeerId == selfUserId,
-                    Pinned = readModel.Pinned,
-                    FwdFrom = ToMessageFwdHeader(readModel.FwdHeader),
-                    Media = readModel.Media.ToTObject<IMessageMedia>(),
-                    ReplyTo = ToMessageReplyHeader(readModel.ReplyTo),
-                    ReplyMarkup = readModel.ReplyMarkup.ToTObject<IReplyMarkup>(),
-                    SavedPeerId = readModel.SavedPeerId.ToPeer()
-                };
-
-                if (pollReadModel != null)
-                {
-                    m.Media = new TMessageMediaPoll
+                    var bytes = readModel.MessageActionData.ToBytes();
+                    var fromId = _peerHelper.ToPeer(PeerType.User, readModel.SenderPeerId);
+                    if (readModel.ToPeerType == PeerType.Channel && readModel.Post &&
+                        readModel.MessageActionType != MessageActionType.ChatAddUser)
                     {
-                        Poll = GetPollConverter().ToPoll(pollReadModel),
-                        Results = GetPollConverter().ToPollResults(pollReadModel, chosenOptions ?? new List<string>())
+                        fromId = null;
+                    }
+
+                    var m = new TMessageService
+                    {
+                        Date = readModel.Date,
+                        Silent = readModel.Silent,
+                        Post = readModel.Post,
+                        PeerId = _peerHelper.ToPeer(readModel.ToPeerType, readModel.ToPeerId),
+                        FromId = fromId,
+                        Id = readModel.MessageId,
+                        Out = readModel.SenderPeerId == selfUserId,
+                        Action = bytes.ToTObject<IMessageAction>(),
+                        ReplyTo = ToMessageReplyHeader(readModel.ReplyTo)
                     };
-                }
 
-                if (readModel.ToPeerType == PeerType.Channel)
+                    return m;
+                }
+            default:
                 {
-                    if (readModel.Post)
+                    var fromId = _peerHelper.ToPeer(PeerType.User, readModel.SenderPeerId);
+                    var toPeerId = _peerHelper.ToPeer(readModel.ToPeerType, readModel.ToPeerId);
+
+                    var m = new TMessage
                     {
-                        m.FromId = null;
+                        Date = readModel.Date,
+                        EditDate = readModel.EditDate,
+                        EditHide = readModel.EditHide,
+                        Message = readModel.Message,
+                        Silent = readModel.Silent,
+                        Post = readModel.Post,
+                        PostAuthor = readModel.PostAuthor,
+                        GroupedId = readModel.GroupedId,
+                        Views = readModel.Views,
+                        Forwards = readModel.Views.HasValue ? 0 : null,
+                        Entities = readModel.Entities.ToTObject<TVector<IMessageEntity>>(),
+                        PeerId = toPeerId,
+                        FromId = fromId,
+                        Id = readModel.MessageId,
+                        Out = readModel.SenderPeerId == selfUserId,
+                        Pinned = readModel.Pinned,
+                        FwdFrom = ToMessageFwdHeader(readModel.FwdHeader),
+                        Media = readModel.Media.ToTObject<IMessageMedia>(),
+                        ReplyTo = ToMessageReplyHeader(readModel.ReplyTo),
+                        ReplyMarkup = readModel.ReplyMarkup.ToTObject<IReplyMarkup>(),
+                        SavedPeerId = readModel.SavedPeerId.ToPeer()
+                    };
+
+                    // Process existing data
+                    if (readModel.EditDate == 0)
+                    {
+                        m.EditDate = null;
                     }
 
-                    m.Replies = ToMessageReplies(readModel.Post, readModel.LinkedChannelId, readModel.Pts);
-                    if (m.Replies != null && readModel.FwdHeader != null) // forward from linked channel
+                    if (pollReadModel != null)
                     {
-                        //m.FromId = _peerHelper.ToPeer(PeerType.Channel, readModel.LinkedChannelId!.Value);
-                        m.FromId = readModel.FwdHeader.FromId.ToPeer();
-                        m.Out = false;
-                        m.Replies.Replies = readModel.Replies;
+                        m.Media = new TMessageMediaPoll
+                        {
+                            Poll = GetPollConverter().ToPoll(pollReadModel),
+                            Results = GetPollConverter().ToPollResults(pollReadModel, chosenOptions ?? new List<string>())
+                        };
                     }
+
+                    if (readModel.ToPeerType == PeerType.Channel)
+                    {
+                        if (readModel.Post)
+                        {
+                            m.FromId = null;
+                        }
+
+                        m.Replies = ToMessageReplies(readModel.Post, readModel.LinkedChannelId, readModel.Pts);
+                        if (m.Replies != null && readModel.FwdHeader != null) // forward from linked channel
+                        {
+                            //m.FromId = _peerHelper.ToPeer(PeerType.Channel, readModel.LinkedChannelId!.Value);
+                            m.FromId = readModel.FwdHeader.FromId.ToPeer();
+                            m.Out = false;
+                            m.Replies.Replies = readModel.Replies;
+                        }
+                    }
+
+                    return m;
                 }
-
-                return m;
-            }
         }
     }
 
