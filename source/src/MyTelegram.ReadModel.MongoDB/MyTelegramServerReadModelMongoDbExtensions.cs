@@ -56,7 +56,7 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .AddTransient<IPollAnswerVoterReadModelLocator, PollAnswerVoterReadModelLocator>()
             .AddTransient<IAccessHashReadModelLocator, AccessHashReadModelLocator>()
             .AddTransient<IChatAdminReadModelLocator, ChatAdminReadModelLocator>()
-            .AddTransient<IChatInviteReadModelLocator, ChatInviteReadModelLocator>()
+            .AddTransient<IChatInviteImporterReadModelLocator, ChatInviteImporterReadModelLocator>()
             ;
 
 
@@ -75,9 +75,7 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .UseMongoDbReadModel<UserNameAggregate, UserNameId, UserNameReadModel>()
             .UseMongoDbReadModel<DeviceAggregate, DeviceId, DeviceReadModel>()
             .UseMongoDbReadModel<PushDeviceAggregate, PushDeviceId, PushDeviceReadModel>()
-            .UseMongoDbReadModel<DialogAggregate, DialogId, DraftReadModel>()
-            //.UseMongoDbReadModel<ChannelAggregate, ChannelId, ChatInviteReadModel>()
-            .UseMongoDbReadModel<ChatInviteReadModel, IChatInviteReadModelLocator>()
+            .UseMongoDbReadModel<DialogAggregate, DialogId, DraftReadModel>()            
             .UseMongoDbReadModel<ReadingHistoryAggregate, ReadingHistoryId, ReadingHistoryReadModel>()
             //.UseMongoDbReadModel<RpcResultAggregate, RpcResultId, RpcResultReadModel>()
             .UseMongoDbReadModel<ReplyReadModel, IReplyReadModelLocator>()
@@ -88,7 +86,9 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .UseMongoDbReadModel<AccessHashReadModel, IAccessHashReadModelLocator>()
             .UseMongoDbReadModel<PeerSettingsAggregate, PeerSettingsId, PeerSettingsReadModel>()
             .UseMongoDbReadModel<ChatAdminReadModel, IChatAdminReadModelLocator>()
+            .UseMongoDbReadModel<ChatInviteImporterReadModel, IChatInviteImporterReadModelLocator>()
 
+            .UseMongoDbReadModel<ChatInviteAggregate, ChatInviteId, ChatInviteReadModel>()
             // photo created by file server
             .UseMongoDbReadModel<PhotoAggregate, PhotoId, PhotoReadModel>()
             ;

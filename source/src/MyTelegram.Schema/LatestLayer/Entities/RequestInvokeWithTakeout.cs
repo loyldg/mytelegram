@@ -8,7 +8,7 @@ namespace MyTelegram.Schema;
 /// See <a href="https://corefork.telegram.org/method/invokeWithTakeout" />
 ///</summary>
 [TlObject(0xaca9fd2e)]
-public sealed class RequestInvokeWithTakeout : IRequest<IObject>
+public sealed class RequestInvokeWithTakeout : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xaca9fd2e;
     ///<summary>

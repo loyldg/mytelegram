@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getRecentEmojiStatuses" />
 ///</summary>
 internal sealed class GetRecentEmojiStatusesHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetRecentEmojiStatuses, MyTelegram.Schema.Account.IEmojiStatuses>,
-    Account.IGetRecentEmojiStatusesHandler, IProcessedHandler
+    Account.IGetRecentEmojiStatusesHandler
 {
     protected override Task<MyTelegram.Schema.Account.IEmojiStatuses> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetRecentEmojiStatuses obj)

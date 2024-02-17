@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Schema;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace MyTelegram.Schema;
 
 public static class SerializerObjectMappings
 {
@@ -6,10 +8,6 @@ public static class SerializerObjectMappings
     private static readonly ConcurrentDictionary<Type, Func<IObject>> GenericTypeOfTConstructors = new();
     private static readonly ConcurrentDictionary<uint, Type> TypeMappingDict = new();
     private static readonly ConcurrentDictionary<uint, Func<IObject>> TypeToConstructors = new();
-
-    //private static readonly ConcurrentDictionary<Type, Func<IObject2>> GenericTypeOfTConstructors2 = new();
-    //private static readonly ConcurrentDictionary<uint, Func<IObject2>> TypeToConstructors2 = new();
-
 
     static SerializerObjectMappings()
     {
@@ -50,33 +48,20 @@ public static class SerializerObjectMappings
         GenericTypeOfTConstructors.TryAdd(typeOfT, func);
     }
 
-    //public static void TryAddTlObjectFuncToCache2(Type typeOfT,
-    //    Func<IObject2> func)
-    //{
-    //    GenericTypeOfTConstructors2.TryAdd(typeOfT, func);
-    //}
-
     public static bool TryGetTlObject(Type typeOfT,
-        out Func<IObject>? func)
+        [NotNullWhen(true)] out Func<IObject>? func)
     {
         return GenericTypeOfTConstructors.TryGetValue(typeOfT, out func);
     }
 
-    //public static bool TryGetTlObject2(Type typeOfT,
-    //    out Func<IObject2>? func)
-    //{
-    //    return GenericTypeOfTConstructors2.TryGetValue(typeOfT, out func);
-    //}
-
     public static bool TryGetTlObject(uint constructorId,
-        out Func<IObject>? func)
+        [NotNullWhen(true)] out Func<IObject>? func)
     {
         return TypeToConstructors.TryGetValue(constructorId, out func);
     }
 
-    //public static bool TryGetTlObject2(uint constructorId,
-    //    out Func<IObject2>? func)
-    //{
-    //    return TypeToConstructors2.TryGetValue(constructorId, out func);
-    //}
+    public static bool TryGetTlObjectType(uint constructorId, [NotNullWhen(true)] out Type? type)
+    {
+        return TypeMappingDict.TryGetValue(constructorId, out type);
+    }
 }

@@ -7,7 +7,7 @@ using MyTelegram.Schema;
 
 namespace MyTelegram.Services.Services;
 
-public class HandlerHelper : IHandlerHelper //, ISingletonDependency
+public class HandlerHelper : IHandlerHelper
 {
     private static readonly ConcurrentDictionary<uint, IObjectHandler> Handlers = new();
 
@@ -29,8 +29,6 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
         _serviceProvider = serviceProvider;
         _logger = logger;
     }
-
-    //public int TotalHandlerCount => Handlers.Count;
 
     public bool TryGetHandlerShortName(uint objectId,
         [NotNullWhen(true)] out string? handlerShortName)
@@ -85,15 +83,10 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
 
         _isLoadingHandlers = true;
         _semaphoreSlim.Wait();
-        //if (totalHandlersCount == 0)
-        //{
-        //    totalHandlersCount = 434;
-        //}
+
         var sw = Stopwatch.StartNew();
 
         var baseType = typeof(IObjectHandler);
-        //var singletonType = typeof(ISingletonDependency);
-        //var baseInterface = typeof(IProcessedHandler);
         var baseInterface = baseType;
 
         var types = assembly.DefinedTypes
@@ -108,7 +101,6 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
             .ThenBy(p => p.Name)
             .ToList();
 
-        //var sb = new System.Text.StringBuilder();
         foreach (var typeInfo in allHandlers)
         {
             var args = typeInfo.BaseType?.GetGenericArguments();
@@ -145,7 +137,6 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
 
         //Console.WriteLine(sb);
         _logger.LogInformation("All handlers count:{AllHandlersCount}", AllHandlers.Count);
-        //var currentAssembly = Assembly.GetExecutingAssembly();
 
         foreach (var typeInfo in types)
         {
@@ -171,77 +162,11 @@ public class HandlerHelper : IHandlerHelper //, ISingletonDependency
                         _logger.LogInformation("Create handler:{Name}", typeInfo.FullName);
                         HandlerTypes.TryAdd(attr.ConstructorId, typeInfo);
                     }
-
-                    //var implInterface =
-                    //    typeInfo.ImplementedInterfaces.FirstOrDefault(p => baseType.IsAssignableFrom(p) && p != baseType);
-                    //if (implInterface != null)
-                    //{
-                    //    var externalHandler = _serviceProvider.GetService(implInterface);
-                    //    if (externalHandler != null && externalHandler.GetType().Assembly != currentAssembly)
-                    //    {
-                    //        if (_externalHandlers.TryGetValue(attr.ConstructorId, out var oldHandler))
-                    //        {
-                    //            _externalHandlers.TryUpdate(attr.ConstructorId, (IObjectHandler)externalHandler,
-                    //                oldHandler);
-                    //        }
-                    //        else
-                    //        {
-                    //            _externalHandlers.TryAdd(attr.ConstructorId, (IObjectHandler)externalHandler);
-                    //        }
-
-                    //        _logger.LogDebug($"create external handler:{externalHandler.GetType().FullName}");
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    _logger.LogDebug($"can not find impl interface:{typeInfo.FullName}");
-                    //}
                 }
             }
         }
 
-        //var allTypes = GetType().Assembly.DefinedTypes.Where(p => baseType.IsAssignableFrom(p) && !p.IsAbstract)
-        //    .ToList();
-        //foreach (var typeInfo in allTypes)
-        //{
-        //    var args = typeInfo.BaseType?.GetGenericArguments();
-        //    if (args?.Length == 2)
-        //    {
-        //        var attr = args[0].GetCustomAttribute<TlObjectAttribute>();
-        //        if (attr != null)
-        //        {
-        //            var implInterface =
-        //                typeInfo.ImplementedInterfaces.FirstOrDefault(p => baseType.IsAssignableFrom(p) && p != baseType);
-        //            if (implInterface != null)
-        //            {
-        //                var handler = _serviceProvider.GetService(implInterface);
-        //                if (handler != null && handler.GetType().Assembly != currentAssembly)
-        //                {
-        //                    if (_externalHandlers.TryGetValue(attr.ConstructorId, out var oldHandler))
-        //                    {
-        //                        _externalHandlers.TryUpdate(attr.ConstructorId, (IObjectHandler)handler,
-        //                            oldHandler);
-        //                    }
-        //                    else
-        //                    {
-        //                        _externalHandlers.TryAdd(attr.ConstructorId, (IObjectHandler)handler);
-        //                    }
-
-        //                    Logger.LogDebug($"create external handler:{handler.GetType().FullName}");
-        //                }
-        //            }
-        //            else
-        //            {
-        //                Logger.LogDebug($"can not find impl interface:{typeInfo.FullName}");
-        //            }
-
-        //        }
-        //    }
-        //}
-        //_logger.LogInformation("External handler count is {ExternalHandlersCount}", ExternalHandlers.Count);
-
         sw.Stop();
-        //var initInfo = $"Init handlers ok.Elapsed:{sw.Elapsed}.count={TotalHandlerCount}/{totalCount} ({Math.Round(TotalHandlerCount * 100d / totalCount, 2)}%)";
 
         _logger.LogInformation(
             "Init handlers ok.Elapsed={Elapsed} count={TotalHandlerCount}/{totalCount} ({Percentage})%",

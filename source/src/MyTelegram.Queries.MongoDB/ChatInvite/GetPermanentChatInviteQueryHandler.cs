@@ -1,4 +1,4 @@
-﻿namespace MyTelegram.QueryHandlers.MongoDB.Channel;
+﻿namespace MyTelegram.QueryHandlers.MongoDB.ChatInvite;
 
 public class GetPermanentChatInviteQueryHandler : IQueryHandler<GetPermanentChatInviteQuery, IChatInviteReadModel?>
 {
@@ -11,7 +11,7 @@ public class GetPermanentChatInviteQueryHandler : IQueryHandler<GetPermanentChat
 
     public async Task<IChatInviteReadModel?> ExecuteQueryAsync(GetPermanentChatInviteQuery query, CancellationToken cancellationToken)
     {
-        var cursor = await _store.FindAsync(p => p.PeerId == query.PeerId && p.Permanent, cancellationToken: cancellationToken);
+        var cursor = await _store.FindAsync(p => p.PeerId == query.PeerId && p.Permanent && !p.Revoked, cancellationToken: cancellationToken);
 
         return await cursor.FirstOrDefaultAsync(cancellationToken);
     }

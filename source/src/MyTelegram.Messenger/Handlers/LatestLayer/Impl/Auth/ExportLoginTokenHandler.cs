@@ -12,7 +12,7 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.exportLoginToken" />
 ///</summary>
 internal sealed class ExportLoginTokenHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestExportLoginToken, MyTelegram.Schema.Auth.ILoginToken>,
-    Auth.IExportLoginTokenHandler, IProcessedHandler
+    Auth.IExportLoginTokenHandler
 {
     private readonly ICommandBus _commandBus;
     private readonly IEventBus _eventBus;

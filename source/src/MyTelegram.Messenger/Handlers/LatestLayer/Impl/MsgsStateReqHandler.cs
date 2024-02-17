@@ -1,9 +1,9 @@
 ﻿using MyTelegram.Handlers.Interfaces;
+// ReSharper disable All
 
 namespace MyTelegram.Handlers;
 
-internal sealed class MsgsStateReqHandler : BaseObjectHandler<TMsgsStateReq, TMsgsStateInfo>, IMsgsStateReqHandler,
-    IProcessedHandler
+internal sealed class MsgsStateReqHandler : BaseObjectHandler<TMsgsStateReq, TMsgsStateInfo>, IMsgsStateReqHandler
 {
     protected override Task<TMsgsStateInfo> HandleCoreAsync(IRequestInput input,
         TMsgsStateReq obj)

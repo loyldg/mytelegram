@@ -1,6 +1,6 @@
 ﻿using EventFlow.Core;
 
-namespace MyTelegram.ReadModel.Impl;
+namespace MyTelegram.ReadModel.ReadModelLocators;
 
 public class AccessHashId : Identity<AccessHashId>
 {

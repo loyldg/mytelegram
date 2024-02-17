@@ -7,7 +7,7 @@ namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
 
 public class ChannelDomainEventHandler : DomainEventHandlerBase,
     //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
-    ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelInviteExportedEvent>,
+    //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelInviteExportedEvent>,
     //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, StartInviteToChannelEvent>,
     ISubscribeSynchronousTo<ChannelAggregate, ChannelId, SetDiscussionGroupEvent>,
     ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>,
@@ -21,14 +21,21 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
     ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
     ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
     ISubscribeSynchronousTo<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent>,
-    ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelInviteEditedEvent>
+    //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelInviteEditedEvent>
+    ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelColorUpdatedEvent>,
+    ISubscribeSynchronousTo<ChatInviteAggregate, ChatInviteId, ChatInviteCreatedEvent>,
+    ISubscribeSynchronousTo<ChatInviteAggregate, ChatInviteId, ChatInviteEditedEvent>,
+    ISubscribeSynchronousTo<ChatInviteAggregate, ChatInviteId, ChatInviteImportedEvent>,
+    ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent>,
+    ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent>
 {
     //private readonly ITlChatConverter _chatConverter;
     private readonly IChatEventCacheHelper _chatEventCacheHelper;
-    private readonly IQueryProcessor _queryProcessor;
+    private readonly IChatInviteLinkHelper _chatInviteLinkHelper;
     private readonly ILayeredService<IChatConverter> _chatLayeredService;
-    private readonly IPhotoAppService _photoAppService;
     private readonly IOptions<MyTelegramMessengerServerOptions> _options;
+    private readonly IPhotoAppService _photoAppService;
+    private readonly IQueryProcessor _queryProcessor;
     private readonly ILayeredService<IUpdatesConverter> _updateLayeredService;
 
     public ChannelDomainEventHandler(IObjectMessageSender objectMessageSender,
@@ -38,7 +45,9 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         IResponseCacheAppService responseCacheAppService,
         IChatEventCacheHelper chatEventCacheHelper,
         IQueryProcessor queryProcessor,
-        ILayeredService<IChatConverter> chatLayeredService, IPhotoAppService photoAppService, IOptions<MyTelegramMessengerServerOptions> options, ILayeredService<IUpdatesConverter> updateLayeredService) : base(objectMessageSender,
+        ILayeredService<IChatConverter> chatLayeredService, IPhotoAppService photoAppService,
+        IOptions<MyTelegramMessengerServerOptions> options, ILayeredService<IUpdatesConverter> updateLayeredService,
+        IChatInviteLinkHelper chatInviteLinkHelper) : base(objectMessageSender,
         commandBus,
         idGenerator,
         ackCacheService,
@@ -50,6 +59,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         _photoAppService = photoAppService;
         _options = options;
         _updateLayeredService = updateLayeredService;
+        _chatInviteLinkHelper = chatInviteLinkHelper;
         //_chatConverter = chatConverter;
     }
 
@@ -66,16 +76,19 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
     {
         await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo,
                 domainEvent.AggregateEvent.ChannelId)
-     ;
+            ;
     }
 
-    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent> domainEvent,
+    public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelColorUpdatedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        _chatEventCacheHelper.Add(domainEvent.AggregateEvent);
-        return Task.CompletedTask;
+        var item = await GetChannelAsync(domainEvent.AggregateEvent.ChannelId);
+        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo, domainEvent.AggregateEvent.ChannelId,
+            0,
+            item.Item1,
+            item.Item2
+        );
     }
-
     public async Task HandleAsync(
         IDomainEvent<ChannelAggregate, ChannelId, ChannelDefaultBannedRightsEditedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -86,7 +99,8 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
     public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelTitleEditedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo with { ReqMsgId = 0 }, domainEvent.AggregateEvent.ChannelId);
+        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo with { ReqMsgId = 0 },
+            domainEvent.AggregateEvent.ChannelId);
     }
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent> domainEvent,
@@ -95,13 +109,51 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, new TBoolTrue());
     }
 
-    public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelInviteExportedEvent> domainEvent,
+    public async Task HandleAsync(
+        IDomainEvent<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        var data = _chatLayeredService.GetConverter(domainEvent.AggregateEvent.RequestInfo.Layer).ToExportedChatInvite(domainEvent.AggregateEvent);
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
-            data
-        );
+        // We should notify all channel admins to approve the request after chatInvites imported 
+        var update = new TUpdatePendingJoinRequests
+        {
+            Peer = new TPeerChannel
+            {
+                ChannelId = domainEvent.AggregateEvent.ChannelId
+            },
+            RequestsPending = domainEvent.AggregateEvent.RequestsPending ?? 0,
+            RecentRequesters = new TVector<long>(domainEvent.AggregateEvent.RecentRequesters)
+        };
+
+        var updates = new TUpdates
+        {
+            Updates = new TVector<IUpdate>(update),
+            Chats = new TVector<IChat>(),
+            Date = DateTime.UtcNow.ToTimestamp(),
+            Users = new TVector<IUser>()
+        };
+
+        foreach (var userId in domainEvent.AggregateEvent.ChannelAdmins)
+        {
+            await SendMessageToPeerAsync(new Peer(PeerType.User, userId), updates);
+        }
+    }
+
+    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        var update = new TUpdateChannel
+        {
+            ChannelId = domainEvent.AggregateEvent.ChannelId
+        };
+        var updates = new TUpdates
+        {
+            Chats = new TVector<IChat>(),
+            Date = DateTime.UtcNow.ToTimestamp(),
+            Updates = new TVector<IUpdate>(update),
+            Users = new TVector<IUser>()
+        };
+
+        return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, updates);
     }
 
     public async Task HandleAsync(
@@ -122,13 +174,6 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         CancellationToken cancellationToken)
     {
         await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo, domainEvent.AggregateEvent.ChannelId);
-    }
-
-    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        _chatEventCacheHelper.Add(domainEvent.AggregateEvent);
-        return Task.CompletedTask;
     }
 
     public Task HandleAsync(
@@ -155,8 +200,8 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
                     domainEvent.AggregateEvent.MemberUserId,
                     channelReadModel,
                     photoReadModel,
-                null,
-                false)),
+                    null,
+                    false)),
             Date = domainEvent.AggregateEvent.Date,
             Seq = 0,
             Users = new TVector<IUser>(),
@@ -164,7 +209,8 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         };
 
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, updates);
-        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo with { ReqMsgId = 0 }, domainEvent.AggregateEvent.ChannelId);
+        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo with { ReqMsgId = 0 },
+            domainEvent.AggregateEvent.ChannelId);
     }
 
     public Task HandleAsync(
@@ -176,7 +222,64 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
             domainEvent.AggregateEvent.MemberUserId);
     }
 
-    public async Task HandleAsync(IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
+    public Task HandleAsync(IDomainEvent<ChatInviteAggregate, ChatInviteId, ChatInviteCreatedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        var data = _chatLayeredService.GetConverter(domainEvent.AggregateEvent.RequestInfo.Layer)
+            .ToExportedChatInvite(domainEvent.AggregateEvent);
+        return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, data);
+    }
+
+    public Task HandleAsync(IDomainEvent<ChatInviteAggregate, ChatInviteId, ChatInviteEditedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        var exportedChatInvite = _chatLayeredService.GetConverter(domainEvent.AggregateEvent.RequestInfo.Layer)
+            .ToExportedChatInvite(domainEvent.AggregateEvent);
+
+        return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, exportedChatInvite);
+    }
+
+    public async Task HandleAsync(IDomainEvent<ChatInviteAggregate, ChatInviteId, ChatInviteImportedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        if (domainEvent.AggregateEvent.ChatInviteRequestState == ChatInviteRequestState.NeedApprove)
+        {
+            var rpcError = new TRpcError
+            {
+                ErrorCode = RpcErrors.RpcErrors400.InviteRequestSent.ErrorCode,
+                ErrorMessage = RpcErrors.RpcErrors400.InviteRequestSent.Message
+            };
+
+            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, rpcError);
+
+            //// We should notify all channel admins to approve the request after chatInvites imported 
+            //var update = new TUpdatePendingJoinRequests
+            //{
+            //    Peer = new TPeerChannel
+            //    {
+            //        ChannelId = domainEvent.AggregateEvent.ChannelId,
+            //    },
+            //    RequestsPending = domainEvent.AggregateEvent.RequestsPending ?? 0,
+            //    RecentRequesters = new TVector<long>(domainEvent.AggregateEvent.RecentRequesters)
+            //};
+
+            //var updates = new TUpdates
+            //{
+            //    Updates = new TVector<IUpdate>(update),
+            //    Chats = new(),
+            //    Date = DateTime.UtcNow.ToTimestamp(),
+            //    Users = new()
+            //};
+
+            //foreach (var userId in domainEvent.AggregateEvent.ChatAdmins)
+            //{
+            //    await SendMessageToPeerAsync(new Peer(PeerType.User, userId), updates);
+            //}
+        }
+    }
+
+    public async Task HandleAsync(
+        IDomainEvent<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
         if (domainEvent.AggregateEvent.Broadcast)
@@ -186,7 +289,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
                 Date = DateTime.UtcNow.ToTimestamp(),
                 Update = new TUpdateChannel
                 {
-                    ChannelId = domainEvent.AggregateEvent.ChannelId,
+                    ChannelId = domainEvent.AggregateEvent.ChannelId
                 }
             };
             await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, updates);
@@ -202,15 +305,31 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
                     item.Item1,
                     item.Item2,
                     inviteToChannelDefaultPts
-                    );
+                );
             }
         }
+    }
+
+    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        _chatEventCacheHelper.Add(domainEvent.AggregateEvent);
+        return Task.CompletedTask;
+    }
+
+    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        _chatEventCacheHelper.Add(domainEvent.AggregateEvent);
+        return Task.CompletedTask;
     }
 
     private async Task<(IChannelReadModel, IPhotoReadModel?)> GetChannelAsync(long channelId)
     {
         var channelReadModel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(channelId));
-        var photoReadModel = channelReadModel.PhotoId.HasValue ? await _queryProcessor.ProcessAsync(new GetPhotoByIdQuery(channelReadModel.PhotoId.Value)) : null;
+        var photoReadModel = channelReadModel.PhotoId.HasValue
+            ? await _queryProcessor.ProcessAsync(new GetPhotoByIdQuery(channelReadModel.PhotoId.Value))
+            : null;
 
         return (channelReadModel, photoReadModel);
     }
@@ -222,7 +341,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
         IChannelReadModel? channelReadModel = null,
         IPhotoReadModel? channelPhotoReadModel = null,
         int pts = 0
-        )
+    )
     {
         if (channelReadModel == null)
         {
@@ -235,7 +354,7 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
             .ToChannelUpdates(memberUserId, channelReadModel, channelPhotoReadModel);
 
         var layeredUpdates = _updateLayeredService.GetLayeredData(c =>
-              c.ToChannelUpdates(memberUserId, channelReadModel, channelPhotoReadModel));
+            c.ToChannelUpdates(memberUserId, channelReadModel, channelPhotoReadModel));
 
         await SendRpcMessageToClientAsync(requestInfo, updates);
         if (memberUserId != 0)
@@ -252,29 +371,5 @@ public class ChannelDomainEventHandler : DomainEventHandlerBase,
                 //channelId, 
                 updates);
         }
-    }
-
-    public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelInviteEditedEvent> domainEvent, CancellationToken cancellationToken)
-    {
-        var exportedChatInvite = new TExportedChatInvite
-        {
-            Invite = new Schema.TChatInviteExported
-            {
-                RequestNeeded = domainEvent.AggregateEvent.RequestNeeded,
-                Link = $"{_options.Value.JoinChatDomain}/+{domainEvent.AggregateEvent.Link}",
-                AdminId = domainEvent.AggregateEvent.AdminId,
-                Date = DateTime.UtcNow.ToTimestamp(),
-                StartDate = domainEvent.AggregateEvent.StartDate,
-                ExpireDate = domainEvent.AggregateEvent.ExpireDate,
-                Permanent = domainEvent.AggregateEvent.Permanent,
-                Requested = domainEvent.AggregateEvent.Requested,
-                Revoked = domainEvent.AggregateEvent.Revoke,
-                Title = domainEvent.AggregateEvent.Title,
-                UsageLimit = domainEvent.AggregateEvent.UsageLimit,
-                Usage = domainEvent.AggregateEvent.Usage,
-            },
-            Users = new()
-        };
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, exportedChatInvite);
     }
 }

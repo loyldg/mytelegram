@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getDefaultEmojiStatuses" />
 ///</summary>
 internal sealed class GetDefaultEmojiStatusesHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetDefaultEmojiStatuses, MyTelegram.Schema.Account.IEmojiStatuses>,
-    Account.IGetDefaultEmojiStatusesHandler, IProcessedHandler
+    Account.IGetDefaultEmojiStatusesHandler
 {
     protected override Task<MyTelegram.Schema.Account.IEmojiStatuses> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetDefaultEmojiStatuses obj)

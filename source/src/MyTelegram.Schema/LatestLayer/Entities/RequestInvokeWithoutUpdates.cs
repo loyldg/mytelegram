@@ -8,7 +8,7 @@ namespace MyTelegram.Schema;
 /// See <a href="https://corefork.telegram.org/method/invokeWithoutUpdates" />
 ///</summary>
 [TlObject(0xbf9459b7)]
-public sealed class RequestInvokeWithoutUpdates : IRequest<IObject>
+public sealed class RequestInvokeWithoutUpdates : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xbf9459b7;
     ///<summary>

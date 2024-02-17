@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getContentSettings" />
 ///</summary>
 internal sealed class GetContentSettingsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetContentSettings, MyTelegram.Schema.Account.IContentSettings>,
-    Account.IGetContentSettingsHandler, IProcessedHandler
+    Account.IGetContentSettingsHandler
 {
     private readonly IQueryProcessor _queryProcessor;
 

@@ -17,8 +17,7 @@ public static class MyReflectionHelper
     }
 
     public static Func<TInterfaceParameter, TResult> CompileConstructor<TInterfaceParameter, TResult>(
-        Type typeOfTInterfaceParameterImpl,
-        Type typeOfTResult)
+        Type typeOfTInterfaceParameterImpl, Type typeOfTResult)
     {
         var constructor = typeOfTResult.GetConstructor(new[] { typeOfTInterfaceParameterImpl });
         ArgumentNullException.ThrowIfNull(constructor);
@@ -28,6 +27,7 @@ public static class MyReflectionHelper
         var lambda = Expression.Lambda<Func<TInterfaceParameter, TResult>>(body, parameter);
         return lambda.Compile();
     }
+
 
     public static Func<T1, TResult> CompileConstructor<T1, TResult>()
     {
@@ -55,8 +55,7 @@ public static class MyReflectionHelper
         return method;
     }
 
-    public static Func<object, TResult> CompileConstructor<TResult>(Type typeOfTResult,
-        Type typeOfT1)
+    public static Func<object, TResult> CompileConstructor<TResult>(Type typeOfTResult, Type typeOfT1)
     {
         var constructorArgumentTypes = new[] { typeOfT1 };
         var parameters = constructorArgumentTypes.Select(_ => Expression.Parameter(typeof(object))).ToArray();
@@ -72,8 +71,7 @@ public static class MyReflectionHelper
         return method;
     }
 
-    public static Func<object, object, TResult> CompileConstructor<TResult>(Type typeOfTResult,
-        Type typeOfT1,
+    public static Func<object, object, TResult> CompileConstructor<TResult>(Type typeOfTResult, Type typeOfT1,
         Type typeOfT2)
     {
         var constructorArgumentTypes = new[] { typeOfT1, typeOfT2 };
@@ -91,10 +89,8 @@ public static class MyReflectionHelper
         return method;
     }
 
-    public static Func<object, object, object, TResult> CompileConstructor<TResult>(Type typeOfTResult,
-        Type typeOfT1,
-        Type typeOfT2,
-        Type typeOfT3)
+    public static Func<object, object, object, TResult> CompileConstructor<TResult>(Type typeOfTResult, Type typeOfT1,
+        Type typeOfT2, Type typeOfT3)
     {
         var constructorArgumentTypes = new[] { typeOfT1, typeOfT2, typeOfT3 };
         var parameters = constructorArgumentTypes.Select(_ => Expression.Parameter(typeof(object))).ToArray();
@@ -116,10 +112,7 @@ public static class MyReflectionHelper
     }
 
     public static Func<object, object, object, object, TResult> CompileConstructor<TResult>(Type typeOfTResult,
-        Type typeOfT1,
-        Type typeOfT2,
-        Type typeOfT3,
-        Type typeOfT4)
+        Type typeOfT1, Type typeOfT2, Type typeOfT3, Type typeOfT4)
     {
         var constructorArgumentTypes = new[] { typeOfT1, typeOfT2, typeOfT3, typeOfT4 };
         var parameters = constructorArgumentTypes.Select(_ => Expression.Parameter(typeof(object))).ToArray();
@@ -141,8 +134,7 @@ public static class MyReflectionHelper
         return method;
     }
 
-    public static Func<T1, T2, TResult> CompileConstructor<T1, T2, TResult>(Type typeOfTResult,
-        Type typeOfT1,
+    public static Func<T1, T2, TResult> CompileConstructor<T1, T2, TResult>(Type typeOfTResult, Type typeOfT1,
         Type typeOfT2)
     {
         var inputArgumentTypes = new[] { typeof(T1), typeof(T2) };

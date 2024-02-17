@@ -17,10 +17,27 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new ChannelColorUpdatedEvent(requestInfo, _state.ChannelId, color, backgroundEmojiId, forProfile));
     }
 
-    //private void CheckBannedRights(long selfUserId,
-    //    bool bannedRights,
-    //    bool? adminRights,
-    //    string error)
+
+
+    public void HideChatJoinRequest(RequestInfo requestInfo, long userId, bool approved)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        CheckAdminRights(requestInfo, rights => rights.InviteUsers);
+
+        var recentRequesters = _state.RecentRequesters ?? new();
+        var requestsPending = _state.RequestsPending ?? 0;
+
+        if (recentRequesters.Contains(userId))
+        {
+            recentRequesters.Remove(userId);
+            requestsPending--;
+        }
+
+        //Emit(new JoinRequestHiddenEvent(requestInfo, _state.ChannelId, inviteId, hash, approved, userId, recentRequesters,
+        //    requestsPending, date));
+
+        Emit(new ChatJoinRequestHiddenEvent(requestInfo, _state.ChannelId, userId, approved, requestsPending, recentRequesters));
+    }
     //{
     //    if (_state.CreatorId != selfUserId)
     //    {
@@ -35,6 +52,27 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     //        }
     //    }
     //}
+    public void UpdateChatInviteRequestPending(long requestUserId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var recentRequesters = _state.RecentRequesters ?? new();
+        var requestsPending = _state.RequestsPending;
+        if (!recentRequesters.Contains(requestUserId))
+        {
+            recentRequesters.Add(requestUserId);
+
+            if (recentRequesters.Count > MyTelegramServerDomainConsts.ChatInviteRecentRequesterMaxCount)
+            {
+                recentRequesters.RemoveAt(0);
+            }
+
+            requestsPending ??= 0;
+            requestsPending++;
+
+            Emit(new ChatInviteRequestPendingUpdatedEvent(_state.ChannelId, _state.ChatAdmins.Select(p => p.Key).ToList(), recentRequesters, requestsPending));
+        }
+
+    }
 
     public void CheckChannelState(
         RequestInfo requestInfo,
@@ -276,44 +314,6 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             randomId));
     }
 
-    public void ExportChatInvite(RequestInfo requestInfo,
-        long adminId,
-        long inviteId,
-        string? title,
-        bool requestNeeded,
-        int? expireDate,
-        int? usageLimit,
-        string link,
-        int date
-    )
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        //if (_state.CreatorId != adminId)
-        //{
-        //    ThrowHelper.ThrowUserFriendlyException("Only admin can export chat invite");
-        //}
-        var admin = _state.GetAdmin(requestInfo.UserId);
-        if (admin == null)
-        {
-            //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatAdminRequired);
-            RpcErrors.RpcErrors403.ChatAdminRequired.ThrowRpcError();
-        }
-
-        Emit(new ChannelInviteExportedEvent(requestInfo,
-            _state.ChannelId,
-            adminId,
-            inviteId,
-            title,
-            requestNeeded,
-            expireDate,
-            usageLimit,
-            false,
-            link,
-            !_state.IsFirstChatInviteCreated,
-            date,
-            date));
-    }
-
     public void IncrementParticipantCount()
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -384,9 +384,9 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     public void StartInviteToChannel(RequestInfo requestInfo,
         long inviterId,
         int maxMessageId,
-        IReadOnlyList<long> memberUidList,
+        IReadOnlyList<long> memberUserIdList,
         IReadOnlyList<long>? privacyRestrictedUserId,
-        IReadOnlyList<long> botUidList,
+        IReadOnlyList<long> botUserIdList,
         int date,
         long randomId,
         string messageActionData)
@@ -394,7 +394,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
 
         // self join channel
-        if (memberUidList.Count == 1 && memberUidList.ElementAt(0) == inviterId)
+        if (memberUserIdList.Count == 1 && memberUserIdList.ElementAt(0) == inviterId)
         {
         }
         else
@@ -411,9 +411,9 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new StartInviteToChannelEvent(requestInfo,
             _state.ChannelId,
             inviterId,
-            memberUidList,
+            memberUserIdList,
             privacyRestrictedUserId,
-            botUidList,
+            botUserIdList,
             date,
             //_state.MaxMessageId,
             maxMessageId,

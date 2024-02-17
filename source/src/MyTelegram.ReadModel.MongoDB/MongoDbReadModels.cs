@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-
-namespace MyTelegram.ReadModel.MongoDB;
+﻿namespace MyTelegram.ReadModel.MongoDB;
 
 public class AppCodeReadModel : Impl.AppCodeReadModel, IMongoDbReadModel
 {
@@ -102,20 +100,20 @@ public class AccessHashReadModel : Impl.AccessHashReadModel, IMongoDbReadModel
 
 public class PhotoReadModel : Impl.PhotoReadModel, IMongoDbReadModel
 {
-
 }
 
 public class ChatAdminReadModel : Impl.ChatAdminReadModel, IMongoDbReadModel
 {
-
 }
 
 public class PeerSettingsReadModel : Impl.PeerSettingsReadModel, IMongoDbReadModel
 {
-
 }
 
 public class UpdatesReadModel : Impl.UpdatesReadModel, IMongoDbReadModel
 {
+}
 
+public class ChatInviteImporterReadModel : Impl.ChatInviteImporterReadModel, IMongoDbReadModel
+{
 }

@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getDefaultProfilePhotoEmojis" />
 ///</summary>
 internal sealed class GetDefaultProfilePhotoEmojisHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetDefaultProfilePhotoEmojis, MyTelegram.Schema.IEmojiList>,
-    Account.IGetDefaultProfilePhotoEmojisHandler, IProcessedHandler
+    Account.IGetDefaultProfilePhotoEmojisHandler
 {
     protected override Task<MyTelegram.Schema.IEmojiList> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetDefaultProfilePhotoEmojis obj)

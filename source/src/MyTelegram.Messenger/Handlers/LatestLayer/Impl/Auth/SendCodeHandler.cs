@@ -20,7 +20,7 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.sendCode" />
 ///</summary>
 internal sealed class SendCodeHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestSendCode, MyTelegram.Schema.Auth.ISentCode>,
-    Auth.ISendCodeHandler, IProcessedHandler
+    Auth.ISendCodeHandler
 {
     private readonly ICommandBus _commandBus;
     private readonly IPeerHelper _peerHelper;

@@ -13,7 +13,7 @@ namespace MyTelegram.Handlers.Messages.LayerN;
 /// See <a href="https://corefork.telegram.org/method/messages.getStickerSet" />
 ///</summary>
 internal sealed class GetStickerSetHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.LayerN.RequestGetStickerSet, MyTelegram.Schema.Messages.IStickerSet>,
-    Messages.LayerN.IGetStickerSetHandler, IProcessedHandler
+    Messages.LayerN.IGetStickerSetHandler
 {
     protected override async Task<MyTelegram.Schema.Messages.IStickerSet> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.LayerN.RequestGetStickerSet obj)

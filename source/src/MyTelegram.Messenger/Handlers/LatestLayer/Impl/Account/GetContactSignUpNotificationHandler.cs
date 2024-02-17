@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getContactSignUpNotification" />
 ///</summary>
 internal sealed class GetContactSignUpNotificationHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetContactSignUpNotification, IBool>,
-    Account.IGetContactSignUpNotificationHandler, IProcessedHandler
+    Account.IGetContactSignUpNotificationHandler
 {
     private readonly IQueryProcessor _queryProcessor;
 

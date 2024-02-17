@@ -15,7 +15,7 @@ namespace MyTelegram.Schema;
 /// See <a href="https://corefork.telegram.org/method/invokeWithLayer" />
 ///</summary>
 [TlObject(0xda9b0d0d)]
-public sealed class RequestInvokeWithLayer : IRequest<IObject>
+public sealed class RequestInvokeWithLayer : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xda9b0d0d;
     ///<summary>

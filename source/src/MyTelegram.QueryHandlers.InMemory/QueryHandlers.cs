@@ -166,13 +166,13 @@ public class GetChannelIdListByUidQueryHandler : MyQueryHandler<ChannelMemberRea
 }
 
 public class GetChannelMemberByUidQueryHandler : MyQueryHandler<ChannelMemberReadModel>,
-    IQueryHandler<GetChannelMemberByUidQuery, IChannelMemberReadModel?>
+    IQueryHandler<GetChannelMemberByUserIdQuery, IChannelMemberReadModel?>
 {
     public GetChannelMemberByUidQueryHandler(IMyInMemoryReadStore<ChannelMemberReadModel> store) : base(store)
     {
     }
 
-    public async Task<IChannelMemberReadModel?> ExecuteQueryAsync(GetChannelMemberByUidQuery query,
+    public async Task<IChannelMemberReadModel?> ExecuteQueryAsync(GetChannelMemberByUserIdQuery query,
         CancellationToken cancellationToken)
     {
         var id = ChannelMemberId.Create(query.ChannelId, query.UserId).Value;

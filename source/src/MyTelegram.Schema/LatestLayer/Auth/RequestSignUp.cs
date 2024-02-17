@@ -17,10 +17,13 @@ namespace MyTelegram.Schema.Auth;
 /// 400 PHONE_NUMBER_OCCUPIED The phone number is already in use.
 /// See <a href="https://corefork.telegram.org/method/auth.signUp" />
 ///</summary>
-[TlObject(0x80eee427)]
+[TlObject(0xaac7b717)]
 public sealed class RequestSignUp : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
-    public uint ConstructorId => 0x80eee427;
+    public uint ConstructorId => 0xaac7b717;
+    public BitArray Flags { get; set; } = new BitArray(32);
+    public bool NoJoinedNotifications { get; set; }
+
     ///<summary>
     /// Phone number in the international format
     ///</summary>
@@ -43,6 +46,7 @@ public sealed class RequestSignUp : IRequest<MyTelegram.Schema.Auth.IAuthorizati
 
     public void ComputeFlag()
     {
+        if (NoJoinedNotifications) { Flags[0] = true; }
 
     }
 
@@ -50,6 +54,7 @@ public sealed class RequestSignUp : IRequest<MyTelegram.Schema.Auth.IAuthorizati
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(PhoneNumber);
         writer.Write(PhoneCodeHash);
         writer.Write(FirstName);
@@ -58,6 +63,8 @@ public sealed class RequestSignUp : IRequest<MyTelegram.Schema.Auth.IAuthorizati
 
     public void Deserialize(ref SequenceReader<byte> reader)
     {
+        Flags = reader.ReadBitArray();
+        if (Flags[0]) { NoJoinedNotifications = true; }
         PhoneNumber = reader.ReadString();
         PhoneCodeHash = reader.ReadString();
         FirstName = reader.ReadString();

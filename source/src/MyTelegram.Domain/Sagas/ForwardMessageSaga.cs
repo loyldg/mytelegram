@@ -88,7 +88,10 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             //senderPeer=new Peer(PeerType.Channel,_state.)
         }
         // TODO:Set fromName
-        var fwdHeader = new MessageFwdHeader(fromId,
+        var fwdHeader = new MessageFwdHeader(
+            false,
+            false,
+            fromId,
             null,
             channelPost,
             //aggregateEvent.PostAuthor,
@@ -96,7 +99,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             //aggregateEvent.Date,
             DateTime.UtcNow.ToTimestamp(),
             savedFromPeer,
-            savedFromMsgId);
+            savedFromMsgId, null, null, null, null);
 
         outMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, ownerPeerId);
         //var aggregateId = MessageId.CreateWithRandomId(ownerPeerId, aggregateEvent.RandomId);

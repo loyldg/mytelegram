@@ -55,7 +55,7 @@ internal sealed class GetChannelDifferenceHandler : RpcResultObjectHandler<MyTel
         {
             var isChannelMember = true;
             var channelMemberReadModel = await _queryProcessor
-                .ProcessAsync(new GetChannelMemberByUidQuery(inputChannel.ChannelId, input.UserId), default)
+                .ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, input.UserId), default)
          ;
             isChannelMember = channelMemberReadModel != null;
 

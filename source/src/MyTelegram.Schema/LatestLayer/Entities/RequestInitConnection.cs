@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// See <a href="https://corefork.telegram.org/method/initConnection" />
 ///</summary>
 [TlObject(0xc1cd5ea9)]
-public sealed class RequestInitConnection : IRequest<IObject>
+public sealed class RequestInitConnection : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xc1cd5ea9;
     ///<summary>

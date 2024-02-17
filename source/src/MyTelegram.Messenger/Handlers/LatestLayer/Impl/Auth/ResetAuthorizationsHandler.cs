@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.resetAuthorizations" />
 ///</summary>
 internal sealed class ResetAuthorizationsHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestResetAuthorizations, IBool>,
-    Auth.IResetAuthorizationsHandler, IProcessedHandler
+    Auth.IResetAuthorizationsHandler
 {
     private readonly IEventBus _eventBus;
     private readonly IObjectMessageSender _messageSender;

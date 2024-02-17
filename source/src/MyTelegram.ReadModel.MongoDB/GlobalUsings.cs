@@ -22,5 +22,6 @@ global using MyTelegram.Domain.Aggregates.PushDevice;
 global using MyTelegram.Domain.Aggregates.PushUpdates;
 global using MyTelegram.Domain.Aggregates.RpcResult;
 global using MyTelegram.Domain.Aggregates.UserName;
+global using MyTelegram.Domain.Aggregates.ChatInvite;
 global using MyTelegram.ReadModel.Impl;
 global using MyTelegram.EventFlow.MongoDB;

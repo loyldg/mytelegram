@@ -6,7 +6,7 @@ namespace MyTelegram.Handlers.Messages;
 /// See <a href="https://corefork.telegram.org/method/messages.getSavedHistory" />
 ///</summary>
 internal sealed class GetSavedHistoryHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetSavedHistory, MyTelegram.Schema.Messages.IMessages>,
-    Messages.IGetSavedHistoryHandler, IProcessedHandler
+    Messages.IGetSavedHistoryHandler
 {
     protected override Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetSavedHistory obj)

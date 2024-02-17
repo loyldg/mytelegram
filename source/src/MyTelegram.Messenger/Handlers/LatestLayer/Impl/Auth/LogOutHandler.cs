@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Auth;
 /// See <a href="https://corefork.telegram.org/method/auth.logOut" />
 ///</summary>
 internal sealed class LogOutHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestLogOut, MyTelegram.Schema.Auth.ILoggedOut>,
-    Auth.ILogOutHandler, IProcessedHandler
+    Auth.ILogOutHandler
 {
     private readonly IOptionsMonitor<MyTelegramMessengerServerOptions> _options;
     private readonly ICacheManager<FutureAuthTokenCacheItem> _cacheManager;
@@ -33,7 +33,7 @@ internal sealed class LogOutHandler : RpcResultObjectHandler<MyTelegram.Schema.A
             var futureAuthTokenBytes = new byte[64];
             _randomHelper.NextBytes(futureAuthTokenBytes);
             var authTokenId = BitConverter.ToString(_hashHelper.Sha1(futureAuthTokenBytes)).Replace("-", string.Empty);
-            var cacheKey =FutureAuthTokenCacheItem.GetCacheKey(authTokenId);
+            var cacheKey = FutureAuthTokenCacheItem.GetCacheKey(authTokenId);
             await _cacheManager.SetAsync(cacheKey, new FutureAuthTokenCacheItem(input.UserId, authTokenId), (int)TimeSpan.FromDays(_futureAuthTokenExpirationDays).TotalSeconds);
             r.FutureAuthToken = futureAuthTokenBytes;
         }

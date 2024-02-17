@@ -1,8 +1,5 @@
 ﻿// ReSharper disable StringLiteralTypo
 
-using System.Buffers;
-using MyTelegram.Schema.Extensions;
-
 namespace MyTelegram.Schema.Serializer;
 
 public class BytesSerializerTests

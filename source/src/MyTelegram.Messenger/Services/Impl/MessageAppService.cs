@@ -136,7 +136,7 @@ public class MessageAppService : BaseAppService, IMessageAppService
         }
 
         var channelMemberReadModel =
-            await _queryProcessor.ProcessAsync(new GetChannelMemberByUidQuery(channelReadModel.ChannelId,
+            await _queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel.ChannelId,
                 input.SenderPeerId), default);
 
         if (channelMemberReadModel == null)

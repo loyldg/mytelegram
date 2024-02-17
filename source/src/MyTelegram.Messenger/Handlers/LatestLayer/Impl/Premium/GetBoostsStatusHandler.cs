@@ -8,7 +8,7 @@ namespace MyTelegram.Handlers.Premium;
 /// See <a href="https://corefork.telegram.org/method/premium.getBoostsStatus" />
 ///</summary>
 internal sealed class GetBoostsStatusHandler : RpcResultObjectHandler<MyTelegram.Schema.Premium.RequestGetBoostsStatus, MyTelegram.Schema.Premium.IBoostsStatus>,
-    Premium.IGetBoostsStatusHandler, IProcessedHandler
+    Premium.IGetBoostsStatusHandler
 {
     protected override Task<MyTelegram.Schema.Premium.IBoostsStatus> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Premium.RequestGetBoostsStatus obj)

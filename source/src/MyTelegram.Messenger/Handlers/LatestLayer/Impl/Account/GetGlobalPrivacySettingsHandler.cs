@@ -7,7 +7,7 @@ namespace MyTelegram.Handlers.Account;
 /// See <a href="https://corefork.telegram.org/method/account.getGlobalPrivacySettings" />
 ///</summary>
 internal sealed class GetGlobalPrivacySettingsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetGlobalPrivacySettings, MyTelegram.Schema.IGlobalPrivacySettings>,
-    Account.IGetGlobalPrivacySettingsHandler, IProcessedHandler
+    Account.IGetGlobalPrivacySettingsHandler
 {
     private readonly IPrivacyAppService _privacyAppService;
     public GetGlobalPrivacySettingsHandler( IPrivacyAppService privacyAppService)

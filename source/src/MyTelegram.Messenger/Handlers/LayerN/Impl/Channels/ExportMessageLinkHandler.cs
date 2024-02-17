@@ -13,7 +13,7 @@ namespace MyTelegram.Handlers.Channels.LayerN;
 /// See <a href="https://corefork.telegram.org/method/channels.exportMessageLink" />
 ///</summary>
 internal sealed class ExportMessageLinkHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.LayerN.RequestExportMessageLink, IExportedMessageLink>,
-    Channels.LayerN.IExportMessageLinkHandler, IProcessedHandler
+    Channels.LayerN.IExportMessageLinkHandler
 {
     protected override Task<IExportedMessageLink> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.LayerN.RequestExportMessageLink obj)

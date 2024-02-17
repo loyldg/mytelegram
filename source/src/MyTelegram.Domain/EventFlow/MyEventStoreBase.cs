@@ -10,7 +10,7 @@ public class MyEventStoreBase : IEventStore
     private readonly ISnapshotStore _snapshotStore;
     private readonly IEventUpgradeManager _eventUpgradeManager;
     private readonly IReadOnlyCollection<IMetadataProvider> _metadataProviders;
-    private readonly INullEventPersistence _nullEventPersistence;
+    private readonly INullEventPersistence _nullEventPersistence; 
 
     public MyEventStoreBase(
         ILogger<MyEventStoreBase> logger,

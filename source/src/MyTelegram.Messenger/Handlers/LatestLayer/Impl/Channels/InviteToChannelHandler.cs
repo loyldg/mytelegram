@@ -108,7 +108,9 @@ internal sealed class InviteToChannelHandler : RpcResultObjectHandler<MyTelegram
                 botList,
                 CurrentDate,
                 _randomHelper.NextLong(),
-                new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString());
+                new TMessageActionChatAddUser { Users = new TVector<long>(userIdList) }.ToBytes().ToHexString(),
+                ChatJoinType.InvitedByAdmin
+                );
             await _commandBus.PublishAsync(command, CancellationToken.None);
 
             return null!;

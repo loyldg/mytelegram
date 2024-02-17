@@ -133,8 +133,10 @@ public interface IChatConverter : ILayeredConverter, IHasRequestLayer
         IReadOnlyCollection<IPhotoReadModel>? photoReadModels);
     //IPhotoConverter photoConverter);
 
-    IExportedChatInvite ToExportedChatInvite(ChannelInviteExportedEvent eventData);
+    //IExportedChatInvite ToExportedChatInvite(ChannelInviteExportedEvent eventData);
 
+    IExportedChatInvite ToExportedChatInvite(ChatInviteCreatedEvent eventData);
+    MyTelegram.Schema.Messages.IExportedChatInvite ToExportedChatInvite(ChatInviteEditedEvent eventData);
     IUpdates ToInviteToChannelUpdates(IChannelReadModel channelReadModel,
         IPhotoReadModel? photoReadModel,
         //IChatPhoto chatPhoto,
