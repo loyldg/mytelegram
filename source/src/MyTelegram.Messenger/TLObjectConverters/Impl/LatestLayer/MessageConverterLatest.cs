@@ -143,6 +143,8 @@ public class MessageConverterLatest : LayeredConverterBase, IMessageConverterLat
                             m.Out = false;
                         }
                     }
+
+                    // Process existing data
                     if (editDate == 0)
                     {
                         m.EditDate = null;
@@ -334,6 +336,13 @@ public class MessageConverterLatest : LayeredConverterBase, IMessageConverterLat
                         ReplyMarkup = readModel.ReplyMarkup.ToTObject<IReplyMarkup>(),
                         SavedPeerId = readModel.SavedPeerId.ToPeer()
                     };
+
+                    // Process existing data
+                    if (readModel.EditDate == 0)
+                    {
+                        m.EditDate = null;
+                    }
+
                     if (pollReadModel != null)
                     {
                         m.Media = new TMessageMediaPoll
@@ -341,11 +350,6 @@ public class MessageConverterLatest : LayeredConverterBase, IMessageConverterLat
                             Poll = GetPollConverter().ToPoll(pollReadModel),
                             Results = GetPollConverter().ToPollResults(pollReadModel, chosenOptions ?? new List<string>())
                         };
-                    }
-
-                    if (readModel.EditDate == 0)
-                    {
-                        m.EditDate = null;
                     }
 
                     if (readModel.ToPeerType == PeerType.Channel)
