@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.ReadModel.Impl;
+﻿using MyTelegram.Schema.Extensions;
+
+namespace MyTelegram.ReadModel.Impl;
 
 public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageCreatedEvent>,
@@ -105,6 +107,7 @@ public class MessageReadModel : IMessageReadModel,
         PollId = messageItem.PollId;
         ReplyMarkup = messageItem.ReplyMarkup;
         ReplyTo = messageItem.InputReplyTo;
+        ReplyToMsgId = messageItem.InputReplyTo.ToReplyToMsgId();
 
         return Task.CompletedTask;
     }
@@ -139,6 +142,7 @@ public class MessageReadModel : IMessageReadModel,
         PollId = messageItem.PollId;
         ReplyMarkup = messageItem.ReplyMarkup;
         ReplyTo = messageItem.InputReplyTo;
+        ReplyToMsgId = messageItem.InputReplyTo.ToReplyToMsgId();
 
         return Task.CompletedTask;
     }
