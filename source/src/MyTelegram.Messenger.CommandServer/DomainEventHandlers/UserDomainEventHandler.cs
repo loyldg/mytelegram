@@ -28,6 +28,11 @@ public class UserDomainEventHandler :
             await _commandBus.PublishAsync(command, default);
         }
 
+        if (!_options.CurrentValue.SendWelcomeMessageAfterUserSignIn)
+        {
+            return;
+        }
+
         if (!domainEvent.AggregateEvent.Bot)
         {
             var welcomeMessage = "Welcome to use MyTelegram!";

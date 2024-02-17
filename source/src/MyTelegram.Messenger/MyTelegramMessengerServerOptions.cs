@@ -31,4 +31,5 @@ public class MyTelegramMessengerServerOptions
     public bool AutoCreateSuperGroup { get; set; }
     public bool EnableFutureAuthToken { get; set; }
     public bool SetPremiumToTrueAfterUserCreated { get; set; }
+    public bool SendWelcomeMessageAfterUserSignIn { get; set; }
 }
