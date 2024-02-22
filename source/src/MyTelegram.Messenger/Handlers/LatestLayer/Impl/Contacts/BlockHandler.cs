@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Contacts;
 
@@ -16,7 +16,7 @@ internal sealed class BlockHandler : RpcResultObjectHandler<MyTelegram.Schema.Co
     Contacts.IBlockHandler
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Contacts.RequestBlock obj)
+        RequestBlock obj)
     {
         throw new NotImplementedException();
     }

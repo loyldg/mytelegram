@@ -24,6 +24,9 @@ public class ChatReadModel : Impl.ChatReadModel, IMongoDbReadModel
 {
 }
 
+public class ContactReadModel : Impl.ContactReadModel, IMongoDbReadModel
+{
+}
 public class DeviceReadModel : Impl.DeviceReadModel, IMongoDbReadModel
 {
 }
@@ -37,6 +40,10 @@ public class DialogReadModel : Impl.DialogReadModel, IMongoDbReadModel
 }
 
 public class DraftReadModel : Impl.DraftReadModel, IMongoDbReadModel
+{
+}
+
+public class ImportedContactReadModel : Impl.ImportedContactReadModel, IMongoDbReadModel
 {
 }
 

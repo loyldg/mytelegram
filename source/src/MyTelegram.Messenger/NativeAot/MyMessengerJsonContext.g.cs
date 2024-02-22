@@ -4,11 +4,13 @@ using System.Text.Json.Serialization;
 
 namespace MyTelegram.Messenger.NativeAot;
 
-// Generation time:2024-02-08 02:29:48Z
+// Generation time:2024-02-22 13:40:18Z
 // MyTelegram.Domain
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Channel.ChannelSnapshot))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Chat.ChatSnapshot))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.ChatInvite.ChatInviteSnapshot))]
+[JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Contact.ContactSnapshot))]
+[JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Contact.ImportedContactSnapshot))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogFilterDeletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogFilterUpdatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogSnapshot))]
@@ -76,6 +78,11 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Events.ChatInvite.ChatInviteDeletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.ChatInvite.ChatInviteEditedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.ChatInvite.ChatInviteImportedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.Contact.ContactAddedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.Contact.ContactDeletedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.Contact.ContactProfilePhotoChangedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.Contact.ContactsImportedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Events.Contact.SingleContactImportedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Device.BindUidToDeviceEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Device.DeviceAuthKeyUnRegisteredEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Events.Device.DeviceCreatedEvent))]
@@ -179,6 +186,9 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.EditOutboxMessageStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ForwardMessageSagaStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ForwardSingleMessageSuccessEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ImportContactsCompletedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ImportContactsSagaSingleContactImportedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.ImportContactsStartedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.InboxMessageDeletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.InboxMessageEditCompletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.Events.InviteToChannelCompletedEvent))]

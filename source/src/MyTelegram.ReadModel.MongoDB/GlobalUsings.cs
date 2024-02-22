@@ -12,6 +12,7 @@ global using MyTelegram.Domain.Aggregates.AppCode;
 //global using MyTelegram.Domain.Aggregates.Bot;
 global using MyTelegram.Domain.Aggregates.Channel;
 global using MyTelegram.Domain.Aggregates.Chat;
+global using MyTelegram.Domain.Aggregates.Contact;
 global using MyTelegram.Domain.Aggregates.Device;
 global using MyTelegram.Domain.Aggregates.Dialog;
 global using MyTelegram.Domain.Aggregates.Messaging;

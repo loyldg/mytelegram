@@ -4,5 +4,5 @@ namespace MyTelegram.Messenger.TLObjectConverters.Interfaces;
 
 public interface IPeerSettingsConverter : ILayeredConverter
 {
-    IPeerSettings ToPeerSettings(IPeerSettingsReadModel? readModel, bool isContact = false);
+    IPeerSettings ToPeerSettings(IPeerSettingsReadModel? readModel, ContactType? contactType);
 }

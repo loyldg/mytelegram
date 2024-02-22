@@ -15,7 +15,8 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
     ISubscribeSynchronousTo<DeleteMessageSaga2, DeleteMessageSaga2Id, DeleteMessagesCompletedEvent2>,
     ISubscribeSynchronousTo<ClearHistorySaga, ClearHistorySagaId, ClearSingleUserHistoryCompletedEvent>,
     ISubscribeSynchronousTo<DeleteParticipantHistorySaga, DeleteParticipantHistorySagaId, DeleteParticipantHistoryCompletedEvent>,
-    ISubscribeSynchronousTo<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent>
+    ISubscribeSynchronousTo<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent>,
+    ISubscribeSynchronousTo<UserAggregate, UserId, UserGlobalPrivacySettingsChangedEvent>
 {
     private readonly IObjectMessageSender _objectMessageSender;
     private readonly IEventBus _eventBus;
@@ -23,6 +24,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
     private readonly ILayeredService<IUpdatesConverter> _layeredUpdatesService;
     private readonly ILayeredService<IUserConverter> _layeredUserService;
     private readonly ILogger<OtherDomainEventHandler> _logger;
+    private readonly ICacheManager<GlobalPrivacySettingsCacheItem> _cacheManager;
     public OtherDomainEventHandler(IObjectMessageSender objectMessageSender,
         ICommandBus commandBus,
         IIdGenerator idGenerator,
@@ -32,7 +34,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
         ILogger<OtherDomainEventHandler> logger,
         ILayeredService<IUpdatesConverter> layeredUpdatesService,
         ILayeredService<IAuthorizationConverter> layeredAuthorizationService,
-        ILayeredService<IUserConverter> layeredUserService) : base(objectMessageSender,
+        ILayeredService<IUserConverter> layeredUserService, ICacheManager<GlobalPrivacySettingsCacheItem> cacheManager) : base(objectMessageSender,
         commandBus,
         idGenerator,
         ackCacheService,
@@ -44,6 +46,7 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
         _layeredUpdatesService = layeredUpdatesService;
         _layeredAuthorizationService = layeredAuthorizationService;
         _layeredUserService = layeredUserService;
+        _cacheManager = cacheManager;
     }
 
     public async Task HandleAsync(
@@ -380,5 +383,17 @@ public class OtherDomainEventHandler : DomainEventHandlerBase,
         var r = new TBoolTrue();
 
         return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, r);
+    }
+    public Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserGlobalPrivacySettingsChangedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        return _cacheManager.SetAsync(
+            GlobalPrivacySettingsCacheItem.GetCacheKey(domainEvent.AggregateEvent.RequestInfo.UserId),
+            new GlobalPrivacySettingsCacheItem(domainEvent.AggregateEvent.GlobalPrivacySettings.ArchiveAndMuteNewNoncontactPeers,
+                domainEvent.AggregateEvent.GlobalPrivacySettings.KeepArchivedUnmuted,
+                domainEvent.AggregateEvent.GlobalPrivacySettings.KeepArchivedFolders,
+                domainEvent.AggregateEvent.GlobalPrivacySettings.HideReadMarks,
+                domainEvent.AggregateEvent.GlobalPrivacySettings.NewNoncontactPeersRequirePremium
+                )
+        );
     }
 }

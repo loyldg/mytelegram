@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Contacts;
 
@@ -12,11 +12,10 @@ namespace MyTelegram.Handlers.Contacts;
 internal sealed class GetTopPeersHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestGetTopPeers, MyTelegram.Schema.Contacts.ITopPeers>,
     Contacts.IGetTopPeersHandler
 {
-    protected override Task<MyTelegram.Schema.Contacts.ITopPeers> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Contacts.RequestGetTopPeers obj)
+    protected override Task<ITopPeers> HandleCoreAsync(IRequestInput input,
+        RequestGetTopPeers obj)
     {
-        ITopPeers r = new TTopPeers
-        {
+        ITopPeers r = new TTopPeers {
             Categories = new TVector<ITopPeerCategoryPeers>(),
             Chats = new TVector<IChat>(),
             Users = new TVector<IUser>()

@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Contacts;
 
@@ -12,6 +12,6 @@ internal sealed class ToggleTopPeersHandler : RpcResultObjectHandler<MyTelegram.
     protected override Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Contacts.RequestToggleTopPeers obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IBool>(new TBoolTrue());
     }
 }

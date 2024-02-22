@@ -64,7 +64,7 @@ public class GetChannelByChannelIdListQuery : IQuery<IReadOnlyCollection<IChanne
     public IList<long> ChannelIdList { get; }
 }
 
-public class GetChannelByIdQuery : IQuery<IChannelReadModel>
+public class GetChannelByIdQuery : IQuery<IChannelReadModel?>
 {
     public GetChannelByIdQuery(long channelId)
     {
@@ -215,6 +215,29 @@ public class GetChatInvitesQuery : IQuery<IReadOnlyCollection<IChatInviteReadMod
     public bool Revoked { get; }
     public long PeerId { get; }
 }
+public record GetContactListQuery(long SelfUserId, List<long> TargetUserIdList) : IQuery<IReadOnlyCollection<IContactReadModel>>;
+public record GetContactListBySelfIdAndTargetUserIdQuery(long SelfUserId, long TargetUserId) : IQuery<IReadOnlyCollection<IContactReadModel>>;
+public class GetContactQuery : IQuery<IContactReadModel?>
+{
+    public GetContactQuery(long selfUserId,
+        long targetUid)
+    {
+        SelfUserId = selfUserId;
+        TargetUid = targetUid;
+    }
+    public long SelfUserId { get; }
+    public long TargetUid { get; }
+}
+public class GetContactsByUserIdQuery : IQuery<IReadOnlyCollection<IContactReadModel>>
+{
+    public GetContactsByUserIdQuery(long userId)
+    {
+        UserId = userId;
+    }
+    public long UserId { get; }
+}
+public record GetContactUserIdListQuery(long SelfUserId) : IQuery<IReadOnlyCollection<long>>;
+public record GetContactsByPhonesQuery(long SelfUserId, List<string> Phones) : IQuery<IReadOnlyCollection<IContactReadModel>>;
 
 public class GetDeviceByAuthKeyIdQuery : IQuery<IDeviceReadModel?>
 {
@@ -719,6 +742,17 @@ public class MessageView
     public int MessageId { get; set; }
     public int Views { get; set; }
 }
+public class SearchContactQuery : IQuery<IReadOnlyCollection<IContactReadModel>>
+{
+    public SearchContactQuery(long selfUserId,
+        string keyword)
+    {
+        SelfUserId = selfUserId;
+        Keyword = keyword;
+    }
+    public string Keyword { get; }
+    public long SelfUserId { get; }
+}
 
 public class SearchUserByKeywordQuery : IQuery<IReadOnlyCollection<IUserReadModel>>
 {
@@ -852,56 +886,6 @@ public record GetReplyToMsgIdListQuery(Peer ToPeer, long SelfUserId, int? ReplyT
 public record GetUserNameListByNamesQuery(List<string> UserNames, PeerType? PeerType = null) : IQuery<IReadOnlyCollection<IUserNameReadModel>>;
 public record GetPermanentChatInviteQuery(long PeerId) : IQuery<IChatInviteReadModel?>;
 public record GetChatAdminListByChannelIdQuery(long PeerId, int Skip, int Limit) : IQuery<IReadOnlyCollection<IChatAdminReadModel>>;
-public class GetContactListQuery : IQuery<IReadOnlyCollection<IContactReadModel>>
-{
-    public GetContactListQuery(long selfUserId,
-        List<long> targetUidList)
-    {
-        SelfUserId = selfUserId;
-        TargetUidList = targetUidList;
-    }
-
-    public long SelfUserId { get; }
-    public List<long> TargetUidList { get; }
-}
-
-public class GetContactQuery : IQuery<IContactReadModel?>
-{
-    public GetContactQuery(long selfUserId,
-        long targetUid)
-    {
-        SelfUserId = selfUserId;
-        TargetUid = targetUid;
-    }
-
-    public long SelfUserId { get; }
-    public long TargetUid { get; }
-}
-
-public class GetContactsByUidQuery : IQuery<IReadOnlyCollection<IContactReadModel>>
-{
-    public GetContactsByUidQuery(long userId)
-    {
-        UserId = userId;
-    }
-
-    public long UserId { get; }
-}
-
-public record GetContactUserIdListQuery(long SelfUserId) : IQuery<IReadOnlyCollection<long>>;
-public class SearchContactQuery : IQuery<IReadOnlyCollection<IContactReadModel>>
-{
-    public SearchContactQuery(long selfUserId,
-        string keyword)
-    {
-        SelfUserId = selfUserId;
-        Keyword = keyword;
-    }
-
-    public string Keyword { get; }
-
-    public long SelfUserId { get; }
-}
 
 public record GetUnreadCountQuery(long OwnerUserId, long ToPeerId, int MaxMessageId) : IQuery<int>;
 public record AdminWithInvites(long AdminId, int InvitesCount, int RevokedInvitesCount);

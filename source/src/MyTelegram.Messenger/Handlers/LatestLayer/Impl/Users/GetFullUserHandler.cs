@@ -54,8 +54,30 @@ internal sealed class GetFullUserHandler : RpcResultObjectHandler<MyTelegram.Sch
             RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
         }
 
-        var contactReadModel = await _queryProcessor
-            .ProcessAsync(new GetContactQuery(input.UserId, targetPeer.PeerId), CancellationToken.None);
+        var contactReadModels =
+            await _queryProcessor.ProcessAsync(
+                new GetContactListBySelfIdAndTargetUserIdQuery(input.UserId, targetPeer.PeerId));
+
+        //var contactReadModel = await _queryProcessor
+        //    .ProcessAsync(new GetContactQuery(input.UserId, targetPeer.PeerId));
+        var contactType = ContactType.None;
+
+        var contactReadModel = contactReadModels.FirstOrDefault(p =>
+            p.SelfUserId == input.UserId && p.TargetUserId == targetPeer.PeerId);
+        var contactReadModel2 =
+            contactReadModels.FirstOrDefault(p =>
+                p.SelfUserId == targetPeer.PeerId && p.TargetUserId == input.UserId);
+
+        if (contactReadModel2 != null)
+        {
+            contactType = ContactType.Unilateral;
+        }
+
+        if (contactReadModel != null && contactReadModel2 != null)
+        {
+            contactType = ContactType.Mutual;
+        }
+
         var privacies = await _privacyAppService.GetPrivacyListAsync(user!.UserId);
 
 
@@ -76,6 +98,7 @@ internal sealed class GetFullUserHandler : RpcResultObjectHandler<MyTelegram.Sch
             photos,
             bot,
             contactReadModel,
+            contactType,
             privacies);
     }
 }

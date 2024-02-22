@@ -2,9 +2,20 @@
 
 public class GetContactQueryHandler : IQueryHandler<GetContactQuery, IContactReadModel?>
 {
-    public Task<IContactReadModel?> ExecuteQueryAsync(GetContactQuery query,
+    private readonly IMongoDbReadModelStore<ContactReadModel> _store;
+
+    public GetContactQueryHandler(IMongoDbReadModelStore<ContactReadModel> store)
+    {
+        _store = store;
+    }
+
+    public async Task<IContactReadModel?> ExecuteQueryAsync(GetContactQuery query,
         CancellationToken cancellationToken)
     {
-        return Task.FromResult<IContactReadModel?>(null);
+        var item = await _store
+            .GetAsync(ContactId.Create(query.SelfUserId, query.TargetUid).Value, CancellationToken.None)
+     ;
+
+        return item.ReadModel;
     }
 }

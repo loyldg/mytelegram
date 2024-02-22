@@ -88,6 +88,7 @@ public class UserConverterLatest : UserConverterBase, IUserConverterLatest
         IReadOnlyCollection<IPhotoReadModel>? photos = null,
         IBotReadModel? bot = null,
         IContactReadModel? contactReadModel = null,
+        ContactType? contactType = null,
         IReadOnlyCollection<IPrivacyReadModel>? privacies = null
     )
     {
@@ -109,7 +110,7 @@ public class UserConverterLatest : UserConverterBase, IUserConverterLatest
         fullUser.NotifySettings = notifySettings;
         fullUser.Blocked = isBlocked;
         fullUser.Settings = _layeredPeerSettingsConverter.GetConverter(GetLayer())
-            .ToPeerSettings(peerSettingsReadModel, tUser.Contact);
+            .ToPeerSettings(peerSettingsReadModel, contactType);
 
 
         CallAfterUserFullCreated(user, tUser, fullUser);
@@ -137,7 +138,7 @@ public class UserConverterLatest : UserConverterBase, IUserConverterLatest
     )
     {
         var tUserList = new List<ILayeredUser>();
-        var contactDict = new Dictionary<long, IContactReadModel>();
+        var contactDict = contactList?.DistinctBy(p => p.TargetUserId).ToDictionary(k => k.TargetUserId, v => v);
         foreach (var user in userList)
         {
             IContactReadModel? contactReadModel = null;
@@ -240,28 +241,29 @@ public class UserConverterLatest : UserConverterBase, IUserConverterLatest
         if (contactReadModel != null)
         {
             layeredUser.Contact = true;
+            layeredUser.FirstName = contactReadModel.FirstName;
+            layeredUser.LastName = contactReadModel.LastName;
+
+            if (contactReadModel.PhotoId.HasValue)
+            {
+                var personalPhoto = photos?.FirstOrDefault(p => p.PhotoId == contactReadModel.PhotoId);
+
+                if (personalPhoto != null)
+                {
+                    layeredUser.Photo = GetPhotoConverter().ToProfilePhoto(personalPhoto);
+                    if (layeredUser.Photo is TUserProfilePhoto photo)
+                    {
+                        photo.Personal = true;
+                    }
+
+                    if (userFull != null)
+                    {
+                        userFull.PersonalPhoto = GetPhotoConverter().ToPhoto(personalPhoto);
+                    }
+                }
+            }
         }
     }
-    //public virtual IPhoto ToUserPhoto(UserProfilePhotoChangedEvent aggregateEvent, IPhotoReadModel photoReadModel)
-    //{
-    //    var user = ToUser(aggregateEvent.UserItem);
-    //    //var photo = aggregateEvent.UserItem.ProfilePhoto.ToTObject<Schema.IPhoto>();
-    //    var photo = GetPhotoConverter().ToPhoto(photoReadModel);
-    //    SetUserStatusAndPhoto(user, photoReadModel);
-
-    //    return new TPhoto { Photo = photo, Users = new TVector<IUser>(user) };
-    //}
-
-    //public IPhoto ToUserPhoto(UserProfilePhotoUploadedEvent aggregateEvent, IPhotoReadModel photoReadModel)
-    //{
-    //    var user = ToUser(aggregateEvent.UserItem);
-    //    //var photo = aggregateEvent.UserItem.ProfilePhoto.ToTObject<Schema.IPhoto>();
-    //    var photo = GetPhotoConverter().ToPhoto(photoReadModel);
-    //    SetUserStatusAndPhoto(user, photoReadModel);
-
-    //    return new TPhoto { Photo = photo, Users = new TVector<IUser>(user) };
-    //}
-
     protected void SetUserStatusAndPhoto(ILayeredUser user,
         IPhotoReadModel? profilePhoto = null
     //byte[]? profilePhoto

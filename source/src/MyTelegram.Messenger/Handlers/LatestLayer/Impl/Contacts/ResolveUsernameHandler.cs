@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Contacts;
 
@@ -50,7 +50,9 @@ internal sealed class ResolveUsernameHandler : RpcResultObjectHandler<MyTelegram
                      ;
                         if (userReadModel != null)
                         {
-                            IContactReadModel? contactReadModel = null;
+                            var contactReadModel =
+                                await _queryProcessor.ProcessAsync(
+                                    new GetContactQuery(input.UserId, userReadModel.UserId), default);
                             var photos = await _photoAppService.GetPhotosAsync(userReadModel, contactReadModel);
                             var privacies = await _privacyAppService.GetPrivacyListAsync(userReadModel!.UserId);
 
@@ -118,5 +120,12 @@ internal sealed class ResolveUsernameHandler : RpcResultObjectHandler<MyTelegram
 
         RpcErrors.RpcErrors400.UsernameNotOccupied.ThrowRpcError();
         return null!;
+        //throw new BadRequestException("USERNAME_NOT_OCCUPIED");
+        //return new TResolvedPeer
+        //{
+        //    Chats = new TVector<IChat>(),
+        //    Users = new TVector<IUser>(),
+        //    Peer = new TPeerUser { UserId = 0 }
+        //};
     }
 }

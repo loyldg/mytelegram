@@ -47,6 +47,10 @@ public class MySagaAggregateStore : SagaStore
         //var _aggregateStore = _serviceProvider.GetRequiredService<IAggregateStore>();
         switch (sagaId)
         {
+            case ImportContactsSagaId importContactsSagaId:
+                domainEvents = await _aggregateStore.UpdateAsync<ImportContactsSaga, ImportContactsSagaId>(importContactsSagaId, sourceId, updateSaga, cancellationToken);
+                break;
+
             case EditExportedChatInviteSagaId editExportedChatInviteSagaId:
                 domainEvents = await _aggregateStore
                     .UpdateAsync<EditExportedChatInviteSaga, EditExportedChatInviteSagaId>(editExportedChatInviteSagaId,

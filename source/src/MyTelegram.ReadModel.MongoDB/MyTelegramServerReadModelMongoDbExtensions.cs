@@ -91,6 +91,10 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .UseMongoDbReadModel<ChatInviteAggregate, ChatInviteId, ChatInviteReadModel>()
             // photo created by file server
             .UseMongoDbReadModel<PhotoAggregate, PhotoId, PhotoReadModel>()
+
+            .UseMongoDbReadModel<ContactAggregate, ContactId, ContactReadModel>()
+            .UseMongoDbReadModel<ImportedContactAggregate, ImportedContactId, ImportedContactReadModel>()
+
             ;
     }
 }

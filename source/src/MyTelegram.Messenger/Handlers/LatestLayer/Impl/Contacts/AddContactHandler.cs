@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Contacts;
 
@@ -15,9 +15,38 @@ namespace MyTelegram.Handlers.Contacts;
 internal sealed class AddContactHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestAddContact, MyTelegram.Schema.IUpdates>,
     Contacts.IAddContactHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Contacts.RequestAddContact obj)
+    private readonly ICommandBus _commandBus;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public AddContactHandler(ICommandBus commandBus,
+        IPeerHelper peerHelper,
+        IAccessHashHelper accessHashHelper)
     {
+        _commandBus = commandBus;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
+        RequestAddContact obj)
+    {
+        if (obj.Id is TInputUser inputUser)
+        {
+            await _accessHashHelper.CheckAccessHashAsync(inputUser.UserId, inputUser.AccessHash);
+            var peer = _peerHelper.GetPeer(obj.Id, input.UserId);
+            var command = new AddContactCommand(ContactId.Create(input.UserId, peer.PeerId),
+                input.ToRequestInfo(),
+                input.UserId,
+                peer.PeerId,
+                obj.Phone,
+                obj.FirstName,
+                obj.LastName,
+                obj.AddPhonePrivacyException);
+            await _commandBus.PublishAsync(command, default);
+
+            return null!;
+        }
+
         throw new NotImplementedException();
     }
 }

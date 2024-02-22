@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Contacts;
 
@@ -15,9 +15,41 @@ namespace MyTelegram.Handlers.Contacts;
 internal sealed class AcceptContactHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestAcceptContact, MyTelegram.Schema.IUpdates>,
     Contacts.IAcceptContactHandler
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+    private readonly ICommandBus _commandBus;
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly IPeerHelper _peerHelper;
+    private readonly IAccessHashHelper _accessHashHelper;
+    public AcceptContactHandler(ICommandBus commandBus, IQueryProcessor queryProcessor, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper)
+    {
+        _commandBus = commandBus;
+        _queryProcessor = queryProcessor;
+        _peerHelper = peerHelper;
+        _accessHashHelper = accessHashHelper;
+    }
+
+    protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Contacts.RequestAcceptContact obj)
     {
-        throw new NotImplementedException();
+        var peer = _peerHelper.GetPeer(obj.Id);
+        await _accessHashHelper.CheckAccessHashAsync(peer);
+        var userReadModel = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(peer.PeerId));
+        if (userReadModel == null)
+        {
+            RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
+        }
+
+        var command = new AddContactCommand(ContactId.Create(input.UserId, peer.PeerId), input.ToRequestInfo(),
+            input.UserId,
+            peer.PeerId,
+            userReadModel!.PhoneNumber,
+            //null,
+            userReadModel.FirstName,
+            userReadModel.LastName,
+            false
+        );
+
+        await _commandBus.PublishAsync(command, default);
+
+        return null!;
     }
 }
