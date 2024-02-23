@@ -16,6 +16,11 @@ internal sealed class GetSearchResultsCalendarHandler : RpcResultObjectHandler<M
     protected override Task<MyTelegram.Schema.Messages.ISearchResultsCalendar> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetSearchResultsCalendar obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.ISearchResultsCalendar>(new TSearchResultsCalendar
+        {
+            Chats = new(),
+            Messages = new(),
+            Periods = new()
+        });
     }
 }

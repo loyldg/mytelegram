@@ -9,9 +9,21 @@ namespace MyTelegram.Handlers;
 internal sealed class InvokeWithoutUpdatesHandler : BaseObjectHandler<MyTelegram.Schema.RequestInvokeWithoutUpdates, IObject>,
     IInvokeWithoutUpdatesHandler
 {
-    protected override Task<IObject> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.RequestInvokeWithoutUpdates obj)
+    private readonly IHandlerHelper _handlerHelper;
+
+    public InvokeWithoutUpdatesHandler(IHandlerHelper handlerHelper)
     {
+        _handlerHelper = handlerHelper;
+    }
+
+    protected override Task<IObject> HandleCoreAsync(IRequestInput input,
+        RequestInvokeWithoutUpdates obj)
+    {
+        if (_handlerHelper.TryGetHandler(obj.Query.ConstructorId, out var handler))
+        {
+            return handler.HandleAsync(input, obj.Query)!;
+        }
+
         throw new NotImplementedException();
     }
 }
