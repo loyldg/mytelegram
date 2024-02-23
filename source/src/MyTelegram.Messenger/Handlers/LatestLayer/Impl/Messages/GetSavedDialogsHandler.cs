@@ -11,6 +11,12 @@ internal sealed class GetSavedDialogsHandler : RpcResultObjectHandler<MyTelegram
     protected override Task<MyTelegram.Schema.Messages.ISavedDialogs> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetSavedDialogs obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.ISavedDialogs>(new TSavedDialogs
+        {
+            Chats = new(),
+            Dialogs = new(),
+            Messages = new(),
+            Users = new(),
+        });
     }
 }
