@@ -11,6 +11,9 @@ internal sealed class GetChannelRestrictedStatusEmojisHandler : RpcResultObjectH
     protected override Task<MyTelegram.Schema.IEmojiList> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetChannelRestrictedStatusEmojis obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.IEmojiList>(new TEmojiList
+        {
+            DocumentId = new(),
+        });
     }
 }

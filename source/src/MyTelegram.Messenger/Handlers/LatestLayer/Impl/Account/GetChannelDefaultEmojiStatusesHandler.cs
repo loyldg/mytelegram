@@ -11,6 +11,9 @@ internal sealed class GetChannelDefaultEmojiStatusesHandler : RpcResultObjectHan
     protected override Task<MyTelegram.Schema.Account.IEmojiStatuses> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Account.RequestGetChannelDefaultEmojiStatuses obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Account.IEmojiStatuses>(new TEmojiStatuses
+        {
+            Statuses = new()
+        });
     }
 }
