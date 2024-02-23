@@ -77,7 +77,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
         var senderPeer = new Peer(PeerType.User, _state.RequestInfo.UserId);
 
         var savedFromPeer = _state.ToPeer.PeerId == selfUserId ? _state.FromPeer : null;
-        var savedFromMsgId = _state.ToPeer.PeerId == selfUserId ? aggregateEvent.OriginalMessageItem.MessageId : 0;
+        int? savedFromMsgId = _state.ToPeer.PeerId == selfUserId ? aggregateEvent.OriginalMessageItem.MessageId : null;
         var isOut = true;
         if (_state.ForwardFromLinkedChannel)
         {
@@ -126,21 +126,15 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
                 MessageType.Text,
                 MessageSubType.ForwardMessage,
                 //replyToMsgId: item.ReplyToMsgId,
-                inputReplyTo:item.InputReplyTo,
+                 inputReplyTo: item.InputReplyTo,
                 entities: item.Entities,
                 media: item.Media,
                 fwdHeader: fwdHeader,
                 views: item.Views,
                 pollId: item.PollId
-            )//,
-             //null,
-             //false,
-             //1//,
-             //forwardFromLinkedChannel: _state.ForwardFromLinkedChannel
+            )
         );
 
         Publish(command);
-
-        //return Task.CompletedTask;
     }
 }

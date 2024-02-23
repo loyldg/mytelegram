@@ -11,7 +11,7 @@ public class MessageFwdHeader : ValueObject
         string postAuthor,
         int date,
         Peer? savedFromPeer,
-        int savedFromMsgId,
+        int? savedFromMsgId,
         Peer? savedFromId,
         string? savedFromName,
         int? savedDate,
@@ -65,7 +65,7 @@ public class MessageFwdHeader : ValueObject
     ///     Only for messages forwarded to the current user (inputPeerSelf), ID of the message that was forwarded from the
     ///     original user/channel
     /// </summary>
-    public int SavedFromMsgId { get; init; }
+    public int? SavedFromMsgId { get; init; }
 
     public Peer? SavedFromId { get; init; }
     public string? SavedFromName { get; init; }
