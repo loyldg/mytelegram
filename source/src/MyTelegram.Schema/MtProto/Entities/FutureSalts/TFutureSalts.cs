@@ -40,6 +40,13 @@ public sealed class TFutureSalts : IFutureSalts
     {
         ReqMsgId = reader.ReadInt64();
         Now = reader.ReadInt32();
-        Salts = reader.Read<TVector<MyTelegram.Schema.IFutureSalt>>();
+        //Salts = reader.Read<TVector<MyTelegram.Schema.IFutureSalt>>();
+        var count = reader.ReadInt32();
+        Salts = new TVector<IFutureSalt>();
+        for (int i = 0; i < count; i++)
+        {
+            var futureSalt = reader.Read<IFutureSalt>();
+            Salts.Add(futureSalt);
+        }
     }
 }
