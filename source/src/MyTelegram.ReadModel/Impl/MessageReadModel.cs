@@ -19,7 +19,7 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent>
 {
     public int Date { get; private set; }
-    public int EditDate { get; private set; }
+    public int? EditDate { get; private set; }
     public bool EditHide { get; private set; }
     public byte[]? Entities { get; private set; }
     public MessageFwdHeader? FwdHeader { get; private set; }
