@@ -12,8 +12,8 @@ services:
     restart: always
     networks:
     - tg-net
-    ports:
-    - "6379:6379"
+    #ports:
+    #- "6379:6379"
     volumes:
       - ./data/redis:/data
 
@@ -23,9 +23,9 @@ services:
     restart: always
     networks:
       - tg-net
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+    #ports:
+    #  - "5672:5672"
+    #  - "15672:15672"
     volumes:
       - ./data/rabbitmq:/var/lib/rabbitmq
     environment:
@@ -38,8 +38,8 @@ services:
     restart: always
     networks:
       - tg-net
-    ports:
-      - "27017:27017"
+    #ports:
+    #  - "27017:27017"
     volumes:
       - ./data/mongo/:/data
     #environment:
@@ -52,12 +52,12 @@ services:
     restart: always
     networks:
       - tg-net
-    expose:
-      - "9000"
-      - "9001"
-    ports:
-      - 9000:9000
-      - 9001:9001
+    #expose:
+    #  - "9000"
+    #  - "9001"
+    #ports:
+    #  - 9000:9000
+    #  - 9001:9001
     environment: 
       MINIO_ROOT_USER: ${MinioAccessKey} 
       MINIO_ROOT_PASSWORD: ${MinioSecretKey}
@@ -246,6 +246,8 @@ services:
        App__QueryServerReadModelDatabaseName: ${QueryServerReadModelDatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
        App__EnableFutureAuthToken: ${EnableFutureAuthToken}
+       App__SetPremiumToTrueAfterUserCreated: ${SetPremiumToTrueAfterUserCreated}
+       App__SendWelcomeMessageAfterUserSignIn: ${SendWelcomeMessageAfterUserSignIn}
     volumes:
       - ./data/mytelegram/messenger-command-server/logs:/data/Logs
     depends_on:
@@ -281,6 +283,8 @@ services:
        App__QueryServerReadModelDatabaseName: ${QueryServerReadModelDatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
        App__EnableFutureAuthToken: ${EnableFutureAuthToken}
+       App__SetPremiumToTrueAfterUserCreated: ${SetPremiumToTrueAfterUserCreated}
+       App__SendWelcomeMessageAfterUserSignIn: ${SendWelcomeMessageAfterUserSignIn}
     volumes:
       - ./data/mytelegram/messenger-query-server/logs:/data/Logs
     depends_on:
@@ -295,6 +299,7 @@ services:
     networks:
       - tg-net
     environment:
+      Serilog__MinimumLevel__Default: ${DefaultLogLevel}
       RabbitMQ__Connections__Default__HostName: ${RabbitMqConnectionsDefaultHostName}
       RabbitMQ__Connections__Default__Port: ${RabbitMqConnectionsDefaultPort}
       RabbitMQ__Connections__Default__UserName: ${RabbitMqConnectionsDefaultUserName}
@@ -303,6 +308,7 @@ services:
       TwilioSms__AccountSId: ${TwilioSmsAccountSId}
       TwilioSms__AuthToken: ${TwilioSmsAuthToken}
       TwilioSms__FromNumber: ${TwilioSmsFromNumber}
+      
     volumes:
       - ./data/mytelegram/sms-sender/logs:/data/Logs
     depends_on:
