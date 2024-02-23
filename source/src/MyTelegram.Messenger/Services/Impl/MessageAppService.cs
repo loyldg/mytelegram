@@ -323,10 +323,24 @@ public class MessageAppService : BaseAppService, IMessageAppService
             switch (messageReadModel.MessageActionType)
             {
                 case MessageActionType.ChatAddUser:
-                    var addedUserIdList = messageReadModel.MessageActionData!.ToBytes()
-                        .ToTObject<TMessageActionChatAddUser>()
-                        .Users.ToList();
-                    extraChatUserIdList.AddRange(addedUserIdList);
+                    var messageActionData = messageReadModel.MessageActionData!.ToBytes()
+                        .ToTObject<IObject>();
+                    switch (messageActionData)
+                    {
+                        case TMessageActionChatAddUser messageActionChatAddUser:
+                            extraChatUserIdList.AddRange(messageActionChatAddUser.Users);
+                            break;
+
+                        case TMessageActionChatJoinedByLink messageActionChatJoinedByLink:
+                            extraChatUserIdList.Add(messageActionChatJoinedByLink.InviterId);
+                            break;
+
+                        case TMessageActionChatJoinedByRequest:
+
+                            break;
+                    }
+
+
                     break;
                 case MessageActionType.ChatDeleteUser:
                     var deletedUserId = messageReadModel.MessageActionData!.ToBytes()

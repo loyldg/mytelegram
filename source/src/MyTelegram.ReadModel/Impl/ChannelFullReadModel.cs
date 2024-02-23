@@ -10,7 +10,9 @@ public class ChannelFullReadModel : IChannelFullReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>,
-    IAmReadModelFor<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent>
+    IAmReadModelFor<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent>,
+    IAmReadModelFor<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent>,
+    IAmReadModelFor<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent>
 {
     public virtual string? About { get; private set; }
     public virtual int AdminsCount { get; private set; }
@@ -184,6 +186,20 @@ public class ChannelFullReadModel : IChannelFullReadModel,
         {
             AdminsCount++;
         }
+
+        return Task.CompletedTask;
+    }
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        RequestsPending = domainEvent.AggregateEvent.RequestsPending;
+        RecentRequesters = domainEvent.AggregateEvent.RecentRequesters;
+
+        return Task.CompletedTask;
+    }
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        RequestsPending = domainEvent.AggregateEvent.RequestsPending;
+        RecentRequesters = domainEvent.AggregateEvent.RecentRequesters;
 
         return Task.CompletedTask;
     }
