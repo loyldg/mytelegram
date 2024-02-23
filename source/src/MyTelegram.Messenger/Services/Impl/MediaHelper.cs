@@ -73,9 +73,11 @@ public class MediaHelper : IMediaHelper
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Save media failed");
-            throw new UserFriendlyException("FILE_ID_INVALID", 400);
+            _logger.LogError(ex, "Save media failed,serviceUrl={FileServerGrpcServiceUrl}",_options.Value.FileServerGrpcServiceUrl);
+            RpcErrors.RpcErrors400.FileIdInvalid.ThrowRpcError();
         }
+
+        return new TMessageMediaEmpty();
     }
 
     public MessageType GeMessageType(IMessageMedia media)
