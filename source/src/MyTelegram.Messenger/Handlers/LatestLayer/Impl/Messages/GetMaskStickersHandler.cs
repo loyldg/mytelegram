@@ -12,6 +12,9 @@ internal sealed class GetMaskStickersHandler : RpcResultObjectHandler<MyTelegram
     protected override Task<MyTelegram.Schema.Messages.IAllStickers> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestGetMaskStickers obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.IAllStickers>(new TAllStickers
+        {
+            Sets = new()
+        });
     }
 }
