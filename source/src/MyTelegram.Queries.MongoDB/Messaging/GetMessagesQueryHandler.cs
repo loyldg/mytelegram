@@ -14,8 +14,15 @@ public class
     public async Task<IReadOnlyCollection<IMessageReadModel>> ExecuteQueryAsync(GetMessagesQuery query,
         CancellationToken cancellationToken)
     {
-        //var filter = Builders<MessageReadModel>.Filter.Where(p => p.Out);
-        Expression<Func<MessageReadModel, bool>> predicate = x => x.OwnerPeerId == query.OwnerPeerId;
+        Expression<Func<MessageReadModel, bool>> predicate;
+        if (query.IsSearchGlobal)
+        {
+            predicate = x => x.OwnerPeerId == query.OwnerPeerId || x.SenderPeerId == query.SelfUserId;
+        }
+        else
+        {
+            predicate = x => x.OwnerPeerId == query.OwnerPeerId;
+        }
         predicate = predicate.WhereIf(query.Q?.Length > 2, p => p.Message.Contains(query.Q!))
                 .WhereIf(
                     query.MessageType != MessageType.Unknown && query.MessageType != MessageType.Pinned,
