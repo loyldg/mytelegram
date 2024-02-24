@@ -73,33 +73,47 @@ public class DialogAppService : BaseAppService, IDialogAppService
         var minIdList = dialogList.Where(p => p.ChannelHistoryMinId > 0)
             .Select(p => MessageId.Create(input.OwnerId, p.ChannelHistoryMinId).Value).ToList();
         topMessageIdList.RemoveAll(p => minIdList.Contains(p));
-        var messageBoxList =
+        var messageReadModels =
             await _queryProcessor.ProcessAsync(new GetMessagesByIdListQuery(topMessageIdList));
 
         var extraChatUserIdList = new List<long>();
-        foreach (var box in messageBoxList)
+        foreach (var messageReadModel in messageReadModels)
         {
-            switch (box.MessageActionType)
+            switch (messageReadModel.MessageActionType)
             {
                 case MessageActionType.ChatAddUser:
-                    var addedUserIdList = box.MessageActionData!.ToBytes().ToTObject<TMessageActionChatAddUser>()
-                        .Users.ToList();
-                    extraChatUserIdList.AddRange(addedUserIdList);
+                    var messageActionData = messageReadModel.MessageActionData!.ToBytes()
+                        .ToTObject<IObject>();
+                    switch (messageActionData)
+                    {
+                        case TMessageActionChatAddUser messageActionChatAddUser:
+                            extraChatUserIdList.AddRange(messageActionChatAddUser.Users);
+                            break;
+
+                        case TMessageActionChatJoinedByLink messageActionChatJoinedByLink:
+                            extraChatUserIdList.Add(messageActionChatJoinedByLink.InviterId);
+                            break;
+
+                        case TMessageActionChatJoinedByRequest:
+
+                            break;
+                    }
+
                     break;
                 case MessageActionType.ChatDeleteUser:
-                    var deletedUserId = box.MessageActionData!.ToBytes().ToTObject<TMessageActionChatDeleteUser>()
+                    var deletedUserId = messageReadModel.MessageActionData!.ToBytes().ToTObject<TMessageActionChatDeleteUser>()
                         .UserId;
                     extraChatUserIdList.Add(deletedUserId);
                     break;
             }
 
-            extraChatUserIdList.Add(box.SenderPeerId);
+            extraChatUserIdList.Add(messageReadModel.SenderPeerId);
         }
 
-        var chatIdList = messageBoxList.Where(p => p.ToPeerType == PeerType.Chat).Select(p => p.ToPeerId).ToList();
-        var userIdList = messageBoxList.Where(p => p.ToPeerType == PeerType.User).Select(p => p.ToPeerId).ToList();
+        var chatIdList = messageReadModels.Where(p => p.ToPeerType == PeerType.Chat).Select(p => p.ToPeerId).ToList();
+        var userIdList = messageReadModels.Where(p => p.ToPeerType == PeerType.User).Select(p => p.ToPeerId).ToList();
 
-        if (dialogList.Count > 0 || messageBoxList.Count > 0)
+        if (dialogList.Count > 0 || messageReadModels.Count > 0)
         {
             userIdList.Add(input.OwnerId);
         }
@@ -141,7 +155,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
                     default);
         }
 
-        var pollIdList = messageBoxList.Where(p => p.PollId.HasValue).Select(p => p.PollId!.Value).ToList();
+        var pollIdList = messageReadModels.Where(p => p.PollId.HasValue).Select(p => p.PollId!.Value).ToList();
         IReadOnlyCollection<IPollReadModel>? pollReadModels = null;
         IReadOnlyCollection<IPollAnswerVoterReadModel>? chosenOptions = null;
 
@@ -166,7 +180,7 @@ public class DialogAppService : BaseAppService, IDialogAppService
 
         return new GetDialogOutput(input.OwnerId,
             dialogList,
-            messageBoxList,
+            messageReadModels,
             userList,
             photos,
             chatList,
