@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/stories">story</a>.
 /// See <a href="https://corefork.telegram.org/constructor/storyItem" />
 ///</summary>
-[TlObject(0xaf6365a1)]
+[TlObject(0x79b26a24)]
 public sealed class TStoryItem : IStoryItem
 {
-    public uint ConstructorId => 0xaf6365a1;
+    public uint ConstructorId => 0x79b26a24;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -79,6 +79,7 @@ public sealed class TStoryItem : IStoryItem
     /// When was the story posted.
     ///</summary>
     public int Date { get; set; }
+    public MyTelegram.Schema.IPeer? FromId { get; set; }
 
     ///<summary>
     /// For <a href="https://corefork.telegram.org/api/stories#reposting-stories">reposted stories »</a>, contains info about the original story.
@@ -140,6 +141,7 @@ public sealed class TStoryItem : IStoryItem
         if (Contacts) { Flags[12] = true; }
         if (SelectedContacts) { Flags[13] = true; }
         if (Out) { Flags[16] = true; }
+        if (FromId != null) { Flags[18] = true; }
         if (FwdFrom != null) { Flags[17] = true; }
         if (Caption != null) { Flags[0] = true; }
         if (Entities?.Count > 0) { Flags[1] = true; }
@@ -156,6 +158,7 @@ public sealed class TStoryItem : IStoryItem
         writer.Write(Flags);
         writer.Write(Id);
         writer.Write(Date);
+        if (Flags[18]) { writer.Write(FromId); }
         if (Flags[17]) { writer.Write(FwdFrom); }
         writer.Write(ExpireDate);
         if (Flags[0]) { writer.Write(Caption); }
@@ -181,6 +184,7 @@ public sealed class TStoryItem : IStoryItem
         if (Flags[16]) { Out = true; }
         Id = reader.ReadInt32();
         Date = reader.ReadInt32();
+        if (Flags[18]) { FromId = reader.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags[17]) { FwdFrom = reader.Read<MyTelegram.Schema.IStoryFwdHeader>(); }
         ExpireDate = reader.ReadInt32();
         if (Flags[0]) { Caption = reader.ReadString(); }

@@ -47,6 +47,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionGiftCode), nameof(TMessageActionGiftCode))]
 [JsonDerivedType(typeof(TMessageActionGiveawayLaunch), nameof(TMessageActionGiveawayLaunch))]
 [JsonDerivedType(typeof(TMessageActionGiveawayResults), nameof(TMessageActionGiveawayResults))]
+[JsonDerivedType(typeof(TMessageActionBoostApply), nameof(TMessageActionBoostApply))]
 public interface IMessageAction : IObject
 {
 

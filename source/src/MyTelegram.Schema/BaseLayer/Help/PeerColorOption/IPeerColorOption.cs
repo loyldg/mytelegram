@@ -36,4 +36,5 @@ public interface IPeerColorOption : IObject
     ///</summary>
     MyTelegram.Schema.Help.IPeerColorSet? DarkColors { get; set; }
     int? ChannelMinLevel { get; set; }
+    int? GroupMinLevel { get; set; }
 }

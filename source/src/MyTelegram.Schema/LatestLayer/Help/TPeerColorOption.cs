@@ -7,10 +7,10 @@ namespace MyTelegram.Schema.Help;
 /// Contains info about a <a href="https://corefork.telegram.org/api/colors">color palette »</a>.
 /// See <a href="https://corefork.telegram.org/constructor/help.peerColorOption" />
 ///</summary>
-[TlObject(0xef8430ab)]
+[TlObject(0xadec6ebe)]
 public sealed class TPeerColorOption : IPeerColorOption
 {
-    public uint ConstructorId => 0xef8430ab;
+    public uint ConstructorId => 0xadec6ebe;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -39,6 +39,7 @@ public sealed class TPeerColorOption : IPeerColorOption
     ///</summary>
     public MyTelegram.Schema.Help.IPeerColorSet? DarkColors { get; set; }
     public int? ChannelMinLevel { get; set; }
+    public int? GroupMinLevel { get; set; }
 
     public void ComputeFlag()
     {
@@ -46,6 +47,7 @@ public sealed class TPeerColorOption : IPeerColorOption
         if (Colors != null) { Flags[1] = true; }
         if (DarkColors != null) { Flags[2] = true; }
         if (/*ChannelMinLevel != 0 && */ChannelMinLevel.HasValue) { Flags[3] = true; }
+        if (/*GroupMinLevel != 0 && */GroupMinLevel.HasValue) { Flags[4] = true; }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -57,6 +59,7 @@ public sealed class TPeerColorOption : IPeerColorOption
         if (Flags[1]) { writer.Write(Colors); }
         if (Flags[2]) { writer.Write(DarkColors); }
         if (Flags[3]) { writer.Write(ChannelMinLevel.Value); }
+        if (Flags[4]) { writer.Write(GroupMinLevel.Value); }
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -67,5 +70,6 @@ public sealed class TPeerColorOption : IPeerColorOption
         if (Flags[1]) { Colors = reader.Read<MyTelegram.Schema.Help.IPeerColorSet>(); }
         if (Flags[2]) { DarkColors = reader.Read<MyTelegram.Schema.Help.IPeerColorSet>(); }
         if (Flags[3]) { ChannelMinLevel = reader.ReadInt32(); }
+        if (Flags[4]) { GroupMinLevel = reader.ReadInt32(); }
     }
 }

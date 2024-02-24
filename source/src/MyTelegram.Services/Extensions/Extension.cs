@@ -33,7 +33,7 @@ public static class Extension
             TInputReplyToStory inputReplyToStory => new TMessageReplyStoryHeader
             {
                 StoryId = inputReplyToStory.StoryId,
-                UserId = inputReplyToStory.UserId.ToPeer(0).PeerId
+                Peer = inputReplyToStory.Peer.ToPeer().ToPeer()
             },
             _ => null
         };

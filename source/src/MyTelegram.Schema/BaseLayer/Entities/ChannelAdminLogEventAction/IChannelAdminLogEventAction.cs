@@ -53,6 +53,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChannelAdminLogEventActionChangeProfilePeerColor), nameof(TChannelAdminLogEventActionChangeProfilePeerColor))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionChangeWallpaper), nameof(TChannelAdminLogEventActionChangeWallpaper))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionChangeEmojiStatus), nameof(TChannelAdminLogEventActionChangeEmojiStatus))]
+[JsonDerivedType(typeof(TChannelAdminLogEventActionChangeEmojiStickerSet), nameof(TChannelAdminLogEventActionChangeEmojiStickerSet))]
 public interface IChannelAdminLogEventAction : IObject
 {
 

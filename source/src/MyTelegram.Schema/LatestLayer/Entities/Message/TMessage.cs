@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// A message
 /// See <a href="https://corefork.telegram.org/constructor/message" />
 ///</summary>
-[TlObject(0x76bec211)]
+[TlObject(0x1e4c8a69)]
 public sealed class TMessage : IMessage
 {
-    public uint ConstructorId => 0x76bec211;
+    public uint ConstructorId => 0x1e4c8a69;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -92,6 +92,7 @@ public sealed class TMessage : IMessage
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     ///</summary>
     public MyTelegram.Schema.IPeer? FromId { get; set; }
+    public int? FromBoostsApplied { get; set; }
 
     ///<summary>
     /// Peer ID, the chat where this message was sent
@@ -205,6 +206,7 @@ public sealed class TMessage : IMessage
         if (Noforwards) { Flags[26] = true; }
         if (InvertMedia) { Flags[27] = true; }
         if (FromId != null) { Flags[8] = true; }
+        if (/*FromBoostsApplied != 0 && */FromBoostsApplied.HasValue) { Flags[29] = true; }
         if (SavedPeerId != null) { Flags[28] = true; }
         if (FwdFrom != null) { Flags[2] = true; }
         if (/*ViaBotId != 0 &&*/ ViaBotId.HasValue) { Flags[11] = true; }
@@ -230,6 +232,7 @@ public sealed class TMessage : IMessage
         writer.Write(Flags);
         writer.Write(Id);
         if (Flags[8]) { writer.Write(FromId); }
+        if (Flags[29]) { writer.Write(FromBoostsApplied.Value); }
         writer.Write(PeerId);
         if (Flags[28]) { writer.Write(SavedPeerId); }
         if (Flags[2]) { writer.Write(FwdFrom); }
@@ -267,6 +270,7 @@ public sealed class TMessage : IMessage
         if (Flags[27]) { InvertMedia = true; }
         Id = reader.ReadInt32();
         if (Flags[8]) { FromId = reader.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags[29]) { FromBoostsApplied = reader.ReadInt32(); }
         PeerId = reader.Read<MyTelegram.Schema.IPeer>();
         if (Flags[28]) { SavedPeerId = reader.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags[2]) { FwdFrom = reader.Read<MyTelegram.Schema.IMessageFwdHeader>(); }

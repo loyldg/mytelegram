@@ -7,14 +7,11 @@ namespace MyTelegram.Schema;
 /// Represents a reply to a <a href="https://corefork.telegram.org/api/stories">story</a>
 /// See <a href="https://corefork.telegram.org/constructor/messageReplyStoryHeader" />
 ///</summary>
-[TlObject(0x9c98bfc1)]
+[TlObject(0xe5af939)]
 public sealed class TMessageReplyStoryHeader : IMessageReplyHeader
 {
-    public uint ConstructorId => 0x9c98bfc1;
-    ///<summary>
-    /// ID of the user that posted a story
-    ///</summary>
-    public long UserId { get; set; }
+    public uint ConstructorId => 0xe5af939;
+    public MyTelegram.Schema.IPeer Peer { get; set; }
 
     ///<summary>
     /// Story ID
@@ -30,13 +27,13 @@ public sealed class TMessageReplyStoryHeader : IMessageReplyHeader
     {
         ComputeFlag();
         writer.Write(ConstructorId);
-        writer.Write(UserId);
+        writer.Write(Peer);
         writer.Write(StoryId);
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
     {
-        UserId = reader.ReadInt64();
+        Peer = reader.Read<MyTelegram.Schema.IPeer>();
         StoryId = reader.ReadInt32();
     }
 }

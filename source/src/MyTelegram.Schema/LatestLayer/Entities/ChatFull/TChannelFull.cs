@@ -7,10 +7,10 @@ namespace MyTelegram.Schema;
 /// Full info about a <a href="https://corefork.telegram.org/api/channel#channels">channel</a>, <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a> or <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a>.
 /// See <a href="https://corefork.telegram.org/constructor/channelFull" />
 ///</summary>
-[TlObject(0xf2bcb6f)]
+[TlObject(0x44c054a7)]
 public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelFull
 {
-    public uint ConstructorId => 0xf2bcb6f;
+    public uint ConstructorId => 0x44c054a7;
     ///<summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     ///</summary>
@@ -295,6 +295,9 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
     ///</summary>
     public MyTelegram.Schema.IPeerStories? Stories { get; set; }
     public MyTelegram.Schema.IWallPaper? Wallpaper { get; set; }
+    public int? BoostsApplied { get; set; }
+    public int? BoostsUnrestrict { get; set; }
+    public MyTelegram.Schema.IStickerSet? Emojiset { get; set; }
 
     public void ComputeFlag()
     {
@@ -340,6 +343,9 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
         if (AvailableReactions != null) { Flags[30] = true; }
         if (Stories != null) { Flags2[4] = true; }
         if (Wallpaper != null) { Flags2[7] = true; }
+        if (/*BoostsApplied != 0 && */BoostsApplied.HasValue) { Flags2[8] = true; }
+        if (/*BoostsUnrestrict != 0 && */BoostsUnrestrict.HasValue) { Flags2[9] = true; }
+        if (Emojiset != null) { Flags2[10] = true; }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -385,6 +391,9 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
         if (Flags[30]) { writer.Write(AvailableReactions); }
         if (Flags2[4]) { writer.Write(Stories); }
         if (Flags2[7]) { writer.Write(Wallpaper); }
+        if (Flags2[8]) { writer.Write(BoostsApplied.Value); }
+        if (Flags2[9]) { writer.Write(BoostsUnrestrict.Value); }
+        if (Flags2[10]) { writer.Write(Emojiset); }
     }
 
     public void Deserialize(ref SequenceReader<byte> reader)
@@ -442,5 +451,8 @@ public sealed class TChannelFull : MyTelegram.Schema.IChatFull, ILayeredChannelF
         if (Flags[30]) { AvailableReactions = reader.Read<MyTelegram.Schema.IChatReactions>(); }
         if (Flags2[4]) { Stories = reader.Read<MyTelegram.Schema.IPeerStories>(); }
         if (Flags2[7]) { Wallpaper = reader.Read<MyTelegram.Schema.IWallPaper>(); }
+        if (Flags2[8]) { BoostsApplied = reader.ReadInt32(); }
+        if (Flags2[9]) { BoostsUnrestrict = reader.ReadInt32(); }
+        if (Flags2[10]) { Emojiset = reader.Read<MyTelegram.Schema.IStickerSet>(); }
     }
 }

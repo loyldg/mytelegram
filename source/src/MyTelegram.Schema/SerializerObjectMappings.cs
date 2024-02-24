@@ -55,7 +55,7 @@ public static class SerializerObjectMappings
     }
 
     public static bool TryGetTlObject(uint constructorId,
-        [NotNullWhen(true)] out Func<IObject>? func)
+        out Func<IObject>? func)
     {
         return TypeToConstructors.TryGetValue(constructorId, out func);
     }
