@@ -245,6 +245,10 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
                 layeredData: layeredData
             );
         }
+        else
+        {
+            _logger.LogWarning("Can not find cached chat info.{ToPeer}", aggregateEvent.MessageItem.ToPeer);
+        }
     }
 
     private async Task HandleMigrateChatAsync(ReceiveInboxMessageCompletedEvent aggregateEvent)
@@ -460,6 +464,8 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
         var item = aggregateEvent.MessageItem;
         var selfUpdates = _updatesLayeredService.GetConverter(aggregateEvent.RequestInfo.Layer)
             .ToSelfUpdates(aggregateEvent);
+        var selfOtherDeviceUpdates = _updatesLayeredService.GetConverter(aggregateEvent.RequestInfo.Layer)
+            .ToSelfOtherDeviceUpdates(aggregateEvent);
         var layeredSelfUpdates = _updatesLayeredService.GetLayeredData(c => c.ToSelfUpdates(aggregateEvent));
         var channelUpdates = _updatesLayeredService.GetConverter(aggregateEvent.RequestInfo.Layer)
             .ToChannelMessageUpdates(aggregateEvent);
@@ -470,6 +476,26 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
         if (item.MessageSubType == MessageSubType.Normal || item.MessageSubType == MessageSubType.ForwardMessage)
         {
             updatesType = UpdatesType.NewMessages;
+        }
+        if (aggregateEvent.MessageItem.MessageSubType == MessageSubType.EditChannelPhoto)
+        {
+            var (channelReadModel, photoReadModel) = await GetChannelAsync(aggregateEvent.MessageItem.ToPeer.PeerId);
+            var selfChannel = _chatLayeredService.GetConverter(aggregateEvent.RequestInfo.Layer)
+                .ToChannel(aggregateEvent.RequestInfo.UserId, channelReadModel, photoReadModel, null, false);
+            if (selfUpdates is TUpdates tUpdates)
+            {
+                tUpdates.Chats.Add(selfChannel);
+            }
+            if (selfOtherDeviceUpdates is TUpdates tSelfOtherDeviceUpdates)
+            {
+                tSelfOtherDeviceUpdates.Chats.Add(selfChannel);
+            }
+            if (channelUpdates is TUpdates tUpdates1)
+            {
+                var channel = _chatLayeredService.GetConverter(aggregateEvent.RequestInfo.Layer)
+                    .ToChannel(0, channelReadModel, photoReadModel, null, false);
+                tUpdates1.Chats.Add(channel);
+            }
         }
 
         var globalSeqNo = await SavePushUpdatesAsync(item.ToPeer.PeerId,
@@ -505,8 +531,7 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
             );
 
             await PushUpdatesToPeerAsync(item.SenderPeer,
-                _updatesLayeredService.GetConverter(aggregateEvent.RequestInfo.Layer)
-                    .ToSelfOtherDeviceUpdates(aggregateEvent),
+                selfOtherDeviceUpdates,
                 aggregateEvent.RequestInfo.AuthKeyId,
                 pts: aggregateEvent.Pts,
                 updatesType: updatesType,
@@ -540,6 +565,12 @@ public class MessageDomainEventHandler : DomainEventHandlerBase,
                 skipSaveUpdates: true
                 )
             ;
+    }
+    private async Task<(IChannelReadModel channelReadModel, IPhotoReadModel? photoReadModel)> GetChannelAsync(long channelId)
+    {
+        var channelReadModel = await _queryProcessor.ProcessAsync(new GetChannelByIdQuery(channelId));
+        var photoReadModel = await _photoAppService.GetPhotoAsync(channelReadModel!.PhotoId);
+        return (channelReadModel, photoReadModel);
     }
 
     private Task HandleUpdatePinnedMessageAsync(ReceiveInboxMessageCompletedEvent aggregateEvent)

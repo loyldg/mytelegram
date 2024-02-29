@@ -31,7 +31,7 @@ public class
             true,
             SendMessageType.MessageService,
             MessageType.Text,
-            MessageSubType.Normal,
+            MessageSubType.EditChannelPhoto,
             null,
             domainEvent.AggregateEvent.MessageActionData,
             MessageActionType.ChatEditPhoto

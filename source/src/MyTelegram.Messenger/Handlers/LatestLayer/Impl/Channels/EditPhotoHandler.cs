@@ -106,6 +106,10 @@ internal sealed class EditPhotoHandler : RpcResultObjectHandler<MyTelegram.Schem
                 throw new ArgumentOutOfRangeException();
         }
 
+        IPhoto photo = new TPhotoEmpty();
+        long? photoId = null;
+        if (fileId != 0)
+        {
         var r = await _mediaHelper.SavePhotoAsync(input.ReqMsgId,
             fileId,
             hasVideo,
@@ -113,11 +117,14 @@ internal sealed class EditPhotoHandler : RpcResultObjectHandler<MyTelegram.Schem
             parts,
             name,
             md5);
+            photoId = r.PhotoId;
+            photo = r.Photo;
+        }
         var command = new EditChannelPhotoCommand(ChannelId.Create(channelId),
             input.ToRequestInfo(),
-            r.PhotoId,
+            photoId,
             //photo.ToBytes(),
-            new TMessageActionChatEditPhoto { Photo = r.Photo }.ToBytes().ToHexString(),
+            new TMessageActionChatEditPhoto { Photo = photo }.ToBytes().ToHexString(),
             _randomHelper.NextLong());
         await _commandBus.PublishAsync(command, CancellationToken.None);
 
