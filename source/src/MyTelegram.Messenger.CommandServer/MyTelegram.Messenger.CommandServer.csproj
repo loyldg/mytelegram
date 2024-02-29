@@ -83,37 +83,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Langs\android_en_v33978726.xml">
+    <None Update="Langs\android_en_v41248033.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\android_zh-hans_v34553126.xml">
+    <None Update="Langs\android_zh-hans_v41316724.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\ios_en_v10761094.strings">
+    <None Update="Langs\ios_en_v13548201.strings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\ios_zh-hans_v10785061.strings">
+    <None Update="Langs\ios_zh-hans_v13594581.strings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\lang.strings">
+    <None Update="Langs\tdesktop_en_v2931836.strings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\macos_zh-hans_v938077.strings">
+    <None Update="Langs\tdesktop_zh-hans_v2945644.strings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\tdesktop_classic-zh-cn_v2183304.strings">
+    <None Update="Langs\weba_en_v23501.strings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\tdesktop_en_v2309693.strings">
+    <None Update="Langs\weba_zh-hans_v33646.strings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\tdesktop_zh-hans_v2322778.strings">
+    <None Update="Langs\webk_en_v72842.strings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Langs\weba_en_v2254.strings">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Langs\weba_zh-hans_v8271.strings">
+    <None Update="Langs\webk_zh-hans_v73135.strings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

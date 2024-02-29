@@ -60,7 +60,7 @@
 "PremiumPreviewVoiceToText" = "Voice-to-Text Conversion";
 "PremiumPreviewProfileBadge" = "Profile Badge";
 "PremiumPreviewDownloadSpeed" = "Faster Download Speed";
-"PremiumPreviewUploads" = "4 GB Upload Size";
+"PremiumPreviewUploads" = "Unlimited Cloud Storage";
 "PremiumPreviewAdvancedChatManagement" = "Advanced Chat Management";
 "PremiumPreviewAnimatedProfiles" = "Animated Profile Pictures";
 "PremiumPreviewLimitsDescription" = "Up to {limit1} channels, {limit2} folders, {limit3} pins, {limit4} public links, {limit5} accounts and more.";
@@ -68,9 +68,9 @@
 "PremiumPreviewStickersDescription" = "Exclusive enlarged stickers featuring additional effects, updated monthly.";
 "PremiumPreviewNoAdsDescription" = "No more ads in public channels where Telegram sometimes shows ads.";
 "PremiumPreviewVoiceToTextDescription" = "Ability to read the transcript of any incoming voice message.";
-"PremiumPreviewProfileBadgeDescription" = "A badge next to your name showing that you are helping support Telegram.";
+"PremiumPreviewProfileBadgeDescription" = "An exclusive badge next to your name showing that you subscribe to Telegram Premium.";
 "PremiumPreviewDownloadSpeedDescription" = "No more limits on the speed with which media and documents are downloaded.";
-"PremiumPreviewUploadsDescription" = "Increased upload size from 2 GB to 4 GB per document, unlimited storage overall.";
+"PremiumPreviewUploadsDescription" = "4 GB per each document, unlimited storage for your chats and media overall.";
 "PremiumPreviewAdvancedChatManagementDescription" = "Tools to set the default folder, auto-archive and hide new chats from non-contacts.";
 "PremiumPreviewAnimatedProfilesDescription" = "Video avatars animated in chat lists and chats to allow for additional self-expression.";
 "SendMessage" = "Send Message";
@@ -429,7 +429,7 @@
 "TerminateOldSessionHeader" = "Automatically terminate old sessions";
 "IfInactiveFor" = "If inactive for";
 "AreYouSureSessions" = "Are you sure you want to terminate all other sessions?";
-"WebSessionsTitle" = "Logged in with Telegram";
+"WebSessionsTitle" = "Logged In with Telegram";
 "AuthSessionsLogOut" = "Log Out";
 "AuthSessionsViewBrowser" = "Browser";
 "AuthSessionsViewLocationInfo" = "This location estimate is based on the IP address and may not always be accurate.";
@@ -1215,7 +1215,7 @@
 "ChatPerFolderLimitSubtitle" = "Add up to {count} chats into each of your folders";
 "TelegramPremiumUserDialogSubtitle" = "Owners of **Telegram Premium** accounts have exclusive access to multiple additional features.";
 "TelegramPremiumSubscribedSubtitle" = "Thank you for subscribing to **Telegram Premium**.\nHere’s what is now unlocked.";
-"TelegramPremiumSubtitle" = "Go **beyond the limits**, get **exclusive features** and support us by subscribing to **Telegram Premium**.";
+"TelegramPremiumSubtitle" = "Go **beyond the limits** and **unlock dozens of exclusive** features by subscribing to **Telegram Premium**.";
 "EditMessageAriaLabel" = "Save edited message";
 "Emoji1" = "Emoji & People";
 "Emoji2" = "Animals and nature";
