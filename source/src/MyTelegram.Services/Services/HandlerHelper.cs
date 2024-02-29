@@ -35,6 +35,30 @@ public class HandlerHelper : IHandlerHelper
     {
         return HandlerShortNames.TryGetValue(objectId, out handlerShortName);
     }
+    public string GetHandlerFullName(IObject requestData)
+    {
+        if (requestData is IHasSubQuery subQuery)
+        {
+            if (subQuery.Query is IHasSubQuery subQuery2)
+            {
+                if (subQuery2.Query is IHasSubQuery subQuery3)
+                {
+                    return
+                        $"{GetName(requestData)}->{GetName(subQuery.Query)}->{GetName(subQuery2.Query)}->{GetName(subQuery3.Query)}";
+                }
+                return
+                    $"{GetName(requestData)}->{GetName(subQuery.Query)}->{GetName(subQuery2.Query)}";
+            }
+            return
+                $"{GetName(requestData)}->{GetName(subQuery.Query)}";
+        }
+        return requestData.GetType().Name;
+    }
+    private string GetName(IObject requestData)
+    {
+        const int removeCount=7;// "Request".Length
+        return RemovePrefix(requestData.GetType().Name, removeCount);
+    }
 
     public bool TryGetHandlerName(uint objectId,
         [NotNullWhen(true)] out string? handlerName)
@@ -187,5 +211,13 @@ public class HandlerHelper : IHandlerHelper
         {
             Handlers.TryAdd(objectId, handler);
         }
+    }
+    private static string RemovePrefix(string text, int removeCount)
+    {
+        if (text.Length > removeCount)
+        {
+            return text[removeCount..];
+        }
+        return text;
     }
 }

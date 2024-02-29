@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using MyTelegram.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace MyTelegram.Services.Services;
@@ -15,4 +16,6 @@ public interface IHandlerHelper
 
     bool TryGetHandlerShortName(uint objectId,
         [NotNullWhen(true)] out string? handlerShortName);
+
+    string GetHandlerFullName(IObject requestData);
 }
