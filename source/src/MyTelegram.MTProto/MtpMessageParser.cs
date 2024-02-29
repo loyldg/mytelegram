@@ -255,7 +255,7 @@ public class MtpMessageParser : IMtpMessageParser
 
         if (reader.Remaining < packetLength)
         {
-            _logger.LogInformation(
+            _logger.LogDebug(
                 "[ConnectionId={ConnectionId}] Packet length is {ActualLength},remaining is {Remaining} need more data({MoreDataBytes})",
                 clientData.ConnectionId,
                 packetLength,
