@@ -5,55 +5,57 @@ namespace MyTelegram.Messenger.Services;
 public class LanguageManager : ILanguageManager
 {
     private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, List<LangItem>>> _languages = new();
-    //private readonly Dictionary<string, string> _languageCodeToFileName = new()
-    //{
-    //    {"en","lang.strings"},
-    //    {"zh-hans","tdesktop_zh-hans_v2322778.strings"},
-    //};
+
 
     private readonly ConcurrentDictionary<string, Dictionary<string, string>> _languageCodeToFileNames = new();
-    private readonly string _defaultLanguageFileName = "tdesktop_en_v2309693.strings";
     public LanguageManager()
     {
-        _languageCodeToFileNames.TryAdd("en", new Dictionary<string, string>()
-        {
-            {"tdesktop","tdesktop_en_v2309693.strings"},
-            {"ios","ios_en_v10761094.strings"},
-            {"android","android_en_v33978726.xml"},
-            {"weba","weba_en_v2254.strings"}
-
-        });
-
-        _languageCodeToFileNames.TryAdd("zh-hans", new Dictionary<string, string>()
-        {
-            {"tdesktop","tdesktop_zh-hans_v2322778.strings"},
-            {"ios","ios_zh-hans_v10785061.strings"},
-            {"macos","macos_zh-hans_v938077.strings"},
-            {"android","android_zh-hans_v34553126.xml"},
-            {"weba","weba_zh-hans_v8271.strings"}
-
-        });
+        LoadDefaultLanguageFiles();
     }
 
-    public async Task<List<LangItem>> GetAllLangPacksAsync(string langCode, string langPack = "tdesktop")
+    private void LoadDefaultLanguageFiles()
     {
-        var langFileName = _defaultLanguageFileName;
-
-        if (_languages.TryGetValue(langCode, out var dict))
+        var languageFilePath = Path.Combine(AppContext.BaseDirectory, "Langs");
+        var files = Directory.GetFiles(languageFilePath, "*");
+        foreach (var file in files)
         {
-            if (dict.TryGetValue(langPack, out var existsLanguageItems))
+            var name = Path.GetFileName(file);
+            var items = name.Split("_");
+            // Language fileName format:tdesktop_en_v2931836.strings
+            if (items.Length == 3)
             {
-                // Console.WriteLine($"###Get lang packs:langCode:{langCode} {langPack} count={existsLanguageItems.Count}");
+                var languageCode = items[1];
+                if (!_languageCodeToFileNames.TryGetValue(languageCode, out var deviceTypeToLanguageFiles))
+                {
+                    deviceTypeToLanguageFiles = new Dictionary<string, string>();
+                    _languageCodeToFileNames.TryAdd(languageCode, deviceTypeToLanguageFiles);
+                }
+
+                var deviceType = items[0];
+                if (!deviceTypeToLanguageFiles.ContainsKey(deviceType))
+                {
+                    deviceTypeToLanguageFiles.TryAdd(deviceType, file);
+                }
+            }
+        }
+    }
+
+    public string GetDefaultLangPack(IRequestInput requestInput)
+    {
+        return requestInput.DeviceType.ToString().ToLower();
+    }
+
+    public async Task<List<LangItem>> GetAllLangPacksAsync(string langCode, string langPack)
+    {
+        var langFileName = string.Empty;
+
+        if (_languages.TryGetValue(langCode, out var deviceTypeToLanguageFiles))
+        {
+            if (deviceTypeToLanguageFiles.TryGetValue(langPack, out var existsLanguageItems))
+            {
                 return existsLanguageItems;
             }
-            //else
-            //{
-            //    Console.WriteLine($"get langPack failed:{langPack}");
-            //    //langFileName = dict.First().Key;
-            //    return new List<LangItem>();
-            //}
         }
-
 
         if (_languageCodeToFileNames.TryGetValue(langCode, out var langPackToFileNames))
         {
@@ -63,14 +65,12 @@ public class LanguageManager : ILanguageManager
             }
             else
             {
-                // Console.WriteLine($"get langPack failed2:{langPack}");
-
                 return new List<LangItem>();
             }
         }
 
         var languageItems = new List<LangItem>();
-        var fileName = Path.Combine(AppContext.BaseDirectory, "Langs", langFileName);
+        var fileName = langFileName;
         if (!File.Exists(fileName))
         {
             return languageItems;
@@ -103,7 +103,6 @@ public class LanguageManager : ILanguageManager
             langDict.TryAdd(langPack, languageItems);
         }
 
-        // Console.WriteLine($"Get all languages success,count={languageItems.Count}");
         return languageItems;
     }
 
@@ -116,7 +115,7 @@ public class LanguageManager : ILanguageManager
         {
             if (node is XmlElement element)
             {
-                items.Add(new LangItem(element.GetAttribute("name"),element.InnerText));
+                items.Add(new LangItem(element.GetAttribute("name"), element.InnerText));
             }
         }
 

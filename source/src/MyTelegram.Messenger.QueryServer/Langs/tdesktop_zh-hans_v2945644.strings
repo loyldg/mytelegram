@@ -12,13 +12,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_menu_calls" = "通话";
 "lng_menu_settings" = "设置";
 "lng_menu_about" = "关于";
-"lng_menu_update" = "升级";
+"lng_menu_update" = "更新";
 "lng_menu_night_mode" = "夜间模式";
 "lng_menu_add_account" = "添加账号";
-"lng_menu_activate" = "活跃";
+"lng_menu_activate" = "使用此账号";
 "lng_menu_set_status" = "设置表情状态";
 "lng_menu_change_status" = "更改表情状态";
-
+"lng_menu_my_stories" = "我的动态";
 
 "lng_disable_notifications_from_tray" = "关闭通知";
 "lng_enable_notifications_from_tray" = "开启通知";
@@ -129,6 +129,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_reconnecting#other" = "将在 {count} 秒后重新连接…";
 "lng_reconnecting_try_now" = "立即重连";
 
+"lng_code_block_header_copy" = "拷贝";
+
 "lng_status_service_notifications" = "服务通知";
 "lng_status_support" = "客服";
 "lng_status_bot" = "机器人";
@@ -139,6 +141,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_status_last_week" = "最近一周内曾上线";
 "lng_status_last_month" = "最近一个月内曾上线";
 "lng_status_lastseen_now" = "上线于不久前";
+
 
 "lng_status_lastseen_minutes#other" = "最近上线于 {count} 分钟前";
 
@@ -166,6 +169,24 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_remember" = "记住这次选择";
 
+"lng_lastseen_show_title" = "显示您的最后上线时间";
+"lng_lastseen_show_about" = "若要查看 **{user}** 的最后上线时间，您需显示您自己的最后上线时间...";
+"lng_lastseen_show_button" = "显示我的最近上线时间";
+
+"lng_lastseen_premium_title" = "升级为高级版";
+"lng_lastseen_premium_about" = "订阅后您将可以看到 **{user}** 的最后上线时间，而无需显示您的最后上线时间。";
+"lng_lastseen_premium_button" = "订阅 Telegram 高级版";
+
+
+"lng_readtime_show_title" = "显示您的已读时间";
+"lng_readtime_show_about" = "若要查看 **{user}** 的已读时间，您需显示您自己的已读时间...";
+"lng_readtime_show_button" = "显示我的已读时间";
+"lng_readtime_or" = "或";
+"lng_readtime_premium_title" = "升级为高级版";
+"lng_readtime_premium_about" = "订阅后您将可以看到 **{user}** 的已读时间，而无需显示您的已读时间。";
+"lng_readtime_premium_button" = "订阅 Telegram 高级版";
+"lng_readtime_shown_toast" = "您的已读时间已设为可见。";
+
 "lng_channels_limit_title" = "加入的群组过多";
 
 "lng_channels_limit1#other" = "您已是 **{count}** 个群组或频道的成员。";
@@ -190,7 +211,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_filter_chats_limit1#other" = "抱歉，您无法在此文件夹中添加超过 **{count}** 个聊天。";
 
+"lng_filter_chats_exlude_limit1#other" = "抱歉，您不能从一个文件夹中排除超过 **{count}** 个聊天。";
 
+"lng_filter_chats_limit2#other" = "您可以通过订阅 **Telegram 高级版** 来提升上限至 **{count}**。";
 
 "lng_filters_limit_title" = "已达上限";
 
@@ -241,7 +264,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_filter_shared_limit_title" = "到达上限";
 
-"lng_filter_shared_limit1#other" = "抱歉，您只能添加 **{count} 个**可共享的文件夹。";
+"lng_filter_shared_limit1#other" = "抱歉，您只能添加 **{count} **个可共享的文件夹。";
 
 "lng_filter_shared_limit2#other" = "您可以通过订阅 **Telegram 高级版** 将上线增加至 **{count}** 个文件夹。";
 
@@ -270,23 +293,24 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_error_noforwards_channel" = "抱歉，管理员已禁止从此频道中转发消息。";
 "lng_error_nocopy_group" = "抱歉，管理员已禁止从本群拷贝任何内容。";
 "lng_error_nocopy_channel" = "抱歉，管理员已禁止拷贝本频道中的内容。";
+"lng_error_nocopy_story" = "抱歉，此动态的作者禁止复制。";
 "lng_sure_add_admin_invite" = "此用户非本群组成员。是否将其拉入到群组并设为管理员？";
 "lng_sure_add_admin_invite_channel" = "此用户并非本频道订阅者。是否邀请其关注频道并设为管理员？";
 "lng_sure_add_admin_unremove" = "此用户目前是受限用户或已不在群组中。您确定要提升他为管理员吗？";
 "lng_sure_ban_admin" = "此用户是管理员，您确定要对其作出限制吗？";
 "lng_sure_enable_socks" = "您确定要启用此代理吗？\n\n服务器：{server}\n端口：{port}\n\n您可以稍后在「设置 - 高级 - 连接方式」中修改您的代理服务器。";
 "lng_sure_enable" = "启用";
-
+"lng_proxy_invalid" = "代理链接无效。";
 "lng_proxy_unsupported" = "你的 Telegram Desktop 版本不支持此代理类型或代理链接无效。请将 Telegram Desktop 更新至最新版本。";
 
 "lng_edit_deleted" = "此消息已被删除";
 
 "lng_edit_limit_reached#other" = "你的消息字数超限。请缩短 {count} 个字符。";
 "lng_edit_message" = "编辑消息";
-"lng_edit_message_text" = "输入消息…";
+"lng_edit_message_text" = "输入消息……";
 "lng_deleted" = "已销号用户";
 "lng_deleted_message" = "已删除消息";
-
+"lng_deleted_story" = "删除动态";
 "lng_pinned_message" = "已置顶消息";
 "lng_pinned_previous" = "之前置顶的消息";
 "lng_pinned_unpin_sure" = "您确定要取消置顶此消息吗？";
@@ -306,10 +330,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_pinned_hide_all_sure" = "您是否要隐藏置顶消息栏？在有新消息被置顶之前，置顶栏将保持隐藏。";
 "lng_pinned_hide_all_hide" = "隐藏";
 
-
-
+"lng_edit_media_album_error" = "此文件无法保存为相册的一部分。";
+"lng_edit_media_invalid_file" = "抱歉，该文件不可用。";
 "lng_edit_photo_editor_hint" = "左键单击以编辑图片。";
-
+"lng_edit_caption_attach" = "抱歉，您在编辑消息时无法附加新媒体文件。";
 "lng_edit_caption_voice" = "抱歉，当有语音留言未发送时，您无法编辑消息。";
 
 "lng_intro_about" = "欢迎使用 Telegram 官方桌面客户端。\n它既快速又安全。";
@@ -324,7 +348,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_intro_qr_title" = "从手机客户端扫描";
 "lng_intro_qr_step1" = "在您的手机上打开 Telegram";
-"lng_intro_qr_step2" = "请转到【设置 -> 设备 -> 扫码】";
+"lng_intro_qr_step2" = "请转到“设置” > “设备” > “关联桌面设备”";
 "lng_intro_qr_step3" = "请使用扫描二维码以登陆";
 "lng_intro_qr_skip" = "或使用您的手机号码登录";
 
@@ -390,15 +414,17 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_dlg_new_bot_name" = "机器人名称";
 "lng_no_chats" = "此处是您的聊天列表";
 "lng_no_chats_filter" = "该文件夹内暂无聊天。";
+"lng_no_saved_sublists" = "您可以在此处保存其他聊天的消息。";
 "lng_contacts_loading" = "加载中…";
 "lng_contacts_not_found" = "未找到相关联系人";
 "lng_topics_not_found" = "未找到主题。";
 "lng_dlg_search_for_messages" = "搜索消息";
-"lng_update_telegram" = "升级 Telegram";
+"lng_update_telegram" = "更新 Telegram";
 "lng_dlg_search_in" = "按下列条件搜索消息";
 "lng_dlg_search_from" = "发送者：{user}";
 
 "lng_settings_save" = "保存";
+"lng_settings_apply" = "应用";
 
 "lng_username_title" = "用户名";
 "lng_username_description1" = "您可以在 Telegram 中选择使用用户名。使用用户名后，别人可以通过用户名找到您，并且无需知晓电话号码即可联系您。";
@@ -408,6 +434,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_username_occupied" = "此用户名已被占用。";
 "lng_username_too_short" = "此用户名过短。";
 "lng_username_purchase_available" = "很抱歉，此链接已被占用。您可以购买此链接，详见 {link} 。";
+"lng_username_purchase_available_link" = "了解更多...";
 "lng_username_bad_symbols" = "您只能使用 a-z、0-9 和下划线。";
 "lng_username_available" = "此用户名可用。";
 "lng_username_not_found" = "该用户名（@{user}）不存在。";
@@ -448,6 +475,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_show_from" = "显示通知";
 "lng_settings_notify_all" = "所有账号";
 "lng_settings_notify_all_about" = "如果您只想从正在使用的账号接收通知，请将其关闭。";
+"lng_settings_notify_global" = "全局设定";
 "lng_settings_notify_title" = "聊天通知";
 "lng_settings_desktop_notify" = "桌面通知";
 "lng_settings_native_title" = "系统原生通知";
@@ -455,8 +483,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_use_native_notifications" = "使用系统原生通知";
 "lng_settings_notifications_position" = "在屏幕上的位置";
 "lng_settings_notifications_count" = "显示的通知数量";
-"lng_settings_sound_notify" = "播放提示音";
-"lng_settings_sound_notify_off" = "关闭";
+"lng_settings_sound_allowed" = "开启声音";
 "lng_settings_alert_windows" = "任务栏图标闪烁";
 "lng_settings_alert_mac" = "弹出状态栏图标";
 "lng_settings_alert_linux" = "请注意窗口旁的提示";
@@ -476,13 +503,43 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_notification_reply" = "回复";
 "lng_notification_hide_all" = "全部隐藏";
 "lng_notification_sample" = "这是一个示例通知";
+"lng_notification_reminder" = "提醒";
+"lng_notification_private_chats" = "私聊";
+"lng_notification_groups" = "群组";
+"lng_notification_channels" = "频道";
+"lng_notification_click_to_change" = "点击此处以修改";
+"lng_notification_on" = "已开启， {exceptions}";
+"lng_notification_off" = "已关闭， {exceptions}";
 
+"lng_notification_exceptions#other" = "{count} 个例外";
+"lng_notification_exceptions_title" = "例外";
+"lng_notification_title_private_chats" = "私聊通知";
+
+"lng_notification_about_private_chats#other" = "请注意，有 **{count} 个聊天** 是例外，不会受到这次更改的影响。";
+"lng_notification_title_groups" = "群组通知";
+
+"lng_notification_about_groups#other" = "请注意，有 **{count} 个群组** 是例外，不会受到这次更改的影响。";
+"lng_notification_title_channels" = "频道通知";
+
+"lng_notification_about_channels#other" = "请注意，有 **{count} 个频道** 是例外，不会受到这次更改的影响。";
+"lng_notification_exceptions_view" = "查看例外";
+"lng_notification_enable" = "启用私聊";
+"lng_notification_sound" = "声音";
+"lng_notification_tone" = "通知铃声";
+"lng_notification_exceptions_muted" = "已静音";
+"lng_notification_exceptions_unmuted" = "未静音";
+"lng_notification_exceptions_add" = "添加例外";
+"lng_notification_exceptions_clear" = "删除所有例外";
+"lng_notification_exceptions_clear_sure" = "您确定删除所有例外吗？";
+"lng_notification_exceptions_clear_button" = "删除";
+"lng_notification_exceptions_remove" = "移除";
+"lng_notification_context_remove" = "移除例外";
 
 "lng_reaction_text" = "对您的 “{text}” {reaction}";
 "lng_reaction_notext" = "对您的消息 {reaction}";
 "lng_reaction_photo" = "对您的图片 {reaction}";
 "lng_reaction_video" = "对您的视频 {reaction}";
-
+"lng_reaction_video_message" = "对您的视频消息 {reaction}";
 "lng_reaction_document" = "对您的文件 {reaction}";
 "lng_reaction_sticker" = "对您的 {emoji} 贴纸 {reaction}";
 "lng_reaction_voice_message" = "对您的语音消息 {reaction}";
@@ -510,14 +567,16 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_workmode_tray" = "显示托盘图标";
 "lng_settings_workmode_window" = "显示任务栏图标";
 "lng_settings_close_to_taskbar" = "最小化到任务栏";
+"lng_settings_monochrome_icon" = "使用黑白图标";
 "lng_settings_window_system" = "窗口标题栏";
 "lng_settings_title_chat_name" = "显示聊天名称";
 "lng_settings_title_account_name" = "显示活跃的账户";
 "lng_settings_title_total_count" = "总未读数";
 "lng_settings_native_frame" = "使用系统视窗";
+"lng_settings_qt_frame" = "使用QT窗口框架";
 "lng_settings_auto_start" = "开机启动 Telegram";
 "lng_settings_start_min" = "启动后隐藏到托盘";
-
+"lng_settings_auto_start_disabled_uwp" = "Windows 已阻止 Telegram 开机自动启动。\n\n请在设置中允许 Telegram 自动启动。";
 "lng_settings_open_system_settings" = "转到设置";
 "lng_settings_add_sendto" = "在「发送到」菜单中显示 Telegram";
 "lng_settings_mac_warn_before_quit" = "使用{text}退出前显示警告";
@@ -553,6 +612,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_section_background" = "聊天背景";
 "lng_settings_bg_from_gallery" = "从相册中选择";
 "lng_settings_bg_from_file" = "从文件中选择";
+"lng_settings_bg_remove" = "移除壁纸";
 "lng_settings_bg_theme_edit" = "编辑";
 "lng_settings_bg_theme_create" = "创建新主题";
 "lng_settings_bg_cloud_themes" = "自定义主题";
@@ -571,6 +631,11 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_call_accept_calls" = "在此设备上接听电话";
 "lng_settings_call_device_default" = "默认";
 
+"lng_settings_section_devices" = "扬声器和摄像头";
+"lng_settings_devices_calls" = "通话和视频聊天";
+"lng_settings_devices_calls_same" = "使用相同的设备进行通话";
+
+
 "lng_settings_language" = "语言";
 "lng_settings_default_scale" = "默认界面缩放比例";
 "lng_settings_connection_type" = "连接类型";
@@ -584,12 +649,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_phone_number_privacy" = "手机号码";
 "lng_settings_forwards_privacy" = "已转发的消息";
 "lng_settings_profile_photo_privacy" = "头像";
+"lng_settings_messages_privacy" = "消息";
 "lng_settings_voices_privacy" = "语音消息";
-
+"lng_settings_bio_privacy" = "个人简介";
 "lng_settings_privacy_premium" = "只有 {link} 订阅者才可以限制接受语音消息。";
 "lng_settings_privacy_premium_link" = "Telegram 高级版";
 "lng_settings_passcode_disable" = "停用本机锁定码";
-
+"lng_settings_passcode_disable_sure" = "您确定要禁用口令吗？";
 "lng_settings_password_disable" = "停用两步验证密码";
 "lng_settings_password_abort" = "取消两步验证设置";
 "lng_settings_about_bio" = "您可以在此输入任何有关您个人的信息，诸如：年龄、工作或居住城市。\n示例：23岁，来自旧金山的设计师。";
@@ -597,6 +663,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_username_label" = "用户名";
 "lng_settings_phone_label" = "电话号码";
 "lng_settings_username_add" = "设置用户名";
+"lng_settings_username_about" = "用户名可以让其他用户在 Telegram 上联系您，而无需知道您的手机号码。";
+"lng_settings_add_account_about" = "您最多可以添加四个具有不同手机号码的帐号。";
 "lng_settings_peer_to_peer_about" = "停用端对端连接后，所有通话流量将使用 Telegram 服务器中转以避免泄露您的 IP 地址，但可能会降低音质及画质。";
 "lng_settings_advanced" = "高级设置";
 "lng_settings_stickers_emoji" = "表情和 emoji";
@@ -609,17 +677,25 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_theme_accent_title" = "选择强调色";
 "lng_settings_data_storage" = "数据与存储";
 "lng_settings_information" = "编辑个人资料";
+"lng_settings_my_account" = "我的账号";
 "lng_settings_security" = "安全设置";
 "lng_settings_passcode_title" = "本机锁定码";
 "lng_settings_sessions_title" = "活跃会话";
+"lng_settings_sessions_about" = "控制您在其它设备上的会话。";
+"lng_settings_archive_title" = "归档设置";
 "lng_settings_new_unknown" = "来自未知用户的新聊天";
 "lng_settings_auto_archive" = "归档并静音";
 "lng_settings_auto_archive_about" = "自动归档及静音来自非联系人的新聊天、群组和频道。";
+"lng_settings_unmuted_chats" = "未静音的聊天";
+"lng_settings_always_in_archive" = "始终保留在归档中";
+"lng_settings_unmuted_chats_about" = "即使已将聊天取消静音并收到新消息，仍将归档的聊天保留在存档中。";
+"lng_settings_chats_from_folders" = "文件夹中的聊天";
+"lng_settings_chats_from_folders_about" = "即使已将聊天取消静音并收到新消息，仍将文件夹中的已归档聊天保留在归档中。";
 "lng_settings_destroy_title" = "删除我的帐号";
 "lng_settings_version_info" = "版本和更新";
 "lng_settings_system_integration" = "系统集成";
 "lng_settings_performance" = "性能";
-
+"lng_settings_enable_hwaccel" = "使用硬件加速视频解码";
 "lng_settings_enable_opengl" = "为媒体启用 OpenGL 渲染";
 "lng_settings_angle_backend" = "ANGLE 图形后端";
 "lng_settings_angle_backend_auto" = "自动选择";
@@ -631,8 +707,19 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_sensitive_title" = "敏感内容";
 "lng_settings_sensitive_disable_filtering" = "停用过滤";
 "lng_settings_sensitive_about" = "在全部设备的公开频道中显示敏感内容。";
-
-
+"lng_settings_security_bots" = "机器人与网站";
+"lng_settings_clear_payment_info" = "清除付款和配送信息";
+"lng_settings_logged_in" = "使用 Telegram 账号登录的网站";
+"lng_settings_logged_in_title" = "使用 Telegram 账号登录的网站";
+"lng_settings_logged_in_description" = "您可以在支持的网站上使用 Telegram 登录。";
+"lng_settings_disconnect_all" = "取消所有网站的授权";
+"lng_settings_disconnect_title" = "断开网站连接";
+"lng_settings_disconnect_sure" = "您确定要断开与 {domain} 的连接吗？";
+"lng_settings_disconnect_block" = "屏蔽 {name}";
+"lng_settings_disconnect_all_title" = "断开网站连接";
+"lng_settings_disconnect_all_sure" = "您确定要断开所有使用 Telegram 登录的网站吗？";
+"lng_settings_disconnect" = "断开连接";
+"lng_settings_connected_title" = "已授权网站";
 
 "lng_settings_power_menu" = "电池和动画";
 "lng_settings_power_title" = "电池使用";
@@ -708,17 +795,39 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_settings_ttl_select_chats_disabled_toast#other" = "已在所选的{count}个聊天中停用自毁计时器。";
 
-
-
+"lng_clear_payment_info_title" = "清除付款信息";
+"lng_clear_payment_info_sure" = "您确定要清除您的付款和收货信息吗？";
 "lng_clear_payment_info_shipping" = "配送信息";
 "lng_clear_payment_info_payment" = "付款信息";
-
+"lng_clear_payment_info_clear" = "清除";
 "lng_clear_payment_info_confirm" = "是否删除您的配送信息，并使所有的支付服务提供商清除您保存的信用卡信息？请注意 Telegram 从来不会存储您的信用卡数据。";
 
+"lng_settings_theme_settings" = "主题设置";
+"lng_settings_theme_name_color" = "你的名称颜色";
 "lng_settings_auto_night_mode" = "自动切换夜间模式";
-"lng_settings_auto_night_enabled" = "匹配系统设定";
+"lng_settings_auto_night_mode_off" = "关闭";
+"lng_settings_auto_night_mode_on" = "系统";
 "lng_settings_auto_night_warning" = "您已开启自动夜间模式，停用后才可以修改夜间模式设置。";
 "lng_settings_auto_night_disable" = "取消";
+
+"lng_settings_color_title" = "颜色预览";
+"lng_settings_color_reply" = "回复你的消息";
+"lng_settings_color_reply_channel" = "回复您频道消息";
+"lng_settings_color_text" = "你的名称与回复将以所选的颜色显示。";
+"lng_settings_color_text_channel" = "频道名称及回复消息将以所选的颜色显示。";
+"lng_settings_color_link_name" = "Telegram";
+"lng_settings_color_link_title" = "链接预览";
+"lng_settings_color_link_description" = "该颜色也会套用于您发送的链接预览。";
+"lng_settings_color_about" = "您可以选择一种颜色为自己的名字、发送的链接和收到的回复着色。";
+"lng_settings_color_about_channel" = "您可以选择一种颜色为您的频道名称、发送的链接以及频道贴文的回复着色。";
+"lng_settings_color_emoji" = "为回复添加图标";
+"lng_settings_color_emoji_remove" = "移除图标";
+"lng_settings_color_emoji_off" = "关闭";
+"lng_settings_color_emoji_about" = "通过向消息添加自定图标，使您回复的消息脱颖而出。";
+"lng_settings_color_emoji_about_channel" = "选择一个图标并为收到的回复创建自定义样式。";
+"lng_settings_color_subscribe" = "订阅 {link} 并为您的名字选择自定义颜色。";
+"lng_settings_color_changed" = "您频道颜色已更新！";
+"lng_settings_color_changed_channel" = "您频道颜色已更新！";
 
 "lng_suggest_hide_new_title" = "隐藏新聊天？";
 "lng_suggest_hide_new_about" = "您收到了很多来自陌生用户的新聊天会话。您是否想将这些聊天会话**自动静音**及**归档**？";
@@ -732,13 +841,18 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_manage_enabled_dictionary" = "字典已启用";
 "lng_settings_manage_remove_dictionary" = "移除词典";
 
+"lng_settings_gift_premium" = "赠送 Telegram 高级版订阅";
+"lng_settings_gift_premium_users_confirm" = "继续";
+
+
+
 "lng_backgrounds_header" = "选择新的聊天壁纸";
 "lng_theme_sure_keep" = "保留此主题？";
 
 "lng_theme_reverting#other" = "将在 {count} 秒后还原为之前的主题。";
 "lng_theme_keep_changes" = "保留更改";
 "lng_theme_revert" = "还原";
-
+"lng_theme_no_desktop" = "抱歉，此主题未包含 Telegram Desktop 的版本。";
 "lng_theme_share" = "分享";
 "lng_theme_edit" = "编辑";
 "lng_theme_delete" = "删除";
@@ -747,16 +861,23 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_background_text1" = "你们这群小屁孩就知道电子音乐！你们应该听听经典摇滚，比如哈塞尔霍夫！";
 "lng_background_text2" = "我现在已经无法直视你了。";
 "lng_background_bad_link" = "背景链接无效。";
-"lng_background_apply" = "应用";
 "lng_background_share" = "分享";
 "lng_background_link_copied" = "链接已复制到剪贴板";
 "lng_background_blur" = "模糊";
 "lng_background_sure_delete" = "您确定要删除此背景吗？";
 "lng_background_other_info" = "{user} 可以应用此壁纸";
+"lng_background_other_channel" = "所有订阅者都将看到此壁纸";
+
 "lng_background_apply1" = "在聊天中应用此背景。";
 "lng_background_apply2" = "看起来不错";
 "lng_background_apply_button" = "应用于此聊天";
 "lng_background_dimming" = "背景虚化";
+"lng_background_sure_reset_default" = "您确定要重置墙纸吗？";
+"lng_background_reset_default" = "重置";
+"lng_background_apply_me" = "为自己应用";
+"lng_background_apply_both" = "为自己和 {user} 应用";
+"lng_background_apply_channel" = "为频道应用";
+
 
 "lng_download_path_ask" = "询问每个文件的下载路径";
 "lng_download_path" = "下载路径";
@@ -802,15 +923,15 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_passcode_autolock" = "自动锁定";
 "lng_passcode_autolock_away" = "自动锁定设置：";
 "lng_passcode_autolock_inactive" = "自动锁定设置：";
-
+"lng_passcode_autolock_hours_minutes" = "{hours_count} 小时 {minutes_count} 分钟";
 "lng_passcode_enter_old" = "请输入当前的锁定码";
 "lng_passcode_enter_first" = "请输入一个锁定码";
 "lng_passcode_enter_new" = "请输入新的锁定码";
 "lng_passcode_confirm_new" = "请再次输入新的锁定码";
 "lng_passcode_about" = "设置好一个锁定码后，聊天列表上方会出现一个锁形图标，点击它来锁定 Telegram 应用。\n\n注意：如果您忘记了锁定码，您将需要重新登录 Telegram。";
-
-
-
+"lng_passcode_about1" = "设置好一个锁定码后，您的聊天列表顶部会出现一个锁形图标。";
+"lng_passcode_about2" = "点击以锁定 Telegram 桌面版。";
+"lng_passcode_about3" = "注意：如果您忘记了口令，您需要退出桌面版 Telegram 并重新登录。";
 "lng_passcode_differ" = "锁定码前后不一致";
 "lng_passcode_wrong" = "锁定码错误";
 "lng_passcode_is_same" = "请勿使用当前的锁定码";
@@ -839,7 +960,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_cloud_password_change_hint" = "请输入新的密码提示";
 "lng_cloud_password_bad" = "密码提示不能与密码相同。";
 "lng_cloud_password_email" = "输入密码恢复邮箱";
-"lng_cloud_password_bad_email" = "电子邮箱地址有误，请重新输入。";
+"lng_cloud_password_bad_email" = "电子邮箱不可用";
 "lng_cloud_password_about" = "当您在新设备登录时，此密码将作为输入短信验证码后的附加验证。";
 "lng_cloud_password_about_recover" = "警告！您确定不设置密码恢复邮箱吗？\n\n一旦忘记密码，您将无法再访问您的 Telegram 帐号。";
 "lng_cloud_password_skip_email" = "我不需要设置！";
@@ -853,9 +974,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_cloud_password_resend" = "重新发送验证码";
 "lng_cloud_password_resent" = "验证码已重新发送。";
 "lng_cloud_password_reset_no_email" = "由于您在设置密码时没有提供恢复的电子邮箱，您当前只有两种选择，要么回想起密码，要么等待7天后密码重置。";
-
+"lng_cloud_password_reset_with_email" = "如果你无法访问密保邮箱，只能尝试记起密码或者等待 7 天直到密码重置。";
 "lng_cloud_password_reset_ok" = "重置";
-
+"lng_cloud_password_reset_cancel_title" = "取消重置";
 "lng_cloud_password_reset_cancel_sure" = "是否取消重置密码？若要再次申请密码重置，需要再等 7 天。";
 "lng_cloud_password_reset_later" = "密码重置请求于 {duration} 后重试。";
 "lng_cloud_password_expired" = "请重新输入您的密码";
@@ -940,10 +1061,11 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_sessions_terminate" = "终止会话";
 "lng_sessions_application" = "应用程序";
 "lng_sessions_system" = "系统版本";
+"lng_sessions_browser" = "浏览器";
 "lng_sessions_ip" = "IP 地址";
 "lng_sessions_location" = "位置";
 "lng_sessions_location_about" = "该位置根据 IP 地址估算，可能并不准确。";
-"lng_sessions_about_apps" = "Telegram 官方应用支持 iPhone、iPad、Android、macOS、Windows 和 Linux。";
+"lng_sessions_about_apps" = "Telegram 官方应用可用于 Android、iPhone、iPad、Windows、macOS 和 Linux。";
 
 "lng_blocked_list_title" = "已屏蔽的用户";
 "lng_blocked_list_unknown_phone" = "手机号码未知";
@@ -951,7 +1073,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_blocked_list_add" = "屏蔽用户";
 "lng_blocked_list_add_title" = "选择要拉黑的用户";
 "lng_blocked_list_already_blocked" = "已拉黑";
-"lng_blocked_list_about" = "被您屏蔽的用户将无法向您发送消息，或邀请您加入群组。该用户也无法看到您的头像、在线状态及最后上线时间。";
+"lng_blocked_list_about" = "被您屏蔽的用户将无法向您发送消息，或邀请您加入群组。该用户也无法看到您的头像、动态、在线状态及最后上线时间。";
 "lng_blocked_list_not_found" = "未找到符合条件的用户。";
 "lng_blocked_list_confirm_title" = "屏蔽 {name}";
 "lng_blocked_list_confirm_text" = "您想要阻止 {name} 在Telegram上给您发消息及打电话吗？";
@@ -964,8 +1086,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_edit_privacy_everyone" = "所有人";
 "lng_edit_privacy_contacts" = "我的联系人";
-
+"lng_edit_privacy_close_friends" = "密友";
 "lng_edit_privacy_nobody" = "不允许任何人";
+"lng_edit_privacy_premium" = "高级版用户";
 "lng_edit_privacy_exceptions" = "添加例外";
 
 
@@ -986,12 +1109,16 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_edit_privacy_lastseen_title" = "最后上线时间隐私设置";
 "lng_edit_privacy_lastseen_header" = "谁可以看到您最后上线的时间？";
-"lng_edit_privacy_lastseen_warning" = "注意：对于您不愿意分享最后上线时间的对象，他们最后的上线时间您将也无法看到。取而代之的是大概的上线时间（如：最近、一周内、一个月内）。";
-"lng_edit_privacy_lastseen_always_empty" = "可以看见您上线时间的用户";
-"lng_edit_privacy_lastseen_never_empty" = "无法看见您上线时间的用户";
+"lng_edit_privacy_lastseen_warning" = "除非您是高级版订阅用户，对于您不愿意分享最后上线时间的对象，他们最后的上线时间您将也无法看到。取而代之的是大概的上线时间（如：最近、一周内、一个月内）。";
+"lng_edit_privacy_lastseen_always_empty" = "总是分享给";
+"lng_edit_privacy_lastseen_never_empty" = "从不分享给";
 "lng_edit_privacy_lastseen_exceptions" = "您可以将用户或整个群组设为例外，不受以上设置的限制。";
-"lng_edit_privacy_lastseen_always_title" = "总是共享给";
-"lng_edit_privacy_lastseen_never_title" = "选择无法看见您上线时间的用户";
+"lng_edit_privacy_lastseen_always_title" = "总是分享给";
+"lng_edit_privacy_lastseen_never_title" = "从不分享给";
+"lng_edit_lastseen_hide_read_time" = "隐藏已读时间";
+"lng_edit_lastseen_hide_read_time_about" = "对无法看到您最后上线时间的用户隐藏您的已读时间。如果您开启此功能，对方的已读时间也会对您隐藏（除非您是高级版订阅用户）。 \n\n此设定不影响群聊。";
+"lng_edit_lastseen_subscribe" = "订阅 Telegram 高级版";
+"lng_edit_lastseen_subscribe_about" = "如果您订阅了 Telegram 高级版，您可以看到其他用户的最后上线时间及已读时间，即使您对其隐藏了自己的最后上线时间及已读时间（除非对方明确限制）。";
 
 "lng_edit_privacy_groups_title" = "群组与频道";
 "lng_edit_privacy_groups_header" = "谁可以将您添加到群组/频道？";
@@ -1001,13 +1128,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_edit_privacy_groups_always_title" = "选择可以添加您到群组/频道的用户";
 "lng_edit_privacy_groups_never_title" = "从不允许";
 
-
-
-
-
-
-
-
+"lng_edit_privacy_about_title" = "个人简介";
+"lng_edit_privacy_about_header" = "谁可以看到我的个人简介？";
+"lng_edit_privacy_about_always_empty" = "总是分享给";
+"lng_edit_privacy_about_never_empty" = "从不分享给";
+"lng_edit_privacy_about_exceptions" = "无论上述设置如何，这些用户将处于例外。";
+"lng_edit_privacy_about_always_title" = "总是分享给";
+"lng_edit_privacy_about_never_title" = "从不分享给";
 
 "lng_edit_privacy_calls_title" = "语音通话";
 "lng_edit_privacy_calls_header" = "谁可以给您打电话？";
@@ -1029,7 +1156,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_edit_privacy_calls_p2p_contacts" = "我的联系人";
 "lng_edit_privacy_calls_p2p_nobody" = "不允许任何人";
 
-"lng_edit_privacy_forwards_title" = "转发消息隐私设置";
+"lng_edit_privacy_forwards_title" = "转发的消息";
 "lng_edit_privacy_forwards_header" = "转发我的消息时，谁可以链接至我的账号";
 "lng_edit_privacy_forwards_warning" = "当其他用户转发时，你发送的消息不会链接到您的账号。";
 "lng_edit_privacy_forwards_always_empty" = "总是允许";
@@ -1044,12 +1171,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_edit_privacy_forwards_sample_contacts" = "如果以下设置已允许将会链接至您的帐号。";
 "lng_edit_privacy_forwards_sample_nobody" = "无法链接到你的帐号";
 
-"lng_edit_privacy_profile_photo_title" = "个人资料照片隐私";
+"lng_edit_privacy_profile_photo_title" = "头像";
 "lng_edit_privacy_profile_photo_header" = "谁能看到我的头像";
-"lng_edit_privacy_profile_photo_always_empty" = "总是允许";
-"lng_edit_privacy_profile_photo_never_empty" = "从不允许";
-"lng_edit_privacy_profile_photo_always_title" = "总是允许";
-"lng_edit_privacy_profile_photo_never_title" = "从不允许";
+"lng_edit_privacy_profile_photo_always_empty" = "总是共享给";
+"lng_edit_privacy_profile_photo_never_empty" = "从不分享给";
+"lng_edit_privacy_profile_photo_always_title" = "总是分享给";
+"lng_edit_privacy_profile_photo_never_title" = "从不分享给";
 "lng_edit_privacy_profile_photo_public_set" = "设置公共照片";
 "lng_edit_privacy_profile_photo_public_update" = "更新公共照片";
 "lng_edit_privacy_profile_photo_public_remove" = "移除公共照片";
@@ -1059,18 +1186,28 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_edit_privacy_voices_header" = "谁能给我发送语音消息";
 "lng_edit_privacy_voices_always_empty" = "总是允许";
 "lng_edit_privacy_voices_never_empty" = "从不允许";
-
+"lng_edit_privacy_voices_exceptions" = "无论上述设置如何，这些用户都将可以或无法给您发送语音消息。";
 "lng_edit_privacy_voices_always_title" = "总是允许";
 "lng_edit_privacy_voices_never_title" = "从不允许";
+
+"lng_messages_privacy_title" = "消息";
+"lng_messages_privacy_subtitle" = "谁可以给我发送消息";
+"lng_messages_privacy_everyone" = "所有人";
+"lng_messages_privacy_restricted" = "我的联系人和 Telegram 高级版用户";
+"lng_messages_privacy_about" = "您可以限制来自非联系人且没有 Telegram 高级版的用户的消息。 ";
+"lng_messages_privacy_premium_button" = "订阅 Telegram 高级版";
+"lng_messages_privacy_premium_about" = "立即订阅以更改此设置，并访问 Telegram 高级版的其他独家功能。";
+"lng_messages_privacy_premium" = "只有 {link} 的订阅者才能选择此选项。";
+"lng_messages_privacy_premium_link" = "Telegram 高级版";
 
 "lng_self_destruct_title" = "自动删除帐号";
 "lng_self_destruct_description" = "如果您在此期间内您的帐号未曾上线，您帐号的所有资料——包括消息记录、联系人都会被删除。";
 "lng_self_destruct_sessions_title" = "注销会话";
-
+"lng_self_destruct_sessions_description" = "如果您在此期间没有从特定会话中至少上线一次，则该会话将被终止。";
 
 "lng_change_phone_new_submit" = "提交";
 "lng_change_phone_code_title" = "输入验证码";
-
+"lng_change_phone_error" = "您只能使用 Telegram 移动版应用更改您的电话号码，请使用手机上的官方 Telegram 应用更新号码。";
 
 "lng_mute_menu_mute" = "静音";
 "lng_mute_menu_unmute" = "取消静音";
@@ -1084,6 +1221,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mute_box_title" = "定时通知静音";
 
 "lng_preview_loading" = "获取链接信息中…";
+"lng_preview_cant" = "无法产生此链接的预览。";
 
 "lng_profile_settings_section" = "设置";
 "lng_profile_bot_settings" = "机器人设置";
@@ -1091,6 +1229,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_profile_bot_privacy" = "机器人隐私政策";
 
 "lng_profile_common_groups#other" = "{count} 个共同加入的群组";
+
+"lng_profile_similar_channels#other" = "{count} 个类似频道";
+
+"lng_profile_saved_messages#other" = "{count} 条收藏消息";
 "lng_profile_participants_section" = "成员";
 "lng_profile_subscribers_section" = "订阅者";
 "lng_profile_add_contact" = "添加联系人";
@@ -1104,9 +1246,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_profile_restart_bot" = "重新启用机器人";
 "lng_profile_invite_to_group" = "添加到群组";
 "lng_profile_add_bot_as_admin" = "添加到群组或频道";
-
+"lng_profile_invite_to_channel" = "添加至频道";
 "lng_profile_invite_to_group_about" = "此机器人可以管理群组。";
-
+"lng_profile_invite_to_channel_about" = "此机器人能够管理频道。";
 "lng_profile_add_bot_as_admin_about" = "该机器人可以管理群组或频道。";
 "lng_profile_add_participant" = "添加成员";
 "lng_profile_add_via_link" = "通过链接邀请";
@@ -1124,7 +1266,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_profile_sure_remove_admin" = "从管理员名单中移除“{user}”？";
 "lng_profile_loading" = "加载中…";
 
+"lng_profile_saved_stories#other" = "{count} 条已保存的动态";
 
+"lng_profile_posts#other" = "{count} 条动态";
 
 "lng_profile_photos#other" = "{count} 张图片";
 
@@ -1141,6 +1285,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_profile_shared_links#other" = "{count} 条分享的链接";
 "lng_profile_copy_phone" = "拷贝手机号码";
 "lng_profile_copy_fullname" = "拷贝姓名";
+"lng_profile_photo_by_you" = "您设置的头像";
+"lng_profile_public_photo" = "公开图片";
 
 "lng_via_link_group_one" = "**{user}** 限制将其加入群组，您可以给对方发送邀请链接。";
 
@@ -1179,9 +1325,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_profile_suggest_photo" = "建议头像";
 "lng_profile_set_photo_for" = "设置头像";
 "lng_profile_photo_reset" = "重置为原始照片";
-"lng_profile_suggest_sure" = "你可以为 {user} 推荐这张照片作为头像。";
+"lng_profile_suggest_sure" = "您可以向 {user} 推荐这张图片作为头像。";
 "lng_profile_suggest_button" = "推荐";
-
+"lng_profile_set_personal_sure" = "只有你会看查看该照片，它将取代 {user} 为自己设置的任何照片。";
 "lng_profile_accept_photo_sure" = "{user} 推荐将此图片用做您的 Telegram 头像。";
 "lng_profile_set_photo_button" = "设为头像";
 "lng_profile_accept_video_sure" = "{user} 推荐你使用这个动态头像。";
@@ -1190,7 +1336,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_profile_changed_photo_about" = "您可以在 {link} 中更改。";
 "lng_profile_changed_photo_link" = "设置";
 "lng_media_type_photos" = "图片";
-
+"lng_media_type_gifs" = "GIF 动态图";
 "lng_media_type_videos" = "视频";
 "lng_media_type_songs" = "音频文件";
 "lng_media_type_files" = "文件";
@@ -1222,7 +1368,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_media_selected_link#other" = "{count} 条分享的链接";
 "lng_media_photo_empty" = "暂无图片";
-
+"lng_media_gif_empty" = "暂无 GIF 动态图";
 "lng_media_video_empty" = "暂无视频";
 "lng_media_song_empty" = "暂无音频";
 "lng_media_file_empty" = "暂无文件";
@@ -1259,6 +1405,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_manage_peer_reactions_none_about" = "群组成员无法对消息使用表情回应。";
 "lng_manage_peer_reactions_some_title" = "仅允许这些表情回复";
 "lng_manage_peer_reactions_available" = "可用的回应";
+"lng_manage_peer_reactions_own" = "您也可以 {link} 表情包并使用它们回应。";
+"lng_manage_peer_reactions_own_link" = "创建自己的";
+
+"lng_manage_peer_reactions_level#other" = "您的频道需要达到 ** {count} 等** 才能使用 **{same_count}** 个自定表情回应。";
+"lng_manage_peer_reactions_boost" = "点击 {link} 助推您的频道。";
+"lng_manage_peer_reactions_boost_link" = "点击此处";
+"lng_manage_peer_reactions_limit" = "频道不能再有更多的自定表情符号回应。";
 
 "lng_manage_peer_antispam" = "积极的反垃圾信息策略";
 "lng_manage_peer_antispam_about" = "Telegram 会过滤更多的垃圾信息，但偶尔可能会影响普通消息。您可以在最近的操作中申诉误报。";
@@ -1280,16 +1433,16 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_manage_peer_send_only_members_about" = "如果您希望用户在加入群组之后方可发送消息，请开启此功能。";
 "lng_manage_peer_send_approve_members" = "新成员审核";
 "lng_manage_peer_send_approve_members_about" = "启用此选项后，新成员加入前需得到管理员的批准。";
-"lng_manage_peer_no_forwards_title" = "保存内容";
+"lng_manage_peer_no_forwards_title" = "内容保护";
 "lng_manage_peer_no_forwards" = "限制保存内容";
 "lng_manage_peer_no_forwards_about" = "成员将无法拷贝、保存或转发此群组中的内容。";
 "lng_manage_peer_no_forwards_about_channel" = "订阅者将无法拷贝、保存或转发此频道的内容。";
 
 "lng_manage_peer_bot_public_link" = "公开链接";
 "lng_manage_peer_bot_public_links" = "公开链接";
-
-
-
+"lng_manage_peer_bot_edit_intro" = "修改介绍";
+"lng_manage_peer_bot_edit_commands" = "修改命令";
+"lng_manage_peer_bot_edit_settings" = "更改机器人设置";
 "lng_manage_peer_bot_about" = "使用 {bot} 管理此机器人。";
 
 
@@ -1348,11 +1501,17 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_report_group_video_title" = "举报群组视频";
 "lng_report_channel_photo_title" = "举报频道图片";
 "lng_report_channel_video_title" = "举报频道视频";
+"lng_report_story" = "举报动态";
 "lng_report_please_select_messages" = "请选择要举报的消息。";
 "lng_report_select_messages" = "选择消息";
 "lng_report_messages_none" = "选择消息";
 
 "lng_report_messages_count#other" = "举报 {count} 条消息";
+"lng_report_reaction" = "报道表情回应";
+"lng_report_and_ban" = "封禁并举报";
+"lng_report_reaction_title" = "举报表情回应";
+
+"lng_report_and_ban_button" = "封禁用户";
 "lng_report_details_about" = "请输入与您的举报有关的任何其他细节。";
 "lng_report_details" = "更多细节……";
 "lng_report_reason_spam" = "垃圾信息";
@@ -1406,7 +1565,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_create_private_group_about" = "用户只能通过群成员的邀请或邀请链接加入";
 "lng_create_permanent_link_title" = "永久链接";
 "lng_create_invite_link_title" = "邀请链接";
-
+"lng_create_invite_link_about" = "用户可以通过被邀请或通过邀请链接或 “附近的群组” 加入。";
 
 "lng_create_group_skip" = "跳过";
 
@@ -1425,7 +1584,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_sure_delete_contact" = "您确定要从联系人名单中删除“{contact}”吗？";
 "lng_sure_delete_history" = "您确定要与“{contact}”的历史聊天记录吗？\n\n此操作无法撤消。";
-"lng_sure_delete_group_history" = "您确定要删除群组«{group}»的所有历史聊天记录吗？\n\n此操作无法撤消。";
+"lng_sure_delete_group_history" = "您确定要删除群组“{group}”的所有聊天记录吗？\n\n此操作无法撤消。";
 "lng_sure_delete_and_exit" = "您确定要删除所有的历史聊天记录并退出群组«{group}»吗？\n\n此操作无法撤销。";
 "lng_sure_leave_channel" = "您确定要退出此频道吗？";
 "lng_sure_delete_channel" = "您确定要删除此频道吗？这将会移除所有关注者并且会丢失所有消息。";
@@ -1440,7 +1599,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_sure_delete_selected_days#other" = "所选择的 {count} 个日期";
 
 "lng_message_empty" = "无消息";
-"lng_message_unsupported" = "您当前的 Telegram 桌面版无法查看此消息。请在“设置”中将本应用更新至最新版，或选择从这里下载：{link}";
+"lng_message_unsupported" = "您当前的 Telegram 桌面版无法查看此消息。请在“设置”中将本应用更新至最新版，或选择从这里下载：{link}。 如果您已经在使用最新版本，此消息可能包含一项尚未实装的功能。";
 "lng_message_not_found" = "消息不存在";
 
 
@@ -1458,7 +1617,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_action_group_call_started_channel" = "直播已开始";
 "lng_action_group_call_scheduled_group" = "{from} 已预约 {date} 开始的视频聊天";
 "lng_action_group_call_scheduled_channel" = "视频聊天计划于 {date} 开始";
-
+"lng_action_group_call_finished" = "直播已终止 ({duration})";
 "lng_action_group_call_finished_group" = "{from} 已结束语音聊天（{duration}）";
 "lng_action_add_user" = "{from} 添加了“{users}”";
 "lng_action_add_users_many" = "{from} 添加了“{users}”";
@@ -1505,7 +1664,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_action_pinned_media_sticker" = "一张表情";
 "lng_action_pinned_media_emoji_sticker" = "一张 {emoji} 表情";
 "lng_action_pinned_media_game" = "游戏«{game}»";
-
+"lng_action_pinned_media_story" = "一条动态";
 
 "lng_action_game_score#other" = "{from} 在«{game}»中获得 {count} 分";
 
@@ -1522,7 +1681,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_action_took_screenshot" = "{from} 截了一张图！";
 "lng_action_you_took_screenshot" = "您截了一张图！";
 "lng_action_bot_allowed_from_domain" = "您已允许此机器人在您登录 {domain} 时向您发送消息。";
-"lng_action_bot_allowed_from_app" = "当你打开 {app} 你可以让这个机器人发消息给你。";
+"lng_action_bot_allowed_from_app" = "您允许此机器人在您打开 {app} 时向您发送消息。";
 "lng_action_secure_values_sent" = "{user} 收到了文件：{documents}";
 "lng_action_secure_personal_details" = "个人信息";
 "lng_action_secure_proof_of_identity" = "身份证明";
@@ -1534,7 +1693,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_action_proximity_reached_you" = "{from}距离您{distance}";
 "lng_action_you_proximity_reached" = "您现在与{user}的距离为{distance}";
 "lng_action_you_theme_changed" = "您已将聊天主题更改为 {emoji}";
-
+"lng_action_theme_changed" = "{from} 已将聊天主题更改为 {emoji}";
 "lng_action_you_theme_disabled" = "您已停用聊天主题";
 "lng_action_theme_disabled" = "{from} 已停用聊天主题";
 
@@ -1545,15 +1704,18 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_action_gift_received" = "{user} 已花费 {cost} 赠予您一份礼物";
 "lng_action_gift_received_me" = "您已花费 {cost} 向 {user} 赠予礼物";
 "lng_action_suggested_photo_me" = "你已向 {user}的 Telegram 个人资料推荐这张照片。";
-"lng_action_suggested_photo" = "{user} 推荐将此图片用做您的 Telegram 头像。";
+"lng_action_suggested_photo" = "{user} 建议将此图片用做您的 Telegram 头像。";
 "lng_action_suggested_photo_button" = "查看头像";
 "lng_action_suggested_video_me" = "您已向 {user} 推荐此图片作为头像。";
 "lng_action_suggested_video" = "{user} 已向您推荐该图片作为您的 Telegram 头像。";
 "lng_action_suggested_video_button" = "查看图片";
 "lng_action_attach_menu_bot_allowed" = "当您将此机器人添加到附件菜单中时，您已允许此机器人向您发送消息。";
+"lng_action_webapp_bot_allowed" = "您已允许该机器人在其网页应用中向您发送消息。";
 "lng_action_set_wallpaper_me" = "您已为此聊天设置新壁纸";
 "lng_action_set_wallpaper" = "{user} 为此聊天设置了新壁纸";
+"lng_action_set_wallpaper_both_me" = "您已为自己和 {user} 设置新壁纸。";
 "lng_action_set_wallpaper_button" = "预览背景";
+"lng_action_set_wallpaper_remove" = "移除";
 "lng_action_set_same_wallpaper_me" = "您已设置与对方相同的壁纸。";
 "lng_action_set_same_wallpaper" = "{user} 已为聊天设置相同的壁纸";
 "lng_action_topic_created_inside" = "话题已创建";
@@ -1571,6 +1733,27 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_action_topic_icon_changed" = "{from} 将 {link} 图标更改为 {emoji}";
 "lng_action_topic_icon_removed" = "{from} 已移除了 {link} 图标";
 "lng_action_shared_chat_with_bot" = "您已将 {chat} 分享给 {bot}";
+"lng_action_story_mention_me" = "您在动态中提到了 {user}";
+"lng_action_story_mention" = "{user} 在动态中提到了您";
+"lng_action_story_mention_button" = "查看动态";
+"lng_action_story_mention_me_unavailable" = "您提到 {user} 的动态已无法访问";
+"lng_action_story_mention_unavailable" = "{user} 所提到您的动态已无法访问。";
+
+"lng_action_giveaway_started" = "{from} 刚刚发起一场抽奖活动，向其订阅者赠送 Telegram 高级版订阅。";
+
+"lng_action_giveaway_results#other" = "Telegram 已随机抽取 {count} 位获奖者，并已通过私信发送奖品链接。";
+
+"lng_action_giveaway_results_none" = "无法选出赠品得奖者。";
+
+
+
+"lng_similar_channels_title" = "相似频道";
+"lng_similar_channels_view_all" = "查看全部";
+"lng_similar_channels_more" = "更多频道";
+
+"lng_similar_channels_premium_all#other" = "订阅 {link} 以解锁最多 **{count}** 个相似频道。";
+"lng_similar_channels_premium_all_link" = "Telegram 高级版";
+"lng_similar_channels_show_more" = "显示更多频道";
 
 
 "lng_premium_gift_duration_months#other" = "{count} 月";
@@ -1579,13 +1762,22 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_ttl_photo_received" = "{from} 给您发送了一张阅后即焚图片，请在您的移动设备上查看。";
 "lng_ttl_photo_sent" = "您发送了一张阅后即焚图片。";
-"lng_ttl_photo_expired" = "图片已自毁";
+"lng_ttl_photo_expired" = "图片已过期";
 "lng_ttl_video_received" = "{from} 给您发送了一段阅后即焚视频，请在您的移动设备上查看。";
 "lng_ttl_video_sent" = "您发送了一段阅后即焚视频。";
 "lng_ttl_video_expired" = "视频已自毁";
 
+"lng_ttl_voice_expired" = "语音已过期";
+
+"lng_ttl_round_expired" = "视频消息已过期";
+"lng_ttl_voice_tooltip_in" = "此语音消息只能播放一次。";
+"lng_ttl_voice_tooltip_out" = "一旦 **{user}** 播放一次，此消息就会消失。";
+"lng_ttl_voice_close_in" = "删除并关闭";
+"lng_ttl_round_tooltip_in" = "此视频消息只能播放一次。";
+"lng_ttl_round_tooltip_out" = "此消息将在 **{user}** 播放一次后消失。";
+
 "lng_profile_add_more_after_create" = "你可以在新建群组后继续邀请成员";
-"lng_profile_camera_title" = "屏幕捕获";
+"lng_profile_camera_title" = "拍下自己的照片";
 
 "lng_channel_not_accessible" = "抱歉，此频道已无法访问。";
 "lng_group_not_accessible" = "抱歉，此群组已无法访问。";
@@ -1595,7 +1787,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_channels_too_much_public_revoke_confirm_channel" = "您确定要废除此链接（{link}）吗？\n\n频道«{group}»将转变成私密频道。";
 "lng_channels_too_much_public_revoke" = "废除";
 "lng_channels_too_much_public_other" = "抱歉，目标用户已经有太多的公开群组或频道。 请让他们先将他们现有的一个群组或频道设为私有。";
-
+"lng_channels_too_much_located_other" = "抱歉，目标用户已经有太多基于位置的群组。请让他们先删除或转移其中一个。";
 
 "lng_group_invite_bad_link" = "此邀请链接已失效或过期。";
 
@@ -1701,7 +1893,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_context_about_private_link" = "此链接只对该聊天的成员有效。";
 
 "lng_forwarded" = "转发自 {user}";
-
+"lng_forwarded_story" = "{user} 的动态";
+"lng_forwarded_story_expired" = "此动态已过期。";
 "lng_forwarded_date" = "原消息: {date}";
 "lng_forwarded_channel" = "转发自 {channel}";
 "lng_forwarded_psa_default" = "从 {channel} 转发";
@@ -1710,10 +1903,11 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_forwarded_signed" = "{channel}（{user}）";
 "lng_forwarded_hidden" = "用户主动隐藏该账户。";
 "lng_forwarded_imported" = "此信息由其他软件导入，无法保证其真实性。";
-
-"lng_sponsored" = "赞助消息";
-"lng_recommended" = "推荐";
+"lng_signed_author" = "作者：{user}";
+"lng_sponsored_message_title" = "赞助商业广告";
+"lng_recommended_message_title" = "推荐";
 "lng_edited" = "已编辑";
+"lng_commented" = "已评论";
 "lng_edited_date" = "编辑时间：{date}";
 "lng_sent_date" = "已发送: {date}";
 
@@ -1723,7 +1917,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_imported" = "已导入";
 "lng_admin_badge" = "管理员";
 "lng_owner_badge" = "所有者";
-
+"lng_channel_badge" = "频道";
 "lng_topic_author_badge" = "话题创建者";
 "lng_fast_reply" = "回复";
 "lng_cancel_edit_post_sure" = "取消编辑？";
@@ -1733,13 +1927,16 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_bot_share_location_unavailable" = "抱歉，Telegram 桌面版暂不支持分享位置信息信息。";
 "lng_bot_share_phone" = "您确定要将您的手机号码分享给此机器人吗？";
 "lng_bot_share_phone_confirm" = "分享";
+"lng_bot_allow_write_title" = "允许发送消息";
+"lng_bot_allow_write" = "是否允许该机器人向你发送消息？";
+"lng_bot_allow_write_confirm" = "允许";
 
 "lng_attach_failed" = "失败";
 "lng_attach_file" = "文件";
 "lng_attach_photo" = "图片";
 "lng_attach_camera" = "相机";
-
-
+"lng_attach_document" = "文档";
+"lng_attach_photo_or_video" = "图片或视频";
 "lng_attach_profile_emoji" = "使用表情";
 
 "lng_media_open_with" = "使用其它应用打开…";
@@ -1762,7 +1959,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_media_size_limit" = "文件大小限制";
 "lng_media_size_up_to" = "最大 {size}";
 "lng_media_chat_background" = "聊天背景";
-
+"lng_media_color_theme" = "主题颜色";
 
 "lng_emoji_category1" = "笑脸与人像";
 "lng_emoji_category2" = "自然";
@@ -1776,6 +1973,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_emoji_set_active" = "当前设置";
 "lng_emoji_set_download" = "下载 {size}";
 "lng_emoji_set_loading" = "{percent}, {progress}";
+"lng_emoji_color_all" = "为所有表情选择颜色";
+"lng_emoji_copy" = "复制表情";
+"lng_emoji_view_pack" = "查看表情包";
+"lng_emoji_remove_recent" = "从最近使用的表情中移除";
+"lng_emoji_reset_recent" = "重置最近表情";
+"lng_emoji_reset_recent_sure" = "您想要重置最近使用过的表情吗？";
+"lng_emoji_reset_recent_button" = "重置";
 
 "lng_recent_stickers" = "最近使用";
 "lng_faved_stickers_add" = "添加到收藏";
@@ -1784,6 +1988,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_stickers" = "群组贴纸包";
 "lng_group_stickers_description" = "您可以选择一套表情包，以供群成员在群里一起聊天时能够用到。";
 "lng_group_stickers_add" = "选择贴纸包";
+
+
 
 "lng_premium" = "高级版";
 "lng_premium_free" = "免费";
@@ -1805,19 +2011,23 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_premium_emoji_status_button" = "解锁表情状态";
 
 "lng_premium_summary_user_title" = "{user} 是 Telegram 高级版的订阅者";
-
+"lng_premium_summary_user_about" = "拥有 **Telegram 高级版** 帐号，可享受多项额外功能。";
 
 "lng_premium_summary_title" = "Telegram 高级版";
-"lng_premium_summary_top_about" = "**超越限制**，获得 **独家功能** 并通过订阅 **Telegram 高级版** 来支持我们。";
+"lng_premium_summary_top_about" = "订阅 **Telegram Premium** 后，您能 **超越限制** 并 **解锁数十项专属** 功能。";
 "lng_premium_summary_title_subscribed" = "一切都已就绪！";
 
 "lng_premium_summary_subtitle_gift#other" = "{user} 已赠予您 {count} 个月的 Telegram 高级版订阅。";
 
 "lng_premium_summary_subtitle_gift_me#other" = "您已赠予 **{user}** {count} 个月的 Telegram 高级版订阅。";
+"lng_premium_summary_subtitle_wallpapers" = "为双方设置壁纸";
+"lng_premium_summary_about_wallpapers" = "为您和聊天对象设置自定义壁纸。";
+"lng_premium_summary_subtitle_stories" = "动态";
+"lng_premium_summary_about_stories" = "无限发布数量、优先显示、隐身模式、永久访客历史，以及更多功能。";
 "lng_premium_summary_subtitle_double_limits" = "双倍上限";
-"lng_premium_summary_about_double_limits" = "多达 1000 个频道、20 个文件夹、10 个置顶、20 个公开链接、4 个帐号等等。";
-"lng_premium_summary_subtitle_more_upload" = "4 GB 上传大小";
-"lng_premium_summary_about_more_upload" = "单个文档上传限制从 2GB 提升到 4GB，总体存储空间无限制。";
+"lng_premium_summary_about_double_limits" = "多达 1000 个频道、30 个文件夹、10 个置顶、20 个公开链接、4 个帐号等等。";
+"lng_premium_summary_subtitle_more_upload" = "无限云端存储空间";
+"lng_premium_summary_about_more_upload" = "单个文档上传限制为 4 GB ，聊天和媒体的总体存储空间无限制。";
 "lng_premium_summary_subtitle_faster_download" = "更快的下载速度";
 "lng_premium_summary_about_faster_download" = "下载媒体文件和文档时不再受到速度限制。";
 "lng_premium_summary_subtitle_voice_to_text" = "语音转文字";
@@ -1828,6 +2038,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_premium_summary_about_emoji_status" = "从数千个表情中选择一个展示当前的活动，显示在您的名字旁边。";
 "lng_premium_summary_subtitle_infinite_reactions" = "无限表情回应";
 "lng_premium_summary_about_infinite_reactions" = "用数千个表情作出回应——可使用多个表情回应单条消息。";
+"lng_premium_summary_subtitle_tags_for_messages" = "消息标签";
+"lng_premium_summary_about_tags_for_messages" = "使用标签整理收藏的消息，以便快速访问。";
+
+
+
+
 "lng_premium_summary_subtitle_premium_stickers" = "高级会员贴纸";
 "lng_premium_summary_about_premium_stickers" = "具有额外特效的专属放大贴纸，每月更新。";
 "lng_premium_summary_subtitle_animated_emoji" = "动态表情";
@@ -1835,7 +2051,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_premium_summary_subtitle_advanced_chat_management" = "高级聊天管理";
 "lng_premium_summary_about_advanced_chat_management" = "可设定默认文件夹、自动归档以及隐藏来自非联系人的新聊天。";
 "lng_premium_summary_subtitle_profile_badge" = "形象勋章";
-"lng_premium_summary_about_profile_badge" = "在您的名字后方显示徽章，以表示您为 Telegram 的支持。";
+"lng_premium_summary_about_profile_badge" = "在您的名字后方显示专属徽章，以表示您已订阅 Telegram 高级版。";
 "lng_premium_summary_subtitle_animated_userpics" = "动态头像";
 "lng_premium_summary_about_animated_userpics" = "视频头像会在聊天列表和聊天中动起来，为您提供更多自我表达空间。";
 "lng_premium_summary_subtitle_translation" = "即时翻译";
@@ -1844,8 +2060,34 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_premium_summary_bottom_about" = "虽然免费版本的 Telegram 已经为用户提供比其他任何即时通讯应用程序更多的功能，但 **Telegram 高级版** 进一步推动了它。\n\n**Telegram 高级版** 是付费选项，因为大多数高级功能需要 Telegram 向第三方（如数据中心提供商和服务器制造商）支付额外费用。 **Telegram 高级版** 用户的贡献使我们能够支付此类费用，并帮助 Telegram 保持为所有人免费提供。";
 "lng_premium_summary_button" = "以每月 {cost} 的价格订阅";
 
+"lng_premium_summary_new_badge" = "新";
+
 "lng_premium_success" = "您已经成功订阅了 Telegram 高级版！";
 "lng_premium_unavailable" = "此功能需要订阅 **Telegram 高级版**.\n\n不幸的是，**Telegram 高级版** 在你所在的地区不可用。";
+
+// Upgraded Stories.
+"lng_premium_stories_subtitle_order" = "优先显示";
+"lng_premium_stories_about_order" = "您的动态将始终优先展示，因此可以获得更多浏览量。";
+
+"lng_premium_stories_subtitle_stealth" = "隐身模式";
+"lng_premium_stories_about_stealth" = "隐藏您曾浏览其他用户动态的痕迹。";
+
+"lng_premium_stories_subtitle_views" = "永久访客历史";
+"lng_premium_stories_about_views" = "查看谁打开过您的动态——即使在动态过期后仍能查看。";
+
+"lng_premium_stories_subtitle_expiration" = "过期选项*";
+"lng_premium_stories_about_expiration" = "为您的动态设置自定义过期时间，比如 6 小时或 48 小时。";
+
+"lng_premium_stories_subtitle_download" = "下载动态";
+"lng_premium_stories_about_download" = "保存其他用户未开启保护的动态。";
+
+"lng_premium_stories_subtitle_caption" = "更长的说明文字*";
+"lng_premium_stories_about_caption" = "为您的动态添加 10 倍长的说明文字——最多 2048 个字符。";
+
+"lng_premium_stories_subtitle_links" = "链接和格式*";
+"lng_premium_stories_about_links" = "在动态说明文字中添加链接和格式。";
+
+"lng_premium_stories_about_mobile" = "* 当从 IOS 和 Android 端的 Telegram 应用发布动态时可用。";
 
 // Doubled Limits.
 "lng_premium_double_limits_subtitle_channels" = "群组和频道";
@@ -1887,12 +2129,342 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_premium_double_limits_about_accounts#other" = "使用不同的电话号码连接至 {count} 个账号";
 //
 
-"lng_premium_gift_title" = "赠予 Telegram 高级版";
+"lng_premium_gift_title" = "赠予 Telegram 高级版订阅";
 "lng_premium_gift_about" = "将 **Telegram 高级版** 的专属功能赠予 **{user}**。";
 "lng_premium_gift_button" = "花费 {cost} 赠予订阅";
 "lng_premium_gift_per" = "{cost} / 月";
-"lng_premium_gift_terms" = "您可以在 {link} 查看 Telegram 高级版的功能列表和使用条款。";
+"lng_premium_gift_terms" = "您可以在 {link} 查看 Telegram 高级版的功能列表和更多详情。";
 "lng_premium_gift_terms_link" = "点击查看";
+"lng_premium_gifts_about_user1" = "让 **{user}** 享有专属功能。";
+"lng_premium_gifts_about_user2" = "让 **{user}** 和 **{second_user}** 享有专属功能。";
+
+
+
+
+
+"lng_premium_gifts_about_paid_title" = "礼物已赠送!";
+
+
+
+
+
+
+"lng_premium_gifts_about_paid_below#other" = "对方现已可以使用额外功能。";
+"lng_premium_gifts_summary_subtitle" = "包含了什么";
+
+"lng_premium_gifts_terms_policy" = "隐私政策";
+
+"lng_boost_channel_button" = "助推频道";
+
+"lng_boost_again_button" = "再次助推";
+
+
+"lng_boost_level#other" = "等级 {count}";
+
+
+"lng_boost_channel_title_first" = "为此频道启用动态";
+
+
+
+//"lng_boost_channel_needs_first#one" = "{channel} needs **{count}** more boost to enable posting stories. Help make it possible!";
+//"lng_boost_channel_needs_first#other" = "{channel} needs **{count}** more boosts to enable posting stories. Help make it possible!";
+"lng_boost_channel_title_more" = "帮助升级此频道";
+
+//"lng_boost_channel_needs_more#one" = "{channel} needs **{count}** more boost to be able to {post}.";
+//"lng_boost_channel_needs_more#other" = "{channel} needs **{count}** more boosts to be able to {post}.";
+"lng_boost_channel_title_max" = "已达到最高等级";
+"lng_boost_channel_you_title" = "您助推了 {channel}！";
+//"lng_boost_channel_you_first#one" = "This channel needs **{count}** more boost\nto enable stories.";
+//"lng_boost_channel_you_first#other" = "This channel needs **{count}** more boosts\nto enable stories.";
+//"lng_boost_channel_you_more#one" = "This channel needs **{count}** more boost\nto be able to {post}.";
+//"lng_boost_channel_you_more#other" = "This channel needs **{count}** more boosts\nto be able to {post}.";
+"lng_boost_channel_reached_first" = "此频道已达到 **等级 1**，现在可以发布动态了。";
+
+"lng_boost_channel_reached_more#other" = "此频道已达到 **等级 {count}**，现在每天可发布 {post}。";
+//"lng_boost_channel_you_first_group#one" = "This group needs **{count}** more boost\nto enable stories.";
+//"lng_boost_channel_you_first_group#other" = "This group needs **{count}** more boosts\nto enable stories.";
+//"lng_boost_channel_you_more_group#one" = "This group needs **{count}** more boost\nto be able to {post}.";
+//"lng_boost_channel_you_more_group#other" = "This group needs **{count}** more boosts\nto be able to {post}.";
+
+
+
+
+"lng_boost_channel_post_stories#other" = "每天发布 **{count} 条动态** ";
+
+
+
+
+"lng_boost_error_gifted_title" = "无法使用受赠的 Telegram 高级版助推！";
+"lng_boost_error_gifted_text" = "由于您的 **Telegram 高级版** 是通过赠送获得的，所以您无法用其助推频道。";
+
+"lng_boost_need_more" = "需要更多助推";
+
+"lng_boost_need_more_text#other" = "想要助推 {channel}，请向好友赠送 **Telegram 高级版** 来获取 **{count}** 个额外助推。";
+
+"lng_boost_need_more_again#other" = "想要再次助推 {channel}，请向好友赠送 **Telegram 高级版** 来获取 **{count}** 个额外助推。";
+"lng_boost_error_already_title" = "已经助推过了！";
+"lng_boost_error_already_text" = "您已助推此频道。";
+
+"lng_boost_error_premium_title" = "需要订阅 Telegram 高级版！";
+
+"lng_boost_error_premium_text" = "只有 **Telegram 高级版** 订阅者可以助推频道。您是否要订阅 **Telegram 高级版**？";
+"lng_boost_error_premium_yes" = "确定";
+"lng_boost_error_flood_title" = "不能频繁助推！";
+
+"lng_boost_error_flood_text" = "您每天只能更改一次助推的频道。 您可以在 **{left}** 后再次助推。";
+"lng_boost_now_instead" = "您目前正在助推 **{channel}**，您是否想改为助推 **{other}**？";
+"lng_boost_now_replace" = "更换";
+"lng_boost_reassign_title" = "重新分配助推";
+"lng_boost_reassign_text" = "要助推 {channel}，请重新分配之前的助推或将 {gift} 赠予給用户。";
+
+"lng_boost_reassign_gift#other" = "向好友赠送 **Telegram 高级版** 以再获得 **{count}** 个助推。";
+"lng_boost_remove_title" = "移你的助推自";
+"lng_boost_reassign_button" = "重新分配";
+"lng_boost_available_in" = "将于 {duration} 可用";
+
+"lng_boost_available_in_toast#other" = "等待助推可用，或通过赠予 **Telegram 高级版** 来获得 **{count}** 次额外的助推。";
+
+"lng_boost_reassign_done#other" = "{channels} 的 {count} 次助推已重新分配。";
+
+"lng_boost_reassign_channels#other" = "{count} 个频道";
+
+
+
+
+
+"lng_boost_channel_title_color" = "启用颜色";
+
+"lng_boost_channel_needs_level_color#other" = "您的频道需要达到 **等级 {count}** 才能更改频道颜色。";
+
+"lng_boost_channel_title_wallpaper" = "启用壁纸";
+
+"lng_boost_channel_needs_level_wallpaper#other" = "您的频道要达到 **等级 {count}** 才能设置频道壁纸。";
+
+
+
+"lng_boost_channel_title_status" = "启用表情状态";
+
+"lng_boost_channel_needs_level_status#other" = "您的频道需要达到 **等级 {count}** 才能设置频道表情状态。 ";
+
+
+
+"lng_boost_channel_title_reactions" = "自定义表情回应";
+
+"lng_boost_channel_needs_level_reactions#other" = "您的频道需要达到 **等级 {count}** 才能添加 **{same_count}** 个自定义表情回应。";
+
+
+
+
+
+"lng_boost_channel_ask" = "请您的 **高级版** 订阅者通过此链接助推您的频道:";
+"lng_boost_channel_ask_button" = "复制链接";
+"lng_boost_channel_or" = "或";
+"lng_boost_channel_gifting" = "通过向订阅者赠予 Telegram 高级版推广您的频道。{link}";
+"lng_boost_channel_gifting_link" = "获取助推 >";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"lng_giveaway_new_title" = "通过赠品助推";
+"lng_giveaway_new_about" = "通过向您的订阅者赠予 Telegram 高级版来为您的频道获取更多助推。";
+
+"lng_giveaway_create_option" = "创建抽奖活动";
+"lng_giveaway_create_subtitle" = "将随机选出获奖者";
+"lng_giveaway_award_option" = "奖励特定用户";
+"lng_giveaway_award_subtitle" = "选择接收者 >";
+
+"lng_giveaway_award_chosen#other" = "{count} 位接收者 >";
+"lng_giveaway_quantity_title" = "奖品的数量";
+
+"lng_giveaway_quantity#other" = "{count} 次助推";
+"lng_giveaway_quantity_about" = "选择要赠送的 Telegram 高级版订阅数量以及接收的助推数量。";
+"lng_giveaway_channels_title" = "抽奖活动中包括的频道";
+
+"lng_giveaway_channels_this#other" = "此频道将获得 {count} 次助推";
+
+
+"lng_giveaway_channels_add" = "添加频道";
+"lng_giveaway_channels_about" = "选择用户需要订阅哪些频道才能参与抽奖活动。";
+"lng_giveaway_users_title" = "有资格参与抽奖活动的用户";
+"lng_giveaway_users_all" = "所有订阅者";
+
+"lng_giveaway_users_from_all_countries" = "来自所有国家";
+"lng_giveaway_users_from_one_country" = "来自 {country}";
+
+"lng_giveaway_users_from_countries#other" = "来自 {count} 个国家";
+"lng_giveaway_users_new" = "仅限新订阅者";
+
+"lng_giveaway_users_about" = "选择是否要将抽奖活动仅限于活动发起之后加入频道的用户，或来自特定国家/地区的用户。";
+
+"lng_giveaway_start" = "开始抽奖活动";
+"lng_giveaway_award" = "赠送高级版订阅";
+"lng_giveaway_start_sure" = "您确定要现在开始此次预付抽奖活动吗？此操作无法撤销。";
+"lng_giveaway_date_title" = "抽奖活动结束日期";
+"lng_giveaway_date" = "日期和时间";
+
+"lng_giveaway_date_about#other" = "选择何时在您的频道中随机选择 {count} 名订阅者获得 Telegram 高级版。";
+
+
+
+"lng_giveaway_duration_title#other" = "Telegram 高级版订阅的时长";
+"lng_giveaway_duration_price" = "{price} x {amount}";
+"lng_giveaway_date_select" = "选择日期与时间";
+"lng_giveaway_date_confirm" = "确认";
+"lng_giveaway_recipients_save" = "保存接收者";
+"lng_giveaway_recipients_deselect" = "取消全选";
+
+"lng_giveaway_maximum_countries_error#other" = "您最多可以选择 {count} 个国家。";
+
+"lng_giveaway_maximum_channels_error#other" = "您最多可以 {count} 个频道。";
+
+"lng_giveaway_maximum_users_error#other" = "您最多可以选择 {count} 位用户。";
+"lng_giveaway_channels_confirm_title" = "这是私人频道";
+"lng_giveaway_channels_confirm_about" = "您确定要新增私人频道吗？如果没有邀请链接，用户将无法加入。";
+"lng_giveaway_additional_prizes" = "额外奖品";
+
+"lng_giveaway_additional_prizes_ph" = "输入您的奖品";
+
+"lng_giveaway_prizes_just_premium#other" = "所有奖品：**{count}** 份为期 {duration} 的 Telegram 高级版订阅。";
+
+"lng_giveaway_prizes_additional#other" = "所有奖品：**{count}** 份 {prize} 以及为期 {duration} 的 Telegram Premium 订阅。";
+"lng_giveaway_show_winners" = "显示获奖者";
+"lng_giveaway_show_winners_about" = "选择是否在抽奖活动结束时公开获奖者名单。";
+
+"lng_giveaway_created_title" = "抽奖活动已创建";
+"lng_giveaway_created_body" = "在频道的 {link} 页面查看您的频道通过此次抽奖活动获得了多少助推。";
+
+"lng_giveaway_awarded_title" = "已赠予高级版订阅";
+"lng_giveaway_awarded_body" = "检查您频道的 {link}，了解礼物将如何助推您的频道。";
+
+"lng_giveaway_created_link" = "统计信息";
+
+"lng_prize_title" = "恭喜!";
+"lng_prize_about" = "您在 {channel} 发起的抽奖活动中赢得了奖品。";
+"lng_prize_duration" = "你的奖品是 {duration} 的 **Telegram 高级版** 订阅。";
+"lng_prize_gift_about" = "您已收到来自 {channel} 的礼物。";
+"lng_prize_gift_duration" = "您的奖品是 {duration} 的 **Telegram 高级版**\n订阅。";
+"lng_prize_open" = "公开礼物链接";
+"lng_prize_unclaimed_title" = "尚未领取的奖品";
+"lng_prize_unclaimed_about" = "您从 {channel} 已获得一份尚未领取的奖品。";
+"lng_prize_unclaimed_duration" = "此奖品是 {duration} 的 **Telegram 高级版** 订阅。";
+
+
+"lng_prizes_title#other" = "抽奖奖品";
+
+"lng_prizes_additional#other" = "**{count}** {prize}";
+"lng_prizes_additional_with" = "及";
+
+"lng_prizes_about#other" = "**{count}** 个 {duration} 的 Telegram 高级版订阅。";
+"lng_prizes_participants" = "参与者";
+
+"lng_prizes_participants_all#other" = "所有频道的订阅者:";
+
+
+
+
+
+"lng_prizes_participants_new#other" = "本公告发布后加入以下频道的所有用户：";
+
+
+
+
+"lng_prizes_countries" = "来自 {countries}";
+"lng_prizes_countries_and_one" = "{countries}，{country}";
+"lng_prizes_countries_and_last" = "{countries} 和 {country}";
+"lng_prizes_date" = "选定获奖者的日期";
+"lng_prizes_how_works" = "了解更多";
+"lng_prizes_how_title" = "关于此抽奖活动";
+"lng_prizes_end_title" = "抽奖活动已结束";
+"lng_prizes_how_text" = "此赠品活动由 {admins}。";
+"lng_prizes_end_text" = "此赠品活动由 {admins} 赞助。";
+
+
+
+
+
+
+
+
+"lng_prizes_how_when_finish" = "在 {date}，Telegram 将自动选定 {winners}。";
+"lng_prizes_end_when_finish" = "在 {date}，Telegram 将自动选定 {winners}。";
+
+"lng_prizes_end_activated#other" = "**{count}** 位获奖者已使用了赠礼链接。";
+
+"lng_prizes_winners_all_of_one#other" = " {channel} 的 {count} 位随机订阅者";
+
+
+
+"lng_prizes_winners_all_of_many#other" = "{channel} 和其他列出频道的 {count} 位随机订阅者";
+
+
+
+"lng_prizes_winners_new_of_one#other" = "在 {start_date} 之后加入 {channel} 的 {count} 位随机用户";
+
+"lng_prizes_winners_new_of_many#other" = "在 {start_date} 加入 {channel} 和其他列出频道的 {count} 位随机用户";
+"lng_prizes_how_participate_one" = "要参加此抽奖活动，请在 **{date}** 之前加入 **{channel}** 频道。";
+"lng_prizes_how_participate_many" = "要参加此抽奖活动，请在 **{date}** 之前加入 **{channel}** 频道以及其他列出的频道。";
+"lng_prizes_how_no_admin" = "您没有资格参与此赠品活动，因为您是参与频道的管理员 ({channel})。";
+
+"lng_prizes_how_no_joined" = "您没有资格参加此赠品活动，因为您是在 **{date}** 即活动开始之前加入此频道的。";
+
+"lng_prizes_how_no_country" = "您沒有资格参加此赠品活动，因为您所在的国家未包含在赠品活动条款中。";
+"lng_prizes_how_yes_joined_one" = "您正在参与此抽奖活动，因为您已加入 **{channel}** 频道。";
+"lng_prizes_how_yes_joined_many" = "您正在参与此赠品活动，因为您已加入频道 {channel} (和其他列出的频道)。";
+"lng_prizes_you_won" = "您在此抽奖活动中赢得了奖品 {cup}";
+"lng_prizes_view_prize" = "查看我的奖品";
+"lng_prizes_you_didnt" = "您在此次抽奖活动中没有获奖。";
+"lng_prizes_cancelled" = "该频道通过撤销付款的方式取消了奖品。";
+
+"lng_prizes_badge" = "x{amount}";
+
+"lng_prizes_results_title" = "获奖者已选出!";
+
+"lng_prizes_results_about#other" = "Telegram 已随机选出 **{count}** 位 [{link}]() 获奖者。";
+"lng_prizes_results_link" = "抽奖活动";
+"lng_prizes_results_winners" = "获奖者";
+
+"lng_prizes_results_more#other" = "以及 {count} 等更多!";
+"lng_prizes_results_all" = "所有获奖者都已在私密消息中收到礼物链接。";
+
+
+"lng_gift_link_title" = "礼品链接";
+"lng_gift_link_about" = "此链接允许您启用 **Telegram 高级版** 订阅。";
+"lng_gift_link_label_from" = "来自";
+"lng_gift_link_label_to" = "到";
+"lng_gift_link_label_to_unclaimed" = "无接收者";
+"lng_gift_link_label_gift" = "赠礼";
+"lng_gift_link_gift_premium" = "Telegram 高级版 {duration}";
+"lng_gift_link_label_reason" = "原因";
+"lng_gift_link_reason_giveaway" = "抽奖活动";
+"lng_gift_link_reason_unclaimed" = "未完成的抽奖活动";
+"lng_gift_link_reason_chosen" = "你已被频道选中";
+"lng_gift_link_label_date" = "日期";
+"lng_gift_link_also_send" = "您也可以 {link} 给好友作为礼物。";
+"lng_gift_link_also_send_link" = "发送此链接";
+"lng_gift_link_use" = "使用链接";
+"lng_gift_link_used_title" = "使用过的礼品链接";
+"lng_gift_link_used_about" = "此链接用于启用 **Telegram 高级版** 订阅。";
+"lng_gift_link_used_footer" = "此链接已于 {date} 使用。";
+"lng_gift_link_expired" = "礼品码已过期";
+"lng_gift_link_pending_about" = "此链接允许 {user} 启用 **Telegram 高级版** 订阅。";
+"lng_gift_link_pending_toast" = "只有接收者可以看到链接。";
+"lng_gift_link_pending_footer" = "此链接尚未启用。";
 
 "lng_accounts_limit_title" = "已达到上限";
 
@@ -1915,6 +2487,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_switch_gifs" = "GIF 动态图";
 "lng_switch_masks" = "面具装饰";
 "lng_stickers_featured_add" = "添加";
+"lng_stickers_featured_installed" = "已添加";
 "lng_emoji_featured_unlock" = "解锁";
 "lng_emoji_premium_restore" = "恢复";
 "lng_gifs_search" = "搜索 GIF 动态图";
@@ -1929,7 +2502,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_stickers_masks_tab" = "面具装饰";
 "lng_stickers_featured_tab" = "热门";
 "lng_stickers_archived_tab" = "已归档";
-"lng_stickers_remove_pack" = "删除表情包«{sticker_pack}»？";
+"lng_stickers_remove_pack" = "删除贴纸包 «{sticker_pack}»？";
 "lng_stickers_add_pack" = "添加表情包";
 "lng_stickers_add_masks" = "添加口罩";
 "lng_stickers_add_emoji" = "添加表情包";
@@ -1949,7 +2522,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_masks_count#other" = "{count} 个面具装饰";
 
 "lng_custom_emoji_count#other" = "{count} 个表情";
-
+"lng_stickers_attached_sets" = "附加贴纸集";
 "lng_custom_emoji_used_sets" = "用过的表情包";
 "lng_custom_emoji_remove_pack_button" = "移除表情";
 "lng_stickers_group_set" = "群组贴纸包";
@@ -1960,9 +2533,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_stickers_remove_pack_confirm" = "移除";
 "lng_stickers_archive_pack" = "归档贴纸";
 "lng_stickers_has_been_archived" = "贴纸包已归档。";
+
+"lng_emoji_remove_group_set" = "移除群组表情包吗？";
+
+"lng_emoji_group_from_featured" = "从热门表情中选择";
 "lng_masks_archive_pack" = "归档面具装饰";
-
-
+"lng_masks_has_been_archived" = "此面具贴纸包已被归档。";
+"lng_masks_installed" = "已安装此面具贴纸包。";
 "lng_emoji_nothing_found" = "未找到表情";
 
 "lng_in_dlg_photo" = "图片";
@@ -1972,11 +2549,14 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_in_dlg_contact" = "联系人";
 "lng_in_dlg_audio" = "语音消息";
 "lng_in_dlg_video_message" = "视频消息";
+"lng_in_dlg_voice_message_ttl" = "阅后即焚视频语音消息";
+"lng_in_dlg_video_message_ttl" = "阅后即焚视频消息";
 "lng_in_dlg_file" = "文件";
 "lng_in_dlg_sticker" = "贴纸";
 "lng_in_dlg_sticker_emoji" = "{emoji} 表情";
-
-
+"lng_in_dlg_poll" = "投票";
+"lng_in_dlg_story" = "动态";
+"lng_in_dlg_story_expired" = "过期的动态";
 
 "lng_in_dlg_media_count#other" = "{count} 个媒体文件";
 
@@ -2000,7 +2580,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_new_contact_block_done" = "{user} 已被封禁";
 "lng_new_contact_add" = "添加为联系人";
 "lng_new_contact_share" = "分享我的手机号码";
-
+"lng_new_contact_share_sure" = "您确定要将您的手机号码 {phone} 分享给 {user} 吗？";
 "lng_new_contact_share_done" = "{user} 可以查看您的手机号码。";
 "lng_new_contact_add_name" = "添加 {user} 为联系人";
 "lng_new_contact_add_done" = "{user} 已成为您的联系人";
@@ -2026,15 +2606,17 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_send_button" = "发送";
 "lng_schedule_button" = "创建日程";
 "lng_send_silent_message" = "无声发送";
-
-
-
-
+"lng_schedule_message" = "定时消息";
+"lng_reminder_message" = "设置提醒";
+"lng_schedule_title" = "在何时发送此消息…";
+"lng_remind_title" = "在何时提醒我…";
 "lng_schedule_at" = " ";
 "lng_message_ph" = "输入消息…";
 "lng_broadcast_ph" = "广播…";
 "lng_broadcast_silent_ph" = "静默广播…";
 "lng_send_anonymous_ph" = "匿名发送";
+"lng_story_reply_ph" = "私信回复…";
+
 "lng_send_text_no" = "不允许发送文本。";
 "lng_send_text_no_about" = "此群组的管理员仅允许发送 {types}。";
 "lng_send_text_type_and_last" = "{types} 和 {last}";
@@ -2052,11 +2634,14 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_send_as_premium_required" = "订阅 {link} 后可以在任何群聊中代表您的频道发布评论。";
 "lng_send_as_premium_required_link" = "Telegram 高级版";
 "lng_record_cancel" = "移出此处以取消发送";
+"lng_record_cancel_stories" = "向外释放以取消";
 "lng_record_lock_cancel_sure" = "您确定要停止录制并放弃您的语音消息吗？";
-
+"lng_record_listen_cancel_sure" = "你确定要放弃已录制的语音消息吗？";
 "lng_record_lock_discard" = "放弃";
 "lng_record_hold_tip" = "请按住鼠标按键以录制语音消息。";
-"lng_will_be_notified" = "消息发布后订阅者会收到通知";
+"lng_record_once_first_tooltip" = "点击以设置此消息只能 **播放一次**。";
+"lng_record_once_active_tooltip" = "接收者只能收听一次。";
+"lng_will_be_notified" = "消息发布后订阅者会收到通知。";
 "lng_wont_be_notified" = "消息发布后订阅者会收到无声通知";
 "lng_willbe_history" = "请选择一个对话开始聊天";
 "lng_from_you" = "你";
@@ -2069,14 +2654,19 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_saved_messages" = "我的收藏";
 "lng_saved_short" = "收藏";
 "lng_saved_forward_here" = "转发消息到这里以便快速访问";
+"lng_saved_quote_here" = "引用至此以收藏。";
+"lng_saved_open_chat" = "打开聊天";
+"lng_saved_open_channel" = "打开聊天";
+"lng_saved_open_group" = "打开群组";
+"lng_saved_about_hidden" = "消息发送者已限制转发消息中显示他们的名字。";
 
-
-
-
+"lng_scheduled_messages" = "定时消息";
+"lng_scheduled_messages_empty" = "暂无计划消息";
+"lng_reminder_messages" = "提醒";
 "lng_scheduled_date" = "计划于 {date} 发送";
 "lng_scheduled_date_until_online" = "在线后发送";
 "lng_scheduled_send_until_online" = "在线时发送";
-
+"lng_scheduled_send_now" = "现在发送消息？";
 
 "lng_scheduled_send_now_many#other" = "立即发送 {count} 条消息？";
 
@@ -2095,15 +2685,17 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_comments_open_none" = "留言";
 "lng_replies_view_original" = "在聊天中查看";
 "lng_replies_messages" = "回复";
+"lng_hidden_author_messages" = "作者已隐藏";
+"lng_my_notes" = "我的笔记";
 "lng_replies_discussion_started" = "讨论已开始";
 "lng_replies_no_comments" = "还没有留言...";
 
 "lng_archived_name" = "已归档聊天";
-"lng_archived_add" = "归档对话";
+"lng_archived_add" = "归档聊天";
 "lng_archived_remove" = "取消归档";
 "lng_archived_added" = "聊天已归档。\n收到新消息时，静音的聊天将被保持归档。";
 "lng_archived_removed" = "已从归档还原至聊天列表。";
-
+"lng_archived_last_list" = "{accumulated}, {chat}";
 
 "lng_archived_last#other" = "{chats} 和另外 {count} 个聊天";
 
@@ -2122,7 +2714,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_open_link" = "打开";
 "lng_allow_bot_pass" = "是否允许 {bot_name} 传送您的 Telegram 昵称及 ID（不是您的手机号码）到通过机器人打开的网页中呢？";
 "lng_allow_bot" = "允许";
-
+"lng_allow_bot_webview" = "{bot_name} 想要打开它的网络应用以继续。\n\n它将可以获取到您的 **IP 地址** 和基本设备信息。";
 "lng_url_auth_open_confirm" = "你想打开 {link} 吗?";
 "lng_url_auth_login_option" = "以 {user} 身份登录{domain}";
 "lng_url_auth_allow_messages" = "允许 {bot} 给我发消息";
@@ -2134,34 +2726,41 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_bot_sure_invite" = "是否将机器人添加到 «{group}»？";
 "lng_bot_already_in_group" = "该机器人已在此群组中。";
 "lng_bot_choose_chat" = "选择一个对话";
-"lng_bot_no_chats" = "您没有对话";
+"lng_bot_no_chats" = "您没有聊天";
 "lng_bot_chats_not_found" = "没有符合条件的对话";
 "lng_bot_sure_share_game" = "与“{user}”分享此游戏？";
 "lng_bot_sure_share_game_group" = "向«{group}»分享此游戏？";
 "lng_bot_groups_manage" = "我管理的群组";
-
+"lng_bot_channels_manage" = "我管理的频道";
 "lng_bot_groups" = "群组";
-
-
-
+"lng_bot_add_title" = "添加机器人";
+"lng_bot_as_admin_check" = "管理员权限";
+"lng_bot_add_as_admin" = "添加机器人为管理员";
 "lng_bot_add_as_member" = "添加机器人为成员";
-
+"lng_bot_sure_add_text_group" = "你确定要将此机器人设为 {group} 群组的管理员吗？";
 "lng_bot_sure_add_text_channel" = "您确定要将此机器人添加为频道 {group} 中的管理员吗？它将有权访问频道管理员和订阅者列表。";
-
-
+"lng_bot_no_webview" = "很抱歉，您不能使用当前系统配置打开这个菜单。";
+"lng_bot_remove_from_menu" = "从菜单中移除";
 "lng_bot_remove_from_menu_sure" = "要从附件菜单中删除 {bot} 吗？";
-
+"lng_bot_remove_from_menu_done" = "机器人已从菜单中移除。";
+"lng_bot_remove_from_side_menu" = "从菜单中删除";
+"lng_bot_remove_from_side_menu_sure" = "从主菜单中移除 {bot} 吗？";
+"lng_bot_remove_from_side_menu_done" = "机器人已从主菜单中移除。";
 "lng_bot_settings" = "设置";
-
-
+"lng_bot_open" = "打开机器人";
+"lng_bot_reload_page" = "重载页面";
 "lng_bot_add_to_menu" = "{bot} 请求作为选项添加到您的附件菜单，以便您可以从任何聊天中访问它。";
 "lng_bot_add_to_menu_done" = "机器人已添加至菜单。";
+"lng_bot_will_be_added" = "{bot} 快捷方式将会添加至附件菜单和主菜单。";
+"lng_bot_side_menu_new" = "新功能";
 "lng_bot_menu_not_supported" = "无法将此机器人添加至附件菜单。";
-
-
+"lng_bot_menu_already_added" = "此机器人已经添加到您的附件菜单中。";
+"lng_bot_menu_button" = "菜单";
 "lng_bot_close_warning_title" = "警告";
 "lng_bot_close_warning" = "所作的更改可能不会保存。";
 "lng_bot_close_warning_sure" = "仍然关闭";
+"lng_bot_add_to_side_menu" = "{bot} 申请将其作为一个选项添加至主菜单，以便您能够随时访问。";
+"lng_bot_add_to_side_menu_done" = "机器人已添加到主菜单。";
 
 "lng_typing" = "正在输入";
 "lng_user_typing" = "{user} 正在输入";
@@ -2190,7 +2789,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_send_action_upload_file" = "正在发送文件";
 "lng_user_action_upload_file" = "{user} 正在发送文件";
 "lng_send_action_choose_sticker" = "正在选择表情";
-
+"lng_user_action_choose_sticker" = "{user} 正在选择贴纸…";
 "lng_user_action_watching_animations" = "正在观看 {emoji}";
 
 "lng_unread_bar#other" = "{count} 条未读消息";
@@ -2207,7 +2806,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_duration_played" = "{played} / {duration}";
 "lng_date_and_duration" = "{date}, {duration}";
 "lng_choose_image" = "选择一张图片";
-
+"lng_choose_file" = "选择一个文件";
 "lng_choose_files" = "选择文件";
 "lng_game_tag" = "游戏";
 
@@ -2232,6 +2831,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_context_archive_to_menu" = "移动到主菜单";
 "lng_context_archive_to_list" = "移动到聊天列表";
 "lng_context_archive_to_menu_info" = "归档已移至主菜单！\n您可以右键归档图标将其恢复。";
+"lng_context_archive_settings" = "归档设置";
 
 "lng_context_mute" = "消息免打扰";
 "lng_context_unmute" = "取消免打扰";
@@ -2249,6 +2849,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_context_copy_email" = "拷贝电子邮件地址";
 "lng_context_copy_hashtag" = "拷贝标签";
 "lng_context_copy_mention" = "拷贝用户名";
+
 "lng_context_save_image" = "保存图片为…";
 "lng_context_copy_image" = "拷贝图片";
 "lng_context_cancel_download" = "取消下载";
@@ -2257,19 +2858,22 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_context_save_video" = "保存视频为…";
 "lng_context_save_audio_file" = "保存为…";
 "lng_context_save_audio" = "保存为…";
-"lng_context_pack_info" = "表情包信息";
+"lng_context_pack_info" = "查看贴纸包";
 "lng_context_pack_add" = "添加表情包";
 "lng_context_save_file" = "保存文件为…";
 "lng_context_copy_text" = "拷贝文本";
 "lng_context_open_gif" = "打开 GIF 动态图";
 "lng_context_save_gif" = "保存 GIF 动态图";
 "lng_context_delete_gif" = "删除 GIF 动态图";
-
+"lng_context_open_channel" = "打开频道";
+"lng_context_open_group" = "打开群组";
+"lng_context_attached_stickers" = "附加贴纸";
 "lng_context_to_msg" = "转到消息";
 "lng_context_reply_msg" = "回复";
+"lng_context_quote_and_reply" = "引文与回复";
 "lng_context_edit_msg" = "编辑";
 "lng_context_forward_msg" = "转发消息";
-
+"lng_context_send_now_msg" = "立即发送";
 "lng_context_reschedule" = "重设发送时间";
 "lng_context_delete_msg" = "删除消息";
 "lng_context_auto_delete_in" = "在 {duration} 之后自动删除";
@@ -2281,7 +2885,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_context_copy_selected" = "拷贝所选文本";
 "lng_context_copy_selected_items" = "拷贝为纯文本";
 "lng_context_forward_selected" = "转发所选内容";
-
+"lng_context_send_now_selected" = "现在发送选中的消息";
 "lng_context_reschedule_selected" = "重新安排选中的记录";
 "lng_context_delete_selected" = "删除所选内容";
 "lng_context_save_images_selected" = "保存选中的";
@@ -2302,16 +2906,33 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_context_seen_reacted_none" = "无人给予反馈";
 "lng_context_seen_reacted_all" = "显示所有表情回应";
 "lng_context_set_as_quick" = "设置为快捷方式";
+"lng_context_filter_by_tag" = "依据标签进行筛选";
+"lng_context_tag_add_name" = "添加名称";
+"lng_context_tag_edit_name" = "编辑名称";
+"lng_context_remove_tag" = "移除标签";
 "lng_context_delete_from_disk" = "从硬盘中删除";
 "lng_context_delete_all_files" = "删除所有文件";
 "lng_context_save_custom_sound" = "保存为通知铃声";
 "lng_context_translate" = "翻译";
 "lng_context_translate_selected" = "翻译选中的文本";
+"lng_context_read_hidden" = "已读";
+"lng_context_read_show" = "显示时间";
+
+"lng_add_tag_about" = "使用表情符号标记消息以便快速搜索";
+"lng_subscribe_tag_about" = "使用标签整理收藏的消息。{link}";
+"lng_subscribe_tag_link" = "了解更多...";
+"lng_edit_tag_about" = "您可以使用文本给表情标签起一个名字。";
+"lng_edit_tag_name" = "名称";
+"lng_add_tag_button" = "添加标签";
+"lng_add_tag_phrase" = "到消息 {arrow}";
+"lng_add_tag_phrase_long" = "至我的收藏 {arrow}";
+"lng_unlock_tags" = "解锁";
 
 "lng_context_animated_emoji" = "此消息包含来自**{name} 表情包**的表情。";
 
 "lng_context_animated_emoji_many#other" = "这条消息包含了来自 **{count} 个表情包** 的表情。";
 "lng_context_animated_reaction" = "这个表情来自 **{name} pack**.";
+
 "lng_context_animated_reactions" = "回应包含来自 **{name} 表情包** 的表情符号。";
 
 "lng_context_animated_reactions_many#other" = "回应包含来自 **{count} 个表情包** 的表情符号。";
@@ -2351,7 +2972,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_send_grouped" = "合并项目";
 "lng_send_compressed_one" = "压缩图片";
 "lng_send_compressed" = "压缩图片";
-
+"lng_send_media_invalid_files" = "抱歉，没有找到有效文件。";
 "lng_send_image" = "发送图片";
 "lng_send_file" = "作为文件发送";
 "lng_send_video" = "传送视频文件";
@@ -2370,6 +2991,27 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_forwarding_from_two" = "{user} 和 {second_user}";
 "lng_inline_switch_choose" = "选择对话…";
 "lng_inline_switch_cant" = "抱歉，您无法选择此对话 :(";
+"lng_preview_reply_to" = "回复 {name}";
+"lng_preview_reply_to_quote" = "回复来自 {name} 的引文";
+
+"lng_reply_in_another_title" = "回复...";
+"lng_reply_in_another_chat" = "在另一个聊天中回复";
+"lng_reply_show_in_chat" = "在聊天中显示";
+"lng_reply_remove" = "取消回复";
+"lng_reply_about_quote" = "您可以选择特定部分进行引用。";
+"lng_reply_options_header" = "回复消息";
+"lng_reply_options_quote" = "更新引文";
+"lng_reply_header_short" = "回复";
+"lng_reply_quote_selected" = "引用所选部分";
+"lng_reply_from_private_chat" = "该回复来自私聊。";
+"lng_link_options_header" = "链接预览设置";
+"lng_link_header_short" = "链接";
+"lng_link_move_up" = "上移";
+"lng_link_move_down" = "下移";
+"lng_link_shrink_photo" = "缩小图片";
+"lng_link_enlarge_photo" = "放大图片";
+"lng_link_remove" = "关闭预览";
+"lng_link_about_choose" = "点击此链接以生成其预览。";
 
 "lng_share_cant" = "抱歉，您无法分享到此处 :(";
 "lng_reply_cant" = "您无法回复此群组升级为超级组之前的消息。\n\n当群组成员达到200人，或当您开始使用高级功能（如聊天历史权限或管理员精确设置）时，群组将自动升级。";
@@ -2381,23 +3023,48 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_share_wrong_user" = "此游戏已被另一位用户打开。";
 "lng_share_game_link_copied" = "游戏链接已复制到剪贴板。";
 "lng_share_done" = "完成！";
+"lng_share_message_to_saved_messages" = "消息已转发到 **我的收藏**。";
+"lng_share_messages_to_saved_messages" = "消息已转发到 **我的收藏**。";
+"lng_share_message_to_chat" = "已将消息转发给 **{chat}**。";
+"lng_share_messages_to_chat" = "消息已转发至 **{chat}**。";
+"lng_share_message_to_two_chats" = "消息已转发给 **{user}** 与 **{chat}**。";
+"lng_share_messages_to_two_chats" = "消息已转发给 **{user}** 和 **{chat}**。";
+
+"lng_share_message_to_many_chats#other" = "消息已转发到 **{count} 个** 聊天.";
+
+
 
 "lng_contact_phone" = "手机号码";
 "lng_enter_contact_data" = "新建联系人";
 "lng_contact_mobile_hidden" = "手机号已隐藏";
 "lng_contact_phone_after" = "一旦 {user} 将您添加为联系人，手机号将对其可见。";
-
+"lng_contact_share_phone" = "分享我的手机号码";
 "lng_contact_phone_will_be_shared" = "您的手机号码将对 {user} 可见。";
 "lng_edit_contact_title" = "编辑联系人姓名";
 "lng_edit_channel_title" = "编辑频道信息";
 "lng_edit_bot_title" = "编辑机器人";
 "lng_edit_sign_messages" = "消息署名";
 "lng_edit_group" = "编辑群组信息";
+"lng_edit_channel_color" = "频道颜色";
+
+"lng_edit_channel_wallpaper" = "频道壁纸";
+"lng_edit_channel_wallpaper_about" = "设置每个阅读频道的人都能看到墙纸。";
+
+
+"lng_edit_channel_status" = "频道表情状态";
+"lng_edit_channel_status_about" = "选择将显示在频道名称旁边的状态。";
+"lng_edit_channel_status_group" = "群组表情符号状态";
+
 "lng_edit_self_title" = "编辑你的姓名";
 "lng_confirm_contact_data" = "新建联系人信息";
 "lng_add_contact" = "创建";
 "lng_add_contact_button" = "新建联系人信息";
 "lng_contacts_header" = "联系人";
+"lng_contacts_hidden_stories" = "已隐藏的动态";
+
+"lng_contacts_stories_status#other" = "{count} 条动态";
+
+"lng_contacts_stories_status_new#other" = "{count} 条新动态";
 "lng_contact_not_joined" = "非常抱歉，{name} 尚未加入 Telegram，您也选择可以给对方发送邀请。\n\n我们将会在对方加入 Telegram 时通知您。";
 "lng_try_other_contact" = "尝试添加其他人";
 "lng_create_group_link" = "链接";
@@ -2415,7 +3082,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_selected_clear" = "取消";
 "lng_selected_delete" = "删除";
 "lng_selected_forward" = "转发";
-
+"lng_selected_send_now" = "立即发送";
 "lng_selected_cancel_sure_this" = "取消上传？";
 "lng_selected_upload_stop" = "停止";
 "lng_selected_delete_sure_this" = "您确定要删除此消息吗？";
@@ -2431,9 +3098,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_delete_clear_for_me" = "此操作只会清除您的历史记录，不会影响到其他参与者。";
 "lng_edit_auto_delete_settings" = "自动删除设置";
 "lng_enable_auto_delete" = "开启自动删除";
+"lng_selected_unsend_about_user_one" = "您还可以通过选中“取消发送我的消息”来删除您从 {user} 的收件箱发送的消息。";
 
-
-
+"lng_selected_unsend_about_user#other" = "您还可以通过选中“取消发送我的消息” 从 {user} 的收件箱删除 {count} 条发送的消息。";
 "lng_selected_unsend_about_group_one" = "您还可以通过选中“取消发送我的消息”来删除您从其他群组成员的收件箱发送的信息。";
 
 "lng_selected_unsend_about_group#other" = "您还可以通过选中“取消发送我的消息”来删除您从其他组成员的收件箱中发送的 {count} 条消息。";
@@ -2450,7 +3117,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_about_version" = "v{version}";
 "lng_about_text1" = "为快速、安全而开发的基于{api_link}的官方免费桌面版本通讯软件。";
 "lng_about_text1_api" = "Telegram 接口";
-"lng_about_text2" = "本软件授权于{gpl_link} 版本 3。\n源代码可以在 {github_link} 取得。";
+"lng_about_text2" = "本软件授权于 {gpl_link} 版本 3。\n源代码可以在 {github_link} 取得。";
 "lng_about_text3" = "访问 {faq_link} 获取更多信息。";
 "lng_about_text3_faq" = "Telegram 常见问题";
 "lng_about_done" = "完成";
@@ -2468,24 +3135,26 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mediaview_copy" = "拷贝";
 "lng_mediaview_forward" = "转发";
 "lng_mediaview_delete" = "删除";
+"lng_mediaview_save_to_profile" = "发布至个人资料页";
+"lng_mediaview_archive_story" = "归档动态";
 "lng_mediaview_photos_all" = "显示所有图片";
 "lng_mediaview_files_all" = "显示所有文件";
 "lng_mediaview_single_photo" = "单张图片";
 "lng_mediaview_group_photo" = "群组头像";
 "lng_mediaview_channel_photo" = "频道头像";
 "lng_mediaview_profile_photo" = "头像";
-"lng_mediaview_profile_public_photo" = "公开照片";
+"lng_mediaview_profile_public_photo" = "公开图片";
 "lng_mediaview_profile_photo_by_you" = "您设置的头像";
 "lng_mediaview_file_n_of_amount" = "{file} {n} / {amount}";
 "lng_mediaview_n_of_amount" = "照片 {n} / {amount}";
 "lng_mediaview_doc_image" = "文件";
 "lng_mediaview_today" = "今天  {time}";
 "lng_mediaview_yesterday" = "昨天  {time}";
+"lng_mediaview_just_now" = "刚刚";
 
+"lng_mediaview_minutes_ago#other" = "{count} 分钟前";
 
-
-
-
+"lng_mediaview_hours_ago#other" = "{count} 小时前";
 "lng_mediaview_date_time" = "{date} {time}";
 "lng_mediaview_set_userpic" = "设为主头像";
 "lng_mediaview_report_profile_photo" = "举报";
@@ -2493,9 +3162,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mediaview_title" = "媒体查看器";
 "lng_mediaview_saved_to" = "图片已保存到 {downloads} 文件夹中。";
 "lng_mediaview_saved_images_to" = "图像已保存到你的 {downloads} 文件夹中";
+"lng_mediaview_video_saved_to" = "视频文件已保存至您的 {downloads} 文件夹";
 "lng_mediaview_downloads" = "下载";
-"lng_mediaview_playback_speed" = "播放速度";
-
+"lng_mediaview_playback_speed" = "播放速度：{speed}";
+"lng_mediaview_rotate_video" = "旋转视频";
 
 "lng_theme_preview_title" = "主题预览";
 "lng_theme_preview_generating" = "主题预览生成中…";
@@ -2511,25 +3181,27 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_menu_formatting" = "格式设置";
 "lng_menu_formatting_bold" = "粗体";
 "lng_menu_formatting_italic" = "斜体";
-
-
+"lng_menu_formatting_underline" = "下划线";
+"lng_menu_formatting_strike_out" = "删除线";
+"lng_menu_formatting_blockquote" = "引用";
 "lng_menu_formatting_monospace" = "等宽";
 "lng_menu_formatting_spoiler" = "遮罩";
 "lng_menu_formatting_link_create" = "创建链接";
 "lng_menu_formatting_link_edit" = "编辑链接";
 "lng_menu_formatting_clear" = "纯文本";
 "lng_formatting_link_create_title" = "创建链接";
-"lng_formatting_link_edit_title" = "创建链接";
+"lng_formatting_link_edit_title" = "编辑链接";
 "lng_formatting_link_text" = "文本";
 "lng_formatting_link_url" = "链接";
 "lng_formatting_link_create" = "创建";
 
 "lng_text_copied" = "文本已复制到剪贴板";
+"lng_code_copied" = " 代码已复制到剪贴板。";
 
 "lng_spellchecker_submenu" = "拼写检查";
-
-
-
+"lng_spellchecker_add" = "添加到词典";
+"lng_spellchecker_remove" = "从词典中移除";
+"lng_spellchecker_ignore" = "忽略";
 
 "lng_full_name" = "{first_name} {last_name}";
 
@@ -2570,8 +3242,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_theme_editor_menu_import" = "导入主题";
 "lng_theme_editor_menu_show" = "打开调色板";
 
-
-
+"lng_payments_webview_no_use" = "抱歉，您无法在目前的系统配置中使用支付功能。";
+"lng_payments_webview_install_edge" = "请安装 {link}。";
 "lng_payments_webview_install_webkit" = "请用软件管家安装 WebKitGTK 4 (webkit2gtk-4.0)。";
 "lng_payments_webview_update_windows" = "请将您的操作系统更新至 Windows 8.1 或之后的版本。";
 "lng_payments_sure_close" = "您确定要关闭此付款表格吗？您所做的更改将丢失。";
@@ -2601,10 +3273,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_payments_info_name" = "姓名";
 "lng_payments_info_email" = "电子邮箱";
 "lng_payments_info_phone" = "电话号码";
-
-
-
-
+"lng_payments_to_provider_phone_email" = "手机号码和电子邮箱地址将作为付款信息发送给 {provider}。";
+"lng_payments_to_provider_email" = "电子邮箱地址将作为付款信息发送给 {provider}。";
+"lng_payments_to_provider_phone" = "手机号码将作为付款信息发送给 {provider}。";
+"lng_payments_processed_by" = "{provider} 已处理";
 "lng_payments_warning_title" = "警告";
 "lng_payments_warning_body" = "无论是 Telegram 还是 {bot1} 都无法访问您的信用卡信息。信用卡详细信息将仅由支付系统 {provider} 处理。\n\n付款将直接支付给 {bot2} 的开发人员。Telegram 不能提供任何保证，所以请自行承担风险。如有问题，请联系 {bot3} 的开发人员或您的银行。";
 "lng_payments_shipping_address_title" = "配送信息";
@@ -2613,14 +3285,14 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_payments_card_cvc" = "安全码";
 "lng_payments_card_expire_date" = "月 / 年";
 "lng_payments_card_holder" = "持卡人姓名";
-
+"lng_payments_billing_address" = "账单信息";
 "lng_payments_billing_country" = "国家/地区";
 "lng_payments_billing_zip_code" = "邮政编码";
 "lng_payments_save_information" = "保存以便下次使用";
 "lng_payments_need_password" = "您可以保存您的付款信息以便在未来使用。\n请先开启两步验证后再启用此功能。";
 "lng_payments_password_title" = "支付确认";
-
-
+"lng_payments_password_description" = "您曾保存过您的银行卡（{card}）的信息。要使用此卡支付，请输入您的两步验证密码。";
+"lng_payments_password_submit" = "支付";
 "lng_payments_tips_label" = "小费（可选）";
 "lng_payments_tips_box_title" = "给小费";
 "lng_payments_tips_max" = "小费最多不能超过: {amount}";
@@ -2633,6 +3305,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_payments_terms_title" = "服务条款";
 "lng_payments_terms_text" = "要订阅并接受 {bot} 的服务条款吗？";
+"lng_payments_terms_text_once" = "您是否接受 {bot} 的服务条款？";
 "lng_payments_terms_agree" = "我同意 {link}";
 "lng_payments_terms_link" = "服务条款";
 "lng_payments_terms_accept" = "接受";
@@ -2654,12 +3327,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_call_error_outdated" = "{user} 的应用不支持通话。在您能够呼叫他们之前，他们必须先更新自己的应用。";
 "lng_call_error_no_camera" = "未找到摄像头，请确认摄像头已连接至电脑。";
 "lng_call_error_camera_not_started" = "一旦您连接上就可以视频通话。";
-"lng_call_error_camera_outdated" = "抱歉， {user} 使用的老版本 Telegram 不支持视频通话。您先需要更新应用。";
+"lng_call_error_camera_outdated" = "抱歉， {user} 使用的老版本 Telegram 不支持视频通话。在您呼叫对方前，对方需要先更新应用。";
 "lng_call_error_audio_io" = "您的声卡似乎有问题。请确认您的扬声器和麦克风工作正常后再试。";
 
 "lng_call_bar_hangup" = "结束通话";
-"lng_call_leave_to_other_sure" = "结束当前通话并加入此组的语音聊天？";
-
+"lng_call_leave_to_other_sure" = "结束当前通话并加入此视频聊天？";
+"lng_call_leave_to_other_sure_channel" = "您要终止当前通话并加入此频道中的直播吗？";
 
 "lng_call_box_title" = "通话";
 "lng_call_box_about" = "您还没有通话过。";
@@ -2668,7 +3341,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_call_box_status_date" = "{date}于 {time}";
 "lng_call_box_status_group" = "({amount}) {status}";
 "lng_call_box_clear_all" = "清除所有";
-
+"lng_call_box_clear_sure" = "您确定要清除所有的通话记录吗?";
 "lng_call_box_clear_button" = "清除";
 "lng_call_box_groupcalls_subtitle" = "正在进行的视频聊天";
 
@@ -2733,7 +3406,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_call_leave_to_other_sure" = "退出当前所在的语音聊天，并加入此组中的语音聊天吗？";
 "lng_group_call_leave_to_other_sure_channel" = "您要离开当前视频聊天并加入此频道中的直播吗？";
 "lng_group_call_leave_channel_to_other_sure" = "您确定想要离开当前的活跃直播并加入此群组的视频聊天吗？";
-
+"lng_group_call_leave_channel_to_other_sure_channel" = "您是否想要离开当前直播并加入此频道中的直播吗？";
 "lng_group_call_create_sure" = "您确定要在此群组发起视频聊天吗？";
 "lng_group_call_create_sure_channel" = "您确定要在此频道中以您的个人帐户开始语音聊天吗？";
 "lng_group_call_join_sure_personal" = "您确定要以你的个人帐户开始语音聊天吗？";
@@ -2742,7 +3415,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_call_chat_no_camera" = "您无法在此聊天中开启视频。";
 "lng_group_call_chat_no_screen" = "您无法在此聊天中共享屏幕。";
 "lng_group_call_failed_screen" = "发生错误，屏幕共享已停止。";
-
+"lng_group_call_failed_camera" = "无法启用相机。可能有其他应用正在使用相机。请尝试关闭其他应用。";
 "lng_group_call_tooltip_screen" = "分享屏幕";
 "lng_group_call_tooltip_camera" = "您的摄像头未开启，点击此处开启摄像头。";
 "lng_group_call_tooltip_microphone" = "您处于静音状态。点此说话。";
@@ -2765,12 +3438,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_call_new_muted" = "新参与者禁言";
 "lng_group_call_speakers" = "扬声器";
 "lng_group_call_microphone" = "麦克风";
-
-
+"lng_group_call_push_to_talk" = "按下说话快捷按钮";
+"lng_group_call_ptt_shortcut" = "编辑快捷键";
 "lng_group_call_ptt_recording" = "停止录制";
 "lng_group_call_ptt_delay_ms" = "{amount} 毫秒";
 "lng_group_call_ptt_delay_s" = "{amount} 秒";
-
+"lng_group_call_ptt_delay" = "释放延迟：{delay}";
 "lng_group_call_share" = "分享邀请链接";
 "lng_group_call_noise_suppression" = "启用噪音抑制";
 "lng_group_call_video_paused" = "视频已暂停";
@@ -2783,17 +3456,17 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_call_cancel_channel" = "取消直播";
 "lng_group_call_join" = "加入";
 "lng_group_call_join_confirm" = "您想要加入 {chat} 语音聊天吗？";
-
+"lng_group_call_join_confirm_channel" = "是否加入直播 {chat} ？";
 "lng_group_call_invite_done_user" = "您已邀请 {user} 加入视频聊天。";
 
-"lng_group_call_invite_done_many#other" = "您邀请了 **{count} 位成员** 加入语音聊天。";
+"lng_group_call_invite_done_many#other" = "您邀请了 **{count} 位参与者** 加入视频聊天。";
 "lng_group_call_no_members" = "点击以加入";
 
 "lng_group_call_members#other" = "{count} 名参与者";
 "lng_group_call_context_mute" = "静音";
 "lng_group_call_context_unmute" = "允许发言";
 "lng_group_call_context_remove_hand" = "取消发言请求";
-
+"lng_group_call_context_mute_for_me" = "为我静音";
 "lng_group_call_context_unmute_for_me" = "为我取消静音";
 "lng_group_call_context_pin_camera" = "顶置视频";
 "lng_group_call_context_unpin_camera" = "取消顶置视频";
@@ -2802,15 +3475,15 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_call_context_remove" = "移除";
 "lng_group_call_remove_channel" = "是否将 {channel} 从语音聊天中移除并封禁？";
 "lng_group_call_remove_channel_from_channel" = "是否要从直播间中移除 {channel}？";
-
+"lng_group_call_mac_access" = "Telegram Desktop 无法访问随按即说所需的系统键盘输入。";
 "lng_group_call_mac_input" = "请在**隐私设置**中允许Telegram **监视输入**。";
-
+"lng_group_call_mac_accessibility" = "请在隐私设置中允许 Telegram 使用 **辅助功能** 。\n可能需要重新启动应用程序。";
 "lng_group_call_mac_screencast_access" = "Telegram Desktop 没有获得屏幕录制权限，因此无法进行屏幕共享。";
 "lng_group_call_mac_recording" = "请在“隐私设置”中允许 Telegram **录制屏幕**。";
 "lng_group_call_mac_settings" = "打开设置";
 
 "lng_group_call_start_as_header" = "已哪个身份发起视频聊天…";
-
+"lng_group_call_start_as_header_channel" = "选择直播身份";
 "lng_group_call_join_as_header" = "以哪个身份加入视频聊天…";
 "lng_group_call_join_as_header_channel" = "以哪个身份加入直播…";
 "lng_group_call_display_as_header" = "将我显示为...";
@@ -2827,15 +3500,15 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_call_scheduled_title_channel" = "已预约的直播";
 "lng_group_call_starts_short" = "开始于{when}";
 "lng_group_call_starts" = "视频聊天将于 {when} 开始";
-
+"lng_group_call_starts_channel" = "直播将在 {when} 开始";
 "lng_group_call_starts_today" = "今天 {time}";
 "lng_group_call_starts_tomorrow" = "明天 {time}";
-
+"lng_group_call_starts_date" = "{time} {date}";
 "lng_group_call_starts_in" = "开始于";
 "lng_group_call_late_by" = "已过预定时间";
 "lng_group_call_starts_short_today" = "今天 {time}";
 "lng_group_call_starts_short_tomorrow" = "明天  {time}";
-
+"lng_group_call_starts_short_date" = "{date}  {time}";
 "lng_group_call_start_now" = "立即开始";
 "lng_group_call_start_now_sure" = "您确定现在开始语音聊天吗？";
 "lng_group_call_start_now_sure_channel" = "现在开始直播吗？";
@@ -2851,13 +3524,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_call_recording_started_channel" = "直播录制已开始。";
 "lng_group_call_recording_stopped" = "通话录音已停止。";
 "lng_group_call_recording_stopped_channel" = "直播录制已停止";
-"lng_group_call_recording_saved" = "语音聊天的录音已保存至收藏夹。";
+"lng_group_call_recording_saved" = "语音聊天的录音已保存至我的收藏。";
 "lng_group_call_recording_saved_video" = "视频被保存到「我的收藏」。";
 "lng_group_call_pinned_camera_me" = "你的视频已顶置。";
 "lng_group_call_pinned_screen_me" = "您的屏幕共享已置顶。";
 "lng_group_call_pinned_camera" = "{user} 的视频已置顶。";
 "lng_group_call_pinned_screen" = "已置顶 {user} 的屏幕共享。";
-"lng_group_call_unpinned_camera_me" = "你的视频已取消顶置。";
+"lng_group_call_unpinned_camera_me" = "您的视频已取消顶置。";
 "lng_group_call_unpinned_screen_me" = "您的屏幕共享已取消顶置。";
 "lng_group_call_unpinned_camera" = "{user} 的视频已取消置顶。";
 "lng_group_call_unpinned_screen" = "{user} 的屏幕共享已取消置顶。";
@@ -2906,7 +3579,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_call_rtmp_revoke" = "撤销推流密钥";
 "lng_group_call_rtmp_revoke_sure" = "您确定要撤销您的推流密钥吗？";
 
-"lng_group_call_rtmp_viewers#other" = "{count} 名观看者";
+"lng_group_call_rtmp_viewers#other" = "{count} 位访客";
 
 "lng_no_mic_permission" = "Telegram 需要访问您的麦克风，以便您可以拨打电话及录制语音留言。";
 
@@ -2917,6 +3590,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_audio_player_reverse" = "倒序";
 "lng_audio_player_shuffle" = "随机";
 "lng_audio_transcribe_long" = "语音消息过长";
+
+"lng_audio_transcribe_trials_left#other" = "在 {date} 前，您还剩余 **{count}** 次免费的语音转录。";
+"lng_audio_transcribe_trials_over" = "请等待至 {date} 或者现在订阅 {link}。";
 
 "lng_rights_edit_admin" = "编辑权限";
 "lng_rights_edit_admin_header" = "这位管理员可以做什么？";
@@ -2943,6 +3619,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_rights_slowmode_interval_minutes#other" = "每 {count} 分钟";
 
+
+
+
 "lng_slowmode_enabled" = "慢速模式已启用，您可以在 {left} 后发送下一条消息。";
 "lng_slowmode_no_many" = "启用慢速模式。您一次最多只能发送一条消息。";
 "lng_slowmode_too_long" = "抱歉，此文本过长而无法作为一条消息发送。\n\n慢速模式已启用，您不能一次发送多条消息。";
@@ -2958,16 +3637,21 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_gigagroup_convert_feature3" = "无法转回成常规群组。";
 "lng_gigagroup_convert_sure" = "转换";
 "lng_gigagroup_warning_title" = "确定吗？";
-
-
+"lng_gigagroup_warning" = "该群组的普通成员（非管理员）将 **不可恢复地** 失去在该群组中发送消息的权限。\n\n此操作 **无法** 撤消。";
+"lng_gigagroup_done" = "您的群组现在可以拥有超过20万个成员了。";
 "lng_gigagroup_suggest_title" = "群成员已达上限";
 "lng_gigagroup_suggest_text" = "您的群组已经达到了 **200,000** 名成员的上限。\n\n通过将该群组转换为只有管理员才能发布的消息的 **广播群** 可以提升成员上限。\n感兴趣吗？";
-
+"lng_gigagroup_suggest_more" = "了解更多";
 
 "lng_rights_channel_info" = "修改频道信息";
+"lng_rights_channel_manage" = "管理消息";
 "lng_rights_channel_post" = "发布消息";
 "lng_rights_channel_edit" = "编辑其他用户的消息";
 "lng_rights_channel_delete" = "删除其他用户的消息";
+"lng_rights_channel_manage_stories" = "管理动态";
+"lng_rights_channel_post_stories" = "发布动态";
+"lng_rights_channel_edit_stories" = "编辑其他人的动态";
+"lng_rights_channel_delete_stories" = "删除其他用户的动态";
 "lng_rights_channel_manage_calls" = "管理直播";
 "lng_rights_group_info" = "修改群组信息";
 "lng_rights_group_ban" = "封禁用户";
@@ -3032,6 +3716,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_restricted_send_gifs" = "此群组的管理员已限制您发送 GIF 动态图。";
 "lng_restricted_send_inline" = "此群组的管理员已限制您发送机器人内容。";
 "lng_restricted_send_polls" = "此群组的管理员已限制您发送投票。";
+"lng_restricted_boost_group" = "助推此群组以发送消息";
 
 "lng_restricted_send_message_until" = "该群组的管理员限制了您在 {date} {time} 之前发送消息。";
 "lng_restricted_send_photos_until" = "该群组的管理员已限制您在 {date} {time} 前发送图片。";
@@ -3061,6 +3746,15 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_restricted_send_voice_messages" = "{user} 不接受语音消息。";
 "lng_restricted_send_video_messages" = "{user} 不接受视频消息。";
+"lng_restricted_send_non_premium" = "{user} 只接受来自高级版订阅用户的消息。";
+"lng_restricted_send_non_premium_more" = "了解更多...";
+
+"lng_send_non_premium_text" = "订阅 **Telegram 高级版**\n以给 {user} 发送消息。";
+"lng_send_non_premium_go" = "获取高级版";
+"lng_send_non_premium_story" = "回复受限";
+"lng_send_non_premium_unlock" = "解锁";
+"lng_send_non_premium_message_toast" = "**{user}** 仅接受来自联系人和 {link} 订阅用户的消息。";
+"lng_send_non_premium_message_toast_link" = "Telegram 高级版";
 
 "lng_exceptions_list_title" = "例外";
 "lng_removed_list_title" = "被移除的用户";
@@ -3071,7 +3765,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_admin_log_filter_title" = "筛选器";
 "lng_admin_log_filter_all_actions" = "所有操作";
 "lng_admin_log_filter_restrictions" = "新限制";
-"lng_admin_log_filter_admins_new" = "新任管理员";
+"lng_admin_log_filter_admins_new" = "管理员权限";
 "lng_admin_log_filter_members_new" = "新成员";
 "lng_admin_log_filter_info_group" = "群组信息";
 "lng_admin_log_filter_info_channel" = "频道信息";
@@ -3085,7 +3779,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_admin_log_filter_topics" = "话题";
 "lng_admin_log_filter_all_admins" = "所有用户和管理员";
 "lng_admin_log_about" = "这是什么？";
-"lng_admin_log_about_text" = "此列表包含了在过去 48 小时内群组成员/管理员执行的所有操作。";
+"lng_admin_log_about_text" = "此列表包含了在过去 48 小时内群组成员/管理员执行的所有值得注意的操作。";
 "lng_admin_log_about_text_channel" = "此列表包含了在过去 48 小时内频道管理员执行的所有操作。";
 "lng_admin_log_no_results_title" = "未找到操作记录";
 "lng_admin_log_no_results_text" = "近期操作中找不到与您查询请求相符的结果。";
@@ -3109,7 +3803,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_admin_log_reordered_link_group" = "{from} 续订的群组链接：";
 "lng_admin_log_reordered_link_channel" = "{from} 续订的频道链接：";
 "lng_admin_log_previous_links_order" = "先前顺序";
-"lng_admin_log_activated_link" = "{from} 已激活 @{link} 用户名";
+"lng_admin_log_activated_link" = "{from} 已启用 @{link} 用户名";
 "lng_admin_log_deactivated_link" = "{from} 已停用 @{link} 用户名";
 "lng_admin_log_changed_photo_group" = "{from} 更换了群组头像";
 "lng_admin_log_changed_photo_channel" = "{from} 更换了频道头像";
@@ -3160,6 +3854,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_admin_log_changed_stickers_group" = "{from} 更换了群组{sticker_set}";
 "lng_admin_log_changed_stickers_set" = "表情包";
 "lng_admin_log_removed_stickers_group" = "{from} 已移除群组贴纸包";
+
+"lng_admin_log_changed_emoji_set" = "表情包";
+
 "lng_admin_log_changed_linked_chat" = "{from} 将 {chat} 更改为本频道的讨论群组";
 "lng_admin_log_removed_linked_chat" = "{from} 已移除讨论群组";
 "lng_admin_log_changed_linked_channel" = "{from} 将关联频道更改为 «{chat}»";
@@ -3184,6 +3881,20 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_admin_log_participant_volume_channel" = "{from} 已将 {user} 的直播音量改为 {percent}";
 "lng_admin_log_antispam_enabled" = "{from} 已启用主动反垃圾措施";
 "lng_admin_log_antispam_disabled" = "{from} 已停用主动反垃圾措施";
+"lng_admin_log_change_color" = "{from} 已将频道颜色从 {previous} 更改为 {color}";
+"lng_admin_log_set_background_emoji" = "{from} 将背景表情符号设为 {emoji}";
+"lng_admin_log_change_background_emoji" = "{from} 已将频道的背景表情从 {previous} 更改为 {emoji}";
+"lng_admin_log_removed_background_emoji" = "{from} 已移除背景表情符号 {emoji}";
+
+
+"lng_admin_log_change_profile_background_emoji" = "{from} 将频道资料页背景表情符号从 {previous} 更改为 {emoji}";
+
+"lng_admin_log_change_wallpaper" = "{from} 已更改频道壁纸";
+
+
+
+
+"lng_admin_log_change_status_until" = "{from} 已将频道表情状态由 {previous} 改为 {emoji}，持续到 {date}";
 "lng_admin_log_user_with_username" = "{name} ({mention})";
 "lng_admin_log_messages_ttl_set" = "{from} 开启 {duration}后自动删除消息";
 "lng_admin_log_messages_ttl_changed" = "{from} 将消息的自动删除时间从 {previous} 改为 {duration}";
@@ -3226,7 +3937,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_admin_log_admin_post_messages" = "发布消息";
 "lng_admin_log_admin_edit_messages" = "编辑消息";
 "lng_admin_log_admin_delete_messages" = "删除消息";
-
+"lng_admin_log_admin_post_stories" = "发布动态";
+"lng_admin_log_admin_edit_stories" = "编辑他人的动态";
+"lng_admin_log_admin_delete_stories" = "删除动态";
+"lng_admin_log_admin_remain_anonymous" = "保持匿名";
 "lng_admin_log_admin_ban_users" = "封禁用户";
 "lng_admin_log_admin_invite_users" = "添加用户";
 "lng_admin_log_admin_invite_link" = "通过链接邀请用户";
@@ -3262,15 +3976,15 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_forward_title" = "转发消息";
 
-
-
+"lng_forward_many_title#other" = "转发 {count} 条消息";
+"lng_forward_about" = "您可以删除原发送者的名字，使这条消息看上去像是由您发出的。";
 "lng_forward_many_about" = "您可以删除发件人的姓名，使这些消息看起来像是由您所发送的，而非转发的。";
-
+"lng_forward_show_sender" = "显示发送者名称";
 "lng_forward_show_senders" = "显示发送者名称";
-
+"lng_forward_show_caption" = "显示说明文字";
 "lng_forward_show_captions" = "显示说明";
 "lng_forward_change_recipient" = "修改收件人";
-"lng_forward_sender_names_removed" = "发送者昵称被删除";
+"lng_forward_sender_names_removed" = "已移除发送者名称";
 
 "lng_passport_title" = "Telegram 通行证";
 "lng_passport_request1" = "{bot} 请求访问您的个人数据";
@@ -3359,7 +4073,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_passport_country" = "国籍";
 "lng_passport_residence_country" = "居住地";
 "lng_passport_country_choose" = "选择国家/地区";
-"lng_passport_document_number" = "文件编号";
+"lng_passport_document_number" = "证件号";
 "lng_passport_expiry_date" = "失效日期";
 "lng_passport_native_name_title" = "以您所居住的国家语言填写您的名字。";
 "lng_passport_native_name_about" = "以您所居住的国家（{country}）语言填写您的名字。";
@@ -3411,10 +4125,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_export_option_info_about" = "您设定的姓名、用户名、手机号码与头像。";
 "lng_export_option_contacts" = "联系人列表";
 "lng_export_option_contacts_about" = "如果您授权 Telegram，您的联系人信息将会被即时同步到 Telegram 云服务器。您可以在 Telegram 移动版应用中的设置项「隐私和安全」中修改此项设定。";
-
-
+"lng_export_option_stories" = "动态归档";
+"lng_export_option_stories_about" = "您从 Telegram 移动应用发布的所有动态。";
 "lng_export_option_sessions" = "活跃会话";
-"lng_export_option_sessions_about" = "我们存储这些信息以便您可以通过「设置 - 隐私与安全 - 活跃会话」查看您已登录的设备。";
+"lng_export_option_sessions_about" = "我们可能会存储这些信息以便您可以通过“设置 - 隐私与安全 - 显示所有会话”查看您已登录的设备。";
 "lng_export_header_other" = "其它";
 "lng_export_option_other" = "其它数据";
 "lng_export_option_other_about" = "其它未在上方选项中提到的数据（测试）。";
@@ -3441,6 +4155,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_export_option_choose_format" = "选择导出格式";
 "lng_export_option_html" = "人类可读的 HTML";
 "lng_export_option_json" = "机器可读的 JSON";
+"lng_export_option_html_and_json" = "以上两者";
 "lng_export_limits" = "从：{from}, 到：{till}";
 "lng_export_beginning" = "最早的消息";
 "lng_export_end" = "现在";
@@ -3481,7 +4196,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_language_switch_link" = "翻译平台";
 "lng_language_switch_apply" = "更改";
 "lng_language_not_found" = "抱歉，该语言包不存在。";
-"lng_language_already" = "您已经在使用此语言包。 您可以在“设置”中更改语言。";
+"lng_language_already" = "您已经在使用此语言包。 您随时可以在“设置”中更改语言。";
 "lng_language_not_ready_title" = "数据不足";
 "lng_language_not_ready_about" = "很遗憾，这个自定义语言包 {lang_name} 不包含Telegram 桌面版的数据。您可以使用这个链接 {link} 为此语言包做出贡献。";
 "lng_language_not_ready_link" = "翻译平台";
@@ -3492,12 +4207,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_translate_settings_show" = "显示 “翻译” 按钮";
 "lng_translate_settings_chat" = "翻译全部聊天记录";
 "lng_translate_settings_choose" = "不用翻译";
-"lng_translate_settings_about" = "当你打开文本的菜单時，便会出现「翻译」按钮。";
+"lng_translate_settings_about" = "当你打开文本的菜单時，便会出现 '翻译' 按钮。";
 "lng_translate_settings_one" = "请至少选择一种语言，以便将其设为“翻译为”的语言";
 
 "lng_launch_exe_warning" = "此文件的扩展名为{extension}。\n您确定要运行吗？";
 "lng_launch_svg_warning" = "\n打开此文件可能会将您的IP地址暴露给发送者。您确定继续吗？";
-
+"lng_launch_exe_sure" = "运行";
 "lng_launch_exe_dont_ask" = "不要再次询问我";
 
 "lng_polls_anonymous" = "匿名投票";
@@ -3516,25 +4231,25 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_polls_retract" = "撤回投票";
 "lng_polls_stop" = "停止投票";
 "lng_polls_stop_warning" = "如果您现在停止这个投票，任何人都不能再进行投票了。 此操作无法撤消。";
-
-
+"lng_polls_stop_sure" = "停止";
+"lng_polls_create" = "发起投票";
 "lng_polls_create_title" = "发起投票";
-
+"lng_polls_create_question" = "问题";
 "lng_polls_create_question_placeholder" = "请输入问题";
 "lng_polls_create_options" = "投票选项";
 "lng_polls_create_option_add" = "添加一个选项…";
 
 "lng_polls_create_limit#other" = "您还可以添加 {count} 个选项。";
 "lng_polls_create_maximum" = "您添加的选项数量已经达到上限。";
-
-
+"lng_polls_create_settings" = "设置";
+"lng_polls_create_anonymous" = "匿名投票";
 "lng_polls_create_multiple_choice" = "多项选择";
 "lng_polls_create_quiz_mode" = "问答模式";
-
+"lng_polls_create_button" = "创建";
 "lng_polls_create_one_answer" = "问答模式下的投票只能有一个正确答案。";
-
-
-
+"lng_polls_choose_question" = "请输入一个问题。";
+"lng_polls_choose_answers" = "请输入至少两个选项。";
+"lng_polls_choose_correct" = "请选择正确答案。";
 "lng_polls_solution_title" = "注释";
 "lng_polls_solution_placeholder" = "添加评论（可选）";
 "lng_polls_solution_about" = "选错的用户将会看到这段文字，因此非常适合教育用途。";
@@ -3542,29 +4257,30 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_polls_poll_results_title" = "投票结果";
 "lng_polls_quiz_results_title" = "问答结果";
 
-
+"lng_polls_show_more#other" = "显示更多 ({count})";
 "lng_polls_votes_collapse" = "折叠";
 
 "lng_outdated_title" = "**请更新您的操作系统。**";
 "lng_outdated_title_bits" = "请切换至64位操作系统。";
-
-
+"lng_outdated_soon" = "否则，Telegram Desktop 将在 {date} 停止更新。";
+"lng_outdated_now" = "以便 Telegram Desktop 可以更新到最新版本。";
 
 "lng_filters_all" = "所有聊天";
-
-
-
+"lng_filters_setup" = "编辑";
+"lng_filters_title" = "文件夹";
+"lng_filters_subtitle" = "我的文件夹";
 "lng_filters_no_chats" = "无聊天";
 
-
-
+"lng_filters_chats_count#other" = "{count} 个聊天";
+"lng_filters_create" = "创建新文件夹";
 "lng_filters_about" = "为不同聊天分组创建文件夹，并在它们之间快速切换。";
 "lng_filters_recommended" = "推荐的文件夹";
-
+"lng_filters_recommended_add" = "添加";
 "lng_filters_restore" = "撤销";
-
+"lng_filters_new" = "新文件夹";
 "lng_filters_edit" = "编辑文件夹";
-
+"lng_filters_setup_menu" = "编辑文件夹";
+"lng_filters_new_name" = "文件夹名称";
 "lng_filters_add_chats" = "添加聊天";
 "lng_filters_remove_chats" = "添加以排除聊天";
 "lng_filters_include" = "包含的聊天";
@@ -3581,15 +4297,15 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_filters_include_channels" = "频道";
 "lng_filters_include_bots" = "机器人";
 "lng_filters_name_people" = "人";
-
+"lng_filters_name_unread" = "未读";
 "lng_filters_name_unmuted" = "未静音";
-
-
+"lng_filters_empty" = "请至少为此文件夹添加一个聊天。";
+"lng_filters_default" = "请为此文件夹更改至少一条规则。";
 "lng_filters_type_contacts" = "联系人";
 "lng_filters_type_non_contacts" = "非联系人";
 "lng_filters_type_groups" = "群组";
-
-
+"lng_filters_type_channels" = "频道";
+"lng_filters_type_bots" = "机器人";
 "lng_filters_type_no_archived" = "归档";
 "lng_filters_type_no_muted" = "已静音";
 "lng_filters_type_no_read" = "已读";
@@ -3656,7 +4372,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_filters_by_link_quit#other" = "即将退出 {count} 个聊天";
 "lng_filters_by_link_select" = "全选";
-"lng_filters_by_link_deselect" = "全部取消选择";
+"lng_filters_by_link_deselect" = "取消全选";
 "lng_filters_by_link_about_quit" = "你可以取消选择不想退出的聊天。";
 "lng_filters_by_link_remove_button" = "移除文件夹并保留聊天";
 
@@ -3676,7 +4392,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_chat_theme_wallpaper" = "设置壁纸";
 "lng_chat_theme_none" = "无主题";
 "lng_chat_theme_apply" = "应用主题";
-"lng_chat_theme_change_wallpaper" = "更改背景";
+"lng_chat_theme_change_wallpaper" = "更改壁纸";
 "lng_chat_theme_title" = "选择主题";
 "lng_chat_theme_cant_voice" = "抱歉，当有未发送的语音消息时您无法更改主题。";
 
@@ -3699,9 +4415,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_view_button_background" = "查看壁纸";
 "lng_view_button_theme" = "预览主题";
 "lng_view_button_message" = "查看消息";
+"lng_view_button_story" = "查看动态";
 "lng_view_button_voice_chat" = "视频聊天";
 "lng_view_button_voice_chat_channel" = "直播";
 "lng_view_button_request_join" = "请求加入";
+"lng_view_button_external_link" = "打开链接";
+"lng_view_button_boost" = "助推";
+"lng_view_button_giftcode" = "打开";
 
 "lng_sponsored_hide_ads" = "隐藏";
 "lng_sponsored_title" = "什么是赞助消息？";
@@ -3712,11 +4432,17 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_telegram_features_url" = "https://t.me/TelegramTips";
 
+"lng_mini_apps_disclaimer_title" = "警告";
+"lng_mini_apps_disclaimer_text" = "您即将使用一个 **不属于 Telegram** 的独立第三方小程序。您必须同意小程序使用条款后才能继续。";
+"lng_mini_apps_disclaimer_button" = "我同意 {link}";
+"lng_mini_apps_disclaimer_link" = "使用条款";
+"lng_mini_apps_tos_url" = "https://telegram.org/tos/mini-apps";
+
 "lng_ringtones_box_title" = "通知铃声";
 "lng_ringtones_box_cloud_subtitle" = "选择你喜欢的铃声";
 "lng_ringtones_box_upload_choose" = "选择铃声文件";
 "lng_ringtones_box_upload_button" = "上传铃声";
-
+"lng_ringtones_box_about" = "在任意聊天中右击简短语音消息图标或 MP3 文件，然后选择 “保存为通知铃声” 后，就会出现在这里。";
 "lng_ringtones_box_default" = "默认";
 "lng_ringtones_box_no_sound" = "静音";
 "lng_ringtones_toast_added" = "声音已添加！";
@@ -3738,13 +4464,16 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_forum_topics_switch" = "话题";
 
 "lng_forum_topics_not_enough#other" = "只有超过 **{count}人** 的群组才能启用话题功能。";
-"lng_forum_topics_no_discussion" = "目前无法在讨论群组使用话题。";
+"lng_forum_topics_no_discussion" = "目前无法在频道的讨论群组中使用话题。";
 "lng_forum_choose_title_and_icon" = "请选择话题名称与图标";
 "lng_forum_replies_only" = "您可以在话题里回复消息。";
+"lng_forum_message_in" = "{topic} 中的消息";
+"lng_forum_reply_in" = "在 {topic} 回复";
 "lng_forum_no_topics" = "此群组中目前没有创建话题。";
 "lng_forum_create_topic" = "创建话题";
 "lng_forum_discard_sure" = "您确定要放弃该话题吗?";
 "lng_forum_view_as_messages" = "以消息模式查看";
+"lng_forum_view_as_topics" = "以话题模式查看";
 "lng_forum_no_messages" = "暂无消息";
 
 "lng_forum_messages#other" = "{count} 条消息";
@@ -3758,6 +4487,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_request_peer_confirm_rights" = "这也会将 {bot} 加入到 {chat} 中，并具有以下权限：{rights}。";
 "lng_request_peer_confirm_send" = "发送";
 "lng_request_user_title" = "选择用户";
+"lng_request_users_title" = "选择用户";
 "lng_request_user_premium_yes" = "用户必须拥有 Telegram 高级版订阅。";
 "lng_request_user_premium_no" = "用户不能拥有 Telegram 高级版订阅。";
 "lng_request_user_no" = "没有符合条件的用户";
@@ -3791,7 +4521,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_request_channel_am_owner" = "你必须是频道的拥有者。";
 "lng_request_channel_change_info" = "更改频道信息";
 "lng_request_channel_post_messages" = "发布消息";
-"lng_request_channel_edit_messages" = "编辑其他人的消息";
+"lng_request_channel_edit_messages" = "编辑其用户的消息";
 "lng_request_channel_delete_messages" = "删除消息";
 "lng_request_channel_add_subscribers" = "添加订阅者";
 "lng_request_channel_manage_livestreams" = "管理直播";
@@ -3801,29 +4531,198 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_userpic_builder_color_subtitle" = "选择背景";
 "lng_userpic_builder_emoji_subtitle" = "选择表情或贴纸";
 
+"lng_stories_my_name" = "我的动态";
+"lng_stories_archive" = "隐藏动态";
+"lng_stories_unarchive" = "取消隐藏动态";
+
+"lng_stories_row_count#other" = "{count} 条动态";
+
+"lng_stories_views#other" = "{count} 次浏览";
+"lng_stories_no_views" = "还没有人看过";
+"lng_stories_view_reactions" = "查看回应";
+"lng_stories_unsupported" = "您当前的 Telegram 版本\n不支持该动态。";
+"lng_stories_cant_reply" = "您无法回复此动态。";
+"lng_stories_about_silent" = "这段视频没有声音。";
+"lng_stories_about_close_friends" = "您能看到这条动态是因为 {user} 将您添加到了 **密友** 列表中。";
+"lng_stories_about_contacts" = "只有 {user} 的联系人可以查看该动态。";
+"lng_stories_about_selected_contacts" = "只有 {user} 选择的部分用户可以查看该动态。";
+"lng_stories_about_close_friends_my" = "只有您的**密友**列表中的人能查看此动态。";
+"lng_stories_about_contacts_my" = "只有您的联系人可以查看该动态。";
+"lng_stories_about_selected_contacts_my" = "只有您选择的部分联系人可以查看该动态。";
+"lng_stories_click_to_view_mine" = "点击这里查看您的动态。";
+"lng_stories_click_to_view" = "点击这里查看 {users} 的更新。";
+"lng_stories_click_to_view_and_one" = "{accumulated}、{user}";
+"lng_stories_click_to_view_and_last" = "{accumulated} 和 {user}";
+"lng_stories_show_more" = "显示更多";
+
+"lng_stories_my_title" = "已发布的动态";
+"lng_stories_archive_button" = "动态归档";
+"lng_stories_recent_button" = "最近动态";
+"lng_stories_archive_title" = "动态归档";
+"lng_stories_archive_about" = "除非将其发布至个人资料页，否则只有您能查看已归档的动态。";
+"lng_stories_channel_archive_about" = "仅频道管理员可以查看已归档动态，除非动态已保存在频道资料页。";
+"lng_stories_reply_sent" = "消息已发送";
+"lng_stories_hidden_to_contacts" = "{user} 的动态已移至**归档**。";
+"lng_stories_shown_in_chats" = "已将 {user} 的动态从归档中恢复。";
+"lng_stories_delete_one_sure" = "您确定想要删除此动态吗？";
+
+"lng_stories_delete_sure#other" = "您确定要删除 {count} 条动态吗？";
+"lng_stories_save_sure" = "您想要保存这条动态至您的个人资料吗？";
+
+"lng_stories_save_sure_many#other" = "您想要保存这 {count} 条动态至您的个人资料吗？";
+"lng_stories_save_done" = "动态已发布至您的个人资料页。";
+
+"lng_stories_save_done_many#other" = "已将 {count} 条动态发布至您的个人资料页。";
+"lng_stories_save_done_about" = "在您手动移除前，其他人可以在您的个人资料页查看这些已发布的动态。";
+"lng_stories_archive_sure" = "您想要从个人资料中隐藏此动态吗？";
+
+"lng_stories_archive_sure_many#other" = "您想要从个人资料中隐藏这 {count} 条动态吗？";
+"lng_stories_archive_done" = "此动态已从您的个人资料页隐藏。";
+
+"lng_stories_archive_done_many#other" = "{count} 条动态已从您的个人资料中隐藏。";
+"lng_stories_channel_save_sure" = "您想要将此动态保存至频道资料页吗？";
+
+"lng_stories_channel_save_sure_many#other" = "您想要将 {count} 条动态发布至频道资料页吗？";
+"lng_stories_channel_save_done" = "此动态已发布至频道资料页。";
+
+"lng_stories_channel_save_done_many#other" = "{count} 条动态已保存至频道页面。";
+"lng_stories_channel_save_done_about" = "其他用户可以在频道资料页上查看已发布的动态，直到管理员将其移除。";
+"lng_stories_channel_archive_sure" = "您想要将此动态从频道资料页隐藏吗？";
+
+"lng_stories_channel_archive_sure_many#other" = "您想要将 {count} 条动态从频道资料页隐藏吗？";
+"lng_stories_channel_archive_done" = "此动态已从频道资料页隐藏。";
+
+"lng_stories_channel_archive_done_many#other" = "{count} 条动态已从频道资料页隐藏。";
+"lng_stories_save_promo" = "订阅 {link} 后可以将其他用户未开启保护的动态下载到硬盘。";
 
 
+"lng_stealth_mode_menu_item" = "隐藏我的浏览记录";
+"lng_stealth_mode_title" = "隐身模式";
+"lng_stealth_mode_unlock_about" = "订阅 Telegram 高级版后可以隐藏您曾浏览其他用户动态的记录。";
+"lng_stealth_mode_about" = "开启隐身模式浏览动态后，将不会出现在访客列表中。";
+"lng_stealth_mode_past_title" = "隐藏最近的浏览记录";
+"lng_stealth_mode_past_about" = "隐藏我在过去 5 分钟内的浏览记录。";
+"lng_stealth_mode_next_title" = "隐藏之后的浏览记录";
+"lng_stealth_mode_next_about" = "隐藏我在接下来 25 分钟内的浏览记录。";
+"lng_stealth_mode_unlock" = "解锁隐身模式";
+"lng_stealth_mode_enable" = "启用隐身模式";
+"lng_stealth_mode_cooldown_in" = "{left} 后可用";
+"lng_stealth_mode_cooldown_tip" = "请等待 **隐身模式** 再次可用。";
+"lng_stealth_mode_enabled_tip_title" = "隐身模式已开启";
+"lng_stealth_mode_enabled_tip" = "对于您在过去 **5 分钟** 内或在接下来 **25 分钟** 内查看的动态，其作者不会在访客列表中看到您。";
+"lng_stealth_mode_countdown" = "隐身模式已启用 – {left}";
+"lng_stealth_mode_already_title" = "您已开启隐身模式";
+"lng_stealth_mode_already_about" = "对于您在接下来 **{left}** 内浏览的动态，其作者不会在访客列表中看到您。";
+
+"lng_stories_link_invalid" = "此链接已损坏或过期。";
+
+"lng_stats_title" = "统计信息";
+"lng_stats_message_title" = "消息数据分析";
+"lng_stats_story_title" = "动态统计数据";
+"lng_stats_zoom_out" = "缩小";
+
+"lng_stats_day_month_year" = "{year} {month} {days_count}";
+"lng_stats_day_month" = "{month} {days_count}";
+"lng_stats_weekday_day_month_year" = "{year} {month} {days_count}，{day}";
+"lng_stats_weekday_day_month_time" = "{month} {days_count}，{day}，{time}";
+
+"lng_stats_overview_title" = "概况";
+"lng_stats_overview_member_count" = "订阅者";
+"lng_stats_overview_mean_view_count" = "每则贴文的查看次数";
+"lng_stats_overview_mean_share_count" = "每则贴文的分享次数";
+"lng_stats_overview_mean_reactions_count" = "每则帖文的回应次数";
+"lng_stats_overview_mean_story_view_count" = "每条动态的浏览量";
+"lng_stats_overview_mean_story_share_count" = "每条动态的分享次数";
+"lng_stats_overview_mean_story_reactions_count" = "每条动态的表情回应次数";
+"lng_stats_overview_enabled_notifications" = "启用通知";
+"lng_stats_overview_messages" = "消息";
+"lng_stats_overview_group_mean_view_count" = "浏览消息的成员";
+"lng_stats_overview_group_mean_post_count" = "发布消息的成员";
+"lng_stats_overview_message_private_shares" = "私密分享";
+"lng_stats_overview_message_public_shares" = "公开分享";
+"lng_stats_overview_message_views" = "浏览次数";
+
+"lng_stats_overview_message_public_share#other" = "{count} 次公开分享";
+
+"lng_stats_members_title" = "最活跃的成员";
+"lng_stats_admins_title" = "活跃管理员";
+"lng_stats_inviters_title" = "最佳邀请者";
+
+"lng_stats_member_messages#other" = "{count} 条消息";
+
+"lng_stats_member_characters#other" = "每条消息 {count} 个字符";
+
+"lng_stats_member_deletions#other" = "% {count} 次删除";
+
+"lng_stats_member_bans#other" = "{count} 次屏蔽";
+
+"lng_stats_member_restrictions#other" = "{count} 次限制";
+
+"lng_stats_member_invitations#other" = "{count} 次邀请";
+
+"lng_stats_recent_messages_title" = "近期贴文";
+
+"lng_stats_recent_messages_views#other" = "{count} 次查看";
+
+"lng_stats_loading" = "加载数据中...";
+"lng_stats_loading_subtext" = "生成数据中，请稍等。";
+
+"lng_chart_title_member_count" = "增长";
+"lng_chart_title_join" = "订阅者";
+"lng_chart_title_mute" = "通知";
+"lng_chart_title_view_count_by_hour" = "每小时浏览次数";
+"lng_chart_title_view_count_by_source" = "浏览来源";
+"lng_chart_title_join_by_source" = "新订阅者的来源";
+"lng_chart_title_language" = "语言";
+"lng_chart_title_message_interaction" = "互动";
+"lng_chart_title_instant_view_interaction" = "即时预览互动";
+"lng_chart_title_reactions_by_emotion" = "回应";
+"lng_chart_title_story_interactions" = "动态互动";
+"lng_chart_title_story_reactions_by_emotion" = "动态回应";
+
+"lng_chart_title_group_join" = "此群组成员";
+"lng_chart_title_group_join_by_source" = "新成员的来源";
+"lng_chart_title_group_language" = "成员主要语言";
+"lng_chart_title_group_message_content" = "信息";
+"lng_chart_title_group_action" = "操作";
+"lng_chart_title_group_day" = "每小时浏览次数 ";
+"lng_chart_title_group_week" = "本周活跃日";
+
+"lng_boosts_title" = "助推";
+"lng_boosts_level" = "等级";
+"lng_boosts_existing" = "活跃助推";
+"lng_boosts_premium_audience" = "Telegram 高级版订阅者";
+
+"lng_boosts_next_level" = "助推以提升等级";
+
+"lng_boosts_list_title#other" = "{count} 名助推者";
+"lng_boosts_list_subtext" = "您的频道目前受到这些用户的助推。";
 
 
+"lng_boosts_show_more_boosts#other" = "显示 {count} 个助推";
 
+"lng_boosts_show_more_gifts#other" = "显示 {count} 个其他助推";
+"lng_boosts_list_status" = "助推将于 {date} 到期";
+"lng_boosts_link_title" = "助推链接";
+"lng_boosts_link_subtext" = "将此链接分享给您的订阅者，以得到更多助推。";
 
+"lng_boosts_get_boosts" = "通过赠品助推";
+"lng_boosts_get_boosts_subtext" = "通过向您的订阅者赠予 Telegram 高级版来为您的频道获取更多助推。";
 
+"lng_boosts_list_unclaimed" = "尚未领取";
+"lng_boosts_list_pending" = "待分发";
+"lng_boosts_list_pending_about" = "抽奖活动结束后将选择接收者。";
 
+"lng_boosts_list_tab_gifts#other" = "{count} 份奖品";
 
+"lng_boosts_prepaid_giveaway_title" = "预付抽奖活动";
+"lng_boosts_prepaid_giveaway_single" = "预付抽奖活动";
 
+"lng_boosts_prepaid_giveaway_quantity#other" = "{count} 个 Telegram 高级版订阅";
 
+"lng_boosts_prepaid_giveaway_moths#other" = "{count} 个月的订阅";
 
-
-
-
-
-
-
-
-
-
-
-
+"lng_boosts_prepaid_giveaway_status#other" = "{count} 个 {duration} 的订阅";
 
 // Wnd specific
 
@@ -3839,7 +4738,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_linux_menu_tools" = "工具";
 "lng_linux_menu_help" = "帮助";
 
-
+"lng_linux_no_audio_prefs" = "您没有安装任何音频播放器。";
 
 // Mac specific
 
@@ -3895,6 +4794,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 /* new from translations.telegram.org */
 
 "cloud_lng_about_psa_covid" = "该对话提供新冠肺炎公共服务通知。右键菜单选择 **隐藏** 移除它。";
+"cloud_lng_about_psa_psa" = "这是 Telegram 首席执行官对于目前冲突的正式声明。";
 "cloud_lng_badge_psa_covid" = "新冠病毒肺炎";
 "cloud_lng_badge_psa_psa" = "公告";
 "cloud_lng_forwarded_psa_covid" = "来自 {channel} 的新冠病毒肺炎通知";
@@ -3990,6 +4890,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "cloud_lng_passport_in_uz" = "乌兹别克斯坦语";
 "cloud_lng_passport_in_vi" = "越南语";
 "cloud_lng_tooltip_psa_covid" = "此信息为您提供正在发生的新冠肺炎疫情相关公共服务公告。了解有关此计划的更多咨询：https://telegram.org/blog/coronavirus";
+"cloud_lng_tooltip_psa_psa" = "这是 Telegram 首席执行官对于目前冲突的正式声明。";
 "cloud_lng_translate_to_ar" = "阿拉伯语 (العربية)";
 "cloud_lng_translate_to_az" = "阿塞拜疆语";
 "cloud_lng_translate_to_bg" = "保加利亚语";
@@ -4044,12 +4945,20 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_admin_log_slow_mode_minutes#other" = "{count} 分钟";
 "lng_admin_log_slow_mode_seconds#other" = "{count} 秒";
 "lng_archived_chats#other" = "{count} 个聊天";
+"lng_archived_unread#other" = "{chat}、{second_chat} 和其它 {count} 个未读聊天";
 "lng_archived_unread_two" = "{chat}, {second_chat}";
+"lng_background_apply" = "应用";
+"lng_background_gradient_unsupported" = "Telegram Desktop 尚不支持渐变背景图。";
 "lng_bad_phone_noreg" = "该手机号码尚未注册。";
 "lng_banned_list_title" = "被封禁的用户";
 "lng_bio_about" = "您可以写点东西介绍一下自己。任何人在打开您的个人资料页后将会看到这个简介。";
 "lng_bio_title" = "编辑您的个人简介";
 "lng_blocked_list_restart" = "重新启动";
+"lng_boost_channel_needs_first#other" = "{channel} 还需要 **{count}** 个助推才能发布动态。帮助实现这个目标吧！";
+"lng_boost_channel_needs_more#other" = "{channel} 还需要 **{count}** 次助推才能够 {post}。";
+"lng_boost_channel_you_first#other" = "此频道还需 {count} 个助推才能发布动态。";
+"lng_boost_channel_you_more#other" = "此频道还需要 **{count}** 次助推才能够 {post}。";
+"lng_boosts_show_more" = "显示更多助推";
 "lng_bot_sure_add" = "添加为管理员";
 "lng_bot_sure_add_title" = "添加机器人为管理员";
 "lng_calendar_beginning" = "历史最早";
@@ -4063,7 +4972,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_change_phone_occupied" = "手机号码 {phone} 已经和一个 Telegram 帐号绑定。请先删除该帐号再迁移到此新号码。";
 "lng_change_phone_success" = "您的手机号码已被更换。";
 "lng_change_phone_title" = "更换手机号码";
-"lng_change_phone_warning" = "如果您的 Telegram 联系人有您的旧号码，并且您没有在 Telegram 里拉黑他们，您的新号码将被添加到他们的通讯录里。";
+"lng_change_phone_warning" = "如果其他用户在其通讯录中存有您的新号码，或者您的隐私设置允许其查看您的号码，该用户将会看到您的新号码。您可以在“设置” > “隐私与安全” > “手机号码”中更改此设置。";
 "lng_channel_add_banned" = "封禁用户";
 "lng_channel_add_restricted" = "限制用户权限";
 "lng_channel_admins_link#other" = "{count} 位管理员";
@@ -4079,9 +4988,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_chat_theme_reset" = "重置主题";
 "lng_cloud_password_almost" = "已发送验证链接到您的电子邮箱。\n两步验证将在您打开此链接后启用。";
 "lng_cloud_password_edit" = "修改两步验证密码";
+"lng_cloud_password_reset_cancel" = "取消重置密码";
 "lng_cloud_password_reset_in" = "重置密码时限";
+"lng_cloud_password_reset_title" = "重置密码";
 "lng_cloud_password_set" = "开启两步验证";
 "lng_cloud_password_waiting" = "已发送验证链接到 {email}…";
+"lng_code_register_phone" = "如果您已注册 Telegram，请输入发送至您 Telegram app 的验证码。\n\n如果您尚未注册，请先通过您的手机或平板注册。";
 "lng_code_telegram" = "我们已[b]通过 Telegram [/b]向您的其他设备上发送了一条包含验证码的消息。\n请在下方输入您的验证码。";
 "lng_connecting_settings" = "设置";
 "lng_connecting_to_proxy" = "正在连接代理…";
@@ -4095,7 +5007,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_create_group_ttl_about" = "一段时间后，自动为所有人删除此群组中的消息。";
 "lng_delete_all_from" = "撤回此用户发送的所有消息";
 "lng_dialogs_hide_muted_chats" = "隐藏已静音的聊天";
-"lng_dialogs_show_all_chats" = "显示所有对话";
+"lng_dialogs_show_all_chats" = "显示所有聊天";
 "lng_download_path_clear" = "全部清空";
 "lng_download_path_cleared" = "清理完成！";
 "lng_download_path_clearing" = "清理中…";
@@ -4143,7 +5055,11 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_filters_exclude_read" = "已读";
 "lng_filters_include_non_contacts" = "非联系人";
 "lng_filters_limit" = "抱歉，您不能创建更多文件夹。";
+"lng_filters_menu_remove" = "从文件夹移除";
 "lng_gif_error" = "在读取 GIF 动态图时发生错误";
+"lng_giveaway_channels_select#other" = "最多选择 {count} 个频道";
+"lng_giveaway_duration_about" = "您可以查看 Telegram Premium {link} 的功能清单和更多细节。";
+"lng_giveaway_duration_about_link" = "这里";
 "lng_group_blocked_list_about" = "被封禁的用户将会从群组中移除，并且只有被管理员添加才能再次加入。\n邀请链接将对其无效。";
 "lng_group_call_duration_days#other" = "{count} 天";
 "lng_group_call_duration_hours#other" = "{count} 小时";
@@ -4165,6 +5081,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_invite_create_new" = "废除邀请链接";
 "lng_group_invite_expired_already" = "该链接已失效。";
 "lng_group_invite_join" = "加入";
+"lng_group_invite_link_revoked" = "已撤销";
 "lng_group_invite_manage" = "管理邀请链接";
 "lng_group_invite_manage_about" = "您可以创建额外的邀请链接，这些链接有一定的时间限制或使用次数。";
 "lng_group_invite_permanent" = "永久链接";
@@ -4197,6 +5114,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mediaview_n_of_count" = "第 {count} 张图片，共 {n} 张";
 "lng_mediaview_playback_speed_normal" = "正常";
 "lng_mediaview_saved" = "图片已保存到您的[c]下载[/c]文件夹";
+"lng_mediaview_video_loading" = "加载中 - {percent}";
 "lng_menu_back" = "返回";
 "lng_migrate_error" = "此操作会将该群组转换为超级群组。不幸的是，您已是过多超级群组和频道的成员。请先退出一些您不需要的频道或群组，然后才能继续。";
 "lng_mute_box_tip" = "为下列对话选择关闭通知的时长";
@@ -4220,6 +5138,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_passport_selfie_name" = "照片";
 "lng_passport_uploading" = "上传中…";
 "lng_payments_not_supported" = "抱歉，Telegram 桌面版暂不支持付款。请使用我们的移动版应用进行此操作。";
+"lng_payments_webview_no_card" = "抱歉，当前系统配置无法添加新卡。";
 "lng_payments_webview_switch_mutter" = "Qt的窗口嵌入在Mutter窗口管理器中无法正常工作。请切换到另一个窗口管理器或桌面环境。";
 "lng_payments_webview_switch_wayland" = "无法将WebView窗口嵌入Wayland。请切换到X11。";
 "lng_phone_notreg" = "如果您还没有注册 Telegram，\n请使用您的 {link_start}Android / iPhone 设备{link_end}[b]注册[/b]，或 {signup_start}点此{signup_end}注册。";
@@ -4240,7 +5159,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_profile_convert_feature3" = "— 管理员可以向群组添加描述";
 "lng_profile_convert_feature4" = "— 创建者可以给群组设置一条公开链接";
 "lng_profile_convert_title" = "升级为超级群组";
-"lng_profile_convert_warning" = "{bold_start}注意：{bold_end}此操作无法撤消";
+"lng_profile_convert_warning" = "{bold_start} 注意：{bold_end} 此操作无法撤消";
 "lng_profile_create_public_link" = "创建公开链接";
 "lng_profile_delete_and_exit" = "退出";
 "lng_profile_delete_contact" = "删除";
@@ -4267,7 +5186,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_profile_recent_actions" = "近期操作";
 "lng_profile_search_members" = "搜索成员";
 "lng_profile_search_messages" = "搜索消息";
-"lng_profile_set_for_done" = "你将会在 {user} 的帐号中看到这个头像。";
+"lng_profile_set_for_done" = "您将会在 {user} 的帐号中看到这个头像。";
 "lng_profile_set_group_photo" = "设置头像";
 "lng_profile_share_contact" = "分享联系人信息";
 "lng_profile_shared_links_header" = "分享的链接";
@@ -4281,6 +5200,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_reaction_premium_info" = "在消息反馈上点击以预览动画。";
 "lng_reaction_premium_no_channel" = "此频道已限制部分回应。";
 "lng_reaction_premium_no_group" = "此群组已限制部分回应。";
+"lng_recommended" = "推荐";
 "lng_report_reason_description" = "说明";
 "lng_report_spam_hide" = "隐藏";
 "lng_report_spam_sure" = "您要举报此用户发布垃圾信息吗？";
@@ -4305,6 +5225,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_send_separate_photos_videos" = "逐条发送媒体文件";
 "lng_settings_advanced_notifications" = "通知位置/数量";
 "lng_settings_audios_cached#other" = "{count} 条语音消息， ({size})";
+"lng_settings_auto_night_enabled" = "匹配系统设定";
 "lng_settings_autoplay_gifs" = "自动播放 GIF 动态图";
 "lng_settings_bg_edit_theme" = "启动主题编辑器";
 "lng_settings_bg_use_default" = "使用默认主题";
@@ -4319,6 +5240,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_change_phone" = "更换手机号码";
 "lng_settings_choose_username" = "设定用户名";
 "lng_settings_close_sure" = "您确定要关闭此页面吗？您尚未保存您的更改。";
+"lng_settings_connected_about" = "点击以取消您 Telegram 账号的授权。";
 "lng_settings_crop_profile" = "截取一部分作为您的头像";
 "lng_settings_current_version_label" = "{version} 版：";
 "lng_settings_disable_night_theme" = "关闭夜间模式";
@@ -4333,6 +5255,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_groups_invite_privacy" = "群组和频道的邀请权限设置";
 "lng_settings_images_cached#other" = "{count} 张图片 ({size})";
 "lng_settings_last_seen_privacy" = "最后上线时间隐私设置";
+"lng_settings_logged_in_about" = "您使用 Telegram 登录过的网站。";
 "lng_settings_network_proxy" = "网络和代理";
 "lng_settings_no_data_cached" = "未发现任何缓存！";
 "lng_settings_password_reenter_email" = "重新输入恢复邮箱";
@@ -4344,9 +5267,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_section_general" = "通用";
 "lng_settings_section_scale" = "界面缩放比例";
 "lng_settings_self_destruct" = "自动删除帐号设置";
-"lng_settings_sessions_about" = "控制您在其它设备上的会话。";
 "lng_settings_show_name" = "显示发送者姓名";
 "lng_settings_show_preview" = "显示消息预览";
+"lng_settings_sound_notify" = "播放提示音";
+"lng_settings_sound_notify_off" = "关闭";
 "lng_settings_theme_blue" = "天蓝";
 "lng_settings_theme_matrix" = "矩阵";
 "lng_settings_theme_midnight" = "深夜";
@@ -4362,8 +5286,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_signin_reset_days#other" = "{count} 天";
 "lng_signin_reset_hours#other" = "{count} 小时";
 "lng_signin_reset_minutes#other" = "{count} 分钟";
+"lng_sponsored" = "赞助消息";
+"lng_stats_recent_messages_shares#other" = "{count} 次分享";
 "lng_sticker_premium_title" = "包含特效";
-"lng_stickers_masks_pack" = "这是一个装饰包。您可以在 Telegram 移动版应用的照片编辑器中使用它。";
+"lng_stickers_masks_pack" = "这是一个装饰包。只有 Telegram 移动版应用支持使用装饰。";
 "lng_stickers_remove_pack_button" = "移除贴纸包";
 "lng_stickers_search_sets" = "搜索表情包";
 "lng_sure_add_admin_unban" = "此用户正在被限制/封禁。您确定要解除其封禁并设为管理员吗？";
@@ -4376,9 +5302,11 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_theme_editor_export" = "导出";
 "lng_theme_editor_export_button" = "导出主题";
 "lng_theme_editor_save_palette" = "保存配色文件";
+"lng_theme_no_desktop_version" = "抱歉，此主题未包含 Telegram Desktop 的版本。\n\n";
 "lng_translate_box_original" = "原文";
 "lng_ttl_about_duration1" = "1 天";
 "lng_ttl_about_duration2" = "一周";
+"lng_ttl_about_duration3" = "1 个月";
 "lng_ttl_edit_save" = "确认";
 "lng_username_about" = "您可以在 **Telegram** 上设置一个用户名。\n设置后，别人可以通过此用户名找到您并\n与您联系，而不需要您的手机号码。\n\n您可以使用 **a-z**、**0-9** 和下划线。\n最小长度为 **5** 个字符。";
 "lng_username_description" = "你可以设置一个用户名，这样其他人无需知道你的手机号，也可以通过这个用户名联系你。\n\n用户名只能包括 **小写字母（a-z）**、**数字（0-9）** 和 **下划线** 且至少为**5个字符**。";
