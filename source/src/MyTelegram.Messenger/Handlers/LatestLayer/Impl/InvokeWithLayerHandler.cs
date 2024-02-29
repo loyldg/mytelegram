@@ -1,5 +1,4 @@
-﻿// ReSharper disable All
-
+// ReSharper disable All
 namespace MyTelegram.Handlers;
 
 ///<summary>
@@ -13,17 +12,23 @@ namespace MyTelegram.Handlers;
 /// 406 INVITE_HASH_EXPIRED The invite link has expired.
 /// See <a href="https://corefork.telegram.org/method/invokeWithLayer" />
 ///</summary>
-internal sealed class InvokeWithLayerHandler : BaseObjectHandler<MyTelegram.Schema.RequestInvokeWithLayer, IObject>,
+
+internal sealed class InvokeWithLayerHandler : BaseObjectHandler<RequestInvokeWithLayer, IObject>,
     IInvokeWithLayerHandler
 {
+    private readonly ICommandBus _commandBus;
     private readonly IHandlerHelper _handlerHelper;
     private readonly ILogger<InvokeWithLayerHandler> _logger;
+    private readonly IEventBus _eventBus;
 
     public InvokeWithLayerHandler(IHandlerHelper handlerHelper,
-        ILogger<InvokeWithLayerHandler> logger)
+        ICommandBus commandBus,
+        ILogger<InvokeWithLayerHandler> logger, IEventBus eventBus)
     {
         _handlerHelper = handlerHelper;
+        _commandBus = commandBus;
         _logger = logger;
+        _eventBus = eventBus;
     }
 
     protected override async Task<IObject> HandleCoreAsync(IRequestInput input,
@@ -33,11 +38,28 @@ internal sealed class InvokeWithLayerHandler : BaseObjectHandler<MyTelegram.Sche
         if (obj.Query is RequestInitConnection initConnection)
         {
             query = initConnection.Query;
+            await SaveDeviceInfoAsync(input,
+                initConnection.ApiId,
+                initConnection.AppVersion,
+                initConnection.DeviceModel,
+                initConnection.SystemVersion,
+                initConnection.SystemLangCode,
+                initConnection.LangPack,
+                initConnection.LangCode
+            );
         }
-
-        if (obj.Query is Schema.LayerN.RequestInitConnection initConnectionLayerN)
+        else if (obj.Query is Schema.LayerN.RequestInitConnection initConnectionLayerN)
         {
             query = initConnectionLayerN.Query;
+            await SaveDeviceInfoAsync(input,
+                initConnectionLayerN.ApiId,
+                initConnectionLayerN.AppVersion,
+                initConnectionLayerN.DeviceModel,
+                initConnectionLayerN.SystemVersion,
+                initConnectionLayerN.SystemLangCode,
+                initConnectionLayerN.LangPack,
+                initConnectionLayerN.LangCode
+            );
         }
 
         if (query == null)
@@ -60,5 +82,44 @@ internal sealed class InvokeWithLayerHandler : BaseObjectHandler<MyTelegram.Sche
         var result = await handler.HandleAsync(input, query);
 
         return result;
+    }
+
+    private async Task SaveDeviceInfoAsync(IRequestInput requestInput,
+        int apiId,
+        //string appName,
+        string appVersion,
+        //bool officialApp,
+        //bool passwordPending,
+        string deviceModel,
+        //string platform,
+        string systemVersion,
+        string systemLangCode,
+        string langPack,
+        string langCode
+    )
+    {
+        if (requestInput.PermAuthKeyId == 0)
+        {
+            return;
+        }
+
+        var eventData = new NewDeviceCreatedEvent(requestInput.ToRequestInfo(), requestInput.PermAuthKeyId, requestInput.AuthKeyId,
+            requestInput.UserId,
+            apiId,
+            appVersion,
+            appVersion,
+            0,
+            false,
+            false,
+            deviceModel,
+            systemVersion,
+            systemVersion,
+            systemLangCode,
+            langPack,
+            langCode,
+            requestInput.ClientIp,
+            requestInput.Layer
+        );
+        await _eventBus.PublishAsync(eventData);
     }
 }
