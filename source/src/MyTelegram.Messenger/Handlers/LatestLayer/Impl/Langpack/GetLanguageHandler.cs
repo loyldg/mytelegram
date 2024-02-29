@@ -24,7 +24,7 @@ internal sealed class GetLanguageHandler : RpcResultObjectHandler<MyTelegram.Sch
                 Official = false,
                 Name = "Chinese (Simplified)",
                 NativeName = "简体中文",
-                BaseLangCode = "zh-hans-raw",
+                BaseLangCode = "zh-hans",
                 LangCode = "zh-hans",
                 PluralCode = "zh",
                 StringsCount = 2236,
