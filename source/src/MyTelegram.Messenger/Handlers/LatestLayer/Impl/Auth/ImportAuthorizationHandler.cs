@@ -54,8 +54,8 @@ internal sealed class ImportAuthorizationHandler : RpcResultObjectHandler<MyTele
                 RpcErrors.RpcErrors400.AuthBytesInvalid.ThrowRpcError();
             }
 
-            await _eventBus.PublishAsync(new BindUidToSessionEvent(input.UserId, input.AuthKeyId, input.PermAuthKeyId));
             var userReadModel = await _queryProcessor.ProcessAsync(new GetUserByIdQuery(userId), default);
+            await _eventBus.PublishAsync(new BindUidToSessionEvent(userReadModel!.UserId, input.AuthKeyId, input.PermAuthKeyId));
 
             await _cacheManager.RemoveAsync(key);
 
