@@ -33,7 +33,7 @@ public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
 
                 if (totalMilliseconds > maxMillSeconds)
                 {
-                    _logger.LogWarning("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms,reqMsgId={ReqMsgId}",
+                    _logger.LogInformation("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms,reqMsgId={ReqMsgId}",
                         domainEvent.GetAggregateEvent().GetType().Name,
                         totalMilliseconds,
                         hasRequestInfo.RequestInfo.ReqMsgId);
@@ -59,7 +59,7 @@ public class DistributedDomainEventHandler : IEventHandler<DomainEventMessage>
 
             if (sw.Elapsed.TotalMilliseconds > maxMillSeconds)
             {
-                _logger.LogWarning("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms",
+                _logger.LogInformation("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms",
                     domainEvent.GetAggregateEvent().GetType().Name,
                     sw.Elapsed);
             }

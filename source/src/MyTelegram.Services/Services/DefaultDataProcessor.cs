@@ -40,12 +40,13 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                 {
                     sw.Stop();
                     _logger.LogInformation(
-                        "{Elapsed} request from userId={UserId} reqMsgId={ReqMsgId} handler={Handler},returns data from cache",
-                        sw.Elapsed,
+                        "{Elapsed}ms UserId={UserId} reqMsgId={ReqMsgId} handler={Handler},returns data from cache",
+                        sw.Elapsed.TotalMilliseconds,
                         obj.UserId,
                         obj.ReqMsgId,
                         handler.GetType().Name);
 
+                    //await _objectMessageSender.SendMessageToPeerAsync(obj.ReqMsgId, rpcResult);
                     await SendMessageToPeerAsync(obj.ReqMsgId, rpcResult);
                     return;
                 }
@@ -53,15 +54,23 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
                 try
                 {
                     var req = GetRequestInput(obj);
-                    var r = await handler.HandleAsync(req, GetData(obj));
+                    var data = GetData(obj);
+                    var handlerName = handler.GetType().Name;
+                    if (data is IHasSubQuery)
+                    {
+                        handlerName = _handlerHelper.GetHandlerFullName(data);
+                    }
+                    var r = await handler.HandleAsync(req, data);
                     _logger.LogInformation(
-                        "{Elapsed} request from userId={UserId} authKeyId={AuthKeyId:x2} reqMsgId={ReqMsgId} layer={Layer} handler={Handler}",
-                        sw.Elapsed,
+                        "{Elapsed}ms UserId={UserId} authKeyId={AuthKeyId:x2} reqMsgId={ReqMsgId} layer={Layer} handler={Handler} {DeviceType}",
+                        sw.Elapsed.TotalMilliseconds,
                         obj.UserId,
                         obj.AuthKeyId,
                         obj.ReqMsgId,
                         obj.Layer,
-                        handler.GetType().Name);
+                        handlerName,
+                        obj.DeviceType
+                        );
 
                     if (r != null!)
                     {
@@ -90,6 +99,17 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
         return obj.Data.ToTObject<IObject>();
     }
 
+    //private async Task SendAckAsync(uint objectId, int seqNo, long reqMsgId)
+    //{
+    //    if (seqNo % 2 == 1 && !ObjectIdConsts.NotNeedAckObjectIdToNames.ContainsKey(objectId))
+    //    {
+    //        var ack = new TMsgsAck
+    //        {
+    //            MsgIds = new TVector<long>(reqMsgId)
+    //        };
+    //        //await _objectMessageSender.PushMessageToPeerAsync();
+    //    }
+    //}
 
     protected virtual IRequestInput GetRequestInput(TData obj)
     {

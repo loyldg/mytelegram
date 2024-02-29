@@ -22,7 +22,7 @@ public class AllDomainEventsHandler : ISubscribeSynchronousToAll
                 var totalMilliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - requestInfo.RequestInfo.Date;
                 if (totalMilliseconds > 200)
                 {
-                    _logger.LogWarning("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms,reqMsgId={ReqMsgId}",
+                    _logger.LogInformation("Process domain event '{DomainEvent}' is too slow,time={Timespan}ms,reqMsgId={ReqMsgId}",
                         domainEvent.GetAggregateEvent().GetType().Name,
                         totalMilliseconds,
                         requestInfo.RequestInfo.ReqMsgId);
