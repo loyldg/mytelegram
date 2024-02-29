@@ -33,7 +33,7 @@ internal sealed class GetLangPackHandler : RpcResultObjectHandler<MyTelegram.Sch
                 Key = p.Key,
                 Value = p.Value
             })),
-            Version = 0
+            Version = 9999
         };
 
         return r;

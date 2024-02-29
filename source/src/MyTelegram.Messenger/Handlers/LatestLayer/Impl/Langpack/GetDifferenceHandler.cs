@@ -17,10 +17,10 @@ internal sealed class GetDifferenceHandler : RpcResultObjectHandler<MyTelegram.S
     {
         ILangPackDifference r = new TLangPackDifference
         {
-            FromVersion = 0,
+            FromVersion = 9999,
             LangCode = obj.LangCode,
             Strings = new(),
-            Version = 0
+            Version = 9999
         };
         return Task.FromResult(r);
     }

@@ -23,17 +23,21 @@ internal sealed class GetLangPackHandler : RpcResultObjectHandler<MyTelegram.Sch
     protected override async Task<ILangPackDifference> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Langpack.RequestGetLangPack obj)
     {
-
+        var langPack = obj.LangPack;
+        if (string.IsNullOrEmpty(langPack))
+        {
+            langPack = _languageManager.GetDefaultLangPack(input);
+        }
         ILangPackDifference r = new TLangPackDifference
         {
             FromVersion = 0,
             LangCode = obj.LangCode,
-            Strings = new TVector<ILangPackString>((await _languageManager.GetAllLangPacksAsync(obj.LangCode, obj.LangPack)).Select(p => new TLangPackString
+            Strings = new TVector<ILangPackString>((await _languageManager.GetAllLangPacksAsync(obj.LangCode, langPack)).Select(p => new TLangPackString
             {
                 Key = p.Key,
                 Value = p.Value
             })),
-            Version = 0
+            Version = 9999
         };
 
         // Console.WriteLine($"Get lang:{obj.LangCode} {obj.LangPack} count={r.Strings.Count}");
