@@ -34,4 +34,6 @@ public interface IRequestInput
     int Layer { get; }
     Guid RequestId { get; }
     long Date { get; }
+    DeviceType DeviceType { get; }
+    string ClientIp { get; }
 }

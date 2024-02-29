@@ -11,5 +11,7 @@ public record RequestInput(
     long AuthKeyId,
     long PermAuthKeyId,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
 ) : IRequestInput;

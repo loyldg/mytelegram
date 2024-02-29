@@ -30,7 +30,7 @@ public class MessengerEventHandler :
         _processor.Enqueue(
             new MessengerQueryDataReceivedEvent(eventData.ConnectionId, eventData.RequestId, eventData.ObjectId,
                 eventData.UserId, eventData.ReqMsgId, eventData.SeqNumber, eventData.AuthKeyId, eventData.PermAuthKeyId,
-                eventData.Data, eventData.Layer, eventData.Date), eventData.AuthKeyId);
+                eventData.Data, eventData.Layer, eventData.Date, eventData.DeviceType, eventData.ClientIp), eventData.AuthKeyId);
         return Task.CompletedTask;
     }
 

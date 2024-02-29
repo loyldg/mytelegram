@@ -16,7 +16,8 @@ public record SessionRequestInput(
     byte[] AuthKeyData,
     long ServerSalt,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType
 ) : RequestInput(
     ConnectionId,
     RequestId,
@@ -26,5 +27,7 @@ public record SessionRequestInput(
     AuthKeyId,
     PermAuthKeyId,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );

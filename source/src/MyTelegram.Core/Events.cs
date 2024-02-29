@@ -154,7 +154,7 @@ public record DataResultResponseReceivedEvent(long ReqMsgId,
 public record DataResultResponseWithUserIdReceivedEvent(long ReqMsgId, byte[] Data, long UserId, long AuthKeyId,
     long PermAuthKeyId) : ISessionMessage;
 
-public record DataReceivedEvent(
+public partial record DataReceivedEvent(
     string ConnectionId,
     Guid RequestId,
     uint ObjectId,
@@ -163,10 +163,12 @@ public record DataReceivedEvent(
     int SeqNumber,
     long AuthKeyId,
     long PermAuthKeyId,
-    //ReadOnlyMemory<byte> Data,
     byte[] Data,
+    //byte[] Data,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
 );
 
 public record AcksDataReceivedEvent(
@@ -181,7 +183,9 @@ public record AcksDataReceivedEvent(
     //ReadOnlyMemory<byte> Data,
     byte[] Data,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
 ) : DataReceivedEvent(
     ConnectionId,
     RequestId,
@@ -193,7 +197,9 @@ public record AcksDataReceivedEvent(
     PermAuthKeyId,
     Data,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );
 
 public record DomainEventMessage(string EventId, string Message, IReadOnlyDictionary<string, string> Headers);
@@ -210,7 +216,9 @@ public record UpdatesDataReceivedEvent(
     //ReadOnlyMemory<byte> Data,
     byte[] Data,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
 ) : DataReceivedEvent(
     ConnectionId,
     RequestId,
@@ -222,7 +230,9 @@ public record UpdatesDataReceivedEvent(
     PermAuthKeyId,
     Data,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );
 
 public record UploadDataReceivedEvent(
@@ -237,7 +247,9 @@ public record UploadDataReceivedEvent(
     //ReadOnlyMemory<byte> Data,
     byte[] Data,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
 ) : DataReceivedEvent(
     ConnectionId,
     RequestId,
@@ -249,7 +261,9 @@ public record UploadDataReceivedEvent(
     PermAuthKeyId,
     Data,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );
 
 public record DownloadDataReceivedEvent(
@@ -264,7 +278,9 @@ public record DownloadDataReceivedEvent(
     //ReadOnlyMemory<byte> Data,
     byte[] Data,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
 ) : DataReceivedEvent(
     ConnectionId,
     RequestId,
@@ -276,7 +292,9 @@ public record DownloadDataReceivedEvent(
     PermAuthKeyId,
     Data,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );
 
 public record PhoneCallDataReceivedEvent(uint ObjectId, long UserId, long ReqMsgId, int SeqNumber, long AuthKeyId,
@@ -294,7 +312,9 @@ public record MessengerDataReceivedEvent(
     //ReadOnlyMemory<byte> Data,
     byte[] Data,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
 ) : DataReceivedEvent(
     ConnectionId,
     RequestId,
@@ -306,7 +326,9 @@ public record MessengerDataReceivedEvent(
     PermAuthKeyId,
     Data,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );
 
 public record MessengerQueryDataReceivedEvent(
@@ -321,7 +343,10 @@ public record MessengerQueryDataReceivedEvent(
     //ReadOnlyMemory<byte> Data,
     byte[] Data,
     int Layer,
-    long Date) : DataReceivedEvent(
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
+    ) : DataReceivedEvent(
     ConnectionId,
     RequestId,
     ObjectId,
@@ -332,7 +357,9 @@ public record MessengerQueryDataReceivedEvent(
     PermAuthKeyId,
     Data,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );
 
 public record MessengerCommandDataReceivedEvent(
@@ -347,7 +374,10 @@ public record MessengerCommandDataReceivedEvent(
     //ReadOnlyMemory<byte> Data,
     byte[] Data,
     int Layer,
-    long Date) : DataReceivedEvent(
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
+    ) : DataReceivedEvent(
     ConnectionId,
     RequestId,
     ObjectId,
@@ -358,7 +388,9 @@ public record MessengerCommandDataReceivedEvent(
     PermAuthKeyId,
     Data,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );
 
 public record PushDataReceivedEvent(uint ObjectId, long UserId, long ReqMsgId, int SeqNumber, long AuthKeyId,
@@ -376,7 +408,9 @@ public record StickerDataReceivedEvent(
     //ReadOnlyMemory<byte> Data,
     byte[] Data,
     int Layer,
-    long Date
+    long Date,
+    DeviceType DeviceType,
+    string ClientIp
 ) : DataReceivedEvent(
     ConnectionId,
     RequestId,
@@ -388,5 +422,7 @@ public record StickerDataReceivedEvent(
     PermAuthKeyId,
     Data,
     Layer,
-    Date
+    Date,
+    DeviceType,
+    ClientIp
 );

@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-using Microsoft.Extensions.Logging;
-using MyTelegram.Core;
+﻿using Microsoft.Extensions.Logging;
 using MyTelegram.Schema;
-using MyTelegram.Schema.Extensions;
+using System.Diagnostics;
 
 namespace MyTelegram.Services.Services;
 
@@ -104,7 +102,9 @@ public class DefaultDataProcessor<TData> : IDataProcessor<TData>
             obj.AuthKeyId,
             obj.PermAuthKeyId,
             obj.Layer,
-            obj.Date
+            obj.Date,
+            obj.DeviceType,
+            obj.ClientIp
         );
 
         return req;

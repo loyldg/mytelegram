@@ -8,5 +8,6 @@ public enum DeviceType
     Desktop,
     Android,
     Ios,
-    Web
+    WebA,
+    WebK
 }
