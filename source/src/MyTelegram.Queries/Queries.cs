@@ -910,3 +910,4 @@ public record GetOutboxReadDateQuery(long UserId, int MessageId, Peer ToPeer) : 
 public record GetChatAdminQuery(long PeerId, long AdminId) : IQuery<IChatAdminReadModel?>;
 public record GetChatInviteImporterQuery(long PeerId, long UserId) : IQuery<IChatInviteImporterReadModel?>;
 public record GetChatInviteImporterListForApprovalQuery(long PeerId,long InviteId) : IQuery<IReadOnlyCollection<IChatInviteImporterReadModel>>;
+public record GetAdminedChannelIdsQuery(long UserId):IQuery<IReadOnlyCollection<long>>;

@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 
 namespace MyTelegram.Handlers.Channels;
 
@@ -13,9 +13,31 @@ namespace MyTelegram.Handlers.Channels;
 internal sealed class GetAdminedPublicChannelsHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestGetAdminedPublicChannels, MyTelegram.Schema.Messages.IChats>,
     Channels.IGetAdminedPublicChannelsHandler
 {
-    protected override Task<MyTelegram.Schema.Messages.IChats> HandleCoreAsync(IRequestInput input,
+    private readonly IQueryProcessor _queryProcessor;
+    private readonly ILayeredService<IChatConverter> _layeredChatService;
+    private readonly IPhotoAppService _photoAppService;
+    public GetAdminedPublicChannelsHandler(IQueryProcessor queryProcessor, ILayeredService<IChatConverter> layeredChatService, IPhotoAppService photoAppService)
+    {
+        _queryProcessor = queryProcessor;
+        _layeredChatService = layeredChatService;
+        _photoAppService = photoAppService;
+    }
+
+    protected override async Task<MyTelegram.Schema.Messages.IChats> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestGetAdminedPublicChannels obj)
     {
-        throw new NotImplementedException();
+        var channelIds = (await _queryProcessor.ProcessAsync(new GetAdminedChannelIdsQuery(input.UserId))).ToList();
+        var channelReadModels = await _queryProcessor.ProcessAsync(new GetChannelByChannelIdListQuery(channelIds));
+        var photoIds = channelReadModels.Select(p => p.PhotoId ?? 0).Distinct().ToList();
+        var photoReadModels = await _photoAppService.GetPhotosAsync(channelReadModels);
+        var channelMemberReadModels =
+            await _queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIds));
+        var chats = _layeredChatService.GetConverter(input.Layer).ToChannelList(input.UserId, channelReadModels, photoReadModels, channelIds,
+            channelMemberReadModels);
+
+        return new TChats
+        {
+            Chats = new TVector<IChat>(chats)
+        };
     }
 }
