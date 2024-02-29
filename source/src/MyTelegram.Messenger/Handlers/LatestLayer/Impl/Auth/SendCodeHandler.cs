@@ -91,9 +91,13 @@ internal sealed class SendCodeHandler : RpcResultObjectHandler<MyTelegram.Schema
             }
         }
 
-        var code = _options.Value.FixedVerifyCode == 0
-            ? _randomHelper.NextInt(10000, 99999).ToString()
-            : _options.Value.FixedVerifyCode.ToString();
+        var verificationCode = _options.Value.FixedVerifyCode;
+        if (verificationCode == null || verificationCode == 0)
+        {
+            verificationCode = _randomHelper.NextInt(10000, 99999);
+        }
+
+        var code = verificationCode.ToString();
 
         var phoneCodeHash = Guid.NewGuid().ToString("N");
         var timeout = 300; //300s

@@ -6,7 +6,7 @@ public class MyTelegramMessengerServerOptions
     public string FileServerGrpcServiceUrl { get; set; }
     public string IdGeneratorGrpcServiceUrl { get; set; }
     public string MessengerServerGrpcServiceUrl { get; set; }
-    public int FixedVerifyCode { get; set; }
+    public int? FixedVerifyCode { get; set; }
     public int ConfirmEmailLoginCount { get; set; }
     public string JoinChatDomain { get; set; }
     public int ChannelGetDifferenceIntervalSeconds { get; set; }
