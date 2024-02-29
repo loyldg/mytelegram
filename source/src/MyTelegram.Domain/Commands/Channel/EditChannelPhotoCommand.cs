@@ -4,7 +4,7 @@ public class EditChannelPhotoCommand : RequestCommand2<ChannelAggregate, Channel
 {
     public EditChannelPhotoCommand(ChannelId aggregateId,
         RequestInfo requestInfo,
-        long fileId,
+        long? fileId,
         //byte[] photo,
         string messageActionData,
         long randomId) : base(aggregateId, requestInfo)
@@ -15,7 +15,7 @@ public class EditChannelPhotoCommand : RequestCommand2<ChannelAggregate, Channel
         RandomId = randomId;
     }
 
-    public long FileId { get; }
+    public long? FileId { get; }
     public string MessageActionData { get; }
     //public byte[] Photo { get; }
     public long RandomId { get; }

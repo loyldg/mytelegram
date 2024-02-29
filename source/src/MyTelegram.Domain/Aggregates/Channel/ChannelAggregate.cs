@@ -279,7 +279,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     public void EditPhoto(RequestInfo requestInfo,
         //long fileId,
         //byte[] photo,
-        long photoId,
+        long? photoId,
         string messageActionData,
         long randomId)
     {

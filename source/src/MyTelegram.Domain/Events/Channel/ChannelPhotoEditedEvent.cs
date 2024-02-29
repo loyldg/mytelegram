@@ -5,7 +5,7 @@ public class ChannelPhotoEditedEvent : RequestAggregateEvent2<ChannelAggregate, 
     public ChannelPhotoEditedEvent(RequestInfo requestInfo,
         long channelId,
         //byte[] photo,
-        long photoId,
+        long? photoId,
         string messageActionData,
         long randomId) : base(requestInfo)
     {
@@ -17,7 +17,7 @@ public class ChannelPhotoEditedEvent : RequestAggregateEvent2<ChannelAggregate, 
     }
 
     public long ChannelId { get; }
-    public long PhotoId { get; }
+    public long? PhotoId { get; }
     public string MessageActionData { get; }
     //public byte[] Photo { get; }
     public long RandomId { get; }
