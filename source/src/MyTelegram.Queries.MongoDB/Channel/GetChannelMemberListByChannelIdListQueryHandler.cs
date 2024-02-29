@@ -16,7 +16,7 @@ public class GetChannelMemberListByChannelIdListQueryHandler : IQueryHandler<
         CancellationToken cancellationToken)
     {
         var cursor = await _store
-                .FindAsync(p => p.UserId == query.MemberUid && query.ChannelIdList.Contains(p.ChannelId),
+                .FindAsync(p => p.UserId == query.MemberUserId && query.ChannelIdList.Contains(p.ChannelId),
                     cancellationToken: cancellationToken)
             ;
         return await cursor.ToListAsync(cancellationToken);

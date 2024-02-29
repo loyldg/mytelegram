@@ -119,16 +119,16 @@ public class GetChannelMemberByUserIdQuery : IQuery<IChannelMemberReadModel?>
 
 public class GetChannelMemberListByChannelIdListQuery : IQuery<IReadOnlyCollection<IChannelMemberReadModel>>
 {
-    public GetChannelMemberListByChannelIdListQuery(long memberUid,
+    public GetChannelMemberListByChannelIdListQuery(long memberUserId,
         List<long> channelIdList)
     {
-        MemberUid = memberUid;
+        MemberUserId = memberUserId;
         ChannelIdList = channelIdList;
     }
 
     public List<long> ChannelIdList { get; }
 
-    public long MemberUid { get; }
+    public long MemberUserId { get; }
 }
 
 public class GetChannelMembersByChannelIdQuery : IQuery<IReadOnlyCollection<IChannelMemberReadModel>>
