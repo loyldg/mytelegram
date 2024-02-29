@@ -32,7 +32,12 @@ public class TwilioSmsSender : ISmsSender
             return;
         }
 
-        var resource = await MessageResource.CreateAsync(new PhoneNumber(smsMessage.PhoneNumber),
+        var phoneNumber = smsMessage.PhoneNumber;
+        if (!phoneNumber.StartsWith("+"))
+        {
+            phoneNumber=$"+{phoneNumber}";
+        }
+        var resource = await MessageResource.CreateAsync(new PhoneNumber(phoneNumber),
             from: new PhoneNumber(_optionsSnapshot.Value.FromNumber),
             body: smsMessage.Text);
         _logger.LogDebug("Send SMS result:{@Resource}", resource);
