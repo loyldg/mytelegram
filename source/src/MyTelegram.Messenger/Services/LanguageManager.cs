@@ -16,6 +16,11 @@ public class LanguageManager : ILanguageManager
     private void LoadDefaultLanguageFiles()
     {
         var languageFilePath = Path.Combine(AppContext.BaseDirectory, "Langs");
+        if (!Directory.Exists(languageFilePath))
+        {
+            return;
+        }
+
         var files = Directory.GetFiles(languageFilePath, "*");
         foreach (var file in files)
         {
