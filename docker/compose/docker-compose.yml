@@ -245,9 +245,11 @@ services:
        App__QueryServerEventStoreDatabaseName: ${QueryServerEventStoreDatabaseName}
        App__QueryServerReadModelDatabaseName: ${QueryServerReadModelDatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       App__AutoCreateSuperGroup: ${AutoCreateSuperGroup}
        App__EnableFutureAuthToken: ${EnableFutureAuthToken}
        App__SetPremiumToTrueAfterUserCreated: ${SetPremiumToTrueAfterUserCreated}
        App__SendWelcomeMessageAfterUserSignIn: ${SendWelcomeMessageAfterUserSignIn}
+       
     volumes:
       - ./data/mytelegram/messenger-command-server/logs:/data/Logs
     depends_on:
@@ -282,6 +284,7 @@ services:
        App__QueryServerEventStoreDatabaseName: ${QueryServerEventStoreDatabaseName}
        App__QueryServerReadModelDatabaseName: ${QueryServerReadModelDatabaseName}
        Serilog__MinimumLevel__Default: ${DefaultLogLevel}
+       App__AutoCreateSuperGroup: ${AutoCreateSuperGroup}
        App__EnableFutureAuthToken: ${EnableFutureAuthToken}
        App__SetPremiumToTrueAfterUserCreated: ${SetPremiumToTrueAfterUserCreated}
        App__SendWelcomeMessageAfterUserSignIn: ${SendWelcomeMessageAfterUserSignIn}
