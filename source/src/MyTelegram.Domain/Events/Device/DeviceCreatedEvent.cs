@@ -7,7 +7,7 @@ public class DeviceCreatedEvent : AggregateEvent<DeviceAggregate, DeviceId>
         long permAuthKeyId,
         long tempAuthKeyId,
         long userId,
-        int appId,
+        int apiId,
         string appName,
         string appVersion,
         long hash,
@@ -28,7 +28,7 @@ public class DeviceCreatedEvent : AggregateEvent<DeviceAggregate, DeviceId>
         PermAuthKeyId = permAuthKeyId;
         TempAuthKeyId = tempAuthKeyId;
         UserId = userId;
-        AppId = appId;
+        ApiId = apiId;
         AppName = appName;
         AppVersion = appVersion;
         Hash = hash;
@@ -45,7 +45,7 @@ public class DeviceCreatedEvent : AggregateEvent<DeviceAggregate, DeviceId>
         Date = date;
     }
 
-    public int AppId { get; }
+    public int ApiId { get; }
     public string AppName { get; }
     public string AppVersion { get; }
     public int Date { get; }

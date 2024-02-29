@@ -13,7 +13,7 @@ public class AuthorizationMapper : ILayeredMapper,
     public TAuthorization Map(IDeviceReadModel source,
         TAuthorization destination)
     {
-        destination.ApiId = source.AppId;
+        destination.ApiId = source.ApiId;
         destination.AppName = source.AppName;
         destination.AppVersion = source.AppVersion;
         destination.Hash = source.Hash;

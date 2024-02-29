@@ -7,7 +7,7 @@ public class DeviceState : AggregateState<DeviceAggregate, DeviceId, DeviceState
 {
     public long PermAuthKeyId { get; private set; }
     public long UserId { get; private set; }
-
+    public long Hash { get; private set; }
     public void Apply(BindUidToDeviceEvent aggregateEvent)
     {
         UserId = aggregateEvent.UserId;
@@ -20,5 +20,6 @@ public class DeviceState : AggregateState<DeviceAggregate, DeviceId, DeviceState
     public void Apply(DeviceCreatedEvent aggregateEvent)
     {
         PermAuthKeyId = aggregateEvent.PermAuthKeyId;
+        Hash = aggregateEvent.Hash;
     }
 }

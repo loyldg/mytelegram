@@ -2,7 +2,7 @@
 
 public interface IDeviceReadModel : IReadModel
 {
-    int AppId { get; }
+    int ApiId { get; }
     string AppName { get; }
     string AppVersion { get; }
     int DateActive { get; }

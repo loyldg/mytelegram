@@ -39,7 +39,7 @@ public class DeviceReadModel : IDeviceReadModel,
         PermAuthKeyId = domainEvent.AggregateEvent.PermAuthKeyId;
         TempAuthKeyId = domainEvent.AggregateEvent.TempAuthKeyId;
         UserId = domainEvent.AggregateEvent.UserId;
-        AppId = domainEvent.AggregateEvent.AppId;
+        ApiId = domainEvent.AggregateEvent.ApiId;
         AppName = domainEvent.AggregateEvent.AppName;
         AppVersion = domainEvent.AggregateEvent.AppVersion;
         Hash = domainEvent.AggregateEvent.Hash;
@@ -70,7 +70,7 @@ public class DeviceReadModel : IDeviceReadModel,
     public virtual long PermAuthKeyId { get; private set; }
     public virtual long TempAuthKeyId { get; private set; }
     public virtual long UserId { get; private set; }
-    public virtual int AppId { get; private set; }
+    public virtual int ApiId { get; private set; }
     public virtual string AppName { get; private set; } = null!;
     public virtual string AppVersion { get; private set; } = null!;
     public virtual long Hash { get; private set; }

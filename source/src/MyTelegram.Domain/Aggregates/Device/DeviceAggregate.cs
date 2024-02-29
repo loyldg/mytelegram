@@ -20,10 +20,9 @@ public class DeviceAggregate : AggregateRoot<DeviceAggregate, DeviceId>
         long permAuthKeyId,
         long tempAuthKeyId,
         long userId,
-        int appId,
+        int apiId,
         string appName,
         string appVersion,
-        long hash,
         bool officialApp,
         bool passwordPending,
         string deviceModel,
@@ -37,11 +36,17 @@ public class DeviceAggregate : AggregateRoot<DeviceAggregate, DeviceId>
     )
     {
         //Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+        var hash = _state.Hash;
+        if (hash == 0)
+        {
+            hash = Random.Shared.NextInt64();
+        }
+        
         Emit(new DeviceCreatedEvent(IsNew,
             permAuthKeyId,
             tempAuthKeyId,
             userId,
-            appId,
+            apiId,
             appName,
             appVersion,
             hash,

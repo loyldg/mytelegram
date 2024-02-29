@@ -57,7 +57,7 @@ public class MessengerEventHandler :
                 eventData.PermAuthKeyId,
                 eventData.TempAuthKeyId,
                 eventData.UserId,
-                eventData.AppId,
+                eventData.ApiId,
                 eventData.AppVersion,
                 eventData.AppVersion,
                 eventData.Hash,

@@ -7,7 +7,7 @@ public class CreateDeviceCommand : RequestCommand2<DeviceAggregate, DeviceId, IE
         long permAuthKeyId,
         long tempAuthKeyId,
         long userId,
-        int appId,
+        int apiId,
         string appName,
         string appVersion,
         long hash,
@@ -26,7 +26,7 @@ public class CreateDeviceCommand : RequestCommand2<DeviceAggregate, DeviceId, IE
         PermAuthKeyId = permAuthKeyId;
         TempAuthKeyId = tempAuthKeyId;
         UserId = userId;
-        AppId = appId;
+        ApiId = apiId;
         AppName = appName;
         AppVersion = appVersion;
         Hash = hash;
@@ -42,7 +42,7 @@ public class CreateDeviceCommand : RequestCommand2<DeviceAggregate, DeviceId, IE
         Layer = layer;
     }
 
-    public int AppId { get; }
+    public int ApiId { get; }
     public string AppName { get; }
     public string AppVersion { get; }
     public string DeviceModel { get; }
