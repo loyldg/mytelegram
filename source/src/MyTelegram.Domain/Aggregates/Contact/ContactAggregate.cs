@@ -32,6 +32,21 @@ public class ContactAggregate : MySnapshotAggregateRoot<ContactAggregate, Contac
             addPhonePrivacyException));
     }
 
+    public void CreateContact(long selfUserId,
+        long targetUserId,
+        string phone,
+        string firstName,
+        string? lastName,
+        bool addPhonePrivacyException)
+    {
+        Emit(new ContactCreatedEvent(selfUserId,
+            targetUserId,
+            phone,
+            firstName,
+            lastName,
+            addPhonePrivacyException));
+    }
+
     public void DeleteContact(RequestInfo requestInfo,
         long targetUserId)
     {

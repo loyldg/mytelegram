@@ -38,10 +38,11 @@ internal sealed class GetStateHandler : RpcResultObjectHandler<MyTelegram.Schema
         TState state;
         if (pts == null)
         {
+            var cachedPts = _ptsHelper.GetCachedPts(input.UserId);
             state = new TState
             {
                 Date = DateTime.UtcNow.ToTimestamp(),
-                Pts = 0,
+                Pts = cachedPts,
                 Qts = 0,
                 Seq = 0,
                 UnreadCount = 0,

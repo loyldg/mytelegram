@@ -41,6 +41,15 @@ internal sealed class GetPeerSettingsHandler : RpcResultObjectHandler<MyTelegram
         await _accessHashHelper.CheckAccessHashAsync(obj.Peer);
         var userId = input.UserId;
         var peer = _peerHelper.GetPeer(obj.Peer, userId);
+        if (peer.PeerId == MyTelegramServerDomainConsts.OfficialUserId)
+        {
+            return new MyTelegram.Schema.Messages.TPeerSettings
+            {
+                Chats = new(),
+                Users = new(),
+                Settings = new Schema.TPeerSettings()
+            };
+        }
 
         //IContactReadModel? contactReadModel = null;
         ContactType? contactType = null;
@@ -62,7 +71,7 @@ internal sealed class GetPeerSettingsHandler : RpcResultObjectHandler<MyTelegram
         }
 
         var r = await _peerSettingsAppService.GetPeerSettingsAsync(userId, peer.PeerId);
-        var settings = _layeredService.GetConverter(input.Layer).ToPeerSettings(r, contactType);
+        var settings = _layeredService.GetConverter(input.Layer).ToPeerSettings(peer.PeerId, r, contactType);
 
         var peerSettings = new MyTelegram.Schema.Messages.TPeerSettings
         {
