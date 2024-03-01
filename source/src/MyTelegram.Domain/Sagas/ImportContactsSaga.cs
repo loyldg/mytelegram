@@ -39,17 +39,14 @@ public class ImportContactsSaga : AggregateSaga<ImportContactsSaga, ImportContac
             var command = new ImportSingleContactCommand(
                 ImportedContactId.Create(domainEvent.AggregateEvent.SelfUserId, phoneContact.Phone),
                 _state.RequestInfo,
-                //domainEvent.AggregateEvent.ReqMsgId,
                 domainEvent.AggregateEvent.SelfUserId,
                 phoneContact);
             Publish(command);
 
             if (phoneContact.UserId > 0)
             {
-                var addContactCommand = new AddContactCommand(
+                var addContactCommand = new CreateContactCommand(
                     ContactId.Create(domainEvent.AggregateEvent.SelfUserId, phoneContact.UserId),
-                    domainEvent.AggregateEvent.RequestInfo with { ReqMsgId = 0 },
-                    //phoneContact.ClientId,
                     domainEvent.AggregateEvent.SelfUserId,
                     phoneContact.UserId,
                     phoneContact.Phone,

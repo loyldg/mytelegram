@@ -110,7 +110,7 @@ public class UserConverterLatest : UserConverterBase, IUserConverterLatest
         fullUser.NotifySettings = notifySettings;
         fullUser.Blocked = isBlocked;
         fullUser.Settings = _layeredPeerSettingsConverter.GetConverter(GetLayer())
-            .ToPeerSettings(peerSettingsReadModel, contactType);
+            .ToPeerSettings(user.UserId, peerSettingsReadModel, contactType);
 
 
         CallAfterUserFullCreated(user, tUser, fullUser);

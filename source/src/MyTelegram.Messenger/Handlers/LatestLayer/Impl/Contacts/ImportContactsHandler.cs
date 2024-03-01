@@ -33,7 +33,7 @@ internal sealed class ImportContactsHandler : RpcResultObjectHandler<MyTelegram.
 
         //var userReadModels=await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery())
 
-        var keys = obj.Contacts.Select(p => UserCacheItem.GetCacheKey(p.Phone)).ToList();
+        var keys = obj.Contacts.Select(p => UserCacheItem.GetCacheKey(p.Phone)).Distinct().ToList();
         var userIdDict = await _cacheManager.GetManyAsync(keys);
         var phoneContactList = new List<PhoneContact>();
 

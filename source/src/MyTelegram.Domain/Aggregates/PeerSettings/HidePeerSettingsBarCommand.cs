@@ -10,4 +10,10 @@ public class HidePeerSettingsBarCommand : RequestCommand2<PeerSettingsAggregate,
     {
         PeerId = peerId;
     }
+
+    protected override IEnumerable<byte[]> GetSourceIdComponents()
+    {
+        yield return BitConverter.GetBytes(RequestInfo.ReqMsgId);
+        yield return RequestInfo.RequestId.ToByteArray();
+    }
 }

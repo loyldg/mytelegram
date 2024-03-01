@@ -4,6 +4,7 @@ namespace MyTelegram.Domain.Aggregates.Contact;
 
 public class ContactState : AggregateState<ContactAggregate, ContactId, ContactState>,
         IApply<ContactAddedEvent>,
+        IApply<ContactCreatedEvent>,
         IApply<ContactDeletedEvent>,
         IApply<ContactProfilePhotoChangedEvent>
 
@@ -39,5 +40,10 @@ public class ContactState : AggregateState<ContactAggregate, ContactId, ContactS
     public void Apply(ContactProfilePhotoChangedEvent aggregateEvent)
     {
         PhotoId = aggregateEvent.PhotoId;
+    }
+
+    public void Apply(ContactCreatedEvent aggregateEvent)
+    {
+
     }
 }
