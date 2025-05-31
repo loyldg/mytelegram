@@ -32,6 +32,12 @@ internal sealed class UpdateUsernameHandler(
             RpcErrors.RpcErrors400.UsernameNotModified.ThrowRpcError();
         }
 
+        var userNameReadModel = await queryProcessor.ProcessAsync(new GetUserNameByNameQuery(obj.Username.ToLower()));
+        if (userNameReadModel != null)
+        {
+            RpcErrors.RpcErrors400.UsernameOccupied.ThrowRpcError();
+        }
+
         var command = new SetUserNameCommand(UserNameId.Create(obj.Username),
             input.ToRequestInfo(),
             input.UserId.ToUserPeer(),
