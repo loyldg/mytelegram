@@ -41,11 +41,14 @@ internal sealed class ImportContactsHandler(
                 userId = cachedUserItem?.UserId ?? 0;
             }
 
-            phoneContactList.Add(new PhoneContact(userId,
-                item.Phone,
-                item.FirstName,
-                item.LastName,
-                item.ClientId));
+            if (userId != input.UserId)
+            {
+                phoneContactList.Add(new PhoneContact(userId,
+                    item.Phone,
+                    item.FirstName,
+                    item.LastName,
+                    item.ClientId));
+            }
         }
 
         var firstContact = phoneContactList.FirstOrDefault();
