@@ -6,5 +6,5 @@ namespace MyTelegram.Converters.TLObjects.Payments;
 
 public partial interface IStarsStatusConverter : ILayeredConverter
 {
-    IStarsStatus ToStarsStatus();
+    IStarsStatus ToStarsStatus(bool ton);
 }

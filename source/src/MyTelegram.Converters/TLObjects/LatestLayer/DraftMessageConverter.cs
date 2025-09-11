@@ -4,12 +4,12 @@ internal sealed class DraftMessageConverter(IObjectMapper objectMapper) : IDraft
 {
     public int Layer => Layers.LayerLatest;
 
-    public IDraftMessage ToDraftMessage(IDraftReadModel draftReadModel)
+    public ILayeredDraftMessage ToDraftMessage(IDraftReadModel draftReadModel)
     {
         return objectMapper.Map<IDraftReadModel, TDraftMessage>(draftReadModel);
     }
 
-    public IDraftMessage ToDraftMessage(Draft draft)
+    public ILayeredDraftMessage ToDraftMessage(Draft draft)
     {
         return objectMapper.Map<Draft, TDraftMessage>(draft);
 

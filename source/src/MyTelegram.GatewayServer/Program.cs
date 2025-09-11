@@ -1,8 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using MyTelegram;
 using MyTelegram.EventBus.RabbitMQ.Extensions;
-using MyTelegram.GatewayServer.NativeAot;
 
 Console.Title = "MyTelegram gateway server";
 

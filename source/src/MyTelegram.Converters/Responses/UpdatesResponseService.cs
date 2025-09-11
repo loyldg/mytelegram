@@ -10,7 +10,7 @@ public class UpdatesResponseService(
     IDialogFilterResponseService dialogFilterResponseService,
     IMessageReactionsResponseService messageReactionsResponseService,
     IPhoneCallResponseService phoneCallResponseService,
-    IBroadcastRevenueBalancesResponseService broadcastRevenueBalancesResponseService,
+    //IBroadcastRevenueBalancesResponseService broadcastRevenueBalancesResponseService,
     IMessageMediaResponseService messageMediaResponseService,
     IDocumentAttributeVideoResponseService documentAttributeVideoResponseService,
     ILayeredService<IUpdateDeleteScheduledMessagesResponseConverter> updateDeleteScheduledMessagesLayeredService,
@@ -140,10 +140,10 @@ public class UpdatesResponseService(
                         updateBotNewBusinessMessage.ReplyToMessage, layer);
                 break;
 
-            case TUpdateBroadcastRevenueTransactions updateBroadcastRevenueTransactions:
-                updateBroadcastRevenueTransactions.Balances =
-                    broadcastRevenueBalancesResponseService.ToLayeredData(updateBroadcastRevenueTransactions.Balances,
-                        layer);
+            //case TUpdateBroadcastRevenueTransactions updateBroadcastRevenueTransactions:
+            //    updateBroadcastRevenueTransactions.Balances =
+            //        broadcastRevenueBalancesResponseService.ToLayeredData(updateBroadcastRevenueTransactions.Balances,
+            //            layer);
 
                 break;
             case TUpdateBusinessBotCallbackQuery updateBusinessBotCallbackQuery:

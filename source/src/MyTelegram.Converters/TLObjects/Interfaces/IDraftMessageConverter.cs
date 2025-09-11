@@ -2,6 +2,6 @@
 
 public interface IDraftMessageConverter : ILayeredConverter
 {
-    IDraftMessage ToDraftMessage(IDraftReadModel draftReadModel);
-    IDraftMessage ToDraftMessage(Draft draft);
+    ILayeredDraftMessage ToDraftMessage(IDraftReadModel draftReadModel);
+    ILayeredDraftMessage ToDraftMessage(Draft draft);
 }

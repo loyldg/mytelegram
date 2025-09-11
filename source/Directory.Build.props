@@ -5,7 +5,7 @@
 
   <PropertyGroup>
     <!-- <VersionSuffix>0.6.$([System.DateTime]::Now.ToString(MMdd)).$([System.DateTime]::Now.ToString("HHmm"))</VersionSuffix> -->
-    <VersionSuffix>0.32.206.$([System.DateTime]::Now.ToString("Mdd"))</VersionSuffix>
+    <VersionSuffix>0.33.211.$([System.DateTime]::Now.ToString("Mdd"))</VersionSuffix>
     <AssemblyVersion Condition="'$(VersionSuffix)' =='' ">0.0.0.1</AssemblyVersion>
     <AssemblyVersion Condition="'$(VersionSuffix)' !='' ">$(VersionSuffix)</AssemblyVersion>
     <Version Condition="'$(VersionSuffix)' =='' ">0.0.1.0</Version>

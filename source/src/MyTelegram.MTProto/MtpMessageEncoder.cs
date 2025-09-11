@@ -101,7 +101,7 @@ public class MtpMessageEncoder(
         var length = bufferList.Sum(p => p.Length);
         var intSize = length / 4;
 
-        var lengthBytes = intSize < 0x7f ? new[] { (byte)intSize } : BitConverter.GetBytes(((intSize << 8) + 4) | 0x7f);
+        var lengthBytes = intSize < 0x7f ? [(byte)intSize] : BitConverter.GetBytes(((intSize << 8) + 4) | 0x7f);
         var totalLength = lengthBytes.Length + length;
         lengthBytes.CopyTo(encodedBytes);
         var offset = lengthBytes.Length;

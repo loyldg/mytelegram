@@ -71,7 +71,7 @@ public class WebSocketMiddleware(
                             clientData.ConnectionId);
                         continue;
                     }
-
+                    
                     var encodedBytes = ArrayPool<byte>.Shared.Rent(clientDataSender.GetEncodedDataMaxLength(response.Data.Length));
                     try
                     {

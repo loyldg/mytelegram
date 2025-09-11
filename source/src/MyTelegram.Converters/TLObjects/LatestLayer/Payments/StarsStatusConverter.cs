@@ -8,11 +8,28 @@ internal sealed class StarsStatusConverter : IStarsStatusConverter, ITransientDe
 {
     public int Layer => Layers.LayerLatest;
 
-    public IStarsStatus ToStarsStatus()
+    public IStarsStatus ToStarsStatus(bool ton)
     {
+        if (ton)
+        {
+            return new TStarsStatus
+            {
+                Balance = new TStarsTonAmount
+                {
+                    Amount = 10000000
+                },
+                Chats = [],
+                History = [],
+                Users = []
+            };
+        }
+
         return new TStarsStatus
         {
-            Balance = new TStarsAmount(),
+            Balance = new TStarsAmount
+            {
+                Amount = 10000000
+            },
             Chats = [],
             History = [],
             Users = []

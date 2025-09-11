@@ -292,6 +292,30 @@ public class PushNotificationTypes
     public static readonly string ChannelMessageText = "CHANNEL_MESSAGE_TEXT";
 
     /// <summary>
+    /// {1} posted a checklist {2}
+    /// <code>
+    /// 1.  2.
+    /// </code>
+    /// </summary>
+    public static readonly string ChannelMessageTodo = "CHANNEL_MESSAGE_TODO";
+
+    /// <summary>
+    /// {1} added {2} tasks
+    /// <code>
+    /// 1.  2.
+    /// </code>
+    /// </summary>
+    public static readonly string ChannelMessageTodoAppend = "CHANNEL_MESSAGE_TODO_APPEND";
+
+    /// <summary>
+    /// {1} toggled {2} tasks
+    /// <code>
+    /// 1.  2.
+    /// </code>
+    /// </summary>
+    public static readonly string ChannelMessageTodoDone = "CHANNEL_MESSAGE_TODO_DONE";
+
+    /// <summary>
     /// {1} posted a video
     /// <code>
     /// 1. Channel name
@@ -564,6 +588,30 @@ public class PushNotificationTypes
     public static readonly string ChatMessageText = "CHAT_MESSAGE_TEXT";
 
     /// <summary>
+    /// {1} sent a checklist {3} to the group {2}
+    /// <code>
+    /// 1.  2.  3.
+    /// </code>
+    /// </summary>
+    public static readonly string ChatMessageTodo = "CHAT_MESSAGE_TODO";
+
+    /// <summary>
+    /// {1} added {3} tasks in the group {2}
+    /// <code>
+    /// 1.  2.  3.
+    /// </code>
+    /// </summary>
+    public static readonly string ChatMessageTodoAppend = "CHAT_MESSAGE_TODO_APPEND";
+
+    /// <summary>
+    /// {1} toggled {3} tasks in the group {2}
+    /// <code>
+    /// 1.  2.  3.
+    /// </code>
+    /// </summary>
+    public static readonly string ChatMessageTodoDone = "CHAT_MESSAGE_TODO_DONE";
+
+    /// <summary>
     /// {1} sent a video to the group {2}
     /// <code>
     /// 1. Message author 2. Chat name
@@ -724,6 +772,14 @@ public class PushNotificationTypes
     public static readonly string ChatReactText = "CHAT_REACT_TEXT";
 
     /// <summary>
+    /// {1}: {3} to your checklist {4} in {2}
+    /// <code>
+    /// 1.  2.  3.  4.
+    /// </code>
+    /// </summary>
+    public static readonly string ChatReactTodo = "CHAT_REACT_TODO";
+
+    /// <summary>
     /// {1}: {3} to your video in {2}
     /// <code>
     /// 1. User name 2. Group name 3. Reaction
@@ -786,6 +842,14 @@ public class PushNotificationTypes
     /// </code>
     /// </summary>
     public static readonly string ChatVoicechatStart = "CHAT_VOICECHAT_START";
+
+    /// <summary>
+    /// You missed a call from {1}
+    /// <code>
+    /// 1.
+    /// </code>
+    /// </summary>
+    public static readonly string ConfCallMissed = "CONF_CALL_MISSED";
 
     /// <summary>
     /// {1} joined Telegram!
@@ -1052,6 +1116,14 @@ public class PushNotificationTypes
     public static readonly string MessageStargift = "MESSAGE_STARGIFT";
 
     /// <summary>
+    /// {1} upgraded your Gift
+    /// <code>
+    /// 1.
+    /// </code>
+    /// </summary>
+    public static readonly string MessageStargiftUpgrade = "MESSAGE_STARGIFT_UPGRADE";
+
+    /// <summary>
     /// {1} sent you a {2} sticker
     /// <code>
     /// 1. User name 2. Sticker emoji
@@ -1082,6 +1154,22 @@ public class PushNotificationTypes
     /// </code>
     /// </summary>
     public static readonly string MessageText = "MESSAGE_TEXT";
+
+    /// <summary>
+    /// {1} sent you a checklist {2}
+    /// <code>
+    /// 1.  2.
+    /// </code>
+    /// </summary>
+    public static readonly string MessageTodo = "MESSAGE_TODO";
+
+    /// <summary>
+    /// {1} transferred you a Gift!
+    /// <code>
+    /// 1.
+    /// </code>
+    /// </summary>
+    public static readonly string MessageUniqueStargift = "MESSAGE_UNIQUE_STARGIFT";
 
     /// <summary>
     /// {1} sent you a video
@@ -1312,6 +1400,16 @@ public class PushNotificationTypes
     public static readonly string PinnedText = "PINNED_TEXT";
 
     /// <summary>
+    /// {1} pinned a checklist {2}
+    /// <para>{1} pinned a checklist {3} in the group {2}</para>
+    /// <code>
+    /// 1.  2.
+    /// 1.  2. Group name 3.
+    /// </code>
+    /// </summary>
+    public static readonly string PinnedTodo = "PINNED_TODO";
+
+    /// <summary>
     /// {1} pinned a video
     /// <para>{1} pinned a video in the group {2}</para>
     /// <code>
@@ -1472,6 +1570,14 @@ public class PushNotificationTypes
     /// </code>
     /// </summary>
     public static readonly string ReactText = "REACT_TEXT";
+
+    /// <summary>
+    /// {1}: {2} to your checklist {3}
+    /// <code>
+    /// 1.  2.  3.
+    /// </code>
+    /// </summary>
+    public static readonly string ReactTodo = "REACT_TODO";
 
     /// <summary>
     /// {1}: {2} to your video

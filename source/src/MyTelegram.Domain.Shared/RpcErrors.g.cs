@@ -827,6 +827,7 @@ public class RpcErrors
        /// channels.viewSponsoredMessage
        /// chatlists.editExportedInvite
        /// chatlists.exportChatlistInvite
+       /// folders.editPeerFolders
        /// messages.editChatAbout
        /// messages.editMessage
        /// messages.exportChatInvite
@@ -2957,6 +2958,7 @@ public class RpcErrors
        /// <summary>
        /// The specified method is invalid.
        /// <code>
+       /// bots.invokeWebViewCustomMethod
        /// bots.sendCustomRequest
        /// messages.searchGifs
        /// </code>
@@ -3149,6 +3151,7 @@ public class RpcErrors
        /// <summary>
        /// Invalid option selected.
        /// <code>
+       /// messages.report
        /// messages.sendVote
        /// </code>
        /// </summary>
@@ -4495,6 +4498,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError StarrefAwaitingEnd = new(ErrorCode, "STARREF_AWAITING_END");
+ 
+       /// <summary>
+       /// The specified referral link is invalid.
+       /// <code>
+       /// contacts.resolveUsername
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StarrefExpired = new(ErrorCode, "STARREF_EXPIRED");
  
        /// <summary>
        /// The specified affiliate link was already revoked.
@@ -5883,6 +5894,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError StickersetNotModified = new(ErrorCode, "STICKERSET_NOT_MODIFIED");
+ 
+       /// <summary>
+       /// 
+       /// <code>
+       
+       /// </code>
+       /// </summary>
+       public static readonly RpcError ChannelMonoforumUnsupported = new(ErrorCode, "CHANNEL_MONOFORUM_UNSUPPORTED");
      }
 
     /// <summary>
@@ -7009,7 +7028,7 @@ public class RpcErrors
        { 0x1f040578, "Cancelcodehandler" }, // auth.cancelcodehandler
        { 0xc1cbd5b6, "Cancelpasswordemailhandler" }, // account.cancelpasswordemailhandler
        { 0x1359f4e6, "Cansendmessagehandler" }, // bots.cansendmessagehandler
-       { 0xc7dfdfdd, "Cansendstoryhandler" }, // stories.cansendstoryhandler
+       { 0x30eb63f0, "Cansendstoryhandler" }, // stories.cansendstoryhandler
        { 0x40f48462, "Changeauthorizationsettingshandler" }, // account.changeauthorizationsettingshandler
        { 0x70c32edb, "Changephonehandler" }, // account.changephonehandler
        { 0xc7770878, "Changestarssubscriptionhandler" }, // payments.changestarssubscriptionhandler
@@ -7042,7 +7061,7 @@ public class RpcErrors
        { 0x91006707, "Createchannelhandler" }, // channels.createchannelhandler
        { 0x92ceddd4, "Createchathandler" }, // messages.createchathandler
        { 0x48cdc6d8, "Creategroupcallhandler" }, // phone.creategroupcallhandler
-       { 0x652e4400, "Createthemehandler" }, // account.createthemehandler
+       { 0x8432c21f, "Createthemehandler" }, // account.createthemehandler
        { 0xa245dd3, "Deactivateallusernameshandler" }, // channels.deactivateallusernameshandler
        { 0x4c9409f6, "Declinepasswordresethandler" }, // account.declinepasswordresethandler
        { 0xa2c0cf74, "Deleteaccounthandler" }, // account.deleteaccounthandler
@@ -7064,7 +7083,7 @@ public class RpcErrors
        { 0xe105e910, "Deletequickreplymessageshandler" }, // messages.deletequickreplymessageshandler
        { 0x3cc04740, "Deletequickreplyshortcuthandler" }, // messages.deletequickreplyshortcuthandler
        { 0x56987bd5, "Deleterevokedexportedchatinviteshandler" }, // messages.deleterevokedexportedchatinviteshandler
-       { 0x6e98102b, "Deletesavedhistoryhandler" }, // messages.deletesavedhistoryhandler
+       { 0x4dc5085f, "Deletesavedhistoryhandler" }, // messages.deletesavedhistoryhandler
        { 0x59ae2b16, "Deletescheduledmessageshandler" }, // messages.deletescheduledmessageshandler
        { 0xb880bc4b, "Deletesecurevaluehandler" }, // account.deletesecurevaluehandler
        { 0xae59db5f, "Deletestorieshandler" }, // stories.deletestorieshandler
@@ -7092,7 +7111,7 @@ public class RpcErrors
        { 0xf8654027, "Exportcontacttokenhandler" }, // contacts.exportcontacttokenhandler
        { 0xe6aa647f, "Exportgroupcallinvitehandler" }, // phone.exportgroupcallinvitehandler
        { 0xb7e085fe, "Exportlogintokenhandler" }, // auth.exportlogintokenhandler
-       { 0xe63fadeb, "Exportmessagelinkhandler" }, // channels.exportmessagelinkhandler
+       { 0xc846d22d, "Exportmessagelinkhandler" }, // channels.exportmessagelinkhandler
        { 0x7b8def20, "Exportstorylinkhandler" }, // stories.exportstorylinkhandler
        { 0xb9ffc55b, "Favestickerhandler" }, // messages.favestickerhandler
        { 0x4f1ebf24, "Finishjobhandler" }, // smsjobs.finishjobhandler
@@ -7128,14 +7147,11 @@ public class RpcErrors
        { 0x34fdc5c3, "Getbotapphandler" }, // messages.getbotapphandler
        { 0x9342ca07, "Getbotcallbackanswerhandler" }, // messages.getbotcallbackanswerhandler
        { 0xa1b70815, "Getbotrecommendationshandler" }, // bots.getbotrecommendationshandler
-       { 0xf788ee19, "Getbroadcastrevenuestatshandler" }, // stats.getbroadcastrevenuestatshandler
-       { 0x70990b6d, "Getbroadcastrevenuetransactionshandler" }, // stats.getbroadcastrevenuetransactionshandler
-       { 0x9df4faad, "Getbroadcastrevenuewithdrawalurlhandler" }, // stats.getbroadcastrevenuewithdrawalurlhandler
        { 0xab42441a, "Getbroadcaststatshandler" }, // stats.getbroadcaststatshandler
        { 0x6f70dde1, "Getbusinesschatlinkshandler" }, // account.getbusinesschatlinkshandler
        { 0x55451fa9, "Getcallconfighandler" }, // phone.getcallconfighandler
        { 0x7727a7d5, "Getchanneldefaultemojistatuseshandler" }, // account.getchanneldefaultemojistatuseshandler
-       { 0x25a71742, "Getchannelrecommendationshandler" }, // channels.getchannelrecommendationshandler
+       { 0x83b70d97, "Getchannelrecommendationshandler" }, // channels.getchannelrecommendationshandler
        { 0x35a9e0d5, "Getchannelrestrictedstatusemojishandler" }, // account.getchannelrestrictedstatusemojishandler
        { 0xdf04dd4e, "Getchatinviteimportershandler" }, // messages.getchatinviteimportershandler
        { 0x89419521, "Getchatlistupdateshandler" }, // chatlists.getchatlistupdateshandler
@@ -7161,7 +7177,7 @@ public class RpcErrors
        { 0x26cf8950, "Getdhconfighandler" }, // messages.getdhconfighandler
        { 0xefd48c89, "Getdialogfiltershandler" }, // messages.getdialogfiltershandler
        { 0xa0f4cb4f, "Getdialogshandler" }, // messages.getdialogshandler
-       { 0x22e24e22, "Getdialogunreadmarkshandler" }, // messages.getdialogunreadmarkshandler
+       { 0x21202222, "Getdialogunreadmarkshandler" }, // messages.getdialogunreadmarkshandler
        { 0xcd984aa5, "Getdifferencehandler" }, // langpack.getdifferencehandler
        { 0x446972fd, "Getdiscussionmessagehandler" }, // messages.getdiscussionmessagehandler
        { 0x7488ce5b, "Getemojigroupshandler" }, // messages.getemojigroupshandler
@@ -7191,14 +7207,13 @@ public class RpcErrors
        { 0xdeb3abbf, "Getgroupcallstreamrtmpurlhandler" }, // phone.getgroupcallstreamrtmpurlhandler
        { 0xc558d8ab, "Getgroupparticipantshandler" }, // phone.getgroupparticipantshandler
        { 0xf5dad378, "Getgroupsfordiscussionhandler" }, // channels.getgroupsfordiscussionhandler
-       { 0x4423e6c5, "Gethistoryhandler" }, // messages.gethistoryhandler
+       { 0xafa92846, "Gethistoryhandler" }, // messages.gethistoryhandler
        { 0x11e831ee, "Getinactivechannelshandler" }, // channels.getinactivechannelshandler
        { 0x514e999d, "Getinlinebotresultshandler" }, // messages.getinlinebotresultshandler
        { 0x4d392343, "Getinvitetexthandler" }, // help.getinvitetexthandler
-       { 0xa622aa10, "Getispremiumrequiredtocontacthandler" }, // users.getispremiumrequiredtocontacthandler
-       { 0xf2f2330a, "Getlangpackhandler" }, // langpack.getlangpackhandler
+       { 0x9ab5c58e, "Getlangpackhandler" }, // langpack.getlangpackhandler
        { 0x6a596502, "Getlanguagehandler" }, // langpack.getlanguagehandler
-       { 0x42c6978f, "Getlanguageshandler" }, // langpack.getlanguageshandler
+       { 0x800fd57d, "Getlanguageshandler" }, // langpack.getlanguageshandler
        { 0xfdbcd714, "Getleavechatlistsuggestionshandler" }, // chatlists.getleavechatlistsuggestionshandler
        { 0x8341ecc0, "Getleftchannelshandler" }, // channels.getleftchannelshandler
        { 0xd348bc44, "Getlocatedhandler" }, // contacts.getlocatedhandler
@@ -7255,9 +7270,9 @@ public class RpcErrors
        { 0x9da9403b, "Getrecentstickershandler" }, // messages.getrecentstickershandler
        { 0x22ddd30c, "Getreplieshandler" }, // messages.getreplieshandler
        { 0x82f1e39f, "Getsavedhandler" }, // contacts.getsavedhandler
-       { 0x5381d21a, "Getsaveddialogshandler" }, // messages.getsaveddialogshandler
+       { 0x1e91fc99, "Getsaveddialogshandler" }, // messages.getsaveddialogshandler
        { 0x5cf09635, "Getsavedgifshandler" }, // messages.getsavedgifshandler
-       { 0x3d9a414d, "Getsavedhistoryhandler" }, // messages.getsavedhistoryhandler
+       { 0x998ab009, "Getsavedhistoryhandler" }, // messages.getsavedhistoryhandler
        { 0x227d824b, "Getsavedinfohandler" }, // payments.getsavedinfohandler
        { 0x3637e05b, "Getsavedreactiontagshandler" }, // messages.getsavedreactiontagshandler
        { 0xe1902288, "Getsavedringtoneshandler" }, // account.getsavedringtoneshandler
@@ -7267,21 +7282,21 @@ public class RpcErrors
        { 0x6aa3f6bd, "Getsearchresultscalendarhandler" }, // messages.getsearchresultscalendarhandler
        { 0x9c7f2f10, "Getsearchresultspositionshandler" }, // messages.getsearchresultspositionshandler
        { 0x73665bc2, "Getsecurevaluehandler" }, // account.getsecurevaluehandler
-       { 0xe785a43f, "Getsendashandler" }, // channels.getsendashandler
+       { 0xdc770ee, "Getsendashandler" }, // channels.getsendashandler
        { 0x778d902f, "Getsmsjobhandler" }, // smsjobs.getsmsjobhandler
        { 0x1cff7e08, "Getsplitrangeshandler" }, // messages.getsplitrangeshandler
-       { 0x9bd2f439, "Getsponsoredmessageshandler" }, // messages.getsponsoredmessageshandler
+       { 0x3d6ce850, "Getsponsoredmessageshandler" }, // messages.getsponsoredmessageshandler
        { 0xc4563590, "Getstargiftshandler" }, // payments.getstargiftshandler
        { 0x9c9abcb1, "Getstargiftupgradepreviewhandler" }, // payments.getstargiftupgradepreviewhandler
        { 0xd3c96bc8, "Getstarsgiftoptionshandler" }, // payments.getstarsgiftoptionshandler
        { 0xbd1efd3e, "Getstarsgiveawayoptionshandler" }, // payments.getstarsgiveawayoptionshandler
        { 0xd1d7efc5, "Getstarsrevenueadsaccounturlhandler" }, // payments.getstarsrevenueadsaccounturlhandler
        { 0xd91ffad6, "Getstarsrevenuestatshandler" }, // payments.getstarsrevenuestatshandler
-       { 0x13bbe8b3, "Getstarsrevenuewithdrawalurlhandler" }, // payments.getstarsrevenuewithdrawalurlhandler
-       { 0x104fcfa7, "Getstarsstatushandler" }, // payments.getstarsstatushandler
+       { 0x2433dc92, "Getstarsrevenuewithdrawalurlhandler" }, // payments.getstarsrevenuewithdrawalurlhandler
+       { 0x4ea9b3bf, "Getstarsstatushandler" }, // payments.getstarsstatushandler
        { 0x32512c5, "Getstarssubscriptionshandler" }, // payments.getstarssubscriptionshandler
        { 0xc00ec7d3, "Getstarstopupoptionshandler" }, // payments.getstarstopupoptionshandler
-       { 0x27842d2e, "Getstarstransactionsbyidhandler" }, // payments.getstarstransactionsbyidhandler
+       { 0x2dca16b8, "Getstarstransactionsbyidhandler" }, // payments.getstarstransactionsbyidhandler
        { 0x10a698e8, "Getstatushandler" }, // smsjobs.getstatushandler
        { 0xc4a353ee, "Getstatuseshandler" }, // contacts.getstatuseshandler
        { 0xd5a5d3a1, "Getstickershandler" }, // messages.getstickershandler
@@ -7292,20 +7307,20 @@ public class RpcErrors
        { 0xb9b2881f, "Getstoryreactionslisthandler" }, // stories.getstoryreactionslisthandler
        { 0x374fef40, "Getstorystatshandler" }, // stats.getstorystatshandler
        { 0x7ed23c57, "Getstoryviewslisthandler" }, // stories.getstoryviewslisthandler
-       { 0xefea3803, "Getstringshandler" }, // langpack.getstringshandler
+       { 0x2e1ee318, "Getstringshandler" }, // langpack.getstringshandler
        { 0xa29cd42c, "Getsuggesteddialogfiltershandler" }, // messages.getsuggesteddialogfiltershandler
        { 0xd6b48f7, "Getsuggestedstarrefbotshandler" }, // payments.getsuggestedstarrefbotshandler
        { 0x9cdf08cd, "Getsupporthandler" }, // help.getsupporthandler
        { 0xd360e72c, "Getsupportnamehandler" }, // help.getsupportnamehandler
        { 0x2ca51fd1, "Gettermsofserviceupdatehandler" }, // help.gettermsofserviceupdatehandler
-       { 0x3a5869ec, "Getthemehandler" }, // account.getthemehandler
+       { 0x8d9d742b, "Getthemehandler" }, // account.getthemehandler
        { 0x7206e458, "Getthemeshandler" }, // account.getthemeshandler
        { 0x49b30240, "Gettimezoneslisthandler" }, // help.gettimezoneslisthandler
        { 0x449e0b51, "Gettmppasswordhandler" }, // account.gettmppasswordhandler
        { 0x973478b6, "Gettoppeershandler" }, // contacts.gettoppeershandler
        { 0xbb8125ba, "Gettopreactionshandler" }, // messages.gettopreactionshandler
        { 0xf107e790, "Getunreadmentionshandler" }, // messages.getunreadmentionshandler
-       { 0x3223495b, "Getunreadreactionshandler" }, // messages.getunreadreactionshandler
+       { 0xbd7f90ac, "Getunreadreactionshandler" }, // messages.getunreadreactionshandler
        { 0x38a08d3, "Getuserinfohandler" }, // help.getuserinfohandler
        { 0xfc8ddbea, "Getwallpaperhandler" }, // account.getwallpaperhandler
        { 0x7967d36, "Getwallpapershandler" }, // account.getwallpapershandler
@@ -7325,7 +7340,7 @@ public class RpcErrors
        { 0x34090c3b, "Inithistoryimporthandler" }, // messages.inithistoryimporthandler
        { 0x8ef3eab0, "Inittakeoutsessionhandler" }, // account.inittakeoutsessionhandler
        { 0xc78fe460, "Installstickersethandler" }, // messages.installstickersethandler
-       { 0xc727bb3b, "Installthemehandler" }, // account.installthemehandler
+       { 0x7ae43737, "Installthemehandler" }, // account.installthemehandler
        { 0xfeed5769, "Installwallpaperhandler" }, // account.installwallpaperhandler
        { 0xca8ae8ba, "Invalidatesignincodeshandler" }, // account.invalidatesignincodeshandler
        { 0xc9e33d54, "Invitetochannelhandler" }, // channels.invitetochannelhandler
@@ -7344,7 +7359,7 @@ public class RpcErrors
        { 0x500377f9, "Leavegroupcallhandler" }, // phone.leavegroupcallhandler
        { 0x1c50d144, "Leavegroupcallpresentationhandler" }, // phone.leavegroupcallpresentationhandler
        { 0x621d5fa0, "Loadasyncgraphhandler" }, // stats.loadasyncgraphhandler
-       { 0xc286d98f, "Markdialogunreadhandler" }, // messages.markdialogunreadhandler
+       { 0x8c5006f8, "Markdialogunreadhandler" }, // messages.markdialogunreadhandler
        { 0xa2875319, "Migratechathandler" }, // messages.migratechathandler
        { 0xb0d81a83, "Prolongwebviewhandler" }, // messages.prolongwebviewhandler
        { 0x7f1d072f, "Ratetranscribedaudiohandler" }, // messages.ratetranscribedaudiohandler
@@ -7356,13 +7371,13 @@ public class RpcErrors
        { 0x36e5bf4d, "Readmentionshandler" }, // messages.readmentionshandler
        { 0xeab5dc38, "Readmessagecontentshandler" }, // channels.readmessagecontentshandler
        { 0x36a73f77, "Readmessagecontentshandler" }, // messages.readmessagecontentshandler
-       { 0x54aa7f8e, "Readreactionshandler" }, // messages.readreactionshandler
+       { 0x9ec44f93, "Readreactionshandler" }, // messages.readreactionshandler
        { 0xa556dac8, "Readstorieshandler" }, // stories.readstorieshandler
        { 0x17d54f61, "Receivedcallhandler" }, // phone.receivedcallhandler
        { 0x5a954c0, "Receivedmessageshandler" }, // messages.receivedmessageshandler
        { 0x55a5bb66, "Receivedqueuehandler" }, // messages.receivedqueuehandler
        { 0x37096c70, "Recoverpasswordhandler" }, // auth.recoverpasswordhandler
-       { 0xec86017a, "Registerdevicehandler" }, // account.registerdevicehandler
+       { 0x637ea878, "Registerdevicehandler" }, // account.registerdevicehandler
        { 0x3b1adf37, "Reorderpinneddialogshandler" }, // messages.reorderpinneddialogshandler
        { 0x2950a18f, "Reorderpinnedforumtopicshandler" }, // channels.reorderpinnedforumtopicshandler
        { 0x8b716587, "Reorderpinnedsaveddialogshandler" }, // messages.reorderpinnedsaveddialogshandler
@@ -7415,7 +7430,7 @@ public class RpcErrors
        { 0x41248786, "Savecallloghandler" }, // phone.savecallloghandler
        { 0x575e1f8c, "Savedefaultgroupcalljoinashandler" }, // phone.savedefaultgroupcalljoinashandler
        { 0xccfddf96, "Savedefaultsendashandler" }, // messages.savedefaultsendashandler
-       { 0xd372c5ce, "Savedrafthandler" }, // messages.savedrafthandler
+       { 0x54ae308e, "Savedrafthandler" }, // messages.savedrafthandler
        { 0x327a30cb, "Savegifhandler" }, // messages.savegifhandler
        { 0x392718f8, "Saverecentstickerhandler" }, // messages.saverecentstickerhandler
        { 0x3dea5b03, "Saveringtonehandler" }, // account.saveringtonehandler
@@ -7428,14 +7443,14 @@ public class RpcErrors
        { 0x2c11c0d7, "Searchcustomemojihandler" }, // messages.searchcustomemojihandler
        { 0x92b4494c, "Searchemojistickersetshandler" }, // messages.searchemojistickersetshandler
        { 0x4bc6589a, "Searchglobalhandler" }, // messages.searchglobalhandler
-       { 0xd19f987b, "Searchpostshandler" }, // channels.searchpostshandler
+       { 0xf2c4f24d, "Searchpostshandler" }, // channels.searchpostshandler
        { 0xd1810907, "Searchpostshandler" }, // stories.searchpostshandler
        { 0x107e31a0, "Searchsentmediahandler" }, // messages.searchsentmediahandler
        { 0x29b1c66a, "Searchstickershandler" }, // messages.searchstickershandler
        { 0x35705b8a, "Searchstickersetshandler" }, // messages.searchstickersetshandler
        { 0x91b2d060, "Sendbotrequestedpeerhandler" }, // messages.sendbotrequestedpeerhandler
        { 0x82574ae5, "Sendchangephonecodehandler" }, // account.sendchangephonecodehandler
-       { 0xa677244f, "Sendcodehandler" }, // auth.sendcodehandler
+       { 0x86aef0ec, "Sendcodehandler" }, // auth.sendcodehandler
        { 0x1b3faa88, "Sendconfirmphonecodehandler" }, // account.sendconfirmphonecodehandler
        { 0x44fa7a15, "Sendencryptedhandler" }, // messages.sendencryptedhandler
        { 0x5559481d, "Sendencryptedfilehandler" }, // messages.sendencryptedfilehandler
@@ -7450,7 +7465,7 @@ public class RpcErrors
        { 0xa1405817, "Sendscreenshotnotificationhandler" }, // messages.sendscreenshotnotificationhandler
        { 0xff7a9383, "Sendsignalingdatahandler" }, // phone.sendsignalingdatahandler
        { 0x7998c914, "Sendstarsformhandler" }, // payments.sendstarsformhandler
-       { 0xe4e6694b, "Sendstoryhandler" }, // stories.sendstoryhandler
+       { 0x737fc2ec, "Sendstoryhandler" }, // stories.sendstoryhandler
        { 0x98e037bb, "Sendverifyemailcodehandler" }, // account.sendverifyemailcodehandler
        { 0xa5a356f9, "Sendverifyphonecodehandler" }, // account.sendverifyphonecodehandler
        { 0x10ea6184, "Sendvotehandler" }, // messages.sendvotehandler
@@ -7475,7 +7490,7 @@ public class RpcErrors
        { 0xc9f81ce8, "Setprivacyhandler" }, // account.setprivacyhandler
        { 0x316ce548, "Setreactionsnotifysettingshandler" }, // account.setreactionsnotifysettingshandler
        { 0x8d52a951, "Signinhandler" }, // auth.signinhandler
-       { 0xaac7b717, "Signuphandler" }, // auth.signuphandler
+       { 0x80eee427, "Signuphandler" }, // auth.signuphandler
        { 0xe6df7378, "Startbothandler" }, // messages.startbothandler
        { 0xb43df344, "Starthistoryimporthandler" }, // messages.starthistoryimporthandler
        { 0x5680e342, "Startscheduledgroupcallhandler" }, // phone.startscheduledgroupcallhandler
@@ -7486,7 +7501,7 @@ public class RpcErrors
        { 0x646e1097, "Toggleconnectedbotpausedhandler" }, // account.toggleconnectedbotpausedhandler
        { 0xfd2dda49, "Toggledialogfiltertagshandler" }, // messages.toggledialogfiltertagshandler
        { 0xa731e257, "Toggledialogpinhandler" }, // messages.toggledialogpinhandler
-       { 0xa4298b29, "Toggleforumhandler" }, // channels.toggleforumhandler
+       { 0x3ff75734, "Toggleforumhandler" }, // channels.toggleforumhandler
        { 0xf128c708, "Togglegroupcallrecordhandler" }, // phone.togglegroupcallrecordhandler
        { 0x74bbb43d, "Togglegroupcallsettingshandler" }, // phone.togglegroupcallsettingshandler
        { 0x219c34e6, "Togglegroupcallstartsubscriptionhandler" }, // phone.togglegroupcallstartsubscriptionhandler

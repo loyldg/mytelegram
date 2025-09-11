@@ -20,6 +20,9 @@ public enum MessageType
     Game,
     Poll,
 
-    Pinned
+    Pinned,
+    Invoice,
+    Todo,
+    UpgradeStarGiftInvoice,
     //Service
 }

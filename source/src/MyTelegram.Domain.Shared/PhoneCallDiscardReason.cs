@@ -7,5 +7,6 @@ public enum PhoneCallDiscardReason
     Disconnected,
     Hangup,
     Missed,
-    AllowGroupCall
+    AllowGroupCall,
+    MigrateConferenceCall
 }

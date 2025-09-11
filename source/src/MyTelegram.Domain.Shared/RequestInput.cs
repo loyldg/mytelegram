@@ -17,4 +17,9 @@ public record RequestInput(
     string ClientIp,
     long SessionId,
     long AccessHashKeyId
-) : IRequestInput;
+) : IRequestInput
+{
+    public uint ObjectId { get; set; } = ObjectId;
+    public int Layer { get; set; } = Layer;
+    public DeviceType DeviceType { get; set; } = DeviceType;
+}

@@ -1,6 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-
-namespace MyTelegram;
+﻿namespace MyTelegram;
 
 /// <summary>
 ///     The request info
@@ -29,4 +27,7 @@ public record RequestInfo(
     ) : IRequestWithAccessHashKeyId
 {
     public static RequestInfo Empty { get; } = new(0, 0, 0, 0, 0, Guid.Empty, 0, 0);
+
+    /// <summary>Request layer</summary>
+    public int Layer { get; set; } = Layer;
 }

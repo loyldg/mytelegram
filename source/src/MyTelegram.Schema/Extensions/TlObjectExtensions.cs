@@ -13,7 +13,7 @@ public static class TlObjectExtensions
             throw new ArgumentOutOfRangeException(nameof(bitIndex));
         }
 
-        return value | (1 << bitIndex);
+        return value | 1 << bitIndex;
     }
 
     public static bool IsBitSet(this int value, int bitIndex)
@@ -213,8 +213,6 @@ public static class TlObjectExtensions
     {
         if (readOnlyMemory.Length > 0)
         {
-            //var reader = new SequenceReader<byte>(new ReadOnlySequence<byte>(readOnlyMemory));
-            //return reader.Read<TObject>();
             return readOnlyMemory.Read<TObject>();
         }
 

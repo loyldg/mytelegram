@@ -38,4 +38,8 @@ public enum MessageActionType
     CreateQuickReplyMessage,
     ChatJoinBySelf,
     ChatJoinByRequest,
+    PaidMessagesPriceUpdated,
+    ToggleTodoCompletion,
+    ToggleSuggestedPostApproval,
+    UpgradeStarGift,
 }

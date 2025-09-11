@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Messenger.Services.Caching;
 
-public class LanguageTextItem(string key, string value, int languageVersion)
+public class LanguageTextItem(string key, int languageVersion)
 {
     public string Key { get; init; } = key;
-    public string Value { get; set; } = value;
+    public string? Value { get; set; } = null;
+    public string? ZeroValue { get; set; } = null;
+    public string? OneValue { get; set; } = null;
+    public string? TwoValue { get; set; } = null;
+    public string? FewValue { get; set; } = null;
+    public string? ManyValue { get; set; } = null;
+    public string? OtherValue { get; set; } = null;
     public int LanguageVersion { get; } = languageVersion;
 }
 
@@ -48,7 +54,15 @@ public class LanguageCacheService(IQueryProcessor queryProcessor, ILogger<Langua
         var sw = Stopwatch.StartNew();
         var languageTexts = await queryProcessor.ProcessAsync(new GetAllLanguageTextsQuery());
         _languageTexts = languageTexts.GroupBy(p => new { p.LanguageCode, p.Platform },
-                v => new LanguageTextItem(v.Key, v.Value, v.LanguageVersion))
+                v => new LanguageTextItem(v.Key, v.LanguageVersion) {
+                    Value = v.Value,
+                    ZeroValue = v.ZeroValue,
+                    OneValue = v.OneValue,
+                    TwoValue = v.TwoValue,
+                    FewValue = v.FewValue,
+                    ManyValue = v.ManyValue,
+                    OtherValue = v.OtherValue
+                })
             .ToFrozenDictionary(k => GetLanguageTextKey(k.Key.LanguageCode, k.Key.Platform, false),
                 v => v.ToDictionary(k1 => k1.Key, v1 => v1));
         sw.Stop();

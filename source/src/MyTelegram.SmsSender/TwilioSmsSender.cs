@@ -17,7 +17,7 @@ public class TwilioSmsSender : ISmsSender, ITransientDependency
     {
         _options = optionsSnapshot;
         _logger = logger;
-        InitTwilioClientIfNeed();
+        InitTwilioClientIfNeeded();
     }
 
     public bool Enabled => _options.CurrentValue.Enabled;
@@ -63,8 +63,7 @@ public class TwilioSmsSender : ISmsSender, ITransientDependency
             resource.ErrorMessage);
     }
 
-    //private async Task InitTwilioClientIfNeedAsync()
-    private void InitTwilioClientIfNeed()
+    private void InitTwilioClientIfNeeded()
     {
         if (!_options.CurrentValue.Enabled)
         {

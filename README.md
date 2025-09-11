@@ -1,6 +1,6 @@
 # MyTelegram
 
-[![API Layer](https://img.shields.io/badge/API_Layer-206-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-211-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![MyTelegram Channel](https://img.shields.io/badge/Subscribe-_MyTelegram_Channel-0088cc)](https://t.me/+9wMJrMqLTIoyYzM8)
 [![MyTelegram Discussion Group](https://img.shields.io/badge/Join_-MyTelegram_Discussion_Group-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
@@ -8,7 +8,7 @@ MyTelegram is telegram server side api implementation written in c#, support pri
 
 ## Features
 
-- API Layer: **`206`**
+- API Layer: **`211`**
 - [MTProto transports](https://corefork.telegram.org/mtproto/mtproto-transports): **`Abridged`**,**`Intermediate`**
 - Private chat
 - Group chat
@@ -37,7 +37,7 @@ MyTelegram is telegram server side api implementation written in c#, support pri
 3. Run the following command in the directory where the docker-compose.yml file is located
    ```
       mkdir -p ./data/mytelegram
-      chown -R 1654:1654 ./data/mytelegram
+      chmod -R a+w ./data/mytelegram
       docker compose up
    ```
 4. Default verification code is `22222`
@@ -65,7 +65,8 @@ build-all-arm64.sh
 [WebA for mytelegram](https://github.com/loyldg/mytelegram-weba)
 
 1. Git clone the client source code
-2. Replace `192.168.1.100` with your server IP
+2. Search for the keyword **192.168.1.100** in all files, then replace it with your own IP.
+
 
 ## Support MyTelegram
 

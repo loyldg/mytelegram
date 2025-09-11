@@ -31,4 +31,6 @@ public enum IdType
     ScheduleMessageId = 24,
     StoryId = 25,
     FolderId = 26,
+    TodoId = 27,
+    StoryAlbumId = 28,
 }

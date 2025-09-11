@@ -1,9 +1,9 @@
-﻿namespace MyTelegram.Converters.Responses.Interfaces;
+﻿//namespace MyTelegram.Converters.Responses.Interfaces;
 
-public interface IBroadcastRevenueBalancesResponseConverter
-    : IResponseConverter<
-        TBroadcastRevenueBalances,
-        IBroadcastRevenueBalances
-    >
-{
-}
+//public interface IBroadcastRevenueBalancesResponseConverter
+//    : IResponseConverter<
+//        TBroadcastRevenueBalances,
+//        IBroadcastRevenueBalances
+//    >
+//{
+//}

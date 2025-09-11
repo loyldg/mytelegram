@@ -83,7 +83,6 @@ global using MyTelegram.Domain.Aggregates.ChatInvite;
 global using MyTelegram.Domain.Events.ChatInvite;
 global using MyTelegram.Domain.Commands.ChatInvite;
 global using MyTelegram.Messenger.Extensions;
-global using MyTelegram.Messenger.Handlers;
 //global using MyTelegram.Messenger.Services.IdGenerator;
 //global using MyTelegram.Services.
 global using MyTelegram.EventFlow;
@@ -94,9 +93,6 @@ global using MyTelegram.Messenger.Converters.TLObjects.Interfaces;
 global using MyTelegram.Converters.Responses;
 global using MyTelegram.Converters.Responses.Interfaces;
 global using MyTelegram.Converters;
-global using MyTelegram.Handlers;
-global using MyTelegram.Handlers.Channels;
-global using MyTelegram.Handlers.Messages;
 global using MyTelegram.Messenger.Converters.ConverterServices;
 global using MyTelegram.Messenger.Converters.ConverterServices.Channels;
 global using MyTelegram.Messenger.Converters.ConverterServices.Contacts;

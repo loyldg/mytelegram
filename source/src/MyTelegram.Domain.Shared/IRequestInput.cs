@@ -17,7 +17,7 @@ public interface IRequestInput : IRequestWithAccessHashKeyId
     /// <summary>
     ///     Request object id
     /// </summary>
-    uint ObjectId { get; }
+    uint ObjectId { get; set; }
 
     /// <summary>
     ///     Request permanent auth key id
@@ -35,10 +35,10 @@ public interface IRequestInput : IRequestWithAccessHashKeyId
     ///// </summary>
     //long UserId { get; }
 
-    int Layer { get; }
+    //int Layer { get; set; }
     Guid RequestId { get; }
     long Date { get; }
-    DeviceType DeviceType { get; }
+    DeviceType DeviceType { get; set; }
     string ClientIp { get; }
     long SessionId { get; }
     //long AccessHashKeyId { get; }
@@ -48,4 +48,5 @@ public interface IRequestWithAccessHashKeyId
 {
     long UserId { get; }
     long AccessHashKeyId { get; }
+    int Layer { get; set; }
 }

@@ -201,3 +201,17 @@ public class BytesSerializer : ISerializer<byte[]>
         return memory;
     }
 }
+
+public class ReadOnlyMemorySerializer : ISerializer<ReadOnlyMemory<byte>>
+{
+    private static readonly BytesSerializer BytesSerializer = new();
+    public void Serialize(ReadOnlyMemory<byte> value, IBufferWriter<byte> writer)
+    {
+        BytesSerializer.Serialize(value, writer);
+    }
+
+    public ReadOnlyMemory<byte> Deserialize(ref ReadOnlyMemory<byte> buffer)
+    {
+        return BytesSerializer.Deserialize(ref buffer);
+    }
+}

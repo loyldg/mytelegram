@@ -1,6 +1,4 @@
 ﻿using EventFlow.Exceptions;
-using MyTelegram.Schema;
-using MyTelegram.Services.Extensions;
 
 namespace MyTelegram.Services.Services;
 

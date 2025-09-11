@@ -1,5 +1,3 @@
-version: "3.9"
-
 networks:
   tg-net:
     driver: bridge
@@ -39,7 +37,7 @@ services:
       - ./data/rabbitmq:/var/lib/rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: ${RabbitMQ__Connections__Default__UserName:-test}
-      RABBITMQ_DEFAULT_PASS: ${RabbitMQ__Connections__Default__Password:-test}
+      RABBITMQ_DEFAULT_PASS: ${RabbitMQ__Connections__Default__Password}
       RABBITMQ_ERLANG_COOKIE: ${RabbitMQ__ErlangCookie:-changeme-cookie}
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
@@ -55,6 +53,7 @@ services:
       - tg-net
     #ports:
     #  - "27017:27017"
+    command: ["mongod", "--quiet", "--logpath", "/dev/null", "--logappend"]
     volumes:
       - ./data/mongo/db:/data/db
       - ./data/mongo/configdb:/data/configdb
@@ -109,8 +108,8 @@ services:
       RabbitMQ__Connections__Default__HostName: ${RabbitMQ__Connections__Default__HostName:-rabbitmq}
       RabbitMQ__Connections__Default__Port: ${RabbitMQ__Connections__Default__Port:-5672}
       RabbitMQ__Connections__Default__UserName: ${RabbitMQ__Connections__Default__UserName:-test}
-      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password:-test}
-      RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password}
+      #RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
       RabbitMQ__EventBus__ExchangeName: ${RabbitMQ__EventBus__ExchangeName}
     volumes:
       - ./data/mytelegram/data-seeder/logs:/app/Logs
@@ -200,8 +199,8 @@ services:
       RabbitMQ__Connections__Default__HostName: ${RabbitMQ__Connections__Default__HostName:-rabbitmq}
       RabbitMQ__Connections__Default__Port: ${RabbitMQ__Connections__Default__Port:-5672}
       RabbitMQ__Connections__Default__UserName: ${RabbitMQ__Connections__Default__UserName:-test}
-      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password:-test}
-      RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password}
+      #RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
       RabbitMQ__EventBus__ExchangeName: ${RabbitMQ__EventBus__ExchangeName}
     depends_on:
       rabbitmq:
@@ -239,8 +238,8 @@ services:
       RabbitMQ__Connections__Default__HostName: ${RabbitMQ__Connections__Default__HostName:-rabbitmq}
       RabbitMQ__Connections__Default__Port: ${RabbitMQ__Connections__Default__Port:-5672}
       RabbitMQ__Connections__Default__UserName: ${RabbitMQ__Connections__Default__UserName:-test}
-      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password:-test}
-      RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password}
+      #RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
       RabbitMQ__EventBus__ExchangeName: ${RabbitMQ__EventBus__ExchangeName}
       Redis__Configuration: ${Redis__Configuration}
     volumes:
@@ -268,15 +267,15 @@ services:
       App__ReadModelDatabaseName: ${App__ReadModelDatabaseName}
       App__AccessHashSecretKey: ${App__AccessHashSecretKey}
       # App__IdGeneratorGrpcServiceUrl: ${App__IdGeneratorGrpcServiceUrl}
-      App__MessengerServerGrpcServiceUrl: ${App__MessengerServerGrpcServiceUrl}
+      # App__MessengerServerGrpcServiceUrl: ${App__MessengerServerGrpcServiceUrl}
       # App__DispatchUnknownObjectToMessengerServer: ${App__DispatchUnknownObjectToMessengerServer}
       # App__TempAuthKeyExpirationMinutes: ${App__TempAuthKeyExpirationMinutes}
       # App__CommandServerObjectIds: ${App__CommandServerObjectIds}
       RabbitMQ__Connections__Default__HostName: ${RabbitMQ__Connections__Default__HostName:-rabbitmq}
       RabbitMQ__Connections__Default__Port: ${RabbitMQ__Connections__Default__Port:-5672}
       RabbitMQ__Connections__Default__UserName: ${RabbitMQ__Connections__Default__UserName:-test}
-      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password:-test}
-      RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password}
+      #RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
       RabbitMQ__EventBus__ExchangeName: ${RabbitMQ__EventBus__ExchangeName}
       Redis__Configuration: ${Redis__Configuration}
     volumes:
@@ -331,8 +330,8 @@ services:
       RabbitMQ__Connections__Default__HostName: ${RabbitMQ__Connections__Default__HostName:-rabbitmq}
       RabbitMQ__Connections__Default__Port: ${RabbitMQ__Connections__Default__Port:-5672}
       RabbitMQ__Connections__Default__UserName: ${RabbitMQ__Connections__Default__UserName:-test}
-      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password:-test}
-      RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password}
+      #RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
       RabbitMQ__EventBus__ExchangeName: ${RabbitMQ__EventBus__ExchangeName}
       Redis__Configuration: ${Redis__Configuration}
     depends_on:
@@ -367,7 +366,7 @@ services:
       # App__EnableFutureAuthToken: ${App__EnableFutureAuthToken}
       # App__SetPremiumToTrueAfterUserCreated: ${App__SetPremiumToTrueAfterUserCreated}
       # App__SendWelcomeMessageAfterUserSignIn: ${App__SendWelcomeMessageAfterUserSignIn}
-      App__WebRtcConnections__0__Ip: ${App__WebRtcConnections__0__Ip}
+      # App__WebRtcConnections__0__Ip: ${App__WebRtcConnections__0__Ip}
       # App__WebRtcConnections__0__Ipv6: ${App__WebRtcConnections__0__Ipv6}
       # App__WebRtcConnections__0__Port: ${App__WebRtcConnections__0__Port}
       # App__WebRtcConnections__0__Turn: ${App__WebRtcConnections__0__Turn}
@@ -421,8 +420,8 @@ services:
       RabbitMQ__Connections__Default__HostName: ${RabbitMQ__Connections__Default__HostName:-rabbitmq}
       RabbitMQ__Connections__Default__Port: ${RabbitMQ__Connections__Default__Port:-5672}
       RabbitMQ__Connections__Default__UserName: ${RabbitMQ__Connections__Default__UserName:-test}
-      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password:-test}
-      RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password}
+      #RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
       RabbitMQ__EventBus__ExchangeName: ${RabbitMQ__EventBus__ExchangeName}
       Redis__Configuration: ${Redis__Configuration}
     volumes:
@@ -460,7 +459,7 @@ services:
       # App__EnableFutureAuthToken: ${App__EnableFutureAuthToken}
       # App__SetPremiumToTrueAfterUserCreated: ${App__SetPremiumToTrueAfterUserCreated}
       # App__SendWelcomeMessageAfterUserSignIn: ${App__SendWelcomeMessageAfterUserSignIn}
-      App__WebRtcConnections__0__Ip: ${App__WebRtcConnections__0__Ip}
+      # App__WebRtcConnections__0__Ip: ${App__WebRtcConnections__0__Ip}
       # App__WebRtcConnections__0__Ipv6: ${App__WebRtcConnections__0__Ipv6}
       # App__WebRtcConnections__0__Port: ${App__WebRtcConnections__0__Port}
       # App__WebRtcConnections__0__Turn: ${App__WebRtcConnections__0__Turn}
@@ -514,8 +513,8 @@ services:
       RabbitMQ__Connections__Default__HostName: ${RabbitMQ__Connections__Default__HostName:-rabbitmq}
       RabbitMQ__Connections__Default__Port: ${RabbitMQ__Connections__Default__Port:-5672}
       RabbitMQ__Connections__Default__UserName: ${RabbitMQ__Connections__Default__UserName:-test}
-      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password:-test}
-      RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password}
+      #RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
       RabbitMQ__EventBus__ExchangeName: ${RabbitMQ__EventBus__ExchangeName}
       Redis__Configuration: ${Redis__Configuration}
     volumes:
@@ -548,8 +547,8 @@ services:
       RabbitMQ__Connections__Default__HostName: ${RabbitMQ__Connections__Default__HostName:-rabbitmq}
       RabbitMQ__Connections__Default__Port: ${RabbitMQ__Connections__Default__Port:-5672}
       RabbitMQ__Connections__Default__UserName: ${RabbitMQ__Connections__Default__UserName:-test}
-      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password:-test}
-      RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
+      RabbitMQ__Connections__Default__Password: ${RabbitMQ__Connections__Default__Password}
+      #RabbitMQ__EventBus__ClientName: ${RabbitMQ__EventBus__ClientName}
       RabbitMQ__EventBus__ExchangeName: ${RabbitMQ__EventBus__ExchangeName}
     volumes:
       - ./data/mytelegram/sms-sender/logs:/app/Logs

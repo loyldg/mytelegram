@@ -30,4 +30,9 @@ public enum MessageSubType
     ChatJoinByLink = 23,
     ChatJoinBySelf = 24,
     ChatJoinByRequest = 25,
+    PaidMessagesPriceUpdated = 26,
+    ToggleTodoCompletion = 27,
+    ToggleSuggestedPostApproval = 28,
+    UpgradeStarGift = 29,
+    UpgradeStarGiftForFree = 30,
 }

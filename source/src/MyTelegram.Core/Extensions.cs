@@ -8,6 +8,16 @@ namespace MyTelegram.Core;
 
 public static class Extensions
 {
+    public static IEnumerable<T> WhereIf<T>(
+        this IEnumerable<T> source,
+        bool condition,
+        Func<T, bool> predicate)
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        if (predicate is null) throw new ArgumentNullException(nameof(predicate));
+        return condition ? source.Where(predicate) : source;
+    }
+
     public static bool IsUrl(this string url)
     {
         if ((!url.StartsWith("http://") && !url.StartsWith("https://")) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
