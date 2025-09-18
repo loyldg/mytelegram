@@ -20,6 +20,7 @@ MyTelegram is telegram server side api implementation written in c#, support pri
 - 2FA(Pro version)
 - Stickers(Pro version)
 - Reactions(Pro version)
+- Star gifts(Pro version)
 - ForumTopics(Pro version)
 - Themes/Wallpapers/Auto-Delete Messages/Scheduled Messages/Chatlist/Telegram Business/Stories/Email Login/Email Sender/Direct messages/Push Server(Firebase) (Pro version)
 
