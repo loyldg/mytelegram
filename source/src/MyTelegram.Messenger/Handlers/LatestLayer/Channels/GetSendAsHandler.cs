@@ -33,11 +33,17 @@ internal sealed class GetSendAsHandler(
             {
                 var myPublicChannelReadModels = (await queryProcessor.ProcessAsync(new GetSendAsQuery(input.UserId))).ToList();
                 var channelIds = myPublicChannelReadModels.Select(p => p.ChannelId).ToList();
+                var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == input.UserId);
+
                 if (!channelIds.Contains(channelReadModel.ChannelId))
                 {
-                    myPublicChannelReadModels.Insert(0, channelReadModel);
-                    channelIds.Add(channelReadModel.ChannelId);
+                    if (admin != null || channelReadModel.CreatorId == input.UserId)
+                    {
+                        myPublicChannelReadModels.Insert(0, channelReadModel);
+                        channelIds.Add(channelReadModel.ChannelId);
+                    }
                 }
+
                 var channelMemberReadModels = await queryProcessor.ProcessAsync(
                     new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIds));
                 var photoReadModels = await photoAppService.GetPhotosAsync(myPublicChannelReadModels);
@@ -45,9 +51,9 @@ internal sealed class GetSendAsHandler(
                     photoReadModels, channelMemberReadModels, layer: input.Layer);
                 var layeredResult = layeredSendAsPeerService.GetConverter(input.Layer).ToSendAsPeers(channels);
 
-                var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == input.UserId);
-
-                if (channelReadModel.Broadcast || admin is { AdminRights.Anonymous: false })
+                if (channelReadModel.Broadcast ||
+                    admin is { AdminRights.Anonymous: false } ||
+                    (!channelReadModel.Broadcast && admin is null))
                 {
                     layeredResult.Peers.Insert(0, new TSendAsPeer
                     {
