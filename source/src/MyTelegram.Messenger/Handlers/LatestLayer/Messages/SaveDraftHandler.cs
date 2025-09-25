@@ -40,11 +40,20 @@ internal sealed class SaveDraftHandler(
         {
             media = await mediaHelper.SaveMediaAsync(obj.Media);
         }
-        var saveDraftCommand = new SaveDraftCommand(dialogId,
-            input.ToRequestInfo(),
-            new Draft(obj.NoWebpage, obj.InvertMedia, replyToMsgId, obj.Message, CurrentDate,
-                entities2: obj.Entities, media: media, effect: obj.Effect, media2: obj.Media, replyTo: obj.ReplyTo));
-        await commandBus.PublishAsync(saveDraftCommand);
+
+        if (string.IsNullOrEmpty(obj?.Message) && obj?.ReplyTo == null)
+        {
+            var deleteDraftCommand = new DeleteDraftCommand(TempId.New, input.UserId, peer);
+            await commandBus.PublishAsync(deleteDraftCommand);
+        }
+        else
+        {
+            var saveDraftCommand = new SaveDraftCommand(dialogId,
+                input.ToRequestInfo(),
+                new Draft(obj.NoWebpage, obj.InvertMedia, replyToMsgId, obj.Message, CurrentDate,
+                    entities2: obj.Entities, media: media, effect: obj.Effect, media2: obj.Media, replyTo: obj.ReplyTo));
+            await commandBus.PublishAsync(saveDraftCommand);
+        }
 
         return new TBoolTrue();
     }
