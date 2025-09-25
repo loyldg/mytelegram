@@ -43,7 +43,8 @@ internal sealed class SaveDraftHandler(
 
         if (string.IsNullOrEmpty(obj?.Message) && obj?.ReplyTo == null)
         {
-            var deleteDraftCommand = new DeleteDraftCommand(TempId.New, input.UserId, peer);
+            //var deleteDraftCommand = new DeleteDraftCommand(TempId.New, input.UserId, peer);
+            var deleteDraftCommand = new ClearDraftCommand(dialogId,  input.ToRequestInfo());
             await commandBus.PublishAsync(deleteDraftCommand);
         }
         else
