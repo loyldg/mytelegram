@@ -79,5 +79,5 @@ Contact author: [https://t.me/mytelegram666](https://t.me/mytelegram666)
 
 MyTelegram channel: [https://t.me/+9wMJrMqLTIoyYzM8](https://t.me/+9wMJrMqLTIoyYzM8)
 
-Mytelegram discussion group: [https://t.me/+S-aNBoRvCRpPyXrR](https://t.me/+S-aNBoRvCRpPyXrR)
+MyTelegram discussion group: [https://t.me/+S-aNBoRvCRpPyXrR](https://t.me/+S-aNBoRvCRpPyXrR)
 
