@@ -26,7 +26,7 @@ internal sealed class DeleteRevokedExportedChatInvitesHandler(
                 var peer = peerHelper.GetPeer(obj.Peer);
                 var adminId = peerHelper.GetPeer(obj.AdminId, input.UserId);
                 await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId,
-                    (p) => p.AdminRights.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
+                    (p) => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
 
                 var chatInvites = await queryProcessor.ProcessAsync(new GetRevokedChatInvitesQuery(peer.PeerId, adminId.PeerId));
                 foreach (var chatInviteReadModel in chatInvites)

@@ -13,11 +13,14 @@
 /// 400 USERNAME_NOT_MODIFIED The username was not modified.
 /// See <a href="https://corefork.telegram.org/method/channels.toggleUsername" />
 ///</summary>
-internal sealed class ToggleUsernameHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestToggleUsername, IBool>
+internal sealed class ToggleUsernameHandler(IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestToggleUsername, IBool>
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestToggleUsername obj)
     {
-        return Task.FromResult<IBool>(new TBoolTrue());
+        await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId,
+            adminRights => adminRights.ChangeInfo);
+        
+        return new TBoolTrue();
     }
 }

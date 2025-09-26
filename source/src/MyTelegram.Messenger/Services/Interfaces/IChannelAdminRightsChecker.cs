@@ -2,6 +2,10 @@
 
 public interface IChannelAdminRightsChecker
 {
-    Task CheckAdminRightAsync(long channelId, long userId, Func<IChatAdminReadModel, bool> checkAdminRightsFunc, RpcError rpcError);
-    Task<bool> HasChatAdminRightAsync(long channelId, long userId, Func<IChatAdminReadModel, bool> checkAdminRightsFunc);
+    Task<bool> HasChatAdminRightAsync(long channelId, long userId, Func<ChatAdminRights, bool> checkAdminRightsFunc);
+
+    Task CheckAdminRightAsync(IInputChannel channel, long userId, Func<ChatAdminRights, bool> checkAdminRightsFunc, RpcError? rpcError = null);
+    Task CheckAdminRightAsync(long channelId, long userId, Func<ChatAdminRights, bool> checkAdminRightsFunc, RpcError? rpcError = null);
+
+    Task ThrowIfNotChannelOwnerAsync(IInputChannel channel, long userId);
 }

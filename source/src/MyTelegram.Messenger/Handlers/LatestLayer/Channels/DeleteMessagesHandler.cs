@@ -32,7 +32,7 @@ internal sealed class DeleteMessagesHandler(
                 var ids = obj.Id.ToList();
 
                 if (!await channelAdminRightsChecker.HasChatAdminRightAsync(inputChannel.ChannelId, input.UserId,
-                        p => p.AdminRights.DeleteMessages))
+                        p => p.DeleteMessages))
                 {
                     var firstInboxMessageId =
                         await queryProcessor.ProcessAsync(

@@ -25,7 +25,7 @@ internal sealed class ToggleJoinRequestHandler(
         await accessHashHelper.CheckAccessHashAsync(input, obj.Channel);
         var peer = peerHelper.GetChannel(obj.Channel);
         await channelAdminRightsChecker.CheckAdminRightAsync(peer.PeerId, input.UserId,
-            p => p.AdminRights.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
+            p => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
 
         var command = new ToggleJoinRequestCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo(), obj.Enabled);
         await commandBus.PublishAsync(command);

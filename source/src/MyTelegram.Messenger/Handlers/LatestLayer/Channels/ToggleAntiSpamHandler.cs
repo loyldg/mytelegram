@@ -8,17 +8,19 @@
 /// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
 /// See <a href="https://corefork.telegram.org/method/channels.toggleAntiSpam" />
 ///</summary>
-internal sealed class ToggleAntiSpamHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestToggleAntiSpam, MyTelegram.Schema.IUpdates>
+internal sealed class ToggleAntiSpamHandler(IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestToggleAntiSpam, MyTelegram.Schema.IUpdates>
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
+    protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Channels.RequestToggleAntiSpam obj)
     {
-        return Task.FromResult<IUpdates>(new TUpdates
+        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
+
+        return new TUpdates
         {
             Chats = [],
             Updates = [],
             Users = [],
             Date = CurrentDate
-        });
+        };
     }
 }

@@ -36,7 +36,7 @@ internal sealed class HideAllChatJoinRequestsHandler(
             RpcErrors.RpcErrors400.InviteHashEmpty.ThrowRpcError();
         }
         await channelAdminRightsChecker.CheckAdminRightAsync(channelId, input.UserId,
-            p => p.AdminRights.InviteUsers, RpcErrors.RpcErrors403.ChatAdminRequired);
+            p => p.InviteUsers, RpcErrors.RpcErrors403.ChatAdminRequired);
 
         long? inviteId = null;
         if (!string.IsNullOrEmpty(obj.Link))

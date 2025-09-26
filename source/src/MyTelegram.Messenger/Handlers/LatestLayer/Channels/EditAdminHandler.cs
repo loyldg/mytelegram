@@ -33,6 +33,7 @@ internal sealed class EditAdminHandler(
     ICommandBus commandBus,
     IPeerHelper peerHelper,
     IQueryProcessor queryProcessor,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
     IAccessHashHelper accessHashHelper)
     : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditAdmin, MyTelegram.Schema.IUpdates>
 {
@@ -42,7 +43,7 @@ internal sealed class EditAdminHandler(
         if (obj.Channel is TInputChannel inputChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
-
+            await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
             var peer = peerHelper.GetPeer(obj.UserId, input.UserId);
             var isBot = peerHelper.IsBotUser(peer.PeerId);
             var channelMember =

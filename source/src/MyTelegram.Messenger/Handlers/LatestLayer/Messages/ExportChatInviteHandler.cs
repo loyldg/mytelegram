@@ -43,7 +43,7 @@ internal sealed class ExportChatInviteHandler(
             }
 
             await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId,
-                (p) => p.AdminRights.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
+                (p) => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
 
             var command = new CreateChatInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteId),
                 input.ToRequestInfo(),

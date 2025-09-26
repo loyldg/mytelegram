@@ -37,7 +37,7 @@ internal sealed class HideChatJoinRequestHandler(
         var userPeer = peerHelper.GetPeer(obj.UserId);
 
         await channelAdminRightsChecker.CheckAdminRightAsync(channelId, input.UserId,
-            p => p.AdminRights.InviteUsers, RpcErrors.RpcErrors403.ChatAdminRequired);
+            p => p.InviteUsers, RpcErrors.RpcErrors403.ChatAdminRequired);
 
         var joinRequestReadModel =
             await queryProcessor.ProcessAsync(new GetJoinRequestQuery(channelId, userPeer.PeerId));

@@ -21,7 +21,7 @@ internal sealed class ToggleParticipantsHiddenHandler(ICommandBus commandBus,
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId,
-                p => p.AdminRights.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
+                p => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
             var command = new ToggleParticipantsHiddenCommand(ChannelId.Create(inputChannel.ChannelId),
                 input.ToRequestInfo(),
                 obj.Enabled);

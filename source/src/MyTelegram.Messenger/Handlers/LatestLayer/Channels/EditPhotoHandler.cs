@@ -22,6 +22,7 @@ internal sealed class EditPhotoHandler(
     IMediaHelper mediaHelper,
     ICommandBus commandBus,
     IRandomHelper randomHelper,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
     IAccessHashHelper accessHashHelper)
     : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditPhoto, MyTelegram.Schema.IUpdates>
 {
@@ -39,6 +40,9 @@ internal sealed class EditPhotoHandler(
             throw new NotImplementedException();
         }
 
+        await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId,
+            adminRights => adminRights.ChangeInfo);
+
         long fileId = 0;
         var parts = 0;
         var md5 = string.Empty;
@@ -51,7 +55,7 @@ internal sealed class EditPhotoHandler(
             case Schema.TInputChatUploadedPhoto inputChatUploadedPhoto1:
                 {
                     var file = inputChatUploadedPhoto1.File ?? inputChatUploadedPhoto1.Video;
-                    if (file != null && file is TInputFile tInputFile)
+                    if (file is TInputFile tInputFile)
                     {
                         fileId = tInputFile!.Id;
                         parts = tInputFile.Parts;

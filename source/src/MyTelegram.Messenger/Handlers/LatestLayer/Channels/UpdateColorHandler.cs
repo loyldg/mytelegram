@@ -11,6 +11,7 @@
 internal sealed class UpdateColorHandler(
     ICommandBus commandBus,
     IPeerHelper peerHelper,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
     IAccessHashHelper accessHashHelper)
     : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestUpdateColor, MyTelegram.Schema.IUpdates>
 {
@@ -19,6 +20,9 @@ internal sealed class UpdateColorHandler(
     {
         var channel = peerHelper.GetChannel(obj.Channel);
         await accessHashHelper.CheckAccessHashAsync(input, obj.Channel);
+
+        await channelAdminRightsChecker.CheckAdminRightAsync(channel.PeerId, input.UserId,
+            p => p.PinMessages, RpcErrors.RpcErrors400.ChatAdminRequired);
 
         var color = new PeerColor(obj.Color, obj.BackgroundEmojiId);
         var command = new UpdateChannelColorCommand(ChannelId.Create(channel.PeerId), input.ToRequestInfo(), color, obj.BackgroundEmojiId, obj.ForProfile);

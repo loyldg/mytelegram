@@ -31,7 +31,7 @@ internal sealed class EditBannedHandler(
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId,
-                p => p.AdminRights.BanUsers, RpcErrors.RpcErrors400.ChatAdminRequired);
+                p => p.BanUsers, RpcErrors.RpcErrors400.ChatAdminRequired);
 
             var channel = peerHelper.GetChannel(obj.Channel);
             var peer = peerHelper.GetPeer(obj.Participant);
