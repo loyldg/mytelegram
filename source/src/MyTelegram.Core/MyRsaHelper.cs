@@ -1,13 +1,16 @@
-﻿using System.Buffers.Binary;
+﻿using MyTelegram.Schema;
+using MyTelegram.Schema.Serializer;
+using System.Buffers.Binary;
 using System.Numerics;
 using System.Security.Cryptography;
 
 namespace MyTelegram.Core;
 
-public class MyRsaHelper(IHashHelper hashHelper) : IMyRsaHelper, ISingletonDependency
+public class MyRsaHelper : IMyRsaHelper, ISingletonDependency
 {
     // https://stackoverflow.com/questions/15702718/public-key-encryption-with-rsacryptoserviceprovider
     private MyRsaParameter? _myRsaParameter;
+    private readonly BytesSerializer _bytesSerializer = new();
 
     public byte[] Decrypt(ReadOnlySpan<byte> encryptedSpan,
         string privateKey)
@@ -37,70 +40,18 @@ public class MyRsaHelper(IHashHelper hashHelper) : IMyRsaHelper, ISingletonDepen
             _myRsaParameter.PublicExponent = new BigInteger(p.Exponent, true, true);
         }
     }
-
-    //public long GetFingerprint(string publicKeyWithFormat)
-    //{
-    //    var rsa = RSA.Create();
-    //    rsa.ImportSubjectPublicKeyInfo(Convert.FromBase64String(publicKeyWithFormat.RemoveRsaKeyFormat()), out _);
-    //    var p = rsa.ExportParameters(false);
-    //    return GetFingerprint(p);
-    //}
-
-
     private long GetFingerprint(RSAParameters rsaParameters)
     {
-        if (rsaParameters.Modulus == null)
-        {
-            throw new InvalidOperationException("Modulus is null");
-        }
+        using var writer = new ArrayPoolBufferWriter<byte>();
 
-        if (rsaParameters.Exponent == null)
-        {
-            throw new InvalidOperationException("Exponent is null");
-        }
+        _bytesSerializer.Serialize(rsaParameters.Modulus!, writer);
+        _bytesSerializer.Serialize(rsaParameters.Exponent!, writer);
 
-        var memory = new MemoryStream();
-        var bw = new BinaryWriter(memory);
-        Serialize(rsaParameters.Modulus, bw);
-        Serialize(rsaParameters.Exponent, bw);
-        var data = memory.ToArray();
+        Span<byte> hash = stackalloc byte[20];
+        SHA1.TryHashData(writer.WrittenSpan, hash, out _);
 
-        var hash = hashHelper.Sha1(data);
-
-        return BinaryPrimitives.ReadInt64LittleEndian(hash.AsSpan(hash.Length - 8));
+        return BinaryPrimitives.ReadInt64LittleEndian(hash.Slice(12, 8));
     }
-
-    private static void Serialize(byte[] value,
-        BinaryWriter writer)
-    {
-        int padding;
-        if (value.Length < 254)
-        {
-            padding = (value.Length + 1) % 4;
-            writer.Write((byte)value.Length);
-            writer.Write(value);
-        }
-        else
-        {
-            padding = value.Length % 4;
-            writer.Write((byte)254);
-            writer.Write((byte)value.Length);
-            writer.Write((byte)(value.Length >> 8));
-            writer.Write((byte)(value.Length >> 16));
-            writer.Write(value);
-        }
-
-        if (padding != 0)
-        {
-            padding = 4 - padding;
-        }
-
-        for (var i = 0; i < padding; i++)
-        {
-            writer.Write((byte)0);
-        }
-    }
-
     private byte[] RsaOperation(ReadOnlySpan<byte> data,
         BigInteger exponent,
         BigInteger modulus)
