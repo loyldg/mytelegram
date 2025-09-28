@@ -12,7 +12,7 @@ public class MyRsaHelper(IHashHelper hashHelper) : IMyRsaHelper, ISingletonDepen
     public byte[] Decrypt(ReadOnlySpan<byte> encryptedSpan,
         string privateKey)
     {
-        InitIfNeed(privateKey);
+        InitIfNeeded(privateKey);
         return RsaOperation(encryptedSpan, _myRsaParameter!.PrivateExponent, _myRsaParameter.Modulus);
     }
 
@@ -24,7 +24,7 @@ public class MyRsaHelper(IHashHelper hashHelper) : IMyRsaHelper, ISingletonDepen
         return GetFingerprint(p);
     }
 
-    private void InitIfNeed(string privateKey)
+    private void InitIfNeeded(string privateKey)
     {
         if (_myRsaParameter == null)
         {
