@@ -1,5 +1,4 @@
 ﻿using MyTelegram.EventFlow.MongoDB.Extensions;
-using MyTelegram.Messenger.NativeAot;
 using MyTelegram.QueryHandlers.MongoDB.ChatAdmin;
 using MyTelegram.QueryHandlers.MongoDB.User;
 using MyTelegram.QueryHandlers.MongoDB.UserName;
