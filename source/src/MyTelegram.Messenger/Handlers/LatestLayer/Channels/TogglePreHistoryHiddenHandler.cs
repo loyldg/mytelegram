@@ -15,6 +15,7 @@
 ///</summary>
 internal sealed class TogglePreHistoryHiddenHandler(
     ICommandBus commandBus,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
     IAccessHashHelper accessHashHelper)
     : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestTogglePreHistoryHidden, MyTelegram.Schema.IUpdates>
 {
@@ -24,6 +25,7 @@ internal sealed class TogglePreHistoryHiddenHandler(
         if (obj.Channel is TInputChannel inputChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
+            await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
 
             var command = new TogglePreHistoryHiddenCommand(ChannelId.Create(inputChannel.ChannelId),
                 input.ToRequestInfo(),

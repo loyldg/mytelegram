@@ -37,7 +37,7 @@ internal sealed class UpdatePinnedMessageHandler(
             if (channelReadModel!.DefaultBannedRights?.PinMessages ?? true)
             {
                 await channelAdminRightsChecker.CheckAdminRightAsync(peer.PeerId, input.UserId,
-                    rights => rights.AdminRights.PinMessages, RpcErrors.RpcErrors400.ChatAdminRequired);
+                    rights => rights.PinMessages, RpcErrors.RpcErrors400.ChatAdminRequired);
             }
         }
 

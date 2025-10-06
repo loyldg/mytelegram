@@ -29,7 +29,7 @@ internal sealed class DeleteParticipantHistoryHandler(
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId,
-                rights => rights.AdminRights.DeleteMessages, RpcErrors.RpcErrors403.ChatAdminRequired);
+                rights => rights.DeleteMessages, RpcErrors.RpcErrors403.ChatAdminRequired);
 
             var peer = peerHelper.GetPeer(obj.Participant);
             var messageIds = (await queryProcessor

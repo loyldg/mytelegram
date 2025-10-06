@@ -15,6 +15,7 @@
 ///</summary>
 internal sealed class SetDiscussionGroupHandler(
     ICommandBus commandBus,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
     IAccessHashHelper accessHashHelper)
     : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSetDiscussionGroup, IBool>
 {
@@ -29,6 +30,9 @@ internal sealed class SetDiscussionGroupHandler(
         {
             throw new NotImplementedException();
         }
+
+        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Broadcast, input.UserId);
+        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Group, input.UserId);
 
         long? groupId = null;
 

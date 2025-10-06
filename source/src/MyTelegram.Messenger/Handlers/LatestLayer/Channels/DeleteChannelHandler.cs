@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+﻿using MyTelegram.Messenger.Services.Impl;
+
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 
 ///<summary>
 /// Delete a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
@@ -15,6 +17,7 @@
 internal sealed class DeleteChannelHandler(
     ICommandBus commandBus,
     IAccessHashHelper accessHashHelper,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
     IPeerHelper peerHelper
     ) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteChannel, MyTelegram.Schema.IUpdates>
 {
@@ -22,6 +25,8 @@ internal sealed class DeleteChannelHandler(
         MyTelegram.Schema.Channels.RequestDeleteChannel obj)
     {
         await accessHashHelper.CheckAccessHashAsync(input, obj.Channel);
+        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
+
         var peer = peerHelper.GetChannel(obj.Channel);
         var command = new DeleteChannelCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo());
 

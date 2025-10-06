@@ -19,12 +19,6 @@ public class MyTelegramDataSeederBackgroundService(
         {
             await dataSeederHelper.ResetDataSeederConfigAsync();
         }
-        //var aggregate = new UserAggregate(UserId.Create(MyTelegramConsts.OfficialUserId));
-        //await aggregate.LoadAsync(eventStore, snapshotStore, stoppingToken);
-        //if (aggregate.IsNew)
-        //{
-        //    await dataSeederHelper.ResetDataSeederConfigAsync();
-        //}
 
         await dataSeederService.SeedAllAsync();
     }

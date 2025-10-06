@@ -15,6 +15,7 @@
 internal sealed class EditTitleHandler(
     ICommandBus commandBus,
     IRandomHelper randomHelper,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
     IAccessHashHelper accessHashHelper)
     : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditTitle, MyTelegram.Schema.IUpdates>
 {
@@ -23,6 +24,8 @@ internal sealed class EditTitleHandler(
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
+            await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId,
+                adminRights => adminRights.ChangeInfo);
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
 
             var command = new EditChannelTitleCommand(ChannelId.Create(inputChannel.ChannelId),

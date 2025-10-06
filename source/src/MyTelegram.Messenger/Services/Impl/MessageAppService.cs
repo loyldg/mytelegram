@@ -362,6 +362,11 @@ public class MessageAppService(
         var sendAs = await GetDefaultSendAsAsync(input);
         string? postAuthor = null;
         var isPublicPost = channelReadModel is { Broadcast: true, UserName: not null };
+        int? views = null;
+        if (channelReadModel?.Broadcast ?? false)
+        {
+            views = 1;
+        }
         if (channelReadModel is { Signatures: true, Broadcast: true })
         {
             if (sendAs?.PeerType == PeerType.Channel)
@@ -451,7 +456,8 @@ public class MessageAppService(
             InvertMedia: input.InvertMedia,
             PublicPosts: isPublicPost,
             Hashtags: hashtags,
-            MentionedUserIds: mentionedUserIds
+            MentionedUserIds: mentionedUserIds,
+            Views: views
         );
 
         var sendMessageItem = new SendMessageItem(messageItem, input.ClearDraft, mentionedUserIds, []);

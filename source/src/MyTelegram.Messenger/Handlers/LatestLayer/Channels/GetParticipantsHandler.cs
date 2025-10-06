@@ -51,8 +51,7 @@ internal sealed class GetParticipantsHandler(
             {
                 if (channelReadModel.ParticipantsHidden)
                 {
-                    if (!await channelAdminRightsChecker.HasChatAdminRightAsync(inputChannel.ChannelId, input.UserId,
-                            p => p.IsCreator || p.AdminRights.ChangeInfo))
+                    if (!await channelAdminRightsChecker.HasChatAdminRightAsync(inputChannel.ChannelId, input.UserId, p => p.ChangeInfo))
                     {
                         return participants;
                     }

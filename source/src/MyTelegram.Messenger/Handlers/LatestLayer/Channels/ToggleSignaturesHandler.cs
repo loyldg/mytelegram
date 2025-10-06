@@ -23,8 +23,7 @@ internal sealed class ToggleSignaturesHandler(ICommandBus commandBus,
         if (obj.Channel is TInputChannel inputChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel);
-            await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId,
-                p => p.AdminRights.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
+            await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
             await commandBus.PublishAsync(
                 new ToggleSignatureCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(),
                     obj.SignaturesEnabled, obj.ProfilesEnabled));

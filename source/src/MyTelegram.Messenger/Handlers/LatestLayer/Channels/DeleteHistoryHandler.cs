@@ -30,7 +30,7 @@ internal sealed class DeleteHistoryHandler(
             if (obj.ForEveryone)
             {
                 await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId,
-                    admin => admin.AdminRights.DeleteMessages, RpcErrors.RpcErrors403.ChatAdminRequired);
+                    adminRights => adminRights.DeleteMessages, RpcErrors.RpcErrors403.ChatAdminRequired);
                 await DeleteChannelHistoryForEveryoneAsync(inputChannel.ChannelId, input);
             }
             else

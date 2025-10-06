@@ -33,7 +33,7 @@ internal sealed class DeleteExportedChatInviteHandler(
                     }
 
                     await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId,
-                        (p) => p.AdminRights.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
+                        (p) => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
 
                     var command = new DeleteExportedInviteCommand(
                         ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteReadModel!.InviteId),

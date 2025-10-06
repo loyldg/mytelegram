@@ -137,7 +137,7 @@ internal sealed class GetFullChannelHandler(
     {
         var channelId = layeredChannelFull.Id;
         if (await channelAdminRightsChecker.HasChatAdminRightAsync(channelId, input.UserId,
-                p => p.AdminRights.InviteUsers))
+                p => p.InviteUsers))
         {
             var pendingRequestsCount =
                 await queryProcessor.ProcessAsync(new GetPendingRequestsCountQuery(channelId));

@@ -2,16 +2,10 @@
 using MyTelegram.Domain.Aggregates.UserName;
 using MyTelegram.Domain.Commands.UserName;
 using MyTelegram.Queries;
-using MyTelegram.Schema.Channels;
 
 namespace MyTelegram.DataSeeder.DataSeeders;
 
-public interface IUserNameDataSeeder : IDataSeeder
-{
-
-}
-
-public class UserNameDataSeeder(IQueryProcessor queryProcessor, ICommandBus commandBus, ILogger<UserNameDataSeeder> logger, IDataSeederHelper dataSeederHelper) : IUserNameDataSeeder, ITransientDependency
+public class UserNameDataSeeder(IQueryProcessor queryProcessor, ICommandBus commandBus, ILogger<UserNameDataSeeder> logger, IDataSeederHelper dataSeederHelper) : IDataSeeder, ITransientDependency
 {
     public async Task SeedAsync()
     {
