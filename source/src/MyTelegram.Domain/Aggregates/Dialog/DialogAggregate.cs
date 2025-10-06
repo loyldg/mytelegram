@@ -156,10 +156,10 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
             toPeer, date));
     }
 
-    public void ReadMention(int messageId)
+    public void ReadMention(int messageId, bool readAllMentions = false)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        var unreadMentionsCount = _state.UnreadMentionsCount - 1;
+        var unreadMentionsCount = readAllMentions ? 0 : _state.UnreadMentionsCount - 1;
         if (unreadMentionsCount < 0)
         {
             unreadMentionsCount = 0;

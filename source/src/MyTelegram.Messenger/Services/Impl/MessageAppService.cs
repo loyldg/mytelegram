@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Messenger.Services.Impl;
+﻿using MyTelegram.Messenger.Services.Interfaces;
+
+namespace MyTelegram.Messenger.Services.Impl;
 
 public class MessageAppService(
     IQueryProcessor queryProcessor,
@@ -10,12 +12,69 @@ public class MessageAppService(
     IUserAppService userAppService,
     IPrivacyAppService privacyAppService,
     IContactAppService contactAppService,
+    IUsernameHelper usernameHelper,
     IOffsetHelper offsetHelper,
     IIdGenerator idGenerator)
     : BaseAppService, IMessageAppService, ITransientDependency
 {
-    private const string HashtagPattern = "#(\\w+)";
-    private const string UrlPattern = @"(?:^|\s)((https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s,.:;!?]*)?)";
+    private const string HashtagPattern = @"#[A-Za-z][A-Za-z0-9_]{0,255}";
+
+    // Max length clamp for URL entities
+    private const int MaxUrlLength = 2048;
+
+    // Use a short timeout to prevent runaway backtracking
+    private static readonly TimeSpan RxTimeout = TimeSpan.FromMilliseconds(150);
+
+    // Cap for normal letter TLDs: e.g., "com", "technology", "international" (<=15)
+    private const int TldMaxLetters = 15;
+
+    // Strong URL regex: optional scheme, IPv4 or domain, optional port, path allowing balanced parens;
+    // no trailing punctuation inside the entity; avoids picking up emails/usernames.
+    private static readonly Regex UrlRegex = new(
+        """
+(?xi)
+(?<![@\w./-])                         # left boundary (avoid emails / word-internals)
+(?:https?://)?                        # optional scheme
+(?:www\.)?                            # optional www.
+
+(                                      # --- host ---
+  (?:                                   # IPv4
+    (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
+    (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
+    (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
+    (?:25[0-5]|2[0-4]\d|1?\d?\d)
+  )
+  |
+  (?:                                   # domain with final capped TLD
+    (?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+  # one or more labels+
+    (?:                                  # final TLD:
+        [a-z]{2,15}                      #   letters-only TLD, 2..15
+      | xn--[a-z0-9-]{1,20}              #   punycode TLD (total len up to ~24)
+    )
+  )
+)
+
+(?: : (?<port>\d{2,5}) )?              # optional port
+
+(?:                                     # --- optional path/query/frag ---
+    /                                    # path starts
+    (?:
+      [^\s<>()\[\]{}"'`]+
+      | \([^\s<>()\[\]{}"'`]*\)
+    )*
+)?
+(?=
+   \s | $ | [)\]\}.,!?;:]              # stop before trailing punctuation/space/end
+)
+""",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+        RxTimeout);
+
+    // Email ranges we want to exclude from mentions
+    private static readonly Regex EmailRegex = new(
+        @"(?xi)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,24}\b",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+        RxTimeout);
 
     public void CheckBotPermission(long requestUserId, Peer toPeer)
     {
@@ -365,7 +424,7 @@ public class MessageAppService(
         int? views = null;
         if (channelReadModel?.Broadcast ?? false)
         {
-            views = 1;
+            views = 0;
         }
         if (channelReadModel is { Signatures: true, Broadcast: true })
         {
@@ -515,110 +574,18 @@ public class MessageAppService(
 
     public Task<List<long>> ProcessMessageEntitiesAsync(string? message, IList<IMessageEntity>? entities, Peer toPeer)
     {
-        if (string.IsNullOrEmpty(message))
-        {
+        if (string.IsNullOrWhiteSpace(message))
             return Task.FromResult<List<long>>([]);
-        }
 
+        // 1) URLs first (also returns overlap guard map)
+        var used = ProcessMessageEntityUrlListWithOverlap(message, ref entities);
+
+        // 2) Hashtags (no overlap concerns in your spec, but we can keep as-is)
         ProcessMessageEntityHashtag(message, entities);
-        ProcessMessageEntityUrlList(message, entities);
-        return ProcessMessageEntityMentionAsync(message, entities, toPeer);
-    }
 
-    private async Task<List<long>> ProcessMessageEntityMentionAsync(string message, IList<IMessageEntity>? entities, Peer toPeer)
-    {
-        var mentionsAndUserNames = GetMentions(message);
-        var mentions = mentionsAndUserNames.mentions;
-        var mentionedUserNames = mentionsAndUserNames.userNameList;
-        var mentionedUserIds = new List<long>();
-
-        if (entities?.Count > 0)
-        {
-            foreach (var messageEntity in entities)
-            {
-                switch (messageEntity)
-                {
-                    case TInputMessageEntityMentionName inputMessageEntityMentionName:
-                        var userPeer = peerHelper.GetPeer(inputMessageEntityMentionName.UserId);
-                        mentionedUserIds.Add(userPeer.PeerId);
-                        break;
-                    case TMessageEntityMention messageEntityMention:
-                        mentionedUserNames.Add(message.Substring(messageEntityMention.Offset + 1,
-                            messageEntityMention.Length - 1));
-                        break;
-                    case TMessageEntityMentionName messageEntityMentionName:
-                        mentionedUserIds.Add(messageEntityMentionName.UserId);
-                        break;
-                }
-            }
-        }
-
-        if (mentionedUserNames.Count > 0)
-        {
-            entities ??= [];
-            foreach (var messageEntityMention in mentions)
-            {
-                entities.Add(messageEntityMention);
-            }
-        }
-
-        if (toPeer.PeerType == PeerType.Channel)
-        {
-            var mentionedUsers =
-                await queryProcessor.ProcessAsync(new GetUserNameListByNamesQuery(mentionedUserNames, PeerType.User));
-            mentionedUserIds.AddRange(mentionedUsers.Select(p => p.PeerId).Distinct().ToList());
-
-            var memberUserIds =
-                await queryProcessor.ProcessAsync(new GetChannelMemberIdListQuery(toPeer.PeerId, mentionedUserIds));
-
-            mentionedUserIds = memberUserIds.ToList();
-        }
-        else
-        {
-            mentionedUserIds = [];
-        }
-
-        return mentionedUserIds;
-    }
-
-    private (List<TMessageEntityMention> mentions, List<string> userNameList) GetMentions(string message)
-    {
-        var pattern = "@(\\w{4,40})";
-        var mentions = new List<TMessageEntityMention>();
-        var matches = Regex.Matches(message, pattern);
-        var userNameList = new List<string>();
-        foreach (Match match in matches)
-        {
-            if (match.Success)
-            {
-                mentions.Add(new TMessageEntityMention
-                {
-                    Offset = match.Index,
-                    Length = match.Length
-                });
-                userNameList.Add(match.Value[1..]);
-            }
-        }
-
-        return (mentions, userNameList);
-    }
-
-    private void ProcessMessageEntityUrlList(string message, IList<IMessageEntity>? entities)
-    {
-        var matches = Regex.Matches(message, UrlPattern);
-        foreach (Match match in matches)
-        {
-            if (match.Success)
-            {
-                var entity = new TMessageEntityUrl
-                {
-                    Offset = match.Index,
-                    Length = match.Length
-                };
-                entities ??= [];
-                entities.Add(entity);
-            }
-        }
+        // 3) Mentions (skip any overlap with URLs/emails)
+        var result = ProcessMessageEntityMentionAsyncSafe(message, entities, toPeer, used);
+        return result;
     }
 
     private void ProcessMessageEntityHashtag(string message, IList<IMessageEntity>? entities)
@@ -807,5 +774,263 @@ public class MessageAppService(
                     break;
             }
         }
+
+    }
+
+    // Creates URL entities, respecting max length and "one entity per character" rule.
+    // Returns a boolean mask of used characters (to prevent overlaps with mentions).
+    private static bool[] ProcessMessageEntityUrlListWithOverlap(string message, ref IList<IMessageEntity>? entities)
+    {
+        var used = new bool[message.Length];
+        var matches = UrlRegex.Matches(message);
+        if (matches.Count == 0) return used;
+
+        entities ??= [];
+
+        foreach (Match m in matches)
+        {
+            var (start, length) = TrimTrailingPunctuationAndBalance(message, m.Index, m.Length);
+            if (length <= 0) continue;
+
+            if (length > MaxUrlLength)
+                length = MaxUrlLength;
+
+            if (AnyUsed(used, start, length))
+                continue;
+
+            MarkUsed(used, start, length);
+
+            entities.Add(new TMessageEntityUrl
+            {
+                Offset = start,
+                Length = length
+            });
+        }
+
+        return used;
+    }
+
+    private static (int start, int length) TrimTrailingPunctuationAndBalance(string s, int start, int length)
+    {
+        if (length <= 0) return (start, 0);
+
+        while (length > 0)
+        {
+            char ch = s[start + length - 1];
+            if (")]},.!?;:".IndexOf(ch) >= 0) length--;
+            else break;
+        }
+
+        // Balance trailing ')' if they exceed '(' in the captured piece
+        int open = 0, close = 0;
+        for (int i = 0; i < length; i++)
+        {
+            char c = s[start + i];
+            if (c == '(') open++;
+            else if (c == ')') close++;
+        }
+        while (length > 0 && close > open)
+        {
+            if (s[start + length - 1] == ')') { length--; close--; }
+            else break;
+        }
+
+        return (start, length);
+    }
+
+    private static bool AnyUsed(bool[] used, int start, int len)
+    {
+        int end = Math.Min(used.Length, start + len);
+        for (int i = start; i < end; i++)
+            if (used[i]) return true;
+        return false;
+    }
+
+    private static void MarkUsed(bool[] used, int start, int len)
+    {
+        int end = Math.Min(used.Length, start + len);
+        for (int i = start; i < end; i++)
+            used[i] = true;
+    }
+
+    // New mention processor that ignores usernames inside URLs or emails
+    private async Task<List<long>> ProcessMessageEntityMentionAsyncSafe(
+        string message,
+        IList<IMessageEntity>? entities,
+        Peer toPeer,
+        bool[] usedByUrls)
+    {
+        // Mark email ranges as used too (so @ inside email never becomes mention)
+        var used = (bool[])usedByUrls.Clone();
+        foreach (Match em in EmailRegex.Matches(message))
+            MarkUsed(used, em.Index, em.Length);
+
+        // Collect inline-provided entities first (existing logic preserved)
+        var mentionedUserIds = new List<long>();
+        var candidateUsernames = new List<string>();
+        var mentionEntities = new List<TMessageEntityMention>();
+
+        if (entities is { Count: > 0 })
+        {
+            foreach (var e in entities)
+            {
+                switch (e)
+                {
+                    case TInputMessageEntityMentionName named:
+                        mentionedUserIds.Add(peerHelper.GetPeer(named.UserId).PeerId);
+                        break;
+
+                    case TMessageEntityMention m:
+                        // Keep these, but we’ll add text-parsed mentions below (non-overlapping)
+                        candidateUsernames.Add(message.Substring(m.Offset + 1, m.Length - 1));
+                        mentionEntities.Add(m);
+                        break;
+
+                    case TMessageEntityMentionName mn:
+                        mentionedUserIds.Add(mn.UserId);
+                        break;
+                }
+            }
+        }
+
+        //// Text-based mentions using safe regex + overlap guard
+        //foreach (Match mm in MentionRegex.Matches(message))
+        //{
+        //    var start = mm.Index;
+        //    var length = mm.Length;
+
+        //    if (AnyUsed(used, start, length))
+        //        continue; // skip if inside URL/email (or already an entity)
+
+        //    var uname = mm.Groups[1].Value; // without '@'
+        //                                    // mark the range as used so nothing overlaps
+        //    MarkUsed(used, start, length);
+
+        //    candidateUsernames.Add(uname);
+        //    mentionEntities.Add(new TMessageEntityMention { Offset = start, Length = length });
+        //}
+
+        foreach (var (start, length, uname) in usernameHelper.FindMentions(message))
+        {
+            if (AnyUsed(used, start, length))
+                continue;
+
+            MarkUsed(used, start, length);
+            candidateUsernames.Add(uname);
+            mentionEntities.Add(new TMessageEntityMention { Offset = start, Length = length });
+        }
+
+        if (mentionEntities.Count > 0)
+        {
+            entities ??= [];
+            foreach (var m in mentionEntities)
+                entities.Add(m);
+        }
+
+        // Resolve to user IDs (same as your original logic)
+        if (toPeer.PeerType == PeerType.Channel && candidateUsernames.Count > 0)
+        {
+            var mentionedUsers = await queryProcessor.ProcessAsync(
+                new GetUserNameListByNamesQuery(candidateUsernames, PeerType.User));
+
+            mentionedUserIds.AddRange(mentionedUsers.Select(p => p.PeerId).Distinct());
+
+            var memberUserIds = await queryProcessor.ProcessAsync(
+                new GetChannelMemberIdListQuery(toPeer.PeerId, mentionedUserIds));
+
+            return memberUserIds.ToList();
+        }
+
+        return [];
+    }
+
+    public async Task<TMessageMediaWebPage?> CreateInvitePreviewIfAnyAsync(
+        string text,
+        string joinChatDomain)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return null;
+
+        var inviteRx = BuildInviteRegex(joinChatDomain); // add the builder below if you don't have it yet
+
+        // Scan URLs once, trim punctuation, clamp length
+        var matches = UrlRegex.Matches(text);
+        if (matches.Count == 0)
+            return null;
+
+        foreach (Match m in matches)
+        {
+            var (start, length) = TrimTrailingPunctuationAndBalance(text, m.Index, m.Length);
+            if (length <= 0) continue;
+            if (length > MaxUrlLength) length = MaxUrlLength;
+
+            var url = text.Substring(start, length);
+            var im = inviteRx.Match(url);
+            if (!im.Success) continue;
+
+            var link = im.Groups["link"].Value;
+
+            var chatInvite = await queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(link));
+            if (chatInvite is null) continue;
+
+            var channel = await channelAppService.GetAsync(chatInvite.PeerId);
+
+            // Supergroup/public channel preview only
+            if (!channel.Broadcast || (channel.Broadcast && !string.IsNullOrEmpty(channel.UserName)))
+            {
+                var baseJoin = joinChatDomain.TrimEnd('/');
+                return new TMessageMediaWebPage
+                {
+                    Webpage = new Schema.TWebPage
+                    {
+                        Id = Random.Shared.NextInt64(),
+                        Url = $"{baseJoin}/+{link}",
+                        DisplayUrl = $"{baseJoin}/+{link}",
+                        Type = channel.Broadcast ? "telegram_channel" : "telegram_megagroup",
+                        SiteName = "MyTelegram",
+                        Title = channel.Title,
+                        Description = "Join this group on MyTelegram.",
+                    }
+                };
+            }
+
+            // Only one preview is allowed; if this one is not eligible, continue scanning.
+        }
+
+        return null;
+    }
+
+    private Regex BuildInviteRegex(string joinDomain)
+    {
+        var normalized = joinDomain.Trim().TrimEnd('/');
+        string host, path = "";
+        try
+        {
+            if (normalized.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            {
+                var u = new Uri(normalized);
+                host = u.Host;
+                path = u.AbsolutePath.Trim('/');
+            }
+            else
+            {
+                var slash = normalized.IndexOf('/');
+                host = slash >= 0 ? normalized[..slash] : normalized;
+                path = slash >= 0 ? normalized[(slash + 1)..] : "";
+            }
+        }
+        catch { host = normalized; }
+
+        var hostRx = Regex.Escape(host);
+        var pathRx = string.IsNullOrEmpty(path) ? "" : $"{Regex.Escape(path)}/";
+
+        var pat = $$"""
+        (?xi)
+        \b
+        (?:https?://)? (?:www\.)? {{hostRx}} / {{pathRx}} \+ (?<link>[A-Za-z0-9_-]{16,64})
+        (?= \s | $ | [)\]\}.,!?;:] )
+        """;
+
+        return new Regex(pat, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, RxTimeout);
     }
 }

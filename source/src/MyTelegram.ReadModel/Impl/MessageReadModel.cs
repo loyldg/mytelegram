@@ -23,7 +23,8 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, ChannelMessageDeletedEvent>,
     IAmReadModelFor<SendMessageSaga, SendMessageSagaId, PostChannelIdUpdatedSagaEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, MessageUnpinnedEvent>,
-    IAmReadModelFor<MessageAggregate, MessageId, MessagePinnedUpdatedEvent>
+    IAmReadModelFor<MessageAggregate, MessageId, MessagePinnedUpdatedEvent>,
+    IAmReadModelFor<MessageAggregate, MessageId, MessageViewsIncrementedEvent>
 {
     public int Date { get; private set; }
     public int? EditDate { get; private set; }
@@ -217,6 +218,15 @@ public class MessageReadModel : IMessageReadModel,
         }
 
         InvertMedia = messageItem.InvertMedia;
+
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context,
+        IDomainEvent<MessageAggregate, MessageId, MessageViewsIncrementedEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        Views = domainEvent.AggregateEvent.Views;
 
         return Task.CompletedTask;
     }

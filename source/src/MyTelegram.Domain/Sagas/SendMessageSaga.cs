@@ -25,6 +25,7 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
     ISagaHandles<MessageAggregate, MessageId, ReplyChannelMessageCompletedEvent>
 {
     private readonly IIdGenerator _idGenerator;
+    private bool _draftCleared;
     private readonly SendMessageSagaState _state = new();
     public SendMessageSaga(SendMessageSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
     {
@@ -121,6 +122,15 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
             domainEvent.AggregateEvent.ReplyToMsgItems,
             domainEvent.AggregateEvent.ChatMembers
             ));
+
+        if (!_draftCleared && domainEvent.AggregateEvent.ClearDraft && _state.ClearDraft)
+        {
+            Publish(new ClearDraftCommand(
+                DialogId.Create(domainEvent.AggregateEvent.OutboxMessageItem.SenderPeer.PeerId,
+                    domainEvent.AggregateEvent.OutboxMessageItem.ToPeer),
+                domainEvent.AggregateEvent.RequestInfo with { RequestId = Guid.NewGuid() }));
+            _draftCleared = true;
+        }
         await HandleSendOutboxMessageCompletedAsync(domainEvent.AggregateEvent.OutboxMessageItem);
 
         await CreateInboxMessageAsync(domainEvent.AggregateEvent);

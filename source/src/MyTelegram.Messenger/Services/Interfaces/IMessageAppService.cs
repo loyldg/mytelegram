@@ -23,4 +23,7 @@ public interface IMessageAppService
     Task<List<long>> ProcessMessageEntitiesAsync(string? message, IList<IMessageEntity>? entities, Peer toPeer);
     List<string> GetHashtags(string? message);
     Task<bool> IsValidSendAsPeerAsync(long requestUserId, Peer toPeer, Peer? sendAsPeer);
+    Task<TMessageMediaWebPage?> CreateInvitePreviewIfAnyAsync(
+        string text,
+        string joinChatDomain);
 }
