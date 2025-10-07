@@ -9,5 +9,5 @@ public interface IChannelMessageViewsAppService
         int messageId);
     Task<IList<IMessageViews>> GetMessageViewsAsync(long selfUserId,
         long channelId,
-        List<int> messageIdList);
+        List<int> messageIdList, bool increment = false);
 }

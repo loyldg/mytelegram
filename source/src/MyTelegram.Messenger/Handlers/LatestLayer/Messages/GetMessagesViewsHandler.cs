@@ -1,4 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+﻿using IMessageViews = MyTelegram.Schema.Messages.IMessageViews;
+using TMessageViews = MyTelegram.Schema.Messages.TMessageViews;
+
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 
 ///<summary>
 /// Get and increase the view counter of a message sent or forwarded from a <a href="https://corefork.telegram.org/api/channel">channel</a>
@@ -11,56 +14,33 @@
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/messages.getMessagesViews" />
 ///</summary>
-internal sealed class GetMessagesViewsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetMessagesViews, MyTelegram.Schema.Messages.IMessageViews>
+internal sealed class GetMessagesViewsHandler(
+    IPeerHelper peerHelper,
+    IQueryProcessor queryProcessor,
+    IChannelMessageViewsAppService channelMessageViewsAppService,
+    IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<RequestGetMessagesViews, IMessageViews>
 {
-    private readonly IAccessHashHelper _accessHashHelper;
-    private readonly IChannelMessageViewsAppService _channelMessageViewsAppService;
-    private readonly IPeerHelper _peerHelper;
-    private readonly IQueryProcessor _queryProcessor;
-
-    public GetMessagesViewsHandler(
-        IPeerHelper peerHelper,
-        IQueryProcessor queryProcessor,
-        IChannelMessageViewsAppService channelMessageViewsAppService,
-        IAccessHashHelper accessHashHelper)
-    {
-        _peerHelper = peerHelper;
-        _queryProcessor = queryProcessor;
-        _channelMessageViewsAppService = channelMessageViewsAppService;
-        _accessHashHelper = accessHashHelper;
-    }
-
-    protected override async Task<MyTelegram.Schema.Messages.IMessageViews> HandleCoreAsync(IRequestInput input,
+    protected override async Task<IMessageViews> HandleCoreAsync(IRequestInput input,
         RequestGetMessagesViews obj)
     {
-        await _accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
-        // todo:increment==false,only execute query
-        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
+
+        var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
         if (peer.PeerType == PeerType.Channel)
         {
-            if (obj.Id.Max() < 0)
-            {
-                return new MyTelegram.Schema.Messages.TMessageViews
+            if (obj.Id.Max() <= 0)
+                return new TMessageViews
                 {
                     Views = new TVector<Schema.IMessageViews>(obj.Id.Select(p => new Schema.TMessageViews { Views = 1 })
                         .ToList()),
                     Chats = new TVector<IChat>(),
                     Users = new TVector<IUser>()
                 };
-            }
-            //var id = obj.Id.First(p => p > 0);
-            //var command = new StartIncrementViewsCommand(
-            //    MessageBoxId.Create(peer.PeerId, id),
-            //    input.ReqMsgId,
-            //    input.UserId,
-            //    obj.Id, Guid.NewGuid());
-            //await _commandBus.PublishAsync(command, CancellationToken.None);
-            //return null!;
 
-            var views = await _channelMessageViewsAppService
-                .GetMessageViewsAsync(input.UserId, peer.PeerId, obj.Id.ToList())
-         ;
-            return new MyTelegram.Schema.Messages.TMessageViews
+            var views = await channelMessageViewsAppService
+                .GetMessageViewsAsync(input.UserId, peer.PeerId, obj.Id.ToList(), obj.Increment);
+
+            return new TMessageViews
             {
                 Chats = new TVector<IChat>(),
                 Users = new TVector<IUser>(),
@@ -69,10 +49,10 @@ internal sealed class GetMessagesViewsHandler : RpcResultObjectHandler<MyTelegra
         }
 
         var boxIdList = obj.Id.Select(p => MessageId.Create(input.UserId, p).Value).ToList();
-        var messages = await _queryProcessor
-            .ProcessAsync(new GetMessagesByIdListQuery(boxIdList), default);
+        var messages = await queryProcessor
+            .ProcessAsync(new GetMessagesByIdListQuery(boxIdList), CancellationToken.None);
         var dict = messages.ToDictionary(k => k.MessageId, v => v);
-        return new MyTelegram.Schema.Messages.TMessageViews
+        return new TMessageViews
         {
             Chats = new TVector<IChat>(),
             Users = new TVector<IUser>(),
@@ -91,6 +71,5 @@ internal sealed class GetMessagesViewsHandler : RpcResultObjectHandler<MyTelegra
                 };
             }))
         };
-        throw new NotImplementedException();
     }
 }

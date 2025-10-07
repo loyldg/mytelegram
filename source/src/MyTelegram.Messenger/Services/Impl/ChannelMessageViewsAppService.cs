@@ -1,96 +1,107 @@
 ﻿using EventFlow.Exceptions;
+using MyTelegram.Caching.Redis;
 using MyTelegram.Messenger.Services.Filters;
 using IMessageViews = MyTelegram.Schema.IMessageViews;
+using TMessageViews = MyTelegram.Schema.TMessageViews;
 
 namespace MyTelegram.Messenger.Services.Impl;
 
 public class ChannelMessageViewsAppService(
     IQueryProcessor queryProcessor,
     ICommandBus commandBus,
-    ICuckooFilter cuckooFilter)
+    ICuckooFilter cuckooFilter,
+    IRedisHelper redisHelper)
     : IChannelMessageViewsAppService, ITransientDependency
 {
     public async Task IncrementViewsIfNotIncrementedAsync(long selfUserId,
         long channelId,
         int messageId)
     {
-        var key = GetFilterKey(selfUserId, channelId, messageId);
-        var isExists = await cuckooFilter.ExistsAsync(key);
-        if (!isExists)
-        {
-            await cuckooFilter.AddAsync(key);
-        }
+        var keyInfo = CreateFilterKey(selfUserId, channelId, messageId);
+        await TryRegisterViewAsync(keyInfo.RedisKey, keyInfo.FilterKey);
     }
 
-    private byte[] GetFilterKey(long selfUserId,
+    private (string RedisKey, byte[] FilterKey) CreateFilterKey(long selfUserId,
         long channelId,
-        int messageId) =>
-        Encoding.UTF8.GetBytes(
-            $"{MyTelegramConsts.ChannelMessageViewsBloomFilterKey}_{selfUserId}_{channelId}_{messageId}");
-
-    public async Task<IList<IMessageViews>> GetMessageViewsAsync(long selfUserId,
-        long channelId,
-        List<int> messageIdList)
+        int messageId)
     {
-        var messageIdGreaterThanZeroList = messageIdList.Where(p => p > 0).ToList();
-        var keyList = messageIdGreaterThanZeroList
-            .Select(p => GetFilterKey(selfUserId, channelId, p)).ToList();
+        var filterKey =
+            $"{MyTelegramConsts.ChannelMessageViewsBloomFilterKey}_{selfUserId}_{channelId}_{messageId}";
 
-        var needIncrementMessageIdList = new List<int>();
-        var index = 0;
+        var redisKey =
+            $"view:{selfUserId}:{channelId}:{messageId}";
 
-        foreach (var key in keyList)
+        return (redisKey, Encoding.UTF8.GetBytes(filterKey));
+    }
+
+    public async Task<IList<IMessageViews>> GetMessageViewsAsync(
+        long selfUserId,
+        long channelId,
+        List<int> messageIdList,
+        bool increment = false)
+    {
+        if (messageIdList.Count == 0) return new List<IMessageViews>();
+
+        var ids = messageIdList.Where(p => p > 0).ToList();
+        if (ids.Count == 0)
+            return messageIdList.Select(_ => (IMessageViews)new TMessageViews { Views = 0 }).ToList();
+
+        // 1) Dedup + collect to increment
+        HashSet<int> needInc = [];
+        if (increment)
         {
-            var isExists = await cuckooFilter.ExistsAsync(key);
-            if (!isExists)
+            var pairs = ids.Select(m => (MessageId: m, Key: CreateFilterKey(selfUserId, channelId, m))).ToList();
+
+            // batch calls (parallel awaits instead of sequential)
+            var tasks = pairs.Select(async p =>
             {
-                await cuckooFilter.AddAsync(key);
-                needIncrementMessageIdList.Add(messageIdGreaterThanZeroList[index]);
-            }
-            index++;
+                var firstTime = await TryRegisterViewAsync(p.Key.RedisKey, p.Key.FilterKey).ConfigureAwait(false);
+                if (firstTime) needInc.Add(p.MessageId);
+            });
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
 
-        var messageViews = (await queryProcessor
-                    .ProcessAsync(new GetMessageViewsQuery(channelId, messageIdGreaterThanZeroList), default)
-                    .ConfigureAwait(false))
-                .ToDictionary(k => k.MessageId, v => v)
-            ;
+        // 2) Read current views (one query)
+        var viewsDict = (await queryProcessor
+                .ProcessAsync(new GetMessageViewsQuery(channelId, ids), CancellationToken.None)
+                .ConfigureAwait(false))
+            .ToDictionary(v => v.MessageId);
 
-        foreach (var messageId in needIncrementMessageIdList)
-        {
-            try
-            {
-                var command = new IncrementViewsCommand(MessageId.Create(channelId, messageId));
-                await commandBus.PublishAsync(command);
-            }
-            catch (DomainError)
-            {
-                //
-            }
-        }
-
-        var linkedChannelId = await queryProcessor.ProcessAsync(new GetLinkedChannelIdQuery(channelId));
-
-        var replies = (await queryProcessor.ProcessAsync(new GetRepliesQuery(channelId, messageIdList)))
-                .ToDictionary(k => k.MessageId, v => v);
-
-        var messageViewsToClient = new List<IMessageViews>();
-        foreach (var messageId in messageIdList)
-        {
-            var needIncrement = needIncrementMessageIdList.Contains(messageId);
-            if (messageViews.TryGetValue(messageId, out var views))
-            {
-                replies.TryGetValue(messageId, out var reply);
-                var recentRepliers = new List<IPeer>();// = reply?.RecentRepliers.Select(p => p.ToPeer());
-                if (reply?.RecentRepliers?.Count > 0)
+        // 3) Increment for first-time viewers (robust, with optional rollback)
+        if (increment && needInc.Count > 0)
+            foreach (var mid in needInc)
+                try
                 {
-                    recentRepliers.AddRange(reply.RecentRepliers.Select(peer => peer.ToPeer()));
+                    await commandBus.PublishAsync(new IncrementViewsCommand(MessageId.Create(channelId, mid)))
+                        .ConfigureAwait(false);
+                }
+                catch (DomainError)
+                {
                 }
 
-                messageViewsToClient.Add(new Schema.TMessageViews
+        // 4) Replies & projection
+        var linkedChannelId = await queryProcessor
+            .ProcessAsync(new GetLinkedChannelIdQuery(channelId), CancellationToken.None)
+            .ConfigureAwait(false);
+        var repliesDict = (await queryProcessor
+                .ProcessAsync(new GetRepliesQuery(channelId, messageIdList), CancellationToken.None)
+                .ConfigureAwait(false))
+            .ToDictionary(r => r.MessageId);
+
+        var result = new List<IMessageViews>(messageIdList.Count);
+        foreach (var messageId in messageIdList)
+        {
+            var addOne = increment && needInc.Contains(messageId);
+            if (viewsDict.TryGetValue(messageId, out var views))
+            {
+                repliesDict.TryGetValue(messageId, out var reply);
+                var recentRepliers = reply?.RecentRepliers?.Count > 0
+                    ? reply.RecentRepliers.Select(p => p.ToPeer()).ToList()
+                    : new List<IPeer>();
+
+                result.Add(new TMessageViews
                 {
-                    Views = needIncrement ? views.Views + 1 : views.Views,
-                    //Replies = new TMessageReplies { ChannelId = channelId }
+                    Views = addOne ? views.Views + 1 : views.Views,
                     Replies = new TMessageReplies
                     {
                         ChannelId = reply?.CommentChannelId ?? linkedChannelId,
@@ -104,10 +115,33 @@ public class ChannelMessageViewsAppService(
             }
             else
             {
-                messageViewsToClient.Add(new Schema.TMessageViews { Views = 0 });
+                result.Add(new TMessageViews { Views = addOne ? 1 : 0 });
             }
         }
 
-        return messageViewsToClient;
+        return result;
+    }
+
+
+    private async Task<bool> TryRegisterViewAsync(string redisKey, byte[] filterKey)
+    {
+        // Local check: if Cuckoo filter already saw it, skip
+        if (await cuckooFilter.ExistsAsync(filterKey))
+            return false;
+
+        // Atomic Redis SET NX with TTL
+        var isNew = await redisHelper.SetIfNotExistsAsync(redisKey, filterKey,
+            TimeSpan.FromDays(MyTelegramConsts.ChannelMessageViewsTtl));
+
+        if (!isNew)
+        {
+            // Key already existed → record in Cuckoo for faster local lookup next time
+            await cuckooFilter.AddAsync(filterKey);
+            return false;
+        }
+
+        // First time view → add to local Cuckoo
+        await cuckooFilter.AddAsync(filterKey);
+        return true;
     }
 }
