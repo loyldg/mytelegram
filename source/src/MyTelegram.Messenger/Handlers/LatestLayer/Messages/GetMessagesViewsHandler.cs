@@ -58,7 +58,7 @@ internal sealed class GetMessagesViewsHandler : RpcResultObjectHandler<MyTelegra
             //return null!;
 
             var views = await _channelMessageViewsAppService
-                .GetMessageViewsAsync(input.UserId, input.PermAuthKeyId, peer.PeerId, obj.Id.ToList())
+                .GetMessageViewsAsync(input.UserId, peer.PeerId, obj.Id.ToList())
          ;
             return new MyTelegram.Schema.Messages.TMessageViews
             {

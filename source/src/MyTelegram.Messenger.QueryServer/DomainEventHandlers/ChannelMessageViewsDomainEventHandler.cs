@@ -13,7 +13,6 @@ public class ChannelMessageViewsDomainEventHandler(IChannelMessageViewsAppServic
         {
             await channelMessageViewsAppService
                 .IncrementViewsIfNotIncrementedAsync(domainEvent.AggregateEvent.RequestInfo.UserId,
-                    domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
                     item.ToPeer.PeerId,
                     item.MessageId);
         }
