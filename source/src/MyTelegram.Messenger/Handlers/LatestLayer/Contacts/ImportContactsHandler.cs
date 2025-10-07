@@ -6,49 +6,46 @@
 ///</summary>
 internal sealed class ImportContactsHandler(
     ICommandBus commandBus,
-    ICacheManager<UserCacheItem> cacheManager,
-    IQueryProcessor queryProcessor)
+    ICacheManager<UserCacheItem> cacheManager)
     : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestImportContacts,
             MyTelegram.Schema.Contacts.IImportedContacts>
 {
-    private readonly IQueryProcessor _queryProcessor = queryProcessor;
-
     protected override async Task<IImportedContacts> HandleCoreAsync(IRequestInput input,
         RequestImportContacts obj)
     {
         if (obj.Contacts.Count == 0)
         {
-            //throw new BadRequestException("Contacts required.");
             RpcErrors.RpcErrors400.ContactIdInvalid.ThrowRpcError();
         }
 
-        //var userReadModels=await _queryProcessor.ProcessAsync(new GetUsersByUidListQuery())
-
-        var keys = obj.Contacts.Select(p => UserCacheItem.GetCacheKey(p.Phone)).Distinct().ToList();
+        var keys = obj.Contacts.Select(p => UserCacheItem.GetCacheKey(p.Phone.ToPhoneNumber())).Distinct().ToList();
         var userIdDict = await cacheManager.GetManyAsync(keys);
         var phoneContactList = new List<PhoneContact>();
 
-        var contactDict = obj.Contacts.DistinctBy(k => k.Phone)
-            .ToDictionary(k => k.Phone, v => v);
-        //var userIdDict = userIdList.ToDictionary(k => k.Key, v => v);
         foreach (var item in obj.Contacts)
         {
             var userId = 0L;
-            var key = UserCacheItem.GetCacheKey(item.Phone);
+            var phone = item.Phone.ToPhoneNumber();
+            var key = UserCacheItem.GetCacheKey(phone);
             if (userIdDict.TryGetValue(key, out var cachedUserItem))
             {
                 userId = cachedUserItem?.UserId ?? 0;
             }
 
-            phoneContactList.Add(new PhoneContact(userId,
-                item.Phone,
-                item.FirstName,
-                item.LastName,
-                item.ClientId));
+            if (userId != input.UserId)
+            {
+                phoneContactList.Add(new PhoneContact(userId,
+                    phone,
+                    item.FirstName,
+                    item.LastName,
+                    item.ClientId));
+            }
         }
 
-        var firstContact = phoneContactList.FirstOrDefault();
-        //var firstContactUid
+        if (phoneContactList.Count == 0)
+        {
+            RpcErrors.RpcErrors400.ContactIdInvalid.ThrowRpcError();
+        }
 
         var command = new ImportContactsCommand(ImportedContactId.Create(input.UserId, "-"),
             input.ToRequestInfo(),
