@@ -140,6 +140,9 @@ public class MySagaAggregateStore(
             case ReadHistorySagaId readHistorySagaId:
                 domainEvents = await aggregateStore.UpdateAsync<ReadHistorySaga, ReadHistorySagaId>(readHistorySagaId, sourceId, updateSaga, cancellationToken);
                 break;
+            case ReadMentionsSagaId readMentionsSagaId:
+                domainEvents = await aggregateStore.UpdateAsync<ReadMentionsSaga, ReadMentionsSagaId>(readMentionsSagaId, sourceId, updateSaga, cancellationToken);
+                break;
 
             case SignInSagaId signInSagaId:
                 domainEvents = await aggregateStore.UpdateAsync<SignInSaga, SignInSagaId>(signInSagaId, sourceId, updateSaga, cancellationToken);

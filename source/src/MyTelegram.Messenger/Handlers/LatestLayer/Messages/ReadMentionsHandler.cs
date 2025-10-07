@@ -30,8 +30,9 @@ internal sealed class ReadMentionsHandler(
         if (dialogReadModel != null && dialogReadModel.UnreadMentionsCount > 0)
         {
             var messageId = obj.TopMsgId ?? dialogReadModel.TopMessage;
-            var command = new ReadMentionCommand(dialogId, input.UserId, messageId, true);
+            var command = new ReadMentionCommand(dialogId, input.ToRequestInfo(), input.UserId, messageId, true);
             await commandBus.PublishAsync(command);
+            return null!;
         }
 
         return new TAffectedHistory

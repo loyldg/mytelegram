@@ -1,4 +1,4 @@
-﻿using MyTelegram.Messenger.Services.Interfaces;
+﻿using TWebPage = MyTelegram.Schema.TWebPage;
 
 namespace MyTelegram.Messenger.Services.Impl;
 
@@ -32,41 +32,41 @@ public class MessageAppService(
     // no trailing punctuation inside the entity; avoids picking up emails/usernames.
     private static readonly Regex UrlRegex = new(
         """
-(?xi)
-(?<![@\w./-])                         # left boundary (avoid emails / word-internals)
-(?:https?://)?                        # optional scheme
-(?:www\.)?                            # optional www.
+        (?xi)
+        (?<![@\w./-])                         # left boundary (avoid emails / word-internals)
+        (?:https?://)?                        # optional scheme
+        (?:www\.)?                            # optional www.
 
-(                                      # --- host ---
-  (?:                                   # IPv4
-    (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
-    (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
-    (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
-    (?:25[0-5]|2[0-4]\d|1?\d?\d)
-  )
-  |
-  (?:                                   # domain with final capped TLD
-    (?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+  # one or more labels+
-    (?:                                  # final TLD:
-        [a-z]{2,15}                      #   letters-only TLD, 2..15
-      | xn--[a-z0-9-]{1,20}              #   punycode TLD (total len up to ~24)
-    )
-  )
-)
+        (                                      # --- host ---
+          (?:                                   # IPv4
+            (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
+            (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
+            (?:25[0-5]|2[0-4]\d|1?\d?\d)\.
+            (?:25[0-5]|2[0-4]\d|1?\d?\d)
+          )
+          |
+          (?:                                   # domain with final capped TLD
+            (?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+  # one or more labels+
+            (?:                                  # final TLD:
+                [a-z]{2,15}                      #   letters-only TLD, 2..15
+              | xn--[a-z0-9-]{1,20}              #   punycode TLD (total len up to ~24)
+            )
+          )
+        )
 
-(?: : (?<port>\d{2,5}) )?              # optional port
+        (?: : (?<port>\d{2,5}) )?              # optional port
 
-(?:                                     # --- optional path/query/frag ---
-    /                                    # path starts
-    (?:
-      [^\s<>()\[\]{}"'`]+
-      | \([^\s<>()\[\]{}"'`]*\)
-    )*
-)?
-(?=
-   \s | $ | [)\]\}.,!?;:]              # stop before trailing punctuation/space/end
-)
-""",
+        (?:                                     # --- optional path/query/frag ---
+            /                                    # path starts
+            (?:
+              [^\s<>()\[\]{}"'`]+
+              | \([^\s<>()\[\]{}"'`]*\)
+            )*
+        )?
+        (?=
+           \s | $ | [)\]\}.,!?;:]              # stop before trailing punctuation/space/end
+        )
+        """,
         RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
         RxTimeout);
 
@@ -79,9 +79,7 @@ public class MessageAppService(
     public void CheckBotPermission(long requestUserId, Peer toPeer)
     {
         if (peerHelper.IsBotUser(requestUserId) && peerHelper.IsBotUser(toPeer.PeerId))
-        {
             RpcErrors.RpcErrors400.UserIsBot.ThrowRpcError();
-        }
     }
 
     public async Task<bool> CanSendAsPeerAsync(long channelId, long userId)
@@ -94,20 +92,14 @@ public class MessageAppService(
         {
             var channelAdmin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == userId);
             if (channelReadModel.CreatorId == userId || (channelAdmin?.AdminRights.PostMessages ?? false))
-            {
                 canSendAsPeer = true;
-            }
         }
 
         if (!canSendAsPeer)
-        {
             // Super group with linked channel/Public super group
             if (channelReadModel.MegaGroup && (!string.IsNullOrEmpty(channelReadModel.UserName) ||
                                                channelReadModel.LinkedChatId != null))
-            {
                 canSendAsPeer = true;
-            }
-        }
 
         return canSendAsPeer;
     }
@@ -116,28 +108,19 @@ public class MessageAppService(
     {
         if (sendAsPeer != null)
         {
-            if (toPeer.PeerType != PeerType.Channel)
-            {
-                return false;
-            }
+            if (toPeer.PeerType != PeerType.Channel) return false;
 
             switch (sendAsPeer.PeerType)
             {
                 case PeerType.User:
                 case PeerType.Self:
-                    if (sendAsPeer.PeerId != requestUserId)
-                    {
-                        return false;
-                    }
+                    if (sendAsPeer.PeerId != requestUserId) return false;
 
                     break;
 
                 case PeerType.Channel:
                     var canSendAsPeer = await CanSendAsPeerAsync(toPeer.PeerId, requestUserId);
-                    if (!canSendAsPeer)
-                    {
-                        return false;
-                    }
+                    if (!canSendAsPeer) return false;
 
                     var sendAsChannelReadModel = await channelAppService.GetAsync(sendAsPeer.PeerId);
 
@@ -147,9 +130,7 @@ public class MessageAppService(
                         (string.IsNullOrEmpty(sendAsChannelReadModel.UserName) &&
                          sendAsChannelReadModel.LinkedChatId != toPeer.PeerId &&
                          sendAsChannelReadModel.ChannelId != toPeer.PeerId))
-                    {
                         return false;
-                    }
 
                     break;
             }
@@ -161,10 +142,7 @@ public class MessageAppService(
     public async Task CheckSendAsAsync(long requestUserId, Peer toPeer, Peer? sendAsPeer)
     {
         var isValid = await IsValidSendAsPeerAsync(requestUserId, toPeer, sendAsPeer);
-        if (!isValid)
-        {
-            RpcErrors.RpcErrors400.SendAsPeerInvalid.ThrowRpcError();
-        }
+        if (!isValid) RpcErrors.RpcErrors400.SendAsPeerInvalid.ThrowRpcError();
     }
 
     public async Task<GetMessageOutput> GetChannelDifferenceAsync(GetDifferenceInput input)
@@ -219,12 +197,10 @@ public class MessageAppService(
     {
         return GetMessagesCoreAsync(input);
     }
+
     public async Task SendMessageAsync(List<SendMessageInput> inputs)
     {
-        if (inputs.Count == 0)
-        {
-            throw new ArgumentException();
-        }
+        if (inputs.Count == 0) throw new ArgumentException();
 
         List<SendMessageItem> sendMessageItems = [];
         var firstInput = inputs.First();
@@ -263,31 +239,24 @@ public class MessageAppService(
                 new GetChannelMemberListByChannelIdListQuery(selfUserId, channelIds.ToList()));
         var photoReadModels = await photoAppService.GetPhotosAsync(channelReadModels);
 
-        return new SearchPostsResult(messageReadModels, channelReadModels, channelMemberReadModels, photoReadModels, userReadModels);
+        return new SearchPostsResult(messageReadModels, channelReadModels, channelMemberReadModels, photoReadModels,
+            userReadModels);
     }
 
     private async Task<IChannelReadModel?> CheckChannelBannedRightsAsync(SendMessageInput input)
     {
-        if (input.ToPeer.PeerType != PeerType.Channel)
-        {
-            return null;
-        }
+        if (input.ToPeer.PeerType != PeerType.Channel) return null;
 
         var channelReadModel = await channelAppService.GetAsync(input.ToPeer.PeerId);
         if (channelReadModel!.Broadcast)
         {
             var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == input.SenderUserId);
             if (admin == null || !admin.AdminRights.PostMessages)
-            {
                 RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
-            }
         }
 
         var bannedDefaultRights = channelReadModel.DefaultBannedRights ?? ChatBannedRights.CreateDefaultBannedRights();
-        if (bannedDefaultRights.SendMessages)
-        {
-            RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
-        }
+        if (bannedDefaultRights.SendMessages) RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
 
         var channelMemberReadModel =
             await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel.ChannelId,
@@ -298,7 +267,6 @@ public class MessageAppService(
         {
             if (channelReadModel is { Broadcast: false, LinkedChatId: not null, JoinToSend: false })
             {
-
             }
             else
             {
@@ -311,20 +279,12 @@ public class MessageAppService(
             var memberBannedRights =
                 ChatBannedRights.FromValue(channelMemberReadModel.BannedRights, channelMemberReadModel.UntilDate);
             if (!string.IsNullOrEmpty(input.Message))
-            {
                 if (memberBannedRights.SendMessages)
-                {
                     RpcErrors.RpcErrors400.UserBannedInChannel.ThrowRpcError();
-                }
-            }
 
             if (input.Media != null)
-            {
                 if (memberBannedRights.SendMedia)
-                {
                     RpcErrors.RpcErrors400.UserBannedInChannel.ThrowRpcError();
-                }
-            }
         }
 
         //if (channelReadModel.SlowModeEnabled)
@@ -343,10 +303,7 @@ public class MessageAppService(
         // 3.If the client does not pass a value, the default SendAsPeer is not set, and in the discussion group, use discussion group as SendAsPeer
         if (input.SendAs != null)
         {
-            if (await IsValidSendAsPeerAsync(input.RequestInfo.UserId, input.ToPeer, input.SendAs))
-            {
-                return input.SendAs;
-            }
+            if (await IsValidSendAsPeerAsync(input.RequestInfo.UserId, input.ToPeer, input.SendAs)) return input.SendAs;
         }
         else if (input.ToPeer.PeerType == PeerType.Channel)
         {
@@ -355,36 +312,27 @@ public class MessageAppService(
             if (!await CanSendAsPeerAsync(input.ToPeer.PeerId, input.RequestInfo.UserId))
             {
                 var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == input.SenderUserId);
-                if (admin is { AdminRights.Anonymous: true })
-                {
-                    return channelReadModel.ChannelId.ToChannelPeer();
-                }
+                if (admin is { AdminRights.Anonymous: true }) return channelReadModel.ChannelId.ToChannelPeer();
 
                 return null;
             }
+
             Peer? sendAsPeer;
 
             var userConfigReadModel = await queryProcessor.ProcessAsync(
                 new GetUserConfigByKeyQuery(input.RequestInfo.UserId, ((int)UserConfigType.SendAsPeer).ToString()));
             if (userConfigReadModel != null)
-            {
                 if (long.TryParse(userConfigReadModel.Value, out var sendAsPeerId))
                 {
                     sendAsPeer = peerHelper.GetPeer(sendAsPeerId);
                     if (await IsValidSendAsPeerAsync(input.RequestInfo.UserId, input.ToPeer, sendAsPeer))
-                    {
                         return sendAsPeer;
-                    }
                 }
-            }
 
             if (channelReadModel is { MegaGroup: true, LinkedChatId: not null })
             {
                 sendAsPeer = channelReadModel.ChannelId.ToChannelPeer();
-                if (await IsValidSendAsPeerAsync(input.RequestInfo.UserId, input.ToPeer, sendAsPeer))
-                {
-                    return sendAsPeer;
-                }
+                if (await IsValidSendAsPeerAsync(input.RequestInfo.UserId, input.ToPeer, sendAsPeer)) return sendAsPeer;
             }
         }
 
@@ -400,10 +348,7 @@ public class MessageAppService(
 
         var entities = input.Entities ?? [];
         var mentionedUserIds = await ProcessMessageEntitiesAsync(input.Message, entities, input.ToPeer);
-        if (entities.Count == 0)
-        {
-            entities = null;
-        }
+        if (entities.Count == 0) entities = null;
         var ownerPeerId = input.ToPeer.PeerType == PeerType.Channel ? input.ToPeer.PeerId : input.SenderUserId;
         var replyToMsgId = input.InputReplyTo.ToReplyToMsgId();
 
@@ -422,10 +367,7 @@ public class MessageAppService(
         string? postAuthor = null;
         var isPublicPost = channelReadModel is { Broadcast: true, UserName: not null };
         int? views = null;
-        if (channelReadModel?.Broadcast ?? false)
-        {
-            views = 0;
-        }
+        if (channelReadModel?.Broadcast ?? false) views = 0;
         if (channelReadModel is { Signatures: true, Broadcast: true })
         {
             if (sendAs?.PeerType == PeerType.Channel)
@@ -439,10 +381,7 @@ public class MessageAppService(
                 postAuthor = $"{userReadModel.FirstName} {userReadModel.LastName}";
             }
 
-            if (sendAs == null && channelReadModel.SignatureProfiles)
-            {
-                sendAs = input.RequestInfo.UserId.ToUserPeer();
-            }
+            if (sendAs == null && channelReadModel.SignatureProfiles) sendAs = input.RequestInfo.UserId.ToUserPeer();
         }
 
         var scheduleDate = input.ScheduleDate;
@@ -451,29 +390,20 @@ public class MessageAppService(
             // If the schedule_date is less than 20 seconds in the future, the message will be sent immediately,
             // generating a normal updateNewMessage/updateNewChannelMessage.
             if (scheduleDate.Value - CurrentDate < 20)
-            {
                 scheduleDate = null;
-            }
             else
-            {
                 idType = IdType.ScheduleMessageId;
-            }
         }
 
         var pts = 0;
         MessageReply? reply = null;
-        if (post && linkedChannelId.HasValue)
-        {
-            reply = new MessageReply(linkedChannelId, 0, 0, 0, []);
-        }
+        if (post && linkedChannelId.HasValue) reply = new MessageReply(linkedChannelId, 0, 0, 0, []);
 
         var messageId = await idGenerator.NextIdAsync(idType, ownerPeerId);
         //var messageId = 0;
         int? scheduleMessageId = null;
         if (idType == IdType.ScheduleMessageId)
-        {
             scheduleMessageId = await idGenerator.NextIdAsync(IdType.ScheduleMessageId, ownerPeerId);
-        }
 
         var date = CurrentDate;
         var hashtags = GetHashtags(input.Message);
@@ -526,26 +456,17 @@ public class MessageAppService(
 
     public List<string> GetHashtags(string? message)
     {
-        if (string.IsNullOrEmpty(message))
-        {
-            return [];
-        }
+        if (string.IsNullOrEmpty(message)) return [];
 
         var matches = Regex.Matches(message, HashtagPattern);
         var hashtags = new List<string>();
         const int maxHashtags = 10;
         foreach (Match match in matches)
         {
-            if (hashtags.Count > maxHashtags)
-            {
-                break;
-            }
+            if (hashtags.Count > maxHashtags) break;
 
             var hashtag = match.Groups[1].Value;
-            if (!hashtags.Contains(hashtag))
-            {
-                hashtags.Add(hashtag);
-            }
+            if (!hashtags.Contains(hashtag)) hashtags.Add(hashtag);
         }
 
         return hashtags;
@@ -564,9 +485,7 @@ public class MessageAppService(
                     var contactType =
                         await contactAppService.GetContactTypeAsync(input.RequestInfo.UserId, input.ToPeer.PeerId);
                     if (contactType != ContactType.Mutual && contactType != ContactType.ContactOfTargetUser)
-                    {
                         RpcErrors.RpcErrors406.PrivacyPremiumRequired.ThrowRpcError();
-                    }
                 }
             }
         }
@@ -592,7 +511,6 @@ public class MessageAppService(
     {
         var hashtagMatches = Regex.Matches(message, HashtagPattern);
         foreach (Match match in hashtagMatches)
-        {
             if (match.Success)
             {
                 var entity = new TMessageEntityHashtag
@@ -603,7 +521,6 @@ public class MessageAppService(
                 entities ??= [];
                 entities.Add(entity);
             }
-        }
     }
 
     private Task<GetMessageOutput> GetMessagesCoreAsync<TRequest>(TRequest input)
@@ -621,8 +538,8 @@ public class MessageAppService(
         IReadOnlyCollection<long>? chats = null)
     {
         var messageList = await queryProcessor.ProcessAsync(query);
-        HashSet<long> userIds = users?.ToHashSet() ?? [];
-        HashSet<long> channelIds = chats?.ToHashSet() ?? [];
+        var userIds = users?.ToHashSet() ?? [];
+        var channelIds = chats?.ToHashSet() ?? [];
         userIds.Add(query.SelfUserId);
 
         AddExtraPeerIds(messageList, userIds, channelIds);
@@ -649,25 +566,18 @@ public class MessageAppService(
 
         IReadOnlyCollection<long> joinedChannelIdList = new List<long>();
         if (channelIds.Count > 0)
-        {
             joinedChannelIdList = await queryProcessor
                 .ProcessAsync(new GetJoinedChannelIdListQuery(query.SelfUserId, [.. channelIds]));
-        }
 
         var privacyList = await privacyAppService.GetPrivacyListAsync(userIdList);
         IReadOnlyCollection<IChannelMemberReadModel> channelMemberList = new List<IChannelMemberReadModel>();
         if (joinedChannelIdList.Count > 0)
-        {
             channelMemberList = await queryProcessor
                 .ProcessAsync(
                     new GetChannelMemberListByChannelIdListQuery(query.SelfUserId, joinedChannelIdList.ToList()));
-        }
 
         var pts = query.Pts;
-        if (pts == 0 && messageList.Count > 0)
-        {
-            pts = messageList.Max(p => p.Pts);
-        }
+        if (pts == 0 && messageList.Count > 0) pts = messageList.Max(p => p.Pts);
 
         var pollIdList = messageList.Where(p => p.PollId.HasValue).Select(p => p.PollId!.Value).ToList();
         IReadOnlyCollection<IPollReadModel>? pollReadModels = null;
@@ -755,10 +665,7 @@ public class MessageAppService(
             switch (messageReadModel.MessageAction)
             {
                 case TMessageActionChatAddUser messageActionChatAddUser:
-                    foreach (var userId in messageActionChatAddUser.Users)
-                    {
-                        userIds.Add(userId);
-                    }
+                    foreach (var userId in messageActionChatAddUser.Users) userIds.Add(userId);
                     break;
 
                 case TMessageActionChatJoinedByLink messageActionChatJoinedByLink:
@@ -774,7 +681,6 @@ public class MessageAppService(
                     break;
             }
         }
-
     }
 
     // Creates URL entities, respecting max length and "one entity per character" rule.
@@ -816,40 +722,47 @@ public class MessageAppService(
 
         while (length > 0)
         {
-            char ch = s[start + length - 1];
+            var ch = s[start + length - 1];
             if (")]},.!?;:".IndexOf(ch) >= 0) length--;
             else break;
         }
 
         // Balance trailing ')' if they exceed '(' in the captured piece
         int open = 0, close = 0;
-        for (int i = 0; i < length; i++)
+        for (var i = 0; i < length; i++)
         {
-            char c = s[start + i];
+            var c = s[start + i];
             if (c == '(') open++;
             else if (c == ')') close++;
         }
+
         while (length > 0 && close > open)
-        {
-            if (s[start + length - 1] == ')') { length--; close--; }
-            else break;
-        }
+            if (s[start + length - 1] == ')')
+            {
+                length--;
+                close--;
+            }
+            else
+            {
+                break;
+            }
 
         return (start, length);
     }
 
     private static bool AnyUsed(bool[] used, int start, int len)
     {
-        int end = Math.Min(used.Length, start + len);
-        for (int i = start; i < end; i++)
-            if (used[i]) return true;
+        var end = Math.Min(used.Length, start + len);
+        for (var i = start; i < end; i++)
+            if (used[i])
+                return true;
         return false;
     }
 
     private static void MarkUsed(bool[] used, int start, int len)
     {
-        int end = Math.Min(used.Length, start + len);
-        for (int i = start; i < end; i++)
+        var end = Math.Min(used.Length, start + len);
+        for (var i = start; i < end; i++)
             used[i] = true;
     }
 
@@ -871,9 +784,7 @@ public class MessageAppService(
         var mentionEntities = new List<TMessageEntityMention>();
 
         if (entities is { Count: > 0 })
-        {
             foreach (var e in entities)
-            {
                 switch (e)
                 {
                     case TInputMessageEntityMentionName named:
@@ -890,25 +801,6 @@ public class MessageAppService(
                         mentionedUserIds.Add(mn.UserId);
                         break;
                 }
-            }
-        }
-
-        //// Text-based mentions using safe regex + overlap guard
-        //foreach (Match mm in MentionRegex.Matches(message))
-        //{
-        //    var start = mm.Index;
-        //    var length = mm.Length;
-
-        //    if (AnyUsed(used, start, length))
-        //        continue; // skip if inside URL/email (or already an entity)
-
-        //    var uname = mm.Groups[1].Value; // without '@'
-        //                                    // mark the range as used so nothing overlaps
-        //    MarkUsed(used, start, length);
-
-        //    candidateUsernames.Add(uname);
-        //    mentionEntities.Add(new TMessageEntityMention { Offset = start, Length = length });
-        //}
 
         foreach (var (start, length, uname) in usernameHelper.FindMentions(message))
         {
@@ -981,7 +873,7 @@ public class MessageAppService(
                 var baseJoin = joinChatDomain.TrimEnd('/');
                 return new TMessageMediaWebPage
                 {
-                    Webpage = new Schema.TWebPage
+                    Webpage = new TWebPage
                     {
                         Id = Random.Shared.NextInt64(),
                         Url = $"{baseJoin}/+{link}",
@@ -989,7 +881,7 @@ public class MessageAppService(
                         Type = channel.Broadcast ? "telegram_channel" : "telegram_megagroup",
                         SiteName = "MyTelegram",
                         Title = channel.Title,
-                        Description = "Join this group on MyTelegram.",
+                        Description = "Join this group on MyTelegram."
                     }
                 };
             }
@@ -1019,18 +911,22 @@ public class MessageAppService(
                 path = slash >= 0 ? normalized[(slash + 1)..] : "";
             }
         }
-        catch { host = normalized; }
+        catch
+        {
+            host = normalized;
+        }
 
         var hostRx = Regex.Escape(host);
         var pathRx = string.IsNullOrEmpty(path) ? "" : $"{Regex.Escape(path)}/";
 
         var pat = $$"""
-        (?xi)
-        \b
-        (?:https?://)? (?:www\.)? {{hostRx}} / {{pathRx}} \+ (?<link>[A-Za-z0-9_-]{16,64})
-        (?= \s | $ | [)\]\}.,!?;:] )
-        """;
+                    (?xi)
+                    \b
+                    (?:https?://)? (?:www\.)? {{hostRx}} / {{pathRx}} \+ (?<link>[A-Za-z0-9_-]{16,64})
+                    (?= \s | $ | [)\]\}.,!?;:] )
+                    """;
 
-        return new Regex(pat, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, RxTimeout);
+        return new Regex(pat, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+            RxTimeout);
     }
 }

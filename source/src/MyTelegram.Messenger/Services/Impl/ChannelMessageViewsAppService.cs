@@ -11,11 +11,10 @@ public class ChannelMessageViewsAppService(
     : IChannelMessageViewsAppService, ITransientDependency
 {
     public async Task IncrementViewsIfNotIncrementedAsync(long selfUserId,
-        long authKeyId,
         long channelId,
         int messageId)
     {
-        var key = GetFilterKey(selfUserId, authKeyId, channelId, messageId);
+        var key = GetFilterKey(selfUserId, channelId, messageId);
         var isExists = await cuckooFilter.ExistsAsync(key);
         if (!isExists)
         {
@@ -24,20 +23,18 @@ public class ChannelMessageViewsAppService(
     }
 
     private byte[] GetFilterKey(long selfUserId,
-        long authKeyId,
         long channelId,
         int messageId) =>
         Encoding.UTF8.GetBytes(
-            $"{MyTelegramConsts.ChannelMessageViewsBloomFilterKey}_{selfUserId}_{authKeyId}_{channelId}_{messageId}");
+            $"{MyTelegramConsts.ChannelMessageViewsBloomFilterKey}_{selfUserId}_{channelId}_{messageId}");
 
     public async Task<IList<IMessageViews>> GetMessageViewsAsync(long selfUserId,
-        long authKeyId,
         long channelId,
         List<int> messageIdList)
     {
         var messageIdGreaterThanZeroList = messageIdList.Where(p => p > 0).ToList();
         var keyList = messageIdGreaterThanZeroList
-            .Select(p => GetFilterKey(selfUserId, authKeyId, channelId, p)).ToList();
+            .Select(p => GetFilterKey(selfUserId, channelId, p)).ToList();
 
         var needIncrementMessageIdList = new List<int>();
         var index = 0;
