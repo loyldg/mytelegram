@@ -44,7 +44,8 @@ public class SignInSaga :
         if (!domainEvent.AggregateEvent.IsCodeValid)
         {
             await CompleteAsync(cancellationToken);
-            RpcErrors.RpcErrors400.PhoneCodeInvalid.ThrowRpcError();
+            return;
+            //RpcErrors.RpcErrors400.PhoneCodeInvalid.ThrowRpcError();
         }
 
         if (domainEvent.AggregateEvent.UserId == 0)
