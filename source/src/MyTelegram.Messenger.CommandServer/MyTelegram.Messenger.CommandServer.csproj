@@ -67,7 +67,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Cuckoo\Microsoft.Cuckoo.csproj" />
     <ProjectReference Include="..\MyTelegram.Caching.Redis\MyTelegram.Caching.Redis.csproj" />
     <ProjectReference Include="..\MyTelegram.Domain\MyTelegram.Domain.csproj" />
     <ProjectReference Include="..\MyTelegram.GrpcService\MyTelegram.GrpcService.csproj" />

@@ -1,4 +1,6 @@
-﻿using MyTelegram.Domain.Aggregates.PeerNotifySetting;
+﻿using MyTelegram.Domain.Aggregates.AppCode;
+using MyTelegram.Domain.Aggregates.PeerNotifySetting;
+using MyTelegram.Domain.Events.AppCode;
 using MyTelegram.Domain.Events.PeerNotifySettings;
 using MyTelegram.Messenger.Extensions;
 using MyTelegram.Messenger.Services.Interfaces;
@@ -16,7 +18,8 @@ public class OtherDomainEventHandler(
     IUpdatesConverterService updatesConverterService,
     IUserConverterService userConverterService,
     ILayeredService<IAuthorizationConverter> layeredAuthorizationService,
-    ICacheManager<GlobalPrivacySettingsCacheItem> cacheManager)
+    ICacheManager<GlobalPrivacySettingsCacheItem> cacheManager,
+    ILogger<OtherDomainEventHandler> logger)
     : DomainEventHandlerBase(objectMessageSender,
             commandBus,
             idGenerator,
@@ -28,7 +31,8 @@ public class OtherDomainEventHandler(
         ISubscribeSynchronousTo<UserAggregate, UserId, UserGlobalPrivacySettingsChangedEvent>,
         ISubscribeSynchronousTo<PinForwardedChannelMessageSaga, PinForwardedChannelMessageSagaId,
             PinChannelMessagePtsIncrementedSagaEvent>,
-        ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent>
+        ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent>,
+        ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>
 {
     private readonly IObjectMessageSender _objectMessageSender = objectMessageSender;
 
@@ -318,6 +322,16 @@ public class OtherDomainEventHandler(
                 Date = now,
             };
             await PushUpdatesToPeerAsync(aggregateEvent.UserId.ToUserPeer(), updates, excludeAuthKeyId: aggregateEvent.PermAuthKeyId);
+        }
+    }
+
+    public async Task HandleAsync(IDomainEvent<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        if (!domainEvent.AggregateEvent.IsCodeValid)
+        {
+            logger.LogWarning("Invalid phone code: {@Request}", domainEvent.AggregateEvent.RequestInfo);
+            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
+                RpcErrors.RpcErrors400.PhoneCodeInvalid.ToRpcError());
         }
     }
 }
