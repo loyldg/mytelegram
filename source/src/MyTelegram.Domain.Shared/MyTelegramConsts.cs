@@ -59,7 +59,6 @@ public class MyTelegramConsts
     public const string BlockedCuckooFilterKey = "MyTelegarm.CuckooFilter.Blocked";
     public const string UserNameCuckooFilterKey = "MyTelegarm.CuckooFilter.UserName";
     public const string ChannelMessageViewsBloomFilterKey = "MyTelegarm.BloomFilter.ChannelMessageViews";
-    public const int ChannelMessageViewsTtl = 365;
     public static int EditTimeLimit { get; set; } = 172800;
 
     public const int QuickRepliesLimit = 100;
