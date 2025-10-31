@@ -38,7 +38,8 @@ public class WebSocketMiddleware(
                     WebSocket = webSocket,
                     ClientType = ClientType.WebSocket,
                     ClientIp = clientIp,
-                    ConnectionType = connectionTypeFeature?.ConnectionType ?? ConnectionType.Generic
+                    ConnectionType = connectionTypeFeature?.ConnectionType ?? ConnectionType.Generic,
+                    DcId = connectionTypeFeature?.DcId ?? 0
                 };
                 clientManager.AddClient(context.Connection.Id, clientData);
 
@@ -66,19 +67,17 @@ public class WebSocketMiddleware(
                 {
                     if (!clientManager.TryGetClientData(clientData.ConnectionId, out var d))
                     {
-                        logger.LogWarning(
-                            "[0] Cannot find cached client info, skip sending message, connectionId: {ConnectionId}",
-                            clientData.ConnectionId);
+                        logger.CachedClientInfoNotFound(clientData.ConnectionId);
                         continue;
                     }
-                    
+
                     var encodedBytes = ArrayPool<byte>.Shared.Rent(clientDataSender.GetEncodedDataMaxLength(response.Data.Length));
                     try
                     {
                         var totalCount = clientDataSender.EncodeData(response, d, encodedBytes);
                         //await SendAsync(encodedBytes.AsMemory()[..totalCount], connectionContext);
                         await clientData.WebSocket!.SendAsync(encodedBytes.AsMemory()[..totalCount],
-                            WebSocketMessageType.Binary, true, default);
+                            WebSocketMessageType.Binary, true, CancellationToken.None);
                     }
                     finally
                     {
@@ -100,6 +99,9 @@ public class WebSocketMiddleware(
         {
             mtpMessage.ConnectionId = clientData.ConnectionId;
             mtpMessage.ClientIp = clientData.ClientIp;
+            mtpMessage.DcId = clientData.DcId;
+            mtpMessage.ConnectionType = clientData.ConnectionType;
+
             return messageDispatcher.DispatchAsync(mtpMessage);
         }
 

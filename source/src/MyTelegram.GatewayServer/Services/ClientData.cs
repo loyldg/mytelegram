@@ -16,7 +16,7 @@ public class ClientData : IClientData
 
     public Channel<UnencryptedMessage> UnencryptedMessageQueue { get; set; } =
         Channel.CreateUnbounded<UnencryptedMessage>();
-
+    public int DcId { get; set; }
     public ConnectionType ConnectionType { get; set; }
     public ProtocolType MtProtoType { get; set; }
     public bool IsFirstPacketParsed { get; set; }
