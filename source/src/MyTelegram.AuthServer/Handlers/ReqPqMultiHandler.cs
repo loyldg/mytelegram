@@ -15,7 +15,7 @@ public class ReqPqMultiHandler(
     )
     {
         Interlocked.Increment(ref _count);
-        if (cacheHelper.TryRemove(input.ConnectionId, out var oldNonce))
+        if (cacheHelper.TryRemove(input.ConnectionId, out _))
         {
             //logger.LogInformation("[{Count}] Old nonce:{OldNonce}->{NewNonce}", _count, oldNonce.ToHexString(), obj.Nonce.ToHexString());
         }
@@ -39,15 +39,7 @@ public class ReqPqMultiHandler(
             MyTelegramConsts.AuthKeyExpireSeconds
         );
         sw.Stop();
-        logger.LogInformation(
-            "[Step1] ReqPqMultiHandler, connectionId={ConnectionId}, nonce: {Nonce} {Nonce2} reqMsgId: {ReqMsgId}, authKeyId: {AuthKeyId} {TimeSpan}ms",
-            input.ConnectionId,
-            obj.Nonce.ToHexString(),
-            nonce.ToHexString(),
-            input.ReqMsgId,
-            input.AuthKeyId,
-            sw.Elapsed.TotalMilliseconds
-        );
+        logger.HandshakeReqMultiStep1(input.ConnectionId, input.ReqMsgId, input.AuthKeyId, sw.Elapsed.TotalMilliseconds);
 
         return dto.ResPq;
     }

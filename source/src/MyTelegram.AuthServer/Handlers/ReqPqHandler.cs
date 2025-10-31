@@ -18,11 +18,7 @@ public class ReqPqHandler(
             authCacheItem,
             MyTelegramConsts.AuthKeyExpireSeconds
         );
-        logger.LogInformation(
-            "[Step1] ReqPqHandler, connectionId: {ConnectionId}, reqMsgId: {ReqMsgId}",
-            input.ConnectionId,
-            input.ReqMsgId
-        );
+        logger.HandshakeStep1(input.ConnectionId, input.ReqMsgId);
 
         return dto.ResPq;
     }
