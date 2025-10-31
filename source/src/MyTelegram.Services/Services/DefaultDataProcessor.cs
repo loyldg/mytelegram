@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using MyTelegram.Services.Extensions;
+using System.Diagnostics;
 
 namespace MyTelegram.Services.Services;
 
@@ -65,10 +66,9 @@ public class DefaultDataProcessor<TData>(
                     var r = await handler.HandleAsync(req, data);
                     sw.Stop();
 
-                    logger.LogInformation(
-                        "User {UserId} {PermAuthKeyId} {Handler} {DeviceType}[{Layer}] {Timespan}ms",
+                    logger.UserRequestHandled(
                         obj.UserId,
-                        req.PermAuthKeyId,
+                        req.ReqMsgId,
                         handlerName,
                         obj.DeviceType,
                         obj.Layer,
@@ -77,8 +77,7 @@ public class DefaultDataProcessor<TData>(
 
                     if (logger.IsEnabled(LogLevel.Debug))
                     {
-                        logger.LogDebug(
-                            "User {UserId} {Handler} {DeviceType}[{Layer}] {Timespan}ms. [{@Input}]Request data: {@Request}, response: {@Response}",
+                        logger.UserRequestDebug(
                             obj.UserId,
                             handlerName,
                             obj.DeviceType,
@@ -124,6 +123,7 @@ public class DefaultDataProcessor<TData>(
     {
         var req = new RequestInput(
             obj.ConnectionId,
+            obj.ConnectionType,
             obj.RequestId,
             obj.ObjectId,
             obj.ReqMsgId,
