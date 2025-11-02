@@ -18,6 +18,7 @@ public class UnencryptedMessageParser : IUnencryptedMessageParser, ITransientDep
             string.Empty,
             string.Empty,
             0,
+            0,
             messageData,
             messageDataLength,
             messageId,

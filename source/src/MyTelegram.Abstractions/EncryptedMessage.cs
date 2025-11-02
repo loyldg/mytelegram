@@ -16,6 +16,7 @@ public record EncryptedMessage(long AuthKeyId,
     ReadOnlyMemory<byte> EncryptedData,
     string ConnectionId,
     ConnectionType ConnectionType,
+    int DcId,
     string ClientIp,
     Guid RequestId,
     long Date
@@ -23,6 +24,7 @@ public record EncryptedMessage(long AuthKeyId,
 {
     public string ConnectionId { get; set; } = ConnectionId;
     public ConnectionType ConnectionType { get; set; } = ConnectionType;
+    public int DcId { get; set; } = DcId;
     public string ClientIp { get; set; } = ClientIp;
-    [JsonIgnore]public IMemoryOwner<byte>? MemoryOwner { get; set; }
+    [JsonIgnore] public IMemoryOwner<byte>? MemoryOwner { get; set; }
 }
