@@ -25,6 +25,7 @@ public class PtsEventHandler(IPtsHelper ptsHelper,
       ISubscribeSynchronousTo<UpdateMessagePinnedSaga, UpdateMessagePinnedSagaId, MessagePinnedUpdatedSagaEvent>,
     ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedSagaEvent>,
     ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedSagaEvent>,
+    ISubscribeSynchronousTo<ReadMentionsSaga, ReadMentionsSagaId, ReadMentionsCompletedSagaEvent>,
     ISubscribeSynchronousTo<PtsAggregate, PtsId, PtsAckedEvent>,
     ISubscribeSynchronousTo<PtsAggregate, PtsId, QtsAckedEvent>,
     ISubscribeSynchronousTo<DeleteChannelMessagesSaga, DeleteChannelMessagesSagaId, DeleteChannelMessagesCompletedSagaEvent>
@@ -132,6 +133,15 @@ public class PtsEventHandler(IPtsHelper ptsHelper,
             //await ptsHelper.IncrementPtsAsync(item.OwnerPeer.PeerId, item.Pts);
             await UpdatePtsAsync(item.OwnerPeer.PeerId, item.Pts, messageId: item.MessageId);
         }
+    }
+
+    public Task HandleAsync(
+        IDomainEvent<ReadMentionsSaga, ReadMentionsSagaId, ReadMentionsCompletedSagaEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        return UpdatePtsAsync(domainEvent.AggregateEvent.UserId,
+            domainEvent.AggregateEvent.Pts,
+            domainEvent.AggregateEvent.PtsCount);
     }
 
     private async Task IncrementGlobalSeqNoAsync(long userId)

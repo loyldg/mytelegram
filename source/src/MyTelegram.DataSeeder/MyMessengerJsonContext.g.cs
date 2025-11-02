@@ -260,6 +260,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.PostChannelIdUpdatedSagaEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.ReadHistoryPtsIncrementedSagaEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.ReadHistoryStartedSagaEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Sagas.ReadMentionsCompletedSagaEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.ReplyBroadcastChannelCompletedSagaEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.SetDiscussionGroupSagaStartedSagaEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Sagas.UnpinAllMessagesCompletedSagaEvent))]

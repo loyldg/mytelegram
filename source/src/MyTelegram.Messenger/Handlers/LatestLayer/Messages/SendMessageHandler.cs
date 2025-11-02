@@ -72,25 +72,35 @@ internal sealed class SendMessageHandler(
     : RpcResultObjectHandler<RequestSendMessage, IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
-        RequestSendMessage obj)
+    RequestSendMessage obj)
     {
         await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         await accessHashHelper.CheckAccessHashAsync(input, obj.SendAs);
-        var media = await ProcessUrlsInMessageAsync(obj);
+
+        var media = await messageAppService.CreateInvitePreviewIfAnyAsync(
+            obj.Message,
+            options.Value.JoinChatDomain);
+
         if (obj.Message.StartsWith("/"))
         {
-            obj.Entities ??= [];
-            obj.Entities.Add(new TMessageEntityBotCommand
+            var match = Regex.Match(obj.Message, @"^/([A-Za-z0-9_]{1,64})\b");
+
+            if (match.Success)
             {
-                Length = obj.Message.Length,
-                Offset = 0
-            });
+                obj.Entities ??= [];
+                obj.Entities.Add(new TMessageEntityBotCommand
+                {
+                    Offset = 0,
+                    Length = match.Length // includes leading slash
+                });
+            }
         }
 
         int? topMsgId = null;
 
         var sendAs = peerHelper.GetPeer(obj.SendAs, input.UserId);
-        var sendMessageInput = new SendMessageInput(input.ToRequestInfo(),
+        var sendMessageInput = new SendMessageInput(
+            input.ToRequestInfo(),
             input.UserId,
             peerHelper.GetPeer(obj.Peer, input.UserId),
             obj.Message,
@@ -111,50 +121,5 @@ internal sealed class SendMessageHandler(
         await messageAppService.SendMessageAsync([sendMessageInput]);
 
         return null!;
-    }
-    private async Task<TMessageMediaWebPage?> ProcessUrlsInMessageAsync(RequestSendMessage obj)
-    {
-        var pattern = @"(?:^|\s)(https?://[^\s]+)(?=\s|$)";
-        var pattern2 = @$"{options.Value.JoinChatDomain}/\+([\S]{{16}})";
-        var matches = Regex.Matches(obj.Message, pattern);
-        var isInviteUrlAdded = false;
-        TMessageMediaWebPage? media = null;
-        foreach (Match match in matches)
-        {
-            obj.Entities ??= [];
-            var url = match.Groups[1].Value;
-            var m2 = Regex.Match(url, pattern2);
-            if (m2.Success && !isInviteUrlAdded)
-            {
-                var link = m2.Groups[1].Value;
-                var chatInvite = await queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(link));
-                if (chatInvite != null)
-                {
-                    var channelReadModel = await channelAppService.GetAsync(chatInvite.PeerId);
-                    // Super group/Public channel
-                    if (!channelReadModel.Broadcast ||
-                        (channelReadModel.Broadcast && !string.IsNullOrEmpty(channelReadModel.UserName)))
-                    {
-                        media = new TMessageMediaWebPage
-                        {
-                            Webpage = new Schema.TWebPage
-                            {
-                                Id = Random.Shared.NextInt64(),
-                                Url = $"{options.Value.JoinChatDomain}/+{link}",
-                                DisplayUrl = $"{options.Value.JoinChatDomain}/+{link}",
-                                Type = channelReadModel.Broadcast ? "telegram_channel" : "telegram_megagroup",
-                                SiteName = "MyTelegram",
-                                Title = channelReadModel.Title,
-                                Description = $"Join this group on MyTelegram.",
-                            }
-                        };
-                    }
-
-                    isInviteUrlAdded = true;
-                }
-            }
-        }
-
-        return media;
     }
 }

@@ -22,7 +22,8 @@ public class PtsEventHandler(
             DeleteReplyMessagePtsIncrementedSagaEvent>,
         ISubscribeSynchronousTo<UnpinAllMessagesSaga, UnpinAllMessagesSagaId, MessageUnpinnedSagaEvent>,
         ISubscribeSynchronousTo<UpdateMessagePinnedSaga, UpdateMessagePinnedSagaId, MessagePinnedUpdatedSagaEvent>,
-        ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedSagaEvent>
+        ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedSagaEvent>,
+        ISubscribeSynchronousTo<ReadMentionsSaga, ReadMentionsSagaId, ReadMentionsCompletedSagaEvent>
 {
     public async Task HandleAsync(
         IDomainEvent<ClearHistorySaga, ClearHistorySagaId, ClearSingleUserHistoryCompletedSagaEvent> domainEvent,
@@ -106,6 +107,15 @@ public class PtsEventHandler(
         {
             await ptsHelper.IncrementPtsAsync(item.OwnerPeer.PeerId, item.Pts);
         }
+    }
+
+    public Task HandleAsync(
+        IDomainEvent<ReadMentionsSaga, ReadMentionsSagaId, ReadMentionsCompletedSagaEvent> domainEvent,
+        CancellationToken cancellationToken)
+    {
+        return ptsHelper.IncrementPtsAsync(domainEvent.AggregateEvent.UserId,
+            domainEvent.AggregateEvent.Pts,
+            domainEvent.AggregateEvent.PtsCount);
     }
 
     public Task HandleAsync(

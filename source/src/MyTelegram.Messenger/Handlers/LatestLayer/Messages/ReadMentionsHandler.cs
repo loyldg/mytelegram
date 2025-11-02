@@ -10,11 +10,36 @@
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// See <a href="https://corefork.telegram.org/method/messages.readMentions" />
 ///</summary>
-internal sealed class ReadMentionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadMentions, MyTelegram.Schema.Messages.IAffectedHistory>
+internal sealed class ReadMentionsHandler(
+    ICommandBus commandBus,
+    IPeerHelper peerHelper,
+    IAccessHashHelper accessHashHelper,
+    IQueryProcessor queryProcessor,
+    IPtsHelper ptsHelper)
+    : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadMentions, MyTelegram.Schema.Messages.IAffectedHistory>
 {
-    protected override Task<MyTelegram.Schema.Messages.IAffectedHistory> HandleCoreAsync(IRequestInput input,
+    protected override async Task<MyTelegram.Schema.Messages.IAffectedHistory> HandleCoreAsync(IRequestInput input,
         MyTelegram.Schema.Messages.RequestReadMentions obj)
     {
-        throw new NotImplementedException();
+        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
+        var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
+        var dialogId = DialogId.Create(input.UserId, peer);
+
+        var dialogReadModel = await queryProcessor.ProcessAsync(new GetDialogByIdQuery(dialogId.Value));
+
+        if (dialogReadModel != null && dialogReadModel.UnreadMentionsCount > 0)
+        {
+            var messageId = obj.TopMsgId ?? dialogReadModel.TopMessage;
+            var command = new ReadMentionCommand(dialogId, input.ToRequestInfo(), input.UserId, messageId, true);
+            await commandBus.PublishAsync(command);
+            return null!;
+        }
+
+        return new TAffectedHistory
+        {
+            Pts = ptsHelper.GetCachedPts(input.UserId),
+            PtsCount = 0,
+            Offset = 0
+        };
     }
 }

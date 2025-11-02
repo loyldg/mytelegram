@@ -22,6 +22,7 @@ public static class MyTelegramMessengerCommandServerExtensions
         services.AddSubscription<RpcMessageHasSentEvent, PtsEventHandler>();
         services.AddSubscription<AcksDataReceivedEvent, PtsEventHandler>();
 
+        services.AddSubscription<UserLoggedOutEvent, LogOutEventHandler>();
     }
 
     public static void AddMyTelegramMessengerCommandServer(this IServiceCollection services,

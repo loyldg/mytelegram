@@ -1,4 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+﻿using IMessageViews = MyTelegram.Schema.Messages.IMessageViews;
+using TMessageViews = MyTelegram.Schema.Messages.TMessageViews;
+
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 
 ///<summary>
 /// Get and increase the view counter of a message sent or forwarded from a <a href="https://corefork.telegram.org/api/channel">channel</a>
@@ -26,9 +29,8 @@ internal sealed class GetMessagesViewsHandler(
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
         if (peer.PeerType == PeerType.Channel)
         {
-            if (obj.Id.Max() < 0)
-            {
-                return new MyTelegram.Schema.Messages.TMessageViews
+            if (obj.Id.Max() <= 0)
+                return new TMessageViews
                 {
                     Views = [.. obj.Id.Select(p => new Schema.TMessageViews { Views = 1 })
                         .ToList()],
@@ -51,7 +53,7 @@ internal sealed class GetMessagesViewsHandler(
         var messages = await queryProcessor
             .ProcessAsync(new GetMessagesByIdListQuery(boxIdList));
         var dict = messages.ToDictionary(k => k.MessageId, v => v);
-        return new MyTelegram.Schema.Messages.TMessageViews
+        return new TMessageViews
         {
             Chats = [],
             Users = [],
