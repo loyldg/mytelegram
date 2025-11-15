@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Contains info on message sent to an encrypted chat.
-/// See <a href="https://corefork.telegram.org/type/messages.SentEncryptedMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.SentEncryptedMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSentEncryptedMessage"/> See <a href="https://corefork.telegram.org/constructor/messages.sentEncryptedMessage" /><br/>
+/// <see cref="TSentEncryptedFile"/> See <a href="https://corefork.telegram.org/constructor/messages.sentEncryptedFile" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSentEncryptedMessage), nameof(TSentEncryptedMessage))]
 [JsonDerivedType(typeof(TSentEncryptedFile), nameof(TSentEncryptedFile))]
 public interface ISentEncryptedMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Date of sending
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 }

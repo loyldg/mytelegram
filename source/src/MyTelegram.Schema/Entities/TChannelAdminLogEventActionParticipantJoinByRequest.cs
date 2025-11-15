@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new member was accepted to the chat by an admin
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest" /></para>
+/// </summary>
 [TlObject(0xafb6144a)]
-public sealed class TChannelAdminLogEventActionParticipantJoinByRequest : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantJoinByRequest : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xafb6144a;
-    ///<summary>
+    /// <summary>
     /// The invite link that was used to join the chat
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the admin that approved the invite
-    ///</summary>
+    /// </summary>
     public long ApprovedBy { get; set; }
 
     public void ComputeFlag()

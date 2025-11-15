@@ -2,34 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The results of a poll have changed
-/// See <a href="https://corefork.telegram.org/constructor/updateMessagePoll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateMessagePoll" /></para>
+/// </summary>
 [TlObject(0xaca1657b)]
-public sealed class TUpdateMessagePoll : IUpdate
+public sealed partial class TUpdateMessagePoll : IUpdate
 {
     public uint ConstructorId => 0xaca1657b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Poll ID
-    ///</summary>
+    /// </summary>
     public long PollId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the server knows the client hasn't cached this poll yet, the poll itself
     /// See <a href="https://corefork.telegram.org/type/Poll" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPoll? Poll { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New poll results
     /// See <a href="https://corefork.telegram.org/type/PollResults" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPollResults Results { get; set; }
 
     public void ComputeFlag()

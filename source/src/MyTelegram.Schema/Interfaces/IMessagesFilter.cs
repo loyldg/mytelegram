@@ -2,10 +2,30 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object describes message filter.
-/// See <a href="https://corefork.telegram.org/type/MessagesFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessagesFilter" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputMessagesFilterEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterEmpty" /><br/>
+/// <see cref="TInputMessagesFilterPhotos"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPhotos" /><br/>
+/// <see cref="TInputMessagesFilterVideo"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterVideo" /><br/>
+/// <see cref="TInputMessagesFilterPhotoVideo"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPhotoVideo" /><br/>
+/// <see cref="TInputMessagesFilterDocument"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterDocument" /><br/>
+/// <see cref="TInputMessagesFilterUrl"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterUrl" /><br/>
+/// <see cref="TInputMessagesFilterGif"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterGif" /><br/>
+/// <see cref="TInputMessagesFilterVoice"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterVoice" /><br/>
+/// <see cref="TInputMessagesFilterMusic"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterMusic" /><br/>
+/// <see cref="TInputMessagesFilterChatPhotos"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterChatPhotos" /><br/>
+/// <see cref="TInputMessagesFilterPhoneCalls"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPhoneCalls" /><br/>
+/// <see cref="TInputMessagesFilterRoundVoice"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterRoundVoice" /><br/>
+/// <see cref="TInputMessagesFilterRoundVideo"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterRoundVideo" /><br/>
+/// <see cref="TInputMessagesFilterMyMentions"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterMyMentions" /><br/>
+/// <see cref="TInputMessagesFilterGeo"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterGeo" /><br/>
+/// <see cref="TInputMessagesFilterContacts"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterContacts" /><br/>
+/// <see cref="TInputMessagesFilterPinned"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPinned" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputMessagesFilterEmpty), nameof(TInputMessagesFilterEmpty))]
 [JsonDerivedType(typeof(TInputMessagesFilterPhotos), nameof(TInputMessagesFilterPhotos))]
 [JsonDerivedType(typeof(TInputMessagesFilterVideo), nameof(TInputMessagesFilterVideo))]

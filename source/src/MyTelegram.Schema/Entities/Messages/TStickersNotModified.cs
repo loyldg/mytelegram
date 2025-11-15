@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No new stickers were found for the given query
-/// See <a href="https://corefork.telegram.org/constructor/messages.stickersNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.stickersNotModified" /></para>
+/// </summary>
 [TlObject(0xf1749a22)]
-public sealed class TStickersNotModified : IStickers
+public sealed partial class TStickersNotModified : IStickers
 {
     public uint ConstructorId => 0xf1749a22;
     public void ComputeFlag()

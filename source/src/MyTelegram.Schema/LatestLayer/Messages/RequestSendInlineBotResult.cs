@@ -2,126 +2,132 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Send a result obtained using <a href="https://corefork.telegram.org/method/messages.getInlineBotResults">messages.getInlineBotResults</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 403 CHAT_GUEST_SEND_FORBIDDEN You join the discussion group before commenting, see <a href="https://corefork.telegram.org/api/discussion#requiring-users-to-join-the-group">here&nbsp;»</a> for more info.
-/// 400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.
-/// 403 CHAT_SEND_AUDIOS_FORBIDDEN You can't send audio messages in this chat.
-/// 403 CHAT_SEND_GAME_FORBIDDEN You can't send a game to this chat.
-/// 403 CHAT_SEND_GIFS_FORBIDDEN You can't send gifs in this chat.
-/// 403 CHAT_SEND_INLINE_FORBIDDEN You can't send inline messages in this group.
-/// 403 CHAT_SEND_MEDIA_FORBIDDEN You can't send media in this chat.
-/// 403 CHAT_SEND_PHOTOS_FORBIDDEN You can't send photos in this chat.
-/// 403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.
-/// 403 CHAT_SEND_STICKERS_FORBIDDEN You can't send stickers in this chat.
-/// 403 CHAT_SEND_VOICES_FORBIDDEN You can't send voice recordings in this chat.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here&nbsp;»</a> for info on how to properly compute the entity offset/length.
-/// 400 INLINE_RESULT_EXPIRED The inline query expired.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MEDIA_EMPTY The provided media object is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 QUERY_ID_EMPTY The query ID is empty.
-/// 400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.
-/// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
-/// 400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.
-/// 400 RESULT_ID_EMPTY Result ID empty.
-/// 400 RESULT_ID_INVALID One of the specified result IDs is invalid.
-/// 400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.
-/// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
-/// 500 SEND_MEDIA_INVALID The specified media is invalid.
-/// 420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
-/// 400 TOPIC_DELETED The specified topic was deleted.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// 400 VOICE_MESSAGES_FORBIDDEN This user's privacy settings forbid you from sending voice messages.
-/// 400 WEBPAGE_CURL_FAILED Failure while fetching the webpage with cURL.
-/// 400 WEBPAGE_MEDIA_EMPTY Webpage media empty.
-/// 400 YOU_BLOCKED_USER You blocked this user.
-/// See <a href="https://corefork.telegram.org/method/messages.sendInlineBotResult" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 ALLOW_PAYMENT_REQUIRED_%d This peer charges %d <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> per message, but the <code>allow_paid_stars</code> was not set or its value is smaller than %d.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>403 CHAT_GUEST_SEND_FORBIDDEN You join the discussion group before commenting, see <a href="https://corefork.telegram.org/api/discussion#requiring-users-to-join-the-group">here »</a> for more info.</c></para>
+/// <para><c>400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.</c></para>
+/// <para><c>403 CHAT_SEND_AUDIOS_FORBIDDEN You can't send audio messages in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_GAME_FORBIDDEN You can't send a game to this chat.</c></para>
+/// <para><c>403 CHAT_SEND_GIFS_FORBIDDEN You can't send gifs in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_INLINE_FORBIDDEN You can't send inline messages in this group.</c></para>
+/// <para><c>403 CHAT_SEND_MEDIA_FORBIDDEN You can't send media in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_PHOTOS_FORBIDDEN You can't send photos in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_STICKERS_FORBIDDEN You can't send stickers in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_VOICES_FORBIDDEN You can't send voice recordings in this chat.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
+/// <para><c>400 INLINE_RESULT_EXPIRED The inline query expired.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MEDIA_EMPTY The provided media object is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
+/// <para><c>400 QUERY_ID_EMPTY The query ID is empty.</c></para>
+/// <para><c>400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.</c></para>
+/// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.</c></para>
+/// <para><c>400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.</c></para>
+/// <para><c>400 RESULT_ID_EMPTY Result ID empty.</c></para>
+/// <para><c>400 RESULT_ID_INVALID One of the specified result IDs is invalid.</c></para>
+/// <para><c>400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.</c></para>
+/// <para><c>400 SCHEDULE_TOO_MUCH There are too many scheduled messages.</c></para>
+/// <para><c>400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.</c></para>
+/// <para><c>500 SEND_MEDIA_INVALID The specified media is invalid.</c></para>
+/// <para><c>420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.</c></para>
+/// <para><c>400 TOPIC_DELETED The specified topic was deleted.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.</c></para>
+/// <para><c>400 VOICE_MESSAGES_FORBIDDEN This user's privacy settings forbid you from sending voice messages.</c></para>
+/// <para><c>400 WEBPAGE_CURL_FAILED Failure while fetching the webpage with cURL.</c></para>
+/// <para><c>400 WEBPAGE_MEDIA_EMPTY Webpage media empty.</c></para>
+/// <para><c>400 YOU_BLOCKED_USER You blocked this user. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendInlineBotResult" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc0cf7646)]
-public sealed class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendInlineBotResult : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xc0cf7646;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to send the message silently (no notification will be triggered on the other client)
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to send the message in background
-    ///</summary>
+    /// </summary>
     public bool Background { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to clear the <a href="https://corefork.telegram.org/api/drafts">draft</a>
-    ///</summary>
+    /// </summary>
     public bool ClearDraft { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to hide the <code>via @botname</code> in the resulting message (only for bot usernames encountered in the <a href="https://corefork.telegram.org/constructor/config">config</a>)
-    ///</summary>
+    /// </summary>
     public bool HideVia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the message should be sent in reply to the specified message or story.
     /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Random ID to avoid resending the same query
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query ID from <a href="https://corefork.telegram.org/method/messages.getInlineBotResults">messages.getInlineBotResults</a>
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result ID from <a href="https://corefork.telegram.org/method/messages.getInlineBotResults">messages.getInlineBotResults</a>
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Scheduled message date for scheduled messages
-    ///</summary>
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Send this message as the specified peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Add the message to the specified <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut »</a>, instead.
     /// See <a href="https://corefork.telegram.org/type/InputQuickReplyShortcut" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputQuickReplyShortcut? QuickReplyShortcut { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>, specifies the amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> the user has agreed to pay in order to send the message.
-    ///</summary>
+    /// </summary>
     public long? AllowPaidStars { get; set; }
 
     public void ComputeFlag()

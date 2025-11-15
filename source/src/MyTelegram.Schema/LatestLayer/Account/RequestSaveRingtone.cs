@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
-/// Save or remove saved notification sound.If the notification sound is already in MP3 format, <a href="https://corefork.telegram.org/constructor/account.savedRingtone">account.savedRingtone</a> will be returned.<br>
+/// <summary>
+/// Save or remove saved notification sound.If the notification sound is already in MP3 format, <a href="https://corefork.telegram.org/constructor/account.savedRingtone">account.savedRingtone</a> will be returned.<br/>
 /// Otherwise, it will be automatically converted and a <a href="https://corefork.telegram.org/constructor/account.savedRingtoneConverted">account.savedRingtoneConverted</a> will be returned, containing a new <a href="https://corefork.telegram.org/constructor/document">document</a> object that should be used to refer to the ringtone from now on (ie when deleting it using the <code>unsave</code> parameter, or when downloading it).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 RINGTONE_INVALID The specified ringtone is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.saveRingtone" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 RINGTONE_INVALID The specified ringtone is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.saveRingtone" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3dea5b03)]
-public sealed class RequestSaveRingtone : IRequest<MyTelegram.Schema.Account.ISavedRingtone>
+public sealed partial class RequestSaveRingtone : IRequest<MyTelegram.Schema.Account.ISavedRingtone>
 {
     public uint ConstructorId => 0x3dea5b03;
 
-    ///<summary>
+    /// <summary>
     /// Notification sound uploaded using <a href="https://corefork.telegram.org/method/account.uploadRingtone">account.uploadRingtone</a>
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to add or delete the notification sound
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Unsave { get; set; }
 
     public void ComputeFlag()

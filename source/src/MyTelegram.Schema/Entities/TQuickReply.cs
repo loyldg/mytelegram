@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut</a>.
-/// See <a href="https://corefork.telegram.org/constructor/quickReply" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/quickReply" /></para>
+/// </summary>
 [TlObject(0x697102b)]
-public sealed class TQuickReply : IQuickReply
+public sealed partial class TQuickReply : IQuickReply
 {
     public uint ConstructorId => 0x697102b;
-    ///<summary>
+    /// <summary>
     /// Unique shortcut ID.
-    ///</summary>
+    /// </summary>
     public int ShortcutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Shortcut name.
-    ///</summary>
+    /// </summary>
     public string Shortcut { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the last message in the shortcut.
-    ///</summary>
+    /// </summary>
     public int TopMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of messages in the shortcut.
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
     public void ComputeFlag()

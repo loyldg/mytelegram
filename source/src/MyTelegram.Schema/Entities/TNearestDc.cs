@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Nearest data center, according to geo-ip.
-/// See <a href="https://corefork.telegram.org/constructor/nearestDc" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/nearestDc" /></para>
+/// </summary>
 [TlObject(0x8e1a1775)]
-public sealed class TNearestDc : INearestDc
+public sealed partial class TNearestDc : INearestDc
 {
     public uint ConstructorId => 0x8e1a1775;
-    ///<summary>
+    /// <summary>
     /// Country code determined by geo-ip
-    ///</summary>
+    /// </summary>
     public string Country { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of current data center
-    ///</summary>
+    /// </summary>
     public int ThisDc { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of nearest data center
-    ///</summary>
+    /// </summary>
     public int NearestDc { get; set; }
 
     public void ComputeFlag()

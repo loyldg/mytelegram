@@ -2,40 +2,44 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// List of dialogs
-/// See <a href="https://corefork.telegram.org/type/messages.PeerDialogs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.PeerDialogs" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerDialogs"/> See <a href="https://corefork.telegram.org/constructor/messages.peerDialogs" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerDialogs), nameof(TPeerDialogs))]
 public interface IPeerDialogs : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Dialog info
     /// See <a href="https://corefork.telegram.org/type/Dialog" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IDialog> Dialogs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Messages mentioned in dialog info
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current <a href="https://corefork.telegram.org/api/updates">update state of dialog</a>
     /// See <a href="https://corefork.telegram.org/type/updates.State" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.Updates.IState State { get; set; }
 }

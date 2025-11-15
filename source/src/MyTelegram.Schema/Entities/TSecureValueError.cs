@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure value error
-/// See <a href="https://corefork.telegram.org/constructor/secureValueError" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueError" /></para>
+/// </summary>
 [TlObject(0x869d758f)]
-public sealed class TSecureValueError : ISecureValueError
+public sealed partial class TSecureValueError : ISecureValueError
 {
     public uint ConstructorId => 0x869d758f;
-    ///<summary>
+    /// <summary>
     /// Type of element which has the issue
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

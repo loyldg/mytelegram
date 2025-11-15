@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new stickerset was installed
-/// See <a href="https://corefork.telegram.org/constructor/updateNewStickerSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateNewStickerSet" /></para>
+/// </summary>
 [TlObject(0x688a30aa)]
-public sealed class TUpdateNewStickerSet : IUpdate
+public sealed partial class TUpdateNewStickerSet : IUpdate
 {
     public uint ConstructorId => 0x688a30aa;
-    ///<summary>
+    /// <summary>
     /// The installed stickerset
     /// See <a href="https://corefork.telegram.org/type/messages.StickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Messages.IStickerSet Stickerset { get; set; }
 
     public void ComputeFlag()

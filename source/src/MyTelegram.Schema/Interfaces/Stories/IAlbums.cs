@@ -2,9 +2,15 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/stories.Albums" />
-///</summary>
+/// <summary>
+/// Represents a list of <a href="https://corefork.telegram.org/api/stories#story-albums">story albums »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/stories.Albums" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAlbumsNotModified"/> See <a href="https://corefork.telegram.org/constructor/stories.albumsNotModified" /><br/>
+/// <see cref="TAlbums"/> See <a href="https://corefork.telegram.org/constructor/stories.albums" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAlbumsNotModified), nameof(TAlbumsNotModified))]
 [JsonDerivedType(typeof(TAlbums), nameof(TAlbums))]
 public interface IAlbums : IObject

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user has joined the group (in the case of big groups, info of the user that has joined isn't shown)
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoin" /></para>
+/// </summary>
 [TlObject(0x183040d3)]
-public sealed class TChannelAdminLogEventActionParticipantJoin : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantJoin : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x183040d3;
     public void ComputeFlag()

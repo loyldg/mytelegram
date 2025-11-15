@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a previously active story, that was deleted
-/// See <a href="https://corefork.telegram.org/constructor/storyItemDeleted" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyItemDeleted" /></para>
+/// </summary>
 [TlObject(0x51e6ee4f)]
-public sealed class TStoryItemDeleted : IStoryItem
+public sealed partial class TStoryItemDeleted : IStoryItem
 {
     public uint ConstructorId => 0x51e6ee4f;
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

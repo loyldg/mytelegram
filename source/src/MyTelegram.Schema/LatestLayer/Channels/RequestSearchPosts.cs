@@ -2,45 +2,60 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
-/// Globally search for posts from public <a href="https://corefork.telegram.org/api/channel">channels »</a> (<em>including</em> those we aren't a member of) containing a specific hashtag.
-/// See <a href="https://corefork.telegram.org/method/channels.searchPosts" />
-///</summary>
+/// <summary>
+/// Globally search for posts from public <a href="https://corefork.telegram.org/api/channel">channels »</a> (<em>including</em> those we aren't a member of) containing either a specific hashtag, <em>or</em> a full text query.Exactly one of <code>query</code> and <code>hashtag</code> must be set.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>420 FROZEN_METHOD_INVALID The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and thus cannot execute the specified action. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.searchPosts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf2c4f24d)]
-public sealed class RequestSearchPosts : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestSearchPosts : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0xf2c4f24d;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The hashtag to search, without the <code>#</code> character.
-    ///</summary>
+    /// </summary>
     public string? Hashtag { get; set; }
 
+    /// <summary>
+    /// The full text query: each user has a limited amount of free full text search slots, after which payment is required, see <a href="https://corefork.telegram.org/api/search#posts-tab">here »</a> for more info on the full flow.
+    /// </summary>
     public string? Query { get; set; }
 
-    ///<summary>
-    /// Initially 0, then set to the <a href="https://corefork.telegram.org/constructor/messages.messagesSlice"><code>next_rate</code> parameter of messages.messagesSlice</a>
-    ///</summary>
+    /// <summary>
+    /// Initially 0, then set to the <a href="https://corefork.telegram.org/constructor/messages.messagesSlice"><code>next_rate</code> parameter of messages.messagesSlice</a>, or if that is absent, the <code>date</code> of the last returned message.
+    /// </summary>
     public int OffsetRate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer OffsetPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
+    /// <summary>
+    /// For full text post searches (<code>query</code>), allows payment of the specified amount of Stars for the search, see <a href="https://corefork.telegram.org/api/search#posts-tab">here »</a> for more info on the full flow.
+    /// </summary>
     public long? AllowPaidStars { get; set; }
 
     public void ComputeFlag()

@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A map
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockMap" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockMap" /></para>
+/// </summary>
 [TlObject(0xa44f3ef6)]
-public sealed class TPageBlockMap : IPageBlock
+public sealed partial class TPageBlockMap : IPageBlock
 {
     public uint ConstructorId => 0xa44f3ef6;
-    ///<summary>
+    /// <summary>
     /// Location of the map center
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Map zoom level; 13-20
-    ///</summary>
+    /// </summary>
     public int Zoom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Map width in pixels before applying scale; 16-102
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Map height in pixels before applying scale; 16-1024
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Caption
     /// See <a href="https://corefork.telegram.org/type/PageCaption" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
     public void ComputeFlag()

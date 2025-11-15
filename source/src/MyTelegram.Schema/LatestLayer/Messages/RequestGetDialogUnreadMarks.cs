@@ -2,23 +2,27 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get dialogs manually marked as unread
-/// See <a href="https://corefork.telegram.org/method/messages.getDialogUnreadMarks" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getDialogUnreadMarks" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x21202222)]
-public sealed class RequestGetDialogUnreadMarks : IRequest<TVector<MyTelegram.Schema.IDialogPeer>>
+public sealed partial class RequestGetDialogUnreadMarks : IRequest<TVector<MyTelegram.Schema.IDialogPeer>>
 {
     public uint ConstructorId => 0x21202222;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Can be equal to the ID of a monoforum, to fetch monoforum topics manually marked as unread.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ParentPeer { get; set; }
 
     public void ComputeFlag()

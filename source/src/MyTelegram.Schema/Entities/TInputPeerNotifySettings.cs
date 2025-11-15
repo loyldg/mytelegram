@@ -2,58 +2,58 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Notification settings.
-/// See <a href="https://corefork.telegram.org/constructor/inputPeerNotifySettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPeerNotifySettings" /></para>
+/// </summary>
 [TlObject(0xcacb6ae2)]
-public sealed class TInputPeerNotifySettings : IInputPeerNotifySettings
+public sealed partial class TInputPeerNotifySettings : IInputPeerNotifySettings
 {
     public uint ConstructorId => 0xcacb6ae2;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the text of the message shall be displayed in notification
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? ShowPreviews { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer was muted?
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date until which all notifications shall be switched off
-    ///</summary>
+    /// </summary>
     public int? MuteUntil { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of an audio file to play for notifications.
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.INotificationSound? Sound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether story notifications should be disabled.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? StoriesMuted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the sender name should be displayed in story notifications.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? StoriesHideSender { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of an audio file to play for story notifications.
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.INotificationSound? StoriesSound { get; set; }
 
     public void ComputeFlag()

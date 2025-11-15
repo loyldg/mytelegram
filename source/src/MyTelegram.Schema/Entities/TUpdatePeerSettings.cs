@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Settings of a certain peer have changed
-/// See <a href="https://corefork.telegram.org/constructor/updatePeerSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePeerSettings" /></para>
+/// </summary>
 [TlObject(0x6a7e7366)]
-public sealed class TUpdatePeerSettings : IUpdate
+public sealed partial class TUpdatePeerSettings : IUpdate
 {
     public uint ConstructorId => 0x6a7e7366;
-    ///<summary>
+    /// <summary>
     /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Associated peer settings
     /// See <a href="https://corefork.telegram.org/type/PeerSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerSettings Settings { get; set; }
 
     public void ComputeFlag()

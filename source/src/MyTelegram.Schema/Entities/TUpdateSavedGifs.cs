@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The saved gif list has changed, the client should refetch it using <a href="https://core.telegram.org/method/messages.getSavedGifs">messages.getSavedGifs</a>
-/// See <a href="https://corefork.telegram.org/constructor/updateSavedGifs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateSavedGifs" /></para>
+/// </summary>
 [TlObject(0x9375341e)]
-public sealed class TUpdateSavedGifs : IUpdate
+public sealed partial class TUpdateSavedGifs : IUpdate
 {
     public uint ConstructorId => 0x9375341e;
     public void ComputeFlag()

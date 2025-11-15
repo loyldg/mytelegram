@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Rich text linked to a phone number
-/// See <a href="https://corefork.telegram.org/constructor/textPhone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textPhone" /></para>
+/// </summary>
 [TlObject(0x1ccb966a)]
-public sealed class TTextPhone : IRichText
+public sealed partial class TTextPhone : IRichText
 {
     public uint ConstructorId => 0x1ccb966a;
-    ///<summary>
+    /// <summary>
     /// Text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string Phone { get; set; }
 
     public void ComputeFlag()

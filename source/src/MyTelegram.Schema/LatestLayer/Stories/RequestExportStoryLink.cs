@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Generate a <a href="https://corefork.telegram.org/api/links#story-links">story deep link</a> for a specific story
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STORY_ID_EMPTY You specified no story IDs.
-/// 400 USER_PUBLIC_MISSING Cannot generate a link to stories posted by a peer without a username.
-/// See <a href="https://corefork.telegram.org/method/stories.exportStoryLink" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STORY_ID_EMPTY You specified no story IDs.</c></para>
+/// <para><c>400 USER_PUBLIC_MISSING Cannot generate a link to stories posted by a peer without a username. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.exportStoryLink" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7b8def20)]
-public sealed class RequestExportStoryLink : IRequest<MyTelegram.Schema.IExportedStoryLink>
+public sealed partial class RequestExportStoryLink : IRequest<MyTelegram.Schema.IExportedStoryLink>
 {
     public uint ConstructorId => 0x7b8def20;
 
-    ///<summary>
+    /// <summary>
     /// Peer where the story was posted
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

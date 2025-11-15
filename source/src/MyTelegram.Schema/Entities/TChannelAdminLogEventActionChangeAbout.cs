@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The description was changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAbout" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAbout" /></para>
+/// </summary>
 [TlObject(0x55188a2e)]
-public sealed class TChannelAdminLogEventActionChangeAbout : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangeAbout : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x55188a2e;
-    ///<summary>
+    /// <summary>
     /// Previous description
-    ///</summary>
+    /// </summary>
     public string PrevValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New description
-    ///</summary>
+    /// </summary>
     public string NewValue { get; set; }
 
     public void ComputeFlag()

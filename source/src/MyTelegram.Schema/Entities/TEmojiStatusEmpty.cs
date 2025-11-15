@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// No emoji status is set
-/// See <a href="https://corefork.telegram.org/constructor/emojiStatusEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiStatusEmpty" /></para>
+/// </summary>
 [TlObject(0x2de11aae)]
-public sealed class TEmojiStatusEmpty : IEmojiStatus
+public sealed partial class TEmojiStatusEmpty : IEmojiStatus
 {
     public uint ConstructorId => 0x2de11aae;
     public void ComputeFlag()

@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Changes username for the current user.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 USERNAME_INVALID The provided username is not valid.
-/// 400 USERNAME_NOT_MODIFIED The username was not modified.
-/// 400 USERNAME_OCCUPIED The provided username is already occupied.
-/// 400 USERNAME_PURCHASE_AVAILABLE The specified username can be purchased on <a href="https://fragment.com/">https://fragment.com</a>.
-/// See <a href="https://corefork.telegram.org/method/account.updateUsername" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 USERNAME_INVALID The provided username is not valid.</c></para>
+/// <para><c>400 USERNAME_NOT_MODIFIED The username was not modified.</c></para>
+/// <para><c>400 USERNAME_OCCUPIED The provided username is already occupied.</c></para>
+/// <para><c>400 USERNAME_PURCHASE_AVAILABLE The specified username can be purchased on <a href="https://fragment.com/">https://fragment.com</a>. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateUsername" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3e0bdd7c)]
-public sealed class RequestUpdateUsername : IRequest<MyTelegram.Schema.IUser>
+public sealed partial class RequestUpdateUsername : IRequest<MyTelegram.Schema.IUser>
 {
     public uint ConstructorId => 0x3e0bdd7c;
 
-    ///<summary>
-    /// username or empty string if username is to be removed<br>Accepted characters: a-z (case-insensitive), 0-9 and underscores.<br>Length: 5-32 characters.
-    ///</summary>
+    /// <summary>
+    /// username or empty string if username is to be removed<br/>Accepted characters: a-z (case-insensitive), 0-9 and underscores.<br/>Length: 5-32 characters.
+    /// </summary>
     public string Username { get; set; }
 
     public void ComputeFlag()

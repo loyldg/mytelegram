@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Filter for messages containing photos or videos.
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPhotoVideo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPhotoVideo" /></para>
+/// </summary>
 [TlObject(0x56e9f0e4)]
-public sealed class TInputMessagesFilterPhotoVideo : IMessagesFilter
+public sealed partial class TInputMessagesFilterPhotoVideo : IMessagesFilter
 {
     public uint ConstructorId => 0x56e9f0e4;
     public void ComputeFlag()

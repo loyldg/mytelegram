@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A story found using <a href="https://corefork.telegram.org/api/stories#searching-stories">global story search »</a>.
-/// See <a href="https://corefork.telegram.org/type/FoundStory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/FoundStory" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFoundStory"/> See <a href="https://corefork.telegram.org/constructor/foundStory" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFoundStory), nameof(TFoundStory))]
 public interface IFoundStory : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The peer that posted the story.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The story.
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStoryItem Story { get; set; }
 }

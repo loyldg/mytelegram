@@ -2,44 +2,48 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Verify a user or chat <a href="https://corefork.telegram.org/api/bots/verification">on behalf of an organization »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/bots.setCustomVerification" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>403 BOT_VERIFIER_FORBIDDEN This bot cannot assign <a href="https://corefork.telegram.org/api/bots/verification">verification icons</a>.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.setCustomVerification" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8b89dfbd)]
-public sealed class RequestSetCustomVerification : IRequest<IBool>
+public sealed partial class RequestSetCustomVerification : IRequest<IBool>
 {
     public uint ConstructorId => 0x8b89dfbd;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, adds the verification; otherwise removes verification.
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Must <strong>not</strong> be set if invoked by a bot, <strong>must</strong> be set to the ID of an owned bot if invoked by a user.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser? Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer to verify
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
-    /// Custom description for the verification, the UTF-8 length limit for this field is contained in <a href="https://corefork.telegram.org/api/config#bot-verification-description-length-limit">bot_verification_description_length_limit »</a>. <br>If not set, <code>Was verified by organization "organization_name"</code> will be used as description.
-    ///</summary>
+    /// <summary>
+    /// Custom description for the verification, the UTF-8 length limit for this field is contained in <a href="https://corefork.telegram.org/api/config#bot-verification-description-length-limit">bot_verification_description_length_limit »</a>. <br/>If not set, <code>Was verified by organization "organization_name"</code> will be used as description.
+    /// </summary>
     public string? CustomDescription { get; set; }
 
     public void ComputeFlag()

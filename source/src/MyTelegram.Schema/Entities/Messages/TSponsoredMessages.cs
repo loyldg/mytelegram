@@ -2,44 +2,50 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// A set of sponsored messages associated to a channel
-/// See <a href="https://corefork.telegram.org/constructor/messages.sponsoredMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.sponsoredMessages" /></para>
+/// </summary>
 [TlObject(0xffda656d)]
-public sealed class TSponsoredMessages : ISponsoredMessages
+public sealed partial class TSponsoredMessages : ISponsoredMessages
 {
     public uint ConstructorId => 0xffda656d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies the minimum number of messages between shown sponsored messages; otherwise, only one sponsored message must be shown after all ordinary messages.
-    ///</summary>
+    /// </summary>
     public int? PostsBetween { get; set; }
 
+    /// <summary>
+    /// For <a href="https://corefork.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements">sponsored messages to show on channel videos »</a>, the number of seconds to wait before showing the first ad.
+    /// </summary>
     public int? StartDelay { get; set; }
 
+    /// <summary>
+    /// For <a href="https://corefork.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements">sponsored messages to show on channel videos »</a>, the number of seconds to wait after the previous ad is hidden, before showing the next ad.
+    /// </summary>
     public int? BetweenDelay { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sponsored messages
     /// See <a href="https://corefork.telegram.org/type/SponsoredMessage" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISponsoredMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in the sponsored messages
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the sponsored messages
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

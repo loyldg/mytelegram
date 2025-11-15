@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Identity card
-/// See <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard" /></para>
+/// </summary>
 [TlObject(0xa0d0744b)]
-public sealed class TSecureValueTypeIdentityCard : ISecureValueType
+public sealed partial class TSecureValueTypeIdentityCard : ISecureValueType
 {
     public uint ConstructorId => 0xa0d0744b;
     public void ComputeFlag()

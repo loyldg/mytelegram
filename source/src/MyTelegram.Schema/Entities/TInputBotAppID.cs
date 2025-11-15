@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to fetch information about a <a href="https://corefork.telegram.org/api/bots/webapps#direct-link-mini-apps">direct link Mini App</a> by its ID
-/// See <a href="https://corefork.telegram.org/constructor/inputBotAppID" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotAppID" /></para>
+/// </summary>
 [TlObject(0xa920bd7a)]
-public sealed class TInputBotAppID : IInputBotApp
+public sealed partial class TInputBotAppID : IInputBotApp
 {
     public uint ConstructorId => 0xa920bd7a;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/bots/webapps#direct-link-mini-apps">direct link Mini App</a> ID.
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash, obtained from the <a href="https://corefork.telegram.org/constructor/botApp">botApp</a> constructor.
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

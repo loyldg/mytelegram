@@ -2,352 +2,368 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Full info about a <a href="https://corefork.telegram.org/api/channel#channels">channel</a>, <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a> or <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a>.When updating the <a href="https://corefork.telegram.org/api/peers">local peer database »</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).
-/// See <a href="https://corefork.telegram.org/constructor/channelFull" />
-///</summary>
-[TlObject(0xe07429de)]
-public sealed class TChannelFull : IChatFull, ILayeredChannelFull
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelFull" /></para>
+/// </summary>
+[TlObject(0xe4e0b29d)]
+public sealed partial class TChannelFull : IChatFull, ILayeredChannelFull
 {
-    public uint ConstructorId => 0xe07429de;
-    ///<summary>
+    public uint ConstructorId => 0xe4e0b29d;
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can we view the participant list?
-    ///</summary>
+    /// </summary>
     public bool CanViewParticipants { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can we set the channel's username?
-    ///</summary>
+    /// </summary>
     public bool CanSetUsername { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can we <a href="https://corefork.telegram.org/method/channels.setStickers">associate</a> a stickerpack to the supergroup?
-    ///</summary>
+    /// </summary>
     public bool CanSetStickers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is the history before we joined hidden to us?
-    ///</summary>
+    /// </summary>
     public bool HiddenPrehistory { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can we set the geolocation of this group (for geogroups)
-    ///</summary>
+    /// </summary>
     public bool CanSetLocation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether scheduled messages are available
-    ///</summary>
+    /// </summary>
     public bool HasScheduled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can the user view <a href="https://corefork.telegram.org/api/stats">channel/supergroup statistics</a>
-    ///</summary>
+    /// </summary>
     public bool CanViewStats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive messages from anonymous group admins in <a href="https://corefork.telegram.org/api/discussion">discussion replies via @replies</a>
-    ///</summary>
+    /// </summary>
     public bool Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can we delete this channel?
-    ///</summary>
+    /// </summary>
     public bool CanDeleteChannel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether <a href="https://corefork.telegram.org/api/antispam">native antispam</a> functionality is enabled in this supergroup.
-    ///</summary>
+    /// </summary>
     public bool Antispam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the participant list is hidden.
-    ///</summary>
+    /// </summary>
     public bool ParticipantsHidden { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the <a href="https://corefork.telegram.org/api/translation">real-time chat translation popup</a> should be hidden.
-    ///</summary>
+    /// </summary>
     public bool TranslationsDisabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this user has some <a href="https://corefork.telegram.org/api/stories#pinned-or-archived-stories">pinned stories</a>.
-    ///</summary>
+    /// </summary>
     public bool StoriesPinnedAvailable { get; set; }
 
-    ///<summary>
-    /// Users may also choose to display messages from all topics of a <a href="https://corefork.telegram.org/api/forum">forum</a> as if they were sent to a normal group, using a "View as messages" setting in the local client.  <br>This setting only affects the current account, and is synced to other logged in sessions using the <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages">channels.toggleViewForumAsMessages</a> method; invoking this method will update the value of this flag.
-    ///</summary>
+    /// <summary>
+    /// Users may also choose to display messages from all topics of a <a href="https://corefork.telegram.org/api/forum">forum</a> as if they were sent to a normal group, using a "View as messages" setting in the local client.  <br/>This setting only affects the current account, and is synced to other logged in sessions using the <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages">channels.toggleViewForumAsMessages</a> method; invoking this method will update the value of this flag.
+    /// </summary>
     public bool ViewForumAsMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether ads on this channel were <a href="https://corefork.telegram.org/api/boost#disable-ads-on-the-channel">disabled as specified here »</a> (this flag is only visible to the owner of the channel).
-    ///</summary>
+    /// </summary>
     public bool RestrictedSponsored { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this user can view <a href="https://corefork.telegram.org/api/revenue#revenue-statistics">ad revenue statistics »</a> for this channel.
-    ///</summary>
+    /// </summary>
     public bool CanViewRevenue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current user can send or forward <a href="https://corefork.telegram.org/api/paid-media">paid media »</a> to this channel.
-    ///</summary>
+    /// </summary>
     public bool PaidMediaAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this user can view <a href="https://corefork.telegram.org/api/stars#revenue-statistics">Telegram Star revenue statistics »</a> for this channel.
-    ///</summary>
+    /// </summary>
     public bool CanViewStarsRevenue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, users may send <a href="https://corefork.telegram.org/api/reactions#paid-reactions">paid Telegram Star reactions »</a> to messages of this channel.
-    ///</summary>
+    /// </summary>
     public bool PaidReactionsAvailable { get; set; }
 
+    /// <summary>
+    /// If set, users may send <a href="https://corefork.telegram.org/api/gifts">Gifts »</a> to this channel.
+    /// </summary>
     public bool StargiftsAvailable { get; set; }
 
+    /// <summary>
+    /// If set, admins may <a href="https://corefork.telegram.org/api/paid-messages">enable enable paid messages »</a> in this supergroup.
+    /// </summary>
     public bool PaidMessagesAvailable { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the channel
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the channel
-    ///</summary>
+    /// </summary>
     public string About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of participants of the channel
-    ///</summary>
+    /// </summary>
     public int? ParticipantsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of channel admins
-    ///</summary>
+    /// </summary>
     public int? AdminsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of users <a href="https://corefork.telegram.org/api/rights">kicked</a> from the channel
-    ///</summary>
+    /// </summary>
     public int? KickedCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of users <a href="https://corefork.telegram.org/api/rights">banned</a> from the channel
-    ///</summary>
+    /// </summary>
     public int? BannedCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of users currently online
-    ///</summary>
+    /// </summary>
     public int? OnlineCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position up to which all incoming messages are read.
-    ///</summary>
+    /// </summary>
     public int ReadInboxMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position up to which all outgoing messages are read.
-    ///</summary>
+    /// </summary>
     public int ReadOutboxMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Count of unread messages
-    ///</summary>
+    /// </summary>
     public int UnreadCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel picture
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto ChatPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification settings
     /// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invite link
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite? ExportedInvite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about bots in the channel/supergroup
     /// See <a href="https://corefork.telegram.org/type/BotInfo" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBotInfo> BotInfo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The chat ID from which this group was <a href="https://corefork.telegram.org/api/channel">migrated</a>
-    ///</summary>
+    /// </summary>
     public long? MigratedFromChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message ID in the original chat at which this group was <a href="https://corefork.telegram.org/api/channel">migrated</a>
-    ///</summary>
+    /// </summary>
     public int? MigratedFromMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of the last <a href="https://corefork.telegram.org/api/pin">pinned message</a>
-    ///</summary>
+    /// </summary>
     public int? PinnedMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Associated stickerset
     /// See <a href="https://corefork.telegram.org/type/StickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStickerSet? Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of a maximum unavailable message in a channel due to hidden history.
-    ///</summary>
+    /// </summary>
     public int? AvailableMinId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the linked <a href="https://corefork.telegram.org/api/discussion">discussion chat</a> for channels (and vice versa, the ID of the linked channel for discussion chats).
-    ///</summary>
+    /// </summary>
     public long? LinkedChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Location of the geogroup
     /// See <a href="https://corefork.telegram.org/type/ChannelLocation" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelLocation? Location { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, users in supergroups will only be able to send one message every <code>slowmode_seconds</code> seconds
-    ///</summary>
+    /// </summary>
     public int? SlowmodeSeconds { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Indicates when the user will be allowed to send another message in the supergroup (unixtime)
-    ///</summary>
+    /// </summary>
     public int? SlowmodeNextSendDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies the DC to use for fetching channel statistics
-    ///</summary>
+    /// </summary>
     public int? StatsDc { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Latest <a href="https://corefork.telegram.org/api/updates">PTS</a> for this channel
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Livestream or group call information
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall? Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time-To-Live of messages in this channel or supergroup
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of <a href="https://corefork.telegram.org/api/config#suggestions">suggested actions</a> for the supergroup admin, <a href="https://corefork.telegram.org/api/config#suggestions">see here for more info »</a>.
-    ///</summary>
+    /// </summary>
     public TVector<string>? PendingSuggestions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When using <a href="https://corefork.telegram.org/method/phone.getGroupCallJoinAs">phone.getGroupCallJoinAs</a> to get a list of peers that can be used to join a group call, this field indicates the peer that should be selected by default.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? GroupcallDefaultJoinAs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emoji representing a specific chat theme
-    ///</summary>
+    /// </summary>
     public string? ThemeEmoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pending <a href="https://corefork.telegram.org/api/invites#join-requests">join requests »</a>
-    ///</summary>
+    /// </summary>
     public int? RequestsPending { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of users who requested to join recently
-    ///</summary>
+    /// </summary>
     public TVector<long>? RecentRequesters { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default peer used for sending messages to this channel
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? DefaultSendAs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allowed <a href="https://corefork.telegram.org/api/reactions">message reactions »</a>
     /// See <a href="https://corefork.telegram.org/type/ChatReactions" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatReactions? AvailableReactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This flag may be used to impose a custom limit of unique reactions (i.e. a customizable version of <a href="https://corefork.telegram.org/api/config#reactions-uniq-max">appConfig.reactions_uniq_max</a>).
-    ///</summary>
+    /// </summary>
     public int? ReactionsLimit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel <a href="https://corefork.telegram.org/api/stories">stories</a>
     /// See <a href="https://corefork.telegram.org/type/PeerStories" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerStories? Stories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a>
     /// See <a href="https://corefork.telegram.org/type/WallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaper? Wallpaper { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of <a href="https://corefork.telegram.org/api/boost">boosts</a> the current user has applied to the current <em>supergroup</em>.
-    ///</summary>
+    /// </summary>
     public int? BoostsApplied { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of <a href="https://corefork.telegram.org/api/boost">boosts</a> this <em>supergroup</em> requires to bypass slowmode and other restrictions, see <a href="https://corefork.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions">here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int? BoostsUnrestrict { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/custom-emoji">Custom emoji stickerset</a> associated to the current <em>supergroup</em>, set using <a href="https://corefork.telegram.org/method/channels.setEmojiStickers">channels.setEmojiStickers</a> after reaching the appropriate boost level, see <a href="https://corefork.telegram.org/api/boost#setting-a-custom-emoji-stickerset-for-supergroups">here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/StickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStickerSet? Emojiset { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/bots/verification">Bot verification icon</a>
     /// See <a href="https://corefork.telegram.org/type/BotVerification" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotVerification? BotVerification { get; set; }
 
+    /// <summary>
+    /// Admins with <a href="https://corefork.telegram.org/constructor/chatAdminRights">chatAdminRights</a>.<code>post_messages</code> rights will see the total number of received gifts, everyone else will see the number of gifts added to the channel's profile.
+    /// </summary>
     public int? StargiftsCount { get; set; }
 
-    ///<summary>
-    /// If set and bigger than 0, this supergroup, <a href="https://corefork.telegram.org/api/forum#monoforums">monoforum</a> or the monoforum associated to this channel has enabled <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> and we <em>must</em> pay the specified amount of <a href="https://corefork.telegram.org/api/stars">Stars</a> to send messages to it, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for the full flow. <br>This flag will be set both for the monoforum and for <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> of the associated channel). <br>If set and equal to 0, the monoforum requires payment in general but we were exempted from paying.
-    ///</summary>
+    /// <summary>
+    /// If set and bigger than 0, this supergroup, <a href="https://corefork.telegram.org/api/monoforum">monoforum</a> or the monoforum associated to this channel has enabled <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> and we <em>must</em> pay the specified amount of <a href="https://corefork.telegram.org/api/stars">Stars</a> to send messages to it, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for the full flow. <br/>This flag will be set both for the monoforum and for <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> of the associated channel). <br/>If set and equal to 0, the monoforum requires payment in general but we were exempted from paying.
+    /// </summary>
     public long? SendPaidMessagesStars { get; set; }
+
+    /// <summary>
+    /// The main tab for the channel's profile, see <a href="https://corefork.telegram.org/api/profile#tabs">here »</a> for more info.
+    /// See <a href="https://corefork.telegram.org/type/ProfileTab" />
+    /// </summary>
+    public MyTelegram.Schema.IProfileTab? MainTab { get; set; }
 
     public void ComputeFlag()
     {
@@ -407,6 +423,7 @@ public sealed class TChannelFull : IChatFull, ILayeredChannelFull
         if (BotVerification != null) { Flags2 = Flags2.SetBit(17); }
         if (/*StargiftsCount != 0 && */StargiftsCount.HasValue) { Flags2 = Flags2.SetBit(18); }
         if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { Flags2 = Flags2.SetBit(21); }
+        if (MainTab != null) { Flags2 = Flags2.SetBit(22); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -459,6 +476,7 @@ public sealed class TChannelFull : IChatFull, ILayeredChannelFull
         if (Flags2.IsBitSet(17)) { writer.Write(BotVerification); }
         if (Flags2.IsBitSet(18)) { writer.Write(StargiftsCount.Value); }
         if (Flags2.IsBitSet(21)) { writer.Write(SendPaidMessagesStars.Value); }
+        if (Flags2.IsBitSet(22)) { writer.Write(MainTab); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -530,5 +548,6 @@ public sealed class TChannelFull : IChatFull, ILayeredChannelFull
         if (Flags2.IsBitSet(17)) { BotVerification = buffer.Read<MyTelegram.Schema.IBotVerification>(); }
         if (Flags2.IsBitSet(18)) { StargiftsCount = buffer.ReadInt32(); }
         if (Flags2.IsBitSet(21)) { SendPaidMessagesStars = buffer.ReadInt64(); }
+        if (Flags2.IsBitSet(22)) { MainTab = buffer.Read<MyTelegram.Schema.IProfileTab>(); }
     }
 }

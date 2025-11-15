@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Fetch popular <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-apps">Main Mini Apps</a>, to be used in the <a href="https://corefork.telegram.org/api/search#apps-tab">apps tab of global search »</a>.
-/// See <a href="https://corefork.telegram.org/method/bots.getPopularAppBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.getPopularAppBots" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc2510192)]
-public sealed class RequestGetPopularAppBots : IRequest<MyTelegram.Schema.Bots.IPopularAppBots>
+public sealed partial class RequestGetPopularAppBots : IRequest<MyTelegram.Schema.Bots.IPopularAppBots>
 {
     public uint ConstructorId => 0xc2510192;
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>, initially an empty string, then re-use the <code>next_offset</code> returned by the previous query.
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

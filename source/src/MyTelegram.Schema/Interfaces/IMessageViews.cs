@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// View, forward counter + info about replies of a specific message
-/// See <a href="https://corefork.telegram.org/type/MessageViews" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageViews" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageViews"/> See <a href="https://corefork.telegram.org/constructor/messageViews" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageViews), nameof(TMessageViews))]
 public interface IMessageViews : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// View count of message
-    ///</summary>
+    /// </summary>
     int? Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Forward count of message
-    ///</summary>
+    /// </summary>
     int? Forwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reply and <a href="https://corefork.telegram.org/api/threads">thread</a> information of message
     /// See <a href="https://corefork.telegram.org/type/MessageReplies" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IMessageReplies? Replies { get; set; }
 }

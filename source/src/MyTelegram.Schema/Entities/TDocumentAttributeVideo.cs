@@ -2,62 +2,62 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a video
-/// See <a href="https://corefork.telegram.org/constructor/documentAttributeVideo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentAttributeVideo" /></para>
+/// </summary>
 [TlObject(0x43c57c48)]
-public sealed class TDocumentAttributeVideo : IDocumentAttribute
+public sealed partial class TDocumentAttributeVideo : IDocumentAttribute
 {
     public uint ConstructorId => 0x43c57c48;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a round video
-    ///</summary>
+    /// </summary>
     public bool RoundMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the video supports streaming
-    ///</summary>
+    /// </summary>
     public bool SupportsStreaming { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the specified document is a video file with no audio tracks
-    ///</summary>
+    /// </summary>
     public bool Nosound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Duration in seconds
-    ///</summary>
+    /// </summary>
     public double Duration { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Video width
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Video height
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of bytes to preload when preloading videos (particularly <a href="https://corefork.telegram.org/api/stories">video stories</a>).
-    ///</summary>
+    /// </summary>
     public int? PreloadPrefixSize { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Floating point UNIX timestamp in seconds, indicating the frame of the video that should be used as static preview and thumbnail.
-    ///</summary>
+    /// </summary>
     public double? VideoStartTs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Codec used for the video, i.e. "h264", "h265", or "av1"
-    ///</summary>
+    /// </summary>
     public string? VideoCodec { get; set; }
 
     public void ComputeFlag()

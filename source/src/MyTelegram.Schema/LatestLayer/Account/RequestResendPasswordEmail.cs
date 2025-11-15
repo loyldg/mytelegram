@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Resend the code to verify an email to use as <a href="https://corefork.telegram.org/api/srp">2FA recovery method</a>.
-/// See <a href="https://corefork.telegram.org/method/account.resendPasswordEmail" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.resendPasswordEmail" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7a7f2a15)]
-public sealed class RequestResendPasswordEmail : IRequest<IBool>
+public sealed partial class RequestResendPasswordEmail : IRequest<IBool>
 {
     public uint ConstructorId => 0x7a7f2a15;
 

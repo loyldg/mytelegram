@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Invokes a query after a successful completion of previous queries
-/// See <a href="https://corefork.telegram.org/method/invokeAfterMsgs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/invokeAfterMsgs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3dc4b4f0)]
-public sealed class RequestInvokeAfterMsgs : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInvokeAfterMsgs : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0x3dc4b4f0;
 
-    ///<summary>
+    /// <summary>
     /// List of messages on which a current query depends
-    ///</summary>
+    /// </summary>
     public TVector<long> MsgIds { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The query itself
-    ///</summary>
+    /// </summary>
     public IObject Query { get; set; }
 
     public void ComputeFlag()

@@ -2,36 +2,40 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Remote file
-/// See <a href="https://corefork.telegram.org/type/upload.WebFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/upload.WebFile" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebFile"/> See <a href="https://corefork.telegram.org/constructor/upload.webFile" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebFile), nameof(TWebFile))]
 public interface IWebFile : IObject
 {
-    ///<summary>
+    /// <summary>
     /// File size
-    ///</summary>
+    /// </summary>
     int Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mime type
-    ///</summary>
+    /// </summary>
     string MimeType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File type
     /// See <a href="https://corefork.telegram.org/type/storage.FileType" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.Storage.IFileType FileType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Modified time
-    ///</summary>
+    /// </summary>
     int Mtime { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Data
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Bytes { get; set; }
 }

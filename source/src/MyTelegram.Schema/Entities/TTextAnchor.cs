@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Text linking to another section of the page
-/// See <a href="https://corefork.telegram.org/constructor/textAnchor" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textAnchor" /></para>
+/// </summary>
 [TlObject(0x35553762)]
-public sealed class TTextAnchor : IRichText
+public sealed partial class TTextAnchor : IRichText
 {
     public uint ConstructorId => 0x35553762;
-    ///<summary>
+    /// <summary>
     /// Text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Section name
-    ///</summary>
+    /// </summary>
     public string Name { get; set; }
 
     public void ComputeFlag()

@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/boost">channel/supergroup boost</a> has changed (bots only)
-/// See <a href="https://corefork.telegram.org/constructor/updateBotChatBoost" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotChatBoost" /></para>
+/// </summary>
 [TlObject(0x904dd49c)]
-public sealed class TUpdateBotChatBoost : IUpdate
+public sealed partial class TUpdateBotChatBoost : IUpdate
 {
     public uint ConstructorId => 0x904dd49c;
-    ///<summary>
+    /// <summary>
     /// Channel
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New boost information
     /// See <a href="https://corefork.telegram.org/type/Boost" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBoost Boost { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">QTS</a> event sequence identifier
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

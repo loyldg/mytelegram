@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No new stickers were found for the specified query
-/// See <a href="https://corefork.telegram.org/constructor/messages.foundStickersNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.foundStickersNotModified" /></para>
+/// </summary>
 [TlObject(0x6010c534)]
-public sealed class TFoundStickersNotModified : IFoundStickers
+public sealed partial class TFoundStickersNotModified : IFoundStickers
 {
     public uint ConstructorId => 0x6010c534;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>
-    ///</summary>
+    /// </summary>
     public int? NextOffset { get; set; }
 
     public void ComputeFlag()

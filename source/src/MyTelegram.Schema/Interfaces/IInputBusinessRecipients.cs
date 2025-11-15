@@ -2,46 +2,50 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Specifies the chats that <strong>can</strong> receive Telegram Business <a href="https://corefork.telegram.org/api/business#away-messages">away »</a> and <a href="https://corefork.telegram.org/api/business#greeting-messages">greeting »</a> messages.If <code>exclude_selected</code> is set, specifies all chats that <strong>cannot</strong> receive Telegram Business <a href="https://corefork.telegram.org/api/business#away-messages">away »</a> and <a href="https://corefork.telegram.org/api/business#greeting-messages">greeting »</a> messages.
-/// See <a href="https://corefork.telegram.org/type/InputBusinessRecipients" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputBusinessRecipients" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputBusinessRecipients"/> See <a href="https://corefork.telegram.org/constructor/inputBusinessRecipients" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputBusinessRecipients), nameof(TInputBusinessRecipients))]
 public interface IInputBusinessRecipients : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All existing private chats.
-    ///</summary>
+    /// </summary>
     bool ExistingChats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All new private chats.
-    ///</summary>
+    /// </summary>
     bool NewChats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All private chats with contacts.
-    ///</summary>
+    /// </summary>
     bool Contacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All private chats with non-contacts.
-    ///</summary>
+    /// </summary>
     bool NonContacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, inverts the selection.
-    ///</summary>
+    /// </summary>
     bool ExcludeSelected { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only private chats with the specified users.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IInputUser>? Users { get; set; }
 }

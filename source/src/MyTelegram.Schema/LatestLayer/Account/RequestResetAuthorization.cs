@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Log out an active <a href="https://corefork.telegram.org/api/auth">authorized session</a> by its hash
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 406 FRESH_RESET_AUTHORISATION_FORBIDDEN You can't logout other sessions if less than 24 hours have passed since you logged on the current session.
-/// 400 HASH_INVALID The provided hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.resetAuthorization" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>406 FRESH_RESET_AUTHORISATION_FORBIDDEN You can't logout other sessions if less than 24 hours have passed since you logged on the current session.</c></para>
+/// <para><c>400 HASH_INVALID The provided hash is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.resetAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdf77f3bc)]
-public sealed class RequestResetAuthorization : IRequest<IBool>
+public sealed partial class RequestResetAuthorization : IRequest<IBool>
 {
     public uint ConstructorId => 0xdf77f3bc;
 
-    ///<summary>
+    /// <summary>
     /// Session hash
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

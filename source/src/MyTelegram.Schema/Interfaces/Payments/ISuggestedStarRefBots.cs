@@ -2,37 +2,41 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// A list of suggested <a href="https://corefork.telegram.org/api/bots/webapps">mini apps</a> with available <a href="https://corefork.telegram.org/api/bots/referrals">affiliate programs</a>
-/// See <a href="https://corefork.telegram.org/type/payments.SuggestedStarRefBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.SuggestedStarRefBots" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSuggestedStarRefBots"/> See <a href="https://corefork.telegram.org/constructor/payments.suggestedStarRefBots" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSuggestedStarRefBots), nameof(TSuggestedStarRefBots))]
 public interface ISuggestedStarRefBots : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of results (for pagination)
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Suggested affiliate programs (full or partial list to be fetched using pagination)
     /// See <a href="https://corefork.telegram.org/type/StarRefProgram" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IStarRefProgram> SuggestedBots { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peers mentioned in <code>suggested_bots</code>
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Next offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>
-    ///</summary>
+    /// </summary>
     string? NextOffset { get; set; }
 }

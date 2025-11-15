@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Hide MTProxy/Public Service Announcement information
-/// See <a href="https://corefork.telegram.org/method/help.hidePromoData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.hidePromoData" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1e251c95)]
-public sealed class RequestHidePromoData : IRequest<IBool>
+public sealed partial class RequestHidePromoData : IRequest<IBool>
 {
     public uint ConstructorId => 0x1e251c95;
 
-    ///<summary>
+    /// <summary>
     /// Peer to hide
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

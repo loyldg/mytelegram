@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Time to live in days of the current account
-/// See <a href="https://corefork.telegram.org/constructor/accountDaysTTL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/accountDaysTTL" /></para>
+/// </summary>
 [TlObject(0xb8d0afdf)]
-public sealed class TAccountDaysTTL : IAccountDaysTTL
+public sealed partial class TAccountDaysTTL : IAccountDaysTTL
 {
     public uint ConstructorId => 0xb8d0afdf;
-    ///<summary>
+    /// <summary>
     /// This account will self-destruct in the specified number of days
-    ///</summary>
+    /// </summary>
     public int Days { get; set; }
 
     public void ComputeFlag()

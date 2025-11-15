@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a real (i.e. possibly decimal) amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-/// See <a href="https://corefork.telegram.org/constructor/starsAmount" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsAmount" /></para>
+/// </summary>
 [TlObject(0xbbb6b4a3)]
-public sealed class TStarsAmount : IStarsAmount
+public sealed partial class TStarsAmount : IStarsAmount
 {
     public uint ConstructorId => 0xbbb6b4a3;
-    ///<summary>
+    /// <summary>
     /// The integer amount of Telegram Stars.
-    ///</summary>
+    /// </summary>
     public long Amount { get; set; }
 
-    ///<summary>
-    /// The decimal amount of Telegram Stars, expressed as nanostars (i.e. 1 nanostar is equal to <code>1/1'000'000'000</code>th of a Telegram Star). <br>This field may also be negative (the allowed range is -999999999 to 999999999).
-    ///</summary>
+    /// <summary>
+    /// The decimal amount of Telegram Stars, expressed as nanostars (i.e. 1 nanostar is equal to <code>1/1'000'000'000</code>th (one billionth) of a Telegram Star). <br/>This field may also be negative (the allowed range is -999999999 to 999999999).
+    /// </summary>
     public int Nanos { get; set; }
 
     public void ComputeFlag()

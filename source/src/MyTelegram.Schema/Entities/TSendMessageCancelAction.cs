@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Invalidate all previous action updates. E.g. when user deletes entered text or aborts a video upload.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageCancelAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageCancelAction" /></para>
+/// </summary>
 [TlObject(0xfd5ec8f5)]
-public sealed class TSendMessageCancelAction : ISendMessageAction
+public sealed partial class TSendMessageCancelAction : ISendMessageAction
 {
     public uint ConstructorId => 0xfd5ec8f5;
     public void ComputeFlag()

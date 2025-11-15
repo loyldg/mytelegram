@@ -2,37 +2,41 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A single media in an <a href="https://corefork.telegram.org/api/files#albums-grouped-media">album or grouped media</a> sent with <a href="https://corefork.telegram.org/method/messages.sendMultiMedia">messages.sendMultiMedia</a>.
-/// See <a href="https://corefork.telegram.org/type/InputSingleMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputSingleMedia" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputSingleMedia"/> See <a href="https://corefork.telegram.org/constructor/inputSingleMedia" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputSingleMedia), nameof(TInputSingleMedia))]
 public interface IInputSingleMedia : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The media
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IInputMedia Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client media ID required to prevent message resending
-    ///</summary>
+    /// </summary>
     long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A caption for the media
-    ///</summary>
+    /// </summary>
     string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message <a href="https://corefork.telegram.org/api/entities">entities</a> for styled text
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 }

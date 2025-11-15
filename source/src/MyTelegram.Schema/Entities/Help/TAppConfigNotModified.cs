@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// The client configuration parameters haven't changed
-/// See <a href="https://corefork.telegram.org/constructor/help.appConfigNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.appConfigNotModified" /></para>
+/// </summary>
 [TlObject(0x7cde641d)]
-public sealed class TAppConfigNotModified : IAppConfig
+public sealed partial class TAppConfigNotModified : IAppConfig
 {
     public uint ConstructorId => 0x7cde641d;
     public void ComputeFlag()

@@ -12,7 +12,7 @@ namespace MyTelegram.Schema.Account.LayerN;
 /// See <a href="https://corefork.telegram.org/method/account.getTheme" />
 ///</summary>
 [TlObject(0x8d9d742b)]
-public sealed class RequestGetTheme : IRequest<MyTelegram.Schema.ITheme>
+public sealed partial class RequestGetTheme : IRequest<MyTelegram.Schema.ITheme>
 {
     public uint ConstructorId => 0x8d9d742b;
     ///<summary>

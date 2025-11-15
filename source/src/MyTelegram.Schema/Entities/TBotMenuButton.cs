@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/bots/menu">Bot menu button</a> that opens a <a href="https://corefork.telegram.org/api/bots/webapps">web app</a> when clicked.
-/// See <a href="https://corefork.telegram.org/constructor/botMenuButton" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botMenuButton" /></para>
+/// </summary>
 [TlObject(0xc7b57ce6)]
-public sealed class TBotMenuButton : IBotMenuButton
+public sealed partial class TBotMenuButton : IBotMenuButton
 {
     public uint ConstructorId => 0xc7b57ce6;
-    ///<summary>
+    /// <summary>
     /// Title to be displayed on the menu button instead of 'Menu'
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of a <a href="https://corefork.telegram.org/api/bots/webapps">web app</a> to open when the user clicks on the button
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

@@ -1,23 +1,24 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Contacts;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Contacts;
+/// <summary>
 /// Get most used peers
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 TYPES_EMPTY No top peer type was provided.
-/// See <a href="https://corefork.telegram.org/method/contacts.getTopPeers" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/contacts.getTopPeers"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetTopPeersHandler : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestGetTopPeers, MyTelegram.Schema.Contacts.ITopPeers>
 {
-    protected override Task<ITopPeers> HandleCoreAsync(IRequestInput input,
-        RequestGetTopPeers obj)
+    protected override Task<ITopPeers> HandleCoreAsync(IRequestInput input, RequestGetTopPeers obj)
     {
-        ITopPeers r = new TTopPeers {
+        ITopPeers r = new TTopPeers
+        {
             Categories = [],
             Chats = [],
             Users = []
         };
-
         return Task.FromResult(r);
     }
 }

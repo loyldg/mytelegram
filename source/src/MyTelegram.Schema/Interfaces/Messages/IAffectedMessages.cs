@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Messages affected by changes
-/// See <a href="https://corefork.telegram.org/type/messages.AffectedMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.AffectedMessages" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAffectedMessages"/> See <a href="https://corefork.telegram.org/constructor/messages.affectedMessages" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAffectedMessages), nameof(TAffectedMessages))]
 public interface IAffectedMessages : IObject
 {
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     int PtsCount { get; set; }
 }

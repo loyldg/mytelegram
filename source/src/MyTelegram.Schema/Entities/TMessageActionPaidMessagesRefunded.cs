@@ -2,15 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionPaidMessagesRefunded" />
-///</summary>
+/// <summary>
+/// Sent from peer A to B, indicates that A refunded all <a href="https://corefork.telegram.org/api/stars">stars</a> B previously paid to send messages to A, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for more info on paid messages.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionPaidMessagesRefunded" /></para>
+/// </summary>
 [TlObject(0xac1f1fcd)]
-public sealed class TMessageActionPaidMessagesRefunded : IMessageAction
+public sealed partial class TMessageActionPaidMessagesRefunded : IMessageAction
 {
     public uint ConstructorId => 0xac1f1fcd;
+    /// <summary>
+    /// Number of paid messages affected by the refund.
+    /// </summary>
     public int Count { get; set; }
 
+    /// <summary>
+    /// Number of refunded stars.
+    /// </summary>
     public long Stars { get; set; }
 
     public void ComputeFlag()

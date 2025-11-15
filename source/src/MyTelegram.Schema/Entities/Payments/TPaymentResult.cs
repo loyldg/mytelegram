@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Payment result
-/// See <a href="https://corefork.telegram.org/constructor/payments.paymentResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.paymentResult" /></para>
+/// </summary>
 [TlObject(0x4e5f810d)]
-public sealed class TPaymentResult : IPaymentResult
+public sealed partial class TPaymentResult : IPaymentResult
 {
     public uint ConstructorId => 0x4e5f810d;
-    ///<summary>
+    /// <summary>
     /// Info about the payment
     /// See <a href="https://corefork.telegram.org/type/Updates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUpdates Updates { get; set; }
 
     public void ComputeFlag()

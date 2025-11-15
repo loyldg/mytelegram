@@ -2,47 +2,50 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Obtain a list of suggested <a href="https://corefork.telegram.org/api/bots/webapps">mini apps</a> with available <a href="https://corefork.telegram.org/api/bots/referrals">affiliate programs</a><code>order_by_revenue</code> and <code>order_by_date</code> are mutually exclusive: if neither is set, results are sorted by profitability.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getSuggestedStarRefBots" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getSuggestedStarRefBots" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd6b48f7)]
-public sealed class RequestGetSuggestedStarRefBots : IRequest<MyTelegram.Schema.Payments.ISuggestedStarRefBots>
+public sealed partial class RequestGetSuggestedStarRefBots : IRequest<MyTelegram.Schema.Payments.ISuggestedStarRefBots>
 {
     public uint ConstructorId => 0xd6b48f7;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, orders results by the expected revenue
-    ///</summary>
+    /// </summary>
     public bool OrderByRevenue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, orders results by the creation date of the affiliate program
-    ///</summary>
+    /// </summary>
     public bool OrderByDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer that will become the affiliate: star commissions will be transferred to this peer's star balance.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for pagination, taken from <a href="https://corefork.telegram.org/constructor/payments.suggestedStarRefBots">payments.suggestedStarRefBots</a>.<code>next_offset</code>, initially empty.
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

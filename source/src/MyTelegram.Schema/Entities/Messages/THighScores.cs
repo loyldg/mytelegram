@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Highscores in a game
-/// See <a href="https://corefork.telegram.org/constructor/messages.highScores" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.highScores" /></para>
+/// </summary>
 [TlObject(0x9a3bfd99)]
-public sealed class THighScores : IHighScores
+public sealed partial class THighScores : IHighScores
 {
     public uint ConstructorId => 0x9a3bfd99;
-    ///<summary>
+    /// <summary>
     /// Highscores
     /// See <a href="https://corefork.telegram.org/type/HighScore" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IHighScore> Scores { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users, associated to the highscores
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -1,24 +1,17 @@
-﻿using MyTelegram.Schema.Stories;
+using MyTelegram.Schema.Stories;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Stories;
-
-///<summary>
+/// <summary>
 /// Fetch the List of active (or active and hidden) stories, see <a href="https://corefork.telegram.org/api/stories#watching-stories">here »</a> for more info on watching stories.
-/// See <a href="https://corefork.telegram.org/method/stories.getAllStories" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/stories.getAllStories"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetAllStoriesHandler : RpcResultObjectHandler<MyTelegram.Schema.Stories.RequestGetAllStories, MyTelegram.Schema.Stories.IAllStories>
 {
-    protected override Task<MyTelegram.Schema.Stories.IAllStories> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Stories.RequestGetAllStories obj)
+    protected override Task<MyTelegram.Schema.Stories.IAllStories> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Stories.RequestGetAllStories obj)
     {
-        return Task.FromResult<MyTelegram.Schema.Stories.IAllStories>(new TAllStories
-        {
-            Chats = [],
-            PeerStories = [],
-            Users = [],
-            StealthMode = new TStoriesStealthMode { },
-            HasMore = false,
-            State = "",
-        });
+        return Task.FromResult<MyTelegram.Schema.Stories.IAllStories>(new TAllStories { Chats = [], PeerStories = [], Users = [], StealthMode = new TStoriesStealthMode { }, HasMore = false, State = "", });
     }
 }

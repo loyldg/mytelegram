@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Some featured <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickers</a> were marked as read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadFeaturedEmojiStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadFeaturedEmojiStickers" /></para>
+/// </summary>
 [TlObject(0xfb4c496c)]
-public sealed class TUpdateReadFeaturedEmojiStickers : IUpdate
+public sealed partial class TUpdateReadFeaturedEmojiStickers : IUpdate
 {
     public uint ConstructorId => 0xfb4c496c;
     public void ComputeFlag()

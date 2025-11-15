@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No new reactions are available
-/// See <a href="https://corefork.telegram.org/constructor/messages.availableReactionsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.availableReactionsNotModified" /></para>
+/// </summary>
 [TlObject(0x9f071957)]
-public sealed class TAvailableReactionsNotModified : IAvailableReactions
+public sealed partial class TAvailableReactionsNotModified : IAvailableReactions
 {
     public uint ConstructorId => 0x9f071957;
     public void ComputeFlag()

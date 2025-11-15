@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Got popular <a href="https://corefork.telegram.org/api/reactions">message reactions</a>
-/// See <a href="https://corefork.telegram.org/method/messages.getTopReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getTopReactions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbb8125ba)]
-public sealed class RequestGetTopReactions : IRequest<MyTelegram.Schema.Messages.IReactions>
+public sealed partial class RequestGetTopReactions : IRequest<MyTelegram.Schema.Messages.IReactions>
 {
     public uint ConstructorId => 0xbb8125ba;
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

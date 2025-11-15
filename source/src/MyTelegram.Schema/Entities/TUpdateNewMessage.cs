@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New message in a private chat or in a <a href="https://core.telegram.org/api/channel#basic-groups">basic group</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateNewMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateNewMessage" /></para>
+/// </summary>
 [TlObject(0x1f2b0afd)]
-public sealed class TUpdateNewMessage : IUpdate
+public sealed partial class TUpdateNewMessage : IUpdate
 {
     public uint ConstructorId => 0x1f2b0afd;
-    ///<summary>
+    /// <summary>
     /// Message
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New quantity of actions in a message box
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of generated events
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()

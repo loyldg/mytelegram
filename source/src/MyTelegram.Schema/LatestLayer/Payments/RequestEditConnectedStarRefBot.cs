@@ -2,37 +2,40 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Leave a bot's <a href="https://corefork.telegram.org/api/bots/referrals#becoming-an-affiliate">affiliate program »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STARREF_HASH_REVOKED The specified affiliate link was already revoked.
-/// See <a href="https://corefork.telegram.org/method/payments.editConnectedStarRefBot" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STARREF_HASH_REVOKED The specified affiliate link was already revoked. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.editConnectedStarRefBot" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe4fca4a3)]
-public sealed class RequestEditConnectedStarRefBot : IRequest<MyTelegram.Schema.Payments.IConnectedStarRefBots>
+public sealed partial class RequestEditConnectedStarRefBot : IRequest<MyTelegram.Schema.Payments.IConnectedStarRefBots>
 {
     public uint ConstructorId => 0xe4fca4a3;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, leaves the bot's affiliate program
-    ///</summary>
+    /// </summary>
     public bool Revoked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer that was affiliated
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The affiliate link to revoke
-    ///</summary>
+    /// </summary>
     public string Link { get; set; }
 
     public void ComputeFlag()

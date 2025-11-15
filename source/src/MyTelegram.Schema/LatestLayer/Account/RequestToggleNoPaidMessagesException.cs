@@ -2,40 +2,48 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Allow a user to send us messages without paying if <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> are enabled.
-/// See <a href="https://corefork.telegram.org/method/account.toggleNoPaidMessagesException" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PARENT_PEER_INVALID The specified <code>parent_peer</code> is invalid.</c></para>
+/// <para><c>400 UNSUPPORTED <code>require_payment</code> cannot be <em>set</em> by users, only by monoforums: users must instead use the <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyNoPaidMessages">inputPrivacyKeyNoPaidMessages</a> privacy setting to remove a previously added exemption.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.toggleNoPaidMessagesException" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xfe2eda76)]
-public sealed class RequestToggleNoPaidMessagesException : IRequest<IBool>
+public sealed partial class RequestToggleNoPaidMessagesException : IRequest<IBool>
 {
     public uint ConstructorId => 0xfe2eda76;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set and <code>require_payment</code> is not set, refunds the amounts the user has already paid us to send us messages (directly or via a monoforum).
-    ///</summary>
+    /// </summary>
     public bool RefundCharged { get; set; }
 
-    ///<summary>
-    /// If set, requires the user to pay in order to send us messages (can only be used by monoforums, not users, i.e. <code>parent_peer</code> must be set if this flag is set; users must instead use the <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyNoPaidMessages">inputPrivacyKeyNoPaidMessages</a>                <a href="https://corefork.telegram.org/api/privacy">privacy setting</a> to remove a previously added exemption). <br>If not set, allows the user to send us messages without paying (can be used by both monoforums and users).
-    ///</summary>
+    /// <summary>
+    /// If set, requires the user to pay in order to send us messages. <br/>Can only be <strong>set</strong> by monoforums, not users, i.e. <code>parent_peer</code> must be set if this flag is set; users must instead use the <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyNoPaidMessages">inputPrivacyKeyNoPaidMessages</a> privacy setting to remove a previously added exemption. <br/>If not set, allows the user to send us messages without paying (can be <strong>unset</strong> by both monoforums and users).
+    /// </summary>
     public bool RequirePayment { get; set; }
 
-    ///<summary>
-    /// If set, applies the setting within the <a href="https://corefork.telegram.org/api/forum#monoforums">monoforum aka direct messages »</a> (pass the ID of the monoforum, <strong>not</strong> the ID of the associated channel).
+    /// <summary>
+    /// If set, applies the setting within the <a href="https://corefork.telegram.org/api/monoforum">monoforum aka direct messages »</a> (pass the ID of the monoforum, <strong>not</strong> the ID of the associated channel).
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ParentPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user to exempt or unexempt.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

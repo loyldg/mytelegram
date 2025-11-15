@@ -2,25 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/colors">color palette »</a>.
-/// See <a href="https://corefork.telegram.org/type/PeerColor" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PeerColor" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerColor"/> See <a href="https://corefork.telegram.org/constructor/peerColor" /><br/>
+/// <see cref="TPeerColorCollectible"/> See <a href="https://corefork.telegram.org/constructor/peerColorCollectible" /><br/>
+/// <see cref="TInputPeerColorCollectible"/> See <a href="https://corefork.telegram.org/constructor/inputPeerColorCollectible" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerColor), nameof(TPeerColor))]
+[JsonDerivedType(typeof(TPeerColorCollectible), nameof(TPeerColorCollectible))]
+[JsonDerivedType(typeof(TInputPeerColorCollectible), nameof(TInputPeerColorCollectible))]
 public interface IPeerColor : IObject
 {
-    ///<summary>
-    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
-    int Flags { get; set; }
-
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/colors">Color palette ID, see here »</a> for more info; if not set, the default palette should be used.
-    ///</summary>
-    int? Color { get; set; }
-
-    ///<summary>
-    /// Optional <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji ID</a> used to generate the pattern.
-    ///</summary>
-    long? BackgroundEmojiId { get; set; }
 }

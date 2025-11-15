@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer
-/// See <a href="https://corefork.telegram.org/constructor/dialogPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dialogPeer" /></para>
+/// </summary>
 [TlObject(0xe56dbf05)]
-public sealed class TDialogPeer : IDialogPeer
+public sealed partial class TDialogPeer : IDialogPeer
 {
     public uint ConstructorId => 0xe56dbf05;
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
     public void ComputeFlag()

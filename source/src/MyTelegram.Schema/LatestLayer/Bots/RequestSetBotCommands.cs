@@ -2,38 +2,41 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Set bot command list
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_COMMAND_DESCRIPTION_INVALID The specified command description is invalid.
-/// 400 BOT_COMMAND_INVALID The specified command is invalid.
-/// 400 LANG_CODE_INVALID The specified language code is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/bots.setBotCommands" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_COMMAND_DESCRIPTION_INVALID The specified command description is invalid.</c></para>
+/// <para><c>400 BOT_COMMAND_INVALID The specified command is invalid.</c></para>
+/// <para><c>400 LANG_CODE_INVALID The specified language code is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.setBotCommands" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x517165a)]
-public sealed class RequestSetBotCommands : IRequest<IBool>
+public sealed partial class RequestSetBotCommands : IRequest<IBool>
 {
     public uint ConstructorId => 0x517165a;
 
-    ///<summary>
+    /// <summary>
     /// Command scope
     /// See <a href="https://corefork.telegram.org/type/BotCommandScope" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotCommandScope Scope { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Language code
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot commands
     /// See <a href="https://corefork.telegram.org/type/BotCommand" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBotCommand> Commands { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a document for subsequent interaction.
-/// See <a href="https://corefork.telegram.org/type/InputDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputDocument" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputDocumentEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputDocumentEmpty" /><br/>
+/// <see cref="TInputDocument"/> See <a href="https://corefork.telegram.org/constructor/inputDocument" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputDocumentEmpty), nameof(TInputDocumentEmpty))]
 [JsonDerivedType(typeof(TInputDocument), nameof(TInputDocument))]
 public interface IInputDocument : IObject

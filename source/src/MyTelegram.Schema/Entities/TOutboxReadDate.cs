@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Exact read date of a private message we sent to another user.
-/// See <a href="https://corefork.telegram.org/constructor/outboxReadDate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/outboxReadDate" /></para>
+/// </summary>
 [TlObject(0x3bb842ac)]
-public sealed class TOutboxReadDate : IOutboxReadDate
+public sealed partial class TOutboxReadDate : IOutboxReadDate
 {
     public uint ConstructorId => 0x3bb842ac;
-    ///<summary>
+    /// <summary>
     /// UNIX timestamp with the read date.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

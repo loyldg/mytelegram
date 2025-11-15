@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Contains info on app update availability.
-/// See <a href="https://corefork.telegram.org/type/help.AppUpdate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.AppUpdate" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAppUpdate"/> See <a href="https://corefork.telegram.org/constructor/help.appUpdate" /><br/>
+/// <see cref="TNoAppUpdate"/> See <a href="https://corefork.telegram.org/constructor/help.noAppUpdate" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAppUpdate), nameof(TAppUpdate))]
 [JsonDerivedType(typeof(TNoAppUpdate), nameof(TNoAppUpdate))]
 public interface IAppUpdate : IObject

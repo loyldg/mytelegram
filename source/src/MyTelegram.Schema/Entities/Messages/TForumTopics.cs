@@ -2,56 +2,56 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Contains information about multiple <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topics</a>
-/// See <a href="https://corefork.telegram.org/constructor/messages.forumTopics" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.forumTopics" /></para>
+/// </summary>
 [TlObject(0x367617d3)]
-public sealed class TForumTopics : IForumTopics
+public sealed partial class TForumTopics : IForumTopics
 {
     public uint ConstructorId => 0x367617d3;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the returned topics are ordered by creation date; if set, pagination by <code>offset_date</code> should use <a href="https://corefork.telegram.org/constructor/forumTopic">forumTopic</a>.<code>date</code>; otherwise topics are ordered by the last message date, so paginate by the <code>date</code> of the <a href="https://corefork.telegram.org/type/Message">message</a> referenced by <a href="https://corefork.telegram.org/constructor/forumTopic">forumTopic</a>.<code>top_message</code>.
-    ///</summary>
+    /// </summary>
     public bool OrderByCreateDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of topics matching query; may be more than the topics contained in <code>topics</code>, in which case <a href="https://corefork.telegram.org/api/offsets">pagination</a> is required.
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Forum topics
     /// See <a href="https://corefork.telegram.org/type/ForumTopic" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IForumTopic> Topics { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related messages (contains the messages mentioned by <a href="https://corefork.telegram.org/constructor/forumTopic">forumTopic</a>.<code>top_message</code>).
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
     public void ComputeFlag()

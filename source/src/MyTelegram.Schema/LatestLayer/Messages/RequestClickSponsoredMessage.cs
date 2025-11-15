@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Informs the server that the user has interacted with a sponsored message in <a href="https://corefork.telegram.org/api/sponsored-messages#clicking-on-sponsored-messages">one of the ways listed here »</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.clickSponsoredMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.clickSponsoredMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8235057e)]
-public sealed class RequestClickSponsoredMessage : IRequest<IBool>
+public sealed partial class RequestClickSponsoredMessage : IRequest<IBool>
 {
     public uint ConstructorId => 0x8235057e;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user clicked on the media
-    ///</summary>
+    /// </summary>
     public bool Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user expanded the video to full screen, and then clicked on it.
-    ///</summary>
+    /// </summary>
     public bool Fullscreen { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The ad's unique ID.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> RandomId { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get web <a href="https://corefork.telegram.org/widgets/login">login widget</a> authorizations
-/// See <a href="https://corefork.telegram.org/method/account.getWebAuthorizations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getWebAuthorizations" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x182e6d6f)]
-public sealed class RequestGetWebAuthorizations : IRequest<MyTelegram.Schema.Account.IWebAuthorizations>
+public sealed partial class RequestGetWebAuthorizations : IRequest<MyTelegram.Schema.Account.IWebAuthorizations>
 {
     public uint ConstructorId => 0x182e6d6f;
 

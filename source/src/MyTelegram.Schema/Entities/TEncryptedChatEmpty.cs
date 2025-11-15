@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor.
-/// See <a href="https://corefork.telegram.org/constructor/encryptedChatEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/encryptedChatEmpty" /></para>
+/// </summary>
 [TlObject(0xab7ec0a0)]
-public sealed class TEncryptedChatEmpty : IEncryptedChat
+public sealed partial class TEncryptedChatEmpty : IEncryptedChat
 {
     public uint ConstructorId => 0xab7ec0a0;
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

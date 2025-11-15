@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Admin log events
-/// See <a href="https://corefork.telegram.org/constructor/channels.adminLogResults" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channels.adminLogResults" /></para>
+/// </summary>
 [TlObject(0xed8af74d)]
-public sealed class TAdminLogResults : IAdminLogResults
+public sealed partial class TAdminLogResults : IAdminLogResults
 {
     public uint ConstructorId => 0xed8af74d;
-    ///<summary>
+    /// <summary>
     /// Admin log events
     /// See <a href="https://corefork.telegram.org/type/ChannelAdminLogEvent" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChannelAdminLogEvent> Events { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in events
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in events
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

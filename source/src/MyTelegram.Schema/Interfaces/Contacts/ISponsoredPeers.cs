@@ -2,9 +2,15 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/contacts.SponsoredPeers" />
-///</summary>
+/// <summary>
+/// A list of sponsored peers.
+/// <para>See <a href="https://corefork.telegram.org/type/contacts.SponsoredPeers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSponsoredPeersEmpty"/> See <a href="https://corefork.telegram.org/constructor/contacts.sponsoredPeersEmpty" /><br/>
+/// <see cref="TSponsoredPeers"/> See <a href="https://corefork.telegram.org/constructor/contacts.sponsoredPeers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSponsoredPeersEmpty), nameof(TSponsoredPeersEmpty))]
 [JsonDerivedType(typeof(TSponsoredPeers), nameof(TSponsoredPeers))]
 public interface ISponsoredPeers : IObject

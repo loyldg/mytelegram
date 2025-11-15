@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/fragment">Fragment collectible »</a>.
-/// See <a href="https://corefork.telegram.org/type/InputCollectible" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputCollectible" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputCollectibleUsername"/> See <a href="https://corefork.telegram.org/constructor/inputCollectibleUsername" /><br/>
+/// <see cref="TInputCollectiblePhone"/> See <a href="https://corefork.telegram.org/constructor/inputCollectiblePhone" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputCollectibleUsername), nameof(TInputCollectibleUsername))]
 [JsonDerivedType(typeof(TInputCollectiblePhone), nameof(TInputCollectiblePhone))]
 public interface IInputCollectible : IObject

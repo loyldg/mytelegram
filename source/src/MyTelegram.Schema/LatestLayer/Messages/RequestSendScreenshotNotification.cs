@@ -2,37 +2,40 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Notify the other user in a private chat that a screenshot of the chat was taken
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 REPLY_MESSAGE_ID_INVALID The specified reply-to message ID is invalid.
-/// 400 STORY_ID_INVALID The specified story ID is invalid.
-/// 400 YOU_BLOCKED_USER You blocked this user.
-/// See <a href="https://corefork.telegram.org/method/messages.sendScreenshotNotification" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 REPLY_MESSAGE_ID_INVALID The specified reply-to message ID is invalid.</c></para>
+/// <para><c>400 STORY_ID_INVALID The specified story ID is invalid.</c></para>
+/// <para><c>400 YOU_BLOCKED_USER You blocked this user. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendScreenshotNotification" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa1405817)]
-public sealed class RequestSendScreenshotNotification : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendScreenshotNotification : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xa1405817;
 
-    ///<summary>
+    /// <summary>
     /// Other user
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Indicates the message that was screenshotted (the specified message ID can also be <code>0</code> to avoid indicating any specific message).
     /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputReplyTo ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Random ID to avoid message resending
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
     public void ComputeFlag()

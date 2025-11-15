@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/saved-messages">saved dialog »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/savedDialog" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/savedDialog" /></para>
+/// </summary>
 [TlObject(0xbd87cb6c)]
-public sealed class TSavedDialog : ISavedDialog
+public sealed partial class TSavedDialog : ISavedDialog
 {
     public uint ConstructorId => 0xbd87cb6c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is the dialog pinned
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The dialog
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The latest message ID
-    ///</summary>
+    /// </summary>
     public int TopMessage { get; set; }
 
     public void ComputeFlag()

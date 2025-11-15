@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Details about the authorization request, for more info <a href="https://corefork.telegram.org/api/url-authorization">click here »</a>
-/// See <a href="https://corefork.telegram.org/constructor/urlAuthResultRequest" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/urlAuthResultRequest" /></para>
+/// </summary>
 [TlObject(0x92d33a0e)]
-public sealed class TUrlAuthResultRequest : IUrlAuthResult
+public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
 {
     public uint ConstructorId => 0x92d33a0e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the bot would like to send messages to the user
-    ///</summary>
+    /// </summary>
     public bool RequestWriteAccess { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See <a href="https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot">Linking your domain to the bot</a> for more details.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The domain name of the website on which the user will log in.
-    ///</summary>
+    /// </summary>
     public string Domain { get; set; }
 
     public void ComputeFlag()

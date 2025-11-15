@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Change of state in an encrypted chat.
-/// See <a href="https://corefork.telegram.org/constructor/updateEncryption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateEncryption" /></para>
+/// </summary>
 [TlObject(0xb4a2e88d)]
-public sealed class TUpdateEncryption : IUpdate
+public sealed partial class TUpdateEncryption : IUpdate
 {
     public uint ConstructorId => 0xb4a2e88d;
-    ///<summary>
+    /// <summary>
     /// Encrypted chat
     /// See <a href="https://corefork.telegram.org/type/EncryptedChat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEncryptedChat Chat { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of change
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

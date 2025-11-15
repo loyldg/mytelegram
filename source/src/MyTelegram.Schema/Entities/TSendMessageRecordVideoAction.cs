@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is recording a video.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageRecordVideoAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageRecordVideoAction" /></para>
+/// </summary>
 [TlObject(0xa187d66f)]
-public sealed class TSendMessageRecordVideoAction : ISendMessageAction
+public sealed partial class TSendMessageRecordVideoAction : ISendMessageAction
 {
     public uint ConstructorId => 0xa187d66f;
     public void ComputeFlag()

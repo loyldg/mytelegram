@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object contains info on nearest data center.
-/// See <a href="https://corefork.telegram.org/type/NearestDc" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/NearestDc" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TNearestDc"/> See <a href="https://corefork.telegram.org/constructor/nearestDc" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TNearestDc), nameof(TNearestDc))]
 public interface INearestDc : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Country code determined by geo-ip
-    ///</summary>
+    /// </summary>
     string Country { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of current data center
-    ///</summary>
+    /// </summary>
     int ThisDc { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of nearest data center
-    ///</summary>
+    /// </summary>
     int NearestDc { get; set; }
 }

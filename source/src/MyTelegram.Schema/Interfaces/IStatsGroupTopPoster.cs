@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Most active user in a <a href="https://corefork.telegram.org/api/channel">supergroup</a>
-/// See <a href="https://corefork.telegram.org/type/StatsGroupTopPoster" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StatsGroupTopPoster" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatsGroupTopPoster"/> See <a href="https://corefork.telegram.org/constructor/statsGroupTopPoster" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatsGroupTopPoster), nameof(TStatsGroupTopPoster))]
 public interface IStatsGroupTopPoster : IObject
 {
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of messages for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     int Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Average number of characters per message
-    ///</summary>
+    /// </summary>
     int AvgChars { get; set; }
 }

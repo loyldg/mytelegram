@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A group call was scheduled
-/// See <a href="https://corefork.telegram.org/constructor/messageActionGroupCallScheduled" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGroupCallScheduled" /></para>
+/// </summary>
 [TlObject(0xb3a07661)]
-public sealed class TMessageActionGroupCallScheduled : IMessageAction
+public sealed partial class TMessageActionGroupCallScheduled : IMessageAction
 {
     public uint ConstructorId => 0xb3a07661;
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When is this group call scheduled to start
-    ///</summary>
+    /// </summary>
     public int ScheduleDate { get; set; }
 
     public void ComputeFlag()

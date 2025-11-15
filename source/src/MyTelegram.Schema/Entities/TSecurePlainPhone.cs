@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Phone number to use in <a href="https://corefork.telegram.org/passport">telegram passport</a>: <a href="https://corefork.telegram.org/passport/encryption#secureplaindata">it must be verified, first »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/securePlainPhone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/securePlainPhone" /></para>
+/// </summary>
 [TlObject(0x7d6099dd)]
-public sealed class TSecurePlainPhone : ISecurePlainData
+public sealed partial class TSecurePlainPhone : ISecurePlainData
 {
     public uint ConstructorId => 0x7d6099dd;
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string Phone { get; set; }
 
     public void ComputeFlag()

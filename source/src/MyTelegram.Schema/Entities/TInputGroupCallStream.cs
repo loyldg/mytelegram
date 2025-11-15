@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chunk of a livestream
-/// See <a href="https://corefork.telegram.org/constructor/inputGroupCallStream" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputGroupCallStream" /></para>
+/// </summary>
 [TlObject(0x598a92a)]
-public sealed class TInputGroupCallStream : IInputFileLocation
+public sealed partial class TInputGroupCallStream : IInputFileLocation
 {
     public uint ConstructorId => 0x598a92a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Livestream info
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Timestamp in milliseconds
-    ///</summary>
+    /// </summary>
     public long TimeMs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the duration of the video segment to fetch in milliseconds, by bitshifting <code>1000</code> to the right <code>scale</code> times: <code>duration_ms := 1000 &gt;&gt; scale</code>
-    ///</summary>
+    /// </summary>
     public int Scale { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Selected video channel
-    ///</summary>
+    /// </summary>
     public int? VideoChannel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Selected video quality (0 = lowest, 1 = medium, 2 = best)
-    ///</summary>
+    /// </summary>
     public int? VideoQuality { get; set; }
 
     public void ComputeFlag()

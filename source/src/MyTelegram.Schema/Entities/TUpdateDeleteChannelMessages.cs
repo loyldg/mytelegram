@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Some messages in a <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a> were deleted
-/// See <a href="https://corefork.telegram.org/constructor/updateDeleteChannelMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDeleteChannelMessages" /></para>
+/// </summary>
 [TlObject(0xc32d5b12)]
-public sealed class TUpdateDeleteChannelMessages : IUpdate
+public sealed partial class TUpdateDeleteChannelMessages : IUpdate
 {
     public uint ConstructorId => 0xc32d5b12;
-    ///<summary>
+    /// <summary>
     /// Channel ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of messages that were deleted
-    ///</summary>
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()

@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Create, edit or delete the <a href="https://corefork.telegram.org/api/bots/referrals">affiliate program</a> of a bot we own
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 STARREF_AWAITING_END The previous referral program was terminated less than 24 hours ago: further changes can be made after the date specified in userFull.starref_program.end_date.
-/// 400 STARREF_PERMILLE_INVALID The specified commission_permille is invalid: the minimum and maximum values for this parameter are contained in the <a href="https://corefork.telegram.org/api/config#starref-min-commission-permille">starref_min_commission_permille</a> and <a href="https://corefork.telegram.org/api/config#starref-max-commission-permille">starref_max_commission_permille</a> client configuration parameters.
-/// 400 STARREF_PERMILLE_TOO_LOW The specified commission_permille is too low: the minimum and maximum values for this parameter are contained in the <a href="https://corefork.telegram.org/api/config#starref-min-commission-permille">starref_min_commission_permille</a> and <a href="https://corefork.telegram.org/api/config#starref-max-commission-permille">starref_max_commission_permille</a> client configuration parameters.
-/// See <a href="https://corefork.telegram.org/method/bots.updateStarRefProgram" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 STARREF_AWAITING_END The previous referral program was terminated less than 24 hours ago: further changes can be made after the date specified in userFull.starref_program.end_date.</c></para>
+/// <para><c>400 STARREF_PERMILLE_INVALID The specified commission_permille is invalid: the minimum and maximum values for this parameter are contained in the <a href="https://corefork.telegram.org/api/config#starref-min-commission-permille">starref_min_commission_permille</a> and <a href="https://corefork.telegram.org/api/config#starref-max-commission-permille">starref_max_commission_permille</a> client configuration parameters.</c></para>
+/// <para><c>400 STARREF_PERMILLE_TOO_LOW The specified commission_permille is too low: the minimum and maximum values for this parameter are contained in the <a href="https://corefork.telegram.org/api/config#starref-min-commission-permille">starref_min_commission_permille</a> and <a href="https://corefork.telegram.org/api/config#starref-max-commission-permille">starref_max_commission_permille</a> client configuration parameters. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.updateStarRefProgram" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x778b5ab3)]
-public sealed class RequestUpdateStarRefProgram : IRequest<MyTelegram.Schema.IStarRefProgram>
+public sealed partial class RequestUpdateStarRefProgram : IRequest<MyTelegram.Schema.IStarRefProgram>
 {
     public uint ConstructorId => 0x778b5ab3;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The bot
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
-    /// The permille commission rate: it indicates the share of Telegram Stars received by affiliates for every transaction made by users they referred inside of the bot.  <br>  The minimum and maximum values for this parameter are contained in the <a href="https://corefork.telegram.org/api/config#starref-min-commission-permille">starref_min_commission_permille</a> and <a href="https://corefork.telegram.org/api/config#starref-max-commission-permille">starref_max_commission_permille</a> client configuration parameters. <br>  Can be <code>0</code> to terminate the affiliate program.<br>  Both the duration and the commission may only be raised after creation of the program: to lower them, the program must first be terminated and a new one created.
-    ///</summary>
+    /// <summary>
+    /// The permille commission rate: it indicates the share of Telegram Stars received by affiliates for every transaction made by users they referred inside of the bot.  <br/>  The minimum and maximum values for this parameter are contained in the <a href="https://corefork.telegram.org/api/config#starref-min-commission-permille">starref_min_commission_permille</a> and <a href="https://corefork.telegram.org/api/config#starref-max-commission-permille">starref_max_commission_permille</a> client configuration parameters. <br/>  Can be <code>0</code> to terminate the affiliate program.<br/>  Both the duration and the commission may only be raised after creation of the program: to lower them, the program must first be terminated and a new one created.
+    /// </summary>
     public int CommissionPermille { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Indicates the duration of the affiliate program; if not set, there is no expiration date.
-    ///</summary>
+    /// </summary>
     public int? DurationMonths { get; set; }
 
     public void ComputeFlag()

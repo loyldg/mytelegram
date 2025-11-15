@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Report an irrelevant geogroup
-/// See <a href="https://corefork.telegram.org/constructor/inputReportReasonGeoIrrelevant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputReportReasonGeoIrrelevant" /></para>
+/// </summary>
 [TlObject(0xdbd4feed)]
-public sealed class TInputReportReasonGeoIrrelevant : IReportReason
+public sealed partial class TInputReportReasonGeoIrrelevant : IReportReason
 {
     public uint ConstructorId => 0xdbd4feed;
     public void ComputeFlag()

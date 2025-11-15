@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Reorder active usernames
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// See <a href="https://corefork.telegram.org/method/channels.reorderUsernames" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.reorderUsernames" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb45ced1d)]
-public sealed class RequestReorderUsernames : IRequest<IBool>
+public sealed partial class RequestReorderUsernames : IRequest<IBool>
 {
     public uint ConstructorId => 0xb45ced1d;
 
-    ///<summary>
+    /// <summary>
     /// The supergroup or channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new order for active usernames. All active usernames must be specified.
-    ///</summary>
+    /// </summary>
     public TVector<string> Order { get; set; }
 
     public void ComputeFlag()

@@ -1,15 +1,16 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
-
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <summary>
 /// Invite users to a channel/supergroup
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 BOTS_TOO_MUCH There are too many bots in this chat/channel.
 /// 400 BOT_GROUPS_BLOCKED This bot can't be added to groups.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
+/// 400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
 /// 400 CHAT_INVALID Invalid chat.
+/// 400 CHAT_MEMBER_ADD_FAILED Could not add participants.
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
@@ -22,35 +23,23 @@
 /// 400 USER_KICKED This user was kicked from this supergroup/channel.
 /// 403 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.
 /// 403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this.
-/// See <a href="https://corefork.telegram.org/method/channels.inviteToChannel" />
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.inviteToChannel"/> </c></para>
 /// </summary>
-internal sealed class InviteToChannelHandler(
-    ICommandBus commandBus,
-    IPeerHelper peerHelper,
-    IAccessHashHelper accessHashHelper,
-    IPrivacyAppService privacyAppService,
-    IChannelAppService channelAppService,
-    IUserAppService userAppService,
-    IQueryProcessor queryProcessor,
-    IChannelAdminRightsChecker channelAdminRightsChecker
-) : RpcResultObjectHandler<RequestInviteToChannel, IInvitedUsers>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class InviteToChannelHandler(ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IPrivacyAppService privacyAppService, IChannelAppService channelAppService, IUserAppService userAppService, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestInviteToChannel, IInvitedUsers>
 {
-    protected override async Task<IInvitedUsers> HandleCoreAsync(
-        IRequestInput input,
-        RequestInviteToChannel obj
-    )
+    protected override async Task<IInvitedUsers> HandleCoreAsync(IRequestInput input, RequestInviteToChannel obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId,
-                adminRights => adminRights.ChangeInfo);
-
+            await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, adminRights => adminRights.ChangeInfo);
             var channelId = inputChannel.ChannelId;
             await accessHashHelper.CheckAccessHashAsync(input, channelId, inputChannel.AccessHash, AccessHashType.Channel);
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
             var userReadModel = await userAppService.GetAsync(input.UserId);
-
             var userIds = new List<long>();
             var botUserIds = new List<long>();
             foreach (var item in obj.Users)
@@ -67,23 +56,9 @@ internal sealed class InviteToChannelHandler(
                 inviterUserId = MyTelegramConsts.GroupAnonymousBotUserId;
             }
 
-            var command = new StartInviteToChannelCommand(
-                TempId.New,
-                input.ToRequestInfo(),
-                channelId,
-                channelReadModel.Broadcast,
-                channelReadModel.HasLink,
-                inviterUserId,
-                channelReadModel.TopMessageId,
-                channelReadModel.TopMessageId,
-                userIds,
-                botUserIds,
-                ChatJoinType.InvitedByAdmin
-            );
-
+            var command = new StartInviteToChannelCommand(TempId.New, input.ToRequestInfo(), channelId, channelReadModel.Broadcast, channelReadModel.HasLink, inviterUserId, channelReadModel.TopMessageId, channelReadModel.TopMessageId, userIds, botUserIds, ChatJoinType.InvitedByAdmin);
             await commandBus.PublishAsync(command);
-
-            return null!;
+            return null !;
         }
 
         throw new NotImplementedException();

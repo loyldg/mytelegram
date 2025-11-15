@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a custom emoji
-/// See <a href="https://corefork.telegram.org/constructor/documentAttributeCustomEmoji" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentAttributeCustomEmoji" /></para>
+/// </summary>
 [TlObject(0xfd149899)]
-public sealed class TDocumentAttributeCustomEmoji : IDocumentAttribute
+public sealed partial class TDocumentAttributeCustomEmoji : IDocumentAttribute
 {
     public uint ConstructorId => 0xfd149899;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this custom emoji can be sent by non-Premium users
-    ///</summary>
+    /// </summary>
     public bool Free { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the color of this TGS custom emoji should be changed to the text color when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context.
-    ///</summary>
+    /// </summary>
     public bool TextColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The actual emoji
-    ///</summary>
+    /// </summary>
     public string Alt { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The emoji stickerset to which this emoji belongs.
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
     public void ComputeFlag()

@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The specified chat invite was replaced with another one
-/// See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInviteReplaced" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInviteReplaced" /></para>
+/// </summary>
 [TlObject(0x222600ef)]
-public sealed class TExportedChatInviteReplaced : IExportedChatInvite
+public sealed partial class TExportedChatInviteReplaced : IExportedChatInvite
 {
     public uint ConstructorId => 0x222600ef;
-    ///<summary>
+    /// <summary>
     /// The replaced chat invite
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The invite that replaces the previous invite
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite NewInvite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

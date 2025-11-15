@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A contact of the current user.
-/// See <a href="https://corefork.telegram.org/type/Contact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Contact" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TContact"/> See <a href="https://corefork.telegram.org/constructor/contact" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TContact), nameof(TContact))]
 public interface IContact : IObject
 {
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current user is in the user's contact list
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     bool Mutual { get; set; }
 }

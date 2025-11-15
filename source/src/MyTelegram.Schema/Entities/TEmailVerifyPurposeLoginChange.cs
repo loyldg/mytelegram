@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Email verification purpose: change login email
-/// See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposeLoginChange" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposeLoginChange" /></para>
+/// </summary>
 [TlObject(0x527d22eb)]
-public sealed class TEmailVerifyPurposeLoginChange : IEmailVerifyPurpose
+public sealed partial class TEmailVerifyPurposeLoginChange : IEmailVerifyPurpose
 {
     public uint ConstructorId => 0x527d22eb;
     public void ComputeFlag()

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A game to send
-/// See <a href="https://corefork.telegram.org/type/InputGame" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputGame" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputGameID"/> See <a href="https://corefork.telegram.org/constructor/inputGameID" /><br/>
+/// <see cref="TInputGameShortName"/> See <a href="https://corefork.telegram.org/constructor/inputGameShortName" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputGameID), nameof(TInputGameID))]
 [JsonDerivedType(typeof(TInputGameShortName), nameof(TInputGameShortName))]
 public interface IInputGame : IObject

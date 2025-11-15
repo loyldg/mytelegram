@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Web authorizations
-/// See <a href="https://corefork.telegram.org/type/account.WebAuthorizations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.WebAuthorizations" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebAuthorizations"/> See <a href="https://corefork.telegram.org/constructor/account.webAuthorizations" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebAuthorizations), nameof(TWebAuthorizations))]
 public interface IWebAuthorizations : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Web authorization list
     /// See <a href="https://corefork.telegram.org/type/WebAuthorization" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IWebAuthorization> Authorizations { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

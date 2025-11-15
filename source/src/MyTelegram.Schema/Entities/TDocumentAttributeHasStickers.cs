@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether the current document has stickers attached
-/// See <a href="https://corefork.telegram.org/constructor/documentAttributeHasStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentAttributeHasStickers" /></para>
+/// </summary>
 [TlObject(0x9801d2f7)]
-public sealed class TDocumentAttributeHasStickers : IDocumentAttribute
+public sealed partial class TDocumentAttributeHasStickers : IDocumentAttribute
 {
     public uint ConstructorId => 0x9801d2f7;
     public void ComputeFlag()

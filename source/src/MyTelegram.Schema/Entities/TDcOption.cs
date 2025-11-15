@@ -2,67 +2,67 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Data center
-/// See <a href="https://corefork.telegram.org/constructor/dcOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dcOption" /></para>
+/// </summary>
 [TlObject(0x18b7a10d)]
-public sealed class TDcOption : IDcOption
+public sealed partial class TDcOption : IDcOption
 {
     public uint ConstructorId => 0x18b7a10d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the specified IP is an IPv6 address
-    ///</summary>
+    /// </summary>
     public bool Ipv6 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this DC should only be used to <a href="https://corefork.telegram.org/api/files">download or upload files</a>
-    ///</summary>
+    /// </summary>
     public bool MediaOnly { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this DC only supports connection with <a href="https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation">transport obfuscation</a>
-    ///</summary>
+    /// </summary>
     public bool TcpoOnly { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a <a href="https://corefork.telegram.org/cdn">CDN DC</a>.
-    ///</summary>
+    /// </summary>
     public bool Cdn { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this IP should be used when connecting through a proxy
-    ///</summary>
+    /// </summary>
     public bool Static { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, clients must connect using only the specified port, without trying any other port.
-    ///</summary>
+    /// </summary>
     public bool ThisPortOnly { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// DC ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IP address of DC
-    ///</summary>
+    /// </summary>
     public string IpAddress { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Port
-    ///</summary>
+    /// </summary>
     public int Port { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the <code>tcpo_only</code> flag is set, specifies the secret to use when connecting using <a href="https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation">transport obfuscation</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? Secret { get; set; }
 
     public void ComputeFlag()

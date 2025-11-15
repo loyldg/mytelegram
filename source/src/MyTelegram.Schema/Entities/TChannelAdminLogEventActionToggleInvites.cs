@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Invites were enabled/disabled
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleInvites" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleInvites" /></para>
+/// </summary>
 [TlObject(0x1b7907ae)]
-public sealed class TChannelAdminLogEventActionToggleInvites : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionToggleInvites : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x1b7907ae;
-    ///<summary>
+    /// <summary>
     /// New value
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool NewValue { get; set; }
 
     public void ComputeFlag()

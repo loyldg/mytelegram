@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/bots/attach">bot mini app that can be launched from the attachment menu »</a>
-/// See <a href="https://corefork.telegram.org/constructor/attachMenuBotsBot" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/attachMenuBotsBot" /></para>
+/// </summary>
 [TlObject(0x93bf667f)]
-public sealed class TAttachMenuBotsBot : IAttachMenuBotsBot
+public sealed partial class TAttachMenuBotsBot : IAttachMenuBotsBot
 {
     public uint ConstructorId => 0x93bf667f;
-    ///<summary>
-    /// Represents a <a href="https://corefork.telegram.org/api/bots/attach">bot mini app that can be launched from the attachment menu »</a><br>
+    /// <summary>
+    /// Represents a <a href="https://corefork.telegram.org/api/bots/attach">bot mini app that can be launched from the attachment menu »</a><br/>
     /// See <a href="https://corefork.telegram.org/type/AttachMenuBot" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAttachMenuBot Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about related users and bots
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

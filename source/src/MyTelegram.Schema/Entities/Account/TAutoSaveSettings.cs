@@ -2,48 +2,48 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Contains media autosave settings
-/// See <a href="https://corefork.telegram.org/constructor/account.autoSaveSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.autoSaveSettings" /></para>
+/// </summary>
 [TlObject(0x4c3e069d)]
-public sealed class TAutoSaveSettings : IAutoSaveSettings
+public sealed partial class TAutoSaveSettings : IAutoSaveSettings
 {
     public uint ConstructorId => 0x4c3e069d;
-    ///<summary>
+    /// <summary>
     /// Default media autosave settings for private chats
     /// See <a href="https://corefork.telegram.org/type/AutoSaveSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoSaveSettings UsersSettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default media autosave settings for <a href="https://corefork.telegram.org/api/channel">groups and supergroups</a>
     /// See <a href="https://corefork.telegram.org/type/AutoSaveSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoSaveSettings ChatsSettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default media autosave settings for <a href="https://corefork.telegram.org/api/channel">channels</a>
     /// See <a href="https://corefork.telegram.org/type/AutoSaveSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoSaveSettings BroadcastsSettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer-specific granular autosave settings
     /// See <a href="https://corefork.telegram.org/type/AutoSaveException" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IAutoSaveException> Exceptions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in the peer-specific granular autosave settings
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the peer-specific granular autosave settings
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

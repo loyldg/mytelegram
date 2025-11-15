@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Get configuration for <a href="https://corefork.telegram.org/cdn">CDN</a> file downloads.
-/// See <a href="https://corefork.telegram.org/method/help.getCdnConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getCdnConfig" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x52029342)]
-public sealed class RequestGetCdnConfig : IRequest<MyTelegram.Schema.ICdnConfig>
+public sealed partial class RequestGetCdnConfig : IRequest<MyTelegram.Schema.ICdnConfig>
 {
     public uint ConstructorId => 0x52029342;
 

@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An <a href="https://instantview.telegram.org/">instant view</a> webpage preview was generated
-/// See <a href="https://corefork.telegram.org/constructor/updateWebPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateWebPage" /></para>
+/// </summary>
 [TlObject(0x7f891213)]
-public sealed class TUpdateWebPage : IUpdate
+public sealed partial class TUpdateWebPage : IUpdate
 {
     public uint ConstructorId => 0x7f891213;
-    ///<summary>
+    /// <summary>
     /// Webpage preview
     /// See <a href="https://corefork.telegram.org/type/WebPage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebPage Webpage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()

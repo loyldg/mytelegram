@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about the forwards of a <a href="https://corefork.telegram.org/api/stories">story</a> as a message to public chats and reposts by public channels.
-/// See <a href="https://corefork.telegram.org/type/PublicForward" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PublicForward" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPublicForwardMessage"/> See <a href="https://corefork.telegram.org/constructor/publicForwardMessage" /><br/>
+/// <see cref="TPublicForwardStory"/> See <a href="https://corefork.telegram.org/constructor/publicForwardStory" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPublicForwardMessage), nameof(TPublicForwardMessage))]
 [JsonDerivedType(typeof(TPublicForwardStory), nameof(TPublicForwardStory))]
 public interface IPublicForward : IObject

@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Edit/create a <a href="https://corefork.telegram.org/api/factcheck">fact-check</a> on a message.Can only be used by independent fact-checkers as specified by the <a href="https://corefork.telegram.org/api/config#can-edit-factcheck">appConfig.can_edit_factcheck</a> configuration flag.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 CHAT_ACTION_FORBIDDEN You cannot execute this action.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.editFactCheck" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 CHAT_ACTION_FORBIDDEN You cannot execute this action.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.editFactCheck" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x589ee75)]
-public sealed class RequestEditFactCheck : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditFactCheck : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x589ee75;
 
-    ///<summary>
+    /// <summary>
     /// Peer where the message was sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Fact-check (maximum UTF-8 length specified in <a href="https://corefork.telegram.org/api/config#factcheck-length-limit">appConfig.factcheck_length_limit</a>).
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities Text { get; set; }
 
     public void ComputeFlag()

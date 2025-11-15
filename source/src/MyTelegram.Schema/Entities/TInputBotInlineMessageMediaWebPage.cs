@@ -2,59 +2,59 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Specifies options that will be used to generate the link preview for the message, or even a standalone link preview without an attached message.
-/// See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaWebPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaWebPage" /></para>
+/// </summary>
 [TlObject(0xbddcc510)]
-public sealed class TInputBotInlineMessageMediaWebPage : IInputBotInlineMessage
+public sealed partial class TInputBotInlineMessageMediaWebPage : IInputBotInlineMessage
 {
     public uint ConstructorId => 0xbddcc510;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
-    ///</summary>
+    /// </summary>
     public bool InvertMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies that a large media preview should be used.
-    ///</summary>
+    /// </summary>
     public bool ForceLargeMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies that a small media preview should be used.
-    ///</summary>
+    /// </summary>
     public bool ForceSmallMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If <strong>not</strong> set, a <code>WEBPAGE_NOT_FOUND</code> RPC error will be emitted if a webpage preview cannot be generated for the specified <code>url</code>; otherwise, no error will be emitted (unless the provided message is also empty, in which case a <code>MESSAGE_EMPTY</code> will be emitted, instead).
-    ///</summary>
+    /// </summary>
     public bool Optional { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message, can be empty.
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The URL to use for the link preview.
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
     public void ComputeFlag()

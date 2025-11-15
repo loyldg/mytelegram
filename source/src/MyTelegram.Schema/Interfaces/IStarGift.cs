@@ -2,18 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/gifts">star gift, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/type/StarGift" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StarGift" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarGift"/> See <a href="https://corefork.telegram.org/constructor/starGift" /><br/>
+/// <see cref="TStarGiftUnique"/> See <a href="https://corefork.telegram.org/constructor/starGiftUnique" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarGift), nameof(TStarGift))]
 [JsonDerivedType(typeof(TStarGiftUnique), nameof(TStarGiftUnique))]
 public interface IStarGift : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// Identifier of the gift
+    /// </summary>
     long Id { get; set; }
 }

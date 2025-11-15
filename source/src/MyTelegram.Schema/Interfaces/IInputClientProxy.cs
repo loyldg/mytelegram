@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about an <a href="https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation">MTProxy</a> used to connect.
-/// See <a href="https://corefork.telegram.org/type/InputClientProxy" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputClientProxy" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputClientProxy"/> See <a href="https://corefork.telegram.org/constructor/inputClientProxy" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputClientProxy), nameof(TInputClientProxy))]
 public interface IInputClientProxy : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Proxy address
-    ///</summary>
+    /// </summary>
     string Address { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Proxy port
-    ///</summary>
+    /// </summary>
     int Port { get; set; }
 }

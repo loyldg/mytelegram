@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Deleted localization string
-/// See <a href="https://corefork.telegram.org/constructor/langPackStringDeleted" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/langPackStringDeleted" /></para>
+/// </summary>
 [TlObject(0x2979eeb2)]
-public sealed class TLangPackStringDeleted : ILangPackString
+public sealed partial class TLangPackStringDeleted : ILangPackString
 {
     public uint ConstructorId => 0x2979eeb2;
-    ///<summary>
+    /// <summary>
     /// Localization key
-    ///</summary>
+    /// </summary>
     public string Key { get; set; }
 
     public void ComputeFlag()

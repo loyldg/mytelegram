@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Group created
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatCreate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatCreate" /></para>
+/// </summary>
 [TlObject(0xbd47cbad)]
-public sealed class TMessageActionChatCreate : IMessageAction
+public sealed partial class TMessageActionChatCreate : IMessageAction
 {
     public uint ConstructorId => 0xbd47cbad;
-    ///<summary>
+    /// <summary>
     /// Group name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of group members
-    ///</summary>
+    /// </summary>
     public TVector<long> Users { get; set; }
 
     public void ComputeFlag()

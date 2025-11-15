@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an <a href="https://instantview.telegram.org/">instant view ordered list</a>
-/// See <a href="https://corefork.telegram.org/type/PageListOrderedItem" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PageListOrderedItem" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPageListOrderedItemText"/> See <a href="https://corefork.telegram.org/constructor/pageListOrderedItemText" /><br/>
+/// <see cref="TPageListOrderedItemBlocks"/> See <a href="https://corefork.telegram.org/constructor/pageListOrderedItemBlocks" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPageListOrderedItemText), nameof(TPageListOrderedItemText))]
 [JsonDerivedType(typeof(TPageListOrderedItemBlocks), nameof(TPageListOrderedItemBlocks))]
 public interface IPageListOrderedItem : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Number of element within ordered list
-    ///</summary>
+    /// </summary>
     string Num { get; set; }
 }

@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// Check if we can process SMS jobs (official clients only).
-/// See <a href="https://corefork.telegram.org/method/smsjobs.isEligibleToJoin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/smsjobs.isEligibleToJoin" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xedc39d0)]
-public sealed class RequestIsEligibleToJoin : IRequest<MyTelegram.Schema.Smsjobs.IEligibilityToJoin>
+public sealed partial class RequestIsEligibleToJoin : IRequest<MyTelegram.Schema.Smsjobs.IEligibilityToJoin>
 {
     public uint ConstructorId => 0xedc39d0;
 

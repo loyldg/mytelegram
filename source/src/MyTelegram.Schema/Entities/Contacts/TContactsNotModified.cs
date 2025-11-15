@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Contact list on the server is the same as the list on the client.
-/// See <a href="https://corefork.telegram.org/constructor/contacts.contactsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.contactsNotModified" /></para>
+/// </summary>
 [TlObject(0xb74ba9d2)]
-public sealed class TContactsNotModified : IContacts
+public sealed partial class TContactsNotModified : IContacts
 {
     public uint ConstructorId => 0xb74ba9d2;
     public void ComputeFlag()

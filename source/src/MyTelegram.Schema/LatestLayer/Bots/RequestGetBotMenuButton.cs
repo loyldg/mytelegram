@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Gets the menu button action for a given user or for all users, previously set using <a href="https://corefork.telegram.org/method/bots.setBotMenuButton">bots.setBotMenuButton</a>; users can see this information in the <a href="https://corefork.telegram.org/constructor/botInfo">botInfo</a> constructor.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/bots.getBotMenuButton" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.getBotMenuButton" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9c60eb28)]
-public sealed class RequestGetBotMenuButton : IRequest<MyTelegram.Schema.IBotMenuButton>
+public sealed partial class RequestGetBotMenuButton : IRequest<MyTelegram.Schema.IBotMenuButton>
 {
     public uint ConstructorId => 0x9c60eb28;
 
-    ///<summary>
+    /// <summary>
     /// User ID or empty for the default menu button.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

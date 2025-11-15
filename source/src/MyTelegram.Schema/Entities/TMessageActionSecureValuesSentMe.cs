@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure <a href="https://corefork.telegram.org/passport">telegram passport</a> values were received
-/// See <a href="https://corefork.telegram.org/constructor/messageActionSecureValuesSentMe" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionSecureValuesSentMe" /></para>
+/// </summary>
 [TlObject(0x1b287353)]
-public sealed class TMessageActionSecureValuesSentMe : IMessageAction
+public sealed partial class TMessageActionSecureValuesSentMe : IMessageAction
 {
     public uint ConstructorId => 0x1b287353;
-    ///<summary>
+    /// <summary>
     /// Vector with information about documents and other Telegram Passport elements that were shared with the bot
     /// See <a href="https://corefork.telegram.org/type/SecureValue" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISecureValue> Values { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Encrypted credentials required to decrypt the data
     /// See <a href="https://corefork.telegram.org/type/SecureCredentialsEncrypted" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureCredentialsEncrypted Credentials { get; set; }
 
     public void ComputeFlag()

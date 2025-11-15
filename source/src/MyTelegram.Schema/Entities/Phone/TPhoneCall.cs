@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// A VoIP phone call
-/// See <a href="https://corefork.telegram.org/constructor/phone.phoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phone.phoneCall" /></para>
+/// </summary>
 [TlObject(0xec82e140)]
-public sealed class TPhoneCall : IPhoneCall
+public sealed partial class TPhoneCall : IPhoneCall
 {
     public uint ConstructorId => 0xec82e140;
-    ///<summary>
+    /// <summary>
     /// The VoIP phone call
     /// See <a href="https://corefork.telegram.org/type/PhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCall PhoneCall { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// VoIP phone call participants
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

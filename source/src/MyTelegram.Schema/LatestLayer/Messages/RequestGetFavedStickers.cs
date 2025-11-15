@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get faved stickers
-/// See <a href="https://corefork.telegram.org/method/messages.getFavedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getFavedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4f1aaa9)]
-public sealed class RequestGetFavedStickers : IRequest<MyTelegram.Schema.Messages.IFavedStickers>
+public sealed partial class RequestGetFavedStickers : IRequest<MyTelegram.Schema.Messages.IFavedStickers>
 {
     public uint ConstructorId => 0x4f1aaa9;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

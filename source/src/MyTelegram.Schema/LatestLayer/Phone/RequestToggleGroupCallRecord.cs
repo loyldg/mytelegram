@@ -2,50 +2,53 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Start or stop recording a group call: the recorded audio and video streams will be automatically sent to <code>Saved messages</code> (the chat with ourselves).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 GROUPCALL_FORBIDDEN The group call has already ended.
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 400 GROUPCALL_NOT_MODIFIED Group call settings weren't modified.
-/// See <a href="https://corefork.telegram.org/method/phone.toggleGroupCallRecord" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 GROUPCALL_FORBIDDEN The group call has already ended.</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>400 GROUPCALL_NOT_MODIFIED Group call settings weren't modified. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.toggleGroupCallRecord" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf128c708)]
-public sealed class RequestToggleGroupCallRecord : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleGroupCallRecord : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf128c708;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to start or stop recording
-    ///</summary>
+    /// </summary>
     public bool Start { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to also record video streams
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The group call or livestream
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Recording title
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If video stream recording is enabled, whether to record in portrait or landscape mode
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? VideoPortrait { get; set; }
 
     public void ComputeFlag()

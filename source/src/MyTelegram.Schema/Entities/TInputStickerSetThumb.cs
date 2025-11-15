@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Location of stickerset thumbnail (see <a href="https://corefork.telegram.org/api/files">files</a>)
-/// See <a href="https://corefork.telegram.org/constructor/inputStickerSetThumb" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickerSetThumb" /></para>
+/// </summary>
 [TlObject(0x9d84f3db)]
-public sealed class TInputStickerSetThumb : IInputFileLocation
+public sealed partial class TInputStickerSetThumb : IInputFileLocation
 {
     public uint ConstructorId => 0x9d84f3db;
-    ///<summary>
+    /// <summary>
     /// Sticker set
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail version
-    ///</summary>
+    /// </summary>
     public int ThumbVersion { get; set; }
 
     public void ComputeFlag()

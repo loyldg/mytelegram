@@ -2,51 +2,51 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bots only: a user has changed their reactions on a message with public reactions.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotMessageReaction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotMessageReaction" /></para>
+/// </summary>
 [TlObject(0xac21d3ce)]
-public sealed class TUpdateBotMessageReaction : IUpdate
+public sealed partial class TUpdateBotMessageReaction : IUpdate
 {
     public uint ConstructorId => 0xac21d3ce;
-    ///<summary>
+    /// <summary>
     /// Peer of the reacted-to message.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the reacted-to message.
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of the change.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user that (un)reacted to the message.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Actor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Old reactions
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IReaction> OldReactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New reactions
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IReaction> NewReactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">QTS</a> event sequence identifier
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object contains info on a successfully imported contact.
-/// See <a href="https://corefork.telegram.org/type/ImportedContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ImportedContact" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TImportedContact"/> See <a href="https://corefork.telegram.org/constructor/importedContact" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TImportedContact), nameof(TImportedContact))]
 public interface IImportedContact : IObject
 {
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The contact's client identifier (passed to one of the <a href="https://corefork.telegram.org/type/InputContact">InputContact</a> constructors)
-    ///</summary>
+    /// </summary>
     long ClientId { get; set; }
 }

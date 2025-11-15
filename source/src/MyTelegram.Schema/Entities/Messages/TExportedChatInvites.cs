@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about chat invites exported by a certain admin.
-/// See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInvites" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInvites" /></para>
+/// </summary>
 [TlObject(0xbdc62dcc)]
-public sealed class TExportedChatInvites : IExportedChatInvites
+public sealed partial class TExportedChatInvites : IExportedChatInvites
 {
     public uint ConstructorId => 0xbdc62dcc;
-    ///<summary>
+    /// <summary>
     /// Number of invites exported by the admin
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Exported invites
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IExportedChatInvite> Invites { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the admin
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

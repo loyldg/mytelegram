@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates to a bot that a webview was closed and an inline message was sent on behalf of the user using <a href="https://corefork.telegram.org/method/messages.sendWebViewResultMessage">messages.sendWebViewResultMessage</a>
-/// See <a href="https://corefork.telegram.org/constructor/updateWebViewResultSent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateWebViewResultSent" /></para>
+/// </summary>
 [TlObject(0x1592b79d)]
-public sealed class TUpdateWebViewResultSent : IUpdate
+public sealed partial class TUpdateWebViewResultSent : IUpdate
 {
     public uint ConstructorId => 0x1592b79d;
-    ///<summary>
+    /// <summary>
     /// Web app interaction ID
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
     public void ComputeFlag()

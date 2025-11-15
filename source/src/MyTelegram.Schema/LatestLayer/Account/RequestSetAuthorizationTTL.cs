@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Set time-to-live of current session
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 406 FRESH_RESET_AUTHORISATION_FORBIDDEN You can't logout other sessions if less than 24 hours have passed since you logged on the current session.
-/// 400 TTL_DAYS_INVALID The provided TTL is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.setAuthorizationTTL" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>406 FRESH_RESET_AUTHORISATION_FORBIDDEN You can't logout other sessions if less than 24 hours have passed since you logged on the current session.</c></para>
+/// <para><c>400 TTL_DAYS_INVALID The provided TTL is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.setAuthorizationTTL" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbf899aa0)]
-public sealed class RequestSetAuthorizationTTL : IRequest<IBool>
+public sealed partial class RequestSetAuthorizationTTL : IRequest<IBool>
 {
     public uint ConstructorId => 0xbf899aa0;
 
-    ///<summary>
+    /// <summary>
     /// Time-to-live of current session in days
-    ///</summary>
+    /// </summary>
     public int AuthorizationTtlDays { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Report menu option
-/// See <a href="https://corefork.telegram.org/constructor/messageReportOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageReportOption" /></para>
+/// </summary>
 [TlObject(0x7903e3d9)]
-public sealed class TMessageReportOption : IMessageReportOption
+public sealed partial class TMessageReportOption : IMessageReportOption
 {
     public uint ConstructorId => 0x7903e3d9;
-    ///<summary>
+    /// <summary>
     /// Option title
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Option identifier: if the user selects this option, re-invoke <a href="https://corefork.telegram.org/method/messages.report">messages.report</a>, passing this option to <code>option</code>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Option { get; set; }
 
     public void ComputeFlag()

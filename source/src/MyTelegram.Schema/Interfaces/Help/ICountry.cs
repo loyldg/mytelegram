@@ -2,41 +2,45 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Name, ISO code, localized name and phone codes/patterns of a specific country
-/// See <a href="https://corefork.telegram.org/type/help.Country" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.Country" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCountry"/> See <a href="https://corefork.telegram.org/constructor/help.country" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCountry), nameof(TCountry))]
 public interface ICountry : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this country should not be shown in the list
-    ///</summary>
+    /// </summary>
     bool Hidden { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ISO code of country
-    ///</summary>
+    /// </summary>
     string Iso2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the country in the country's language
-    ///</summary>
+    /// </summary>
     string DefaultName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the country in the user's language, if different from the original name
-    ///</summary>
+    /// </summary>
     string? Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone codes/patterns
     /// See <a href="https://corefork.telegram.org/type/help.CountryCode" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.Help.ICountryCode> CountryCodes { get; set; }
 }

@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get theme information
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 THEME_FORMAT_INVALID Invalid theme format provided.
-/// 400 THEME_INVALID Invalid theme provided.
-/// See <a href="https://corefork.telegram.org/method/account.getTheme" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 THEME_FORMAT_INVALID Invalid theme format provided.</c></para>
+/// <para><c>400 THEME_INVALID Invalid theme provided.</c></para>
+/// <para><c>400 THEME_SLUG_INVALID The specified theme slug is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getTheme" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3a5869ec)]
-public sealed class RequestGetTheme : IRequest<MyTelegram.Schema.ITheme>
+public sealed partial class RequestGetTheme : IRequest<MyTelegram.Schema.ITheme>
 {
     public uint ConstructorId => 0x3a5869ec;
 
-    ///<summary>
+    /// <summary>
     /// Theme format, a string that identifies the theming engines supported by the client
-    ///</summary>
+    /// </summary>
     public string Format { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme
     /// See <a href="https://corefork.telegram.org/type/InputTheme" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputTheme Theme { get; set; }
 
     public void ComputeFlag()

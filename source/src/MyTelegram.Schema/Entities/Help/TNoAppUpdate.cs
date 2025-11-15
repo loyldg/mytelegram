@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// No updates are available for the application.
-/// See <a href="https://corefork.telegram.org/constructor/help.noAppUpdate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.noAppUpdate" /></para>
+/// </summary>
 [TlObject(0xc45a6536)]
-public sealed class TNoAppUpdate : IAppUpdate
+public sealed partial class TNoAppUpdate : IAppUpdate
 {
     public uint ConstructorId => 0xc45a6536;
     public void ComputeFlag()

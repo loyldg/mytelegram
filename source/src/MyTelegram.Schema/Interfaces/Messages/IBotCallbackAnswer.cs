@@ -2,45 +2,49 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Callback answer of bot
-/// See <a href="https://corefork.telegram.org/type/messages.BotCallbackAnswer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.BotCallbackAnswer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotCallbackAnswer"/> See <a href="https://corefork.telegram.org/constructor/messages.botCallbackAnswer" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotCallbackAnswer), nameof(TBotCallbackAnswer))]
 public interface IBotCallbackAnswer : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether an alert should be shown to the user instead of a toast notification
-    ///</summary>
+    /// </summary>
     bool Alert { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether an URL is present
-    ///</summary>
+    /// </summary>
     bool HasUrl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to show games in WebView or in native UI.
-    ///</summary>
+    /// </summary>
     bool NativeUi { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Alert to show
-    ///</summary>
+    /// </summary>
     string? Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL to open
-    ///</summary>
+    /// </summary>
     string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For how long should this answer be cached
-    ///</summary>
+    /// </summary>
     int CacheTime { get; set; }
 }

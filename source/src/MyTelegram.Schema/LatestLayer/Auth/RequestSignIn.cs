@@ -2,49 +2,52 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Signs in a user with a validated phone number.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 500 AUTH_RESTART Restart the authorization process.
-/// 400 PHONE_CODE_EMPTY phone_code is missing.
-/// 400 PHONE_CODE_EXPIRED The phone code you provided has expired.
-/// 400 PHONE_CODE_INVALID The provided phone code is invalid.
-/// 406 PHONE_NUMBER_INVALID The phone number is invalid.
-/// 400 PHONE_NUMBER_UNOCCUPIED The phone number is not yet being used.
-/// 500 SIGN_IN_FAILED Failure while signing in.
-/// 406 UPDATE_APP_TO_LOGIN Please update your client to login.
-/// See <a href="https://corefork.telegram.org/method/auth.signIn" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>500 AUTH_RESTART Restart the authorization process.</c></para>
+/// <para><c>400 PHONE_CODE_EMPTY phone_code is missing.</c></para>
+/// <para><c>400 PHONE_CODE_EXPIRED The phone code you provided has expired.</c></para>
+/// <para><c>400 PHONE_CODE_INVALID The provided phone code is invalid.</c></para>
+/// <para><c>406 PHONE_NUMBER_INVALID The phone number is invalid.</c></para>
+/// <para><c>400 PHONE_NUMBER_UNOCCUPIED The phone number is not yet being used.</c></para>
+/// <para><c>500 SIGN_IN_FAILED Failure while signing in.</c></para>
+/// <para><c>406 UPDATE_APP_TO_LOGIN Please update your client to login. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.signIn" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x8d52a951)]
-public sealed class RequestSignIn : IRequest<MyTelegram.Schema.Auth.IAuthorization>
+public sealed partial class RequestSignIn : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
     public uint ConstructorId => 0x8d52a951;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone number in the international format
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// SMS-message ID, obtained from <a href="https://corefork.telegram.org/method/auth.sendCode">auth.sendCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Valid numerical code from the SMS-message
-    ///</summary>
+    /// </summary>
     public string? PhoneCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Email verification code or token
     /// See <a href="https://corefork.telegram.org/type/EmailVerification" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEmailVerification? EmailVerification { get; set; }
 
     public void ComputeFlag()

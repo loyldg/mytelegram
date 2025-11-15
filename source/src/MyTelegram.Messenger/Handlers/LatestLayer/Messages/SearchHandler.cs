@@ -1,8 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Search for messages.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
@@ -15,42 +14,23 @@
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 PEER_ID_NOT_SUPPORTED The provided peer ID is not supported.
 /// 400 SEARCH_QUERY_EMPTY The search query is empty.
+/// 400 TAKEOUT_INVALID The specified takeout ID is invalid.
 /// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.search" />
-///</summary>
-internal sealed class SearchHandler(
-    IMessageAppService messageAppService,
-    IPeerHelper peerHelper,
-    IAccessHashHelper accessHashHelper,
-    IGetHistoryConverterService getHistoryConverterService
-    )
-    : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSearch, IMessages>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.search"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class SearchHandler(IMessageAppService messageAppService, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSearch, IMessages>
 {
-    protected override async Task<IMessages> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSearch obj)
+    protected override async Task<IMessages> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestSearch obj)
     {
         await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         await accessHashHelper.CheckAccessHashAsync(input, obj.FromId);
         var userId = input.UserId;
         var peer = peerHelper.GetPeer(obj.Peer, userId);
-
         var ownerPeerId = peer.PeerType == PeerType.Channel ? peer.PeerId : userId;
-
-        var getMessageOutput = await messageAppService.SearchAsync(new SearchInput
-        {
-            OwnerPeerId = ownerPeerId,
-            SelfUserId = userId,
-            Limit = obj.Limit,
-            Q = obj.Q,
-            OffsetId = obj.OffsetId,
-            AddOffset = obj.AddOffset,
-            Peer = peer,
-            MaxDate = obj.MaxDate,
-            MaxId = obj.MaxId,
-            MinDate = obj.MinDate,
-            MinId = obj.MinId,
-            MessageType = GetMessageType(obj.Filter)
-        });
+        var getMessageOutput = await messageAppService.SearchAsync(new SearchInput { OwnerPeerId = ownerPeerId, SelfUserId = userId, Limit = obj.Limit, Q = obj.Q, OffsetId = obj.OffsetId, AddOffset = obj.AddOffset, Peer = peer, MaxDate = obj.MaxDate, MaxId = obj.MaxId, MinDate = obj.MinDate, MinId = obj.MinId, MessageType = GetMessageType(obj.Filter) });
         return getHistoryConverterService.ToMessages(input, getMessageOutput, input.Layer);
     }
 
@@ -64,73 +44,52 @@ internal sealed class SearchHandler(
                 case TInputMessagesFilterChatPhotos:
                     messageType = MessageType.Photo;
                     break;
-
                 case TInputMessagesFilterContacts:
                     messageType = MessageType.Contacts;
                     break;
-
                 case TInputMessagesFilterDocument:
                     messageType = MessageType.Document;
                     break;
-
                 case TInputMessagesFilterEmpty:
                     break;
-
                 case TInputMessagesFilterGeo:
                     messageType = MessageType.Geo;
                     break;
-
                 case TInputMessagesFilterGif:
                     messageType = MessageType.Photo;
                     break;
-
                 case TInputMessagesFilterMusic:
                     messageType = MessageType.Music;
                     break;
-
                 case TInputMessagesFilterMyMentions:
                     break;
-
                 case TInputMessagesFilterPhoneCalls:
                     messageType = MessageType.PhoneCall;
                     break;
-
                 case TInputMessagesFilterPhotos:
                     messageType = MessageType.Photo;
                     break;
-
                 case TInputMessagesFilterPhotoVideo:
                     messageType = MessageType.Video;
                     break;
-
                 case TInputMessagesFilterPinned:
                     messageType = MessageType.Pinned;
                     break;
-
                 case TInputMessagesFilterRoundVideo:
                     messageType = MessageType.Video;
-
                     break;
-
                 case TInputMessagesFilterRoundVoice:
                     messageType = MessageType.Voice;
-
                     break;
-
                 case TInputMessagesFilterUrl:
                     messageType = MessageType.Url;
                     break;
-
                 case TInputMessagesFilterVideo:
                     messageType = MessageType.Video;
-
                     break;
-
                 case TInputMessagesFilterVoice:
                     messageType = MessageType.Voice;
-
                     break;
-
                 default:
                     throw new ArgumentOutOfRangeException(nameof(filter));
             }

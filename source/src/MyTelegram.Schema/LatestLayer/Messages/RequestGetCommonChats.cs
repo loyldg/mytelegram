@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get chats in common with a user
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getCommonChats" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getCommonChats" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe40ca104)]
-public sealed class RequestGetCommonChats : IRequest<MyTelegram.Schema.Messages.IChats>
+public sealed partial class RequestGetCommonChats : IRequest<MyTelegram.Schema.Messages.IChats>
 {
     public uint ConstructorId => 0xe40ca104;
 
-    ///<summary>
+    /// <summary>
     /// User ID
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum ID of chat to return (see <a href="https://corefork.telegram.org/api/offsets">pagination</a>)
-    ///</summary>
+    /// </summary>
     public long MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

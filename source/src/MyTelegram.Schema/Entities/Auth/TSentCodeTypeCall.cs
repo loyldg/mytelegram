@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The code will be sent via a phone call: a synthesized voice will tell the user which verification code to input.
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeCall" /></para>
+/// </summary>
 [TlObject(0x5353e5a7)]
-public sealed class TSentCodeTypeCall : ISentCodeType
+public sealed partial class TSentCodeTypeCall : ISentCodeType
 {
     public uint ConstructorId => 0x5353e5a7;
-    ///<summary>
+    /// <summary>
     /// Length of the verification code
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

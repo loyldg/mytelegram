@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get featured stickers
-/// See <a href="https://corefork.telegram.org/method/messages.getFeaturedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getFeaturedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x64780b14)]
-public sealed class RequestGetFeaturedStickers : IRequest<MyTelegram.Schema.Messages.IFeaturedStickers>
+public sealed partial class RequestGetFeaturedStickers : IRequest<MyTelegram.Schema.Messages.IFeaturedStickers>
 {
     public uint ConstructorId => 0x64780b14;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

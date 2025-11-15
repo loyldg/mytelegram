@@ -1,17 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Contacts;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Contacts;
+/// <summary>
 /// Imports contacts: saves a full list on the server, adds already registered contacts to the contact list, returns added contacts and their info.Use <a href="https://corefork.telegram.org/method/contacts.addContact">contacts.addContact</a> to add Telegram contacts without actually using their phone number.
-/// See <a href="https://corefork.telegram.org/method/contacts.importContacts" />
-///</summary>
-internal sealed class ImportContactsHandler(
-    ICommandBus commandBus,
-    ICacheManager<UserCacheItem> cacheManager)
-    : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestImportContacts,
-            MyTelegram.Schema.Contacts.IImportedContacts>
+/// <para><c>See <a href="https://corefork.telegram.org/method/contacts.importContacts"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class ImportContactsHandler(ICommandBus commandBus, ICacheManager<UserCacheItem> cacheManager) : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestImportContacts, MyTelegram.Schema.Contacts.IImportedContacts>
 {
-    protected override async Task<IImportedContacts> HandleCoreAsync(IRequestInput input,
-        RequestImportContacts obj)
+    protected override async Task<IImportedContacts> HandleCoreAsync(IRequestInput input, RequestImportContacts obj)
     {
         if (obj.Contacts.Count == 0)
         {
@@ -21,7 +18,6 @@ internal sealed class ImportContactsHandler(
         var keys = obj.Contacts.Select(p => UserCacheItem.GetCacheKey(p.Phone.ToPhoneNumber())).Distinct().ToList();
         var userIdDict = await cacheManager.GetManyAsync(keys);
         var phoneContactList = new List<PhoneContact>();
-
         foreach (var item in obj.Contacts)
         {
             var userId = 0L;
@@ -34,11 +30,7 @@ internal sealed class ImportContactsHandler(
 
             if (userId != input.UserId)
             {
-                phoneContactList.Add(new PhoneContact(userId,
-                    phone,
-                    item.FirstName,
-                    item.LastName,
-                    item.ClientId));
+                phoneContactList.Add(new PhoneContact(userId, phone, item.FirstName, item.LastName, item.ClientId));
             }
         }
 
@@ -47,12 +39,8 @@ internal sealed class ImportContactsHandler(
             RpcErrors.RpcErrors400.ContactIdInvalid.ThrowRpcError();
         }
 
-        var command = new ImportContactsCommand(ImportedContactId.Create(input.UserId, "-"),
-            input.ToRequestInfo(),
-            input.UserId,
-            phoneContactList);
+        var command = new ImportContactsCommand(ImportedContactId.Create(input.UserId, "-"), input.ToRequestInfo(), input.UserId, phoneContactList);
         await commandBus.PublishAsync(command, default);
-
-        return null!;
+        return null !;
     }
 }

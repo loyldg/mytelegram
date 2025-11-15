@@ -2,118 +2,121 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Webpage preview
-/// See <a href="https://corefork.telegram.org/constructor/webPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPage" /></para>
+/// </summary>
 [TlObject(0xe89c45b2)]
-public sealed class TWebPage : IWebPage
+public sealed partial class TWebPage : IWebPage
 {
     public uint ConstructorId => 0xe89c45b2;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the size of the media in the preview can be changed.
-    ///</summary>
+    /// </summary>
     public bool HasLargeMedia { get; set; }
 
+    /// <summary>
+    /// Represents a custom <a href="https://corefork.telegram.org/api/files#video-covers">video cover</a>.
+    /// </summary>
     public bool VideoCoverPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Preview ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of previewed webpage
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webpage URL to be displayed to the user
-    ///</summary>
+    /// </summary>
     public string DisplayUrl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
-    ///<summary>
-    /// Type of the web page. One of the following: <!-- start type --><br><br>- <code>video</code><br>- <code>gif</code><br>- <code>photo</code><br>- <code>document</code><br>- <code>profile</code><br>- <code>telegram_background</code><br>- <code>telegram_theme</code><br>- <code>telegram_story</code><br>- <code>telegram_channel</code><br>- <code>telegram_channel_request</code><br>- <code>telegram_megagroup</code><br>- <code>telegram_chat</code><br>- <code>telegram_megagroup_request</code><br>- <code>telegram_chat_request</code><br>- <code>telegram_album</code><br>- <code>telegram_message</code><br>- <code>telegram_bot</code><br>- <code>telegram_voicechat</code><br>- <code>telegram_livestream</code><br>- <code>telegram_call</code><br>- <code>telegram_user</code><br>- <code>telegram_botapp</code><br>- <code>telegram_channel_boost</code><br>- <code>telegram_group_boost</code><br>- <code>telegram_giftcode</code><br>- <code>telegram_stickerset</code><br><br><!-- end type -->
-    ///</summary>
+    /// <summary>
+    /// Type of the web page. One of the following: <!-- start type --><br/><br/>- <code>app</code><br/>- <code>article</code><br/>- <code>document</code><br/>- <code>gif</code><br/>- <code>photo</code><br/>- <code>profile</code><br/>- <code>telegram_album</code><br/>- <code>telegram_background</code><br/>- <code>telegram_bot</code><br/>- <code>telegram_botapp</code><br/>- <code>telegram_call</code><br/>- <code>telegram_channel</code><br/>- <code>telegram_channel_boost</code><br/>- <code>telegram_channel_direct</code><br/>- <code>telegram_channel_request</code><br/>- <code>telegram_chat</code><br/>- <code>telegram_chat_request</code><br/>- <code>telegram_chatlist</code><br/>- <code>telegram_collection</code><br/>- <code>telegram_community</code><br/>- <code>telegram_giftcode</code><br/>- <code>telegram_group_boost</code><br/>- <code>telegram_livestream</code><br/>- <code>telegram_megagroup</code><br/>- <code>telegram_megagroup_request</code><br/>- <code>telegram_message</code><br/>- <code>telegram_nft</code><br/>- <code>telegram_stickerset</code><br/>- <code>telegram_story</code><br/>- <code>telegram_story_album</code><br/>- <code>telegram_theme</code><br/>- <code>telegram_user</code><br/>- <code>telegram_videochat</code><br/>- <code>telegram_voicechat</code><br/>- <code>video</code><br/><br/><!-- end type -->
+    /// </summary>
     public string? Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name of the site (e.g., Google Docs, App Store)
-    ///</summary>
+    /// </summary>
     public string? SiteName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title of the content
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Content description
-    ///</summary>
+    /// </summary>
     public string? Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Image representing the content
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL to show in the embedded preview
-    ///</summary>
+    /// </summary>
     public string? EmbedUrl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MIME type of the embedded preview, (e.g., text/html or video/mp4)
-    ///</summary>
+    /// </summary>
     public string? EmbedType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Width of the embedded preview
-    ///</summary>
+    /// </summary>
     public int? EmbedWidth { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Height of the embedded preview
-    ///</summary>
+    /// </summary>
     public int? EmbedHeight { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Duration of the content, in seconds
-    ///</summary>
+    /// </summary>
     public int? Duration { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Author of the content
-    ///</summary>
+    /// </summary>
     public string? Author { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Preview of the content as a media file
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Page contents in <a href="https://instantview.telegram.org/">instant view</a> format
     /// See <a href="https://corefork.telegram.org/type/Page" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPage? CachedPage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webpage attributes
     /// See <a href="https://corefork.telegram.org/type/WebPageAttribute" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IWebPageAttribute>? Attributes { get; set; }
 
     public void ComputeFlag()

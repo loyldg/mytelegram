@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Contains a list of saved notification sounds
-/// See <a href="https://corefork.telegram.org/type/account.SavedRingtones" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.SavedRingtones" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedRingtonesNotModified"/> See <a href="https://corefork.telegram.org/constructor/account.savedRingtonesNotModified" /><br/>
+/// <see cref="TSavedRingtones"/> See <a href="https://corefork.telegram.org/constructor/account.savedRingtones" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedRingtonesNotModified), nameof(TSavedRingtonesNotModified))]
 [JsonDerivedType(typeof(TSavedRingtones), nameof(TSavedRingtones))]
 public interface ISavedRingtones : IObject

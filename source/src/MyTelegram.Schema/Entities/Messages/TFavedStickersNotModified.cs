@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No new favorited stickers were found
-/// See <a href="https://corefork.telegram.org/constructor/messages.favedStickersNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.favedStickersNotModified" /></para>
+/// </summary>
 [TlObject(0x9e8fa6d3)]
-public sealed class TFavedStickersNotModified : IFavedStickers
+public sealed partial class TFavedStickersNotModified : IFavedStickers
 {
     public uint ConstructorId => 0x9e8fa6d3;
     public void ComputeFlag()

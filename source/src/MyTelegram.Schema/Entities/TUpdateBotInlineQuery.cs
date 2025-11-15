@@ -2,49 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An incoming inline query
-/// See <a href="https://corefork.telegram.org/constructor/updateBotInlineQuery" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotInlineQuery" /></para>
+/// </summary>
 [TlObject(0x496f379c)]
-public sealed class TUpdateBotInlineQuery : IUpdate
+public sealed partial class TUpdateBotInlineQuery : IUpdate
 {
     public uint ConstructorId => 0x496f379c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query ID
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User that sent the query
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text of query
-    ///</summary>
+    /// </summary>
     public string Query { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attached geolocation
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint? Geo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Type of the chat from which the inline query was sent.
     /// See <a href="https://corefork.telegram.org/type/InlineQueryPeerType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInlineQueryPeerType? PeerType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset to navigate through results
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
     public void ComputeFlag()

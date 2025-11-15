@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines the current user.
-/// See <a href="https://corefork.telegram.org/constructor/inputUserSelf" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputUserSelf" /></para>
+/// </summary>
 [TlObject(0xf7c1b13f)]
-public sealed class TInputUserSelf : IInputUser
+public sealed partial class TInputUserSelf : IInputUser
 {
     public uint ConstructorId => 0xf7c1b13f;
     public void ComputeFlag()

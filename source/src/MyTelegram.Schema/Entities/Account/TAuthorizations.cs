@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Logged-in sessions
-/// See <a href="https://corefork.telegram.org/constructor/account.authorizations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.authorizations" /></para>
+/// </summary>
 [TlObject(0x4bff8ea0)]
-public sealed class TAuthorizations : IAuthorizations
+public sealed partial class TAuthorizations : IAuthorizations
 {
     public uint ConstructorId => 0x4bff8ea0;
-    ///<summary>
+    /// <summary>
     /// Time-to-live of session
-    ///</summary>
+    /// </summary>
     public int AuthorizationTtlDays { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Logged-in sessions
     /// See <a href="https://corefork.telegram.org/type/Authorization" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IAuthorization> Authorizations { get; set; }
 
     public void ComputeFlag()

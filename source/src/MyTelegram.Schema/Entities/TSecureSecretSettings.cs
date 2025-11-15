@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure settings
-/// See <a href="https://corefork.telegram.org/constructor/secureSecretSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureSecretSettings" /></para>
+/// </summary>
 [TlObject(0x1527bcac)]
-public sealed class TSecureSecretSettings : ISecureSecretSettings
+public sealed partial class TSecureSecretSettings : ISecureSecretSettings
 {
     public uint ConstructorId => 0x1527bcac;
-    ///<summary>
+    /// <summary>
     /// Secure KDF algo
     /// See <a href="https://corefork.telegram.org/type/SecurePasswordKdfAlgo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecurePasswordKdfAlgo SecureAlgo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secure secret
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> SecureSecret { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret ID
-    ///</summary>
+    /// </summary>
     public long SecureSecretId { get; set; }
 
     public void ComputeFlag()

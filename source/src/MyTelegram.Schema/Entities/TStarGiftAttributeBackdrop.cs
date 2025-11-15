@@ -2,25 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/starGiftAttributeBackdrop" />
-///</summary>
+/// <summary>
+/// The backdrop of a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeBackdrop" /></para>
+/// </summary>
 [TlObject(0xd93d859c)]
-public sealed class TStarGiftAttributeBackdrop : IStarGiftAttribute
+public sealed partial class TStarGiftAttributeBackdrop : IStarGiftAttribute
 {
     public uint ConstructorId => 0xd93d859c;
+    /// <summary>
+    /// Name of the backdrop
+    /// </summary>
     public string Name { get; set; }
 
+    /// <summary>
+    /// Unique ID of the backdrop
+    /// </summary>
     public int BackdropId { get; set; }
 
+    /// <summary>
+    /// Color of the center of the backdrop in RGB24 format.
+    /// </summary>
     public int CenterColor { get; set; }
 
+    /// <summary>
+    /// Color of the edges of the backdrop in RGB24 format.
+    /// </summary>
     public int EdgeColor { get; set; }
 
+    /// <summary>
+    /// Color of the <a href="https://corefork.telegram.org/constructor/starGiftAttributePattern">starGiftAttributePattern</a> applied on the backdrop in RGB24 format.
+    /// </summary>
     public int PatternColor { get; set; }
 
+    /// <summary>
+    /// Color of the text on the backdrop in RGB24 format.
+    /// </summary>
     public int TextColor { get; set; }
 
+    /// <summary>
+    /// The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
+    /// </summary>
     public int RarityPermille { get; set; }
 
     public void ComputeFlag()

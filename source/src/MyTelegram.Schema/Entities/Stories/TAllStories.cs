@@ -2,56 +2,56 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Full list of active (or active and hidden) <a href="https://corefork.telegram.org/api/stories#watching-stories">stories</a>.
-/// See <a href="https://corefork.telegram.org/constructor/stories.allStories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stories.allStories" /></para>
+/// </summary>
 [TlObject(0x6efc5e81)]
-public sealed class TAllStories : IAllStories
+public sealed partial class TAllStories : IAllStories
 {
     public uint ConstructorId => 0x6efc5e81;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether more results can be fetched as <a href="https://corefork.telegram.org/api/stories#watching-stories">described here »</a>.
-    ///</summary>
+    /// </summary>
     public bool HasMore { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of active (or active and hidden) stories
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// State to use for pagination
-    ///</summary>
+    /// </summary>
     public string State { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stories
     /// See <a href="https://corefork.telegram.org/type/PeerStories" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeerStories> PeerStories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current <a href="https://corefork.telegram.org/api/stories#stealth-mode">stealth mode</a> information
     /// See <a href="https://corefork.telegram.org/type/StoriesStealthMode" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoriesStealthMode StealthMode { get; set; }
 
     public void ComputeFlag()

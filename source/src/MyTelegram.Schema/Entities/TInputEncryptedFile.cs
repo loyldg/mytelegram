@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Sets forwarded encrypted file for attachment.
-/// See <a href="https://corefork.telegram.org/constructor/inputEncryptedFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputEncryptedFile" /></para>
+/// </summary>
 [TlObject(0x5a17b5e5)]
-public sealed class TInputEncryptedFile : IInputEncryptedFile
+public sealed partial class TInputEncryptedFile : IInputEncryptedFile
 {
     public uint ConstructorId => 0x5a17b5e5;
-    ///<summary>
+    /// <summary>
     /// File ID, value of <strong>id</strong> parameter from <a href="https://corefork.telegram.org/constructor/encryptedFile">encryptedFile</a>
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Checking sum, value of <strong>access_hash</strong> parameter from <a href="https://corefork.telegram.org/constructor/encryptedFile">encryptedFile</a>
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

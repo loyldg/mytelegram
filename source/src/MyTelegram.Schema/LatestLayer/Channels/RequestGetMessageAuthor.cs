@@ -2,19 +2,30 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/channels.getMessageAuthor" />
-///</summary>
+/// <summary>
+/// Can only be invoked by non-bot admins of a <a href="https://corefork.telegram.org/api/monoforum">monoforum »</a>, obtains the original sender of a message sent by other monoforum admins to the monoforum, on behalf of the channel associated to the monoforum.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getMessageAuthor" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xece2a0e6)]
-public sealed class RequestGetMessageAuthor : IRequest<MyTelegram.Schema.IUser>
+public sealed partial class RequestGetMessageAuthor : IRequest<MyTelegram.Schema.IUser>
 {
     public uint ConstructorId => 0xece2a0e6;
 
-    ///<summary>
+    /// <summary>
+    /// ID of the monoforum.
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
+    /// <summary>
+    /// ID of the message sent by a monoforum admin.
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

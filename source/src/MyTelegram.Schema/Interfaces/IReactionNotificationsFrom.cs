@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Reaction notification settings
-/// See <a href="https://corefork.telegram.org/type/ReactionNotificationsFrom" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ReactionNotificationsFrom" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TReactionNotificationsFromContacts"/> See <a href="https://corefork.telegram.org/constructor/reactionNotificationsFromContacts" /><br/>
+/// <see cref="TReactionNotificationsFromAll"/> See <a href="https://corefork.telegram.org/constructor/reactionNotificationsFromAll" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TReactionNotificationsFromContacts), nameof(TReactionNotificationsFromContacts))]
 [JsonDerivedType(typeof(TReactionNotificationsFromAll), nameof(TReactionNotificationsFromAll))]
 public interface IReactionNotificationsFrom : IObject

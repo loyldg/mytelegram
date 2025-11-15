@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a photo for further interaction.
-/// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputPhoto" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputPhotoEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputPhotoEmpty" /><br/>
+/// <see cref="TInputPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputPhoto" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputPhotoEmpty), nameof(TInputPhotoEmpty))]
 [JsonDerivedType(typeof(TInputPhoto), nameof(TInputPhoto))]
 public interface IInputPhoto : IObject

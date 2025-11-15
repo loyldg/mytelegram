@@ -2,39 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Document that will be downloaded by the telegram servers
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaDocumentExternal" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaDocumentExternal" /></para>
+/// </summary>
 [TlObject(0x779600f9)]
-public sealed class TInputMediaDocumentExternal : IInputMedia
+public sealed partial class TInputMediaDocumentExternal : IInputMedia
 {
     public uint ConstructorId => 0x779600f9;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this media should be hidden behind a spoiler warning
-    ///</summary>
+    /// </summary>
     public bool Spoiler { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of the document
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Self-destruct time to live of document
-    ///</summary>
+    /// </summary>
     public int? TtlSeconds { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Custom video cover.
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoto? VideoCover { get; set; }
 
+    /// <summary>
+    /// Start playing the video at the specified timestamp (seconds).
+    /// </summary>
     public int? VideoTimestamp { get; set; }
 
     public void ComputeFlag()

@@ -2,36 +2,40 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Contains information about a <a href="https://corefork.telegram.org/api/bots/webapps#direct-link-mini-apps">direct link Mini App</a>
-/// See <a href="https://corefork.telegram.org/type/messages.BotApp" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.BotApp" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotApp"/> See <a href="https://corefork.telegram.org/constructor/messages.botApp" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotApp), nameof(TBotApp))]
 public interface IBotApp : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the web app was never used by the user, and confirmation must be asked from the user before opening it.
-    ///</summary>
+    /// </summary>
     bool Inactive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The bot is asking permission to send messages to the user: if the user agrees, set the <code>write_allowed</code> flag when invoking <a href="https://corefork.telegram.org/method/messages.requestAppWebView">messages.requestAppWebView</a>.
-    ///</summary>
+    /// </summary>
     bool RequestWriteAccess { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Deprecated flag, can be ignored.
-    ///</summary>
+    /// </summary>
     bool HasSettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot app information
     /// See <a href="https://corefork.telegram.org/type/BotApp" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IBotApp App { get; set; }
 }

@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Toggle supergroup slow mode: if enabled, users will only be able to send one message every <code>seconds</code> seconds
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 SECONDS_INVALID Invalid duration provided.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleSlowMode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 SECONDS_INVALID Invalid duration provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleSlowMode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xedd49ef0)]
-public sealed class RequestToggleSlowMode : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleSlowMode : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xedd49ef0;
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/channel">supergroup</a>
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users will only be able to send one message every <code>seconds</code> seconds, <code>0</code> to disable the limitation
-    ///</summary>
+    /// </summary>
     public int Seconds { get; set; }
 
     public void ComputeFlag()

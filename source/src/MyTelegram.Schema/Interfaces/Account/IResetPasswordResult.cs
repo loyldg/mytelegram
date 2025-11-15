@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Result of an <a href="https://corefork.telegram.org/method/account.resetPassword">account.resetPassword</a> request.
-/// See <a href="https://corefork.telegram.org/type/account.ResetPasswordResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.ResetPasswordResult" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TResetPasswordFailedWait"/> See <a href="https://corefork.telegram.org/constructor/account.resetPasswordFailedWait" /><br/>
+/// <see cref="TResetPasswordRequestedWait"/> See <a href="https://corefork.telegram.org/constructor/account.resetPasswordRequestedWait" /><br/>
+/// <see cref="TResetPasswordOk"/> See <a href="https://corefork.telegram.org/constructor/account.resetPasswordOk" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TResetPasswordFailedWait), nameof(TResetPasswordFailedWait))]
 [JsonDerivedType(typeof(TResetPasswordRequestedWait), nameof(TResetPasswordRequestedWait))]
 [JsonDerivedType(typeof(TResetPasswordOk), nameof(TResetPasswordOk))]

@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema.Photos;
 
-///<summary>
+/// <summary>
 /// Incomplete list of photos with auxiliary data.
-/// See <a href="https://corefork.telegram.org/constructor/photos.photosSlice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photos.photosSlice" /></para>
+/// </summary>
 [TlObject(0x15051f54)]
-public sealed class TPhotosSlice : IPhotos
+public sealed partial class TPhotosSlice : IPhotos
 {
     public uint ConstructorId => 0x15051f54;
-    ///<summary>
+    /// <summary>
     /// Total number of photos
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of photos
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPhoto> Photos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

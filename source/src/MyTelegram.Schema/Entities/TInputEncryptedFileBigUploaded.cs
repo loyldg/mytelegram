@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Assigns a new big encrypted file (over 10 MB in size), saved in parts using the method <a href="https://corefork.telegram.org/method/upload.saveBigFilePart">upload.saveBigFilePart</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputEncryptedFileBigUploaded" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputEncryptedFileBigUploaded" /></para>
+/// </summary>
 [TlObject(0x2dc173c8)]
-public sealed class TInputEncryptedFileBigUploaded : IInputEncryptedFile
+public sealed partial class TInputEncryptedFileBigUploaded : IInputEncryptedFile
 {
     public uint ConstructorId => 0x2dc173c8;
-    ///<summary>
+    /// <summary>
     /// Random file id, created by the client
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of saved parts
-    ///</summary>
+    /// </summary>
     public int Parts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 32-bit imprint of the key used to encrypt the file
-    ///</summary>
+    /// </summary>
     public int KeyFingerprint { get; set; }
 
     public void ComputeFlag()

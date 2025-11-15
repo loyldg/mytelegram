@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Basic theme settings
-/// See <a href="https://corefork.telegram.org/type/BaseTheme" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BaseTheme" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBaseThemeClassic"/> See <a href="https://corefork.telegram.org/constructor/baseThemeClassic" /><br/>
+/// <see cref="TBaseThemeDay"/> See <a href="https://corefork.telegram.org/constructor/baseThemeDay" /><br/>
+/// <see cref="TBaseThemeNight"/> See <a href="https://corefork.telegram.org/constructor/baseThemeNight" /><br/>
+/// <see cref="TBaseThemeTinted"/> See <a href="https://corefork.telegram.org/constructor/baseThemeTinted" /><br/>
+/// <see cref="TBaseThemeArctic"/> See <a href="https://corefork.telegram.org/constructor/baseThemeArctic" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBaseThemeClassic), nameof(TBaseThemeClassic))]
 [JsonDerivedType(typeof(TBaseThemeDay), nameof(TBaseThemeDay))]
 [JsonDerivedType(typeof(TBaseThemeNight), nameof(TBaseThemeNight))]

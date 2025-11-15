@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Allow all users
-/// See <a href="https://corefork.telegram.org/constructor/privacyValueAllowAll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyValueAllowAll" /></para>
+/// </summary>
 [TlObject(0x65427b82)]
-public sealed class TPrivacyValueAllowAll : IPrivacyRule
+public sealed partial class TPrivacyValueAllowAll : IPrivacyRule
 {
     public uint ConstructorId => 0x65427b82;
     public void ComputeFlag()

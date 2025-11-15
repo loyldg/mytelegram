@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Result of stickerset installation process
-/// See <a href="https://corefork.telegram.org/type/messages.StickerSetInstallResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.StickerSetInstallResult" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStickerSetInstallResultSuccess"/> See <a href="https://corefork.telegram.org/constructor/messages.stickerSetInstallResultSuccess" /><br/>
+/// <see cref="TStickerSetInstallResultArchive"/> See <a href="https://corefork.telegram.org/constructor/messages.stickerSetInstallResultArchive" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStickerSetInstallResultSuccess), nameof(TStickerSetInstallResultSuccess))]
 [JsonDerivedType(typeof(TStickerSetInstallResultArchive), nameof(TStickerSetInstallResultArchive))]
 public interface IStickerSetInstallResult : IObject

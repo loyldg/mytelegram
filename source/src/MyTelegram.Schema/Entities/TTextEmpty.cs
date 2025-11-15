@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty rich text element
-/// See <a href="https://corefork.telegram.org/constructor/textEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textEmpty" /></para>
+/// </summary>
 [TlObject(0xdc3d824f)]
-public sealed class TTextEmpty : IRichText
+public sealed partial class TTextEmpty : IRichText
 {
     public uint ConstructorId => 0xdc3d824f;
     public void ComputeFlag()

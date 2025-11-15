@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// No new <a href="https://corefork.telegram.org/api/wallpapers">wallpapers</a> were found
-/// See <a href="https://corefork.telegram.org/constructor/account.wallPapersNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.wallPapersNotModified" /></para>
+/// </summary>
 [TlObject(0x1c199183)]
-public sealed class TWallPapersNotModified : IWallPapers
+public sealed partial class TWallPapersNotModified : IWallPapers
 {
     public uint ConstructorId => 0x1c199183;
     public void ComputeFlag()

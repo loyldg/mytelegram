@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// See <a href="https://corefork.telegram.org/mtproto/TL-formal#predefined-identifiers">predefined identifiers</a>.
-/// See <a href="https://corefork.telegram.org/constructor/true" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/true" /></para>
+/// </summary>
 [TlObject(0x3fedd339)]
-public sealed class TTrue : ITrue
+public sealed partial class TTrue : ITrue
 {
     public uint ConstructorId => 0x3fedd339;
     public void ComputeFlag()

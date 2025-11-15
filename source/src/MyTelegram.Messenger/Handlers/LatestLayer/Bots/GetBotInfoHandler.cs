@@ -1,17 +1,19 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Bots;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Bots;
+/// <summary>
 /// Get localized name, about text and description of a bot (or of the current account, if called by a bot).
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
+/// 400 BOT_INVALID This is not a valid bot.
 /// 400 LANG_CODE_INVALID The specified language code is invalid.
 /// 400 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-/// See <a href="https://corefork.telegram.org/method/bots.getBotInfo" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/bots.getBotInfo"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetBotInfoHandler : RpcResultObjectHandler<MyTelegram.Schema.Bots.RequestGetBotInfo, MyTelegram.Schema.Bots.IBotInfo>
 {
-    protected override Task<MyTelegram.Schema.Bots.IBotInfo> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Bots.RequestGetBotInfo obj)
+    protected override Task<MyTelegram.Schema.Bots.IBotInfo> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Bots.RequestGetBotInfo obj)
     {
         throw new NotImplementedException();
     }

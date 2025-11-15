@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a gifted Telegram Premium purchase
-/// See <a href="https://corefork.telegram.org/constructor/inputStorePaymentGiftPremium" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStorePaymentGiftPremium" /></para>
+/// </summary>
 [TlObject(0x616f7fe8)]
-public sealed class TInputStorePaymentGiftPremium : IInputStorePaymentPurpose
+public sealed partial class TInputStorePaymentGiftPremium : IInputStorePaymentPurpose
 {
     public uint ConstructorId => 0x616f7fe8;
-    ///<summary>
+    /// <summary>
     /// The user to which the Telegram Premium subscription was gifted
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long Amount { get; set; }
 
     public void ComputeFlag()

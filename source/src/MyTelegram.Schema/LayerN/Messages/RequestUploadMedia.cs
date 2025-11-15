@@ -28,7 +28,7 @@ namespace MyTelegram.Schema.Messages.LayerN;
 /// See <a href="https://corefork.telegram.org/method/messages.uploadMedia" />
 ///</summary>
 [TlObject(0x519bc2b1)]
-public sealed class RequestUploadMedia : IRequest<MyTelegram.Schema.IMessageMedia>
+public sealed partial class RequestUploadMedia : IRequest<MyTelegram.Schema.IMessageMedia>
 {
     public uint ConstructorId => 0x519bc2b1;
 

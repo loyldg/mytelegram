@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is typing.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageTypingAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageTypingAction" /></para>
+/// </summary>
 [TlObject(0x16bf744e)]
-public sealed class TSendMessageTypingAction : ISendMessageAction
+public sealed partial class TSendMessageTypingAction : ISendMessageAction
 {
     public uint ConstructorId => 0x16bf744e;
     public void ComputeFlag()

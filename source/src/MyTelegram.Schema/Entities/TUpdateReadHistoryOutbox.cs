@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Outgoing messages were read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadHistoryOutbox" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadHistoryOutbox" /></para>
+/// </summary>
 [TlObject(0x2f2f21bf)]
-public sealed class TUpdateReadHistoryOutbox : IUpdate
+public sealed partial class TUpdateReadHistoryOutbox : IUpdate
 {
     public uint ConstructorId => 0x2f2f21bf;
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum ID of read outgoing messages
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()

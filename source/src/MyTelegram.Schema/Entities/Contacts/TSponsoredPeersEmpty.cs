@@ -2,11 +2,12 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/contacts.sponsoredPeersEmpty" />
-///</summary>
+/// <summary>
+/// There are no sponsored peers for this query.
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.sponsoredPeersEmpty" /></para>
+/// </summary>
 [TlObject(0xea32b4b1)]
-public sealed class TSponsoredPeersEmpty : ISponsoredPeers
+public sealed partial class TSponsoredPeersEmpty : ISponsoredPeers
 {
     public uint ConstructorId => 0xea32b4b1;
     public void ComputeFlag()

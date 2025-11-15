@@ -2,30 +2,35 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Full list of messages with auxiliary data.
-/// See <a href="https://corefork.telegram.org/constructor/messages.messages" />
-///</summary>
-[TlObject(0x8c718e87)]
-public sealed class TMessages : IMessages
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.messages" /></para>
+/// </summary>
+[TlObject(0x1d73e7ea)]
+public sealed partial class TMessages : IMessages
 {
-    public uint ConstructorId => 0x8c718e87;
-    ///<summary>
+    public uint ConstructorId => 0x1d73e7ea;
+    /// <summary>
     /// List of messages
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/ForumTopic" />
+    /// </summary>
+    public TVector<MyTelegram.Schema.IForumTopic> Topics { get; set; }
+
+    /// <summary>
     /// List of chats mentioned in dialogs
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users mentioned in messages and chats
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()
@@ -37,6 +42,7 @@ public sealed class TMessages : IMessages
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Messages);
+        writer.Write(Topics);
         writer.Write(Chats);
         writer.Write(Users);
     }
@@ -44,6 +50,7 @@ public sealed class TMessages : IMessages
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Messages = buffer.Read<TVector<MyTelegram.Schema.IMessage>>();
+        Topics = buffer.Read<TVector<MyTelegram.Schema.IForumTopic>>();
         Chats = buffer.Read<TVector<MyTelegram.Schema.IChat>>();
         Users = buffer.Read<TVector<MyTelegram.Schema.IUser>>();
     }

@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Specifies when should the <a href="https://corefork.telegram.org/api/business#away-messages">Telegram Business away messages</a> be sent.
-/// See <a href="https://corefork.telegram.org/type/BusinessAwayMessageSchedule" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BusinessAwayMessageSchedule" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBusinessAwayMessageScheduleAlways"/> See <a href="https://corefork.telegram.org/constructor/businessAwayMessageScheduleAlways" /><br/>
+/// <see cref="TBusinessAwayMessageScheduleOutsideWorkHours"/> See <a href="https://corefork.telegram.org/constructor/businessAwayMessageScheduleOutsideWorkHours" /><br/>
+/// <see cref="TBusinessAwayMessageScheduleCustom"/> See <a href="https://corefork.telegram.org/constructor/businessAwayMessageScheduleCustom" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBusinessAwayMessageScheduleAlways), nameof(TBusinessAwayMessageScheduleAlways))]
 [JsonDerivedType(typeof(TBusinessAwayMessageScheduleOutsideWorkHours), nameof(TBusinessAwayMessageScheduleOutsideWorkHours))]
 [JsonDerivedType(typeof(TBusinessAwayMessageScheduleCustom), nameof(TBusinessAwayMessageScheduleCustom))]

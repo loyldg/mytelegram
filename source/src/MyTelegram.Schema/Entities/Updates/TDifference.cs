@@ -2,48 +2,48 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Full list of occurred events.
-/// See <a href="https://corefork.telegram.org/constructor/updates.difference" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates.difference" /></para>
+/// </summary>
 [TlObject(0xf49ca0)]
-public sealed class TDifference : IDifference
+public sealed partial class TDifference : IDifference
 {
     public uint ConstructorId => 0xf49ca0;
-    ///<summary>
+    /// <summary>
     /// List of new messages
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> NewMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of new encrypted secret chat messages
     /// See <a href="https://corefork.telegram.org/type/EncryptedMessage" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IEncryptedMessage> NewEncryptedMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of updates
     /// See <a href="https://corefork.telegram.org/type/Update" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUpdate> OtherUpdates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of chats mentioned in events
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users mentioned in events
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current state
     /// See <a href="https://corefork.telegram.org/type/updates.State" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Updates.IState State { get; set; }
 
     public void ComputeFlag()

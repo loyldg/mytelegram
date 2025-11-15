@@ -2,58 +2,58 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Table cell
-/// See <a href="https://corefork.telegram.org/constructor/pageTableCell" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageTableCell" /></para>
+/// </summary>
 [TlObject(0x34566b6a)]
-public sealed class TPageTableCell : IPageTableCell
+public sealed partial class TPageTableCell : IPageTableCell
 {
     public uint ConstructorId => 0x34566b6a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this element part of the column header
-    ///</summary>
+    /// </summary>
     public bool Header { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Horizontally centered block
-    ///</summary>
+    /// </summary>
     public bool AlignCenter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Right-aligned block
-    ///</summary>
+    /// </summary>
     public bool AlignRight { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Vertically centered block
-    ///</summary>
+    /// </summary>
     public bool ValignMiddle { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Block vertically-aligned to the bottom
-    ///</summary>
+    /// </summary>
     public bool ValignBottom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Content
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText? Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For how many columns should this cell extend
-    ///</summary>
+    /// </summary>
     public int? Colspan { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For how many rows should this cell extend
-    ///</summary>
+    /// </summary>
     public int? Rowspan { get; set; }
 
     public void ComputeFlag()

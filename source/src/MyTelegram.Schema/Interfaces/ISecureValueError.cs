@@ -2,10 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure value error
-/// See <a href="https://corefork.telegram.org/type/SecureValueError" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecureValueError" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecureValueErrorData"/> See <a href="https://corefork.telegram.org/constructor/secureValueErrorData" /><br/>
+/// <see cref="TSecureValueErrorFrontSide"/> See <a href="https://corefork.telegram.org/constructor/secureValueErrorFrontSide" /><br/>
+/// <see cref="TSecureValueErrorReverseSide"/> See <a href="https://corefork.telegram.org/constructor/secureValueErrorReverseSide" /><br/>
+/// <see cref="TSecureValueErrorSelfie"/> See <a href="https://corefork.telegram.org/constructor/secureValueErrorSelfie" /><br/>
+/// <see cref="TSecureValueErrorFile"/> See <a href="https://corefork.telegram.org/constructor/secureValueErrorFile" /><br/>
+/// <see cref="TSecureValueErrorFiles"/> See <a href="https://corefork.telegram.org/constructor/secureValueErrorFiles" /><br/>
+/// <see cref="TSecureValueError"/> See <a href="https://corefork.telegram.org/constructor/secureValueError" /><br/>
+/// <see cref="TSecureValueErrorTranslationFile"/> See <a href="https://corefork.telegram.org/constructor/secureValueErrorTranslationFile" /><br/>
+/// <see cref="TSecureValueErrorTranslationFiles"/> See <a href="https://corefork.telegram.org/constructor/secureValueErrorTranslationFiles" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecureValueErrorData), nameof(TSecureValueErrorData))]
 [JsonDerivedType(typeof(TSecureValueErrorFrontSide), nameof(TSecureValueErrorFrontSide))]
 [JsonDerivedType(typeof(TSecureValueErrorReverseSide), nameof(TSecureValueErrorReverseSide))]
@@ -17,14 +29,14 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TSecureValueErrorTranslationFiles), nameof(TSecureValueErrorTranslationFiles))]
 public interface ISecureValueError : IObject
 {
-    ///<summary>
+    /// <summary>
     /// One of <a href="https://corefork.telegram.org/constructor/secureValueTypePassport">secureValueTypePassport</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense">secureValueTypeDriverLicense</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard">secureValueTypeIdentityCard</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport">secureValueTypeInternalPassport</a>
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 }

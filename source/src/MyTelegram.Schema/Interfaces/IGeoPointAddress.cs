@@ -2,35 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Address optionally associated to a <a href="https://corefork.telegram.org/constructor/geoPoint">geoPoint</a>.
-/// See <a href="https://corefork.telegram.org/type/GeoPointAddress" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/GeoPointAddress" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TGeoPointAddress"/> See <a href="https://corefork.telegram.org/constructor/geoPointAddress" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TGeoPointAddress), nameof(TGeoPointAddress))]
 public interface IGeoPointAddress : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Two-letter ISO 3166-1 alpha-2 country code
-    ///</summary>
+    /// </summary>
     string CountryIso2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// State
-    ///</summary>
+    /// </summary>
     string? State { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// City
-    ///</summary>
+    /// </summary>
     string? City { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Street
-    ///</summary>
+    /// </summary>
     string? Street { get; set; }
 }

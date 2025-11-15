@@ -2,16 +2,26 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/channels.checkSearchPostsFlood" />
-///</summary>
+/// <summary>
+/// Check if the specified <a href="https://corefork.telegram.org/api/search#posts-tab">global post search »</a> requires payment.
+/// <para>See <a href="https://corefork.telegram.org/method/channels.checkSearchPostsFlood" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x22567115)]
-public sealed class RequestCheckSearchPostsFlood : IRequest<MyTelegram.Schema.ISearchPostsFlood>
+public sealed partial class RequestCheckSearchPostsFlood : IRequest<MyTelegram.Schema.ISearchPostsFlood>
 {
     public uint ConstructorId => 0x22567115;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// The query.
+    /// </summary>
     public string? Query { get; set; }
 
     public void ComputeFlag()

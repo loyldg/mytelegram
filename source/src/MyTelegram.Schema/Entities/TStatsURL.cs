@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// URL with chat statistics
-/// See <a href="https://corefork.telegram.org/constructor/statsURL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsURL" /></para>
+/// </summary>
 [TlObject(0x47a971e0)]
-public sealed class TStatsURL : IStatsURL
+public sealed partial class TStatsURL : IStatsURL
 {
     public uint ConstructorId => 0x47a971e0;
-    ///<summary>
+    /// <summary>
     /// Chat statistics
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

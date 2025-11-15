@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No further results were found
-/// See <a href="https://corefork.telegram.org/constructor/messages.foundStickerSetsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.foundStickerSetsNotModified" /></para>
+/// </summary>
 [TlObject(0xd54b65d)]
-public sealed class TFoundStickerSetsNotModified : IFoundStickerSets
+public sealed partial class TFoundStickerSetsNotModified : IFoundStickerSets
 {
     public uint ConstructorId => 0xd54b65d;
     public void ComputeFlag()

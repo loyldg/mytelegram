@@ -77,7 +77,8 @@ public class DefaultDataProcessor<TData>(
 
                     if (logger.IsEnabled(LogLevel.Debug))
                     {
-                        logger.UserRequestDebug(
+                        logger.LogDebug(
+                            "User {UserId} {Handler} {DeviceType}[{Layer}] {ElapsedMs}ms. [{@Input}] Request data: {@Request}, Response: {@Response}",
                             obj.UserId,
                             handlerName,
                             obj.DeviceType,

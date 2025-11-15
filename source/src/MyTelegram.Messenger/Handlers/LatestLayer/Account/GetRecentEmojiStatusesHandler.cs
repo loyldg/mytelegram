@@ -1,15 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
+/// <summary>
 /// Get recently used <a href="https://corefork.telegram.org/api/emoji-status">emoji statuses</a>
-/// See <a href="https://corefork.telegram.org/method/account.getRecentEmojiStatuses" />
-///</summary>
-internal sealed class GetRecentEmojiStatusesHandler(IUserAppService userAppService)
-    : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetRecentEmojiStatuses,
-            MyTelegram.Schema.Account.IEmojiStatuses>
+/// <para><c>See <a href="https://corefork.telegram.org/method/account.getRecentEmojiStatuses"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class GetRecentEmojiStatusesHandler(IUserAppService userAppService) : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetRecentEmojiStatuses, MyTelegram.Schema.Account.IEmojiStatuses>
 {
-    protected override async Task<MyTelegram.Schema.Account.IEmojiStatuses> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestGetRecentEmojiStatuses obj)
+    protected override async Task<MyTelegram.Schema.Account.IEmojiStatuses> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestGetRecentEmojiStatuses obj)
     {
         if (input.UserId == 0)
         {
@@ -29,10 +28,7 @@ internal sealed class GetRecentEmojiStatusesHandler(IUserAppService userAppServi
         {
             return new TEmojiStatuses
             {
-                Statuses = [.. user!.RecentEmojiStatuses.Select(p => new TEmojiStatus()
-                {
-                    DocumentId = p
-                })]
+                Statuses = [..user!.RecentEmojiStatuses.Select(p => new TEmojiStatus() { DocumentId = p })]
             };
         }
 

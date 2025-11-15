@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Encrypted chat
-/// See <a href="https://corefork.telegram.org/constructor/encryptedChat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/encryptedChat" /></para>
+/// </summary>
 [TlObject(0x61f0d4c7)]
-public sealed class TEncryptedChat : IEncryptedChat
+public sealed partial class TEncryptedChat : IEncryptedChat
 {
     public uint ConstructorId => 0x61f0d4c7;
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Check sum dependent on the user ID
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date chat was created
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat creator ID
-    ///</summary>
+    /// </summary>
     public long AdminId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the second chat participant
-    ///</summary>
+    /// </summary>
     public long ParticipantId { get; set; }
 
-    ///<summary>
-    /// <code>B = g ^ b mod p</code>, if the currently authorized user is the chat's creator,<br>or <code>A = g ^ a mod p</code> otherwise<br>See <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Wikipedia</a> for more info
-    ///</summary>
+    /// <summary>
+    /// <code>B = g ^ b mod p</code>, if the currently authorized user is the chat's creator,<br/>or <code>A = g ^ a mod p</code> otherwise<br/>See <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Wikipedia</a> for more info
+    /// </summary>
     public ReadOnlyMemory<byte> GAOrB { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 64-bit fingerprint of received key
-    ///</summary>
+    /// </summary>
     public long KeyFingerprint { get; set; }
 
     public void ComputeFlag()

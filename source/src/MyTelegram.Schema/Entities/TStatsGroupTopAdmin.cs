@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Information about an active admin in a supergroup
-/// See <a href="https://corefork.telegram.org/constructor/statsGroupTopAdmin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsGroupTopAdmin" /></para>
+/// </summary>
 [TlObject(0xd7584c87)]
-public sealed class TStatsGroupTopAdmin : IStatsGroupTopAdmin
+public sealed partial class TStatsGroupTopAdmin : IStatsGroupTopAdmin
 {
     public uint ConstructorId => 0xd7584c87;
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of deleted messages for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     public int Deleted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of kicked users for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     public int Kicked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of banned users for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     public int Banned { get; set; }
 
     public void ComputeFlag()

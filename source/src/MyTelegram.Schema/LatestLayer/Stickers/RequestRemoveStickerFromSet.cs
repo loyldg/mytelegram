@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Remove a sticker from the set where it belongs. The sticker set must have been created by the current user/bot.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKER_INVALID The provided sticker is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.removeStickerFromSet" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKER_INVALID The provided sticker is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.removeStickerFromSet" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf7760f51)]
-public sealed class RequestRemoveStickerFromSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestRemoveStickerFromSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0xf7760f51;
 
-    ///<summary>
+    /// <summary>
     /// The sticker to remove
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Sticker { get; set; }
 
     public void ComputeFlag()

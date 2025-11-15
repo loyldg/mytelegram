@@ -2,40 +2,44 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/transcribe">Transcribed text</a> from a voice message
-/// See <a href="https://corefork.telegram.org/type/messages.TranscribedAudio" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.TranscribedAudio" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTranscribedAudio"/> See <a href="https://corefork.telegram.org/constructor/messages.transcribedAudio" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTranscribedAudio), nameof(TTranscribedAudio))]
 public interface ITranscribedAudio : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the transcription is partial because audio transcription is still in progress, if set the user may receive further <a href="https://corefork.telegram.org/constructor/updateTranscribedAudio">updateTranscribedAudio</a> updates with the updated transcription.
-    ///</summary>
+    /// </summary>
     bool Pending { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transcription ID
-    ///</summary>
+    /// </summary>
     long TranscriptionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transcripted text
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For non-<a href="https://corefork.telegram.org/api/premium">Premium</a> users, this flag will be set, indicating the remaining transcriptions in the free trial period.
-    ///</summary>
+    /// </summary>
     int? TrialRemainsNum { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For non-<a href="https://corefork.telegram.org/api/premium">Premium</a> users, this flag will be set, indicating the date when the <code>trial_remains_num</code> counter will be reset to the maximum value of <a href="https://corefork.telegram.org/api/config#transcribe-audio-trial-weekly-number">transcribe_audio_trial_weekly_number</a>.
-    ///</summary>
+    /// </summary>
     int? TrialRemainsUntilDate { get; set; }
 }

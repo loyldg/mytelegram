@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Download a <a href="https://corefork.telegram.org/cdn">CDN</a> file.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILE_TOKEN_INVALID The master DC did not accept the <code>file_token</code> (e.g., the token has expired). Continue downloading the file from the master DC using upload.getFile.
-/// See <a href="https://corefork.telegram.org/method/upload.getCdnFile" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILE_TOKEN_INVALID The master DC did not accept the <code>file_token</code> (e.g., the token has expired). Continue downloading the file from the master DC using upload.getFile.</c></para>
+/// <para><c>404 METHOD_INVALID The specified method is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/upload.getCdnFile" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x395f69da)]
-public sealed class RequestGetCdnFile : IRequest<MyTelegram.Schema.Upload.ICdnFile>
+public sealed partial class RequestGetCdnFile : IRequest<MyTelegram.Schema.Upload.ICdnFile>
 {
     public uint ConstructorId => 0x395f69da;
 
-    ///<summary>
+    /// <summary>
     /// File token
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileToken { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset of chunk to download
-    ///</summary>
+    /// </summary>
     public long Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of chunk to download
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

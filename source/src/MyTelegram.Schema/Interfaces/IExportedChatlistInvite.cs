@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An exported <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// See <a href="https://corefork.telegram.org/type/ExportedChatlistInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ExportedChatlistInvite" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedChatlistInvite"/> See <a href="https://corefork.telegram.org/constructor/exportedChatlistInvite" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedChatlistInvite), nameof(TExportedChatlistInvite))]
 public interface IExportedChatlistInvite : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the link
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peers to import
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
 }

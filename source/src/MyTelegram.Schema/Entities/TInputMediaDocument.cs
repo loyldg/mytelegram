@@ -2,45 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Forwarded document
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaDocument" /></para>
+/// </summary>
 [TlObject(0xa8763ab5)]
-public sealed class TInputMediaDocument : IInputMedia
+public sealed partial class TInputMediaDocument : IInputMedia
 {
     public uint ConstructorId => 0xa8763ab5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this media should be hidden behind a spoiler warning
-    ///</summary>
+    /// </summary>
     public bool Spoiler { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The document to be forwarded.
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Id { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Custom video cover.
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoto? VideoCover { get; set; }
 
+    /// <summary>
+    /// Start playing the video at the specified timestamp (seconds).
+    /// </summary>
     public int? VideoTimestamp { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time to live of self-destructing document
-    ///</summary>
+    /// </summary>
     public int? TtlSeconds { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text query or emoji that was used by the user to find this sticker or GIF: used to improve search result relevance.
-    ///</summary>
+    /// </summary>
     public string? Query { get; set; }
 
     public void ComputeFlag()

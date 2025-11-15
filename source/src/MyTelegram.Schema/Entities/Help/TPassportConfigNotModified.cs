@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Password configuration not modified
-/// See <a href="https://corefork.telegram.org/constructor/help.passportConfigNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.passportConfigNotModified" /></para>
+/// </summary>
 [TlObject(0xbfb9f457)]
-public sealed class TPassportConfigNotModified : IPassportConfig
+public sealed partial class TPassportConfigNotModified : IPassportConfig
 {
     public uint ConstructorId => 0xbfb9f457;
     public void ComputeFlag()

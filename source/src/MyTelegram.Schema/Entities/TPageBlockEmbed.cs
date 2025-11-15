@@ -2,58 +2,58 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An embedded webpage
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockEmbed" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockEmbed" /></para>
+/// </summary>
 [TlObject(0xa8718dc5)]
-public sealed class TPageBlockEmbed : IPageBlock
+public sealed partial class TPageBlockEmbed : IPageBlock
 {
     public uint ConstructorId => 0xa8718dc5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the block should be full width
-    ///</summary>
+    /// </summary>
     public bool FullWidth { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether scrolling should be allowed
-    ///</summary>
+    /// </summary>
     public bool AllowScrolling { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Web page URL, if available
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// HTML-markup of the embedded page
-    ///</summary>
+    /// </summary>
     public string? Html { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Poster photo, if available
-    ///</summary>
+    /// </summary>
     public long? PosterPhotoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Block width, if known
-    ///</summary>
+    /// </summary>
     public int? W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Block height, if known
-    ///</summary>
+    /// </summary>
     public int? H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Caption
     /// See <a href="https://corefork.telegram.org/type/PageCaption" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
     public void ComputeFlag()

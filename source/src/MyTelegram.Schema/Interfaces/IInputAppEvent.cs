@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object contains info about an event that occurred in the application.
-/// See <a href="https://corefork.telegram.org/type/InputAppEvent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputAppEvent" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputAppEvent"/> See <a href="https://corefork.telegram.org/constructor/inputAppEvent" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputAppEvent), nameof(TInputAppEvent))]
 public interface IInputAppEvent : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Client's exact timestamp for the event
-    ///</summary>
+    /// </summary>
     double Time { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Type of event
-    ///</summary>
+    /// </summary>
     string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Arbitrary numeric value for more convenient selection of certain event types, or events referring to a certain object
-    ///</summary>
+    /// </summary>
     long Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Details of the event
     /// See <a href="https://corefork.telegram.org/type/JSONValue" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IJSONValue Data { get; set; }
 }

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Key derivation function to use when generating the <a href="https://corefork.telegram.org/api/srp">password hash for SRP two-factor authorization</a>
-/// See <a href="https://corefork.telegram.org/type/PasswordKdfAlgo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PasswordKdfAlgo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPasswordKdfAlgoUnknown"/> See <a href="https://corefork.telegram.org/constructor/passwordKdfAlgoUnknown" /><br/>
+/// <see cref="TPasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow"/> See <a href="https://corefork.telegram.org/constructor/passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPasswordKdfAlgoUnknown), nameof(TPasswordKdfAlgoUnknown))]
 [JsonDerivedType(typeof(TPasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow), nameof(TPasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow))]
 public interface IPasswordKdfAlgo : IObject

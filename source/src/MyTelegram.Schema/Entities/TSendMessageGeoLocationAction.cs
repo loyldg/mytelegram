@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is selecting a location to share.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageGeoLocationAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageGeoLocationAction" /></para>
+/// </summary>
 [TlObject(0x176f8ba1)]
-public sealed class TSendMessageGeoLocationAction : ISendMessageAction
+public sealed partial class TSendMessageGeoLocationAction : ISendMessageAction
 {
     public uint ConstructorId => 0x176f8ba1;
     public void ComputeFlag()

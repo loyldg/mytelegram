@@ -2,248 +2,255 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A message
-/// See <a href="https://corefork.telegram.org/constructor/message" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/message" /></para>
+/// </summary>
 [TlObject(0x9815cec8)]
-public sealed class TMessage : IMessage, ILayeredMessage
+public sealed partial class TMessage : IMessage, ILayeredMessage
 {
     public uint ConstructorId => 0x9815cec8;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this an outgoing message
-    ///</summary>
+    /// </summary>
     public bool Out { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we were <a href="https://corefork.telegram.org/api/mentions">mentioned</a> in this message
-    ///</summary>
+    /// </summary>
     public bool Mentioned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether there are unread media attachments in this message
-    ///</summary>
+    /// </summary>
     public bool MediaUnread { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a silent message (no notification triggered)
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a channel post
-    ///</summary>
+    /// </summary>
     public bool Post { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a <a href="https://corefork.telegram.org/api/scheduled-messages">scheduled message</a>
-    ///</summary>
+    /// </summary>
     public bool FromScheduled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This is a legacy message: it has to be refetched with the new layer
-    ///</summary>
+    /// </summary>
     public bool Legacy { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message should be shown as not modified to the user, even if an edit date is present
-    ///</summary>
+    /// </summary>
     public bool EditHide { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this message is <a href="https://corefork.telegram.org/api/pin">pinned</a>
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this message is <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">protected</a> and thus cannot be forwarded; clients should also prevent users from saving attached media (i.e. videos should only be streamed, photos should be kept in RAM, et cetera).
-    ///</summary>
+    /// </summary>
     public bool Noforwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
-    ///</summary>
+    /// </summary>
     public bool InvertMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the message was sent because of a scheduled action by the message sender, for example, as away, or a greeting service message.
-    ///</summary>
+    /// </summary>
     public bool Offline { get; set; }
 
-    ///<summary>
-    /// The video contained in the message is currently being processed by the server (i.e. to generate alternative qualities, that will be contained in the final <a href="https://corefork.telegram.org/constructor/messageMediaDocument">messageMediaDocument</a>.<code>alt_document</code>), and will be sent once the video is processed, which will happen approximately at the specified <code>date</code> (i.e. messages with this flag set should be treated similarly to <a href="https://corefork.telegram.org/api/scheduled-messages">scheduled messages</a>, but instead of the scheduled date, <code>date</code> contains the estimated conversion date). <br>See <a href="https://corefork.telegram.org/api/files#video-qualities">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// The video contained in the message is currently being processed by the server (i.e. to generate alternative qualities, that will be contained in the final <a href="https://corefork.telegram.org/constructor/messageMediaDocument">messageMediaDocument</a>.<code>alt_document</code>), and will be sent once the video is processed, which will happen approximately at the specified <code>date</code> (i.e. messages with this flag set should be treated similarly to <a href="https://corefork.telegram.org/api/scheduled-messages">scheduled messages</a>, but instead of the scheduled date, <code>date</code> contains the estimated conversion date). <br/>See <a href="https://corefork.telegram.org/api/files#video-qualities">here »</a> for more info.
+    /// </summary>
     public bool VideoProcessingPending { get; set; }
 
+    /// <summary>
+    /// Set if this is a <a href="https://corefork.telegram.org/api/suggested-posts">suggested channel post »</a> that was paid using <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
+    /// </summary>
     public bool PaidSuggestedPostStars { get; set; }
 
+    /// <summary>
+    /// Set if this is a <a href="https://corefork.telegram.org/api/suggested-posts">suggested channel post »</a> that was paid using Toncoins.
+    /// </summary>
     public bool PaidSuggestedPostTon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the sender of the message
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? FromId { get; set; }
 
-    ///<summary>
-    /// Supergroups only, contains the number of <a href="https://corefork.telegram.org/api/boost">boosts</a> this user has given the current supergroup, and should be shown in the UI in the header of the message. <br>Only present for incoming messages from non-anonymous supergroup members that have boosted the supergroup. <br>Note that this counter should be locally overridden for non-anonymous <em>outgoing</em> messages, according to the current value of <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a>.<code>boosts_applied</code>, to ensure the value is correct even for messages sent by the current user before a supergroup was boosted (or after a boost has expired or the number of boosts has changed); do not update this value for incoming messages from other users, even if their boosts have changed.
-    ///</summary>
+    /// <summary>
+    /// Supergroups only, contains the number of <a href="https://corefork.telegram.org/api/boost">boosts</a> this user has given the current supergroup, and should be shown in the UI in the header of the message. <br/>Only present for incoming messages from non-anonymous supergroup members that have boosted the supergroup. <br/>Note that this counter should be locally overridden for non-anonymous <em>outgoing</em> messages, according to the current value of <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a>.<code>boosts_applied</code>, to ensure the value is correct even for messages sent by the current user before a supergroup was boosted (or after a boost has expired or the number of boosts has changed); do not update this value for incoming messages from other users, even if their boosts have changed.
+    /// </summary>
     public int? FromBoostsApplied { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer ID, the chat where this message was sent
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }
 
-    ///<summary>
-    /// Messages fetched from a <a href="https://corefork.telegram.org/api/saved-messages">saved messages dialog »</a> will have <code>peer</code>=<a href="https://corefork.telegram.org/constructor/inputPeerSelf">inputPeerSelf</a> and the <code>saved_peer_id</code> flag set to the ID of the saved dialog.<br>
+    /// <summary>
+    /// Messages from a <a href="https://corefork.telegram.org/api/saved-messages">saved messages dialog »</a> will have <code>peer</code>=<a href="https://corefork.telegram.org/constructor/inputPeerSelf">inputPeerSelf</a> and the <code>saved_peer_id</code> flag set to the ID of the saved dialog.<br/>Messages from a <a href="https://corefork.telegram.org/api/monoforum">monoforum »</a> will have <code>peer</code>=ID of the monoforum and the <code>saved_peer_id</code> flag set to the ID of a topic.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SavedPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about forwarded messages
     /// See <a href="https://corefork.telegram.org/type/MessageFwdHeader" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageFwdHeader? FwdFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the inline bot that generated the message
-    ///</summary>
+    /// </summary>
     public long? ViaBotId { get; set; }
 
-    ///<summary>
-    /// Whether the message was sent by the <a href="https://corefork.telegram.org/api/business#connected-bots">business bot</a> specified in <code>via_bot_id</code> on behalf of the user.
-    ///</summary>
+    /// <summary>
+    /// Whether the message was sent by the <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bot</a> specified in <code>via_bot_id</code> on behalf of the user.
+    /// </summary>
     public long? ViaBusinessBotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reply information
     /// See <a href="https://corefork.telegram.org/type/MessageReplyHeader" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageReplyHeader? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of the message
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media attachment
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageMedia? Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reply markup (bot/inline keyboards)
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message <a href="https://corefork.telegram.org/api/entities">entities</a> for styled text
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// View count for channel posts
-    ///</summary>
+    /// </summary>
     public int? Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Forward counter
-    ///</summary>
+    /// </summary>
     public int? Forwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about <a href="https://corefork.telegram.org/api/threads">post comments (for channels) or message replies (for groups)</a>
     /// See <a href="https://corefork.telegram.org/type/MessageReplies" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageReplies? Replies { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last edit date of this message
-    ///</summary>
+    /// </summary>
     public int? EditDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the author of this message for channel posts (with signatures enabled)
-    ///</summary>
+    /// </summary>
     public string? PostAuthor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Multiple media messages sent using <a href="https://corefork.telegram.org/method/messages.sendMultiMedia">messages.sendMultiMedia</a> with the same grouped ID indicate an <a href="https://corefork.telegram.org/api/files#albums-grouped-media">album or media group</a>
-    ///</summary>
+    /// </summary>
     public long? GroupedId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reactions to this message
     /// See <a href="https://corefork.telegram.org/type/MessageReactions" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageReactions? Reactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains the reason why access to this message must be restricted.
     /// See <a href="https://corefork.telegram.org/type/RestrictionReason" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IRestrictionReason>? RestrictionReason { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time To Live of the message, once message.date+message.ttl_period === time(), the message will be deleted on the server, and must be deleted locally as well.
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this message is a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut message »</a> (note that quick reply shortcut messages <em>sent</em> to a private chat will <em>not</em> have this field set).
-    ///</summary>
+    /// </summary>
     public int? QuickReplyShortcutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A <a href="https://corefork.telegram.org/api/effects">message effect that should be played as specified here »</a>.
-    ///</summary>
+    /// </summary>
     public long? Effect { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Represents a <a href="https://corefork.telegram.org/api/factcheck">fact-check »</a>.
     /// See <a href="https://corefork.telegram.org/type/FactCheck" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IFactCheck? Factcheck { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used for <a href="https://telegram.org/blog/star-messages-gateway-2-0-and-more#save-even-more-on-user-verification">Telegram Gateway verification messages</a>: if set and the current unixtime is bigger than the specified unixtime, invoke <a href="https://corefork.telegram.org/method/messages.reportMessagesDelivery">messages.reportMessagesDelivery</a> passing the ID and the peer of this message as soon as it is received by the client (optionally batching requests for the same peer).
-    ///</summary>
+    /// </summary>
     public int? ReportDeliveryUntilDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The amount of stars the <strong>sender</strong> has paid to send the message, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public long? PaidMessageStars { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Used to <a href="https://corefork.telegram.org/api/suggested-posts">suggest a post to a channel, see here »</a> for more info on the full flow.
     /// See <a href="https://corefork.telegram.org/type/SuggestedPost" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
     public void ComputeFlag()

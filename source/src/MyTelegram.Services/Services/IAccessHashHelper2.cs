@@ -2,8 +2,8 @@
 
 public interface IAccessHashHelper2
 {
-    Task<bool> IsAccessHashValidAsync(long currentUserId, long accessHashKeyId, long targetId, long accessHash, AccessHashType? accessHashType = null);
-    Task<bool> IsAccessHashValidAsync(IRequestWithAccessHashKeyId request, long targetId, long accessHash, AccessHashType? accessHashType = null);
+    ValueTask<bool> IsAccessHashValidAsync(long currentUserId, long accessHashKeyId, long targetId, long accessHash, AccessHashType? accessHashType = null);
+    ValueTask<bool> IsAccessHashValidAsync(IRequestWithAccessHashKeyId request, long targetId, long accessHash, AccessHashType? accessHashType = null);
 
     Task CheckAccessHashAsync(long currentUserId, long accessHashKeyId, long targetId, long accessHash, AccessHashType? accessHashType = null);
     Task CheckAccessHashAsync(IRequestWithAccessHashKeyId request, long targetId, long accessHash, AccessHashType? accessHashType = null);
@@ -23,4 +23,6 @@ public interface IAccessHashHelper2
     /// <param name="accessHashType"></param>
     /// <returns></returns>
     long GenerateAccessHash(long fromUserId, long accessHashKeyId, long targetId, AccessHashType accessHashType);
+
+    RpcError CreateRpcError(AccessHashType? accessHashType);
 }

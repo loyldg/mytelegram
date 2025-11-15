@@ -2,49 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// How a certain peer reacted to the message
-/// See <a href="https://corefork.telegram.org/constructor/messagePeerReaction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messagePeerReaction" /></para>
+/// </summary>
 [TlObject(0x8c79b63c)]
-public sealed class TMessagePeerReaction : IMessagePeerReaction
+public sealed partial class TMessagePeerReaction : IMessagePeerReaction
 {
     public uint ConstructorId => 0x8c79b63c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the specified <a href="https://corefork.telegram.org/api/reactions">message reaction »</a> should elicit a bigger and longer reaction
-    ///</summary>
+    /// </summary>
     public bool Big { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the reaction wasn't yet marked as read by the current user
-    ///</summary>
+    /// </summary>
     public bool Unread { get; set; }
 
-    ///<summary>
-    /// Starting from layer 159, <a href="https://corefork.telegram.org/method/messages.sendReaction">messages.sendReaction</a> will send reactions from the peer (user or channel) specified using <a href="https://corefork.telegram.org/method/messages.saveDefaultSendAs">messages.saveDefaultSendAs</a>. <br>If set, this flag indicates that this reaction was sent by us, even if the <code>peer</code> doesn't point to the current account.
-    ///</summary>
+    /// <summary>
+    /// Starting from layer 159, <a href="https://corefork.telegram.org/method/messages.sendReaction">messages.sendReaction</a> will send reactions from the peer (user or channel) specified using <a href="https://corefork.telegram.org/method/messages.saveDefaultSendAs">messages.saveDefaultSendAs</a>. <br/>If set, this flag indicates that this reaction was sent by us, even if the <code>peer</code> doesn't point to the current account.
+    /// </summary>
     public bool My { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer that reacted to the message
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was this reaction added
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reaction emoji
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
     public void ComputeFlag()

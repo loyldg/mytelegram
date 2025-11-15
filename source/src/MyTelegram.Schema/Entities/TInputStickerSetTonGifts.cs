@@ -2,11 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputStickerSetTonGifts" />
-///</summary>
+/// <summary>
+/// TON gifts stickerset.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickerSetTonGifts" /></para>
+/// </summary>
 [TlObject(0x1cf671a0)]
-public sealed class TInputStickerSetTonGifts : IInputStickerSet
+public sealed partial class TInputStickerSetTonGifts : IInputStickerSet
 {
     public uint ConstructorId => 0x1cf671a0;
     public void ComputeFlag()

@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Sensitive content settings
-/// See <a href="https://corefork.telegram.org/type/account.ContentSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.ContentSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TContentSettings"/> See <a href="https://corefork.telegram.org/constructor/account.contentSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TContentSettings), nameof(TContentSettings))]
 public interface IContentSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether viewing of sensitive (NSFW) content is enabled
-    ///</summary>
+    /// </summary>
     bool SensitiveEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current client can change the sensitive content settings to view NSFW content
-    ///</summary>
+    /// </summary>
     bool SensitiveCanChange { get; set; }
 }

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The user successfully authorized using <a href="https://corefork.telegram.org/api/auth#future-auth-tokens">future auth tokens</a>
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeSuccess" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeSuccess" /></para>
+/// </summary>
 [TlObject(0x2390fe44)]
-public sealed class TSentCodeSuccess : ISentCode
+public sealed partial class TSentCodeSuccess : ISentCode
 {
     public uint ConstructorId => 0x2390fe44;
-    ///<summary>
+    /// <summary>
     /// Authorization info
     /// See <a href="https://corefork.telegram.org/type/auth.Authorization" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Auth.IAuthorization Authorization { get; set; }
 
     public void ComputeFlag()

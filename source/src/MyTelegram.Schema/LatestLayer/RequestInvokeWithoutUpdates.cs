@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Invoke a request without subscribing the used connection for <a href="https://corefork.telegram.org/api/updates">updates</a> (this is enabled by default for <a href="https://corefork.telegram.org/api/files">file queries</a>).
-/// See <a href="https://corefork.telegram.org/method/invokeWithoutUpdates" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/invokeWithoutUpdates" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbf9459b7)]
-public sealed class RequestInvokeWithoutUpdates : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInvokeWithoutUpdates : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xbf9459b7;
 
-    ///<summary>
+    /// <summary>
     /// The query
-    ///</summary>
+    /// </summary>
     public IObject Query { get; set; }
 
     public void ComputeFlag()

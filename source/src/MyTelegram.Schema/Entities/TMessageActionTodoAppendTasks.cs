@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionTodoAppendTasks" />
-///</summary>
+/// <summary>
+/// Items were appended to the <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionTodoAppendTasks" /></para>
+/// </summary>
 [TlObject(0xc7edbc83)]
-public sealed class TMessageActionTodoAppendTasks : IMessageAction
+public sealed partial class TMessageActionTodoAppendTasks : IMessageAction
 {
     public uint ConstructorId => 0xc7edbc83;
-    ///<summary>
+    /// <summary>
+    /// Appended items.
     /// See <a href="https://corefork.telegram.org/type/TodoItem" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ITodoItem> List { get; set; }
 
     public void ComputeFlag()

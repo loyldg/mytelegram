@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The list of saved notification sounds has changed, use <a href="https://corefork.telegram.org/method/account.getSavedRingtones">account.getSavedRingtones</a> to fetch the new list.
-/// See <a href="https://corefork.telegram.org/constructor/updateSavedRingtones" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateSavedRingtones" /></para>
+/// </summary>
 [TlObject(0x74d8be99)]
-public sealed class TUpdateSavedRingtones : IUpdate
+public sealed partial class TUpdateSavedRingtones : IUpdate
 {
     public uint ConstructorId => 0x74d8be99;
     public void ComputeFlag()

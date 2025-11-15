@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only round videos and voice notes
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterRoundVoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterRoundVoice" /></para>
+/// </summary>
 [TlObject(0x7a7c17a4)]
-public sealed class TInputMessagesFilterRoundVoice : IMessagesFilter
+public sealed partial class TInputMessagesFilterRoundVoice : IMessagesFilter
 {
     public uint ConstructorId => 0x7a7c17a4;
     public void ComputeFlag()

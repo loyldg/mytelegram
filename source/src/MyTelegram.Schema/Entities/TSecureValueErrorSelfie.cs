@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.
-/// See <a href="https://corefork.telegram.org/constructor/secureValueErrorSelfie" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueErrorSelfie" /></para>
+/// </summary>
 [TlObject(0xe537ced6)]
-public sealed class TSecureValueErrorSelfie : ISecureValueError
+public sealed partial class TSecureValueErrorSelfie : ISecureValueError
 {
     public uint ConstructorId => 0xe537ced6;
-    ///<summary>
+    /// <summary>
     /// One of <a href="https://corefork.telegram.org/constructor/secureValueTypePassport">secureValueTypePassport</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense">secureValueTypeDriverLicense</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard">secureValueTypeIdentityCard</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport">secureValueTypeInternalPassport</a>
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

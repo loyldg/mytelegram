@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The phone call was disconnected
-/// See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonDisconnect" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonDisconnect" /></para>
+/// </summary>
 [TlObject(0xe095c1a0)]
-public sealed class TPhoneCallDiscardReasonDisconnect : IPhoneCallDiscardReason
+public sealed partial class TPhoneCallDiscardReasonDisconnect : IPhoneCallDiscardReason
 {
     public uint ConstructorId => 0xe095c1a0;
     public void ComputeFlag()

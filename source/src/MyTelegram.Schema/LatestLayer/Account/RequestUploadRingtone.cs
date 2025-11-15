@@ -2,32 +2,35 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Upload notification sound, use <a href="https://corefork.telegram.org/method/account.saveRingtone">account.saveRingtone</a> to convert it and add it to the list of saved notification sounds.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 RINGTONE_MIME_INVALID The MIME type for the ringtone is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.uploadRingtone" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 RINGTONE_MIME_INVALID The MIME type for the ringtone is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.uploadRingtone" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x831a83a2)]
-public sealed class RequestUploadRingtone : IRequest<MyTelegram.Schema.IDocument>
+public sealed partial class RequestUploadRingtone : IRequest<MyTelegram.Schema.IDocument>
 {
     public uint ConstructorId => 0x831a83a2;
 
-    ///<summary>
+    /// <summary>
     /// Notification sound
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile File { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File name
-    ///</summary>
+    /// </summary>
     public string FileName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MIME type of file
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
     public void ComputeFlag()

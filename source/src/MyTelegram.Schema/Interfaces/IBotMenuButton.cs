@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates the action to execute when pressing the in-UI menu button for bots
-/// See <a href="https://corefork.telegram.org/type/BotMenuButton" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BotMenuButton" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotMenuButtonDefault"/> See <a href="https://corefork.telegram.org/constructor/botMenuButtonDefault" /><br/>
+/// <see cref="TBotMenuButtonCommands"/> See <a href="https://corefork.telegram.org/constructor/botMenuButtonCommands" /><br/>
+/// <see cref="TBotMenuButton"/> See <a href="https://corefork.telegram.org/constructor/botMenuButton" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotMenuButtonDefault), nameof(TBotMenuButtonDefault))]
 [JsonDerivedType(typeof(TBotMenuButtonCommands), nameof(TBotMenuButtonCommands))]
 [JsonDerivedType(typeof(TBotMenuButton), nameof(TBotMenuButton))]

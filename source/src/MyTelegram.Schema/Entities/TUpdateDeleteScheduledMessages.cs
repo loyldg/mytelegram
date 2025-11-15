@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Some <a href="https://corefork.telegram.org/api/scheduled-messages">scheduled messages</a> were deleted (or sent) from the schedule queue of a chat
-/// See <a href="https://corefork.telegram.org/constructor/updateDeleteScheduledMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDeleteScheduledMessages" /></para>
+/// </summary>
 [TlObject(0xf2a71983)]
-public sealed class TUpdateDeleteScheduledMessages : IUpdate
+public sealed partial class TUpdateDeleteScheduledMessages : IUpdate
 {
     public uint ConstructorId => 0xf2a71983;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Deleted scheduled messages
-    ///</summary>
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
-    ///<summary>
-    /// If set, this update indicates that some scheduled messages were sent (not simply deleted from the schedule queue).  <br>In this case, the <code>messages</code> field will contain the scheduled message IDs for the sent messages (initially returned in <a href="https://corefork.telegram.org/constructor/updateNewScheduledMessage">updateNewScheduledMessage</a>), and <code>sent_messages</code> will contain the real message IDs for the sent messages.
-    ///</summary>
+    /// <summary>
+    /// If set, this update indicates that some scheduled messages were sent (not simply deleted from the schedule queue).  <br/>In this case, the <code>messages</code> field will contain the scheduled message IDs for the sent messages (initially returned in <a href="https://corefork.telegram.org/constructor/updateNewScheduledMessage">updateNewScheduledMessage</a>), and <code>sent_messages</code> will contain the real message IDs for the sent messages.
+    /// </summary>
     public TVector<int>? SentMessages { get; set; }
 
     public void ComputeFlag()

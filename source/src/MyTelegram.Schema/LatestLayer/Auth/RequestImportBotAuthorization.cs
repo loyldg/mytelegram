@@ -2,39 +2,42 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Login as a bot
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ACCESS_TOKEN_EXPIRED Access token expired.
-/// 400 ACCESS_TOKEN_INVALID Access token invalid.
-/// 400 API_ID_INVALID API ID invalid.
-/// 400 API_ID_PUBLISHED_FLOOD This API id was published somewhere, you can't use it now.
-/// See <a href="https://corefork.telegram.org/method/auth.importBotAuthorization" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 ACCESS_TOKEN_EXPIRED Access token expired.</c></para>
+/// <para><c>400 ACCESS_TOKEN_INVALID Access token invalid.</c></para>
+/// <para><c>400 API_ID_INVALID API ID invalid.</c></para>
+/// <para><c>400 API_ID_PUBLISHED_FLOOD This API id was published somewhere, you can't use it now. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.importBotAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x67a3ff2c)]
-public sealed class RequestImportBotAuthorization : IRequest<MyTelegram.Schema.Auth.IAuthorization>
+public sealed partial class RequestImportBotAuthorization : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
     public uint ConstructorId => 0x67a3ff2c;
 
-    ///<summary>
+    /// <summary>
     /// Reserved for future use
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application identifier (see. <a href="https://corefork.telegram.org/myapp">App configuration</a>)
-    ///</summary>
+    /// </summary>
     public int ApiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application identifier hash (see. <a href="https://corefork.telegram.org/myapp">App configuration</a>)
-    ///</summary>
+    /// </summary>
     public string ApiHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot token (see <a href="https://corefork.telegram.org/bots">bots</a>)
-    ///</summary>
+    /// </summary>
     public string BotAuthToken { get; set; }
 
     public void ComputeFlag()

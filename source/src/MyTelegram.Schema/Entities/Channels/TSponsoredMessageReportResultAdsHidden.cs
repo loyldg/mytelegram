@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Sponsored messages were hidden for the user in all chats.
-/// See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultAdsHidden" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultAdsHidden" /></para>
+/// </summary>
 [TlObject(0x3e3bcf2f)]
-public sealed class TSponsoredMessageReportResultAdsHidden : ISponsoredMessageReportResult
+public sealed partial class TSponsoredMessageReportResultAdsHidden : ISponsoredMessageReportResult
 {
     public uint ConstructorId => 0x3e3bcf2f;
     public void ComputeFlag()

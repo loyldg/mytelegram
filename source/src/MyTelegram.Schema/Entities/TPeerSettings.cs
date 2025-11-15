@@ -2,110 +2,122 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// List of actions that are possible when interacting with this user, to be shown as suggested actions in the <a href="https://corefork.telegram.org/api/action-bar">chat action bar »</a>, see <a href="https://corefork.telegram.org/api/action-bar">here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/peerSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/peerSettings" /></para>
+/// </summary>
 [TlObject(0xf47741f7)]
-public sealed class TPeerSettings : IPeerSettings
+public sealed partial class TPeerSettings : IPeerSettings
 {
     public uint ConstructorId => 0xf47741f7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we can still report the user for spam
-    ///</summary>
+    /// </summary>
     public bool ReportSpam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we can add the user as contact
-    ///</summary>
+    /// </summary>
     public bool AddContact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we can block the user
-    ///</summary>
+    /// </summary>
     public bool BlockContact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we can share the user's contact
-    ///</summary>
+    /// </summary>
     public bool ShareContact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether a special exception for contacts is needed
-    ///</summary>
+    /// </summary>
     public bool NeedContactsException { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we can report a geogroup as irrelevant for this location
-    ///</summary>
+    /// </summary>
     public bool ReportGeo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this peer was automatically archived according to <a href="https://corefork.telegram.org/constructor/globalPrivacySettings">privacy settings</a> and can be unarchived
-    ///</summary>
+    /// </summary>
     public bool Autoarchived { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this is a recently created group chat to which new members can be invited
-    ///</summary>
+    /// </summary>
     public bool InviteMembers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This flag is set if <code>request_chat_title</code> and <code>request_chat_date</code> fields are set and the <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a> is related to a channel (otherwise if only the request fields are set, the <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a> is related to a chat).
-    ///</summary>
+    /// </summary>
     public bool RequestChatBroadcast { get; set; }
 
-    ///<summary>
-    /// This flag is set if both <code>business_bot_id</code> and <code>business_bot_manage_url</code> are set and all <a href="https://corefork.telegram.org/api/business#connected-bots">connected business bots »</a> were paused in this chat using <a href="https://corefork.telegram.org/method/account.toggleConnectedBotPaused">account.toggleConnectedBotPaused »</a>.
-    ///</summary>
+    /// <summary>
+    /// This flag is set if both <code>business_bot_id</code> and <code>business_bot_manage_url</code> are set and all <a href="https://corefork.telegram.org/api/bots/connected-business-bots">connected business bots »</a> were paused in this chat using <a href="https://corefork.telegram.org/method/account.toggleConnectedBotPaused">account.toggleConnectedBotPaused »</a>.
+    /// </summary>
     public bool BusinessBotPaused { get; set; }
 
-    ///<summary>
-    /// This flag is set if both <code>business_bot_id</code> and <code>business_bot_manage_url</code> are set and <a href="https://corefork.telegram.org/api/business#connected-bots">connected business bots »</a> can reply to messages in this chat, as specified by the settings during <a href="https://corefork.telegram.org/api/business#connected-bots">initial configuration</a>.
-    ///</summary>
+    /// <summary>
+    /// This flag is set if both <code>business_bot_id</code> and <code>business_bot_manage_url</code> are set and <a href="https://corefork.telegram.org/api/bots/connected-business-bots">connected business bots »</a> can reply to messages in this chat, as specified by the settings during <a href="https://corefork.telegram.org/api/bots/connected-business-bots">initial configuration</a>.
+    /// </summary>
     public bool BusinessBotCanReply { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Distance in meters between us and this peer
-    ///</summary>
+    /// </summary>
     public int? GeoDistance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this is a private chat with an administrator of a chat or channel to which the user sent a join request, and this field contains the chat/channel's title.
-    ///</summary>
+    /// </summary>
     public string? RequestChatTitle { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this is a private chat with an administrator of a chat or channel to which the user sent a join request, and this field contains the timestamp when the <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a> was sent.
-    ///</summary>
+    /// </summary>
     public int? RequestChatDate { get; set; }
 
-    ///<summary>
-    /// Contains the ID of the <a href="https://corefork.telegram.org/api/business#connected-bots">business bot »</a> managing this chat, used to display info about the bot in the action bar.
-    ///</summary>
+    /// <summary>
+    /// Contains the ID of the <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bot »</a> managing this chat, used to display info about the bot in the action bar.
+    /// </summary>
     public long? BusinessBotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains a <a href="https://corefork.telegram.org/api/links">deep link »</a>, used to open a management menu in the business bot. This flag is set if and only if <code>business_bot_id</code> is set.
-    ///</summary>
+    /// </summary>
     public string? BusinessBotManageUrl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All users that must <a href="https://corefork.telegram.org/api/paid-messages">pay <em>us</em> »</a> to send us private messages will have this flag set <em>only for us</em>, containing the amount of required stars, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for more info on paid messages.
-    ///</summary>
+    /// </summary>
     public long? ChargePaidMessageStars { get; set; }
 
+    /// <summary>
+    /// Used to display the user's registration year and month, the string is in <code>MM.YYYY</code> format, where <code>MM</code> is the registration month (<code>1-12</code>), and <code>YYYY</code> is the registration year.
+    /// </summary>
     public string? RegistrationMonth { get; set; }
 
+    /// <summary>
+    /// The country code of the user's phone number.
+    /// </summary>
     public string? PhoneCountry { get; set; }
 
+    /// <summary>
+    /// When was the user's name last changed.
+    /// </summary>
     public int? NameChangeDate { get; set; }
 
+    /// <summary>
+    /// When was the user's photo last changed.
+    /// </summary>
     public int? PhotoChangeDate { get; set; }
 
     public void ComputeFlag()

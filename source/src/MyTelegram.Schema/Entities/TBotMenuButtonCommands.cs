@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/bots/menu">Bot menu button</a> that opens the bot command list when clicked.
-/// See <a href="https://corefork.telegram.org/constructor/botMenuButtonCommands" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botMenuButtonCommands" /></para>
+/// </summary>
 [TlObject(0x4258c205)]
-public sealed class TBotMenuButtonCommands : IBotMenuButton
+public sealed partial class TBotMenuButtonCommands : IBotMenuButton
 {
     public uint ConstructorId => 0x4258c205;
     public void ComputeFlag()

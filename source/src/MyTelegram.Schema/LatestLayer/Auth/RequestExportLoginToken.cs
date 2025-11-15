@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
-/// Generate a login token, for <a href="https://corefork.telegram.org/api/qr-login">login via QR code</a>.<br>
+/// <summary>
+/// Generate a login token, for <a href="https://corefork.telegram.org/api/qr-login">login via QR code</a>.<br/>
 /// The generated login token should be encoded using base64url, then shown as a <code>tg://login?token=base64encodedtoken</code> <a href="https://corefork.telegram.org/api/links#qr-code-login-links">deep link »</a> in the QR code.For more info, see <a href="https://corefork.telegram.org/api/qr-login">login via QR code</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 API_ID_INVALID API ID invalid.
-/// 400 API_ID_PUBLISHED_FLOOD This API id was published somewhere, you can't use it now.
-/// See <a href="https://corefork.telegram.org/method/auth.exportLoginToken" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 API_ID_INVALID API ID invalid.</c></para>
+/// <para><c>400 API_ID_PUBLISHED_FLOOD This API id was published somewhere, you can't use it now. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.exportLoginToken" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xb7e085fe)]
-public sealed class RequestExportLoginToken : IRequest<MyTelegram.Schema.Auth.ILoginToken>
+public sealed partial class RequestExportLoginToken : IRequest<MyTelegram.Schema.Auth.ILoginToken>
 {
     public uint ConstructorId => 0xb7e085fe;
 
-    ///<summary>
+    /// <summary>
     /// Application identifier (see. <a href="https://corefork.telegram.org/myapp">App configuration</a>)
-    ///</summary>
+    /// </summary>
     public int ApiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application identifier hash (see. <a href="https://corefork.telegram.org/myapp">App configuration</a>)
-    ///</summary>
+    /// </summary>
     public string ApiHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of already logged-in user IDs, to prevent logging in twice with the same user
-    ///</summary>
+    /// </summary>
     public TVector<long> ExceptIds { get; set; }
 
     public void ComputeFlag()

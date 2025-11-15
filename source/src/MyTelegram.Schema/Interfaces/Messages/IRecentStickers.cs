@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Recent stickers
-/// See <a href="https://corefork.telegram.org/type/messages.RecentStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.RecentStickers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TRecentStickersNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.recentStickersNotModified" /><br/>
+/// <see cref="TRecentStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.recentStickers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TRecentStickersNotModified), nameof(TRecentStickersNotModified))]
 [JsonDerivedType(typeof(TRecentStickers), nameof(TRecentStickers))]
 public interface IRecentStickers : IObject

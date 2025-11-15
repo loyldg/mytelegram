@@ -18,7 +18,7 @@ namespace MyTelegram.Schema.Channels;
 /// See <a href="https://corefork.telegram.org/method/channels.editForumTopic" />
 ///</summary>
 [TlObject(0xf4dfa185)]
-public sealed class RequestEditForumTopic : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditForumTopic : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf4dfa185;
 

@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// JSON key: value pair
-/// See <a href="https://corefork.telegram.org/type/JSONObjectValue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/JSONObjectValue" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TJsonObjectValue"/> See <a href="https://corefork.telegram.org/constructor/jsonObjectValue" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TJsonObjectValue), nameof(TJsonObjectValue))]
 public interface IJSONObjectValue : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Key
-    ///</summary>
+    /// </summary>
     string Key { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value
     /// See <a href="https://corefork.telegram.org/type/JSONValue" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IJSONValue Value { get; set; }
 }

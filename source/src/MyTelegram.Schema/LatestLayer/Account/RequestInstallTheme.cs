@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Install a theme
-/// See <a href="https://corefork.telegram.org/method/account.installTheme" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.installTheme" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc727bb3b)]
-public sealed class RequestInstallTheme : IRequest<IBool>
+public sealed partial class RequestInstallTheme : IRequest<IBool>
 {
     public uint ConstructorId => 0xc727bb3b;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to install the dark version
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme to install
     /// See <a href="https://corefork.telegram.org/type/InputTheme" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputTheme? Theme { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme format, a string that identifies the theming engines supported by the client
-    ///</summary>
+    /// </summary>
     public string? Format { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Indicates a basic theme provided by all clients
     /// See <a href="https://corefork.telegram.org/type/BaseTheme" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBaseTheme? BaseTheme { get; set; }
 
     public void ComputeFlag()

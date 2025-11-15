@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a photo for further interaction.
-/// See <a href="https://corefork.telegram.org/constructor/inputPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPhoto" /></para>
+/// </summary>
 [TlObject(0x3bb3b94a)]
-public sealed class TInputPhoto : IInputPhoto
+public sealed partial class TInputPhoto : IInputPhoto
 {
     public uint ConstructorId => 0x3bb3b94a;
-    ///<summary>
+    /// <summary>
     /// Photo identifier
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <strong>access_hash</strong> value from the <a href="https://corefork.telegram.org/constructor/photo">photo</a> constructor
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/file_reference">File reference</a>
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/file-references">File reference</a>
+    /// </summary>
     public ReadOnlyMemory<byte> FileReference { get; set; }
 
     public void ComputeFlag()

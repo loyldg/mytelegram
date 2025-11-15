@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Resolve a @username to get peer info
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CONNECTION_LAYER_INVALID Layer invalid.
-/// 400 STARREF_EXPIRED The specified referral link is invalid.
-/// 400 USERNAME_INVALID The provided username is not valid.
-/// 400 USERNAME_NOT_OCCUPIED The provided username is not occupied.
-/// See <a href="https://corefork.telegram.org/method/contacts.resolveUsername" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CONNECTION_LAYER_INVALID Layer invalid.</c></para>
+/// <para><c>400 STARREF_EXPIRED The specified referral link is invalid.</c></para>
+/// <para><c>400 USERNAME_INVALID The provided username is not valid.</c></para>
+/// <para><c>400 USERNAME_NOT_OCCUPIED The provided username is not occupied. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.resolveUsername" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x725afbbc)]
-public sealed class RequestResolveUsername : IRequest<MyTelegram.Schema.Contacts.IResolvedPeer>
+public sealed partial class RequestResolveUsername : IRequest<MyTelegram.Schema.Contacts.IResolvedPeer>
 {
     public uint ConstructorId => 0x725afbbc;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// @username to resolve
-    ///</summary>
+    /// </summary>
     public string Username { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/links#referral-links">Referrer ID from referral links »</a>.
-    ///</summary>
+    /// </summary>
     public string? Referer { get; set; }
 
     public void ComputeFlag()

@@ -2,44 +2,44 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the <a href="https://core.telegram.org/bots/inline#collecting-feedback">feedback collecting</a> for details on how to enable these updates for your bot.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotInlineSend" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotInlineSend" /></para>
+/// </summary>
 [TlObject(0x12f12a07)]
-public sealed class TUpdateBotInlineSend : IUpdate
+public sealed partial class TUpdateBotInlineSend : IUpdate
 {
     public uint ConstructorId => 0x12f12a07;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user that chose the result
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The query that was used to obtain the result
-    ///</summary>
+    /// </summary>
     public string Query { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional. Sender location, only for bots that require user location
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint? Geo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The unique identifier for the result that was chosen
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessageID" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessageID? MsgId { get; set; }
 
     public void ComputeFlag()

@@ -2,62 +2,65 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// Edit an uploaded <a href="https://corefork.telegram.org/api/stories">story</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STORY_NOT_MODIFIED The new story information you passed is equal to the previous story information, thus it wasn't modified.
-/// See <a href="https://corefork.telegram.org/method/stories.editStory" />
-///</summary>
+/// <summary>
+/// Edit an uploaded <a href="https://corefork.telegram.org/api/stories">story</a>May also be used in a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business connection</a>, <em>not</em> by wrapping the query in <a href="https://corefork.telegram.org/method/invokeWithBusinessConnection">invokeWithBusinessConnection »</a>, but rather by specifying the ID of a controlled business user in <code>peer</code>: in this context, the method can only be used to edit stories posted by the same business bot on behalf of the user with <a href="https://corefork.telegram.org/method/stories.sendStory">stories.sendStory</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STORY_NOT_MODIFIED The new story information you passed is equal to the previous story information, thus it wasn't modified. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.editStory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb583ba46)]
-public sealed class RequestEditStory : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditStory : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xb583ba46;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer where the story was posted.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of story to edit.
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, replaces the story media.
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia? Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/stories#media-areas">Media areas</a> associated to the story, see <a href="https://corefork.telegram.org/api/stories#media-areas">here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/MediaArea" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMediaArea>? MediaAreas { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, replaces the story caption.
-    ///</summary>
+    /// </summary>
     public string? Caption { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text in the caption</a>, if allowed by the <a href="https://corefork.telegram.org/api/config#stories-entities"><code>stories_entities</code> client configuration parameter »</a>.
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, alters the <a href="https://corefork.telegram.org/api/privacy">privacy settings »</a> of the story, changing who can or can't view the story.
     /// See <a href="https://corefork.telegram.org/type/InputPrivacyRule" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPrivacyRule>? PrivacyRules { get; set; }
 
     public void ComputeFlag()

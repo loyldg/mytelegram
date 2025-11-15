@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure value hash
-/// See <a href="https://corefork.telegram.org/constructor/secureValueHash" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueHash" /></para>
+/// </summary>
 [TlObject(0xed1ecdb0)]
-public sealed class TSecureValueHash : ISecureValueHash
+public sealed partial class TSecureValueHash : ISecureValueHash
 {
     public uint ConstructorId => 0xed1ecdb0;
-    ///<summary>
+    /// <summary>
     /// Secure value type
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Hash { get; set; }
 
     public void ComputeFlag()

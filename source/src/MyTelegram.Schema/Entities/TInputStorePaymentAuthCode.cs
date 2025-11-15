@@ -2,26 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputStorePaymentAuthCode" />
-///</summary>
+/// <summary>
+/// Indicates payment for a login code.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStorePaymentAuthCode" /></para>
+/// </summary>
 [TlObject(0x9bb2636d)]
-public sealed class TInputStorePaymentAuthCode : IInputStorePaymentPurpose
+public sealed partial class TInputStorePaymentAuthCode : IInputStorePaymentPurpose
 {
     public uint ConstructorId => 0x9bb2636d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Set this flag to restore a previously made purchase.
+    /// </summary>
     public bool Restore { get; set; }
 
+    /// <summary>
+    /// Phone number.
+    /// </summary>
     public string PhoneNumber { get; set; }
 
+    /// <summary>
+    /// <code>phone_code_hash</code> returned by <a href="https://corefork.telegram.org/method/auth.sendCode">auth.sendCode</a>.
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
+    /// <summary>
+    /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
+    /// </summary>
     public string Currency { get; set; }
 
+    /// <summary>
+    /// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+    /// </summary>
     public long Amount { get; set; }
 
     public void ComputeFlag()

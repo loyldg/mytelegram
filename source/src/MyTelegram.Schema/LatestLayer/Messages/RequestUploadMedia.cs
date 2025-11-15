@@ -2,56 +2,59 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Upload a file and associate it to a chat (without actually sending it to the chat)
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 FILE_PARTS_INVALID The number of file parts is invalid.
-/// 400 FILE_PART_LENGTH_INVALID The length of a file part is invalid.
-/// 400 IMAGE_PROCESS_FAILED Failure while processing image.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MEDIA_INVALID Media invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 PHOTO_EXT_INVALID The extension of the photo is invalid.
-/// 400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.
-/// 400 PHOTO_SAVE_FILE_INVALID Internal issues, try again later.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// 400 VOICE_MESSAGES_FORBIDDEN This user's privacy settings forbid you from sending voice messages.
-/// 400 WEBPAGE_CURL_FAILED Failure while fetching the webpage with cURL.
-/// See <a href="https://corefork.telegram.org/method/messages.uploadMedia" />
-///</summary>
+/// <summary>
+/// Upload a file and associate it to a chat (without actually sending it to the chat)May also be used in a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business connection</a>, <em>not</em> by wrapping the query in <a href="https://corefork.telegram.org/method/invokeWithBusinessConnection">invokeWithBusinessConnection »</a>, but rather by specifying the business connection ID in the <code>business_connection_id</code> parameter.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 FILE_PARTS_INVALID The number of file parts is invalid.</c></para>
+/// <para><c>400 FILE_PART_LENGTH_INVALID The length of a file part is invalid.</c></para>
+/// <para><c>400 IMAGE_PROCESS_FAILED Failure while processing image.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MEDIA_INVALID Media invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PHOTO_EXT_INVALID The extension of the photo is invalid.</c></para>
+/// <para><c>400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.</c></para>
+/// <para><c>400 PHOTO_SAVE_FILE_INVALID Internal issues, try again later.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.</c></para>
+/// <para><c>400 VOICE_MESSAGES_FORBIDDEN This user's privacy settings forbid you from sending voice messages.</c></para>
+/// <para><c>400 WEBPAGE_CURL_FAILED Failure while fetching the webpage with cURL. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.uploadMedia" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x14967978)]
-public sealed class RequestUploadMedia : IRequest<MyTelegram.Schema.IMessageMedia>
+public sealed partial class RequestUploadMedia : IRequest<MyTelegram.Schema.IMessageMedia>
 {
     public uint ConstructorId => 0x14967978;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// Whether the media will be used only in the specified <a href="https://corefork.telegram.org/api/business#connected-bots">business connection »</a>, and not directly by the bot.
-    ///</summary>
+    /// <summary>
+    /// Whether the media will be used only in the specified <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business connection »</a>, and not directly by the bot.
+    /// </summary>
     public string? BusinessConnectionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The chat, can be <a href="https://corefork.telegram.org/constructor/inputPeerEmpty">inputPeerEmpty</a> for bots and <a href="https://corefork.telegram.org/constructor/inputPeerSelf">inputPeerSelf</a> for users.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File uploaded in chunks as described in <a href="https://corefork.telegram.org/api/files">files »</a>
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia Media { get; set; }
 
     public void ComputeFlag()

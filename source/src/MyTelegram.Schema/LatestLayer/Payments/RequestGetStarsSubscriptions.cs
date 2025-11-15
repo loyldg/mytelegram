@@ -2,37 +2,40 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Obtain a list of active, expired or cancelled <a href="https://corefork.telegram.org/api/invites#paid-invite-links">Telegram Star subscriptions »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsSubscriptions" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsSubscriptions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x32512c5)]
-public sealed class RequestGetStarsSubscriptions : IRequest<MyTelegram.Schema.Payments.IStarsStatus>
+public sealed partial class RequestGetStarsSubscriptions : IRequest<MyTelegram.Schema.Payments.IStarsStatus>
 {
     public uint ConstructorId => 0x32512c5;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to return only subscriptions expired due to an excessively low Telegram Star balance.
-    ///</summary>
+    /// </summary>
     public bool MissingBalance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Always pass <a href="https://corefork.telegram.org/constructor/inputPeerSelf">inputPeerSelf</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for pagination, taken from <a href="https://corefork.telegram.org/constructor/payments.starsStatus">payments.starsStatus</a>.<code>subscriptions_next_offset</code>.
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
     public void ComputeFlag()

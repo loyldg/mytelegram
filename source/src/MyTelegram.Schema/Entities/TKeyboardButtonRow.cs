@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Inline keyboard row
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonRow" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonRow" /></para>
+/// </summary>
 [TlObject(0x77608b83)]
-public sealed class TKeyboardButtonRow : IKeyboardButtonRow
+public sealed partial class TKeyboardButtonRow : IKeyboardButtonRow
 {
     public uint ConstructorId => 0x77608b83;
-    ///<summary>
+    /// <summary>
     /// Bot or inline keyboard buttons
     /// See <a href="https://corefork.telegram.org/type/KeyboardButton" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IKeyboardButton> Buttons { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// No events.
-/// See <a href="https://corefork.telegram.org/constructor/updates.differenceEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates.differenceEmpty" /></para>
+/// </summary>
 [TlObject(0x5d75a138)]
-public sealed class TDifferenceEmpty : IDifference
+public sealed partial class TDifferenceEmpty : IDifference
 {
     public uint ConstructorId => 0x5d75a138;
-    ///<summary>
+    /// <summary>
     /// Current date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of sent updates
-    ///</summary>
+    /// </summary>
     public int Seq { get; set; }
 
     public void ComputeFlag()

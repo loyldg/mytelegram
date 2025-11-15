@@ -2,31 +2,48 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionConferenceCall" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/end-to-end/group-calls">conference call</a> (or an invitation to a conference call, if neither the <code>missed</code> nor <code>active</code> flags are set).If <a href="https://corefork.telegram.org/api/config#call-requests-disabled">call_requests_disabled</a> is not set or false, an incoming <a href="https://corefork.telegram.org/constructor/messageActionConferenceCall">messageActionConferenceCall</a> with the <code>missed</code> and <code>active</code> flags <strong>not</strong> set should trigger ringing and an incoming call screen, just like for one-on-one calls.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionConferenceCall" /></para>
+/// </summary>
 [TlObject(0x2ffe2f7a)]
-public sealed class TMessageActionConferenceCall : IMessageAction
+public sealed partial class TMessageActionConferenceCall : IMessageAction
 {
     public uint ConstructorId => 0x2ffe2f7a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Whether the conference call has ended and the user hasn't joined.
+    /// </summary>
     public bool Missed { get; set; }
 
+    /// <summary>
+    /// Whether the user is currently in the conference call.
+    /// </summary>
     public bool Active { get; set; }
 
+    /// <summary>
+    /// Whether this is a video conference call.
+    /// </summary>
     public bool Video { get; set; }
 
+    /// <summary>
+    /// Call ID.
+    /// </summary>
     public long CallId { get; set; }
 
+    /// <summary>
+    /// Call duration, for left calls only.
+    /// </summary>
     public int? Duration { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Identifiers of some other call participants.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer>? OtherParticipants { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Report a secret chat for spam
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.reportEncryptedSpam" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.reportEncryptedSpam" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4b0c8c0f)]
-public sealed class RequestReportEncryptedSpam : IRequest<IBool>
+public sealed partial class RequestReportEncryptedSpam : IRequest<IBool>
 {
     public uint ConstructorId => 0x4b0c8c0f;
 
-    ///<summary>
+    /// <summary>
     /// The secret chat to report
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedChat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedChat Peer { get; set; }
 
     public void ComputeFlag()

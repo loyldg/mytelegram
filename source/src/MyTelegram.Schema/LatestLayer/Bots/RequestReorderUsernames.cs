@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Reorder usernames associated to a bot we own.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 USERNAME_NOT_MODIFIED The username was not modified.
-/// See <a href="https://corefork.telegram.org/method/bots.reorderUsernames" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 USERNAME_NOT_MODIFIED The username was not modified. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.reorderUsernames" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9709b1c2)]
-public sealed class RequestReorderUsernames : IRequest<IBool>
+public sealed partial class RequestReorderUsernames : IRequest<IBool>
 {
     public uint ConstructorId => 0x9709b1c2;
 
-    ///<summary>
+    /// <summary>
     /// The bot
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new order for active usernames. All active usernames must be specified.
-    ///</summary>
+    /// </summary>
     public TVector<string> Order { get; set; }
 
     public void ComputeFlag()

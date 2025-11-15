@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Channel participant
-/// See <a href="https://corefork.telegram.org/type/channels.ChannelParticipant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/channels.ChannelParticipant" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelParticipant"/> See <a href="https://corefork.telegram.org/constructor/channels.channelParticipant" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelParticipant), nameof(TChannelParticipant))]
 public interface IChannelParticipant : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The channel participant
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IChannelParticipant Participant { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

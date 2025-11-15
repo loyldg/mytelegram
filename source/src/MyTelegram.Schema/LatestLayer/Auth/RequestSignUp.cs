@@ -2,53 +2,56 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Registers a validated phone number in the system.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FIRSTNAME_INVALID The first name is invalid.
-/// 400 LASTNAME_INVALID The last name is invalid.
-/// 400 PHONE_CODE_EMPTY phone_code is missing.
-/// 400 PHONE_CODE_EXPIRED The phone code you provided has expired.
-/// 400 PHONE_CODE_INVALID The provided phone code is invalid.
-/// 400 PHONE_NUMBER_FLOOD You asked for the code too many times.
-/// 406 PHONE_NUMBER_INVALID The phone number is invalid.
-/// 400 PHONE_NUMBER_OCCUPIED The phone number is already in use.
-/// See <a href="https://corefork.telegram.org/method/auth.signUp" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FIRSTNAME_INVALID The first name is invalid.</c></para>
+/// <para><c>400 LASTNAME_INVALID The last name is invalid.</c></para>
+/// <para><c>400 PHONE_CODE_EMPTY phone_code is missing.</c></para>
+/// <para><c>400 PHONE_CODE_EXPIRED The phone code you provided has expired.</c></para>
+/// <para><c>400 PHONE_CODE_INVALID The provided phone code is invalid.</c></para>
+/// <para><c>400 PHONE_NUMBER_FLOOD You asked for the code too many times.</c></para>
+/// <para><c>406 PHONE_NUMBER_INVALID The phone number is invalid.</c></para>
+/// <para><c>400 PHONE_NUMBER_OCCUPIED The phone number is already in use. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.signUp" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xaac7b717)]
-public sealed class RequestSignUp : IRequest<MyTelegram.Schema.Auth.IAuthorization>
+public sealed partial class RequestSignUp : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
     public uint ConstructorId => 0xaac7b717;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, users on Telegram that have already added <code>phone_number</code> to their contacts will <em>not</em> receive signup notifications about this user.
-    ///</summary>
+    /// </summary>
     public bool NoJoinedNotifications { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone number in the international format
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// SMS-message ID
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New user first name
-    ///</summary>
+    /// </summary>
     public string FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New user last name
-    ///</summary>
+    /// </summary>
     public string LastName { get; set; }
 
     public void ComputeFlag()

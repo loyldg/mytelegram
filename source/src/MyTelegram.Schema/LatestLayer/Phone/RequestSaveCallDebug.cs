@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Send phone call debug data to server
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CALL_PEER_INVALID The provided call peer object is invalid.
-/// 400 DATA_JSON_INVALID The provided JSON data is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.saveCallDebug" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CALL_PEER_INVALID The provided call peer object is invalid.</c></para>
+/// <para><c>400 DATA_JSON_INVALID The provided JSON data is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.saveCallDebug" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x277add7e)]
-public sealed class RequestSaveCallDebug : IRequest<IBool>
+public sealed partial class RequestSaveCallDebug : IRequest<IBool>
 {
     public uint ConstructorId => 0x277add7e;
 
-    ///<summary>
+    /// <summary>
     /// Phone call
     /// See <a href="https://corefork.telegram.org/type/InputPhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoneCall Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Debug statistics obtained from libtgvoip
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Debug { get; set; }
 
     public void ComputeFlag()

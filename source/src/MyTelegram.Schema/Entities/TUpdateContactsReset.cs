@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// All contacts were deleted
-/// See <a href="https://corefork.telegram.org/constructor/updateContactsReset" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateContactsReset" /></para>
+/// </summary>
 [TlObject(0x7084a7be)]
-public sealed class TUpdateContactsReset : IUpdate
+public sealed partial class TUpdateContactsReset : IUpdate
 {
     public uint ConstructorId => 0x7084a7be;
     public void ComputeFlag()

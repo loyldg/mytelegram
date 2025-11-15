@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a possible option for the number of winners in a star giveaway
-/// See <a href="https://corefork.telegram.org/type/StarsGiveawayWinnersOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StarsGiveawayWinnersOption" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarsGiveawayWinnersOption"/> See <a href="https://corefork.telegram.org/constructor/starsGiveawayWinnersOption" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarsGiveawayWinnersOption), nameof(TStarsGiveawayWinnersOption))]
 public interface IStarsGiveawayWinnersOption : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this option must be pre-selected by default in the option list.
-    ///</summary>
+    /// </summary>
     bool Default { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of users that will be randomly chosen as winners.
-    ///</summary>
+    /// </summary>
     int Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> each winner will receive.
-    ///</summary>
+    /// </summary>
     long PerUserStars { get; set; }
 }

@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Delete the entire phone call history.
-/// See <a href="https://corefork.telegram.org/method/messages.deletePhoneCallHistory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.deletePhoneCallHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf9cbe409)]
-public sealed class RequestDeletePhoneCallHistory : IRequest<MyTelegram.Schema.Messages.IAffectedFoundMessages>
+public sealed partial class RequestDeletePhoneCallHistory : IRequest<MyTelegram.Schema.Messages.IAffectedFoundMessages>
 {
     public uint ConstructorId => 0xf9cbe409;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to remove phone call history for participants as well
-    ///</summary>
+    /// </summary>
     public bool Revoke { get; set; }
 
     public void ComputeFlag()

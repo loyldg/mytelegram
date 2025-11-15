@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// The email was verified correctly, and a login code was just sent to it.
-/// See <a href="https://corefork.telegram.org/constructor/account.emailVerifiedLogin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.emailVerifiedLogin" /></para>
+/// </summary>
 [TlObject(0xe1bb0d61)]
-public sealed class TEmailVerifiedLogin : IEmailVerified
+public sealed partial class TEmailVerifiedLogin : IEmailVerified
 {
     public uint ConstructorId => 0xe1bb0d61;
-    ///<summary>
+    /// <summary>
     /// The verified email address.
-    ///</summary>
+    /// </summary>
     public string Email { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the sent <a href="https://corefork.telegram.org/api/auth">login code</a>
     /// See <a href="https://corefork.telegram.org/type/auth.SentCode" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Auth.ISentCode SentCode { get; set; }
 
     public void ComputeFlag()

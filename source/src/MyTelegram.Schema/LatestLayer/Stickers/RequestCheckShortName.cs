@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Check whether the given short name is available
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 SHORT_NAME_INVALID The specified short name is invalid.
-/// 400 SHORT_NAME_OCCUPIED The specified short name is already in use.
-/// See <a href="https://corefork.telegram.org/method/stickers.checkShortName" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SHORT_NAME_INVALID The specified short name is invalid.</c></para>
+/// <para><c>400 SHORT_NAME_OCCUPIED The specified short name is already in use. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.checkShortName" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x284b3639)]
-public sealed class RequestCheckShortName : IRequest<IBool>
+public sealed partial class RequestCheckShortName : IRequest<IBool>
 {
     public uint ConstructorId => 0x284b3639;
 
-    ///<summary>
+    /// <summary>
     /// Short name
-    ///</summary>
+    /// </summary>
     public string ShortName { get; set; }
 
     public void ComputeFlag()

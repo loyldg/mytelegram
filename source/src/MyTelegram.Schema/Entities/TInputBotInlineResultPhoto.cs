@@ -2,34 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Photo
-/// See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultPhoto" /></para>
+/// </summary>
 [TlObject(0xa8d864a7)]
-public sealed class TInputBotInlineResultPhoto : IInputBotInlineResult
+public sealed partial class TInputBotInlineResultPhoto : IInputBotInlineResult
 {
     public uint ConstructorId => 0xa8d864a7;
-    ///<summary>
+    /// <summary>
     /// Result ID
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result type (see <a href="https://corefork.telegram.org/bots/api#inlinequeryresult">bot API docs</a>)
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo to send
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoto Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to send when the result is selected
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessage SendMessage { get; set; }
 
     public void ComputeFlag()

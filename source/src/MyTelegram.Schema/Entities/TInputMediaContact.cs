@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Phone book contact
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaContact" /></para>
+/// </summary>
 [TlObject(0xf8ab7dfb)]
-public sealed class TInputMediaContact : IInputMedia
+public sealed partial class TInputMediaContact : IInputMedia
 {
     public uint ConstructorId => 0xf8ab7dfb;
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contact's first name
-    ///</summary>
+    /// </summary>
     public string FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contact's last name
-    ///</summary>
+    /// </summary>
     public string LastName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contact vcard
-    ///</summary>
+    /// </summary>
     public string Vcard { get; set; }
 
     public void ComputeFlag()

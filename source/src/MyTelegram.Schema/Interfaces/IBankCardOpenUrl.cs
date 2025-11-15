@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Credit card info URL provided by the bank
-/// See <a href="https://corefork.telegram.org/type/BankCardOpenUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BankCardOpenUrl" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBankCardOpenUrl"/> See <a href="https://corefork.telegram.org/constructor/bankCardOpenUrl" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBankCardOpenUrl), nameof(TBankCardOpenUrl))]
 public interface IBankCardOpenUrl : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Info URL
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bank name
-    ///</summary>
+    /// </summary>
     string Name { get; set; }
 }

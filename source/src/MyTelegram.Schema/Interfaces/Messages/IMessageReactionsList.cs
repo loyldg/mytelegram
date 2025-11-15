@@ -2,43 +2,47 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// List of peers that reacted to a specific message
-/// See <a href="https://corefork.telegram.org/type/messages.MessageReactionsList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.MessageReactionsList" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageReactionsList"/> See <a href="https://corefork.telegram.org/constructor/messages.messageReactionsList" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageReactionsList), nameof(TMessageReactionsList))]
 public interface IMessageReactionsList : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of reactions matching query
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of peers that reacted to a specific message
     /// See <a href="https://corefork.telegram.org/type/MessagePeerReaction" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessagePeerReaction> Reactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates the next offset to use to load more results by invoking <a href="https://corefork.telegram.org/method/messages.getMessageReactionsList">messages.getMessageReactionsList</a>.
-    ///</summary>
+    /// </summary>
     string? NextOffset { get; set; }
 }

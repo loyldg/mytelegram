@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A certain peer has forwarded the story as a message to a public chat or channel.
-/// See <a href="https://corefork.telegram.org/constructor/storyReactionPublicForward" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyReactionPublicForward" /></para>
+/// </summary>
 [TlObject(0xbbab2643)]
-public sealed class TStoryReactionPublicForward : IStoryReaction
+public sealed partial class TStoryReactionPublicForward : IStoryReaction
 {
     public uint ConstructorId => 0xbbab2643;
-    ///<summary>
+    /// <summary>
     /// The message with the forwarded story.
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
     public void ComputeFlag()

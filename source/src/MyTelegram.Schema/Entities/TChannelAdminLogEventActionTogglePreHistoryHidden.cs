@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The hidden prehistory setting was <a href="https://corefork.telegram.org/method/channels.togglePreHistoryHidden">changed</a>
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden" /></para>
+/// </summary>
 [TlObject(0x5f5c95f1)]
-public sealed class TChannelAdminLogEventActionTogglePreHistoryHidden : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionTogglePreHistoryHidden : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x5f5c95f1;
-    ///<summary>
+    /// <summary>
     /// New value
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool NewValue { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// How a certain peer reacted to or interacted with a story
-/// See <a href="https://corefork.telegram.org/type/StoryReaction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StoryReaction" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStoryReaction"/> See <a href="https://corefork.telegram.org/constructor/storyReaction" /><br/>
+/// <see cref="TStoryReactionPublicForward"/> See <a href="https://corefork.telegram.org/constructor/storyReactionPublicForward" /><br/>
+/// <see cref="TStoryReactionPublicRepost"/> See <a href="https://corefork.telegram.org/constructor/storyReactionPublicRepost" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStoryReaction), nameof(TStoryReaction))]
 [JsonDerivedType(typeof(TStoryReactionPublicForward), nameof(TStoryReactionPublicForward))]
 [JsonDerivedType(typeof(TStoryReactionPublicRepost), nameof(TStoryReactionPublicRepost))]

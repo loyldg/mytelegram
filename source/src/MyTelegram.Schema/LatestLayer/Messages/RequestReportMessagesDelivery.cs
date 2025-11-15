@@ -2,33 +2,40 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Used for <a href="https://telegram.org/blog/star-messages-gateway-2-0-and-more#save-even-more-on-user-verification">Telegram Gateway verification messages »</a>: indicate to the server that one or more <a href="https://corefork.telegram.org/constructor/message">message</a>s were received by the client, if requested by the <a href="https://corefork.telegram.org/constructor/message">message</a>.<strong>report_delivery_until_date</strong> flag or the equivalent flag in <a href="https://corefork.telegram.org/api/push-updates">push notifications</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.reportMessagesDelivery" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.reportMessagesDelivery" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5a6d7395)]
-public sealed class RequestReportMessagesDelivery : IRequest<IBool>
+public sealed partial class RequestReportMessagesDelivery : IRequest<IBool>
 {
     public uint ConstructorId => 0x5a6d7395;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// If set,
-    ///</summary>
+    /// <summary>
+    /// Must be set if the messages were received from a <a href="https://corefork.telegram.org/api/push-updates">push notification</a>.
+    /// </summary>
     public bool Push { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The peer where the messages were received.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// The IDs of the received messages.
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

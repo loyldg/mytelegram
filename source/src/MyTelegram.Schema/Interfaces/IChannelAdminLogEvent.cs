@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An event in a channel admin log
-/// See <a href="https://corefork.telegram.org/type/ChannelAdminLogEvent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChannelAdminLogEvent" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelAdminLogEvent"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEvent" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelAdminLogEvent), nameof(TChannelAdminLogEvent))]
 public interface IChannelAdminLogEvent : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Event ID
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Action
     /// See <a href="https://corefork.telegram.org/type/ChannelAdminLogEventAction" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IChannelAdminLogEventAction Action { get; set; }
 }

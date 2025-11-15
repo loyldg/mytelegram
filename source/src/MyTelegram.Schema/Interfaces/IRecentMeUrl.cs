@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Recent t.me urls
-/// See <a href="https://corefork.telegram.org/type/RecentMeUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/RecentMeUrl" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TRecentMeUrlUnknown"/> See <a href="https://corefork.telegram.org/constructor/recentMeUrlUnknown" /><br/>
+/// <see cref="TRecentMeUrlUser"/> See <a href="https://corefork.telegram.org/constructor/recentMeUrlUser" /><br/>
+/// <see cref="TRecentMeUrlChat"/> See <a href="https://corefork.telegram.org/constructor/recentMeUrlChat" /><br/>
+/// <see cref="TRecentMeUrlChatInvite"/> See <a href="https://corefork.telegram.org/constructor/recentMeUrlChatInvite" /><br/>
+/// <see cref="TRecentMeUrlStickerSet"/> See <a href="https://corefork.telegram.org/constructor/recentMeUrlStickerSet" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TRecentMeUrlUnknown), nameof(TRecentMeUrlUnknown))]
 [JsonDerivedType(typeof(TRecentMeUrlUser), nameof(TRecentMeUrlUser))]
 [JsonDerivedType(typeof(TRecentMeUrlChat), nameof(TRecentMeUrlChat))]
@@ -13,8 +21,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TRecentMeUrlStickerSet), nameof(TRecentMeUrlStickerSet))]
 public interface IRecentMeUrl : IObject
 {
-    ///<summary>
+    /// <summary>
     /// URL
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 }

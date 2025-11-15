@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Collage of media
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockCollage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockCollage" /></para>
+/// </summary>
 [TlObject(0x65a0fa4d)]
-public sealed class TPageBlockCollage : IPageBlock
+public sealed partial class TPageBlockCollage : IPageBlock
 {
     public uint ConstructorId => 0x65a0fa4d;
-    ///<summary>
+    /// <summary>
     /// Media elements
     /// See <a href="https://corefork.telegram.org/type/PageBlock" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPageBlock> Items { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Caption
     /// See <a href="https://corefork.telegram.org/type/PageCaption" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
     public void ComputeFlag()

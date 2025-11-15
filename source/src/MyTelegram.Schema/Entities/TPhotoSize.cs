@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Image description.
-/// See <a href="https://corefork.telegram.org/constructor/photoSize" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photoSize" /></para>
+/// </summary>
 [TlObject(0x75c78e60)]
-public sealed class TPhotoSize : IPhotoSize
+public sealed partial class TPhotoSize : IPhotoSize
 {
     public uint ConstructorId => 0x75c78e60;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#image-thumbnail-types">Thumbnail type »</a>
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Image width
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Image height
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File size
-    ///</summary>
+    /// </summary>
     public int Size { get; set; }
 
     public void ComputeFlag()

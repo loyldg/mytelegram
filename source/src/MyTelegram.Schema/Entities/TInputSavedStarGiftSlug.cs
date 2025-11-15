@@ -2,13 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftSlug" />
-///</summary>
+/// <summary>
+/// Points to a <a href="https://corefork.telegram.org/api/links#collectible-gift-link">collectible gift obtained from a collectible gift link »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftSlug" /></para>
+/// </summary>
 [TlObject(0x2085c238)]
-public sealed class TInputSavedStarGiftSlug : IInputSavedStarGift
+public sealed partial class TInputSavedStarGiftSlug : IInputSavedStarGift
 {
     public uint ConstructorId => 0x2085c238;
+    /// <summary>
+    /// Slug from the link.
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

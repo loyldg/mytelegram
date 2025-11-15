@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Clears list of recently used <a href="https://corefork.telegram.org/api/emoji-status">emoji statuses</a>
-/// See <a href="https://corefork.telegram.org/method/account.clearRecentEmojiStatuses" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.clearRecentEmojiStatuses" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x18201aae)]
-public sealed class RequestClearRecentEmojiStatuses : IRequest<IBool>
+public sealed partial class RequestClearRecentEmojiStatuses : IRequest<IBool>
 {
     public uint ConstructorId => 0x18201aae;
 

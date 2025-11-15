@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Country code and phone number pattern of a specific country
-/// See <a href="https://corefork.telegram.org/type/help.CountryCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.CountryCode" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCountryCode"/> See <a href="https://corefork.telegram.org/constructor/help.countryCode" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCountryCode), nameof(TCountryCode))]
 public interface ICountryCode : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ISO country code
-    ///</summary>
+    /// </summary>
     string CountryCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Possible phone prefixes
-    ///</summary>
+    /// </summary>
     TVector<string>? Prefixes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone patterns: for example, <code>XXX XXX XXX</code>
-    ///</summary>
+    /// </summary>
     TVector<string>? Patterns { get; set; }
 }

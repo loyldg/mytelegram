@@ -2,33 +2,37 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Object contains info on successfully imported contacts.
-/// See <a href="https://corefork.telegram.org/type/contacts.ImportedContacts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/contacts.ImportedContacts" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TImportedContacts"/> See <a href="https://corefork.telegram.org/constructor/contacts.importedContacts" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TImportedContacts), nameof(TImportedContacts))]
 public interface IImportedContacts : IObject
 {
-    ///<summary>
+    /// <summary>
     /// List of successfully imported contacts
     /// See <a href="https://corefork.telegram.org/type/ImportedContact" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IImportedContact> Imported { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Popular contacts
     /// See <a href="https://corefork.telegram.org/type/PopularContact" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPopularContact> PopularInvites { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of contact ids that could not be imported due to system limitation and will need to be imported at a later date.
-    ///</summary>
+    /// </summary>
     TVector<long> RetryContacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

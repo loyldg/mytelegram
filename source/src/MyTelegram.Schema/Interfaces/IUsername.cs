@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains information about a username
-/// See <a href="https://corefork.telegram.org/type/Username" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Username" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUsername"/> See <a href="https://corefork.telegram.org/constructor/username" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUsername), nameof(TUsername))]
 public interface IUsername : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the username is editable, meaning it wasn't bought on <a href="https://fragment.com/">fragment</a>.
-    ///</summary>
+    /// </summary>
     bool Editable { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the username is active.
-    ///</summary>
+    /// </summary>
     bool Active { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The username.
-    ///</summary>
+    /// </summary>
     string Username { get; set; }
 }

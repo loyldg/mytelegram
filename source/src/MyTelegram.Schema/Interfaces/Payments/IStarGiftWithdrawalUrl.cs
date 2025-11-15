@@ -2,11 +2,19 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/payments.StarGiftWithdrawalUrl" />
-///</summary>
+/// <summary>
+/// A URL that can be used to import the exported NFT on Fragment.
+/// <para>See <a href="https://corefork.telegram.org/type/payments.StarGiftWithdrawalUrl" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarGiftWithdrawalUrl"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftWithdrawalUrl" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarGiftWithdrawalUrl), nameof(TStarGiftWithdrawalUrl))]
 public interface IStarGiftWithdrawalUrl : IObject
 {
+    /// <summary>
+    /// The URL to open.
+    /// </summary>
     string Url { get; set; }
 }

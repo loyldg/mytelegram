@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor, non-existent message.
-/// See <a href="https://corefork.telegram.org/constructor/messageEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEmpty" /></para>
+/// </summary>
 [TlObject(0x90a6ca84)]
-public sealed class TMessageEmpty : IMessage
+public sealed partial class TMessageEmpty : IMessage
 {
     public uint ConstructorId => 0x90a6ca84;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message identifier
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer ID, the chat where this message was sent
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? PeerId { get; set; }
 
     public void ComputeFlag()

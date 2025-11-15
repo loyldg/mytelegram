@@ -2,6 +2,7 @@
 
 public record MessengerQueryDataReceivedEvent(
     string ConnectionId,
+    ConnectionType ConnectionType,
     Guid RequestId,
     uint ObjectId,
     long UserId,
@@ -18,6 +19,7 @@ public record MessengerQueryDataReceivedEvent(
     long AccessHashKeyId
 ) : DataReceivedEvent(
     ConnectionId,
+    ConnectionType,
     RequestId,
     ObjectId,
     UserId,
@@ -36,7 +38,7 @@ public record MessengerQueryDataReceivedEvent(
 {
     public static MessengerQueryDataReceivedEvent Create()
     {
-        return new MessengerQueryDataReceivedEvent(string.Empty, Guid.Empty, 0, 0, 0, 0, 0,
+        return new MessengerQueryDataReceivedEvent(string.Empty, ConnectionType.UnKnown, Guid.Empty, 0, 0, 0, 0, 0,
             0, default, 0,
             0, DeviceType.Unknown, string.Empty, 0, 0);
     }

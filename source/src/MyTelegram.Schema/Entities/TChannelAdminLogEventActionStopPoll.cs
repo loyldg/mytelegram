@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A poll was stopped
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionStopPoll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionStopPoll" /></para>
+/// </summary>
 [TlObject(0x8f079643)]
-public sealed class TChannelAdminLogEventActionStopPoll : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionStopPoll : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x8f079643;
-    ///<summary>
+    /// <summary>
     /// The poll that was stopped
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
     public void ComputeFlag()

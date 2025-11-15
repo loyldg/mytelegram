@@ -2,41 +2,41 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Updated info about a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a> we already imported.
-/// See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistInviteAlready" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistInviteAlready" /></para>
+/// </summary>
 [TlObject(0xfa87f659)]
-public sealed class TChatlistInviteAlready : IChatlistInvite
+public sealed partial class TChatlistInviteAlready : IChatlistInvite
 {
     public uint ConstructorId => 0xfa87f659;
-    ///<summary>
+    /// <summary>
     /// ID of the imported folder
-    ///</summary>
+    /// </summary>
     public int FilterId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New peers to be imported
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer> MissingPeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peers that were already imported
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer> AlreadyPeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related chat information
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related user information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

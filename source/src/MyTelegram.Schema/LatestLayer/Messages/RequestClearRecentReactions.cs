@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Clear recently used <a href="https://corefork.telegram.org/api/reactions">message reactions</a>
-/// See <a href="https://corefork.telegram.org/method/messages.clearRecentReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.clearRecentReactions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9dfeefb4)]
-public sealed class RequestClearRecentReactions : IRequest<IBool>
+public sealed partial class RequestClearRecentReactions : IRequest<IBool>
 {
     public uint ConstructorId => 0x9dfeefb4;
 

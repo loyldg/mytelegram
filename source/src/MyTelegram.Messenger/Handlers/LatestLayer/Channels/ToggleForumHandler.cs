@@ -1,23 +1,20 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+/// <summary>
 /// Enable or disable <a href="https://corefork.telegram.org/api/forum">forum functionality</a> in a supergroup.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
+/// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHAT_DISCUSSION_UNALLOWED You can't enable forum topics in a discussion group linked to a channel.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleForum" />
-///</summary>
+/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.toggleForum"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class ToggleForumHandler : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestToggleForum, MyTelegram.Schema.IUpdates>
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestToggleForum obj)
+    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestToggleForum obj)
     {
-        return Task.FromResult<IUpdates>(new TUpdates
-        {
-            Updates = [],
-            Users = [],
-            Chats = [],
-            Date = CurrentDate
-        });
+        return Task.FromResult<IUpdates>(new TUpdates { Updates = [], Users = [], Chats = [], Date = CurrentDate });
     }
 }

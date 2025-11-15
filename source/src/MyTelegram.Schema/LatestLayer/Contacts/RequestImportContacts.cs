@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Imports contacts: saves a full list on the server, adds already registered contacts to the contact list, returns added contacts and their info.Use <a href="https://corefork.telegram.org/method/contacts.addContact">contacts.addContact</a> to add Telegram contacts without actually using their phone number.
-/// See <a href="https://corefork.telegram.org/method/contacts.importContacts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.importContacts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2c800be5)]
-public sealed class RequestImportContacts : IRequest<MyTelegram.Schema.Contacts.IImportedContacts>
+public sealed partial class RequestImportContacts : IRequest<MyTelegram.Schema.Contacts.IImportedContacts>
 {
     public uint ConstructorId => 0x2c800be5;
 
-    ///<summary>
+    /// <summary>
     /// List of contacts to import
     /// See <a href="https://corefork.telegram.org/type/InputContact" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputContact> Contacts { get; set; }
 
     public void ComputeFlag()

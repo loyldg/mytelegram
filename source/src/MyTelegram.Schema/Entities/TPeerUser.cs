@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chat partner
-/// See <a href="https://corefork.telegram.org/constructor/peerUser" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/peerUser" /></para>
+/// </summary>
 [TlObject(0x59511722)]
-public sealed class TPeerUser : IPeer
+public sealed partial class TPeerUser : IPeer
 {
     public uint ConstructorId => 0x59511722;
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
     public void ComputeFlag()

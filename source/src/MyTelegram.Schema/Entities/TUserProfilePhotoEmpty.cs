@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Profile photo has not been set, or was hidden.
-/// See <a href="https://corefork.telegram.org/constructor/userProfilePhotoEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/userProfilePhotoEmpty" /></para>
+/// </summary>
 [TlObject(0x4f11bae1)]
-public sealed class TUserProfilePhotoEmpty : IUserProfilePhoto
+public sealed partial class TUserProfilePhotoEmpty : IUserProfilePhoto
 {
     public uint ConstructorId => 0x4f11bae1;
     public void ComputeFlag()

@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Use this object to download a photo with <a href="https://corefork.telegram.org/method/upload.getFile">upload.getFile</a> method
-/// See <a href="https://corefork.telegram.org/constructor/inputPhotoFileLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPhotoFileLocation" /></para>
+/// </summary>
 [TlObject(0x40181ffe)]
-public sealed class TInputPhotoFileLocation : IInputFileLocation
+public sealed partial class TInputPhotoFileLocation : IInputFileLocation
 {
     public uint ConstructorId => 0x40181ffe;
-    ///<summary>
+    /// <summary>
     /// Photo ID, obtained from the <a href="https://corefork.telegram.org/constructor/photo">photo</a> object
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo's access hash, obtained from the <a href="https://corefork.telegram.org/constructor/photo">photo</a> object
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/file_reference">File reference</a>
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/file-references">File reference</a>
+    /// </summary>
     public ReadOnlyMemory<byte> FileReference { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/type/PhotoSize">PhotoSize</a> to download: must be set to the <code>type</code> field of the desired PhotoSize object of the <a href="https://corefork.telegram.org/constructor/photo">photo</a>
-    ///</summary>
+    /// </summary>
     public string ThumbSize { get; set; }
 
     public void ComputeFlag()

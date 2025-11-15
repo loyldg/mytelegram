@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Why was the phone call discarded?
-/// See <a href="https://corefork.telegram.org/type/PhoneCallDiscardReason" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PhoneCallDiscardReason" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPhoneCallDiscardReasonMissed"/> See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonMissed" /><br/>
+/// <see cref="TPhoneCallDiscardReasonDisconnect"/> See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonDisconnect" /><br/>
+/// <see cref="TPhoneCallDiscardReasonHangup"/> See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonHangup" /><br/>
+/// <see cref="TPhoneCallDiscardReasonBusy"/> See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonBusy" /><br/>
+/// <see cref="TPhoneCallDiscardReasonMigrateConferenceCall"/> See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonMigrateConferenceCall" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPhoneCallDiscardReasonMissed), nameof(TPhoneCallDiscardReasonMissed))]
 [JsonDerivedType(typeof(TPhoneCallDiscardReasonDisconnect), nameof(TPhoneCallDiscardReasonDisconnect))]
 [JsonDerivedType(typeof(TPhoneCallDiscardReasonHangup), nameof(TPhoneCallDiscardReasonHangup))]

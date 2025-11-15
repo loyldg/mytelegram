@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// The email code that was sent
-/// See <a href="https://corefork.telegram.org/type/account.SentEmailCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.SentEmailCode" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSentEmailCode"/> See <a href="https://corefork.telegram.org/constructor/account.sentEmailCode" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSentEmailCode), nameof(TSentEmailCode))]
 public interface ISentEmailCode : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The email (to which the code was sent) must match this <a href="https://corefork.telegram.org/api/pattern">pattern</a>
-    ///</summary>
+    /// </summary>
     string EmailPattern { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The length of the verification code
-    ///</summary>
+    /// </summary>
     int Length { get; set; }
 }

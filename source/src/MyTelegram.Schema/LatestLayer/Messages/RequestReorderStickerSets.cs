@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Reorder installed stickersets
-/// See <a href="https://corefork.telegram.org/method/messages.reorderStickerSets" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.reorderStickerSets" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x78337739)]
-public sealed class RequestReorderStickerSets : IRequest<IBool>
+public sealed partial class RequestReorderStickerSets : IRequest<IBool>
 {
     public uint ConstructorId => 0x78337739;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reorder mask stickersets
-    ///</summary>
+    /// </summary>
     public bool Masks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reorder <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickersets</a>
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New stickerset order by stickerset IDs
-    ///</summary>
+    /// </summary>
     public TVector<long> Order { get; set; }
 
     public void ComputeFlag()

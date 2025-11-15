@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// We blocked a peer, see <a href="https://corefork.telegram.org/api/block">here »</a> for more info on blocklists.
-/// See <a href="https://corefork.telegram.org/constructor/updatePeerBlocked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePeerBlocked" /></para>
+/// </summary>
 [TlObject(0xebe07752)]
-public sealed class TUpdatePeerBlocked : IUpdate
+public sealed partial class TUpdatePeerBlocked : IUpdate
 {
     public uint ConstructorId => 0xebe07752;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the peer was blocked or unblocked
-    ///</summary>
+    /// </summary>
     public bool Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the peer was added/removed to/from the story blocklist; if not set, this update affects the main blocklist, see <a href="https://corefork.telegram.org/api/block">here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public bool BlockedMyStoriesFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The (un)blocked peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }
 
     public void ComputeFlag()

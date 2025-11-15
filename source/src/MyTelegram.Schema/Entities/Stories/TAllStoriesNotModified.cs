@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// The list of active (or active and hidden) <a href="https://corefork.telegram.org/api/stories#watching-stories">stories</a> has not changed.
-/// See <a href="https://corefork.telegram.org/constructor/stories.allStoriesNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stories.allStoriesNotModified" /></para>
+/// </summary>
 [TlObject(0x1158fe3e)]
-public sealed class TAllStoriesNotModified : IAllStories
+public sealed partial class TAllStoriesNotModified : IAllStories
 {
     public uint ConstructorId => 0x1158fe3e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// State to use to ask for updates
-    ///</summary>
+    /// </summary>
     public string State { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current <a href="https://corefork.telegram.org/api/stories#stealth-mode">stealth mode</a> information
     /// See <a href="https://corefork.telegram.org/type/StoriesStealthMode" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoriesStealthMode StealthMode { get; set; }
 
     public void ComputeFlag()

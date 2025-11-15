@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Group profile photo removed.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatDeletePhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatDeletePhoto" /></para>
+/// </summary>
 [TlObject(0x95e3fbef)]
-public sealed class TMessageActionChatDeletePhoto : IMessageAction
+public sealed partial class TMessageActionChatDeletePhoto : IMessageAction
 {
     public uint ConstructorId => 0x95e3fbef;
     public void ComputeFlag()

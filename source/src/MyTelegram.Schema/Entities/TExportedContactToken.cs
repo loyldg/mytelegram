@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a>.
-/// See <a href="https://corefork.telegram.org/constructor/exportedContactToken" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/exportedContactToken" /></para>
+/// </summary>
 [TlObject(0x41bf109b)]
-public sealed class TExportedContactToken : IExportedContactToken
+public sealed partial class TExportedContactToken : IExportedContactToken
 {
     public uint ConstructorId => 0x41bf109b;
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a>.
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Its expiration date
-    ///</summary>
+    /// </summary>
     public int Expires { get; set; }
 
     public void ComputeFlag()

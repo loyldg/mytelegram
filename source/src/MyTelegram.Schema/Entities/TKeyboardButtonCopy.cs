@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Clipboard button: when clicked, the attached text must be copied to the clipboard.
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy" /></para>
+/// </summary>
 [TlObject(0x75d2698e)]
-public sealed class TKeyboardButtonCopy : IKeyboardButton
+public sealed partial class TKeyboardButtonCopy : IKeyboardButton
 {
     public uint ConstructorId => 0x75d2698e;
-    ///<summary>
+    /// <summary>
     /// Title of the button
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The text that will be copied to the clipboard
-    ///</summary>
+    /// </summary>
     public string CopyText { get; set; }
 
     public void ComputeFlag()

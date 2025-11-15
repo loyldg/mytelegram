@@ -2,23 +2,40 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/messages.toggleTodoCompleted" />
-///</summary>
+/// <summary>
+/// Mark one or more items of a <a href="https://corefork.telegram.org/api/todo">todo list »</a> as completed or not completed.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.toggleTodoCompleted" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd3e03124)]
-public sealed class RequestToggleTodoCompleted : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleTodoCompleted : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xd3e03124;
 
-    ///<summary>
+    /// <summary>
+    /// Peer where the todo list was posted.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// ID of the message with the todo list.
+    /// </summary>
     public int MsgId { get; set; }
 
+    /// <summary>
+    /// Items to mark as completed.
+    /// </summary>
     public TVector<int> Completed { get; set; }
 
+    /// <summary>
+    /// Items to mark as not completed.
+    /// </summary>
     public TVector<int> Incompleted { get; set; }
 
     public void ComputeFlag()

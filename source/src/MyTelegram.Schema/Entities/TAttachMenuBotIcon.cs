@@ -2,34 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an attachment menu icon for <a href="https://corefork.telegram.org/api/bots/attach">bot mini apps »</a>
-/// See <a href="https://corefork.telegram.org/constructor/attachMenuBotIcon" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/attachMenuBotIcon" /></para>
+/// </summary>
 [TlObject(0xb2a7386b)]
-public sealed class TAttachMenuBotIcon : IAttachMenuBotIcon
+public sealed partial class TAttachMenuBotIcon : IAttachMenuBotIcon
 {
     public uint ConstructorId => 0xb2a7386b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// One of the following values: note that animated icons must be played when the user clicks on the button, activating the bot mini app. <br><br><code>default_static</code> - Default attachment menu icon in SVG format <br><code>placeholder_static</code> - Default placeholder for opened Web Apps in SVG format <br><code>ios_static</code> - Attachment menu icon in SVG format for the official iOS app <br><code>ios_animated</code> - Animated attachment menu icon in TGS format for the official iOS app <br><code>android_animated</code> - Animated attachment menu icon in TGS format for the official Android app <br><code>macos_animated</code> - Animated attachment menu icon in TGS format for the official native Mac OS app <br><code>ios_side_menu_static</code> - Side menu icon in PNG format for the official iOS app <br><code>android_side_menu_static</code> - Side menu icon in SVG format for the official android app <br><code>macos_side_menu_static</code> - Side menu icon in PNG format for the official native Mac OS app
-    ///</summary>
+    /// <summary>
+    /// One of the following values: note that animated icons must be played when the user clicks on the button, activating the bot mini app. <br/><br/><code>default_static</code> - Default attachment menu icon in SVG format <br/><code>placeholder_static</code> - Default placeholder for opened Web Apps in SVG format <br/><code>ios_static</code> - Attachment menu icon in SVG format for the official iOS app <br/><code>ios_animated</code> - Animated attachment menu icon in TGS format for the official iOS app <br/><code>android_animated</code> - Animated attachment menu icon in TGS format for the official Android app <br/><code>macos_animated</code> - Animated attachment menu icon in TGS format for the official native Mac OS app <br/><code>ios_side_menu_static</code> - Side menu icon in PNG format for the official iOS app <br/><code>android_side_menu_static</code> - Side menu icon in SVG format for the official android app <br/><code>macos_side_menu_static</code> - Side menu icon in PNG format for the official native Mac OS app
+    /// </summary>
     public string Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The actual icon file.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument Icon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attachment menu icon colors.
     /// See <a href="https://corefork.telegram.org/type/AttachMenuBotIconColor" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IAttachMenuBotIconColor>? Colors { get; set; }
 
     public void ComputeFlag()

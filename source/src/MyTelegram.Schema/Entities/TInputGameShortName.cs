@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Game by short name
-/// See <a href="https://corefork.telegram.org/constructor/inputGameShortName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputGameShortName" /></para>
+/// </summary>
 [TlObject(0xc331e80a)]
-public sealed class TInputGameShortName : IInputGame
+public sealed partial class TInputGameShortName : IInputGame
 {
     public uint ConstructorId => 0xc331e80a;
-    ///<summary>
+    /// <summary>
     /// The bot that provides the game
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The game's short name, usually obtained from a <a href="https://corefork.telegram.org/api/links#game-links">game link »</a>
-    ///</summary>
+    /// </summary>
     public string ShortName { get; set; }
 
     public void ComputeFlag()

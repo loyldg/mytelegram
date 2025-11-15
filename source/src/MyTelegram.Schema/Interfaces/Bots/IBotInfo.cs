@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Localized name, about text and description of a bot.
-/// See <a href="https://corefork.telegram.org/type/bots.BotInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/bots.BotInfo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotInfo"/> See <a href="https://corefork.telegram.org/constructor/bots.botInfo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotInfo), nameof(TBotInfo))]
 public interface IBotInfo : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Bot name
-    ///</summary>
+    /// </summary>
     string Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot about text
-    ///</summary>
+    /// </summary>
     string About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot description
-    ///</summary>
+    /// </summary>
     string Description { get; set; }
 }

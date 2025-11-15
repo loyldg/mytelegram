@@ -2,42 +2,46 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Contains info about the latest telegram Terms Of Service.
-/// See <a href="https://corefork.telegram.org/type/help.TermsOfService" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.TermsOfService" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTermsOfService"/> See <a href="https://corefork.telegram.org/constructor/help.termsOfService" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTermsOfService), nameof(TTermsOfService))]
 public interface ITermsOfService : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether a prompt must be showed to the user, in order to accept the new terms.
-    ///</summary>
+    /// </summary>
     bool Popup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the new terms
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IDataJSON Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text of the new terms
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Minimum age required to sign up to telegram, the user must confirm that they is older than the minimum age.
-    ///</summary>
+    /// </summary>
     int? MinAgeConfirm { get; set; }
 }

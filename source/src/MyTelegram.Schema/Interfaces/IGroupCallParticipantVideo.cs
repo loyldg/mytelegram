@@ -2,36 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a video stream
-/// See <a href="https://corefork.telegram.org/type/GroupCallParticipantVideo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/GroupCallParticipantVideo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TGroupCallParticipantVideo"/> See <a href="https://corefork.telegram.org/constructor/groupCallParticipantVideo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TGroupCallParticipantVideo), nameof(TGroupCallParticipantVideo))]
 public interface IGroupCallParticipantVideo : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the stream is currently paused
-    ///</summary>
+    /// </summary>
     bool Paused { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Endpoint
-    ///</summary>
+    /// </summary>
     string Endpoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Source groups
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipantVideoSourceGroup" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IGroupCallParticipantVideoSourceGroup> SourceGroups { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Audio source ID
-    ///</summary>
+    /// </summary>
     int? AudioSource { get; set; }
 }

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Localized information about a bot.
-/// See <a href="https://corefork.telegram.org/constructor/bots.botInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/bots.botInfo" /></para>
+/// </summary>
 [TlObject(0xe8a775b0)]
-public sealed class TBotInfo : IBotInfo
+public sealed partial class TBotInfo : IBotInfo
 {
     public uint ConstructorId => 0xe8a775b0;
-    ///<summary>
+    /// <summary>
     /// Bot name
-    ///</summary>
+    /// </summary>
     public string Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot about text
-    ///</summary>
+    /// </summary>
     public string About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot description
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
     public void ComputeFlag()

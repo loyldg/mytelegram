@@ -2,11 +2,19 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/stories.CanSendStoryCount" />
-///</summary>
+/// <summary>
+/// Contains the number of available active story slots (equal to the value of the <a href="https://corefork.telegram.org/api/config#story-expiring-limit-default"><code>story_expiring_limit_*</code> client configuration parameter</a> minus the number of currently active stories).
+/// <para>See <a href="https://corefork.telegram.org/type/stories.CanSendStoryCount" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCanSendStoryCount"/> See <a href="https://corefork.telegram.org/constructor/stories.canSendStoryCount" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCanSendStoryCount), nameof(TCanSendStoryCount))]
 public interface ICanSendStoryCount : IObject
 {
+    /// <summary>
+    /// Remaining active story slots.
+    /// </summary>
     int CountRemains { get; set; }
 }

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Button that links directly to a user profile
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonUserProfile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonUserProfile" /></para>
+/// </summary>
 [TlObject(0x308660c1)]
-public sealed class TKeyboardButtonUserProfile : IKeyboardButton
+public sealed partial class TKeyboardButtonUserProfile : IKeyboardButton
 {
     public uint ConstructorId => 0x308660c1;
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
     public void ComputeFlag()

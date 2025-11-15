@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Get name, ISO code, localized name and phone codes/patterns of all available countries
-/// See <a href="https://corefork.telegram.org/method/help.getCountriesList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getCountriesList" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x735787a8)]
-public sealed class RequestGetCountriesList : IRequest<MyTelegram.Schema.Help.ICountriesList>
+public sealed partial class RequestGetCountriesList : IRequest<MyTelegram.Schema.Help.ICountriesList>
 {
     public uint ConstructorId => 0x735787a8;
 
-    ///<summary>
+    /// <summary>
     /// Language code of the current user
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

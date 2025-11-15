@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a <a href="https://corefork.telegram.org/api/business#greeting-messages">Telegram Business greeting</a>, automatically sent to new users writing to us in private for the first time, or after a certain inactivity period.
-/// See <a href="https://corefork.telegram.org/type/BusinessGreetingMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BusinessGreetingMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBusinessGreetingMessage"/> See <a href="https://corefork.telegram.org/constructor/businessGreetingMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBusinessGreetingMessage), nameof(TBusinessGreetingMessage))]
 public interface IBusinessGreetingMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// ID of a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shorcut, containing the greeting messages to send, see here » for more info</a>.
-    ///</summary>
+    /// </summary>
     int ShortcutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allowed recipients for the greeting messages.
     /// See <a href="https://corefork.telegram.org/type/BusinessRecipients" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IBusinessRecipients Recipients { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of days after which a private chat will be considered as inactive; currently, must be one of 7, 14, 21, or 28.
-    ///</summary>
+    /// </summary>
     int NoActivityDays { get; set; }
 }

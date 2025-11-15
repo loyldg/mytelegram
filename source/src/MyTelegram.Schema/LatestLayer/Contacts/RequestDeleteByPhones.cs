@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Delete contacts by phone number
-/// See <a href="https://corefork.telegram.org/method/contacts.deleteByPhones" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.deleteByPhones" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1013fd9e)]
-public sealed class RequestDeleteByPhones : IRequest<IBool>
+public sealed partial class RequestDeleteByPhones : IRequest<IBool>
 {
     public uint ConstructorId => 0x1013fd9e;
 
-    ///<summary>
+    /// <summary>
     /// Phone numbers
-    ///</summary>
+    /// </summary>
     public TVector<string> Phones { get; set; }
 
     public void ComputeFlag()

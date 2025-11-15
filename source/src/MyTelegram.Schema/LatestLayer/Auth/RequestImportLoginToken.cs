@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Login using a redirected login token, generated in case of DC mismatch during <a href="https://corefork.telegram.org/api/qr-login">QR code login</a>.For more info, see <a href="https://corefork.telegram.org/api/qr-login">login via QR code</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 AUTH_TOKEN_ALREADY_ACCEPTED The specified auth token was already accepted.
-/// 400 AUTH_TOKEN_EXPIRED The authorization token has expired.
-/// 400 AUTH_TOKEN_INVALID The specified auth token is invalid.
-/// 400 AUTH_TOKEN_INVALIDX The specified auth token is invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.importLoginToken" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 AUTH_TOKEN_ALREADY_ACCEPTED The specified auth token was already accepted.</c></para>
+/// <para><c>400 AUTH_TOKEN_EXPIRED The authorization token has expired.</c></para>
+/// <para><c>400 AUTH_TOKEN_INVALID The specified auth token is invalid.</c></para>
+/// <para><c>400 AUTH_TOKEN_INVALIDX The specified auth token is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.importLoginToken" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x95ac5ce4)]
-public sealed class RequestImportLoginToken : IRequest<MyTelegram.Schema.Auth.ILoginToken>
+public sealed partial class RequestImportLoginToken : IRequest<MyTelegram.Schema.Auth.ILoginToken>
 {
     public uint ConstructorId => 0x95ac5ce4;
 
-    ///<summary>
+    /// <summary>
     /// Login token
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Token { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Delete all installed <a href="https://corefork.telegram.org/api/wallpapers">wallpapers</a>, reverting to the default wallpaper set.
-/// See <a href="https://corefork.telegram.org/method/account.resetWallPapers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.resetWallPapers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbb3b9804)]
-public sealed class RequestResetWallPapers : IRequest<IBool>
+public sealed partial class RequestResetWallPapers : IRequest<IBool>
 {
     public uint ConstructorId => 0xbb3b9804;
 

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Button to request a user's phone number
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPhone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPhone" /></para>
+/// </summary>
 [TlObject(0xb16a6c29)]
-public sealed class TKeyboardButtonRequestPhone : IKeyboardButton
+public sealed partial class TKeyboardButtonRequestPhone : IKeyboardButton
 {
     public uint ConstructorId => 0xb16a6c29;
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

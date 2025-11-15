@@ -2,32 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chat info.
-/// See <a href="https://corefork.telegram.org/type/Dialog" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Dialog" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDialog"/> See <a href="https://corefork.telegram.org/constructor/dialog" /><br/>
+/// <see cref="TDialogFolder"/> See <a href="https://corefork.telegram.org/constructor/dialogFolder" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDialog), nameof(TDialog))]
 [JsonDerivedType(typeof(TDialogFolder), nameof(TDialogFolder))]
 public interface IDialog : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this folder pinned
-    ///</summary>
+    /// </summary>
     bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer in folder
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Latest message ID of dialog
-    ///</summary>
+    /// </summary>
     int TopMessage { get; set; }
 }

@@ -2,25 +2,28 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// If the <a href="https://corefork.telegram.org/api/action-bar#add-contact">add contact action bar is active</a>, add that user as contact
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CONTACT_ADD_MISSING Contact to add is missing.
-/// 400 CONTACT_ID_INVALID The provided contact ID is invalid.
-/// 400 CONTACT_REQ_MISSING Missing contact request.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/contacts.acceptContact" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CONTACT_ADD_MISSING Contact to add is missing.</c></para>
+/// <para><c>400 CONTACT_ID_INVALID The provided contact ID is invalid.</c></para>
+/// <para><c>400 CONTACT_REQ_MISSING Missing contact request.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.acceptContact" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf831a20f)]
-public sealed class RequestAcceptContact : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestAcceptContact : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf831a20f;
 
-    ///<summary>
+    /// <summary>
     /// The user to add as contact
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Id { get; set; }
 
     public void ComputeFlag()

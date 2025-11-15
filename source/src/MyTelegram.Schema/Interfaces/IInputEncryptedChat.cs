@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object sets an encrypted chat ID.
-/// See <a href="https://corefork.telegram.org/type/InputEncryptedChat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputEncryptedChat" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputEncryptedChat"/> See <a href="https://corefork.telegram.org/constructor/inputEncryptedChat" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputEncryptedChat), nameof(TInputEncryptedChat))]
 public interface IInputEncryptedChat : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     int ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Checking sum from constructor <a href="https://corefork.telegram.org/constructor/encryptedChat">encryptedChat</a>, <a href="https://corefork.telegram.org/constructor/encryptedChatWaiting">encryptedChatWaiting</a> or <a href="https://corefork.telegram.org/constructor/encryptedChatRequested">encryptedChatRequested</a>
-    ///</summary>
+    /// </summary>
     long AccessHash { get; set; }
 }

@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaTodo" />
-///</summary>
+/// <summary>
+/// Creates a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaTodo" /></para>
+/// </summary>
 [TlObject(0x9fc55fde)]
-public sealed class TInputMediaTodo : IInputMedia
+public sealed partial class TInputMediaTodo : IInputMedia
 {
     public uint ConstructorId => 0x9fc55fde;
-    ///<summary>
+    /// <summary>
+    /// The todo list.
     /// See <a href="https://corefork.telegram.org/type/TodoList" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITodoList Todo { get; set; }
 
     public void ComputeFlag()

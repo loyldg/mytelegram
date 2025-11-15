@@ -1,26 +1,24 @@
-﻿using MyTelegram.Schema.Updates;
+using MyTelegram.Schema.Updates;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Updates;
-
-///<summary>
+/// <summary>
 /// Returns a current state of updates.
-/// See <a href="https://corefork.telegram.org/method/updates.getState" />
-///</summary>
-internal sealed class GetStateHandler(
-    IPtsHelper ptsHelper)
-    : RpcResultObjectHandler<MyTelegram.Schema.Updates.RequestGetState, MyTelegram.Schema.Updates.IState>
+/// <para><c>See <a href="https://corefork.telegram.org/method/updates.getState"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
+internal sealed class GetStateHandler(IPtsHelper ptsHelper) : RpcResultObjectHandler<MyTelegram.Schema.Updates.RequestGetState, MyTelegram.Schema.Updates.IState>
 {
-    protected override async Task<IState> HandleCoreAsync(IRequestInput input,
-        RequestGetState obj)
+    protected override async Task<IState> HandleCoreAsync(IRequestInput input, RequestGetState obj)
     {
         if (input.UserId == 0)
         {
             RpcErrors.RpcErrors403.UserInvalid.ThrowRpcError();
-            //RpcErrors.RpcErrors401.AuthKeyInvalid.ThrowRpcError();
+        //RpcErrors.RpcErrors401.AuthKeyInvalid.ThrowRpcError();
         }
 
         var cacheItem = await ptsHelper.GetPtsForUserAsync(input.UserId);
-
         var state = new TState
         {
             Date = CurrentDate,
@@ -29,8 +27,6 @@ internal sealed class GetStateHandler(
             Seq = 1,
             UnreadCount = cacheItem.UnreadCount,
         };
-
         return state;
-
     }
 }

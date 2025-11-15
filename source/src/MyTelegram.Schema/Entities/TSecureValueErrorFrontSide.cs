@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
-/// See <a href="https://corefork.telegram.org/constructor/secureValueErrorFrontSide" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueErrorFrontSide" /></para>
+/// </summary>
 [TlObject(0xbe3dfa)]
-public sealed class TSecureValueErrorFrontSide : ISecureValueError
+public sealed partial class TSecureValueErrorFrontSide : ISecureValueError
 {
     public uint ConstructorId => 0xbe3dfa;
-    ///<summary>
+    /// <summary>
     /// One of <a href="https://corefork.telegram.org/constructor/secureValueTypePassport">secureValueTypePassport</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense">secureValueTypeDriverLicense</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard">secureValueTypeIdentityCard</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport">secureValueTypeInternalPassport</a>
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

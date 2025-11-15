@@ -2,45 +2,45 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Info about the participants of a group call or livestream
-/// See <a href="https://corefork.telegram.org/constructor/phone.groupParticipants" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phone.groupParticipants" /></para>
+/// </summary>
 [TlObject(0xf47751b6)]
-public sealed class TGroupParticipants : IGroupParticipants
+public sealed partial class TGroupParticipants : IGroupParticipants
 {
     public uint ConstructorId => 0xf47751b6;
-    ///<summary>
+    /// <summary>
     /// Number of participants
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of participants
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipant" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IGroupCallParticipant> Participants { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If not empty, the specified list of participants is partial, and more participants can be fetched specifying this parameter as <code>offset</code> in <a href="https://corefork.telegram.org/method/phone.getGroupParticipants">phone.getGroupParticipants</a>.
-    ///</summary>
+    /// </summary>
     public string NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Version info
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
     public void ComputeFlag()

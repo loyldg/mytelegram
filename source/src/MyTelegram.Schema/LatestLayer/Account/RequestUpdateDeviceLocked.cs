@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// When client-side passcode lock feature is enabled, will not show message texts in incoming <a href="https://corefork.telegram.org/api/push-updates">PUSH notifications</a>.
-/// See <a href="https://corefork.telegram.org/method/account.updateDeviceLocked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateDeviceLocked" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x38df3532)]
-public sealed class RequestUpdateDeviceLocked : IRequest<IBool>
+public sealed partial class RequestUpdateDeviceLocked : IRequest<IBool>
 {
     public uint ConstructorId => 0x38df3532;
 
-    ///<summary>
+    /// <summary>
     /// Inactivity period after which to start hiding message texts in <a href="https://corefork.telegram.org/api/push-updates">PUSH notifications</a>.
-    ///</summary>
+    /// </summary>
     public int Period { get; set; }
 
     public void ComputeFlag()

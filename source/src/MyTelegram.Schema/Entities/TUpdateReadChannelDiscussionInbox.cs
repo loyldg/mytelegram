@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Incoming comments in a <a href="https://corefork.telegram.org/api/threads">discussion thread</a> were marked as read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadChannelDiscussionInbox" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadChannelDiscussionInbox" /></para>
+/// </summary>
 [TlObject(0xd6b19546)]
-public sealed class TUpdateReadChannelDiscussionInbox : IUpdate
+public sealed partial class TUpdateReadChannelDiscussionInbox : IUpdate
 {
     public uint ConstructorId => 0xd6b19546;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Discussion group ID</a>
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the group message that started the <a href="https://corefork.telegram.org/api/threads">thread</a> (message in linked discussion group)
-    ///</summary>
+    /// </summary>
     public int TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of latest read incoming message for this <a href="https://corefork.telegram.org/api/threads">thread</a>
-    ///</summary>
+    /// </summary>
     public int ReadMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains the ID of the <a href="https://corefork.telegram.org/api/channel">channel</a> that contains the post that started the <a href="https://corefork.telegram.org/api/threads">comment thread</a> in the discussion group (<code>channel_id</code>)
-    ///</summary>
+    /// </summary>
     public long? BroadcastId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains the ID of the channel post that started the <a href="https://corefork.telegram.org/api/threads">comment thread</a>
-    ///</summary>
+    /// </summary>
     public int? BroadcastPost { get; set; }
 
     public void ComputeFlag()

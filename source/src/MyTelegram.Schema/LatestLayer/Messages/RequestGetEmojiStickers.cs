@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Gets the list of currently installed <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickersets</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.getEmojiStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getEmojiStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xfbfca18f)]
-public sealed class RequestGetEmojiStickers : IRequest<MyTelegram.Schema.Messages.IAllStickers>
+public sealed partial class RequestGetEmojiStickers : IRequest<MyTelegram.Schema.Messages.IAllStickers>
 {
     public uint ConstructorId => 0xfbfca18f;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

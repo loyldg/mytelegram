@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// This user requires us to buy a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription in order to contact them.
-/// See <a href="https://corefork.telegram.org/constructor/requirementToContactPremium" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/requirementToContactPremium" /></para>
+/// </summary>
 [TlObject(0xe581e4e9)]
-public sealed class TRequirementToContactPremium : IRequirementToContact
+public sealed partial class TRequirementToContactPremium : IRequirementToContact
 {
     public uint ConstructorId => 0xe581e4e9;
     public void ComputeFlag()

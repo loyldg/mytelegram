@@ -2,41 +2,44 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Stop getting notifications about <a href="https://corefork.telegram.org/api/discussion">discussion replies</a> of a certain user in <code>@replies</code>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/contacts.blockFromReplies" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.blockFromReplies" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x29a8962c)]
-public sealed class RequestBlockFromReplies : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestBlockFromReplies : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x29a8962c;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to delete the specified message as well
-    ///</summary>
+    /// </summary>
     public bool DeleteMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to delete all <code>@replies</code> messages from this user as well
-    ///</summary>
+    /// </summary>
     public bool DeleteHistory { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to also report this user for spam
-    ///</summary>
+    /// </summary>
     public bool ReportSpam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message in the <a href="https://corefork.telegram.org/api/discussion#replies">@replies</a> chat
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaToDo" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaToDo" /></para>
+/// </summary>
 [TlObject(0x8a53b014)]
-public sealed class TMessageMediaToDo : IMessageMedia
+public sealed partial class TMessageMediaToDo : IMessageMedia
 {
     public uint ConstructorId => 0x8a53b014;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The todo list.
     /// See <a href="https://corefork.telegram.org/type/TodoList" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITodoList Todo { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Completed items.
     /// See <a href="https://corefork.telegram.org/type/TodoCompletion" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ITodoCompletion>? Completions { get; set; }
 
     public void ComputeFlag()

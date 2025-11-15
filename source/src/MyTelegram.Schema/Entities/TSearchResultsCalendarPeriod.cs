@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Information about found messages sent on a specific day, used to split the <code>messages</code> in <a href="https://corefork.telegram.org/constructor/messages.searchResultsCalendar">messages.searchResultsCalendar</a> constructors by days.Multiple searchResultsCalendarPeriod constructors are returned in <a href="https://corefork.telegram.org/constructor/messages.searchResultsCalendar">messages.searchResultsCalendar</a>, each containing information about the first, last and total number of messages matching the filter that were sent on a specific day.
-/// See <a href="https://corefork.telegram.org/constructor/searchResultsCalendarPeriod" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/searchResultsCalendarPeriod" /></para>
+/// </summary>
 [TlObject(0xc9b0539f)]
-public sealed class TSearchResultsCalendarPeriod : ISearchResultsCalendarPeriod
+public sealed partial class TSearchResultsCalendarPeriod : ISearchResultsCalendarPeriod
 {
     public uint ConstructorId => 0xc9b0539f;
-    ///<summary>
+    /// <summary>
     /// The day this object is referring to.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// First message ID that was sent on this day.
-    ///</summary>
+    /// </summary>
     public int MinMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last message ID that was sent on this day.
-    ///</summary>
+    /// </summary>
     public int MaxMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All messages that were sent on this day.
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
     public void ComputeFlag()

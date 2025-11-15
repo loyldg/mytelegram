@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Hide the active stories of a user, preventing them from being displayed on the action bar on the homescreen, see <a href="https://corefork.telegram.org/api/stories#hiding-stories-of-other-users">here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.togglePeerStoriesHidden" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.togglePeerStoriesHidden" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbd0415c4)]
-public sealed class RequestTogglePeerStoriesHidden : IRequest<IBool>
+public sealed partial class RequestTogglePeerStoriesHidden : IRequest<IBool>
 {
     public uint ConstructorId => 0xbd0415c4;
 
-    ///<summary>
+    /// <summary>
     /// Peer whose stories should be (un)hidden.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to hide or unhide stories.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Hidden { get; set; }
 
     public void ComputeFlag()

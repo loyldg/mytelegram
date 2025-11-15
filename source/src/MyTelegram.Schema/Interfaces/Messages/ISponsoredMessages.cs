@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// A set of <a href="https://core.telegram.org/api/sponsored-messages">sponsored messages</a> associated with a channel
-/// See <a href="https://corefork.telegram.org/type/messages.SponsoredMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.SponsoredMessages" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSponsoredMessages"/> See <a href="https://corefork.telegram.org/constructor/messages.sponsoredMessages" /><br/>
+/// <see cref="TSponsoredMessagesEmpty"/> See <a href="https://corefork.telegram.org/constructor/messages.sponsoredMessagesEmpty" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSponsoredMessages), nameof(TSponsoredMessages))]
 [JsonDerivedType(typeof(TSponsoredMessagesEmpty), nameof(TSponsoredMessagesEmpty))]
 public interface ISponsoredMessages : IObject

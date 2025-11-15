@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is playing a game
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageGamePlayAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageGamePlayAction" /></para>
+/// </summary>
 [TlObject(0xdd6a8f48)]
-public sealed class TSendMessageGamePlayAction : ISendMessageAction
+public sealed partial class TSendMessageGamePlayAction : ISendMessageAction
 {
     public uint ConstructorId => 0xdd6a8f48;
     public void ComputeFlag()

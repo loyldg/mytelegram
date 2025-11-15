@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Total number of non-refunded <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> a user has spent on sending us messages either directly or through a channel, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for more info on paid messages.
-/// See <a href="https://corefork.telegram.org/constructor/account.paidMessagesRevenue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.paidMessagesRevenue" /></para>
+/// </summary>
 [TlObject(0x1e109708)]
-public sealed class TPaidMessagesRevenue : IPaidMessagesRevenue
+public sealed partial class TPaidMessagesRevenue : IPaidMessagesRevenue
 {
     public uint ConstructorId => 0x1e109708;
-    ///<summary>
+    /// <summary>
     /// Amount in <a href="https://corefork.telegram.org/api/stars">Stars</a>.
-    ///</summary>
+    /// </summary>
     public long StarsAmount { get; set; }
 
     public void ComputeFlag()

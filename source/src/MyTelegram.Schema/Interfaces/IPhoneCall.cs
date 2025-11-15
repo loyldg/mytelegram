@@ -2,10 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Phone call
-/// See <a href="https://corefork.telegram.org/type/PhoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PhoneCall" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPhoneCallEmpty"/> See <a href="https://corefork.telegram.org/constructor/phoneCallEmpty" /><br/>
+/// <see cref="TPhoneCallWaiting"/> See <a href="https://corefork.telegram.org/constructor/phoneCallWaiting" /><br/>
+/// <see cref="TPhoneCallRequested"/> See <a href="https://corefork.telegram.org/constructor/phoneCallRequested" /><br/>
+/// <see cref="TPhoneCallAccepted"/> See <a href="https://corefork.telegram.org/constructor/phoneCallAccepted" /><br/>
+/// <see cref="TPhoneCall"/> See <a href="https://corefork.telegram.org/constructor/phoneCall" /><br/>
+/// <see cref="TPhoneCallDiscarded"/> See <a href="https://corefork.telegram.org/constructor/phoneCallDiscarded" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPhoneCallEmpty), nameof(TPhoneCallEmpty))]
 [JsonDerivedType(typeof(TPhoneCallWaiting), nameof(TPhoneCallWaiting))]
 [JsonDerivedType(typeof(TPhoneCallRequested), nameof(TPhoneCallRequested))]
@@ -14,8 +23,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPhoneCallDiscarded), nameof(TPhoneCallDiscarded))]
 public interface IPhoneCall : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Call ID
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 }

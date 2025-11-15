@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// No reactions are allowed
-/// See <a href="https://corefork.telegram.org/constructor/chatReactionsNone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatReactionsNone" /></para>
+/// </summary>
 [TlObject(0xeafc32bc)]
-public sealed class TChatReactionsNone : IChatReactions
+public sealed partial class TChatReactionsNone : IChatReactions
 {
     public uint ConstructorId => 0xeafc32bc;
     public void ComputeFlag()

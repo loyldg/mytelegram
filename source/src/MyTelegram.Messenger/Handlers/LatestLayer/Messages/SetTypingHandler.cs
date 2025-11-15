@@ -1,9 +1,11 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Sends a current user typing event (see <a href="https://corefork.telegram.org/type/SendMessageAction">SendMessageAction</a> for all event types) to a conversation partner or group.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
+/// 400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.
+/// 400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.
+/// 400 BUSINESS_PEER_USAGE_MISSING You cannot send a message to a user through a <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a> if the user hasn't recently contacted us.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
@@ -12,22 +14,18 @@
 /// 403 GROUPCALL_FORBIDDEN The group call has already ended.
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 406 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
 /// 403 USER_IS_BLOCKED You were blocked by this user.
 /// 400 USER_IS_BOT Bots can't send messages to other bots.
-/// See <a href="https://corefork.telegram.org/method/messages.setTyping" />
-///</summary>
-internal sealed class SetTypingHandler(
-    IPeerHelper peerHelper,
-    IObjectMessageSender messageSender,
-    IBlockCacheAppService blockCacheAppService,
-    IChannelAppService channelAppService,
-    IAccessHashHelper accessHashHelper)
-    : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSetTyping, IBool>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.setTyping"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
+internal sealed class SetTypingHandler(IPeerHelper peerHelper, IObjectMessageSender messageSender, IBlockCacheAppService blockCacheAppService, IChannelAppService channelAppService, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSetTyping, IBool>
 {
-    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
-        RequestSetTyping obj)
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestSetTyping obj)
     {
         await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var userId = input.UserId;
@@ -40,8 +38,11 @@ internal sealed class SetTypingHandler(
             case PeerType.Self:
                 break;
             case PeerType.User:
-                update = new TUpdateUserTyping { Action = obj.Action, UserId = userId };
-
+                update = new TUpdateUserTyping
+                {
+                    Action = obj.Action,
+                    UserId = userId
+                };
                 if (await blockCacheAppService.IsBlockedAsync(peer.PeerId, userId))
                 {
                     return new TBoolTrue();
@@ -53,8 +54,11 @@ internal sealed class SetTypingHandler(
                 {
                     Action = obj.Action,
                     ChatId = peer.PeerId,
-                    FromId = new TPeerUser { UserId = userId }
-                    //UserId = session.UserId
+                    FromId = new TPeerUser
+                    {
+                        UserId = userId
+                    }
+                //UserId = session.UserId
                 };
                 break;
             case PeerType.Channel:
@@ -71,9 +75,11 @@ internal sealed class SetTypingHandler(
                     ChannelId = peer.PeerId,
                     TopMsgId = obj.TopMsgId,
                     //UserId = session.UserId,
-                    FromId = new TPeerUser { UserId = userId }
+                    FromId = new TPeerUser
+                    {
+                        UserId = userId
+                    }
                 };
-
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -84,7 +90,11 @@ internal sealed class SetTypingHandler(
             return new TBoolTrue();
         }
 
-        var updateShort = new TUpdateShort { Date = CurrentDate, Update = update };
+        var updateShort = new TUpdateShort
+        {
+            Date = CurrentDate,
+            Update = update
+        };
         await messageSender.PushMessageToPeerAsync(peer, updateShort, excludeAuthKeyId: input.AuthKeyId);
         return new TBoolTrue();
     }

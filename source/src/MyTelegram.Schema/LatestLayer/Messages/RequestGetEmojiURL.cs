@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Returns an HTTP URL which can be used to automatically log in into translation platform and suggest new <a href="https://corefork.telegram.org/api/custom-emoji#emoji-keywords">emoji keywords »</a>. The URL will be valid for 30 seconds after generation.
-/// See <a href="https://corefork.telegram.org/method/messages.getEmojiURL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getEmojiURL" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd5b10c26)]
-public sealed class RequestGetEmojiURL : IRequest<MyTelegram.Schema.IEmojiURL>
+public sealed partial class RequestGetEmojiURL : IRequest<MyTelegram.Schema.IEmojiURL>
 {
     public uint ConstructorId => 0xd5b10c26;
 
-    ///<summary>
+    /// <summary>
     /// Language code for which the emoji keywords will be suggested
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// The country list has not changed
-/// See <a href="https://corefork.telegram.org/constructor/help.countriesListNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.countriesListNotModified" /></para>
+/// </summary>
 [TlObject(0x93cc1f32)]
-public sealed class TCountriesListNotModified : ICountriesList
+public sealed partial class TCountriesListNotModified : ICountriesList
 {
     public uint ConstructorId => 0x93cc1f32;
     public void ComputeFlag()

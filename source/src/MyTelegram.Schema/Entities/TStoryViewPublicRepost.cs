@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A certain peer has reposted the story.
-/// See <a href="https://corefork.telegram.org/constructor/storyViewPublicRepost" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyViewPublicRepost" /></para>
+/// </summary>
 [TlObject(0xbd74cf49)]
-public sealed class TStoryViewPublicRepost : IStoryView
+public sealed partial class TStoryViewPublicRepost : IStoryView
 {
     public uint ConstructorId => 0xbd74cf49;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/block">completely blocked</a> this user, including from viewing more of our stories.
-    ///</summary>
+    /// </summary>
     public bool Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/block">blocked</a> this user from viewing more of our stories.
-    ///</summary>
+    /// </summary>
     public bool BlockedMyStoriesFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer that reposted the story.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reposted story.
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoryItem Story { get; set; }
 
     public void ComputeFlag()

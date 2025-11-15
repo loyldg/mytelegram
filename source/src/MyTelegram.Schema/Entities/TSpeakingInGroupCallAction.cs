@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is currently speaking in the group call
-/// See <a href="https://corefork.telegram.org/constructor/speakingInGroupCallAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/speakingInGroupCallAction" /></para>
+/// </summary>
 [TlObject(0xd92c2285)]
-public sealed class TSpeakingInGroupCallAction : ISendMessageAction
+public sealed partial class TSpeakingInGroupCallAction : ISendMessageAction
 {
     public uint ConstructorId => 0xd92c2285;
     public void ComputeFlag()

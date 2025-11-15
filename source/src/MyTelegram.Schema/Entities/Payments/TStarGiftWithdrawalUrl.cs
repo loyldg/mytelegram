@@ -2,13 +2,17 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/payments.starGiftWithdrawalUrl" />
-///</summary>
+/// <summary>
+/// A URL that can be used to import the exported NFT on Fragment.
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starGiftWithdrawalUrl" /></para>
+/// </summary>
 [TlObject(0x84aa3a9c)]
-public sealed class TStarGiftWithdrawalUrl : IStarGiftWithdrawalUrl
+public sealed partial class TStarGiftWithdrawalUrl : IStarGiftWithdrawalUrl
 {
     public uint ConstructorId => 0x84aa3a9c;
+    /// <summary>
+    /// The URL to open.
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

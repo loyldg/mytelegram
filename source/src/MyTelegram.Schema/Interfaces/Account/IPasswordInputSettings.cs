@@ -2,42 +2,46 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Constructor for setting up a new <a href="https://corefork.telegram.org/api/srp">2FA SRP password</a>
-/// See <a href="https://corefork.telegram.org/type/account.PasswordInputSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.PasswordInputSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPasswordInputSettings"/> See <a href="https://corefork.telegram.org/constructor/account.passwordInputSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPasswordInputSettings), nameof(TPasswordInputSettings))]
 public interface IPasswordInputSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/srp">SRP algorithm</a> to use
     /// See <a href="https://corefork.telegram.org/type/PasswordKdfAlgo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPasswordKdfAlgo? NewAlgo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/srp">computed password hash</a>
-    ///</summary>
+    /// </summary>
     byte[]? NewPasswordHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text hint for the password
-    ///</summary>
+    /// </summary>
     string? Hint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Password recovery email
-    ///</summary>
+    /// </summary>
     string? Email { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram <a href="https://corefork.telegram.org/passport">passport</a> settings
     /// See <a href="https://corefork.telegram.org/type/SecureSecretSettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ISecureSecretSettings? NewSecureSettings { get; set; }
 }

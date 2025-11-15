@@ -1,18 +1,19 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Get count of online users in a chat
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 CHAT_ID_INVALID The provided chat id is invalid.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getOnlines" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getOnlines"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetOnlinesHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetOnlines, MyTelegram.Schema.IChatOnlines>
 {
-    protected override Task<MyTelegram.Schema.IChatOnlines> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetOnlines obj)
+    protected override Task<MyTelegram.Schema.IChatOnlines> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetOnlines obj)
     {
         throw new NotImplementedException();
     }

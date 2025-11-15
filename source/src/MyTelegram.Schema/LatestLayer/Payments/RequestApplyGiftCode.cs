@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Apply a <a href="https://corefork.telegram.org/api/giveaways">Telegram Premium giftcode »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GIFT_SLUG_EXPIRED The specified gift slug has expired.
-/// 400 GIFT_SLUG_INVALID The specified slug is invalid.
-/// 420 PREMIUM_SUB_ACTIVE_UNTIL_%d You already have a premium subscription active until unixtime %d .
-/// See <a href="https://corefork.telegram.org/method/payments.applyGiftCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GIFT_SLUG_EXPIRED The specified gift slug has expired.</c></para>
+/// <para><c>400 GIFT_SLUG_INVALID The specified slug is invalid.</c></para>
+/// <para><c>420 PREMIUM_SUB_ACTIVE_UNTIL_%d You already have a premium subscription active until unixtime %d . </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.applyGiftCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf6e26854)]
-public sealed class RequestApplyGiftCode : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestApplyGiftCode : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf6e26854;
 
-    ///<summary>
+    /// <summary>
     /// The code to apply
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

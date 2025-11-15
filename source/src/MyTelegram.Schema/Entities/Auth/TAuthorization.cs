@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Contains user authorization info.
-/// See <a href="https://corefork.telegram.org/constructor/auth.authorization" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.authorization" /></para>
+/// </summary>
 [TlObject(0x2ea2c0d4)]
-public sealed class TAuthorization : IAuthorization
+public sealed partial class TAuthorization : IAuthorization
 {
     public uint ConstructorId => 0x2ea2c0d4;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Suggests the user to set up a 2-step verification password to be able to log in again
-    ///</summary>
+    /// </summary>
     public bool SetupPasswordRequired { get; set; }
 
-    ///<summary>
-    /// Iff setup_password_required is set and the user declines to set a 2-step verification password, they will be able to log into their account via SMS again only after this many days pass.
-    ///</summary>
+    /// <summary>
+    /// If and only if setup_password_required is set and the user declines to set a 2-step verification password, they will be able to log into their account via SMS again only after this many days pass.
+    /// </summary>
     public int? OtherwiseReloginDays { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Temporary <a href="https://corefork.telegram.org/passport">passport</a> sessions
-    ///</summary>
+    /// </summary>
     public int? TmpSessions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A <a href="https://corefork.telegram.org/api/auth#future-auth-tokens">future auth token</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? FutureAuthToken { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info on authorized user
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUser User { get; set; }
 
     public void ComputeFlag()

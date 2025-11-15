@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Saved payment credentials
-/// See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentialsSaved" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentialsSaved" /></para>
+/// </summary>
 [TlObject(0xc10eb2cf)]
-public sealed class TInputPaymentCredentialsSaved : IInputPaymentCredentials
+public sealed partial class TInputPaymentCredentialsSaved : IInputPaymentCredentials
 {
     public uint ConstructorId => 0xc10eb2cf;
-    ///<summary>
+    /// <summary>
     /// Credential ID
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Temporary password
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> TmpPassword { get; set; }
 
     public void ComputeFlag()

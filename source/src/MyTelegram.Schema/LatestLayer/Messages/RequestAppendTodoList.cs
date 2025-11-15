@@ -2,24 +2,39 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/messages.appendTodoList" />
-///</summary>
+/// <summary>
+/// Appends one or more items to a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 TODO_ITEM_DUPLICATE Duplicate <a href="https://corefork.telegram.org/api/todo">checklist items</a> detected.</c></para>
+/// <para><c>400 TODO_NOT_MODIFIED No todo items were specified, so no changes were made to the todo list. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.appendTodoList" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x21a61057)]
-public sealed class RequestAppendTodoList : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestAppendTodoList : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x21a61057;
 
-    ///<summary>
+    /// <summary>
+    /// Peer where the todo list was posted.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// ID of the message with the todo list.
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Items to append.
     /// See <a href="https://corefork.telegram.org/type/TodoItem" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ITodoItem> List { get; set; }
 
     public void ComputeFlag()

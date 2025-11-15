@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Represents a channel participant
-/// See <a href="https://corefork.telegram.org/constructor/channels.channelParticipant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channels.channelParticipant" /></para>
+/// </summary>
 [TlObject(0xdfb80317)]
-public sealed class TChannelParticipant : IChannelParticipant
+public sealed partial class TChannelParticipant : IChannelParticipant
 {
     public uint ConstructorId => 0xdfb80317;
-    ///<summary>
+    /// <summary>
     /// The channel participant
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipant Participant { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

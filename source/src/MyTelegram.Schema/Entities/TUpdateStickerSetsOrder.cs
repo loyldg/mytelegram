@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The order of stickersets was changed
-/// See <a href="https://corefork.telegram.org/constructor/updateStickerSetsOrder" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateStickerSetsOrder" /></para>
+/// </summary>
 [TlObject(0xbb2d201)]
-public sealed class TUpdateStickerSetsOrder : IUpdate
+public sealed partial class TUpdateStickerSetsOrder : IUpdate
 {
     public uint ConstructorId => 0xbb2d201;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the updated stickers are mask stickers
-    ///</summary>
+    /// </summary>
     public bool Masks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the updated stickers are custom emoji stickers
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New sticker order by sticker ID
-    ///</summary>
+    /// </summary>
     public TVector<long> Order { get; set; }
 
     public void ComputeFlag()

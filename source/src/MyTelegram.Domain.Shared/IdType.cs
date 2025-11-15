@@ -33,4 +33,5 @@ public enum IdType
     FolderId = 26,
     TodoId = 27,
     StoryAlbumId = 28,
+    CollectionId = 29,
 }

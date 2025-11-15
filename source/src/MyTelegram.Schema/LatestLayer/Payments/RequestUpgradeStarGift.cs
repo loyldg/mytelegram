@@ -2,27 +2,41 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.upgradeStarGift" />
-///</summary>
+/// <summary>
+/// Upgrade a <a href="https://corefork.telegram.org/api/gifts">gift</a> to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift</a>: can only be used if the upgrade was already paid by the gift sender; see <a href="https://corefork.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift">here »</a> for more info on the full flow (including the different flow to use in case the upgrade was not paid by the gift sender).
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PAYMENT_REQUIRED Payment is required for this action, see <a href="https://corefork.telegram.org/api/gifts">here »</a> for more info.</c></para>
+/// <para><c>400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.</c></para>
+/// <para><c>400 STARGIFT_ALREADY_CONVERTED The specified star gift was already converted to Stars.</c></para>
+/// <para><c>400 STARGIFT_ALREADY_UPGRADED The specified gift was already upgraded to a collectible gift.</c></para>
+/// <para><c>400 STARGIFT_UPGRADE_UNAVAILABLE A received gift can only be upgraded to a collectible gift if the <a href="https://corefork.telegram.org/constructor/messageActionStarGift">messageActionStarGift</a>/<a href="https://corefork.telegram.org/constructor/savedStarGift">savedStarGift</a>.<code>can_upgrade</code> flag is set. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.upgradeStarGift" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xaed6e4f5)]
-public sealed class RequestUpgradeStarGift : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestUpgradeStarGift : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xaed6e4f5;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Set this flag to keep the original gift text, sender and receiver in the upgraded gift as a <a href="https://corefork.telegram.org/constructor/starGiftAttributeOriginalDetails">starGiftAttributeOriginalDetails</a> attribute.
+    /// </summary>
     public bool KeepOriginalDetails { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The gift to upgrade
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
     public void ComputeFlag()

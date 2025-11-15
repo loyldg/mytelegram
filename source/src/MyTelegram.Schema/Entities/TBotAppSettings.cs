@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/bots/webapps">Mini app »</a> settings
-/// See <a href="https://corefork.telegram.org/constructor/botAppSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botAppSettings" /></para>
+/// </summary>
 [TlObject(0xc99b1950)]
-public sealed class TBotAppSettings : IBotAppSettings
+public sealed partial class TBotAppSettings : IBotAppSettings
 {
     public uint ConstructorId => 0xc99b1950;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// SVG placeholder logo, compressed using the same format used for <a href="https://corefork.telegram.org/api/files#vector-thumbnails">vector thumbnails »</a>.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? PlaceholderPath { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default light mode background color
-    ///</summary>
+    /// </summary>
     public int? BackgroundColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default dark mode background color
-    ///</summary>
+    /// </summary>
     public int? BackgroundDarkColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default light mode header color
-    ///</summary>
+    /// </summary>
     public int? HeaderColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default dark mode header color
-    ///</summary>
+    /// </summary>
     public int? HeaderDarkColor { get; set; }
 
     public void ComputeFlag()

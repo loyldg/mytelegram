@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Saves logs of application on the server.
-/// See <a href="https://corefork.telegram.org/method/help.saveAppLog" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.saveAppLog" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x6f02f748)]
-public sealed class RequestSaveAppLog : IRequest<IBool>
+public sealed partial class RequestSaveAppLog : IRequest<IBool>
 {
     public uint ConstructorId => 0x6f02f748;
 
-    ///<summary>
+    /// <summary>
     /// List of input events
     /// See <a href="https://corefork.telegram.org/type/InputAppEvent" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputAppEvent> Events { get; set; }
 
     public void ComputeFlag()

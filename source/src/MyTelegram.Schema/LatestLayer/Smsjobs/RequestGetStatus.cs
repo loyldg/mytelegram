@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// Get SMS jobs status (official clients only).
-/// See <a href="https://corefork.telegram.org/method/smsjobs.getStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/smsjobs.getStatus" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x10a698e8)]
-public sealed class RequestGetStatus : IRequest<MyTelegram.Schema.Smsjobs.IStatus>
+public sealed partial class RequestGetStatus : IRequest<MyTelegram.Schema.Smsjobs.IStatus>
 {
     public uint ConstructorId => 0x10a698e8;
 

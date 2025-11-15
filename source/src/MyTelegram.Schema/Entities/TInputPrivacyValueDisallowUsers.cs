@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Disallow only certain users
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowUsers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowUsers" /></para>
+/// </summary>
 [TlObject(0x90110467)]
-public sealed class TInputPrivacyValueDisallowUsers : IInputPrivacyRule
+public sealed partial class TInputPrivacyValueDisallowUsers : IInputPrivacyRule
 {
     public uint ConstructorId => 0x90110467;
-    ///<summary>
+    /// <summary>
     /// Users to disallow
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Users { get; set; }
 
     public void ComputeFlag()

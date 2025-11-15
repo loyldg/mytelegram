@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Obtain user info from a <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 IMPORT_TOKEN_INVALID The specified token is invalid.
-/// See <a href="https://corefork.telegram.org/method/contacts.importContactToken" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 IMPORT_TOKEN_INVALID The specified token is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.importContactToken" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x13005788)]
-public sealed class RequestImportContactToken : IRequest<MyTelegram.Schema.IUser>
+public sealed partial class RequestImportContactToken : IRequest<MyTelegram.Schema.IUser>
 {
     public uint ConstructorId => 0x13005788;
 
-    ///<summary>
+    /// <summary>
     /// The token extracted from the <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a>.
-    ///</summary>
+    /// </summary>
     public string Token { get; set; }
 
     public void ComputeFlag()

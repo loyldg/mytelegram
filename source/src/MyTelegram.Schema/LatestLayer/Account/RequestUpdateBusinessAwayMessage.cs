@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Set a list of <a href="https://corefork.telegram.org/api/business#away-messages">Telegram Business away messages</a>.
-/// See <a href="https://corefork.telegram.org/method/account.updateBusinessAwayMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateBusinessAwayMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa26a7fa5)]
-public sealed class RequestUpdateBusinessAwayMessage : IRequest<IBool>
+public sealed partial class RequestUpdateBusinessAwayMessage : IRequest<IBool>
 {
     public uint ConstructorId => 0xa26a7fa5;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Away message configuration and contents.
     /// See <a href="https://corefork.telegram.org/type/InputBusinessAwayMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBusinessAwayMessage? Message { get; set; }
 
     public void ComputeFlag()

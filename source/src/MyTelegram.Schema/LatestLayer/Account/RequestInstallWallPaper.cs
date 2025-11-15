@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Install <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 WALLPAPER_INVALID The specified wallpaper is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.installWallPaper" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 WALLPAPER_INVALID The specified wallpaper is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.installWallPaper" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xfeed5769)]
-public sealed class RequestInstallWallPaper : IRequest<IBool>
+public sealed partial class RequestInstallWallPaper : IRequest<IBool>
 {
     public uint ConstructorId => 0xfeed5769;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> to install
     /// See <a href="https://corefork.telegram.org/type/InputWallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputWallPaper Wallpaper { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> settings
     /// See <a href="https://corefork.telegram.org/type/WallPaperSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaperSettings Settings { get; set; }
 
     public void ComputeFlag()

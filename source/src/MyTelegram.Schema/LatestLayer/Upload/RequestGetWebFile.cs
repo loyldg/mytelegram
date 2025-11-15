@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Returns content of a web file, by proxying the request through telegram, see the <a href="https://corefork.telegram.org/api/files#downloading-webfiles">webfile docs for more info</a>.<strong>Note</strong>: the query must be sent to the DC specified in the <code>webfile_dc_id</code> <a href="https://corefork.telegram.org/api/config#mtproto-configuration">MTProto configuration field</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DOCUMENT_INVALID The specified document is invalid.
-/// 400 LOCATION_INVALID The provided location is invalid.
-/// See <a href="https://corefork.telegram.org/method/upload.getWebFile" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 LOCATION_INVALID The provided location is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/upload.getWebFile" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x24e6818d)]
-public sealed class RequestGetWebFile : IRequest<MyTelegram.Schema.Upload.IWebFile>
+public sealed partial class RequestGetWebFile : IRequest<MyTelegram.Schema.Upload.IWebFile>
 {
     public uint ConstructorId => 0x24e6818d;
 
-    ///<summary>
+    /// <summary>
     /// The file to download
     /// See <a href="https://corefork.telegram.org/type/InputWebFileLocation" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputWebFileLocation Location { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of bytes to be skipped
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of bytes to be returned
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

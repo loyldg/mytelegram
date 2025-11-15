@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/stories#weather">weather widget »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/mediaAreaWeather" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/mediaAreaWeather" /></para>
+/// </summary>
 [TlObject(0x49a6549c)]
-public sealed class TMediaAreaWeather : IMediaArea
+public sealed partial class TMediaAreaWeather : IMediaArea
 {
     public uint ConstructorId => 0x49a6549c;
-    ///<summary>
+    /// <summary>
     /// The size and location of the media area corresponding to the widget on top of the story media.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Weather emoji, should be rendered as an <a href="https://corefork.telegram.org/api/animated-emojis">animated emoji</a>.
-    ///</summary>
+    /// </summary>
     public string Emoji { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Temperature in degrees Celsius.
-    ///</summary>
+    /// </summary>
     public double TemperatureC { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ARGB background color.
-    ///</summary>
+    /// </summary>
     public int Color { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A participant that left the channel/supergroup
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantLeft" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantLeft" /></para>
+/// </summary>
 [TlObject(0x1b03f006)]
-public sealed class TChannelParticipantLeft : IChannelParticipant
+public sealed partial class TChannelParticipantLeft : IChannelParticipant
 {
     public uint ConstructorId => 0x1b03f006;
-    ///<summary>
+    /// <summary>
     /// The peer that left
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
     public void ComputeFlag()

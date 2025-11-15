@@ -294,7 +294,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} posted a checklist {2}
     /// <code>
-    /// 1.  2.
+    /// 1. Channel name 2. Checklist title
     /// </code>
     /// </summary>
     public static readonly string ChannelMessageTodo = "CHANNEL_MESSAGE_TODO";
@@ -302,7 +302,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} added {2} tasks
     /// <code>
-    /// 1.  2.
+    /// 1. Channel name 2. Number of added tasks
     /// </code>
     /// </summary>
     public static readonly string ChannelMessageTodoAppend = "CHANNEL_MESSAGE_TODO_APPEND";
@@ -310,7 +310,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} toggled {2} tasks
     /// <code>
-    /// 1.  2.
+    /// 1. Channel name 2. Number of toggled tasks
     /// </code>
     /// </summary>
     public static readonly string ChannelMessageTodoDone = "CHANNEL_MESSAGE_TODO_DONE";
@@ -590,7 +590,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} sent a checklist {3} to the group {2}
     /// <code>
-    /// 1.  2.  3.
+    /// 1. User 2. Group name 3. Checklist title
     /// </code>
     /// </summary>
     public static readonly string ChatMessageTodo = "CHAT_MESSAGE_TODO";
@@ -598,7 +598,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} added {3} tasks in the group {2}
     /// <code>
-    /// 1.  2.  3.
+    /// 1. User 2. Group name 3. Number of added tasks
     /// </code>
     /// </summary>
     public static readonly string ChatMessageTodoAppend = "CHAT_MESSAGE_TODO_APPEND";
@@ -606,7 +606,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} toggled {3} tasks in the group {2}
     /// <code>
-    /// 1.  2.  3.
+    /// 1. User name 2. Group name 3. Number of toggled tasks
     /// </code>
     /// </summary>
     public static readonly string ChatMessageTodoDone = "CHAT_MESSAGE_TODO_DONE";
@@ -774,7 +774,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1}: {3} to your checklist {4} in {2}
     /// <code>
-    /// 1.  2.  3.  4.
+    /// 1. User name 2. Group name 3. Reaction 4. Checklist title
     /// </code>
     /// </summary>
     public static readonly string ChatReactTodo = "CHAT_REACT_TODO";
@@ -846,7 +846,7 @@ public class PushNotificationTypes
     /// <summary>
     /// You missed a call from {1}
     /// <code>
-    /// 1.
+    /// 1. User name
     /// </code>
     /// </summary>
     public static readonly string ConfCallMissed = "CONF_CALL_MISSED";
@@ -1118,7 +1118,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} upgraded your Gift
     /// <code>
-    /// 1.
+    /// 1. User name
     /// </code>
     /// </summary>
     public static readonly string MessageStargiftUpgrade = "MESSAGE_STARGIFT_UPGRADE";
@@ -1158,7 +1158,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} sent you a checklist {2}
     /// <code>
-    /// 1.  2.
+    /// 1. User name 2. Checklist title
     /// </code>
     /// </summary>
     public static readonly string MessageTodo = "MESSAGE_TODO";
@@ -1166,7 +1166,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1} transferred you a Gift!
     /// <code>
-    /// 1.
+    /// 1. User name
     /// </code>
     /// </summary>
     public static readonly string MessageUniqueStargift = "MESSAGE_UNIQUE_STARGIFT";
@@ -1403,8 +1403,8 @@ public class PushNotificationTypes
     /// {1} pinned a checklist {2}
     /// <para>{1} pinned a checklist {3} in the group {2}</para>
     /// <code>
-    /// 1.  2.
-    /// 1.  2. Group name 3.
+    /// 1. User name 2. Checklist title
+    /// 1. User name 2. Group name 3. Checklist title
     /// </code>
     /// </summary>
     public static readonly string PinnedTodo = "PINNED_TODO";
@@ -1574,7 +1574,7 @@ public class PushNotificationTypes
     /// <summary>
     /// {1}: {2} to your checklist {3}
     /// <code>
-    /// 1.  2.  3.
+    /// 1. User name 2. Reaction 3. Checklist title
     /// </code>
     /// </summary>
     public static readonly string ReactTodo = "REACT_TODO";

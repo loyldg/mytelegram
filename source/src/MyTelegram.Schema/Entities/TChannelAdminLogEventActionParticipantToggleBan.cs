@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The banned <a href="https://corefork.telegram.org/api/rights">rights</a> of a user were changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan" /></para>
+/// </summary>
 [TlObject(0xe6d83d7e)]
-public sealed class TChannelAdminLogEventActionParticipantToggleBan : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantToggleBan : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xe6d83d7e;
-    ///<summary>
+    /// <summary>
     /// Old banned rights of user
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipant PrevParticipant { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New banned rights of user
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipant NewParticipant { get; set; }
 
     public void ComputeFlag()

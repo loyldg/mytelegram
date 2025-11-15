@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Email
-/// See <a href="https://corefork.telegram.org/constructor/secureValueTypeEmail" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueTypeEmail" /></para>
+/// </summary>
 [TlObject(0x8e3ca7ee)]
-public sealed class TSecureValueTypeEmail : ISecureValueType
+public sealed partial class TSecureValueTypeEmail : ISecureValueType
 {
     public uint ConstructorId => 0x8e3ca7ee;
     public void ComputeFlag()

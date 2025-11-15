@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Returns information on update availability for the current application.
-/// See <a href="https://corefork.telegram.org/method/help.getAppUpdate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getAppUpdate" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x522d5a7d)]
-public sealed class RequestGetAppUpdate : IRequest<MyTelegram.Schema.Help.IAppUpdate>
+public sealed partial class RequestGetAppUpdate : IRequest<MyTelegram.Schema.Help.IAppUpdate>
 {
     public uint ConstructorId => 0x522d5a7d;
 
-    ///<summary>
+    /// <summary>
     /// Source
-    ///</summary>
+    /// </summary>
     public string Source { get; set; }
 
     public void ComputeFlag()

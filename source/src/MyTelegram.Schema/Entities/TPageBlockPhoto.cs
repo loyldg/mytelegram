@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A photo
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockPhoto" /></para>
+/// </summary>
 [TlObject(0x1759c560)]
-public sealed class TPageBlockPhoto : IPageBlock
+public sealed partial class TPageBlockPhoto : IPageBlock
 {
     public uint ConstructorId => 0x1759c560;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo ID
-    ///</summary>
+    /// </summary>
     public long PhotoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Caption
     /// See <a href="https://corefork.telegram.org/type/PageCaption" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// HTTP URL of page the photo leads to when clicked
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of preview of the page the photo leads to when clicked
-    ///</summary>
+    /// </summary>
     public long? WebpageId { get; set; }
 
     public void ComputeFlag()

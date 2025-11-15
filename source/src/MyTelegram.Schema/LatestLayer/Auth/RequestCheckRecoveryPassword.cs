@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Check if the <a href="https://corefork.telegram.org/api/srp">2FA recovery code</a> sent using <a href="https://corefork.telegram.org/method/auth.requestPasswordRecovery">auth.requestPasswordRecovery</a> is valid, before passing it to <a href="https://corefork.telegram.org/method/auth.recoverPassword">auth.recoverPassword</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CODE_EMPTY The provided code is empty.
-/// 400 PASSWORD_RECOVERY_EXPIRED The recovery code has expired.
-/// See <a href="https://corefork.telegram.org/method/auth.checkRecoveryPassword" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CODE_EMPTY The provided code is empty.</c></para>
+/// <para><c>400 PASSWORD_RECOVERY_EXPIRED The recovery code has expired. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.checkRecoveryPassword" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd36bf79)]
-public sealed class RequestCheckRecoveryPassword : IRequest<IBool>
+public sealed partial class RequestCheckRecoveryPassword : IRequest<IBool>
 {
     public uint ConstructorId => 0xd36bf79;
 
-    ///<summary>
+    /// <summary>
     /// Code received via email
-    ///</summary>
+    /// </summary>
     public string Code { get; set; }
 
     public void ComputeFlag()

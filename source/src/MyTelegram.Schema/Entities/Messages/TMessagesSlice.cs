@@ -2,60 +2,66 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Incomplete list of messages and auxiliary data.
-/// See <a href="https://corefork.telegram.org/constructor/messages.messagesSlice" />
-///</summary>
-[TlObject(0x762b263d)]
-public sealed class TMessagesSlice : IMessages
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.messagesSlice" /></para>
+/// </summary>
+[TlObject(0x5f206716)]
+public sealed partial class TMessagesSlice : IMessages
 {
-    public uint ConstructorId => 0x762b263d;
-    ///<summary>
+    public uint ConstructorId => 0x5f206716;
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the results may be inexact
-    ///</summary>
+    /// </summary>
     public bool Inexact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of messages in the list
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Rate to use in the <code>offset_rate</code> parameter in the next call to <a href="https://corefork.telegram.org/method/messages.searchGlobal">messages.searchGlobal</a>
-    ///</summary>
+    /// </summary>
     public int? NextRate { get; set; }
 
-    ///<summary>
-    /// Indicates the absolute position of <code>messages[0]</code> within the total result set with count <code>count</code>. <br>This is useful, for example, if the result was fetched using <code>offset_id</code>, and we need to display a <code>progress/total</code> counter (like <code>photo 134 of 200</code>, for all media in a chat, we could simply use <code>photo ${offset_id_offset} of ${count}</code>.
-    ///</summary>
+    /// <summary>
+    /// Indicates the absolute position of <code>messages[0]</code> within the total result set with count <code>count</code>. <br/>This is useful, for example, if the result was fetched using <code>offset_id</code>, and we need to display a <code>progress/total</code> counter (like <code>photo 134 of 200</code>, for all media in a chat, we could simply use <code>photo ${offset_id_offset} of ${count}</code>).
+    /// </summary>
     public int? OffsetIdOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/search#posts-tab">For global post searches »</a>, the remaining amount of free searches, here <code>query_is_free</code> is related to the current call only, not to the next paginated call, and all subsequent pagination calls will always be free.
     /// See <a href="https://corefork.telegram.org/type/SearchPostsFlood" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISearchPostsFlood? SearchFlood { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of messages
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/ForumTopic" />
+    /// </summary>
+    public TVector<MyTelegram.Schema.IForumTopic> Topics { get; set; }
+
+    /// <summary>
     /// List of chats mentioned in messages
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users mentioned in messages and chats
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()
@@ -76,6 +82,7 @@ public sealed class TMessagesSlice : IMessages
         if (Flags.IsBitSet(2)) { writer.Write(OffsetIdOffset.Value); }
         if (Flags.IsBitSet(3)) { writer.Write(SearchFlood); }
         writer.Write(Messages);
+        writer.Write(Topics);
         writer.Write(Chats);
         writer.Write(Users);
     }
@@ -89,6 +96,7 @@ public sealed class TMessagesSlice : IMessages
         if (Flags.IsBitSet(2)) { OffsetIdOffset = buffer.ReadInt32(); }
         if (Flags.IsBitSet(3)) { SearchFlood = buffer.Read<MyTelegram.Schema.ISearchPostsFlood>(); }
         Messages = buffer.Read<TVector<MyTelegram.Schema.IMessage>>();
+        Topics = buffer.Read<TVector<MyTelegram.Schema.IForumTopic>>();
         Chats = buffer.Read<TVector<MyTelegram.Schema.IChat>>();
         Users = buffer.Read<TVector<MyTelegram.Schema.IUser>>();
     }

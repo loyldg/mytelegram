@@ -2,86 +2,90 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Create a stickerset.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PACK_SHORT_NAME_INVALID Short pack name invalid.
-/// 400 PACK_SHORT_NAME_OCCUPIED A stickerpack with this name already exists.
-/// 400 PACK_TITLE_INVALID The stickerpack title is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STICKERS_EMPTY No sticker provided.
-/// 400 STICKER_EMOJI_INVALID Sticker emoji invalid.
-/// 400 STICKER_FILE_INVALID Sticker file invalid.
-/// 400 STICKER_GIF_DIMENSIONS The specified video sticker has invalid dimensions.
-/// 400 STICKER_PNG_DIMENSIONS Sticker png dimensions invalid.
-/// 400 STICKER_PNG_NOPNG One of the specified stickers is not a valid PNG file.
-/// 400 STICKER_TGS_NODOC You must send the animated sticker as a document.
-/// 400 STICKER_TGS_NOTGS Invalid TGS sticker provided.
-/// 400 STICKER_THUMB_PNG_NOPNG Incorrect stickerset thumb file provided, PNG / WEBP expected.
-/// 400 STICKER_THUMB_TGS_NOTGS Incorrect stickerset TGS thumb file provided.
-/// 400 STICKER_VIDEO_BIG The specified video sticker is too big.
-/// 400 STICKER_VIDEO_NODOC You must send the video sticker as a document.
-/// 400 STICKER_VIDEO_NOWEBM The specified video sticker is not in webm format.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.createStickerSet" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PACK_SHORT_NAME_INVALID Short pack name invalid.</c></para>
+/// <para><c>400 PACK_SHORT_NAME_OCCUPIED A stickerpack with this name already exists.</c></para>
+/// <para><c>400 PACK_TITLE_INVALID The stickerpack title is invalid.</c></para>
+/// <para><c>400 PACK_TYPE_INVALID The masks and emojis flags are mutually exclusive.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STICKERS_EMPTY No sticker provided.</c></para>
+/// <para><c>400 STICKER_EMOJI_INVALID Sticker emoji invalid.</c></para>
+/// <para><c>400 STICKER_FILE_INVALID Sticker file invalid.</c></para>
+/// <para><c>400 STICKER_GIF_DIMENSIONS The specified video sticker has invalid dimensions.</c></para>
+/// <para><c>400 STICKER_PNG_DIMENSIONS Sticker png dimensions invalid.</c></para>
+/// <para><c>400 STICKER_PNG_NOPNG One of the specified stickers is not a valid PNG file.</c></para>
+/// <para><c>400 STICKER_TGS_NODOC You must send the animated sticker as a document.</c></para>
+/// <para><c>400 STICKER_TGS_NOTGS Invalid TGS sticker provided.</c></para>
+/// <para><c>400 STICKER_THUMB_PNG_NOPNG Incorrect stickerset thumb file provided, PNG / WEBP expected.</c></para>
+/// <para><c>400 STICKER_THUMB_TGS_NOTGS Incorrect stickerset TGS thumb file provided.</c></para>
+/// <para><c>400 STICKER_VIDEO_BIG The specified video sticker is too big.</c></para>
+/// <para><c>400 STICKER_VIDEO_NODOC You must send the video sticker as a document.</c></para>
+/// <para><c>400 STICKER_VIDEO_NOWEBM The specified video sticker is not in webm format.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.createStickerSet" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9021ab67)]
-public sealed class RequestCreateStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestCreateStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0x9021ab67;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a mask stickerset
-    ///</summary>
+    /// </summary>
     public bool Masks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji</a> stickerset.
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the color of TGS custom emojis contained in this set should be changed to the text color when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context. For custom emoji stickersets only.
-    ///</summary>
+    /// </summary>
     public bool TextColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickerset owner
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickerset name, <code>1-64</code> chars
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name of sticker set, to be used in <a href="https://corefork.telegram.org/api/links#stickerset-links">sticker deep links »</a>. Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and, <strong>if called by a bot</strong>, must end in <code>"_by_&lt;bot_username&gt;"</code>. <code>&lt;bot_username&gt;</code> is case insensitive. 1-64 characters.
-    ///</summary>
+    /// </summary>
     public string ShortName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument? Thumb { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickers
     /// See <a href="https://corefork.telegram.org/type/InputStickerSetItem" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputStickerSetItem> Stickers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used when <a href="https://corefork.telegram.org/import-stickers">importing stickers using the sticker import SDKs</a>, specifies the name of the software that created the stickers
-    ///</summary>
+    /// </summary>
     public string? Software { get; set; }
 
     public void ComputeFlag()

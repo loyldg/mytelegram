@@ -2,15 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/TodoCompletion" />
-///</summary>
+/// <summary>
+/// A completed <a href="https://corefork.telegram.org/api/todo">todo list »</a> item.
+/// <para>See <a href="https://corefork.telegram.org/type/TodoCompletion" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTodoCompletion"/> See <a href="https://corefork.telegram.org/constructor/todoCompletion" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTodoCompletion), nameof(TTodoCompletion))]
 public interface ITodoCompletion : IObject
 {
+    /// <summary>
+    /// The ID of the completed item.
+    /// </summary>
     int Id { get; set; }
 
+    /// <summary>
+    /// ID of the user that completed the item.
+    /// </summary>
     long CompletedBy { get; set; }
 
+    /// <summary>
+    /// When was the item completed.
+    /// </summary>
     int Date { get; set; }
 }

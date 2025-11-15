@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Channel/supergroup participants
-/// See <a href="https://corefork.telegram.org/type/channels.ChannelParticipants" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/channels.ChannelParticipants" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelParticipants"/> See <a href="https://corefork.telegram.org/constructor/channels.channelParticipants" /><br/>
+/// <see cref="TChannelParticipantsNotModified"/> See <a href="https://corefork.telegram.org/constructor/channels.channelParticipantsNotModified" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelParticipants), nameof(TChannelParticipants))]
 [JsonDerivedType(typeof(TChannelParticipantsNotModified), nameof(TChannelParticipantsNotModified))]
 public interface IChannelParticipants : IObject

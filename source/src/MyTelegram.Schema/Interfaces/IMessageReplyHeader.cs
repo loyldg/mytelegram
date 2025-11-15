@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Reply information
-/// See <a href="https://corefork.telegram.org/type/MessageReplyHeader" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageReplyHeader" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageReplyHeader"/> See <a href="https://corefork.telegram.org/constructor/messageReplyHeader" /><br/>
+/// <see cref="TMessageReplyStoryHeader"/> See <a href="https://corefork.telegram.org/constructor/messageReplyStoryHeader" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageReplyHeader), nameof(TMessageReplyHeader))]
 [JsonDerivedType(typeof(TMessageReplyStoryHeader), nameof(TMessageReplyStoryHeader))]
 public interface IMessageReplyHeader : IObject

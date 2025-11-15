@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/auth#future-auth-tokens">Future auth token »</a> to be used on subsequent authorizations
-/// See <a href="https://corefork.telegram.org/constructor/auth.loggedOut" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.loggedOut" /></para>
+/// </summary>
 [TlObject(0xc3a2835f)]
-public sealed class TLoggedOut : ILoggedOut
+public sealed partial class TLoggedOut : ILoggedOut
 {
     public uint ConstructorId => 0xc3a2835f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/auth#future-auth-tokens">Future auth token »</a> to be used on subsequent authorizations
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? FutureAuthToken { get; set; }
 
     public void ComputeFlag()

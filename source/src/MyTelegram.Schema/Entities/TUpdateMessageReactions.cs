@@ -2,44 +2,45 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New <a href="https://corefork.telegram.org/api/reactions">message reactions »</a> are available
-/// See <a href="https://corefork.telegram.org/constructor/updateMessageReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateMessageReactions" /></para>
+/// </summary>
 [TlObject(0x1e297bfa)]
-public sealed class TUpdateMessageReactions : IUpdate
+public sealed partial class TUpdateMessageReactions : IUpdate
 {
     public uint ConstructorId => 0x1e297bfa;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/forum#forum-topics">Forum topic ID</a>
-    ///</summary>
+    /// </summary>
     public int? TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, the reactions are in the specified <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a>.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SavedPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reactions
     /// See <a href="https://corefork.telegram.org/type/MessageReactions" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageReactions Reactions { get; set; }
 
     public void ComputeFlag()

@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Messages found and affected by changes
-/// See <a href="https://corefork.telegram.org/type/messages.AffectedFoundMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.AffectedFoundMessages" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAffectedFoundMessages"/> See <a href="https://corefork.telegram.org/constructor/messages.affectedFoundMessages" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAffectedFoundMessages), nameof(TAffectedFoundMessages))]
 public interface IAffectedFoundMessages : IObject
 {
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     int PtsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If bigger than zero, the request must be repeated to remove more messages
-    ///</summary>
+    /// </summary>
     int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Affected message IDs
-    ///</summary>
+    /// </summary>
     TVector<int> Messages { get; set; }
 }

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Repeat the query to the specified DC
-/// See <a href="https://corefork.telegram.org/constructor/auth.loginTokenMigrateTo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.loginTokenMigrateTo" /></para>
+/// </summary>
 [TlObject(0x68e9916)]
-public sealed class TLoginTokenMigrateTo : ILoginToken
+public sealed partial class TLoginTokenMigrateTo : ILoginToken
 {
     public uint ConstructorId => 0x68e9916;
-    ///<summary>
+    /// <summary>
     /// DC ID
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Token to use for login
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Token { get; set; }
 
     public void ComputeFlag()

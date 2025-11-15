@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Disable all purchased usernames of a supergroup or channel
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// See <a href="https://corefork.telegram.org/method/channels.deactivateAllUsernames" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.deactivateAllUsernames" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa245dd3)]
-public sealed class RequestDeactivateAllUsernames : IRequest<IBool>
+public sealed partial class RequestDeactivateAllUsernames : IRequest<IBool>
 {
     public uint ConstructorId => 0xa245dd3;
 
-    ///<summary>
+    /// <summary>
     /// Supergroup or channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     public void ComputeFlag()

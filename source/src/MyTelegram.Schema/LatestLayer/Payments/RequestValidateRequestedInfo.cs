@@ -2,39 +2,42 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Submit requested order information for validation
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.validateRequestedInfo" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.validateRequestedInfo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb6c8f12b)]
-public sealed class RequestValidateRequestedInfo : IRequest<MyTelegram.Schema.Payments.IValidatedRequestedInfo>
+public sealed partial class RequestValidateRequestedInfo : IRequest<MyTelegram.Schema.Payments.IValidatedRequestedInfo>
 {
     public uint ConstructorId => 0xb6c8f12b;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Save order information to re-use it for future orders
-    ///</summary>
+    /// </summary>
     public bool Save { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/InputInvoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Requested order information
     /// See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaymentRequestedInfo Info { get; set; }
 
     public void ComputeFlag()

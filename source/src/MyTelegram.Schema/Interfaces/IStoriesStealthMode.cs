@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stories#stealth-mode">Story stealth mode status</a>
-/// See <a href="https://corefork.telegram.org/type/StoriesStealthMode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StoriesStealthMode" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStoriesStealthMode"/> See <a href="https://corefork.telegram.org/constructor/storiesStealthMode" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStoriesStealthMode), nameof(TStoriesStealthMode))]
 public interface IStoriesStealthMode : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The date up to which stealth mode will be active.
-    ///</summary>
+    /// </summary>
     int? ActiveUntilDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The date starting from which the user will be allowed to re-enable stealth mode again.
-    ///</summary>
+    /// </summary>
     int? CooldownUntilDate { get; set; }
 }

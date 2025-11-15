@@ -2,10 +2,24 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Type of the verification code that was sent
-/// See <a href="https://corefork.telegram.org/type/auth.SentCodeType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/auth.SentCodeType" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSentCodeTypeApp"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeApp" /><br/>
+/// <see cref="TSentCodeTypeSms"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSms" /><br/>
+/// <see cref="TSentCodeTypeCall"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeCall" /><br/>
+/// <see cref="TSentCodeTypeFlashCall"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFlashCall" /><br/>
+/// <see cref="TSentCodeTypeMissedCall"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeMissedCall" /><br/>
+/// <see cref="TSentCodeTypeEmailCode"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeEmailCode" /><br/>
+/// <see cref="TSentCodeTypeSetUpEmailRequired"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSetUpEmailRequired" /><br/>
+/// <see cref="TSentCodeTypeFragmentSms"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFragmentSms" /><br/>
+/// <see cref="TSentCodeTypeFirebaseSms"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFirebaseSms" /><br/>
+/// <see cref="TSentCodeTypeSmsWord"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSmsWord" /><br/>
+/// <see cref="TSentCodeTypeSmsPhrase"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSmsPhrase" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSentCodeTypeApp), nameof(TSentCodeTypeApp))]
 [JsonDerivedType(typeof(TSentCodeTypeSms), nameof(TSentCodeTypeSms))]
 [JsonDerivedType(typeof(TSentCodeTypeCall), nameof(TSentCodeTypeCall))]

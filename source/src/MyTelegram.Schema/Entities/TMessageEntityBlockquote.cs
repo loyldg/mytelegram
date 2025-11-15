@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity representing a block quote.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityBlockquote" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityBlockquote" /></para>
+/// </summary>
 [TlObject(0xf1ccaaac)]
-public sealed class TMessageEntityBlockquote : IMessageEntity
+public sealed partial class TMessageEntityBlockquote : IMessageEntity
 {
     public uint ConstructorId => 0xf1ccaaac;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the quote is collapsed by default.
-    ///</summary>
+    /// </summary>
     public bool Collapsed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

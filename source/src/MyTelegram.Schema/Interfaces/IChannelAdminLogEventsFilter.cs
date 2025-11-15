@@ -2,110 +2,114 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Filter for fetching events in the channel admin log
-/// See <a href="https://corefork.telegram.org/type/ChannelAdminLogEventsFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChannelAdminLogEventsFilter" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelAdminLogEventsFilter"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventsFilter" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelAdminLogEventsFilter), nameof(TChannelAdminLogEventsFilter))]
 public interface IChannelAdminLogEventsFilter : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoin">Join events</a>, including <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite">joins using invite links</a> and <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest">join requests</a>.
-    ///</summary>
+    /// </summary>
     bool Join { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantLeave">Leave events</a>
-    ///</summary>
+    /// </summary>
     bool Leave { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantInvite">Invite events</a>
-    ///</summary>
+    /// </summary>
     bool Invite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan">Ban events</a>
-    ///</summary>
+    /// </summary>
     bool Ban { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan">Unban events</a>
-    ///</summary>
+    /// </summary>
     bool Unban { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan">Kick events</a>
-    ///</summary>
+    /// </summary>
     bool Kick { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan">Unkick events</a>
-    ///</summary>
+    /// </summary>
     bool Unkick { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin">Admin promotion events</a>
-    ///</summary>
+    /// </summary>
     bool Promote { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin">Admin demotion events</a>
-    ///</summary>
+    /// </summary>
     bool Demote { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info change events (when <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAbout">about</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat">linked chat</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLocation">location</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangePhoto">photo</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet">stickerset</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeTitle">title</a> or <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsername">username</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode">slowmode</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL">history TTL</a> settings of a channel gets modified)
-    ///</summary>
+    /// </summary>
     bool Info { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Settings change events (<a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleInvites">invites</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden">hidden prehistory</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSignatures">signatures</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights">default banned rights</a>, <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleForum">forum toggle events</a>)
-    ///</summary>
+    /// </summary>
     bool Settings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionUpdatePinned">Message pin events</a>
-    ///</summary>
+    /// </summary>
     bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionEditMessage">Message edit events</a>
-    ///</summary>
+    /// </summary>
     bool Edit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDeleteMessage">Message deletion events</a>
-    ///</summary>
+    /// </summary>
     bool Delete { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call events
-    ///</summary>
+    /// </summary>
     bool GroupCall { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invite events
-    ///</summary>
+    /// </summary>
     bool Invites { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A message was posted in a channel
-    ///</summary>
+    /// </summary>
     bool Send { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/forum">Forum</a>-related events
-    ///</summary>
+    /// </summary>
     bool Forums { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend">Telegram Star subscription extension events »</a>
-    ///</summary>
+    /// </summary>
     bool SubExtend { get; set; }
 }

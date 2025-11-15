@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Email verification purpose: setup login email
-/// See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposeLoginSetup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposeLoginSetup" /></para>
+/// </summary>
 [TlObject(0x4345be73)]
-public sealed class TEmailVerifyPurposeLoginSetup : IEmailVerifyPurpose
+public sealed partial class TEmailVerifyPurposeLoginSetup : IEmailVerifyPurpose
 {
     public uint ConstructorId => 0x4345be73;
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code hash as specified by the <a href="https://corefork.telegram.org/api/auth#email-verification">documentation</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
     public void ComputeFlag()

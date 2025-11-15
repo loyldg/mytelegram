@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The menu button behavior for the specified bot has changed
-/// See <a href="https://corefork.telegram.org/constructor/updateBotMenuButton" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotMenuButton" /></para>
+/// </summary>
 [TlObject(0x14b85813)]
-public sealed class TUpdateBotMenuButton : IUpdate
+public sealed partial class TUpdateBotMenuButton : IUpdate
 {
     public uint ConstructorId => 0x14b85813;
-    ///<summary>
+    /// <summary>
     /// Bot ID
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New menu button
     /// See <a href="https://corefork.telegram.org/type/BotMenuButton" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotMenuButton Button { get; set; }
 
     public void ComputeFlag()

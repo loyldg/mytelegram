@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Send confirmation code to cancel account deletion, for more info <a href="https://corefork.telegram.org/api/account-deletion">click here »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 HASH_INVALID The provided hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.sendConfirmPhoneCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 HASH_INVALID The provided hash is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.sendConfirmPhoneCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1b3faa88)]
-public sealed class RequestSendConfirmPhoneCode : IRequest<MyTelegram.Schema.Auth.ISentCode>
+public sealed partial class RequestSendConfirmPhoneCode : IRequest<MyTelegram.Schema.Auth.ISentCode>
 {
     public uint ConstructorId => 0x1b3faa88;
 
-    ///<summary>
+    /// <summary>
     /// The hash from the service notification, for more info <a href="https://corefork.telegram.org/api/account-deletion">click here »</a>
-    ///</summary>
+    /// </summary>
     public string Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code settings
     /// See <a href="https://corefork.telegram.org/type/CodeSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ICodeSettings Settings { get; set; }
 
     public void ComputeFlag()

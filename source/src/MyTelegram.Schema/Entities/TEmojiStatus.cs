@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An <a href="https://corefork.telegram.org/api/emoji-status">emoji status</a>
-/// See <a href="https://corefork.telegram.org/constructor/emojiStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiStatus" /></para>
+/// </summary>
 [TlObject(0xe7ff068a)]
-public sealed class TEmojiStatus : IEmojiStatus
+public sealed partial class TEmojiStatus : IEmojiStatus
 {
     public uint ConstructorId => 0xe7ff068a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/custom-emoji">Custom emoji document ID</a>
-    ///</summary>
+    /// </summary>
     public long DocumentId { get; set; }
 
+    /// <summary>
+    /// If set, the emoji status will be active until the specified unixtime.
+    /// </summary>
     public int? Until { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,32 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.updateStarGiftPrice" />
-///</summary>
+/// <summary>
+/// A <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift we own »</a> can be put up for sale on the <a href="https://telegram.org/blog/gift-marketplace-and-more">gift marketplace »</a> with this method, see <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">here »</a> for more info.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.</c></para>
+/// <para><c>400 STARGIFT_NOT_FOUND The specified gift was not found. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.updateStarGiftPrice" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xedbe6ccb)]
-public sealed class RequestUpdateStarGiftPrice : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestUpdateStarGiftPrice : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xedbe6ccb;
 
-    ///<summary>
+    /// <summary>
+    /// The gift to resell.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Resale price of the gift.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount ResellAmount { get; set; }
 
     public void ComputeFlag()

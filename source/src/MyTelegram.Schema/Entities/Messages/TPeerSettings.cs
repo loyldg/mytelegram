@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Peer settings
-/// See <a href="https://corefork.telegram.org/constructor/messages.peerSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.peerSettings" /></para>
+/// </summary>
 [TlObject(0x6880b94d)]
-public sealed class TPeerSettings : IPeerSettings
+public sealed partial class TPeerSettings : IPeerSettings
 {
     public uint ConstructorId => 0x6880b94d;
-    ///<summary>
+    /// <summary>
     /// Peer settings
     /// See <a href="https://corefork.telegram.org/type/PeerSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerSettings Settings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Save a theme
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 THEME_INVALID Invalid theme provided.
-/// See <a href="https://corefork.telegram.org/method/account.saveTheme" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 THEME_INVALID Invalid theme provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.saveTheme" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf257106c)]
-public sealed class RequestSaveTheme : IRequest<IBool>
+public sealed partial class RequestSaveTheme : IRequest<IBool>
 {
     public uint ConstructorId => 0xf257106c;
 
-    ///<summary>
+    /// <summary>
     /// Theme to save
     /// See <a href="https://corefork.telegram.org/type/InputTheme" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputTheme Theme { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unsave
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Unsave { get; set; }
 
     public void ComputeFlag()

@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a sent inline message from the perspective of a bot
-/// See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageID64" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageID64" /></para>
+/// </summary>
 [TlObject(0xb6d915d7)]
-public sealed class TInputBotInlineMessageID64 : IInputBotInlineMessageID
+public sealed partial class TInputBotInlineMessageID64 : IInputBotInlineMessageID
 {
     public uint ConstructorId => 0xb6d915d7;
-    ///<summary>
+    /// <summary>
     /// DC ID to use when working with this inline message
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the owner of this message
-    ///</summary>
+    /// </summary>
     public long OwnerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of message
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash of message
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

@@ -2,26 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionGiftTon" />
-///</summary>
+/// <summary>
+/// You were gifted some toncoins.This service message should be displayed below the appropriate sticker from the <a href="https://corefork.telegram.org/constructor/inputStickerSetTonGifts">inputStickerSetTonGifts »</a> <a href="https://corefork.telegram.org/api/stickers#stickersets">stickerset »</a>:
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGiftTon" /></para>
+/// </summary>
 [TlObject(0xa8a3c699)]
-public sealed class TMessageActionGiftTon : IMessageAction
+public sealed partial class TMessageActionGiftTon : IMessageAction
 {
     public uint ConstructorId => 0xa8a3c699;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Name of a localized FIAT currency.
+    /// </summary>
     public string Currency { get; set; }
 
+    /// <summary>
+    /// FIAT currency equivalent (in the currency specified in <code>currency</code>) of the amount specified in <code>crypto_amount</code>.
+    /// </summary>
     public long Amount { get; set; }
 
+    /// <summary>
+    /// Name of the cryptocurrency.
+    /// </summary>
     public string CryptoCurrency { get; set; }
 
+    /// <summary>
+    /// Amount in the smallest unit of the cryptocurrency (for TONs, one billionth of a ton, AKA a nanoton).
+    /// </summary>
     public long CryptoAmount { get; set; }
 
+    /// <summary>
+    /// Transaction ID.
+    /// </summary>
     public string? TransactionId { get; set; }
 
     public void ComputeFlag()

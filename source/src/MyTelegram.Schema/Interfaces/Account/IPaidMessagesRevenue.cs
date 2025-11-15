@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Total number of non-refunded <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> a user has spent on sending us messages either directly or through a channel, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for more info on paid messages.
-/// See <a href="https://corefork.telegram.org/type/account.PaidMessagesRevenue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.PaidMessagesRevenue" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPaidMessagesRevenue"/> See <a href="https://corefork.telegram.org/constructor/account.paidMessagesRevenue" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPaidMessagesRevenue), nameof(TPaidMessagesRevenue))]
 public interface IPaidMessagesRevenue : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Amount in <a href="https://corefork.telegram.org/api/stars">Stars</a>.
-    ///</summary>
+    /// </summary>
     long StarsAmount { get; set; }
 }

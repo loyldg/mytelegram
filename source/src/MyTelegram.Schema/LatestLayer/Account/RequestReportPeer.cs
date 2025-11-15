@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Report a peer for violation of telegram's Terms of Service
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.reportPeer" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.reportPeer" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc5ba3d86)]
-public sealed class RequestReportPeer : IRequest<IBool>
+public sealed partial class RequestReportPeer : IRequest<IBool>
 {
     public uint ConstructorId => 0xc5ba3d86;
 
-    ///<summary>
+    /// <summary>
     /// The peer to report
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reason why this peer is being reported
     /// See <a href="https://corefork.telegram.org/type/ReportReason" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReportReason Reason { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Comment for report moderation
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
     public void ComputeFlag()

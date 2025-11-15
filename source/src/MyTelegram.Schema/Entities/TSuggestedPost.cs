@@ -2,27 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/suggestedPost" />
-///</summary>
+/// <summary>
+/// Contains info about a <a href="https://corefork.telegram.org/api/suggested-posts">suggested post »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/suggestedPost" /></para>
+/// </summary>
 [TlObject(0xe8e37e5)]
-public sealed class TSuggestedPost : ISuggestedPost
+public sealed partial class TSuggestedPost : ISuggestedPost
 {
     public uint ConstructorId => 0xe8e37e5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Whether the suggested post was accepted.
+    /// </summary>
     public bool Accepted { get; set; }
 
+    /// <summary>
+    /// Whether the suggested post was rejected.
+    /// </summary>
     public bool Rejected { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Price of the suggested post.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount? Price { get; set; }
 
+    /// <summary>
+    /// Scheduling date.
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
     public void ComputeFlag()

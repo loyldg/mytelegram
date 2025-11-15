@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Concatenation of rich texts
-/// See <a href="https://corefork.telegram.org/constructor/textConcat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textConcat" /></para>
+/// </summary>
 [TlObject(0x7e6260d7)]
-public sealed class TTextConcat : IRichText
+public sealed partial class TTextConcat : IRichText
 {
     public uint ConstructorId => 0x7e6260d7;
-    ///<summary>
+    /// <summary>
     /// Concatenated rich texts
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IRichText> Texts { get; set; }
 
     public void ComputeFlag()

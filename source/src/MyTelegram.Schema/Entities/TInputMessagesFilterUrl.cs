@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only messages containing URLs
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterUrl" /></para>
+/// </summary>
 [TlObject(0x7ef0dd87)]
-public sealed class TInputMessagesFilterUrl : IMessagesFilter
+public sealed partial class TInputMessagesFilterUrl : IMessagesFilter
 {
     public uint ConstructorId => 0x7ef0dd87;
     public void ComputeFlag()

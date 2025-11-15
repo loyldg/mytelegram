@@ -2,32 +2,35 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Hide or display the participants list in a <a href="https://corefork.telegram.org/api/channel">supergroup</a>.The supergroup must have at least <code>hidden_members_group_size_min</code> participants in order to use this method, as specified by the <a href="https://corefork.telegram.org/api/config#client-configuration">client configuration parameters »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 PARTICIPANTS_TOO_FEW Not enough participants.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleParticipantsHidden" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 PARTICIPANTS_TOO_FEW Not enough participants. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleParticipantsHidden" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6a6e7854)]
-public sealed class RequestToggleParticipantsHidden : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleParticipantsHidden : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x6a6e7854;
 
-    ///<summary>
+    /// <summary>
     /// Supergroup ID
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If true, will hide the participants list; otherwise will unhide it.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
     public void ComputeFlag()

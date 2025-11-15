@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Location of encrypted telegram <a href="https://corefork.telegram.org/passport">passport</a> file.
-/// See <a href="https://corefork.telegram.org/constructor/inputSecureFileLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputSecureFileLocation" /></para>
+/// </summary>
 [TlObject(0xcbc7ee28)]
-public sealed class TInputSecureFileLocation : IInputFileLocation
+public sealed partial class TInputSecureFileLocation : IInputFileLocation
 {
     public uint ConstructorId => 0xcbc7ee28;
-    ///<summary>
+    /// <summary>
     /// File ID, <strong>id</strong> parameter value from <a href="https://corefork.telegram.org/constructor/secureFile">secureFile</a>
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Checksum, <strong>access_hash</strong> parameter value from <a href="https://corefork.telegram.org/constructor/secureFile">secureFile</a>
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

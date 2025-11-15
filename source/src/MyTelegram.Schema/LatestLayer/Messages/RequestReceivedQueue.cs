@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Confirms receipt of messages in a secret chat by client, cancels push notifications.<br>
+/// <summary>
+/// Confirms receipt of messages in a secret chat by client, cancels push notifications.<br/>
 /// The method returns a list of <strong>random_id</strong>s of messages for which push notifications were cancelled.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MAX_QTS_INVALID The specified max_qts is invalid.
-/// 500 MSG_WAIT_FAILED A waiting call returned an error.
-/// See <a href="https://corefork.telegram.org/method/messages.receivedQueue" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MAX_QTS_INVALID The specified max_qts is invalid.</c></para>
+/// <para><c>500 MSG_WAIT_FAILED A waiting call returned an error. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.receivedQueue" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x55a5bb66)]
-public sealed class RequestReceivedQueue : IRequest<TVector<long>>
+public sealed partial class RequestReceivedQueue : IRequest<TVector<long>>
 {
     public uint ConstructorId => 0x55a5bb66;
 
-    ///<summary>
+    /// <summary>
     /// Maximum qts value available at the client
-    ///</summary>
+    /// </summary>
     public int MaxQts { get; set; }
 
     public void ComputeFlag()

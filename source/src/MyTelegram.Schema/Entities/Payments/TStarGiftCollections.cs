@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/payments.starGiftCollections" />
-///</summary>
+/// <summary>
+/// Represents a list of <a href="https://corefork.telegram.org/api/gifts#gift-collections">star gift collections »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starGiftCollections" /></para>
+/// </summary>
 [TlObject(0x8a2932f3)]
-public sealed class TStarGiftCollections : IStarGiftCollections
+public sealed partial class TStarGiftCollections : IStarGiftCollections
 {
     public uint ConstructorId => 0x8a2932f3;
-    ///<summary>
+    /// <summary>
+    /// Star gift collections.
     /// See <a href="https://corefork.telegram.org/type/StarGiftCollection" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftCollection> Collections { get; set; }
 
     public void ComputeFlag()

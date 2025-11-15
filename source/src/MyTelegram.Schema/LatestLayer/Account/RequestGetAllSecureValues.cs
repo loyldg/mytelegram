@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get all saved <a href="https://corefork.telegram.org/passport">Telegram Passport</a> documents, <a href="https://corefork.telegram.org/passport/encryption#encryption">for more info see the passport docs »</a>
-/// See <a href="https://corefork.telegram.org/method/account.getAllSecureValues" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getAllSecureValues" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb288bc7d)]
-public sealed class RequestGetAllSecureValues : IRequest<TVector<MyTelegram.Schema.ISecureValue>>
+public sealed partial class RequestGetAllSecureValues : IRequest<TVector<MyTelegram.Schema.ISecureValue>>
 {
     public uint ConstructorId => 0xb288bc7d;
 

@@ -12,7 +12,7 @@ namespace MyTelegram.Schema.Channels;
 /// See <a href="https://corefork.telegram.org/method/channels.getForumTopics" />
 ///</summary>
 [TlObject(0xde560d1)]
-public sealed class RequestGetForumTopics : IRequest<MyTelegram.Schema.Messages.IForumTopics>
+public sealed partial class RequestGetForumTopics : IRequest<MyTelegram.Schema.Messages.IForumTopics>
 {
     public uint ConstructorId => 0xde560d1;
 

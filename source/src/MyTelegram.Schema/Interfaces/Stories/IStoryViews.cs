@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Reaction and view counters for a list of <a href="https://corefork.telegram.org/api/stories">stories</a>
-/// See <a href="https://corefork.telegram.org/type/stories.StoryViews" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/stories.StoryViews" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStoryViews"/> See <a href="https://corefork.telegram.org/constructor/stories.storyViews" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStoryViews), nameof(TStoryViews))]
 public interface IStoryViews : IObject
 {
-    ///<summary>
+    /// <summary>
     /// View date and reaction information of multiple stories
     /// See <a href="https://corefork.telegram.org/type/StoryViews" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IStoryViews> Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

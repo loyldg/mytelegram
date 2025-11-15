@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get privacy settings of current account
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PRIVACY_KEY_INVALID The privacy key is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.getPrivacy" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PRIVACY_KEY_INVALID The privacy key is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getPrivacy" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdadbc950)]
-public sealed class RequestGetPrivacy : IRequest<MyTelegram.Schema.Account.IPrivacyRules>
+public sealed partial class RequestGetPrivacy : IRequest<MyTelegram.Schema.Account.IPrivacyRules>
 {
     public uint ConstructorId => 0xdadbc950;
 
-    ///<summary>
+    /// <summary>
     /// Peer category whose privacy settings should be fetched
     /// See <a href="https://corefork.telegram.org/type/InputPrivacyKey" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPrivacyKey Key { get; set; }
 
     public void ComputeFlag()

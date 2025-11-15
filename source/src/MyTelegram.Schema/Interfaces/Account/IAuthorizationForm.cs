@@ -2,44 +2,48 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Authorization form
-/// See <a href="https://corefork.telegram.org/type/account.AuthorizationForm" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.AuthorizationForm" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAuthorizationForm"/> See <a href="https://corefork.telegram.org/constructor/account.authorizationForm" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAuthorizationForm), nameof(TAuthorizationForm))]
 public interface IAuthorizationForm : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Required <a href="https://corefork.telegram.org/passport">Telegram Passport</a> documents
     /// See <a href="https://corefork.telegram.org/type/SecureRequiredType" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ISecureRequiredType> RequiredTypes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Already submitted <a href="https://corefork.telegram.org/passport">Telegram Passport</a> documents
     /// See <a href="https://corefork.telegram.org/type/SecureValue" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ISecureValue> Values { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/passport">Telegram Passport</a> errors
     /// See <a href="https://corefork.telegram.org/type/SecureValueError" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ISecureValueError> Errors { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the bot to which the form will be submitted
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of the service's privacy policy
-    ///</summary>
+    /// </summary>
     string? PrivacyPolicyUrl { get; set; }
 }

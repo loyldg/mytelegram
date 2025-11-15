@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Terminates all user's authorized sessions except for the current one.After calling this method it is necessary to reregister the current device using the method <a href="https://corefork.telegram.org/method/account.registerDevice">account.registerDevice</a>
-/// See <a href="https://corefork.telegram.org/method/auth.resetAuthorizations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.resetAuthorizations" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9fab0d1a)]
-public sealed class RequestResetAuthorizations : IRequest<IBool>
+public sealed partial class RequestResetAuthorizations : IRequest<IBool>
 {
     public uint ConstructorId => 0x9fab0d1a;
 

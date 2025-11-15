@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Remote document that can be downloaded without <a href="https://corefork.telegram.org/api/files">proxying through telegram</a>
-/// See <a href="https://corefork.telegram.org/constructor/webDocumentNoProxy" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webDocumentNoProxy" /></para>
+/// </summary>
 [TlObject(0xf9c8bcc6)]
-public sealed class TWebDocumentNoProxy : IWebDocument
+public sealed partial class TWebDocumentNoProxy : IWebDocument
 {
     public uint ConstructorId => 0xf9c8bcc6;
-    ///<summary>
+    /// <summary>
     /// Document URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File size
-    ///</summary>
+    /// </summary>
     public int Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MIME type
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attributes for media types
     /// See <a href="https://corefork.telegram.org/type/DocumentAttribute" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocumentAttribute> Attributes { get; set; }
 
     public void ComputeFlag()

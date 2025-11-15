@@ -2,53 +2,53 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// This object contains information about an incoming pre-checkout query.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotPrecheckoutQuery" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotPrecheckoutQuery" /></para>
+/// </summary>
 [TlObject(0x8caa9a96)]
-public sealed class TUpdateBotPrecheckoutQuery : IUpdate
+public sealed partial class TUpdateBotPrecheckoutQuery : IUpdate
 {
     public uint ConstructorId => 0x8caa9a96;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique query identifier
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User who sent the query
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot specified invoice payload
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Payload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Order info provided by the user
     /// See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaymentRequestedInfo? Info { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the shipping option chosen by the user
-    ///</summary>
+    /// </summary>
     public string? ShippingOptionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code, or <code>XTR</code> for <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long TotalAmount { get; set; }
 
     public void ComputeFlag()

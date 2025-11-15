@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The channel was created
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChannelCreate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChannelCreate" /></para>
+/// </summary>
 [TlObject(0x95d2ac92)]
-public sealed class TMessageActionChannelCreate : IMessageAction
+public sealed partial class TMessageActionChannelCreate : IMessageAction
 {
     public uint ConstructorId => 0x95d2ac92;
-    ///<summary>
+    /// <summary>
     /// Original channel/supergroup title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

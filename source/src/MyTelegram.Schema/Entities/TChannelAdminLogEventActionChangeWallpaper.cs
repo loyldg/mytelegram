@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a> was changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeWallpaper" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeWallpaper" /></para>
+/// </summary>
 [TlObject(0x31bb5d52)]
-public sealed class TChannelAdminLogEventActionChangeWallpaper : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangeWallpaper : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x31bb5d52;
-    ///<summary>
+    /// <summary>
     /// Previous wallpaper
     /// See <a href="https://corefork.telegram.org/type/WallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaper PrevValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New wallpaper
     /// See <a href="https://corefork.telegram.org/type/WallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaper NewValue { get; set; }
 
     public void ComputeFlag()

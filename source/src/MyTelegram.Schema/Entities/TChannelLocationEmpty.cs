@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// No location (normal supergroup)
-/// See <a href="https://corefork.telegram.org/constructor/channelLocationEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelLocationEmpty" /></para>
+/// </summary>
 [TlObject(0xbfb5ad8b)]
-public sealed class TChannelLocationEmpty : IChannelLocation
+public sealed partial class TChannelLocationEmpty : IChannelLocation
 {
     public uint ConstructorId => 0xbfb5ad8b;
     public void ComputeFlag()

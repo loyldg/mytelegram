@@ -2,40 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The user is preparing a message; typing, recording, uploading, etc. This update is valid for 6 seconds. If no further updates of this kind are received after 6 seconds, it should be considered that the user stopped doing whatever they were doing
-/// See <a href="https://corefork.telegram.org/constructor/updateUserTyping" />
-///</summary>
-[TlObject(0xc01e857f)]
-public sealed class TUpdateUserTyping : IUpdate
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateUserTyping" /></para>
+/// </summary>
+[TlObject(0x2a17bf5c)]
+public sealed partial class TUpdateUserTyping : IUpdate
 {
-    public uint ConstructorId => 0xc01e857f;
-    ///<summary>
+    public uint ConstructorId => 0x2a17bf5c;
+    public int Flags { get; set; }
+
+    /// <summary>
     /// User id
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    public int? TopMsgId { get; set; }
+
+    /// <summary>
     /// Action type
     /// See <a href="https://corefork.telegram.org/type/SendMessageAction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISendMessageAction Action { get; set; }
 
     public void ComputeFlag()
     {
+        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(UserId);
+        if (Flags.IsBitSet(0)) { writer.Write(TopMsgId.Value); }
         writer.Write(Action);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         UserId = buffer.ReadInt64();
+        if (Flags.IsBitSet(0)) { TopMsgId = buffer.ReadInt32(); }
         Action = buffer.Read<MyTelegram.Schema.ISendMessageAction>();
     }
 }

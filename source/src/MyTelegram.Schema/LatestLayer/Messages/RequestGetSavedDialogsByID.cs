@@ -2,27 +2,33 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/messages.getSavedDialogsByID" />
-///</summary>
+/// <summary>
+/// Obtain information about specific <a href="https://corefork.telegram.org/api/saved-messages#saved-message-dialogs">saved message dialogs »</a> or <a href="https://corefork.telegram.org/api/monoforum">monoforum topics »</a>.
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSavedDialogsByID" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6f6f9c96)]
-public sealed class RequestGetSavedDialogsByID : IRequest<MyTelegram.Schema.Messages.ISavedDialogs>
+public sealed partial class RequestGetSavedDialogsByID : IRequest<MyTelegram.Schema.Messages.ISavedDialogs>
 {
     public uint ConstructorId => 0x6f6f9c96;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, fetches <a href="https://corefork.telegram.org/api/monoforum">monoforum topics »</a>, otherwise fetches <a href="https://corefork.telegram.org/api/saved-messages#saved-message-dialogs">saved message dialogs »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ParentPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// IDs of dialogs (topics) to fetch.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Ids { get; set; }
 
     public void ComputeFlag()

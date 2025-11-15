@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/stats">supergroup statistics</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 MEGAGROUP_REQUIRED You can only use this method on a supergroup.
-/// See <a href="https://corefork.telegram.org/method/stats.getMegagroupStats" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 MEGAGROUP_REQUIRED You can only use this method on a supergroup. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stats.getMegagroupStats" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdcdf8607)]
-public sealed class RequestGetMegagroupStats : IRequest<MyTelegram.Schema.Stats.IMegagroupStats>
+public sealed partial class RequestGetMegagroupStats : IRequest<MyTelegram.Schema.Stats.IMegagroupStats>
 {
     public uint ConstructorId => 0xdcdf8607;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to enable dark theme for graph colors
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Supergroup ID</a>
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     public void ComputeFlag()

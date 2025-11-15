@@ -2,164 +2,179 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Forwards messages by their IDs.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN You can't forward polls with public voters.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 406 CHAT_FORWARDS_RESTRICTED You can't forward messages from a protected chat.
-/// 403 CHAT_GUEST_SEND_FORBIDDEN You join the discussion group before commenting, see <a href="https://corefork.telegram.org/api/discussion#requiring-users-to-join-the-group">here&nbsp;»</a> for more info.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.
-/// 403 CHAT_SEND_AUDIOS_FORBIDDEN You can't send audio messages in this chat.
-/// 403 CHAT_SEND_DOCS_FORBIDDEN You can't send documents in this chat.
-/// 403 CHAT_SEND_GAME_FORBIDDEN You can't send a game to this chat.
-/// 403 CHAT_SEND_GIFS_FORBIDDEN You can't send gifs in this chat.
-/// 403 CHAT_SEND_MEDIA_FORBIDDEN You can't send media in this chat.
-/// 403 CHAT_SEND_PHOTOS_FORBIDDEN You can't send photos in this chat.
-/// 403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.
-/// 403 CHAT_SEND_POLL_FORBIDDEN You can't send polls in this chat.
-/// 403 CHAT_SEND_STICKERS_FORBIDDEN You can't send stickers in this chat.
-/// 403 CHAT_SEND_VIDEOS_FORBIDDEN You can't send videos in this chat.
-/// 403 CHAT_SEND_VOICES_FORBIDDEN You can't send voice recordings in this chat.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 GROUPED_MEDIA_INVALID Invalid grouped media.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MEDIA_EMPTY The provided media object is invalid.
-/// 400 MESSAGE_IDS_EMPTY No message ids were provided.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 406 PAYMENT_UNSUPPORTED A detailed description of the error will be received separately as described <a href="https://corefork.telegram.org/api/errors#406-not-acceptable">here&nbsp;»</a>.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 406 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
-/// 400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.
-/// 400 QUIZ_ANSWER_MISSING You can forward a quiz while hiding the original author only after choosing an option in the quiz.
-/// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
-/// 400 RANDOM_ID_INVALID A provided random ID is invalid.
-/// 400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.
-/// 400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.
-/// 400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.
-/// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
-/// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
-/// 400 SLOWMODE_MULTI_MSGS_DISABLED Slowmode is enabled, you cannot forward multiple messages to this group.
-/// 420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
-/// 406 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.
-/// 406 TOPIC_DELETED The specified topic was deleted.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// 403 USER_IS_BLOCKED You were blocked by this user.
-/// 400 USER_IS_BOT Bots can't send messages to other bots.
-/// 403 VOICE_MESSAGES_FORBIDDEN This user's privacy settings forbid you from sending voice messages.
-/// 400 YOU_BLOCKED_USER You blocked this user.
-/// See <a href="https://corefork.telegram.org/method/messages.forwardMessages" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>406 ALLOW_PAYMENT_REQUIRED This peer only accepts <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>: this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages.  .</c></para>
+/// <para><c>403 ALLOW_PAYMENT_REQUIRED_%d This peer charges %d <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> per message, but the <code>allow_paid_stars</code> was not set or its value is smaller than %d.</c></para>
+/// <para><c>400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN You can't forward polls with public voters.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>406 CHAT_FORWARDS_RESTRICTED You can't forward messages from a protected chat.</c></para>
+/// <para><c>403 CHAT_GUEST_SEND_FORBIDDEN You join the discussion group before commenting, see <a href="https://corefork.telegram.org/api/discussion#requiring-users-to-join-the-group">here »</a> for more info.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.</c></para>
+/// <para><c>403 CHAT_SEND_AUDIOS_FORBIDDEN You can't send audio messages in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_DOCS_FORBIDDEN You can't send documents in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_GAME_FORBIDDEN You can't send a game to this chat.</c></para>
+/// <para><c>403 CHAT_SEND_GIFS_FORBIDDEN You can't send gifs in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_INLINE_FORBIDDEN You can't send inline messages in this group.</c></para>
+/// <para><c>403 CHAT_SEND_MEDIA_FORBIDDEN You can't send media in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_PHOTOS_FORBIDDEN You can't send photos in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_POLL_FORBIDDEN You can't send polls in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_STICKERS_FORBIDDEN You can't send stickers in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_VIDEOS_FORBIDDEN You can't send videos in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_VOICES_FORBIDDEN You can't send voice recordings in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_WEBPAGE_FORBIDDEN You can't send webpage previews to this chat.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 GROUPED_MEDIA_INVALID Invalid grouped media.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MEDIA_EMPTY The provided media object is invalid.</c></para>
+/// <para><c>400 MESSAGE_IDS_EMPTY No message ids were provided.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>406 PAYMENT_UNSUPPORTED A detailed description of the error will be received separately as described <a href="https://corefork.telegram.org/api/errors#406-not-acceptable">here »</a>.</c></para>
+/// <para><c>406 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
+/// <para><c>403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
+/// <para><c>400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.</c></para>
+/// <para><c>400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.</c></para>
+/// <para><c>400 QUIZ_ANSWER_MISSING You can forward a quiz while hiding the original author only after choosing an option in the quiz.</c></para>
+/// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.</c></para>
+/// <para><c>400 RANDOM_ID_INVALID A provided random ID is invalid.</c></para>
+/// <para><c>400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.</c></para>
+/// <para><c>400 REPLY_TO_MONOFORUM_PEER_INVALID The specified inputReplyToMonoForum.monoforum_peer_id is invalid.</c></para>
+/// <para><c>400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.</c></para>
+/// <para><c>400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.</c></para>
+/// <para><c>400 SCHEDULE_TOO_MUCH There are too many scheduled messages.</c></para>
+/// <para><c>400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.</c></para>
+/// <para><c>400 SLOWMODE_MULTI_MSGS_DISABLED Slowmode is enabled, you cannot forward multiple messages to this group.</c></para>
+/// <para><c>420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.</c></para>
+/// <para><c>400 SUGGESTED_POST_PEER_INVALID You cannot send suggested posts to non-<a href="https://corefork.telegram.org/api/monoforum">monoforum</a> peers.</c></para>
+/// <para><c>406 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.</c></para>
+/// <para><c>406 TOPIC_DELETED The specified topic was deleted.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.</c></para>
+/// <para><c>403 USER_IS_BLOCKED You were blocked by this user.</c></para>
+/// <para><c>400 USER_IS_BOT Bots can't send messages to other bots.</c></para>
+/// <para><c>403 VOICE_MESSAGES_FORBIDDEN This user's privacy settings forbid you from sending voice messages.</c></para>
+/// <para><c>400 YOU_BLOCKED_USER You blocked this user. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.forwardMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x978928ca)]
-public sealed class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x978928ca;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to send messages silently (no notification will be triggered on the destination clients)
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to send the message in background
-    ///</summary>
+    /// </summary>
     public bool Background { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When forwarding games, whether to include your score in the game
-    ///</summary>
+    /// </summary>
     public bool WithMyScore { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to forward messages without quoting the original author
-    ///</summary>
+    /// </summary>
     public bool DropAuthor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to strip captions from media
-    ///</summary>
+    /// </summary>
     public bool DropMediaCaptions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for bots, disallows further re-forwarding and saving of the messages, even if the destination chat doesn't have <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">content protection</a> enabled
-    ///</summary>
+    /// </summary>
     public bool Noforwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bots only: if set, allows sending up to 1000 messages per second, ignoring <a href="https://corefork.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
-    ///</summary>
+    /// </summary>
     public bool AllowPaidFloodskip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Source of messages
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer FromPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of messages
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Random ID to prevent resending of messages
-    ///</summary>
+    /// </summary>
     public TVector<long> RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer ToPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a>
-    ///</summary>
+    /// </summary>
     public int? TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Can only contain an <a href="https://corefork.telegram.org/constructor/inputReplyToMonoForum">inputReplyToMonoForum</a>, to forward messages to a <a href="https://corefork.telegram.org/api/monoforum">monoforum topic</a> (mutually exclusive with <code>top_msg_id</code>).
     /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Scheduled message date for scheduled messages
-    ///</summary>
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Forward the messages as the specified peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Add the messages to the specified <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut »</a>, instead.
     /// See <a href="https://corefork.telegram.org/type/InputQuickReplyShortcut" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputQuickReplyShortcut? QuickReplyShortcut { get; set; }
 
+    /// <summary>
+    /// Start playing the video at the specified timestamp (seconds).
+    /// </summary>
     public int? VideoTimestamp { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>, specifies the amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> the user has agreed to pay in order to send the message.
-    ///</summary>
+    /// </summary>
     public long? AllowPaidStars { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Used to <a href="https://corefork.telegram.org/api/suggested-posts">suggest a post to a channel, see here »</a> for more info on the full flow.
     /// See <a href="https://corefork.telegram.org/type/SuggestedPost" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
     public void ComputeFlag()

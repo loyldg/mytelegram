@@ -1,16 +1,17 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
+/// <summary>
 /// Send the verification phone code for telegram <a href="https://corefork.telegram.org/passport">passport</a>.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 PHONE_NUMBER_INVALID The phone number is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.sendVerifyPhoneCode" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/account.sendVerifyPhoneCode"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class SendVerifyPhoneCodeHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestSendVerifyPhoneCode, MyTelegram.Schema.Auth.ISentCode>
 {
-    protected override Task<MyTelegram.Schema.Auth.ISentCode> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestSendVerifyPhoneCode obj)
+    protected override Task<MyTelegram.Schema.Auth.ISentCode> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestSendVerifyPhoneCode obj)
     {
         throw new NotImplementedException();
     }

@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Reaction and view counters for a list of <a href="https://corefork.telegram.org/api/stories">stories</a>
-/// See <a href="https://corefork.telegram.org/constructor/stories.storyViews" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stories.storyViews" /></para>
+/// </summary>
 [TlObject(0xde9eed1d)]
-public sealed class TStoryViews : IStoryViews
+public sealed partial class TStoryViews : IStoryViews
 {
     public uint ConstructorId => 0xde9eed1d;
-    ///<summary>
+    /// <summary>
     /// View date and reaction information of multiple stories
     /// See <a href="https://corefork.telegram.org/type/StoryViews" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStoryViews> Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

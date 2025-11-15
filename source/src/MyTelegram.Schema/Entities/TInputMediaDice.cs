@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Send a <a href="https://corefork.telegram.org/api/dice">dice-based animated sticker</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaDice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaDice" /></para>
+/// </summary>
 [TlObject(0xe66fbf7b)]
-public sealed class TInputMediaDice : IInputMedia
+public sealed partial class TInputMediaDice : IInputMedia
 {
     public uint ConstructorId => 0xe66fbf7b;
-    ///<summary>
+    /// <summary>
     /// The emoji, for now <img class="emoji" src="//telegram.org/img/emoji/40/F09F8F80.png" width="20" height="20" alt="🏀">, <img class="emoji" src="//telegram.org/img/emoji/40/F09F8EB2.png" width="20" height="20" alt="🎲"> and <img class="emoji" src="//telegram.org/img/emoji/40/F09F8EAF.png" width="20" height="20" alt="🎯"> are supported
-    ///</summary>
+    /// </summary>
     public string Emoticon { get; set; }
 
     public void ComputeFlag()

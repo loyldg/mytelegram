@@ -2,9 +2,13 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="" />
-///</summary>
+/// <summary>
+/// <para>See <a href="" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TNull"/> See <a href="https://corefork.telegram.org/constructor/null" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TNull), nameof(TNull))]
 public interface INull : IObject
 {

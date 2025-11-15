@@ -2,59 +2,63 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Returns content of a whole file or its part.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CDN_METHOD_INVALID You can't call this method in a CDN DC.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 406 FILEREF_UPGRADE_NEEDED The client has to be updated in order to support <a href="https://corefork.telegram.org/api/file_reference">file references</a>.
-/// 400 FILE_ID_INVALID The provided file id is invalid.
-/// 400 FILE_REFERENCE_EMPTY An empty <a href="https://corefork.telegram.org/api/file_reference">file reference</a> was specified.
-/// 400 FILE_REFERENCE_EXPIRED File reference expired, it must be refetched as described in <a href="https://corefork.telegram.org/api/file_reference">the documentation</a>.
-/// 420 FLOOD_PREMIUM_WAIT_%d Please wait %d seconds before repeating the action, or purchase a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to remove this rate limit.
-/// 400 LIMIT_INVALID The provided limit is invalid.
-/// 400 LOCATION_INVALID The provided location is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 OFFSET_INVALID The provided offset is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/upload.getFile" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CDN_METHOD_INVALID You can't call this method in a CDN DC.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>406 FILEREF_UPGRADE_NEEDED The client has to be updated in order to support <a href="https://corefork.telegram.org/api/file-references">file references</a>.</c></para>
+/// <para><c>400 FILE_ID_INVALID The provided file id is invalid.</c></para>
+/// <para><c>400 FILE_REFERENCE_EMPTY An empty <a href="https://corefork.telegram.org/api/file-references">file reference</a> was specified.</c></para>
+/// <para><c>400 FILE_REFERENCE_EXPIRED File reference expired, it must be refetched as described in <a href="https://corefork.telegram.org/api/file-references">the documentation</a>.</c></para>
+/// <para><c>400 FILE_REFERENCE_INVALID The specified <a href="https://corefork.telegram.org/api/file-references">file reference</a> is invalid.</c></para>
+/// <para><c>420 FLOOD_PREMIUM_WAIT_%d Please wait %d seconds before repeating the action, or purchase a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to remove this rate limit.</c></para>
+/// <para><c>400 LIMIT_INVALID The provided limit is invalid.</c></para>
+/// <para><c>400 LOCATION_INVALID The provided location is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 OFFSET_INVALID The provided offset is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/upload.getFile" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbe5335be)]
-public sealed class RequestGetFile : IRequest<MyTelegram.Schema.Upload.IFile>
+public sealed partial class RequestGetFile : IRequest<MyTelegram.Schema.Upload.IFile>
 {
     public uint ConstructorId => 0xbe5335be;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Disable some checks on limit and offset values, useful for example to stream videos by keyframes
-    ///</summary>
+    /// </summary>
     public bool Precise { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current client supports <a href="https://corefork.telegram.org/cdn">CDN downloads</a>
-    ///</summary>
+    /// </summary>
     public bool CdnSupported { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File location
     /// See <a href="https://corefork.telegram.org/type/InputFileLocation" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFileLocation Location { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of bytes to be skipped
-    ///</summary>
+    /// </summary>
     public long Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of bytes to be returned
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

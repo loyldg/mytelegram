@@ -2,38 +2,42 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/bots/inline#21-using-a-prepared-inline-message">prepared inline message received via a bot's mini app, that can be sent to some chats »</a>
-/// See <a href="https://corefork.telegram.org/type/messages.PreparedInlineMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.PreparedInlineMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPreparedInlineMessage"/> See <a href="https://corefork.telegram.org/constructor/messages.preparedInlineMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPreparedInlineMessage), nameof(TPreparedInlineMessage))]
 public interface IPreparedInlineMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The <code>query_id</code> to pass to <a href="https://corefork.telegram.org/method/messages.sendInlineBotResult">messages.sendInlineBotResult</a>
-    ///</summary>
+    /// </summary>
     long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The contents of the message, to be shown in a preview
     /// See <a href="https://corefork.telegram.org/type/BotInlineResult" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IBotInlineResult Result { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Types of chats where this message can be sent
     /// See <a href="https://corefork.telegram.org/type/InlineQueryPeerType" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IInlineQueryPeerType> PeerTypes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Caching validity of the results
-    ///</summary>
+    /// </summary>
     int CacheTime { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the results
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Timezone information.
-/// See <a href="https://corefork.telegram.org/type/Timezone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Timezone" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTimezone"/> See <a href="https://corefork.telegram.org/constructor/timezone" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTimezone), nameof(TTimezone))]
 public interface ITimezone : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Unique timezone ID.
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Human-readable and localized timezone name.
-    ///</summary>
+    /// </summary>
     string Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// UTC offset in seconds, which may be displayed in hh:mm format by the client together with the human-readable name (i.e. <code>$name UTC -01:00</code>).
-    ///</summary>
+    /// </summary>
     int UtcOffset { get; set; }
 }

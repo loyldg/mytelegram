@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a deleted forum topic.
-/// See <a href="https://corefork.telegram.org/constructor/forumTopicDeleted" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/forumTopicDeleted" /></para>
+/// </summary>
 [TlObject(0x23f109b)]
-public sealed class TForumTopicDeleted : IForumTopic
+public sealed partial class TForumTopicDeleted : IForumTopic
 {
     public uint ConstructorId => 0x23f109b;
-    ///<summary>
+    /// <summary>
     /// The ID of the deleted forum topic.
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

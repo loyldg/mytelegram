@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Often-opened groups and supergroups
-/// See <a href="https://corefork.telegram.org/constructor/topPeerCategoryGroups" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/topPeerCategoryGroups" /></para>
+/// </summary>
 [TlObject(0xbd17a14a)]
-public sealed class TTopPeerCategoryGroups : ITopPeerCategory
+public sealed partial class TTopPeerCategoryGroups : ITopPeerCategory
 {
     public uint ConstructorId => 0xbd17a14a;
     public void ComputeFlag()

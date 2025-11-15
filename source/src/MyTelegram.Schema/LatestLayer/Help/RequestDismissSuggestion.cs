@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Dismiss a <a href="https://corefork.telegram.org/api/config#suggestions">suggestion, see here for more info »</a>.
-/// See <a href="https://corefork.telegram.org/method/help.dismissSuggestion" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.dismissSuggestion" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf50dbaa1)]
-public sealed class RequestDismissSuggestion : IRequest<IBool>
+public sealed partial class RequestDismissSuggestion : IRequest<IBool>
 {
     public uint ConstructorId => 0xf50dbaa1;
 
-    ///<summary>
+    /// <summary>
     /// In the case of pending suggestions in <a href="https://corefork.telegram.org/constructor/channelFull">channels</a>, the channel ID.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/config#suggestions">Suggestion, see here for more info »</a>.
-    ///</summary>
+    /// </summary>
     public string Suggestion { get; set; }
 
     public void ComputeFlag()

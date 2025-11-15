@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty draft
-/// See <a href="https://corefork.telegram.org/constructor/draftMessageEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/draftMessageEmpty" /></para>
+/// </summary>
 [TlObject(0x1b0c841a)]
-public sealed class TDraftMessageEmpty : IDraftMessage
+public sealed partial class TDraftMessageEmpty : IDraftMessage
 {
     public uint ConstructorId => 0x1b0c841a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the draft last updated
-    ///</summary>
+    /// </summary>
     public int? Date { get; set; }
 
     public void ComputeFlag()

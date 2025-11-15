@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Suggested <a href="https://corefork.telegram.org/api/folders">folders</a>
-/// See <a href="https://corefork.telegram.org/constructor/dialogFilterSuggested" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dialogFilterSuggested" /></para>
+/// </summary>
 [TlObject(0x77744d4a)]
-public sealed class TDialogFilterSuggested : IDialogFilterSuggested
+public sealed partial class TDialogFilterSuggested : IDialogFilterSuggested
 {
     public uint ConstructorId => 0x77744d4a;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder info</a>
     /// See <a href="https://corefork.telegram.org/type/DialogFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDialogFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> description
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
     public void ComputeFlag()

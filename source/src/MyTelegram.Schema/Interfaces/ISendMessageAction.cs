@@ -2,10 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User actions. Use this to provide users with detailed info about their chat partner's actions: typing or sending attachments of all kinds.
-/// See <a href="https://corefork.telegram.org/type/SendMessageAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SendMessageAction" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSendMessageTypingAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageTypingAction" /><br/>
+/// <see cref="TSendMessageCancelAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageCancelAction" /><br/>
+/// <see cref="TSendMessageRecordVideoAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageRecordVideoAction" /><br/>
+/// <see cref="TSendMessageUploadVideoAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageUploadVideoAction" /><br/>
+/// <see cref="TSendMessageRecordAudioAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageRecordAudioAction" /><br/>
+/// <see cref="TSendMessageUploadAudioAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageUploadAudioAction" /><br/>
+/// <see cref="TSendMessageUploadPhotoAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageUploadPhotoAction" /><br/>
+/// <see cref="TSendMessageUploadDocumentAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageUploadDocumentAction" /><br/>
+/// <see cref="TSendMessageGeoLocationAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageGeoLocationAction" /><br/>
+/// <see cref="TSendMessageChooseContactAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageChooseContactAction" /><br/>
+/// <see cref="TSendMessageGamePlayAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageGamePlayAction" /><br/>
+/// <see cref="TSendMessageRecordRoundAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageRecordRoundAction" /><br/>
+/// <see cref="TSendMessageUploadRoundAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageUploadRoundAction" /><br/>
+/// <see cref="TSpeakingInGroupCallAction"/> See <a href="https://corefork.telegram.org/constructor/speakingInGroupCallAction" /><br/>
+/// <see cref="TSendMessageHistoryImportAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageHistoryImportAction" /><br/>
+/// <see cref="TSendMessageChooseStickerAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageChooseStickerAction" /><br/>
+/// <see cref="TSendMessageEmojiInteraction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageEmojiInteraction" /><br/>
+/// <see cref="TSendMessageEmojiInteractionSeen"/> See <a href="https://corefork.telegram.org/constructor/sendMessageEmojiInteractionSeen" /><br/>
+/// <see cref="TSendMessageTextDraftAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageTextDraftAction" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSendMessageTypingAction), nameof(TSendMessageTypingAction))]
 [JsonDerivedType(typeof(TSendMessageCancelAction), nameof(TSendMessageCancelAction))]
 [JsonDerivedType(typeof(TSendMessageRecordVideoAction), nameof(TSendMessageRecordVideoAction))]
@@ -24,6 +46,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TSendMessageChooseStickerAction), nameof(TSendMessageChooseStickerAction))]
 [JsonDerivedType(typeof(TSendMessageEmojiInteraction), nameof(TSendMessageEmojiInteraction))]
 [JsonDerivedType(typeof(TSendMessageEmojiInteractionSeen), nameof(TSendMessageEmojiInteractionSeen))]
+[JsonDerivedType(typeof(TSendMessageTextDraftAction), nameof(TSendMessageTextDraftAction))]
 public interface ISendMessageAction : IObject
 {
 }

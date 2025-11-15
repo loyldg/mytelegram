@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a <a href="https://corefork.telegram.org/api/saved-messages#tags">saved message reaction tag »</a>.
-/// See <a href="https://corefork.telegram.org/type/SavedReactionTag" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SavedReactionTag" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedReactionTag"/> See <a href="https://corefork.telegram.org/constructor/savedReactionTag" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedReactionTag), nameof(TSavedReactionTag))]
 public interface ISavedReactionTag : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/reactions">Reaction</a> associated to the tag.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IReaction Reaction { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Custom tag name assigned by the user (max 12 UTF-8 chars).
-    ///</summary>
+    /// </summary>
     string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of messages tagged with this tag.
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 }

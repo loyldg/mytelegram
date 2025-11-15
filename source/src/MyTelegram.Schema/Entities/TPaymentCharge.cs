@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Payment identifier
-/// See <a href="https://corefork.telegram.org/constructor/paymentCharge" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/paymentCharge" /></para>
+/// </summary>
 [TlObject(0xea02c27e)]
-public sealed class TPaymentCharge : IPaymentCharge
+public sealed partial class TPaymentCharge : IPaymentCharge
 {
     public uint ConstructorId => 0xea02c27e;
-    ///<summary>
+    /// <summary>
     /// Telegram payment identifier
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Provider payment identifier
-    ///</summary>
+    /// </summary>
     public string ProviderChargeId { get; set; }
 
     public void ComputeFlag()

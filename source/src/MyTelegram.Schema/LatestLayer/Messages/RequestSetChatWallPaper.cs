@@ -2,56 +2,59 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Set a custom <a href="https://corefork.telegram.org/api/wallpapers">wallpaper »</a> in a specific private chat with another user.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 WALLPAPER_INVALID The specified wallpaper is invalid.
-/// 400 WALLPAPER_NOT_FOUND The specified wallpaper could not be found.
-/// See <a href="https://corefork.telegram.org/method/messages.setChatWallPaper" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 WALLPAPER_INVALID The specified wallpaper is invalid.</c></para>
+/// <para><c>400 WALLPAPER_NOT_FOUND The specified wallpaper could not be found. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setChatWallPaper" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8ffacae1)]
-public sealed class RequestSetChatWallPaper : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSetChatWallPaper : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x8ffacae1;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for <a href="https://corefork.telegram.org/api/premium">Premium</a> users, sets the specified wallpaper for both users of the chat, without requiring confirmation from the other user.
-    ///</summary>
+    /// </summary>
     public bool ForBoth { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If we don't like the new wallpaper the other user of the chat has chosen for us using the <code>for_both</code> flag, we can re-set our previous wallpaper just on our side using this flag.
-    ///</summary>
+    /// </summary>
     public bool Revert { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The private chat where the wallpaper will be set
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/wallpapers">wallpaper »</a>, obtained as described in the <a href="https://corefork.telegram.org/api/wallpapers#uploading-wallpapers">wallpaper documentation »</a>; must <strong>not</strong> be provided when installing a wallpaper obtained from a <a href="https://corefork.telegram.org/constructor/messageActionSetChatWallPaper">messageActionSetChatWallPaper</a> service message (<code>id</code> must be provided, instead).
     /// See <a href="https://corefork.telegram.org/type/InputWallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputWallPaper? Wallpaper { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Wallpaper settings, obtained as described in the <a href="https://corefork.telegram.org/api/wallpapers#uploading-wallpapers">wallpaper documentation »</a> or from <a href="https://corefork.telegram.org/constructor/messageActionSetChatWallPaper">messageActionSetChatWallPaper</a>.<code>wallpaper</code>.<code>settings</code>.
     /// See <a href="https://corefork.telegram.org/type/WallPaperSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaperSettings? Settings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the wallpaper was obtained from a <a href="https://corefork.telegram.org/constructor/messageActionSetChatWallPaper">messageActionSetChatWallPaper</a> service message, must contain the ID of that message.
-    ///</summary>
+    /// </summary>
     public int? Id { get; set; }
 
     public void ComputeFlag()

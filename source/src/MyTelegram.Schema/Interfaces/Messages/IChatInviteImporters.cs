@@ -2,27 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// List of users that imported a chat invitation link.
-/// See <a href="https://corefork.telegram.org/type/messages.ChatInviteImporters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.ChatInviteImporters" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatInviteImporters"/> See <a href="https://corefork.telegram.org/constructor/messages.chatInviteImporters" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatInviteImporters), nameof(TChatInviteImporters))]
 public interface IChatInviteImporters : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Number of users that joined
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The users that joined
     /// See <a href="https://corefork.telegram.org/type/ChatInviteImporter" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChatInviteImporter> Importers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The users that joined
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

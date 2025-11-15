@@ -2,21 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Found <a href="https://corefork.telegram.org/api/stickers">stickers</a>
-/// See <a href="https://corefork.telegram.org/type/messages.FoundStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.FoundStickers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFoundStickersNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.foundStickersNotModified" /><br/>
+/// <see cref="TFoundStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.foundStickers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFoundStickersNotModified), nameof(TFoundStickersNotModified))]
 [JsonDerivedType(typeof(TFoundStickers), nameof(TFoundStickers))]
 public interface IFoundStickers : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>
-    ///</summary>
+    /// </summary>
     int? NextOffset { get; set; }
 }

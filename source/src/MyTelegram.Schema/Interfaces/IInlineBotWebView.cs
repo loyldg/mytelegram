@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Specifies an <a href="https://corefork.telegram.org/api/bots/webapps#inline-mode-mini-apps">inline mode mini app</a> button, shown on top of the inline query results list.
-/// See <a href="https://corefork.telegram.org/type/InlineBotWebView" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InlineBotWebView" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInlineBotWebView"/> See <a href="https://corefork.telegram.org/constructor/inlineBotWebView" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInlineBotWebView), nameof(TInlineBotWebView))]
 public interface IInlineBotWebView : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Text of the button
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webapp URL
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 }

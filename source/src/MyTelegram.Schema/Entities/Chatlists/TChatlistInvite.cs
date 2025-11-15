@@ -2,48 +2,51 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Info about a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistInvite" /></para>
+/// </summary>
 [TlObject(0xf10ece2f)]
-public sealed class TChatlistInvite : IChatlistInvite
+public sealed partial class TChatlistInvite : IChatlistInvite
 {
     public uint ConstructorId => 0xf10ece2f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// If set, any animated emojis present in <code>title</code> should not be animated and should be instead frozen on the first frame.
+    /// </summary>
     public bool TitleNoanimate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the link
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emoji to use as icon for the folder.
-    ///</summary>
+    /// </summary>
     public string? Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Supergroups and channels to join
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related chat information
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related user information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

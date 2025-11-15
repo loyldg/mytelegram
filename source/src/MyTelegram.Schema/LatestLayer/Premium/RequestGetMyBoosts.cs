@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Premium;
 
-///<summary>
+/// <summary>
 /// Obtain which peers are we currently <a href="https://corefork.telegram.org/api/boost">boosting</a>, and how many <a href="https://corefork.telegram.org/api/boost">boost slots</a> we have left.
-/// See <a href="https://corefork.telegram.org/method/premium.getMyBoosts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/premium.getMyBoosts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbe77b4a)]
-public sealed class RequestGetMyBoosts : IRequest<MyTelegram.Schema.Premium.IMyBoosts>
+public sealed partial class RequestGetMyBoosts : IRequest<MyTelegram.Schema.Premium.IMyBoosts>
 {
     public uint ConstructorId => 0xbe77b4a;
 

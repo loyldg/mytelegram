@@ -2,23 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a peer, shared by a user with the currently logged in bot using <a href="https://corefork.telegram.org/method/messages.sendBotRequestedPeer">messages.sendBotRequestedPeer</a>.
-/// See <a href="https://corefork.telegram.org/type/RequestedPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/RequestedPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TRequestedPeerUser"/> See <a href="https://corefork.telegram.org/constructor/requestedPeerUser" /><br/>
+/// <see cref="TRequestedPeerChat"/> See <a href="https://corefork.telegram.org/constructor/requestedPeerChat" /><br/>
+/// <see cref="TRequestedPeerChannel"/> See <a href="https://corefork.telegram.org/constructor/requestedPeerChannel" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TRequestedPeerUser), nameof(TRequestedPeerUser))]
 [JsonDerivedType(typeof(TRequestedPeerChat), nameof(TRequestedPeerChat))]
 [JsonDerivedType(typeof(TRequestedPeerChannel), nameof(TRequestedPeerChannel))]
 public interface IRequestedPeer : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat photo.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPhoto? Photo { get; set; }
 }

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Current peer
-/// See <a href="https://corefork.telegram.org/constructor/peerSelfLocated" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/peerSelfLocated" /></para>
+/// </summary>
 [TlObject(0xf8ec284b)]
-public sealed class TPeerSelfLocated : IPeerLocated
+public sealed partial class TPeerSelfLocated : IPeerLocated
 {
     public uint ConstructorId => 0xf8ec284b;
-    ///<summary>
+    /// <summary>
     /// Expiry of geolocation info for current peer
-    ///</summary>
+    /// </summary>
     public int Expires { get; set; }
 
     public void ComputeFlag()

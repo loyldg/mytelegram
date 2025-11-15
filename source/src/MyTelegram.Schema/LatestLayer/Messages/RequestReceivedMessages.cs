@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Confirms receipt of messages by a client, cancels PUSH-notification sending.
-/// See <a href="https://corefork.telegram.org/method/messages.receivedMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.receivedMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5a954c0)]
-public sealed class RequestReceivedMessages : IRequest<TVector<MyTelegram.Schema.IReceivedNotifyMessage>>
+public sealed partial class RequestReceivedMessages : IRequest<TVector<MyTelegram.Schema.IReceivedNotifyMessage>>
 {
     public uint ConstructorId => 0x5a954c0;
 
-    ///<summary>
+    /// <summary>
     /// Maximum message ID available in a client.
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
     public void ComputeFlag()

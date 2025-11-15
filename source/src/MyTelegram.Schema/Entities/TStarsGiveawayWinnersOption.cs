@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Allowed options for the number of giveaway winners.
-/// See <a href="https://corefork.telegram.org/constructor/starsGiveawayWinnersOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsGiveawayWinnersOption" /></para>
+/// </summary>
 [TlObject(0x54236209)]
-public sealed class TStarsGiveawayWinnersOption : IStarsGiveawayWinnersOption
+public sealed partial class TStarsGiveawayWinnersOption : IStarsGiveawayWinnersOption
 {
     public uint ConstructorId => 0x54236209;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this option must be pre-selected by default in the option list.
-    ///</summary>
+    /// </summary>
     public bool Default { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of users that will be randomly chosen as winners.
-    ///</summary>
+    /// </summary>
     public int Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> each winner will receive.
-    ///</summary>
+    /// </summary>
     public long PerUserStars { get; set; }
 
     public void ComputeFlag()

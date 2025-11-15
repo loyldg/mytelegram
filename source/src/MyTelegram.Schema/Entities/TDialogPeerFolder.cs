@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder</a>
-/// See <a href="https://corefork.telegram.org/constructor/dialogPeerFolder" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dialogPeerFolder" /></para>
+/// </summary>
 [TlObject(0x514519e2)]
-public sealed class TDialogPeerFolder : IDialogPeer
+public sealed partial class TDialogPeerFolder : IDialogPeer
 {
     public uint ConstructorId => 0x514519e2;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int FolderId { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Emoji keyword
-/// See <a href="https://corefork.telegram.org/constructor/emojiKeyword" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiKeyword" /></para>
+/// </summary>
 [TlObject(0xd5b3b9f9)]
-public sealed class TEmojiKeyword : IEmojiKeyword
+public sealed partial class TEmojiKeyword : IEmojiKeyword
 {
     public uint ConstructorId => 0xd5b3b9f9;
-    ///<summary>
+    /// <summary>
     /// Keyword
-    ///</summary>
+    /// </summary>
     public string Keyword { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emojis associated to keyword
-    ///</summary>
+    /// </summary>
     public TVector<string> Emoticons { get; set; }
 
     public void ComputeFlag()

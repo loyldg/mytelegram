@@ -2,22 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object describing a message.
-/// See <a href="https://corefork.telegram.org/type/Message" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Message" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageEmpty"/> See <a href="https://corefork.telegram.org/constructor/messageEmpty" /><br/>
+/// <see cref="TMessage"/> See <a href="https://corefork.telegram.org/constructor/message" /><br/>
+/// <see cref="TMessageService"/> See <a href="https://corefork.telegram.org/constructor/messageService" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageEmpty), nameof(TMessageEmpty))]
 [JsonDerivedType(typeof(TMessage), nameof(TMessage))]
 [JsonDerivedType(typeof(TMessageService), nameof(TMessageService))]
 public interface IMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message identifier
-    ///</summary>
+    /// </summary>
     int Id { get; set; }
 }

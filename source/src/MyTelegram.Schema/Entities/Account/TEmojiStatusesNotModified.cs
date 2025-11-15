@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// The server-side list of <a href="https://corefork.telegram.org/api/emoji-status">emoji statuses</a> hasn't changed
-/// See <a href="https://corefork.telegram.org/constructor/account.emojiStatusesNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.emojiStatusesNotModified" /></para>
+/// </summary>
 [TlObject(0xd08ce645)]
-public sealed class TEmojiStatusesNotModified : IEmojiStatuses
+public sealed partial class TEmojiStatusesNotModified : IEmojiStatuses
 {
     public uint ConstructorId => 0xd08ce645;
     public void ComputeFlag()

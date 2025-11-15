@@ -2,80 +2,80 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/invites#paid-invite-links">Telegram Star subscription »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/starsSubscription" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsSubscription" /></para>
+/// </summary>
 [TlObject(0x2e6eab1a)]
-public sealed class TStarsSubscription : IStarsSubscription
+public sealed partial class TStarsSubscription : IStarsSubscription
 {
     public uint ConstructorId => 0x2e6eab1a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this subscription was cancelled.
-    ///</summary>
+    /// </summary>
     public bool Canceled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we left the associated private channel, but we can still rejoin it using <a href="https://corefork.telegram.org/method/payments.fulfillStarsSubscription">payments.fulfillStarsSubscription</a> because the current subscription period hasn't expired yet.
-    ///</summary>
+    /// </summary>
     public bool CanRefulfill { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this subscription has expired because there are not enough stars on the user's balance to extend it.
-    ///</summary>
+    /// </summary>
     public bool MissingBalance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set if this <a href="https://corefork.telegram.org/api/subscriptions#bot-subscriptions">bot subscription</a> was cancelled by the bot
-    ///</summary>
+    /// </summary>
     public bool BotCanceled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Subscription ID.
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the associated private chat.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Expiration date of the current subscription period.
-    ///</summary>
+    /// </summary>
     public int UntilDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pricing of the subscription in Telegram Stars.
     /// See <a href="https://corefork.telegram.org/type/StarsSubscriptionPricing" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsSubscriptionPricing Pricing { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invitation link, used to renew the subscription after cancellation or expiration.
-    ///</summary>
+    /// </summary>
     public string? ChatInviteHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For bot subscriptions, the title of the subscription invoice
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For bot subscriptions, the photo from the subscription invoice
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For bot subscriptions, the <a href="https://corefork.telegram.org/api/links#invoice-links">identifier</a> of the subscription invoice
-    ///</summary>
+    /// </summary>
     public string? InvoiceSlug { get; set; }
 
     public void ComputeFlag()

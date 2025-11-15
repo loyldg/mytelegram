@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Fetch all users with birthdays that fall within +1/-1 days, relative to the current day: this method should be invoked by clients every 6-8 hours, and if the result is non-empty, it should be used to appropriately update locally cached birthday information in <a href="https://corefork.telegram.org/constructor/user">user</a>.<code>birthday</code>.<a href="https://corefork.telegram.org/api/profile#birthday">See here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/method/contacts.getBirthdays" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.getBirthdays" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdaeda864)]
-public sealed class RequestGetBirthdays : IRequest<MyTelegram.Schema.Contacts.IContactBirthdays>
+public sealed partial class RequestGetBirthdays : IRequest<MyTelegram.Schema.Contacts.IContactBirthdays>
 {
     public uint ConstructorId => 0xdaeda864;
 

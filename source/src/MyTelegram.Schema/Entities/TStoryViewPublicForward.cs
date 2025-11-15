@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A certain peer has forwarded the story as a message to a public chat or channel.
-/// See <a href="https://corefork.telegram.org/constructor/storyViewPublicForward" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyViewPublicForward" /></para>
+/// </summary>
 [TlObject(0x9083670b)]
-public sealed class TStoryViewPublicForward : IStoryView
+public sealed partial class TStoryViewPublicForward : IStoryView
 {
     public uint ConstructorId => 0x9083670b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/block">completely blocked</a> this user, including from viewing more of our stories.
-    ///</summary>
+    /// </summary>
     public bool Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/block">blocked</a> this user from viewing more of our stories.
-    ///</summary>
+    /// </summary>
     public bool BlockedMyStoriesFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message with the forwarded story.
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
     public void ComputeFlag()

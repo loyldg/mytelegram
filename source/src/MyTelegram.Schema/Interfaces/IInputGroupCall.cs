@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a group call
-/// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputGroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputGroupCall"/> See <a href="https://corefork.telegram.org/constructor/inputGroupCall" /><br/>
+/// <see cref="TInputGroupCallSlug"/> See <a href="https://corefork.telegram.org/constructor/inputGroupCallSlug" /><br/>
+/// <see cref="TInputGroupCallInviteMessage"/> See <a href="https://corefork.telegram.org/constructor/inputGroupCallInviteMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputGroupCall), nameof(TInputGroupCall))]
 [JsonDerivedType(typeof(TInputGroupCallSlug), nameof(TInputGroupCallSlug))]
 [JsonDerivedType(typeof(TInputGroupCallInviteMessage), nameof(TInputGroupCallInviteMessage))]

@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Featured stickersets
-/// See <a href="https://corefork.telegram.org/constructor/messages.featuredStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.featuredStickers" /></para>
+/// </summary>
 [TlObject(0xbe382906)]
-public sealed class TFeaturedStickers : IFeaturedStickers
+public sealed partial class TFeaturedStickers : IFeaturedStickers
 {
     public uint ConstructorId => 0xbe382906;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a premium stickerset
-    ///</summary>
+    /// </summary>
     public bool Premium { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of featured stickers
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Featured stickersets
     /// See <a href="https://corefork.telegram.org/type/StickerSetCovered" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerSetCovered> Sets { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of new featured stickersets
-    ///</summary>
+    /// </summary>
     public TVector<long> Unread { get; set; }
 
     public void ComputeFlag()

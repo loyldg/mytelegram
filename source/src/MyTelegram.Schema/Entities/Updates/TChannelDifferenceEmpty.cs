@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// There are no new updates
-/// See <a href="https://corefork.telegram.org/constructor/updates.channelDifferenceEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates.channelDifferenceEmpty" /></para>
+/// </summary>
 [TlObject(0x3e11affb)]
-public sealed class TChannelDifferenceEmpty : IChannelDifference
+public sealed partial class TChannelDifferenceEmpty : IChannelDifference
 {
     public uint ConstructorId => 0x3e11affb;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether there are more updates that must be fetched (always false)
-    ///</summary>
+    /// </summary>
     public bool Final { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The latest <a href="https://corefork.telegram.org/api/updates">PTS</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clients are supposed to refetch the channel difference after timeout seconds have elapsed, if the user is <a href="https://corefork.telegram.org/api/updates#subscribing-to-updates-of-channels-supergroups">currently viewing the chat, see here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int? Timeout { get; set; }
 
     public void ComputeFlag()

@@ -2,61 +2,61 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Result of a query to an inline bot
-/// See <a href="https://corefork.telegram.org/constructor/messages.botResults" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.botResults" /></para>
+/// </summary>
 [TlObject(0xe021f2f6)]
-public sealed class TBotResults : IBotResults
+public sealed partial class TBotResults : IBotResults
 {
     public uint ConstructorId => 0xe021f2f6;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the result is a picture gallery
-    ///</summary>
+    /// </summary>
     public bool Gallery { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query ID
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The next offset to use when navigating through results
-    ///</summary>
+    /// </summary>
     public string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Shown as a button on top of the remaining inline result list; if clicked, redirects the user to a private chat with the bot with the specified start parameter.
     /// See <a href="https://corefork.telegram.org/type/InlineBotSwitchPM" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInlineBotSwitchPM? SwitchPm { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Shown as a button on top of the remaining inline result list; if clicked, opens the specified <a href="https://corefork.telegram.org/api/bots/webapps#inline-mode-mini-apps">inline mode mini app</a>.
     /// See <a href="https://corefork.telegram.org/type/InlineBotWebView" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInlineBotWebView? SwitchWebview { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The results
     /// See <a href="https://corefork.telegram.org/type/BotInlineResult" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBotInlineResult> Results { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Caching validity of the results
-    ///</summary>
+    /// </summary>
     public int CacheTime { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the results
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

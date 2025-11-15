@@ -2,30 +2,32 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Sends a custom request; for bots only
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DATA_JSON_INVALID The provided JSON data is invalid.
-/// 400 METHOD_INVALID The specified method is invalid.
-/// 403 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/bots.sendCustomRequest" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DATA_JSON_INVALID The provided JSON data is invalid.</c></para>
+/// <para><c>400 METHOD_INVALID The specified method is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.sendCustomRequest" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xaa2769ed)]
-public sealed class RequestSendCustomRequest : IRequest<MyTelegram.Schema.IDataJSON>
+public sealed partial class RequestSendCustomRequest : IRequest<MyTelegram.Schema.IDataJSON>
 {
     public uint ConstructorId => 0xaa2769ed;
 
-    ///<summary>
+    /// <summary>
     /// The method name
-    ///</summary>
+    /// </summary>
     public string CustomMethod { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// JSON-serialized method parameters
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Params { get; set; }
 
     public void ComputeFlag()

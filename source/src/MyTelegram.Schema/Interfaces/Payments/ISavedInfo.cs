@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Saved payment info
-/// See <a href="https://corefork.telegram.org/type/payments.SavedInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.SavedInfo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedInfo"/> See <a href="https://corefork.telegram.org/constructor/payments.savedInfo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedInfo), nameof(TSavedInfo))]
 public interface ISavedInfo : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user has some saved payment credentials
-    ///</summary>
+    /// </summary>
     bool HasSavedCredentials { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Saved server-side order information
     /// See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPaymentRequestedInfo? SavedInfo { get; set; }
 }

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> with no file access hash, used for example when deleting (<code>unsave=true</code>) wallpapers using <a href="https://corefork.telegram.org/method/account.saveWallPaper">account.saveWallPaper</a>, specifying just the wallpaper ID.
-/// See <a href="https://corefork.telegram.org/constructor/inputWallPaperNoFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputWallPaperNoFile" /></para>
+/// </summary>
 [TlObject(0x967a462e)]
-public sealed class TInputWallPaperNoFile : IInputWallPaper
+public sealed partial class TInputWallPaperNoFile : IInputWallPaper
 {
     public uint ConstructorId => 0x967a462e;
-    ///<summary>
+    /// <summary>
     /// Wallpaper ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

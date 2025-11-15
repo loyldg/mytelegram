@@ -2,47 +2,51 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Deletes messages forwarded from a specific peer to <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.deleteSavedHistory" />
-///</summary>
+/// <summary>
+/// Deletes messages from a <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a>, or deletes messages forwarded from a specific peer to <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.deleteSavedHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4dc5085f)]
-public sealed class RequestDeleteSavedHistory : IRequest<MyTelegram.Schema.Messages.IAffectedHistory>
+public sealed partial class RequestDeleteSavedHistory : IRequest<MyTelegram.Schema.Messages.IAffectedHistory>
 {
     public uint ConstructorId => 0x4dc5085f;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, affects the messages of the passed <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a>, otherwise affects <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ParentPeer { get; set; }
 
-    ///<summary>
-    /// Peer, whose messages will be deleted from <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>
+    /// <summary>
+    /// Peer, whose messages will be deleted from <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>, or the ID of the topic.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum ID of message to delete
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Delete all messages newer than this UNIX timestamp
-    ///</summary>
+    /// </summary>
     public int? MinDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Delete all messages older than this UNIX timestamp
-    ///</summary>
+    /// </summary>
     public int? MaxDate { get; set; }
 
     public void ComputeFlag()

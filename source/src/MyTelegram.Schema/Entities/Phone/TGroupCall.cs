@@ -2,41 +2,41 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Contains info about a group call, and partial info about its participants.
-/// See <a href="https://corefork.telegram.org/constructor/phone.groupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phone.groupCall" /></para>
+/// </summary>
 [TlObject(0x9e727aad)]
-public sealed class TGroupCall : IGroupCall
+public sealed partial class TGroupCall : IGroupCall
 {
     public uint ConstructorId => 0x9e727aad;
-    ///<summary>
+    /// <summary>
     /// Info about the group call
     /// See <a href="https://corefork.telegram.org/type/GroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A partial list of participants.
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipant" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IGroupCallParticipant> Participants { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Next offset to use when fetching the remaining participants using <a href="https://corefork.telegram.org/method/phone.getGroupParticipants">phone.getGroupParticipants</a>
-    ///</summary>
+    /// </summary>
     public string ParticipantsNextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in the participants vector
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the participants vector
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

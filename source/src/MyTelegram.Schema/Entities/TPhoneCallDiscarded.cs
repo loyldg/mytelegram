@@ -2,48 +2,48 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a discarded phone call
-/// See <a href="https://corefork.telegram.org/constructor/phoneCallDiscarded" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCallDiscarded" /></para>
+/// </summary>
 [TlObject(0x50ca4de1)]
-public sealed class TPhoneCallDiscarded : IPhoneCall
+public sealed partial class TPhoneCallDiscarded : IPhoneCall
 {
     public uint ConstructorId => 0x50ca4de1;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the server required the user to <a href="https://corefork.telegram.org/method/phone.setCallRating">rate</a> the call
-    ///</summary>
+    /// </summary>
     public bool NeedRating { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the server required the client to <a href="https://corefork.telegram.org/method/phone.saveCallDebug">send</a> the libtgvoip call debug data
-    ///</summary>
+    /// </summary>
     public bool NeedDebug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the call was a video call
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Why was the phone call discarded
     /// See <a href="https://corefork.telegram.org/type/PhoneCallDiscardReason" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallDiscardReason? Reason { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Duration of the phone call in seconds
-    ///</summary>
+    /// </summary>
     public int? Duration { get; set; }
 
     public void ComputeFlag()

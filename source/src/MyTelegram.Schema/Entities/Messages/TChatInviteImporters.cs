@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about the users that joined the chat using a specific chat invite
-/// See <a href="https://corefork.telegram.org/constructor/messages.chatInviteImporters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.chatInviteImporters" /></para>
+/// </summary>
 [TlObject(0x81b6b00a)]
-public sealed class TChatInviteImporters : IChatInviteImporters
+public sealed partial class TChatInviteImporters : IChatInviteImporters
 {
     public uint ConstructorId => 0x81b6b00a;
-    ///<summary>
+    /// <summary>
     /// Number of users that joined
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The users that joined
     /// See <a href="https://corefork.telegram.org/type/ChatInviteImporter" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChatInviteImporter> Importers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The users that joined
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

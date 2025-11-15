@@ -2,22 +2,31 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/channels.toggleAutotranslation" />
-///</summary>
+/// <summary>
+/// Toggle autotranslation in a channel, for all users: see <a href="https://corefork.telegram.org/api/translation#autotranslation-for-channels">here »</a> for more info.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleAutotranslation" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x167fc0a1)]
-public sealed class RequestToggleAutotranslation : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleAutotranslation : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x167fc0a1;
 
-    ///<summary>
+    /// <summary>
+    /// The channel where to toggle autotranslation.
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Whether to enable or disable autotranslation.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
     public void ComputeFlag()

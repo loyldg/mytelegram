@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Payment result
-/// See <a href="https://corefork.telegram.org/type/payments.PaymentResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.PaymentResult" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPaymentResult"/> See <a href="https://corefork.telegram.org/constructor/payments.paymentResult" /><br/>
+/// <see cref="TPaymentVerificationNeeded"/> See <a href="https://corefork.telegram.org/constructor/payments.paymentVerificationNeeded" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPaymentResult), nameof(TPaymentResult))]
 [JsonDerivedType(typeof(TPaymentVerificationNeeded), nameof(TPaymentVerificationNeeded))]
 public interface IPaymentResult : IObject

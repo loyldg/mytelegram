@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Dialogs haven't changed
-/// See <a href="https://corefork.telegram.org/constructor/messages.dialogsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.dialogsNotModified" /></para>
+/// </summary>
 [TlObject(0xf0e3e596)]
-public sealed class TDialogsNotModified : IDialogs
+public sealed partial class TDialogsNotModified : IDialogs
 {
     public uint ConstructorId => 0xf0e3e596;
-    ///<summary>
+    /// <summary>
     /// Number of dialogs found server-side by the query
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
     public void ComputeFlag()

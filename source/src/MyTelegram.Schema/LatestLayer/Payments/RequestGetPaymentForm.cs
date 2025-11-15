@@ -2,39 +2,62 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Get a payment form
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOOST_PEER_INVALID The specified <code>boost_peer</code> is invalid.
-/// 400 BOT_INVOICE_INVALID The specified invoice is invalid.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 SLUG_INVALID The specified invoice slug is invalid.
-/// 400 STARGIFT_INVALID The passed <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGift">inputInvoiceStarGift</a> is invalid.
-/// 400 UNTIL_DATE_INVALID Invalid until date provided.
-/// See <a href="https://corefork.telegram.org/method/payments.getPaymentForm" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>406 API_GIFT_RESTRICTED_UPDATE_APP Please update the app to access the gift API.</c></para>
+/// <para><c>400 BOOST_PEER_INVALID The specified <code>boost_peer</code> is invalid.</c></para>
+/// <para><c>403 BOT_ACCESS_FORBIDDEN The specified method <em>can</em> be used over a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business connection</a> for some operations, but the specified query attempted an operation that is not allowed over a business connection.</c></para>
+/// <para><c>400 BOT_INVOICE_INVALID The specified invoice is invalid.</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 GIFT_MONTHS_INVALID The value passed in invoice.inputInvoicePremiumGiftStars.months is invalid.</c></para>
+/// <para><c>400 INVOICE_INVALID The specified invoice is invalid.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 MONTH_INVALID The number of months specified in inputInvoicePremiumGiftStars.months is invalid.</c></para>
+/// <para><c>400 NO_PAYMENT_NEEDED The upgrade/transfer of the specified gift was already paid for or is free.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 SLUG_INVALID The specified invoice slug is invalid.</c></para>
+/// <para><c>400 STARGIFT_ALREADY_CONVERTED The specified star gift was already converted to Stars.</c></para>
+/// <para><c>400 STARGIFT_ALREADY_REFUNDED The specified star gift was already refunded.</c></para>
+/// <para><c>400 STARGIFT_ALREADY_UPGRADED The specified gift was already upgraded to a collectible gift.</c></para>
+/// <para><c>406 STARGIFT_EXPORT_IN_PROGRESS A gift export is in progress, a detailed and localized description for the error will be emitted via an <a href="https://corefork.telegram.org/api/errors#406-not-acceptable">updateServiceNotification as specified here »</a>.</c></para>
+/// <para><c>400 STARGIFT_INVALID The passed gift is invalid.</c></para>
+/// <para><c>400 STARGIFT_NOT_FOUND The specified gift was not found.</c></para>
+/// <para><c>400 STARGIFT_OWNER_INVALID You cannot transfer or sell a gift owned by another user.</c></para>
+/// <para><c>400 STARGIFT_PEER_INVALID The specified inputSavedStarGiftChat.peer is invalid.</c></para>
+/// <para><c>400 STARGIFT_RESELL_CURRENCY_NOT_ALLOWED You can't buy the gift using the specified currency (i.e. trying to pay in Stars for TON gifts).</c></para>
+/// <para><c>400 STARGIFT_SLUG_INVALID The specified gift slug is invalid.</c></para>
+/// <para><c>400 STARGIFT_TRANSFER_TOO_EARLY_%d You cannot transfer this gift yet, wait %d seconds.</c></para>
+/// <para><c>400 STARGIFT_UPGRADE_UNAVAILABLE A received gift can only be upgraded to a collectible gift if the <a href="https://corefork.telegram.org/constructor/messageActionStarGift">messageActionStarGift</a>/<a href="https://corefork.telegram.org/constructor/savedStarGift">savedStarGift</a>.<code>can_upgrade</code> flag is set.</c></para>
+/// <para><c>406 STARS_FORM_AMOUNT_MISMATCH The form amount has changed, please fetch the new form using <a href="https://corefork.telegram.org/method/payments.getPaymentForm">payments.getPaymentForm</a> and restart the process.</c></para>
+/// <para><c>400 TO_ID_INVALID The specified <code>to_id</code> of the passed inputInvoiceStarGiftResale or inputInvoiceStarGiftTransfer is invalid.</c></para>
+/// <para><c>400 UNTIL_DATE_INVALID Invalid until date provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getPaymentForm" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x37148dbb)]
-public sealed class RequestGetPaymentForm : IRequest<MyTelegram.Schema.Payments.IPaymentForm>
+public sealed partial class RequestGetPaymentForm : IRequest<MyTelegram.Schema.Payments.IPaymentForm>
 {
     public uint ConstructorId => 0x37148dbb;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/InputInvoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/bots/webapps#theme-parameters">Theme parameters »</a>
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON? ThemeParams { get; set; }
 
     public void ComputeFlag()

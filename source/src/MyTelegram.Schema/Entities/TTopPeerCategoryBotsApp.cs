@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Most frequently used <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-apps">Main Mini Bot Apps</a>.
-/// See <a href="https://corefork.telegram.org/constructor/topPeerCategoryBotsApp" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/topPeerCategoryBotsApp" /></para>
+/// </summary>
 [TlObject(0xfd9e7bec)]
-public sealed class TTopPeerCategoryBotsApp : ITopPeerCategory
+public sealed partial class TTopPeerCategoryBotsApp : ITopPeerCategory
 {
     public uint ConstructorId => 0xfd9e7bec;
     public void ComputeFlag()

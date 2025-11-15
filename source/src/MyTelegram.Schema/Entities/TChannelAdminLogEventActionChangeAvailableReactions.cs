@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The set of allowed <a href="https://corefork.telegram.org/api/reactions">message reactions »</a> for this channel has changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAvailableReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAvailableReactions" /></para>
+/// </summary>
 [TlObject(0xbe4e0ef8)]
-public sealed class TChannelAdminLogEventActionChangeAvailableReactions : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangeAvailableReactions : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xbe4e0ef8;
-    ///<summary>
+    /// <summary>
     /// Previously allowed reaction emojis
     /// See <a href="https://corefork.telegram.org/type/ChatReactions" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatReactions PrevValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New allowed reaction emojis
     /// See <a href="https://corefork.telegram.org/type/ChatReactions" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatReactions NewValue { get; set; }
 
     public void ComputeFlag()

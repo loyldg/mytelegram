@@ -2,10 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure value type
-/// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecureValueType" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecureValueTypePersonalDetails"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypePersonalDetails" /><br/>
+/// <see cref="TSecureValueTypePassport"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypePassport" /><br/>
+/// <see cref="TSecureValueTypeDriverLicense"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense" /><br/>
+/// <see cref="TSecureValueTypeIdentityCard"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard" /><br/>
+/// <see cref="TSecureValueTypeInternalPassport"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport" /><br/>
+/// <see cref="TSecureValueTypeAddress"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeAddress" /><br/>
+/// <see cref="TSecureValueTypeUtilityBill"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeUtilityBill" /><br/>
+/// <see cref="TSecureValueTypeBankStatement"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeBankStatement" /><br/>
+/// <see cref="TSecureValueTypeRentalAgreement"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeRentalAgreement" /><br/>
+/// <see cref="TSecureValueTypePassportRegistration"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypePassportRegistration" /><br/>
+/// <see cref="TSecureValueTypeTemporaryRegistration"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeTemporaryRegistration" /><br/>
+/// <see cref="TSecureValueTypePhone"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypePhone" /><br/>
+/// <see cref="TSecureValueTypeEmail"/> See <a href="https://corefork.telegram.org/constructor/secureValueTypeEmail" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecureValueTypePersonalDetails), nameof(TSecureValueTypePersonalDetails))]
 [JsonDerivedType(typeof(TSecureValueTypePassport), nameof(TSecureValueTypePassport))]
 [JsonDerivedType(typeof(TSecureValueTypeDriverLicense), nameof(TSecureValueTypeDriverLicense))]

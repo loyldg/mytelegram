@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User has clicked on an animated emoji triggering a <a href="https://corefork.telegram.org/api/animated-emojis#emoji-reactions">reaction, click here for more info »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageEmojiInteraction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageEmojiInteraction" /></para>
+/// </summary>
 [TlObject(0x25972bcb)]
-public sealed class TSendMessageEmojiInteraction : ISendMessageAction
+public sealed partial class TSendMessageEmojiInteraction : ISendMessageAction
 {
     public uint ConstructorId => 0x25972bcb;
-    ///<summary>
+    /// <summary>
     /// Emoji
-    ///</summary>
+    /// </summary>
     public string Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of the animated emoji that was clicked
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A JSON object with interaction info, <a href="https://corefork.telegram.org/api/animated-emojis#emoji-reactions">click here for more info »</a>
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Interaction { get; set; }
 
     public void ComputeFlag()

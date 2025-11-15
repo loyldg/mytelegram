@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new <a href="https://corefork.telegram.org/api/folders">folder</a> was added
-/// See <a href="https://corefork.telegram.org/constructor/updateDialogFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDialogFilter" /></para>
+/// </summary>
 [TlObject(0x26ffde7d)]
-public sealed class TUpdateDialogFilter : IUpdate
+public sealed partial class TUpdateDialogFilter : IUpdate
 {
     public uint ConstructorId => 0x26ffde7d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> info
     /// See <a href="https://corefork.telegram.org/type/DialogFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDialogFilter? Filter { get; set; }
 
     public void ComputeFlag()

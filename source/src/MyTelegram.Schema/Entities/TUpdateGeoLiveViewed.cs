@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Live geoposition message was viewed
-/// See <a href="https://corefork.telegram.org/constructor/updateGeoLiveViewed" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateGeoLiveViewed" /></para>
+/// </summary>
 [TlObject(0x871fb939)]
-public sealed class TUpdateGeoLiveViewed : IUpdate
+public sealed partial class TUpdateGeoLiveViewed : IUpdate
 {
     public uint ConstructorId => 0x871fb939;
-    ///<summary>
+    /// <summary>
     /// The user that viewed the live geoposition
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of geoposition message
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

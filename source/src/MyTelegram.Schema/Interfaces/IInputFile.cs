@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a file uploaded by the client.
-/// See <a href="https://corefork.telegram.org/type/InputFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputFile" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputFile"/> See <a href="https://corefork.telegram.org/constructor/inputFile" /><br/>
+/// <see cref="TInputFileBig"/> See <a href="https://corefork.telegram.org/constructor/inputFileBig" /><br/>
+/// <see cref="TInputFileStoryDocument"/> See <a href="https://corefork.telegram.org/constructor/inputFileStoryDocument" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputFile), nameof(TInputFile))]
 [JsonDerivedType(typeof(TInputFileBig), nameof(TInputFileBig))]
 [JsonDerivedType(typeof(TInputFileStoryDocument), nameof(TInputFileStoryDocument))]

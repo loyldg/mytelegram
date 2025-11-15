@@ -2,64 +2,64 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user just sent a payment to me (a bot)
-/// See <a href="https://corefork.telegram.org/constructor/messageActionPaymentSentMe" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionPaymentSentMe" /></para>
+/// </summary>
 [TlObject(0xffa00ccc)]
-public sealed class TMessageActionPaymentSentMe : IMessageAction
+public sealed partial class TMessageActionPaymentSentMe : IMessageAction
 {
     public uint ConstructorId => 0xffa00ccc;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is the first payment of a recurring payment we just subscribed to
-    ///</summary>
+    /// </summary>
     public bool RecurringInit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this payment is part of a recurring payment
-    ///</summary>
+    /// </summary>
     public bool RecurringUsed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code, or <code>XTR</code> for <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long TotalAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot specified invoice payload
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Payload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Order info provided by the user
     /// See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaymentRequestedInfo? Info { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the shipping option chosen by the user
-    ///</summary>
+    /// </summary>
     public string? ShippingOptionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Provider payment identifier
     /// See <a href="https://corefork.telegram.org/type/PaymentCharge" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaymentCharge Charge { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Expiration date of the <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscription »</a>.
-    ///</summary>
+    /// </summary>
     public int? SubscriptionUntilDate { get; set; }
 
     public void ComputeFlag()

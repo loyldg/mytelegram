@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Receive notifications about reactions made by any user.
-/// See <a href="https://corefork.telegram.org/constructor/reactionNotificationsFromAll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/reactionNotificationsFromAll" /></para>
+/// </summary>
 [TlObject(0x4b9e22a0)]
-public sealed class TReactionNotificationsFromAll : IReactionNotificationsFrom
+public sealed partial class TReactionNotificationsFromAll : IReactionNotificationsFrom
 {
     public uint ConstructorId => 0x4b9e22a0;
     public void ComputeFlag()

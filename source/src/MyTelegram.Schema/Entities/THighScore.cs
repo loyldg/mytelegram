@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Game highscore
-/// See <a href="https://corefork.telegram.org/constructor/highScore" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/highScore" /></para>
+/// </summary>
 [TlObject(0x73a379eb)]
-public sealed class THighScore : IHighScore
+public sealed partial class THighScore : IHighScore
 {
     public uint ConstructorId => 0x73a379eb;
-    ///<summary>
+    /// <summary>
     /// Position in highscore list
-    ///</summary>
+    /// </summary>
     public int Pos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Score
-    ///</summary>
+    /// </summary>
     public int Score { get; set; }
 
     public void ComputeFlag()

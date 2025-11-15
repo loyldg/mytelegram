@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <em>Italic</em> text
-/// See <a href="https://corefork.telegram.org/constructor/textItalic" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textItalic" /></para>
+/// </summary>
 [TlObject(0xd912a59c)]
-public sealed class TTextItalic : IRichText
+public sealed partial class TTextItalic : IRichText
 {
     public uint ConstructorId => 0xd912a59c;
-    ///<summary>
+    /// <summary>
     /// Text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
     public void ComputeFlag()

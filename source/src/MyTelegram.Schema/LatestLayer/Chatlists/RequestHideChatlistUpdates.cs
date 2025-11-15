@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Dismiss new pending peers recently added to a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// 400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.
-/// See <a href="https://corefork.telegram.org/method/chatlists.hideChatlistUpdates" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid.</c></para>
+/// <para><c>400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.hideChatlistUpdates" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x66e486fb)]
-public sealed class RequestHideChatlistUpdates : IRequest<IBool>
+public sealed partial class RequestHideChatlistUpdates : IRequest<IBool>
 {
     public uint ConstructorId => 0x66e486fb;
 
-    ///<summary>
+    /// <summary>
     /// The folder
     /// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
     public void ComputeFlag()

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contact status: online / offline.
-/// See <a href="https://corefork.telegram.org/constructor/contactStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contactStatus" /></para>
+/// </summary>
 [TlObject(0x16d9703b)]
-public sealed class TContactStatus : IContactStatus
+public sealed partial class TContactStatus : IContactStatus
 {
     public uint ConstructorId => 0x16d9703b;
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Online status
     /// See <a href="https://corefork.telegram.org/type/UserStatus" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUserStatus Status { get; set; }
 
     public void ComputeFlag()

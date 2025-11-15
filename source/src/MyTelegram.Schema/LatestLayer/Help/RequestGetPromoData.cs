@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
-/// Get MTProxy/Public Service Announcement information
-/// See <a href="https://corefork.telegram.org/method/help.getPromoData" />
-///</summary>
+/// <summary>
+/// Returns a set of useful suggestions and PSA/MTProxy sponsored peers, see <a href="https://corefork.telegram.org/api/config#suggestions">here »</a> for more info.
+/// <para>See <a href="https://corefork.telegram.org/method/help.getPromoData" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc0977421)]
-public sealed class RequestGetPromoData : IRequest<MyTelegram.Schema.Help.IPromoData>
+public sealed partial class RequestGetPromoData : IRequest<MyTelegram.Schema.Help.IPromoData>
 {
     public uint ConstructorId => 0xc0977421;
 

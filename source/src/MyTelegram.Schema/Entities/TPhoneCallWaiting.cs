@@ -2,58 +2,58 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Incoming phone call
-/// See <a href="https://corefork.telegram.org/constructor/phoneCallWaiting" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCallWaiting" /></para>
+/// </summary>
 [TlObject(0xc5226f17)]
-public sealed class TPhoneCallWaiting : IPhoneCall
+public sealed partial class TPhoneCallWaiting : IPhoneCall
 {
     public uint ConstructorId => 0xc5226f17;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this a video call
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Admin ID
-    ///</summary>
+    /// </summary>
     public long AdminId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participant ID
-    ///</summary>
+    /// </summary>
     public long ParticipantId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone call protocol info
     /// See <a href="https://corefork.telegram.org/type/PhoneCallProtocol" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the phone call received
-    ///</summary>
+    /// </summary>
     public int? ReceiveDate { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,31 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bot or inline keyboard buttons
-/// See <a href="https://corefork.telegram.org/type/KeyboardButton" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/KeyboardButton" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TKeyboardButton"/> See <a href="https://corefork.telegram.org/constructor/keyboardButton" /><br/>
+/// <see cref="TKeyboardButtonUrl"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonUrl" /><br/>
+/// <see cref="TKeyboardButtonCallback"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonCallback" /><br/>
+/// <see cref="TKeyboardButtonRequestPhone"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPhone" /><br/>
+/// <see cref="TKeyboardButtonRequestGeoLocation"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestGeoLocation" /><br/>
+/// <see cref="TKeyboardButtonSwitchInline"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline" /><br/>
+/// <see cref="TKeyboardButtonGame"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonGame" /><br/>
+/// <see cref="TKeyboardButtonBuy"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonBuy" /><br/>
+/// <see cref="TKeyboardButtonUrlAuth"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonUrlAuth" /><br/>
+/// <see cref="TInputKeyboardButtonUrlAuth"/> See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUrlAuth" /><br/>
+/// <see cref="TKeyboardButtonRequestPoll"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPoll" /><br/>
+/// <see cref="TInputKeyboardButtonUserProfile"/> See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUserProfile" /><br/>
+/// <see cref="TKeyboardButtonUserProfile"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonUserProfile" /><br/>
+/// <see cref="TKeyboardButtonWebView"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonWebView" /><br/>
+/// <see cref="TKeyboardButtonSimpleWebView"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonSimpleWebView" /><br/>
+/// <see cref="TKeyboardButtonRequestPeer"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer" /><br/>
+/// <see cref="TInputKeyboardButtonRequestPeer"/> See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonRequestPeer" /><br/>
+/// <see cref="TKeyboardButtonCopy"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TKeyboardButton), nameof(TKeyboardButton))]
 [JsonDerivedType(typeof(TKeyboardButtonUrl), nameof(TKeyboardButtonUrl))]
 [JsonDerivedType(typeof(TKeyboardButtonCallback), nameof(TKeyboardButtonCallback))]
@@ -26,8 +47,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TKeyboardButtonCopy), nameof(TKeyboardButtonCopy))]
 public interface IKeyboardButton : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 }

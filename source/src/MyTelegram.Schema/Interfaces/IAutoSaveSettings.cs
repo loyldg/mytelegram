@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Media autosave settings
-/// See <a href="https://corefork.telegram.org/type/AutoSaveSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/AutoSaveSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAutoSaveSettings"/> See <a href="https://corefork.telegram.org/constructor/autoSaveSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAutoSaveSettings), nameof(TAutoSaveSettings))]
 public interface IAutoSaveSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether photos should be autosaved to the gallery.
-    ///</summary>
+    /// </summary>
     bool Photos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether videos should be autosaved to the gallery.
-    ///</summary>
+    /// </summary>
     bool Videos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies a size limit for autosavable videos
-    ///</summary>
+    /// </summary>
     long? VideoMaxSize { get; set; }
 }

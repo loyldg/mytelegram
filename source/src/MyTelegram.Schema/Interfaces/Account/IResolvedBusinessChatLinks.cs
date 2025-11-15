@@ -2,44 +2,48 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Contains info about a single resolved <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep link »</a>.
-/// See <a href="https://corefork.telegram.org/type/account.ResolvedBusinessChatLinks" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.ResolvedBusinessChatLinks" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TResolvedBusinessChatLinks"/> See <a href="https://corefork.telegram.org/constructor/account.resolvedBusinessChatLinks" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TResolvedBusinessChatLinks), nameof(TResolvedBusinessChatLinks))]
 public interface IResolvedBusinessChatLinks : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to pre-fill in the message input field.
-    ///</summary>
+    /// </summary>
     string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

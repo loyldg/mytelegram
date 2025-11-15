@@ -2,32 +2,38 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Display or remove a <a href="https://corefork.telegram.org/api/gifts">received gift »</a> from our profile.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.saveStarGift" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.</c></para>
+/// <para><c>400 STARGIFT_OWNER_INVALID You cannot transfer or sell a gift owned by another user.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.saveStarGift" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2a2a697c)]
-public sealed class RequestSaveStarGift : IRequest<IBool>
+public sealed partial class RequestSaveStarGift : IRequest<IBool>
 {
     public uint ConstructorId => 0x2a2a697c;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, hides the gift from our profile.
-    ///</summary>
+    /// </summary>
     public bool Unsave { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The gift to display or remove.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
     public void ComputeFlag()

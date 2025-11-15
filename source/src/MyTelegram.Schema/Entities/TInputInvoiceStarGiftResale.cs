@@ -2,22 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftResale" />
-///</summary>
+/// <summary>
+/// Used to buy a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift</a> currently up on resale, see <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">here</a> for more info on the full flow.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftResale" /></para>
+/// </summary>
 [TlObject(0xc39f5324)]
-public sealed class TInputInvoiceStarGiftResale : IInputInvoice
+public sealed partial class TInputInvoiceStarGiftResale : IInputInvoice
 {
     public uint ConstructorId => 0xc39f5324;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Buy the gift using TON.
+    /// </summary>
     public bool Ton { get; set; }
 
+    /// <summary>
+    /// Slug of the gift to buy.
+    /// </summary>
     public string Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The receiver of the gift.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer ToId { get; set; }
 
     public void ComputeFlag()

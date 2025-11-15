@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Encrypted service message
-/// See <a href="https://corefork.telegram.org/constructor/encryptedMessageService" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/encryptedMessageService" /></para>
+/// </summary>
 [TlObject(0x23734b06)]
-public sealed class TEncryptedMessageService : IEncryptedMessage
+public sealed partial class TEncryptedMessageService : IEncryptedMessage
 {
     public uint ConstructorId => 0x23734b06;
-    ///<summary>
+    /// <summary>
     /// Random message ID, assigned by the author of message
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of encrypted chat
-    ///</summary>
+    /// </summary>
     public int ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of sending
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// TL-serialization of the <a href="https://corefork.telegram.org/type/DecryptedMessage">DecryptedMessage</a> type, encrypted with the key created at chat initialization
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

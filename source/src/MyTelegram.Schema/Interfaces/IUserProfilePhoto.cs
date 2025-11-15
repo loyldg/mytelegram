@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object contains info on the user's profile photo.
-/// See <a href="https://corefork.telegram.org/type/UserProfilePhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/UserProfilePhoto" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUserProfilePhotoEmpty"/> See <a href="https://corefork.telegram.org/constructor/userProfilePhotoEmpty" /><br/>
+/// <see cref="TUserProfilePhoto"/> See <a href="https://corefork.telegram.org/constructor/userProfilePhoto" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUserProfilePhotoEmpty), nameof(TUserProfilePhotoEmpty))]
 [JsonDerivedType(typeof(TUserProfilePhoto), nameof(TUserProfilePhoto))]
 public interface IUserProfilePhoto : IObject

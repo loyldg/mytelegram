@@ -2,16 +2,20 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Table row
-/// See <a href="https://corefork.telegram.org/type/PageTableRow" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PageTableRow" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPageTableRow"/> See <a href="https://corefork.telegram.org/constructor/pageTableRow" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPageTableRow), nameof(TPageTableRow))]
 public interface IPageTableRow : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Table cells
     /// See <a href="https://corefork.telegram.org/type/PageTableCell" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPageTableCell> Cells { get; set; }
 }

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Request for secure <a href="https://corefork.telegram.org/passport">telegram passport</a> values was sent
-/// See <a href="https://corefork.telegram.org/constructor/messageActionSecureValuesSent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionSecureValuesSent" /></para>
+/// </summary>
 [TlObject(0xd95c6154)]
-public sealed class TMessageActionSecureValuesSent : IMessageAction
+public sealed partial class TMessageActionSecureValuesSent : IMessageAction
 {
     public uint ConstructorId => 0xd95c6154;
-    ///<summary>
+    /// <summary>
     /// Secure value types
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISecureValueType> Types { get; set; }
 
     public void ComputeFlag()

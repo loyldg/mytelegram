@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The specified bot commands will be valid only for chat administrators, in all <a href="https://corefork.telegram.org/api/channel">groups and supergroups</a>.
-/// See <a href="https://corefork.telegram.org/constructor/botCommandScopeChatAdmins" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botCommandScopeChatAdmins" /></para>
+/// </summary>
 [TlObject(0xb9aa606a)]
-public sealed class TBotCommandScopeChatAdmins : IBotCommandScope
+public sealed partial class TBotCommandScopeChatAdmins : IBotCommandScope
 {
     public uint ConstructorId => 0xb9aa606a;
     public void ComputeFlag()

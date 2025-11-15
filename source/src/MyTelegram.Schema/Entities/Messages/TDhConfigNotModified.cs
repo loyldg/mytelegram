@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Configuring parameters did not change.
-/// See <a href="https://corefork.telegram.org/constructor/messages.dhConfigNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.dhConfigNotModified" /></para>
+/// </summary>
 [TlObject(0xc0e24635)]
-public sealed class TDhConfigNotModified : IDhConfig
+public sealed partial class TDhConfigNotModified : IDhConfig
 {
     public uint ConstructorId => 0xc0e24635;
-    ///<summary>
+    /// <summary>
     /// Random sequence of bytes of assigned length
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Random { get; set; }
 
     public void ComputeFlag()

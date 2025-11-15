@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Returns the list of messages by their IDs.
-/// See <a href="https://corefork.telegram.org/method/messages.getMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x63c66506)]
-public sealed class RequestGetMessages : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestGetMessages : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0x63c66506;
 
-    ///<summary>
+    /// <summary>
     /// Message ID list
     /// See <a href="https://corefork.telegram.org/type/InputMessage" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputMessage> Id { get; set; }
 
     public void ComputeFlag()

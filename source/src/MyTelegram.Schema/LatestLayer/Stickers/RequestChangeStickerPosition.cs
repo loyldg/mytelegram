@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Changes the absolute position of a sticker in the set to which it belongs. The sticker set must have been created by the current user/bot.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKER_INVALID The provided sticker is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.changeStickerPosition" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKER_INVALID The provided sticker is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.changeStickerPosition" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xffb6d4ca)]
-public sealed class RequestChangeStickerPosition : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestChangeStickerPosition : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0xffb6d4ca;
 
-    ///<summary>
+    /// <summary>
     /// The sticker
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Sticker { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new position of the sticker, zero-based
-    ///</summary>
+    /// </summary>
     public int Position { get; set; }
 
     public void ComputeFlag()

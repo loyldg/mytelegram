@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Preformatted (<code>&lt;pre&gt;</code> text)
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockPreformatted" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockPreformatted" /></para>
+/// </summary>
 [TlObject(0xc070d93e)]
-public sealed class TPageBlockPreformatted : IPageBlock
+public sealed partial class TPageBlockPreformatted : IPageBlock
 {
     public uint ConstructorId => 0xc070d93e;
-    ///<summary>
+    /// <summary>
     /// Text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Programming language of preformatted text
-    ///</summary>
+    /// </summary>
     public string Language { get; set; }
 
     public void ComputeFlag()

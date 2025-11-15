@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor, non-existent photo
-/// See <a href="https://corefork.telegram.org/constructor/photoEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photoEmpty" /></para>
+/// </summary>
 [TlObject(0x2331b22d)]
-public sealed class TPhotoEmpty : IPhoto
+public sealed partial class TPhotoEmpty : IPhoto
 {
     public uint ConstructorId => 0x2331b22d;
-    ///<summary>
+    /// <summary>
     /// Photo identifier
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

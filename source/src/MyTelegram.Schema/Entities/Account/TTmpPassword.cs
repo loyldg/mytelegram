@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Temporary payment password
-/// See <a href="https://corefork.telegram.org/constructor/account.tmpPassword" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.tmpPassword" /></para>
+/// </summary>
 [TlObject(0xdb64fd34)]
-public sealed class TTmpPassword : ITmpPassword
+public sealed partial class TTmpPassword : ITmpPassword
 {
     public uint ConstructorId => 0xdb64fd34;
-    ///<summary>
+    /// <summary>
     /// Temporary password
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> TmpPassword { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Validity period
-    ///</summary>
+    /// </summary>
     public int ValidUntil { get; set; }
 
     public void ComputeFlag()

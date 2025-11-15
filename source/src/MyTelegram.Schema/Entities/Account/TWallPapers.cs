@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Installed <a href="https://corefork.telegram.org/api/wallpapers">wallpapers</a>
-/// See <a href="https://corefork.telegram.org/constructor/account.wallPapers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.wallPapers" /></para>
+/// </summary>
 [TlObject(0xcdc3858c)]
-public sealed class TWallPapers : IWallPapers
+public sealed partial class TWallPapers : IWallPapers
 {
     public uint ConstructorId => 0xcdc3858c;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpapers</a>
     /// See <a href="https://corefork.telegram.org/type/WallPaper" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IWallPaper> Wallpapers { get; set; }
 
     public void ComputeFlag()

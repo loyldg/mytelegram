@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/stories#urls">URL media area</a>.
-/// See <a href="https://corefork.telegram.org/constructor/mediaAreaUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/mediaAreaUrl" /></para>
+/// </summary>
 [TlObject(0x37381085)]
-public sealed class TMediaAreaUrl : IMediaArea
+public sealed partial class TMediaAreaUrl : IMediaArea
 {
     public uint ConstructorId => 0x37381085;
-    ///<summary>
+    /// <summary>
     /// The size and location of the media area corresponding to the URL button on top of the story media.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL to open when clicked.
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

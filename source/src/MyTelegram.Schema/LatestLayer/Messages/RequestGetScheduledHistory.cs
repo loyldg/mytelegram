@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get scheduled messages
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getScheduledHistory" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getScheduledHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf516760b)]
-public sealed class RequestGetScheduledHistory : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestGetScheduledHistory : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0xf516760b;
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>. <br>To generate the hash, populate the <code>ids</code> array with the <code>id</code>, <code>date</code> and <code>edit_date</code> (in this order) of the previously returned messages (in order, i.e. <code>ids = [id1, date1, edit_date1, id2, date2, edit_date2, ...]</code>).
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>. <br/>To generate the hash, populate the <code>ids</code> array with the <code>id</code>, <code>edit_date</code> (0 if unedited) and <code>date</code> (in this order) of the previously returned messages (in order, i.e. <code>ids = [id1, (edit_date1 ?? 0), date1, id2, (edit_date2 ?? 0), date2, ...]</code>).
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

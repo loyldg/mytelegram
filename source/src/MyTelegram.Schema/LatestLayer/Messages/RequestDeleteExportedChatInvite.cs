@@ -2,29 +2,33 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Delete a chat invite
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 INVITE_HASH_EXPIRED The invite link has expired.
-/// 400 INVITE_REVOKED_MISSING The specified invite link was already revoked or is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.deleteExportedChatInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 INVITE_HASH_EXPIRED The invite link has expired.</c></para>
+/// <para><c>400 INVITE_REVOKED_MISSING The specified invite link was already revoked or is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.deleteExportedChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd464a42b)]
-public sealed class RequestDeleteExportedChatInvite : IRequest<IBool>
+public sealed partial class RequestDeleteExportedChatInvite : IRequest<IBool>
 {
     public uint ConstructorId => 0xd464a42b;
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invite link
-    ///</summary>
+    /// </summary>
     public string Link { get; set; }
 
     public void ComputeFlag()

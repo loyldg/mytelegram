@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Location of a remote HTTP(s) file
-/// See <a href="https://corefork.telegram.org/constructor/inputWebFileLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputWebFileLocation" /></para>
+/// </summary>
 [TlObject(0xc239d686)]
-public sealed class TInputWebFileLocation : IInputWebFileLocation
+public sealed partial class TInputWebFileLocation : IInputWebFileLocation
 {
     public uint ConstructorId => 0xc239d686;
-    ///<summary>
+    /// <summary>
     /// HTTP URL of file
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

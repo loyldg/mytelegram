@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Details about an accepted authorization request, for more info <a href="https://corefork.telegram.org/api/url-authorization">click here »</a>
-/// See <a href="https://corefork.telegram.org/constructor/urlAuthResultDefault" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/urlAuthResultDefault" /></para>
+/// </summary>
 [TlObject(0xa9d6db1f)]
-public sealed class TUrlAuthResultDefault : IUrlAuthResult
+public sealed partial class TUrlAuthResultDefault : IUrlAuthResult
 {
     public uint ConstructorId => 0xa9d6db1f;
     public void ComputeFlag()

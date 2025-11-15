@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a user for subsequent interaction.
-/// See <a href="https://corefork.telegram.org/type/InputUser" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputUser" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputUserEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputUserEmpty" /><br/>
+/// <see cref="TInputUserSelf"/> See <a href="https://corefork.telegram.org/constructor/inputUserSelf" /><br/>
+/// <see cref="TInputUser"/> See <a href="https://corefork.telegram.org/constructor/inputUser" /><br/>
+/// <see cref="TInputUserFromMessage"/> See <a href="https://corefork.telegram.org/constructor/inputUserFromMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputUserEmpty), nameof(TInputUserEmpty))]
 [JsonDerivedType(typeof(TInputUserSelf), nameof(TInputUserSelf))]
 [JsonDerivedType(typeof(TInputUser), nameof(TInputUser))]

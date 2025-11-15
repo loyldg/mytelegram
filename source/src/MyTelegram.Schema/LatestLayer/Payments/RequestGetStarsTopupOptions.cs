@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Obtain a list of <a href="https://corefork.telegram.org/api/stars#buying-or-gifting-stars">Telegram Stars topup options »</a> as <a href="https://corefork.telegram.org/constructor/starsTopupOption">starsTopupOption</a> constructors.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsTopupOptions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsTopupOptions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc00ec7d3)]
-public sealed class RequestGetStarsTopupOptions : IRequest<TVector<MyTelegram.Schema.IStarsTopupOption>>
+public sealed partial class RequestGetStarsTopupOptions : IRequest<TVector<MyTelegram.Schema.IStarsTopupOption>>
 {
     public uint ConstructorId => 0xc00ec7d3;
 

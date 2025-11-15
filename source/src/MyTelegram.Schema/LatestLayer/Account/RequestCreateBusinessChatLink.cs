@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Create a <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHATLINKS_TOO_MUCH Too many <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat links</a> were created, please delete some older links.
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// See <a href="https://corefork.telegram.org/method/account.createBusinessChatLink" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHATLINKS_TOO_MUCH Too many <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat links</a> were created, please delete some older links.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.createBusinessChatLink" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8851e68e)]
-public sealed class RequestCreateBusinessChatLink : IRequest<MyTelegram.Schema.IBusinessChatLink>
+public sealed partial class RequestCreateBusinessChatLink : IRequest<MyTelegram.Schema.IBusinessChatLink>
 {
     public uint ConstructorId => 0x8851e68e;
 
-    ///<summary>
+    /// <summary>
     /// Info about the link to create.
     /// See <a href="https://corefork.telegram.org/type/InputBusinessChatLink" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBusinessChatLink Link { get; set; }
 
     public void ComputeFlag()

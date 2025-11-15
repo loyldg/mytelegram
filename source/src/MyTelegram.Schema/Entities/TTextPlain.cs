@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Plain text
-/// See <a href="https://corefork.telegram.org/constructor/textPlain" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textPlain" /></para>
+/// </summary>
 [TlObject(0x744694e0)]
-public sealed class TTextPlain : IRichText
+public sealed partial class TTextPlain : IRichText
 {
     public uint ConstructorId => 0x744694e0;
-    ///<summary>
+    /// <summary>
     /// Text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

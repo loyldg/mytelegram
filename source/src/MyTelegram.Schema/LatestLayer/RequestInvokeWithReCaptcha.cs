@@ -2,16 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/invokeWithReCaptcha" />
-///</summary>
+/// <summary>
+/// Official clients only: re-execute a method call that required reCAPTCHA verification via a <code>RECAPTCHA_CHECK_%s__%s</code>, where the first placeholder is the <code>action</code>, and the second one is the reCAPTCHA key ID.
+/// <para>See <a href="https://corefork.telegram.org/method/invokeWithReCaptcha" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xadbb0f94)]
-public sealed class RequestInvokeWithReCaptcha : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInvokeWithReCaptcha : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xadbb0f94;
 
+    /// <summary>
+    /// reCAPTCHA token received after verification.
+    /// </summary>
     public string Token { get; set; }
 
+    /// <summary>
+    /// The original method call.
+    /// </summary>
     public IObject Query { get; set; }
 
     public void ComputeFlag()

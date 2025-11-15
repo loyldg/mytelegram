@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Change the photo of a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 FILE_PARTS_INVALID The number of file parts is invalid.
-/// 400 FILE_REFERENCE_INVALID The specified <a href="https://corefork.telegram.org/api/file_reference">file reference</a> is invalid.
-/// 400 IMAGE_PROCESS_FAILED Failure while processing image.
-/// 400 PHOTO_CROP_SIZE_SMALL Photo is too small.
-/// 400 PHOTO_EXT_INVALID The extension of the photo is invalid.
-/// 400 PHOTO_FILE_MISSING Profile photo file missing.
-/// 400 PHOTO_INVALID Photo invalid.
-/// 400 STICKER_MIME_INVALID The specified sticker MIME type is invalid.
-/// See <a href="https://corefork.telegram.org/method/channels.editPhoto" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 FILE_PARTS_INVALID The number of file parts is invalid.</c></para>
+/// <para><c>400 FILE_REFERENCE_INVALID The specified <a href="https://corefork.telegram.org/api/file-references">file reference</a> is invalid.</c></para>
+/// <para><c>400 IMAGE_PROCESS_FAILED Failure while processing image.</c></para>
+/// <para><c>400 PHOTO_CROP_SIZE_SMALL Photo is too small.</c></para>
+/// <para><c>400 PHOTO_EXT_INVALID The extension of the photo is invalid.</c></para>
+/// <para><c>400 PHOTO_FILE_MISSING Profile photo file missing.</c></para>
+/// <para><c>400 PHOTO_INVALID Photo invalid.</c></para>
+/// <para><c>400 STICKER_MIME_INVALID The specified sticker MIME type is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.editPhoto" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf12e57c9)]
-public sealed class RequestEditPhoto : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditPhoto : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf12e57c9;
 
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup whose photo should be edited
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New photo
     /// See <a href="https://corefork.telegram.org/type/InputChatPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatPhoto Photo { get; set; }
 
     public void ComputeFlag()

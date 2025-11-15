@@ -2,22 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an <a href="https://corefork.telegram.org/api/emoji-categories">emoji category</a>.
-/// See <a href="https://corefork.telegram.org/type/EmojiGroup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EmojiGroup" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmojiGroup"/> See <a href="https://corefork.telegram.org/constructor/emojiGroup" /><br/>
+/// <see cref="TEmojiGroupGreeting"/> See <a href="https://corefork.telegram.org/constructor/emojiGroupGreeting" /><br/>
+/// <see cref="TEmojiGroupPremium"/> See <a href="https://corefork.telegram.org/constructor/emojiGroupPremium" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmojiGroup), nameof(TEmojiGroup))]
 [JsonDerivedType(typeof(TEmojiGroupGreeting), nameof(TEmojiGroupGreeting))]
 [JsonDerivedType(typeof(TEmojiGroupPremium), nameof(TEmojiGroupPremium))]
 public interface IEmojiGroup : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Category name, i.e. "Animals", "Flags", "Faces" and so on...
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A single custom emoji used as preview for the category.
-    ///</summary>
+    /// </summary>
     long IconEmojiId { get; set; }
 }

@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/contacts.sponsoredPeers" />
-///</summary>
+/// <summary>
+/// Sponsored peers.
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.sponsoredPeers" /></para>
+/// </summary>
 [TlObject(0xeb032884)]
-public sealed class TSponsoredPeers : ISponsoredPeers
+public sealed partial class TSponsoredPeers : ISponsoredPeers
 {
     public uint ConstructorId => 0xeb032884;
-    ///<summary>
+    /// <summary>
+    /// Sponsored peers.
     /// See <a href="https://corefork.telegram.org/type/SponsoredPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISponsoredPeer> Peers { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Info about sponsored chats and channels
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Info about sponsored users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure <a href="https://corefork.telegram.org/passport">passport</a> data, for more info <a href="https://corefork.telegram.org/passport/encryption#securedata">see the passport docs »</a>
-/// See <a href="https://corefork.telegram.org/type/SecureData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecureData" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecureData"/> See <a href="https://corefork.telegram.org/constructor/secureData" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecureData), nameof(TSecureData))]
 public interface ISecureData : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Data
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Data { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Data hash
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> DataHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Secret { get; set; }
 }

@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Default banned rights in a <a href="https://corefork.telegram.org/api/channel">normal chat</a> were updated
-/// See <a href="https://corefork.telegram.org/constructor/updateChatDefaultBannedRights" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChatDefaultBannedRights" /></para>
+/// </summary>
 [TlObject(0x54c01850)]
-public sealed class TUpdateChatDefaultBannedRights : IUpdate
+public sealed partial class TUpdateChatDefaultBannedRights : IUpdate
 {
     public uint ConstructorId => 0x54c01850;
-    ///<summary>
+    /// <summary>
     /// The chat
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New default banned rights
     /// See <a href="https://corefork.telegram.org/type/ChatBannedRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatBannedRights DefaultBannedRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Version
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
     public void ComputeFlag()

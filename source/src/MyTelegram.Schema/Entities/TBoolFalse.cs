@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Constructor may be interpreted as a <strong>boolean</strong><code>false</code> value.
-/// See <a href="https://corefork.telegram.org/constructor/boolFalse" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/boolFalse" /></para>
+/// </summary>
 [TlObject(0xbc799737)]
-public sealed class TBoolFalse : IBool
+public sealed partial class TBoolFalse : IBool
 {
     public uint ConstructorId => 0xbc799737;
     public void ComputeFlag()

@@ -2,48 +2,59 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Sends one or more <a href="https://corefork.telegram.org/api/reactions#paid-reactions">paid Telegram Star reactions »</a>, transferring <a href="https://corefork.telegram.org/api/stars">Telegram Stars »</a> to a channel's balance.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.sendPaidReaction" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BALANCE_TOO_LOW The transaction cannot be completed because the current <a href="https://corefork.telegram.org/api/stars">Telegram Stars balance</a> is too low.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 RANDOM_ID_EMPTY Random ID empty.</c></para>
+/// <para><c>400 RANDOM_ID_EXPIRED The specified <code>random_id</code> was expired (most likely it didn't follow the required <code>uint64_t random_id = (time() &lt;&lt; 32) | ((uint64_t)random_uint32_t())</code> format, or the specified time is too far in the past).</c></para>
+/// <para><c>400 REACTIONS_COUNT_INVALID The specified number of reactions is invalid.</c></para>
+/// <para><c>400 SEND_AS_PEER_INVALID You can't send messages as the specified peer. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendPaidReaction" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x58bbcb50)]
-public sealed class RequestSendPaidReaction : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendPaidReaction : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x58bbcb50;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message to react to
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of <a href="https://corefork.telegram.org/api/stars">stars</a> to send (each will increment the reaction counter by one).
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
-    /// Unique client message ID required to prevent message resending
-    ///</summary>
+    /// <summary>
+    /// Unique client message ID required to prevent message resending. <br/><strong>Note</strong>: this argument <strong>must</strong> be composed of a 64-bit integer where the lower 32 bits are random, and the higher 32 bits <strong>are equal to the current unixtime</strong>, i.e. <code>uint64_t random_id = (time() &lt;&lt; 32) | ((uint64_t)random_uint32_t())</code>: this differs from the <code>random_id</code> format of all other methods in the API, which just take 64 random bits.
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
-    /// Each post with star reactions has a leaderboard with the top senders, but users can opt out of appearing there if they prefer more privacy.  <br>If the user explicitly chose to make their paid reaction(s) private, pass <a href="https://corefork.telegram.org/constructor/boolTrue">boolTrue</a> to <a href="https://corefork.telegram.org/method/messages.sendPaidReaction">messages.sendPaidReaction</a>.<code>private</code>.  <br>If the user explicitly chose to make their paid reaction(s) not private, pass <a href="https://corefork.telegram.org/constructor/boolTrue">boolFalse</a> to <a href="https://corefork.telegram.org/method/messages.sendPaidReaction">messages.sendPaidReaction</a>.<code>private</code>.  <br>If the user did not make any explicit choice about the privacy of their paid reaction(s) (i.e. when reacting by clicking on an existing star reaction on a message), do not populate the <a href="https://corefork.telegram.org/method/messages.sendPaidReaction">messages.sendPaidReaction</a>.<code>private</code> flag.
+    /// <summary>
+    /// Each post with star reactions has a leaderboard with the top senders, but users can opt out of appearing there if they prefer more privacy. Not populating this field will use the default reaction privacy, stored on the server and synced to clients using <a href="https://corefork.telegram.org/constructor/updatePaidReactionPrivacy">updatePaidReactionPrivacy</a> (see <a href="https://corefork.telegram.org/api/reactions#paid-reaction-privacy">here</a> for more info).
     /// See <a href="https://corefork.telegram.org/type/PaidReactionPrivacy" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaidReactionPrivacy? Private { get; set; }
 
     public void ComputeFlag()

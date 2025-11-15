@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Plaintext verified <a href="https://corefork.telegram.org/passport/encryption#secureplaindata">passport data</a>.
-/// See <a href="https://corefork.telegram.org/type/SecurePlainData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecurePlainData" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecurePlainPhone"/> See <a href="https://corefork.telegram.org/constructor/securePlainPhone" /><br/>
+/// <see cref="TSecurePlainEmail"/> See <a href="https://corefork.telegram.org/constructor/securePlainEmail" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecurePlainPhone), nameof(TSecurePlainPhone))]
 [JsonDerivedType(typeof(TSecurePlainEmail), nameof(TSecurePlainEmail))]
 public interface ISecurePlainData : IObject

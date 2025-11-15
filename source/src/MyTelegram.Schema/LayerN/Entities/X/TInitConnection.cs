@@ -8,7 +8,7 @@ namespace MyTelegram.Schema.LayerN;
 /// See <a href="https://corefork.telegram.org/constructor/initConnection" />
 ///</summary>
 [TlObject(0x785188b8)]
-public sealed class RequestInitConnection : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInitConnection : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0x785188b8;
     ///<summary>

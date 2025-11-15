@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Deleted emoji keyword
-/// See <a href="https://corefork.telegram.org/constructor/emojiKeywordDeleted" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiKeywordDeleted" /></para>
+/// </summary>
 [TlObject(0x236df622)]
-public sealed class TEmojiKeywordDeleted : IEmojiKeyword
+public sealed partial class TEmojiKeywordDeleted : IEmojiKeyword
 {
     public uint ConstructorId => 0x236df622;
-    ///<summary>
+    /// <summary>
     /// Keyword
-    ///</summary>
+    /// </summary>
     public string Keyword { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emojis that were associated to keyword
-    ///</summary>
+    /// </summary>
     public TVector<string> Emoticons { get; set; }
 
     public void ComputeFlag()

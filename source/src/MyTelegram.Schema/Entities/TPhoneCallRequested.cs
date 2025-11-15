@@ -2,58 +2,58 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Requested phone call
-/// See <a href="https://corefork.telegram.org/constructor/phoneCallRequested" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCallRequested" /></para>
+/// </summary>
 [TlObject(0x14b0ed0c)]
-public sealed class TPhoneCallRequested : IPhoneCall
+public sealed partial class TPhoneCallRequested : IPhoneCall
 {
     public uint ConstructorId => 0x14b0ed0c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a video call
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the phone call created
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the creator of the phone call
-    ///</summary>
+    /// </summary>
     public long AdminId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the other participant of the phone call
-    ///</summary>
+    /// </summary>
     public long ParticipantId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/end-to-end/voice-calls">Parameter for key exchange</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> GAHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Call protocol info to be passed to libtgvoip
     /// See <a href="https://corefork.telegram.org/type/PhoneCallProtocol" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
     public void ComputeFlag()

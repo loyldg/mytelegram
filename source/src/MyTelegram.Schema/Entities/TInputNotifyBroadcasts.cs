@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// All <a href="https://corefork.telegram.org/api/channel">channels</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputNotifyBroadcasts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputNotifyBroadcasts" /></para>
+/// </summary>
 [TlObject(0xb1db7c7e)]
-public sealed class TInputNotifyBroadcasts : IInputNotifyPeer
+public sealed partial class TInputNotifyBroadcasts : IInputNotifyPeer
 {
     public uint ConstructorId => 0xb1db7c7e;
     public void ComputeFlag()

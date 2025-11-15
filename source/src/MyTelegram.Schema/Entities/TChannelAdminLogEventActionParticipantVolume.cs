@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// channelAdminLogEvent.user_id has set the volume of participant.peer to participant.volume
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantVolume" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantVolume" /></para>
+/// </summary>
 [TlObject(0x3e7f6847)]
-public sealed class TChannelAdminLogEventActionParticipantVolume : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantVolume : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x3e7f6847;
-    ///<summary>
+    /// <summary>
     /// The participant whose volume was changed
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGroupCallParticipant Participant { get; set; }
 
     public void ComputeFlag()

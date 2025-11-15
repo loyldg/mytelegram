@@ -1,23 +1,19 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/reactions">message reactions »</a>
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
+/// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// See <a href="https://corefork.telegram.org/method/messages.getMessagesReactions" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getMessagesReactions"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetMessagesReactionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetMessagesReactions, MyTelegram.Schema.IUpdates>
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetMessagesReactions obj)
+    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetMessagesReactions obj)
     {
-        return Task.FromResult<IUpdates>(new TUpdates
-        {
-            Updates = new(),
-            Chats = new(),
-            Users = new(),
-            Date = CurrentDate,
-        });
+        return Task.FromResult<IUpdates>(new TUpdates { Updates = new(), Chats = new(), Users = new(), Date = CurrentDate, });
     }
 }

@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a forwarded <a href="https://corefork.telegram.org/api/stories">story</a> or a story mention.
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaStory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaStory" /></para>
+/// </summary>
 [TlObject(0x68cb6283)]
-public sealed class TMessageMediaStory : IMessageMedia
+public sealed partial class TMessageMediaStory : IMessageMedia
 {
     public uint ConstructorId => 0x68cb6283;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that this someone has mentioned us in this story (i.e. by tagging us in the description) or vice versa, we have mentioned the other peer (if the message is outgoing).
-    ///</summary>
+    /// </summary>
     public bool ViaMention { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer that posted the story.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The story itself, if absent fetch it using <a href="https://corefork.telegram.org/method/stories.getStoriesByID">stories.getStoriesByID</a> and the <code>peer</code>/<code>id</code> parameters specified above.
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoryItem? Story { get; set; }
 
     public void ComputeFlag()

@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Check the validity of a chat invite link and get basic info about it
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 INVITE_HASH_EMPTY The invite hash is empty.
-/// 406 INVITE_HASH_EXPIRED The invite link has expired.
-/// 400 INVITE_HASH_INVALID The invite hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.checkChatInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 INVITE_HASH_EMPTY The invite hash is empty.</c></para>
+/// <para><c>406 INVITE_HASH_EXPIRED The invite link has expired.</c></para>
+/// <para><c>400 INVITE_HASH_INVALID The invite hash is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.checkChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3eadb1bb)]
-public sealed class RequestCheckChatInvite : IRequest<MyTelegram.Schema.IChatInvite>
+public sealed partial class RequestCheckChatInvite : IRequest<MyTelegram.Schema.IChatInvite>
 {
     public uint ConstructorId => 0x3eadb1bb;
 
-    ///<summary>
+    /// <summary>
     /// Invite hash from <a href="https://corefork.telegram.org/api/links#chat-invite-links">chat invite deep link »</a>.
-    ///</summary>
+    /// </summary>
     public string Hash { get; set; }
 
     public void ComputeFlag()

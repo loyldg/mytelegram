@@ -2,47 +2,62 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts" />
-///</summary>
+/// <summary>
+/// List of gifts currently on <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">resale »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts" /></para>
+/// </summary>
 [TlObject(0x947a12df)]
-public sealed class TResaleStarGifts : IResaleStarGifts
+public sealed partial class TResaleStarGifts : IResaleStarGifts
 {
     public uint ConstructorId => 0x947a12df;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Total number of results.
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Collectible gifts on resale (may be less than <code>count</code>, in which case <code>next_offset</code> will be set).
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarGift> Gifts { get; set; }
 
+    /// <summary>
+    /// Offset for pagination, pass this to <a href="https://corefork.telegram.org/method/payments.getResaleStarGifts">payments.getResaleStarGifts</a>.<code>offset</code> to fetch the next results.
+    /// </summary>
     public string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Possible gift attributes, only set if <a href="https://corefork.telegram.org/method/payments.getResaleStarGifts">payments.getResaleStarGifts</a>.<code>attributes_hash</code> is set (on the first call, it must be equal to <code>0</code>).
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttribute" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAttribute>? Attributes { get; set; }
 
+    /// <summary>
+    /// Hash of the <code>attributes</code> field, pass this to <a href="https://corefork.telegram.org/method/payments.getResaleStarGifts">payments.getResaleStarGifts</a>.<code>attributes_hash</code> to avoid returning any attributes (flag not set) if they haven't changed.
+    /// </summary>
     public long? AttributesHash { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Chats mentioned in the attributes.
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Indicates the total number of gifts that have a specific attribute, only set if <a href="https://corefork.telegram.org/method/payments.getResaleStarGifts">payments.getResaleStarGifts</a>.<code>offset</code> is empty (since this field is not related to the current result page but to all of them, it's only returned on the first page).
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeCounter" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAttributeCounter>? Counters { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Users mentioned in the attributes.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

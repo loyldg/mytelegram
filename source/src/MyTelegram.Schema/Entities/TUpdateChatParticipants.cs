@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Composition of chat participants changed.
-/// See <a href="https://corefork.telegram.org/constructor/updateChatParticipants" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChatParticipants" /></para>
+/// </summary>
 [TlObject(0x7761198)]
-public sealed class TUpdateChatParticipants : IUpdate
+public sealed partial class TUpdateChatParticipants : IUpdate
 {
     public uint ConstructorId => 0x7761198;
-    ///<summary>
+    /// <summary>
     /// Updated chat participants
     /// See <a href="https://corefork.telegram.org/type/ChatParticipants" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatParticipants Participants { get; set; }
 
     public void ComputeFlag()

@@ -2,104 +2,113 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// Uploads a <a href="https://corefork.telegram.org/api/stories">Telegram Story</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOOSTS_REQUIRED The specified channel must first be <a href="https://corefork.telegram.org/api/boost">boosted by its users</a> in order to perform this action.
-/// 400 IMAGE_PROCESS_FAILED Failure while processing image.
-/// 400 MEDIA_EMPTY The provided media object is invalid.
-/// 400 MEDIA_FILE_INVALID The specified media file is invalid.
-/// 400 MEDIA_TYPE_INVALID The specified media type cannot be used in stories.
-/// 400 MEDIA_VIDEO_STORY_MISSING A non-story video cannot be repubblished as a story (emitted when trying to resend a non-story video as a story using inputDocument).
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 400 STORIES_TOO_MUCH You have hit the maximum active stories limit as specified by the <a href="https://corefork.telegram.org/api/config#story-expiring-limit-default"><code>story_expiring_limit_*</code> client configuration parameters</a>: you should buy a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription, delete an active story, or wait for the oldest story to expire.
-/// 400 STORY_PERIOD_INVALID The specified story period is invalid for this account.
-/// 400 VENUE_ID_INVALID The specified venue ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.sendStory" />
-///</summary>
+/// <summary>
+/// Uploads a <a href="https://corefork.telegram.org/api/stories">Telegram Story</a>.May also be used in a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business connection</a>, <em>not</em> by wrapping the query in <a href="https://corefork.telegram.org/method/invokeWithBusinessConnection">invokeWithBusinessConnection »</a>, but rather by specifying the ID of a controlled business user in <code>peer</code>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOOSTS_REQUIRED The specified channel must first be <a href="https://corefork.telegram.org/api/boost">boosted by its users</a> in order to perform this action.</c></para>
+/// <para><c>403 BOT_ACCESS_FORBIDDEN The specified method <em>can</em> be used over a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business connection</a> for some operations, but the specified query attempted an operation that is not allowed over a business connection.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 IMAGE_PROCESS_FAILED Failure while processing image.</c></para>
+/// <para><c>400 MEDIA_EMPTY The provided media object is invalid.</c></para>
+/// <para><c>400 MEDIA_FILE_INVALID The specified media file is invalid.</c></para>
+/// <para><c>400 MEDIA_TYPE_INVALID The specified media type cannot be used in stories.</c></para>
+/// <para><c>400 MEDIA_VIDEO_STORY_MISSING A non-story video cannot be repubblished as a story (emitted when trying to resend a non-story video as a story using inputDocument).</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
+/// <para><c>400 STORIES_TOO_MUCH You have hit the maximum active stories limit as specified by the <a href="https://corefork.telegram.org/api/config#story-expiring-limit-default"><code>story_expiring_limit_*</code> client configuration parameters</a>: you should buy a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription, delete an active story, or wait for the oldest story to expire.</c></para>
+/// <para><c>400 STORY_PERIOD_INVALID The specified story period is invalid for this account.</c></para>
+/// <para><c>400 VENUE_ID_INVALID The specified venue ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.sendStory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x737fc2ec)]
-public sealed class RequestSendStory : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendStory : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x737fc2ec;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to add the story to the profile automatically upon expiration. If not set, the story will only be added to the archive, see <a href="https://corefork.telegram.org/api/stories">here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, disables forwards, screenshots, and downloads.
-    ///</summary>
+    /// </summary>
     public bool Noforwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag when reposting stories with <code>fwd_from_id</code>+<code>fwd_from_id</code>, if the <code>media</code> was modified before reposting.
-    ///</summary>
+    /// </summary>
     public bool FwdModified { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer to send the story as.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The story media.
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/stories#media-areas">Media areas</a> associated to the story, see <a href="https://corefork.telegram.org/api/stories#media-areas">here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/MediaArea" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMediaArea>? MediaAreas { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story caption.
-    ///</summary>
+    /// </summary>
     public string? Caption { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>, if allowed by the <a href="https://corefork.telegram.org/api/config#stories-entities"><code>stories_entities</code> client configuration parameter »</a>.
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/privacy">Privacy rules</a> for the story, indicating who can or can't view the story.
     /// See <a href="https://corefork.telegram.org/type/InputPrivacyRule" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPrivacyRule> PrivacyRules { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client message ID required to prevent message resending.
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Period after which the story is moved to archive (and to the profile if <code>pinned</code> is set), in seconds; must be one of <code>6 * 3600</code>, <code>12 * 3600</code>, <code>86400</code>, or <code>2 * 86400</code> for Telegram Premium users, and <code>86400</code> otherwise.
-    ///</summary>
+    /// </summary>
     public int? Period { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that this story is a repost of story with ID <code>fwd_from_story</code> posted by the peer in <code>fwd_from_id</code>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? FwdFromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that this story is a repost of story with ID <code>fwd_from_story</code> posted by the peer in <code>fwd_from_id</code>.
-    ///</summary>
+    /// </summary>
     public int? FwdFromStory { get; set; }
 
+    /// <summary>
+    /// If set, adds the story to the specified albums.
+    /// </summary>
     public TVector<int>? Albums { get; set; }
 
     public void ComputeFlag()

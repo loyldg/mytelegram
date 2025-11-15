@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A chat invite was deleted
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete" /></para>
+/// </summary>
 [TlObject(0x5a50fca4)]
-public sealed class TChannelAdminLogEventActionExportedInviteDelete : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionExportedInviteDelete : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x5a50fca4;
-    ///<summary>
+    /// <summary>
     /// The deleted chat invite
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
     public void ComputeFlag()

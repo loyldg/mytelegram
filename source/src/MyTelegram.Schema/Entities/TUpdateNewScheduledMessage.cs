@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A message was added to the <a href="https://corefork.telegram.org/api/scheduled-messages">schedule queue of a chat</a>
-/// See <a href="https://corefork.telegram.org/constructor/updateNewScheduledMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateNewScheduledMessage" /></para>
+/// </summary>
 [TlObject(0x39a51dfb)]
-public sealed class TUpdateNewScheduledMessage : IUpdate
+public sealed partial class TUpdateNewScheduledMessage : IUpdate
 {
     public uint ConstructorId => 0x39a51dfb;
-    ///<summary>
+    /// <summary>
     /// Message
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
     public void ComputeFlag()

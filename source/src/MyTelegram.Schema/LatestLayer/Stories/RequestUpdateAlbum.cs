@@ -2,29 +2,55 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/stories.updateAlbum" />
-///</summary>
+/// <summary>
+/// Rename a <a href="https://corefork.telegram.org/api/stories#story-albums">story albums »</a>, or add, delete or reorder stories in it.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.updateAlbum" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5e5259b6)]
-public sealed class RequestUpdateAlbum : IRequest<MyTelegram.Schema.IStoryAlbum>
+public sealed partial class RequestUpdateAlbum : IRequest<MyTelegram.Schema.IStoryAlbum>
 {
     public uint ConstructorId => 0x5e5259b6;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Peer where the album is posted.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// Album ID.
+    /// </summary>
     public int AlbumId { get; set; }
 
+    /// <summary>
+    /// New album title.
+    /// </summary>
     public string? Title { get; set; }
 
+    /// <summary>
+    /// If set, deletes the specified stories from the album.
+    /// </summary>
     public TVector<int>? DeleteStories { get; set; }
 
+    /// <summary>
+    /// If set, adds the specified stories to the album.
+    /// </summary>
     public TVector<int>? AddStories { get; set; }
 
+    /// <summary>
+    /// If set, reorders the stories in the album by their IDs.
+    /// </summary>
     public TVector<int>? Order { get; set; }
 
     public void ComputeFlag()

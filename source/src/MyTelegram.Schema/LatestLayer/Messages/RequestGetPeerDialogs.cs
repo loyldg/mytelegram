@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get dialog info of specified peers
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 INPUT_PEERS_EMPTY The specified peer array is empty.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getPeerDialogs" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 FROZEN_PARTICIPANT_MISSING The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and cannot access the specified peer.</c></para>
+/// <para><c>400 INPUT_PEERS_EMPTY The specified peer array is empty.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getPeerDialogs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe470bcfd)]
-public sealed class RequestGetPeerDialogs : IRequest<MyTelegram.Schema.Messages.IPeerDialogs>
+public sealed partial class RequestGetPeerDialogs : IRequest<MyTelegram.Schema.Messages.IPeerDialogs>
 {
     public uint ConstructorId => 0xe470bcfd;
 
-    ///<summary>
+    /// <summary>
     /// Peers
     /// See <a href="https://corefork.telegram.org/type/InputDialogPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputDialogPeer> Peers { get; set; }
 
     public void ComputeFlag()

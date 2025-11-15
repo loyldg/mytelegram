@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Online status: last seen last week
-/// See <a href="https://corefork.telegram.org/constructor/userStatusLastWeek" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/userStatusLastWeek" /></para>
+/// </summary>
 [TlObject(0x541a1d1a)]
-public sealed class TUserStatusLastWeek : IUserStatus
+public sealed partial class TUserStatusLastWeek : IUserStatus
 {
     public uint ConstructorId => 0x541a1d1a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the exact user status of this user is actually available to us, but to view it we must first purchase a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription, or allow this user to see <em>our</em> exact last online status. See <a href="https://corefork.telegram.org/constructor/privacyKeyStatusTimestamp">here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public bool ByMe { get; set; }
 
     public void ComputeFlag()

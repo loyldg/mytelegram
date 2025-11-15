@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User status has not been set yet.
-/// See <a href="https://corefork.telegram.org/constructor/userStatusEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/userStatusEmpty" /></para>
+/// </summary>
 [TlObject(0x9d05049)]
-public sealed class TUserStatusEmpty : IUserStatus
+public sealed partial class TUserStatusEmpty : IUserStatus
 {
     public uint ConstructorId => 0x9d05049;
     public void ComputeFlag()

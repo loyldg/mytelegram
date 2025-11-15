@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Number of online users in a chat
-/// See <a href="https://corefork.telegram.org/constructor/chatOnlines" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatOnlines" /></para>
+/// </summary>
 [TlObject(0xf041e250)]
-public sealed class TChatOnlines : IChatOnlines
+public sealed partial class TChatOnlines : IChatOnlines
 {
     public uint ConstructorId => 0xf041e250;
-    ///<summary>
+    /// <summary>
     /// Number of online users
-    ///</summary>
+    /// </summary>
     public int Onlines { get; set; }
 
     public void ComputeFlag()

@@ -2,48 +2,48 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Incomplete list of occurred events.
-/// See <a href="https://corefork.telegram.org/constructor/updates.differenceSlice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates.differenceSlice" /></para>
+/// </summary>
 [TlObject(0xa8fb1981)]
-public sealed class TDifferenceSlice : IDifference
+public sealed partial class TDifferenceSlice : IDifference
 {
     public uint ConstructorId => 0xa8fb1981;
-    ///<summary>
+    /// <summary>
     /// List of new messages
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> NewMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New messages from the <a href="https://corefork.telegram.org/api/updates">encrypted event sequence</a>
     /// See <a href="https://corefork.telegram.org/type/EncryptedMessage" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IEncryptedMessage> NewEncryptedMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of updates
     /// See <a href="https://corefork.telegram.org/type/Update" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUpdate> OtherUpdates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of chats mentioned in events
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users mentioned in events
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Intermediary state
     /// See <a href="https://corefork.telegram.org/type/updates.State" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Updates.IState IntermediateState { get; set; }
 
     public void ComputeFlag()

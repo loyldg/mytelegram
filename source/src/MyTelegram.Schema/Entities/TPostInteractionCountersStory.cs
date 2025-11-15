@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Interaction counters for a story.
-/// See <a href="https://corefork.telegram.org/constructor/postInteractionCountersStory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/postInteractionCountersStory" /></para>
+/// </summary>
 [TlObject(0x8a480e27)]
-public sealed class TPostInteractionCountersStory : IPostInteractionCounters
+public sealed partial class TPostInteractionCountersStory : IPostInteractionCounters
 {
     public uint ConstructorId => 0x8a480e27;
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int StoryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of views
-    ///</summary>
+    /// </summary>
     public int Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of forwards and reposts to public chats and channels
-    ///</summary>
+    /// </summary>
     public int Forwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of reactions
-    ///</summary>
+    /// </summary>
     public int Reactions { get; set; }
 
     public void ComputeFlag()

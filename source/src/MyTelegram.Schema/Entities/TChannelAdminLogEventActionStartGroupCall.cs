@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A group call was started
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionStartGroupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionStartGroupCall" /></para>
+/// </summary>
 [TlObject(0x23209745)]
-public sealed class TChannelAdminLogEventActionStartGroupCall : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionStartGroupCall : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x23209745;
-    ///<summary>
+    /// <summary>
     /// Group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     public void ComputeFlag()

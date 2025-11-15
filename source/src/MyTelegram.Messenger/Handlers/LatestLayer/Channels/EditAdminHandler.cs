@@ -1,8 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+/// <summary>
 /// Modify the admin rights of a user in a <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a>.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 ADMINS_TOO_MUCH There are too many admins.
 /// 400 ADMIN_RANK_EMOJI_NOT_ALLOWED An admin rank cannot contain emojis.
@@ -11,12 +10,14 @@
 /// 400 BOT_CHANNELS_NA Bots can't edit admin privileges.
 /// 400 BOT_GROUPS_BLOCKED This bot can't be added to groups.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
+/// 400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 403 CHAT_ADMIN_INVITE_REQUIRED You do not have the rights to do this.
 /// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
 /// 406 FRESH_CHANGE_ADMINS_FORBIDDEN You were just elected admin, you can't add or modify other admins yet.
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
+/// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 403 RIGHT_FORBIDDEN Your admin rights do not allow you to do this.
 /// 400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).
@@ -27,18 +28,14 @@
 /// 403 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.
 /// 403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this.
 /// 403 USER_RESTRICTED You're spamreported, you can't create channels or chats.
-/// See <a href="https://corefork.telegram.org/method/channels.editAdmin" />
-///</summary>
-internal sealed class EditAdminHandler(
-    ICommandBus commandBus,
-    IPeerHelper peerHelper,
-    IQueryProcessor queryProcessor,
-    IChannelAdminRightsChecker channelAdminRightsChecker,
-    IAccessHashHelper accessHashHelper)
-    : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditAdmin, MyTelegram.Schema.IUpdates>
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.editAdmin"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
+internal sealed class EditAdminHandler(ICommandBus commandBus, IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditAdmin, MyTelegram.Schema.IUpdates>
 {
-    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestEditAdmin obj)
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestEditAdmin obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
@@ -46,24 +43,10 @@ internal sealed class EditAdminHandler(
             await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
             var peer = peerHelper.GetPeer(obj.UserId, input.UserId);
             var isBot = peerHelper.IsBotUser(peer.PeerId);
-            var channelMember =
-                await queryProcessor.ProcessAsync(
-                    new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
-
-            var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId),
-                input.ToRequestInfo(),
-                input.UserId,
-                false,
-                peer.PeerId,
-                isBot,
-                channelMember != null,
-                new ChatAdminRights(obj.AdminRights.Flags),
-                obj.Rank,
-                CurrentDate
-            );
+            var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
+            var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), input.UserId, false, peer.PeerId, isBot, channelMember != null, new ChatAdminRights(obj.AdminRights.Flags), obj.Rank, CurrentDate);
             await commandBus.PublishAsync(command);
-
-            return null!;
+            return null !;
         }
 
         throw new NotImplementedException();

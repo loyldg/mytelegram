@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// The sponsored message was reported successfully.
-/// See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultReported" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultReported" /></para>
+/// </summary>
 [TlObject(0xad798849)]
-public sealed class TSponsoredMessageReportResultReported : ISponsoredMessageReportResult
+public sealed partial class TSponsoredMessageReportResultReported : ISponsoredMessageReportResult
 {
     public uint ConstructorId => 0xad798849;
     public void ComputeFlag()

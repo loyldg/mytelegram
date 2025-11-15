@@ -2,17 +2,26 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.getSavedStarGift" />
-///</summary>
+/// <summary>
+/// Fetch info about specific <a href="https://corefork.telegram.org/api/gifts">gifts</a> owned by a peer we control.Note that unlike what the name suggests, the method can be used to fetch both "saved" and "unsaved" gifts (aka gifts both pinned and not pinned to the profile).
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.</c></para>
+/// <para><c>400 STARGIFT_SLUG_INVALID The specified gift slug is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getSavedStarGift" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb455a106)]
-public sealed class RequestGetSavedStarGift : IRequest<MyTelegram.Schema.Payments.ISavedStarGifts>
+public sealed partial class RequestGetSavedStarGift : IRequest<MyTelegram.Schema.Payments.ISavedStarGifts>
 {
     public uint ConstructorId => 0xb455a106;
 
-    ///<summary>
+    /// <summary>
+    /// List of gifts to fetch info about.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputSavedStarGift> Stargift { get; set; }
 
     public void ComputeFlag()

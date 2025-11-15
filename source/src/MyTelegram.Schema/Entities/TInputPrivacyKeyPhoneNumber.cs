@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether people will be able to see your phone number
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyPhoneNumber" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyPhoneNumber" /></para>
+/// </summary>
 [TlObject(0x352dafa)]
-public sealed class TInputPrivacyKeyPhoneNumber : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyPhoneNumber : IInputPrivacyKey
 {
     public uint ConstructorId => 0x352dafa;
     public void ComputeFlag()

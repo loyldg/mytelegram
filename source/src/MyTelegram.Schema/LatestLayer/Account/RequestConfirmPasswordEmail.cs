@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Verify an email to use as <a href="https://corefork.telegram.org/api/srp">2FA recovery method</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CODE_INVALID Code invalid.
-/// 400 EMAIL_HASH_EXPIRED Email hash expired.
-/// See <a href="https://corefork.telegram.org/method/account.confirmPasswordEmail" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CODE_INVALID Code invalid.</c></para>
+/// <para><c>400 EMAIL_HASH_EXPIRED Email hash expired. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.confirmPasswordEmail" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8fdf1920)]
-public sealed class RequestConfirmPasswordEmail : IRequest<IBool>
+public sealed partial class RequestConfirmPasswordEmail : IRequest<IBool>
 {
     public uint ConstructorId => 0x8fdf1920;
 
-    ///<summary>
+    /// <summary>
     /// The phone code that was received after <a href="https://corefork.telegram.org/api/srp#email-verification">setting a recovery email</a>
-    ///</summary>
+    /// </summary>
     public string Code { get; set; }
 
     public void ComputeFlag()

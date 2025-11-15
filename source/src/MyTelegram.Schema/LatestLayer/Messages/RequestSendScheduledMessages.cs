@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Send scheduled messages right away
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
-/// See <a href="https://corefork.telegram.org/method/messages.sendScheduledMessages" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendScheduledMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbd38850a)]
-public sealed class RequestSendScheduledMessages : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendScheduledMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xbd38850a;
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Scheduled message IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

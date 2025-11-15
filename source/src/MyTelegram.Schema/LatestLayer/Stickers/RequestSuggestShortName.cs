@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Suggests a short name for a given stickerpack name
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 TITLE_INVALID The specified stickerpack title is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.suggestShortName" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 TITLE_INVALID The specified stickerpack title is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.suggestShortName" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4dafc503)]
-public sealed class RequestSuggestShortName : IRequest<MyTelegram.Schema.Stickers.ISuggestedShortName>
+public sealed partial class RequestSuggestShortName : IRequest<MyTelegram.Schema.Stickers.ISuggestedShortName>
 {
     public uint ConstructorId => 0x4dafc503;
 
-    ///<summary>
+    /// <summary>
     /// Sticker pack name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

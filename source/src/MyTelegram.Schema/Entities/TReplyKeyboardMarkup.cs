@@ -2,48 +2,48 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bot keyboard
-/// See <a href="https://corefork.telegram.org/constructor/replyKeyboardMarkup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/replyKeyboardMarkup" /></para>
+/// </summary>
 [TlObject(0x85dd99d1)]
-public sealed class TReplyKeyboardMarkup : IReplyMarkup
+public sealed partial class TReplyKeyboardMarkup : IReplyMarkup
 {
     public uint ConstructorId => 0x85dd99d1;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). If not set, the custom keyboard is always of the same height as the app's standard keyboard.
-    ///</summary>
+    /// </summary>
     public bool Resize { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again.
-    ///</summary>
+    /// </summary>
     public bool SingleUse { get; set; }
 
-    ///<summary>
-    /// Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.<br><br>Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
-    ///</summary>
+    /// <summary>
+    /// Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.<br/><br/>Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
+    /// </summary>
     public bool Selective { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Requests clients to always show the keyboard when the regular keyboard is hidden.
-    ///</summary>
+    /// </summary>
     public bool Persistent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Button row
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonRow" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IKeyboardButtonRow> Rows { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The placeholder to be shown in the input field when the keyboard is active; 1-64 characters.
-    ///</summary>
+    /// </summary>
     public string? Placeholder { get; set; }
 
     public void ComputeFlag()

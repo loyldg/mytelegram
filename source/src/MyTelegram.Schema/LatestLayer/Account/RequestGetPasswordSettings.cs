@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get private info associated to the password info (recovery email, telegram <a href="https://corefork.telegram.org/passport">passport</a> info &amp; so on)
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PASSWORD_HASH_INVALID The provided password hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.getPasswordSettings" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PASSWORD_HASH_INVALID The provided password hash is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getPasswordSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9cd4eaf9)]
-public sealed class RequestGetPasswordSettings : IRequest<MyTelegram.Schema.Account.IPasswordSettings>
+public sealed partial class RequestGetPasswordSettings : IRequest<MyTelegram.Schema.Account.IPasswordSettings>
 {
     public uint ConstructorId => 0x9cd4eaf9;
 
-    ///<summary>
+    /// <summary>
     /// The password (see <a href="https://corefork.telegram.org/api/srp">SRP</a>)
     /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
 
     public void ComputeFlag()

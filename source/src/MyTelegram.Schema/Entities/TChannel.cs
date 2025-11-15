@@ -2,258 +2,276 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel/supergroup infoWhen updating the <a href="https://corefork.telegram.org/api/peers">local peer database</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).The only exception to the above rule is when the <code>min</code> flag is set, in which case <strong>only</strong> the following fields must be applied over any locally stored version:See <a href="https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L8329">here »</a> for an implementation of the logic to use when updating the <a href="https://corefork.telegram.org/api/peers">local user peer database</a>.
-/// See <a href="https://corefork.telegram.org/constructor/channel" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channel" /></para>
+/// </summary>
 [TlObject(0xfe685355)]
-public sealed class TChannel : IChat, ILayeredChannel
+public sealed partial class TChannel : IChat, ILayeredChannel
 {
     public uint ConstructorId => 0xfe685355;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current user is the creator of this channel
-    ///</summary>
+    /// </summary>
     public bool Creator { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current user has left or is not a member of this channel
-    ///</summary>
+    /// </summary>
     public bool Left { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this a channel?
-    ///</summary>
+    /// </summary>
     public bool Broadcast { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this channel verified by telegram?
-    ///</summary>
+    /// </summary>
     public bool Verified { get; set; }
 
-    ///<summary>
-    /// Is this a supergroup? <br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// Is this a supergroup? <br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool Megagroup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether viewing/writing in this channel for a reason (see <code>restriction_reason</code>)
-    ///</summary>
+    /// </summary>
     public bool Restricted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether signatures are enabled (channels)
-    ///</summary>
+    /// </summary>
     public bool Signatures { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// See <a href="https://corefork.telegram.org/api/min">min</a>
-    ///</summary>
+    /// </summary>
     public bool Min { get; set; }
 
-    ///<summary>
-    /// This channel/supergroup is probably a scam <br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// This channel/supergroup is probably a scam <br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool Scam { get; set; }
 
-    ///<summary>
-    /// Whether this channel has a linked <a href="https://corefork.telegram.org/api/discussion">discussion group »</a> (or this supergroup is a channel's discussion group). The actual ID of the linked channel/supergroup is contained in <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a>.<code>linked_chat_id</code>. <br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// Whether this channel has a linked <a href="https://corefork.telegram.org/api/discussion">discussion group »</a> (or this supergroup is a channel's discussion group). The actual ID of the linked channel/supergroup is contained in <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a>.<code>linked_chat_id</code>. <br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool HasLink { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this chanel has a geoposition
-    ///</summary>
+    /// </summary>
     public bool HasGeo { get; set; }
 
-    ///<summary>
-    /// Whether slow mode is enabled for groups to prevent flood in chat. <br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// Whether slow mode is enabled for groups to prevent flood in chat. <br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool SlowmodeEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether a group call or livestream is currently active
-    ///</summary>
+    /// </summary>
     public bool CallActive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether there's anyone in the group call or livestream
-    ///</summary>
+    /// </summary>
     public bool CallNotEmpty { get; set; }
 
-    ///<summary>
-    /// If set, this <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a> was reported by many users as a fake or scam: be careful when interacting with it. <br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// If set, this <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a> was reported by many users as a fake or scam: be careful when interacting with it. <br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool Fake { get; set; }
 
-    ///<summary>
-    /// Whether this <a href="https://corefork.telegram.org/api/channel">supergroup</a> is a gigagroup<br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// Whether this <a href="https://corefork.telegram.org/api/channel">supergroup</a> is a gigagroup<br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool Gigagroup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this channel or group is <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">protected</a>, thus does not allow forwarding messages from it
-    ///</summary>
+    /// </summary>
     public bool Noforwards { get; set; }
 
-    ///<summary>
-    /// Whether a user needs to join the supergroup before they can send messages: can be false only for <a href="https://corefork.telegram.org/api/discussion">discussion groups »</a>, toggle using <a href="https://corefork.telegram.org/method/channels.toggleJoinToSend">channels.toggleJoinToSend</a><br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// Whether a user needs to join the supergroup before they can send messages: can be false only for <a href="https://corefork.telegram.org/api/discussion">discussion groups »</a>, toggle using <a href="https://corefork.telegram.org/method/channels.toggleJoinToSend">channels.toggleJoinToSend</a><br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool JoinToSend { get; set; }
 
-    ///<summary>
-    /// Whether a user's join request will have to be <a href="https://corefork.telegram.org/api/invites#join-requests">approved by administrators</a>, toggle using <a href="https://corefork.telegram.org/method/channels.toggleJoinRequest">channels.toggleJoinToSend</a><br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// Whether a user's join request will have to be <a href="https://corefork.telegram.org/api/invites#join-requests">approved by administrators</a>, toggle using <a href="https://corefork.telegram.org/method/channels.toggleJoinRequest">channels.toggleJoinToSend</a><br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool JoinRequest { get; set; }
 
-    ///<summary>
-    /// Whether this supergroup is a <a href="https://corefork.telegram.org/api/forum">forum</a>. <br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// Whether this supergroup is a <a href="https://corefork.telegram.org/api/forum">forum</a>. <br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public bool Forum { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/stories#hiding-stories-of-other-users">hidden all stories posted by this channel »</a>.
-    ///</summary>
+    /// </summary>
     public bool StoriesHidden { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the <code>stories_hidden</code> flag was not populated, and its value must cannot be relied on; use the previously cached value, or re-fetch the constructor using <a href="https://corefork.telegram.org/method/channels.getChannels">channels.getChannels</a> to obtain the latest value of the <code>stories_hidden</code> flag.
-    ///</summary>
+    /// </summary>
     public bool StoriesHiddenMin { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// No stories from the channel are visible.
-    ///</summary>
+    /// </summary>
     public bool StoriesUnavailable { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, messages sent by admins to this channel will link to the admin's profile (just like with groups).
-    ///</summary>
+    /// </summary>
     public bool SignatureProfiles { get; set; }
 
+    /// <summary>
+    /// If set, <a href="https://corefork.telegram.org/api/translation#autotranslation-for-channels">autotranslation</a> was enabled for all users by the admin of the channel, as specified <a href="https://corefork.telegram.org/api/translation#autotranslation-for-channels">here »</a>.
+    /// </summary>
     public bool Autotranslation { get; set; }
 
+    /// <summary>
+    /// If set, this channel has an associated <a href="https://corefork.telegram.org/api/monoforum">monoforum »</a>, and its ID is specified in the <code>linked_monoforum_id</code> flag.
+    /// </summary>
     public bool BroadcastMessagesAllowed { get; set; }
 
+    /// <summary>
+    /// If set, this is a <a href="https://corefork.telegram.org/api/monoforum">monoforum »</a>, and the ID of the associated channel is specified in the <code>linked_monoforum_id</code>.
+    /// </summary>
     public bool Monoforum { get; set; }
 
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/forum#tabbed-or-list-based-forum-ui">If set, enables the tabbed forum UI »</a>.
+    /// </summary>
     public bool ForumTabs { get; set; }
 
-    ///<summary>
-    /// ID of the channel, see <a href="https://corefork.telegram.org/api/peers#peer-id">here »</a> for more info
-    ///</summary>
+    /// <summary>
+    /// ID of the channel, see <a href="https://corefork.telegram.org/api/peers#peer-id">here »</a> for more info and the available ID range.
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash, see <a href="https://corefork.telegram.org/api/peers#access-hash">here »</a> for more info
-    ///</summary>
+    /// </summary>
     public long? AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Main active username.
-    ///</summary>
+    /// </summary>
     public string? Username { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Profile photo
     /// See <a href="https://corefork.telegram.org/type/ChatPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatPhoto Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date when the user joined the supergroup/channel, or if the user isn't a member, its creation date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
-    /// Contains the reason why access to this channel must be restricted. <br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// <summary>
+    /// Contains the reason why access to this channel must be restricted. <br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/RestrictionReason" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IRestrictionReason>? RestrictionReason { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Admin rights of the user in this channel (see <a href="https://corefork.telegram.org/api/rights">rights</a>)
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights? AdminRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Banned rights of the user in this channel (see <a href="https://corefork.telegram.org/api/rights">rights</a>)
     /// See <a href="https://corefork.telegram.org/type/ChatBannedRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatBannedRights? BannedRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default chat rights (see <a href="https://corefork.telegram.org/api/rights">rights</a>)
     /// See <a href="https://corefork.telegram.org/type/ChatBannedRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatBannedRights? DefaultBannedRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participant count
-    ///</summary>
+    /// </summary>
     public int? ParticipantsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Additional usernames
     /// See <a href="https://corefork.telegram.org/type/Username" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUsername>? Usernames { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the maximum read <a href="https://corefork.telegram.org/api/stories">story</a>.
-    ///</summary>
+    /// </summary>
     public int? StoriesMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel's <a href="https://corefork.telegram.org/api/colors">accent color</a>.
     /// See <a href="https://corefork.telegram.org/type/PeerColor" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerColor? Color { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel's <a href="https://corefork.telegram.org/api/colors">profile color</a>.
     /// See <a href="https://corefork.telegram.org/type/PeerColor" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerColor? ProfileColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/emoji-status">Emoji status</a>
     /// See <a href="https://corefork.telegram.org/type/EmojiStatus" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEmojiStatus? EmojiStatus { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/boost">Boost level</a>. <br>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/boost">Boost level</a>. <br/>Changes to this flag should invalidate the local <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> cache for this channel/supergroup ID, see <a href="https://corefork.telegram.org/api/peers#full-info-database">here »</a> for more info.
+    /// </summary>
     public int? Level { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Expiration date of the <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscription »</a> the current user has bought to gain access to this channel.
-    ///</summary>
+    /// </summary>
     public int? SubscriptionUntilDate { get; set; }
 
+    /// <summary>
+    /// Describes a <a href="https://corefork.telegram.org/api/bots/verification">bot verification icon »</a>.
+    /// </summary>
     public long? BotVerificationIcon { get; set; }
 
-    ///<summary>
-    /// If set, this supergroup or <a href="https://corefork.telegram.org/api/forum#monoforums">monoforum</a> has enabled <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>, we <em>might</em> need to pay the specified amount of <a href="https://corefork.telegram.org/api/stars">Stars</a> to send messages to it, depending on the configured exceptions: check <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a>.<code>send_paid_messages_stars</code> to see if the currently logged in user actually has to pay or not, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for the full flow (only set for the monoforum, not the associated channel).
-    ///</summary>
+    /// <summary>
+    /// If set, this supergroup or <a href="https://corefork.telegram.org/api/monoforum">monoforum</a> has enabled <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>, we <em>might</em> need to pay the specified amount of <a href="https://corefork.telegram.org/api/stars">Stars</a> to send messages to it, depending on the configured exceptions: check <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a>.<code>send_paid_messages_stars</code> to see if the currently logged in user actually has to pay or not, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for the full flow (only set for the monoforum, not the associated channel).
+    /// </summary>
     public long? SendPaidMessagesStars { get; set; }
 
+    /// <summary>
+    /// For channels with associated <a href="https://corefork.telegram.org/api/monoforum">monoforums</a>, the <a href="https://corefork.telegram.org/api/monoforum">monoforum</a> ID. For <a href="https://corefork.telegram.org/api/monoforum">Monoforums</a>, the ID of the associated channel.
+    /// </summary>
     public long? LinkedMonoforumId { get; set; }
 
     public void ComputeFlag()

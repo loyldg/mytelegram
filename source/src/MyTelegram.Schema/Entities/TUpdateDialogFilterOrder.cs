@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New <a href="https://corefork.telegram.org/api/folders">folder</a> order
-/// See <a href="https://corefork.telegram.org/constructor/updateDialogFilterOrder" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDialogFilterOrder" /></para>
+/// </summary>
 [TlObject(0xa5d72105)]
-public sealed class TUpdateDialogFilterOrder : IUpdate
+public sealed partial class TUpdateDialogFilterOrder : IUpdate
 {
     public uint ConstructorId => 0xa5d72105;
-    ///<summary>
+    /// <summary>
     /// Ordered <a href="https://corefork.telegram.org/api/folders">folder IDs</a>
-    ///</summary>
+    /// </summary>
     public TVector<int> Order { get; set; }
 
     public void ComputeFlag()

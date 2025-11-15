@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Callback button
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonCallback" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonCallback" /></para>
+/// </summary>
 [TlObject(0x35bbdb6b)]
-public sealed class TKeyboardButtonCallback : IKeyboardButton
+public sealed partial class TKeyboardButtonCallback : IKeyboardButton
 {
     public uint ConstructorId => 0x35bbdb6b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user should verify his identity by entering his <a href="https://corefork.telegram.org/api/srp">2FA SRP parameters</a> to the <a href="https://corefork.telegram.org/method/messages.getBotCallbackAnswer">messages.getBotCallbackAnswer</a> method. NOTE: telegram and the bot WILL NOT have access to the plaintext password, thanks to <a href="https://corefork.telegram.org/api/srp">SRP</a>. This button is mainly used by the official <a href="https://t.me/botfather">@botfather</a> bot, for verifying the user's identity before transferring ownership of a bot to another user.
-    ///</summary>
+    /// </summary>
     public bool RequiresPassword { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Callback data
-    ///</summary>
+    /// </summary>
     public string Data { get; set; }
 
     public void ComputeFlag()

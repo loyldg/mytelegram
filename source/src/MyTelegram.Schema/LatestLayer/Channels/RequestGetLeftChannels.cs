@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get a list of <a href="https://corefork.telegram.org/api/channel">channels/supergroups</a> we left, requires a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 TAKEOUT_REQUIRED A <a href="https://corefork.telegram.org/api/takeout">takeout</a> session needs to be initialized first, <a href="https://corefork.telegram.org/api/takeout">see here » for more info</a>.
-/// See <a href="https://corefork.telegram.org/method/channels.getLeftChannels" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 TAKEOUT_INVALID The specified takeout ID is invalid.</c></para>
+/// <para><c>403 TAKEOUT_REQUIRED A <a href="https://corefork.telegram.org/api/takeout">takeout</a> session needs to be initialized first, <a href="https://corefork.telegram.org/api/takeout">see here » for more info</a>. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getLeftChannels" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8341ecc0)]
-public sealed class RequestGetLeftChannels : IRequest<MyTelegram.Schema.Messages.IChats>
+public sealed partial class RequestGetLeftChannels : IRequest<MyTelegram.Schema.Messages.IChats>
 {
     public uint ConstructorId => 0x8341ecc0;
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
     public void ComputeFlag()

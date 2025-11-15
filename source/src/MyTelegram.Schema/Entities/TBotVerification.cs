@@ -2,17 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/botVerification" />
-///</summary>
+/// <summary>
+/// Describes a <a href="https://corefork.telegram.org/api/bots/verification">bot verification icon »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/botVerification" /></para>
+/// </summary>
 [TlObject(0xf93cd45c)]
-public sealed class TBotVerification : IBotVerification
+public sealed partial class TBotVerification : IBotVerification
 {
     public uint ConstructorId => 0xf93cd45c;
+    /// <summary>
+    /// ID of the bot that verified this peer
+    /// </summary>
     public long BotId { get; set; }
 
+    /// <summary>
+    /// Verification icon
+    /// </summary>
     public long Icon { get; set; }
 
+    /// <summary>
+    /// Verification description
+    /// </summary>
     public string Description { get; set; }
 
     public void ComputeFlag()

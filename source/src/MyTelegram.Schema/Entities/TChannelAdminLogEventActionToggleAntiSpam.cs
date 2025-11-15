@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/antispam">Native antispam</a> functionality was enabled or disabled.
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleAntiSpam" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleAntiSpam" /></para>
+/// </summary>
 [TlObject(0x64f36dfc)]
-public sealed class TChannelAdminLogEventActionToggleAntiSpam : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionToggleAntiSpam : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x64f36dfc;
-    ///<summary>
+    /// <summary>
     /// Whether antispam functionality was enabled or disabled.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool NewValue { get; set; }
 
     public void ComputeFlag()

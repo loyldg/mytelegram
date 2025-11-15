@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// null JSON value
-/// See <a href="https://corefork.telegram.org/constructor/jsonNull" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/jsonNull" /></para>
+/// </summary>
 [TlObject(0x3f6d7b68)]
-public sealed class TJsonNull : IJSONValue
+public sealed partial class TJsonNull : IJSONValue
 {
     public uint ConstructorId => 0x3f6d7b68;
     public void ComputeFlag()

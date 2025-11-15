@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Clear all peer-specific autosave settings.
-/// See <a href="https://corefork.telegram.org/method/account.deleteAutoSaveExceptions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.deleteAutoSaveExceptions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x53bc0020)]
-public sealed class RequestDeleteAutoSaveExceptions : IRequest<IBool>
+public sealed partial class RequestDeleteAutoSaveExceptions : IRequest<IBool>
 {
     public uint ConstructorId => 0x53bc0020;
 

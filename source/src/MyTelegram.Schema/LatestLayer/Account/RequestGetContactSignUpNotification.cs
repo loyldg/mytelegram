@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Whether the user will receive notifications when contacts sign up
-/// See <a href="https://corefork.telegram.org/method/account.getContactSignUpNotification" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getContactSignUpNotification" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9f07c728)]
-public sealed class RequestGetContactSignUpNotification : IRequest<IBool>
+public sealed partial class RequestGetContactSignUpNotification : IRequest<IBool>
 {
     public uint ConstructorId => 0x9f07c728;
 

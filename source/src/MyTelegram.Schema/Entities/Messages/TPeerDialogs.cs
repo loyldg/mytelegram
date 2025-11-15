@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Dialog info of multiple peers
-/// See <a href="https://corefork.telegram.org/constructor/messages.peerDialogs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.peerDialogs" /></para>
+/// </summary>
 [TlObject(0x3371c354)]
-public sealed class TPeerDialogs : IPeerDialogs
+public sealed partial class TPeerDialogs : IPeerDialogs
 {
     public uint ConstructorId => 0x3371c354;
-    ///<summary>
+    /// <summary>
     /// Dialog info
     /// See <a href="https://corefork.telegram.org/type/Dialog" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDialog> Dialogs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Messages mentioned in dialog info
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current <a href="https://corefork.telegram.org/api/updates">update state of dialog</a>
     /// See <a href="https://corefork.telegram.org/type/updates.State" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Updates.IState State { get; set; }
 
     public void ComputeFlag()

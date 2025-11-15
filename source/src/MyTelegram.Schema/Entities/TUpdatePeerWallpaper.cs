@@ -2,34 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The <a href="https://corefork.telegram.org/api/wallpapers">wallpaper »</a> of a given peer has changed.
-/// See <a href="https://corefork.telegram.org/constructor/updatePeerWallpaper" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePeerWallpaper" /></para>
+/// </summary>
 [TlObject(0xae3f101d)]
-public sealed class TUpdatePeerWallpaper : IUpdate
+public sealed partial class TUpdatePeerWallpaper : IUpdate
 {
     public uint ConstructorId => 0xae3f101d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the other user has chosen a custom wallpaper for us using <a href="https://corefork.telegram.org/method/messages.setChatWallPaper">messages.setChatWallPaper</a> and the <code>for_both</code> flag, see <a href="https://corefork.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat-or-channel">here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public bool WallpaperOverridden { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer where the wallpaper has changed.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new wallpaper, if none the wallpaper was removed and the default wallpaper should be used.
     /// See <a href="https://corefork.telegram.org/type/WallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaper? Wallpaper { get; set; }
 
     public void ComputeFlag()

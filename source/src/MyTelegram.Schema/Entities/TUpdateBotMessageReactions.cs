@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bots only: the number of reactions on a message with anonymous reactions has changed.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotMessageReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotMessageReactions" /></para>
+/// </summary>
 [TlObject(0x9cb7759)]
-public sealed class TUpdateBotMessageReactions : IUpdate
+public sealed partial class TUpdateBotMessageReactions : IUpdate
 {
     public uint ConstructorId => 0x9cb7759;
-    ///<summary>
+    /// <summary>
     /// Peer of the reacted-to message.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the reacted-to message.
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of the change.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New reaction counters.
     /// See <a href="https://corefork.telegram.org/type/ReactionCount" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IReactionCount> Reactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">QTS</a> event sequence identifier
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

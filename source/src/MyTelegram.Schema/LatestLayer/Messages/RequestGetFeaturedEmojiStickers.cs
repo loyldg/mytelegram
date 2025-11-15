@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Gets featured custom emoji stickersets.
-/// See <a href="https://corefork.telegram.org/method/messages.getFeaturedEmojiStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getFeaturedEmojiStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xecf6736)]
-public sealed class RequestGetFeaturedEmojiStickers : IRequest<MyTelegram.Schema.Messages.IFeaturedStickers>
+public sealed partial class RequestGetFeaturedEmojiStickers : IRequest<MyTelegram.Schema.Messages.IFeaturedStickers>
 {
     public uint ConstructorId => 0xecf6736;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

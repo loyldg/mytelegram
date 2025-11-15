@@ -2,67 +2,71 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Returns <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a> forwarded from a specific peer
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getSavedHistory" />
-///</summary>
+/// <summary>
+/// Fetch <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a> forwarded from a specific peer, or fetch messages from a <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSavedHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x998ab009)]
-public sealed class RequestGetSavedHistory : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestGetSavedHistory : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0x998ab009;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, fetches messages from the specified monoforum, otherwise fetches from saved messages.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ParentPeer { get; set; }
 
-    ///<summary>
-    /// Target peer
+    /// <summary>
+    /// Target peer (or topic)
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only return messages starting from the specified message ID
-    ///</summary>
+    /// </summary>
     public int OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only return messages sent before the specified date
-    ///</summary>
+    /// </summary>
     public int OffsetDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of list elements to be skipped, negative values are also accepted.
-    ///</summary>
+    /// </summary>
     public int AddOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of results to return
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value was transferred, the method will return only messages with IDs less than <strong>max_id</strong>
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value was transferred, the method will return only messages with IDs more than <strong>min_id</strong>
-    ///</summary>
+    /// </summary>
     public int MinId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Result hash</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

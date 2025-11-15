@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// A list of peers that can be used to join a group call, presenting yourself as a specific user/channel.
-/// See <a href="https://corefork.telegram.org/type/phone.JoinAsPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/phone.JoinAsPeers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TJoinAsPeers"/> See <a href="https://corefork.telegram.org/constructor/phone.joinAsPeers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TJoinAsPeers), nameof(TJoinAsPeers))]
 public interface IJoinAsPeers : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Peers
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in the peers vector
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the peers vector
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

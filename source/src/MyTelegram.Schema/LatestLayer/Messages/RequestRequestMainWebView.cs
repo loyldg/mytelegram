@@ -2,59 +2,62 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Open a <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-apps">Main Mini App</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/messages.requestMainWebView" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.requestMainWebView" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc9e01e7b)]
-public sealed class RequestRequestMainWebView : IRequest<MyTelegram.Schema.IWebViewResult>
+public sealed partial class RequestRequestMainWebView : IRequest<MyTelegram.Schema.IWebViewResult>
 {
     public uint ConstructorId => 0xc9e01e7b;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, requests to open the mini app in compact mode (as opposed to normal or fullscreen mode). Must be set if the <code>mode</code> parameter of the <a href="https://corefork.telegram.org/api/links#main-mini-app-links">Main Mini App link</a> is equal to <code>compact</code>.
-    ///</summary>
+    /// </summary>
     public bool Compact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, requests to open the mini app in fullscreen mode (as opposed to compact or normal mode). Must be set if the <code>mode</code> parameter of the <a href="https://corefork.telegram.org/api/links#main-mini-app-links">Main Mini App link</a> is equal to <code>fullscreen</code>.
-    ///</summary>
+    /// </summary>
     public bool Fullscreen { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Currently open chat, may be <a href="https://corefork.telegram.org/constructor/inputPeerEmpty">inputPeerEmpty</a> if no chat is currently open.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot that owns the main mini app.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Start parameter, if opening from a <a href="https://corefork.telegram.org/api/links#main-mini-app-links">Main Mini App link »</a>.
-    ///</summary>
+    /// </summary>
     public string? StartParam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/bots/webapps#theme-parameters">Theme parameters »</a>
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON? ThemeParams { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name of the application; 0-64 English letters, digits, and underscores
-    ///</summary>
+    /// </summary>
     public string Platform { get; set; }
 
     public void ComputeFlag()

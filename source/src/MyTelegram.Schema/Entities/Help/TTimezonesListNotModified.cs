@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// The timezone list has not changed.
-/// See <a href="https://corefork.telegram.org/constructor/help.timezonesListNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.timezonesListNotModified" /></para>
+/// </summary>
 [TlObject(0x970708cc)]
-public sealed class TTimezonesListNotModified : ITimezonesList
+public sealed partial class TTimezonesListNotModified : ITimezonesList
 {
     public uint ConstructorId => 0x970708cc;
     public void ComputeFlag()

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The user should add and verify an email address in order to login as described <a href="https://corefork.telegram.org/api/auth#email-verification">here »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSetUpEmailRequired" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSetUpEmailRequired" /></para>
+/// </summary>
 [TlObject(0xa5491dea)]
-public sealed class TSentCodeTypeSetUpEmailRequired : ISentCodeType
+public sealed partial class TSentCodeTypeSetUpEmailRequired : ISentCodeType
 {
     public uint ConstructorId => 0xa5491dea;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether authorization through Apple ID is allowed
-    ///</summary>
+    /// </summary>
     public bool AppleSigninAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether authorization through Google ID is allowed
-    ///</summary>
+    /// </summary>
     public bool GoogleSigninAllowed { get; set; }
 
     public void ComputeFlag()

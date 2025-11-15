@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to pay for a <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscription »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoiceChatInviteSubscription" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceChatInviteSubscription" /></para>
+/// </summary>
 [TlObject(0x34e793f1)]
-public sealed class TInputInvoiceChatInviteSubscription : IInputInvoice
+public sealed partial class TInputInvoiceChatInviteSubscription : IInputInvoice
 {
     public uint ConstructorId => 0x34e793f1;
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/stars#star-subscriptions">invitation link of the Telegram Star subscription »</a>
-    ///</summary>
+    /// </summary>
     public string Hash { get; set; }
 
     public void ComputeFlag()

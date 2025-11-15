@@ -2,44 +2,47 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Create a theme
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 THEME_MIME_INVALID The theme's MIME type is invalid.
-/// 400 THEME_TITLE_INVALID The specified theme title is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.createTheme" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 THEME_MIME_INVALID The theme's MIME type is invalid.</c></para>
+/// <para><c>400 THEME_TITLE_INVALID The specified theme title is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.createTheme" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x652e4400)]
-public sealed class RequestCreateTheme : IRequest<MyTelegram.Schema.ITheme>
+public sealed partial class RequestCreateTheme : IRequest<MyTelegram.Schema.ITheme>
 {
     public uint ConstructorId => 0x652e4400;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique theme ID used to generate <a href="https://corefork.telegram.org/api/links#theme-links">theme deep links</a>, can be empty to autogenerate a random ID.
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme file
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument? Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme settings, multiple values can be provided for the different base themes (day/night mode, etc).
     /// See <a href="https://corefork.telegram.org/type/InputThemeSettings" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputThemeSettings>? Settings { get; set; }
 
     public void ComputeFlag()

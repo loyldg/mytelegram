@@ -2,23 +2,28 @@
 
 namespace MyTelegram.Schema.Photos;
 
-///<summary>
+/// <summary>
 /// Object contains list of photos with auxiliary data.
-/// See <a href="https://corefork.telegram.org/type/photos.Photos" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/photos.Photos" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPhotos"/> See <a href="https://corefork.telegram.org/constructor/photos.photos" /><br/>
+/// <see cref="TPhotosSlice"/> See <a href="https://corefork.telegram.org/constructor/photos.photosSlice" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPhotos), nameof(TPhotos))]
 [JsonDerivedType(typeof(TPhotosSlice), nameof(TPhotosSlice))]
 public interface IPhotos : IObject
 {
-    ///<summary>
+    /// <summary>
     /// List of photos
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPhoto> Photos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

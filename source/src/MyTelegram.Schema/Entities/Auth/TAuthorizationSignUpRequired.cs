@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// An account with this phone number doesn't exist on telegram: the user has to <a href="https://corefork.telegram.org/api/auth">enter basic information and sign up</a>
-/// See <a href="https://corefork.telegram.org/constructor/auth.authorizationSignUpRequired" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.authorizationSignUpRequired" /></para>
+/// </summary>
 [TlObject(0x44747e9a)]
-public sealed class TAuthorizationSignUpRequired : IAuthorization
+public sealed partial class TAuthorizationSignUpRequired : IAuthorization
 {
     public uint ConstructorId => 0x44747e9a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram's terms of service: the user must read and accept the terms of service before signing up to telegram
     /// See <a href="https://corefork.telegram.org/type/help.TermsOfService" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Help.ITermsOfService? TermsOfService { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The list of favorited stickers was changed, the client should call <a href="https://corefork.telegram.org/method/messages.getFavedStickers">messages.getFavedStickers</a> to refetch the new list
-/// See <a href="https://corefork.telegram.org/constructor/updateFavedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateFavedStickers" /></para>
+/// </summary>
 [TlObject(0xe511996d)]
-public sealed class TUpdateFavedStickers : IUpdate
+public sealed partial class TUpdateFavedStickers : IUpdate
 {
     public uint ConstructorId => 0xe511996d;
     public void ComputeFlag()

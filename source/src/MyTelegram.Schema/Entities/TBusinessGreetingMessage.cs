@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a <a href="https://corefork.telegram.org/api/business#greeting-messages">Telegram Business greeting</a>, automatically sent to new users writing to us in private for the first time, or after a certain inactivity period.
-/// See <a href="https://corefork.telegram.org/constructor/businessGreetingMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/businessGreetingMessage" /></para>
+/// </summary>
 [TlObject(0xe519abab)]
-public sealed class TBusinessGreetingMessage : IBusinessGreetingMessage
+public sealed partial class TBusinessGreetingMessage : IBusinessGreetingMessage
 {
     public uint ConstructorId => 0xe519abab;
-    ///<summary>
+    /// <summary>
     /// ID of a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shorcut, containing the greeting messages to send, see here » for more info</a>.
-    ///</summary>
+    /// </summary>
     public int ShortcutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allowed recipients for the greeting messages.
     /// See <a href="https://corefork.telegram.org/type/BusinessRecipients" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessRecipients Recipients { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of days after which a private chat will be considered as inactive; currently, must be one of 7, 14, 21, or 28.
-    ///</summary>
+    /// </summary>
     public int NoActivityDays { get; set; }
 
     public void ComputeFlag()

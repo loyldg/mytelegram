@@ -2,37 +2,40 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Used by the user to relay data from an opened <a href="https://corefork.telegram.org/api/bots/webapps">reply keyboard bot mini app</a> to the bot that owns it.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/messages.sendWebViewData" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendWebViewData" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdc0242c8)]
-public sealed class RequestSendWebViewData : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendWebViewData : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xdc0242c8;
 
-    ///<summary>
+    /// <summary>
     /// Bot that owns the web app
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client message ID to prevent duplicate sending of the same event
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text of the <a href="https://corefork.telegram.org/constructor/keyboardButtonSimpleWebView">keyboardButtonSimpleWebView</a> that was pressed to open the web app.
-    ///</summary>
+    /// </summary>
     public string ButtonText { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Data to relay to the bot, obtained from a <a href="https://corefork.telegram.org/api/web-events#web-app-data-send"><code>web_app_data_send</code> JS event</a>.
-    ///</summary>
+    /// </summary>
     public string Data { get; set; }
 
     public void ComputeFlag()

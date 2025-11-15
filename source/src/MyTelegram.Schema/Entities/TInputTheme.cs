@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Theme
-/// See <a href="https://corefork.telegram.org/constructor/inputTheme" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputTheme" /></para>
+/// </summary>
 [TlObject(0x3c5693e9)]
-public sealed class TInputTheme : IInputTheme
+public sealed partial class TInputTheme : IInputTheme
 {
     public uint ConstructorId => 0x3c5693e9;
-    ///<summary>
+    /// <summary>
     /// ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

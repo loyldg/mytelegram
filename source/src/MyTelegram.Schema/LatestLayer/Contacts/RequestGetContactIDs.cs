@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
-/// Get the telegram IDs of all contacts.<br>
+/// <summary>
+/// Get the telegram IDs of all contacts.<br/>
 /// Returns an array of Telegram user IDs for all contacts (0 if a contact does not have an associated Telegram account or have hidden their account using privacy settings).
-/// See <a href="https://corefork.telegram.org/method/contacts.getContactIDs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.getContactIDs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7adc669d)]
-public sealed class RequestGetContactIDs : IRequest<TVector<int>>
+public sealed partial class RequestGetContactIDs : IRequest<TVector<int>>
 {
     public uint ConstructorId => 0x7adc669d;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

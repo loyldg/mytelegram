@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor
-/// See <a href="https://corefork.telegram.org/constructor/phoneCallEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCallEmpty" /></para>
+/// </summary>
 [TlObject(0x5366c915)]
-public sealed class TPhoneCallEmpty : IPhoneCall
+public sealed partial class TPhoneCallEmpty : IPhoneCall
 {
     public uint ConstructorId => 0x5366c915;
-    ///<summary>
+    /// <summary>
     /// Call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

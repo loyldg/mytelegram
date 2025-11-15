@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Terminate webview interaction started with <a href="https://corefork.telegram.org/method/messages.requestWebView">messages.requestWebView</a>, sending the specified message to the chat on behalf of the user.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 QUERY_ID_INVALID The query ID is invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/messages.sendWebViewResultMessage" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 QUERY_ID_INVALID The query ID is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendWebViewResultMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa4314f5)]
-public sealed class RequestSendWebViewResultMessage : IRequest<MyTelegram.Schema.IWebViewMessageSent>
+public sealed partial class RequestSendWebViewResultMessage : IRequest<MyTelegram.Schema.IWebViewMessageSent>
 {
     public uint ConstructorId => 0xa4314f5;
 
-    ///<summary>
+    /// <summary>
     /// Webview interaction ID obtained from <a href="https://corefork.telegram.org/method/messages.requestWebView">messages.requestWebView</a>
-    ///</summary>
+    /// </summary>
     public string BotQueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to send
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineResult" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineResult Result { get; set; }
 
     public void ComputeFlag()

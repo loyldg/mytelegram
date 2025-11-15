@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The specified bot commands will be valid in all <a href="https://corefork.telegram.org/api/channel">groups and supergroups</a>.
-/// See <a href="https://corefork.telegram.org/constructor/botCommandScopeChats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botCommandScopeChats" /></para>
+/// </summary>
 [TlObject(0x6fe1a881)]
-public sealed class TBotCommandScopeChats : IBotCommandScope
+public sealed partial class TBotCommandScopeChats : IBotCommandScope
 {
     public uint ConstructorId => 0x6fe1a881;
     public void ComputeFlag()

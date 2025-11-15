@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get recent stickers
-/// See <a href="https://corefork.telegram.org/method/messages.getRecentStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getRecentStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9da9403b)]
-public sealed class RequestGetRecentStickers : IRequest<MyTelegram.Schema.Messages.IRecentStickers>
+public sealed partial class RequestGetRecentStickers : IRequest<MyTelegram.Schema.Messages.IRecentStickers>
 {
     public uint ConstructorId => 0x9da9403b;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Get stickers recently attached to photo or video files
-    ///</summary>
+    /// </summary>
     public bool Attached { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

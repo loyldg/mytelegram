@@ -2,19 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.reorderStarGiftCollections" />
-///</summary>
+/// <summary>
+/// Reorder the <a href="https://corefork.telegram.org/api/gifts#gift-collections">star gift collections »</a> on an owned peer's profile.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.reorderStarGiftCollections" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc32af4cc)]
-public sealed class RequestReorderStarGiftCollections : IRequest<IBool>
+public sealed partial class RequestReorderStarGiftCollections : IRequest<IBool>
 {
     public uint ConstructorId => 0xc32af4cc;
 
-    ///<summary>
+    /// <summary>
+    /// The owned peer.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// New collection order.
+    /// </summary>
     public TVector<int> Order { get; set; }
 
     public void ComputeFlag()

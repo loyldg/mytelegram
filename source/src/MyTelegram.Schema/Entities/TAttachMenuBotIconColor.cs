@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an attachment menu icon color for <a href="https://corefork.telegram.org/api/bots/attach">bot mini apps »</a>
-/// See <a href="https://corefork.telegram.org/constructor/attachMenuBotIconColor" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/attachMenuBotIconColor" /></para>
+/// </summary>
 [TlObject(0x4576f3f0)]
-public sealed class TAttachMenuBotIconColor : IAttachMenuBotIconColor
+public sealed partial class TAttachMenuBotIconColor : IAttachMenuBotIconColor
 {
     public uint ConstructorId => 0x4576f3f0;
-    ///<summary>
-    /// One of the following values: <br><code>light_icon</code> - Color of the attachment menu icon (light mode) <br><code>light_text</code> - Color of the attachment menu label, once selected (light mode) <br><code>dark_icon</code> - Color of the attachment menu icon (dark mode) <br><code>dark_text</code> - Color of the attachment menu label, once selected (dark mode)
-    ///</summary>
+    /// <summary>
+    /// One of the following values: <br/><code>light_icon</code> - Color of the attachment menu icon (light mode) <br/><code>light_text</code> - Color of the attachment menu label, once selected (light mode) <br/><code>dark_icon</code> - Color of the attachment menu icon (dark mode) <br/><code>dark_text</code> - Color of the attachment menu label, once selected (dark mode)
+    /// </summary>
     public string Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Color in RGB24 format
-    ///</summary>
+    /// </summary>
     public int Color { get; set; }
 
     public void ComputeFlag()

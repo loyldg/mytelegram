@@ -2,24 +2,35 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.toggleChatStarGiftNotifications" />
-///</summary>
+/// <summary>
+/// Enables or disables the reception of notifications every time a <a href="https://corefork.telegram.org/api/gifts">gift »</a> is received by the specified channel, can only be invoked by admins with <code>post_messages</code> <a href="https://corefork.telegram.org/constructor/chatAdminRights">admin rights</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.toggleChatStarGiftNotifications" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x60eaefa1)]
-public sealed class RequestToggleChatStarGiftNotifications : IRequest<IBool>
+public sealed partial class RequestToggleChatStarGiftNotifications : IRequest<IBool>
 {
     public uint ConstructorId => 0x60eaefa1;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Whether to enable or disable reception of notifications in the form of <a href="https://corefork.telegram.org/constructor/messageActionStarGiftUnique">messageActionStarGiftUnique</a> and <a href="https://corefork.telegram.org/constructor/messageActionStarGift">messageActionStarGift</a> service messages from the channel.
+    /// </summary>
     public bool Enabled { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The channel for which to receive or not receive notifications.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

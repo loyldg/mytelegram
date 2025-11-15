@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Delete all revoked chat invites
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ADMIN_ID_INVALID The specified admin ID is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.deleteRevokedExportedChatInvites" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 ADMIN_ID_INVALID The specified admin ID is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.deleteRevokedExportedChatInvites" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x56987bd5)]
-public sealed class RequestDeleteRevokedExportedChatInvites : IRequest<IBool>
+public sealed partial class RequestDeleteRevokedExportedChatInvites : IRequest<IBool>
 {
     public uint ConstructorId => 0x56987bd5;
 
-    ///<summary>
+    /// <summary>
     /// Chat
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the admin that originally generated the revoked chat invites
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser AdminId { get; set; }
 
     public void ComputeFlag()

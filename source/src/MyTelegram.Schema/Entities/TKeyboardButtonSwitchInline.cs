@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Button to force a user to switch to inline mode: pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field.
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline" /></para>
+/// </summary>
 [TlObject(0x93b9fbb5)]
-public sealed class TKeyboardButtonSwitchInline : IKeyboardButton
+public sealed partial class TKeyboardButtonSwitchInline : IKeyboardButton
 {
     public uint ConstructorId => 0x93b9fbb5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, pressing the button will insert the bot's username and the specified inline <code>query</code> in the current chat's input field.
-    ///</summary>
+    /// </summary>
     public bool SamePeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Button label
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The inline query to use
-    ///</summary>
+    /// </summary>
     public string Query { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Filter to use when selecting chats.
     /// See <a href="https://corefork.telegram.org/type/InlineQueryPeerType" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInlineQueryPeerType>? PeerTypes { get; set; }
 
     public void ComputeFlag()

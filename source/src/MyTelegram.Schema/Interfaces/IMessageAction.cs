@@ -2,10 +2,71 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object describing actions connected to a service message.
-/// See <a href="https://corefork.telegram.org/type/MessageAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageAction" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageActionEmpty"/> See <a href="https://corefork.telegram.org/constructor/messageActionEmpty" /><br/>
+/// <see cref="TMessageActionChatCreate"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatCreate" /><br/>
+/// <see cref="TMessageActionChatEditTitle"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatEditTitle" /><br/>
+/// <see cref="TMessageActionChatEditPhoto"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatEditPhoto" /><br/>
+/// <see cref="TMessageActionChatDeletePhoto"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatDeletePhoto" /><br/>
+/// <see cref="TMessageActionChatAddUser"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatAddUser" /><br/>
+/// <see cref="TMessageActionChatDeleteUser"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatDeleteUser" /><br/>
+/// <see cref="TMessageActionChatJoinedByLink"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatJoinedByLink" /><br/>
+/// <see cref="TMessageActionChannelCreate"/> See <a href="https://corefork.telegram.org/constructor/messageActionChannelCreate" /><br/>
+/// <see cref="TMessageActionChatMigrateTo"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatMigrateTo" /><br/>
+/// <see cref="TMessageActionChannelMigrateFrom"/> See <a href="https://corefork.telegram.org/constructor/messageActionChannelMigrateFrom" /><br/>
+/// <see cref="TMessageActionPinMessage"/> See <a href="https://corefork.telegram.org/constructor/messageActionPinMessage" /><br/>
+/// <see cref="TMessageActionHistoryClear"/> See <a href="https://corefork.telegram.org/constructor/messageActionHistoryClear" /><br/>
+/// <see cref="TMessageActionGameScore"/> See <a href="https://corefork.telegram.org/constructor/messageActionGameScore" /><br/>
+/// <see cref="TMessageActionPaymentSentMe"/> See <a href="https://corefork.telegram.org/constructor/messageActionPaymentSentMe" /><br/>
+/// <see cref="TMessageActionPaymentSent"/> See <a href="https://corefork.telegram.org/constructor/messageActionPaymentSent" /><br/>
+/// <see cref="TMessageActionPhoneCall"/> See <a href="https://corefork.telegram.org/constructor/messageActionPhoneCall" /><br/>
+/// <see cref="TMessageActionScreenshotTaken"/> See <a href="https://corefork.telegram.org/constructor/messageActionScreenshotTaken" /><br/>
+/// <see cref="TMessageActionCustomAction"/> See <a href="https://corefork.telegram.org/constructor/messageActionCustomAction" /><br/>
+/// <see cref="TMessageActionBotAllowed"/> See <a href="https://corefork.telegram.org/constructor/messageActionBotAllowed" /><br/>
+/// <see cref="TMessageActionSecureValuesSentMe"/> See <a href="https://corefork.telegram.org/constructor/messageActionSecureValuesSentMe" /><br/>
+/// <see cref="TMessageActionSecureValuesSent"/> See <a href="https://corefork.telegram.org/constructor/messageActionSecureValuesSent" /><br/>
+/// <see cref="TMessageActionContactSignUp"/> See <a href="https://corefork.telegram.org/constructor/messageActionContactSignUp" /><br/>
+/// <see cref="TMessageActionGeoProximityReached"/> See <a href="https://corefork.telegram.org/constructor/messageActionGeoProximityReached" /><br/>
+/// <see cref="TMessageActionGroupCall"/> See <a href="https://corefork.telegram.org/constructor/messageActionGroupCall" /><br/>
+/// <see cref="TMessageActionInviteToGroupCall"/> See <a href="https://corefork.telegram.org/constructor/messageActionInviteToGroupCall" /><br/>
+/// <see cref="TMessageActionSetMessagesTTL"/> See <a href="https://corefork.telegram.org/constructor/messageActionSetMessagesTTL" /><br/>
+/// <see cref="TMessageActionGroupCallScheduled"/> See <a href="https://corefork.telegram.org/constructor/messageActionGroupCallScheduled" /><br/>
+/// <see cref="TMessageActionSetChatTheme"/> See <a href="https://corefork.telegram.org/constructor/messageActionSetChatTheme" /><br/>
+/// <see cref="TMessageActionChatJoinedByRequest"/> See <a href="https://corefork.telegram.org/constructor/messageActionChatJoinedByRequest" /><br/>
+/// <see cref="TMessageActionWebViewDataSentMe"/> See <a href="https://corefork.telegram.org/constructor/messageActionWebViewDataSentMe" /><br/>
+/// <see cref="TMessageActionWebViewDataSent"/> See <a href="https://corefork.telegram.org/constructor/messageActionWebViewDataSent" /><br/>
+/// <see cref="TMessageActionGiftPremium"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiftPremium" /><br/>
+/// <see cref="TMessageActionTopicCreate"/> See <a href="https://corefork.telegram.org/constructor/messageActionTopicCreate" /><br/>
+/// <see cref="TMessageActionTopicEdit"/> See <a href="https://corefork.telegram.org/constructor/messageActionTopicEdit" /><br/>
+/// <see cref="TMessageActionSuggestProfilePhoto"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestProfilePhoto" /><br/>
+/// <see cref="TMessageActionRequestedPeer"/> See <a href="https://corefork.telegram.org/constructor/messageActionRequestedPeer" /><br/>
+/// <see cref="TMessageActionSetChatWallPaper"/> See <a href="https://corefork.telegram.org/constructor/messageActionSetChatWallPaper" /><br/>
+/// <see cref="TMessageActionGiftCode"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiftCode" /><br/>
+/// <see cref="TMessageActionGiveawayLaunch"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiveawayLaunch" /><br/>
+/// <see cref="TMessageActionGiveawayResults"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiveawayResults" /><br/>
+/// <see cref="TMessageActionBoostApply"/> See <a href="https://corefork.telegram.org/constructor/messageActionBoostApply" /><br/>
+/// <see cref="TMessageActionRequestedPeerSentMe"/> See <a href="https://corefork.telegram.org/constructor/messageActionRequestedPeerSentMe" /><br/>
+/// <see cref="TMessageActionPaymentRefunded"/> See <a href="https://corefork.telegram.org/constructor/messageActionPaymentRefunded" /><br/>
+/// <see cref="TMessageActionGiftStars"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiftStars" /><br/>
+/// <see cref="TMessageActionPrizeStars"/> See <a href="https://corefork.telegram.org/constructor/messageActionPrizeStars" /><br/>
+/// <see cref="TMessageActionStarGift"/> See <a href="https://corefork.telegram.org/constructor/messageActionStarGift" /><br/>
+/// <see cref="TMessageActionStarGiftUnique"/> See <a href="https://corefork.telegram.org/constructor/messageActionStarGiftUnique" /><br/>
+/// <see cref="TMessageActionPaidMessagesRefunded"/> See <a href="https://corefork.telegram.org/constructor/messageActionPaidMessagesRefunded" /><br/>
+/// <see cref="TMessageActionPaidMessagesPrice"/> See <a href="https://corefork.telegram.org/constructor/messageActionPaidMessagesPrice" /><br/>
+/// <see cref="TMessageActionConferenceCall"/> See <a href="https://corefork.telegram.org/constructor/messageActionConferenceCall" /><br/>
+/// <see cref="TMessageActionTodoCompletions"/> See <a href="https://corefork.telegram.org/constructor/messageActionTodoCompletions" /><br/>
+/// <see cref="TMessageActionTodoAppendTasks"/> See <a href="https://corefork.telegram.org/constructor/messageActionTodoAppendTasks" /><br/>
+/// <see cref="TMessageActionSuggestedPostApproval"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostApproval" /><br/>
+/// <see cref="TMessageActionSuggestedPostSuccess"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostSuccess" /><br/>
+/// <see cref="TMessageActionSuggestedPostRefund"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostRefund" /><br/>
+/// <see cref="TMessageActionGiftTon"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiftTon" /><br/>
+/// <see cref="TMessageActionSuggestBirthday"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestBirthday" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageActionEmpty), nameof(TMessageActionEmpty))]
 [JsonDerivedType(typeof(TMessageActionChatCreate), nameof(TMessageActionChatCreate))]
 [JsonDerivedType(typeof(TMessageActionChatEditTitle), nameof(TMessageActionChatEditTitle))]
@@ -63,6 +124,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionSuggestedPostSuccess), nameof(TMessageActionSuggestedPostSuccess))]
 [JsonDerivedType(typeof(TMessageActionSuggestedPostRefund), nameof(TMessageActionSuggestedPostRefund))]
 [JsonDerivedType(typeof(TMessageActionGiftTon), nameof(TMessageActionGiftTon))]
+[JsonDerivedType(typeof(TMessageActionSuggestBirthday), nameof(TMessageActionSuggestBirthday))]
 public interface IMessageAction : IObject
 {
 }

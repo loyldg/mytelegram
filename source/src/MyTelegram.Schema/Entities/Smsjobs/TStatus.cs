@@ -2,57 +2,57 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// Status
-/// See <a href="https://corefork.telegram.org/constructor/smsjobs.status" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/smsjobs.status" /></para>
+/// </summary>
 [TlObject(0x2aee9191)]
-public sealed class TStatus : IStatus
+public sealed partial class TStatus : IStatus
 {
     public uint ConstructorId => 0x2aee9191;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allow international numbers
-    ///</summary>
+    /// </summary>
     public bool AllowInternational { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Recently sent
-    ///</summary>
+    /// </summary>
     public int RecentSent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Since
-    ///</summary>
+    /// </summary>
     public int RecentSince { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Remaining
-    ///</summary>
+    /// </summary>
     public int RecentRemains { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total sent
-    ///</summary>
+    /// </summary>
     public int TotalSent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total since
-    ///</summary>
+    /// </summary>
     public int TotalSince { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last gift deep link
-    ///</summary>
+    /// </summary>
     public string? LastGiftSlug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Terms of service URL
-    ///</summary>
+    /// </summary>
     public string TermsUrl { get; set; }
 
     public void ComputeFlag()

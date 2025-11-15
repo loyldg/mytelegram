@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Update of Telegram's terms of service
-/// See <a href="https://corefork.telegram.org/type/help.TermsOfServiceUpdate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.TermsOfServiceUpdate" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTermsOfServiceUpdateEmpty"/> See <a href="https://corefork.telegram.org/constructor/help.termsOfServiceUpdateEmpty" /><br/>
+/// <see cref="TTermsOfServiceUpdate"/> See <a href="https://corefork.telegram.org/constructor/help.termsOfServiceUpdate" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTermsOfServiceUpdateEmpty), nameof(TTermsOfServiceUpdateEmpty))]
 [JsonDerivedType(typeof(TTermsOfServiceUpdate), nameof(TTermsOfServiceUpdate))]
 public interface ITermsOfServiceUpdate : IObject
 {
-    ///<summary>
+    /// <summary>
     /// New TOS updates will have to be queried using <a href="https://corefork.telegram.org/method/help.getTermsOfServiceUpdate">help.getTermsOfServiceUpdate</a> in <code>expires</code> seconds
-    ///</summary>
+    /// </summary>
     int Expires { get; set; }
 }

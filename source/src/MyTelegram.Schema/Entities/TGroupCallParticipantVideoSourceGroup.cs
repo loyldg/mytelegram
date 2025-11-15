@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a group of video synchronization source identifiers
-/// See <a href="https://corefork.telegram.org/constructor/groupCallParticipantVideoSourceGroup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/groupCallParticipantVideoSourceGroup" /></para>
+/// </summary>
 [TlObject(0xdcb118b7)]
-public sealed class TGroupCallParticipantVideoSourceGroup : IGroupCallParticipantVideoSourceGroup
+public sealed partial class TGroupCallParticipantVideoSourceGroup : IGroupCallParticipantVideoSourceGroup
 {
     public uint ConstructorId => 0xdcb118b7;
-    ///<summary>
+    /// <summary>
     /// SDP semantics
-    ///</summary>
+    /// </summary>
     public string Semantics { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Source IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Sources { get; set; }
 
     public void ComputeFlag()

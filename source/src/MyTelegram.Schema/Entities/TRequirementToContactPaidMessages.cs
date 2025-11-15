@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// This user requires us to pay the specified amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> to send them a message, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for the full flow.
-/// See <a href="https://corefork.telegram.org/constructor/requirementToContactPaidMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/requirementToContactPaidMessages" /></para>
+/// </summary>
 [TlObject(0xb4f67e93)]
-public sealed class TRequirementToContactPaidMessages : IRequirementToContact
+public sealed partial class TRequirementToContactPaidMessages : IRequirementToContact
 {
     public uint ConstructorId => 0xb4f67e93;
-    ///<summary>
+    /// <summary>
     /// The required amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public long StarsAmount { get; set; }
 
     public void ComputeFlag()

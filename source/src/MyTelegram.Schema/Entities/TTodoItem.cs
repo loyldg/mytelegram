@@ -2,18 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/todoItem" />
-///</summary>
+/// <summary>
+/// An item of a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/todoItem" /></para>
+/// </summary>
 [TlObject(0xcba9a52f)]
-public sealed class TTodoItem : ITodoItem
+public sealed partial class TTodoItem : ITodoItem
 {
     public uint ConstructorId => 0xcba9a52f;
+    /// <summary>
+    /// ID of the item, a positive (non-zero) integer unique within the current list.
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Text of the item, maximum length equal to <a href="https://corefork.telegram.org/api/config#todo-item-length-max">todo_item_length_max »</a>.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities Title { get; set; }
 
     public void ComputeFlag()

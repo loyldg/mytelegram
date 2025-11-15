@@ -2,94 +2,97 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents the rights of an admin in a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>.
-/// See <a href="https://corefork.telegram.org/constructor/chatAdminRights" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatAdminRights" /></para>
+/// </summary>
 [TlObject(0x5fb224d5)]
-public sealed class TChatAdminRights : IChatAdminRights
+public sealed partial class TChatAdminRights : IChatAdminRights
 {
     public uint ConstructorId => 0x5fb224d5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to modify the description of the <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-    ///</summary>
+    /// </summary>
     public bool ChangeInfo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to post messages in the <a href="https://corefork.telegram.org/api/channel">channel</a>
-    ///</summary>
+    /// </summary>
     public bool PostMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to also edit messages from other admins in the <a href="https://corefork.telegram.org/api/channel">channel</a>
-    ///</summary>
+    /// </summary>
     public bool EditMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to also delete messages from other admins in the <a href="https://corefork.telegram.org/api/channel">channel</a>
-    ///</summary>
+    /// </summary>
     public bool DeleteMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to ban users from the <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-    ///</summary>
+    /// </summary>
     public bool BanUsers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to invite users in the <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-    ///</summary>
+    /// </summary>
     public bool InviteUsers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to pin messages in the <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-    ///</summary>
+    /// </summary>
     public bool PinMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to add other admins with the same (or more limited) permissions in the <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-    ///</summary>
+    /// </summary>
     public bool AddAdmins { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this admin is anonymous
-    ///</summary>
+    /// </summary>
     public bool Anonymous { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to change group call/livestream settings
-    ///</summary>
+    /// </summary>
     public bool ManageCall { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if none of the other flags are set, but you still want the user to be an admin: if this or any of the other flags are set, the admin can get the chat <a href="https://corefork.telegram.org/api/recent-actions">admin log</a>, get <a href="https://corefork.telegram.org/api/stats">chat statistics</a>, get <a href="https://corefork.telegram.org/api/stats">message statistics in channels</a>, get channel members, see anonymous administrators in supergroups and ignore slow mode.
-    ///</summary>
+    /// </summary>
     public bool Other { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to create, delete or modify <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topics »</a>.
-    ///</summary>
+    /// </summary>
     public bool ManageTopics { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to post <a href="https://corefork.telegram.org/api/stories">stories</a> as the <a href="https://corefork.telegram.org/api/channel">channel</a>.
-    ///</summary>
+    /// </summary>
     public bool PostStories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to edit <a href="https://corefork.telegram.org/api/stories">stories</a> posted by the other admins of the <a href="https://corefork.telegram.org/api/channel">channel</a>.
-    ///</summary>
+    /// </summary>
     public bool EditStories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, allows the admin to delete <a href="https://corefork.telegram.org/api/stories">stories</a> posted by the other admins of the <a href="https://corefork.telegram.org/api/channel">channel</a>.
-    ///</summary>
+    /// </summary>
     public bool DeleteStories { get; set; }
 
+    /// <summary>
+    /// If set, allows the admin to manage the <a href="https://corefork.telegram.org/api/monoforum">direct messages monoforum »</a> and <a href="https://corefork.telegram.org/api/suggested-posts">decline suggested posts »</a>.
+    /// </summary>
     public bool ManageDirectMessages { get; set; }
 
     public void ComputeFlag()

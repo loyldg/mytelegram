@@ -2,69 +2,72 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get info about the users that joined the chat using a specific chat invite
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 INVITE_HASH_EXPIRED The invite link has expired.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 SEARCH_WITH_LINK_NOT_SUPPORTED You cannot provide a search query and an invite link at the same time.
-/// See <a href="https://corefork.telegram.org/method/messages.getChatInviteImporters" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 INVITE_HASH_EXPIRED The invite link has expired.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 SEARCH_WITH_LINK_NOT_SUPPORTED You cannot provide a search query and an invite link at the same time. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getChatInviteImporters" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdf04dd4e)]
-public sealed class RequestGetChatInviteImporters : IRequest<MyTelegram.Schema.Messages.IChatInviteImporters>
+public sealed partial class RequestGetChatInviteImporters : IRequest<MyTelegram.Schema.Messages.IChatInviteImporters>
 {
     public uint ConstructorId => 0xdf04dd4e;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, only returns info about users with pending <a href="https://corefork.telegram.org/api/invites#join-requests">join requests »</a>
-    ///</summary>
+    /// </summary>
     public bool Requested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if the link is a <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscription link »</a> and only members with already expired subscription must be returned.
-    ///</summary>
+    /// </summary>
     public bool SubscriptionExpired { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invite link
-    ///</summary>
+    /// </summary>
     public string? Link { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Search for a user in the pending <a href="https://corefork.telegram.org/api/invites#join-requests">join requests »</a> list: only available when the <code>requested</code> flag is set, cannot be used together with a specific <code>link</code>.
-    ///</summary>
+    /// </summary>
     public string? Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int OffsetDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID for <a href="https://corefork.telegram.org/api/offsets">pagination</a>: if set, <code>offset_date</code> must also be set.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser OffsetUser { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

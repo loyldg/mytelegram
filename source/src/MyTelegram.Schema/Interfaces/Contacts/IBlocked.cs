@@ -2,29 +2,34 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Info on users from the current user's black list.
-/// See <a href="https://corefork.telegram.org/type/contacts.Blocked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/contacts.Blocked" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBlocked"/> See <a href="https://corefork.telegram.org/constructor/contacts.blocked" /><br/>
+/// <see cref="TBlockedSlice"/> See <a href="https://corefork.telegram.org/constructor/contacts.blockedSlice" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBlocked), nameof(TBlocked))]
 [JsonDerivedType(typeof(TBlockedSlice), nameof(TBlockedSlice))]
 public interface IBlocked : IObject
 {
-    ///<summary>
+    /// <summary>
     /// List of blocked users
     /// See <a href="https://corefork.telegram.org/type/PeerBlocked" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPeerBlocked> Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Blocked chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

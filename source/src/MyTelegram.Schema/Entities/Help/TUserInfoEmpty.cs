@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Internal use
-/// See <a href="https://corefork.telegram.org/constructor/help.userInfoEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.userInfoEmpty" /></para>
+/// </summary>
 [TlObject(0xf3ae2eed)]
-public sealed class TUserInfoEmpty : IUserInfo
+public sealed partial class TUserInfoEmpty : IUserInfo
 {
     public uint ConstructorId => 0xf3ae2eed;
     public void ComputeFlag()

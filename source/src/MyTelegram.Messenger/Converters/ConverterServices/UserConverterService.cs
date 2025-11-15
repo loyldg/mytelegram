@@ -348,7 +348,7 @@ public class UserConverterService(
                                         user.Status = new TUserStatusRecently();
                                         break;
                                     default:
-                                        user.Status = new TUserStatusEmpty();
+                                        user.Status = new TUserStatusRecently();
                                         break;
                                 }
                             },

@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Occurred changes.
-/// See <a href="https://corefork.telegram.org/type/updates.Difference" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/updates.Difference" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDifferenceEmpty"/> See <a href="https://corefork.telegram.org/constructor/updates.differenceEmpty" /><br/>
+/// <see cref="TDifference"/> See <a href="https://corefork.telegram.org/constructor/updates.difference" /><br/>
+/// <see cref="TDifferenceSlice"/> See <a href="https://corefork.telegram.org/constructor/updates.differenceSlice" /><br/>
+/// <see cref="TDifferenceTooLong"/> See <a href="https://corefork.telegram.org/constructor/updates.differenceTooLong" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDifferenceEmpty), nameof(TDifferenceEmpty))]
 [JsonDerivedType(typeof(TDifference), nameof(TDifference))]
 [JsonDerivedType(typeof(TDifferenceSlice), nameof(TDifferenceSlice))]

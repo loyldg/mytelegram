@@ -2,113 +2,128 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a group call or livestream
-/// See <a href="https://corefork.telegram.org/constructor/groupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/groupCall" /></para>
+/// </summary>
 [TlObject(0x553b0ba1)]
-public sealed class TGroupCall : IGroupCall
+public sealed partial class TGroupCall : IGroupCall
 {
     public uint ConstructorId => 0x553b0ba1;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user should be muted upon joining the call
-    ///</summary>
+    /// </summary>
     public bool JoinMuted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current user can change the value of the <code>join_muted</code> flag using <a href="https://corefork.telegram.org/method/phone.toggleGroupCallSettings">phone.toggleGroupCallSettings</a>
-    ///</summary>
+    /// </summary>
     public bool CanChangeJoinMuted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the ordering to use when locally sorting by date and displaying in the UI group call participants.
-    ///</summary>
+    /// </summary>
     public bool JoinDateAsc { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we subscribed to the scheduled call
-    ///</summary>
+    /// </summary>
     public bool ScheduleStartSubscribed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether you can start streaming video into the call
-    ///</summary>
+    /// </summary>
     public bool CanStartVideo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the group call is currently being recorded
-    ///</summary>
+    /// </summary>
     public bool RecordVideoActive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether RTMP streams are allowed
-    ///</summary>
+    /// </summary>
     public bool RtmpStream { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the listeners list is hidden and cannot be fetched using <a href="https://corefork.telegram.org/method/phone.getGroupParticipants">phone.getGroupParticipants</a>. The <code>phone.groupParticipants.count</code> and <code>groupCall.participants_count</code> counters will still include listeners.
-    ///</summary>
+    /// </summary>
     public bool ListenersHidden { get; set; }
 
+    /// <summary>
+    /// Whether this is an E2E conference call.
+    /// </summary>
     public bool Conference { get; set; }
 
+    /// <summary>
+    /// Whether we're created this group call.
+    /// </summary>
     public bool Creator { get; set; }
 
-    ///<summary>
+    public bool MessagesEnabled { get; set; }
+
+    public bool CanChangeMessagesEnabled { get; set; }
+
+    public bool Min { get; set; }
+
+    /// <summary>
     /// Group call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participant count
-    ///</summary>
+    /// </summary>
     public int ParticipantsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call title
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// DC ID to be used for livestream chunks
-    ///</summary>
+    /// </summary>
     public int? StreamDcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the recording started
-    ///</summary>
+    /// </summary>
     public int? RecordStartDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When is the call scheduled to start
-    ///</summary>
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of people currently streaming video into the call
-    ///</summary>
+    /// </summary>
     public int? UnmutedVideoCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of people allowed to stream video into the call
-    ///</summary>
+    /// </summary>
     public int UnmutedVideoLimit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Version
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
+    /// <summary>
+    /// Invitation link for the conference.
+    /// </summary>
     public string? InviteLink { get; set; }
 
     public void ComputeFlag()
@@ -123,6 +138,9 @@ public sealed class TGroupCall : IGroupCall
         if (ListenersHidden) { Flags = Flags.SetBit(13); }
         if (Conference) { Flags = Flags.SetBit(14); }
         if (Creator) { Flags = Flags.SetBit(15); }
+        if (MessagesEnabled) { Flags = Flags.SetBit(17); }
+        if (CanChangeMessagesEnabled) { Flags = Flags.SetBit(18); }
+        if (Min) { Flags = Flags.SetBit(19); }
         if (Title != null) { Flags = Flags.SetBit(3); }
         if (/*StreamDcId != 0 && */StreamDcId.HasValue) { Flags = Flags.SetBit(4); }
         if (/*RecordStartDate != 0 && */RecordStartDate.HasValue) { Flags = Flags.SetBit(5); }
@@ -162,6 +180,9 @@ public sealed class TGroupCall : IGroupCall
         if (Flags.IsBitSet(13)) { ListenersHidden = true; }
         if (Flags.IsBitSet(14)) { Conference = true; }
         if (Flags.IsBitSet(15)) { Creator = true; }
+        if (Flags.IsBitSet(17)) { MessagesEnabled = true; }
+        if (Flags.IsBitSet(18)) { CanChangeMessagesEnabled = true; }
+        if (Flags.IsBitSet(19)) { Min = true; }
         Id = buffer.ReadInt64();
         AccessHash = buffer.ReadInt64();
         ParticipantsCount = buffer.ReadInt32();

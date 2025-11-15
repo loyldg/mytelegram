@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Privacy rules were changed
-/// See <a href="https://corefork.telegram.org/constructor/updatePrivacy" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePrivacy" /></para>
+/// </summary>
 [TlObject(0xee3b272a)]
-public sealed class TUpdatePrivacy : IUpdate
+public sealed partial class TUpdatePrivacy : IUpdate
 {
     public uint ConstructorId => 0xee3b272a;
-    ///<summary>
+    /// <summary>
     /// Peers to which the privacy rules apply
     /// See <a href="https://corefork.telegram.org/type/PrivacyKey" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPrivacyKey Key { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New privacy rules
     /// See <a href="https://corefork.telegram.org/type/PrivacyRule" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPrivacyRule> Rules { get; set; }
 
     public void ComputeFlag()

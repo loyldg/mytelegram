@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Information about a message in a specific position
-/// See <a href="https://corefork.telegram.org/type/SearchResultsPosition" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SearchResultsPosition" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSearchResultPosition"/> See <a href="https://corefork.telegram.org/constructor/searchResultPosition" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSearchResultPosition), nameof(TSearchResultPosition))]
 public interface ISearchResultsPosition : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the message sent
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 0-based message position in the full list of suitable messages
-    ///</summary>
+    /// </summary>
     int Offset { get; set; }
 }

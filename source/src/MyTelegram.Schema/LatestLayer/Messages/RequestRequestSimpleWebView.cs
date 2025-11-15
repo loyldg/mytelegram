@@ -2,69 +2,72 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Open a <a href="https://corefork.telegram.org/api/bots/webapps">bot mini app</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 URL_INVALID Invalid URL provided.
-/// See <a href="https://corefork.telegram.org/method/messages.requestSimpleWebView" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 URL_INVALID Invalid URL provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.requestSimpleWebView" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x413a3e73)]
-public sealed class RequestRequestSimpleWebView : IRequest<MyTelegram.Schema.IWebViewResult>
+public sealed partial class RequestRequestSimpleWebView : IRequest<MyTelegram.Schema.IWebViewResult>
 {
     public uint ConstructorId => 0x413a3e73;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the webapp was opened by clicking on the <code>switch_webview</code> button shown on top of the inline results list returned by <a href="https://corefork.telegram.org/method/messages.getInlineBotResults">messages.getInlineBotResults</a>.
-    ///</summary>
+    /// </summary>
     public bool FromSwitchWebview { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if opening the Mini App from the installed <a href="https://corefork.telegram.org/api/bots/attach">side menu entry »</a>.
-    ///</summary>
+    /// </summary>
     public bool FromSideMenu { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Deprecated.
-    ///</summary>
+    /// </summary>
     public bool Compact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Requests to open the app in fullscreen mode.
-    ///</summary>
+    /// </summary>
     public bool Fullscreen { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot that owns the mini app
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Web app URL, if opening from a keyboard button or inline result
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Deprecated.
-    ///</summary>
+    /// </summary>
     public string? StartParam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/bots/webapps#theme-parameters">Theme parameters »</a>
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON? ThemeParams { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name of the application; 0-64 English letters, digits, and underscores
-    ///</summary>
+    /// </summary>
     public string Platform { get; set; }
 
     public void ComputeFlag()

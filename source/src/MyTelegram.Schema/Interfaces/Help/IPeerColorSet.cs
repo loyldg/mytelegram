@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Contains info about a <a href="https://corefork.telegram.org/api/colors">color palette »</a>.
-/// See <a href="https://corefork.telegram.org/type/help.PeerColorSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.PeerColorSet" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerColorSet"/> See <a href="https://corefork.telegram.org/constructor/help.peerColorSet" /><br/>
+/// <see cref="TPeerColorProfileSet"/> See <a href="https://corefork.telegram.org/constructor/help.peerColorProfileSet" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerColorSet), nameof(TPeerColorSet))]
 [JsonDerivedType(typeof(TPeerColorProfileSet), nameof(TPeerColorProfileSet))]
 public interface IPeerColorSet : IObject

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Default <a href="https://corefork.telegram.org/api/emoji-status">custom emoji status</a> stickerset
-/// See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmojiDefaultStatuses" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmojiDefaultStatuses" /></para>
+/// </summary>
 [TlObject(0x29d0f5ee)]
-public sealed class TInputStickerSetEmojiDefaultStatuses : IInputStickerSet
+public sealed partial class TInputStickerSetEmojiDefaultStatuses : IInputStickerSet
 {
     public uint ConstructorId => 0x29d0f5ee;
     public void ComputeFlag()

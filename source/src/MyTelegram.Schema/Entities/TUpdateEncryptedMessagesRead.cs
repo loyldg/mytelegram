@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Communication history in an encrypted chat was marked as read.
-/// See <a href="https://corefork.telegram.org/constructor/updateEncryptedMessagesRead" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateEncryptedMessagesRead" /></para>
+/// </summary>
 [TlObject(0x38fe25b7)]
-public sealed class TUpdateEncryptedMessagesRead : IUpdate
+public sealed partial class TUpdateEncryptedMessagesRead : IUpdate
 {
     public uint ConstructorId => 0x38fe25b7;
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public int ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum value of data for read messages
-    ///</summary>
+    /// </summary>
     public int MaxDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time when messages were read
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

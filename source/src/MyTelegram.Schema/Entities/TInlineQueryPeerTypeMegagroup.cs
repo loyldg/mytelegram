@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer type: <a href="https://corefork.telegram.org/api/channel">supergroup</a>
-/// See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypeMegagroup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypeMegagroup" /></para>
+/// </summary>
 [TlObject(0x5ec4be43)]
-public sealed class TInlineQueryPeerTypeMegagroup : IInlineQueryPeerType
+public sealed partial class TInlineQueryPeerTypeMegagroup : IInlineQueryPeerType
 {
     public uint ConstructorId => 0x5ec4be43;
     public void ComputeFlag()

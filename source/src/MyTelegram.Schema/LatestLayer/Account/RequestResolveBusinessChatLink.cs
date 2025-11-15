@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Resolve a <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHATLINK_SLUG_EMPTY The specified slug is empty.
-/// 400 CHATLINK_SLUG_EXPIRED The specified <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat link</a> has expired.
-/// See <a href="https://corefork.telegram.org/method/account.resolveBusinessChatLink" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHATLINK_SLUG_EMPTY The specified slug is empty.</c></para>
+/// <para><c>400 CHATLINK_SLUG_EXPIRED The specified <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat link</a> has expired. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.resolveBusinessChatLink" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5492e5ee)]
-public sealed class RequestResolveBusinessChatLink : IRequest<MyTelegram.Schema.Account.IResolvedBusinessChatLinks>
+public sealed partial class RequestResolveBusinessChatLink : IRequest<MyTelegram.Schema.Account.IResolvedBusinessChatLinks>
 {
     public uint ConstructorId => 0x5492e5ee;
 
-    ///<summary>
+    /// <summary>
     /// Slug of the link, obtained as specified <a href="https://corefork.telegram.org/api/links#business-chat-links">here »</a>.
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

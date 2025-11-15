@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Set an <a href="https://corefork.telegram.org/api/emoji-status">emoji status</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DOCUMENT_INVALID The specified document is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.updateEmojiStatus" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 COLLECTIBLE_INVALID The specified collectible is invalid.</c></para>
+/// <para><c>400 DOCUMENT_INVALID The specified document is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateEmojiStatus" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xfbd3de6b)]
-public sealed class RequestUpdateEmojiStatus : IRequest<IBool>
+public sealed partial class RequestUpdateEmojiStatus : IRequest<IBool>
 {
     public uint ConstructorId => 0xfbd3de6b;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/emoji-status">Emoji status</a> to set
     /// See <a href="https://corefork.telegram.org/type/EmojiStatus" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEmojiStatus EmojiStatus { get; set; }
 
     public void ComputeFlag()

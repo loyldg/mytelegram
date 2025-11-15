@@ -1,10 +1,9 @@
-﻿using IExportedChatInvite = MyTelegram.Schema.Messages.IExportedChatInvite;
+using IExportedChatInvite = MyTelegram.Schema.Messages.IExportedChatInvite;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+/// <summary>
 /// Edit an exported chat invite
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
@@ -14,18 +13,14 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 400 INVITE_HASH_EXPIRED The invite link has expired.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 USAGE_LIMIT_INVALID The specified usage limit is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.editExportedChatInvite" />
-///</summary>
-internal sealed class EditExportedChatInviteHandler(
-    IQueryProcessor queryProcessor,
-    IChannelAppService channelAppService,
-    IAccessHashHelper accessHashHelper,
-    ICommandBus commandBus,
-    IChatInviteLinkHelper chatInviteLinkHelper)
-    : RpcResultObjectHandler<Schema.Messages.RequestEditExportedChatInvite, IExportedChatInvite>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.editExportedChatInvite"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
+internal sealed class EditExportedChatInviteHandler(IQueryProcessor queryProcessor, IChannelAppService channelAppService, IAccessHashHelper accessHashHelper, ICommandBus commandBus, IChatInviteLinkHelper chatInviteLinkHelper) : RpcResultObjectHandler<Schema.Messages.RequestEditExportedChatInvite, IExportedChatInvite>
 {
-    protected override async Task<IExportedChatInvite> HandleCoreAsync(IRequestInput input,
-        RequestEditExportedChatInvite obj)
+    protected override async Task<IExportedChatInvite> HandleCoreAsync(IRequestInput input, RequestEditExportedChatInvite obj)
     {
         switch (obj.Peer)
         {
@@ -33,9 +28,7 @@ internal sealed class EditExportedChatInviteHandler(
             {
                 var link = obj.Link.Substring(obj.Link.LastIndexOf("/") + 2);
                 await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel);
-                var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteQuery(
-                    inputPeerChannel.ChannelId,
-                    link));
+                var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteQuery(inputPeerChannel.ChannelId, link));
                 if (chatInviteReadModel == null)
                 {
                     RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
@@ -61,26 +54,9 @@ internal sealed class EditExportedChatInviteHandler(
                     newHash = chatInviteLinkHelper.GenerateInviteLink();
                 }
 
-                var command = new EditChatInviteCommand(
-                    ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteReadModel!.InviteId),
-                    input.ToRequestInfo(),
-                    inputPeerChannel.ChannelId,
-                    chatInviteReadModel.InviteId,
-                    hash,
-                    newHash,
-                    input.UserId,
-                    obj.Title,
-                    obj.RequestNeeded ?? false,
-                    null,
-                    obj.ExpireDate,
-                    obj.UsageLimit,
-                    chatInviteReadModel.Permanent,
-                    obj.Revoked
-                );
-
+                var command = new EditChatInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteReadModel!.InviteId), input.ToRequestInfo(), inputPeerChannel.ChannelId, chatInviteReadModel.InviteId, hash, newHash, input.UserId, obj.Title, obj.RequestNeeded ?? false, null, obj.ExpireDate, obj.UsageLimit, chatInviteReadModel.Permanent, obj.Revoked);
                 await commandBus.PublishAsync(command, default);
-
-                return null!;
+                return null !;
             }
 
             case TInputPeerChat inputPeerChat:

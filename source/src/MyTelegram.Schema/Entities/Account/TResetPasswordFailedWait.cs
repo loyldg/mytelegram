@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// You recently requested a password reset that was canceled, please wait until the specified date before requesting another reset.
-/// See <a href="https://corefork.telegram.org/constructor/account.resetPasswordFailedWait" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.resetPasswordFailedWait" /></para>
+/// </summary>
 [TlObject(0xe3779861)]
-public sealed class TResetPasswordFailedWait : IResetPasswordResult
+public sealed partial class TResetPasswordFailedWait : IResetPasswordResult
 {
     public uint ConstructorId => 0xe3779861;
-    ///<summary>
+    /// <summary>
     /// Wait until this date before requesting another reset.
-    ///</summary>
+    /// </summary>
     public int RetryDate { get; set; }
 
     public void ComputeFlag()

@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Users may also choose to display messages from all topics of a <a href="https://corefork.telegram.org/api/forum">forum</a> as if they were sent to a normal group, using a "View as messages" setting in the local client: this setting only affects the current account, and is synced to other logged in sessions using this method.Invoking this method will update the value of the <code>view_forum_as_messages</code> flag of <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> or <a href="https://corefork.telegram.org/constructor/dialog">dialog</a> and emit an <a href="https://corefork.telegram.org/constructor/updateChannelViewForumAsMessages">updateChannelViewForumAsMessages</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9738bb15)]
-public sealed class RequestToggleViewForumAsMessages : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleViewForumAsMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x9738bb15;
 
-    ///<summary>
+    /// <summary>
     /// The forum
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new value of the <code>view_forum_as_messages</code> flag.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
     public void ComputeFlag()

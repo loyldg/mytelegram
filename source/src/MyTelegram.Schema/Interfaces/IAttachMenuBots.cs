@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a list of <a href="https://corefork.telegram.org/bots/webapps#launching-mini-apps-from-the-attachment-menu">bot mini apps that can be launched from the attachment menu »</a>
-/// See <a href="https://corefork.telegram.org/type/AttachMenuBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/AttachMenuBots" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAttachMenuBotsNotModified"/> See <a href="https://corefork.telegram.org/constructor/attachMenuBotsNotModified" /><br/>
+/// <see cref="TAttachMenuBots"/> See <a href="https://corefork.telegram.org/constructor/attachMenuBots" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAttachMenuBotsNotModified), nameof(TAttachMenuBotsNotModified))]
 [JsonDerivedType(typeof(TAttachMenuBots), nameof(TAttachMenuBots))]
 public interface IAttachMenuBots : IObject

@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Email verification purpose
-/// See <a href="https://corefork.telegram.org/type/EmailVerifyPurpose" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EmailVerifyPurpose" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmailVerifyPurposeLoginSetup"/> See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposeLoginSetup" /><br/>
+/// <see cref="TEmailVerifyPurposeLoginChange"/> See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposeLoginChange" /><br/>
+/// <see cref="TEmailVerifyPurposePassport"/> See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposePassport" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmailVerifyPurposeLoginSetup), nameof(TEmailVerifyPurposeLoginSetup))]
 [JsonDerivedType(typeof(TEmailVerifyPurposeLoginChange), nameof(TEmailVerifyPurposeLoginChange))]
 [JsonDerivedType(typeof(TEmailVerifyPurposePassport), nameof(TEmailVerifyPurposePassport))]

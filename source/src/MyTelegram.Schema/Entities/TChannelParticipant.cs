@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel/supergroup participant
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipant" /></para>
+/// </summary>
 [TlObject(0xcb397619)]
-public sealed class TChannelParticipant : IChannelParticipant
+public sealed partial class TChannelParticipant : IChannelParticipant
 {
     public uint ConstructorId => 0xcb397619;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participant user ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date joined
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains the expiration date of the current <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscription period »</a> for the specified participant.
-    ///</summary>
+    /// </summary>
     public int? SubscriptionUntilDate { get; set; }
 
     public void ComputeFlag()

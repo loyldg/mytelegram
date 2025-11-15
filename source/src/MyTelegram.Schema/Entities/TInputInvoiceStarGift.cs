@@ -2,40 +2,44 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to buy a <a href="https://corefork.telegram.org/api/gifts">Telegram Star Gift, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGift" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGift" /></para>
+/// </summary>
 [TlObject(0xe8625e92)]
-public sealed class TInputInvoiceStarGift : IInputInvoice
+public sealed partial class TInputInvoiceStarGift : IInputInvoice
 {
     public uint ConstructorId => 0xe8625e92;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, your name will be hidden if the destination user decides to display the gift on their profile (they will still see that you sent the gift)
-    ///</summary>
+    /// </summary>
     public bool HideName { get; set; }
 
+    /// <summary>
+    /// Also pay for an eventual upgrade of the gift to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+    /// </summary>
     public bool IncludeUpgrade { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Receiver of the gift.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the gift, from <a href="https://corefork.telegram.org/constructor/starGift">starGift</a>.<code>id</code>
-    ///</summary>
+    /// </summary>
     public long GiftId { get; set; }
 
-    ///<summary>
-    /// Optional message, attached with the gift. <br>The maximum length for this field is specified in the <a href="https://corefork.telegram.org/api/config#stargifts-message-length-max">stargifts_message_length_max client configuration value »</a>.
+    /// <summary>
+    /// Optional message, attached with the gift. <br/>The maximum length for this field is specified in the <a href="https://corefork.telegram.org/api/config#stargifts-message-length-max">stargifts_message_length_max client configuration value »</a>.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
     public void ComputeFlag()

@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Contains info about a sent verification code.
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCode" /></para>
+/// </summary>
 [TlObject(0x5e002502)]
-public sealed class TSentCode : ISentCode
+public sealed partial class TSentCode : ISentCode
 {
     public uint ConstructorId => 0x5e002502;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code type
     /// See <a href="https://corefork.telegram.org/type/auth.SentCodeType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Auth.ISentCodeType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code hash, to be stored and later re-used with <a href="https://corefork.telegram.org/method/auth.signIn">auth.signIn</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code type that will be sent next, if the phone code is not received within <code>timeout</code> seconds: to send it use <a href="https://corefork.telegram.org/method/auth.resendCode">auth.resendCode</a>
     /// See <a href="https://corefork.telegram.org/type/auth.CodeType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Auth.ICodeType? NextType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Timeout for reception of the phone code
-    ///</summary>
+    /// </summary>
     public int? Timeout { get; set; }
 
     public void ComputeFlag()

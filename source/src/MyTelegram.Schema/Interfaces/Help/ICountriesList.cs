@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Name, ISO code, localized name and phone codes/patterns of all available countries
-/// See <a href="https://corefork.telegram.org/type/help.CountriesList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.CountriesList" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCountriesListNotModified"/> See <a href="https://corefork.telegram.org/constructor/help.countriesListNotModified" /><br/>
+/// <see cref="TCountriesList"/> See <a href="https://corefork.telegram.org/constructor/help.countriesList" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCountriesListNotModified), nameof(TCountriesListNotModified))]
 [JsonDerivedType(typeof(TCountriesList), nameof(TCountriesList))]
 public interface ICountriesList : IObject

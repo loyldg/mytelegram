@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure value hash
-/// See <a href="https://corefork.telegram.org/type/SecureValueHash" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecureValueHash" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecureValueHash"/> See <a href="https://corefork.telegram.org/constructor/secureValueHash" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecureValueHash), nameof(TSecureValueHash))]
 public interface ISecureValueHash : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Secure value type
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Hash
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Hash { get; set; }
 }

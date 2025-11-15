@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The report was sent successfully, no further actions are required.
-/// See <a href="https://corefork.telegram.org/constructor/reportResultReported" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/reportResultReported" /></para>
+/// </summary>
 [TlObject(0x8db33c4b)]
-public sealed class TReportResultReported : IReportResult
+public sealed partial class TReportResultReported : IReportResult
 {
     public uint ConstructorId => 0x8db33c4b;
     public void ComputeFlag()

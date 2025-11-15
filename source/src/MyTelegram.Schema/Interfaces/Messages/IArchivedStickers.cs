@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Archived stickers
-/// See <a href="https://corefork.telegram.org/type/messages.ArchivedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.ArchivedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TArchivedStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.archivedStickers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TArchivedStickers), nameof(TArchivedStickers))]
 public interface IArchivedStickers : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Number of archived stickers
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Archived stickersets
     /// See <a href="https://corefork.telegram.org/type/StickerSetCovered" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IStickerSetCovered> Sets { get; set; }
 }

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Successfully imported contact.
-/// See <a href="https://corefork.telegram.org/constructor/importedContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/importedContact" /></para>
+/// </summary>
 [TlObject(0xc13e3c50)]
-public sealed class TImportedContact : IImportedContact
+public sealed partial class TImportedContact : IImportedContact
 {
     public uint ConstructorId => 0xc13e3c50;
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The contact's client identifier (passed to one of the <a href="https://corefork.telegram.org/type/InputContact">InputContact</a> constructors)
-    ///</summary>
+    /// </summary>
     public long ClientId { get; set; }
 
     public void ComputeFlag()

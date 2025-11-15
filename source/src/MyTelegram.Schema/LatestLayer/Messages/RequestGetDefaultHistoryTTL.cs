@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Gets the default value of the Time-To-Live setting, applied to all new chats.
-/// See <a href="https://corefork.telegram.org/method/messages.getDefaultHistoryTTL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getDefaultHistoryTTL" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x658b7188)]
-public sealed class RequestGetDefaultHistoryTTL : IRequest<MyTelegram.Schema.IDefaultHistoryTTL>
+public sealed partial class RequestGetDefaultHistoryTTL : IRequest<MyTelegram.Schema.IDefaultHistoryTTL>
 {
     public uint ConstructorId => 0x658b7188;
 

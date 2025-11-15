@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Obtain a list of similarly themed bots, selected based on similarities in their subscriber bases, see <a href="https://corefork.telegram.org/api/recommend">here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/bots.getBotRecommendations" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.getBotRecommendations" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa1b70815)]
-public sealed class RequestGetBotRecommendations : IRequest<MyTelegram.Schema.Users.IUsers>
+public sealed partial class RequestGetBotRecommendations : IRequest<MyTelegram.Schema.Users.IUsers>
 {
     public uint ConstructorId => 0xa1b70815;
 
-    ///<summary>
+    /// <summary>
     /// The method will return bots related to the passed bot.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
     public void ComputeFlag()

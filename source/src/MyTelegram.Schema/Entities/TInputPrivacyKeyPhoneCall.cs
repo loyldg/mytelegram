@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether you will accept phone calls
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyPhoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyPhoneCall" /></para>
+/// </summary>
 [TlObject(0xfabadc5f)]
-public sealed class TInputPrivacyKeyPhoneCall : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyPhoneCall : IInputPrivacyKey
 {
     public uint ConstructorId => 0xfabadc5f;
     public void ComputeFlag()

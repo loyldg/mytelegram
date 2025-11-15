@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Fetch only kicked participants
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantsKicked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantsKicked" /></para>
+/// </summary>
 [TlObject(0xa3b54985)]
-public sealed class TChannelParticipantsKicked : IChannelParticipantsFilter
+public sealed partial class TChannelParticipantsKicked : IChannelParticipantsFilter
 {
     public uint ConstructorId => 0xa3b54985;
-    ///<summary>
+    /// <summary>
     /// Optional filter for searching kicked participants by name (otherwise empty)
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
     public void ComputeFlag()

@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Logs in a user using a key transmitted from his native data-center.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 AUTH_BYTES_INVALID The provided authorization is invalid.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.importAuthorization" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 AUTH_BYTES_INVALID The provided authorization is invalid.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.importAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xa57a7dad)]
-public sealed class RequestImportAuthorization : IRequest<MyTelegram.Schema.Auth.IAuthorization>
+public sealed partial class RequestImportAuthorization : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
     public uint ConstructorId => 0xa57a7dad;
 
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Authorization key
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

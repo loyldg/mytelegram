@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object defines a GeoPoint.
-/// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/GeoPoint" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TGeoPointEmpty"/> See <a href="https://corefork.telegram.org/constructor/geoPointEmpty" /><br/>
+/// <see cref="TGeoPoint"/> See <a href="https://corefork.telegram.org/constructor/geoPoint" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TGeoPointEmpty), nameof(TGeoPointEmpty))]
 [JsonDerivedType(typeof(TGeoPoint), nameof(TGeoPoint))]
 public interface IGeoPoint : IObject

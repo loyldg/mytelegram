@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Payment credentials
-/// See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentials" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentials" /></para>
+/// </summary>
 [TlObject(0x3417d728)]
-public sealed class TInputPaymentCredentials : IInputPaymentCredentials
+public sealed partial class TInputPaymentCredentials : IInputPaymentCredentials
 {
     public uint ConstructorId => 0x3417d728;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Save payment credential for future use
-    ///</summary>
+    /// </summary>
     public bool Save { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment credentials
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Data { get; set; }
 
     public void ComputeFlag()

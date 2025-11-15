@@ -2,115 +2,122 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a>.
-/// See <a href="https://corefork.telegram.org/constructor/forumTopic" />
-///</summary>
-[TlObject(0x71701da9)]
-public sealed class TForumTopic : IForumTopic
+/// <para>See <a href="https://corefork.telegram.org/constructor/forumTopic" /></para>
+/// </summary>
+[TlObject(0xcdff0eca)]
+public sealed partial class TForumTopic : IForumTopic
 {
-    public uint ConstructorId => 0x71701da9;
-    ///<summary>
+    public uint ConstructorId => 0xcdff0eca;
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the topic was created by the current user
-    ///</summary>
+    /// </summary>
     public bool My { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the topic is closed (no messages can be sent to it)
-    ///</summary>
+    /// </summary>
     public bool Closed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the topic is pinned
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
-    /// Whether this constructor is a reduced version of the full topic information. <br>If set, only the <code>my</code>, <code>closed</code>, <code>id</code>, <code>date</code>, <code>title</code>, <code>icon_color</code>, <code>icon_emoji_id</code> and <code>from_id</code> parameters will contain valid information. <br>Reduced info is usually only returned in topic-related <a href="https://corefork.telegram.org/api/recent-actions">admin log events »</a> and in the <a href="https://corefork.telegram.org/constructor/messages.channelMessages">messages.channelMessages</a> constructor: if needed, full information can be fetched using <a href="https://corefork.telegram.org/method/channels.getForumTopicsByID">channels.getForumTopicsByID</a>.
-    ///</summary>
+    /// <summary>
+    /// Whether this constructor is a reduced version of the full topic information. <br/>If set, only the <code>my</code>, <code>closed</code>, <code>id</code>, <code>date</code>, <code>title</code>, <code>icon_color</code>, <code>icon_emoji_id</code> and <code>from_id</code> parameters will contain valid information. <br/>Reduced info is usually only returned in topic-related <a href="https://corefork.telegram.org/api/recent-actions">admin log events »</a> and in the <a href="https://corefork.telegram.org/constructor/messages.channelMessages">messages.channelMessages</a> constructor: if needed, full information can be fetched using <a href="https://corefork.telegram.org/method/channels.getForumTopicsByID">channels.getForumTopicsByID</a>.
+    /// </summary>
     public bool Short { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the topic is hidden (only valid for the "General" topic, <code>id=1</code>)
-    ///</summary>
+    /// </summary>
     public bool Hidden { get; set; }
 
-    ///<summary>
+    public bool TitleMissing { get; set; }
+
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/forum#forum-topics">Topic ID</a>
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Topic creation date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public MyTelegram.Schema.IPeer Peer { get; set; }
+
+    /// <summary>
     /// Topic title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If no custom emoji icon is specified, specifies the color of the fallback topic icon (RGB), one of <code>0x6FB9F0</code>, <code>0xFFD67E</code>, <code>0xCB86DB</code>, <code>0x8EEE98</code>, <code>0xFF93B2</code>, or <code>0xFB6F5F</code>.
-    ///</summary>
+    /// </summary>
     public int IconColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji</a> used as topic icon.
-    ///</summary>
+    /// </summary>
     public long? IconEmojiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the last message that was sent to this topic
-    ///</summary>
+    /// </summary>
     public int TopMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position up to which all incoming messages are read.
-    ///</summary>
+    /// </summary>
     public int ReadInboxMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position up to which all outgoing messages are read.
-    ///</summary>
+    /// </summary>
     public int ReadOutboxMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread messages
-    ///</summary>
+    /// </summary>
     public int UnreadCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of <a href="https://corefork.telegram.org/api/mentions">unread mentions</a>
-    ///</summary>
+    /// </summary>
     public int UnreadMentionsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread reactions to messages you sent
-    ///</summary>
+    /// </summary>
     public int UnreadReactionsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the peer that created the topic
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification settings
     /// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message <a href="https://corefork.telegram.org/api/drafts">draft</a>
     /// See <a href="https://corefork.telegram.org/type/DraftMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDraftMessage? Draft { get; set; }
 
     public void ComputeFlag()
@@ -120,6 +127,7 @@ public sealed class TForumTopic : IForumTopic
         if (Pinned) { Flags = Flags.SetBit(3); }
         if (Short) { Flags = Flags.SetBit(5); }
         if (Hidden) { Flags = Flags.SetBit(6); }
+        if (TitleMissing) { Flags = Flags.SetBit(7); }
         if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { Flags = Flags.SetBit(0); }
         if (Draft != null) { Flags = Flags.SetBit(4); }
     }
@@ -131,6 +139,7 @@ public sealed class TForumTopic : IForumTopic
         writer.Write(Flags);
         writer.Write(Id);
         writer.Write(Date);
+        writer.Write(Peer);
         writer.Write(Title);
         writer.Write(IconColor);
         if (Flags.IsBitSet(0)) { writer.Write(IconEmojiId.Value); }
@@ -153,8 +162,10 @@ public sealed class TForumTopic : IForumTopic
         if (Flags.IsBitSet(3)) { Pinned = true; }
         if (Flags.IsBitSet(5)) { Short = true; }
         if (Flags.IsBitSet(6)) { Hidden = true; }
+        if (Flags.IsBitSet(7)) { TitleMissing = true; }
         Id = buffer.ReadInt32();
         Date = buffer.ReadInt32();
+        Peer = buffer.Read<MyTelegram.Schema.IPeer>();
         Title = buffer.ReadString();
         IconColor = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { IconEmojiId = buffer.ReadInt64(); }

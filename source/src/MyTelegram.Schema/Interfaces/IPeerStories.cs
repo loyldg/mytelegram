@@ -2,32 +2,36 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stories">Stories</a> associated to a peer
-/// See <a href="https://corefork.telegram.org/type/PeerStories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PeerStories" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerStories"/> See <a href="https://corefork.telegram.org/constructor/peerStories" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerStories), nameof(TPeerStories))]
 public interface IPeerStories : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains the ID of the maximum read story
-    ///</summary>
+    /// </summary>
     int? MaxReadId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stories
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IStoryItem> Stories { get; set; }
 }

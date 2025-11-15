@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/webPageAttributeStarGiftCollection" />
-///</summary>
+/// <summary>
+/// Contains info about a <a href="https://corefork.telegram.org/api/gifts#gift-collections">gift collection »</a> for a <a href="https://corefork.telegram.org/constructor/webPage">webPage</a> preview of a <a href="https://corefork.telegram.org/api/gifts#gift-collections">gift collection »</a> (the <a href="https://corefork.telegram.org/constructor/webPage">webPage</a> will have a <code>type</code> of <code>telegram_collection</code>).
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPageAttributeStarGiftCollection" /></para>
+/// </summary>
 [TlObject(0x31cad303)]
-public sealed class TWebPageAttributeStarGiftCollection : IWebPageAttribute
+public sealed partial class TWebPageAttributeStarGiftCollection : IWebPageAttribute
 {
     public uint ConstructorId => 0x31cad303;
-    ///<summary>
+    /// <summary>
+    /// Gifts in the collection.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Icons { get; set; }
 
     public void ComputeFlag()

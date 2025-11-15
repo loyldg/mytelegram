@@ -2,35 +2,39 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Object contains info on state for further updates.
-/// See <a href="https://corefork.telegram.org/type/updates.State" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/updates.State" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TState"/> See <a href="https://corefork.telegram.org/constructor/updates.state" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TState), nameof(TState))]
 public interface IState : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Number of events occurred in a text box
-    ///</summary>
+    /// </summary>
     int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position in a sequence of updates in secret chats. For further details refer to article <a href="https://corefork.telegram.org/api/end-to-end">secret chats</a>
-    ///</summary>
+    /// </summary>
     int Qts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of condition
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of sent updates
-    ///</summary>
+    /// </summary>
     int Seq { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread messages
-    ///</summary>
+    /// </summary>
     int UnreadCount { get; set; }
 }

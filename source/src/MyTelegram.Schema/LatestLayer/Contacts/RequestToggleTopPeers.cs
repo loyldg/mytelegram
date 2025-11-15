@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Enable/disable <a href="https://corefork.telegram.org/api/top-rating">top peers</a>
-/// See <a href="https://corefork.telegram.org/method/contacts.toggleTopPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.toggleTopPeers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8514bdda)]
-public sealed class RequestToggleTopPeers : IRequest<IBool>
+public sealed partial class RequestToggleTopPeers : IRequest<IBool>
 {
     public uint ConstructorId => 0x8514bdda;
 
-    ///<summary>
+    /// <summary>
     /// Enable/disable
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
     public void ComputeFlag()

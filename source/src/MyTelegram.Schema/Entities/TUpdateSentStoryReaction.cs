@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates we <a href="https://corefork.telegram.org/api/stories#reactions">reacted to a story »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateSentStoryReaction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateSentStoryReaction" /></para>
+/// </summary>
 [TlObject(0x7d627683)]
-public sealed class TUpdateSentStoryReaction : IUpdate
+public sealed partial class TUpdateSentStoryReaction : IUpdate
 {
     public uint ConstructorId => 0x7d627683;
-    ///<summary>
+    /// <summary>
     /// The peer that sent the story
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the story we reacted to
-    ///</summary>
+    /// </summary>
     public int StoryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reaction that was sent
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
     public void ComputeFlag()

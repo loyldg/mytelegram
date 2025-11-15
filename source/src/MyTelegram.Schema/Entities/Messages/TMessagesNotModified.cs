@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No new messages matching the query were found
-/// See <a href="https://corefork.telegram.org/constructor/messages.messagesNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.messagesNotModified" /></para>
+/// </summary>
 [TlObject(0x74535f21)]
-public sealed class TMessagesNotModified : IMessages
+public sealed partial class TMessagesNotModified : IMessages
 {
     public uint ConstructorId => 0x74535f21;
-    ///<summary>
+    /// <summary>
     /// Number of results found server-side by the given query
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
     public void ComputeFlag()

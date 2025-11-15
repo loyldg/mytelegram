@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftTransfer" />
-///</summary>
+/// <summary>
+/// Used to <a href="https://corefork.telegram.org/api/gifts#transferring-collectible-gifts">pay to transfer a collectible gift to another peer</a>, see the <a href="https://corefork.telegram.org/api/gifts#transferring-collectible-gifts">gifts »</a> documentation for more info.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftTransfer" /></para>
+/// </summary>
 [TlObject(0x4a5f5bd9)]
-public sealed class TInputInvoiceStarGiftTransfer : IInputInvoice
+public sealed partial class TInputInvoiceStarGiftTransfer : IInputInvoice
 {
     public uint ConstructorId => 0x4a5f5bd9;
-    ///<summary>
+    /// <summary>
+    /// The identifier of the received gift
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The destination peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer ToId { get; set; }
 
     public void ComputeFlag()

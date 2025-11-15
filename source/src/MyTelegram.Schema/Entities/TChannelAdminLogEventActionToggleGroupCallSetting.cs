@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Group call settings were changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleGroupCallSetting" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleGroupCallSetting" /></para>
+/// </summary>
 [TlObject(0x56d6a247)]
-public sealed class TChannelAdminLogEventActionToggleGroupCallSetting : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionToggleGroupCallSetting : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x56d6a247;
-    ///<summary>
+    /// <summary>
     /// Whether all users are muted by default upon joining
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool JoinMuted { get; set; }
 
     public void ComputeFlag()

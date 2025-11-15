@@ -15,6 +15,7 @@ public record SendMessageInput
         bool clearDraft = false,
         //byte[]? media = null,
         IMessageMedia? media = null,
+        IInputMedia? inputMedia = null,
         //Peer? peer = null,
         SendMessageType sendMessageType = SendMessageType.Text,
         MessageType messageType = MessageType.Text,
@@ -53,6 +54,7 @@ public record SendMessageInput
         InputReplyTo = inputReplyTo;
         ClearDraft = clearDraft;
         Media = media;
+        InputMedia = inputMedia;
         GroupId = groupId;
         GroupItemCount = groupItemCount;
         PollId = pollId;
@@ -86,6 +88,8 @@ public record SendMessageInput
     public int? ScheduleDate { get; }
     public bool InvertMedia { get; }
     public IMessageMedia? Media { get; }
+    public IInputMedia? InputMedia { get; }
+
     public string Message { get; }
     //public string? MessageActionData { get; }
     //public MessageActionType MessageActionType { get; }

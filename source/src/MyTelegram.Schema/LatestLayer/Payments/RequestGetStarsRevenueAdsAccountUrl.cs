@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Returns a URL for a Telegram Ad platform account that can be used to set up advertisements for channel/bot in <code>peer</code>, paid using the Telegram Stars owned by the specified <code>peer</code>, see <a href="https://corefork.telegram.org/api/stars#paying-for-ads">here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsRevenueAdsAccountUrl" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsRevenueAdsAccountUrl" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd1d7efc5)]
-public sealed class RequestGetStarsRevenueAdsAccountUrl : IRequest<MyTelegram.Schema.Payments.IStarsRevenueAdsAccountUrl>
+public sealed partial class RequestGetStarsRevenueAdsAccountUrl : IRequest<MyTelegram.Schema.Payments.IStarsRevenueAdsAccountUrl>
 {
     public uint ConstructorId => 0xd1d7efc5;
 
-    ///<summary>
+    /// <summary>
     /// Channel or bot that owns the stars.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Reset the <a href="https://core.telegram.org/api/auth#email-verification">login email »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_NUMBER_INVALID The phone number is invalid.
-/// 400 TASK_ALREADY_EXISTS An email reset was already requested.
-/// See <a href="https://corefork.telegram.org/method/auth.resetLoginEmail" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid.</c></para>
+/// <para><c>400 TASK_ALREADY_EXISTS An email reset was already requested. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.resetLoginEmail" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x7e960193)]
-public sealed class RequestResetLoginEmail : IRequest<MyTelegram.Schema.Auth.ISentCode>
+public sealed partial class RequestResetLoginEmail : IRequest<MyTelegram.Schema.Auth.ISentCode>
 {
     public uint ConstructorId => 0x7e960193;
 
-    ///<summary>
+    /// <summary>
     /// Phone number of the account
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code hash, obtained as described in the <a href="https://corefork.telegram.org/api/auth">documentation »</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
     public void ComputeFlag()

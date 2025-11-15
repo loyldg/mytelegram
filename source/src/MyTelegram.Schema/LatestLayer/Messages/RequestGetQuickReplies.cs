@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Fetch basic info about all existing <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcuts</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.getQuickReplies" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getQuickReplies" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd483f2a8)]
-public sealed class RequestGetQuickReplies : IRequest<MyTelegram.Schema.Messages.IQuickReplies>
+public sealed partial class RequestGetQuickReplies : IRequest<MyTelegram.Schema.Messages.IQuickReplies>
 {
     public uint ConstructorId => 0xd483f2a8;
 
-    ///<summary>
+    /// <summary>
     /// Hash for pagination, generated as specified <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">here »</a> (not the usual algorithm used for hash generation.)
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

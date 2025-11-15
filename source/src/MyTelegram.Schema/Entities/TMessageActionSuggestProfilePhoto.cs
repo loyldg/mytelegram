@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new profile picture was suggested using <a href="https://corefork.telegram.org/method/photos.uploadContactProfilePhoto">photos.uploadContactProfilePhoto</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionSuggestProfilePhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionSuggestProfilePhoto" /></para>
+/// </summary>
 [TlObject(0x57de635e)]
-public sealed class TMessageActionSuggestProfilePhoto : IMessageAction
+public sealed partial class TMessageActionSuggestProfilePhoto : IMessageAction
 {
     public uint ConstructorId => 0x57de635e;
-    ///<summary>
+    /// <summary>
     /// The photo that the user suggested we set as profile picture.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto Photo { get; set; }
 
     public void ComputeFlag()

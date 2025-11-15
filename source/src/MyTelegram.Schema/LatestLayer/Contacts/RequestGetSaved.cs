@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Get all contacts, requires a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
-/// See <a href="https://corefork.telegram.org/method/contacts.getSaved" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.getSaved" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x82f1e39f)]
-public sealed class RequestGetSaved : IRequest<TVector<MyTelegram.Schema.ISavedContact>>
+public sealed partial class RequestGetSaved : IRequest<TVector<MyTelegram.Schema.ISavedContact>>
 {
     public uint ConstructorId => 0x82f1e39f;
 

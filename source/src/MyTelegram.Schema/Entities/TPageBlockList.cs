@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Unordered list of IV blocks
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockList" /></para>
+/// </summary>
 [TlObject(0xe4e88011)]
-public sealed class TPageBlockList : IPageBlock
+public sealed partial class TPageBlockList : IPageBlock
 {
     public uint ConstructorId => 0xe4e88011;
-    ///<summary>
+    /// <summary>
     /// List of blocks in an IV page
     /// See <a href="https://corefork.telegram.org/type/PageListItem" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPageListItem> Items { get; set; }
 
     public void ComputeFlag()

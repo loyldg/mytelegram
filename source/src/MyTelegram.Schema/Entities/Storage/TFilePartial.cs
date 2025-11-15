@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// Part of a bigger file.
-/// See <a href="https://corefork.telegram.org/constructor/storage.filePartial" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.filePartial" /></para>
+/// </summary>
 [TlObject(0x40bc6f52)]
-public sealed class TFilePartial : IFileType
+public sealed partial class TFilePartial : IFileType
 {
     public uint ConstructorId => 0x40bc6f52;
     public void ComputeFlag()

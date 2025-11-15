@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The user's offline status.
-/// See <a href="https://corefork.telegram.org/constructor/userStatusOffline" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/userStatusOffline" /></para>
+/// </summary>
 [TlObject(0x8c703f)]
-public sealed class TUserStatusOffline : IUserStatus
+public sealed partial class TUserStatusOffline : IUserStatus
 {
     public uint ConstructorId => 0x8c703f;
-    ///<summary>
+    /// <summary>
     /// Time the user was last seen online
-    ///</summary>
+    /// </summary>
     public int WasOnline { get; set; }
 
     public void ComputeFlag()

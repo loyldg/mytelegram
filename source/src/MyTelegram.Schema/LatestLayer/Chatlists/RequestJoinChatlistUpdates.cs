@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Join channels and supergroups recently added to a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// 400 FILTER_INCLUDE_EMPTY The include_peers vector of the filter is empty.
-/// See <a href="https://corefork.telegram.org/method/chatlists.joinChatlistUpdates" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid.</c></para>
+/// <para><c>400 FILTER_INCLUDE_EMPTY The include_peers vector of the filter is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.joinChatlistUpdates" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe089f8f5)]
-public sealed class RequestJoinChatlistUpdates : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestJoinChatlistUpdates : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xe089f8f5;
 
-    ///<summary>
+    /// <summary>
     /// The folder
     /// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of new chats to join, fetched using <a href="https://corefork.telegram.org/method/chatlists.getChatlistUpdates">chatlists.getChatlistUpdates</a> and filtered as specified in the <a href="https://corefork.telegram.org/api/folders#shared-folders">documentation »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Peers { get; set; }
 
     public void ComputeFlag()

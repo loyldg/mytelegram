@@ -2,10 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/stories#media-areas">story media area »</a>
-/// See <a href="https://corefork.telegram.org/type/MediaArea" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MediaArea" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMediaAreaVenue"/> See <a href="https://corefork.telegram.org/constructor/mediaAreaVenue" /><br/>
+/// <see cref="TInputMediaAreaVenue"/> See <a href="https://corefork.telegram.org/constructor/inputMediaAreaVenue" /><br/>
+/// <see cref="TMediaAreaGeoPoint"/> See <a href="https://corefork.telegram.org/constructor/mediaAreaGeoPoint" /><br/>
+/// <see cref="TMediaAreaSuggestedReaction"/> See <a href="https://corefork.telegram.org/constructor/mediaAreaSuggestedReaction" /><br/>
+/// <see cref="TMediaAreaChannelPost"/> See <a href="https://corefork.telegram.org/constructor/mediaAreaChannelPost" /><br/>
+/// <see cref="TInputMediaAreaChannelPost"/> See <a href="https://corefork.telegram.org/constructor/inputMediaAreaChannelPost" /><br/>
+/// <see cref="TMediaAreaUrl"/> See <a href="https://corefork.telegram.org/constructor/mediaAreaUrl" /><br/>
+/// <see cref="TMediaAreaWeather"/> See <a href="https://corefork.telegram.org/constructor/mediaAreaWeather" /><br/>
+/// <see cref="TMediaAreaStarGift"/> See <a href="https://corefork.telegram.org/constructor/mediaAreaStarGift" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMediaAreaVenue), nameof(TMediaAreaVenue))]
 [JsonDerivedType(typeof(TInputMediaAreaVenue), nameof(TInputMediaAreaVenue))]
 [JsonDerivedType(typeof(TMediaAreaGeoPoint), nameof(TMediaAreaGeoPoint))]
@@ -17,9 +29,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMediaAreaStarGift), nameof(TMediaAreaStarGift))]
 public interface IMediaArea : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The size and location of the media area corresponding to the URL button on top of the story media.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 }

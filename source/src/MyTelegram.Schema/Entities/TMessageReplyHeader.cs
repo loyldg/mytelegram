@@ -2,78 +2,81 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message replies and <a href="https://corefork.telegram.org/api/threads">thread</a> information
-/// See <a href="https://corefork.telegram.org/constructor/messageReplyHeader" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageReplyHeader" /></para>
+/// </summary>
 [TlObject(0x6917560b)]
-public sealed class TMessageReplyHeader : IMessageReplyHeader
+public sealed partial class TMessageReplyHeader : IMessageReplyHeader
 {
     public uint ConstructorId => 0x6917560b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This is a reply to a scheduled message.
-    ///</summary>
+    /// </summary>
     public bool ReplyToScheduled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this message was sent in a <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a> (except for the General topic).
-    ///</summary>
+    /// </summary>
     public bool ForumTopic { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this message is quoting a part of another message.
-    ///</summary>
+    /// </summary>
     public bool Quote { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of message to which this message is replying
-    ///</summary>
+    /// </summary>
     public int? ReplyToMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For replies sent in <a href="https://corefork.telegram.org/api/threads">channel discussion threads</a> of which the current user is not a member, the discussion group ID
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? ReplyToPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When replying to a message sent by a certain peer to another chat, contains info about the peer that originally sent the message to that other chat.
     /// See <a href="https://corefork.telegram.org/type/MessageFwdHeader" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageFwdHeader? ReplyFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When replying to a media sent by a certain peer to another chat, contains the media of the replied-to message.
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageMedia? ReplyMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message that started this <a href="https://corefork.telegram.org/api/threads">message thread</a>
-    ///</summary>
+    /// </summary>
     public int? ReplyToTopId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used to quote-reply to only a certain section (specified here) of the original message.
-    ///</summary>
+    /// </summary>
     public string? QuoteText { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a> from the <code>quote_text</code> field.
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? QuoteEntities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset of the message <code>quote_text</code> within the original message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>).
-    ///</summary>
+    /// </summary>
     public int? QuoteOffset { get; set; }
 
+    /// <summary>
+    /// Can be set to reply to the specified item of a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+    /// </summary>
     public int? TodoItemId { get; set; }
 
     public void ComputeFlag()

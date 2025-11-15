@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Someone has requested to join a chat or channel
-/// See <a href="https://corefork.telegram.org/constructor/updatePendingJoinRequests" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePendingJoinRequests" /></para>
+/// </summary>
 [TlObject(0x7063c3db)]
-public sealed class TUpdatePendingJoinRequests : IUpdate
+public sealed partial class TUpdatePendingJoinRequests : IUpdate
 {
     public uint ConstructorId => 0x7063c3db;
-    ///<summary>
+    /// <summary>
     /// Chat or channel
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of pending <a href="https://corefork.telegram.org/api/invites#join-requests">join requests »</a> for the chat or channel
-    ///</summary>
+    /// </summary>
     public int RequestsPending { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of users that have recently requested to join
-    ///</summary>
+    /// </summary>
     public TVector<long> RecentRequesters { get; set; }
 
     public void ComputeFlag()

@@ -2,19 +2,30 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/stories.reorderAlbums" />
-///</summary>
+/// <summary>
+/// Reorder <a href="https://corefork.telegram.org/api/stories#story-albums">story albums on a profile »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.reorderAlbums" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8535fbd9)]
-public sealed class RequestReorderAlbums : IRequest<IBool>
+public sealed partial class RequestReorderAlbums : IRequest<IBool>
 {
     public uint ConstructorId => 0x8535fbd9;
 
-    ///<summary>
+    /// <summary>
+    /// Peer where the albums are located.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// New order of the albums.
+    /// </summary>
     public TVector<int> Order { get; set; }
 
     public void ComputeFlag()

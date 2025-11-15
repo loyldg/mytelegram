@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Encrypted message.
-/// See <a href="https://corefork.telegram.org/constructor/encryptedMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/encryptedMessage" /></para>
+/// </summary>
 [TlObject(0xed18c118)]
-public sealed class TEncryptedMessage : IEncryptedMessage
+public sealed partial class TEncryptedMessage : IEncryptedMessage
 {
     public uint ConstructorId => 0xed18c118;
-    ///<summary>
+    /// <summary>
     /// Random message ID, assigned by the author of message
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of encrypted chat
-    ///</summary>
+    /// </summary>
     public int ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of sending
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// TL-serialization of <a href="https://corefork.telegram.org/type/DecryptedMessage">DecryptedMessage</a> type, encrypted with the key created at chat initialization
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attached encrypted file
     /// See <a href="https://corefork.telegram.org/type/EncryptedFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEncryptedFile File { get; set; }
 
     public void ComputeFlag()

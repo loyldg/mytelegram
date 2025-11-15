@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/paid-media">Paid media, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/type/MessageExtendedMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageExtendedMedia" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageExtendedMediaPreview"/> See <a href="https://corefork.telegram.org/constructor/messageExtendedMediaPreview" /><br/>
+/// <see cref="TMessageExtendedMedia"/> See <a href="https://corefork.telegram.org/constructor/messageExtendedMedia" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageExtendedMediaPreview), nameof(TMessageExtendedMediaPreview))]
 [JsonDerivedType(typeof(TMessageExtendedMedia), nameof(TMessageExtendedMedia))]
 public interface IMessageExtendedMedia : IObject

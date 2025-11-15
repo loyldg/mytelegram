@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Stories of a specific peer were marked as read.
-/// See <a href="https://corefork.telegram.org/constructor/updateReadStories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadStories" /></para>
+/// </summary>
 [TlObject(0xf74e932b)]
-public sealed class TUpdateReadStories : IUpdate
+public sealed partial class TUpdateReadStories : IUpdate
 {
     public uint ConstructorId => 0xf74e932b;
-    ///<summary>
+    /// <summary>
     /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the last story that was marked as read
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
     public void ComputeFlag()

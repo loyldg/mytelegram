@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer-specific media autosave settings
-/// See <a href="https://corefork.telegram.org/constructor/autoSaveException" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/autoSaveException" /></para>
+/// </summary>
 [TlObject(0x81602d47)]
-public sealed class TAutoSaveException : IAutoSaveException
+public sealed partial class TAutoSaveException : IAutoSaveException
 {
     public uint ConstructorId => 0x81602d47;
-    ///<summary>
+    /// <summary>
     /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media autosave settings
     /// See <a href="https://corefork.telegram.org/type/AutoSaveSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoSaveSettings Settings { get; set; }
 
     public void ComputeFlag()

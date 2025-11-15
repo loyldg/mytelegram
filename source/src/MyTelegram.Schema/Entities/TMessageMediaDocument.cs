@@ -2,66 +2,70 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Document (video, audio, voice, sticker, any media type except photo)
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaDocument" /></para>
+/// </summary>
 [TlObject(0x52d8ccd9)]
-public sealed class TMessageMediaDocument : IMessageMedia
+public sealed partial class TMessageMediaDocument : IMessageMedia
 {
     public uint ConstructorId => 0x52d8ccd9;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a normal sticker, if not set this is a premium sticker and a premium sticker animation must be played.
-    ///</summary>
+    /// </summary>
     public bool Nopremium { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this media should be hidden behind a spoiler warning
-    ///</summary>
+    /// </summary>
     public bool Spoiler { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a video.
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a round video.
-    ///</summary>
+    /// </summary>
     public bool Round { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a voice message.
-    ///</summary>
+    /// </summary>
     public bool Voice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attached document
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Videos only, contains alternative qualities of the video.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument>? AltDocuments { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Custom video cover.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? VideoCover { get; set; }
 
+    /// <summary>
+    /// Start playing the video at the specified timestamp (seconds).
+    /// </summary>
     public int? VideoTimestamp { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time to live of self-destructing document
-    ///</summary>
+    /// </summary>
     public int? TtlSeconds { get; set; }
 
     public void ComputeFlag()

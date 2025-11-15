@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// No new themes were installed
-/// See <a href="https://corefork.telegram.org/constructor/account.themesNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.themesNotModified" /></para>
+/// </summary>
 [TlObject(0xf41eb622)]
-public sealed class TThemesNotModified : IThemes
+public sealed partial class TThemesNotModified : IThemes
 {
     public uint ConstructorId => 0xf41eb622;
     public void ComputeFlag()

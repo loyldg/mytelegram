@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/folders">Folder</a> information
-/// See <a href="https://corefork.telegram.org/type/messages.DialogFilters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.DialogFilters" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDialogFilters"/> See <a href="https://corefork.telegram.org/constructor/messages.dialogFilters" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDialogFilters), nameof(TDialogFilters))]
 public interface IDialogFilters : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether <a href="https://corefork.telegram.org/api/folders#folder-tags">folder tags</a> are enabled.
-    ///</summary>
+    /// </summary>
     bool TagsEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Folders.
     /// See <a href="https://corefork.telegram.org/type/DialogFilter" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IDialogFilter> Filters { get; set; }
 }

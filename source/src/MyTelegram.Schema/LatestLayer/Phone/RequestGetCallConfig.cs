@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Get phone call configuration to be passed to libtgvoip's shared config
-/// See <a href="https://corefork.telegram.org/method/phone.getCallConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.getCallConfig" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x55451fa9)]
-public sealed class RequestGetCallConfig : IRequest<MyTelegram.Schema.IDataJSON>
+public sealed partial class RequestGetCallConfig : IRequest<MyTelegram.Schema.IDataJSON>
 {
     public uint ConstructorId => 0x55451fa9;
 

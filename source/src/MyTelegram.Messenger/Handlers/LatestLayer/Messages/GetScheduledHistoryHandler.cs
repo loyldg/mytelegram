@@ -1,23 +1,19 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Get scheduled messages
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getScheduledHistory" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getScheduledHistory"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetScheduledHistoryHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetScheduledHistory, MyTelegram.Schema.Messages.IMessages>
 {
-    protected override Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetScheduledHistory obj)
+    protected override Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetScheduledHistory obj)
     {
-        return Task.FromResult<IMessages>(new TMessages
-        {
-            Chats = new TVector<IChat>(),
-            Messages = new TVector<IMessage>(),
-            Users = new TVector<IUser>()
-        });
+        return Task.FromResult<IMessages>(new TMessages { Chats = new TVector<IChat>(), Messages = new TVector<IMessage>(), Users = new TVector<IUser>(), Topics = [] });
     }
 }

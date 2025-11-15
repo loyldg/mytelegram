@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A pending <a href="https://corefork.telegram.org/api/transcribe">voice message transcription »</a> initiated with <a href="https://corefork.telegram.org/method/messages.transcribeAudio">messages.transcribeAudio</a> was updated.
-/// See <a href="https://corefork.telegram.org/constructor/updateTranscribedAudio" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateTranscribedAudio" /></para>
+/// </summary>
 [TlObject(0x84cd5a)]
-public sealed class TUpdateTranscribedAudio : IUpdate
+public sealed partial class TUpdateTranscribedAudio : IUpdate
 {
     public uint ConstructorId => 0x84cd5a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this transcription is still pending and further <a href="https://corefork.telegram.org/constructor/updateTranscribedAudio">updateTranscribedAudio</a> about it will be sent in the future.
-    ///</summary>
+    /// </summary>
     public bool Pending { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer of the transcribed message
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transcribed message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transcription ID
-    ///</summary>
+    /// </summary>
     public long TranscriptionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transcribed text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

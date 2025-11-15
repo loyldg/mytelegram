@@ -2,20 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/updateReadMonoForumOutbox" />
-///</summary>
+/// <summary>
+/// Outgoing messages in a <a href="https://corefork.telegram.org/api/monoforum">monoforum</a> were read.
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadMonoForumOutbox" /></para>
+/// </summary>
 [TlObject(0xa4a79376)]
-public sealed class TUpdateReadMonoForumOutbox : IUpdate
+public sealed partial class TUpdateReadMonoForumOutbox : IUpdate
 {
     public uint ConstructorId => 0xa4a79376;
+    /// <summary>
+    /// ID of the monoforum.
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Topic ID.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer SavedPeerId { get; set; }
 
+    /// <summary>
+    /// Position up to which all outgoing messages are read.
+    /// </summary>
     public int ReadMaxId { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user was invited to the group
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantInvite" /></para>
+/// </summary>
 [TlObject(0xe31c34d8)]
-public sealed class TChannelAdminLogEventActionParticipantInvite : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantInvite : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xe31c34d8;
-    ///<summary>
+    /// <summary>
     /// The user that was invited
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipant Participant { get; set; }
 
     public void ComputeFlag()

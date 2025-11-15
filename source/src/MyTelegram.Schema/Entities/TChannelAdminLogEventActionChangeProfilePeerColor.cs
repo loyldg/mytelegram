@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The <a href="https://corefork.telegram.org/api/colors">profile accent color</a> was changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeProfilePeerColor" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeProfilePeerColor" /></para>
+/// </summary>
 [TlObject(0x5e477b25)]
-public sealed class TChannelAdminLogEventActionChangeProfilePeerColor : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangeProfilePeerColor : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x5e477b25;
-    ///<summary>
+    /// <summary>
     /// Previous accent palette
     /// See <a href="https://corefork.telegram.org/type/PeerColor" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerColor PrevValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New accent palette
     /// See <a href="https://corefork.telegram.org/type/PeerColor" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerColor NewValue { get; set; }
 
     public void ComputeFlag()

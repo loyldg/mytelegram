@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Allow or prevent a bot from <a href="https://corefork.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot">changing our emoji status »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/bots.toggleUserEmojiStatusPermission" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.toggleUserEmojiStatusPermission" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6de6392)]
-public sealed class RequestToggleUserEmojiStatusPermission : IRequest<IBool>
+public sealed partial class RequestToggleUserEmojiStatusPermission : IRequest<IBool>
 {
     public uint ConstructorId => 0x6de6392;
 
-    ///<summary>
+    /// <summary>
     /// The bot
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow or prevent the bot from changing our emoji status
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
     public void ComputeFlag()

@@ -2,32 +2,35 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Add a sticker to a stickerset. The sticker set must have been created by the current user/bot.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKERPACK_STICKERS_TOO_MUCH There are too many stickers in this stickerpack, you can't add any more.
-/// 406 STICKERSET_INVALID The provided sticker set is invalid.
-/// 400 STICKERS_TOO_MUCH There are too many stickers in this stickerpack, you can't add any more.
-/// 400 STICKER_PNG_NOPNG One of the specified stickers is not a valid PNG file.
-/// 400 STICKER_TGS_NOTGS Invalid TGS sticker provided.
-/// See <a href="https://corefork.telegram.org/method/stickers.addStickerToSet" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKERPACK_STICKERS_TOO_MUCH There are too many stickers in this stickerpack, you can't add any more.</c></para>
+/// <para><c>406 STICKERSET_INVALID The provided sticker set is invalid.</c></para>
+/// <para><c>400 STICKERS_TOO_MUCH There are too many stickers in this stickerpack, you can't add any more.</c></para>
+/// <para><c>400 STICKER_PNG_NOPNG One of the specified stickers is not a valid PNG file.</c></para>
+/// <para><c>400 STICKER_TGS_NOTGS Invalid TGS sticker provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.addStickerToSet" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8653febe)]
-public sealed class RequestAddStickerToSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestAddStickerToSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0x8653febe;
 
-    ///<summary>
+    /// <summary>
     /// The stickerset
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The sticker
     /// See <a href="https://corefork.telegram.org/type/InputStickerSetItem" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSetItem Sticker { get; set; }
 
     public void ComputeFlag()

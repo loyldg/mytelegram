@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about an SMS job.
-/// See <a href="https://corefork.telegram.org/constructor/smsJob" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/smsJob" /></para>
+/// </summary>
 [TlObject(0xe6a1eeb8)]
-public sealed class TSmsJob : ISmsJob
+public sealed partial class TSmsJob : ISmsJob
 {
     public uint ConstructorId => 0xe6a1eeb8;
-    ///<summary>
+    /// <summary>
     /// Job ID
-    ///</summary>
+    /// </summary>
     public string JobId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

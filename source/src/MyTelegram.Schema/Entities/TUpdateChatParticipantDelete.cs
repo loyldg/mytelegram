@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A member has left the group.
-/// See <a href="https://corefork.telegram.org/constructor/updateChatParticipantDelete" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChatParticipantDelete" /></para>
+/// </summary>
 [TlObject(0xe32f3d77)]
-public sealed class TUpdateChatParticipantDelete : IUpdate
+public sealed partial class TUpdateChatParticipantDelete : IUpdate
 {
     public uint ConstructorId => 0xe32f3d77;
-    ///<summary>
+    /// <summary>
     /// Group ID
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the user
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used in basic groups to reorder updates and make sure that all of them was received.
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
     public void ComputeFlag()

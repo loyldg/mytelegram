@@ -1,12 +1,12 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Stickers;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Stickers;
+/// <summary>
 /// Create a stickerset.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 PACK_SHORT_NAME_INVALID Short pack name invalid.
 /// 400 PACK_SHORT_NAME_OCCUPIED A stickerpack with this name already exists.
 /// 400 PACK_TITLE_INVALID The stickerpack title is invalid.
+/// 400 PACK_TYPE_INVALID The masks and emojis flags are mutually exclusive.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 STICKERS_EMPTY No sticker provided.
 /// 400 STICKER_EMOJI_INVALID Sticker emoji invalid.
@@ -22,12 +22,14 @@
 /// 400 STICKER_VIDEO_NODOC You must send the video sticker as a document.
 /// 400 STICKER_VIDEO_NOWEBM The specified video sticker is not in webm format.
 /// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.createStickerSet" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/stickers.createStickerSet"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 internal sealed class CreateStickerSetHandler : RpcResultObjectHandler<MyTelegram.Schema.Stickers.RequestCreateStickerSet, MyTelegram.Schema.Messages.IStickerSet>
 {
-    protected override Task<MyTelegram.Schema.Messages.IStickerSet> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Stickers.RequestCreateStickerSet obj)
+    protected override Task<MyTelegram.Schema.Messages.IStickerSet> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Stickers.RequestCreateStickerSet obj)
     {
         throw new NotImplementedException();
     }

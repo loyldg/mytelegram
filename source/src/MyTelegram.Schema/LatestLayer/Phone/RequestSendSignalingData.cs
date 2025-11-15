@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Send VoIP signaling data
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CALL_PEER_INVALID The provided call peer object is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.sendSignalingData" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CALL_PEER_INVALID The provided call peer object is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.sendSignalingData" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xff7a9383)]
-public sealed class RequestSendSignalingData : IRequest<IBool>
+public sealed partial class RequestSendSignalingData : IRequest<IBool>
 {
     public uint ConstructorId => 0xff7a9383;
 
-    ///<summary>
+    /// <summary>
     /// Phone call
     /// See <a href="https://corefork.telegram.org/type/InputPhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoneCall Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Signaling payload
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Data { get; set; }
 
     public void ComputeFlag()

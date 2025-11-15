@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a user for further interaction.
-/// See <a href="https://corefork.telegram.org/constructor/inputPeerUser" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPeerUser" /></para>
+/// </summary>
 [TlObject(0xdde8a54c)]
-public sealed class TInputPeerUser : IInputPeer
+public sealed partial class TInputPeerUser : IInputPeer
 {
     public uint ConstructorId => 0xdde8a54c;
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <strong>access_hash</strong> value from the <a href="https://corefork.telegram.org/constructor/user">user</a> constructor
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

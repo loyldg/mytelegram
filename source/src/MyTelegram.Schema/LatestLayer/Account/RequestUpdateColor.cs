@@ -2,44 +2,43 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Update the <a href="https://corefork.telegram.org/api/colors">accent color and background custom emoji »</a> of the current account.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 COLOR_INVALID The specified color palette ID was invalid.
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// See <a href="https://corefork.telegram.org/method/account.updateColor" />
-///</summary>
-[TlObject(0x7cefa15d)]
-public sealed class RequestUpdateColor : IRequest<IBool>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 COLOR_INVALID The specified color palette ID was invalid.</c></para>
+/// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateColor" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+[TlObject(0x684d214e)]
+public sealed partial class RequestUpdateColor : IRequest<IBool>
 {
-    public uint ConstructorId => 0x7cefa15d;
+    public uint ConstructorId => 0x684d214e;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to change the accent color emoji pattern of the profile page; otherwise, the accent color and emoji pattern of messages will be changed.
-    ///</summary>
+    /// </summary>
     public bool ForProfile { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/colors">ID of the accent color palette »</a> to use (not RGB24, see <a href="https://corefork.telegram.org/api/colors">here »</a> for more info).
-    ///</summary>
-    public int? Color { get; set; }
-
-    ///<summary>
-    /// Custom emoji ID used in the accent color pattern.
-    ///</summary>
-    public long? BackgroundEmojiId { get; set; }
+    /// See <a href="https://corefork.telegram.org/type/PeerColor" />
+    /// </summary>
+    public MyTelegram.Schema.IPeerColor? Color { get; set; }
 
     public void ComputeFlag()
     {
         if (ForProfile) { Flags = Flags.SetBit(1); }
-        if (/*Color != 0 && */Color.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*BackgroundEmojiId != 0 &&*/ BackgroundEmojiId.HasValue) { Flags = Flags.SetBit(0); }
+        if (Color != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -47,15 +46,13 @@ public sealed class RequestUpdateColor : IRequest<IBool>
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
-        if (Flags.IsBitSet(2)) { writer.Write(Color.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(BackgroundEmojiId.Value); }
+        if (Flags.IsBitSet(2)) { writer.Write(Color); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(1)) { ForProfile = true; }
-        if (Flags.IsBitSet(2)) { Color = buffer.ReadInt32(); }
-        if (Flags.IsBitSet(0)) { BackgroundEmojiId = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(2)) { Color = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
     }
 }

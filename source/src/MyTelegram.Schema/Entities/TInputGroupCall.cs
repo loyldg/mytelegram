@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Points to a specific group call
-/// See <a href="https://corefork.telegram.org/constructor/inputGroupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputGroupCall" /></para>
+/// </summary>
 [TlObject(0xd8aa840f)]
-public sealed class TInputGroupCall : IInputGroupCall
+public sealed partial class TInputGroupCall : IInputGroupCall
 {
     public uint ConstructorId => 0xd8aa840f;
-    ///<summary>
+    /// <summary>
     /// Group call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

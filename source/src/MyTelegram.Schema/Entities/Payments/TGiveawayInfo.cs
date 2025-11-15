@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Contains info about an ongoing <a href="https://corefork.telegram.org/api/giveaways">giveaway</a>.If neither the <code>participating</code>, <code>joined_too_early_date</code>, <code>admin_disallowed_chat_id</code> or <code>disallowed_country</code> flags are set, the user is not currently participating in the giveaway but could participate by joining all the channels specified in the <a href="https://corefork.telegram.org/constructor/messageMediaGiveaway">messageMediaGiveaway</a>.<code>channels</code> field.
-/// See <a href="https://corefork.telegram.org/constructor/payments.giveawayInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.giveawayInfo" /></para>
+/// </summary>
 [TlObject(0x4367daa0)]
-public sealed class TGiveawayInfo : IGiveawayInfo
+public sealed partial class TGiveawayInfo : IGiveawayInfo
 {
     public uint ConstructorId => 0x4367daa0;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The current user is participating in the giveaway.
-    ///</summary>
+    /// </summary>
     public bool Participating { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the giveaway has ended and the results are being prepared.
-    ///</summary>
+    /// </summary>
     public bool PreparingResults { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the giveaway started
-    ///</summary>
+    /// </summary>
     public int StartDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The current user can't participate in the giveaway, because they were already a member of the channel when the giveaway started, and the <code>only_new_subscribers</code> was set when starting the giveaway.
-    ///</summary>
+    /// </summary>
     public int? JoinedTooEarlyDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the current user can't participate in the giveaway, because they are an administrator in one of the channels (ID specified in this flag) that created the giveaway.
-    ///</summary>
+    /// </summary>
     public long? AdminDisallowedChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the current user can't participate in this giveaway, because their phone number is from the specified disallowed country (specified as a two-letter ISO 3166-1 alpha-2 country code).
-    ///</summary>
+    /// </summary>
     public string? DisallowedCountry { get; set; }
 
     public void ComputeFlag()

@@ -2,49 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An embedded post
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockEmbedPost" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockEmbedPost" /></para>
+/// </summary>
 [TlObject(0xf259a80b)]
-public sealed class TPageBlockEmbedPost : IPageBlock
+public sealed partial class TPageBlockEmbedPost : IPageBlock
 {
     public uint ConstructorId => 0xf259a80b;
-    ///<summary>
+    /// <summary>
     /// Web page URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of generated webpage preview
-    ///</summary>
+    /// </summary>
     public long WebpageId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the author's photo
-    ///</summary>
+    /// </summary>
     public long AuthorPhotoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Author name
-    ///</summary>
+    /// </summary>
     public string Author { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Creation date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Post contents
     /// See <a href="https://corefork.telegram.org/type/PageBlock" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPageBlock> Blocks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Caption
     /// See <a href="https://corefork.telegram.org/type/PageCaption" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
     public void ComputeFlag()

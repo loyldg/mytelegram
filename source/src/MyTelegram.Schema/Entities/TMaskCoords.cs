@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Position on a photo where a mask should be placed when <a href="https://corefork.telegram.org/api/stickers#attached-stickers">attaching stickers to media »</a>The <code>n</code> position indicates where the mask should be placed:
-/// See <a href="https://corefork.telegram.org/constructor/maskCoords" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/maskCoords" /></para>
+/// </summary>
 [TlObject(0xaed6dbb2)]
-public sealed class TMaskCoords : IMaskCoords
+public sealed partial class TMaskCoords : IMaskCoords
 {
     public uint ConstructorId => 0xaed6dbb2;
-    ///<summary>
+    /// <summary>
     /// Part of the face, relative to which the mask should be placed
-    ///</summary>
+    /// </summary>
     public int N { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
-    ///</summary>
+    /// </summary>
     public double X { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Shift by Y-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just below the default mask position)
-    ///</summary>
+    /// </summary>
     public double Y { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mask scaling coefficient. (For example, 2.0 means a doubled size)
-    ///</summary>
+    /// </summary>
     public double Zoom { get; set; }
 
     public void ComputeFlag()

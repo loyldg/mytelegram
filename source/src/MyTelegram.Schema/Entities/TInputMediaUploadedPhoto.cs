@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Photo
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedPhoto" /></para>
+/// </summary>
 [TlObject(0x1e287d04)]
-public sealed class TInputMediaUploadedPhoto : IInputMedia
+public sealed partial class TInputMediaUploadedPhoto : IInputMedia
 {
     public uint ConstructorId => 0x1e287d04;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this media should be hidden behind a spoiler warning
-    ///</summary>
+    /// </summary>
     public bool Spoiler { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/files">uploaded file</a>
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile File { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attached mask stickers
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputDocument>? Stickers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time to live in seconds of self-destructing photo
-    ///</summary>
+    /// </summary>
     public int? TtlSeconds { get; set; }
 
     public void ComputeFlag()

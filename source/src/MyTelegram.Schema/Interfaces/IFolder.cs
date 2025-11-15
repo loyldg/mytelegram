@@ -2,46 +2,50 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A folder
-/// See <a href="https://corefork.telegram.org/type/Folder" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Folder" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFolder"/> See <a href="https://corefork.telegram.org/constructor/folder" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFolder), nameof(TFolder))]
 public interface IFolder : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Automatically add new channels to this folder
-    ///</summary>
+    /// </summary>
     bool AutofillNewBroadcasts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Automatically add joined new public supergroups to this folder
-    ///</summary>
+    /// </summary>
     bool AutofillPublicGroups { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Automatically add new private chats to this folder
-    ///</summary>
+    /// </summary>
     bool AutofillNewCorrespondents { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Folder ID
-    ///</summary>
+    /// </summary>
     int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Folder title
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Folder picture
     /// See <a href="https://corefork.telegram.org/type/ChatPhoto" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IChatPhoto? Photo { get; set; }
 }

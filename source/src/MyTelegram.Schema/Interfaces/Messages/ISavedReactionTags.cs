@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// List of <a href="https://corefork.telegram.org/api/saved-messages#tags">reaction tag »</a> names assigned by the user.
-/// See <a href="https://corefork.telegram.org/type/messages.SavedReactionTags" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.SavedReactionTags" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedReactionTagsNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.savedReactionTagsNotModified" /><br/>
+/// <see cref="TSavedReactionTags"/> See <a href="https://corefork.telegram.org/constructor/messages.savedReactionTags" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedReactionTagsNotModified), nameof(TSavedReactionTagsNotModified))]
 [JsonDerivedType(typeof(TSavedReactionTags), nameof(TSavedReactionTags))]
 public interface ISavedReactionTags : IObject

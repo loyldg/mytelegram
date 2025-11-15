@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// List of <a href="https://corefork.telegram.org/api/reactions">message reactions</a>
-/// See <a href="https://corefork.telegram.org/constructor/messages.reactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.reactions" /></para>
+/// </summary>
 [TlObject(0xeafdf716)]
-public sealed class TReactions : IReactions
+public sealed partial class TReactions : IReactions
 {
     public uint ConstructorId => 0xeafdf716;
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// <summary>
+    /// Hash used for caching, can also be locally regenerated using the algorithm specified <a href="https://corefork.telegram.org/api/reactions#recent-reactions">here »</a>.
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reactions
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IReaction> Reactions { get; set; }
 
     public void ComputeFlag()

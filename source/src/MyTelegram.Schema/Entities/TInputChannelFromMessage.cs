@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a <a href="https://corefork.telegram.org/api/min">min</a> channel that was seen in a certain message of a certain chat.
-/// See <a href="https://corefork.telegram.org/constructor/inputChannelFromMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputChannelFromMessage" /></para>
+/// </summary>
 [TlObject(0x5b934f9d)]
-public sealed class TInputChannelFromMessage : IInputChannel
+public sealed partial class TInputChannelFromMessage : IInputChannel
 {
     public uint ConstructorId => 0x5b934f9d;
-    ///<summary>
+    /// <summary>
     /// The chat where the channel was seen
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message ID in the chat where the channel was seen
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
     public void ComputeFlag()

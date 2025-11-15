@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Media autodownload settings
-/// See <a href="https://corefork.telegram.org/constructor/account.autoDownloadSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.autoDownloadSettings" /></para>
+/// </summary>
 [TlObject(0x63cacf26)]
-public sealed class TAutoDownloadSettings : IAutoDownloadSettings
+public sealed partial class TAutoDownloadSettings : IAutoDownloadSettings
 {
     public uint ConstructorId => 0x63cacf26;
-    ///<summary>
+    /// <summary>
     /// Low data usage preset
     /// See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoDownloadSettings Low { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Medium data usage preset
     /// See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoDownloadSettings Medium { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// High data usage preset
     /// See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoDownloadSettings High { get; set; }
 
     public void ComputeFlag()

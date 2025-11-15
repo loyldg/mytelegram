@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Langpack;
 
-///<summary>
+/// <summary>
 /// Get information about all languages in a localization pack
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 LANG_PACK_INVALID The provided language pack is invalid.
-/// See <a href="https://corefork.telegram.org/method/langpack.getLanguages" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 LANG_PACK_INVALID The provided language pack is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/langpack.getLanguages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x42c6978f)]
-public sealed class RequestGetLanguages : IRequest<TVector<MyTelegram.Schema.ILangPackLanguage>>
+public sealed partial class RequestGetLanguages : IRequest<TVector<MyTelegram.Schema.ILangPackLanguage>>
 {
     public uint ConstructorId => 0x42c6978f;
 
-    ///<summary>
+    /// <summary>
     /// Platform identifier (i.e. <code>android</code>, <code>tdesktop</code>, etc).
-    ///</summary>
+    /// </summary>
     public string LangPack { get; set; }
 
     public void ComputeFlag()

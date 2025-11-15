@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a <a href="https://corefork.telegram.org/api/stars">Telegram Star</a> transaction used to pay for <a href="https://corefork.telegram.org/api/stars#paying-for-ads">Telegram ads as specified here »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerAds" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerAds" /></para>
+/// </summary>
 [TlObject(0x60682812)]
-public sealed class TStarsTransactionPeerAds : IStarsTransactionPeer
+public sealed partial class TStarsTransactionPeerAds : IStarsTransactionPeer
 {
     public uint ConstructorId => 0x60682812;
     public void ComputeFlag()

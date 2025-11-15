@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer in a folder
-/// See <a href="https://corefork.telegram.org/type/InputFolderPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputFolderPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputFolderPeer"/> See <a href="https://corefork.telegram.org/constructor/inputFolderPeer" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputFolderPeer), nameof(TInputFolderPeer))]
 public interface IInputFolderPeer : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     int FolderId { get; set; }
 }

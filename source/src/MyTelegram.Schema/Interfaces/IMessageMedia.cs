@@ -2,10 +2,31 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Media
-/// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageMedia" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageMediaEmpty"/> See <a href="https://corefork.telegram.org/constructor/messageMediaEmpty" /><br/>
+/// <see cref="TMessageMediaPhoto"/> See <a href="https://corefork.telegram.org/constructor/messageMediaPhoto" /><br/>
+/// <see cref="TMessageMediaGeo"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGeo" /><br/>
+/// <see cref="TMessageMediaContact"/> See <a href="https://corefork.telegram.org/constructor/messageMediaContact" /><br/>
+/// <see cref="TMessageMediaUnsupported"/> See <a href="https://corefork.telegram.org/constructor/messageMediaUnsupported" /><br/>
+/// <see cref="TMessageMediaDocument"/> See <a href="https://corefork.telegram.org/constructor/messageMediaDocument" /><br/>
+/// <see cref="TMessageMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/messageMediaWebPage" /><br/>
+/// <see cref="TMessageMediaVenue"/> See <a href="https://corefork.telegram.org/constructor/messageMediaVenue" /><br/>
+/// <see cref="TMessageMediaGame"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGame" /><br/>
+/// <see cref="TMessageMediaInvoice"/> See <a href="https://corefork.telegram.org/constructor/messageMediaInvoice" /><br/>
+/// <see cref="TMessageMediaGeoLive"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGeoLive" /><br/>
+/// <see cref="TMessageMediaPoll"/> See <a href="https://corefork.telegram.org/constructor/messageMediaPoll" /><br/>
+/// <see cref="TMessageMediaDice"/> See <a href="https://corefork.telegram.org/constructor/messageMediaDice" /><br/>
+/// <see cref="TMessageMediaStory"/> See <a href="https://corefork.telegram.org/constructor/messageMediaStory" /><br/>
+/// <see cref="TMessageMediaGiveaway"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGiveaway" /><br/>
+/// <see cref="TMessageMediaGiveawayResults"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGiveawayResults" /><br/>
+/// <see cref="TMessageMediaPaidMedia"/> See <a href="https://corefork.telegram.org/constructor/messageMediaPaidMedia" /><br/>
+/// <see cref="TMessageMediaToDo"/> See <a href="https://corefork.telegram.org/constructor/messageMediaToDo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageMediaEmpty), nameof(TMessageMediaEmpty))]
 [JsonDerivedType(typeof(TMessageMediaPhoto), nameof(TMessageMediaPhoto))]
 [JsonDerivedType(typeof(TMessageMediaGeo), nameof(TMessageMediaGeo))]

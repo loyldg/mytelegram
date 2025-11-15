@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Who can send you messages without paying, if <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> are enabled.
-/// See <a href="https://corefork.telegram.org/constructor/privacyKeyNoPaidMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyKeyNoPaidMessages" /></para>
+/// </summary>
 [TlObject(0x17d348d2)]
-public sealed class TPrivacyKeyNoPaidMessages : IPrivacyKey
+public sealed partial class TPrivacyKeyNoPaidMessages : IPrivacyKey
 {
     public uint ConstructorId => 0x17d348d2;
     public void ComputeFlag()

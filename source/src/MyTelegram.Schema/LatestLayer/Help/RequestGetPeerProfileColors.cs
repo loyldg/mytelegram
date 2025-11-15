@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Get the set of <a href="https://corefork.telegram.org/api/colors">accent color palettes »</a> that can be used in profile page backgrounds.
-/// See <a href="https://corefork.telegram.org/method/help.getPeerProfileColors" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getPeerProfileColors" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xabcfa9fd)]
-public sealed class RequestGetPeerProfileColors : IRequest<MyTelegram.Schema.Help.IPeerColors>
+public sealed partial class RequestGetPeerProfileColors : IRequest<MyTelegram.Schema.Help.IPeerColors>
 {
     public uint ConstructorId => 0xabcfa9fd;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

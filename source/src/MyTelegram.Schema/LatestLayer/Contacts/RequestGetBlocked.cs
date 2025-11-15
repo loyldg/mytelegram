@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Returns the list of blocked users.
-/// See <a href="https://corefork.telegram.org/method/contacts.getBlocked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.getBlocked" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9a868f80)]
-public sealed class RequestGetBlocked : IRequest<MyTelegram.Schema.Contacts.IBlocked>
+public sealed partial class RequestGetBlocked : IRequest<MyTelegram.Schema.Contacts.IBlocked>
 {
     public uint ConstructorId => 0x9a868f80;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to fetch the story blocklist; if not set, will fetch the main blocklist. See <a href="https://corefork.telegram.org/api/block">here »</a> for differences between the two.
-    ///</summary>
+    /// </summary>
     public bool MyStoriesFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of list elements to be skipped
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of list elements to be returned
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

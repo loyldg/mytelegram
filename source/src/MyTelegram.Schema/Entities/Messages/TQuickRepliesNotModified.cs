@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcuts »</a> hasn't changed.
-/// See <a href="https://corefork.telegram.org/constructor/messages.quickRepliesNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.quickRepliesNotModified" /></para>
+/// </summary>
 [TlObject(0x5f91eb5b)]
-public sealed class TQuickRepliesNotModified : IQuickReplies
+public sealed partial class TQuickRepliesNotModified : IQuickReplies
 {
     public uint ConstructorId => 0x5f91eb5b;
     public void ComputeFlag()

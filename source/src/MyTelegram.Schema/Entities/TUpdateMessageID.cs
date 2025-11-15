@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Sent message with <strong>random_id</strong> client identifier was assigned an identifier.
-/// See <a href="https://corefork.telegram.org/constructor/updateMessageID" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateMessageID" /></para>
+/// </summary>
 [TlObject(0x4e90bfd6)]
-public sealed class TUpdateMessageID : IUpdate
+public sealed partial class TUpdateMessageID : IUpdate
 {
     public uint ConstructorId => 0x4e90bfd6;
-    ///<summary>
+    /// <summary>
     /// <strong>id</strong> identifier of a respective <a href="https://corefork.telegram.org/type/Message">Message</a>
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previously transferred client <strong>random_id</strong> identifier
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
     public void ComputeFlag()

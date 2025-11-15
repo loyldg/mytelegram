@@ -2,49 +2,52 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Use this method to set the score of the specified user in a game sent as an inline message (bots only).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/messages.setInlineGameScore" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setInlineGameScore" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x15ad9f64)]
-public sealed class RequestSetInlineGameScore : IRequest<IBool>
+public sealed partial class RequestSetInlineGameScore : IRequest<IBool>
 {
     public uint ConstructorId => 0x15ad9f64;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if the game message should be automatically edited to include the current scoreboard
-    ///</summary>
+    /// </summary>
     public bool EditMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
-    ///</summary>
+    /// </summary>
     public bool Force { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the inline message
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessageID" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessageID Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User identifier
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New score
-    ///</summary>
+    /// </summary>
     public int Score { get; set; }
 
     public void ComputeFlag()

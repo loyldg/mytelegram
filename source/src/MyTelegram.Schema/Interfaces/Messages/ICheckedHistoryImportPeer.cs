@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Contains a confirmation text to be shown to the user, upon <a href="https://corefork.telegram.org/api/import">importing chat history, click here for more info »</a>.
-/// See <a href="https://corefork.telegram.org/type/messages.CheckedHistoryImportPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.CheckedHistoryImportPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCheckedHistoryImportPeer"/> See <a href="https://corefork.telegram.org/constructor/messages.checkedHistoryImportPeer" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCheckedHistoryImportPeer), nameof(TCheckedHistoryImportPeer))]
 public interface ICheckedHistoryImportPeer : IObject
 {
-    ///<summary>
+    /// <summary>
     /// A confirmation text to be shown to the user, upon <a href="https://corefork.telegram.org/api/import">importing chat history »</a>.
-    ///</summary>
+    /// </summary>
     string ConfirmText { get; set; }
 }

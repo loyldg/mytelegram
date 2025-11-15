@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut »</a>.
-/// See <a href="https://corefork.telegram.org/type/InputQuickReplyShortcut" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputQuickReplyShortcut" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputQuickReplyShortcut"/> See <a href="https://corefork.telegram.org/constructor/inputQuickReplyShortcut" /><br/>
+/// <see cref="TInputQuickReplyShortcutId"/> See <a href="https://corefork.telegram.org/constructor/inputQuickReplyShortcutId" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputQuickReplyShortcut), nameof(TInputQuickReplyShortcut))]
 [JsonDerivedType(typeof(TInputQuickReplyShortcutId), nameof(TInputQuickReplyShortcutId))]
 public interface IInputQuickReplyShortcut : IObject

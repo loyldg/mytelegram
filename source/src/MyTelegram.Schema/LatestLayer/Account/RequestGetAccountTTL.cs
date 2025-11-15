@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get days to live of account
-/// See <a href="https://corefork.telegram.org/method/account.getAccountTTL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getAccountTTL" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8fc711d)]
-public sealed class RequestGetAccountTTL : IRequest<MyTelegram.Schema.IAccountDaysTTL>
+public sealed partial class RequestGetAccountTTL : IRequest<MyTelegram.Schema.IAccountDaysTTL>
 {
     public uint ConstructorId => 0x8fc711d;
 

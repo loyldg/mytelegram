@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A simple document with a file name
-/// See <a href="https://corefork.telegram.org/constructor/documentAttributeFilename" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentAttributeFilename" /></para>
+/// </summary>
 [TlObject(0x15590068)]
-public sealed class TDocumentAttributeFilename : IDocumentAttribute
+public sealed partial class TDocumentAttributeFilename : IDocumentAttribute
 {
     public uint ConstructorId => 0x15590068;
-    ///<summary>
+    /// <summary>
     /// The file name
-    ///</summary>
+    /// </summary>
     public string FileName { get; set; }
 
     public void ComputeFlag()

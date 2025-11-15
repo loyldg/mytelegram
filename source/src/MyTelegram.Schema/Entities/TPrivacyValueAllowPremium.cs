@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Allow only users with a <a href="https://corefork.telegram.org/api/premium">Premium subscription »</a>, currently only usable for <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyChatInvite">inputPrivacyKeyChatInvite</a>.
-/// See <a href="https://corefork.telegram.org/constructor/privacyValueAllowPremium" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyValueAllowPremium" /></para>
+/// </summary>
 [TlObject(0xece9814b)]
-public sealed class TPrivacyValueAllowPremium : IPrivacyRule
+public sealed partial class TPrivacyValueAllowPremium : IPrivacyRule
 {
     public uint ConstructorId => 0xece9814b;
     public void ComputeFlag()

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Represents the download status of a CDN file
-/// See <a href="https://corefork.telegram.org/type/upload.CdnFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/upload.CdnFile" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCdnFileReuploadNeeded"/> See <a href="https://corefork.telegram.org/constructor/upload.cdnFileReuploadNeeded" /><br/>
+/// <see cref="TCdnFile"/> See <a href="https://corefork.telegram.org/constructor/upload.cdnFile" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCdnFileReuploadNeeded), nameof(TCdnFileReuploadNeeded))]
 [JsonDerivedType(typeof(TCdnFile), nameof(TCdnFile))]
 public interface ICdnFile : IObject

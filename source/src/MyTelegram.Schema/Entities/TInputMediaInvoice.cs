@@ -2,66 +2,66 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Generated invoice of a <a href="https://corefork.telegram.org/bots/payments">bot payment</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaInvoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaInvoice" /></para>
+/// </summary>
 [TlObject(0x405fef0d)]
-public sealed class TInputMediaInvoice : IInputMedia
+public sealed partial class TInputMediaInvoice : IInputMedia
 {
     public uint ConstructorId => 0x405fef0d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product name, 1-32 characters
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product description, 1-255 characters
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
     /// See <a href="https://corefork.telegram.org/type/InputWebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The actual invoice
     /// See <a href="https://corefork.telegram.org/type/Invoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Payload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payments provider token, obtained via <a href="https://t.me/botfather">Botfather</a>
-    ///</summary>
+    /// </summary>
     public string? Provider { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON ProviderData { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique <a href="https://corefork.telegram.org/api/links#bot-links">bot deep links start parameter</a>. If present, forwarded copies of the sent message will have a URL button with a <a href="https://corefork.telegram.org/api/links#bot-links">deep link</a> to the bot (instead of a Pay button), with the value used as the start parameter. If absent, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice.
-    ///</summary>
+    /// </summary>
     public string? StartParam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Deprecated
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia? ExtendedMedia { get; set; }
 
     public void ComputeFlag()

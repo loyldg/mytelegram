@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// The user must choose a report option from the localized options available in <code>options</code>, and after selection, <a href="https://corefork.telegram.org/method/channels.reportSponsoredMessage">channels.reportSponsoredMessage</a> must be invoked again, passing the option's <code>option</code> field to the <code>option</code> param of the method.
-/// See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultChooseOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultChooseOption" /></para>
+/// </summary>
 [TlObject(0x846f9e42)]
-public sealed class TSponsoredMessageReportResultChooseOption : ISponsoredMessageReportResult
+public sealed partial class TSponsoredMessageReportResultChooseOption : ISponsoredMessageReportResult
 {
     public uint ConstructorId => 0x846f9e42;
-    ///<summary>
+    /// <summary>
     /// Title of the option selection popup.
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Localized list of options.
     /// See <a href="https://corefork.telegram.org/type/SponsoredMessageReportOption" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISponsoredMessageReportOption> Options { get; set; }
 
     public void ComputeFlag()

@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Exported authorization
-/// See <a href="https://corefork.telegram.org/type/auth.ExportedAuthorization" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/auth.ExportedAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedAuthorization"/> See <a href="https://corefork.telegram.org/constructor/auth.exportedAuthorization" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedAuthorization), nameof(TExportedAuthorization))]
 public interface IExportedAuthorization : IObject
 {
-    ///<summary>
+    /// <summary>
     /// current user identifier
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// authorizes key
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Bytes { get; set; }
 }

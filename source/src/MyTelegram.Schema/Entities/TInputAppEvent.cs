@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Event that occurred in the application.
-/// See <a href="https://corefork.telegram.org/constructor/inputAppEvent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputAppEvent" /></para>
+/// </summary>
 [TlObject(0x1d1b1245)]
-public sealed class TInputAppEvent : IInputAppEvent
+public sealed partial class TInputAppEvent : IInputAppEvent
 {
     public uint ConstructorId => 0x1d1b1245;
-    ///<summary>
+    /// <summary>
     /// Client's exact timestamp for the event
-    ///</summary>
+    /// </summary>
     public double Time { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Type of event
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Arbitrary numeric value for more convenient selection of certain event types, or events referring to a certain object
-    ///</summary>
+    /// </summary>
     public long Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Details of the event
     /// See <a href="https://corefork.telegram.org/type/JSONValue" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IJSONValue Data { get; set; }
 
     public void ComputeFlag()

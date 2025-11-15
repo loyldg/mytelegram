@@ -1,13 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Get message ranges for saving the user's chat history
-/// See <a href="https://corefork.telegram.org/method/messages.getSplitRanges" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getSplitRanges"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetSplitRangesHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetSplitRanges, TVector<MyTelegram.Schema.IMessageRange>>
 {
-    protected override Task<TVector<MyTelegram.Schema.IMessageRange>> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetSplitRanges obj)
+    protected override Task<TVector<MyTelegram.Schema.IMessageRange>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetSplitRanges obj)
     {
         throw new NotImplementedException();
     }

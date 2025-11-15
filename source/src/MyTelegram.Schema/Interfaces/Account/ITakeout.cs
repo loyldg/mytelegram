@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Takeout info
-/// See <a href="https://corefork.telegram.org/type/account.Takeout" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.Takeout" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTakeout"/> See <a href="https://corefork.telegram.org/constructor/account.takeout" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTakeout), nameof(TTakeout))]
 public interface ITakeout : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Takeout ID
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 }

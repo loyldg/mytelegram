@@ -14,7 +14,7 @@ namespace MyTelegram.Schema.Channels;
 /// See <a href="https://corefork.telegram.org/method/channels.createForumTopic" />
 ///</summary>
 [TlObject(0xf40c0224)]
-public sealed class RequestCreateForumTopic : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestCreateForumTopic : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf40c0224;
 

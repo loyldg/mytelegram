@@ -2,56 +2,56 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// The new updates
-/// See <a href="https://corefork.telegram.org/constructor/updates.channelDifference" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates.channelDifference" /></para>
+/// </summary>
 [TlObject(0x2064674e)]
-public sealed class TChannelDifference : IChannelDifference
+public sealed partial class TChannelDifference : IChannelDifference
 {
     public uint ConstructorId => 0x2064674e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether there are more updates to be fetched using getDifference, starting from the provided <code>pts</code>
-    ///</summary>
+    /// </summary>
     public bool Final { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/updates">PTS</a> from which to start getting updates the next time
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clients are supposed to refetch the channel difference after timeout seconds have elapsed, if the user is <a href="https://corefork.telegram.org/api/updates#subscribing-to-updates-of-channels-supergroups">currently viewing the chat, see here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int? Timeout { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New messages
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> NewMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Other updates
     /// See <a href="https://corefork.telegram.org/type/Update" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUpdate> OtherUpdates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

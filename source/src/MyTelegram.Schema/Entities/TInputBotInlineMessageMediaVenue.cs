@@ -2,54 +2,54 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Venue
-/// See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaVenue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaVenue" /></para>
+/// </summary>
 [TlObject(0x417bbf11)]
-public sealed class TInputBotInlineMessageMediaVenue : IInputBotInlineMessage
+public sealed partial class TInputBotInlineMessageMediaVenue : IInputBotInlineMessage
 {
     public uint ConstructorId => 0x417bbf11;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Geolocation
     /// See <a href="https://corefork.telegram.org/type/InputGeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGeoPoint GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Address
-    ///</summary>
+    /// </summary>
     public string Address { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue provider: currently only "foursquare" and "gplaces" (Google Places) need to be supported
-    ///</summary>
+    /// </summary>
     public string Provider { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue ID in the provider's database
-    ///</summary>
+    /// </summary>
     public string VenueId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue type in the provider's database
-    ///</summary>
+    /// </summary>
     public string VenueType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
     public void ComputeFlag()

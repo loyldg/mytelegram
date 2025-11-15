@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// The file must be downloaded from a <a href="https://corefork.telegram.org/cdn">CDN DC</a>.
-/// See <a href="https://corefork.telegram.org/constructor/upload.fileCdnRedirect" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/upload.fileCdnRedirect" /></para>
+/// </summary>
 [TlObject(0xf18cda44)]
-public sealed class TFileCdnRedirect : IFile
+public sealed partial class TFileCdnRedirect : IFile
 {
     public uint ConstructorId => 0xf18cda44;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/cdn">CDN DC</a> ID
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File token (see <a href="https://corefork.telegram.org/cdn">CDN files</a>)
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileToken { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Encryption key (see <a href="https://corefork.telegram.org/cdn">CDN files</a>)
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> EncryptionKey { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Encryption IV (see <a href="https://corefork.telegram.org/cdn">CDN files</a>)
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> EncryptionIv { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File hashes (see <a href="https://corefork.telegram.org/cdn">CDN files</a>)
     /// See <a href="https://corefork.telegram.org/type/FileHash" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IFileHash> FileHashes { get; set; }
 
     public void ComputeFlag()

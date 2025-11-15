@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Top peers
-/// See <a href="https://corefork.telegram.org/constructor/contacts.topPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.topPeers" /></para>
+/// </summary>
 [TlObject(0x70b772a8)]
-public sealed class TTopPeers : ITopPeers
+public sealed partial class TTopPeers : ITopPeers
 {
     public uint ConstructorId => 0x70b772a8;
-    ///<summary>
+    /// <summary>
     /// Top peers by top peer category
     /// See <a href="https://corefork.telegram.org/type/TopPeerCategoryPeers" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ITopPeerCategoryPeers> Categories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

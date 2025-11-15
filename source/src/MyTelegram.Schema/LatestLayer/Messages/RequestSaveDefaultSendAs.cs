@@ -2,29 +2,33 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Change the default peer that should be used when sending messages, reactions, poll votes to a specific group
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
-/// See <a href="https://corefork.telegram.org/method/messages.saveDefaultSendAs" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 SEND_AS_PEER_INVALID You can't send messages as the specified peer. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.saveDefaultSendAs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xccfddf96)]
-public sealed class RequestSaveDefaultSendAs : IRequest<IBool>
+public sealed partial class RequestSaveDefaultSendAs : IRequest<IBool>
 {
     public uint ConstructorId => 0xccfddf96;
 
-    ///<summary>
+    /// <summary>
     /// Group
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The default peer that should be used when sending messages to the group
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer SendAs { get; set; }
 
     public void ComputeFlag()

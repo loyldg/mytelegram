@@ -2,41 +2,58 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.updateStarGiftCollection" />
-///</summary>
+/// <summary>
+/// Add or remove gifts from a <a href="https://corefork.telegram.org/api/gifts#gift-collections">star gift collection »</a>, or rename the collection.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.updateStarGiftCollection" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4fddbee7)]
-public sealed class RequestUpdateStarGiftCollection : IRequest<MyTelegram.Schema.IStarGiftCollection>
+public sealed partial class RequestUpdateStarGiftCollection : IRequest<MyTelegram.Schema.IStarGiftCollection>
 {
     public uint ConstructorId => 0x4fddbee7;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Peer that owns the collection.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// Collection ID.
+    /// </summary>
     public int CollectionId { get; set; }
 
+    /// <summary>
+    /// Title of the collection, to rename the collection.
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Can contain a list of gifts to remove from the collection.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputSavedStarGift>? DeleteStargift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Can contain a list of gifts to add to the collection.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputSavedStarGift>? AddStargift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Can contain the new gift order.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputSavedStarGift>? Order { get; set; }
 
     public void ComputeFlag()

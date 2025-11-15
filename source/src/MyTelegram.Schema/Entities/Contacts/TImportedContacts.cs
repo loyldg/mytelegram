@@ -2,35 +2,35 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Info on successfully imported contacts.
-/// See <a href="https://corefork.telegram.org/constructor/contacts.importedContacts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.importedContacts" /></para>
+/// </summary>
 [TlObject(0x77d01c3b)]
-public sealed class TImportedContacts : IImportedContacts
+public sealed partial class TImportedContacts : IImportedContacts
 {
     public uint ConstructorId => 0x77d01c3b;
-    ///<summary>
+    /// <summary>
     /// List of successfully imported contacts
     /// See <a href="https://corefork.telegram.org/type/ImportedContact" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IImportedContact> Imported { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Popular contacts
     /// See <a href="https://corefork.telegram.org/type/PopularContact" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPopularContact> PopularInvites { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of contact ids that could not be imported due to system limitation and will need to be imported at a later date.
-    ///</summary>
+    /// </summary>
     public TVector<long> RetryContacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

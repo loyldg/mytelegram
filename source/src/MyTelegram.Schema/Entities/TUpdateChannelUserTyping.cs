@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user is typing in a <a href="https://corefork.telegram.org/api/channel">supergroup, channel</a> or <a href="https://corefork.telegram.org/api/threads">message thread</a>
-/// See <a href="https://corefork.telegram.org/constructor/updateChannelUserTyping" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChannelUserTyping" /></para>
+/// </summary>
 [TlObject(0x8c88c923)]
-public sealed class TUpdateChannelUserTyping : IUpdate
+public sealed partial class TUpdateChannelUserTyping : IUpdate
 {
     public uint ConstructorId => 0x8c88c923;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/threads">Thread ID</a>
-    ///</summary>
+    /// </summary>
     public int? TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer that is typing
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user is typing, sending a media or doing something else
     /// See <a href="https://corefork.telegram.org/type/SendMessageAction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISendMessageAction Action { get; set; }
 
     public void ComputeFlag()

@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Obtain full info about a set of <a href="https://corefork.telegram.org/api/stories">stories</a> by their IDs.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STORIES_NEVER_CREATED This peer hasn't ever posted any stories.
-/// 400 STORY_ID_EMPTY You specified no story IDs.
-/// See <a href="https://corefork.telegram.org/method/stories.getStoriesByID" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STORIES_NEVER_CREATED This peer hasn't ever posted any stories.</c></para>
+/// <para><c>400 STORY_ID_EMPTY You specified no story IDs. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getStoriesByID" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5774ca74)]
-public sealed class RequestGetStoriesByID : IRequest<MyTelegram.Schema.Stories.IStories>
+public sealed partial class RequestGetStoriesByID : IRequest<MyTelegram.Schema.Stories.IStories>
 {
     public uint ConstructorId => 0x5774ca74;
 
-    ///<summary>
+    /// <summary>
     /// Peer where the stories were posted
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

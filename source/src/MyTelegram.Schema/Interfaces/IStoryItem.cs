@@ -2,17 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/stories">Telegram Story</a>
-/// See <a href="https://corefork.telegram.org/type/StoryItem" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StoryItem" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStoryItemDeleted"/> See <a href="https://corefork.telegram.org/constructor/storyItemDeleted" /><br/>
+/// <see cref="TStoryItemSkipped"/> See <a href="https://corefork.telegram.org/constructor/storyItemSkipped" /><br/>
+/// <see cref="TStoryItem"/> See <a href="https://corefork.telegram.org/constructor/storyItem" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStoryItemDeleted), nameof(TStoryItemDeleted))]
 [JsonDerivedType(typeof(TStoryItemSkipped), nameof(TStoryItemSkipped))]
 [JsonDerivedType(typeof(TStoryItem), nameof(TStoryItem))]
 public interface IStoryItem : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     int Id { get; set; }
 }

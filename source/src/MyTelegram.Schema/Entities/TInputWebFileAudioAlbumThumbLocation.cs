@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to download an album cover for any music file using <a href="https://corefork.telegram.org/method/upload.getWebFile">upload.getWebFile</a>, see the <a href="https://corefork.telegram.org/api/files#downloading-webfiles">webfile docs for more info »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputWebFileAudioAlbumThumbLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputWebFileAudioAlbumThumbLocation" /></para>
+/// </summary>
 [TlObject(0xf46fe924)]
-public sealed class TInputWebFileAudioAlbumThumbLocation : IInputWebFileLocation
+public sealed partial class TInputWebFileAudioAlbumThumbLocation : IInputWebFileLocation
 {
     public uint ConstructorId => 0xf46fe924;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used to return a thumbnail with <code>100x100</code> resolution (instead of the default <code>600x600</code>)
-    ///</summary>
+    /// </summary>
     public bool Small { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The audio file in question: must NOT be provided in secret chats, provide the <code>title</code> and <code>performer</code> fields instead.
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument? Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Song title: should only be used in secret chats, in normal chats provide <code>document</code> instead, as it has more lax rate limits.
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Song performer: should only be used in secret chats, in normal chats provide <code>document</code> instead, as it has more lax rate limits.
-    ///</summary>
+    /// </summary>
     public string? Performer { get; set; }
 
     public void ComputeFlag()

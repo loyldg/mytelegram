@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about a chat invite
-/// See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInvite" /></para>
+/// </summary>
 [TlObject(0x1871be50)]
-public sealed class TExportedChatInvite : IExportedChatInvite
+public sealed partial class TExportedChatInvite : IExportedChatInvite
 {
     public uint ConstructorId => 0x1871be50;
-    ///<summary>
+    /// <summary>
     /// Info about the chat invite
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

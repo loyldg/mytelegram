@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Official clients only, invoke with Google Play Integrity token.
-/// See <a href="https://corefork.telegram.org/method/invokeWithGooglePlayIntegrity" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/invokeWithGooglePlayIntegrity" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1df92984)]
-public sealed class RequestInvokeWithGooglePlayIntegrity : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInvokeWithGooglePlayIntegrity : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0x1df92984;
 
-    ///<summary>
+    /// <summary>
     /// Nonce.
-    ///</summary>
+    /// </summary>
     public string Nonce { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Token.
-    ///</summary>
+    /// </summary>
     public string Token { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query.
-    ///</summary>
+    /// </summary>
     public IObject Query { get; set; }
 
     public void ComputeFlag()

@@ -2,21 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a sent inline message from the perspective of a bot
-/// See <a href="https://corefork.telegram.org/type/InputBotInlineMessageID" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputBotInlineMessageID" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputBotInlineMessageID"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageID" /><br/>
+/// <see cref="TInputBotInlineMessageID64"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageID64" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputBotInlineMessageID), nameof(TInputBotInlineMessageID))]
 [JsonDerivedType(typeof(TInputBotInlineMessageID64), nameof(TInputBotInlineMessageID64))]
 public interface IInputBotInlineMessageID : IObject
 {
-    ///<summary>
+    /// <summary>
     /// DC ID to use when working with this inline message
-    ///</summary>
+    /// </summary>
     int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash of message
-    ///</summary>
+    /// </summary>
     long AccessHash { get; set; }
 }

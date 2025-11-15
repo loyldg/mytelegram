@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about an SMS job.
-/// See <a href="https://corefork.telegram.org/type/SmsJob" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SmsJob" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSmsJob"/> See <a href="https://corefork.telegram.org/constructor/smsJob" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSmsJob), nameof(TSmsJob))]
 public interface ISmsJob : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Job ID
-    ///</summary>
+    /// </summary>
     string JobId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination phone number
-    ///</summary>
+    /// </summary>
     string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 }

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An <a href="https://corefork.telegram.org/api/emoji-categories">emoji category</a>, used to select all <a href="https://corefork.telegram.org/api/premium">Premium</a>-only stickers (i.e. those with a <a href="https://corefork.telegram.org/api/stickers#premium-animated-sticker-effects">Premium effect »</a>)/<a href="https://corefork.telegram.org/api/premium">Premium</a>-only <a href="https://corefork.telegram.org/api/custom-emoji">custom emojis</a> (i.e. those where the <a href="https://corefork.telegram.org/constructor/documentAttributeCustomEmoji">documentAttributeCustomEmoji</a>.<code>free</code> flag is <strong>not</strong> set)
-/// See <a href="https://corefork.telegram.org/constructor/emojiGroupPremium" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiGroupPremium" /></para>
+/// </summary>
 [TlObject(0x93bcf34)]
-public sealed class TEmojiGroupPremium : IEmojiGroup
+public sealed partial class TEmojiGroupPremium : IEmojiGroup
 {
     public uint ConstructorId => 0x93bcf34;
-    ///<summary>
+    /// <summary>
     /// Category name, i.e. "Animals", "Flags", "Faces" and so on...
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A single custom emoji used as preview for the category.
-    ///</summary>
+    /// </summary>
     public long IconEmojiId { get; set; }
 
     public void ComputeFlag()

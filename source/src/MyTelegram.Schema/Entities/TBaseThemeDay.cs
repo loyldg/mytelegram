@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Day theme
-/// See <a href="https://corefork.telegram.org/constructor/baseThemeDay" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/baseThemeDay" /></para>
+/// </summary>
 [TlObject(0xfbd81688)]
-public sealed class TBaseThemeDay : IBaseTheme
+public sealed partial class TBaseThemeDay : IBaseTheme
 {
     public uint ConstructorId => 0xfbd81688;
     public void ComputeFlag()

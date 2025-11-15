@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A bot was stopped or re-started.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotStopped" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotStopped" /></para>
+/// </summary>
 [TlObject(0xc4870a49)]
-public sealed class TUpdateBotStopped : IUpdate
+public sealed partial class TUpdateBotStopped : IUpdate
 {
     public uint ConstructorId => 0xc4870a49;
-    ///<summary>
+    /// <summary>
     /// The user ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did this action occur
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the bot was stopped or started
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Stopped { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

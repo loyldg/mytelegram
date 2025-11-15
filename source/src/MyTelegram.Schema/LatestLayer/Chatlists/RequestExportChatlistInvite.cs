@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Export a <a href="https://corefork.telegram.org/api/folders">folder »</a>, creating a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHATLISTS_TOO_MUCH You have created too many folder links, hitting the <code>chatlist_invites_limit_default</code>/<code>chatlist_invites_limit_premium</code> <a href="https://corefork.telegram.org/api/config#chatlist-invites-limit-default">limits&nbsp;»</a>.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// 400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.
-/// 400 INVITES_TOO_MUCH The maximum number of per-folder invites specified by the <code>chatlist_invites_limit_default</code>/<code>chatlist_invites_limit_premium</code> <a href="https://corefork.telegram.org/api/config#chatlist-invites-limit-default">client configuration parameters&nbsp;»</a> was reached.
-/// 400 PEERS_LIST_EMPTY The specified list of peers is empty.
-/// See <a href="https://corefork.telegram.org/method/chatlists.exportChatlistInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHATLISTS_TOO_MUCH You have created too many folder links, hitting the <code>chatlist_invites_limit_default</code>/<code>chatlist_invites_limit_premium</code> <a href="https://corefork.telegram.org/api/config#chatlist-invites-limit-default">limits »</a>.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid.</c></para>
+/// <para><c>400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.</c></para>
+/// <para><c>400 INVITES_TOO_MUCH The maximum number of per-folder invites specified by the <code>chatlist_invites_limit_default</code>/<code>chatlist_invites_limit_premium</code> <a href="https://corefork.telegram.org/api/config#chatlist-invites-limit-default">client configuration parameters »</a> was reached.</c></para>
+/// <para><c>400 PEERS_LIST_EMPTY The specified list of peers is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.exportChatlistInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8472478e)]
-public sealed class RequestExportChatlistInvite : IRequest<MyTelegram.Schema.Chatlists.IExportedChatlistInvite>
+public sealed partial class RequestExportChatlistInvite : IRequest<MyTelegram.Schema.Chatlists.IExportedChatlistInvite>
 {
     public uint ConstructorId => 0x8472478e;
 
-    ///<summary>
+    /// <summary>
     /// The folder to export
     /// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// An optional name for the link
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The list of channels, group and supergroups to share with the link. Basic groups will automatically be <a href="https://corefork.telegram.org/api/channel#migration">converted to supergroups</a> when invoking the method.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Peers { get; set; }
 
     public void ComputeFlag()

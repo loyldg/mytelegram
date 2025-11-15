@@ -2,38 +2,43 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Binds a temporary authorization key <code>temp_auth_key_id</code> to the permanent authorization key <code>perm_auth_key_id</code>. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.For more information, see <a href="https://corefork.telegram.org/api/pfs">Perfect Forward Secrecy</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ENCRYPTED_MESSAGE_INVALID Encrypted message invalid.
-/// 400 TEMP_AUTH_KEY_ALREADY_BOUND The passed temporary key is already bound to another <strong>perm_auth_key_id</strong>.
-/// 400 TEMP_AUTH_KEY_EMPTY No temporary auth key provided.
-/// See <a href="https://corefork.telegram.org/method/auth.bindTempAuthKey" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>  </c></para>
+/// <para><c>nonce long Random long</c></para>
+/// <para><c>temp_auth_key_id long Temporary auth_key_id</c></para>
+/// <para><c>perm_auth_key_id long Permanent auth_key_id to bind to</c></para>
+/// <para><c>temp_session_id long Session id, which will be used to invoke <strong>auth.bindTempAuthKey</strong> method</c></para>
+/// <para><c>expires_at int Unix timestamp to invalidate temporary key </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.bindTempAuthKey" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xcdd42a05)]
-public sealed class RequestBindTempAuthKey : IRequest<IBool>
+public sealed partial class RequestBindTempAuthKey : IRequest<IBool>
 {
     public uint ConstructorId => 0xcdd42a05;
 
-    ///<summary>
+    /// <summary>
     /// Permanent auth_key_id to bind to
-    ///</summary>
+    /// </summary>
     public long PermAuthKeyId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Random long from <a href="https://corefork.telegram.org/#binding-message-contents">Binding message contents</a>
-    ///</summary>
+    /// </summary>
     public long Nonce { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unix timestamp to invalidate temporary key, see <a href="https://corefork.telegram.org/#binding-message-contents">Binding message contents</a>
-    ///</summary>
+    /// </summary>
     public int ExpiresAt { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// See <a href="https://corefork.telegram.org/#generating-encrypted-message">Generating encrypted_message</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> EncryptedMessage { get; set; }
 
     public void ComputeFlag()

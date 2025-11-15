@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get recently used <a href="https://corefork.telegram.org/api/emoji-status">emoji statuses</a>
-/// See <a href="https://corefork.telegram.org/method/account.getRecentEmojiStatuses" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getRecentEmojiStatuses" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf578105)]
-public sealed class RequestGetRecentEmojiStatuses : IRequest<MyTelegram.Schema.Account.IEmojiStatuses>
+public sealed partial class RequestGetRecentEmojiStatuses : IRequest<MyTelegram.Schema.Account.IEmojiStatuses>
 {
     public uint ConstructorId => 0xf578105;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

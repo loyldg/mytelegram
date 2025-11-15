@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Official apps only, reports that the SMS authentication code wasn't delivered.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_NUMBER_INVALID The phone number is invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.reportMissingCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.reportMissingCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xcb9deff6)]
-public sealed class RequestReportMissingCode : IRequest<IBool>
+public sealed partial class RequestReportMissingCode : IRequest<IBool>
 {
     public uint ConstructorId => 0xcb9deff6;
 
-    ///<summary>
+    /// <summary>
     /// Phone number where we were supposed to receive the code
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The phone code hash obtained from <a href="https://corefork.telegram.org/method/auth.sendCode">auth.sendCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://en.wikipedia.org/wiki/Mobile_country_code">MNC</a> of the current network operator.
-    ///</summary>
+    /// </summary>
     public string Mnc { get; set; }
 
     public void ComputeFlag()

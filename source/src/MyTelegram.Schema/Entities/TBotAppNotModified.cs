@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bot app info hasn't changed.
-/// See <a href="https://corefork.telegram.org/constructor/botAppNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botAppNotModified" /></para>
+/// </summary>
 [TlObject(0x5da674b7)]
-public sealed class TBotAppNotModified : IBotApp
+public sealed partial class TBotAppNotModified : IBotApp
 {
     public uint ConstructorId => 0x5da674b7;
     public void ComputeFlag()

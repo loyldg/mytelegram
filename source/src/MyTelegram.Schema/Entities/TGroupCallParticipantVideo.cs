@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a video stream
-/// See <a href="https://corefork.telegram.org/constructor/groupCallParticipantVideo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/groupCallParticipantVideo" /></para>
+/// </summary>
 [TlObject(0x67753ac8)]
-public sealed class TGroupCallParticipantVideo : IGroupCallParticipantVideo
+public sealed partial class TGroupCallParticipantVideo : IGroupCallParticipantVideo
 {
     public uint ConstructorId => 0x67753ac8;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the stream is currently paused
-    ///</summary>
+    /// </summary>
     public bool Paused { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Endpoint
-    ///</summary>
+    /// </summary>
     public string Endpoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Source groups
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipantVideoSourceGroup" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IGroupCallParticipantVideoSourceGroup> SourceGroups { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Audio source ID
-    ///</summary>
+    /// </summary>
     public int? AudioSource { get; set; }
 
     public void ComputeFlag()

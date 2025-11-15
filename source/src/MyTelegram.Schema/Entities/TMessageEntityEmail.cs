@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity representing an <a href="mailto:email@example.com">email@example.com</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityEmail" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityEmail" /></para>
+/// </summary>
 [TlObject(0x64e475c2)]
-public sealed class TMessageEntityEmail : IMessageEntity
+public sealed partial class TMessageEntityEmail : IMessageEntity
 {
     public uint ConstructorId => 0x64e475c2;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

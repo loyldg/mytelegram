@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get pinned dialogs
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FOLDER_ID_INVALID Invalid folder ID.
-/// See <a href="https://corefork.telegram.org/method/messages.getPinnedDialogs" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FOLDER_ID_INVALID Invalid folder ID. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getPinnedDialogs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd6b94df2)]
-public sealed class RequestGetPinnedDialogs : IRequest<MyTelegram.Schema.Messages.IPeerDialogs>
+public sealed partial class RequestGetPinnedDialogs : IRequest<MyTelegram.Schema.Messages.IPeerDialogs>
 {
     public uint ConstructorId => 0xd6b94df2;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int FolderId { get; set; }
 
     public void ComputeFlag()

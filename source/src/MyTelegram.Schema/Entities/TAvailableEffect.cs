@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/effects">message effect »</a>.All <code>long</code> IDs except for <code>id</code> are <a href="https://corefork.telegram.org/constructor/document">document</a>.<code>id</code>s from the containing <a href="https://corefork.telegram.org/constructor/messages.availableEffects">messages.availableEffects</a> constructor.See <a href="https://corefork.telegram.org/api/effects">here »</a> for more info on how to use following fields.
-/// See <a href="https://corefork.telegram.org/constructor/availableEffect" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/availableEffect" /></para>
+/// </summary>
 [TlObject(0x93c3e27e)]
-public sealed class TAvailableEffect : IAvailableEffect
+public sealed partial class TAvailableEffect : IAvailableEffect
 {
     public uint ConstructorId => 0x93c3e27e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription is required to use this effect.
-    ///</summary>
+    /// </summary>
     public bool PremiumRequired { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique effect ID.
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emoji corresponding to the effect, to be used as icon for the effect if <code>static_icon_id</code> is not set.
-    ///</summary>
+    /// </summary>
     public string Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the document containing the static icon (WEBP) of the effect.
-    ///</summary>
+    /// </summary>
     public long? StaticIconId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains the preview <a href="https://corefork.telegram.org/api/stickers#animated-stickers">animation (TGS format »)</a>, used for the effect selection menu.
-    ///</summary>
+    /// </summary>
     public long EffectStickerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains the actual animated effect <a href="https://corefork.telegram.org/api/stickers#animated-stickers">(TGS format »)</a>. If not set, the animated effect must be set equal to the <a href="https://corefork.telegram.org/api/stickers#premium-animated-sticker-effects">premium animated sticker effect</a> associated to the animated sticker specified in <code>effect_sticker_id</code> (always different from the preview animation, fetched thanks to the <a href="https://corefork.telegram.org/constructor/videoSize">videoSize</a> of type <code>f</code> as specified <a href="https://corefork.telegram.org/api/stickers#premium-animated-sticker-effects">here »</a>).
-    ///</summary>
+    /// </summary>
     public long? EffectAnimationId { get; set; }
 
     public void ComputeFlag()

@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Shipping option
-/// See <a href="https://corefork.telegram.org/constructor/shippingOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/shippingOption" /></para>
+/// </summary>
 [TlObject(0xb6213cdf)]
-public sealed class TShippingOption : IShippingOption
+public sealed partial class TShippingOption : IShippingOption
 {
     public uint ConstructorId => 0xb6213cdf;
-    ///<summary>
+    /// <summary>
     /// Option ID
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of price portions
     /// See <a href="https://corefork.telegram.org/type/LabeledPrice" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ILabeledPrice> Prices { get; set; }
 
     public void ComputeFlag()

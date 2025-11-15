@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/method/channels.toggleSlowMode">Slow mode setting for supergroups was changed</a>
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode" /></para>
+/// </summary>
 [TlObject(0x53909779)]
-public sealed class TChannelAdminLogEventActionToggleSlowMode : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionToggleSlowMode : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x53909779;
-    ///<summary>
+    /// <summary>
     /// Previous slow mode value
-    ///</summary>
+    /// </summary>
     public int PrevValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New slow mode value
-    ///</summary>
+    /// </summary>
     public int NewValue { get; set; }
 
     public void ComputeFlag()

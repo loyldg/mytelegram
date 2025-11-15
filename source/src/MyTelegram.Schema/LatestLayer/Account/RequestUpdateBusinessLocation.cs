@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/business#location">Businesses »</a> may advertise their location using this method, see <a href="https://corefork.telegram.org/api/business#location">here »</a> for more info.To remove business location information invoke the method without setting any of the parameters.
-/// See <a href="https://corefork.telegram.org/method/account.updateBusinessLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateBusinessLocation" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9e6b131a)]
-public sealed class RequestUpdateBusinessLocation : IRequest<IBool>
+public sealed partial class RequestUpdateBusinessLocation : IRequest<IBool>
 {
     public uint ConstructorId => 0x9e6b131a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional, contains a set of geographical coordinates.
     /// See <a href="https://corefork.telegram.org/type/InputGeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGeoPoint? GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mandatory when setting/updating the location, contains a textual description of the address (max 96 UTF-8 chars).
-    ///</summary>
+    /// </summary>
     public string? Address { get; set; }
 
     public void ComputeFlag()

@@ -2,32 +2,35 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Returns a Telegram Passport authorization form for sharing data with a service
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 PUBLIC_KEY_REQUIRED A public key is required.
-/// See <a href="https://corefork.telegram.org/method/account.getAuthorizationForm" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 PUBLIC_KEY_REQUIRED A public key is required. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getAuthorizationForm" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa929597a)]
-public sealed class RequestGetAuthorizationForm : IRequest<MyTelegram.Schema.Account.IAuthorizationForm>
+public sealed partial class RequestGetAuthorizationForm : IRequest<MyTelegram.Schema.Account.IAuthorizationForm>
 {
     public uint ConstructorId => 0xa929597a;
 
-    ///<summary>
+    /// <summary>
     /// User identifier of the service's bot
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram Passport element types requested by the service
-    ///</summary>
+    /// </summary>
     public string Scope { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Service's public key
-    ///</summary>
+    /// </summary>
     public string PublicKey { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Source of an incoming <a href="https://corefork.telegram.org/api/stars">Telegram Star transaction</a>, or its recipient for outgoing <a href="https://corefork.telegram.org/api/stars">Telegram Star transactions</a>.
-/// See <a href="https://corefork.telegram.org/type/StarsTransactionPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StarsTransactionPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarsTransactionPeerUnsupported"/> See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerUnsupported" /><br/>
+/// <see cref="TStarsTransactionPeerAppStore"/> See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerAppStore" /><br/>
+/// <see cref="TStarsTransactionPeerPlayMarket"/> See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerPlayMarket" /><br/>
+/// <see cref="TStarsTransactionPeerPremiumBot"/> See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerPremiumBot" /><br/>
+/// <see cref="TStarsTransactionPeerFragment"/> See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerFragment" /><br/>
+/// <see cref="TStarsTransactionPeer"/> See <a href="https://corefork.telegram.org/constructor/starsTransactionPeer" /><br/>
+/// <see cref="TStarsTransactionPeerAds"/> See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerAds" /><br/>
+/// <see cref="TStarsTransactionPeerAPI"/> See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerAPI" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarsTransactionPeerUnsupported), nameof(TStarsTransactionPeerUnsupported))]
 [JsonDerivedType(typeof(TStarsTransactionPeerAppStore), nameof(TStarsTransactionPeerAppStore))]
 [JsonDerivedType(typeof(TStarsTransactionPeerPlayMarket), nameof(TStarsTransactionPeerPlayMarket))]

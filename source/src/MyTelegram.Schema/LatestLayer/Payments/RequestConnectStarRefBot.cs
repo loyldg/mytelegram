@@ -2,25 +2,28 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Join a bot's <a href="https://corefork.telegram.org/api/bots/referrals#becoming-an-affiliate">affiliate program, becoming an affiliate »</a>
-/// See <a href="https://corefork.telegram.org/method/payments.connectStarRefBot" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.connectStarRefBot" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7ed5348a)]
-public sealed class RequestConnectStarRefBot : IRequest<MyTelegram.Schema.Payments.IConnectedStarRefBots>
+public sealed partial class RequestConnectStarRefBot : IRequest<MyTelegram.Schema.Payments.IConnectedStarRefBots>
 {
     public uint ConstructorId => 0x7ed5348a;
 
-    ///<summary>
+    /// <summary>
     /// The peer that will become the affiliate: star commissions will be transferred to this peer's star balance.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The bot that offers the affiliate program
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
     public void ComputeFlag()

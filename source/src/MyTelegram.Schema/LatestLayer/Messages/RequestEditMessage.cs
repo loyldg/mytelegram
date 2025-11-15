@@ -2,115 +2,124 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Edit message
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_DOMAIN_INVALID Bot domain invalid.
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 BUTTON_COPY_TEXT_INVALID The specified <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy">keyboardButtonCopy</a>.<code>copy_text</code> is invalid.
-/// 400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.
-/// 400 BUTTON_TYPE_INVALID The type of one or more of the buttons you provided is invalid.
-/// 400 BUTTON_URL_INVALID Button URL invalid.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_FORWARDS_RESTRICTED You can't forward messages from a protected chat.
-/// 403 CHAT_SEND_GIFS_FORBIDDEN You can't send gifs in this chat.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 DOCUMENT_INVALID The specified document is invalid.
-/// 400 ENTITIES_TOO_LONG You provided too many styled message entities.
-/// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here&nbsp;»</a> for info on how to properly compute the entity offset/length.
-/// 400 FILE_PARTS_INVALID The number of file parts is invalid.
-/// 400 IMAGE_PROCESS_FAILED Failure while processing image.
-/// 403 INLINE_BOT_REQUIRED Only the inline bot can edit message.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MEDIA_CAPTION_TOO_LONG The caption is too long.
-/// 400 MEDIA_EMPTY The provided media object is invalid.
-/// 400 MEDIA_GROUPED_INVALID You tried to send media of different types in an album.
-/// 400 MEDIA_INVALID Media invalid.
-/// 400 MEDIA_NEW_INVALID The new media is invalid.
-/// 400 MEDIA_PREV_INVALID Previous media invalid.
-/// 400 MEDIA_TTL_INVALID The specified media TTL is invalid.
-/// 403 MESSAGE_AUTHOR_REQUIRED Message author required.
-/// 400 MESSAGE_EDIT_TIME_EXPIRED You can't edit this message anymore, too much time has passed since its creation.
-/// 400 MESSAGE_EMPTY The provided message is empty.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 MESSAGE_NOT_MODIFIED The provided message data is identical to the previous message data, the message wasn't modified.
-/// 400 MESSAGE_TOO_LONG The provided message is too long.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 500 MSG_WAIT_FAILED A waiting call returned an error.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 PEER_TYPES_INVALID The passed <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline">keyboardButtonSwitchInline</a>.<code>peer_types</code> field is invalid.
-/// 400 REPLY_MARKUP_INVALID The provided reply markup is invalid.
-/// 400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.
-/// 400 SCHEDULE_DATE_INVALID Invalid schedule date provided.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// 400 WEBPAGE_NOT_FOUND A preview for the specified webpage <code>url</code> could not be generated.
-/// See <a href="https://corefork.telegram.org/method/messages.editMessage" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_DOMAIN_INVALID Bot domain invalid.</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.</c></para>
+/// <para><c>400 BUTTON_COPY_TEXT_INVALID The specified <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy">keyboardButtonCopy</a>.<code>copy_text</code> is invalid.</c></para>
+/// <para><c>400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.</c></para>
+/// <para><c>400 BUTTON_TYPE_INVALID The type of one or more of the buttons you provided is invalid.</c></para>
+/// <para><c>400 BUTTON_URL_INVALID Button URL invalid.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_FORWARDS_RESTRICTED You can't forward messages from a protected chat.</c></para>
+/// <para><c>403 CHAT_SEND_GIFS_FORBIDDEN You can't send gifs in this chat.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 ENTITIES_TOO_LONG You provided too many styled message entities.</c></para>
+/// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
+/// <para><c>400 FILE_PARTS_INVALID The number of file parts is invalid.</c></para>
+/// <para><c>400 IMAGE_PROCESS_FAILED Failure while processing image.</c></para>
+/// <para><c>403 INLINE_BOT_REQUIRED Only the inline bot can edit message.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MEDIA_CAPTION_TOO_LONG The caption is too long.</c></para>
+/// <para><c>400 MEDIA_EMPTY The provided media object is invalid.</c></para>
+/// <para><c>400 MEDIA_GROUPED_INVALID You tried to send media of different types in an album.</c></para>
+/// <para><c>400 MEDIA_INVALID Media invalid.</c></para>
+/// <para><c>400 MEDIA_NEW_INVALID The new media is invalid.</c></para>
+/// <para><c>400 MEDIA_PREV_INVALID Previous media invalid.</c></para>
+/// <para><c>400 MEDIA_TTL_INVALID The specified media TTL is invalid.</c></para>
+/// <para><c>403 MESSAGE_AUTHOR_REQUIRED Message author required.</c></para>
+/// <para><c>400 MESSAGE_EDIT_TIME_EXPIRED You can't edit this message anymore, too much time has passed since its creation.</c></para>
+/// <para><c>400 MESSAGE_EMPTY The provided message is empty.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 MESSAGE_NOT_MODIFIED The provided message data is identical to the previous message data, the message wasn't modified.</c></para>
+/// <para><c>400 MESSAGE_TOO_LONG The provided message is too long.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>500 MSG_WAIT_FAILED A waiting call returned an error.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PEER_TYPES_INVALID The passed <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline">keyboardButtonSwitchInline</a>.<code>peer_types</code> field is invalid.</c></para>
+/// <para><c>400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.</c></para>
+/// <para><c>400 PHOTO_SAVE_FILE_INVALID Internal issues, try again later.</c></para>
+/// <para><c>400 REPLY_MARKUP_INVALID The provided reply markup is invalid.</c></para>
+/// <para><c>400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.</c></para>
+/// <para><c>400 SCHEDULE_DATE_INVALID Invalid schedule date provided.</c></para>
+/// <para><c>400 TODO_ITEMS_EMPTY A checklist was specified, but no <a href="https://corefork.telegram.org/api/todo">checklist items</a> were passed.</c></para>
+/// <para><c>400 TODO_ITEM_DUPLICATE Duplicate <a href="https://corefork.telegram.org/api/todo">checklist items</a> detected.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.</c></para>
+/// <para><c>400 WEBPAGE_NOT_FOUND A preview for the specified webpage <code>url</code> could not be generated. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.editMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdfd14005)]
-public sealed class RequestEditMessage : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xdfd14005;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Disable webpage preview
-    ///</summary>
+    /// </summary>
     public bool NoWebpage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
-    ///</summary>
+    /// </summary>
     public bool InvertMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Where was the message sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message to edit
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New message
-    ///</summary>
+    /// </summary>
     public string? Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New attached media
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia? Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reply markup for inline keyboards
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Scheduled message date for <a href="https://corefork.telegram.org/api/scheduled-messages">scheduled messages</a>
-    ///</summary>
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, edits a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut message, instead »</a>.
-    ///</summary>
+    /// </summary>
     public int? QuickReplyShortcutId { get; set; }
 
     public void ComputeFlag()

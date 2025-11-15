@@ -2,30 +2,50 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/phone.deleteConferenceCallParticipants" />
-///</summary>
+/// <summary>
+/// Remove participants from a conference call.Exactly one of the <code>only_left</code> and <code>kick</code> flags must be set.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.deleteConferenceCallParticipants" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8ca60525)]
-public sealed class RequestDeleteConferenceCallParticipants : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDeleteConferenceCallParticipants : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x8ca60525;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Whether this is a removal of members that already left the conference call.
+    /// </summary>
     public bool OnlyLeft { get; set; }
 
+    /// <summary>
+    /// Whether this is a forced removal of active members in a conference call.
+    /// </summary>
     public bool Kick { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The conference call.
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
+    /// <summary>
+    /// IDs of users to remove.
+    /// </summary>
     public TVector<long> Ids { get; set; }
 
+    /// <summary>
+    /// The <a href="https://corefork.telegram.org/api/end-to-end/group-calls">block containing an appropriate e2e.chain.changeSetGroupState event</a>
+    /// </summary>
     public ReadOnlyMemory<byte> Block { get; set; }
 
     public void ComputeFlag()

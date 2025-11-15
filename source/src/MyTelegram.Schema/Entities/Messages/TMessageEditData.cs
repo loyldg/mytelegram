@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Message edit data for media
-/// See <a href="https://corefork.telegram.org/constructor/messages.messageEditData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.messageEditData" /></para>
+/// </summary>
 [TlObject(0x26b5dde6)]
-public sealed class TMessageEditData : IMessageEditData
+public sealed partial class TMessageEditData : IMessageEditData
 {
     public uint ConstructorId => 0x26b5dde6;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media caption, if the specified media's caption can be edited
-    ///</summary>
+    /// </summary>
     public bool Caption { get; set; }
 
     public void ComputeFlag()

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a reply to a <a href="https://corefork.telegram.org/api/stories">story</a>
-/// See <a href="https://corefork.telegram.org/constructor/messageReplyStoryHeader" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageReplyStoryHeader" /></para>
+/// </summary>
 [TlObject(0xe5af939)]
-public sealed class TMessageReplyStoryHeader : IMessageReplyHeader
+public sealed partial class TMessageReplyStoryHeader : IMessageReplyHeader
 {
     public uint ConstructorId => 0xe5af939;
-    ///<summary>
+    /// <summary>
     /// Sender of the story.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int StoryId { get; set; }
 
     public void ComputeFlag()
