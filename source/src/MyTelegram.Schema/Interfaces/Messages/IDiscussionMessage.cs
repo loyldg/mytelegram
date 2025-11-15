@@ -2,53 +2,57 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about a message thread
-/// See <a href="https://corefork.telegram.org/type/messages.DiscussionMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.DiscussionMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDiscussionMessage"/> See <a href="https://corefork.telegram.org/constructor/messages.discussionMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDiscussionMessage), nameof(TDiscussionMessage))]
 public interface IDiscussionMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing message ID).
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of latest reply in this <a href="https://corefork.telegram.org/api/threads">thread</a>
-    ///</summary>
+    /// </summary>
     int? MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of latest read incoming message in this <a href="https://corefork.telegram.org/api/threads">thread</a>
-    ///</summary>
+    /// </summary>
     int? ReadInboxMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of latest read outgoing message in this <a href="https://corefork.telegram.org/api/threads">thread</a>
-    ///</summary>
+    /// </summary>
     int? ReadOutboxMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread messages
-    ///</summary>
+    /// </summary>
     int UnreadCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in constructor
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in constructor
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

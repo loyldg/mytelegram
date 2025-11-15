@@ -2,20 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/starGiftAttributeModel" />
-///</summary>
+/// <summary>
+/// The model of a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeModel" /></para>
+/// </summary>
 [TlObject(0x39d99013)]
-public sealed class TStarGiftAttributeModel : IStarGiftAttribute
+public sealed partial class TStarGiftAttributeModel : IStarGiftAttribute
 {
     public uint ConstructorId => 0x39d99013;
+    /// <summary>
+    /// Name of the model
+    /// </summary>
     public string Name { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The <a href="https://corefork.telegram.org/api/stickers">sticker</a> representing the upgraded gift
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument Document { get; set; }
 
+    /// <summary>
+    /// The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
+    /// </summary>
     public int RarityPermille { get; set; }
 
     public void ComputeFlag()

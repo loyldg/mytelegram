@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is uploading a round video
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageUploadRoundAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageUploadRoundAction" /></para>
+/// </summary>
 [TlObject(0x243e1c66)]
-public sealed class TSendMessageUploadRoundAction : ISendMessageAction
+public sealed partial class TSendMessageUploadRoundAction : ISendMessageAction
 {
     public uint ConstructorId => 0x243e1c66;
-    ///<summary>
+    /// <summary>
     /// Progress percentage
-    ///</summary>
+    /// </summary>
     public int Progress { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get full info about a <a href="https://corefork.telegram.org/api/channel#basic-groups">basic group</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getFullChat" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getFullChat" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xaeb00b34)]
-public sealed class RequestGetFullChat : IRequest<MyTelegram.Schema.Messages.IChatFull>
+public sealed partial class RequestGetFullChat : IRequest<MyTelegram.Schema.Messages.IChatFull>
 {
     public uint ConstructorId => 0xaeb00b34;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel#basic-groups">Basic group</a> ID.
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
     public void ComputeFlag()

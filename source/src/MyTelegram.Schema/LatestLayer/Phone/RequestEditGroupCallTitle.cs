@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Edit the title of a group call or livestream
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 GROUPCALL_FORBIDDEN The group call has already ended.
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.editGroupCallTitle" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 GROUPCALL_FORBIDDEN The group call has already ended.</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.editGroupCallTitle" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1ca6ac0a)]
-public sealed class RequestEditGroupCallTitle : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditGroupCallTitle : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x1ca6ac0a;
 
-    ///<summary>
+    /// <summary>
     /// Group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

@@ -1,8 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+/// <summary>
 /// Delete all messages sent by a specific participant of a given supergroup
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
@@ -10,48 +9,27 @@
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 PARTICIPANT_ID_INVALID The specified participant ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/channels.deleteParticipantHistory" />
-///</summary>
-internal sealed class DeleteParticipantHistoryHandler(
-    IQueryProcessor queryProcessor,
-    ICommandBus commandBus,
-    IPeerHelper peerHelper,
-    IPtsHelper ptsHelper,
-    IAccessHashHelper accessHashHelper,
-    IChannelAdminRightsChecker channelAdminRightsChecker)
-    : RpcResultObjectHandler<RequestDeleteParticipantHistory,
-            IAffectedHistory>
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.deleteParticipantHistory"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class DeleteParticipantHistoryHandler(IQueryProcessor queryProcessor, ICommandBus commandBus, IPeerHelper peerHelper, IPtsHelper ptsHelper, IAccessHashHelper accessHashHelper, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestDeleteParticipantHistory, IAffectedHistory>
 {
-    protected override async Task<IAffectedHistory> HandleCoreAsync(IRequestInput input,
-        RequestDeleteParticipantHistory obj)
+    protected override async Task<IAffectedHistory> HandleCoreAsync(IRequestInput input, RequestDeleteParticipantHistory obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
-            await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId,
-                rights => rights.DeleteMessages, RpcErrors.RpcErrors403.ChatAdminRequired);
-
+            await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, rights => rights.DeleteMessages, RpcErrors.RpcErrors403.ChatAdminRequired);
             var peer = peerHelper.GetPeer(obj.Participant);
-            var messageIds = (await queryProcessor
-                .ProcessAsync(new GetMessageIdListByUserIdQuery(inputChannel.ChannelId,
-                    peer.PeerId,
-                    MyTelegramConsts.ClearHistoryDefaultPageSize))).ToList();
-
+            var messageIds = (await queryProcessor.ProcessAsync(new GetMessageIdListByUserIdQuery(inputChannel.ChannelId, peer.PeerId, MyTelegramConsts.ClearHistoryDefaultPageSize))).ToList();
             if (messageIds.Count > 0)
             {
-                var newTopMessageId =
-                    await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(inputChannel.ChannelId,
-                        messageIds));
-
-                var command = new StartDeleteParticipantHistoryCommand(TempId.New,
-                    input.ToRequestInfo(),
-                    inputChannel.ChannelId,
-                    messageIds,
-                    newTopMessageId
-                );
+                var newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(inputChannel.ChannelId, messageIds));
+                var command = new StartDeleteParticipantHistoryCommand(TempId.New, input.ToRequestInfo(), inputChannel.ChannelId, messageIds, newTopMessageId);
                 await commandBus.PublishAsync(command);
-
-                return null!;
+                return null !;
             }
 
             return new TAffectedHistory

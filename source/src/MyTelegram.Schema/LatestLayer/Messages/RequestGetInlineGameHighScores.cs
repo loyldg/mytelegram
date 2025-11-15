@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get highscores of a game sent using an inline bot
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/messages.getInlineGameHighScores" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getInlineGameHighScores" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf635e1b)]
-public sealed class RequestGetInlineGameHighScores : IRequest<MyTelegram.Schema.Messages.IHighScores>
+public sealed partial class RequestGetInlineGameHighScores : IRequest<MyTelegram.Schema.Messages.IHighScores>
 {
     public uint ConstructorId => 0xf635e1b;
 
-    ///<summary>
+    /// <summary>
     /// ID of inline message
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessageID" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessageID Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Get high scores of a certain user
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get autosave settings
-/// See <a href="https://corefork.telegram.org/method/account.getAutoSaveSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getAutoSaveSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xadcbbcda)]
-public sealed class RequestGetAutoSaveSettings : IRequest<MyTelegram.Schema.Account.IAutoSaveSettings>
+public sealed partial class RequestGetAutoSaveSettings : IRequest<MyTelegram.Schema.Account.IAutoSaveSettings>
 {
     public uint ConstructorId => 0xadcbbcda;
 

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity representing underlined text.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityUnderline" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityUnderline" /></para>
+/// </summary>
 [TlObject(0x9c4e7e8b)]
-public sealed class TMessageEntityUnderline : IMessageEntity
+public sealed partial class TMessageEntityUnderline : IMessageEntity
 {
     public uint ConstructorId => 0x9c4e7e8b;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

@@ -2,16 +2,20 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Info about RTMP streams in a group call or livestream
-/// See <a href="https://corefork.telegram.org/type/phone.GroupCallStreamChannels" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/phone.GroupCallStreamChannels" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TGroupCallStreamChannels"/> See <a href="https://corefork.telegram.org/constructor/phone.groupCallStreamChannels" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TGroupCallStreamChannels), nameof(TGroupCallStreamChannels))]
 public interface IGroupCallStreamChannels : IObject
 {
-    ///<summary>
+    /// <summary>
     /// RTMP streams
     /// See <a href="https://corefork.telegram.org/type/GroupCallStreamChannel" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IGroupCallStreamChannel> Channels { get; set; }
 }

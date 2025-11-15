@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Login by importing an authorization token
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 API_ID_INVALID API ID invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.importWebTokenAuthorization" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 API_ID_INVALID API ID invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.importWebTokenAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x2db873a9)]
-public sealed class RequestImportWebTokenAuthorization : IRequest<MyTelegram.Schema.Auth.IAuthorization>
+public sealed partial class RequestImportWebTokenAuthorization : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
     public uint ConstructorId => 0x2db873a9;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/obtaining_api_id">API ID</a>
-    ///</summary>
+    /// </summary>
     public int ApiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/obtaining_api_id">API hash</a>
-    ///</summary>
+    /// </summary>
     public string ApiHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The authorization token
-    ///</summary>
+    /// </summary>
     public string WebAuthToken { get; set; }
 
     public void ComputeFlag()

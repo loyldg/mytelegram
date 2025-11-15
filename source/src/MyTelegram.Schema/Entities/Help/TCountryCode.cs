@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Country code and phone number pattern of a specific country
-/// See <a href="https://corefork.telegram.org/constructor/help.countryCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.countryCode" /></para>
+/// </summary>
 [TlObject(0x4203c5ef)]
-public sealed class TCountryCode : ICountryCode
+public sealed partial class TCountryCode : ICountryCode
 {
     public uint ConstructorId => 0x4203c5ef;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ISO country code
-    ///</summary>
+    /// </summary>
     public string CountryCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Possible phone prefixes
-    ///</summary>
+    /// </summary>
     public TVector<string>? Prefixes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone patterns: for example, <code>XXX XXX XXX</code>
-    ///</summary>
+    /// </summary>
     public TVector<string>? Patterns { get; set; }
 
     public void ComputeFlag()

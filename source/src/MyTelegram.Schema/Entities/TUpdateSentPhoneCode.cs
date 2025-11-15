@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/updateSentPhoneCode" />
-///</summary>
+/// <summary>
+/// A paid login SMS code was successfully sent.
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateSentPhoneCode" /></para>
+/// </summary>
 [TlObject(0x504aa18f)]
-public sealed class TUpdateSentPhoneCode : IUpdate
+public sealed partial class TUpdateSentPhoneCode : IUpdate
 {
     public uint ConstructorId => 0x504aa18f;
-    ///<summary>
+    /// <summary>
+    /// Info about the sent code.
     /// See <a href="https://corefork.telegram.org/type/auth.SentCode" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Auth.ISentCode SentCode { get; set; }
 
     public void ComputeFlag()

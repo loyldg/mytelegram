@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Obtain configuration for two-factor authorization with password
-/// See <a href="https://corefork.telegram.org/method/account.getPassword" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getPassword" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x548a30f5)]
-public sealed class RequestGetPassword : IRequest<MyTelegram.Schema.Account.IPassword>
+public sealed partial class RequestGetPassword : IRequest<MyTelegram.Schema.Account.IPassword>
 {
     public uint ConstructorId => 0x548a30f5;
 

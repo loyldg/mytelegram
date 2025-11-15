@@ -2,10 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Privacy <strong>rules</strong> indicate <em>who</em> can or can't do something and are specified by a <a href="https://corefork.telegram.org/type/PrivacyRule">PrivacyRule</a>, and its input counterpart <a href="https://corefork.telegram.org/type/InputPrivacyRule">InputPrivacyRule</a>.See the <a href="https://corefork.telegram.org/api/privacy">privacy documentation »</a> for more info.
-/// See <a href="https://corefork.telegram.org/type/InputPrivacyRule" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputPrivacyRule" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputPrivacyValueAllowContacts"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowContacts" /><br/>
+/// <see cref="TInputPrivacyValueAllowAll"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowAll" /><br/>
+/// <see cref="TInputPrivacyValueAllowUsers"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowUsers" /><br/>
+/// <see cref="TInputPrivacyValueDisallowContacts"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowContacts" /><br/>
+/// <see cref="TInputPrivacyValueDisallowAll"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowAll" /><br/>
+/// <see cref="TInputPrivacyValueDisallowUsers"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowUsers" /><br/>
+/// <see cref="TInputPrivacyValueAllowChatParticipants"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowChatParticipants" /><br/>
+/// <see cref="TInputPrivacyValueDisallowChatParticipants"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowChatParticipants" /><br/>
+/// <see cref="TInputPrivacyValueAllowCloseFriends"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowCloseFriends" /><br/>
+/// <see cref="TInputPrivacyValueAllowPremium"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowPremium" /><br/>
+/// <see cref="TInputPrivacyValueAllowBots"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowBots" /><br/>
+/// <see cref="TInputPrivacyValueDisallowBots"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowBots" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputPrivacyValueAllowContacts), nameof(TInputPrivacyValueAllowContacts))]
 [JsonDerivedType(typeof(TInputPrivacyValueAllowAll), nameof(TInputPrivacyValueAllowAll))]
 [JsonDerivedType(typeof(TInputPrivacyValueAllowUsers), nameof(TInputPrivacyValueAllowUsers))]

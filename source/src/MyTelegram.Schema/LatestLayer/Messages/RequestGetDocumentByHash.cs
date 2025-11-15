@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get a document by its SHA256 hash, mainly used for gifs
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 SHA256_HASH_INVALID The provided SHA256 hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getDocumentByHash" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SHA256_HASH_INVALID The provided SHA256 hash is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getDocumentByHash" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb1f2061f)]
-public sealed class RequestGetDocumentByHash : IRequest<MyTelegram.Schema.IDocument>
+public sealed partial class RequestGetDocumentByHash : IRequest<MyTelegram.Schema.IDocument>
 {
     public uint ConstructorId => 0xb1f2061f;
 
-    ///<summary>
+    /// <summary>
     /// SHA256 of file
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Sha256 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Size of the file in bytes
-    ///</summary>
+    /// </summary>
     public long Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mime type
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
     public void ComputeFlag()

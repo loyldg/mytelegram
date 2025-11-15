@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// A message was deleted in a <a href="https://corefork.telegram.org/api/business#connected-bots">connected business chat »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotDeleteBusinessMessage" />
-///</summary>
+/// <summary>
+/// A message was deleted in a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">connected business chat »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotDeleteBusinessMessage" /></para>
+/// </summary>
 [TlObject(0xa02a982e)]
-public sealed class TUpdateBotDeleteBusinessMessage : IUpdate
+public sealed partial class TUpdateBotDeleteBusinessMessage : IUpdate
 {
     public uint ConstructorId => 0xa02a982e;
-    ///<summary>
+    /// <summary>
     /// Business connection ID.
-    ///</summary>
+    /// </summary>
     public string ConnectionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/peers">Peer</a> where the messages were deleted.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of the messages that were deleted.
-    ///</summary>
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

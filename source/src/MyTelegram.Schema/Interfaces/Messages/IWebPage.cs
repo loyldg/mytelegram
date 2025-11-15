@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Contains an instant view webpage.
-/// See <a href="https://corefork.telegram.org/type/messages.WebPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.WebPage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebPage"/> See <a href="https://corefork.telegram.org/constructor/messages.webPage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebPage), nameof(TWebPage))]
 public interface IWebPage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The instant view webpage.
     /// See <a href="https://corefork.telegram.org/type/WebPage" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IWebPage Webpage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in the webpage.
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the webpage.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

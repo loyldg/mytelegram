@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The specified bot commands will be valid only in a specific dialog.
-/// See <a href="https://corefork.telegram.org/constructor/botCommandScopePeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botCommandScopePeer" /></para>
+/// </summary>
 [TlObject(0xdb9d897d)]
-public sealed class TBotCommandScopePeer : IBotCommandScope
+public sealed partial class TBotCommandScopePeer : IBotCommandScope
 {
     public uint ConstructorId => 0xdb9d897d;
-    ///<summary>
+    /// <summary>
     /// The dialog
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

@@ -2,30 +2,37 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get the number of stars we have received from the specified user thanks to <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>; the received amount will be equal to the sent amount multiplied by <a href="https://corefork.telegram.org/api/config#stars-paid-message-commission-permille">stars_paid_message_commission_permille</a> divided by 1000.
-/// See <a href="https://corefork.telegram.org/method/account.getPaidMessagesRevenue" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PARENT_PEER_INVALID The specified <code>parent_peer</code> is invalid.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getPaidMessagesRevenue" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x19ba4a67)]
-public sealed class RequestGetPaidMessagesRevenue : IRequest<MyTelegram.Schema.Account.IPaidMessagesRevenue>
+public sealed partial class RequestGetPaidMessagesRevenue : IRequest<MyTelegram.Schema.Account.IPaidMessagesRevenue>
 {
     public uint ConstructorId => 0x19ba4a67;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// If set, can contain the ID of a <a href="https://corefork.telegram.org/api/forum#monoforums">monoforum (channel direct messages)</a> to obtain the number of stars the user has spent to send us direct messages via the channel.
+    /// <summary>
+    /// If set, can contain the ID of a <a href="https://corefork.telegram.org/api/monoforum">monoforum (channel direct messages)</a> to obtain the number of stars the user has spent to send us direct messages via the channel.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ParentPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user that paid to send us messages.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Filter for messages containing documents.
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterDocument" /></para>
+/// </summary>
 [TlObject(0x9eddf188)]
-public sealed class TInputMessagesFilterDocument : IMessagesFilter
+public sealed partial class TInputMessagesFilterDocument : IMessagesFilter
 {
     public uint ConstructorId => 0x9eddf188;
     public void ComputeFlag()

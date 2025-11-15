@@ -2,17 +2,22 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Object contains list of chats with auxiliary data.
-/// See <a href="https://corefork.telegram.org/type/messages.Chats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.Chats" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChats"/> See <a href="https://corefork.telegram.org/constructor/messages.chats" /><br/>
+/// <see cref="TChatsSlice"/> See <a href="https://corefork.telegram.org/constructor/messages.chatsSlice" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChats), nameof(TChats))]
 [JsonDerivedType(typeof(TChatsSlice), nameof(TChatsSlice))]
 public interface IChats : IObject
 {
-    ///<summary>
+    /// <summary>
     /// List of chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 }

@@ -2,64 +2,71 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
-/// MTProxy/Public Service Announcement information
-/// See <a href="https://corefork.telegram.org/constructor/help.promoData" />
-///</summary>
+/// <summary>
+/// A set of useful suggestions and a PSA/MTProxy sponsored peer, see <a href="https://corefork.telegram.org/api/config#suggestions">here »</a> for more info.
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.promoData" /></para>
+/// </summary>
 [TlObject(0x8a4d87a)]
-public sealed class TPromoData : IPromoData
+public sealed partial class TPromoData : IPromoData
 {
     public uint ConstructorId => 0x8a4d87a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// MTProxy-related channel
-    ///</summary>
+    /// <summary>
+    /// Set when connecting using an MTProxy that has configured an associated peer (that will be passed in <code>peer</code>, i.e. the channel that sponsored the MTProxy) that should be pinned on top of the chat list.
+    /// </summary>
     public bool Proxy { get; set; }
 
-    ///<summary>
-    /// Expiry of PSA/MTProxy info
-    ///</summary>
+    /// <summary>
+    /// Unixtime when to re-invoke <a href="https://corefork.telegram.org/method/help.getPromoData">help.getPromoData</a>.
+    /// </summary>
     public int Expires { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MTProxy/PSA peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? Peer { get; set; }
 
-    ///<summary>
-    /// PSA type
-    ///</summary>
+    /// <summary>
+    /// For Public Service Announcement <code>peer</code>s, indicates the type of the PSA.
+    /// </summary>
     public string? PsaType { get; set; }
 
-    ///<summary>
-    /// PSA message
-    ///</summary>
+    /// <summary>
+    /// For Public Service Announcement <code>peer</code>s, contains the PSA itself.
+    /// </summary>
     public string? PsaMessage { get; set; }
 
+    /// <summary>
+    /// Contains a list of <a href="https://corefork.telegram.org/api/config#basic-suggestions">pending suggestions »</a>.
+    /// </summary>
     public TVector<string> PendingSuggestions { get; set; }
 
+    /// <summary>
+    /// Contains a list of <a href="https://corefork.telegram.org/api/config#inverted-suggestions">inverted suggestions »</a>.
+    /// </summary>
     public TVector<string> DismissedSuggestions { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Contains a list of <a href="https://corefork.telegram.org/api/config#custom-suggestions">custom pending suggestions »</a>.
     /// See <a href="https://corefork.telegram.org/type/PendingSuggestion" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPendingSuggestion? CustomPendingSuggestion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat info
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User info
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

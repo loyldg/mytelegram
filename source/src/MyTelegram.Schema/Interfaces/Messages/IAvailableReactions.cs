@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Animations and metadata associated with <a href="https://corefork.telegram.org/api/reactions">message reactions »</a>
-/// See <a href="https://corefork.telegram.org/type/messages.AvailableReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.AvailableReactions" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAvailableReactionsNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.availableReactionsNotModified" /><br/>
+/// <see cref="TAvailableReactions"/> See <a href="https://corefork.telegram.org/constructor/messages.availableReactions" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAvailableReactionsNotModified), nameof(TAvailableReactionsNotModified))]
 [JsonDerivedType(typeof(TAvailableReactions), nameof(TAvailableReactions))]
 public interface IAvailableReactions : IObject

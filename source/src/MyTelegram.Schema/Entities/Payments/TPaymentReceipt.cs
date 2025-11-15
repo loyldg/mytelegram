@@ -2,92 +2,92 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Receipt
-/// See <a href="https://corefork.telegram.org/constructor/payments.paymentReceipt" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.paymentReceipt" /></para>
+/// </summary>
 [TlObject(0x70c4fe03)]
-public sealed class TPaymentReceipt : IPaymentReceipt
+public sealed partial class TPaymentReceipt : IPaymentReceipt
 {
     public uint ConstructorId => 0x70c4fe03;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of generation
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot ID
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Provider ID
-    ///</summary>
+    /// </summary>
     public long ProviderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/Invoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info
     /// See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaymentRequestedInfo? Info { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Selected shipping option
     /// See <a href="https://corefork.telegram.org/type/ShippingOption" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IShippingOption? Shipping { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Tipped amount
-    ///</summary>
+    /// </summary>
     public long? TipAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long TotalAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment credential name
-    ///</summary>
+    /// </summary>
     public string CredentialsTitle { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

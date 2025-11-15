@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used by bots for fetching information about the message that originated a callback query
-/// See <a href="https://corefork.telegram.org/constructor/inputMessageCallbackQuery" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessageCallbackQuery" /></para>
+/// </summary>
 [TlObject(0xacfa1a7e)]
-public sealed class TInputMessageCallbackQuery : IInputMessage
+public sealed partial class TInputMessageCallbackQuery : IInputMessage
 {
     public uint ConstructorId => 0xacfa1a7e;
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Callback query ID
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
     public void ComputeFlag()

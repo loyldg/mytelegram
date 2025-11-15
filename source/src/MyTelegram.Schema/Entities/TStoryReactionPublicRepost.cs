@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A certain peer has reposted the story.
-/// See <a href="https://corefork.telegram.org/constructor/storyReactionPublicRepost" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyReactionPublicRepost" /></para>
+/// </summary>
 [TlObject(0xcfcd0f13)]
-public sealed class TStoryReactionPublicRepost : IStoryReaction
+public sealed partial class TStoryReactionPublicRepost : IStoryReaction
 {
     public uint ConstructorId => 0xcfcd0f13;
-    ///<summary>
+    /// <summary>
     /// The peer that reposted the story.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reposted story.
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoryItem Story { get; set; }
 
     public void ComputeFlag()

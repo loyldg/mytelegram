@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Progressively encoded photosize
-/// See <a href="https://corefork.telegram.org/constructor/photoSizeProgressive" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photoSizeProgressive" /></para>
+/// </summary>
 [TlObject(0xfa3efb95)]
-public sealed class TPhotoSizeProgressive : IPhotoSize
+public sealed partial class TPhotoSizeProgressive : IPhotoSize
 {
     public uint ConstructorId => 0xfa3efb95;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#image-thumbnail-types">Photosize type »</a>
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo width
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo height
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image.
-    ///</summary>
+    /// </summary>
     public TVector<int> Sizes { get; set; }
 
     public void ComputeFlag()

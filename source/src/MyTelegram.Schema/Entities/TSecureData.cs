@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure <a href="https://corefork.telegram.org/passport">passport</a> data, for more info <a href="https://corefork.telegram.org/passport/encryption#securedata">see the passport docs »</a>
-/// See <a href="https://corefork.telegram.org/constructor/secureData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureData" /></para>
+/// </summary>
 [TlObject(0x8aeabec3)]
-public sealed class TSecureData : ISecureData
+public sealed partial class TSecureData : ISecureData
 {
     public uint ConstructorId => 0x8aeabec3;
-    ///<summary>
+    /// <summary>
     /// Data
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Data { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Data hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> DataHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Secret { get; set; }
 
     public void ComputeFlag()

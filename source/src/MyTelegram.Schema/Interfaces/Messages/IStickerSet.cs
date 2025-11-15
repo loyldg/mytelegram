@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Stickerset
-/// See <a href="https://corefork.telegram.org/type/messages.StickerSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.StickerSet" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStickerSet"/> See <a href="https://corefork.telegram.org/constructor/messages.stickerSet" /><br/>
+/// <see cref="TStickerSetNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.stickerSetNotModified" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStickerSet), nameof(TStickerSet))]
 [JsonDerivedType(typeof(TStickerSetNotModified), nameof(TStickerSetNotModified))]
 public interface IStickerSet : IObject

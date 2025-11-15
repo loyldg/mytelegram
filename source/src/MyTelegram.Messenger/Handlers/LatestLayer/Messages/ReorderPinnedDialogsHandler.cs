@@ -1,20 +1,17 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Reorder pinned dialogs
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.reorderPinnedDialogs" />
-///</summary>
-internal sealed class ReorderPinnedDialogsHandler(
-    IDialogAppService dialogAppService,
-    IPeerHelper peerHelper,
-    IAccessHashHelper accessHashHelper)
-    : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReorderPinnedDialogs, IBool>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.reorderPinnedDialogs"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class ReorderPinnedDialogsHandler(IDialogAppService dialogAppService, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReorderPinnedDialogs, IBool>
 {
-    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
-        RequestReorderPinnedDialogs obj)
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestReorderPinnedDialogs obj)
     {
         var peerList = new List<Peer>();
         foreach (var inputDialogPeer in obj.Order)
@@ -25,15 +22,14 @@ internal sealed class ReorderPinnedDialogsHandler(
                     await accessHashHelper.CheckAccessHashAsync(input, inputDialogPeer1.Peer);
                     peerList.Add(peerHelper.GetPeer(inputDialogPeer1.Peer, input.UserId));
                     break;
-                    //case TInputDialogPeerFolder inputDialogPeerFolder:
-                    //    break;
-                    //default:
-                    //    throw new ArgumentOutOfRangeException(nameof(inputDialogPeer));
+            //case TInputDialogPeerFolder inputDialogPeerFolder:
+            //    break;
+            //default:
+            //    throw new ArgumentOutOfRangeException(nameof(inputDialogPeer));
             }
         }
 
-        await dialogAppService.ReorderPinnedDialogsAsync(new ReorderPinnedDialogsInput(input.UserId, peerList))
-     ;
+        await dialogAppService.ReorderPinnedDialogsAsync(new ReorderPinnedDialogsInput(input.UserId, peerList));
         return new TBoolTrue();
     }
 }

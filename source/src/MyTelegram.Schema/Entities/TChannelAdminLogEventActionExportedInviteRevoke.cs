@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A specific invite link was revoked
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke" /></para>
+/// </summary>
 [TlObject(0x410a134e)]
-public sealed class TChannelAdminLogEventActionExportedInviteRevoke : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionExportedInviteRevoke : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x410a134e;
-    ///<summary>
+    /// <summary>
     /// The invite link that was revoked
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
     public void ComputeFlag()

@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Associate (or remove) a personal <a href="https://corefork.telegram.org/api/channel">channel »</a>, that will be listed on our personal <a href="https://corefork.telegram.org/api/profile#personal-channel">profile page »</a>.Changing it will emit an <a href="https://corefork.telegram.org/constructor/updateUser">updateUser</a> update.
-/// See <a href="https://corefork.telegram.org/method/account.updatePersonalChannel" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updatePersonalChannel" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd94305e0)]
-public sealed class RequestUpdatePersonalChannel : IRequest<IBool>
+public sealed partial class RequestUpdatePersonalChannel : IRequest<IBool>
 {
     public uint ConstructorId => 0xd94305e0;
 
-    ///<summary>
+    /// <summary>
     /// The channel, pass <a href="https://corefork.telegram.org/constructor/inputChannelEmpty">inputChannelEmpty</a> to remove it.
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     public void ComputeFlag()

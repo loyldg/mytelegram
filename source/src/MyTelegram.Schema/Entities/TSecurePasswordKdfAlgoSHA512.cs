@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// SHA512 KDF algo
-/// See <a href="https://corefork.telegram.org/constructor/securePasswordKdfAlgoSHA512" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/securePasswordKdfAlgoSHA512" /></para>
+/// </summary>
 [TlObject(0x86471d92)]
-public sealed class TSecurePasswordKdfAlgoSHA512 : ISecurePasswordKdfAlgo
+public sealed partial class TSecurePasswordKdfAlgoSHA512 : ISecurePasswordKdfAlgo
 {
     public uint ConstructorId => 0x86471d92;
-    ///<summary>
+    /// <summary>
     /// Salt
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Salt { get; set; }
 
     public void ComputeFlag()

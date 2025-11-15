@@ -2,69 +2,69 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Invoice
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaInvoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaInvoice" /></para>
+/// </summary>
 [TlObject(0xf6a548d3)]
-public sealed class TMessageMediaInvoice : IMessageMedia
+public sealed partial class TMessageMediaInvoice : IMessageMedia
 {
     public uint ConstructorId => 0xf6a548d3;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the shipping address was requested
-    ///</summary>
+    /// </summary>
     public bool ShippingAddressRequested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is an example invoice
-    ///</summary>
+    /// </summary>
     public bool Test { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product name, 1-32 characters
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product description, 1-255 characters
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of receipt: if set, clients should change the text of the first <a href="https://corefork.telegram.org/constructor/keyboardButtonBuy">keyboardButtonBuy</a> button always attached to the <a href="https://corefork.telegram.org/constructor/message">message</a> to a localized version of the word <code>Receipt</code>
-    ///</summary>
+    /// </summary>
     public int? ReceiptMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code, or <code>XTR</code> for <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long TotalAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique bot deep-linking parameter that can be used to generate this invoice
-    ///</summary>
+    /// </summary>
     public string StartParam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Deprecated
     /// See <a href="https://corefork.telegram.org/type/MessageExtendedMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageExtendedMedia? ExtendedMedia { get; set; }
 
     public void ComputeFlag()

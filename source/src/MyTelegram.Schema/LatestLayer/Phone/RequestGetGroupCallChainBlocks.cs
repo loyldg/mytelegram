@@ -2,26 +2,40 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/phone.getGroupCallChainBlocks" />
-///</summary>
+/// <summary>
+/// Fetch the blocks of a <a href="https://corefork.telegram.org/api/end-to-end/group-calls">conference blockchain »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.getGroupCallChainBlocks" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xee9f88a6)]
-public sealed class RequestGetGroupCallChainBlocks : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestGetGroupCallChainBlocks : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xee9f88a6;
 
-    ///<summary>
+    /// <summary>
+    /// The conference.
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
+    /// <summary>
+    /// Subchain ID.
+    /// </summary>
     public int SubChainId { get; set; }
 
+    /// <summary>
+    /// Offset for pagination.
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
-    /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// <summary>
+    /// Maximum number of blocks to return in this call, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

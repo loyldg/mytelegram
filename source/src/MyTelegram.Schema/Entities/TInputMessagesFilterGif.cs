@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only messages containing gifs
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterGif" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterGif" /></para>
+/// </summary>
 [TlObject(0xffc86587)]
-public sealed class TInputMessagesFilterGif : IMessagesFilter
+public sealed partial class TInputMessagesFilterGif : IMessagesFilter
 {
     public uint ConstructorId => 0xffc86587;
     public void ComputeFlag()

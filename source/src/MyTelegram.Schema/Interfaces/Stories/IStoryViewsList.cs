@@ -2,58 +2,62 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Reaction and view counters for a <a href="https://corefork.telegram.org/api/stories">story</a>
-/// See <a href="https://corefork.telegram.org/type/stories.StoryViewsList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/stories.StoryViewsList" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStoryViewsList"/> See <a href="https://corefork.telegram.org/constructor/stories.storyViewsList" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStoryViewsList), nameof(TStoryViewsList))]
 public interface IStoryViewsList : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of results that can be fetched
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of story views
-    ///</summary>
+    /// </summary>
     int ViewsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of story forwards/reposts
-    ///</summary>
+    /// </summary>
     int ForwardsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of reactions that were added to the story
-    ///</summary>
+    /// </summary>
     int ReactionsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story view date and reaction information
     /// See <a href="https://corefork.telegram.org/type/StoryView" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IStoryView> Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for pagination
-    ///</summary>
+    /// </summary>
     string? NextOffset { get; set; }
 }

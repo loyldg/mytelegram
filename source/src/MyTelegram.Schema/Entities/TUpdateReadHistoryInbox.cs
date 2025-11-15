@@ -2,53 +2,56 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Incoming messages were read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadHistoryInbox" />
-///</summary>
-[TlObject(0x9c974fdf)]
-public sealed class TUpdateReadHistoryInbox : IUpdate
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadHistoryInbox" /></para>
+/// </summary>
+[TlObject(0x9e84bc99)]
+public sealed partial class TUpdateReadHistoryInbox : IUpdate
 {
-    public uint ConstructorId => 0x9c974fdf;
-    ///<summary>
+    public uint ConstructorId => 0x9e84bc99;
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    public int? TopMsgId { get; set; }
+
+    /// <summary>
     /// Maximum ID of messages read
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of messages that are still unread
-    ///</summary>
+    /// </summary>
     public int StillUnreadCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()
     {
         if (/*FolderId != 0 && */FolderId.HasValue) { Flags = Flags.SetBit(0); }
+        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(1); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -58,6 +61,7 @@ public sealed class TUpdateReadHistoryInbox : IUpdate
         writer.Write(Flags);
         if (Flags.IsBitSet(0)) { writer.Write(FolderId.Value); }
         writer.Write(Peer);
+        if (Flags.IsBitSet(1)) { writer.Write(TopMsgId.Value); }
         writer.Write(MaxId);
         writer.Write(StillUnreadCount);
         writer.Write(Pts);
@@ -69,6 +73,7 @@ public sealed class TUpdateReadHistoryInbox : IUpdate
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { FolderId = buffer.ReadInt32(); }
         Peer = buffer.Read<MyTelegram.Schema.IPeer>();
+        if (Flags.IsBitSet(1)) { TopMsgId = buffer.ReadInt32(); }
         MaxId = buffer.ReadInt32();
         StillUnreadCount = buffer.ReadInt32();
         Pts = buffer.ReadInt32();

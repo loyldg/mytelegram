@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Confirms creation of a secret chat
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 ENCRYPTION_ALREADY_ACCEPTED Secret chat already accepted.
-/// 400 ENCRYPTION_ALREADY_DECLINED The secret chat was already declined.
-/// See <a href="https://corefork.telegram.org/method/messages.acceptEncryption" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 ENCRYPTION_ALREADY_ACCEPTED Secret chat already accepted.</c></para>
+/// <para><c>400 ENCRYPTION_ALREADY_DECLINED The secret chat was already declined. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.acceptEncryption" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3dbc0415)]
-public sealed class RequestAcceptEncryption : IRequest<MyTelegram.Schema.IEncryptedChat>
+public sealed partial class RequestAcceptEncryption : IRequest<MyTelegram.Schema.IEncryptedChat>
 {
     public uint ConstructorId => 0x3dbc0415;
 
-    ///<summary>
+    /// <summary>
     /// Secret chat ID
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedChat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedChat Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <code>B = g ^ b mod p</code>, see <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Wikipedia</a>
-    ///</summary>
+    /// </summary>
     public byte[] GB { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 64-bit fingerprint of the received key
-    ///</summary>
+    /// </summary>
     public long KeyFingerprint { get; set; }
 
     public void ComputeFlag()

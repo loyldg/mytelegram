@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A photo with stickers attached
-/// See <a href="https://corefork.telegram.org/constructor/inputStickeredMediaPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickeredMediaPhoto" /></para>
+/// </summary>
 [TlObject(0x4a992157)]
-public sealed class TInputStickeredMediaPhoto : IInputStickeredMedia
+public sealed partial class TInputStickeredMediaPhoto : IInputStickeredMedia
 {
     public uint ConstructorId => 0x4a992157;
-    ///<summary>
+    /// <summary>
     /// The photo
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoto Id { get; set; }
 
     public void ComputeFlag()

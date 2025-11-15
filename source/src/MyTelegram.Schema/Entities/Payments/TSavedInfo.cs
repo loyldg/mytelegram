@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Saved server-side order information
-/// See <a href="https://corefork.telegram.org/constructor/payments.savedInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.savedInfo" /></para>
+/// </summary>
 [TlObject(0xfb8fe43c)]
-public sealed class TSavedInfo : ISavedInfo
+public sealed partial class TSavedInfo : ISavedInfo
 {
     public uint ConstructorId => 0xfb8fe43c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user has some saved payment credentials
-    ///</summary>
+    /// </summary>
     public bool HasSavedCredentials { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Saved server-side order information
     /// See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaymentRequestedInfo? SavedInfo { get; set; }
 
     public void ComputeFlag()

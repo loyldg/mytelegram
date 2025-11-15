@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A stickerset was just moved to top, <a href="https://corefork.telegram.org/api/stickers#recent-stickersets">see here for more info »</a>
-/// See <a href="https://corefork.telegram.org/constructor/updateMoveStickerSetToTop" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateMoveStickerSetToTop" /></para>
+/// </summary>
 [TlObject(0x86fccf85)]
-public sealed class TUpdateMoveStickerSetToTop : IUpdate
+public sealed partial class TUpdateMoveStickerSetToTop : IUpdate
 {
     public uint ConstructorId => 0x86fccf85;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This update is referring to a <a href="https://corefork.telegram.org/api/stickers#mask-stickers">mask stickerset</a>
-    ///</summary>
+    /// </summary>
     public bool Masks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This update is referring to a <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickerset</a>
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/stickers">Stickerset</a> ID
-    ///</summary>
+    /// </summary>
     public long Stickerset { get; set; }
 
     public void ComputeFlag()

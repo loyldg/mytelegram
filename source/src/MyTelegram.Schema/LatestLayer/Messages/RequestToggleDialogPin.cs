@@ -2,35 +2,38 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Pin/unpin a dialog
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 PEER_HISTORY_EMPTY You can't pin an empty chat with a user.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.
-/// See <a href="https://corefork.telegram.org/method/messages.toggleDialogPin" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 PEER_HISTORY_EMPTY You can't pin an empty chat with a user.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.toggleDialogPin" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa731e257)]
-public sealed class RequestToggleDialogPin : IRequest<IBool>
+public sealed partial class RequestToggleDialogPin : IRequest<IBool>
 {
     public uint ConstructorId => 0xa731e257;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to pin or unpin the dialog
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The dialog to pin
     /// See <a href="https://corefork.telegram.org/type/InputDialogPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDialogPeer Peer { get; set; }
 
     public void ComputeFlag()

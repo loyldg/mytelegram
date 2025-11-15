@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Get Telegram Premium promotion information
-/// See <a href="https://corefork.telegram.org/method/help.getPremiumPromo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getPremiumPromo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb81b93d4)]
-public sealed class RequestGetPremiumPromo : IRequest<MyTelegram.Schema.Help.IPremiumPromo>
+public sealed partial class RequestGetPremiumPromo : IRequest<MyTelegram.Schema.Help.IPremiumPromo>
 {
     public uint ConstructorId => 0xb81b93d4;
 

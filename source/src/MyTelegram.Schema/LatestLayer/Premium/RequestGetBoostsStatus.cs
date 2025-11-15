@@ -2,23 +2,27 @@
 
 namespace MyTelegram.Schema.Premium;
 
-///<summary>
+/// <summary>
 /// Gets the current <a href="https://corefork.telegram.org/api/boost">number of boosts</a> of a channel/supergroup.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/premium.getBoostsStatus" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/premium.getBoostsStatus" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x42f1f61)]
-public sealed class RequestGetBoostsStatus : IRequest<MyTelegram.Schema.Premium.IBoostsStatus>
+public sealed partial class RequestGetBoostsStatus : IRequest<MyTelegram.Schema.Premium.IBoostsStatus>
 {
     public uint ConstructorId => 0x42f1f61;
 
-    ///<summary>
+    /// <summary>
     /// The peer.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

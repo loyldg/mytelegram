@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get inactive channels and supergroups
-/// See <a href="https://corefork.telegram.org/method/channels.getInactiveChannels" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getInactiveChannels" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x11e831ee)]
-public sealed class RequestGetInactiveChannels : IRequest<MyTelegram.Schema.Messages.IInactiveChats>
+public sealed partial class RequestGetInactiveChannels : IRequest<MyTelegram.Schema.Messages.IInactiveChats>
 {
     public uint ConstructorId => 0x11e831ee;
 

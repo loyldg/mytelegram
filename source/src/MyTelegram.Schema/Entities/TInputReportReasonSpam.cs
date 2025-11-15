@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Report for spam
-/// See <a href="https://corefork.telegram.org/constructor/inputReportReasonSpam" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputReportReasonSpam" /></para>
+/// </summary>
 [TlObject(0x58dbcab8)]
-public sealed class TInputReportReasonSpam : IReportReason
+public sealed partial class TInputReportReasonSpam : IReportReason
 {
     public uint ConstructorId => 0x58dbcab8;
     public void ComputeFlag()

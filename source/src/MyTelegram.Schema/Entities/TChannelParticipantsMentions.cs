@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// This filter is used when looking for supergroup members to mention.<br>
+/// <summary>
+/// This filter is used when looking for supergroup members to mention.<br/>
 /// This filter will automatically remove anonymous admins, and return even non-participant users that replied to a specific <a href="https://corefork.telegram.org/api/threads">thread</a> through the <a href="https://corefork.telegram.org/api/threads#channel-comments">comment section</a> of a channel.
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantsMentions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantsMentions" /></para>
+/// </summary>
 [TlObject(0xe04b5ceb)]
-public sealed class TChannelParticipantsMentions : IChannelParticipantsFilter
+public sealed partial class TChannelParticipantsMentions : IChannelParticipantsFilter
 {
     public uint ConstructorId => 0xe04b5ceb;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Filter by user name or username
-    ///</summary>
+    /// </summary>
     public string? Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Look only for users that posted in this <a href="https://corefork.telegram.org/api/threads">thread</a>
-    ///</summary>
+    /// </summary>
     public int? TopMsgId { get; set; }
 
     public void ComputeFlag()

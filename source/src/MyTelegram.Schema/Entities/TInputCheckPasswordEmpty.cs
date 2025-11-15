@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// There is no password
-/// See <a href="https://corefork.telegram.org/constructor/inputCheckPasswordEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputCheckPasswordEmpty" /></para>
+/// </summary>
 [TlObject(0x9880f658)]
-public sealed class TInputCheckPasswordEmpty : IInputCheckPasswordSRP
+public sealed partial class TInputCheckPasswordEmpty : IInputCheckPasswordSRP
 {
     public uint ConstructorId => 0x9880f658;
     public void ComputeFlag()

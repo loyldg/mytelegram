@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The preview of the webpage hasn't changed
-/// See <a href="https://corefork.telegram.org/constructor/webPageNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPageNotModified" /></para>
+/// </summary>
 [TlObject(0x7311ca11)]
-public sealed class TWebPageNotModified : IWebPage
+public sealed partial class TWebPageNotModified : IWebPage
 {
     public uint ConstructorId => 0x7311ca11;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Page view count
-    ///</summary>
+    /// </summary>
     public int? CachedPageViews { get; set; }
 
     public void ComputeFlag()

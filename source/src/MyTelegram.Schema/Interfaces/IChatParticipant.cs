@@ -2,17 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Details of a group member.
-/// See <a href="https://corefork.telegram.org/type/ChatParticipant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChatParticipant" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatParticipant"/> See <a href="https://corefork.telegram.org/constructor/chatParticipant" /><br/>
+/// <see cref="TChatParticipantCreator"/> See <a href="https://corefork.telegram.org/constructor/chatParticipantCreator" /><br/>
+/// <see cref="TChatParticipantAdmin"/> See <a href="https://corefork.telegram.org/constructor/chatParticipantAdmin" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatParticipant), nameof(TChatParticipant))]
 [JsonDerivedType(typeof(TChatParticipantCreator), nameof(TChatParticipantCreator))]
 [JsonDerivedType(typeof(TChatParticipantAdmin), nameof(TChatParticipantAdmin))]
 public interface IChatParticipant : IObject
 {
-    ///<summary>
+    /// <summary>
     /// ID of the user that created the group
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 }

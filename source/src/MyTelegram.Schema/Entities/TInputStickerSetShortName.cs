@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Stickerset by short name, from a <a href="https://corefork.telegram.org/api/links#stickerset-links">stickerset deep link »</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputStickerSetShortName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickerSetShortName" /></para>
+/// </summary>
 [TlObject(0x861cc8a0)]
-public sealed class TInputStickerSetShortName : IInputStickerSet
+public sealed partial class TInputStickerSetShortName : IInputStickerSet
 {
     public uint ConstructorId => 0x861cc8a0;
-    ///<summary>
+    /// <summary>
     /// Short name from a <a href="https://corefork.telegram.org/api/links#stickerset-links">stickerset deep link »</a>
-    ///</summary>
+    /// </summary>
     public string ShortName { get; set; }
 
     public void ComputeFlag()

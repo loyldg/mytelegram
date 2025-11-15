@@ -2,100 +2,100 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Shortened constructor containing info on one new incoming text message from a chat
-/// See <a href="https://corefork.telegram.org/constructor/updateShortChatMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateShortChatMessage" /></para>
+/// </summary>
 [TlObject(0x4d6deea5)]
-public sealed class TUpdateShortChatMessage : IUpdates
+public sealed partial class TUpdateShortChatMessage : IUpdates
 {
     public uint ConstructorId => 0x4d6deea5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message is outgoing
-    ///</summary>
+    /// </summary>
     public bool Out { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we were mentioned in this message
-    ///</summary>
+    /// </summary>
     public bool Mentioned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message contains some <strong>unread</strong> mentions
-    ///</summary>
+    /// </summary>
     public bool MediaUnread { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If true, the message is a silent message, no notifications should be triggered
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the sender of the message
-    ///</summary>
+    /// </summary>
     public long FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the chat where the message was sent
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">PTS</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">PTS count</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">date</a>
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about a forwarded message
     /// See <a href="https://corefork.telegram.org/type/MessageFwdHeader" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageFwdHeader? FwdFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the inline bot used to generate this message
-    ///</summary>
+    /// </summary>
     public long? ViaBotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reply (thread) information
     /// See <a href="https://corefork.telegram.org/type/MessageReplyHeader" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageReplyHeader? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Entities</a> for styled text
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time To Live of the message, once updateShortChatMessage.date+updateShortChatMessage.ttl_period === time(), the message will be deleted on the server, and must be deleted locally as well.
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
     public void ComputeFlag()

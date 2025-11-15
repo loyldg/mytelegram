@@ -2,25 +2,41 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/StoryAlbum" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/stories#story-albums">story album »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/StoryAlbum" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStoryAlbum"/> See <a href="https://corefork.telegram.org/constructor/storyAlbum" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStoryAlbum), nameof(TStoryAlbum))]
 public interface IStoryAlbum : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// ID of the album.
+    /// </summary>
     int AlbumId { get; set; }
 
+    /// <summary>
+    /// Name of the album.
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Photo from the first story of the album, if it's a photo.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPhoto? IconPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Video from the first story of the album, if it's a video.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IDocument? IconVideo { get; set; }
 }

@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Exact read date of a private message we sent to another user.
-/// See <a href="https://corefork.telegram.org/type/OutboxReadDate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/OutboxReadDate" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TOutboxReadDate"/> See <a href="https://corefork.telegram.org/constructor/outboxReadDate" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TOutboxReadDate), nameof(TOutboxReadDate))]
 public interface IOutboxReadDate : IObject
 {
-    ///<summary>
+    /// <summary>
     /// UNIX timestamp with the read date.
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 }

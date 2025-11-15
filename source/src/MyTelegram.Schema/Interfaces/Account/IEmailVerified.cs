@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Email verification status
-/// See <a href="https://corefork.telegram.org/type/account.EmailVerified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.EmailVerified" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmailVerified"/> See <a href="https://corefork.telegram.org/constructor/account.emailVerified" /><br/>
+/// <see cref="TEmailVerifiedLogin"/> See <a href="https://corefork.telegram.org/constructor/account.emailVerifiedLogin" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmailVerified), nameof(TEmailVerified))]
 [JsonDerivedType(typeof(TEmailVerifiedLogin), nameof(TEmailVerifiedLogin))]
 public interface IEmailVerified : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The verified email address.
-    ///</summary>
+    /// </summary>
     string Email { get; set; }
 }

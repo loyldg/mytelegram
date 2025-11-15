@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// A message was received via a <a href="https://corefork.telegram.org/api/business#connected-bots">connected business chat »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotNewBusinessMessage" />
-///</summary>
+/// <summary>
+/// A message was received via a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">connected business chat »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotNewBusinessMessage" /></para>
+/// </summary>
 [TlObject(0x9ddb347c)]
-public sealed class TUpdateBotNewBusinessMessage : IUpdate
+public sealed partial class TUpdateBotNewBusinessMessage : IUpdate
 {
     public uint ConstructorId => 0x9ddb347c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Connection ID.
-    ///</summary>
+    /// </summary>
     public string ConnectionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New message.
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message that <code>message</code> is replying to.
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage? ReplyToMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

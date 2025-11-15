@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bot or inline keyboard
-/// See <a href="https://corefork.telegram.org/constructor/replyInlineMarkup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/replyInlineMarkup" /></para>
+/// </summary>
 [TlObject(0x48a30254)]
-public sealed class TReplyInlineMarkup : IReplyMarkup
+public sealed partial class TReplyInlineMarkup : IReplyMarkup
 {
     public uint ConstructorId => 0x48a30254;
-    ///<summary>
+    /// <summary>
     /// Bot or inline keyboard rows
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonRow" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IKeyboardButtonRow> Rows { get; set; }
 
     public void ComputeFlag()

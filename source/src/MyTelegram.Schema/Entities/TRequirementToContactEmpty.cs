@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// This user can be freely contacted.
-/// See <a href="https://corefork.telegram.org/constructor/requirementToContactEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/requirementToContactEmpty" /></para>
+/// </summary>
 [TlObject(0x50a9839)]
-public sealed class TRequirementToContactEmpty : IRequirementToContact
+public sealed partial class TRequirementToContactEmpty : IRequirementToContact
 {
     public uint ConstructorId => 0x50a9839;
     public void ComputeFlag()

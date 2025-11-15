@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get stickers by emoji
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 EMOTICON_EMPTY The emoji is empty.
-/// See <a href="https://corefork.telegram.org/method/messages.getStickers" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 EMOTICON_EMPTY The emoji is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd5a5d3a1)]
-public sealed class RequestGetStickers : IRequest<MyTelegram.Schema.Messages.IStickers>
+public sealed partial class RequestGetStickers : IRequest<MyTelegram.Schema.Messages.IStickers>
 {
     public uint ConstructorId => 0xd5a5d3a1;
 
-    ///<summary>
+    /// <summary>
     /// The emoji
-    ///</summary>
+    /// </summary>
     public string Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

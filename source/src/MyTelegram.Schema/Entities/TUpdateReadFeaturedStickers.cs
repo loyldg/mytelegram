@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Some featured stickers were marked as read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadFeaturedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadFeaturedStickers" /></para>
+/// </summary>
 [TlObject(0x571d2742)]
-public sealed class TUpdateReadFeaturedStickers : IUpdate
+public sealed partial class TUpdateReadFeaturedStickers : IUpdate
 {
     public uint ConstructorId => 0x571d2742;
     public void ComputeFlag()

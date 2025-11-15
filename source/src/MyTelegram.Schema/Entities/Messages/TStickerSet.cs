@@ -2,36 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Stickerset and stickers inside it
-/// See <a href="https://corefork.telegram.org/constructor/messages.stickerSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.stickerSet" /></para>
+/// </summary>
 [TlObject(0x6e153f16)]
-public sealed class TStickerSet : IStickerSet
+public sealed partial class TStickerSet : IStickerSet
 {
     public uint ConstructorId => 0x6e153f16;
-    ///<summary>
+    /// <summary>
     /// The stickerset
     /// See <a href="https://corefork.telegram.org/type/StickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStickerSet Set { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emoji info for stickers
     /// See <a href="https://corefork.telegram.org/type/StickerPack" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerPack> Packs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Keywords for some or every sticker in the stickerset.
     /// See <a href="https://corefork.telegram.org/type/StickerKeyword" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerKeyword> Keywords { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickers in stickerset
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Documents { get; set; }
 
     public void ComputeFlag()

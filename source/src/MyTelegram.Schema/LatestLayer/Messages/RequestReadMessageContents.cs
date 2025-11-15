@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Notifies the sender about the recipient having listened a voice message or watched a video.
-/// See <a href="https://corefork.telegram.org/method/messages.readMessageContents" />
-///</summary>
+/// <summary>
+/// Notifies the sender about the recipient having listened a voice message or watched a video, emitting an <a href="https://corefork.telegram.org/constructor/updateReadMessagesContents">updateReadMessagesContents</a>.
+/// <para>See <a href="https://corefork.telegram.org/method/messages.readMessageContents" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x36a73f77)]
-public sealed class RequestReadMessageContents : IRequest<MyTelegram.Schema.Messages.IAffectedMessages>
+public sealed partial class RequestReadMessageContents : IRequest<MyTelegram.Schema.Messages.IAffectedMessages>
 {
     public uint ConstructorId => 0x36a73f77;
 
-    ///<summary>
+    /// <summary>
     /// Message ID list
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

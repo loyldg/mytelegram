@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a <a href="https://corefork.telegram.org/api/live-location">live geolocation</a>
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaGeoLive" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaGeoLive" /></para>
+/// </summary>
 [TlObject(0xb940c666)]
-public sealed class TMessageMediaGeoLive : IMessageMedia
+public sealed partial class TMessageMediaGeoLive : IMessageMedia
 {
     public uint ConstructorId => 0xb940c666;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Geolocation
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/live-location">live locations</a>, a direction in which the location moves, in degrees; 1-360
-    ///</summary>
+    /// </summary>
     public int? Heading { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Validity period of provided geolocation
-    ///</summary>
+    /// </summary>
     public int Period { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/live-location">live locations</a>, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
-    ///</summary>
+    /// </summary>
     public int? ProximityNotificationRadius { get; set; }
 
     public void ComputeFlag()

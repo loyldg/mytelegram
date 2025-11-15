@@ -2,38 +2,42 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Accept incoming call
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CALL_ALREADY_ACCEPTED The call was already accepted.
-/// 400 CALL_ALREADY_DECLINED The call was already declined.
-/// 500 CALL_OCCUPY_FAILED The call failed because the user is already making another call.
-/// 400 CALL_PEER_INVALID The provided call peer object is invalid.
-/// 406 CALL_PROTOCOL_COMPAT_LAYER_INVALID The other side of the call does not support any of the VoIP protocols supported by the local client, as specified by the <code>protocol.layer</code> and <code>protocol.library_versions</code> fields.
-/// 400 CALL_PROTOCOL_FLAGS_INVALID Call protocol flags invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.acceptCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CALL_ALREADY_ACCEPTED The call was already accepted.</c></para>
+/// <para><c>400 CALL_ALREADY_DECLINED The call was already declined.</c></para>
+/// <para><c>500 CALL_OCCUPY_FAILED The call failed because the user is already making another call.</c></para>
+/// <para><c>400 CALL_PEER_INVALID The provided call peer object is invalid.</c></para>
+/// <para><c>406 CALL_PROTOCOL_COMPAT_LAYER_INVALID The other side of the call does not support any of the VoIP protocols supported by the local client, as specified by the <code>protocol.layer</code> and <code>protocol.library_versions</code> fields.</c></para>
+/// <para><c>400 CALL_PROTOCOL_FLAGS_INVALID Call protocol flags invalid.</c></para>
+/// <para><c>400 CALL_PROTOCOL_LAYER_INVALID The specified protocol layer version range is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.acceptCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3bd2b4a0)]
-public sealed class RequestAcceptCall : IRequest<MyTelegram.Schema.Phone.IPhoneCall>
+public sealed partial class RequestAcceptCall : IRequest<MyTelegram.Schema.Phone.IPhoneCall>
 {
     public uint ConstructorId => 0x3bd2b4a0;
 
-    ///<summary>
+    /// <summary>
     /// The call to accept
     /// See <a href="https://corefork.telegram.org/type/InputPhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoneCall Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/end-to-end/voice-calls">Parameter for E2E encryption key exchange »</a>
-    ///</summary>
+    /// </summary>
     public byte[] GB { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone call settings
     /// See <a href="https://corefork.telegram.org/type/PhoneCallProtocol" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
     public void ComputeFlag()

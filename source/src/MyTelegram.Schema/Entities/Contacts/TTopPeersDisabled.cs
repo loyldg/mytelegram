@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Top peers disabled
-/// See <a href="https://corefork.telegram.org/constructor/contacts.topPeersDisabled" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.topPeersDisabled" /></para>
+/// </summary>
 [TlObject(0xb52c939d)]
-public sealed class TTopPeersDisabled : ITopPeers
+public sealed partial class TTopPeersDisabled : ITopPeers
 {
     public uint ConstructorId => 0xb52c939d;
     public void ComputeFlag()

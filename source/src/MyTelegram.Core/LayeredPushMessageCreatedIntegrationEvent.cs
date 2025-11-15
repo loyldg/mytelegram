@@ -15,7 +15,8 @@ public record LayeredPushMessageCreatedIntegrationEvent(
     long GlobalSeqNo,
     //LayeredData<byte[]>? LayeredData,
     PushData? PushData,
-    List<long>? ExcludeUserIds) : ISessionMessage
+    List<long>? ExcludeUserIds
+    ) : ISessionMessage
 {
     public IMemoryOwner<byte>? MemoryOwner { get; set; }
 }

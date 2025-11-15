@@ -2,39 +2,42 @@
 
 namespace MyTelegram.Schema.Photos;
 
-///<summary>
+/// <summary>
 /// Returns the list of user photos.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MAX_ID_INVALID The provided max ID is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/photos.getUserPhotos" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MAX_ID_INVALID The provided max ID is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/photos.getUserPhotos" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x91cd32a8)]
-public sealed class RequestGetUserPhotos : IRequest<MyTelegram.Schema.Photos.IPhotos>
+public sealed partial class RequestGetUserPhotos : IRequest<MyTelegram.Schema.Photos.IPhotos>
 {
     public uint ConstructorId => 0x91cd32a8;
 
-    ///<summary>
+    /// <summary>
     /// User ID
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of list elements to be skipped
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
-    /// If a positive value was transferred, the method will return only photos with IDs less than the set one. This parameter is often useful when <a href="https://corefork.telegram.org/api/file_reference">refetching file references »</a>, as in conjuction with <code>limit=1</code> and <code>offset=-1</code> the <a href="https://corefork.telegram.org/constructor/photo">photo</a> object with the <code>id</code> specified in <code>max_id</code> can be fetched.
-    ///</summary>
+    /// <summary>
+    /// If a positive value was transferred, the method will return only photos with IDs less than the set one. This parameter is often useful when <a href="https://corefork.telegram.org/api/file-references">refetching file references »</a>, as in conjuction with <code>limit=1</code> and <code>offset=-1</code> the <a href="https://corefork.telegram.org/constructor/photo">photo</a> object with the <code>id</code> specified in <code>max_id</code> can be fetched.
+    /// </summary>
     public long MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of list elements to be returned
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

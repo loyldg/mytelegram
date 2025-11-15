@@ -2,22 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/updateGroupCallChainBlocks" />
-///</summary>
+/// <summary>
+/// Contains updates to the blockchain of a conference call, see <a href="https://corefork.telegram.org/api/end-to-end/group-calls">here »</a> for more info.
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateGroupCallChainBlocks" /></para>
+/// </summary>
 [TlObject(0xa477288f)]
-public sealed class TUpdateGroupCallChainBlocks : IUpdate
+public sealed partial class TUpdateGroupCallChainBlocks : IUpdate
 {
     public uint ConstructorId => 0xa477288f;
-    ///<summary>
+    /// <summary>
+    /// The conference call.
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
+    /// <summary>
+    /// Subchain ID.
+    /// </summary>
     public int SubChainId { get; set; }
 
+    /// <summary>
+    /// Blocks.
+    /// </summary>
     public TVector<ReadOnlyMemory<byte>> Blocks { get; set; }
 
+    /// <summary>
+    /// Offset of the next block.
+    /// </summary>
     public int NextOffset { get; set; }
 
     public void ComputeFlag()

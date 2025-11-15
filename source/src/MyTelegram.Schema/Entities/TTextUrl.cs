@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Link
-/// See <a href="https://corefork.telegram.org/constructor/textUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textUrl" /></para>
+/// </summary>
 [TlObject(0x3c2884c1)]
-public sealed class TTextUrl : IRichText
+public sealed partial class TTextUrl : IRichText
 {
     public uint ConstructorId => 0x3c2884c1;
-    ///<summary>
+    /// <summary>
     /// Text of link
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webpage HTTP URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a preview was already generated for the page, the page ID
-    ///</summary>
+    /// </summary>
     public long WebpageId { get; set; }
 
     public void ComputeFlag()

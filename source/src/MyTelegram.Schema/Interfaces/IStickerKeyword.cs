@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Keywords for a certain sticker
-/// See <a href="https://corefork.telegram.org/type/StickerKeyword" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StickerKeyword" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStickerKeyword"/> See <a href="https://corefork.telegram.org/constructor/stickerKeyword" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStickerKeyword), nameof(TStickerKeyword))]
 public interface IStickerKeyword : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Sticker ID
-    ///</summary>
+    /// </summary>
     long DocumentId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Keywords
-    ///</summary>
+    /// </summary>
     TVector<string> Keyword { get; set; }
 }

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Filter for fetching only certain types of channel messages
-/// See <a href="https://corefork.telegram.org/type/ChannelMessagesFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChannelMessagesFilter" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelMessagesFilterEmpty"/> See <a href="https://corefork.telegram.org/constructor/channelMessagesFilterEmpty" /><br/>
+/// <see cref="TChannelMessagesFilter"/> See <a href="https://corefork.telegram.org/constructor/channelMessagesFilter" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelMessagesFilterEmpty), nameof(TChannelMessagesFilterEmpty))]
 [JsonDerivedType(typeof(TChannelMessagesFilter), nameof(TChannelMessagesFilter))]
 public interface IChannelMessagesFilter : IObject

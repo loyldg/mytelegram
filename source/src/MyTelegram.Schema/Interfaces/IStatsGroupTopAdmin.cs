@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Most active admin in a <a href="https://corefork.telegram.org/api/channel">supergroup</a>
-/// See <a href="https://corefork.telegram.org/type/StatsGroupTopAdmin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StatsGroupTopAdmin" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatsGroupTopAdmin"/> See <a href="https://corefork.telegram.org/constructor/statsGroupTopAdmin" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatsGroupTopAdmin), nameof(TStatsGroupTopAdmin))]
 public interface IStatsGroupTopAdmin : IObject
 {
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of deleted messages for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     int Deleted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of kicked users for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     int Kicked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of banned users for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     int Banned { get; set; }
 }

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Outgoing comments in a <a href="https://corefork.telegram.org/api/threads">discussion thread</a> were marked as read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadChannelDiscussionOutbox" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadChannelDiscussionOutbox" /></para>
+/// </summary>
 [TlObject(0x695c9e7c)]
-public sealed class TUpdateReadChannelDiscussionOutbox : IUpdate
+public sealed partial class TUpdateReadChannelDiscussionOutbox : IUpdate
 {
     public uint ConstructorId => 0x695c9e7c;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Supergroup ID</a>
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the group message that started the <a href="https://corefork.telegram.org/api/threads">thread</a>
-    ///</summary>
+    /// </summary>
     public int TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of latest read outgoing message for this <a href="https://corefork.telegram.org/api/threads">thread</a>
-    ///</summary>
+    /// </summary>
     public int ReadMaxId { get; set; }
 
     public void ComputeFlag()

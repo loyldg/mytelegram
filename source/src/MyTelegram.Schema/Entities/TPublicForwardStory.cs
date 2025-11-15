@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about a forward of a <a href="https://corefork.telegram.org/api/stories">story</a> as a repost by a public channel.
-/// See <a href="https://corefork.telegram.org/constructor/publicForwardStory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/publicForwardStory" /></para>
+/// </summary>
 [TlObject(0xedf3add0)]
-public sealed class TPublicForwardStory : IPublicForward
+public sealed partial class TPublicForwardStory : IPublicForward
 {
     public uint ConstructorId => 0xedf3add0;
-    ///<summary>
+    /// <summary>
     /// The channel that reposted the story.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reposted story (may be different from the original story).
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoryItem Story { get; set; }
 
     public void ComputeFlag()

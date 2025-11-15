@@ -2,26 +2,31 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Interaction counters
-/// See <a href="https://corefork.telegram.org/type/PostInteractionCounters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PostInteractionCounters" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPostInteractionCountersMessage"/> See <a href="https://corefork.telegram.org/constructor/postInteractionCountersMessage" /><br/>
+/// <see cref="TPostInteractionCountersStory"/> See <a href="https://corefork.telegram.org/constructor/postInteractionCountersStory" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPostInteractionCountersMessage), nameof(TPostInteractionCountersMessage))]
 [JsonDerivedType(typeof(TPostInteractionCountersStory), nameof(TPostInteractionCountersStory))]
 public interface IPostInteractionCounters : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Number of views
-    ///</summary>
+    /// </summary>
     int Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of forwards to public channels
-    ///</summary>
+    /// </summary>
     int Forwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of reactions
-    ///</summary>
+    /// </summary>
     int Reactions { get; set; }
 }

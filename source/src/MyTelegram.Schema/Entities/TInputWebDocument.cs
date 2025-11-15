@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The document
-/// See <a href="https://corefork.telegram.org/constructor/inputWebDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputWebDocument" /></para>
+/// </summary>
 [TlObject(0x9bed434d)]
-public sealed class TInputWebDocument : IInputWebDocument
+public sealed partial class TInputWebDocument : IInputWebDocument
 {
     public uint ConstructorId => 0x9bed434d;
-    ///<summary>
+    /// <summary>
     /// Remote document URL to be downloaded using the appropriate <a href="https://corefork.telegram.org/api/files">method</a>
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Remote file size
-    ///</summary>
+    /// </summary>
     public int Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mime type
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attributes for media types
     /// See <a href="https://corefork.telegram.org/type/DocumentAttribute" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocumentAttribute> Attributes { get; set; }
 
     public void ComputeFlag()

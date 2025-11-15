@@ -2,19 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.deleteStarGiftCollection" />
-///</summary>
+/// <summary>
+/// Delete a <a href="https://corefork.telegram.org/api/gifts#gift-collections">star gift collection »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.deleteStarGiftCollection" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xad5648e8)]
-public sealed class RequestDeleteStarGiftCollection : IRequest<IBool>
+public sealed partial class RequestDeleteStarGiftCollection : IRequest<IBool>
 {
     public uint ConstructorId => 0xad5648e8;
 
-    ///<summary>
+    /// <summary>
+    /// Peer that owns the collection.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// ID of the collection.
+    /// </summary>
     public int CollectionId { get; set; }
 
     public void ComputeFlag()

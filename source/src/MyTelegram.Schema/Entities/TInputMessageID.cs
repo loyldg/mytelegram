@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message by ID
-/// See <a href="https://corefork.telegram.org/constructor/inputMessageID" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessageID" /></para>
+/// </summary>
 [TlObject(0xa676a322)]
-public sealed class TInputMessageID : IInputMessage
+public sealed partial class TInputMessageID : IInputMessage
 {
     public uint ConstructorId => 0xa676a322;
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

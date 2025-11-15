@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Localized name for telegram support
-/// See <a href="https://corefork.telegram.org/constructor/help.supportName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.supportName" /></para>
+/// </summary>
 [TlObject(0x8c05f1c9)]
-public sealed class TSupportName : ISupportName
+public sealed partial class TSupportName : ISupportName
 {
     public uint ConstructorId => 0x8c05f1c9;
-    ///<summary>
+    /// <summary>
     /// Localized name
-    ///</summary>
+    /// </summary>
     public string Name { get; set; }
 
     public void ComputeFlag()

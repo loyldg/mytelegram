@@ -2,9 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/StarGiftAttribute" />
-///</summary>
+/// <summary>
+/// An attribute of a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftAttribute" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarGiftAttributeModel"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeModel" /><br/>
+/// <see cref="TStarGiftAttributePattern"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributePattern" /><br/>
+/// <see cref="TStarGiftAttributeBackdrop"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeBackdrop" /><br/>
+/// <see cref="TStarGiftAttributeOriginalDetails"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeOriginalDetails" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarGiftAttributeModel), nameof(TStarGiftAttributeModel))]
 [JsonDerivedType(typeof(TStarGiftAttributePattern), nameof(TStarGiftAttributePattern))]
 [JsonDerivedType(typeof(TStarGiftAttributeBackdrop), nameof(TStarGiftAttributeBackdrop))]

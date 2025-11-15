@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// User info
-/// See <a href="https://corefork.telegram.org/type/help.UserInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.UserInfo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUserInfoEmpty"/> See <a href="https://corefork.telegram.org/constructor/help.userInfoEmpty" /><br/>
+/// <see cref="TUserInfo"/> See <a href="https://corefork.telegram.org/constructor/help.userInfo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUserInfoEmpty), nameof(TUserInfoEmpty))]
 [JsonDerivedType(typeof(TUserInfo), nameof(TUserInfo))]
 public interface IUserInfo : IObject

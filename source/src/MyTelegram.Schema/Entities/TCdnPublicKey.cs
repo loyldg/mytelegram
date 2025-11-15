@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Public key to use <strong>only</strong> during handshakes to <a href="https://corefork.telegram.org/cdn">CDN</a> DCs.
-/// See <a href="https://corefork.telegram.org/constructor/cdnPublicKey" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/cdnPublicKey" /></para>
+/// </summary>
 [TlObject(0xc982eaba)]
-public sealed class TCdnPublicKey : ICdnPublicKey
+public sealed partial class TCdnPublicKey : ICdnPublicKey
 {
     public uint ConstructorId => 0xc982eaba;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/cdn">CDN DC</a> ID
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// RSA public key
-    ///</summary>
+    /// </summary>
     public string PublicKey { get; set; }
 
     public void ComputeFlag()

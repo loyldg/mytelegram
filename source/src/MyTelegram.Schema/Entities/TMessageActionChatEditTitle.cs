@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Group name changed.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatEditTitle" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatEditTitle" /></para>
+/// </summary>
 [TlObject(0xb5a1ce5a)]
-public sealed class TMessageActionChatEditTitle : IMessageAction
+public sealed partial class TMessageActionChatEditTitle : IMessageAction
 {
     public uint ConstructorId => 0xb5a1ce5a;
-    ///<summary>
+    /// <summary>
     /// New group name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

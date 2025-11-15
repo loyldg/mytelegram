@@ -2,19 +2,30 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/stories.getAlbums" />
-///</summary>
+/// <summary>
+/// Get <a href="https://corefork.telegram.org/api/stories#story-albums">story albums</a> created by a peer.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getAlbums" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x25b3eac7)]
-public sealed class RequestGetAlbums : IRequest<MyTelegram.Schema.Stories.IAlbums>
+public sealed partial class RequestGetAlbums : IRequest<MyTelegram.Schema.Stories.IAlbums>
 {
     public uint ConstructorId => 0x25b3eac7;
 
-    ///<summary>
+    /// <summary>
+    /// The peer.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// The <code>hash</code> from a previously returned <a href="https://corefork.telegram.org/constructor/stories.albums">stories.albums</a>, to avoid returning any results if they haven't changed.
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

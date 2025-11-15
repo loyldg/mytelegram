@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An empty constructor, no user or chat is defined.
-/// See <a href="https://corefork.telegram.org/constructor/inputPeerEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPeerEmpty" /></para>
+/// </summary>
 [TlObject(0x7f3b18ea)]
-public sealed class TInputPeerEmpty : IInputPeer
+public sealed partial class TInputPeerEmpty : IInputPeer
 {
     public uint ConstructorId => 0x7f3b18ea;
     public void ComputeFlag()

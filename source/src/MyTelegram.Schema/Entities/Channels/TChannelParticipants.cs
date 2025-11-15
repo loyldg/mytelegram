@@ -2,35 +2,35 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Represents multiple channel participants
-/// See <a href="https://corefork.telegram.org/constructor/channels.channelParticipants" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channels.channelParticipants" /></para>
+/// </summary>
 [TlObject(0x9ab0feaf)]
-public sealed class TChannelParticipants : IChannelParticipants
+public sealed partial class TChannelParticipants : IChannelParticipants
 {
     public uint ConstructorId => 0x9ab0feaf;
-    ///<summary>
+    /// <summary>
     /// Total number of participants that correspond to the given query
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participants
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChannelParticipant> Participants { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in participant info
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,65 +2,68 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Edit an exported chat invite
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_INVITE_PERMANENT You can't set an expiration date on permanent invite links.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 403 EDIT_BOT_INVITE_FORBIDDEN Normal users can't edit invites that were created by bots.
-/// 400 INVITE_HASH_EXPIRED The invite link has expired.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USAGE_LIMIT_INVALID The specified usage limit is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.editExportedChatInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_INVITE_PERMANENT You can't set an expiration date on permanent invite links.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>403 EDIT_BOT_INVITE_FORBIDDEN Normal users can't edit invites that were created by bots.</c></para>
+/// <para><c>400 INVITE_HASH_EXPIRED The invite link has expired.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USAGE_LIMIT_INVALID The specified usage limit is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.editExportedChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbdca2f75)]
-public sealed class RequestEditExportedChatInvite : IRequest<MyTelegram.Schema.Messages.IExportedChatInvite>
+public sealed partial class RequestEditExportedChatInvite : IRequest<MyTelegram.Schema.Messages.IExportedChatInvite>
 {
     public uint ConstructorId => 0xbdca2f75;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to revoke the chat invite
-    ///</summary>
+    /// </summary>
     public bool Revoked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invite link
-    ///</summary>
+    /// </summary>
     public string Link { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New expiration date
-    ///</summary>
+    /// </summary>
     public int? ExpireDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of users that can join using this link
-    ///</summary>
+    /// </summary>
     public int? UsageLimit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether admin confirmation is required before admitting each separate user into the chat
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? RequestNeeded { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description of the invite link, visible only to administrators
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
     public void ComputeFlag()

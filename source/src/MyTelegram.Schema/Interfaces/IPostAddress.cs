@@ -2,40 +2,44 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Shipping address
-/// See <a href="https://corefork.telegram.org/type/PostAddress" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PostAddress" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPostAddress"/> See <a href="https://corefork.telegram.org/constructor/postAddress" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPostAddress), nameof(TPostAddress))]
 public interface IPostAddress : IObject
 {
-    ///<summary>
+    /// <summary>
     /// First line for the address
-    ///</summary>
+    /// </summary>
     string StreetLine1 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Second line for the address
-    ///</summary>
+    /// </summary>
     string StreetLine2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// City
-    ///</summary>
+    /// </summary>
     string City { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// State, if applicable (empty otherwise)
-    ///</summary>
+    /// </summary>
     string State { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ISO 3166-1 alpha-2 country code
-    ///</summary>
+    /// </summary>
     string CountryIso2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Address post code
-    ///</summary>
+    /// </summary>
     string PostCode { get; set; }
 }

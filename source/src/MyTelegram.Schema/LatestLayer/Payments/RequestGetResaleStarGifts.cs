@@ -2,37 +2,60 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.getResaleStarGifts" />
-///</summary>
+/// <summary>
+/// Get <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gifts</a> of a specific type currently on resale, see <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">here »</a> for more info.<code>sort_by_price</code> and <code>sort_by_num</code> are mutually exclusive, if neither are set results are sorted by the unixtime (descending) when their resell price was last changed.See <a href="https://corefork.telegram.org/api/gifts#sending-gifts">here »</a> for detailed documentation on this method.  
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STARGIFT_INVALID The passed gift is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getResaleStarGifts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7a5fa236)]
-public sealed class RequestGetResaleStarGifts : IRequest<MyTelegram.Schema.Payments.IResaleStarGifts>
+public sealed partial class RequestGetResaleStarGifts : IRequest<MyTelegram.Schema.Payments.IResaleStarGifts>
 {
     public uint ConstructorId => 0x7a5fa236;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Sort gifts by price (ascending).
+    /// </summary>
     public bool SortByPrice { get; set; }
 
+    /// <summary>
+    /// Sort gifts by number (ascending).
+    /// </summary>
     public bool SortByNum { get; set; }
 
+    /// <summary>
+    /// If a previous call to the method was made and <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts">payments.resaleStarGifts</a>.<code>attributes_hash</code> was set, pass it here to avoid returning any results if they haven't changed. <br/>Otherwise, set this flag and pass <code>0</code> to return <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts">payments.resaleStarGifts</a>.<code>attributes_hash</code> and <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts">payments.resaleStarGifts</a>.<code>attributes</code>, <strong>these two fields will not be set</strong> if this flag is not set.
+    /// </summary>
     public long? AttributesHash { get; set; }
 
+    /// <summary>
+    /// Mandatory identifier of the base gift from which the collectible gift was upgraded.
+    /// </summary>
     public long GiftId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Optionally filter gifts with the specified attributes. If no attributes of a specific type are specified, all attributes of that type are allowed.
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeId" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAttributeId>? Attributes { get; set; }
 
+    /// <summary>
+    /// Offset for pagination. If not equal to an empty string, <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts">payments.resaleStarGifts</a>.<code>counters</code> will not be set to avoid returning the counters every time a new page is fetched.
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

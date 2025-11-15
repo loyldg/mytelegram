@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
-/// Permanently disconnect a specific chat from all <a href="https://corefork.telegram.org/api/business#connected-bots">business bots »</a> (equivalent to specifying it in <code>recipients.exclude_users</code> during initial configuration with <a href="https://corefork.telegram.org/method/account.updateConnectedBot">account.updateConnectedBot »</a>); to reconnect of a chat disconnected using this method the user must reconnect the entire bot by invoking <a href="https://corefork.telegram.org/method/account.updateConnectedBot">account.updateConnectedBot »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_ALREADY_DISABLED The connected business bot was already disabled for the specified peer.
-/// 400 BOT_NOT_CONNECTED_YET No <a href="https://corefork.telegram.org/api/business#connected-bots">business bot</a> is connected to the currently logged in user.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.disablePeerConnectedBot" />
-///</summary>
+/// <summary>
+/// Permanently disconnect a specific chat from all <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bots »</a> (equivalent to specifying it in <code>recipients.exclude_users</code> during initial configuration with <a href="https://corefork.telegram.org/method/account.updateConnectedBot">account.updateConnectedBot »</a>); to reconnect of a chat disconnected using this method the user must reconnect the entire bot by invoking <a href="https://corefork.telegram.org/method/account.updateConnectedBot">account.updateConnectedBot »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_ALREADY_DISABLED The connected business bot was already disabled for the specified peer.</c></para>
+/// <para><c>400 BOT_NOT_CONNECTED_YET No <a href="https://corefork.telegram.org/api/business#connected-bots">business bot</a> is connected to the currently logged in user.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.disablePeerConnectedBot" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5e437ed9)]
-public sealed class RequestDisablePeerConnectedBot : IRequest<IBool>
+public sealed partial class RequestDisablePeerConnectedBot : IRequest<IBool>
 {
     public uint ConstructorId => 0x5e437ed9;
 
-    ///<summary>
+    /// <summary>
     /// The chat to disconnect
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

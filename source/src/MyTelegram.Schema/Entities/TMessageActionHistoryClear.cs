@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chat history was cleared
-/// See <a href="https://corefork.telegram.org/constructor/messageActionHistoryClear" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionHistoryClear" /></para>
+/// </summary>
 [TlObject(0x9fbab604)]
-public sealed class TMessageActionHistoryClear : IMessageAction
+public sealed partial class TMessageActionHistoryClear : IMessageAction
 {
     public uint ConstructorId => 0x9fbab604;
     public void ComputeFlag()

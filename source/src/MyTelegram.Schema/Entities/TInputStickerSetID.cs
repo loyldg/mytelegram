@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Stickerset by ID
-/// See <a href="https://corefork.telegram.org/constructor/inputStickerSetID" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickerSetID" /></para>
+/// </summary>
 [TlObject(0x9de7a269)]
-public sealed class TInputStickerSetID : IInputStickerSet
+public sealed partial class TInputStickerSetID : IInputStickerSet
 {
     public uint ConstructorId => 0x9de7a269;
-    ///<summary>
+    /// <summary>
     /// ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

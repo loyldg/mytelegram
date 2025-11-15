@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Venue
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaVenue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaVenue" /></para>
+/// </summary>
 [TlObject(0x2ec0533f)]
-public sealed class TMessageMediaVenue : IMessageMedia
+public sealed partial class TMessageMediaVenue : IMessageMedia
 {
     public uint ConstructorId => 0x2ec0533f;
-    ///<summary>
+    /// <summary>
     /// Geolocation of venue
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Address
-    ///</summary>
+    /// </summary>
     public string Address { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue provider: currently only "foursquare" and "gplaces" (Google Places) need to be supported
-    ///</summary>
+    /// </summary>
     public string Provider { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue ID in the provider's database
-    ///</summary>
+    /// </summary>
     public string VenueId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue type in the provider's database
-    ///</summary>
+    /// </summary>
     public string VenueType { get; set; }
 
     public void ComputeFlag()

@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Invoke with the given message range
-/// See <a href="https://corefork.telegram.org/method/invokeWithMessagesRange" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/invokeWithMessagesRange" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x365275f2)]
-public sealed class RequestInvokeWithMessagesRange : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInvokeWithMessagesRange : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0x365275f2;
 
-    ///<summary>
+    /// <summary>
     /// Message range
     /// See <a href="https://corefork.telegram.org/type/MessageRange" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageRange Range { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query
-    ///</summary>
+    /// </summary>
     public IObject Query { get; set; }
 
     public void ComputeFlag()

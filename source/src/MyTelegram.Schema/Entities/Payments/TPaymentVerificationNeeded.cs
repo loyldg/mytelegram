@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Payment was not successful, additional verification is needed
-/// See <a href="https://corefork.telegram.org/constructor/payments.paymentVerificationNeeded" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.paymentVerificationNeeded" /></para>
+/// </summary>
 [TlObject(0xd8411139)]
-public sealed class TPaymentVerificationNeeded : IPaymentResult
+public sealed partial class TPaymentVerificationNeeded : IPaymentResult
 {
     public uint ConstructorId => 0xd8411139;
-    ///<summary>
+    /// <summary>
     /// URL for additional payment credentials verification
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

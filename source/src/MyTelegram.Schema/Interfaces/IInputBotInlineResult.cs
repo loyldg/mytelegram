@@ -2,24 +2,31 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Inline bot result
-/// See <a href="https://corefork.telegram.org/type/InputBotInlineResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputBotInlineResult" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputBotInlineResult"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineResult" /><br/>
+/// <see cref="TInputBotInlineResultPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultPhoto" /><br/>
+/// <see cref="TInputBotInlineResultDocument"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultDocument" /><br/>
+/// <see cref="TInputBotInlineResultGame"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultGame" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputBotInlineResult), nameof(TInputBotInlineResult))]
 [JsonDerivedType(typeof(TInputBotInlineResultPhoto), nameof(TInputBotInlineResultPhoto))]
 [JsonDerivedType(typeof(TInputBotInlineResultDocument), nameof(TInputBotInlineResultDocument))]
 [JsonDerivedType(typeof(TInputBotInlineResultGame), nameof(TInputBotInlineResultGame))]
 public interface IInputBotInlineResult : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Result ID
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to send when the result is selected
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessage" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IInputBotInlineMessage SendMessage { get; set; }
 }

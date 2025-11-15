@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Full info about a <a href="https://corefork.telegram.org/api/channel#channels">channel</a>, <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a>, <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a> or <a href="https://corefork.telegram.org/api/channel#basic-groups">basic group</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messages.chatFull" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.chatFull" /></para>
+/// </summary>
 [TlObject(0xe5d7d19c)]
-public sealed class TChatFull : IChatFull//, ILayeredChatFull
+public sealed partial class TChatFull : IChatFull//, ILayeredChatFull
 {
     public uint ConstructorId => 0xe5d7d19c;
-    ///<summary>
+    /// <summary>
     /// Full info
     /// See <a href="https://corefork.telegram.org/type/ChatFull" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatFull FullChat { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// View, forward counter + info about replies
-/// See <a href="https://corefork.telegram.org/constructor/messages.messageViews" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.messageViews" /></para>
+/// </summary>
 [TlObject(0xb6c4f543)]
-public sealed class TMessageViews : IMessageViews
+public sealed partial class TMessageViews : IMessageViews
 {
     public uint ConstructorId => 0xb6c4f543;
-    ///<summary>
+    /// <summary>
     /// View, forward counter + info about replies
     /// See <a href="https://corefork.telegram.org/type/MessageViews" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageViews> Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in constructor
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in constructor
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

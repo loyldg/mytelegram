@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a media with attached stickers
-/// See <a href="https://corefork.telegram.org/type/InputStickeredMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputStickeredMedia" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputStickeredMediaPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputStickeredMediaPhoto" /><br/>
+/// <see cref="TInputStickeredMediaDocument"/> See <a href="https://corefork.telegram.org/constructor/inputStickeredMediaDocument" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputStickeredMediaPhoto), nameof(TInputStickeredMediaPhoto))]
 [JsonDerivedType(typeof(TInputStickeredMediaDocument), nameof(TInputStickeredMediaDocument))]
 public interface IInputStickeredMedia : IObject

@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new groupcall was started
-/// See <a href="https://corefork.telegram.org/constructor/updateGroupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateGroupCall" /></para>
+/// </summary>
 [TlObject(0x97d64341)]
-public sealed class TUpdateGroupCall : IUpdate
+public sealed partial class TUpdateGroupCall : IUpdate
 {
     public uint ConstructorId => 0x97d64341;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> where this group call or livestream takes place
-    ///</summary>
+    /// </summary>
     public long? ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the group call or livestream
     /// See <a href="https://corefork.telegram.org/type/GroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGroupCall Call { get; set; }
 
     public void ComputeFlag()

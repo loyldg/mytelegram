@@ -2,39 +2,42 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Apply changes to multiple stickersets
-/// See <a href="https://corefork.telegram.org/method/messages.toggleStickerSets" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.toggleStickerSets" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb5052fea)]
-public sealed class RequestToggleStickerSets : IRequest<IBool>
+public sealed partial class RequestToggleStickerSets : IRequest<IBool>
 {
     public uint ConstructorId => 0xb5052fea;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Uninstall the specified stickersets
-    ///</summary>
+    /// </summary>
     public bool Uninstall { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Archive the specified stickersets
-    ///</summary>
+    /// </summary>
     public bool Archive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unarchive the specified stickersets
-    ///</summary>
+    /// </summary>
     public bool Unarchive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickersets to act upon
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputStickerSet> Stickersets { get; set; }
 
     public void ComputeFlag()

@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A document.
-/// See <a href="https://corefork.telegram.org/type/Document" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Document" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDocumentEmpty"/> See <a href="https://corefork.telegram.org/constructor/documentEmpty" /><br/>
+/// <see cref="TDocument"/> See <a href="https://corefork.telegram.org/constructor/document" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDocumentEmpty), nameof(TDocumentEmpty))]
 [JsonDerivedType(typeof(TDocument), nameof(TDocument))]
 public interface IDocument : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Document ID or <code>0</code>
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 }

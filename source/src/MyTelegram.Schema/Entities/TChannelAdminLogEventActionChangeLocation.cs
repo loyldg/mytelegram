@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The geogroup location was changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLocation" /></para>
+/// </summary>
 [TlObject(0xe6b76ae)]
-public sealed class TChannelAdminLogEventActionChangeLocation : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangeLocation : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xe6b76ae;
-    ///<summary>
+    /// <summary>
     /// Previous location
     /// See <a href="https://corefork.telegram.org/type/ChannelLocation" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelLocation PrevValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New location
     /// See <a href="https://corefork.telegram.org/type/ChannelLocation" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelLocation NewValue { get; set; }
 
     public void ComputeFlag()

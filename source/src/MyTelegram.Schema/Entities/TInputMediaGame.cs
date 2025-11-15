@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A game
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaGame" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaGame" /></para>
+/// </summary>
 [TlObject(0xd33f43f3)]
-public sealed class TInputMediaGame : IInputMedia
+public sealed partial class TInputMediaGame : IInputMedia
 {
     public uint ConstructorId => 0xd33f43f3;
-    ///<summary>
+    /// <summary>
     /// The game to forward
     /// See <a href="https://corefork.telegram.org/type/InputGame" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGame Id { get; set; }
 
     public void ComputeFlag()

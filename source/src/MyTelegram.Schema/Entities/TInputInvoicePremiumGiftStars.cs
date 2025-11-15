@@ -2,28 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumGiftStars" />
-///</summary>
+/// <summary>
+/// Used to gift a <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription to another user, paying with <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumGiftStars" /></para>
+/// </summary>
 [TlObject(0xdabab2ef)]
-public sealed class TInputInvoicePremiumGiftStars : IInputInvoice
+public sealed partial class TInputInvoicePremiumGiftStars : IInputInvoice
 {
     public uint ConstructorId => 0xdabab2ef;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Who will receive the gifted subscription.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
+    /// <summary>
+    /// Duration of the subscription in months, must be one of the options with <code>currency == "XTR"</code> returned by <a href="https://corefork.telegram.org/method/payments.getPremiumGiftCodeOptions">payments.getPremiumGiftCodeOptions</a>.
+    /// </summary>
     public int Months { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Message attached with the gift.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
     public void ComputeFlag()

@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Verify a phone number for telegram <a href="https://corefork.telegram.org/passport">passport</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_CODE_EMPTY phone_code is missing.
-/// 400 PHONE_CODE_EXPIRED The phone code you provided has expired.
-/// 400 PHONE_NUMBER_INVALID The phone number is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.verifyPhone" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_CODE_EMPTY phone_code is missing.</c></para>
+/// <para><c>400 PHONE_CODE_EXPIRED The phone code you provided has expired.</c></para>
+/// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.verifyPhone" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4dd3a7f6)]
-public sealed class RequestVerifyPhone : IRequest<IBool>
+public sealed partial class RequestVerifyPhone : IRequest<IBool>
 {
     public uint ConstructorId => 0x4dd3a7f6;
 
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code hash received from the call to <a href="https://corefork.telegram.org/method/account.sendVerifyPhoneCode">account.sendVerifyPhoneCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Code received after the call to <a href="https://corefork.telegram.org/method/account.sendVerifyPhoneCode">account.sendVerifyPhoneCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCode { get; set; }
 
     public void ComputeFlag()

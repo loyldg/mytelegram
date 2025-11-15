@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Popular contact
-/// See <a href="https://corefork.telegram.org/type/PopularContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PopularContact" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPopularContact"/> See <a href="https://corefork.telegram.org/constructor/popularContact" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPopularContact), nameof(TPopularContact))]
 public interface IPopularContact : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Contact identifier
-    ///</summary>
+    /// </summary>
     long ClientId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// How many people imported this contact
-    ///</summary>
+    /// </summary>
     int Importers { get; set; }
 }

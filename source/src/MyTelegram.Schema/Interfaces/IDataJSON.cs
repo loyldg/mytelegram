@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represent a JSON-encoded object
-/// See <a href="https://corefork.telegram.org/type/DataJSON" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/DataJSON" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDataJSON"/> See <a href="https://corefork.telegram.org/constructor/dataJSON" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDataJSON), nameof(TDataJSON))]
 public interface IDataJSON : IObject
 {
-    ///<summary>
+    /// <summary>
     /// JSON-encoded object
-    ///</summary>
+    /// </summary>
     string Data { get; set; }
 }

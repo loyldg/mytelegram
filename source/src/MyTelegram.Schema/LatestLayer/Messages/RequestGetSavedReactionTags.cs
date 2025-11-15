@@ -2,29 +2,35 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Fetch the full list of <a href="https://corefork.telegram.org/api/saved-messages#tags">saved message tags</a> created by the user.
-/// See <a href="https://corefork.telegram.org/method/messages.getSavedReactionTags" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSavedReactionTags" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3637e05b)]
-public sealed class RequestGetSavedReactionTags : IRequest<MyTelegram.Schema.Messages.ISavedReactionTags>
+public sealed partial class RequestGetSavedReactionTags : IRequest<MyTelegram.Schema.Messages.ISavedReactionTags>
 {
     public uint ConstructorId => 0x3637e05b;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, returns tags only used in the specified <a href="https://corefork.telegram.org/api/saved-messages#saved-message-dialogs">saved message dialog</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

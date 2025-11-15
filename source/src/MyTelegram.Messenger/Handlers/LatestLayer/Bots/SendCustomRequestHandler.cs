@@ -1,18 +1,19 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Bots;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Bots;
+/// <summary>
 /// Sends a custom request; for bots only
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 DATA_JSON_INVALID The provided JSON data is invalid.
 /// 400 METHOD_INVALID The specified method is invalid.
-/// 403 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-/// See <a href="https://corefork.telegram.org/method/bots.sendCustomRequest" />
-///</summary>
+/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
+/// <para><c>See <a href="https://corefork.telegram.org/method/bots.sendCustomRequest"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 internal sealed class SendCustomRequestHandler : RpcResultObjectHandler<MyTelegram.Schema.Bots.RequestSendCustomRequest, MyTelegram.Schema.IDataJSON>
 {
-    protected override Task<MyTelegram.Schema.IDataJSON> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Bots.RequestSendCustomRequest obj)
+    protected override Task<MyTelegram.Schema.IDataJSON> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Bots.RequestSendCustomRequest obj)
     {
         throw new NotImplementedException();
     }

@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// Finish an SMS job (official clients only).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 SMSJOB_ID_INVALID The specified job ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/smsjobs.finishJob" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SMSJOB_ID_INVALID The specified job ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/smsjobs.finishJob" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4f1ebf24)]
-public sealed class RequestFinishJob : IRequest<IBool>
+public sealed partial class RequestFinishJob : IRequest<IBool>
 {
     public uint ConstructorId => 0x4f1ebf24;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Job ID.
-    ///</summary>
+    /// </summary>
     public string JobId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If failed, the error.
-    ///</summary>
+    /// </summary>
     public string? Error { get; set; }
 
     public void ComputeFlag()

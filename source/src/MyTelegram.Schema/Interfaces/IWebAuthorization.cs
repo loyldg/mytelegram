@@ -2,55 +2,59 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Web authorization
-/// See <a href="https://corefork.telegram.org/type/WebAuthorization" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/WebAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebAuthorization"/> See <a href="https://corefork.telegram.org/constructor/webAuthorization" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebAuthorization), nameof(TWebAuthorization))]
 public interface IWebAuthorization : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Authorization hash
-    ///</summary>
+    /// </summary>
     long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot ID
-    ///</summary>
+    /// </summary>
     long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The domain name of the website on which the user has logged in.
-    ///</summary>
+    /// </summary>
     string Domain { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Browser user-agent
-    ///</summary>
+    /// </summary>
     string Browser { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Platform
-    ///</summary>
+    /// </summary>
     string Platform { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the web session created
-    ///</summary>
+    /// </summary>
     int DateCreated { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the web session last active
-    ///</summary>
+    /// </summary>
     int DateActive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IP address
-    ///</summary>
+    /// </summary>
     string Ip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Region, determined from IP address
-    ///</summary>
+    /// </summary>
     string Region { get; set; }
 }

@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User profile photo.
-/// See <a href="https://corefork.telegram.org/constructor/userProfilePhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/userProfilePhoto" /></para>
+/// </summary>
 [TlObject(0x82d1f706)]
-public sealed class TUserProfilePhoto : IUserProfilePhoto
+public sealed partial class TUserProfilePhoto : IUserProfilePhoto
 {
     public uint ConstructorId => 0x82d1f706;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether an <a href="https://corefork.telegram.org/api/files#animated-profile-pictures">animated profile picture</a> is available for this user
-    ///</summary>
+    /// </summary>
     public bool HasVideo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this profile photo is only visible to us (i.e. it was set using <a href="https://corefork.telegram.org/method/photos.uploadContactProfilePhoto">photos.uploadContactProfilePhoto</a>).
-    ///</summary>
+    /// </summary>
     public bool Personal { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the respective photo
-    ///</summary>
+    /// </summary>
     public long PhotoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#stripped-thumbnails">Stripped thumbnail</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? StrippedThumb { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// DC ID where the photo is stored
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// The list of color palettes has not changed.
-/// See <a href="https://corefork.telegram.org/constructor/help.peerColorsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.peerColorsNotModified" /></para>
+/// </summary>
 [TlObject(0x2ba1f5ce)]
-public sealed class TPeerColorsNotModified : IPeerColors
+public sealed partial class TPeerColorsNotModified : IPeerColors
 {
     public uint ConstructorId => 0x2ba1f5ce;
     public void ComputeFlag()

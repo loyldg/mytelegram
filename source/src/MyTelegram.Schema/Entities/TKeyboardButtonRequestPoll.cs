@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A button that allows the user to create and send a poll when pressed; available only in private
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPoll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPoll" /></para>
+/// </summary>
 [TlObject(0xbbc7515d)]
-public sealed class TKeyboardButtonRequestPoll : IKeyboardButton
+public sealed partial class TKeyboardButtonRequestPoll : IKeyboardButton
 {
     public uint ConstructorId => 0xbbc7515d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, only quiz polls can be sent
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? Quiz { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

@@ -2,25 +2,28 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Fetch the full active <a href="https://corefork.telegram.org/api/stories#watching-stories">story list</a> of a specific peer.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.getPeerStories" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getPeerStories" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2c4ada50)]
-public sealed class RequestGetPeerStories : IRequest<MyTelegram.Schema.Stories.IPeerStories>
+public sealed partial class RequestGetPeerStories : IRequest<MyTelegram.Schema.Stories.IPeerStories>
 {
     public uint ConstructorId => 0x2c4ada50;
 
-    ///<summary>
+    /// <summary>
     /// Peer whose stories should be fetched
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

@@ -2,27 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stories">Story</a> view date and reaction information
-/// See <a href="https://corefork.telegram.org/type/StoryView" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StoryView" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStoryView"/> See <a href="https://corefork.telegram.org/constructor/storyView" /><br/>
+/// <see cref="TStoryViewPublicForward"/> See <a href="https://corefork.telegram.org/constructor/storyViewPublicForward" /><br/>
+/// <see cref="TStoryViewPublicRepost"/> See <a href="https://corefork.telegram.org/constructor/storyViewPublicRepost" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStoryView), nameof(TStoryView))]
 [JsonDerivedType(typeof(TStoryViewPublicForward), nameof(TStoryViewPublicForward))]
 [JsonDerivedType(typeof(TStoryViewPublicRepost), nameof(TStoryViewPublicRepost))]
 public interface IStoryView : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/block">completely blocked</a> this user, including from viewing more of our stories.
-    ///</summary>
+    /// </summary>
     bool Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/block">blocked</a> this user from viewing more of our stories.
-    ///</summary>
+    /// </summary>
     bool BlockedMyStoriesFrom { get; set; }
 }

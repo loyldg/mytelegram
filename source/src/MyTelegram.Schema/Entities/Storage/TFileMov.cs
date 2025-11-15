@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// Quicktime video. MIME type: <code>video/quicktime</code>.
-/// See <a href="https://corefork.telegram.org/constructor/storage.fileMov" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.fileMov" /></para>
+/// </summary>
 [TlObject(0x4b09ebbc)]
-public sealed class TFileMov : IFileType
+public sealed partial class TFileMov : IFileType
 {
     public uint ConstructorId => 0x4b09ebbc;
     public void ComputeFlag()

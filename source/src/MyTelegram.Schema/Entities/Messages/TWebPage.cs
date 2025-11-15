@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Represents an Instant View webpage.
-/// See <a href="https://corefork.telegram.org/constructor/messages.webPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.webPage" /></para>
+/// </summary>
 [TlObject(0xfd5e12bd)]
-public sealed class TWebPage : IWebPage
+public sealed partial class TWebPage : IWebPage
 {
     public uint ConstructorId => 0xfd5e12bd;
-    ///<summary>
+    /// <summary>
     /// The instant view webpage.
     /// See <a href="https://corefork.telegram.org/type/WebPage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebPage Webpage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in the webpage.
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the webpage.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

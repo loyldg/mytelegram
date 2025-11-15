@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about one or more peers that the we (the user) shared with the bot after clicking on a <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a> button (service message sent by the user).
-/// See <a href="https://corefork.telegram.org/constructor/messageActionRequestedPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionRequestedPeer" /></para>
+/// </summary>
 [TlObject(0x31518e9b)]
-public sealed class TMessageActionRequestedPeer : IMessageAction
+public sealed partial class TMessageActionRequestedPeer : IMessageAction
 {
     public uint ConstructorId => 0x31518e9b;
-    ///<summary>
+    /// <summary>
     /// <code>button_id</code> contained in the <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a>
-    ///</summary>
+    /// </summary>
     public int ButtonId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The shared peers
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
 
     public void ComputeFlag()

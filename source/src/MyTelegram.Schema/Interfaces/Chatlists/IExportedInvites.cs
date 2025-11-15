@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// A list of exported <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep links »</a>.
-/// See <a href="https://corefork.telegram.org/type/chatlists.ExportedInvites" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/chatlists.ExportedInvites" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedInvites"/> See <a href="https://corefork.telegram.org/constructor/chatlists.exportedInvites" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedInvites), nameof(TExportedInvites))]
 public interface IExportedInvites : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep links »</a>.
     /// See <a href="https://corefork.telegram.org/type/ExportedChatlistInvite" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IExportedChatlistInvite> Invites { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related chat information
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related user information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

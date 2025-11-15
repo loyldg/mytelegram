@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Incoming messages in a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> were read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadChannelInbox" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadChannelInbox" /></para>
+/// </summary>
 [TlObject(0x922e6e10)]
-public sealed class TUpdateReadChannelInbox : IUpdate
+public sealed partial class TUpdateReadChannelInbox : IUpdate
 {
     public uint ConstructorId => 0x922e6e10;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position up to which all incoming messages are read.
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Count of messages weren't read yet
-    ///</summary>
+    /// </summary>
     public int StillUnreadCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
     public void ComputeFlag()

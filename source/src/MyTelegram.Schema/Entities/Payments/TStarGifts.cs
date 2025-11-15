@@ -2,33 +2,35 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Available <a href="https://corefork.telegram.org/api/gifts">gifts »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/payments.starGifts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starGifts" /></para>
+/// </summary>
 [TlObject(0x2ed82995)]
-public sealed class TStarGifts : IStarGifts
+public sealed partial class TStarGifts : IStarGifts
 {
     public uint ConstructorId => 0x2ed82995;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of available gifts.
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarGift> Gifts { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Chats mentioned in the <code>gifts</code> field.
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Users mentioned in the <code>gifts</code> field.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

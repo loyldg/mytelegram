@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Webpage attributes
-/// See <a href="https://corefork.telegram.org/type/WebPageAttribute" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/WebPageAttribute" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebPageAttributeTheme"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeTheme" /><br/>
+/// <see cref="TWebPageAttributeStory"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeStory" /><br/>
+/// <see cref="TWebPageAttributeStickerSet"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeStickerSet" /><br/>
+/// <see cref="TWebPageAttributeUniqueStarGift"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeUniqueStarGift" /><br/>
+/// <see cref="TWebPageAttributeStarGiftCollection"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeStarGiftCollection" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebPageAttributeTheme), nameof(TWebPageAttributeTheme))]
 [JsonDerivedType(typeof(TWebPageAttributeStory), nameof(TWebPageAttributeStory))]
 [JsonDerivedType(typeof(TWebPageAttributeStickerSet), nameof(TWebPageAttributeStickerSet))]

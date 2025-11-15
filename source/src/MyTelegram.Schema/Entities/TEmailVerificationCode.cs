@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Email verification code
-/// See <a href="https://corefork.telegram.org/constructor/emailVerificationCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emailVerificationCode" /></para>
+/// </summary>
 [TlObject(0x922e55a9)]
-public sealed class TEmailVerificationCode : IEmailVerification
+public sealed partial class TEmailVerificationCode : IEmailVerification
 {
     public uint ConstructorId => 0x922e55a9;
-    ///<summary>
+    /// <summary>
     /// Received verification code
-    ///</summary>
+    /// </summary>
     public string Code { get; set; }
 
     public void ComputeFlag()

@@ -2,16 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/TodoItem" />
-///</summary>
+/// <summary>
+/// An item of a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/TodoItem" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTodoItem"/> See <a href="https://corefork.telegram.org/constructor/todoItem" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTodoItem), nameof(TTodoItem))]
 public interface ITodoItem : IObject
 {
+    /// <summary>
+    /// ID of the item, a positive (non-zero) integer unique within the current list.
+    /// </summary>
     int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Text of the item, maximum length equal to <a href="https://corefork.telegram.org/api/config#todo-item-length-max">todo_item_length_max »</a>.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ITextWithEntities Title { get; set; }
 }

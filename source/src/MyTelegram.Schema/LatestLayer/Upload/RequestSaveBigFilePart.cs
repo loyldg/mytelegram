@@ -2,42 +2,45 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Saves a part of a large file (over 10 MB in size) to be later passed to one of the methods.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILE_PARTS_INVALID The number of file parts is invalid.
-/// 400 FILE_PART_EMPTY The provided file part is empty.
-/// 400 FILE_PART_INVALID The file part number is invalid.
-/// 400 FILE_PART_SIZE_CHANGED Provided file part size has changed.
-/// 400 FILE_PART_SIZE_INVALID The provided file part size is invalid.
-/// 400 FILE_PART_TOO_BIG The uploaded file part is too big.
-/// 400 FILE_PART_TOO_SMALL The size of the uploaded file part is too small, please see the documentation for the allowed sizes.
-/// See <a href="https://corefork.telegram.org/method/upload.saveBigFilePart" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILE_PARTS_INVALID The number of file parts is invalid.</c></para>
+/// <para><c>400 FILE_PART_EMPTY The provided file part is empty.</c></para>
+/// <para><c>400 FILE_PART_INVALID The file part number is invalid.</c></para>
+/// <para><c>400 FILE_PART_SIZE_CHANGED Provided file part size has changed.</c></para>
+/// <para><c>400 FILE_PART_SIZE_INVALID The provided file part size is invalid.</c></para>
+/// <para><c>400 FILE_PART_TOO_BIG The uploaded file part is too big.</c></para>
+/// <para><c>400 FILE_PART_TOO_SMALL The size of the uploaded file part is too small, please see the documentation for the allowed sizes. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/upload.saveBigFilePart" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xde7b673d)]
-public sealed class RequestSaveBigFilePart : IRequest<IBool>
+public sealed partial class RequestSaveBigFilePart : IRequest<IBool>
 {
     public uint ConstructorId => 0xde7b673d;
 
-    ///<summary>
+    /// <summary>
     /// Random file id, created by the client
-    ///</summary>
+    /// </summary>
     public long FileId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Part sequence number
-    ///</summary>
+    /// </summary>
     public int FilePart { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of parts
-    ///</summary>
+    /// </summary>
     public int FileTotalParts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Binary data, part contents
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

@@ -2,30 +2,33 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Obtain info about the view count, forward count, reactions and recent viewers of one or more <a href="https://corefork.telegram.org/api/stories">stories</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STORY_ID_EMPTY You specified no story IDs.
-/// See <a href="https://corefork.telegram.org/method/stories.getStoriesViews" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STORY_ID_EMPTY You specified no story IDs. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getStoriesViews" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x28e16cc8)]
-public sealed class RequestGetStoriesViews : IRequest<MyTelegram.Schema.Stories.IStoryViews>
+public sealed partial class RequestGetStoriesViews : IRequest<MyTelegram.Schema.Stories.IStoryViews>
 {
     public uint ConstructorId => 0x28e16cc8;
 
-    ///<summary>
+    /// <summary>
     /// Peer whose stories should be fetched
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

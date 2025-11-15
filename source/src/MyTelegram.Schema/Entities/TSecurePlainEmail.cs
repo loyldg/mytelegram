@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Email address to use in <a href="https://corefork.telegram.org/passport">telegram passport</a>: <a href="https://corefork.telegram.org/passport/encryption#secureplaindata">it must be verified, first »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/securePlainEmail" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/securePlainEmail" /></para>
+/// </summary>
 [TlObject(0x21ec5a5f)]
-public sealed class TSecurePlainEmail : ISecurePlainData
+public sealed partial class TSecurePlainEmail : ISecurePlainData
 {
     public uint ConstructorId => 0x21ec5a5f;
-    ///<summary>
+    /// <summary>
     /// Email address
-    ///</summary>
+    /// </summary>
     public string Email { get; set; }
 
     public void ComputeFlag()

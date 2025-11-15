@@ -2,42 +2,45 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Rate a call, returns info about the rating message sent to the official VoIP bot.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CALL_PEER_INVALID The provided call peer object is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.setCallRating" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CALL_PEER_INVALID The provided call peer object is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.setCallRating" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x59ead627)]
-public sealed class RequestSetCallRating : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSetCallRating : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x59ead627;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user decided on their own initiative to rate the call
-    ///</summary>
+    /// </summary>
     public bool UserInitiative { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The call to rate
     /// See <a href="https://corefork.telegram.org/type/InputPhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoneCall Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Rating in <code>1-5</code> stars
-    ///</summary>
+    /// </summary>
     public int Rating { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// An additional comment
-    ///</summary>
+    /// </summary>
     public string Comment { get; set; }
 
     public void ComputeFlag()

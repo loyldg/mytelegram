@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a chat for further interaction.
-/// See <a href="https://corefork.telegram.org/constructor/inputPeerChat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPeerChat" /></para>
+/// </summary>
 [TlObject(0x35a95cb9)]
-public sealed class TInputPeerChat : IInputPeer
+public sealed partial class TInputPeerChat : IInputPeer
 {
     public uint ConstructorId => 0x35a95cb9;
-    ///<summary>
+    /// <summary>
     /// Chat identifier
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
     public void ComputeFlag()

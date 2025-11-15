@@ -2,22 +2,33 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.getStarGiftWithdrawalUrl" />
-///</summary>
+/// <summary>
+/// Convert a <a href="https://corefork.telegram.org/api/gifts">collectible gift »</a> to an NFT on the TON blockchain.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PASSWORD_HASH_INVALID The provided password hash is invalid.</c></para>
+/// <para><c>400 PASSWORD_TOO_FRESH_%d The password was modified less than 24 hours ago, try again in %d seconds.</c></para>
+/// <para><c>400 SESSION_TOO_FRESH_%d This session was created less than 24 hours ago, try again in %d seconds. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarGiftWithdrawalUrl" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd06e93a8)]
-public sealed class RequestGetStarGiftWithdrawalUrl : IRequest<MyTelegram.Schema.Payments.IStarGiftWithdrawalUrl>
+public sealed partial class RequestGetStarGiftWithdrawalUrl : IRequest<MyTelegram.Schema.Payments.IStarGiftWithdrawalUrl>
 {
     public uint ConstructorId => 0xd06e93a8;
 
-    ///<summary>
+    /// <summary>
+    /// The collectible gift to export.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The current user's 2FA password, passed as <a href="https://corefork.telegram.org/api/srp">specified here »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
 
     public void ComputeFlag()

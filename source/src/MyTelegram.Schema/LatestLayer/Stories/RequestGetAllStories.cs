@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Fetch the List of active (or active and hidden) stories, see <a href="https://corefork.telegram.org/api/stories#watching-stories">here »</a> for more info on watching stories.
-/// See <a href="https://corefork.telegram.org/method/stories.getAllStories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getAllStories" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xeeb0d625)]
-public sealed class RequestGetAllStories : IRequest<MyTelegram.Schema.Stories.IAllStories>
+public sealed partial class RequestGetAllStories : IRequest<MyTelegram.Schema.Stories.IAllStories>
 {
     public uint ConstructorId => 0xeeb0d625;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If <code>next</code> and <code>state</code> are both set, uses the passed <code>state</code> to paginate to the next results; if neither <code>state</code> nor <code>next</code> are set, fetches the initial page; if <code>state</code> is set and <code>next</code> is not set, check for changes in the active/hidden peerset, see <a href="https://corefork.telegram.org/api/stories#watching-stories">here »</a> for more info on the full flow.
-    ///</summary>
+    /// </summary>
     public bool Next { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, fetches the hidden active story list, otherwise fetches the active story list, see <a href="https://corefork.telegram.org/api/stories#watching-stories">here »</a> for more info on the full flow.
-    ///</summary>
+    /// </summary>
     public bool Hidden { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If <code>next</code> and <code>state</code> are both set, uses the passed <code>state</code> to paginate to the next results; if neither <code>state</code> nor <code>next</code> are set, fetches the initial page; if <code>state</code> is set and <code>next</code> is not set, check for changes in the active/hidden peerset, see <a href="https://corefork.telegram.org/api/stories#watching-stories">here »</a> for more info on the full flow.
-    ///</summary>
+    /// </summary>
     public string? State { get; set; }
 
     public void ComputeFlag()

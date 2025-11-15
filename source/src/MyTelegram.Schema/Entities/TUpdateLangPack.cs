@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Language pack updated
-/// See <a href="https://corefork.telegram.org/constructor/updateLangPack" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateLangPack" /></para>
+/// </summary>
 [TlObject(0x56022f4d)]
-public sealed class TUpdateLangPack : IUpdate
+public sealed partial class TUpdateLangPack : IUpdate
 {
     public uint ConstructorId => 0x56022f4d;
-    ///<summary>
+    /// <summary>
     /// Changed strings
     /// See <a href="https://corefork.telegram.org/type/LangPackDifference" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ILangPackDifference Difference { get; set; }
 
     public void ComputeFlag()

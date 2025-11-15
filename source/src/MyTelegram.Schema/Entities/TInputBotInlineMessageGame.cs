@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A game
-/// See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageGame" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageGame" /></para>
+/// </summary>
 [TlObject(0x4b425864)]
-public sealed class TInputBotInlineMessageGame : IInputBotInlineMessage
+public sealed partial class TInputBotInlineMessageGame : IInputBotInlineMessage
 {
     public uint ConstructorId => 0x4b425864;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
     public void ComputeFlag()

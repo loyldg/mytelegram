@@ -2,26 +2,31 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about a <a href="https://corefork.telegram.org/api/giveaways">prepaid giveaway »</a>.
-/// See <a href="https://corefork.telegram.org/type/PrepaidGiveaway" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PrepaidGiveaway" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPrepaidGiveaway"/> See <a href="https://corefork.telegram.org/constructor/prepaidGiveaway" /><br/>
+/// <see cref="TPrepaidStarsGiveaway"/> See <a href="https://corefork.telegram.org/constructor/prepaidStarsGiveaway" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPrepaidGiveaway), nameof(TPrepaidGiveaway))]
 [JsonDerivedType(typeof(TPrepaidStarsGiveaway), nameof(TPrepaidStarsGiveaway))]
 public interface IPrepaidGiveaway : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Prepaid giveaway ID.
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of given away <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscriptions.
-    ///</summary>
+    /// </summary>
     int Quantity { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment date.
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 }

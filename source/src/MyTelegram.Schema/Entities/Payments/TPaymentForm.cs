@@ -2,104 +2,104 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Payment form
-/// See <a href="https://corefork.telegram.org/constructor/payments.paymentForm" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.paymentForm" /></para>
+/// </summary>
 [TlObject(0xa0058751)]
-public sealed class TPaymentForm : IPaymentForm
+public sealed partial class TPaymentForm : IPaymentForm
 {
     public uint ConstructorId => 0xa0058751;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user can choose to save credentials.
-    ///</summary>
+    /// </summary>
     public bool CanSaveCredentials { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Indicates that the user can save payment credentials, but only after setting up a <a href="https://corefork.telegram.org/api/srp">2FA password</a> (currently the account doesn't have a <a href="https://corefork.telegram.org/api/srp">2FA password</a>)
-    ///</summary>
+    /// </summary>
     public bool PasswordMissing { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Form ID
-    ///</summary>
+    /// </summary>
     public long FormId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot ID
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Form title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product photo
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/Invoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment provider ID.
-    ///</summary>
+    /// </summary>
     public long ProviderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment form URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
-    /// Payment provider name.<br>One of the following:<br>- <code>stripe</code>
-    ///</summary>
+    /// <summary>
+    /// Payment provider name.<br/>One of the following:<br/>- <code>stripe</code>
+    /// </summary>
     public string? NativeProvider { get; set; }
 
-    ///<summary>
-    /// Contains information about the payment provider, if available, to support it natively without the need for opening the URL.<br>A JSON object that can contain the following fields:<br><br>- <code>apple_pay_merchant_id</code>: Apple Pay merchant ID<br>- <code>google_pay_public_key</code>: Google Pay public key<br>- <code>need_country</code>: True, if the user country must be provided,<br>- <code>need_zip</code>: True, if the user ZIP/postal code must be provided,<br>- <code>need_cardholder_name</code>: True, if the cardholder name must be provided<br>
+    /// <summary>
+    /// Contains information about the payment provider, if available, to support it natively without the need for opening the URL.<br/>A JSON object that can contain the following fields:<br/><br/>- <code>apple_pay_merchant_id</code>: Apple Pay merchant ID<br/>- <code>google_pay_public_key</code>: Google Pay public key<br/>- <code>need_country</code>: True, if the user country must be provided,<br/>- <code>need_zip</code>: True, if the user ZIP/postal code must be provided,<br/>- <code>need_cardholder_name</code>: True, if the cardholder name must be provided<br/>
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON? NativeParams { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Additional payment methods
     /// See <a href="https://corefork.telegram.org/type/PaymentFormMethod" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPaymentFormMethod>? AdditionalMethods { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Saved server-side order information
     /// See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaymentRequestedInfo? SavedInfo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains information about saved card credentials
     /// See <a href="https://corefork.telegram.org/type/PaymentSavedCredentials" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPaymentSavedCredentials>? SavedCredentials { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

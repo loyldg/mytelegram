@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Clear all <a href="https://corefork.telegram.org/api/drafts">drafts</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.clearAllDrafts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.clearAllDrafts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7e58ee9c)]
-public sealed class RequestClearAllDrafts : IRequest<IBool>
+public sealed partial class RequestClearAllDrafts : IRequest<IBool>
 {
     public uint ConstructorId => 0x7e58ee9c;
 

@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Number of online users in a chat
-/// See <a href="https://corefork.telegram.org/type/ChatOnlines" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChatOnlines" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatOnlines"/> See <a href="https://corefork.telegram.org/constructor/chatOnlines" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatOnlines), nameof(TChatOnlines))]
 public interface IChatOnlines : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Number of online users
-    ///</summary>
+    /// </summary>
     int Onlines { get; set; }
 }

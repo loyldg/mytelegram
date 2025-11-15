@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Top peer category
-/// See <a href="https://corefork.telegram.org/constructor/topPeerCategoryPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/topPeerCategoryPeers" /></para>
+/// </summary>
 [TlObject(0xfb834291)]
-public sealed class TTopPeerCategoryPeers : ITopPeerCategoryPeers
+public sealed partial class TTopPeerCategoryPeers : ITopPeerCategoryPeers
 {
     public uint ConstructorId => 0xfb834291;
-    ///<summary>
+    /// <summary>
     /// Top peer category of peers
     /// See <a href="https://corefork.telegram.org/type/TopPeerCategory" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITopPeerCategory Category { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Count of peers
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peers
     /// See <a href="https://corefork.telegram.org/type/TopPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ITopPeer> Peers { get; set; }
 
     public void ComputeFlag()

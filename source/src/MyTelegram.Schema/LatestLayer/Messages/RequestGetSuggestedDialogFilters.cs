@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/folders">suggested folders</a>
-/// See <a href="https://corefork.telegram.org/method/messages.getSuggestedDialogFilters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSuggestedDialogFilters" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa29cd42c)]
-public sealed class RequestGetSuggestedDialogFilters : IRequest<TVector<MyTelegram.Schema.IDialogFilterSuggested>>
+public sealed partial class RequestGetSuggestedDialogFilters : IRequest<TVector<MyTelegram.Schema.IDialogFilterSuggested>>
 {
     public uint ConstructorId => 0xa29cd42c;
 

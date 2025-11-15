@@ -2,35 +2,38 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Report a <a href="https://corefork.telegram.org/api/reactions">message reaction</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.reportReaction" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.reportReaction" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3f64c076)]
-public sealed class RequestReportReaction : IRequest<IBool>
+public sealed partial class RequestReportReaction : IRequest<IBool>
 {
     public uint ConstructorId => 0x3f64c076;
 
-    ///<summary>
+    /// <summary>
     /// Peer where the message was sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer that sent the reaction
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer ReactionPeer { get; set; }
 
     public void ComputeFlag()

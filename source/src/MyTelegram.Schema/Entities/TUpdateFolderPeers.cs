@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The peer list of a <a href="https://corefork.telegram.org/api/folders#peer-folders">peer folder</a> was updated
-/// See <a href="https://corefork.telegram.org/constructor/updateFolderPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateFolderPeers" /></para>
+/// </summary>
 [TlObject(0x19360dc0)]
-public sealed class TUpdateFolderPeers : IUpdate
+public sealed partial class TUpdateFolderPeers : IUpdate
 {
     public uint ConstructorId => 0x19360dc0;
-    ///<summary>
+    /// <summary>
     /// New peer list
     /// See <a href="https://corefork.telegram.org/type/FolderPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IFolderPeer> FolderPeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A message was pinned
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionUpdatePinned" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionUpdatePinned" /></para>
+/// </summary>
 [TlObject(0xe9e82c18)]
-public sealed class TChannelAdminLogEventActionUpdatePinned : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionUpdatePinned : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xe9e82c18;
-    ///<summary>
+    /// <summary>
     /// The message that was pinned
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
     public void ComputeFlag()

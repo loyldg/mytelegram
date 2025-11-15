@@ -2,35 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// How users voted on a certain poll answer
-/// See <a href="https://corefork.telegram.org/type/PollAnswerVoters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PollAnswerVoters" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPollAnswerVoters"/> See <a href="https://corefork.telegram.org/constructor/pollAnswerVoters" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPollAnswerVoters), nameof(TPollAnswerVoters))]
 public interface IPollAnswerVoters : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have chosen this answer
-    ///</summary>
+    /// </summary>
     bool Chosen { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For quizzes, whether the option we have chosen is correct
-    ///</summary>
+    /// </summary>
     bool Correct { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The param that has to be passed to <a href="https://corefork.telegram.org/method/messages.sendVote">messages.sendVote</a>.
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Option { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// How many users voted for this option
-    ///</summary>
+    /// </summary>
     int Voters { get; set; }
 }

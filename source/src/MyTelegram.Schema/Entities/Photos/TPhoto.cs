@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema.Photos;
 
-///<summary>
+/// <summary>
 /// Photo with auxiliary data.
-/// See <a href="https://corefork.telegram.org/constructor/photos.photo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photos.photo" /></para>
+/// </summary>
 [TlObject(0x20212ca8)]
-public sealed class TPhoto : IPhoto
+public sealed partial class TPhoto : IPhoto
 {
     public uint ConstructorId => 0x20212ca8;
-    ///<summary>
+    /// <summary>
     /// Photo
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

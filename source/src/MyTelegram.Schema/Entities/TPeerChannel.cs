@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel/supergroup
-/// See <a href="https://corefork.telegram.org/constructor/peerChannel" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/peerChannel" /></para>
+/// </summary>
 [TlObject(0xa2a5371e)]
-public sealed class TPeerChannel : IPeer
+public sealed partial class TPeerChannel : IPeer
 {
     public uint ConstructorId => 0xa2a5371e;
-    ///<summary>
+    /// <summary>
     /// Channel ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
     public void ComputeFlag()

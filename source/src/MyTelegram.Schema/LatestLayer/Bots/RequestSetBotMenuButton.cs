@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Sets the <a href="https://corefork.telegram.org/api/bots/menu">menu button action »</a> for a given user or for all users
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BUTTON_TEXT_INVALID The specified button text is invalid.
-/// 400 BUTTON_URL_INVALID Button URL invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/bots.setBotMenuButton" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BUTTON_INVALID The specified button is invalid.</c></para>
+/// <para><c>400 BUTTON_TEXT_INVALID The specified button text is invalid.</c></para>
+/// <para><c>400 BUTTON_URL_INVALID Button URL invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.setBotMenuButton" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4504d54f)]
-public sealed class RequestSetBotMenuButton : IRequest<IBool>
+public sealed partial class RequestSetBotMenuButton : IRequest<IBool>
 {
     public uint ConstructorId => 0x4504d54f;
 
-    ///<summary>
+    /// <summary>
     /// User ID
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot menu button action
     /// See <a href="https://corefork.telegram.org/type/BotMenuButton" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotMenuButton Button { get; set; }
 
     public void ComputeFlag()

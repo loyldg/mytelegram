@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Mark a specific <a href="https://corefork.telegram.org/api/sponsored-messages">sponsored message »</a> as read
-/// See <a href="https://corefork.telegram.org/method/messages.viewSponsoredMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.viewSponsoredMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x269e3643)]
-public sealed class RequestViewSponsoredMessage : IRequest<IBool>
+public sealed partial class RequestViewSponsoredMessage : IRequest<IBool>
 {
     public uint ConstructorId => 0x269e3643;
 
-    ///<summary>
+    /// <summary>
     /// The ad's unique ID.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> RandomId { get; set; }
 
     public void ComputeFlag()

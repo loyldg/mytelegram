@@ -2,47 +2,50 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Start a conversation with a bot using a <a href="https://corefork.telegram.org/api/links#bot-links">deep linking parameter</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
-/// 400 START_PARAM_EMPTY The start parameter is empty.
-/// 400 START_PARAM_INVALID Start parameter invalid.
-/// 400 START_PARAM_TOO_LONG Start parameter is too long.
-/// See <a href="https://corefork.telegram.org/method/messages.startBot" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.</c></para>
+/// <para><c>400 START_PARAM_EMPTY The start parameter is empty.</c></para>
+/// <para><c>400 START_PARAM_INVALID Start parameter invalid.</c></para>
+/// <para><c>400 START_PARAM_TOO_LONG Start parameter is too long. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.startBot" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe6df7378)]
-public sealed class RequestStartBot : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestStartBot : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xe6df7378;
 
-    ///<summary>
+    /// <summary>
     /// The bot
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The chat where to start the bot, can be the bot's private chat or a group
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Random ID to avoid resending the same message
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/links#bot-links">Deep linking parameter</a>
-    ///</summary>
+    /// </summary>
     public string StartParam { get; set; }
 
     public void ComputeFlag()

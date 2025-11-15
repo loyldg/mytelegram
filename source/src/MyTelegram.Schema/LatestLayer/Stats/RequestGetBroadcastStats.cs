@@ -2,35 +2,38 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/stats">channel statistics</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BROADCAST_REQUIRED This method can only be called on a channel, please use stats.getMegagroupStats for supergroups.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// See <a href="https://corefork.telegram.org/method/stats.getBroadcastStats" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BROADCAST_REQUIRED This method can only be called on a channel, please use stats.getMegagroupStats for supergroups.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stats.getBroadcastStats" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xab42441a)]
-public sealed class RequestGetBroadcastStats : IRequest<MyTelegram.Schema.Stats.IBroadcastStats>
+public sealed partial class RequestGetBroadcastStats : IRequest<MyTelegram.Schema.Stats.IBroadcastStats>
 {
     public uint ConstructorId => 0xab42441a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to enable dark theme for graph colors
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     public void ComputeFlag()

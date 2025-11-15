@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a specific local notification sound should be used
-/// See <a href="https://corefork.telegram.org/constructor/notificationSoundLocal" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/notificationSoundLocal" /></para>
+/// </summary>
 [TlObject(0x830b9ae4)]
-public sealed class TNotificationSoundLocal : INotificationSound
+public sealed partial class TNotificationSoundLocal : INotificationSound
 {
     public uint ConstructorId => 0x830b9ae4;
-    ///<summary>
+    /// <summary>
     /// Notification sound title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification sound identifier (arbitrary data used by the client to identify a specific local notification sound)
-    ///</summary>
+    /// </summary>
     public string Data { get; set; }
 
     public void ComputeFlag()

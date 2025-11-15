@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Vote in a <a href="https://corefork.telegram.org/constructor/poll">poll</a>Starting from layer 159, the vote will be sent from the peer specified using <a href="https://corefork.telegram.org/method/messages.saveDefaultSendAs">messages.saveDefaultSendAs</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 MESSAGE_POLL_CLOSED Poll closed.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 OPTIONS_TOO_MUCH Too many options provided.
-/// 400 OPTION_INVALID Invalid option selected.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 REVOTE_NOT_ALLOWED You cannot change your vote.
-/// See <a href="https://corefork.telegram.org/method/messages.sendVote" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 MESSAGE_POLL_CLOSED Poll closed.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 OPTIONS_TOO_MUCH Too many options provided.</c></para>
+/// <para><c>400 OPTION_INVALID Invalid option selected.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 REVOTE_NOT_ALLOWED You cannot change your vote. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendVote" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x10ea6184)]
-public sealed class RequestSendVote : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendVote : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x10ea6184;
 
-    ///<summary>
+    /// <summary>
     /// The chat where the poll was sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message ID of the poll
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The options that were chosen
-    ///</summary>
+    /// </summary>
     public TVector<string> Options { get; set; }
 
     public void ComputeFlag()

@@ -2,48 +2,51 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Dismiss or approve a chat <a href="https://corefork.telegram.org/api/invites#join-requests">join request</a> related to a specific chat or channel.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 HIDE_REQUESTER_MISSING The join request was missing or was already handled.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USER_ALREADY_PARTICIPANT The user is already in the group.
-/// 403 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.hideChatJoinRequest" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 HIDE_REQUESTER_MISSING The join request was missing or was already handled.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USER_ALREADY_PARTICIPANT The user is already in the group.</c></para>
+/// <para><c>403 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.hideChatJoinRequest" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7fe7e815)]
-public sealed class RequestHideChatJoinRequest : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestHideChatJoinRequest : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x7fe7e815;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to dismiss or approve the chat <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a>
-    ///</summary>
+    /// </summary>
     public bool Approved { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The chat or channel
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user whose <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a> should be dismissed or approved
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

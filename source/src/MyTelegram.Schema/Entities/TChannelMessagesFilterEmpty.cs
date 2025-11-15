@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// No filter
-/// See <a href="https://corefork.telegram.org/constructor/channelMessagesFilterEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelMessagesFilterEmpty" /></para>
+/// </summary>
 [TlObject(0x94d42ee7)]
-public sealed class TChannelMessagesFilterEmpty : IChannelMessagesFilter
+public sealed partial class TChannelMessagesFilterEmpty : IChannelMessagesFilter
 {
     public uint ConstructorId => 0x94d42ee7;
     public void ComputeFlag()

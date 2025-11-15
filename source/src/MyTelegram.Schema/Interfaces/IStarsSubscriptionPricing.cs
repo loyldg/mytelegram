@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Pricing of a <a href="https://corefork.telegram.org/api/invites#paid-invite-links">Telegram Star subscription »</a>.
-/// See <a href="https://corefork.telegram.org/type/StarsSubscriptionPricing" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StarsSubscriptionPricing" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarsSubscriptionPricing"/> See <a href="https://corefork.telegram.org/constructor/starsSubscriptionPricing" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarsSubscriptionPricing), nameof(TStarsSubscriptionPricing))]
 public interface IStarsSubscriptionPricing : IObject
 {
-    ///<summary>
-    /// The user should pay <code>amount</code> stars every <code>period</code> seconds to gain and maintain access to the channel. <br>Currently the only allowed subscription period is <code>30*24*60*60</code>, i.e. the user will be debited amount stars every month.
-    ///</summary>
+    /// <summary>
+    /// The user should pay <code>amount</code> stars every <code>period</code> seconds to gain and maintain access to the channel. <br/>Currently the only allowed subscription period is <code>30*24*60*60</code>, i.e. the user will be debited amount stars every month.
+    /// </summary>
     int Period { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price of the subscription in Telegram Stars.
-    ///</summary>
+    /// </summary>
     long Amount { get; set; }
 }

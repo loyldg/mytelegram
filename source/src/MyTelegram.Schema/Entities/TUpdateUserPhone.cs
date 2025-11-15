@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user's phone number was changed
-/// See <a href="https://corefork.telegram.org/constructor/updateUserPhone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateUserPhone" /></para>
+/// </summary>
 [TlObject(0x5492a13)]
-public sealed class TUpdateUserPhone : IUpdate
+public sealed partial class TUpdateUserPhone : IUpdate
 {
     public uint ConstructorId => 0x5492a13;
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New phone number
-    ///</summary>
+    /// </summary>
     public string Phone { get; set; }
 
     public void ComputeFlag()

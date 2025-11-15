@@ -2,23 +2,29 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Payment form
-/// See <a href="https://corefork.telegram.org/type/payments.PaymentForm" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.PaymentForm" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPaymentForm"/> See <a href="https://corefork.telegram.org/constructor/payments.paymentForm" /><br/>
+/// <see cref="TPaymentFormStars"/> See <a href="https://corefork.telegram.org/constructor/payments.paymentFormStars" /><br/>
+/// <see cref="TPaymentFormStarGift"/> See <a href="https://corefork.telegram.org/constructor/payments.paymentFormStarGift" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPaymentForm), nameof(TPaymentForm))]
 [JsonDerivedType(typeof(TPaymentFormStars), nameof(TPaymentFormStars))]
 [JsonDerivedType(typeof(TPaymentFormStarGift), nameof(TPaymentFormStarGift))]
 public interface IPaymentForm : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Form ID.
-    ///</summary>
+    /// </summary>
     long FormId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/Invoice" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IInvoice Invoice { get; set; }
 }

@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The code was sent via the <a href="https://corefork.telegram.org/api/auth#email-verification">previously configured login email »</a>
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeEmailCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeEmailCode" /></para>
+/// </summary>
 [TlObject(0xf450f59b)]
-public sealed class TSentCodeTypeEmailCode : ISentCodeType
+public sealed partial class TSentCodeTypeEmailCode : ISentCodeType
 {
     public uint ConstructorId => 0xf450f59b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether authorization through Apple ID is allowed
-    ///</summary>
+    /// </summary>
     public bool AppleSigninAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether authorization through Google ID is allowed
-    ///</summary>
+    /// </summary>
     public bool GoogleSigninAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/pattern">Pattern</a> of the email
-    ///</summary>
+    /// </summary>
     public string EmailPattern { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of the sent verification code
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clients should wait for the specified amount of seconds before allowing the user to invoke <a href="https://corefork.telegram.org/method/auth.resetLoginEmail">auth.resetLoginEmail</a> (will be 0 for <a href="https://corefork.telegram.org/api/premium">Premium</a> users).
-    ///</summary>
+    /// </summary>
     public int? ResetAvailablePeriod { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// An email reset was already requested, and will occur at the specified date.
-    ///</summary>
+    /// </summary>
     public int? ResetPendingDate { get; set; }
 
     public void ComputeFlag()

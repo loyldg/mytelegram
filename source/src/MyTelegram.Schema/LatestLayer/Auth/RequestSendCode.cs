@@ -2,48 +2,51 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Send the verification code for login
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 API_ID_INVALID API ID invalid.
-/// 400 API_ID_PUBLISHED_FLOOD This API id was published somewhere, you can't use it now.
-/// 500 AUTH_RESTART Restart the authorization process.
-/// 500 AUTH_RESTART_%d Internal error (debug info %d), please repeat the method call.
-/// 400 PHONE_NUMBER_APP_SIGNUP_FORBIDDEN You can't sign up using this app.
-/// 400 PHONE_NUMBER_BANNED The provided phone number is banned from telegram.
-/// 400 PHONE_NUMBER_FLOOD You asked for the code too many times.
-/// 406 PHONE_NUMBER_INVALID The phone number is invalid.
-/// 406 PHONE_PASSWORD_FLOOD You have tried logging in too many times.
-/// 400 PHONE_PASSWORD_PROTECTED This phone is password protected.
-/// 400 SMS_CODE_CREATE_FAILED An error occurred while creating the SMS code.
-/// 406 UPDATE_APP_TO_LOGIN Please update your client to login.
-/// See <a href="https://corefork.telegram.org/method/auth.sendCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 API_ID_INVALID API ID invalid.</c></para>
+/// <para><c>400 API_ID_PUBLISHED_FLOOD This API id was published somewhere, you can't use it now.</c></para>
+/// <para><c>500 AUTH_RESTART Restart the authorization process.</c></para>
+/// <para><c>500 AUTH_RESTART_%d Internal error (debug info %d), please repeat the method call.</c></para>
+/// <para><c>400 PHONE_NUMBER_APP_SIGNUP_FORBIDDEN You can't sign up using this app.</c></para>
+/// <para><c>400 PHONE_NUMBER_BANNED The provided phone number is banned from telegram.</c></para>
+/// <para><c>400 PHONE_NUMBER_FLOOD You asked for the code too many times.</c></para>
+/// <para><c>406 PHONE_NUMBER_INVALID The phone number is invalid.</c></para>
+/// <para><c>406 PHONE_PASSWORD_FLOOD You have tried logging in too many times.</c></para>
+/// <para><c>400 PHONE_PASSWORD_PROTECTED This phone is password protected.</c></para>
+/// <para><c>400 SMS_CODE_CREATE_FAILED An error occurred while creating the SMS code.</c></para>
+/// <para><c>406 UPDATE_APP_TO_LOGIN Please update your client to login. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.sendCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xa677244f)]
-public sealed class RequestSendCode : IRequest<MyTelegram.Schema.Auth.ISentCode>
+public sealed partial class RequestSendCode : IRequest<MyTelegram.Schema.Auth.ISentCode>
 {
     public uint ConstructorId => 0xa677244f;
 
-    ///<summary>
+    /// <summary>
     /// Phone number in international format
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application identifier (see <a href="https://corefork.telegram.org/myapp">App configuration</a>)
-    ///</summary>
+    /// </summary>
     public int ApiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application secret hash (see <a href="https://corefork.telegram.org/myapp">App configuration</a>)
-    ///</summary>
+    /// </summary>
     public string ApiHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Settings for the code type to send
     /// See <a href="https://corefork.telegram.org/type/CodeSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ICodeSettings Settings { get; set; }
 
     public void ComputeFlag()

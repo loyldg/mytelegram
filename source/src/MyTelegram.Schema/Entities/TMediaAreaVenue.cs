@@ -2,49 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a location tag attached to a <a href="https://corefork.telegram.org/api/stories">story</a>, with additional venue information.
-/// See <a href="https://corefork.telegram.org/constructor/mediaAreaVenue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/mediaAreaVenue" /></para>
+/// </summary>
 [TlObject(0xbe82db9c)]
-public sealed class TMediaAreaVenue : IMediaArea
+public sealed partial class TMediaAreaVenue : IMediaArea
 {
     public uint ConstructorId => 0xbe82db9c;
-    ///<summary>
+    /// <summary>
     /// The size and location of the media area corresponding to the location sticker on top of the story media.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Coordinates of the venue
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Address
-    ///</summary>
+    /// </summary>
     public string Address { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue provider: currently only "foursquare" needs to be supported.
-    ///</summary>
+    /// </summary>
     public string Provider { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue ID in the provider's database
-    ///</summary>
+    /// </summary>
     public string VenueId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Venue type in the provider's database
-    ///</summary>
+    /// </summary>
     public string VenueType { get; set; }
 
     public void ComputeFlag()

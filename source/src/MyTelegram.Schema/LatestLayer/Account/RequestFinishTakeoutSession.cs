@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Terminate a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 TAKEOUT_REQUIRED A <a href="https://corefork.telegram.org/api/takeout">takeout</a> session needs to be initialized first, <a href="https://corefork.telegram.org/api/takeout">see here » for more info</a>.
-/// See <a href="https://corefork.telegram.org/method/account.finishTakeoutSession" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 TAKEOUT_REQUIRED A <a href="https://corefork.telegram.org/api/takeout">takeout</a> session needs to be initialized first, <a href="https://corefork.telegram.org/api/takeout">see here » for more info</a>. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.finishTakeoutSession" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1d2652ee)]
-public sealed class RequestFinishTakeoutSession : IRequest<IBool>
+public sealed partial class RequestFinishTakeoutSession : IRequest<IBool>
 {
     public uint ConstructorId => 0x1d2652ee;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Data exported successfully
-    ///</summary>
+    /// </summary>
     public bool Success { get; set; }
 
     public void ComputeFlag()

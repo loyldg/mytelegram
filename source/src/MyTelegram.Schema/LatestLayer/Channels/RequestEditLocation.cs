@@ -2,37 +2,40 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Edit location of geogroup, see <a href="https://corefork.telegram.org/api/nearby">here »</a> for more info on geogroups.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 MEGAGROUP_GEO_REQUIRED This method can only be invoked on a geogroup.
-/// 400 MEGAGROUP_REQUIRED You can only use this method on a supergroup.
-/// See <a href="https://corefork.telegram.org/method/channels.editLocation" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 MEGAGROUP_GEO_REQUIRED This method can only be invoked on a geogroup.</c></para>
+/// <para><c>400 MEGAGROUP_REQUIRED You can only use this method on a supergroup. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.editLocation" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x58e63f6d)]
-public sealed class RequestEditLocation : IRequest<IBool>
+public sealed partial class RequestEditLocation : IRequest<IBool>
 {
     public uint ConstructorId => 0x58e63f6d;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Geogroup</a>
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New geolocation
     /// See <a href="https://corefork.telegram.org/type/InputGeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGeoPoint GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Address string
-    ///</summary>
+    /// </summary>
     public string Address { get; set; }
 
     public void ComputeFlag()

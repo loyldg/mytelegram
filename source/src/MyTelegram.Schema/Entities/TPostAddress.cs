@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Shipping address
-/// See <a href="https://corefork.telegram.org/constructor/postAddress" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/postAddress" /></para>
+/// </summary>
 [TlObject(0x1e8caaeb)]
-public sealed class TPostAddress : IPostAddress
+public sealed partial class TPostAddress : IPostAddress
 {
     public uint ConstructorId => 0x1e8caaeb;
-    ///<summary>
+    /// <summary>
     /// First line for the address
-    ///</summary>
+    /// </summary>
     public string StreetLine1 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Second line for the address
-    ///</summary>
+    /// </summary>
     public string StreetLine2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// City
-    ///</summary>
+    /// </summary>
     public string City { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// State, if applicable (empty otherwise)
-    ///</summary>
+    /// </summary>
     public string State { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ISO 3166-1 alpha-2 country code
-    ///</summary>
+    /// </summary>
     public string CountryIso2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Address post code
-    ///</summary>
+    /// </summary>
     public string PostCode { get; set; }
 
     public void ComputeFlag()

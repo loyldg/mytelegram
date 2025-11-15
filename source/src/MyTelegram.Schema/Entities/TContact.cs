@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A contact of the current user that is registered in the system.
-/// See <a href="https://corefork.telegram.org/constructor/contact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contact" /></para>
+/// </summary>
 [TlObject(0x145ade0b)]
-public sealed class TContact : IContact
+public sealed partial class TContact : IContact
 {
     public uint ConstructorId => 0x145ade0b;
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current user is in the user's contact list
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Mutual { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only chat photo changes
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterChatPhotos" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterChatPhotos" /></para>
+/// </summary>
 [TlObject(0x3a20ecb8)]
-public sealed class TInputMessagesFilterChatPhotos : IMessagesFilter
+public sealed partial class TInputMessagesFilterChatPhotos : IMessagesFilter
 {
     public uint ConstructorId => 0x3a20ecb8;
     public void ComputeFlag()

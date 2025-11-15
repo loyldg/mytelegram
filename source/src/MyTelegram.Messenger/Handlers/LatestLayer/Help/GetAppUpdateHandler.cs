@@ -1,13 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Help;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Help;
+/// <summary>
 /// Returns information on update availability for the current application.
-/// See <a href="https://corefork.telegram.org/method/help.getAppUpdate" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/help.getAppUpdate"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetAppUpdateHandler : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetAppUpdate, MyTelegram.Schema.Help.IAppUpdate>
 {
-    protected override Task<MyTelegram.Schema.Help.IAppUpdate> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Help.RequestGetAppUpdate obj)
+    protected override Task<MyTelegram.Schema.Help.IAppUpdate> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Help.RequestGetAppUpdate obj)
     {
         return Task.FromResult<IAppUpdate>(new TNoAppUpdate());
     }

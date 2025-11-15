@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Geolocated peer
-/// See <a href="https://corefork.telegram.org/type/PeerLocated" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PeerLocated" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerLocated"/> See <a href="https://corefork.telegram.org/constructor/peerLocated" /><br/>
+/// <see cref="TPeerSelfLocated"/> See <a href="https://corefork.telegram.org/constructor/peerSelfLocated" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerLocated), nameof(TPeerLocated))]
 [JsonDerivedType(typeof(TPeerSelfLocated), nameof(TPeerSelfLocated))]
 public interface IPeerLocated : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Expiry of geolocation info for current peer
-    ///</summary>
+    /// </summary>
     int Expires { get; set; }
 }

@@ -2,54 +2,54 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// A callback button sent via a <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a> was pressed, and the button data was sent to the bot that created the button.
-/// See <a href="https://corefork.telegram.org/constructor/updateBusinessBotCallbackQuery" />
-///</summary>
+/// <summary>
+/// A callback button sent via a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business connection</a> was pressed, and the button data was sent to the bot that created the button.
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBusinessBotCallbackQuery" /></para>
+/// </summary>
 [TlObject(0x1ea2fda7)]
-public sealed class TUpdateBusinessBotCallbackQuery : IUpdate
+public sealed partial class TUpdateBusinessBotCallbackQuery : IUpdate
 {
     public uint ConstructorId => 0x1ea2fda7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query ID
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the user that pressed the button
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/business#connected-bots">Business connection ID</a>
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/bots/connected-business-bots">Business connection ID</a>
+    /// </summary>
     public string ConnectionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message that contains the keyboard (also contains info about the chat where the message was sent).
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message that <code>message</code> is replying to.
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage? ReplyToMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
-    ///</summary>
+    /// </summary>
     public long ChatInstance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Callback data
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? Data { get; set; }
 
     public void ComputeFlag()

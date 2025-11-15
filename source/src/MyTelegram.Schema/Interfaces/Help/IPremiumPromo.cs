@@ -2,44 +2,48 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Telegram Premium promotion information
-/// See <a href="https://corefork.telegram.org/type/help.PremiumPromo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.PremiumPromo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPremiumPromo"/> See <a href="https://corefork.telegram.org/constructor/help.premiumPromo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPremiumPromo), nameof(TPremiumPromo))]
 public interface IPremiumPromo : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Description of the current state of the user's Telegram Premium subscription
-    ///</summary>
+    /// </summary>
     string StatusText { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity> StatusEntities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of <a href="https://corefork.telegram.org/api/premium">premium feature identifiers »</a>, associated to each video
-    ///</summary>
+    /// </summary>
     TVector<string> VideoSections { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of videos
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IDocument> Videos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram Premium subscription options
     /// See <a href="https://corefork.telegram.org/type/PremiumSubscriptionOption" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPremiumSubscriptionOption> PeriodOptions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related user information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Contains info about multiple <a href="https://corefork.telegram.org/api/colors">color palettes »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/help.peerColors" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.peerColors" /></para>
+/// </summary>
 [TlObject(0xf8ed08)]
-public sealed class TPeerColors : IPeerColors
+public sealed partial class TPeerColors : IPeerColors
 {
     public uint ConstructorId => 0xf8ed08;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Usable <a href="https://corefork.telegram.org/api/colors">color palettes</a>.
     /// See <a href="https://corefork.telegram.org/type/help.PeerColorOption" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.Help.IPeerColorOption> Colors { get; set; }
 
     public void ComputeFlag()

@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Reset <a href="https://corefork.telegram.org/api/top-rating">rating</a> of top peer
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/contacts.resetTopPeerRating" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.resetTopPeerRating" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1ae373ac)]
-public sealed class RequestResetTopPeerRating : IRequest<IBool>
+public sealed partial class RequestResetTopPeerRating : IRequest<IBool>
 {
     public uint ConstructorId => 0x1ae373ac;
 
-    ///<summary>
+    /// <summary>
     /// Top peer category
     /// See <a href="https://corefork.telegram.org/type/TopPeerCategory" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITopPeerCategory Category { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer whose rating should be reset
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

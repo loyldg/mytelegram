@@ -2,34 +2,38 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Sends a request to start a secret chat to the user.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DH_G_A_INVALID g_a invalid.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.requestEncryption" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DH_G_A_INVALID g_a invalid.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>403 USER_IS_BLOCKED You were blocked by this user. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.requestEncryption" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf64daf43)]
-public sealed class RequestRequestEncryption : IRequest<MyTelegram.Schema.IEncryptedChat>
+public sealed partial class RequestRequestEncryption : IRequest<MyTelegram.Schema.IEncryptedChat>
 {
     public uint ConstructorId => 0xf64daf43;
 
-    ///<summary>
+    /// <summary>
     /// User ID
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client request ID required to prevent resending. This also doubles as the chat ID.
-    ///</summary>
+    /// </summary>
     public int RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <code>A = g ^ a mod p</code>, see <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Wikipedia</a>
-    ///</summary>
+    /// </summary>
     public byte[] GA { get; set; }
 
     public void ComputeFlag()

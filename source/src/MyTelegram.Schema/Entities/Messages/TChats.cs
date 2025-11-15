@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// List of chats with auxiliary data.
-/// See <a href="https://corefork.telegram.org/constructor/messages.chats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.chats" /></para>
+/// </summary>
 [TlObject(0x64ff9fd5)]
-public sealed class TChats : IChats
+public sealed partial class TChats : IChats
 {
     public uint ConstructorId => 0x64ff9fd5;
-    ///<summary>
+    /// <summary>
     /// List of chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
     public void ComputeFlag()

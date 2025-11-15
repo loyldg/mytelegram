@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The list of installed <a href="https://corefork.telegram.org/api/bots/attach">attachment menu entries »</a> has changed, use <a href="https://corefork.telegram.org/method/messages.getAttachMenuBots">messages.getAttachMenuBots</a> to fetch the updated list.
-/// See <a href="https://corefork.telegram.org/constructor/updateAttachMenuBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateAttachMenuBots" /></para>
+/// </summary>
 [TlObject(0x17b7a20b)]
-public sealed class TUpdateAttachMenuBots : IUpdate
+public sealed partial class TUpdateAttachMenuBots : IUpdate
 {
     public uint ConstructorId => 0x17b7a20b;
     public void ComputeFlag()

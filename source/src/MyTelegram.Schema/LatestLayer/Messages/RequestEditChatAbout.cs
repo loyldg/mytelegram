@@ -2,35 +2,38 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Edit the description of a <a href="https://corefork.telegram.org/api/channel">group/supergroup/channel</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ABOUT_NOT_MODIFIED About text has not changed.
-/// 400 CHAT_ABOUT_TOO_LONG Chat about too long.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.editChatAbout" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ABOUT_NOT_MODIFIED About text has not changed.</c></para>
+/// <para><c>400 CHAT_ABOUT_TOO_LONG Chat about too long.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.editChatAbout" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdef60797)]
-public sealed class RequestEditChatAbout : IRequest<IBool>
+public sealed partial class RequestEditChatAbout : IRequest<IBool>
 {
     public uint ConstructorId => 0xdef60797;
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/channel">group/supergroup/channel</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new description
-    ///</summary>
+    /// </summary>
     public string About { get; set; }
 
     public void ComputeFlag()

@@ -2,46 +2,50 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Invite users to a channel/supergroup
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOTS_TOO_MUCH There are too many bots in this chat/channel.
-/// 400 BOT_GROUPS_BLOCKED This bot can't be added to groups.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_INVALID Invalid chat.
-/// 400 CHAT_MEMBER_ADD_FAILED Could not add participants.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// 400 USER_BLOCKED User blocked.
-/// 400 USER_BOT Bots can only be admins in channels.
-/// 403 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// 400 USER_KICKED This user was kicked from this supergroup/channel.
-/// 403 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.
-/// 403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this.
-/// See <a href="https://corefork.telegram.org/method/channels.inviteToChannel" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOTS_TOO_MUCH There are too many bots in this chat/channel.</c></para>
+/// <para><c>400 BOT_GROUPS_BLOCKED This bot can't be added to groups.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_INVALID Invalid chat.</c></para>
+/// <para><c>400 CHAT_MEMBER_ADD_FAILED Could not add participants.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.</c></para>
+/// <para><c>400 USER_BLOCKED User blocked.</c></para>
+/// <para><c>400 USER_BOT Bots can only be admins in channels.</c></para>
+/// <para><c>403 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>400 USER_KICKED This user was kicked from this supergroup/channel.</c></para>
+/// <para><c>403 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.</c></para>
+/// <para><c>403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.inviteToChannel" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc9e33d54)]
-public sealed class RequestInviteToChannel : IRequest<MyTelegram.Schema.Messages.IInvitedUsers>
+public sealed partial class RequestInviteToChannel : IRequest<MyTelegram.Schema.Messages.IInvitedUsers>
 {
     public uint ConstructorId => 0xc9e33d54;
 
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users to invite
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Users { get; set; }
 
     public void ComputeFlag()

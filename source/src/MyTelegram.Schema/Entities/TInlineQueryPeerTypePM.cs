@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer type: private chat
-/// See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypePM" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypePM" /></para>
+/// </summary>
 [TlObject(0x833c0fac)]
-public sealed class TInlineQueryPeerTypePM : IInlineQueryPeerType
+public sealed partial class TInlineQueryPeerTypePM : IInlineQueryPeerType
 {
     public uint ConstructorId => 0x833c0fac;
     public void ComputeFlag()

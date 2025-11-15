@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Installed stickersets have changed, the client should refetch them as <a href="https://corefork.telegram.org/api/stickers#installing-stickersets">described in the docs</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateStickerSets" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateStickerSets" /></para>
+/// </summary>
 [TlObject(0x31c24808)]
-public sealed class TUpdateStickerSets : IUpdate
+public sealed partial class TUpdateStickerSets : IUpdate
 {
     public uint ConstructorId => 0x31c24808;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether mask stickersets have changed
-    ///</summary>
+    /// </summary>
     public bool Masks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the list of installed <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickersets</a> has changed
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
     public void ComputeFlag()

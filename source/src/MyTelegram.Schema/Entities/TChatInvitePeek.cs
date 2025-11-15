@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A chat invitation that also allows peeking into the group to read messages without joining it.
-/// See <a href="https://corefork.telegram.org/constructor/chatInvitePeek" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatInvitePeek" /></para>
+/// </summary>
 [TlObject(0x61695cb0)]
-public sealed class TChatInvitePeek : IChatInvite
+public sealed partial class TChatInvitePeek : IChatInvite
 {
     public uint ConstructorId => 0x61695cb0;
-    ///<summary>
+    /// <summary>
     /// Chat information
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChat Chat { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Read-only anonymous access to this group will be revoked at this date
-    ///</summary>
+    /// </summary>
     public int Expires { get; set; }
 
     public void ComputeFlag()

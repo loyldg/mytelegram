@@ -2,41 +2,45 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indo about an <a href="https://corefork.telegram.org/api/bots/referrals">affiliate program offered by a bot</a>
-/// See <a href="https://corefork.telegram.org/type/StarRefProgram" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StarRefProgram" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarRefProgram"/> See <a href="https://corefork.telegram.org/constructor/starRefProgram" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarRefProgram), nameof(TStarRefProgram))]
 public interface IStarRefProgram : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the bot that offers the program
-    ///</summary>
+    /// </summary>
     long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// An affiliate gets a commission of <a href="https://corefork.telegram.org/constructor/starRefProgram">starRefProgram</a>.<code>commission_permille</code>‰ <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> for every mini app transaction made by users they refer
-    ///</summary>
+    /// </summary>
     int CommissionPermille { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// An affiliate gets a commission for every mini app transaction made by users they refer, for <code>duration_months</code> months after a referral link is imported, starting the bot for the first time
-    ///</summary>
+    /// </summary>
     int? DurationMonths { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Point in time (Unix timestamp) when the affiliate program will be closed (optional, if not set the affiliate program isn't scheduled to be closed)
-    ///</summary>
+    /// </summary>
     int? EndDate { get; set; }
 
-    ///<summary>
-    /// The amount of daily revenue per user in Telegram Stars of the bot that created the affiliate program. <br>To obtain the approximated revenue per referred user, multiply this value by <code>commission_permille</code> and divide by <code>1000</code>.
+    /// <summary>
+    /// The amount of daily revenue per user in Telegram Stars of the bot that created the affiliate program. <br/>To obtain the approximated revenue per referred user, multiply this value by <code>commission_permille</code> and divide by <code>1000</code>.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarsAmount? DailyRevenuePerUser { get; set; }
 }

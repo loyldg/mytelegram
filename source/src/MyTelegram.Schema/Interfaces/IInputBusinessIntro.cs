@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/business#business-introduction">Telegram Business introduction »</a>.
-/// See <a href="https://corefork.telegram.org/type/InputBusinessIntro" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputBusinessIntro" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputBusinessIntro"/> See <a href="https://corefork.telegram.org/constructor/inputBusinessIntro" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputBusinessIntro), nameof(TInputBusinessIntro))]
 public interface IInputBusinessIntro : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title of the introduction message
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Profile introduction
-    ///</summary>
+    /// </summary>
     string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional introduction <a href="https://corefork.telegram.org/api/stickers">sticker</a>.
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IInputDocument? Sticker { get; set; }
 }

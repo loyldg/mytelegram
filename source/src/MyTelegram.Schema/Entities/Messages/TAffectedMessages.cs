@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Events affected by operation
-/// See <a href="https://corefork.telegram.org/constructor/messages.affectedMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.affectedMessages" /></para>
+/// </summary>
 [TlObject(0x84d19185)]
-public sealed class TAffectedMessages : IAffectedMessages
+public sealed partial class TAffectedMessages : IAffectedMessages
 {
     public uint ConstructorId => 0x84d19185;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()

@@ -2,37 +2,41 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Manually mark dialog as unread
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.markDialogUnread" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.markDialogUnread" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8c5006f8)]
-public sealed class RequestMarkDialogUnread : IRequest<IBool>
+public sealed partial class RequestMarkDialogUnread : IRequest<IBool>
 {
     public uint ConstructorId => 0x8c5006f8;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mark as unread/read
-    ///</summary>
+    /// </summary>
     public bool Unread { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, must be equal to the ID of a <a href="https://corefork.telegram.org/api/monoforum">monoforum</a>, and will affect the monoforum topic passed in <code>peer</code>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ParentPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Dialog
     /// See <a href="https://corefork.telegram.org/type/InputDialogPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDialogPeer Peer { get; set; }
 
     public void ComputeFlag()

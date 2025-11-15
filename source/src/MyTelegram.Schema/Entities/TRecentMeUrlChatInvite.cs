@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Recent t.me invite link to a chat
-/// See <a href="https://corefork.telegram.org/constructor/recentMeUrlChatInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/recentMeUrlChatInvite" /></para>
+/// </summary>
 [TlObject(0xeb49081d)]
-public sealed class TRecentMeUrlChatInvite : IRecentMeUrl
+public sealed partial class TRecentMeUrlChatInvite : IRecentMeUrl
 {
     public uint ConstructorId => 0xeb49081d;
-    ///<summary>
+    /// <summary>
     /// t.me URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat invitation
     /// See <a href="https://corefork.telegram.org/type/ChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatInvite ChatInvite { get; set; }
 
     public void ComputeFlag()

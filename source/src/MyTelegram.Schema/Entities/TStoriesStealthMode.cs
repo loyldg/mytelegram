@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Information about the current <a href="https://corefork.telegram.org/api/stories#stealth-mode">stealth mode</a> session.
-/// See <a href="https://corefork.telegram.org/constructor/storiesStealthMode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storiesStealthMode" /></para>
+/// </summary>
 [TlObject(0x712e27fd)]
-public sealed class TStoriesStealthMode : IStoriesStealthMode
+public sealed partial class TStoriesStealthMode : IStoriesStealthMode
 {
     public uint ConstructorId => 0x712e27fd;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The date up to which stealth mode will be active.
-    ///</summary>
+    /// </summary>
     public int? ActiveUntilDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The date starting from which the user will be allowed to re-enable stealth mode again.
-    ///</summary>
+    /// </summary>
     public int? CooldownUntilDate { get; set; }
 
     public void ComputeFlag()

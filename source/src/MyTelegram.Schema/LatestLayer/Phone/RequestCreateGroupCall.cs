@@ -2,52 +2,55 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Create a group call or livestream
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CREATE_CALL_FAILED An error occurred while creating the call.
-/// 400 GROUPCALL_ALREADY_DISCARDED The group call was already discarded.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 SCHEDULE_DATE_INVALID Invalid schedule date provided.
-/// See <a href="https://corefork.telegram.org/method/phone.createGroupCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CREATE_CALL_FAILED An error occurred while creating the call.</c></para>
+/// <para><c>400 GROUPCALL_ALREADY_DISCARDED The group call was already discarded.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 SCHEDULE_DATE_INVALID Invalid schedule date provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.createGroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x48cdc6d8)]
-public sealed class RequestCreateGroupCall : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestCreateGroupCall : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x48cdc6d8;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether RTMP stream support should be enabled: only the <a href="https://corefork.telegram.org/api/channel">group/supergroup/channel</a> owner can use this flag.
-    ///</summary>
+    /// </summary>
     public bool RtmpStream { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Associate the group call or livestream to the provided <a href="https://corefork.telegram.org/api/channel">group/supergroup/channel</a>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client message ID required to prevent creation of duplicate group calls
-    ///</summary>
+    /// </summary>
     public int RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Call title
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For scheduled group call or livestreams, the absolute date when the group call will start
-    ///</summary>
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
     public void ComputeFlag()

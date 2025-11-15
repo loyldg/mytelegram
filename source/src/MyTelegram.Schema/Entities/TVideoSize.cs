@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An <a href="https://corefork.telegram.org/api/files#animated-profile-pictures">animated profile picture</a> in MPEG4 format
-/// See <a href="https://corefork.telegram.org/constructor/videoSize" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/videoSize" /></para>
+/// </summary>
 [TlObject(0xde33b094)]
-public sealed class TVideoSize : IVideoSize
+public sealed partial class TVideoSize : IVideoSize
 {
     public uint ConstructorId => 0xde33b094;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <code>u</code> for animated profile pictures, and <code>v</code> for trimmed and downscaled video previews
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Video width
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Video height
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File size
-    ///</summary>
+    /// </summary>
     public int Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Timestamp that should be shown as static preview to the user (seconds)
-    ///</summary>
+    /// </summary>
     public double? VideoStartTs { get; set; }
 
     public void ComputeFlag()

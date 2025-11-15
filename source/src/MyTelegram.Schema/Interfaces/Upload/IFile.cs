@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Contains info on file.
-/// See <a href="https://corefork.telegram.org/type/upload.File" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/upload.File" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFile"/> See <a href="https://corefork.telegram.org/constructor/upload.file" /><br/>
+/// <see cref="TFileCdnRedirect"/> See <a href="https://corefork.telegram.org/constructor/upload.fileCdnRedirect" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFile), nameof(TFile))]
 [JsonDerivedType(typeof(TFileCdnRedirect), nameof(TFileCdnRedirect))]
 public interface IFile : IObject

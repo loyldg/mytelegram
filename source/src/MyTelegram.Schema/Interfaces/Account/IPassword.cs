@@ -2,83 +2,87 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Configuration for two-factor authorization
-/// See <a href="https://corefork.telegram.org/type/account.Password" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.Password" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPassword"/> See <a href="https://corefork.telegram.org/constructor/account.password" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPassword), nameof(TPassword))]
 public interface IPassword : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user has a recovery method configured
-    ///</summary>
+    /// </summary>
     bool HasRecovery { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether telegram <a href="https://corefork.telegram.org/passport">passport</a> is enabled
-    ///</summary>
+    /// </summary>
     bool HasSecureValues { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user has a password
-    ///</summary>
+    /// </summary>
     bool HasPassword { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/srp">KDF algorithm for SRP two-factor authentication</a> of the current password
     /// See <a href="https://corefork.telegram.org/type/PasswordKdfAlgo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPasswordKdfAlgo? CurrentAlgo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Srp B param for <a href="https://corefork.telegram.org/api/srp">SRP authorization</a>
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte>? SrpB { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Srp ID param for <a href="https://corefork.telegram.org/api/srp">SRP authorization</a>
-    ///</summary>
+    /// </summary>
     long? SrpId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text hint for the password
-    ///</summary>
+    /// </summary>
     string? Hint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A <a href="https://corefork.telegram.org/api/srp#email-verification">password recovery email</a> with the specified <a href="https://corefork.telegram.org/api/pattern">pattern</a> is still awaiting verification
-    ///</summary>
+    /// </summary>
     string? EmailUnconfirmedPattern { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/srp">KDF algorithm for SRP two-factor authentication</a> to use when creating new passwords
     /// See <a href="https://corefork.telegram.org/type/PasswordKdfAlgo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPasswordKdfAlgo NewAlgo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The KDF algorithm for telegram <a href="https://corefork.telegram.org/passport">passport</a>
     /// See <a href="https://corefork.telegram.org/type/SecurePasswordKdfAlgo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ISecurePasswordKdfAlgo NewSecureAlgo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secure random string
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> SecureRandom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The 2FA password will be automatically removed at this date, unless the user cancels the operation
-    ///</summary>
+    /// </summary>
     int? PendingResetDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A verified login email with the specified <a href="https://corefork.telegram.org/api/pattern">pattern</a> is configured
-    ///</summary>
+    /// </summary>
     string? LoginEmailPattern { get; set; }
 }

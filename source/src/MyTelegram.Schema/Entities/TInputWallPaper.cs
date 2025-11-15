@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputWallPaper" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputWallPaper" /></para>
+/// </summary>
 [TlObject(0xe630b979)]
-public sealed class TInputWallPaper : IInputWallPaper
+public sealed partial class TInputWallPaper : IInputWallPaper
 {
     public uint ConstructorId => 0xe630b979;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

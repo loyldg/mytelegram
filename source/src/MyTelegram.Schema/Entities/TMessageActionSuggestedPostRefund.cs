@@ -2,18 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostRefund" />
-///</summary>
+/// <summary>
+/// A <a href="https://corefork.telegram.org/api/suggested-posts">suggested post »</a> was accepted and posted or scheduled, but either the channel deleted the posted/scheduled post before <a href="https://corefork.telegram.org/api/config#stars-suggested-post-age-min">stars_suggested_post_age_min</a> seconds have elapsed, or the user refunded the payment for the stars used to pay for the suggested post.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostRefund" /></para>
+/// </summary>
 [TlObject(0x69f916f8)]
-public sealed class TMessageActionSuggestedPostRefund : IMessageAction
+public sealed partial class TMessageActionSuggestedPostRefund : IMessageAction
 {
     public uint ConstructorId => 0x69f916f8;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// If set, the user refunded the payment for the stars used to pay for the suggested post.
+    /// </summary>
     public bool PayerInitiated { get; set; }
 
     public void ComputeFlag()

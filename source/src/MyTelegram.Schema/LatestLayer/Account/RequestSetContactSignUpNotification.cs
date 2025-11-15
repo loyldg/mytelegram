@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Toggle contact sign up notifications
-/// See <a href="https://corefork.telegram.org/method/account.setContactSignUpNotification" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.setContactSignUpNotification" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xcff43f61)]
-public sealed class RequestSetContactSignUpNotification : IRequest<IBool>
+public sealed partial class RequestSetContactSignUpNotification : IRequest<IBool>
 {
     public uint ConstructorId => 0xcff43f61;
 
-    ///<summary>
+    /// <summary>
     /// Whether to disable contact sign up notifications
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
     public void ComputeFlag()

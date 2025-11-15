@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Restriction reason
-/// See <a href="https://corefork.telegram.org/type/RestrictionReason" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/RestrictionReason" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TRestrictionReason"/> See <a href="https://corefork.telegram.org/constructor/restrictionReason" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TRestrictionReason), nameof(TRestrictionReason))]
 public interface IRestrictionReason : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Platform identifier (ios, android, wp, all, etc.), can be concatenated with a dash as separator (<code>android-ios</code>, <code>ios-wp</code>, etc)
-    ///</summary>
+    /// </summary>
     string Platform { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Restriction reason (<code>porno</code>, <code>terms</code>, etc.). Ignore this restriction reason if it is contained in the <a href="https://corefork.telegram.org/api/config#ignore-restriction-reasons">ignore_restriction_reasons »</a> client configuration parameter.
-    ///</summary>
+    /// </summary>
     string Reason { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message to be shown to the user
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 }

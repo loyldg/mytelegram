@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Query participants by name
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantsSearch" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantsSearch" /></para>
+/// </summary>
 [TlObject(0x656ac4b)]
-public sealed class TChannelParticipantsSearch : IChannelParticipantsFilter
+public sealed partial class TChannelParticipantsSearch : IChannelParticipantsFilter
 {
     public uint ConstructorId => 0x656ac4b;
-    ///<summary>
+    /// <summary>
     /// Search query
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
     public void ComputeFlag()

@@ -2,38 +2,41 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Add/remove sticker from recent stickers list
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKER_ID_INVALID The provided sticker ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.saveRecentSticker" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKER_ID_INVALID The provided sticker ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.saveRecentSticker" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x392718f8)]
-public sealed class RequestSaveRecentSticker : IRequest<IBool>
+public sealed partial class RequestSaveRecentSticker : IRequest<IBool>
 {
     public uint ConstructorId => 0x392718f8;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to add/remove stickers recently attached to photo or video files
-    ///</summary>
+    /// </summary>
     public bool Attached { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sticker
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to save or unsave the sticker
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Unsave { get; set; }
 
     public void ComputeFlag()

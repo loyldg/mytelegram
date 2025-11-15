@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// Enable SMS jobs (official clients only).
-/// See <a href="https://corefork.telegram.org/method/smsjobs.join" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/smsjobs.join" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa74ece2d)]
-public sealed class RequestJoin : IRequest<IBool>
+public sealed partial class RequestJoin : IRequest<IBool>
 {
     public uint ConstructorId => 0xa74ece2d;
 

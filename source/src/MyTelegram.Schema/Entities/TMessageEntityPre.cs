@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity representing a preformatted <code>codeblock</code>, allowing the user to specify a programming language for the codeblock.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityPre" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityPre" /></para>
+/// </summary>
 [TlObject(0x73924be0)]
-public sealed class TMessageEntityPre : IMessageEntity
+public sealed partial class TMessageEntityPre : IMessageEntity
 {
     public uint ConstructorId => 0x73924be0;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Programming language of the code
-    ///</summary>
+    /// </summary>
     public string Language { get; set; }
 
     public void ComputeFlag()

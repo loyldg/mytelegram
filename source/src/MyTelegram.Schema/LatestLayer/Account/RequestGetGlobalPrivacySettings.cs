@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get global privacy settings
-/// See <a href="https://corefork.telegram.org/method/account.getGlobalPrivacySettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getGlobalPrivacySettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xeb2b4cf6)]
-public sealed class RequestGetGlobalPrivacySettings : IRequest<MyTelegram.Schema.IGlobalPrivacySettings>
+public sealed partial class RequestGetGlobalPrivacySettings : IRequest<MyTelegram.Schema.IGlobalPrivacySettings>
 {
     public uint ConstructorId => 0xeb2b4cf6;
 

@@ -2,57 +2,57 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a bot logged in using the <a href="https://corefork.telegram.org/widgets/login">Telegram login widget</a>
-/// See <a href="https://corefork.telegram.org/constructor/webAuthorization" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webAuthorization" /></para>
+/// </summary>
 [TlObject(0xa6f8f452)]
-public sealed class TWebAuthorization : IWebAuthorization
+public sealed partial class TWebAuthorization : IWebAuthorization
 {
     public uint ConstructorId => 0xa6f8f452;
-    ///<summary>
+    /// <summary>
     /// Authorization hash
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot ID
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The domain name of the website on which the user has logged in.
-    ///</summary>
+    /// </summary>
     public string Domain { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Browser user-agent
-    ///</summary>
+    /// </summary>
     public string Browser { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Platform
-    ///</summary>
+    /// </summary>
     public string Platform { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the web session created
-    ///</summary>
+    /// </summary>
     public int DateCreated { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the web session last active
-    ///</summary>
+    /// </summary>
     public int DateActive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IP address
-    ///</summary>
+    /// </summary>
     public string Ip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Region, determined from IP address
-    ///</summary>
+    /// </summary>
     public string Region { get; set; }
 
     public void ComputeFlag()

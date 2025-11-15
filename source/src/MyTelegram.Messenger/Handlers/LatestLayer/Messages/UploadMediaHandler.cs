@@ -1,8 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
-/// Upload a file and associate it to a chat (without actually sending it to the chat)
-/// <para>Possible errors</para>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
+/// Upload a file and associate it to a chat (without actually sending it to the chat)May also be used in a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business connection</a>, <em>not</em> by wrapping the query in <a href="https://corefork.telegram.org/method/invokeWithBusinessConnection">invokeWithBusinessConnection »</a>, but rather by specifying the business connection ID in the <code>business_connection_id</code> parameter.
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
@@ -21,17 +20,18 @@
 /// 400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.
 /// 400 PHOTO_SAVE_FILE_INVALID Internal issues, try again later.
 /// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
+/// 400 VOICE_MESSAGES_FORBIDDEN This user's privacy settings forbid you from sending voice messages.
 /// 400 WEBPAGE_CURL_FAILED Failure while fetching the webpage with cURL.
-/// See <a href="https://corefork.telegram.org/method/messages.uploadMedia" />
-///</summary>
-internal sealed class UploadMediaHandler(IMediaHelper mediaHelper)
-    : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestUploadMedia, MyTelegram.Schema.IMessageMedia>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.uploadMedia"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
+internal sealed class UploadMediaHandler(IMediaHelper mediaHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestUploadMedia, MyTelegram.Schema.IMessageMedia>
 {
-    protected override async Task<IMessageMedia> HandleCoreAsync(IRequestInput input,
-        RequestUploadMedia obj)
+    protected override async Task<IMessageMedia> HandleCoreAsync(IRequestInput input, RequestUploadMedia obj)
     {
         var media = await mediaHelper.SaveMediaAsync(obj.Media);
-
         if (media == null)
         {
             RpcErrors.RpcErrors400.MediaInvalid.ThrowRpcError();

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new incoming event; for bots only
-/// See <a href="https://corefork.telegram.org/constructor/updateBotWebhookJSON" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotWebhookJSON" /></para>
+/// </summary>
 [TlObject(0x8317c0c3)]
-public sealed class TUpdateBotWebhookJSON : IUpdate
+public sealed partial class TUpdateBotWebhookJSON : IUpdate
 {
     public uint ConstructorId => 0x8317c0c3;
-    ///<summary>
+    /// <summary>
     /// The event
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Data { get; set; }
 
     public void ComputeFlag()

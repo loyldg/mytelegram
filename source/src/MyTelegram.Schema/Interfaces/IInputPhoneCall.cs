@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Phone call
-/// See <a href="https://corefork.telegram.org/type/InputPhoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputPhoneCall" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputPhoneCall"/> See <a href="https://corefork.telegram.org/constructor/inputPhoneCall" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputPhoneCall), nameof(TInputPhoneCall))]
 public interface IInputPhoneCall : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Call ID
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     long AccessHash { get; set; }
 }

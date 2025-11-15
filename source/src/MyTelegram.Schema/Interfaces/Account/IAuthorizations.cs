@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Logged-in sessions
-/// See <a href="https://corefork.telegram.org/type/account.Authorizations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.Authorizations" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAuthorizations"/> See <a href="https://corefork.telegram.org/constructor/account.authorizations" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAuthorizations), nameof(TAuthorizations))]
 public interface IAuthorizations : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Time-to-live of session
-    ///</summary>
+    /// </summary>
     int AuthorizationTtlDays { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Logged-in sessions
     /// See <a href="https://corefork.telegram.org/type/Authorization" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IAuthorization> Authorizations { get; set; }
 }

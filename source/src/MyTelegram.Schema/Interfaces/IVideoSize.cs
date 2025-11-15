@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an animated video thumbnail
-/// See <a href="https://corefork.telegram.org/type/VideoSize" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/VideoSize" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TVideoSize"/> See <a href="https://corefork.telegram.org/constructor/videoSize" /><br/>
+/// <see cref="TVideoSizeEmojiMarkup"/> See <a href="https://corefork.telegram.org/constructor/videoSizeEmojiMarkup" /><br/>
+/// <see cref="TVideoSizeStickerMarkup"/> See <a href="https://corefork.telegram.org/constructor/videoSizeStickerMarkup" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TVideoSize), nameof(TVideoSize))]
 [JsonDerivedType(typeof(TVideoSizeEmojiMarkup), nameof(TVideoSizeEmojiMarkup))]
 [JsonDerivedType(typeof(TVideoSizeStickerMarkup), nameof(TVideoSizeStickerMarkup))]

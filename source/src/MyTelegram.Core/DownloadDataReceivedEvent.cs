@@ -2,6 +2,7 @@
 
 public record DownloadDataReceivedEvent(
     string ConnectionId,
+    ConnectionType ConnectionType,
     Guid RequestId,
     uint ObjectId,
     long UserId,
@@ -18,6 +19,7 @@ public record DownloadDataReceivedEvent(
     long AccessHashKeyId
 ) : DataReceivedEvent(
     ConnectionId,
+    ConnectionType,
     RequestId,
     ObjectId,
     UserId,
@@ -36,7 +38,7 @@ public record DownloadDataReceivedEvent(
 {
     public static DownloadDataReceivedEvent Create()
     {
-        return new DownloadDataReceivedEvent(string.Empty, Guid.Empty, 0, 0, 0, 0, 0,
+        return new DownloadDataReceivedEvent(string.Empty, ConnectionType.UnKnown, Guid.Empty, 0, 0, 0, 0, 0,
             0, default, 0,
             0, DeviceType.Unknown, string.Empty, 0, 0);
     }

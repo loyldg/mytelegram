@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Saved contact
-/// See <a href="https://corefork.telegram.org/type/SavedContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SavedContact" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedPhoneContact"/> See <a href="https://corefork.telegram.org/constructor/savedPhoneContact" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedPhoneContact), nameof(TSavedPhoneContact))]
 public interface ISavedContact : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     string Phone { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// First name
-    ///</summary>
+    /// </summary>
     string FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last name
-    ///</summary>
+    /// </summary>
     string LastName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date added
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 }

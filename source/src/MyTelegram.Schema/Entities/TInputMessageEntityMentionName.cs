@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity that can be used to create a user <a href="https://corefork.telegram.org/api/mentions">user mention</a>: received mentions use the <a href="https://corefork.telegram.org/constructor/messageEntityMentionName">messageEntityMentionName</a> constructor, instead.
-/// See <a href="https://corefork.telegram.org/constructor/inputMessageEntityMentionName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessageEntityMentionName" /></para>
+/// </summary>
 [TlObject(0x208e68c9)]
-public sealed class TInputMessageEntityMentionName : IMessageEntity
+public sealed partial class TInputMessageEntityMentionName : IMessageEntity
 {
     public uint ConstructorId => 0x208e68c9;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the user that was mentioned
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

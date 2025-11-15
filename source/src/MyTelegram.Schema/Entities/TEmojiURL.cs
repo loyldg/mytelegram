@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
-/// See <a href="https://corefork.telegram.org/constructor/emojiURL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiURL" /></para>
+/// </summary>
 [TlObject(0xa575739d)]
-public sealed class TEmojiURL : IEmojiURL
+public sealed partial class TEmojiURL : IEmojiURL
 {
     public uint ConstructorId => 0xa575739d;
-    ///<summary>
+    /// <summary>
     /// An HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

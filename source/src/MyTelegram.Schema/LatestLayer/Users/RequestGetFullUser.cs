@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
+/// <summary>
 /// Returns extended user info by ID.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 USERNAME_OCCUPIED The provided username is already occupied.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/users.getFullUser" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 USERNAME_OCCUPIED The provided username is already occupied.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/users.getFullUser" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb60f5918)]
-public sealed class RequestGetFullUser : IRequest<MyTelegram.Schema.Users.IUserFull>
+public sealed partial class RequestGetFullUser : IRequest<MyTelegram.Schema.Users.IUserFull>
 {
     public uint ConstructorId => 0xb60f5918;
 
-    ///<summary>
+    /// <summary>
     /// User ID
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Id { get; set; }
 
     public void ComputeFlag()

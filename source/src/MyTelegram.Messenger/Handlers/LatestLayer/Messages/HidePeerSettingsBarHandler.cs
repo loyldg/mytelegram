@@ -1,25 +1,23 @@
-﻿using MyTelegram.Domain.Aggregates.PeerSetting;
+using MyTelegram.Domain.Aggregates.PeerSetting;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+/// <summary>
 /// Should be called after the user hides the <a href="https://corefork.telegram.org/api/action-bar">report spam/add as contact bar</a> of a new chat, effectively prevents the user from executing the actions specified in the <a href="https://corefork.telegram.org/api/action-bar">action bar »</a>.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.hidePeerSettingsBar" />
-///</summary>
-internal sealed class HidePeerSettingsBarHandler(IPeerHelper peerHelper, ICommandBus commandBus)
-    : RpcResultObjectHandler<RequestHidePeerSettingsBar, IBool>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.hidePeerSettingsBar"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class HidePeerSettingsBarHandler(IPeerHelper peerHelper, ICommandBus commandBus) : RpcResultObjectHandler<RequestHidePeerSettingsBar, IBool>
 {
-    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
-        RequestHidePeerSettingsBar obj)
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestHidePeerSettingsBar obj)
     {
         var peer = peerHelper.GetPeer(obj.Peer);
-        var command = new HidePeerSettingsBarCommand(PeerSettingsId.Create(input.UserId, peer.PeerId),
-            input.ToRequestInfo(), peer.PeerId);
+        var command = new HidePeerSettingsBarCommand(PeerSettingsId.Create(input.UserId, peer.PeerId), input.ToRequestInfo(), peer.PeerId);
         await commandBus.PublishAsync(command);
-
         return new TBoolTrue();
     }
 }

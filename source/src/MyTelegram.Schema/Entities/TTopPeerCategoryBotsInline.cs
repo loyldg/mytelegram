@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Most used inline bots
-/// See <a href="https://corefork.telegram.org/constructor/topPeerCategoryBotsInline" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/topPeerCategoryBotsInline" /></para>
+/// </summary>
 [TlObject(0x148677e2)]
-public sealed class TTopPeerCategoryBotsInline : ITopPeerCategory
+public sealed partial class TTopPeerCategoryBotsInline : ITopPeerCategory
 {
     public uint ConstructorId => 0x148677e2;
     public void ComputeFlag()

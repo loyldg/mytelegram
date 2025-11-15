@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Full list of blocked users.
-/// See <a href="https://corefork.telegram.org/constructor/contacts.blocked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.blocked" /></para>
+/// </summary>
 [TlObject(0xade1591)]
-public sealed class TBlocked : IBlocked
+public sealed partial class TBlocked : IBlocked
 {
     public uint ConstructorId => 0xade1591;
-    ///<summary>
+    /// <summary>
     /// List of blocked users
     /// See <a href="https://corefork.telegram.org/type/PeerBlocked" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeerBlocked> Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Blocked chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

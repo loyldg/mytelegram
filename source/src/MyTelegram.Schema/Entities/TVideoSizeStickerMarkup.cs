@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An <a href="https://corefork.telegram.org/api/files#animated-profile-pictures">animated profile picture</a> based on a <a href="https://corefork.telegram.org/api/stickers">sticker</a>.
-/// See <a href="https://corefork.telegram.org/constructor/videoSizeStickerMarkup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/videoSizeStickerMarkup" /></para>
+/// </summary>
 [TlObject(0xda082fe)]
-public sealed class TVideoSizeStickerMarkup : IVideoSize
+public sealed partial class TVideoSizeStickerMarkup : IVideoSize
 {
     public uint ConstructorId => 0xda082fe;
-    ///<summary>
+    /// <summary>
     /// Stickerset
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sticker ID
-    ///</summary>
+    /// </summary>
     public long StickerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 1, 2, 3 or 4 RBG-24 colors used to generate a solid (1), gradient (2) or freeform gradient (3, 4) background, similar to how <a href="https://corefork.telegram.org/api/wallpapers#fill-types">fill wallpapers</a> are generated. The rotation angle for gradient backgrounds is 0.
-    ///</summary>
+    /// </summary>
     public TVector<int> BackgroundColors { get; set; }
 
     public void ComputeFlag()

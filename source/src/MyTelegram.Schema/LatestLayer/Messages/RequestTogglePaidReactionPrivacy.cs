@@ -2,33 +2,37 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Changes the privacy of already sent <a href="https://corefork.telegram.org/api/reactions#paid-reactions">paid reactions</a> on a specific message.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.togglePaidReactionPrivacy" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 REACTION_EMPTY Empty reaction provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.togglePaidReactionPrivacy" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x435885b5)]
-public sealed class RequestTogglePaidReactionPrivacy : IRequest<IBool>
+public sealed partial class RequestTogglePaidReactionPrivacy : IRequest<IBool>
 {
     public uint ConstructorId => 0x435885b5;
 
-    ///<summary>
+    /// <summary>
     /// The channel
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The ID of the message to which we sent the paid reactions
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If true, makes the current anonymous in the top sender leaderboard for this message; otherwise, does the opposite.
     /// See <a href="https://corefork.telegram.org/type/PaidReactionPrivacy" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaidReactionPrivacy Private { get; set; }
 
     public void ComputeFlag()

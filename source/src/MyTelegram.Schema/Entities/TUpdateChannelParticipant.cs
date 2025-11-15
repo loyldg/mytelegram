@@ -2,65 +2,65 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A participant has left, joined, was banned or admined in a <a href="https://corefork.telegram.org/api/channel">channel or supergroup</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateChannelParticipant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChannelParticipant" /></para>
+/// </summary>
 [TlObject(0x985d3abb)]
-public sealed class TUpdateChannelParticipant : IUpdate
+public sealed partial class TUpdateChannelParticipant : IUpdate
 {
     public uint ConstructorId => 0x985d3abb;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the participant joined using a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     public bool ViaChatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of the event
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User that triggered the change (inviter, admin that kicked the user, or the even the <strong>user_id</strong> itself)
-    ///</summary>
+    /// </summary>
     public long ActorId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User that was affected by the change
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previous participant status
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipant? PrevParticipant { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New participant status
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipant? NewParticipant { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat invite used to join the <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite? Invite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

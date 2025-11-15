@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a <a href="https://corefork.telegram.org/api/stars">Telegram Star</a> transaction that cannot be described using the current layer.
-/// See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerUnsupported" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerUnsupported" /></para>
+/// </summary>
 [TlObject(0x95f2bfe4)]
-public sealed class TStarsTransactionPeerUnsupported : IStarsTransactionPeer
+public sealed partial class TStarsTransactionPeerUnsupported : IStarsTransactionPeer
 {
     public uint ConstructorId => 0x95f2bfe4;
     public void ComputeFlag()

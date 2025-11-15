@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Timezone information that may be used elsewhere in the API, such as to set <a href="https://corefork.telegram.org/api/business#opening-hours">Telegram Business opening hours »</a>.
-/// See <a href="https://corefork.telegram.org/type/help.TimezonesList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.TimezonesList" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTimezonesListNotModified"/> See <a href="https://corefork.telegram.org/constructor/help.timezonesListNotModified" /><br/>
+/// <see cref="TTimezonesList"/> See <a href="https://corefork.telegram.org/constructor/help.timezonesList" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTimezonesListNotModified), nameof(TTimezonesListNotModified))]
 [JsonDerivedType(typeof(TTimezonesList), nameof(TTimezonesList))]
 public interface ITimezonesList : IObject

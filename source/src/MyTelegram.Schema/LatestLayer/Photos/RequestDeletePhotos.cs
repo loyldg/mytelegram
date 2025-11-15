@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Photos;
 
-///<summary>
+/// <summary>
 /// Deletes profile photos. The method returns a list of successfully deleted photo IDs.
-/// See <a href="https://corefork.telegram.org/method/photos.deletePhotos" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/photos.deletePhotos" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x87cf7f2f)]
-public sealed class RequestDeletePhotos : IRequest<TVector<long>>
+public sealed partial class RequestDeletePhotos : IRequest<TVector<long>>
 {
     public uint ConstructorId => 0x87cf7f2f;
 
-    ///<summary>
+    /// <summary>
     /// Input photos to delete
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPhoto> Id { get; set; }
 
     public void ComputeFlag()

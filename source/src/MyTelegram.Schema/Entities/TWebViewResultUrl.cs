@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains the webview URL with appropriate theme and user info parameters added
-/// See <a href="https://corefork.telegram.org/constructor/webViewResultUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webViewResultUrl" /></para>
+/// </summary>
 [TlObject(0x4d22ff98)]
-public sealed class TWebViewResultUrl : IWebViewResult
+public sealed partial class TWebViewResultUrl : IWebViewResult
 {
     public uint ConstructorId => 0x4d22ff98;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the app must be opened in fullsize mode instead of compact mode.
-    ///</summary>
+    /// </summary>
     public bool Fullsize { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the app must be opened in fullscreen
-    ///</summary>
+    /// </summary>
     public bool Fullscreen { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webview session ID (only returned by <a href="https://corefork.telegram.org/api/bots/webapps#inline-button-mini-apps">inline button mini apps</a>, <a href="https://corefork.telegram.org/api/bots/webapps#menu-button-mini-apps">menu button mini apps</a>, <a href="https://corefork.telegram.org/api/bots/webapps#attachment-menu-mini-apps">attachment menu mini apps</a>).
-    ///</summary>
+    /// </summary>
     public long? QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webview URL to open
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

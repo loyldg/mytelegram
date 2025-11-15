@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stories#watching-stories">Active story list</a> of a specific peer.
-/// See <a href="https://corefork.telegram.org/type/stories.PeerStories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/stories.PeerStories" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerStories"/> See <a href="https://corefork.telegram.org/constructor/stories.peerStories" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerStories), nameof(TPeerStories))]
 public interface IPeerStories : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Stories
     /// See <a href="https://corefork.telegram.org/type/PeerStories" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeerStories Stories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

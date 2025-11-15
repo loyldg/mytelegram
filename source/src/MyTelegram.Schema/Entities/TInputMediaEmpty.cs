@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty media content of a message.
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaEmpty" /></para>
+/// </summary>
 [TlObject(0x9664f57f)]
-public sealed class TInputMediaEmpty : IInputMedia
+public sealed partial class TInputMediaEmpty : IInputMedia
 {
     public uint ConstructorId => 0x9664f57f;
     public void ComputeFlag()

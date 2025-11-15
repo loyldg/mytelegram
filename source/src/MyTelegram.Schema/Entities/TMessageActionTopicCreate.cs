@@ -2,36 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a> was created.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionTopicCreate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionTopicCreate" /></para>
+/// </summary>
 [TlObject(0xd999256)]
-public sealed class TMessageActionTopicCreate : IMessageAction
+public sealed partial class TMessageActionTopicCreate : IMessageAction
 {
     public uint ConstructorId => 0xd999256;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    public bool TitleMissing { get; set; }
+
+    /// <summary>
     /// Topic name.
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If no custom emoji icon is specified, specifies the color of the fallback topic icon (RGB), one of <code>0x6FB9F0</code>, <code>0xFFD67E</code>, <code>0xCB86DB</code>, <code>0x8EEE98</code>, <code>0xFF93B2</code>, or <code>0xFB6F5F</code>.
-    ///</summary>
+    /// </summary>
     public int IconColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji</a> used as topic icon.
-    ///</summary>
+    /// </summary>
     public long? IconEmojiId { get; set; }
 
     public void ComputeFlag()
     {
+        if (TitleMissing) { Flags = Flags.SetBit(1); }
         if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { Flags = Flags.SetBit(0); }
     }
 
@@ -48,6 +51,7 @@ public sealed class TMessageActionTopicCreate : IMessageAction
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(1)) { TitleMissing = true; }
         Title = buffer.ReadString();
         IconColor = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { IconEmojiId = buffer.ReadInt64(); }

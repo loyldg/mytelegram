@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Tinted theme
-/// See <a href="https://corefork.telegram.org/constructor/baseThemeTinted" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/baseThemeTinted" /></para>
+/// </summary>
 [TlObject(0x6d5f77ee)]
-public sealed class TBaseThemeTinted : IBaseTheme
+public sealed partial class TBaseThemeTinted : IBaseTheme
 {
     public uint ConstructorId => 0x6d5f77ee;
     public void ComputeFlag()

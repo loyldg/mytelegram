@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates the channel was <a href="https://corefork.telegram.org/api/channel">migrated</a> from the specified chat
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChannelMigrateFrom" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChannelMigrateFrom" /></para>
+/// </summary>
 [TlObject(0xea3948e9)]
-public sealed class TMessageActionChannelMigrateFrom : IMessageAction
+public sealed partial class TMessageActionChannelMigrateFrom : IMessageAction
 {
     public uint ConstructorId => 0xea3948e9;
-    ///<summary>
+    /// <summary>
     /// The old chat title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The old chat ID
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
     public void ComputeFlag()

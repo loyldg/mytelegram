@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get message ranges for saving the user's chat history
-/// See <a href="https://corefork.telegram.org/method/messages.getSplitRanges" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSplitRanges" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1cff7e08)]
-public sealed class RequestGetSplitRanges : IRequest<TVector<MyTelegram.Schema.IMessageRange>>
+public sealed partial class RequestGetSplitRanges : IRequest<TVector<MyTelegram.Schema.IMessageRange>>
 {
     public uint ConstructorId => 0x1cff7e08;
 

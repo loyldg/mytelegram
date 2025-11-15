@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionEmpty" /></para>
+/// </summary>
 [TlObject(0xb6aef7b0)]
-public sealed class TMessageActionEmpty : IMessageAction
+public sealed partial class TMessageActionEmpty : IMessageAction
 {
     public uint ConstructorId => 0xb6aef7b0;
     public void ComputeFlag()

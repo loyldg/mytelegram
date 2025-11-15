@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Emoji language
-/// See <a href="https://corefork.telegram.org/constructor/emojiLanguage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiLanguage" /></para>
+/// </summary>
 [TlObject(0xb3fb5361)]
-public sealed class TEmojiLanguage : IEmojiLanguage
+public sealed partial class TEmojiLanguage : IEmojiLanguage
 {
     public uint ConstructorId => 0xb3fb5361;
-    ///<summary>
+    /// <summary>
     /// Language code
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
     public void ComputeFlag()

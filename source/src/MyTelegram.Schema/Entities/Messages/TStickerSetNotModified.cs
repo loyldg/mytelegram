@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The stickerset hasn't changed
-/// See <a href="https://corefork.telegram.org/constructor/messages.stickerSetNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.stickerSetNotModified" /></para>
+/// </summary>
 [TlObject(0xd3f924eb)]
-public sealed class TStickerSetNotModified : IStickerSet
+public sealed partial class TStickerSetNotModified : IStickerSet
 {
     public uint ConstructorId => 0xd3f924eb;
     public void ComputeFlag()

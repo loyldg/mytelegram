@@ -2,57 +2,57 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// WebRTC connection parameters
-/// See <a href="https://corefork.telegram.org/constructor/phoneConnectionWebrtc" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneConnectionWebrtc" /></para>
+/// </summary>
 [TlObject(0x635fe375)]
-public sealed class TPhoneConnectionWebrtc : IPhoneConnection
+public sealed partial class TPhoneConnectionWebrtc : IPhoneConnection
 {
     public uint ConstructorId => 0x635fe375;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a TURN endpoint
-    ///</summary>
+    /// </summary>
     public bool Turn { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a STUN endpoint
-    ///</summary>
+    /// </summary>
     public bool Stun { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Endpoint ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IP address
-    ///</summary>
+    /// </summary>
     public string Ip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IPv6 address
-    ///</summary>
+    /// </summary>
     public string Ipv6 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Port
-    ///</summary>
+    /// </summary>
     public int Port { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Username
-    ///</summary>
+    /// </summary>
     public string Username { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Password
-    ///</summary>
+    /// </summary>
     public string Password { get; set; }
 
     public void ComputeFlag()

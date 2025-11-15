@@ -2,25 +2,28 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
-/// Get info about RTMP streams in a group call or livestream.<br>
-/// This method should be invoked to the same group/channel-related DC used for <a href="https://corefork.telegram.org/api/files#downloading-files">downloading livestream chunks</a>.<br>
+/// <summary>
+/// Get info about RTMP streams in a group call or livestream.<br/>
+/// This method should be invoked to the same group/channel-related DC used for <a href="https://corefork.telegram.org/api/files#downloading-files">downloading livestream chunks</a>.<br/>
 /// As usual, the media DC is preferred, if available.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 400 GROUPCALL_JOIN_MISSING You haven't joined this group call.
-/// See <a href="https://corefork.telegram.org/method/phone.getGroupCallStreamChannels" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>400 GROUPCALL_JOIN_MISSING You haven't joined this group call. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.getGroupCallStreamChannels" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1ab21940)]
-public sealed class RequestGetGroupCallStreamChannels : IRequest<MyTelegram.Schema.Phone.IGroupCallStreamChannels>
+public sealed partial class RequestGetGroupCallStreamChannels : IRequest<MyTelegram.Schema.Phone.IGroupCallStreamChannels>
 {
     public uint ConstructorId => 0x1ab21940;
 
-    ///<summary>
+    /// <summary>
     /// Group call or livestream
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     public void ComputeFlag()

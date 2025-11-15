@@ -2,59 +2,64 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Returns the difference between the current state of updates of a certain channel and transmitted.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHANNEL_PUBLIC_GROUP_NA channel/supergroup not available.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PERSISTENT_TIMESTAMP_EMPTY Persistent timestamp empty.
-/// 400 PERSISTENT_TIMESTAMP_INVALID Persistent timestamp invalid.
-/// 500 PERSISTENT_TIMESTAMP_OUTDATED Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL).
-/// 400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.
-/// 400 RANGES_INVALID Invalid range provided.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/updates.getChannelDifference" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHANNEL_PUBLIC_GROUP_NA channel/supergroup not available.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.</c></para>
+/// <para><c>400 FROZEN_PARTICIPANT_MISSING The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and cannot access the specified peer.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PERSISTENT_TIMESTAMP_EMPTY Persistent timestamp empty.</c></para>
+/// <para><c>400 PERSISTENT_TIMESTAMP_INVALID Persistent timestamp invalid.</c></para>
+/// <para><c>500 PERSISTENT_TIMESTAMP_OUTDATED Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL).</c></para>
+/// <para><c>400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.</c></para>
+/// <para><c>400 RANGES_INVALID Invalid range provided.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/updates.getChannelDifference" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3173d78)]
-public sealed class RequestGetChannelDifference : IRequest<MyTelegram.Schema.Updates.IChannelDifference>
+public sealed partial class RequestGetChannelDifference : IRequest<MyTelegram.Schema.Updates.IChannelDifference>
 {
     public uint ConstructorId => 0x3173d78;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set to true to skip some possibly unneeded updates and reduce server-side load
-    ///</summary>
+    /// </summary>
     public bool Force { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Messsage filter
     /// See <a href="https://corefork.telegram.org/type/ChannelMessagesFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelMessagesFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Persistent timestamp (see <a href="https://corefork.telegram.org/api/updates">updates</a>)
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
-    /// How many updates to fetch, max <code>100000</code><br>Ordinary (non-bot) users are supposed to pass <code>10-100</code>
-    ///</summary>
+    /// <summary>
+    /// How many updates to fetch, max <code>100000</code><br/>Ordinary (non-bot) users are supposed to pass <code>10-100</code>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

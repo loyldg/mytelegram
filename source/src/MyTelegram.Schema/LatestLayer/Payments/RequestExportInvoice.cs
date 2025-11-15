@@ -2,28 +2,33 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Generate an <a href="https://corefork.telegram.org/api/links#invoice-links">invoice deep link</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CURRENCY_TOTAL_AMOUNT_INVALID The total amount of all prices is invalid.
-/// 400 INVOICE_PAYLOAD_INVALID The specified invoice payload is invalid.
-/// 400 MEDIA_INVALID Media invalid.
-/// 400 PAYMENT_PROVIDER_INVALID The specified payment provider is invalid.
-/// 400 STARS_INVOICE_INVALID The specified Telegram Star invoice is invalid.
-/// 400 WEBDOCUMENT_MIME_INVALID Invalid webdocument mime type provided.
-/// 400 WEBDOCUMENT_URL_EMPTY The passed web document URL is empty.
-/// See <a href="https://corefork.telegram.org/method/payments.exportInvoice" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 CURRENCY_TOTAL_AMOUNT_INVALID The total amount of all prices is invalid.</c></para>
+/// <para><c>400 INVOICE_PAYLOAD_INVALID The specified invoice payload is invalid.</c></para>
+/// <para><c>400 MEDIA_INVALID Media invalid.</c></para>
+/// <para><c>400 PAYMENT_PROVIDER_INVALID The specified payment provider is invalid.</c></para>
+/// <para><c>400 STARS_INVOICE_INVALID The specified Telegram Star invoice is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot.</c></para>
+/// <para><c>400 WEBDOCUMENT_MIME_INVALID Invalid webdocument mime type provided.</c></para>
+/// <para><c>400 WEBDOCUMENT_URL_EMPTY The passed web document URL is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.exportInvoice" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf91b065)]
-public sealed class RequestExportInvoice : IRequest<MyTelegram.Schema.Payments.IExportedInvoice>
+public sealed partial class RequestExportInvoice : IRequest<MyTelegram.Schema.Payments.IExportedInvoice>
 {
     public uint ConstructorId => 0xf91b065;
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia InvoiceMedia { get; set; }
 
     public void ComputeFlag()

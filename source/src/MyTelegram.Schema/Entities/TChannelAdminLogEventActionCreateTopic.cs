@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a> was created
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionCreateTopic" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionCreateTopic" /></para>
+/// </summary>
 [TlObject(0x58707d28)]
-public sealed class TChannelAdminLogEventActionCreateTopic : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionCreateTopic : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x58707d28;
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a> that was created
     /// See <a href="https://corefork.telegram.org/type/ForumTopic" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IForumTopic Topic { get; set; }
 
     public void ComputeFlag()

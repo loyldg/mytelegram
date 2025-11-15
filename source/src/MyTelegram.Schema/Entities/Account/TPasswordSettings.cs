@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Private info associated to the password info (recovery email, telegram <a href="https://corefork.telegram.org/passport">passport</a> info &amp; so on)
-/// See <a href="https://corefork.telegram.org/constructor/account.passwordSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.passwordSettings" /></para>
+/// </summary>
 [TlObject(0x9a5c33e5)]
-public sealed class TPasswordSettings : IPasswordSettings
+public sealed partial class TPasswordSettings : IPasswordSettings
 {
     public uint ConstructorId => 0x9a5c33e5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/srp#email-verification">2FA Recovery email</a>
-    ///</summary>
+    /// </summary>
     public string? Email { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram <a href="https://corefork.telegram.org/passport">passport</a> settings
     /// See <a href="https://corefork.telegram.org/type/SecureSecretSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureSecretSettings? SecureSettings { get; set; }
 
     public void ComputeFlag()

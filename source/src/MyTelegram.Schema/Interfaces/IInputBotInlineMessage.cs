@@ -2,10 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a sent inline message from the perspective of a bot
-/// See <a href="https://corefork.telegram.org/type/InputBotInlineMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputBotInlineMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputBotInlineMessageMediaAuto"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaAuto" /><br/>
+/// <see cref="TInputBotInlineMessageText"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageText" /><br/>
+/// <see cref="TInputBotInlineMessageMediaGeo"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaGeo" /><br/>
+/// <see cref="TInputBotInlineMessageMediaVenue"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaVenue" /><br/>
+/// <see cref="TInputBotInlineMessageMediaContact"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaContact" /><br/>
+/// <see cref="TInputBotInlineMessageGame"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageGame" /><br/>
+/// <see cref="TInputBotInlineMessageMediaInvoice"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaInvoice" /><br/>
+/// <see cref="TInputBotInlineMessageMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaWebPage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputBotInlineMessageMediaAuto), nameof(TInputBotInlineMessageMediaAuto))]
 [JsonDerivedType(typeof(TInputBotInlineMessageText), nameof(TInputBotInlineMessageText))]
 [JsonDerivedType(typeof(TInputBotInlineMessageMediaGeo), nameof(TInputBotInlineMessageMediaGeo))]
@@ -16,14 +27,14 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputBotInlineMessageMediaWebPage), nameof(TInputBotInlineMessageMediaWebPage))]
 public interface IInputBotInlineMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 }

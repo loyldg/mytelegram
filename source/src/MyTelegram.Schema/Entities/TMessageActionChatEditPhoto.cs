@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Group profile changed
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatEditPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatEditPhoto" /></para>
+/// </summary>
 [TlObject(0x7fcb13a8)]
-public sealed class TMessageActionChatEditPhoto : IMessageAction
+public sealed partial class TMessageActionChatEditPhoto : IMessageAction
 {
     public uint ConstructorId => 0x7fcb13a8;
-    ///<summary>
+    /// <summary>
     /// New group profile photo
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto Photo { get; set; }
 
     public void ComputeFlag()

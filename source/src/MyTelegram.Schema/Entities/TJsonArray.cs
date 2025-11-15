@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// JSON array
-/// See <a href="https://corefork.telegram.org/constructor/jsonArray" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/jsonArray" /></para>
+/// </summary>
 [TlObject(0xf7444763)]
-public sealed class TJsonArray : IJSONValue
+public sealed partial class TJsonArray : IJSONValue
 {
     public uint ConstructorId => 0xf7444763;
-    ///<summary>
+    /// <summary>
     /// JSON values
     /// See <a href="https://corefork.telegram.org/type/JSONValue" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IJSONValue> Value { get; set; }
 
     public void ComputeFlag()

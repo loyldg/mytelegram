@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether we can see the last online timestamp of this user.Note that if <em>we</em> decide to hide our exact last online timestamp to someone (i.e., users A, B, C, or all users) <strong>and</strong> we do not have a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription, we won't be able to see the exact last online timestamp of those users (A, B, C, or all users), even if those users <em>do</em> share it with us.If those users <em>do</em> share their exact online status with us, but we can't see it due to the reason mentioned above, the <code>by_me</code> flag of <a href="https://corefork.telegram.org/constructor/userStatusRecently">userStatusRecently</a>, <a href="https://corefork.telegram.org/constructor/userStatusLastWeek">userStatusLastWeek</a>, <a href="https://corefork.telegram.org/constructor/userStatusLastMonth">userStatusLastMonth</a> will be set.
-/// See <a href="https://corefork.telegram.org/constructor/privacyKeyStatusTimestamp" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyKeyStatusTimestamp" /></para>
+/// </summary>
 [TlObject(0xbc2eab30)]
-public sealed class TPrivacyKeyStatusTimestamp : IPrivacyKey
+public sealed partial class TPrivacyKeyStatusTimestamp : IPrivacyKey
 {
     public uint ConstructorId => 0xbc2eab30;
     public void ComputeFlag()

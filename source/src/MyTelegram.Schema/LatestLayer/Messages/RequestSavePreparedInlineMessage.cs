@@ -2,41 +2,45 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Save a <a href="https://corefork.telegram.org/api/bots/inline#21-using-a-prepared-inline-message">prepared inline message</a>, to be shared by the user of the mini app using a <a href="https://corefork.telegram.org/api/web-events#web-app-send-prepared-message">web_app_send_prepared_message event</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 RESULT_ID_INVALID One of the specified result IDs is invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.savePreparedInlineMessage" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 RESULT_ID_INVALID One of the specified result IDs is invalid.</c></para>
+/// <para><c>400 SEND_MESSAGE_GAME_INVALID An inputBotInlineMessageGame can only be contained in an inputBotInlineResultGame, not in an inputBotInlineResult/inputBotInlineResultPhoto/etc.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.savePreparedInlineMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf21f7f2f)]
-public sealed class RequestSavePreparedInlineMessage : IRequest<MyTelegram.Schema.Messages.IBotPreparedInlineMessage>
+public sealed partial class RequestSavePreparedInlineMessage : IRequest<MyTelegram.Schema.Messages.IBotPreparedInlineMessage>
 {
     public uint ConstructorId => 0xf21f7f2f;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineResult" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineResult Result { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user to whom the <a href="https://corefork.telegram.org/api/web-events#web-app-send-prepared-message">web_app_send_prepared_message event</a> event will be sent
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Types of chats where this message can be sent
     /// See <a href="https://corefork.telegram.org/type/InlineQueryPeerType" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInlineQueryPeerType>? PeerTypes { get; set; }
 
     public void ComputeFlag()

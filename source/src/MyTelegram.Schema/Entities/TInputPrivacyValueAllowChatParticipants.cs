@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Allow only participants of certain chats
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowChatParticipants" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueAllowChatParticipants" /></para>
+/// </summary>
 [TlObject(0x840649cf)]
-public sealed class TInputPrivacyValueAllowChatParticipants : IInputPrivacyRule
+public sealed partial class TInputPrivacyValueAllowChatParticipants : IInputPrivacyRule
 {
     public uint ConstructorId => 0x840649cf;
-    ///<summary>
+    /// <summary>
     /// Allowed chat IDs (either a <a href="https://corefork.telegram.org/constructor/chat">chat</a> or a <a href="https://corefork.telegram.org/constructor/channel">supergroup</a> ID, verbatim the way it is received in the constructor (i.e. unlike with bot API IDs, here group and supergroup IDs should be treated in the same way)).
-    ///</summary>
+    /// </summary>
     public TVector<long> Chats { get; set; }
 
     public void ComputeFlag()

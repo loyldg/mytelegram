@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Represents a list of <a href="https://corefork.telegram.org/api/emoji-categories">emoji categories</a>.
-/// See <a href="https://corefork.telegram.org/type/messages.EmojiGroups" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.EmojiGroups" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmojiGroupsNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.emojiGroupsNotModified" /><br/>
+/// <see cref="TEmojiGroups"/> See <a href="https://corefork.telegram.org/constructor/messages.emojiGroups" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmojiGroupsNotModified), nameof(TEmojiGroupsNotModified))]
 [JsonDerivedType(typeof(TEmojiGroups), nameof(TEmojiGroups))]
 public interface IEmojiGroups : IObject

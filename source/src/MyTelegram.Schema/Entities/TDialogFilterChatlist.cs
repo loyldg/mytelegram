@@ -2,57 +2,60 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A folder imported using a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/dialogFilterChatlist" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dialogFilterChatlist" /></para>
+/// </summary>
 [TlObject(0x96537bd7)]
-public sealed class TDialogFilterChatlist : IDialogFilter
+public sealed partial class TDialogFilterChatlist : IDialogFilter
 {
     public uint ConstructorId => 0x96537bd7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current user has created some <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep links »</a> to share the folder as well.
-    ///</summary>
+    /// </summary>
     public bool HasMyInvites { get; set; }
 
+    /// <summary>
+    /// If set, any animated emojis present in <code>title</code> should not be animated and should be instead frozen on the first frame.
+    /// </summary>
     public bool TitleNoanimate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the folder
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the folder (max 12 UTF-8 chars)
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emoji to use as icon for the folder.
-    ///</summary>
+    /// </summary>
     public string? Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A color ID for the <a href="https://corefork.telegram.org/api/folders#folder-tags">folder tag associated to this folder, see here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int? Color { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pinned chats, <a href="https://corefork.telegram.org/api/folders">folders</a> can have unlimited pinned chats
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> PinnedPeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats to include in the folder
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> IncludePeers { get; set; }
 
     public void ComputeFlag()

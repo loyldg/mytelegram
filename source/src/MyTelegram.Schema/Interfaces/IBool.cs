@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Boolean type.
-/// See <a href="https://corefork.telegram.org/type/Bool" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Bool" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBoolFalse"/> See <a href="https://corefork.telegram.org/constructor/boolFalse" /><br/>
+/// <see cref="TBoolTrue"/> See <a href="https://corefork.telegram.org/constructor/boolTrue" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBoolFalse), nameof(TBoolFalse))]
 [JsonDerivedType(typeof(TBoolTrue), nameof(TBoolTrue))]
 public interface IBool : IObject

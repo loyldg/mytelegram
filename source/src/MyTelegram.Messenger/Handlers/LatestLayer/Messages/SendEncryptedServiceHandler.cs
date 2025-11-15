@@ -1,21 +1,23 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Sends a service message to a secret chat.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
+/// 400 CHAT_ID_INVALID The provided chat id is invalid.
 /// 400 DATA_INVALID Encrypted data invalid.
 /// 400 ENCRYPTION_DECLINED The secret chat was declined.
 /// 400 ENCRYPTION_ID_INVALID The provided secret chat ID is invalid.
 /// 500 MSG_WAIT_FAILED A waiting call returned an error.
 /// 403 USER_DELETED You can't send this secret message because the other participant deleted their account.
 /// 403 USER_IS_BLOCKED You were blocked by this user.
-/// See <a href="https://corefork.telegram.org/method/messages.sendEncryptedService" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.sendEncryptedService"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class SendEncryptedServiceHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendEncryptedService, MyTelegram.Schema.Messages.ISentEncryptedMessage>
 {
-    protected override Task<MyTelegram.Schema.Messages.ISentEncryptedMessage> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSendEncryptedService obj)
+    protected override Task<MyTelegram.Schema.Messages.ISentEncryptedMessage> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestSendEncryptedService obj)
     {
         throw new NotImplementedException();
     }

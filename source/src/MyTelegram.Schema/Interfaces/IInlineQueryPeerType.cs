@@ -2,10 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Inline query peer type.
-/// See <a href="https://corefork.telegram.org/type/InlineQueryPeerType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InlineQueryPeerType" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInlineQueryPeerTypeSameBotPM"/> See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypeSameBotPM" /><br/>
+/// <see cref="TInlineQueryPeerTypePM"/> See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypePM" /><br/>
+/// <see cref="TInlineQueryPeerTypeChat"/> See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypeChat" /><br/>
+/// <see cref="TInlineQueryPeerTypeMegagroup"/> See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypeMegagroup" /><br/>
+/// <see cref="TInlineQueryPeerTypeBroadcast"/> See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypeBroadcast" /><br/>
+/// <see cref="TInlineQueryPeerTypeBotPM"/> See <a href="https://corefork.telegram.org/constructor/inlineQueryPeerTypeBotPM" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInlineQueryPeerTypeSameBotPM), nameof(TInlineQueryPeerTypeSameBotPM))]
 [JsonDerivedType(typeof(TInlineQueryPeerTypePM), nameof(TInlineQueryPeerTypePM))]
 [JsonDerivedType(typeof(TInlineQueryPeerTypeChat), nameof(TInlineQueryPeerTypeChat))]

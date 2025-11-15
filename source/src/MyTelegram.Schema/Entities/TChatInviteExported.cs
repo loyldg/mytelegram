@@ -2,88 +2,88 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Exported chat invite
-/// See <a href="https://corefork.telegram.org/constructor/chatInviteExported" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatInviteExported" /></para>
+/// </summary>
 [TlObject(0xa22cbd96)]
-public sealed class TChatInviteExported : IExportedChatInvite, ILayeredExportedChatInvite
+public sealed partial class TChatInviteExported : IExportedChatInvite, ILayeredExportedChatInvite
 {
     public uint ConstructorId => 0xa22cbd96;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this chat invite was revoked
-    ///</summary>
+    /// </summary>
     public bool Revoked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this chat invite has no expiration
-    ///</summary>
+    /// </summary>
     public bool Permanent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether users importing this invite link will have to be approved to join the channel or group
-    ///</summary>
+    /// </summary>
     public bool RequestNeeded { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat invitation link
-    ///</summary>
+    /// </summary>
     public string Link { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the admin that created this chat invite
-    ///</summary>
+    /// </summary>
     public long AdminId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was this chat invite created
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was this chat invite last modified
-    ///</summary>
+    /// </summary>
     public int? StartDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When does this chat invite expire
-    ///</summary>
+    /// </summary>
     public int? ExpireDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of users that can join using this link
-    ///</summary>
+    /// </summary>
     public int? UsageLimit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// How many users joined using this link
-    ///</summary>
+    /// </summary>
     public int? Usage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of users that have already used this link to join
-    ///</summary>
+    /// </summary>
     public int? Requested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscriptions »</a>, contains the number of chat members which have already joined the chat using the link, but have already left due to expiration of their subscription.
-    ///</summary>
+    /// </summary>
     public int? SubscriptionExpired { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Custom description for the invite link, visible only to admins
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscriptions »</a>, contains the pricing of the subscription the user must activate to join the private channel.
     /// See <a href="https://corefork.telegram.org/type/StarsSubscriptionPricing" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsSubscriptionPricing? SubscriptionPricing { get; set; }
 
     public void ComputeFlag()

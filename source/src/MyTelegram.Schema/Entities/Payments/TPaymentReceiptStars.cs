@@ -2,70 +2,70 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Receipt for <a href="https://corefork.telegram.org/api/stars">payment made using Telegram Stars</a>.
-/// See <a href="https://corefork.telegram.org/constructor/payments.paymentReceiptStars" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.paymentReceiptStars" /></para>
+/// </summary>
 [TlObject(0xdabbf83a)]
-public sealed class TPaymentReceiptStars : IPaymentReceipt
+public sealed partial class TPaymentReceiptStars : IPaymentReceipt
 {
     public uint ConstructorId => 0xdabbf83a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of generation
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot ID
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product photo
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/Invoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Currency, always <code>XTR</code>.
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public long TotalAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transaction ID
-    ///</summary>
+    /// </summary>
     public string TransactionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about users mentioned in the other fields.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <code>fixed-width</code> rich text
-/// See <a href="https://corefork.telegram.org/constructor/textFixed" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textFixed" /></para>
+/// </summary>
 [TlObject(0x6c3f19b9)]
-public sealed class TTextFixed : IRichText
+public sealed partial class TTextFixed : IRichText
 {
     public uint ConstructorId => 0x6c3f19b9;
-    ///<summary>
+    /// <summary>
     /// Text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
     public void ComputeFlag()

@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Internal use
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here&nbsp;»</a> for info on how to properly compute the entity offset/length.
-/// 403 USER_INVALID Invalid user provided.
-/// See <a href="https://corefork.telegram.org/method/help.editUserInfo" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
+/// <para><c>403 USER_INVALID Invalid user provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/help.editUserInfo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x66b91b70)]
-public sealed class RequestEditUserInfo : IRequest<MyTelegram.Schema.Help.IUserInfo>
+public sealed partial class RequestEditUserInfo : IRequest<MyTelegram.Schema.Help.IUserInfo>
 {
     public uint ConstructorId => 0x66b91b70;
 
-    ///<summary>
+    /// <summary>
     /// User
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 
     public void ComputeFlag()

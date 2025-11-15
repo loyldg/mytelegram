@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Returns installed attachment menu <a href="https://corefork.telegram.org/api/bots/attach">bot mini apps »</a>
-/// See <a href="https://corefork.telegram.org/method/messages.getAttachMenuBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getAttachMenuBots" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x16fcc2cb)]
-public sealed class RequestGetAttachMenuBots : IRequest<MyTelegram.Schema.IAttachMenuBots>
+public sealed partial class RequestGetAttachMenuBots : IRequest<MyTelegram.Schema.IAttachMenuBots>
 {
     public uint ConstructorId => 0x16fcc2cb;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

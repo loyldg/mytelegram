@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A set of users was invited to the group call
-/// See <a href="https://corefork.telegram.org/constructor/messageActionInviteToGroupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionInviteToGroupCall" /></para>
+/// </summary>
 [TlObject(0x502f92f7)]
-public sealed class TMessageActionInviteToGroupCall : IMessageAction
+public sealed partial class TMessageActionInviteToGroupCall : IMessageAction
 {
     public uint ConstructorId => 0x502f92f7;
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The invited users
-    ///</summary>
+    /// </summary>
     public TVector<long> Users { get; set; }
 
     public void ComputeFlag()

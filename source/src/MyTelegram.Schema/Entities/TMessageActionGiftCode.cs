@@ -2,69 +2,69 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains a <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Telegram Premium giftcode link</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionGiftCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGiftCode" /></para>
+/// </summary>
 [TlObject(0x56d03994)]
-public sealed class TMessageActionGiftCode : IMessageAction
+public sealed partial class TMessageActionGiftCode : IMessageAction
 {
     public uint ConstructorId => 0x56d03994;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this gift code was received from a <a href="https://corefork.telegram.org/api/giveaways">giveaway »</a> started by a channel/supergroup we're subscribed to.
-    ///</summary>
+    /// </summary>
     public bool ViaGiveaway { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the link was not <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">redeemed</a> yet.
-    ///</summary>
+    /// </summary>
     public bool Unclaimed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the channel/supergroup that created the gift code <a href="https://corefork.telegram.org/api/giveaways">either directly or through a giveaway</a>: if we import this giftcode link, we will also automatically <a href="https://corefork.telegram.org/api/boost">boost</a> this channel/supergroup.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? BoostPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Duration in months of the gifted <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a>.
-    ///</summary>
+    /// </summary>
     public int Months { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Slug of the <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Telegram Premium giftcode link</a>
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
-    ///</summary>
+    /// </summary>
     public string? Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long? Amount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the gift was made using the specified cryptocurrency.
-    ///</summary>
+    /// </summary>
     public string? CryptoCurrency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If <code>crypto_currency</code> is set, contains the paid amount, in the smallest units of the cryptocurrency.
-    ///</summary>
+    /// </summary>
     public long? CryptoAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message attached with the gift
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
     public void ComputeFlag()

@@ -2,54 +2,54 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates an already sent game
-/// See <a href="https://corefork.telegram.org/constructor/game" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/game" /></para>
+/// </summary>
 [TlObject(0xbdf9653b)]
-public sealed class TGame : IGame
+public sealed partial class TGame : IGame
 {
     public uint ConstructorId => 0xbdf9653b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the game
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash of the game
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name for the game
-    ///</summary>
+    /// </summary>
     public string ShortName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title of the game
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Game description
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Game preview
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional attached document
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? Document { get; set; }
 
     public void ComputeFlag()

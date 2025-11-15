@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Message edit data for media
-/// See <a href="https://corefork.telegram.org/type/messages.MessageEditData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.MessageEditData" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageEditData"/> See <a href="https://corefork.telegram.org/constructor/messages.messageEditData" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageEditData), nameof(TMessageEditData))]
 public interface IMessageEditData : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media caption, if the specified media's caption can be edited
-    ///</summary>
+    /// </summary>
     bool Caption { get; set; }
 }

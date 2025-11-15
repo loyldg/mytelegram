@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Deletes a stickerset we created.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKERSET_INVALID The provided sticker set is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.deleteStickerSet" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKERSET_INVALID The provided sticker set is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.deleteStickerSet" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x87704394)]
-public sealed class RequestDeleteStickerSet : IRequest<IBool>
+public sealed partial class RequestDeleteStickerSet : IRequest<IBool>
 {
     public uint ConstructorId => 0x87704394;
 
-    ///<summary>
+    /// <summary>
     /// Stickerset to delete
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
     public void ComputeFlag()

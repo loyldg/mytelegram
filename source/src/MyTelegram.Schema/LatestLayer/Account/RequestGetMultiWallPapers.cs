@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get info about multiple <a href="https://corefork.telegram.org/api/wallpapers">wallpapers</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 WALLPAPER_INVALID The specified wallpaper is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.getMultiWallPapers" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 WALLPAPER_INVALID The specified wallpaper is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getMultiWallPapers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x65ad71dc)]
-public sealed class RequestGetMultiWallPapers : IRequest<TVector<MyTelegram.Schema.IWallPaper>>
+public sealed partial class RequestGetMultiWallPapers : IRequest<TVector<MyTelegram.Schema.IWallPaper>>
 {
     public uint ConstructorId => 0x65ad71dc;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpapers</a> to fetch info about
     /// See <a href="https://corefork.telegram.org/type/InputWallPaper" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputWallPaper> Wallpapers { get; set; }
 
     public void ComputeFlag()

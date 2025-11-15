@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Can only be used by TSF members to obtain internal information.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 USER_INVALID Invalid user provided.
-/// See <a href="https://corefork.telegram.org/method/help.getUserInfo" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 USER_INVALID Invalid user provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getUserInfo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x38a08d3)]
-public sealed class RequestGetUserInfo : IRequest<MyTelegram.Schema.Help.IUserInfo>
+public sealed partial class RequestGetUserInfo : IRequest<MyTelegram.Schema.Help.IUserInfo>
 {
     public uint ConstructorId => 0x38a08d3;
 
-    ///<summary>
+    /// <summary>
     /// User ID
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

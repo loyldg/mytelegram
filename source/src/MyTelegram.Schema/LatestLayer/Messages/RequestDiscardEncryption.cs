@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Cancels a request for creation and/or delete info on secret chat.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_EMPTY The provided chat ID is empty.
-/// 400 ENCRYPTION_ALREADY_ACCEPTED Secret chat already accepted.
-/// 400 ENCRYPTION_ALREADY_DECLINED The secret chat was already declined.
-/// 400 ENCRYPTION_ID_INVALID The provided secret chat ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.discardEncryption" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_EMPTY The provided chat ID is empty.</c></para>
+/// <para><c>400 ENCRYPTION_ALREADY_ACCEPTED Secret chat already accepted.</c></para>
+/// <para><c>400 ENCRYPTION_ALREADY_DECLINED The secret chat was already declined.</c></para>
+/// <para><c>400 ENCRYPTION_ID_INVALID The provided secret chat ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.discardEncryption" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf393aea0)]
-public sealed class RequestDiscardEncryption : IRequest<IBool>
+public sealed partial class RequestDiscardEncryption : IRequest<IBool>
 {
     public uint ConstructorId => 0xf393aea0;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to delete the entire chat history for the other user as well
-    ///</summary>
+    /// </summary>
     public bool DeleteHistory { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret chat ID
-    ///</summary>
+    /// </summary>
     public int ChatId { get; set; }
 
     public void ComputeFlag()

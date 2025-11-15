@@ -2,48 +2,48 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Aggregated view and reaction information of a <a href="https://corefork.telegram.org/api/stories">story</a>.
-/// See <a href="https://corefork.telegram.org/constructor/storyViews" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyViews" /></para>
+/// </summary>
 [TlObject(0x8d595cd6)]
-public sealed class TStoryViews : IStoryViews
+public sealed partial class TStoryViews : IStoryViews
 {
     public uint ConstructorId => 0x8d595cd6;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the viewers list is currently viewable, and was not yet deleted because the story has expired while the user didn't have a <a href="https://corefork.telegram.org/api/premium">Premium</a> account.
-    ///</summary>
+    /// </summary>
     public bool HasViewers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// View counter of the story
-    ///</summary>
+    /// </summary>
     public int ViewsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Forward counter of the story
-    ///</summary>
+    /// </summary>
     public int? ForwardsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All reactions sent to this story
     /// See <a href="https://corefork.telegram.org/type/ReactionCount" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IReactionCount>? Reactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of reactions added to the story
-    ///</summary>
+    /// </summary>
     public int? ReactionsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User IDs of some recent viewers of the story
-    ///</summary>
+    /// </summary>
     public TVector<long>? RecentViewers { get; set; }
 
     public void ComputeFlag()

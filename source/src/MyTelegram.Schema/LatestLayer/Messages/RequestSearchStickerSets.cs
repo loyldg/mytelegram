@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Search for stickersets
-/// See <a href="https://corefork.telegram.org/method/messages.searchStickerSets" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.searchStickerSets" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x35705b8a)]
-public sealed class RequestSearchStickerSets : IRequest<MyTelegram.Schema.Messages.IFoundStickerSets>
+public sealed partial class RequestSearchStickerSets : IRequest<MyTelegram.Schema.Messages.IFoundStickerSets>
 {
     public uint ConstructorId => 0x35705b8a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Exclude featured stickersets from results
-    ///</summary>
+    /// </summary>
     public bool ExcludeFeatured { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query string
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

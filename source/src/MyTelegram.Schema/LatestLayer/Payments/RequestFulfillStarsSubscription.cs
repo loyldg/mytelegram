@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Re-join a private channel associated to an active <a href="https://corefork.telegram.org/api/invites#paid-invite-links">Telegram Star subscription »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.fulfillStarsSubscription" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.fulfillStarsSubscription" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xcc5bebb3)]
-public sealed class RequestFulfillStarsSubscription : IRequest<IBool>
+public sealed partial class RequestFulfillStarsSubscription : IRequest<IBool>
 {
     public uint ConstructorId => 0xcc5bebb3;
 
-    ///<summary>
+    /// <summary>
     /// Always pass <a href="https://corefork.telegram.org/constructor/inputPeerSelf">inputPeerSelf</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the subscription.
-    ///</summary>
+    /// </summary>
     public string SubscriptionId { get; set; }
 
     public void ComputeFlag()

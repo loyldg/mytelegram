@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Obtain a list of similarly themed public channels, selected based on similarities in their <strong>subscriber bases</strong>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// See <a href="https://corefork.telegram.org/method/channels.getChannelRecommendations" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getChannelRecommendations" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x25a71742)]
-public sealed class RequestGetChannelRecommendations : IRequest<MyTelegram.Schema.Messages.IChats>
+public sealed partial class RequestGetChannelRecommendations : IRequest<MyTelegram.Schema.Messages.IChats>
 {
     public uint ConstructorId => 0x25a71742;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The method will return channels related to the passed <code>channel</code>. If not set, the method will returns channels related to channels the user has joined.
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel? Channel { get; set; }
 
     public void ComputeFlag()

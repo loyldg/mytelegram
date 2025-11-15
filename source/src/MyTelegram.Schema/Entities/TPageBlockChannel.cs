@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Reference to a telegram channel
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockChannel" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockChannel" /></para>
+/// </summary>
 [TlObject(0xef1751b5)]
-public sealed class TPageBlockChannel : IPageBlock
+public sealed partial class TPageBlockChannel : IPageBlock
 {
     public uint ConstructorId => 0xef1751b5;
-    ///<summary>
+    /// <summary>
     /// The channel/supergroup/chat
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChat Channel { get; set; }
 
     public void ComputeFlag()

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Top peer
-/// See <a href="https://corefork.telegram.org/constructor/topPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/topPeer" /></para>
+/// </summary>
 [TlObject(0xedcdc05b)]
-public sealed class TTopPeer : ITopPeer
+public sealed partial class TTopPeer : ITopPeer
 {
     public uint ConstructorId => 0xedcdc05b;
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Rating as computed in <a href="https://corefork.telegram.org/api/top-rating">top peer rating »</a>
-    ///</summary>
+    /// </summary>
     public double Rating { get; set; }
 
     public void ComputeFlag()

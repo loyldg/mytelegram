@@ -2,34 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Webpage preview of a Telegram story
-/// See <a href="https://corefork.telegram.org/constructor/webPageAttributeStory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPageAttributeStory" /></para>
+/// </summary>
 [TlObject(0x2e94c3e7)]
-public sealed class TWebPageAttributeStory : IWebPageAttribute
+public sealed partial class TWebPageAttributeStory : IWebPageAttribute
 {
     public uint ConstructorId => 0x2e94c3e7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer that posted the story
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/stories#watching-stories">Story ID</a>
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// May contain the story, if not the story should be fetched when and if needed using <a href="https://corefork.telegram.org/method/stories.getStoriesByID">stories.getStoriesByID</a> with the above <code>id</code> and <code>peer</code>.
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoryItem? Story { get; set; }
 
     public void ComputeFlag()

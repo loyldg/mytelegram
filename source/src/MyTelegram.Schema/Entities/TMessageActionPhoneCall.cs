@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A phone call
-/// See <a href="https://corefork.telegram.org/constructor/messageActionPhoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionPhoneCall" /></para>
+/// </summary>
 [TlObject(0x80e11a7f)]
-public sealed class TMessageActionPhoneCall : IMessageAction
+public sealed partial class TMessageActionPhoneCall : IMessageAction
 {
     public uint ConstructorId => 0x80e11a7f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this a video call?
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Call ID
-    ///</summary>
+    /// </summary>
     public long CallId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the call has ended, the reason why it ended
     /// See <a href="https://corefork.telegram.org/type/PhoneCallDiscardReason" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallDiscardReason? Reason { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Duration of the call in seconds
-    ///</summary>
+    /// </summary>
     public int? Duration { get; set; }
 
     public void ComputeFlag()

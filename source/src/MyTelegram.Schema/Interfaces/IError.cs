@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An object containing a query error.
-/// See <a href="https://corefork.telegram.org/type/Error" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Error" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TError"/> See <a href="https://corefork.telegram.org/constructor/error" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TError), nameof(TError))]
 public interface IError : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Error code
-    ///</summary>
+    /// </summary>
     int Code { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 }

@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Updated information about a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistUpdates" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistUpdates" /></para>
+/// </summary>
 [TlObject(0x93bd878d)]
-public sealed class TChatlistUpdates : IChatlistUpdates
+public sealed partial class TChatlistUpdates : IChatlistUpdates
 {
     public uint ConstructorId => 0x93bd878d;
-    ///<summary>
+    /// <summary>
     /// New peers to join
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer> MissingPeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related chat information
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related user information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Hide the active stories of a specific peer, preventing them from being displayed on the action bar on the homescreen.
-/// See <a href="https://corefork.telegram.org/method/stories.toggleAllStoriesHidden" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.toggleAllStoriesHidden" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7c2557c4)]
-public sealed class RequestToggleAllStoriesHidden : IRequest<IBool>
+public sealed partial class RequestToggleAllStoriesHidden : IRequest<IBool>
 {
     public uint ConstructorId => 0x7c2557c4;
 
-    ///<summary>
+    /// <summary>
     /// Whether to hide or unhide all active stories of the peer
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Hidden { get; set; }
 
     public void ComputeFlag()

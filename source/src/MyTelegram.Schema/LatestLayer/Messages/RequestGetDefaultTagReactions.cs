@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Fetch a default recommended list of <a href="https://corefork.telegram.org/api/saved-messages#tags">saved message tag reactions</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.getDefaultTagReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getDefaultTagReactions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbdf93428)]
-public sealed class RequestGetDefaultTagReactions : IRequest<MyTelegram.Schema.Messages.IReactions>
+public sealed partial class RequestGetDefaultTagReactions : IRequest<MyTelegram.Schema.Messages.IReactions>
 {
     public uint ConstructorId => 0xbdf93428;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

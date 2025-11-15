@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Information about an active user in a supergroup
-/// See <a href="https://corefork.telegram.org/constructor/statsGroupTopPoster" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsGroupTopPoster" /></para>
+/// </summary>
 [TlObject(0x9d04af9b)]
-public sealed class TStatsGroupTopPoster : IStatsGroupTopPoster
+public sealed partial class TStatsGroupTopPoster : IStatsGroupTopPoster
 {
     public uint ConstructorId => 0x9d04af9b;
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of messages for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     public int Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Average number of characters per message
-    ///</summary>
+    /// </summary>
     public int AvgChars { get; set; }
 
     public void ComputeFlag()

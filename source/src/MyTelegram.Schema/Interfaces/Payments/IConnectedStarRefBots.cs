@@ -2,27 +2,31 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Active <a href="https://corefork.telegram.org/api/bots/referrals#becoming-an-affiliate">affiliations</a>
-/// See <a href="https://corefork.telegram.org/type/payments.ConnectedStarRefBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.ConnectedStarRefBots" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TConnectedStarRefBots"/> See <a href="https://corefork.telegram.org/constructor/payments.connectedStarRefBots" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TConnectedStarRefBots), nameof(TConnectedStarRefBots))]
 public interface IConnectedStarRefBots : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Total number of active affiliations
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The affiliations
     /// See <a href="https://corefork.telegram.org/type/ConnectedBotStarRef" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IConnectedBotStarRef> ConnectedBots { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peers mentioned in <code>connected_bots</code>
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

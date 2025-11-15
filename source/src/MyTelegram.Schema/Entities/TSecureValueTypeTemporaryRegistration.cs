@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Temporary registration
-/// See <a href="https://corefork.telegram.org/constructor/secureValueTypeTemporaryRegistration" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueTypeTemporaryRegistration" /></para>
+/// </summary>
 [TlObject(0xea02ec33)]
-public sealed class TSecureValueTypeTemporaryRegistration : ISecureValueType
+public sealed partial class TSecureValueTypeTemporaryRegistration : ISecureValueType
 {
     public uint ConstructorId => 0xea02ec33;
     public void ComputeFlag()

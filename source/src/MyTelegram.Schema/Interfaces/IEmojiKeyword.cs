@@ -2,21 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Emoji keyword
-/// See <a href="https://corefork.telegram.org/type/EmojiKeyword" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EmojiKeyword" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmojiKeyword"/> See <a href="https://corefork.telegram.org/constructor/emojiKeyword" /><br/>
+/// <see cref="TEmojiKeywordDeleted"/> See <a href="https://corefork.telegram.org/constructor/emojiKeywordDeleted" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmojiKeyword), nameof(TEmojiKeyword))]
 [JsonDerivedType(typeof(TEmojiKeywordDeleted), nameof(TEmojiKeywordDeleted))]
 public interface IEmojiKeyword : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Keyword
-    ///</summary>
+    /// </summary>
     string Keyword { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emojis associated to keyword
-    ///</summary>
+    /// </summary>
     TVector<string> Emoticons { get; set; }
 }

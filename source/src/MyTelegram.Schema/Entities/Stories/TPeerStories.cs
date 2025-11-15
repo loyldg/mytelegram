@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stories#watching-stories">Active story list</a> of a specific peer.
-/// See <a href="https://corefork.telegram.org/constructor/stories.peerStories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stories.peerStories" /></para>
+/// </summary>
 [TlObject(0xcae68768)]
-public sealed class TPeerStories : IPeerStories
+public sealed partial class TPeerStories : IPeerStories
 {
     public uint ConstructorId => 0xcae68768;
-    ///<summary>
+    /// <summary>
     /// Stories
     /// See <a href="https://corefork.telegram.org/type/PeerStories" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerStories Stories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

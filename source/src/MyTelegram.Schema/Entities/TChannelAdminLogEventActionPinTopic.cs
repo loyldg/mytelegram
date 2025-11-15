@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a> was pinned or unpinned
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionPinTopic" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionPinTopic" /></para>
+/// </summary>
 [TlObject(0x5d8d353b)]
-public sealed class TChannelAdminLogEventActionPinTopic : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionPinTopic : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x5d8d353b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previous topic information
     /// See <a href="https://corefork.telegram.org/type/ForumTopic" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IForumTopic? PrevTopic { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New topic information
     /// See <a href="https://corefork.telegram.org/type/ForumTopic" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IForumTopic? NewTopic { get; set; }
 
     public void ComputeFlag()

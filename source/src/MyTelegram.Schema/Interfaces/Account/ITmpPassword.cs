@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Temporary password
-/// See <a href="https://corefork.telegram.org/type/account.TmpPassword" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.TmpPassword" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTmpPassword"/> See <a href="https://corefork.telegram.org/constructor/account.tmpPassword" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTmpPassword), nameof(TTmpPassword))]
 public interface ITmpPassword : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Temporary password
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> TmpPassword { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Validity period
-    ///</summary>
+    /// </summary>
     int ValidUntil { get; set; }
 }

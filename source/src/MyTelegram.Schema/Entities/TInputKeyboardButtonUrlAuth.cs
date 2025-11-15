@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Button to request a user to <a href="https://corefork.telegram.org/method/messages.acceptUrlAuth">authorize</a> via URL using <a href="https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots">Seamless Telegram Login</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUrlAuth" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUrlAuth" /></para>
+/// </summary>
 [TlObject(0xd02e7fd4)]
-public sealed class TInputKeyboardButtonUrlAuth : IKeyboardButton
+public sealed partial class TInputKeyboardButtonUrlAuth : IKeyboardButton
 {
     public uint ConstructorId => 0xd02e7fd4;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag to request the permission for your bot to send messages to the user.
-    ///</summary>
+    /// </summary>
     public bool RequestWriteAccess { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New text of the button in forwarded messages.
-    ///</summary>
+    /// </summary>
     public string? FwdText { get; set; }
 
-    ///<summary>
-    /// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in <a href="https://corefork.telegram.org/widgets/login#receiving-authorization-data">Receiving authorization data</a>.<br>NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in <a href="https://corefork.telegram.org/widgets/login#checking-authorization">Checking authorization</a>.
-    ///</summary>
+    /// <summary>
+    /// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in <a href="https://corefork.telegram.org/widgets/login#receiving-authorization-data">Receiving authorization data</a>.<br/>NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in <a href="https://corefork.telegram.org/widgets/login#checking-authorization">Checking authorization</a>.
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Username of a bot, which will be used for user authorization. See <a href="https://corefork.telegram.org/widgets/login#setting-up-a-bot">Setting up a bot</a> for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See <a href="https://corefork.telegram.org/widgets/login#linking-your-domain-to-the-bot">Linking your domain to the bot</a> for more details.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
     public void ComputeFlag()

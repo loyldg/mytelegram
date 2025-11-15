@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The code was sent via SMS
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSms" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSms" /></para>
+/// </summary>
 [TlObject(0xc000bba2)]
-public sealed class TSentCodeTypeSms : ISentCodeType
+public sealed partial class TSentCodeTypeSms : ISentCodeType
 {
     public uint ConstructorId => 0xc000bba2;
-    ///<summary>
+    /// <summary>
     /// Length of the code in bytes
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

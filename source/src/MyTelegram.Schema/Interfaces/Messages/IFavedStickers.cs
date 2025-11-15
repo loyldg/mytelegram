@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Favorited stickers
-/// See <a href="https://corefork.telegram.org/type/messages.FavedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.FavedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFavedStickersNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.favedStickersNotModified" /><br/>
+/// <see cref="TFavedStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.favedStickers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFavedStickersNotModified), nameof(TFavedStickersNotModified))]
 [JsonDerivedType(typeof(TFavedStickers), nameof(TFavedStickers))]
 public interface IFavedStickers : IObject

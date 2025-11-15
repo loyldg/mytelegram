@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Audio
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockAudio" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockAudio" /></para>
+/// </summary>
 [TlObject(0x804361ea)]
-public sealed class TPageBlockAudio : IPageBlock
+public sealed partial class TPageBlockAudio : IPageBlock
 {
     public uint ConstructorId => 0x804361ea;
-    ///<summary>
+    /// <summary>
     /// Audio ID (to be fetched from the container <a href="https://corefork.telegram.org/constructor/page">page</a> constructor
-    ///</summary>
+    /// </summary>
     public long AudioId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Audio caption
     /// See <a href="https://corefork.telegram.org/type/PageCaption" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
     public void ComputeFlag()

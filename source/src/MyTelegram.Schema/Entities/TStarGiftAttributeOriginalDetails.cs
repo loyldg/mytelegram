@@ -2,33 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/starGiftAttributeOriginalDetails" />
-///</summary>
+/// <summary>
+/// Info about the sender, receiver and message attached to the original <a href="https://corefork.telegram.org/api/gifts">gift »</a>, before it was upgraded to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeOriginalDetails" /></para>
+/// </summary>
 [TlObject(0xe0bff26c)]
-public sealed class TStarGiftAttributeOriginalDetails : IStarGiftAttribute
+public sealed partial class TStarGiftAttributeOriginalDetails : IStarGiftAttribute
 {
     public uint ConstructorId => 0xe0bff26c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Original sender of the gift, absent if the gift was private.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SenderId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Original receiver of the gift.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer RecipientId { get; set; }
 
+    /// <summary>
+    /// When was the gift sent.
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Original message attached to the gift, if present.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
     public void ComputeFlag()

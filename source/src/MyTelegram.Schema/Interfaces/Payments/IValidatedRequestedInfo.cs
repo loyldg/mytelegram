@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Validated requested info
-/// See <a href="https://corefork.telegram.org/type/payments.ValidatedRequestedInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.ValidatedRequestedInfo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TValidatedRequestedInfo"/> See <a href="https://corefork.telegram.org/constructor/payments.validatedRequestedInfo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TValidatedRequestedInfo), nameof(TValidatedRequestedInfo))]
 public interface IValidatedRequestedInfo : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID
-    ///</summary>
+    /// </summary>
     string? Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Shipping options
     /// See <a href="https://corefork.telegram.org/type/ShippingOption" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IShippingOption>? ShippingOptions { get; set; }
 }

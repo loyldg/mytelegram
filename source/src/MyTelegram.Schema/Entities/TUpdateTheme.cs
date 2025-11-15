@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A cloud theme was updated
-/// See <a href="https://corefork.telegram.org/constructor/updateTheme" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateTheme" /></para>
+/// </summary>
 [TlObject(0x8216fba3)]
-public sealed class TUpdateTheme : IUpdate
+public sealed partial class TUpdateTheme : IUpdate
 {
     public uint ConstructorId => 0x8216fba3;
-    ///<summary>
+    /// <summary>
     /// Theme
     /// See <a href="https://corefork.telegram.org/type/Theme" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITheme Theme { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A language pack has changed, the client should manually fetch the changed strings using <a href="https://corefork.telegram.org/method/langpack.getDifference">langpack.getDifference</a>
-/// See <a href="https://corefork.telegram.org/constructor/updateLangPackTooLong" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateLangPackTooLong" /></para>
+/// </summary>
 [TlObject(0x46560264)]
-public sealed class TUpdateLangPackTooLong : IUpdate
+public sealed partial class TUpdateLangPackTooLong : IUpdate
 {
     public uint ConstructorId => 0x46560264;
-    ///<summary>
+    /// <summary>
     /// Language code
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
     public void ComputeFlag()

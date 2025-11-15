@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// Mp3 audio. MIME type: <code>audio/mpeg</code>.
-/// See <a href="https://corefork.telegram.org/constructor/storage.fileMp3" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.fileMp3" /></para>
+/// </summary>
 [TlObject(0x528a0677)]
-public sealed class TFileMp3 : IFileType
+public sealed partial class TFileMp3 : IFileType
 {
     public uint ConstructorId => 0x528a0677;
     public void ComputeFlag()

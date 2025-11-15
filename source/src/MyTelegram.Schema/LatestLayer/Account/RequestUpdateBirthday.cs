@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Update our <a href="https://corefork.telegram.org/api/profile#birthday">birthday, see here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BIRTHDAY_INVALID An invalid age was specified, must be between 0 and 150 years.
-/// See <a href="https://corefork.telegram.org/method/account.updateBirthday" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BIRTHDAY_INVALID An invalid age was specified, must be between 0 and 150 years. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateBirthday" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xcc6e0c11)]
-public sealed class RequestUpdateBirthday : IRequest<IBool>
+public sealed partial class RequestUpdateBirthday : IRequest<IBool>
 {
     public uint ConstructorId => 0xcc6e0c11;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Birthday.
     /// See <a href="https://corefork.telegram.org/type/Birthday" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBirthday? Birthday { get; set; }
 
     public void ComputeFlag()

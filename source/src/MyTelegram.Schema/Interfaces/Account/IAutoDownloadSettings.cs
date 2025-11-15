@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Media autodownload settings
-/// See <a href="https://corefork.telegram.org/type/account.AutoDownloadSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.AutoDownloadSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAutoDownloadSettings"/> See <a href="https://corefork.telegram.org/constructor/account.autoDownloadSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAutoDownloadSettings), nameof(TAutoDownloadSettings))]
 public interface IAutoDownloadSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Low data usage preset
     /// See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IAutoDownloadSettings Low { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Medium data usage preset
     /// See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IAutoDownloadSettings Medium { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// High data usage preset
     /// See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IAutoDownloadSettings High { get; set; }
 }

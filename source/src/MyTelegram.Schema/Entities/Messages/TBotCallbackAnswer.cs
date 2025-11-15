@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Callback answer sent by the bot in response to a button press
-/// See <a href="https://corefork.telegram.org/constructor/messages.botCallbackAnswer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.botCallbackAnswer" /></para>
+/// </summary>
 [TlObject(0x36585ea4)]
-public sealed class TBotCallbackAnswer : IBotCallbackAnswer
+public sealed partial class TBotCallbackAnswer : IBotCallbackAnswer
 {
     public uint ConstructorId => 0x36585ea4;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether an alert should be shown to the user instead of a toast notification
-    ///</summary>
+    /// </summary>
     public bool Alert { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether an URL is present
-    ///</summary>
+    /// </summary>
     public bool HasUrl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to show games in WebView or in native UI.
-    ///</summary>
+    /// </summary>
     public bool NativeUi { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Alert to show
-    ///</summary>
+    /// </summary>
     public string? Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL to open
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For how long should this answer be cached
-    ///</summary>
+    /// </summary>
     public int CacheTime { get; set; }
 
     public void ComputeFlag()

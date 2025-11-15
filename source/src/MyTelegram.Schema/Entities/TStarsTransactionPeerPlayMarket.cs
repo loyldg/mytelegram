@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a <a href="https://corefork.telegram.org/api/stars">Telegram Star</a> transaction with the Play Store, used when purchasing Telegram Stars through the Play Store.
-/// See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerPlayMarket" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsTransactionPeerPlayMarket" /></para>
+/// </summary>
 [TlObject(0x7b560a0b)]
-public sealed class TStarsTransactionPeerPlayMarket : IStarsTransactionPeer
+public sealed partial class TStarsTransactionPeerPlayMarket : IStarsTransactionPeer
 {
     public uint ConstructorId => 0x7b560a0b;
     public void ComputeFlag()

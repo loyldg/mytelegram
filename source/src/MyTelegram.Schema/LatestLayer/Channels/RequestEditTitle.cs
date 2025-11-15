@@ -2,32 +2,36 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Edit the name of a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 CHAT_TITLE_EMPTY No chat title provided.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// See <a href="https://corefork.telegram.org/method/channels.editTitle" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_INVALID Invalid chat.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 CHAT_TITLE_EMPTY No chat title provided.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.editTitle" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x566decd0)]
-public sealed class RequestEditTitle : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditTitle : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x566decd0;
 
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

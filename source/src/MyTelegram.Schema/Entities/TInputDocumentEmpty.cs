@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor.
-/// See <a href="https://corefork.telegram.org/constructor/inputDocumentEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputDocumentEmpty" /></para>
+/// </summary>
 [TlObject(0x72f0eaae)]
-public sealed class TInputDocumentEmpty : IInputDocument
+public sealed partial class TInputDocumentEmpty : IInputDocument
 {
     public uint ConstructorId => 0x72f0eaae;
     public void ComputeFlag()

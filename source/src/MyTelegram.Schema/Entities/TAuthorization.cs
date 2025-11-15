@@ -2,107 +2,107 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Logged-in session
-/// See <a href="https://corefork.telegram.org/constructor/authorization" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/authorization" /></para>
+/// </summary>
 [TlObject(0xad01d61d)]
-public sealed class TAuthorization : IAuthorization
+public sealed partial class TAuthorization : IAuthorization
 {
     public uint ConstructorId => 0xad01d61d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is the current session
-    ///</summary>
+    /// </summary>
     public bool Current { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the session is from an official app
-    ///</summary>
+    /// </summary>
     public bool OfficialApp { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the session is still waiting for a 2FA password
-    ///</summary>
+    /// </summary>
     public bool PasswordPending { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this session will accept encrypted chats
-    ///</summary>
+    /// </summary>
     public bool EncryptedRequestsDisabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this session will accept phone calls
-    ///</summary>
+    /// </summary>
     public bool CallRequestsDisabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the session is <a href="https://corefork.telegram.org/api/auth#confirming-login">unconfirmed, see here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public bool Unconfirmed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Device model
-    ///</summary>
+    /// </summary>
     public string DeviceModel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Platform
-    ///</summary>
+    /// </summary>
     public string Platform { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// System version
-    ///</summary>
+    /// </summary>
     public string SystemVersion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/obtaining_api_id">API ID</a>
-    ///</summary>
+    /// </summary>
     public int ApiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// App name
-    ///</summary>
+    /// </summary>
     public string AppName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// App version
-    ///</summary>
+    /// </summary>
     public string AppVersion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the session created
-    ///</summary>
+    /// </summary>
     public int DateCreated { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the session last active
-    ///</summary>
+    /// </summary>
     public int DateActive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last known IP
-    ///</summary>
+    /// </summary>
     public string Ip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Country determined from IP
-    ///</summary>
+    /// </summary>
     public string Country { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Region determined from IP
-    ///</summary>
+    /// </summary>
     public string Region { get; set; }
 
     public void ComputeFlag()

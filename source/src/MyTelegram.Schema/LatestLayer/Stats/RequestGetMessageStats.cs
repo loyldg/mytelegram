@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/stats">message statistics</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/stats.getMessageStats" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stats.getMessageStats" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb6e0a3f5)]
-public sealed class RequestGetMessageStats : IRequest<MyTelegram.Schema.Stats.IMessageStats>
+public sealed partial class RequestGetMessageStats : IRequest<MyTelegram.Schema.Stats.IMessageStats>
 {
     public uint ConstructorId => 0xb6e0a3f5;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to enable dark theme for graph colors
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel ID
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

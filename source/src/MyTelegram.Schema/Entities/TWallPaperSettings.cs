@@ -2,62 +2,62 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> rendering information.
-/// See <a href="https://corefork.telegram.org/constructor/wallPaperSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/wallPaperSettings" /></para>
+/// </summary>
 [TlObject(0x372efcd0)]
-public sealed class TWallPaperSettings : IWallPaperSettings
+public sealed partial class TWallPaperSettings : IWallPaperSettings
 {
     public uint ConstructorId => 0x372efcd0;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/wallpapers#image-wallpapers">image wallpapers »</a>: if set, the JPEG must be downscaled to fit in 450x450 square and then box-blurred with radius 12.
-    ///</summary>
+    /// </summary>
     public bool Blur { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the background needs to be slightly moved when the device is rotated.
-    ///</summary>
+    /// </summary>
     public bool Motion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used for <a href="https://corefork.telegram.org/api/wallpapers#solid-fill">solid »</a>, <a href="https://corefork.telegram.org/api/wallpapers#gradient-fill">gradient »</a> and <a href="https://corefork.telegram.org/api/wallpapers#freeform-gradient-fill">freeform gradient »</a> fills.
-    ///</summary>
+    /// </summary>
     public int? BackgroundColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used for <a href="https://corefork.telegram.org/api/wallpapers#gradient-fill">gradient »</a> and <a href="https://corefork.telegram.org/api/wallpapers#freeform-gradient-fill">freeform gradient »</a> fills.
-    ///</summary>
+    /// </summary>
     public int? SecondBackgroundColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used for <a href="https://corefork.telegram.org/api/wallpapers#freeform-gradient-fill">freeform gradient »</a> fills.
-    ///</summary>
+    /// </summary>
     public int? ThirdBackgroundColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used for <a href="https://corefork.telegram.org/api/wallpapers#freeform-gradient-fill">freeform gradient »</a> fills.
-    ///</summary>
+    /// </summary>
     public int? FourthBackgroundColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used for <a href="https://corefork.telegram.org/api/wallpapers#pattern-wallpapers">pattern wallpapers »</a>.
-    ///</summary>
+    /// </summary>
     public int? Intensity { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45.
-    ///</summary>
+    /// </summary>
     public int? Rotation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this wallpaper can be used as a channel wallpaper and is represented by the specified UTF-8 emoji.
-    ///</summary>
+    /// </summary>
     public string? Emoticon { get; set; }
 
     public void ComputeFlag()

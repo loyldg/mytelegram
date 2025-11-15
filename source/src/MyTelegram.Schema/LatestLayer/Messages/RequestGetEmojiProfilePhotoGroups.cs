@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Represents a list of <a href="https://corefork.telegram.org/api/emoji-categories">emoji categories</a>, to be used when selecting custom emojis to set as <a href="https://corefork.telegram.org/api/files#sticker-profile-pictures">profile picture</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.getEmojiProfilePhotoGroups" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getEmojiProfilePhotoGroups" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x21a548f3)]
-public sealed class RequestGetEmojiProfilePhotoGroups : IRequest<MyTelegram.Schema.Messages.IEmojiGroups>
+public sealed partial class RequestGetEmojiProfilePhotoGroups : IRequest<MyTelegram.Schema.Messages.IEmojiGroups>
 {
     public uint ConstructorId => 0x21a548f3;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

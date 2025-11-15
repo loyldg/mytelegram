@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chat history is being imported
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageHistoryImportAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageHistoryImportAction" /></para>
+/// </summary>
 [TlObject(0xdbda9246)]
-public sealed class TSendMessageHistoryImportAction : ISendMessageAction
+public sealed partial class TSendMessageHistoryImportAction : ISendMessageAction
 {
     public uint ConstructorId => 0xdbda9246;
-    ///<summary>
+    /// <summary>
     /// Progress percentage
-    ///</summary>
+    /// </summary>
     public int Progress { get; set; }
 
     public void ComputeFlag()

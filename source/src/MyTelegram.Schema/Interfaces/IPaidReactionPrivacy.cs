@@ -2,9 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/PaidReactionPrivacy" />
-///</summary>
+/// <summary>
+/// <a href="https://corefork.telegram.org/api/reactions#paid-reactions">Paid reaction privacy settings »</a>
+/// <para>See <a href="https://corefork.telegram.org/type/PaidReactionPrivacy" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPaidReactionPrivacyDefault"/> See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyDefault" /><br/>
+/// <see cref="TPaidReactionPrivacyAnonymous"/> See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyAnonymous" /><br/>
+/// <see cref="TPaidReactionPrivacyPeer"/> See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyPeer" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPaidReactionPrivacyDefault), nameof(TPaidReactionPrivacyDefault))]
 [JsonDerivedType(typeof(TPaidReactionPrivacyAnonymous), nameof(TPaidReactionPrivacyAnonymous))]
 [JsonDerivedType(typeof(TPaidReactionPrivacyPeer), nameof(TPaidReactionPrivacyPeer))]

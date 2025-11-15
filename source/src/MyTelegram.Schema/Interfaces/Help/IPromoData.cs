@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Info about pinned MTProxy or Public Service Announcement peers.
-/// See <a href="https://corefork.telegram.org/type/help.PromoData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.PromoData" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPromoDataEmpty"/> See <a href="https://corefork.telegram.org/constructor/help.promoDataEmpty" /><br/>
+/// <see cref="TPromoData"/> See <a href="https://corefork.telegram.org/constructor/help.promoData" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPromoDataEmpty), nameof(TPromoDataEmpty))]
 [JsonDerivedType(typeof(TPromoData), nameof(TPromoData))]
 public interface IPromoData : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Re-fetch PSA/MTProxy info after the specified number of seconds
-    ///</summary>
+    /// </summary>
     int Expires { get; set; }
 }

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The list of <a href="https://corefork.telegram.org/api/emoji-categories">emoji categories</a> hasn't changed.
-/// See <a href="https://corefork.telegram.org/constructor/messages.emojiGroupsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.emojiGroupsNotModified" /></para>
+/// </summary>
 [TlObject(0x6fb4ad87)]
-public sealed class TEmojiGroupsNotModified : IEmojiGroups
+public sealed partial class TEmojiGroupsNotModified : IEmojiGroups
 {
     public uint ConstructorId => 0x6fb4ad87;
     public void ComputeFlag()

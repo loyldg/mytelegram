@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Most frequently called users
-/// See <a href="https://corefork.telegram.org/constructor/topPeerCategoryPhoneCalls" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/topPeerCategoryPhoneCalls" /></para>
+/// </summary>
 [TlObject(0x1e76a78c)]
-public sealed class TTopPeerCategoryPhoneCalls : ITopPeerCategory
+public sealed partial class TTopPeerCategoryPhoneCalls : ITopPeerCategory
 {
     public uint ConstructorId => 0x1e76a78c;
     public void ComputeFlag()

@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about a <a href="https://corefork.telegram.org/api/giveaways#star-giveaways">prepaid Telegram Star giveaway »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/prepaidStarsGiveaway" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/prepaidStarsGiveaway" /></para>
+/// </summary>
 [TlObject(0x9a9d77e0)]
-public sealed class TPrepaidStarsGiveaway : IPrepaidGiveaway
+public sealed partial class TPrepaidStarsGiveaway : IPrepaidGiveaway
 {
     public uint ConstructorId => 0x9a9d77e0;
-    ///<summary>
+    /// <summary>
     /// Prepaid giveaway ID.
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of given away <a href="https://corefork.telegram.org/api/stars">Telegram Stars »</a>
-    ///</summary>
+    /// </summary>
     public long Stars { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of giveaway winners
-    ///</summary>
+    /// </summary>
     public int Quantity { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of boosts the channel will gain by launching the giveaway.
-    ///</summary>
+    /// </summary>
     public int Boosts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the giveaway paid for
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

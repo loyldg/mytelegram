@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Securely save <a href="https://corefork.telegram.org/passport">Telegram Passport</a> document, <a href="https://corefork.telegram.org/passport/encryption#encryption">for more info see the passport docs »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PASSWORD_REQUIRED A <a href="https://corefork.telegram.org/api/srp">2FA password</a> must be configured to use Telegram Passport.
-/// 400 SECURE_SECRET_REQUIRED A secure secret is required.
-/// See <a href="https://corefork.telegram.org/method/account.saveSecureValue" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PASSWORD_REQUIRED A <a href="https://corefork.telegram.org/api/srp">2FA password</a> must be configured to use Telegram Passport.</c></para>
+/// <para><c>400 SECURE_SECRET_REQUIRED A secure secret is required. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.saveSecureValue" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x899fe31d)]
-public sealed class RequestSaveSecureValue : IRequest<MyTelegram.Schema.ISecureValue>
+public sealed partial class RequestSaveSecureValue : IRequest<MyTelegram.Schema.ISecureValue>
 {
     public uint ConstructorId => 0x899fe31d;
 
-    ///<summary>
+    /// <summary>
     /// Secure value, <a href="https://corefork.telegram.org/passport/encryption#encryption">for more info see the passport docs »</a>
     /// See <a href="https://corefork.telegram.org/type/InputSecureValue" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputSecureValue Value { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Passport secret hash, <a href="https://corefork.telegram.org/passport/encryption#encryption">for more info see the passport docs »</a>
-    ///</summary>
+    /// </summary>
     public long SecureSecretId { get; set; }
 
     public void ComputeFlag()

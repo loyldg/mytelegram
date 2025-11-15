@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut »</a> was deleted. This will <strong>not</strong> emit <a href="https://corefork.telegram.org/constructor/updateDeleteQuickReplyMessages">updateDeleteQuickReplyMessages</a> updates, even if all the messages in the shortcut are also deleted by this update.
-/// See <a href="https://corefork.telegram.org/constructor/updateDeleteQuickReply" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDeleteQuickReply" /></para>
+/// </summary>
 [TlObject(0x53e6f1ec)]
-public sealed class TUpdateDeleteQuickReply : IUpdate
+public sealed partial class TUpdateDeleteQuickReply : IUpdate
 {
     public uint ConstructorId => 0x53e6f1ec;
-    ///<summary>
+    /// <summary>
     /// ID of the quick reply shortcut that was deleted.
-    ///</summary>
+    /// </summary>
     public int ShortcutId { get; set; }
 
     public void ComputeFlag()

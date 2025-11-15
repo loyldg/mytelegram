@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Information about sparse positions of messages
-/// See <a href="https://corefork.telegram.org/constructor/messages.searchResultsPositions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.searchResultsPositions" /></para>
+/// </summary>
 [TlObject(0x53b22baf)]
-public sealed class TSearchResultsPositions : ISearchResultsPositions
+public sealed partial class TSearchResultsPositions : ISearchResultsPositions
 {
     public uint ConstructorId => 0x53b22baf;
-    ///<summary>
+    /// <summary>
     /// Total number of found messages
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of message positions
     /// See <a href="https://corefork.telegram.org/type/SearchResultsPosition" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISearchResultsPosition> Positions { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Exported <a href="https://corefork.telegram.org/api/links#invoice-links">invoice deep link</a>
-/// See <a href="https://corefork.telegram.org/constructor/payments.exportedInvoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.exportedInvoice" /></para>
+/// </summary>
 [TlObject(0xaed0cbd9)]
-public sealed class TExportedInvoice : IExportedInvoice
+public sealed partial class TExportedInvoice : IExportedInvoice
 {
     public uint ConstructorId => 0xaed0cbd9;
-    ///<summary>
+    /// <summary>
     /// Exported <a href="https://corefork.telegram.org/api/links#invoice-links">invoice deep link</a>
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

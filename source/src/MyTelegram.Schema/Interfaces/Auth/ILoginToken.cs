@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Login token (for QR code login)
-/// See <a href="https://corefork.telegram.org/type/auth.LoginToken" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/auth.LoginToken" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TLoginToken"/> See <a href="https://corefork.telegram.org/constructor/auth.loginToken" /><br/>
+/// <see cref="TLoginTokenMigrateTo"/> See <a href="https://corefork.telegram.org/constructor/auth.loginTokenMigrateTo" /><br/>
+/// <see cref="TLoginTokenSuccess"/> See <a href="https://corefork.telegram.org/constructor/auth.loginTokenSuccess" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TLoginToken), nameof(TLoginToken))]
 [JsonDerivedType(typeof(TLoginTokenMigrateTo), nameof(TLoginTokenMigrateTo))]
 [JsonDerivedType(typeof(TLoginTokenSuccess), nameof(TLoginTokenSuccess))]

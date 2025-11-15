@@ -2,9 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-///</summary>
+/// <summary>
+/// Points to a <a href="https://corefork.telegram.org/api/gifts">gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/InputSavedStarGift" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputSavedStarGiftUser"/> See <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftUser" /><br/>
+/// <see cref="TInputSavedStarGiftChat"/> See <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftChat" /><br/>
+/// <see cref="TInputSavedStarGiftSlug"/> See <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftSlug" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputSavedStarGiftUser), nameof(TInputSavedStarGiftUser))]
 [JsonDerivedType(typeof(TInputSavedStarGiftChat), nameof(TInputSavedStarGiftChat))]
 [JsonDerivedType(typeof(TInputSavedStarGiftSlug), nameof(TInputSavedStarGiftSlug))]

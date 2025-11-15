@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel signatures were enabled/disabled
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSignatures" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSignatures" /></para>
+/// </summary>
 [TlObject(0x26ae0971)]
-public sealed class TChannelAdminLogEventActionToggleSignatures : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionToggleSignatures : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x26ae0971;
-    ///<summary>
+    /// <summary>
     /// New value
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool NewValue { get; set; }
 
     public void ComputeFlag()

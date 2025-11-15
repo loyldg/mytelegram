@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Too many updates, it is necessary to execute <a href="https://corefork.telegram.org/method/updates.getDifference">updates.getDifference</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updatesTooLong" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatesTooLong" /></para>
+/// </summary>
 [TlObject(0xe317af7e)]
-public sealed class TUpdatesTooLong : IUpdates
+public sealed partial class TUpdatesTooLong : IUpdates
 {
     public uint ConstructorId => 0xe317af7e;
     public void ComputeFlag()

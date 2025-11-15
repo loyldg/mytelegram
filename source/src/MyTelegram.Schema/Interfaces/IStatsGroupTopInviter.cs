@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Most active inviter in a <a href="https://corefork.telegram.org/api/channel">supergroup</a>
-/// See <a href="https://corefork.telegram.org/type/StatsGroupTopInviter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StatsGroupTopInviter" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatsGroupTopInviter"/> See <a href="https://corefork.telegram.org/constructor/statsGroupTopInviter" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatsGroupTopInviter), nameof(TStatsGroupTopInviter))]
 public interface IStatsGroupTopInviter : IObject
 {
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of invitations for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     int Invitations { get; set; }
 }

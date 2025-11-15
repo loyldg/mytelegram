@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A specific peer has voted in a poll
-/// See <a href="https://corefork.telegram.org/constructor/updateMessagePollVote" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateMessagePollVote" /></para>
+/// </summary>
 [TlObject(0x24f40e77)]
-public sealed class TUpdateMessagePollVote : IUpdate
+public sealed partial class TUpdateMessagePollVote : IUpdate
 {
     public uint ConstructorId => 0x24f40e77;
-    ///<summary>
+    /// <summary>
     /// Poll ID
-    ///</summary>
+    /// </summary>
     public long PollId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer that voted in the poll
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chosen option(s)
-    ///</summary>
+    /// </summary>
     public TVector<ReadOnlyMemory<byte>> Options { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

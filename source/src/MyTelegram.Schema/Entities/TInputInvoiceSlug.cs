@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An invoice slug taken from an <a href="https://corefork.telegram.org/api/links#invoice-links">invoice deep link</a> or from the <a href="https://corefork.telegram.org/api/config#premium-invoice-slug"><code>premium_invoice_slug</code> app config parameter »</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoiceSlug" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceSlug" /></para>
+/// </summary>
 [TlObject(0xc326caef)]
-public sealed class TInputInvoiceSlug : IInputInvoice
+public sealed partial class TInputInvoiceSlug : IInputInvoice
 {
     public uint ConstructorId => 0xc326caef;
-    ///<summary>
+    /// <summary>
     /// The invoice slug
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

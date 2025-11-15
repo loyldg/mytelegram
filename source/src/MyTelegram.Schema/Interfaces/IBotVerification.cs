@@ -2,15 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/BotVerification" />
-///</summary>
+/// <summary>
+/// Describes a <a href="https://corefork.telegram.org/api/bots/verification">bot verification icon »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/BotVerification" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotVerification"/> See <a href="https://corefork.telegram.org/constructor/botVerification" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotVerification), nameof(TBotVerification))]
 public interface IBotVerification : IObject
 {
+    /// <summary>
+    /// ID of the bot that verified this peer
+    /// </summary>
     long BotId { get; set; }
 
+    /// <summary>
+    /// Verification icon
+    /// </summary>
     long Icon { get; set; }
 
+    /// <summary>
+    /// Verification description
+    /// </summary>
     string Description { get; set; }
 }

@@ -2,54 +2,58 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Global privacy settings
-/// See <a href="https://corefork.telegram.org/constructor/globalPrivacySettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/globalPrivacySettings" /></para>
+/// </summary>
 [TlObject(0xfe41b34f)]
-public sealed class TGlobalPrivacySettings : IGlobalPrivacySettings
+public sealed partial class TGlobalPrivacySettings : IGlobalPrivacySettings
 {
     public uint ConstructorId => 0xfe41b34f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to archive and mute new chats from non-contacts
-    ///</summary>
+    /// </summary>
     public bool ArchiveAndMuteNewNoncontactPeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether unmuted chats will be kept in the Archive chat list when they get a new message.
-    ///</summary>
+    /// </summary>
     public bool KeepArchivedUnmuted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether unmuted chats that are always included or pinned in a <a href="https://corefork.telegram.org/api/folders">folder</a>, will be kept in the Archive chat list when they get a new message. Ignored if <code>keep_archived_unmuted</code> is set.
-    ///</summary>
+    /// </summary>
     public bool KeepArchivedFolders { get; set; }
 
-    ///<summary>
-    /// If this flag is set, the <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStatusTimestamp">inputPrivacyKeyStatusTimestamp</a> key will also apply to the ability to use <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate">messages.getOutboxReadDate</a> on messages sent to us. <br>Meaning, users that cannot see <em>our</em> exact last online date due to the current value of the <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStatusTimestamp">inputPrivacyKeyStatusTimestamp</a> key will receive a <code>403 USER_PRIVACY_RESTRICTED</code> error when invoking <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate">messages.getOutboxReadDate</a> to fetch the exact read date of a message they sent to us. <br>The <a href="https://corefork.telegram.org/constructor/userFull">userFull</a>.<code>read_dates_private</code> flag will be set for users that have this flag enabled.
-    ///</summary>
+    /// <summary>
+    /// If this flag is set, the <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStatusTimestamp">inputPrivacyKeyStatusTimestamp</a> key will also apply to the ability to use <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate">messages.getOutboxReadDate</a> on messages sent to us. <br/>Meaning, users that cannot see <em>our</em> exact last online date due to the current value of the <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStatusTimestamp">inputPrivacyKeyStatusTimestamp</a> key will receive a <code>403 USER_PRIVACY_RESTRICTED</code> error when invoking <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate">messages.getOutboxReadDate</a> to fetch the exact read date of a message they sent to us. <br/>The <a href="https://corefork.telegram.org/constructor/userFull">userFull</a>.<code>read_dates_private</code> flag will be set for users that have this flag enabled.
+    /// </summary>
     public bool HideReadMarks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// See <a href="https://corefork.telegram.org/api/privacy#require-premium-for-new-non-contact-users">here for more info on this flag »</a>.
-    ///</summary>
+    /// </summary>
     public bool NewNoncontactPeersRequirePremium { get; set; }
 
+    /// <summary>
+    /// Enables or disables our <a href="https://corefork.telegram.org/constructor/userFull">userFull</a>.<code>display_gifts_button</code> flag: if the <a href="https://corefork.telegram.org/constructor/userFull">userFull</a>.<code>display_gifts_button</code> flag of both us and another user is set, a gift button should always be displayed in the text field in private chats with the other user: once clicked, the gift UI should be displayed, offering the user options to gift <a href="https://corefork.telegram.org/api/premium#gifting-telegram-premium">Telegram Premium »</a> subscriptions or <a href="https://corefork.telegram.org/api/gifts">Telegram Gifts »</a>.
+    /// </summary>
     public bool DisplayGiftsButton { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If configured, specifies the number of <a href="https://corefork.telegram.org/api/stars">stars</a> users must pay us to send us a message, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for more info on paid messages.
-    ///</summary>
+    /// </summary>
     public long? NoncontactPeersPaidStars { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Disallows the reception of specific gift types.
     /// See <a href="https://corefork.telegram.org/type/DisallowedGiftsSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDisallowedGiftsSettings? DisallowedGifts { get; set; }
 
     public void ComputeFlag()

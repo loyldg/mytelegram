@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether the user can see our birthday.
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyBirthday" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyBirthday" /></para>
+/// </summary>
 [TlObject(0xd65a11cc)]
-public sealed class TInputPrivacyKeyBirthday : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyBirthday : IInputPrivacyKey
 {
     public uint ConstructorId => 0xd65a11cc;
     public void ComputeFlag()

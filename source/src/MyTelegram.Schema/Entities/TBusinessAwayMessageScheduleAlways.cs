@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Always send <a href="https://corefork.telegram.org/api/business#away-messages">Telegram Business away messages</a> to users writing to us in private.
-/// See <a href="https://corefork.telegram.org/constructor/businessAwayMessageScheduleAlways" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/businessAwayMessageScheduleAlways" /></para>
+/// </summary>
 [TlObject(0xc9b9e2b9)]
-public sealed class TBusinessAwayMessageScheduleAlways : IBusinessAwayMessageSchedule
+public sealed partial class TBusinessAwayMessageScheduleAlways : IBusinessAwayMessageSchedule
 {
     public uint ConstructorId => 0xc9b9e2b9;
     public void ComputeFlag()

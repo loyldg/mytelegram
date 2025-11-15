@@ -2,19 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/messages.WebPagePreview" />
-///</summary>
+/// <summary>
+/// Represents a webpage preview.
+/// <para>See <a href="https://corefork.telegram.org/type/messages.WebPagePreview" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebPagePreview"/> See <a href="https://corefork.telegram.org/constructor/messages.webPagePreview" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebPagePreview), nameof(TWebPagePreview))]
 public interface IWebPagePreview : IObject
 {
-    ///<summary>
+    /// <summary>
+    /// The <a href="https://corefork.telegram.org/constructor/messageMediaWebPage">messageMediaWebPage</a> or a <a href="https://corefork.telegram.org/constructor/messageMediaEmpty">messageMediaEmpty</a> if there is no preview.
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IMessageMedia Media { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Chats mentioned in the <code>gift</code> field.
+    /// See <a href="https://corefork.telegram.org/type/Chat" />
+    /// </summary>
+    TVector<MyTelegram.Schema.IChat> Chats { get; set; }
+
+    /// <summary>
+    /// Users mentioned within the <code>media</code> object.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

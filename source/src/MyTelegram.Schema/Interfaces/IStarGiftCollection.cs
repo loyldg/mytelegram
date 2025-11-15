@@ -2,27 +2,45 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/StarGiftCollection" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/gifts#gift-collections">star gift collection »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftCollection" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarGiftCollection"/> See <a href="https://corefork.telegram.org/constructor/starGiftCollection" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarGiftCollection), nameof(TStarGiftCollection))]
 public interface IStarGiftCollection : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// The ID of the collection.
+    /// </summary>
     int CollectionId { get; set; }
 
+    /// <summary>
+    /// Title of the collection.
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Optional icon for the collection, taken from the first gift in the collection.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IDocument? Icon { get; set; }
 
+    /// <summary>
+    /// Number of gifts in the collection.
+    /// </summary>
     int GiftsCount { get; set; }
 
+    /// <summary>
+    /// Field to use <strong>instead of <code>collection_id</code></strong> when generating the hash to pass to <a href="https://corefork.telegram.org/method/payments.getStarGiftCollections">payments.getStarGiftCollections</a>.
+    /// </summary>
     long Hash { get; set; }
 }

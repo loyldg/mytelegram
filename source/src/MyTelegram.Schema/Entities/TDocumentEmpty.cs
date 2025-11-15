@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor, document doesn't exist.
-/// See <a href="https://corefork.telegram.org/constructor/documentEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentEmpty" /></para>
+/// </summary>
 [TlObject(0x36f8c871)]
-public sealed class TDocumentEmpty : IDocument
+public sealed partial class TDocumentEmpty : IDocument
 {
     public uint ConstructorId => 0x36f8c871;
-    ///<summary>
+    /// <summary>
     /// Document ID or <code>0</code>
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

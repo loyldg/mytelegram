@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Geographical location of supergroup (geogroups)
-/// See <a href="https://corefork.telegram.org/type/ChannelLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChannelLocation" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelLocationEmpty"/> See <a href="https://corefork.telegram.org/constructor/channelLocationEmpty" /><br/>
+/// <see cref="TChannelLocation"/> See <a href="https://corefork.telegram.org/constructor/channelLocation" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelLocationEmpty), nameof(TChannelLocationEmpty))]
 [JsonDerivedType(typeof(TChannelLocation), nameof(TChannelLocation))]
 public interface IChannelLocation : IObject

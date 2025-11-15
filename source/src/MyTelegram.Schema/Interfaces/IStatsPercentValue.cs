@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel statistics percentage
-/// See <a href="https://corefork.telegram.org/type/StatsPercentValue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StatsPercentValue" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatsPercentValue"/> See <a href="https://corefork.telegram.org/constructor/statsPercentValue" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatsPercentValue), nameof(TStatsPercentValue))]
 public interface IStatsPercentValue : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Partial value
-    ///</summary>
+    /// </summary>
     double Part { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total value
-    ///</summary>
+    /// </summary>
     double Total { get; set; }
 }

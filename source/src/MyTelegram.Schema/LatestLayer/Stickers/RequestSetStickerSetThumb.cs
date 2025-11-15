@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Set stickerset thumbnail
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKERSET_INVALID The provided sticker set is invalid.
-/// 400 STICKER_THUMB_PNG_NOPNG Incorrect stickerset thumb file provided, PNG / WEBP expected.
-/// 400 STICKER_THUMB_TGS_NOTGS Incorrect stickerset TGS thumb file provided.
-/// See <a href="https://corefork.telegram.org/method/stickers.setStickerSetThumb" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKERSET_INVALID The provided sticker set is invalid.</c></para>
+/// <para><c>400 STICKER_THUMB_PNG_NOPNG Incorrect stickerset thumb file provided, PNG / WEBP expected.</c></para>
+/// <para><c>400 STICKER_THUMB_TGS_NOTGS Incorrect stickerset TGS thumb file provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.setStickerSetThumb" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa76a5392)]
-public sealed class RequestSetStickerSetThumb : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestSetStickerSetThumb : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0xa76a5392;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickerset
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail (only for normal stickersets, not custom emoji stickersets).
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument? Thumb { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickersets</a>, ID of a custom emoji present in the set to use as thumbnail; pass 0 to fallback to the first custom emoji of the set.
-    ///</summary>
+    /// </summary>
     public long? ThumbDocumentId { get; set; }
 
     public void ComputeFlag()

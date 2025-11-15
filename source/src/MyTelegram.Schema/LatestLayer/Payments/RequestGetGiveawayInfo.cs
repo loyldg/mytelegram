@@ -2,27 +2,31 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Obtain information about a <a href="https://corefork.telegram.org/api/giveaways">Telegram Premium giveaway »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getGiveawayInfo" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getGiveawayInfo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf4239425)]
-public sealed class RequestGetGiveawayInfo : IRequest<MyTelegram.Schema.Payments.IGiveawayInfo>
+public sealed partial class RequestGetGiveawayInfo : IRequest<MyTelegram.Schema.Payments.IGiveawayInfo>
 {
     public uint ConstructorId => 0xf4239425;
 
-    ///<summary>
+    /// <summary>
     /// The peer where the giveaway was posted.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of the <a href="https://corefork.telegram.org/constructor/messageActionGiveawayLaunch">messageActionGiveawayLaunch</a> service message
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

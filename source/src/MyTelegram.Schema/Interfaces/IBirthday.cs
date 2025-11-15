@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/profile#birthday">Birthday</a> information for a user.
-/// See <a href="https://corefork.telegram.org/type/Birthday" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Birthday" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBirthday"/> See <a href="https://corefork.telegram.org/constructor/birthday" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBirthday), nameof(TBirthday))]
 public interface IBirthday : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Birth day
-    ///</summary>
+    /// </summary>
     int Day { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Birth month
-    ///</summary>
+    /// </summary>
     int Month { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// (Optional) birth year.
-    ///</summary>
+    /// </summary>
     int? Year { get; set; }
 }

@@ -2,62 +2,62 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Info about the current <a href="https://corefork.telegram.org/api/stars#balance-and-transaction-history">Telegram Star subscriptions, balance and transaction history »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/payments.starsStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starsStatus" /></para>
+/// </summary>
 [TlObject(0x6c9ce8ed)]
-public sealed class TStarsStatus : IStarsStatus
+public sealed partial class TStarsStatus : IStarsStatus
 {
     public uint ConstructorId => 0x6c9ce8ed;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current Telegram Star balance.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount Balance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about current Telegram Star subscriptions, only returned when invoking <a href="https://corefork.telegram.org/method/payments.getStarsTransactions">payments.getStarsTransactions</a> and <a href="https://corefork.telegram.org/method/payments.getStarsSubscriptions">payments.getStarsSubscriptions</a>.
     /// See <a href="https://corefork.telegram.org/type/StarsSubscription" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarsSubscription>? Subscriptions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for pagination of subscriptions: only usable and returned when invoking <a href="https://corefork.telegram.org/method/payments.getStarsSubscriptions">payments.getStarsSubscriptions</a>.
-    ///</summary>
+    /// </summary>
     public string? SubscriptionsNextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of Telegram Stars the user should buy to be able to extend expired subscriptions soon (i.e. the current balance is not enough to extend all expired subscriptions).
-    ///</summary>
+    /// </summary>
     public long? SubscriptionsMissingBalance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of Telegram Star transactions (partial if <code>next_offset</code> is set).
     /// See <a href="https://corefork.telegram.org/type/StarsTransaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarsTransaction>? History { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset to use to fetch more transactions from the transaction history using <a href="https://corefork.telegram.org/method/payments.getStarsTransactions">payments.getStarsTransactions</a>.
-    ///</summary>
+    /// </summary>
     public string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in <code>history</code>.
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in <code>history</code>.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

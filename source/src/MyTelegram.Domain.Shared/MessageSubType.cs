@@ -35,4 +35,6 @@ public enum MessageSubType
     ToggleSuggestedPostApproval = 28,
     UpgradeStarGift = 29,
     UpgradeStarGiftForFree = 30,
+    PrepaidUpgrade = 31,
+    ResellGiftPurchase = 32,
 }

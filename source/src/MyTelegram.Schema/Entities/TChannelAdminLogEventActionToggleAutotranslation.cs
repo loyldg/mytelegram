@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleAutotranslation" />
-///</summary>
+/// <summary>
+/// <a href="https://corefork.telegram.org/api/translation#autotranslation-for-channels">Channel autotranslation was toggled »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleAutotranslation" /></para>
+/// </summary>
 [TlObject(0xc517f77e)]
-public sealed class TChannelAdminLogEventActionToggleAutotranslation : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionToggleAutotranslation : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xc517f77e;
-    ///<summary>
+    /// <summary>
+    /// New value of the toggle
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool NewValue { get; set; }
 
     public void ComputeFlag()

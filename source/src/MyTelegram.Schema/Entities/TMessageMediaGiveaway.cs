@@ -2,62 +2,62 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about a <a href="https://corefork.telegram.org/api/giveaways">giveaway, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaGiveaway" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaGiveaway" /></para>
+/// </summary>
 [TlObject(0xaa073beb)]
-public sealed class TMessageMediaGiveaway : IMessageMedia
+public sealed partial class TMessageMediaGiveaway : IMessageMedia
 {
     public uint ConstructorId => 0xaa073beb;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, only new subscribers starting from the giveaway creation date will be able to participate to the giveaway.
-    ///</summary>
+    /// </summary>
     public bool OnlyNewSubscribers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, giveaway winners are public and will be listed in a <a href="https://corefork.telegram.org/constructor/messageMediaGiveawayResults">messageMediaGiveawayResults</a> message that will be automatically sent to the channel once the giveaway ends.
-    ///</summary>
+    /// </summary>
     public bool WinnersAreVisible { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channels that the user must join to participate in the giveaway.
-    ///</summary>
+    /// </summary>
     public TVector<long> Channels { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, only users residing in these countries can participate in the giveaway, (specified as a list of two-letter ISO 3166-1 alpha-2 country codes); otherwise there are no country-based limitations.
-    ///</summary>
+    /// </summary>
     public TVector<string>? CountriesIso2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can contain a textual description of additional giveaway prizes.
-    ///</summary>
+    /// </summary>
     public string? PrizeDescription { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscriptions given away.
-    ///</summary>
+    /// </summary>
     public int Quantity { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Duration in months of each <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription in the giveaway.
-    ///</summary>
+    /// </summary>
     public int? Months { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/stars#star-giveaways">Telegram Star giveaways</a>, the total number of Telegram Stars being given away.
-    ///</summary>
+    /// </summary>
     public long? Stars { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The end date of the giveaway.
-    ///</summary>
+    /// </summary>
     public int UntilDate { get; set; }
 
     public void ComputeFlag()

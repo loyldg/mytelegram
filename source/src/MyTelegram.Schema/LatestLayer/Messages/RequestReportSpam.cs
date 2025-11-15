@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Report a new incoming chat for spam, if the <a href="https://corefork.telegram.org/constructor/peerSettings">peer settings</a> of the chat allow us to do that
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.reportSpam" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.reportSpam" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xcf1592db)]
-public sealed class RequestReportSpam : IRequest<IBool>
+public sealed partial class RequestReportSpam : IRequest<IBool>
 {
     public uint ConstructorId => 0xcf1592db;
 
-    ///<summary>
+    /// <summary>
     /// Peer to report
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

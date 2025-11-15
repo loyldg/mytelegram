@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Cancel the login verification code
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_CODE_EXPIRED The phone code you provided has expired.
-/// 406 PHONE_NUMBER_INVALID The phone number is invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.cancelCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_CODE_EXPIRED The phone code you provided has expired.</c></para>
+/// <para><c>406 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.cancelCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x1f040578)]
-public sealed class RequestCancelCode : IRequest<IBool>
+public sealed partial class RequestCancelCode : IRequest<IBool>
 {
     public uint ConstructorId => 0x1f040578;
 
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code hash from <a href="https://corefork.telegram.org/method/auth.sendCode">auth.sendCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
     public void ComputeFlag()

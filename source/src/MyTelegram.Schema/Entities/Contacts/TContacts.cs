@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// The current user's contact list and info on users.
-/// See <a href="https://corefork.telegram.org/constructor/contacts.contacts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.contacts" /></para>
+/// </summary>
 [TlObject(0xeae87e42)]
-public sealed class TContacts : IContacts
+public sealed partial class TContacts : IContacts
 {
     public uint ConstructorId => 0xeae87e42;
-    ///<summary>
+    /// <summary>
     /// Contact list
     /// See <a href="https://corefork.telegram.org/type/Contact" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IContact> Contacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of contacts that were saved successfully
-    ///</summary>
+    /// </summary>
     public int SavedCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User list
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The bot attachment menu entry is available in private chats with other users (not bots)
-/// See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypePM" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypePM" /></para>
+/// </summary>
 [TlObject(0xf146d31f)]
-public sealed class TAttachMenuPeerTypePM : IAttachMenuPeerType
+public sealed partial class TAttachMenuPeerTypePM : IAttachMenuPeerType
 {
     public uint ConstructorId => 0xf146d31f;
     public void ComputeFlag()

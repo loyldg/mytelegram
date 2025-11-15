@@ -2,39 +2,42 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/end-to-end/voice-calls">Complete phone call E2E encryption key exchange »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CALL_ALREADY_DECLINED The call was already declined.
-/// 400 CALL_PEER_INVALID The provided call peer object is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.confirmCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CALL_ALREADY_DECLINED The call was already declined.</c></para>
+/// <para><c>400 CALL_PEER_INVALID The provided call peer object is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.confirmCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2efe1722)]
-public sealed class RequestConfirmCall : IRequest<MyTelegram.Schema.Phone.IPhoneCall>
+public sealed partial class RequestConfirmCall : IRequest<MyTelegram.Schema.Phone.IPhoneCall>
 {
     public uint ConstructorId => 0x2efe1722;
 
-    ///<summary>
+    /// <summary>
     /// The phone call
     /// See <a href="https://corefork.telegram.org/type/InputPhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoneCall Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/end-to-end/voice-calls">Parameter for E2E encryption key exchange »</a>
-    ///</summary>
+    /// </summary>
     public byte[] GA { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Key fingerprint
-    ///</summary>
+    /// </summary>
     public long KeyFingerprint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone call settings
     /// See <a href="https://corefork.telegram.org/type/PhoneCallProtocol" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
     public void ComputeFlag()

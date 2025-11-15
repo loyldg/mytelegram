@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// The difference is <a href="https://corefork.telegram.org/api/updates#recovering-gaps">too long</a>, and the specified state must be used to refetch updates.
-/// See <a href="https://corefork.telegram.org/constructor/updates.differenceTooLong" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates.differenceTooLong" /></para>
+/// </summary>
 [TlObject(0x4afe8f6d)]
-public sealed class TDifferenceTooLong : IDifference
+public sealed partial class TDifferenceTooLong : IDifference
 {
     public uint ConstructorId => 0x4afe8f6d;
-    ///<summary>
+    /// <summary>
     /// The new state to use.
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
     public void ComputeFlag()

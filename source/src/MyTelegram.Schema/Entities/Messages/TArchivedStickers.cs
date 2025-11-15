@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Archived stickersets
-/// See <a href="https://corefork.telegram.org/constructor/messages.archivedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.archivedStickers" /></para>
+/// </summary>
 [TlObject(0x4fcba9c8)]
-public sealed class TArchivedStickers : IArchivedStickers
+public sealed partial class TArchivedStickers : IArchivedStickers
 {
     public uint ConstructorId => 0x4fcba9c8;
-    ///<summary>
+    /// <summary>
     /// Number of archived stickers
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Archived stickersets
     /// See <a href="https://corefork.telegram.org/type/StickerSetCovered" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerSetCovered> Sets { get; set; }
 
     public void ComputeFlag()

@@ -2,62 +2,67 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Returns the conversation history with one interlocutor / within a chat
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 TAKEOUT_INVALID The specified takeout ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getHistory" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 FROZEN_PARTICIPANT_MISSING The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and cannot access the specified peer.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 TAKEOUT_INVALID The specified takeout ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4423e6c5)]
-public sealed class RequestGetHistory : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestGetHistory : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0x4423e6c5;
 
-    ///<summary>
+    /// <summary>
     /// Target peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only return messages starting from the specified message ID
-    ///</summary>
+    /// </summary>
     public int OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only return messages sent before the specified date
-    ///</summary>
+    /// </summary>
     public int OffsetDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of list elements to be skipped, negative values are also accepted.
-    ///</summary>
+    /// </summary>
     public int AddOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of results to return
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value was transferred, the method will return only messages with IDs less than <strong>max_id</strong>
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value was transferred, the method will return only messages with IDs more than <strong>min_id</strong>
-    ///</summary>
+    /// </summary>
     public int MinId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Result hash</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

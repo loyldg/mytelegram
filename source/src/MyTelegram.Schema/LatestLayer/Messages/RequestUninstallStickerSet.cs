@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Uninstall a stickerset
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 406 STICKERSET_INVALID The provided sticker set is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.uninstallStickerSet" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>406 STICKERSET_INVALID The provided sticker set is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.uninstallStickerSet" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf96e55de)]
-public sealed class RequestUninstallStickerSet : IRequest<IBool>
+public sealed partial class RequestUninstallStickerSet : IRequest<IBool>
 {
     public uint ConstructorId => 0xf96e55de;
 
-    ///<summary>
+    /// <summary>
     /// The stickerset to uninstall
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
     public void ComputeFlag()

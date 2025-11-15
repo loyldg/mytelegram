@@ -2,44 +2,44 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Someone has requested to join a chat or channel (bots only, users will receive an <a href="https://corefork.telegram.org/constructor/updatePendingJoinRequests">updatePendingJoinRequests</a>, instead)
-/// See <a href="https://corefork.telegram.org/constructor/updateBotChatInviteRequester" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotChatInviteRequester" /></para>
+/// </summary>
 [TlObject(0x11dfa986)]
-public sealed class TUpdateBotChatInviteRequester : IUpdate
+public sealed partial class TUpdateBotChatInviteRequester : IUpdate
 {
     public uint ConstructorId => 0x11dfa986;
-    ///<summary>
+    /// <summary>
     /// The chat or channel in question
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a> made
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user ID that is asking to join the chat or channel
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bio of the user
-    ///</summary>
+    /// </summary>
     public string About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat invite link that was used by the user to send the <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a>
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">QTS</a> event sequence identifier
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

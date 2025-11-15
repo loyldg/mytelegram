@@ -2,49 +2,54 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Translate a given text.<a href="https://corefork.telegram.org/api/entities">Styled text entities</a> will only be preserved for <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> users.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 INPUT_TEXT_EMPTY The specified text is empty.
-/// 400 INPUT_TEXT_TOO_LONG The specified text is too long.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 TO_LANG_INVALID The specified destination language is invalid.
-/// 500 TRANSLATE_REQ_FAILED Translation failed, please try again later.
-/// 400 TRANSLATE_REQ_QUOTA_EXCEEDED Translation is currently unavailable due to a temporary server-side lack of resources.
-/// See <a href="https://corefork.telegram.org/method/messages.translateText" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 INPUT_TEXT_EMPTY The specified text is empty.</c></para>
+/// <para><c>400 INPUT_TEXT_TOO_LONG The specified text is too long.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 TO_LANG_INVALID The specified destination language is invalid.</c></para>
+/// <para><c>500 TRANSLATE_REQ_FAILED Translation failed, please try again later.</c></para>
+/// <para><c>400 TRANSLATE_REQ_QUOTA_EXCEEDED Translation is currently unavailable due to a temporary server-side lack of resources.</c></para>
+/// <para><c>406 TRANSLATIONS_DISABLED Translations are unavailable, a detailed and localized description for the error will be emitted via an <a href="https://corefork.telegram.org/api/errors#406-not-acceptable">updateServiceNotification as specified here »</a>.</c></para>
+/// <para><c>500 TRANSLATION_TIMEOUT A timeout occurred while translating the specified text. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.translateText" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x63183030)]
-public sealed class RequestTranslateText : IRequest<MyTelegram.Schema.Messages.ITranslatedText>
+public sealed partial class RequestTranslateText : IRequest<MyTelegram.Schema.Messages.ITranslatedText>
 {
     public uint ConstructorId => 0x63183030;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the text is a chat message, the peer ID
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of message IDs to translate
-    ///</summary>
+    /// </summary>
     public TVector<int>? Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of styled messages to translate
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ITextWithEntities>? Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Two-letter ISO 639-1 language code of the language to which the message is translated
-    ///</summary>
+    /// </summary>
     public string ToLang { get; set; }
 
     public void ComputeFlag()

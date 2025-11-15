@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Resolved peer
-/// See <a href="https://corefork.telegram.org/constructor/contacts.resolvedPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.resolvedPeer" /></para>
+/// </summary>
 [TlObject(0x7f077ad9)]
-public sealed class TResolvedPeer : IResolvedPeer
+public sealed partial class TResolvedPeer : IResolvedPeer
 {
     public uint ConstructorId => 0x7f077ad9;
-    ///<summary>
+    /// <summary>
     /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

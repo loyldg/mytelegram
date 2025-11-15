@@ -2,23 +2,28 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Info about a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// See <a href="https://corefork.telegram.org/type/chatlists.ChatlistInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/chatlists.ChatlistInvite" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatlistInviteAlready"/> See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistInviteAlready" /><br/>
+/// <see cref="TChatlistInvite"/> See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistInvite" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatlistInviteAlready), nameof(TChatlistInviteAlready))]
 [JsonDerivedType(typeof(TChatlistInvite), nameof(TChatlistInvite))]
 public interface IChatlistInvite : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Related chat information
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related user information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

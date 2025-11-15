@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel statistics graph
-/// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StatsGraph" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatsGraphAsync"/> See <a href="https://corefork.telegram.org/constructor/statsGraphAsync" /><br/>
+/// <see cref="TStatsGraphError"/> See <a href="https://corefork.telegram.org/constructor/statsGraphError" /><br/>
+/// <see cref="TStatsGraph"/> See <a href="https://corefork.telegram.org/constructor/statsGraph" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatsGraphAsync), nameof(TStatsGraphAsync))]
 [JsonDerivedType(typeof(TStatsGraphError), nameof(TStatsGraphError))]
 [JsonDerivedType(typeof(TStatsGraph), nameof(TStatsGraph))]

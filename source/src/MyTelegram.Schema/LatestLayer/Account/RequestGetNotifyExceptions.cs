@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Returns list of chats with non-default notification settings
-/// See <a href="https://corefork.telegram.org/method/account.getNotifyExceptions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getNotifyExceptions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x53577479)]
-public sealed class RequestGetNotifyExceptions : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestGetNotifyExceptions : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x53577479;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, chats with non-default sound will be returned
-    ///</summary>
+    /// </summary>
     public bool CompareSound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, chats with non-default notification settings for stories will be returned
-    ///</summary>
+    /// </summary>
     public bool CompareStories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, only chats of the specified category will be returned
     /// See <a href="https://corefork.telegram.org/type/InputNotifyPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputNotifyPeer? Peer { get; set; }
 
     public void ComputeFlag()

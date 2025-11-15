@@ -2,24 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/botVerifierSettings" />
-///</summary>
+/// <summary>
+/// Info about the current <a href="https://corefork.telegram.org/api/bots/verification">verifier bot »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/botVerifierSettings" /></para>
+/// </summary>
 [TlObject(0xb0cd6617)]
-public sealed class TBotVerifierSettings : IBotVerifierSettings
+public sealed partial class TBotVerifierSettings : IBotVerifierSettings
 {
     public uint ConstructorId => 0xb0cd6617;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Indicates whether the bot is allowed to set a custom description field for individual verified peers, different from the <code>custom_description</code> provided here.
+    /// </summary>
     public bool CanModifyCustomDescription { get; set; }
 
+    /// <summary>
+    /// Verification icon
+    /// </summary>
     public long Icon { get; set; }
 
+    /// <summary>
+    /// The name of the organization that provides the verification
+    /// </summary>
     public string Company { get; set; }
 
+    /// <summary>
+    /// An optional default description for the verification
+    /// </summary>
     public string? CustomDescription { get; set; }
 
     public void ComputeFlag()

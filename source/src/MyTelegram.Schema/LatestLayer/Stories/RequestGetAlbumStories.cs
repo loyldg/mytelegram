@@ -2,23 +2,40 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/stories.getAlbumStories" />
-///</summary>
+/// <summary>
+/// Get stories in a <a href="https://corefork.telegram.org/api/stories#story-albums">story album »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getAlbumStories" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xac806d61)]
-public sealed class RequestGetAlbumStories : IRequest<MyTelegram.Schema.Stories.IStories>
+public sealed partial class RequestGetAlbumStories : IRequest<MyTelegram.Schema.Stories.IStories>
 {
     public uint ConstructorId => 0xac806d61;
 
-    ///<summary>
+    /// <summary>
+    /// Peer where the album is posted.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// ID of the album.
+    /// </summary>
     public int AlbumId { get; set; }
 
+    /// <summary>
+    /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>.
+    /// </summary>
     public int Offset { get; set; }
 
+    /// <summary>
+    /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

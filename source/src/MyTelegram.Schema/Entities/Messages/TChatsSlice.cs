@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Partial list of chats, more would have to be fetched with <a href="https://corefork.telegram.org/api/offsets">pagination</a>
-/// See <a href="https://corefork.telegram.org/constructor/messages.chatsSlice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.chatsSlice" /></para>
+/// </summary>
 [TlObject(0x9cd81144)]
-public sealed class TChatsSlice : IChats
+public sealed partial class TChatsSlice : IChats
 {
     public uint ConstructorId => 0x9cd81144;
-    ///<summary>
+    /// <summary>
     /// Total number of results that were found server-side (not all are included in <code>chats</code>)
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
     public void ComputeFlag()

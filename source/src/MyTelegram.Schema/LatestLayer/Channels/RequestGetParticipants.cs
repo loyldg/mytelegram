@@ -2,46 +2,50 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get the participants of a <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/channels.getParticipants" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getParticipants" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x77ced9d0)]
-public sealed class RequestGetParticipants : IRequest<MyTelegram.Schema.Channels.IChannelParticipants>
+public sealed partial class RequestGetParticipants : IRequest<MyTelegram.Schema.Channels.IChannelParticipants>
 {
     public uint ConstructorId => 0x77ced9d0;
 
-    ///<summary>
+    /// <summary>
     /// Channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Which participant types to fetch
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipantsFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipantsFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offset</a>
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Limit</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Hash</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a>.
-/// See <a href="https://corefork.telegram.org/type/ExportedContactToken" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ExportedContactToken" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedContactToken"/> See <a href="https://corefork.telegram.org/constructor/exportedContactToken" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedContactToken), nameof(TExportedContactToken))]
 public interface IExportedContactToken : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a>.
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Its expiration date
-    ///</summary>
+    /// </summary>
     int Expires { get; set; }
 }

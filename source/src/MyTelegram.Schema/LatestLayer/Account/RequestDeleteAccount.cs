@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Delete the user's account from the telegram servers.Can also be used to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured, see <a href="https://corefork.telegram.org/api/srp#password-recovery">here »</a> for more info on password recovery, and <a href="https://corefork.telegram.org/api/account-deletion">here »</a> for more info on account deletion.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 420 2FA_CONFIRM_WAIT_%d Since this account is active and protected by a 2FA password, we will delete it in 1 week for security purposes. You can cancel this process at any time, you'll be able to reset your account in %d seconds.
-/// 400 PASSWORD_HASH_INVALID The provided password hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.deleteAccount" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>420 2FA_CONFIRM_WAIT_%d Since this account is active and protected by a 2FA password, we will delete it in 1 week for security purposes. You can cancel this process at any time, you'll be able to reset your account in %d seconds.</c></para>
+/// <para><c>400 PASSWORD_HASH_INVALID The provided password hash is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.deleteAccount" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xa2c0cf74)]
-public sealed class RequestDeleteAccount : IRequest<IBool>
+public sealed partial class RequestDeleteAccount : IRequest<IBool>
 {
     public uint ConstructorId => 0xa2c0cf74;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Why is the account being deleted, can be empty
-    ///</summary>
+    /// </summary>
     public string Reason { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/srp">2FA password</a>: this field can be omitted even for accounts with 2FA enabled: in this case account account deletion will be delayed by 7 days <a href="https://corefork.telegram.org/api/account-deletion">as specified in the docs »</a>
     /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP? Password { get; set; }
 
     public void ComputeFlag()

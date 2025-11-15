@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// List all created <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep links »</a>.
-/// See <a href="https://corefork.telegram.org/method/account.getBusinessChatLinks" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getBusinessChatLinks" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6f70dde1)]
-public sealed class RequestGetBusinessChatLinks : IRequest<MyTelegram.Schema.Account.IBusinessChatLinks>
+public sealed partial class RequestGetBusinessChatLinks : IRequest<MyTelegram.Schema.Account.IBusinessChatLinks>
 {
     public uint ConstructorId => 0x6f70dde1;
 

@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get live location history of a certain user
-/// See <a href="https://corefork.telegram.org/method/messages.getRecentLocations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getRecentLocations" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x702a40e0)]
-public sealed class RequestGetRecentLocations : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestGetRecentLocations : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0x702a40e0;
 
-    ///<summary>
+    /// <summary>
     /// User
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether people will be able to invite you to chats
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyChatInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyChatInvite" /></para>
+/// </summary>
 [TlObject(0xbdfb0426)]
-public sealed class TInputPrivacyKeyChatInvite : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyChatInvite : IInputPrivacyKey
 {
     public uint ConstructorId => 0xbdfb0426;
     public void ComputeFlag()

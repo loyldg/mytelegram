@@ -2,41 +2,44 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
-/// Obtains a list of messages, indicating to which other public channels was a channel message forwarded.<br>
+/// <summary>
+/// Obtains a list of messages, indicating to which other public channels was a channel message forwarded.<br/>
 /// Will return a list of <a href="https://corefork.telegram.org/constructor/message">messages</a> with <code>peer_id</code> equal to the public channel to which this message was forwarded.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/stats.getMessagePublicForwards" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stats.getMessagePublicForwards" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5f150144)]
-public sealed class RequestGetMessagePublicForwards : IRequest<MyTelegram.Schema.Stats.IPublicForwards>
+public sealed partial class RequestGetMessagePublicForwards : IRequest<MyTelegram.Schema.Stats.IPublicForwards>
 {
     public uint ConstructorId => 0x5f150144;
 
-    ///<summary>
+    /// <summary>
     /// Source channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Source message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>, empty string on first call, then use the <code>next_offset</code> field of the returned constructor (if present, otherwise no more results are available).
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

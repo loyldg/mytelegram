@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a channel
-/// See <a href="https://corefork.telegram.org/type/InputChannel" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputChannel" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputChannelEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputChannelEmpty" /><br/>
+/// <see cref="TInputChannel"/> See <a href="https://corefork.telegram.org/constructor/inputChannel" /><br/>
+/// <see cref="TInputChannelFromMessage"/> See <a href="https://corefork.telegram.org/constructor/inputChannelFromMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputChannelEmpty), nameof(TInputChannelEmpty))]
 [JsonDerivedType(typeof(TInputChannel), nameof(TInputChannel))]
 [JsonDerivedType(typeof(TInputChannelFromMessage), nameof(TInputChannelFromMessage))]

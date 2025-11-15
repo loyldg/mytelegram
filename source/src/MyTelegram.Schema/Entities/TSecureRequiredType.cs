@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Required type
-/// See <a href="https://corefork.telegram.org/constructor/secureRequiredType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureRequiredType" /></para>
+/// </summary>
 [TlObject(0x829d99da)]
-public sealed class TSecureRequiredType : ISecureRequiredType
+public sealed partial class TSecureRequiredType : ISecureRequiredType
 {
     public uint ConstructorId => 0x829d99da;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Native names
-    ///</summary>
+    /// </summary>
     public bool NativeNames { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is a selfie required
-    ///</summary>
+    /// </summary>
     public bool SelfieRequired { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is a translation required
-    ///</summary>
+    /// </summary>
     public bool TranslationRequired { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secure value type
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
     public void ComputeFlag()

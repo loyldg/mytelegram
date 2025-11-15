@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Popular <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-apps">Main Mini Apps</a>, to be used in the <a href="https://corefork.telegram.org/api/search#apps-tab">apps tab of global search »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/bots.popularAppBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/bots.popularAppBots" /></para>
+/// </summary>
 [TlObject(0x1991b13b)]
-public sealed class TPopularAppBots : IPopularAppBots
+public sealed partial class TPopularAppBots : IPopularAppBots
 {
     public uint ConstructorId => 0x1991b13b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>.
-    ///</summary>
+    /// </summary>
     public string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The bots associated to each <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-apps">Main Mini App, see here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

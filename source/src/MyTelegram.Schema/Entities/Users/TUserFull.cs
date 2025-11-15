@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
+/// <summary>
 /// Full user information
-/// See <a href="https://corefork.telegram.org/constructor/users.userFull" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/users.userFull" /></para>
+/// </summary>
 [TlObject(0x3b6d152e)]
-public sealed class TUserFull : IUserFull
+public sealed partial class TUserFull : IUserFull
 {
     public uint ConstructorId => 0x3b6d152e;
-    ///<summary>
+    /// <summary>
     /// Full user information
     /// See <a href="https://corefork.telegram.org/type/UserFull" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUserFull FullUser { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

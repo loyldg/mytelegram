@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/users.users" />
-///</summary>
+/// <summary>
+/// Describes a list of users (or bots).
+/// <para>See <a href="https://corefork.telegram.org/constructor/users.users" /></para>
+/// </summary>
 [TlObject(0x62d706b8)]
-public sealed class TUsers : IUsers
+public sealed partial class TUsers : IUsers
 {
     public uint ConstructorId => 0x62d706b8;
-    ///<summary>
+    /// <summary>
+    /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

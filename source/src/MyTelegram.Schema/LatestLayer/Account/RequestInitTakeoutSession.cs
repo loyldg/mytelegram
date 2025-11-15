@@ -2,56 +2,59 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Initialize a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 420 TAKEOUT_INIT_DELAY_%d Sorry, for security reasons, you will be able to begin downloading your data in %d seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
-/// See <a href="https://corefork.telegram.org/method/account.initTakeoutSession" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>420 TAKEOUT_INIT_DELAY_%d Sorry, for security reasons, you will be able to begin downloading your data in %d seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.initTakeoutSession" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8ef3eab0)]
-public sealed class RequestInitTakeoutSession : IRequest<MyTelegram.Schema.Account.ITakeout>
+public sealed partial class RequestInitTakeoutSession : IRequest<MyTelegram.Schema.Account.ITakeout>
 {
     public uint ConstructorId => 0x8ef3eab0;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to export contacts
-    ///</summary>
+    /// </summary>
     public bool Contacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to export messages in private chats
-    ///</summary>
+    /// </summary>
     public bool MessageUsers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to export messages in <a href="https://corefork.telegram.org/api/channel#basic-groups">basic groups</a>
-    ///</summary>
+    /// </summary>
     public bool MessageChats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to export messages in <a href="https://corefork.telegram.org/api/channel#supergroups">supergroups</a>
-    ///</summary>
+    /// </summary>
     public bool MessageMegagroups { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to export messages in <a href="https://corefork.telegram.org/api/channel#channels">channels</a>
-    ///</summary>
+    /// </summary>
     public bool MessageChannels { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to export files
-    ///</summary>
+    /// </summary>
     public bool Files { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum size of files to export
-    ///</summary>
+    /// </summary>
     public long? FileMaxSize { get; set; }
 
     public void ComputeFlag()

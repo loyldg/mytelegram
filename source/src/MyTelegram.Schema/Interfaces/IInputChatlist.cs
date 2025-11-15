@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a folder
-/// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputChatlist" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputChatlistDialogFilter"/> See <a href="https://corefork.telegram.org/constructor/inputChatlistDialogFilter" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputChatlistDialogFilter), nameof(TInputChatlistDialogFilter))]
 public interface IInputChatlist : IObject
 {
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> ID
-    ///</summary>
+    /// </summary>
     int FilterId { get; set; }
 }

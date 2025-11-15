@@ -1,13 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Get localized <a href="https://corefork.telegram.org/api/custom-emoji#emoji-keywords">emoji keywords »</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.getEmojiKeywords" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getEmojiKeywords"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetEmojiKeywordsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetEmojiKeywords, MyTelegram.Schema.IEmojiKeywordsDifference>
 {
-    protected override Task<MyTelegram.Schema.IEmojiKeywordsDifference> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetEmojiKeywords obj)
+    protected override Task<MyTelegram.Schema.IEmojiKeywordsDifference> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetEmojiKeywords obj)
     {
         var r = new TEmojiKeywordsDifference
         {
@@ -16,7 +17,6 @@ internal sealed class GetEmojiKeywordsHandler : RpcResultObjectHandler<MyTelegra
             LangCode = obj.LangCode,
             Keywords = []
         };
-
         return Task.FromResult<IEmojiKeywordsDifference>(r);
     }
 }

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Pre-uploaded <a href="https://corefork.telegram.org/passport">passport</a> file, for more info <a href="https://corefork.telegram.org/passport/encryption#inputsecurefile">see the passport docs »</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputSecureFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputSecureFile" /></para>
+/// </summary>
 [TlObject(0x5367e5be)]
-public sealed class TInputSecureFile : IInputSecureFile
+public sealed partial class TInputSecureFile : IInputSecureFile
 {
     public uint ConstructorId => 0x5367e5be;
-    ///<summary>
+    /// <summary>
     /// Secure file ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secure file access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

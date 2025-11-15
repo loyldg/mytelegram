@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Fetch only recent participants
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantsRecent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantsRecent" /></para>
+/// </summary>
 [TlObject(0xde3f3c79)]
-public sealed class TChannelParticipantsRecent : IChannelParticipantsFilter
+public sealed partial class TChannelParticipantsRecent : IChannelParticipantsFilter
 {
     public uint ConstructorId => 0xde3f3c79;
     public void ComputeFlag()

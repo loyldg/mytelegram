@@ -2,41 +2,45 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about a <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep link »</a> created by the current account.
-/// See <a href="https://corefork.telegram.org/type/BusinessChatLink" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BusinessChatLink" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBusinessChatLink"/> See <a href="https://corefork.telegram.org/constructor/businessChatLink" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBusinessChatLink), nameof(TBusinessChatLink))]
 public interface IBusinessChatLink : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/links#business-chat-links">Business chat deep link</a>.
-    ///</summary>
+    /// </summary>
     string Link { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to pre-fill in the message input field.
-    ///</summary>
+    /// </summary>
     string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Human-readable name of the link, to simplify management in the UI (only visible to the creator of the link).
-    ///</summary>
+    /// </summary>
     string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of times the link was resolved (clicked/scanned/etc...).
-    ///</summary>
+    /// </summary>
     int Views { get; set; }
 }

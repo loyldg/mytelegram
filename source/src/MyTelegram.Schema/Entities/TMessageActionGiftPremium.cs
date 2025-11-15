@@ -2,48 +2,48 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Info about a gifted Telegram Premium subscription
-/// See <a href="https://corefork.telegram.org/constructor/messageActionGiftPremium" />
-///</summary>
+/// <summary>
+/// Info about a gifted Telegram Premium subscriptionThis service message should be displayed below the appropriate sticker from the <a href="https://corefork.telegram.org/constructor/inputStickerSetPremiumGifts">inputStickerSetPremiumGifts »</a> <a href="https://corefork.telegram.org/api/stickers#stickersets">stickerset »</a>:
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGiftPremium" /></para>
+/// </summary>
 [TlObject(0x6c6274fa)]
-public sealed class TMessageActionGiftPremium : IMessageAction
+public sealed partial class TMessageActionGiftPremium : IMessageAction
 {
     public uint ConstructorId => 0x6c6274fa;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price of the gift in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long Amount { get; set; }
 
-    ///<summary>
-    /// Duration of the gifted Telegram Premium subscription
-    ///</summary>
+    /// <summary>
+    /// Duration of the gifted Telegram Premium subscription.
+    /// </summary>
     public int Months { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the gift was bought using a cryptocurrency, the cryptocurrency name.
-    ///</summary>
+    /// </summary>
     public string? CryptoCurrency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the gift was bought using a cryptocurrency, price of the gift in the smallest units of a cryptocurrency.
-    ///</summary>
+    /// </summary>
     public long? CryptoAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message attached with the gift
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
     public void ComputeFlag()

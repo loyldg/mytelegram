@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines an animated GIF
-/// See <a href="https://corefork.telegram.org/constructor/documentAttributeAnimated" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentAttributeAnimated" /></para>
+/// </summary>
 [TlObject(0x11b58939)]
-public sealed class TDocumentAttributeAnimated : IDocumentAttribute
+public sealed partial class TDocumentAttributeAnimated : IDocumentAttribute
 {
     public uint ConstructorId => 0x11b58939;
     public void ComputeFlag()

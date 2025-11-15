@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Fetch all <a href="https://corefork.telegram.org/api/stickers">stickersets »</a> owned by the current user.
-/// See <a href="https://corefork.telegram.org/method/messages.getMyStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getMyStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd0b5e1fc)]
-public sealed class RequestGetMyStickers : IRequest<MyTelegram.Schema.Messages.IMyStickers>
+public sealed partial class RequestGetMyStickers : IRequest<MyTelegram.Schema.Messages.IMyStickers>
 {
     public uint ConstructorId => 0xd0b5e1fc;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

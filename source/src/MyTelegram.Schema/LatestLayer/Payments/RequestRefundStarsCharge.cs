@@ -2,29 +2,33 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Refund a <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> transaction, see <a href="https://corefork.telegram.org/api/payments#6-refunds">here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHARGE_ALREADY_REFUNDED The transaction was already refunded.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.refundStarsCharge" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHARGE_ALREADY_REFUNDED The transaction was already refunded.</c></para>
+/// <para><c>400 CHARGE_ID_EMPTY The specified charge_id is empty.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.refundStarsCharge" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x25ae8f4a)]
-public sealed class RequestRefundStarsCharge : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestRefundStarsCharge : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x25ae8f4a;
 
-    ///<summary>
+    /// <summary>
     /// User to refund.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transaction ID.
-    ///</summary>
+    /// </summary>
     public string ChargeId { get; set; }
 
     public void ComputeFlag()

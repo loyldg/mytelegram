@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a channel/supergroup we can't access because we were banned, or for some other reason.
-/// See <a href="https://corefork.telegram.org/constructor/channelForbidden" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelForbidden" /></para>
+/// </summary>
 [TlObject(0x17d493d5)]
-public sealed class TChannelForbidden : IChat
+public sealed partial class TChannelForbidden : IChat
 {
     public uint ConstructorId => 0x17d493d5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this a channel
-    ///</summary>
+    /// </summary>
     public bool Broadcast { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this a supergroup
-    ///</summary>
+    /// </summary>
     public bool Megagroup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The ban is valid until the specified date
-    ///</summary>
+    /// </summary>
     public int? UntilDate { get; set; }
 
     public void ComputeFlag()

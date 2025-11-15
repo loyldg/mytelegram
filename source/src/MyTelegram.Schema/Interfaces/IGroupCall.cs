@@ -2,21 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A group call
-/// See <a href="https://corefork.telegram.org/type/GroupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/GroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TGroupCallDiscarded"/> See <a href="https://corefork.telegram.org/constructor/groupCallDiscarded" /><br/>
+/// <see cref="TGroupCall"/> See <a href="https://corefork.telegram.org/constructor/groupCall" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TGroupCallDiscarded), nameof(TGroupCallDiscarded))]
 [JsonDerivedType(typeof(TGroupCall), nameof(TGroupCall))]
 public interface IGroupCall : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Group call ID
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call access hash
-    ///</summary>
+    /// </summary>
     long AccessHash { get; set; }
 }

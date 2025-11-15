@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Resolve a phone number to get user info, if their privacy settings allow it.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_NOT_OCCUPIED No user is associated to the specified phone number.
-/// See <a href="https://corefork.telegram.org/method/contacts.resolvePhone" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_NOT_OCCUPIED No user is associated to the specified phone number. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.resolvePhone" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8af94344)]
-public sealed class RequestResolvePhone : IRequest<MyTelegram.Schema.Contacts.IResolvedPeer>
+public sealed partial class RequestResolvePhone : IRequest<MyTelegram.Schema.Contacts.IResolvedPeer>
 {
     public uint ConstructorId => 0x8af94344;
 
-    ///<summary>
+    /// <summary>
     /// Phone number in international format, possibly obtained from a <a href="https://corefork.telegram.org/api/links#phone-number-links">phone number deep link</a>.
-    ///</summary>
+    /// </summary>
     public string Phone { get; set; }
 
     public void ComputeFlag()

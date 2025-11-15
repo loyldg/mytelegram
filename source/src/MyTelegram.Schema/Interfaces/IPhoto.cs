@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object describes a photo.
-/// See <a href="https://corefork.telegram.org/type/Photo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Photo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPhotoEmpty"/> See <a href="https://corefork.telegram.org/constructor/photoEmpty" /><br/>
+/// <see cref="TPhoto"/> See <a href="https://corefork.telegram.org/constructor/photo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPhotoEmpty), nameof(TPhotoEmpty))]
 [JsonDerivedType(typeof(TPhoto), nameof(TPhoto))]
 public interface IPhoto : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Photo identifier
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 }

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Geographical location of supergroup (geogroups)
-/// See <a href="https://corefork.telegram.org/constructor/channelLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelLocation" /></para>
+/// </summary>
 [TlObject(0x209b82db)]
-public sealed class TChannelLocation : IChannelLocation
+public sealed partial class TChannelLocation : IChannelLocation
 {
     public uint ConstructorId => 0x209b82db;
-    ///<summary>
+    /// <summary>
     /// Geographical location of supergroup
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Textual description of the address
-    ///</summary>
+    /// </summary>
     public string Address { get; set; }
 
     public void ComputeFlag()

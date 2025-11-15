@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Internal <a href="https://corefork.telegram.org/passport">passport</a>
-/// See <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport" /></para>
+/// </summary>
 [TlObject(0x99a48f23)]
-public sealed class TSecureValueTypeInternalPassport : ISecureValueType
+public sealed partial class TSecureValueTypeInternalPassport : ISecureValueType
 {
     public uint ConstructorId => 0x99a48f23;
     public void ComputeFlag()

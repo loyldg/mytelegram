@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Stop screen sharing in a group call
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.leaveGroupCallPresentation" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.leaveGroupCallPresentation" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1c50d144)]
-public sealed class RequestLeaveGroupCallPresentation : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestLeaveGroupCallPresentation : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x1c50d144;
 
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     public void ComputeFlag()

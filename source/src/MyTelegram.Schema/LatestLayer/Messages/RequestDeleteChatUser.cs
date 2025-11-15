@@ -2,42 +2,45 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Deletes a user from a chat and sends a service message on it.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// 400 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel.
-/// See <a href="https://corefork.telegram.org/method/messages.deleteChatUser" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>400 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.deleteChatUser" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa2185cab)]
-public sealed class RequestDeleteChatUser : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDeleteChatUser : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xa2185cab;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Remove the entire chat history of the specified user in this chat.
-    ///</summary>
+    /// </summary>
     public bool RevokeHistory { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID to be deleted
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

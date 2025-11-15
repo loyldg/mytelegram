@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a notification sound
-/// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/NotificationSound" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TNotificationSoundDefault"/> See <a href="https://corefork.telegram.org/constructor/notificationSoundDefault" /><br/>
+/// <see cref="TNotificationSoundNone"/> See <a href="https://corefork.telegram.org/constructor/notificationSoundNone" /><br/>
+/// <see cref="TNotificationSoundLocal"/> See <a href="https://corefork.telegram.org/constructor/notificationSoundLocal" /><br/>
+/// <see cref="TNotificationSoundRingtone"/> See <a href="https://corefork.telegram.org/constructor/notificationSoundRingtone" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TNotificationSoundDefault), nameof(TNotificationSoundDefault))]
 [JsonDerivedType(typeof(TNotificationSoundNone), nameof(TNotificationSoundNone))]
 [JsonDerivedType(typeof(TNotificationSoundLocal), nameof(TNotificationSoundLocal))]

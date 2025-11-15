@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Information about an active supergroup inviter
-/// See <a href="https://corefork.telegram.org/constructor/statsGroupTopInviter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsGroupTopInviter" /></para>
+/// </summary>
 [TlObject(0x535f779d)]
-public sealed class TStatsGroupTopInviter : IStatsGroupTopInviter
+public sealed partial class TStatsGroupTopInviter : IStatsGroupTopInviter
 {
     public uint ConstructorId => 0x535f779d;
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of invitations for <a href="https://corefork.telegram.org/api/stats">statistics</a> period in consideration
-    ///</summary>
+    /// </summary>
     public int Invitations { get; set; }
 
     public void ComputeFlag()

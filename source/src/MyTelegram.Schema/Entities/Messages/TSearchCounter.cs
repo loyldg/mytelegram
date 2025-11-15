@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Indicates how many results would be found by a <a href="https://corefork.telegram.org/method/messages.search">messages.search</a> call with the same parameters
-/// See <a href="https://corefork.telegram.org/constructor/messages.searchCounter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.searchCounter" /></para>
+/// </summary>
 [TlObject(0xe844ebff)]
-public sealed class TSearchCounter : ISearchCounter
+public sealed partial class TSearchCounter : ISearchCounter
 {
     public uint ConstructorId => 0xe844ebff;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the results may be inexact
-    ///</summary>
+    /// </summary>
     public bool Inexact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Provided message filter
     /// See <a href="https://corefork.telegram.org/type/MessagesFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessagesFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of results that were found server-side
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
     public void ComputeFlag()

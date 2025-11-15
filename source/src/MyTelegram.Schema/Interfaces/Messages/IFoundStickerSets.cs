@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Found stickersets
-/// See <a href="https://corefork.telegram.org/type/messages.FoundStickerSets" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.FoundStickerSets" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFoundStickerSetsNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.foundStickerSetsNotModified" /><br/>
+/// <see cref="TFoundStickerSets"/> See <a href="https://corefork.telegram.org/constructor/messages.foundStickerSets" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFoundStickerSetsNotModified), nameof(TFoundStickerSetsNotModified))]
 [JsonDerivedType(typeof(TFoundStickerSets), nameof(TFoundStickerSets))]
 public interface IFoundStickerSets : IObject

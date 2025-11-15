@@ -2,39 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Notifies a change of a message <a href="https://corefork.telegram.org/api/drafts">draft</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateDraftMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDraftMessage" /></para>
+/// </summary>
 [TlObject(0xedfc111e)]
-public sealed class TUpdateDraftMessage : IUpdate
+public sealed partial class TUpdateDraftMessage : IUpdate
 {
     public uint ConstructorId => 0xedfc111e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer to which the draft is associated
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a> to which the draft is associated
-    ///</summary>
+    /// </summary>
     public int? TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, the draft is related to the specified <a href="https://corefork.telegram.org/api/monoforum">monoforum topic ID »</a>.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SavedPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The draft
     /// See <a href="https://corefork.telegram.org/type/DraftMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDraftMessage Draft { get; set; }
 
     public void ComputeFlag()

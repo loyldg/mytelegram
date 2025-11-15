@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chats to which the users often forwards messages to
-/// See <a href="https://corefork.telegram.org/constructor/topPeerCategoryForwardChats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/topPeerCategoryForwardChats" /></para>
+/// </summary>
 [TlObject(0xfbeec0f0)]
-public sealed class TTopPeerCategoryForwardChats : ITopPeerCategory
+public sealed partial class TTopPeerCategoryForwardChats : ITopPeerCategory
 {
     public uint ConstructorId => 0xfbeec0f0;
     public void ComputeFlag()

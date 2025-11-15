@@ -2,55 +2,62 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Pin a message
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_ONESIDE_NOT_AVAIL Bots can't pin messages in PM just for themselves.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 PIN_RESTRICTED You can't pin messages.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/messages.updatePinnedMessage" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_ONESIDE_NOT_AVAIL Bots can't pin messages in PM just for themselves.</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_INVALID Invalid chat.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PIN_RESTRICTED You can't pin messages.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.updatePinnedMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd2aaf7ec)]
-public sealed class RequestUpdatePinnedMessage : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestUpdatePinnedMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xd2aaf7ec;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pin the message silently, without triggering a notification
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message should unpinned or pinned
-    ///</summary>
+    /// </summary>
     public bool Unpin { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message should only be pinned on the local side of a one-to-one chat
-    ///</summary>
+    /// </summary>
     public bool PmOneside { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer where to pin the message
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message to pin or unpin
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No new saved gifs were found
-/// See <a href="https://corefork.telegram.org/constructor/messages.savedGifsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.savedGifsNotModified" /></para>
+/// </summary>
 [TlObject(0xe8025ca2)]
-public sealed class TSavedGifsNotModified : ISavedGifs
+public sealed partial class TSavedGifsNotModified : ISavedGifs
 {
     public uint ConstructorId => 0xe8025ca2;
     public void ComputeFlag()

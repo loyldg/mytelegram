@@ -2,32 +2,37 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> messages
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 MESSAGE_IDS_EMPTY No message ids were provided.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/channels.getMessages" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 FROZEN_PARTICIPANT_MISSING The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and cannot access the specified peer.</c></para>
+/// <para><c>400 MESSAGE_IDS_EMPTY No message ids were provided.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xad8c9a23)]
-public sealed class RequestGetMessages : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestGetMessages : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0xad8c9a23;
 
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of messages to get
     /// See <a href="https://corefork.telegram.org/type/InputMessage" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputMessage> Id { get; set; }
 
     public void ComputeFlag()

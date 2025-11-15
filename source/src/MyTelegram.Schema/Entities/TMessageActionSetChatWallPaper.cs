@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The <a href="https://corefork.telegram.org/api/wallpapers">wallpaper »</a> of the current chat was changed.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionSetChatWallPaper" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionSetChatWallPaper" /></para>
+/// </summary>
 [TlObject(0x5060a3f4)]
-public sealed class TMessageActionSetChatWallPaper : IMessageAction
+public sealed partial class TMessageActionSetChatWallPaper : IMessageAction
 {
     public uint ConstructorId => 0x5060a3f4;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates the user applied a <a href="https://corefork.telegram.org/api/wallpapers">wallpaper »</a> previously sent by the other user in a <a href="https://corefork.telegram.org/constructor/messageActionSetChatWallPaper">messageActionSetChatWallPaper</a> message.
-    ///</summary>
+    /// </summary>
     public bool Same { get; set; }
 
-    ///<summary>
-    /// If set, indicates the wallpaper was forcefully applied for both sides, without explicit confirmation from the other side. <br>If the message is incoming, and we did not like the new wallpaper the other user has chosen for us, we can re-set our previous wallpaper just on our side, by invoking <a href="https://corefork.telegram.org/method/messages.setChatWallPaper">messages.setChatWallPaper</a>, providing only the <code>revert</code> flag (and obviously the <code>peer</code> parameter).
-    ///</summary>
+    /// <summary>
+    /// If set, indicates the wallpaper was forcefully applied for both sides, without explicit confirmation from the other side. <br/>If the message is incoming, and we did not like the new wallpaper the other user has chosen for us, we can re-set our previous wallpaper just on our side, by invoking <a href="https://corefork.telegram.org/method/messages.setChatWallPaper">messages.setChatWallPaper</a>, providing only the <code>revert</code> flag (and obviously the <code>peer</code> parameter).
+    /// </summary>
     public bool ForBoth { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a>
     /// See <a href="https://corefork.telegram.org/type/WallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaper Wallpaper { get; set; }
 
     public void ComputeFlag()

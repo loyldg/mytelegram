@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is selecting a contact to share.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageChooseContactAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageChooseContactAction" /></para>
+/// </summary>
 [TlObject(0x628cbc6f)]
-public sealed class TSendMessageChooseContactAction : ISendMessageAction
+public sealed partial class TSendMessageChooseContactAction : ISendMessageAction
 {
     public uint ConstructorId => 0x628cbc6f;
     public void ComputeFlag()

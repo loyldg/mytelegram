@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Author and date of creation of article
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockAuthorDate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockAuthorDate" /></para>
+/// </summary>
 [TlObject(0xbaafe5e0)]
-public sealed class TPageBlockAuthorDate : IPageBlock
+public sealed partial class TPageBlockAuthorDate : IPageBlock
 {
     public uint ConstructorId => 0xbaafe5e0;
-    ///<summary>
+    /// <summary>
     /// Author name
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Author { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of publication
-    ///</summary>
+    /// </summary>
     public int PublishedDate { get; set; }
 
     public void ComputeFlag()

@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Coordinates and size of a clicable rectangular area on top of a story.
-/// See <a href="https://corefork.telegram.org/constructor/mediaAreaCoordinates" />
-///</summary>
+/// <summary>
+/// Coordinates and size of a clickable rectangular area on top of a story.
+/// <para>See <a href="https://corefork.telegram.org/constructor/mediaAreaCoordinates" /></para>
+/// </summary>
 [TlObject(0xcfc9e002)]
-public sealed class TMediaAreaCoordinates : IMediaAreaCoordinates
+public sealed partial class TMediaAreaCoordinates : IMediaAreaCoordinates
 {
     public uint ConstructorId => 0xcfc9e002;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The abscissa of the rectangle's center, as a percentage of the media width (0-100).
-    ///</summary>
+    /// </summary>
     public double X { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The ordinate of the rectangle's center, as a percentage of the media height (0-100).
-    ///</summary>
+    /// </summary>
     public double Y { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The width of the rectangle, as a percentage of the media width (0-100).
-    ///</summary>
+    /// </summary>
     public double W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The height of the rectangle, as a percentage of the media height (0-100).
-    ///</summary>
+    /// </summary>
     public double H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clockwise rotation angle of the rectangle, in degrees (0-360).
-    ///</summary>
+    /// </summary>
     public double Rotation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The radius of the rectangle corner rounding, as a percentage of the media width.
-    ///</summary>
+    /// </summary>
     public double? Radius { get; set; }
 
     public void ComputeFlag()

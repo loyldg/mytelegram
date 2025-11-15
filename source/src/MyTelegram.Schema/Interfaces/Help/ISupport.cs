@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Info about the support user, relevant to the current user.
-/// See <a href="https://corefork.telegram.org/type/help.Support" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.Support" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSupport"/> See <a href="https://corefork.telegram.org/constructor/help.support" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSupport), nameof(TSupport))]
 public interface ISupport : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IUser User { get; set; }
 }

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New member in the group
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatAddUser" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatAddUser" /></para>
+/// </summary>
 [TlObject(0x15cefd00)]
-public sealed class TMessageActionChatAddUser : IMessageAction
+public sealed partial class TMessageActionChatAddUser : IMessageAction
 {
     public uint ConstructorId => 0x15cefd00;
-    ///<summary>
+    /// <summary>
     /// Users that were invited to the chat
-    ///</summary>
+    /// </summary>
     public TVector<long> Users { get; set; }
 
     public void ComputeFlag()

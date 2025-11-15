@@ -2,36 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/factcheck">fact-check »</a> created by an independent fact-checker.
-/// See <a href="https://corefork.telegram.org/type/FactCheck" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/FactCheck" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFactCheck"/> See <a href="https://corefork.telegram.org/constructor/factCheck" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFactCheck), nameof(TFactCheck))]
 public interface IFactCheck : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the <code>country</code>/<code>text</code> fields will <strong>not</strong> be set, and the fact check must be fetched manually by the client (if it isn't already cached with the key specified in <code>hash</code>) using bundled <a href="https://corefork.telegram.org/method/messages.getFactCheck">messages.getFactCheck</a> requests, when the message with the factcheck scrolls into view.
-    ///</summary>
+    /// </summary>
     bool NeedCheck { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A two-letter ISO 3166-1 alpha-2 country code of the country for which the fact-check should be shown.
-    ///</summary>
+    /// </summary>
     string? Country { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The fact-check.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ITextWithEntities? Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     long Hash { get; set; }
 }

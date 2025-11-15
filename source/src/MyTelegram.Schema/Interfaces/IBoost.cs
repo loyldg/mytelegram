@@ -2,70 +2,74 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about one or more <a href="https://corefork.telegram.org/api/boost">boosts</a> applied by a specific user.
-/// See <a href="https://corefork.telegram.org/type/Boost" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Boost" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBoost"/> See <a href="https://corefork.telegram.org/constructor/boost" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBoost), nameof(TBoost))]
 public interface IBoost : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this boost was applied because the channel/supergroup <a href="https://corefork.telegram.org/api/giveaways">directly gifted a subscription to the user</a>.
-    ///</summary>
+    /// </summary>
     bool Gift { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this boost was applied because the user was chosen in a <a href="https://corefork.telegram.org/api/giveaways">giveaway started by the channel/supergroup</a>.
-    ///</summary>
+    /// </summary>
     bool Giveaway { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the user hasn't yet invoked <a href="https://corefork.telegram.org/method/payments.applyGiftCode">payments.applyGiftCode</a> to claim a subscription gifted <a href="https://corefork.telegram.org/api/giveaways">directly or in a giveaway by the channel</a>.
-    ///</summary>
+    /// </summary>
     bool Unclaimed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique ID for this set of boosts.
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the user that applied the boost.
-    ///</summary>
+    /// </summary>
     long? UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message ID of the <a href="https://corefork.telegram.org/api/giveaways">giveaway</a>
-    ///</summary>
+    /// </summary>
     int? GiveawayMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the boost applied
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When does the boost expire
-    ///</summary>
+    /// </summary>
     int Expires { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The created Telegram Premium gift code, only set if either <code>gift</code> or <code>giveaway</code> are set AND it is either a gift code for the currently logged in user or if it was already claimed.
-    ///</summary>
+    /// </summary>
     string? UsedGiftSlug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this boost counts as <code>multiplier</code> boosts, otherwise it counts as a single boost.
-    ///</summary>
+    /// </summary>
     int? Multiplier { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of Telegram Stars distributed among the winners of the giveaway.
-    ///</summary>
+    /// </summary>
     long? Stars { get; set; }
 }

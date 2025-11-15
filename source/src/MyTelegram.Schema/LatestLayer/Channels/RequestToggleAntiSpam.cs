@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Enable or disable the <a href="https://corefork.telegram.org/api/antispam">native antispam system</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleAntiSpam" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleAntiSpam" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x68f3e4eb)]
-public sealed class RequestToggleAntiSpam : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleAntiSpam : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x68f3e4eb;
 
-    ///<summary>
+    /// <summary>
     /// Supergroup ID. The specified supergroup must have at least <code>telegram_antispam_group_size_min</code> members to enable antispam functionality, as specified by the <a href="https://corefork.telegram.org/api/config#client-configuration">client configuration parameters</a>.
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Enable or disable the native antispam system.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
     public void ComputeFlag()

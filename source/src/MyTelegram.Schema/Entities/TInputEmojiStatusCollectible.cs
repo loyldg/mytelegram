@@ -2,20 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputEmojiStatusCollectible" />
-///</summary>
+/// <summary>
+/// An <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">owned collectible gift »</a> as emoji status: can only be used in <a href="https://corefork.telegram.org/method/account.updateEmojiStatus">account.updateEmojiStatus</a>, is never returned by the API.Note that once set, the status will be returned to users as a <a href="https://corefork.telegram.org/constructor/emojiStatusCollectible">emojiStatusCollectible</a> constructor, instead (which <strong>cannot</strong> be passed to <a href="https://corefork.telegram.org/method/account.updateEmojiStatus">account.updateEmojiStatus</a>, and must be converted to an <a href="https://corefork.telegram.org/constructor/inputEmojiStatusCollectible">inputEmojiStatusCollectible</a> first).
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputEmojiStatusCollectible" /></para>
+/// </summary>
 [TlObject(0x7141dbf)]
-public sealed class TInputEmojiStatusCollectible : IEmojiStatus
+public sealed partial class TInputEmojiStatusCollectible : IEmojiStatus
 {
     public uint ConstructorId => 0x7141dbf;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// ID of the collectible (from <a href="https://corefork.telegram.org/constructor/starGiftUnique">starGiftUnique</a>.<code>id</code>).
+    /// </summary>
     public long CollectibleId { get; set; }
 
+    /// <summary>
+    /// If set, the emoji status will be active until the specified unixtime.
+    /// </summary>
     public int? Until { get; set; }
 
     public void ComputeFlag()

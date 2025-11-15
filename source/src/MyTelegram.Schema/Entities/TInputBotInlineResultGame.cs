@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Game
-/// See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultGame" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultGame" /></para>
+/// </summary>
 [TlObject(0x4fa417f2)]
-public sealed class TInputBotInlineResultGame : IInputBotInlineResult
+public sealed partial class TInputBotInlineResultGame : IInputBotInlineResult
 {
     public uint ConstructorId => 0x4fa417f2;
-    ///<summary>
+    /// <summary>
     /// Result ID
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Game short name
-    ///</summary>
+    /// </summary>
     public string ShortName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to send when the result is selected
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessage SendMessage { get; set; }
 
     public void ComputeFlag()

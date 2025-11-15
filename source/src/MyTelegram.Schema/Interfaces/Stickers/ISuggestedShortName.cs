@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// A suggested short name for the specified stickerpack
-/// See <a href="https://corefork.telegram.org/type/stickers.SuggestedShortName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/stickers.SuggestedShortName" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSuggestedShortName"/> See <a href="https://corefork.telegram.org/constructor/stickers.suggestedShortName" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSuggestedShortName), nameof(TSuggestedShortName))]
 public interface ISuggestedShortName : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Suggested short name
-    ///</summary>
+    /// </summary>
     string ShortName { get; set; }
 }

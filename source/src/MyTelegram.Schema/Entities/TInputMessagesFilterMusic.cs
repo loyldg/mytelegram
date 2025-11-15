@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only messages containing audio files
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterMusic" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterMusic" /></para>
+/// </summary>
 [TlObject(0x3751b49e)]
-public sealed class TInputMessagesFilterMusic : IMessagesFilter
+public sealed partial class TInputMessagesFilterMusic : IMessagesFilter
 {
     public uint ConstructorId => 0x3751b49e;
     public void ComputeFlag()

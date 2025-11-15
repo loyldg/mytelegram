@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Obtain a list of <a href="https://corefork.telegram.org/api/stars#buying-or-gifting-stars">Telegram Stars gift options »</a> as <a href="https://corefork.telegram.org/constructor/starsGiftOption">starsGiftOption</a> constructors.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 USER_GIFT_UNAVAILABLE Gifts are not available in the current region (<a href="https://corefork.telegram.org/api/config#stars-gifts-enabled">stars_gifts_enabled</a> is equal to false).
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsGiftOptions" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 USER_GIFT_UNAVAILABLE Gifts are not available in the current region (<a href="https://corefork.telegram.org/api/config#stars-gifts-enabled">stars_gifts_enabled</a> is equal to false).</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsGiftOptions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd3c96bc8)]
-public sealed class RequestGetStarsGiftOptions : IRequest<TVector<MyTelegram.Schema.IStarsGiftOption>>
+public sealed partial class RequestGetStarsGiftOptions : IRequest<TVector<MyTelegram.Schema.IStarsGiftOption>>
 {
     public uint ConstructorId => 0xd3c96bc8;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Receiver of the gift (optional).
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser? UserId { get; set; }
 
     public void ComputeFlag()

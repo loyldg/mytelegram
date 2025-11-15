@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains information about a <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a>
-/// See <a href="https://corefork.telegram.org/type/ForumTopic" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ForumTopic" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TForumTopicDeleted"/> See <a href="https://corefork.telegram.org/constructor/forumTopicDeleted" /><br/>
+/// <see cref="TForumTopic"/> See <a href="https://corefork.telegram.org/constructor/forumTopic" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TForumTopicDeleted), nameof(TForumTopicDeleted))]
 [JsonDerivedType(typeof(TForumTopic), nameof(TForumTopic))]
 public interface IForumTopic : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The ID of the deleted forum topic.
-    ///</summary>
+    /// </summary>
     int Id { get; set; }
 }

@@ -2,45 +2,45 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// List of peers that reacted to a specific message
-/// See <a href="https://corefork.telegram.org/constructor/messages.messageReactionsList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.messageReactionsList" /></para>
+/// </summary>
 [TlObject(0x31bd492d)]
-public sealed class TMessageReactionsList : IMessageReactionsList
+public sealed partial class TMessageReactionsList : IMessageReactionsList
 {
     public uint ConstructorId => 0x31bd492d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of reactions matching query
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of peers that reacted to a specific message
     /// See <a href="https://corefork.telegram.org/type/MessagePeerReaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessagePeerReaction> Reactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates the next offset to use to load more results by invoking <a href="https://corefork.telegram.org/method/messages.getMessageReactionsList">messages.getMessageReactionsList</a>.
-    ///</summary>
+    /// </summary>
     public string? NextOffset { get; set; }
 
     public void ComputeFlag()

@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Object contains info on user authorization.
-/// See <a href="https://corefork.telegram.org/type/auth.Authorization" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/auth.Authorization" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAuthorization"/> See <a href="https://corefork.telegram.org/constructor/auth.authorization" /><br/>
+/// <see cref="TAuthorizationSignUpRequired"/> See <a href="https://corefork.telegram.org/constructor/auth.authorizationSignUpRequired" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAuthorization), nameof(TAuthorization))]
 [JsonDerivedType(typeof(TAuthorizationSignUpRequired), nameof(TAuthorizationSignUpRequired))]
 public interface IAuthorization : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 }

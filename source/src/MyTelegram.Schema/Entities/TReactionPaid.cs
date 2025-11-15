@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/reactions#paid-reactions">paid Telegram Star reaction »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/reactionPaid" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/reactionPaid" /></para>
+/// </summary>
 [TlObject(0x523da4eb)]
-public sealed class TReactionPaid : IReaction
+public sealed partial class TReactionPaid : IReaction
 {
     public uint ConstructorId => 0x523da4eb;
     public void ComputeFlag()

@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Contains info about <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep links »</a> created by the current account.
-/// See <a href="https://corefork.telegram.org/type/account.BusinessChatLinks" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.BusinessChatLinks" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBusinessChatLinks"/> See <a href="https://corefork.telegram.org/constructor/account.businessChatLinks" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBusinessChatLinks), nameof(TBusinessChatLinks))]
 public interface IBusinessChatLinks : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Links
     /// See <a href="https://corefork.telegram.org/type/BusinessChatLink" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IBusinessChatLink> Links { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

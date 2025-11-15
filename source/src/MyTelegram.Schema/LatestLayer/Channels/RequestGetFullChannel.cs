@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get full info about a <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a>, <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a> or <a href="https://corefork.telegram.org/api/channel#channels">channel</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHANNEL_PUBLIC_GROUP_NA channel/supergroup not available.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/channels.getFullChannel" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHANNEL_PUBLIC_GROUP_NA channel/supergroup not available.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getFullChannel" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8736a09)]
-public sealed class RequestGetFullChannel : IRequest<MyTelegram.Schema.Messages.IChatFull>
+public sealed partial class RequestGetFullChannel : IRequest<MyTelegram.Schema.Messages.IChatFull>
 {
     public uint ConstructorId => 0x8736a09;
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/channel#channels">channel</a>, <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a> or <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a> to get info about
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     public void ComputeFlag()

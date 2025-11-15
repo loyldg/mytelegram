@@ -2,55 +2,55 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Represents a payment form, for payments to be using <a href="https://corefork.telegram.org/api/stars">Telegram Stars, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/payments.paymentFormStars" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.paymentFormStars" /></para>
+/// </summary>
 [TlObject(0x7bf6b15c)]
-public sealed class TPaymentFormStars : IPaymentForm
+public sealed partial class TPaymentFormStars : IPaymentForm
 {
     public uint ConstructorId => 0x7bf6b15c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Form ID.
-    ///</summary>
+    /// </summary>
     public long FormId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot ID.
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Form title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product photo
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/Invoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about users mentioned in the other fields.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

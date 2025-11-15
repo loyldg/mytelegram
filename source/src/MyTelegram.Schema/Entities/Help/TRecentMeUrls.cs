@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Recent t.me URLs
-/// See <a href="https://corefork.telegram.org/constructor/help.recentMeUrls" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.recentMeUrls" /></para>
+/// </summary>
 [TlObject(0xe0310d7)]
-public sealed class TRecentMeUrls : IRecentMeUrls
+public sealed partial class TRecentMeUrls : IRecentMeUrls
 {
     public uint ConstructorId => 0xe0310d7;
-    ///<summary>
+    /// <summary>
     /// URLs
     /// See <a href="https://corefork.telegram.org/type/RecentMeUrl" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IRecentMeUrl> Urls { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

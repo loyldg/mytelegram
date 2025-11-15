@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No sponsored messages are available.
-/// See <a href="https://corefork.telegram.org/constructor/messages.sponsoredMessagesEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.sponsoredMessagesEmpty" /></para>
+/// </summary>
 [TlObject(0x1839490f)]
-public sealed class TSponsoredMessagesEmpty : ISponsoredMessages
+public sealed partial class TSponsoredMessagesEmpty : ISponsoredMessages
 {
     public uint ConstructorId => 0x1839490f;
     public void ComputeFlag()

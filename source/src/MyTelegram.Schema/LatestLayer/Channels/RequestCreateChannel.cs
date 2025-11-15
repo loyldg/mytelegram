@@ -2,74 +2,77 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Create a <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ADDRESS_INVALID The specified geopoint address is invalid.
-/// 400 CHANNELS_ADMIN_LOCATED_TOO_MUCH The user has reached the limit of public geogroups.
-/// 400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.
-/// 400 CHAT_ABOUT_TOO_LONG Chat about too long.
-/// 500 CHAT_INVALID Invalid chat.
-/// 400 CHAT_TITLE_EMPTY No chat title provided.
-/// 400 TTL_PERIOD_INVALID The specified TTL period is invalid.
-/// 406 USER_RESTRICTED You're spamreported, you can't create channels or chats.
-/// See <a href="https://corefork.telegram.org/method/channels.createChannel" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 ADDRESS_INVALID The specified geopoint address is invalid.</c></para>
+/// <para><c>400 CHANNELS_ADMIN_LOCATED_TOO_MUCH The user has reached the limit of public geogroups.</c></para>
+/// <para><c>400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.</c></para>
+/// <para><c>400 CHAT_ABOUT_TOO_LONG Chat about too long.</c></para>
+/// <para><c>500 CHAT_INVALID Invalid chat.</c></para>
+/// <para><c>400 CHAT_TITLE_EMPTY No chat title provided.</c></para>
+/// <para><c>400 TTL_PERIOD_INVALID The specified TTL period is invalid.</c></para>
+/// <para><c>403 USER_RESTRICTED You're spamreported, you can't create channels or chats. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.createChannel" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x91006707)]
-public sealed class RequestCreateChannel : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestCreateChannel : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x91006707;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to create a <a href="https://corefork.telegram.org/api/channel">channel</a>
-    ///</summary>
+    /// </summary>
     public bool Broadcast { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to create a <a href="https://corefork.telegram.org/api/channel">supergroup</a>
-    ///</summary>
+    /// </summary>
     public bool Megagroup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the supergroup is being created to import messages from a foreign chat service using <a href="https://corefork.telegram.org/method/messages.initHistoryImport">messages.initHistoryImport</a>
-    ///</summary>
+    /// </summary>
     public bool ForImport { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to create a <a href="https://corefork.telegram.org/api/forum">forum</a>
-    ///</summary>
+    /// </summary>
     public bool Forum { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel description
-    ///</summary>
+    /// </summary>
     public string About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Geogroup location, see <a href="https://corefork.telegram.org/api/nearby">here »</a> for more info on geogroups.
     /// See <a href="https://corefork.telegram.org/type/InputGeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGeoPoint? GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Geogroup address, see <a href="https://corefork.telegram.org/api/nearby">here »</a> for more info on geogroups.
-    ///</summary>
+    /// </summary>
     public string? Address { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time-to-live of all messages that will be sent in the supergroup: once message.date+message.ttl_period === time(), the message will be deleted on the server, and must be deleted locally as well. You can use <a href="https://corefork.telegram.org/method/messages.setDefaultHistoryTTL">messages.setDefaultHistoryTTL</a> to edit this value later.
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
     public void ComputeFlag()

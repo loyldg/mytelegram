@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Link to a message in a supergroup/channel
-/// See <a href="https://corefork.telegram.org/constructor/exportedMessageLink" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/exportedMessageLink" /></para>
+/// </summary>
 [TlObject(0x5dab1af4)]
-public sealed class TExportedMessageLink : IExportedMessageLink
+public sealed partial class TExportedMessageLink : IExportedMessageLink
 {
     public uint ConstructorId => 0x5dab1af4;
-    ///<summary>
+    /// <summary>
     /// URL
-    ///</summary>
+    /// </summary>
     public string Link { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Embed code
-    ///</summary>
+    /// </summary>
     public string Html { get; set; }
 
     public void ComputeFlag()

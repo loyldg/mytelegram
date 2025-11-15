@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get changed <a href="https://corefork.telegram.org/api/custom-emoji#emoji-keywords">emoji keywords »</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.getEmojiKeywordsDifference" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getEmojiKeywordsDifference" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1508b6af)]
-public sealed class RequestGetEmojiKeywordsDifference : IRequest<MyTelegram.Schema.IEmojiKeywordsDifference>
+public sealed partial class RequestGetEmojiKeywordsDifference : IRequest<MyTelegram.Schema.IEmojiKeywordsDifference>
 {
     public uint ConstructorId => 0x1508b6af;
 
-    ///<summary>
+    /// <summary>
     /// Language code
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previous stored emoji keyword list <code>version</code>
-    ///</summary>
+    /// </summary>
     public int FromVersion { get; set; }
 
     public void ComputeFlag()

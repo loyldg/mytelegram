@@ -2,43 +2,47 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Stories found using <a href="https://corefork.telegram.org/api/stories#searching-stories">global story search »</a>.
-/// See <a href="https://corefork.telegram.org/type/stories.FoundStories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/stories.FoundStories" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFoundStories"/> See <a href="https://corefork.telegram.org/constructor/stories.foundStories" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFoundStories), nameof(TFoundStories))]
 public interface IFoundStories : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of results found for the query.
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Matching stories.
     /// See <a href="https://corefork.telegram.org/type/FoundStory" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IFoundStory> Stories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset used to fetch the next page, if not set this is the final page.
-    ///</summary>
+    /// </summary>
     string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

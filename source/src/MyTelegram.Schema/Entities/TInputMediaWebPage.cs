@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Specifies options that will be used to generate the link preview for the caption, or even a standalone link preview without an attached message.
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaWebPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaWebPage" /></para>
+/// </summary>
 [TlObject(0xc21b8849)]
-public sealed class TInputMediaWebPage : IInputMedia
+public sealed partial class TInputMediaWebPage : IInputMedia
 {
     public uint ConstructorId => 0xc21b8849;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies that a large media preview should be used.
-    ///</summary>
+    /// </summary>
     public bool ForceLargeMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies that a small media preview should be used.
-    ///</summary>
+    /// </summary>
     public bool ForceSmallMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If <strong>not</strong> set, a <code>WEBPAGE_NOT_FOUND</code> RPC error will be emitted if a webpage preview cannot be generated for the specified <code>url</code>; otherwise, no error will be emitted (unless the provided message is also empty, in which case a <code>MESSAGE_EMPTY</code> will be emitted, instead).
-    ///</summary>
+    /// </summary>
     public bool Optional { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The URL to use for the link preview.
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

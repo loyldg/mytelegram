@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Returns chat basic info on their IDs.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getChats" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getChats" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x49e9528f)]
-public sealed class RequestGetChats : IRequest<MyTelegram.Schema.Messages.IChats>
+public sealed partial class RequestGetChats : IRequest<MyTelegram.Schema.Messages.IChats>
 {
     public uint ConstructorId => 0x49e9528f;
 
-    ///<summary>
+    /// <summary>
     /// List of chat IDs
-    ///</summary>
+    /// </summary>
     public TVector<long> Id { get; set; }
 
     public void ComputeFlag()

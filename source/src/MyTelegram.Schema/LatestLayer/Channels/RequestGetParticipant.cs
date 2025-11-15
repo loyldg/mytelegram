@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get info about a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> participant
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PARTICIPANT_ID_INVALID The specified participant ID is invalid.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// 400 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel.
-/// See <a href="https://corefork.telegram.org/method/channels.getParticipant" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PARTICIPANT_ID_INVALID The specified participant ID is invalid.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>400 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getParticipant" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa0ab6cc6)]
-public sealed class RequestGetParticipant : IRequest<MyTelegram.Schema.Channels.IChannelParticipant>
+public sealed partial class RequestGetParticipant : IRequest<MyTelegram.Schema.Channels.IChannelParticipant>
 {
     public uint ConstructorId => 0xa0ab6cc6;
 
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participant to get info about
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Participant { get; set; }
 
     public void ComputeFlag()

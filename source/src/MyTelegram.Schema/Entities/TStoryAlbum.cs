@@ -2,27 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/storyAlbum" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/stories#story-albums">story album »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyAlbum" /></para>
+/// </summary>
 [TlObject(0x9325705a)]
-public sealed class TStoryAlbum : IStoryAlbum
+public sealed partial class TStoryAlbum : IStoryAlbum
 {
     public uint ConstructorId => 0x9325705a;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// ID of the album.
+    /// </summary>
     public int AlbumId { get; set; }
 
+    /// <summary>
+    /// Name of the album.
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Photo from the first story of the album, if it's a photo.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? IconPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Video from the first story of the album, if it's a video.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? IconVideo { get; set; }
 
     public void ComputeFlag()

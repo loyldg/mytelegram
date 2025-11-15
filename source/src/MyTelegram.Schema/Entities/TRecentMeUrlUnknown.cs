@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Unknown t.me url
-/// See <a href="https://corefork.telegram.org/constructor/recentMeUrlUnknown" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/recentMeUrlUnknown" /></para>
+/// </summary>
 [TlObject(0x46e1d13d)]
-public sealed class TRecentMeUrlUnknown : IRecentMeUrl
+public sealed partial class TRecentMeUrlUnknown : IRecentMeUrl
 {
     public uint ConstructorId => 0x46e1d13d;
-    ///<summary>
+    /// <summary>
     /// URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

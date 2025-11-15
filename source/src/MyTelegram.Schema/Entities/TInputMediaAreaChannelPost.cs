@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a channel post
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaAreaChannelPost" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaAreaChannelPost" /></para>
+/// </summary>
 [TlObject(0x2271f2bf)]
-public sealed class TInputMediaAreaChannelPost : IMediaArea
+public sealed partial class TInputMediaAreaChannelPost : IMediaArea
 {
     public uint ConstructorId => 0x2271f2bf;
-    ///<summary>
+    /// <summary>
     /// The size and location of the media area corresponding to the location sticker on top of the story media.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel that posted the message
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the channel message
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

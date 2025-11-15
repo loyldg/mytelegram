@@ -31,7 +31,7 @@ public class AuthConsts
     ];
 
     public static readonly BigInteger DhPrime = new(Dh2048P, true, true);
-
+    public static readonly BigInteger G3 = new([0x03], true, true);
     public static readonly byte[] G = [0x03];
     public static readonly byte[] GBytes = [
         0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0 , 0 ,
@@ -55,14 +55,10 @@ public class AuthConsts
         0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0 , 0 ,
         0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0 , 0 ,
         0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0 , 0 ,
-        0, 0, 0, 0];
+        0, 0, 0, 0x03];
     public static readonly byte[] P = [0x49, 0x4C, 0x55, 0x3B];
     public static readonly byte[] Q = [0x53, 0x91, 0x10, 0x73];
     public static readonly byte[] Pq = [0x17, 0xED, 0x48, 0x94, 0x1A, 0x08, 0xF9, 0x81];
-    public static readonly byte[] Salt1 = [0x01, 0x0F, 0xFD, 0x3F, 0xE7, 0x7E, 0x79, 0xBB];
-
-    public static readonly byte[] Salt2 =
-        [0xC7, 0x7B, 0x39, 0x0C, 0x81, 0xCB, 0x5A, 0xF5, 0x15, 0x79, 0x4A, 0xA9, 0x85, 0xC9, 0x32, 0x26];
 
     public static readonly byte[] SecureAlgoSalt =
     [

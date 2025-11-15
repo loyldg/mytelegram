@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Represents a chunk of an <a href="https://corefork.telegram.org/api/files">HTTP webfile</a> downloaded through telegram's secure MTProto servers
-/// See <a href="https://corefork.telegram.org/constructor/upload.webFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/upload.webFile" /></para>
+/// </summary>
 [TlObject(0x21e753bc)]
-public sealed class TWebFile : IWebFile
+public sealed partial class TWebFile : IWebFile
 {
     public uint ConstructorId => 0x21e753bc;
-    ///<summary>
+    /// <summary>
     /// File size
-    ///</summary>
+    /// </summary>
     public int Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mime type
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File type
     /// See <a href="https://corefork.telegram.org/type/storage.FileType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Storage.IFileType FileType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Modified time
-    ///</summary>
+    /// </summary>
     public int Mtime { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Data
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

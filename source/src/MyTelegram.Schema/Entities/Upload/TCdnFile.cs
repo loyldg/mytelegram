@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Represent a chunk of a <a href="https://corefork.telegram.org/cdn">CDN</a> file.
-/// See <a href="https://corefork.telegram.org/constructor/upload.cdnFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/upload.cdnFile" /></para>
+/// </summary>
 [TlObject(0xa99fca4f)]
-public sealed class TCdnFile : ICdnFile
+public sealed partial class TCdnFile : ICdnFile
 {
     public uint ConstructorId => 0xa99fca4f;
-    ///<summary>
+    /// <summary>
     /// The data
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

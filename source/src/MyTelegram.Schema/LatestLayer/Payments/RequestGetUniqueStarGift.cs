@@ -2,14 +2,24 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.getUniqueStarGift" />
-///</summary>
+/// <summary>
+/// Obtain info about a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a> using a slug obtained from a <a href="https://corefork.telegram.org/api/links#collectible-gift-link">collectible gift link »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STARGIFT_SLUG_INVALID The specified gift slug is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getUniqueStarGift" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa1974d72)]
-public sealed class RequestGetUniqueStarGift : IRequest<MyTelegram.Schema.Payments.IUniqueStarGift>
+public sealed partial class RequestGetUniqueStarGift : IRequest<MyTelegram.Schema.Payments.IUniqueStarGift>
 {
     public uint ConstructorId => 0xa1974d72;
 
+    /// <summary>
+    /// The slug.
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

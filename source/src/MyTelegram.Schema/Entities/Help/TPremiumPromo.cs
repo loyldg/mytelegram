@@ -2,48 +2,48 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
-/// Telegram Premium promotion informationNote that the <code>video_sections</code>+<code>videos</code> fields are a list of videos, and the corresponding premium feature identifiers.<br>
-/// They're equivalent to a section =&gt; video dictionary, with keys from <code>video_section</code> and values from <code>videos</code>.<br>
+/// <summary>
+/// Telegram Premium promotion informationNote that the <code>video_sections</code>+<code>videos</code> fields are a list of videos, and the corresponding premium feature identifiers.<br/>
+/// They're equivalent to a section =&gt; video dictionary, with keys from <code>video_section</code> and values from <code>videos</code>.<br/>
 /// The keys in <code>video_sections</code> correspond to a specific feature identifier, and the associated promotional video should be shown when the associated feature row is clicked.
-/// See <a href="https://corefork.telegram.org/constructor/help.premiumPromo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.premiumPromo" /></para>
+/// </summary>
 [TlObject(0x5334759c)]
-public sealed class TPremiumPromo : IPremiumPromo
+public sealed partial class TPremiumPromo : IPremiumPromo
 {
     public uint ConstructorId => 0x5334759c;
-    ///<summary>
+    /// <summary>
     /// Description of the current state of the user's Telegram Premium subscription
-    ///</summary>
+    /// </summary>
     public string StatusText { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity> StatusEntities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of <a href="https://corefork.telegram.org/api/premium">premium feature identifiers »</a>, associated to each video
-    ///</summary>
+    /// </summary>
     public TVector<string> VideoSections { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of videos
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Videos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram Premium subscription options
     /// See <a href="https://corefork.telegram.org/type/PremiumSubscriptionOption" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPremiumSubscriptionOption> PeriodOptions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related user information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

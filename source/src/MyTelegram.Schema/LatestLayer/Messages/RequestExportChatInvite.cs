@@ -2,68 +2,72 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Export an invite link for a chat
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 EXPIRE_DATE_INVALID The specified expiration date is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 PRICING_CHAT_INVALID The pricing for the <a href="https://corefork.telegram.org/api/subscriptions">subscription</a> is invalid, the maximum price is specified in the <a href="https://corefork.telegram.org/api/config#stars-subscription-amount-max"><code>stars_subscription_amount_max</code> config key&nbsp;»</a>.
-/// 400 SUBSCRIPTION_PERIOD_INVALID The specified subscription_pricing.period is invalid.
-/// 400 USAGE_LIMIT_INVALID The specified usage limit is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.exportChatInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 EXPIRE_DATE_INVALID The specified expiration date is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PRICING_CHAT_INVALID The pricing for the <a href="https://corefork.telegram.org/api/subscriptions">subscription</a> is invalid, the maximum price is specified in the <a href="https://corefork.telegram.org/api/config#stars-subscription-amount-max"><code>stars_subscription_amount_max</code> config key »</a>.</c></para>
+/// <para><c>400 SUBSCRIPTION_PERIOD_INVALID The specified subscription_pricing.period is invalid.</c></para>
+/// <para><c>400 USAGE_LIMIT_INVALID The specified usage limit is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.exportChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa455de90)]
-public sealed class RequestExportChatInvite : IRequest<MyTelegram.Schema.IExportedChatInvite>
+public sealed partial class RequestExportChatInvite : IRequest<MyTelegram.Schema.IExportedChatInvite>
 {
     public uint ConstructorId => 0xa455de90;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Legacy flag, reproducing legacy behavior of this method: if set, revokes all previous links before creating a new one. Kept for bot API BC, should not be used by modern clients.
-    ///</summary>
+    /// </summary>
     public bool LegacyRevokePermanent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether admin confirmation is required before admitting each separate user into the chat
-    ///</summary>
+    /// </summary>
     public bool RequestNeeded { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Expiration date
-    ///</summary>
+    /// </summary>
     public int? ExpireDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of users that can join using this link
-    ///</summary>
+    /// </summary>
     public int? UsageLimit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description of the invite link, visible only to administrators
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscriptions »</a>, contains the pricing of the subscription the user must activate to join the private channel.
     /// See <a href="https://corefork.telegram.org/type/StarsSubscriptionPricing" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsSubscriptionPricing? SubscriptionPricing { get; set; }
 
     public void ComputeFlag()

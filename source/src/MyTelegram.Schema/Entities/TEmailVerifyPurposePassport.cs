@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Verify an email for use in <a href="https://corefork.telegram.org/api/passport">telegram passport</a>
-/// See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposePassport" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emailVerifyPurposePassport" /></para>
+/// </summary>
 [TlObject(0xbbf51685)]
-public sealed class TEmailVerifyPurposePassport : IEmailVerifyPurpose
+public sealed partial class TEmailVerifyPurposePassport : IEmailVerifyPurpose
 {
     public uint ConstructorId => 0xbbf51685;
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates an already sent game
-/// See <a href="https://corefork.telegram.org/constructor/inputGameID" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputGameID" /></para>
+/// </summary>
 [TlObject(0x32c3e77)]
-public sealed class TInputGameID : IInputGame
+public sealed partial class TInputGameID : IInputGame
 {
     public uint ConstructorId => 0x32c3e77;
-    ///<summary>
+    /// <summary>
     /// game ID from <a href="https://corefork.telegram.org/type/Game">Game</a> constructor
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// access hash from <a href="https://corefork.telegram.org/type/Game">Game</a> constructor
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

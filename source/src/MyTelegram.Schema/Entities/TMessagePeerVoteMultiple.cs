@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// How a peer voted in a multiple-choice poll
-/// See <a href="https://corefork.telegram.org/constructor/messagePeerVoteMultiple" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messagePeerVoteMultiple" /></para>
+/// </summary>
 [TlObject(0x4628f6e6)]
-public sealed class TMessagePeerVoteMultiple : IMessagePeerVote
+public sealed partial class TMessagePeerVoteMultiple : IMessagePeerVote
 {
     public uint ConstructorId => 0x4628f6e6;
-    ///<summary>
+    /// <summary>
     /// Peer ID
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Options chosen by the peer
-    ///</summary>
+    /// </summary>
     public TVector<ReadOnlyMemory<byte>> Options { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did the peer cast their votes
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

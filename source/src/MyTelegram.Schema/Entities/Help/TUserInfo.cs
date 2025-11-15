@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Internal use
-/// See <a href="https://corefork.telegram.org/constructor/help.userInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.userInfo" /></para>
+/// </summary>
 [TlObject(0x1eb3758)]
-public sealed class TUserInfo : IUserInfo
+public sealed partial class TUserInfo : IUserInfo
 {
     public uint ConstructorId => 0x1eb3758;
-    ///<summary>
+    /// <summary>
     /// Info
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Author
-    ///</summary>
+    /// </summary>
     public string Author { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

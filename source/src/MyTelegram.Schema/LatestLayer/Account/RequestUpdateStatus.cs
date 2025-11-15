@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Updates online user status.
-/// See <a href="https://corefork.telegram.org/method/account.updateStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateStatus" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6628562c)]
-public sealed class RequestUpdateStatus : IRequest<IBool>
+public sealed partial class RequestUpdateStatus : IRequest<IBool>
 {
     public uint ConstructorId => 0x6628562c;
 
-    ///<summary>
+    /// <summary>
     /// If <a href="https://corefork.telegram.org/constructor/boolTrue">(boolTrue)</a> is transmitted, user status will change to <a href="https://corefork.telegram.org/constructor/userStatusOffline">(userStatusOffline)</a>.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Offline { get; set; }
 
     public void ComputeFlag()

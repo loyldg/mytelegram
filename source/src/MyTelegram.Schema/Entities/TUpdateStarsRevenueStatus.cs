@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The <a href="https://corefork.telegram.org/api/stars#revenue-statistics">Telegram Star balance of a channel/bot we own has changed »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateStarsRevenueStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateStarsRevenueStatus" /></para>
+/// </summary>
 [TlObject(0xa584b019)]
-public sealed class TUpdateStarsRevenueStatus : IUpdate
+public sealed partial class TUpdateStarsRevenueStatus : IUpdate
 {
     public uint ConstructorId => 0xa584b019;
-    ///<summary>
+    /// <summary>
     /// Channel/bot
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New Telegram Star balance.
     /// See <a href="https://corefork.telegram.org/type/StarsRevenueStatus" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsRevenueStatus Status { get; set; }
 
     public void ComputeFlag()

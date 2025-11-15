@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Install a stickerset
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 406 STICKERSET_INVALID The provided sticker set is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.installStickerSet" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>406 STICKERSET_INVALID The provided sticker set is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.installStickerSet" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc78fe460)]
-public sealed class RequestInstallStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSetInstallResult>
+public sealed partial class RequestInstallStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSetInstallResult>
 {
     public uint ConstructorId => 0xc78fe460;
 
-    ///<summary>
+    /// <summary>
     /// Stickerset to install
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to archive stickerset
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Archived { get; set; }
 
     public void ComputeFlag()

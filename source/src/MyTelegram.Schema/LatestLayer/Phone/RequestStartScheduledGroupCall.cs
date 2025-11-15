@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Start a scheduled group call.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 GROUPCALL_ALREADY_STARTED The groupcall has already started, you can join directly using <a href="https://corefork.telegram.org/method/phone.joinGroupCall">phone.joinGroupCall</a>.
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.startScheduledGroupCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 GROUPCALL_ALREADY_STARTED The groupcall has already started, you can join directly using <a href="https://corefork.telegram.org/method/phone.joinGroupCall">phone.joinGroupCall</a>.</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.startScheduledGroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5680e342)]
-public sealed class RequestStartScheduledGroupCall : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestStartScheduledGroupCall : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x5680e342;
 
-    ///<summary>
+    /// <summary>
     /// The scheduled group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     public void ComputeFlag()

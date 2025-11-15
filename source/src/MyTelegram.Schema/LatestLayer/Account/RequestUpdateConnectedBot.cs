@@ -2,45 +2,49 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
-/// Connect a <a href="https://corefork.telegram.org/api/business#connected-bots">business bot »</a> to the current account, or to change the current connection settings.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_BUSINESS_MISSING The specified bot is not a business bot (the <a href="https://corefork.telegram.org/constructor/user">user</a>.<code>bot_business</code> flag is not set).
-/// 400 BUSINESS_RECIPIENTS_EMPTY You didn't set any flag in inputBusinessBotRecipients, thus the bot cannot work with <em>any</em> peer.
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// See <a href="https://corefork.telegram.org/method/account.updateConnectedBot" />
-///</summary>
+/// <summary>
+/// Connect a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bot »</a> to the current account, or to change the current connection settings.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_BUSINESS_MISSING The specified bot is not a business bot (the <a href="https://corefork.telegram.org/constructor/user">user</a>.<code>bot_business</code> flag is not set).</c></para>
+/// <para><c>400 BUSINESS_RECIPIENTS_EMPTY You didn't set any flag in inputBusinessBotRecipients, thus the bot cannot work with <em>any</em> peer.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateConnectedBot" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x66a08c7e)]
-public sealed class RequestUpdateConnectedBot : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestUpdateConnectedBot : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x66a08c7e;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to fully disconnect the bot from the current account.
-    ///</summary>
+    /// </summary>
     public bool Deleted { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Business bot rights.
     /// See <a href="https://corefork.telegram.org/type/BusinessBotRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessBotRights? Rights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The bot to connect or disconnect
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Configuration for the business connection
     /// See <a href="https://corefork.telegram.org/type/InputBusinessBotRecipients" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBusinessBotRecipients Recipients { get; set; }
 
     public void ComputeFlag()

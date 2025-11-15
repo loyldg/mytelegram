@@ -2,10 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Filter for fetching channel participants
-/// See <a href="https://corefork.telegram.org/type/ChannelParticipantsFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChannelParticipantsFilter" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelParticipantsRecent"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantsRecent" /><br/>
+/// <see cref="TChannelParticipantsAdmins"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantsAdmins" /><br/>
+/// <see cref="TChannelParticipantsKicked"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantsKicked" /><br/>
+/// <see cref="TChannelParticipantsBots"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantsBots" /><br/>
+/// <see cref="TChannelParticipantsBanned"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantsBanned" /><br/>
+/// <see cref="TChannelParticipantsSearch"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantsSearch" /><br/>
+/// <see cref="TChannelParticipantsContacts"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantsContacts" /><br/>
+/// <see cref="TChannelParticipantsMentions"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantsMentions" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelParticipantsRecent), nameof(TChannelParticipantsRecent))]
 [JsonDerivedType(typeof(TChannelParticipantsAdmins), nameof(TChannelParticipantsAdmins))]
 [JsonDerivedType(typeof(TChannelParticipantsKicked), nameof(TChannelParticipantsKicked))]

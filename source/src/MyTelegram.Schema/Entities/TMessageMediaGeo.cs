@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Attached map.
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaGeo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaGeo" /></para>
+/// </summary>
 [TlObject(0x56e0d474)]
-public sealed class TMessageMediaGeo : IMessageMedia
+public sealed partial class TMessageMediaGeo : IMessageMedia
 {
     public uint ConstructorId => 0x56e0d474;
-    ///<summary>
+    /// <summary>
     /// GeoPoint
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }
 
     public void ComputeFlag()

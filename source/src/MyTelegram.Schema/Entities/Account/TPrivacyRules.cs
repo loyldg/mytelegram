@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Privacy rules
-/// See <a href="https://corefork.telegram.org/constructor/account.privacyRules" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.privacyRules" /></para>
+/// </summary>
 [TlObject(0x50a04e45)]
-public sealed class TPrivacyRules : IPrivacyRules
+public sealed partial class TPrivacyRules : IPrivacyRules
 {
     public uint ConstructorId => 0x50a04e45;
-    ///<summary>
+    /// <summary>
     /// Privacy rules
     /// See <a href="https://corefork.telegram.org/type/PrivacyRule" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPrivacyRule> Rules { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats to which the rules apply
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users to which the rules apply
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

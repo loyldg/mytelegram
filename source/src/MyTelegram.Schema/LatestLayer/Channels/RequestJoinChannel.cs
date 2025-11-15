@@ -2,34 +2,39 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Join a channel/supergroup
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_INVALID Invalid chat.
-/// 400 INVITE_HASH_EMPTY The invite hash is empty.
-/// 406 INVITE_HASH_EXPIRED The invite link has expired.
-/// 400 INVITE_HASH_INVALID The invite hash is invalid.
-/// 400 INVITE_REQUEST_SENT You have successfully requested to join this chat or channel.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).
-/// 400 USER_ALREADY_PARTICIPANT The user is already in the group.
-/// 400 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.
-/// See <a href="https://corefork.telegram.org/method/channels.joinChannel" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_INVALID Invalid chat.</c></para>
+/// <para><c>420 FROZEN_METHOD_INVALID The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and thus cannot execute the specified action.</c></para>
+/// <para><c>400 INVITE_HASH_EMPTY The invite hash is empty.</c></para>
+/// <para><c>406 INVITE_HASH_EXPIRED The invite link has expired.</c></para>
+/// <para><c>400 INVITE_HASH_INVALID The invite hash is invalid.</c></para>
+/// <para><c>400 INVITE_REQUEST_SENT You have successfully requested to join this chat or channel.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).</c></para>
+/// <para><c>400 USER_ALREADY_PARTICIPANT The user is already in the group.</c></para>
+/// <para><c>400 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.joinChannel" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x24b524c5)]
-public sealed class RequestJoinChannel : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestJoinChannel : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x24b524c5;
 
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup to join
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     public void ComputeFlag()

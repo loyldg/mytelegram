@@ -2,37 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Full info about a <a href="https://corefork.telegram.org/api/channel#channels">channel</a>, <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a>, <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a> or <a href="https://corefork.telegram.org/api/channel#basic-groups">basic group</a>.
-/// See <a href="https://corefork.telegram.org/type/ChatFull" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChatFull" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatFull"/> See <a href="https://corefork.telegram.org/constructor/chatFull" /><br/>
+/// <see cref="TChannelFull"/> See <a href="https://corefork.telegram.org/constructor/channelFull" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatFull), nameof(TChatFull))]
 [JsonDerivedType(typeof(TChannelFull), nameof(TChannelFull))]
 public interface IChatFull : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the chat
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// About string for this chat
-    ///</summary>
+    /// </summary>
     string About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification settings
     /// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     int? FolderId { get; set; }
 }

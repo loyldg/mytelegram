@@ -2,13 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a real (i.e. possibly decimal) amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-/// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StarsAmount" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarsAmount"/> See <a href="https://corefork.telegram.org/constructor/starsAmount" /><br/>
+/// <see cref="TStarsTonAmount"/> See <a href="https://corefork.telegram.org/constructor/starsTonAmount" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarsAmount), nameof(TStarsAmount))]
 [JsonDerivedType(typeof(TStarsTonAmount), nameof(TStarsTonAmount))]
 public interface IStarsAmount : IObject
 {
+    /// <summary>
+    /// The amount in nanotons.
+    /// </summary>
     long Amount { get; set; }
 }

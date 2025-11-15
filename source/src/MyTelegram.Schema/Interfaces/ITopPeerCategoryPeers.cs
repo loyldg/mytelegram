@@ -2,27 +2,31 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Top peers by top peer category
-/// See <a href="https://corefork.telegram.org/type/TopPeerCategoryPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/TopPeerCategoryPeers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTopPeerCategoryPeers"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryPeers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTopPeerCategoryPeers), nameof(TTopPeerCategoryPeers))]
 public interface ITopPeerCategoryPeers : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Top peer category of peers
     /// See <a href="https://corefork.telegram.org/type/TopPeerCategory" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ITopPeerCategory Category { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Count of peers
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peers
     /// See <a href="https://corefork.telegram.org/type/TopPeer" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ITopPeer> Peers { get; set; }
 }

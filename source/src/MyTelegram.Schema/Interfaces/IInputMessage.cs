@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A message
-/// See <a href="https://corefork.telegram.org/type/InputMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputMessageID"/> See <a href="https://corefork.telegram.org/constructor/inputMessageID" /><br/>
+/// <see cref="TInputMessageReplyTo"/> See <a href="https://corefork.telegram.org/constructor/inputMessageReplyTo" /><br/>
+/// <see cref="TInputMessagePinned"/> See <a href="https://corefork.telegram.org/constructor/inputMessagePinned" /><br/>
+/// <see cref="TInputMessageCallbackQuery"/> See <a href="https://corefork.telegram.org/constructor/inputMessageCallbackQuery" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputMessageID), nameof(TInputMessageID))]
 [JsonDerivedType(typeof(TInputMessageReplyTo), nameof(TInputMessageReplyTo))]
 [JsonDerivedType(typeof(TInputMessagePinned), nameof(TInputMessagePinned))]

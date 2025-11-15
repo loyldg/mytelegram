@@ -2,48 +2,52 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Results of poll
-/// See <a href="https://corefork.telegram.org/type/PollResults" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PollResults" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPollResults"/> See <a href="https://corefork.telegram.org/constructor/pollResults" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPollResults), nameof(TPollResults))]
 public interface IPollResults : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Similar to <a href="https://corefork.telegram.org/api/min">min</a> objects, used for poll constructors that are the same for all users so they don't have the option chosen by the current user (you can use <a href="https://corefork.telegram.org/method/messages.getPollResults">messages.getPollResults</a> to get the full poll results).
-    ///</summary>
+    /// </summary>
     bool Min { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Poll results
     /// See <a href="https://corefork.telegram.org/type/PollAnswerVoters" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPollAnswerVoters>? Results { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of people that voted in the poll
-    ///</summary>
+    /// </summary>
     int? TotalVoters { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of the last users that recently voted in the poll
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPeer>? RecentVoters { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Explanation of quiz solution
-    ///</summary>
+    /// </summary>
     string? Solution { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text in quiz solution</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity>? SolutionEntities { get; set; }
 }

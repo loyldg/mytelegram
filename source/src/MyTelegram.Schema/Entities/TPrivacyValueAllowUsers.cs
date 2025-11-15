@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Allow only certain users
-/// See <a href="https://corefork.telegram.org/constructor/privacyValueAllowUsers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyValueAllowUsers" /></para>
+/// </summary>
 [TlObject(0xb8905fb2)]
-public sealed class TPrivacyValueAllowUsers : IPrivacyRule
+public sealed partial class TPrivacyValueAllowUsers : IPrivacyRule
 {
     public uint ConstructorId => 0xb8905fb2;
-    ///<summary>
+    /// <summary>
     /// Allowed users
-    ///</summary>
+    /// </summary>
     public TVector<long> Users { get; set; }
 
     public void ComputeFlag()

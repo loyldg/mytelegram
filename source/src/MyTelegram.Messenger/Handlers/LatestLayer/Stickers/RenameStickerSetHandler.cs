@@ -1,16 +1,17 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Stickers;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Stickers;
+/// <summary>
 /// Renames a stickerset.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 STICKERSET_INVALID The provided sticker set is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.renameStickerSet" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/stickers.renameStickerSet"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 internal sealed class RenameStickerSetHandler : RpcResultObjectHandler<MyTelegram.Schema.Stickers.RequestRenameStickerSet, MyTelegram.Schema.Messages.IStickerSet>
 {
-    protected override Task<MyTelegram.Schema.Messages.IStickerSet> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Stickers.RequestRenameStickerSet obj)
+    protected override Task<MyTelegram.Schema.Messages.IStickerSet> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Stickers.RequestRenameStickerSet obj)
     {
         throw new NotImplementedException();
     }

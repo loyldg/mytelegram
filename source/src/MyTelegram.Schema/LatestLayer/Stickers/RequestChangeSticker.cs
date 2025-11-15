@@ -2,43 +2,46 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Update the keywords, emojis or <a href="https://corefork.telegram.org/api/stickers#mask-stickers">mask coordinates</a> of a sticker.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKER_INVALID The provided sticker is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.changeSticker" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKER_INVALID The provided sticker is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.changeSticker" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf5537ebc)]
-public sealed class RequestChangeSticker : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestChangeSticker : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0xf5537ebc;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The sticker
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Sticker { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, updates the emoji list associated to the sticker
-    ///</summary>
+    /// </summary>
     public string? Emoji { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, updates the <a href="https://corefork.telegram.org/api/stickers#mask-stickers">mask coordinates</a>
     /// See <a href="https://corefork.telegram.org/type/MaskCoords" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMaskCoords? MaskCoords { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, updates the sticker keywords (separated by commas). Can't be provided for mask stickers.
-    ///</summary>
+    /// </summary>
     public string? Keywords { get; set; }
 
     public void ComputeFlag()

@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyPeer" />
-///</summary>
+/// <summary>
+/// Send paid reactions as the specified peer, fetched using <a href="https://corefork.telegram.org/method/channels.getSendAs">channels.getSendAs</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyPeer" /></para>
+/// </summary>
 [TlObject(0xdc6cfcf0)]
-public sealed class TPaidReactionPrivacyPeer : IPaidReactionPrivacy
+public sealed partial class TPaidReactionPrivacyPeer : IPaidReactionPrivacy
 {
     public uint ConstructorId => 0xdc6cfcf0;
-    ///<summary>
+    /// <summary>
+    /// The peer to send reactions as.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

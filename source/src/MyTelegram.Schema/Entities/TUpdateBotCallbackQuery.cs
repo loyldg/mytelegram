@@ -2,53 +2,53 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A callback button was pressed, and the button data was sent to the bot that created the button
-/// See <a href="https://corefork.telegram.org/constructor/updateBotCallbackQuery" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotCallbackQuery" /></para>
+/// </summary>
 [TlObject(0xb9cfc48d)]
-public sealed class TUpdateBotCallbackQuery : IUpdate
+public sealed partial class TUpdateBotCallbackQuery : IUpdate
 {
     public uint ConstructorId => 0xb9cfc48d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query ID
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the user that pressed the button
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat where the inline keyboard was sent
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
-    ///</summary>
+    /// </summary>
     public long ChatInstance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Callback data
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? Data { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name of a Game to be returned, serves as the unique identifier for the game
-    ///</summary>
+    /// </summary>
     public string? GameShortName { get; set; }
 
     public void ComputeFlag()

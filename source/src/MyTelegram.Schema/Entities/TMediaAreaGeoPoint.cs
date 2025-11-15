@@ -2,35 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a geolocation tag attached to a <a href="https://corefork.telegram.org/api/stories">story</a>.
-/// See <a href="https://corefork.telegram.org/constructor/mediaAreaGeoPoint" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/mediaAreaGeoPoint" /></para>
+/// </summary>
 [TlObject(0xcad5452d)]
-public sealed class TMediaAreaGeoPoint : IMediaArea
+public sealed partial class TMediaAreaGeoPoint : IMediaArea
 {
     public uint ConstructorId => 0xcad5452d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The size and position of the media area corresponding to the location sticker on top of the story media.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Coordinates of the geolocation tag.
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional textual representation of the address.
     /// See <a href="https://corefork.telegram.org/type/GeoPointAddress" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPointAddress? Address { get; set; }
 
     public void ComputeFlag()

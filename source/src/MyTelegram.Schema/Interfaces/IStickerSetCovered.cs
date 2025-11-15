@@ -2,19 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Stickerset preview
-/// See <a href="https://corefork.telegram.org/type/StickerSetCovered" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StickerSetCovered" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStickerSetCovered"/> See <a href="https://corefork.telegram.org/constructor/stickerSetCovered" /><br/>
+/// <see cref="TStickerSetMultiCovered"/> See <a href="https://corefork.telegram.org/constructor/stickerSetMultiCovered" /><br/>
+/// <see cref="TStickerSetFullCovered"/> See <a href="https://corefork.telegram.org/constructor/stickerSetFullCovered" /><br/>
+/// <see cref="TStickerSetNoCovered"/> See <a href="https://corefork.telegram.org/constructor/stickerSetNoCovered" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStickerSetCovered), nameof(TStickerSetCovered))]
 [JsonDerivedType(typeof(TStickerSetMultiCovered), nameof(TStickerSetMultiCovered))]
 [JsonDerivedType(typeof(TStickerSetFullCovered), nameof(TStickerSetFullCovered))]
 [JsonDerivedType(typeof(TStickerSetNoCovered), nameof(TStickerSetNoCovered))]
 public interface IStickerSetCovered : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Stickerset information.
     /// See <a href="https://corefork.telegram.org/type/StickerSet" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStickerSet Set { get; set; }
 }

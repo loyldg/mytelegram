@@ -1,19 +1,20 @@
-﻿using MyTelegram.Schema.Langpack;
+using MyTelegram.Schema.Langpack;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Langpack;
-
-///<summary>
+/// <summary>
 /// Get information about a language in a localization pack
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 LANG_CODE_NOT_SUPPORTED The specified language code is not supported.
 /// 400 LANG_PACK_INVALID The provided language pack is invalid.
-/// See <a href="https://corefork.telegram.org/method/langpack.getLanguage" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/langpack.getLanguage"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 internal sealed class GetLanguageHandler(ILanguageCacheService languageCacheService) : RpcResultObjectHandler<RequestGetLanguage, Schema.ILangPackLanguage>
 {
-    protected override async Task<ILangPackLanguage> HandleCoreAsync(IRequestInput input,
-        RequestGetLanguage obj)
+    protected override async Task<ILangPackLanguage> HandleCoreAsync(IRequestInput input, RequestGetLanguage obj)
     {
         var languageReadModel = await languageCacheService.GetLanguageAsync(obj.LangCode, obj.LangPack);
         if (languageReadModel == null)
@@ -32,7 +33,6 @@ internal sealed class GetLanguageHandler(ILanguageCacheService languageCacheServ
             TranslatedCount = languageReadModel.TranslatedCount,
             TranslationsUrl = languageReadModel.TranslationsUrl
         };
-
         return langPackLanguage;
     }
 }

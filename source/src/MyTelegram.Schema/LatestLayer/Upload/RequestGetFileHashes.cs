@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Get SHA256 hashes for verifying downloaded files
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 LOCATION_INVALID The provided location is invalid.
-/// See <a href="https://corefork.telegram.org/method/upload.getFileHashes" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 LOCATION_INVALID The provided location is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/upload.getFileHashes" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9156982a)]
-public sealed class RequestGetFileHashes : IRequest<TVector<MyTelegram.Schema.IFileHash>>
+public sealed partial class RequestGetFileHashes : IRequest<TVector<MyTelegram.Schema.IFileHash>>
 {
     public uint ConstructorId => 0x9156982a;
 
-    ///<summary>
+    /// <summary>
     /// File
     /// See <a href="https://corefork.telegram.org/type/InputFileLocation" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFileLocation Location { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset from which to get file hashes
-    ///</summary>
+    /// </summary>
     public long Offset { get; set; }
 
     public void ComputeFlag()

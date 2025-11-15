@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// All stickers
-/// See <a href="https://corefork.telegram.org/type/messages.AllStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.AllStickers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAllStickersNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.allStickersNotModified" /><br/>
+/// <see cref="TAllStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.allStickers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAllStickersNotModified), nameof(TAllStickersNotModified))]
 [JsonDerivedType(typeof(TAllStickers), nameof(TAllStickers))]
 public interface IAllStickers : IObject

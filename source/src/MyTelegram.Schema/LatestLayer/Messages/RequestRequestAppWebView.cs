@@ -2,66 +2,71 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Open a <a href="https://corefork.telegram.org/bots/webapps">bot mini app</a> from a <a href="https://corefork.telegram.org/api/links#direct-mini-app-links">direct Mini App deep link</a>, sending over user information after user confirmation.After calling this method, until the user closes the webview, <a href="https://corefork.telegram.org/method/messages.prolongWebView">messages.prolongWebView</a> must be called every 60 seconds.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_APP_BOT_INVALID The bot_id passed in the inputBotAppShortName constructor is invalid.
-/// 400 BOT_APP_INVALID The specified bot app is invalid.
-/// 400 BOT_APP_SHORTNAME_INVALID The specified bot app short name is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.requestAppWebView" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_APP_BOT_INVALID The bot_id passed in the inputBotAppShortName constructor is invalid.</c></para>
+/// <para><c>400 BOT_APP_INVALID The specified bot app is invalid.</c></para>
+/// <para><c>400 BOT_APP_SHORTNAME_INVALID The specified bot app short name is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 THEME_PARAMS_INVALID The specified <code>theme_params</code> field is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.requestAppWebView" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x53618bce)]
-public sealed class RequestRequestAppWebView : IRequest<MyTelegram.Schema.IWebViewResult>
+public sealed partial class RequestRequestAppWebView : IRequest<MyTelegram.Schema.IWebViewResult>
 {
     public uint ConstructorId => 0x53618bce;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if the bot is asking permission to send messages to the user as specified in the <a href="https://corefork.telegram.org/api/links#direct-mini-app-links">direct Mini App deep link</a> docs, and the user agreed.
-    ///</summary>
+    /// </summary>
     public bool WriteAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, requests to open the mini app in compact mode (as opposed to normal or fullscreen mode). Must be set if the <code>mode</code> parameter of the <a href="https://corefork.telegram.org/api/links#direct-mini-app-links">direct Mini App deep link</a> is equal to <code>compact</code>.
-    ///</summary>
+    /// </summary>
     public bool Compact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, requests to open the mini app in fullscreen mode (as opposed to compact or normal mode). Must be set if the <code>mode</code> parameter of the <a href="https://corefork.telegram.org/api/links#direct-mini-app-links">direct Mini App deep link</a> is equal to <code>fullscreen</code>.
-    ///</summary>
+    /// </summary>
     public bool Fullscreen { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the client has clicked on the link in a Telegram chat, pass the chat's peer information; otherwise pass the bot's peer information, instead.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The app obtained by invoking <a href="https://corefork.telegram.org/method/messages.getBotApp">messages.getBotApp</a> as specified in the <a href="https://corefork.telegram.org/api/links#direct-mini-app-links">direct Mini App deep link</a> docs.
     /// See <a href="https://corefork.telegram.org/type/InputBotApp" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotApp App { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the <code>startapp</code> query string parameter is present in the <a href="https://corefork.telegram.org/api/links#direct-mini-app-links">direct Mini App deep link</a>, pass it to <code>start_param</code>.
-    ///</summary>
+    /// </summary>
     public string? StartParam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/bots/webapps#theme-parameters">Theme parameters »</a>
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON? ThemeParams { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name of the application; 0-64 English letters, digits, and underscores
-    ///</summary>
+    /// </summary>
     public string Platform { get; set; }
 
     public void ComputeFlag()

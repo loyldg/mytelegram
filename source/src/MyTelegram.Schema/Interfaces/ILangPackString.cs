@@ -2,17 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Language pack string
-/// See <a href="https://corefork.telegram.org/type/LangPackString" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/LangPackString" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TLangPackString"/> See <a href="https://corefork.telegram.org/constructor/langPackString" /><br/>
+/// <see cref="TLangPackStringPluralized"/> See <a href="https://corefork.telegram.org/constructor/langPackStringPluralized" /><br/>
+/// <see cref="TLangPackStringDeleted"/> See <a href="https://corefork.telegram.org/constructor/langPackStringDeleted" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TLangPackString), nameof(TLangPackString))]
 [JsonDerivedType(typeof(TLangPackStringPluralized), nameof(TLangPackStringPluralized))]
 [JsonDerivedType(typeof(TLangPackStringDeleted), nameof(TLangPackStringDeleted))]
 public interface ILangPackString : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Localization key
-    ///</summary>
+    /// </summary>
     string Key { get; set; }
 }

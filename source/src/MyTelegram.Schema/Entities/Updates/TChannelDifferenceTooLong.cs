@@ -2,51 +2,51 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// The provided <code>pts + limit &lt; remote pts</code>. Simply, there are too many updates to be fetched (more than <code>limit</code>), the client has to resolve the update gap in one of the following ways (assuming the existence of a persistent database to locally store messages):It should be also noted that some messages like live location messages shouldn't be deleted.
-/// See <a href="https://corefork.telegram.org/constructor/updates.channelDifferenceTooLong" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates.channelDifferenceTooLong" /></para>
+/// </summary>
 [TlObject(0xa4bcc6fe)]
-public sealed class TChannelDifferenceTooLong : IChannelDifference
+public sealed partial class TChannelDifferenceTooLong : IChannelDifference
 {
     public uint ConstructorId => 0xa4bcc6fe;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether there are more updates that must be fetched (always false)
-    ///</summary>
+    /// </summary>
     public bool Final { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
-    ///</summary>
+    /// </summary>
     public int? Timeout { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Dialog containing the latest <a href="https://corefork.telegram.org/api/updates">PTS</a> that can be used to reset the channel state
     /// See <a href="https://corefork.telegram.org/type/Dialog" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDialog Dialog { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The latest messages
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats from messages
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users from messages
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

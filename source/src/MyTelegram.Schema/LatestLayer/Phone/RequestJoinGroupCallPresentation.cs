@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Start screen sharing in a call
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 403 PARTICIPANT_JOIN_MISSING Trying to enable a presentation, when the user hasn't joined the Video Chat with <a href="https://corefork.telegram.org/method/phone.joinGroupCall">phone.joinGroupCall</a>.
-/// See <a href="https://corefork.telegram.org/method/phone.joinGroupCallPresentation" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>403 PARTICIPANT_JOIN_MISSING Trying to enable a presentation, when the user hasn't joined the Video Chat with <a href="https://corefork.telegram.org/method/phone.joinGroupCall">phone.joinGroupCall</a>. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.joinGroupCallPresentation" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xcbea6bc4)]
-public sealed class RequestJoinGroupCallPresentation : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestJoinGroupCallPresentation : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xcbea6bc4;
 
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// WebRTC parameters
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Params { get; set; }
 
     public void ComputeFlag()

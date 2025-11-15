@@ -2,27 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about chat invites exported by a certain admin.
-/// See <a href="https://corefork.telegram.org/type/messages.ExportedChatInvites" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.ExportedChatInvites" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedChatInvites"/> See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInvites" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedChatInvites), nameof(TExportedChatInvites))]
 public interface IExportedChatInvites : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Number of invites exported by the admin
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Exported invites
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IExportedChatInvite> Invites { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the admin
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

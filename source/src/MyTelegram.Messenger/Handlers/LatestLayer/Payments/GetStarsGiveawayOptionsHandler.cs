@@ -1,13 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
+/// <summary>
 /// Fetch a list of <a href="https://corefork.telegram.org/api/giveaways#star-giveaways">star giveaway options »</a>.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsGiveawayOptions" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/payments.getStarsGiveawayOptions"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetStarsGiveawayOptionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestGetStarsGiveawayOptions, TVector<MyTelegram.Schema.IStarsGiveawayOption>>
 {
-    protected override Task<TVector<MyTelegram.Schema.IStarsGiveawayOption>> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Payments.RequestGetStarsGiveawayOptions obj)
+    protected override Task<TVector<MyTelegram.Schema.IStarsGiveawayOption>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Payments.RequestGetStarsGiveawayOptions obj)
     {
         throw new NotImplementedException();
     }

@@ -2,30 +2,32 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Answers a custom query; for bots only
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DATA_JSON_INVALID The provided JSON data is invalid.
-/// 400 QUERY_ID_INVALID The query ID is invalid.
-/// 403 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/bots.answerWebhookJSONQuery" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DATA_JSON_INVALID The provided JSON data is invalid.</c></para>
+/// <para><c>400 QUERY_ID_INVALID The query ID is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.answerWebhookJSONQuery" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe6213f4d)]
-public sealed class RequestAnswerWebhookJSONQuery : IRequest<IBool>
+public sealed partial class RequestAnswerWebhookJSONQuery : IRequest<IBool>
 {
     public uint ConstructorId => 0xe6213f4d;
 
-    ///<summary>
+    /// <summary>
     /// Identifier of a custom query
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// JSON-serialized answer to the query
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Data { get; set; }
 
     public void ComputeFlag()

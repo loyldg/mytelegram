@@ -2,108 +2,108 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a stickerset (stickerpack)
-/// See <a href="https://corefork.telegram.org/constructor/stickerSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stickerSet" /></para>
+/// </summary>
 [TlObject(0x2dd14edc)]
-public sealed class TStickerSet : IStickerSet
+public sealed partial class TStickerSet : IStickerSet
 {
     public uint ConstructorId => 0x2dd14edc;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this stickerset was archived (due to too many saved stickers in the current account)
-    ///</summary>
+    /// </summary>
     public bool Archived { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this stickerset official
-    ///</summary>
+    /// </summary>
     public bool Official { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this a mask stickerset
-    ///</summary>
+    /// </summary>
     public bool Masks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This is a custom emoji stickerset
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the color of this TGS custom emoji stickerset should be changed to the text color when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context.
-    ///</summary>
+    /// </summary>
     public bool TextColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this custom emoji stickerset can be used in <a href="https://corefork.telegram.org/api/emoji-status">channel/supergroup emoji statuses</a>.
-    ///</summary>
+    /// </summary>
     public bool ChannelEmojiStatus { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we created this stickerset
-    ///</summary>
+    /// </summary>
     public bool Creator { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was this stickerset installed
-    ///</summary>
+    /// </summary>
     public int? InstalledDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the stickerset
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash of stickerset
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title of stickerset
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name of stickerset, used when sharing stickerset using <a href="https://corefork.telegram.org/api/links#stickerset-links">stickerset deep links</a>.
-    ///</summary>
+    /// </summary>
     public string ShortName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickerset thumbnail
     /// See <a href="https://corefork.telegram.org/type/PhotoSize" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPhotoSize>? Thumbs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// DC ID of thumbnail
-    ///</summary>
+    /// </summary>
     public int? ThumbDcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail version
-    ///</summary>
+    /// </summary>
     public int? ThumbVersion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Document ID of custom emoji thumbnail, fetch the document using <a href="https://corefork.telegram.org/method/messages.getCustomEmojiDocuments">messages.getCustomEmojiDocuments</a>
-    ///</summary>
+    /// </summary>
     public long? ThumbDocumentId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of stickers in pack
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Hash
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

@@ -2,37 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object contains info on a <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a>.
-/// See <a href="https://corefork.telegram.org/type/WallPaper" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/WallPaper" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWallPaper"/> See <a href="https://corefork.telegram.org/constructor/wallPaper" /><br/>
+/// <see cref="TWallPaperNoFile"/> See <a href="https://corefork.telegram.org/constructor/wallPaperNoFile" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWallPaper), nameof(TWallPaper))]
 [JsonDerivedType(typeof(TWallPaperNoFile), nameof(TWallPaperNoFile))]
 public interface IWallPaper : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Wallpaper ID
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is the default wallpaper
-    ///</summary>
+    /// </summary>
     bool Default { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this wallpaper should be used in dark mode.
-    ///</summary>
+    /// </summary>
     bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info on how to generate the wallpaper.
     /// See <a href="https://corefork.telegram.org/type/WallPaperSettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IWallPaperSettings? Settings { get; set; }
 }

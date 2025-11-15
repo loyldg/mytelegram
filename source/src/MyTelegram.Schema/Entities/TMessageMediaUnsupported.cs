@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Current version of the client does not support this media type.
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaUnsupported" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaUnsupported" /></para>
+/// </summary>
 [TlObject(0x9f84f49e)]
-public sealed class TMessageMediaUnsupported : IMessageMedia
+public sealed partial class TMessageMediaUnsupported : IMessageMedia
 {
     public uint ConstructorId => 0x9f84f49e;
     public void ComputeFlag()

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure <a href="https://corefork.telegram.org/passport">passport</a> file, for more info <a href="https://corefork.telegram.org/passport/encryption#inputsecurefile">see the passport docs »</a>
-/// See <a href="https://corefork.telegram.org/type/SecureFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecureFile" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecureFileEmpty"/> See <a href="https://corefork.telegram.org/constructor/secureFileEmpty" /><br/>
+/// <see cref="TSecureFile"/> See <a href="https://corefork.telegram.org/constructor/secureFile" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecureFileEmpty), nameof(TSecureFileEmpty))]
 [JsonDerivedType(typeof(TSecureFile), nameof(TSecureFile))]
 public interface ISecureFile : IObject

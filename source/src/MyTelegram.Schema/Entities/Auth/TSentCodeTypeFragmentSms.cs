@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The code was delivered via <a href="https://fragment.com/">fragment.com</a>.
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFragmentSms" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFragmentSms" /></para>
+/// </summary>
 [TlObject(0xd9565c39)]
-public sealed class TSentCodeTypeFragmentSms : ISentCodeType
+public sealed partial class TSentCodeTypeFragmentSms : ISentCodeType
 {
     public uint ConstructorId => 0xd9565c39;
-    ///<summary>
+    /// <summary>
     /// Open the specified URL to log into <a href="https://fragment.com/">fragment.com</a> with the wallet that owns the specified phone number and view the code.
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of the delivered code.
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

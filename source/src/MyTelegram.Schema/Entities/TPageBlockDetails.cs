@@ -2,34 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A collapsible details block
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockDetails" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockDetails" /></para>
+/// </summary>
 [TlObject(0x76768bed)]
-public sealed class TPageBlockDetails : IPageBlock
+public sealed partial class TPageBlockDetails : IPageBlock
 {
     public uint ConstructorId => 0x76768bed;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the block is open by default
-    ///</summary>
+    /// </summary>
     public bool Open { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Block contents
     /// See <a href="https://corefork.telegram.org/type/PageBlock" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPageBlock> Blocks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Always visible heading for the block
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Title { get; set; }
 
     public void ComputeFlag()

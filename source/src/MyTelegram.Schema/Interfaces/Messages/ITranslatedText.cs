@@ -2,16 +2,20 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Translated text with <a href="https://corefork.telegram.org/api/entities">entities</a>.
-/// See <a href="https://corefork.telegram.org/type/messages.TranslatedText" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.TranslatedText" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTranslateResult"/> See <a href="https://corefork.telegram.org/constructor/messages.translateResult" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTranslateResult), nameof(TTranslateResult))]
 public interface ITranslatedText : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Text+<a href="https://corefork.telegram.org/api/entities">entities</a>, for each input message.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ITextWithEntities> Result { get; set; }
 }

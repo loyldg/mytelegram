@@ -2,25 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/SuggestedPost" />
-///</summary>
+/// <summary>
+/// Contains info about a <a href="https://corefork.telegram.org/api/suggested-posts">suggested post »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/SuggestedPost" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSuggestedPost"/> See <a href="https://corefork.telegram.org/constructor/suggestedPost" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSuggestedPost), nameof(TSuggestedPost))]
 public interface ISuggestedPost : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// Whether the suggested post was accepted.
+    /// </summary>
     bool Accepted { get; set; }
 
+    /// <summary>
+    /// Whether the suggested post was rejected.
+    /// </summary>
     bool Rejected { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Price of the suggested post.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarsAmount? Price { get; set; }
 
+    /// <summary>
+    /// Scheduling date.
+    /// </summary>
     int? ScheduleDate { get; set; }
 }

@@ -2,72 +2,76 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Cloud theme
-/// See <a href="https://corefork.telegram.org/type/Theme" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Theme" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTheme"/> See <a href="https://corefork.telegram.org/constructor/theme" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTheme), nameof(TTheme))]
 public interface ITheme : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current user is the creator of this theme
-    ///</summary>
+    /// </summary>
     bool Creator { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is the default theme
-    ///</summary>
+    /// </summary>
     bool Default { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this theme is meant to be used as a <a href="https://telegram.org/blog/chat-themes-interactive-emoji-read-receipts">chat theme</a>
-    ///</summary>
+    /// </summary>
     bool ForChat { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme ID
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme access hash
-    ///</summary>
+    /// </summary>
     long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique theme ID
-    ///</summary>
+    /// </summary>
     string Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme name
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IDocument? Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme settings
     /// See <a href="https://corefork.telegram.org/type/ThemeSettings" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IThemeSettings>? Settings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme emoji
-    ///</summary>
+    /// </summary>
     string? Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Installation count
-    ///</summary>
+    /// </summary>
     int? InstallsCount { get; set; }
 }

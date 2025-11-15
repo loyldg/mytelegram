@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// Get info about an SMS job (official clients only).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 SMSJOB_ID_INVALID The specified job ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/smsjobs.getSmsJob" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SMSJOB_ID_INVALID The specified job ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/smsjobs.getSmsJob" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x778d902f)]
-public sealed class RequestGetSmsJob : IRequest<MyTelegram.Schema.ISmsJob>
+public sealed partial class RequestGetSmsJob : IRequest<MyTelegram.Schema.ISmsJob>
 {
     public uint ConstructorId => 0x778d902f;
 
-    ///<summary>
+    /// <summary>
     /// Job ID
-    ///</summary>
+    /// </summary>
     public string JobId { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// One or more messages in a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut »</a> were deleted.
-/// See <a href="https://corefork.telegram.org/constructor/updateDeleteQuickReplyMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDeleteQuickReplyMessages" /></para>
+/// </summary>
 [TlObject(0x566fe7cd)]
-public sealed class TUpdateDeleteQuickReplyMessages : IUpdate
+public sealed partial class TUpdateDeleteQuickReplyMessages : IUpdate
 {
     public uint ConstructorId => 0x566fe7cd;
-    ///<summary>
+    /// <summary>
     /// Quick reply shortcut ID.
-    ///</summary>
+    /// </summary>
     public int ShortcutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of the deleted messages.
-    ///</summary>
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
     public void ComputeFlag()

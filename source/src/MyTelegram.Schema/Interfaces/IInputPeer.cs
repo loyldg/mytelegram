@@ -2,10 +2,20 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer
-/// See <a href="https://corefork.telegram.org/type/InputPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputPeerEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputPeerEmpty" /><br/>
+/// <see cref="TInputPeerSelf"/> See <a href="https://corefork.telegram.org/constructor/inputPeerSelf" /><br/>
+/// <see cref="TInputPeerChat"/> See <a href="https://corefork.telegram.org/constructor/inputPeerChat" /><br/>
+/// <see cref="TInputPeerUser"/> See <a href="https://corefork.telegram.org/constructor/inputPeerUser" /><br/>
+/// <see cref="TInputPeerChannel"/> See <a href="https://corefork.telegram.org/constructor/inputPeerChannel" /><br/>
+/// <see cref="TInputPeerUserFromMessage"/> See <a href="https://corefork.telegram.org/constructor/inputPeerUserFromMessage" /><br/>
+/// <see cref="TInputPeerChannelFromMessage"/> See <a href="https://corefork.telegram.org/constructor/inputPeerChannelFromMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputPeerEmpty), nameof(TInputPeerEmpty))]
 [JsonDerivedType(typeof(TInputPeerSelf), nameof(TInputPeerSelf))]
 [JsonDerivedType(typeof(TInputPeerChat), nameof(TInputPeerChat))]

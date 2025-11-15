@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A payment was sent
-/// See <a href="https://corefork.telegram.org/constructor/messageActionPaymentSent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionPaymentSent" /></para>
+/// </summary>
 [TlObject(0xc624b16e)]
-public sealed class TMessageActionPaymentSent : IMessageAction
+public sealed partial class TMessageActionPaymentSent : IMessageAction
 {
     public uint ConstructorId => 0xc624b16e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is the first payment of a recurring payment we just subscribed to
-    ///</summary>
+    /// </summary>
     public bool RecurringInit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this payment is part of a recurring payment
-    ///</summary>
+    /// </summary>
     public bool RecurringUsed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code, or <code>XTR</code> for <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long TotalAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// An invoice slug taken from an <a href="https://corefork.telegram.org/api/links#invoice-links">invoice deep link</a> or from the <a href="https://corefork.telegram.org/api/config#premium-invoice-slug"><code>premium_invoice_slug</code> app config parameter »</a>
-    ///</summary>
+    /// </summary>
     public string? InvoiceSlug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Expiration date of the <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscription »</a>.
-    ///</summary>
+    /// </summary>
     public int? SubscriptionUntilDate { get; set; }
 
     public void ComputeFlag()

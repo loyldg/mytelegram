@@ -2,43 +2,47 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Creates a new chat.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 500 CHAT_ID_GENERATE_FAILED Failure while generating the chat ID.
-/// 400 CHAT_INVALID Invalid chat.
-/// 400 CHAT_TITLE_EMPTY No chat title provided.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 TTL_PERIOD_INVALID The specified TTL period is invalid.
-/// 400 USERS_TOO_FEW Not enough users (to create a chat, for example).
-/// 406 USER_RESTRICTED You're spamreported, you can't create channels or chats.
-/// See <a href="https://corefork.telegram.org/method/messages.createChat" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>500 CHAT_ID_GENERATE_FAILED Failure while generating the chat ID.</c></para>
+/// <para><c>400 CHAT_INVALID Invalid chat.</c></para>
+/// <para><c>400 CHAT_MEMBER_ADD_FAILED Could not add participants.</c></para>
+/// <para><c>400 CHAT_TITLE_EMPTY No chat title provided.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 TTL_PERIOD_INVALID The specified TTL period is invalid.</c></para>
+/// <para><c>400 USERS_TOO_FEW Not enough users (to create a chat, for example).</c></para>
+/// <para><c>403 USER_RESTRICTED You're spamreported, you can't create channels or chats. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.createChat" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x92ceddd4)]
-public sealed class RequestCreateChat : IRequest<MyTelegram.Schema.Messages.IInvitedUsers>
+public sealed partial class RequestCreateChat : IRequest<MyTelegram.Schema.Messages.IInvitedUsers>
 {
     public uint ConstructorId => 0x92ceddd4;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of user IDs to be invited
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time-to-live of all messages that will be sent in the chat: once message.date+message.ttl_period === time(), the message will be deleted on the server, and must be deleted locally as well. You can use <a href="https://corefork.telegram.org/method/messages.setDefaultHistoryTTL">messages.setDefaultHistoryTTL</a> to edit this value later.
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
     public void ComputeFlag()

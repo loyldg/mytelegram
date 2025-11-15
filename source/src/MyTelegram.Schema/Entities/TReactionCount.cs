@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Reactions
-/// See <a href="https://corefork.telegram.org/constructor/reactionCount" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/reactionCount" /></para>
+/// </summary>
 [TlObject(0xa3d1cb80)]
-public sealed class TReactionCount : IReactionCount
+public sealed partial class TReactionCount : IReactionCount
 {
     public uint ConstructorId => 0xa3d1cb80;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// If set, indicates that the current user also sent this reaction. <br>The integer value indicates when was the reaction added: the bigger the value, the newer the reaction.
-    ///</summary>
+    /// <summary>
+    /// If set, indicates that the current user also sent this reaction. <br/>The integer value indicates when was the reaction added: the bigger the value, the newer the reaction.
+    /// </summary>
     public int? ChosenOrder { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reaction.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of users that reacted with this emoji.
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
     public void ComputeFlag()

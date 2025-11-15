@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// Disable SMS jobs (official clients only).
-/// See <a href="https://corefork.telegram.org/method/smsjobs.leave" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/smsjobs.leave" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9898ad73)]
-public sealed class RequestLeave : IRequest<IBool>
+public sealed partial class RequestLeave : IRequest<IBool>
 {
     public uint ConstructorId => 0x9898ad73;
 

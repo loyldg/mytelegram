@@ -2,45 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Coordinates and size of a clicable rectangular area on top of a story.
-/// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-///</summary>
+/// <summary>
+/// Coordinates and size of a clickable rectangular area on top of a story.
+/// <para>See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMediaAreaCoordinates"/> See <a href="https://corefork.telegram.org/constructor/mediaAreaCoordinates" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMediaAreaCoordinates), nameof(TMediaAreaCoordinates))]
 public interface IMediaAreaCoordinates : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The abscissa of the rectangle's center, as a percentage of the media width (0-100).
-    ///</summary>
+    /// </summary>
     double X { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The ordinate of the rectangle's center, as a percentage of the media height (0-100).
-    ///</summary>
+    /// </summary>
     double Y { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The width of the rectangle, as a percentage of the media width (0-100).
-    ///</summary>
+    /// </summary>
     double W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The height of the rectangle, as a percentage of the media height (0-100).
-    ///</summary>
+    /// </summary>
     double H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clockwise rotation angle of the rectangle, in degrees (0-360).
-    ///</summary>
+    /// </summary>
     double Rotation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The radius of the rectangle corner rounding, as a percentage of the media width.
-    ///</summary>
+    /// </summary>
     double? Radius { get; set; }
 }

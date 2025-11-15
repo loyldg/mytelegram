@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
+/// <summary>
 /// Notify the user that the sent <a href="https://corefork.telegram.org/passport">passport</a> data contains some errors The user will not be able to re-submit their Passport data to you until the errors are fixed (the contents of the field for which you returned the error must change).Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/users.setSecureValueErrors" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DATA_HASH_SIZE_INVALID The size of the specified secureValueErrorData.data_hash is invalid.</c></para>
+/// <para><c>400 HASH_SIZE_INVALID The size of the specified secureValueError.hash is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/users.setSecureValueErrors" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x90c894b5)]
-public sealed class RequestSetSecureValueErrors : IRequest<IBool>
+public sealed partial class RequestSetSecureValueErrors : IRequest<IBool>
 {
     public uint ConstructorId => 0x90c894b5;
 
-    ///<summary>
+    /// <summary>
     /// The user
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Errors
     /// See <a href="https://corefork.telegram.org/type/SecureValueError" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISecureValueError> Errors { get; set; }
 
     public void ComputeFlag()

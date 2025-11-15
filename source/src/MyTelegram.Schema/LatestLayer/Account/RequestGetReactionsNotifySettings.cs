@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get the current <a href="https://corefork.telegram.org/api/reactions#notifications-about-reactions">reaction notification settings »</a>.
-/// See <a href="https://corefork.telegram.org/method/account.getReactionsNotifySettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getReactionsNotifySettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6dd654c)]
-public sealed class RequestGetReactionsNotifySettings : IRequest<MyTelegram.Schema.IReactionsNotifySettings>
+public sealed partial class RequestGetReactionsNotifySettings : IRequest<MyTelegram.Schema.IReactionsNotifySettings>
 {
     public uint ConstructorId => 0x6dd654c;
 

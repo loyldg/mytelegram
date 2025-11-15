@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Styled text with <a href="https://corefork.telegram.org/api/entities">message entities</a>
-/// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/TextWithEntities" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTextWithEntities"/> See <a href="https://corefork.telegram.org/constructor/textWithEntities" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTextWithEntities), nameof(TTextWithEntities))]
 public interface ITextWithEntities : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Text
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 }

@@ -2,289 +2,317 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Extended user infoWhen updating the <a href="https://corefork.telegram.org/api/peers">local peer database »</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).
-/// See <a href="https://corefork.telegram.org/constructor/userFull" />
-///</summary>
-[TlObject(0x7e63ce1f)]
-public sealed class TUserFull : IUserFull
+/// <para>See <a href="https://corefork.telegram.org/constructor/userFull" /></para>
+/// </summary>
+[TlObject(0xa02bc13e)]
+public sealed partial class TUserFull : IUserFull
 {
-    public uint ConstructorId => 0x7e63ce1f;
-    ///<summary>
+    public uint ConstructorId => 0xa02bc13e;
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether you have blocked this user
-    ///</summary>
+    /// </summary>
     public bool Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this user can make VoIP calls
-    ///</summary>
+    /// </summary>
     public bool PhoneCallsAvailable { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this user's privacy settings allow you to call them
-    ///</summary>
+    /// </summary>
     public bool PhoneCallsPrivate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether you can pin messages in the chat with this user, you can do this only for a chat with yourself
-    ///</summary>
+    /// </summary>
     public bool CanPinMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether <a href="https://corefork.telegram.org/api/scheduled-messages">scheduled messages</a> are available
-    ///</summary>
+    /// </summary>
     public bool HasScheduled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user can receive video calls
-    ///</summary>
+    /// </summary>
     public bool VideoCallsAvailable { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this user doesn't allow sending voice messages in a private chat with them
-    ///</summary>
+    /// </summary>
     public bool VoiceMessagesForbidden { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the <a href="https://corefork.telegram.org/api/translation">real-time chat translation popup</a> should be hidden.
-    ///</summary>
+    /// </summary>
     public bool TranslationsDisabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this user has some <a href="https://corefork.telegram.org/api/stories#pinned-or-archived-stories">pinned stories</a>.
-    ///</summary>
+    /// </summary>
     public bool StoriesPinnedAvailable { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we've <a href="https://corefork.telegram.org/api/block">blocked this user, preventing them from seeing our stories »</a>.
-    ///</summary>
+    /// </summary>
     public bool BlockedMyStoriesFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the other user has chosen a custom wallpaper for us using <a href="https://corefork.telegram.org/method/messages.setChatWallPaper">messages.setChatWallPaper</a> and the <code>for_both</code> flag, see <a href="https://corefork.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat-or-channel">here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public bool WallpaperOverridden { get; set; }
 
-    ///<summary>
-    /// If set, we cannot write to this user: subscribe to <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> to get permission to write to this user. <br>To set this flag for ourselves invoke <a href="https://corefork.telegram.org/method/account.setGlobalPrivacySettings">account.setGlobalPrivacySettings</a>, setting the <code>settings.new_noncontact_peers_require_premium</code> flag, see <a href="https://corefork.telegram.org/api/privacy#require-premium-for-new-non-contact-users">here »</a> for more info.
-    ///</summary>
+    /// <summary>
+    /// If set, we cannot write to this user: subscribe to <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> to get permission to write to this user. <br/>To set this flag for ourselves invoke <a href="https://corefork.telegram.org/method/account.setGlobalPrivacySettings">account.setGlobalPrivacySettings</a>, setting the <code>settings.new_noncontact_peers_require_premium</code> flag, see <a href="https://corefork.telegram.org/api/privacy#require-premium-for-new-non-contact-users">here »</a> for more info.
+    /// </summary>
     public bool ContactRequirePremium { get; set; }
 
-    ///<summary>
-    /// If set, we cannot fetch the exact read date of messages we send to this user using <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate">messages.getOutboxReadDate</a>.  <br>The exact read date of messages might still be unavailable for other reasons, see <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate">here »</a> for more info.  <br>To set this flag for ourselves invoke <a href="https://corefork.telegram.org/method/account.setGlobalPrivacySettings">account.setGlobalPrivacySettings</a>, setting the <code>settings.hide_read_marks</code> flag.
-    ///</summary>
+    /// <summary>
+    /// If set, we cannot fetch the exact read date of messages we send to this user using <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate">messages.getOutboxReadDate</a>.  <br/>The exact read date of messages might still be unavailable for other reasons, see <a href="https://corefork.telegram.org/method/messages.getOutboxReadDate">here »</a> for more info.  <br/>To set this flag for ourselves invoke <a href="https://corefork.telegram.org/method/account.setGlobalPrivacySettings">account.setGlobalPrivacySettings</a>, setting the <code>settings.hide_read_marks</code> flag.
+    /// </summary>
     public bool ReadDatesPrivate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether ads were re-enabled for the current account (only accessible to the currently logged-in user), see <a href="https://corefork.telegram.org/api/business#re-enable-ads">here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public bool SponsoredEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this user can view <a href="https://corefork.telegram.org/api/revenue#revenue-statistics">ad revenue statistics »</a> for this bot.
-    ///</summary>
+    /// </summary>
     public bool CanViewRevenue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this is a bot that can <a href="https://corefork.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot">change our emoji status »</a>
-    ///</summary>
+    /// </summary>
     public bool BotCanManageEmojiStatus { get; set; }
 
+    /// <summary>
+    /// If this flag is set for both us and another user (changed through <a href="https://corefork.telegram.org/constructor/globalPrivacySettings">globalPrivacySettings</a>), a gift button should always be displayed in the text field in private chats with the other user: once clicked, the gift UI should be displayed, offering the user options to gift <a href="https://corefork.telegram.org/api/premium">Telegram Premium »</a> subscriptions or <a href="https://corefork.telegram.org/api/gifts">Telegram Gifts »</a>.
+    /// </summary>
     public bool DisplayGiftsButton { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bio of the user
-    ///</summary>
+    /// </summary>
     public string? About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer settings
     /// See <a href="https://corefork.telegram.org/type/PeerSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerSettings Settings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Personal profile photo, to be shown instead of <code>profile_photo</code>.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? PersonalPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Profile photo
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? ProfilePhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Fallback profile photo, displayed if no photo is present in <code>profile_photo</code> or <code>personal_photo</code>, due to privacy settings.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? FallbackPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification settings
     /// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For bots, info about the bot (bot commands, etc)
     /// See <a href="https://corefork.telegram.org/type/BotInfo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotInfo? BotInfo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of the last <a href="https://corefork.telegram.org/api/pin">pinned message</a>
-    ///</summary>
+    /// </summary>
     public int? PinnedMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats in common with this user
-    ///</summary>
+    /// </summary>
     public int CommonChatsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time To Live of all messages in this chat; once a message is this many seconds old, it must be deleted.
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
-    ///<summary>
-    /// Emoji associated with chat theme
-    ///</summary>
-    public string? ThemeEmoticon { get; set; }
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/themes#chat-themes">The chat theme associated with this user »</a>.
+    /// See <a href="https://corefork.telegram.org/type/ChatTheme" />
+    /// </summary>
+    public MyTelegram.Schema.IChatTheme? Theme { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Anonymized text to be shown instead of the user's name on forwarded messages
-    ///</summary>
+    /// </summary>
     public string? PrivateForwardName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A <a href="https://corefork.telegram.org/api/rights#suggested-bot-rights">suggested set of administrator rights</a> for the bot, to be shown when adding the bot as admin to a group, see <a href="https://corefork.telegram.org/api/rights#suggested-bot-rights">here for more info on how to handle them »</a>.
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights? BotGroupAdminRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A <a href="https://corefork.telegram.org/api/rights#suggested-bot-rights">suggested set of administrator rights</a> for the bot, to be shown when adding the bot as admin to a channel, see <a href="https://corefork.telegram.org/api/rights#suggested-bot-rights">here for more info on how to handle them »</a>.
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights? BotBroadcastAdminRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> to use in the private chat with the user.
     /// See <a href="https://corefork.telegram.org/type/WallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaper? Wallpaper { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Active <a href="https://corefork.telegram.org/api/stories">stories »</a>
     /// See <a href="https://corefork.telegram.org/type/PeerStories" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerStories? Stories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/business#opening-hours">Telegram Business working hours »</a>.
     /// See <a href="https://corefork.telegram.org/type/BusinessWorkHours" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessWorkHours? BusinessWorkHours { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/business#location">Telegram Business location »</a>.
     /// See <a href="https://corefork.telegram.org/type/BusinessLocation" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessLocation? BusinessLocation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/business#greeting-messages">Telegram Business greeting message »</a>.
     /// See <a href="https://corefork.telegram.org/type/BusinessGreetingMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessGreetingMessage? BusinessGreetingMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/business#away-messages">Telegram Business away message »</a>.
     /// See <a href="https://corefork.telegram.org/type/BusinessAwayMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessAwayMessage? BusinessAwayMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies a custom <a href="https://corefork.telegram.org/api/business#business-introduction">Telegram Business profile introduction »</a>.
     /// See <a href="https://corefork.telegram.org/type/BusinessIntro" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessIntro? BusinessIntro { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains info about the user's <a href="https://corefork.telegram.org/api/profile#birthday">birthday »</a>.
     /// See <a href="https://corefork.telegram.org/type/Birthday" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBirthday? Birthday { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the associated personal <a href="https://corefork.telegram.org/api/channel">channel »</a>, that should be shown in the <a href="https://corefork.telegram.org/api/profile#personal-channel">profile page</a>.
-    ///</summary>
+    /// </summary>
     public long? PersonalChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the latest message of the associated personal <a href="https://corefork.telegram.org/api/channel">channel »</a>, that should be previewed in the <a href="https://corefork.telegram.org/api/profile#personal-channel">profile page</a>.
-    ///</summary>
+    /// </summary>
     public int? PersonalChannelMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of <a href="https://corefork.telegram.org/api/gifts">gifts</a> the user has chosen to display on their profile
-    ///</summary>
+    /// </summary>
     public int? StargiftsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This bot has an active <a href="https://corefork.telegram.org/api/bots/referrals">referral program »</a>
     /// See <a href="https://corefork.telegram.org/type/StarRefProgram" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarRefProgram? StarrefProgram { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Describes a <a href="https://corefork.telegram.org/api/bots/verification">bot verification icon »</a>.
     /// See <a href="https://corefork.telegram.org/type/BotVerification" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotVerification? BotVerification { get; set; }
 
-    ///<summary>
-    /// If set and bigger than 0, this user has enabled <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> and we <em>must</em> pay the specified amount of <a href="https://corefork.telegram.org/api/stars">Stars</a> to send messages to them, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for the full flow. <br>If set and equal to 0, the user requires payment in general but we were exempted from paying <a href="https://corefork.telegram.org/api/paid-messages">for any of the reasons specified in the docs »</a>.
-    ///</summary>
+    /// <summary>
+    /// If set and bigger than 0, this user has enabled <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> and we <em>must</em> pay the specified amount of <a href="https://corefork.telegram.org/api/stars">Stars</a> to send messages to them, see <a href="https://corefork.telegram.org/api/paid-messages">here »</a> for the full flow. <br/>If set and equal to 0, the user requires payment in general but we were exempted from paying <a href="https://corefork.telegram.org/api/paid-messages">for any of the reasons specified in the docs »</a>.
+    /// </summary>
     public long? SendPaidMessagesStars { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Disallows the reception of specific gift types.
     /// See <a href="https://corefork.telegram.org/type/DisallowedGiftsSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDisallowedGiftsSettings? DisallowedGifts { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The user's <a href="https://corefork.telegram.org/api/stars#star-rating">star rating</a>.
     /// See <a href="https://corefork.telegram.org/type/StarsRating" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsRating? StarsRating { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Our pending <a href="https://corefork.telegram.org/api/stars#star-rating">star rating</a>, only visible for ourselves.
     /// See <a href="https://corefork.telegram.org/type/StarsRating" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsRating? StarsMyPendingRating { get; set; }
 
+    /// <summary>
+    /// When the pending <a href="https://corefork.telegram.org/api/stars#star-rating">star rating</a> will be applied, only visible for ourselves.
+    /// </summary>
     public int? StarsMyPendingRatingDate { get; set; }
+
+    /// <summary>
+    /// The main tab for the user's profile, see <a href="https://corefork.telegram.org/api/profile#tabs">here »</a> for more info.
+    /// See <a href="https://corefork.telegram.org/type/ProfileTab" />
+    /// </summary>
+    public MyTelegram.Schema.IProfileTab? MainTab { get; set; }
+
+    /// <summary>
+    /// The first song on the music tab of the profile, see <a href="https://corefork.telegram.org/api/profile#music">here »</a> for more info on the music profile tab.
+    /// See <a href="https://corefork.telegram.org/type/Document" />
+    /// </summary>
+    public MyTelegram.Schema.IDocument? SavedMusic { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
+    /// </summary>
+    public MyTelegram.Schema.ITextWithEntities? Note { get; set; }
 
     public void ComputeFlag()
     {
@@ -313,7 +341,7 @@ public sealed class TUserFull : IUserFull
         if (/*PinnedMsgId != 0 && */PinnedMsgId.HasValue) { Flags = Flags.SetBit(6); }
         if (/*FolderId != 0 && */FolderId.HasValue) { Flags = Flags.SetBit(11); }
         if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { Flags = Flags.SetBit(14); }
-        if (ThemeEmoticon != null) { Flags = Flags.SetBit(15); }
+        if (Theme != null) { Flags = Flags.SetBit(15); }
         if (PrivateForwardName != null) { Flags = Flags.SetBit(16); }
         if (BotGroupAdminRights != null) { Flags = Flags.SetBit(17); }
         if (BotBroadcastAdminRights != null) { Flags = Flags.SetBit(18); }
@@ -335,6 +363,9 @@ public sealed class TUserFull : IUserFull
         if (StarsRating != null) { Flags2 = Flags2.SetBit(17); }
         if (StarsMyPendingRating != null) { Flags2 = Flags2.SetBit(18); }
         if (/*StarsMyPendingRatingDate != 0 && */StarsMyPendingRatingDate.HasValue) { Flags2 = Flags2.SetBit(18); }
+        if (MainTab != null) { Flags2 = Flags2.SetBit(20); }
+        if (SavedMusic != null) { Flags2 = Flags2.SetBit(21); }
+        if (Note != null) { Flags2 = Flags2.SetBit(22); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -355,7 +386,7 @@ public sealed class TUserFull : IUserFull
         writer.Write(CommonChatsCount);
         if (Flags.IsBitSet(11)) { writer.Write(FolderId.Value); }
         if (Flags.IsBitSet(14)) { writer.Write(TtlPeriod.Value); }
-        if (Flags.IsBitSet(15)) { writer.Write(ThemeEmoticon); }
+        if (Flags.IsBitSet(15)) { writer.Write(Theme); }
         if (Flags.IsBitSet(16)) { writer.Write(PrivateForwardName); }
         if (Flags.IsBitSet(17)) { writer.Write(BotGroupAdminRights); }
         if (Flags.IsBitSet(18)) { writer.Write(BotBroadcastAdminRights); }
@@ -377,6 +408,9 @@ public sealed class TUserFull : IUserFull
         if (Flags2.IsBitSet(17)) { writer.Write(StarsRating); }
         if (Flags2.IsBitSet(18)) { writer.Write(StarsMyPendingRating); }
         if (Flags2.IsBitSet(18)) { writer.Write(StarsMyPendingRatingDate.Value); }
+        if (Flags2.IsBitSet(20)) { writer.Write(MainTab); }
+        if (Flags2.IsBitSet(21)) { writer.Write(SavedMusic); }
+        if (Flags2.IsBitSet(22)) { writer.Write(Note); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -412,7 +446,7 @@ public sealed class TUserFull : IUserFull
         CommonChatsCount = buffer.ReadInt32();
         if (Flags.IsBitSet(11)) { FolderId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(14)) { TtlPeriod = buffer.ReadInt32(); }
-        if (Flags.IsBitSet(15)) { ThemeEmoticon = buffer.ReadString(); }
+        if (Flags.IsBitSet(15)) { Theme = buffer.Read<MyTelegram.Schema.IChatTheme>(); }
         if (Flags.IsBitSet(16)) { PrivateForwardName = buffer.ReadString(); }
         if (Flags.IsBitSet(17)) { BotGroupAdminRights = buffer.Read<MyTelegram.Schema.IChatAdminRights>(); }
         if (Flags.IsBitSet(18)) { BotBroadcastAdminRights = buffer.Read<MyTelegram.Schema.IChatAdminRights>(); }
@@ -434,5 +468,8 @@ public sealed class TUserFull : IUserFull
         if (Flags2.IsBitSet(17)) { StarsRating = buffer.Read<MyTelegram.Schema.IStarsRating>(); }
         if (Flags2.IsBitSet(18)) { StarsMyPendingRating = buffer.Read<MyTelegram.Schema.IStarsRating>(); }
         if (Flags2.IsBitSet(18)) { StarsMyPendingRatingDate = buffer.ReadInt32(); }
+        if (Flags2.IsBitSet(20)) { MainTab = buffer.Read<MyTelegram.Schema.IProfileTab>(); }
+        if (Flags2.IsBitSet(21)) { SavedMusic = buffer.Read<MyTelegram.Schema.IDocument>(); }
+        if (Flags2.IsBitSet(22)) { Note = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
     }
 }

@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The admin <a href="https://corefork.telegram.org/api/rights">rights</a> of a user were changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin" /></para>
+/// </summary>
 [TlObject(0xd5676710)]
-public sealed class TChannelAdminLogEventActionParticipantToggleAdmin : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantToggleAdmin : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xd5676710;
-    ///<summary>
+    /// <summary>
     /// Previous admin rights
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipant PrevParticipant { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New admin rights
     /// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelParticipant NewParticipant { get; set; }
 
     public void ComputeFlag()

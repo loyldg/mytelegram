@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// The sent email code
-/// See <a href="https://corefork.telegram.org/constructor/account.sentEmailCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.sentEmailCode" /></para>
+/// </summary>
 [TlObject(0x811f854f)]
-public sealed class TSentEmailCode : ISentEmailCode
+public sealed partial class TSentEmailCode : ISentEmailCode
 {
     public uint ConstructorId => 0x811f854f;
-    ///<summary>
+    /// <summary>
     /// The email (to which the code was sent) must match this <a href="https://corefork.telegram.org/api/pattern">pattern</a>
-    ///</summary>
+    /// </summary>
     public string EmailPattern { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The length of the verification code
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

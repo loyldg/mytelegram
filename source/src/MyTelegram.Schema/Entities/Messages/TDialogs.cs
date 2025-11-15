@@ -2,36 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Full list of chats with messages and auxiliary data.
-/// See <a href="https://corefork.telegram.org/constructor/messages.dialogs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.dialogs" /></para>
+/// </summary>
 [TlObject(0x15ba6c40)]
-public sealed class TDialogs : IDialogs
+public sealed partial class TDialogs : IDialogs
 {
     public uint ConstructorId => 0x15ba6c40;
-    ///<summary>
+    /// <summary>
     /// List of chats
     /// See <a href="https://corefork.telegram.org/type/Dialog" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDialog> Dialogs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of last messages from each chat
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of groups mentioned in the chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users mentioned in messages and groups
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A dialog was pinned/unpinned
-/// See <a href="https://corefork.telegram.org/constructor/updateDialogPinned" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDialogPinned" /></para>
+/// </summary>
 [TlObject(0x6e6fe51c)]
-public sealed class TUpdateDialogPinned : IUpdate
+public sealed partial class TUpdateDialogPinned : IUpdate
 {
     public uint ConstructorId => 0x6e6fe51c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the dialog was pinned
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The dialog
     /// See <a href="https://corefork.telegram.org/type/DialogPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDialogPeer Peer { get; set; }
 
     public void ComputeFlag()

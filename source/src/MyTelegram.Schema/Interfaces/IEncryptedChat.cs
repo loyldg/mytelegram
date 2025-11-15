@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object contains info on an encrypted chat.
-/// See <a href="https://corefork.telegram.org/type/EncryptedChat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EncryptedChat" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEncryptedChatEmpty"/> See <a href="https://corefork.telegram.org/constructor/encryptedChatEmpty" /><br/>
+/// <see cref="TEncryptedChatWaiting"/> See <a href="https://corefork.telegram.org/constructor/encryptedChatWaiting" /><br/>
+/// <see cref="TEncryptedChatRequested"/> See <a href="https://corefork.telegram.org/constructor/encryptedChatRequested" /><br/>
+/// <see cref="TEncryptedChat"/> See <a href="https://corefork.telegram.org/constructor/encryptedChat" /><br/>
+/// <see cref="TEncryptedChatDiscarded"/> See <a href="https://corefork.telegram.org/constructor/encryptedChatDiscarded" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEncryptedChatEmpty), nameof(TEncryptedChatEmpty))]
 [JsonDerivedType(typeof(TEncryptedChatWaiting), nameof(TEncryptedChatWaiting))]
 [JsonDerivedType(typeof(TEncryptedChatRequested), nameof(TEncryptedChatRequested))]
@@ -13,8 +21,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TEncryptedChatDiscarded), nameof(TEncryptedChatDiscarded))]
 public interface IEncryptedChat : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     int Id { get; set; }
 }

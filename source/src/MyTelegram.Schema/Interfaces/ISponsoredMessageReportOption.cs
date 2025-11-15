@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/sponsored-messages#reporting-sponsored-messages">report option for a sponsored message »</a>.
-/// See <a href="https://corefork.telegram.org/type/SponsoredMessageReportOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SponsoredMessageReportOption" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSponsoredMessageReportOption"/> See <a href="https://corefork.telegram.org/constructor/sponsoredMessageReportOption" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSponsoredMessageReportOption), nameof(TSponsoredMessageReportOption))]
 public interface ISponsoredMessageReportOption : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Localized description of the option.
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Option identifier to pass to <a href="https://corefork.telegram.org/method/channels.reportSponsoredMessage">channels.reportSponsoredMessage</a>.
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Option { get; set; }
 }

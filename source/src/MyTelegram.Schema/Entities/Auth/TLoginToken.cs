@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Login token (for <a href="https://corefork.telegram.org/api/qr-login">QR code login</a>)
-/// See <a href="https://corefork.telegram.org/constructor/auth.loginToken" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.loginToken" /></para>
+/// </summary>
 [TlObject(0x629f1980)]
-public sealed class TLoginToken : ILoginToken
+public sealed partial class TLoginToken : ILoginToken
 {
     public uint ConstructorId => 0x629f1980;
-    ///<summary>
+    /// <summary>
     /// Expiration date of QR code
-    ///</summary>
+    /// </summary>
     public int Expires { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Token to render in QR code
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Token { get; set; }
 
     public void ComputeFlag()

@@ -2,36 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Requested payment info
-/// See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PaymentRequestedInfo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPaymentRequestedInfo"/> See <a href="https://corefork.telegram.org/constructor/paymentRequestedInfo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPaymentRequestedInfo), nameof(TPaymentRequestedInfo))]
 public interface IPaymentRequestedInfo : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's full name
-    ///</summary>
+    /// </summary>
     string? Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's phone number
-    ///</summary>
+    /// </summary>
     string? Phone { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's email address
-    ///</summary>
+    /// </summary>
     string? Email { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's shipping address
     /// See <a href="https://corefork.telegram.org/type/PostAddress" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPostAddress? ShippingAddress { get; set; }
 }

@@ -1,14 +1,14 @@
 # MyTelegram
 
-[![API Layer](https://img.shields.io/badge/API_Layer-211-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-216-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![MyTelegram Channel](https://img.shields.io/badge/Subscribe-_MyTelegram_Channel-0088cc)](https://t.me/+9wMJrMqLTIoyYzM8)
-[![MyTelegram Discussion Group](https://img.shields.io/badge/Join_-MyTelegram_Discussion_Group-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
+[![MyTelegram Discussion Group](https://img.shields.io/badge/Join_-MyTelegram_Discussion_Group-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)  
 MyTelegram is telegram server side api implementation written in c#, support private deployment
 
 ## Features
 
-- API Layer: **`211`**
+- API Layer: **`216`**
 - [MTProto transports](https://corefork.telegram.org/mtproto/mtproto-transports): **`Abridged`**,**`Intermediate`**
 - Private chat
 - Group chat
@@ -21,7 +21,7 @@ MyTelegram is telegram server side api implementation written in c#, support pri
 - Stickers(Pro version)
 - Reactions(Pro version)
 - Star gifts(Pro version)
-- ForumTopics(Pro version)
+- Forum topics(Pro version)
 - Themes/Wallpapers/Auto-Delete Messages/Scheduled Messages/Chatlist/Telegram Business/Stories/Email Login/Email Sender/Direct messages/Push Server(Firebase) (Pro version)
 
 ## Run MyTelegram server

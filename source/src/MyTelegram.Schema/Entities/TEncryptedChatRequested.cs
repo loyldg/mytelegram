@@ -2,52 +2,52 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Request to create an encrypted chat.
-/// See <a href="https://corefork.telegram.org/constructor/encryptedChatRequested" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/encryptedChatRequested" /></para>
+/// </summary>
 [TlObject(0x48f1d94c)]
-public sealed class TEncryptedChatRequested : IEncryptedChat
+public sealed partial class TEncryptedChatRequested : IEncryptedChat
 {
     public uint ConstructorId => 0x48f1d94c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Check sum depending on user ID
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat creation date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat creator ID
-    ///</summary>
+    /// </summary>
     public long AdminId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of second chat participant
-    ///</summary>
+    /// </summary>
     public long ParticipantId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <code>A = g ^ a mod p</code>, see <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Wikipedia</a>
-    ///</summary>
+    /// </summary>
     public byte[] GA { get; set; }
 
     public void ComputeFlag()

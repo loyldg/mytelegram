@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Clients should update <a href="https://corefork.telegram.org/api/folders">folder</a> info
-/// See <a href="https://corefork.telegram.org/constructor/updateDialogFilters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDialogFilters" /></para>
+/// </summary>
 [TlObject(0x3504914f)]
-public sealed class TUpdateDialogFilters : IUpdate
+public sealed partial class TUpdateDialogFilters : IUpdate
 {
     public uint ConstructorId => 0x3504914f;
     public void ComputeFlag()

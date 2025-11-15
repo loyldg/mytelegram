@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The <a href="https://corefork.telegram.org/api/emoji-status">emoji status</a> of a certain user has changed
-/// See <a href="https://corefork.telegram.org/constructor/updateUserEmojiStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateUserEmojiStatus" /></para>
+/// </summary>
 [TlObject(0x28373599)]
-public sealed class TUpdateUserEmojiStatus : IUpdate
+public sealed partial class TUpdateUserEmojiStatus : IUpdate
 {
     public uint ConstructorId => 0x28373599;
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <a href="https://corefork.telegram.org/api/emoji-status">emoji status</a>
     /// See <a href="https://corefork.telegram.org/type/EmojiStatus" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEmojiStatus EmojiStatus { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Page header
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockHeader" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockHeader" /></para>
+/// </summary>
 [TlObject(0xbfd064ec)]
-public sealed class TPageBlockHeader : IPageBlock
+public sealed partial class TPageBlockHeader : IPageBlock
 {
     public uint ConstructorId => 0xbfd064ec;
-    ///<summary>
+    /// <summary>
     /// Contents
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
     public void ComputeFlag()

@@ -2,25 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/SponsoredPeer" />
-///</summary>
+/// <summary>
+/// A sponsored peer.
+/// <para>See <a href="https://corefork.telegram.org/type/SponsoredPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSponsoredPeer"/> See <a href="https://corefork.telegram.org/constructor/sponsoredPeer" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSponsoredPeer), nameof(TSponsoredPeer))]
 public interface ISponsoredPeer : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// ID of the sponsored peer, to be passed to <a href="https://corefork.telegram.org/method/messages.viewSponsoredMessage">messages.viewSponsoredMessage</a>, <a href="https://corefork.telegram.org/method/messages.clickSponsoredMessage">messages.clickSponsoredMessage</a> or <a href="https://corefork.telegram.org/method/messages.reportSponsoredMessage">messages.reportSponsoredMessage</a> (the same methods used for <a href="https://corefork.telegram.org/api/sponsored-messages">sponsored messages &amp;raquo</a>).
+    /// </summary>
     ReadOnlyMemory<byte> RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The sponsored peer.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
+    /// <summary>
+    /// If set, contains additional information about the sponsor to be shown along with the peer.
+    /// </summary>
     string? SponsorInfo { get; set; }
 
+    /// <summary>
+    /// If set, contains additional information about the sponsored message to be shown along with the peer.
+    /// </summary>
     string? AdditionalInfo { get; set; }
 }

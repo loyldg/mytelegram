@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Already purchased paid media, <a href="https://corefork.telegram.org/api/paid-media">see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/messageExtendedMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageExtendedMedia" /></para>
+/// </summary>
 [TlObject(0xee479c64)]
-public sealed class TMessageExtendedMedia : IMessageExtendedMedia
+public sealed partial class TMessageExtendedMedia : IMessageExtendedMedia
 {
     public uint ConstructorId => 0xee479c64;
-    ///<summary>
+    /// <summary>
     /// The media we purchased.
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageMedia Media { get; set; }
 
     public void ComputeFlag()

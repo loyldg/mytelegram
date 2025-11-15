@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Returns a current state of updates.
-/// See <a href="https://corefork.telegram.org/method/updates.getState" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/updates.getState" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xedd4882a)]
-public sealed class RequestGetState : IRequest<MyTelegram.Schema.Updates.IState>
+public sealed partial class RequestGetState : IRequest<MyTelegram.Schema.Updates.IState>
 {
     public uint ConstructorId => 0xedd4882a;
 

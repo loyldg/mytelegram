@@ -4,6 +4,7 @@ namespace MyTelegram.Core;
 
 public record AuthKeyCreatedIntegrationEvent(
     string ConnectionId,
+    ConnectionType ConnectionType,
     long ReqMsgId,
     ReadOnlyMemory<byte> Data,
     long ServerSalt,

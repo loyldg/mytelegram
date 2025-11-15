@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Messages with animated stickers can have a compressed svg (&lt; 300 bytes) to show the outline of the sticker before fetching the actual lottie animation.
-/// See <a href="https://corefork.telegram.org/constructor/photoPathSize" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photoPathSize" /></para>
+/// </summary>
 [TlObject(0xd8214d41)]
-public sealed class TPhotoPathSize : IPhotoSize
+public sealed partial class TPhotoPathSize : IPhotoSize
 {
     public uint ConstructorId => 0xd8214d41;
-    ///<summary>
+    /// <summary>
     /// Always <code>j</code>
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Compressed SVG path payload, <a href="https://corefork.telegram.org/api/files#vector-thumbnails">see here for decompression instructions</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

@@ -2,57 +2,57 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/giveaways">giveaway</a> has ended.
-/// See <a href="https://corefork.telegram.org/constructor/payments.giveawayInfoResults" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.giveawayInfoResults" /></para>
+/// </summary>
 [TlObject(0xe175e66f)]
-public sealed class TGiveawayInfoResults : IGiveawayInfo
+public sealed partial class TGiveawayInfoResults : IGiveawayInfo
 {
     public uint ConstructorId => 0xe175e66f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we're one of the winners of this giveaway.
-    ///</summary>
+    /// </summary>
     public bool Winner { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the giveaway was canceled and was fully refunded.
-    ///</summary>
+    /// </summary>
     public bool Refunded { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Start date of the giveaway
-    ///</summary>
+    /// </summary>
     public int StartDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If we're one of the winners of this giveaway, contains the <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Premium gift code</a>, see <a href="https://corefork.telegram.org/api/giveaways">here »</a> for more info on the full giveaway flow.
-    ///</summary>
+    /// </summary>
     public string? GiftCodeSlug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If we're one of the winners of this <a href="https://corefork.telegram.org/api/giveaways#star-giveaways">Telegram Star giveaway</a>, the number <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> we won.
-    ///</summary>
+    /// </summary>
     public long? StarsPrize { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// End date of the giveaway. May be bigger than the end date specified in parameters of the giveaway.
-    ///</summary>
+    /// </summary>
     public int FinishDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of winners in the giveaway
-    ///</summary>
+    /// </summary>
     public int WinnersCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of winners, which activated their <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">gift codes</a>.
-    ///</summary>
+    /// </summary>
     public int? ActivatedCount { get; set; }
 
     public void ComputeFlag()

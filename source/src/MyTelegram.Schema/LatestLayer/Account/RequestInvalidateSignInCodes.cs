@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Invalidate the specified login codes, see <a href="https://corefork.telegram.org/api/auth#invalidating-login-codes">here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/method/account.invalidateSignInCodes" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.invalidateSignInCodes" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xca8ae8ba)]
-public sealed class RequestInvalidateSignInCodes : IRequest<IBool>
+public sealed partial class RequestInvalidateSignInCodes : IRequest<IBool>
 {
     public uint ConstructorId => 0xca8ae8ba;
 
-    ///<summary>
+    /// <summary>
     /// The login codes to invalidate.
-    ///</summary>
+    /// </summary>
     public TVector<string> Codes { get; set; }
 
     public void ComputeFlag()

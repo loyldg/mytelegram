@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about a message or story to reply to.
-/// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputReplyTo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputReplyToMessage"/> See <a href="https://corefork.telegram.org/constructor/inputReplyToMessage" /><br/>
+/// <see cref="TInputReplyToStory"/> See <a href="https://corefork.telegram.org/constructor/inputReplyToStory" /><br/>
+/// <see cref="TInputReplyToMonoForum"/> See <a href="https://corefork.telegram.org/constructor/inputReplyToMonoForum" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputReplyToMessage), nameof(TInputReplyToMessage))]
 [JsonDerivedType(typeof(TInputReplyToStory), nameof(TInputReplyToStory))]
 [JsonDerivedType(typeof(TInputReplyToMonoForum), nameof(TInputReplyToMonoForum))]

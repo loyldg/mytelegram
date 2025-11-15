@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.
-/// See <a href="https://corefork.telegram.org/constructor/secureValueErrorTranslationFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueErrorTranslationFile" /></para>
+/// </summary>
 [TlObject(0xa1144770)]
-public sealed class TSecureValueErrorTranslationFile : ISecureValueError
+public sealed partial class TSecureValueErrorTranslationFile : ISecureValueError
 {
     public uint ConstructorId => 0xa1144770;
-    ///<summary>
+    /// <summary>
     /// One of <a href="https://corefork.telegram.org/constructor/secureValueTypePersonalDetails">secureValueTypePersonalDetails</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypePassport">secureValueTypePassport</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense">secureValueTypeDriverLicense</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard">secureValueTypeIdentityCard</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport">secureValueTypeInternalPassport</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeUtilityBill">secureValueTypeUtilityBill</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeBankStatement">secureValueTypeBankStatement</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeRentalAgreement">secureValueTypeRentalAgreement</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypePassportRegistration">secureValueTypePassportRegistration</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeTemporaryRegistration">secureValueTypeTemporaryRegistration</a>
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

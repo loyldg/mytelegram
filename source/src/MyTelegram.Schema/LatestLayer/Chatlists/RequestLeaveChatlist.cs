@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Delete a folder imported using a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/chatlists.leaveChatlist" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.leaveChatlist" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x74fae13a)]
-public sealed class RequestLeaveChatlist : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestLeaveChatlist : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x74fae13a;
 
-    ///<summary>
+    /// <summary>
     /// Folder ID
     /// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Also leave the specified channels and groups
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Peers { get; set; }
 
     public void ComputeFlag()

@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Shipping options
-/// See <a href="https://corefork.telegram.org/type/ShippingOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ShippingOption" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TShippingOption"/> See <a href="https://corefork.telegram.org/constructor/shippingOption" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TShippingOption), nameof(TShippingOption))]
 public interface IShippingOption : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Option ID
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of price portions
     /// See <a href="https://corefork.telegram.org/type/LabeledPrice" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ILabeledPrice> Prices { get; set; }
 }

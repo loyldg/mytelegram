@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Informs server about a purchase made through the Play Store: for official applications only.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DATA_JSON_INVALID The provided JSON data is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.assignPlayMarketTransaction" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DATA_JSON_INVALID The provided JSON data is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.assignPlayMarketTransaction" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xdffd50d3)]
-public sealed class RequestAssignPlayMarketTransaction : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestAssignPlayMarketTransaction : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xdffd50d3;
 
-    ///<summary>
+    /// <summary>
     /// Receipt
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Receipt { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment purpose
     /// See <a href="https://corefork.telegram.org/type/InputStorePaymentPurpose" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
     public void ComputeFlag()

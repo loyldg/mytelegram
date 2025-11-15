@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Accept the new terms of service
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DATA_JSON_INVALID The provided JSON data is invalid.
-/// See <a href="https://corefork.telegram.org/method/help.acceptTermsOfService" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DATA_JSON_INVALID The provided JSON data is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/help.acceptTermsOfService" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xee72f79a)]
-public sealed class RequestAcceptTermsOfService : IRequest<IBool>
+public sealed partial class RequestAcceptTermsOfService : IRequest<IBool>
 {
     public uint ConstructorId => 0xee72f79a;
 
-    ///<summary>
+    /// <summary>
     /// ID of terms of service
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Id { get; set; }
 
     public void ComputeFlag()

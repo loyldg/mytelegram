@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A preview of the webpage is currently being generated
-/// See <a href="https://corefork.telegram.org/constructor/webPagePending" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPagePending" /></para>
+/// </summary>
 [TlObject(0xb0d13e47)]
-public sealed class TWebPagePending : IWebPage
+public sealed partial class TWebPagePending : IWebPage
 {
     public uint ConstructorId => 0xb0d13e47;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of preview
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of the webpage
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the processing started
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

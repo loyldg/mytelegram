@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Channels;
 /// See <a href="https://corefork.telegram.org/method/channels.updatePinnedForumTopic" />
 ///</summary>
 [TlObject(0x6c2d9026)]
-public sealed class RequestUpdatePinnedForumTopic : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestUpdatePinnedForumTopic : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x6c2d9026;
 

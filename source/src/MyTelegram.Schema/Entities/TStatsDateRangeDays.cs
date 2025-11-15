@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stats">Channel statistics</a> date range
-/// See <a href="https://corefork.telegram.org/constructor/statsDateRangeDays" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsDateRangeDays" /></para>
+/// </summary>
 [TlObject(0xb637edaf)]
-public sealed class TStatsDateRangeDays : IStatsDateRangeDays
+public sealed partial class TStatsDateRangeDays : IStatsDateRangeDays
 {
     public uint ConstructorId => 0xb637edaf;
-    ///<summary>
+    /// <summary>
     /// Initial date
-    ///</summary>
+    /// </summary>
     public int MinDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Final date
-    ///</summary>
+    /// </summary>
     public int MaxDate { get; set; }
 
     public void ComputeFlag()

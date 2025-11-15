@@ -8,7 +8,7 @@ namespace MyTelegram.Schema.Account.LayerN;
 /// See <a href="https://corefork.telegram.org/method/account.installTheme" />
 ///</summary>
 [TlObject(0x7ae43737)]
-public sealed class RequestInstallTheme : IRequest<IBool>
+public sealed partial class RequestInstallTheme : IRequest<IBool>
 {
     public uint ConstructorId => 0x7ae43737;
     ///<summary>

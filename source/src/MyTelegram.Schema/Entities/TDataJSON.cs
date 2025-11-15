@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a json-encoded object
-/// See <a href="https://corefork.telegram.org/constructor/dataJSON" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dataJSON" /></para>
+/// </summary>
 [TlObject(0x7d748d04)]
-public sealed class TDataJSON : IDataJSON
+public sealed partial class TDataJSON : IDataJSON
 {
     public uint ConstructorId => 0x7d748d04;
-    ///<summary>
+    /// <summary>
     /// JSON-encoded object
-    ///</summary>
+    /// </summary>
     public string Data { get; set; }
 
     public void ComputeFlag()

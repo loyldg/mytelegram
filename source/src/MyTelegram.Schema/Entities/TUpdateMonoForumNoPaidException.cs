@@ -2,25 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/updateMonoForumNoPaidException" />
-///</summary>
+/// <summary>
+/// An admin has (un)exempted this <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a> from payment to send messages using <a href="https://corefork.telegram.org/method/account.toggleNoPaidMessagesException">account.toggleNoPaidMessagesException</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateMonoForumNoPaidException" /></para>
+/// </summary>
 [TlObject(0x9f812b08)]
-public sealed class TUpdateMonoForumNoPaidException : IUpdate
+public sealed partial class TUpdateMonoForumNoPaidException : IUpdate
 {
     public uint ConstructorId => 0x9f812b08;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// If set, an admin has exempted this peer, otherwise the peer was unexempted.
+    /// </summary>
     public bool Exception { get; set; }
 
+    /// <summary>
+    /// The monoforum ID.
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The peer/topic ID.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer SavedPeerId { get; set; }
 
     public void ComputeFlag()

@@ -2,55 +2,58 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Press an inline callback button and get a callback answer from the bot
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_RESPONSE_TIMEOUT A timeout occurred while fetching data from the bot.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 DATA_INVALID Encrypted data invalid.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PASSWORD_MISSING You must <a href="https://corefork.telegram.org/api/srp">enable 2FA</a> before executing this operation.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// -503 Timeout Timeout while fetching data.
-/// See <a href="https://corefork.telegram.org/method/messages.getBotCallbackAnswer" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_RESPONSE_TIMEOUT A timeout occurred while fetching data from the bot.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 DATA_INVALID Encrypted data invalid.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PASSWORD_MISSING You must <a href="https://corefork.telegram.org/api/srp">enable 2FA</a> before executing this operation.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>-503 Timeout Timeout while fetching data. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getBotCallbackAnswer" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9342ca07)]
-public sealed class RequestGetBotCallbackAnswer : IRequest<MyTelegram.Schema.Messages.IBotCallbackAnswer>
+public sealed partial class RequestGetBotCallbackAnswer : IRequest<MyTelegram.Schema.Messages.IBotCallbackAnswer>
 {
     public uint ConstructorId => 0x9342ca07;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a "play game" button
-    ///</summary>
+    /// </summary>
     public bool Game { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Where was the inline keyboard sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the Message with the inline keyboard
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Callback data
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? Data { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For buttons <a href="https://corefork.telegram.org/constructor/keyboardButtonCallback">requiring you to verify your identity with your 2FA password</a>, the SRP payload generated using <a href="https://corefork.telegram.org/api/srp">SRP</a>.
     /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP? Password { get; set; }
 
     public void ComputeFlag()

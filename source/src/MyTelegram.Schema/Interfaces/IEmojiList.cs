@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a list of <a href="https://corefork.telegram.org/api/custom-emoji">custom emojis</a>.
-/// See <a href="https://corefork.telegram.org/type/EmojiList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EmojiList" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmojiListNotModified"/> See <a href="https://corefork.telegram.org/constructor/emojiListNotModified" /><br/>
+/// <see cref="TEmojiList"/> See <a href="https://corefork.telegram.org/constructor/emojiList" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmojiListNotModified), nameof(TEmojiListNotModified))]
 [JsonDerivedType(typeof(TEmojiList), nameof(TEmojiList))]
 public interface IEmojiList : IObject

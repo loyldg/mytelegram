@@ -2,18 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoiceBusinessBotTransferStars" />
-///</summary>
+/// <summary>
+/// Transfer stars from the balance of a user account <a href="https://corefork.telegram.org/api/bots/connected-business-bots">connected to a business bot</a>, to the balance of the <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bot</a>, see <a href="https://corefork.telegram.org/api/stars#transferring-stars-from-a-business-account-to-the-business-bot">here »</a> for more info on the full flow.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceBusinessBotTransferStars" /></para>
+/// </summary>
 [TlObject(0xf4997e42)]
-public sealed class TInputInvoiceBusinessBotTransferStars : IInputInvoice
+public sealed partial class TInputInvoiceBusinessBotTransferStars : IInputInvoice
 {
     public uint ConstructorId => 0xf4997e42;
-    ///<summary>
+    /// <summary>
+    /// Always <a href="https://corefork.telegram.org/constructor/inputUserSelf">inputUserSelf</a>.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
+    /// <summary>
+    /// The number of stars to transfer.
+    /// </summary>
     public long Stars { get; set; }
 
     public void ComputeFlag()

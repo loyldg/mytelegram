@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Returns configuration parameters for Diffie-Hellman key generation. Can also return a random sequence of bytes of required length.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 RANDOM_LENGTH_INVALID Random length invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getDhConfig" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 RANDOM_LENGTH_INVALID Random length invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getDhConfig" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x26cf8950)]
-public sealed class RequestGetDhConfig : IRequest<MyTelegram.Schema.Messages.IDhConfig>
+public sealed partial class RequestGetDhConfig : IRequest<MyTelegram.Schema.Messages.IDhConfig>
 {
     public uint ConstructorId => 0x26cf8950;
 
-    ///<summary>
+    /// <summary>
     /// Value of the <strong>version</strong> parameter from <a href="https://corefork.telegram.org/constructor/messages.dhConfig">messages.dhConfig</a>, available at the client
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of the required random sequence
-    ///</summary>
+    /// </summary>
     public int RandomLength { get; set; }
 
     public void ComputeFlag()

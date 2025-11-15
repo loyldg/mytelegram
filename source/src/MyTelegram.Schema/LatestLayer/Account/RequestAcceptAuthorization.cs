@@ -2,44 +2,47 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Sends a Telegram Passport authorization form, effectively sharing data with the service
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 PUBLIC_KEY_REQUIRED A public key is required.
-/// See <a href="https://corefork.telegram.org/method/account.acceptAuthorization" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 PUBLIC_KEY_REQUIRED A public key is required. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.acceptAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf3ed4c73)]
-public sealed class RequestAcceptAuthorization : IRequest<IBool>
+public sealed partial class RequestAcceptAuthorization : IRequest<IBool>
 {
     public uint ConstructorId => 0xf3ed4c73;
 
-    ///<summary>
+    /// <summary>
     /// Bot ID
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram Passport element types requested by the service
-    ///</summary>
+    /// </summary>
     public string Scope { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Service's public key
-    ///</summary>
+    /// </summary>
     public string PublicKey { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Types of values sent and their hashes
     /// See <a href="https://corefork.telegram.org/type/SecureValueHash" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISecureValueHash> ValueHashes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Encrypted values
     /// See <a href="https://corefork.telegram.org/type/SecureCredentialsEncrypted" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureCredentialsEncrypted Credentials { get; set; }
 
     public void ComputeFlag()

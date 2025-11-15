@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new incoming query; for bots only
-/// See <a href="https://corefork.telegram.org/constructor/updateBotWebhookJSONQuery" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotWebhookJSONQuery" /></para>
+/// </summary>
 [TlObject(0x9b9240a6)]
-public sealed class TUpdateBotWebhookJSONQuery : IUpdate
+public sealed partial class TUpdateBotWebhookJSONQuery : IUpdate
 {
     public uint ConstructorId => 0x9b9240a6;
-    ///<summary>
+    /// <summary>
     /// Query identifier
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query data
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Data { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query timeout
-    ///</summary>
+    /// </summary>
     public int Timeout { get; set; }
 
     public void ComputeFlag()

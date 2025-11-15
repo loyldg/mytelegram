@@ -2,44 +2,44 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Settings for setting up a new password
-/// See <a href="https://corefork.telegram.org/constructor/account.passwordInputSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.passwordInputSettings" /></para>
+/// </summary>
 [TlObject(0xc23727c9)]
-public sealed class TPasswordInputSettings : IPasswordInputSettings
+public sealed partial class TPasswordInputSettings : IPasswordInputSettings
 {
     public uint ConstructorId => 0xc23727c9;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/srp">SRP algorithm</a> to use
     /// See <a href="https://corefork.telegram.org/type/PasswordKdfAlgo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPasswordKdfAlgo? NewAlgo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/srp">computed password hash</a>
-    ///</summary>
+    /// </summary>
     public byte[]? NewPasswordHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text hint for the password
-    ///</summary>
+    /// </summary>
     public string? Hint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Password recovery email
-    ///</summary>
+    /// </summary>
     public string? Email { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram <a href="https://corefork.telegram.org/passport">passport</a> settings
     /// See <a href="https://corefork.telegram.org/type/SecureSecretSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureSecretSettings? NewSecureSettings { get; set; }
 
     public void ComputeFlag()

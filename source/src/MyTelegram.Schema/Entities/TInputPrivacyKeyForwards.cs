@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether messages forwarded from you will be <a href="https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding">anonymous</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyForwards" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyForwards" /></para>
+/// </summary>
 [TlObject(0xa4dd4c08)]
-public sealed class TInputPrivacyKeyForwards : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyForwards : IInputPrivacyKey
 {
     public uint ConstructorId => 0xa4dd4c08;
     public void ComputeFlag()

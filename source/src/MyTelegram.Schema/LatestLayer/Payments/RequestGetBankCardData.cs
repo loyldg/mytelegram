@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Get info about a credit card
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BANK_CARD_NUMBER_INVALID The specified card number is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getBankCardData" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BANK_CARD_NUMBER_INVALID The specified card number is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getBankCardData" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2e79d779)]
-public sealed class RequestGetBankCardData : IRequest<MyTelegram.Schema.Payments.IBankCardData>
+public sealed partial class RequestGetBankCardData : IRequest<MyTelegram.Schema.Payments.IBankCardData>
 {
     public uint ConstructorId => 0x2e79d779;
 
-    ///<summary>
+    /// <summary>
     /// Credit card number
-    ///</summary>
+    /// </summary>
     public string Number { get; set; }
 
     public void ComputeFlag()

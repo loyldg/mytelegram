@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Admin log events
-/// See <a href="https://corefork.telegram.org/type/channels.AdminLogResults" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/channels.AdminLogResults" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAdminLogResults"/> See <a href="https://corefork.telegram.org/constructor/channels.adminLogResults" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAdminLogResults), nameof(TAdminLogResults))]
 public interface IAdminLogResults : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Admin log events
     /// See <a href="https://corefork.telegram.org/type/ChannelAdminLogEvent" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChannelAdminLogEvent> Events { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in events
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in events
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

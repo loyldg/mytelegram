@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The default banned rights were modified
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights" /></para>
+/// </summary>
 [TlObject(0x2df5fc0a)]
-public sealed class TChannelAdminLogEventActionDefaultBannedRights : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionDefaultBannedRights : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x2df5fc0a;
-    ///<summary>
+    /// <summary>
     /// Previous global <a href="https://corefork.telegram.org/api/rights">banned rights</a>
     /// See <a href="https://corefork.telegram.org/type/ChatBannedRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatBannedRights PrevBannedRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New global <a href="https://corefork.telegram.org/api/rights">banned rights</a>.
     /// See <a href="https://corefork.telegram.org/type/ChatBannedRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatBannedRights NewBannedRights { get; set; }
 
     public void ComputeFlag()

@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chat waiting for approval of second participant.
-/// See <a href="https://corefork.telegram.org/constructor/encryptedChatWaiting" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/encryptedChatWaiting" /></para>
+/// </summary>
 [TlObject(0x66b25953)]
-public sealed class TEncryptedChatWaiting : IEncryptedChat
+public sealed partial class TEncryptedChatWaiting : IEncryptedChat
 {
     public uint ConstructorId => 0x66b25953;
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Checking sum depending on user ID
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of chat creation
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat creator ID
-    ///</summary>
+    /// </summary>
     public long AdminId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of second chat participant
-    ///</summary>
+    /// </summary>
     public long ParticipantId { get; set; }
 
     public void ComputeFlag()

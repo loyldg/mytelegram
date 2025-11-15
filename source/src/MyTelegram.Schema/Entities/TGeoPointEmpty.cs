@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor.
-/// See <a href="https://corefork.telegram.org/constructor/geoPointEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/geoPointEmpty" /></para>
+/// </summary>
 [TlObject(0x1117dd5f)]
-public sealed class TGeoPointEmpty : IGeoPoint
+public sealed partial class TGeoPointEmpty : IGeoPoint
 {
     public uint ConstructorId => 0x1117dd5f;
     public void ComputeFlag()

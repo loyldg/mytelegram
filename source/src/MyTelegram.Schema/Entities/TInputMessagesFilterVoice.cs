@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only messages containing voice notes
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterVoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterVoice" /></para>
+/// </summary>
 [TlObject(0x50f5c392)]
-public sealed class TInputMessagesFilterVoice : IMessagesFilter
+public sealed partial class TInputMessagesFilterVoice : IMessagesFilter
 {
     public uint ConstructorId => 0x50f5c392;
     public void ComputeFlag()

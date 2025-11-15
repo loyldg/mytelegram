@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Some <a href="https://corefork.telegram.org/api/boost">boosts »</a> were applied to the channel or supergroup.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionBoostApply" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionBoostApply" /></para>
+/// </summary>
 [TlObject(0xcc02aa6d)]
-public sealed class TMessageActionBoostApply : IMessageAction
+public sealed partial class TMessageActionBoostApply : IMessageAction
 {
     public uint ConstructorId => 0xcc02aa6d;
-    ///<summary>
+    /// <summary>
     /// Number of applied <a href="https://corefork.telegram.org/api/boost">boosts</a>.
-    ///</summary>
+    /// </summary>
     public int Boosts { get; set; }
 
     public void ComputeFlag()

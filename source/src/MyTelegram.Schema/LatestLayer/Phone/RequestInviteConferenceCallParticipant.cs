@@ -2,29 +2,41 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/phone.inviteConferenceCallParticipant" />
-///</summary>
+/// <summary>
+/// Invite a user to a conference call.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.inviteConferenceCallParticipant" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbcf22685)]
-public sealed class RequestInviteConferenceCallParticipant : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestInviteConferenceCallParticipant : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xbcf22685;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Invite the user to also turn on their video feed.
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The conference call.
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The user to invite.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

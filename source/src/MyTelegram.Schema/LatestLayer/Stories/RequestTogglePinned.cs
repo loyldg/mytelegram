@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Pin or unpin one or more stories
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.togglePinned" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.togglePinned" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9a75a1ef)]
-public sealed class RequestTogglePinned : IRequest<TVector<int>>
+public sealed partial class RequestTogglePinned : IRequest<TVector<int>>
 {
     public uint ConstructorId => 0x9a75a1ef;
 
-    ///<summary>
+    /// <summary>
     /// Peer where to pin or unpin stories
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of stories to pin or unpin
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to pin or unpin the stories
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
     public void ComputeFlag()

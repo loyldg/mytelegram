@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A possible answer of a poll
-/// See <a href="https://corefork.telegram.org/constructor/pollAnswer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pollAnswer" /></para>
+/// </summary>
 [TlObject(0xff16e2ca)]
-public sealed class TPollAnswer : IPollAnswer
+public sealed partial class TPollAnswer : IPollAnswer
 {
     public uint ConstructorId => 0xff16e2ca;
-    ///<summary>
+    /// <summary>
     /// Textual representation of the answer (only <a href="https://corefork.telegram.org/api/premium">Premium</a> users can use <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji entities</a> here).
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The param that has to be passed to <a href="https://corefork.telegram.org/method/messages.sendVote">messages.sendVote</a>.
-    ///</summary>
+    /// </summary>
     public string Option { get; set; }
 
     public void ComputeFlag()

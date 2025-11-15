@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// A set of <a href="https://corefork.telegram.org/api/reactions">message reactions</a>
-/// See <a href="https://corefork.telegram.org/type/messages.Reactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.Reactions" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TReactionsNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.reactionsNotModified" /><br/>
+/// <see cref="TReactions"/> See <a href="https://corefork.telegram.org/constructor/messages.reactions" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TReactionsNotModified), nameof(TReactionsNotModified))]
 [JsonDerivedType(typeof(TReactions), nameof(TReactions))]
 public interface IReactions : IObject

@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel statistics value pair
-/// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatsAbsValueAndPrev"/> See <a href="https://corefork.telegram.org/constructor/statsAbsValueAndPrev" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatsAbsValueAndPrev), nameof(TStatsAbsValueAndPrev))]
 public interface IStatsAbsValueAndPrev : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Current value
-    ///</summary>
+    /// </summary>
     double Current { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previous value
-    ///</summary>
+    /// </summary>
     double Previous { get; set; }
 }

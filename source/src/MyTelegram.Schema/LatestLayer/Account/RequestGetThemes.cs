@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get installed themes
-/// See <a href="https://corefork.telegram.org/method/account.getThemes" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getThemes" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7206e458)]
-public sealed class RequestGetThemes : IRequest<MyTelegram.Schema.Account.IThemes>
+public sealed partial class RequestGetThemes : IRequest<MyTelegram.Schema.Account.IThemes>
 {
     public uint ConstructorId => 0x7206e458;
 
-    ///<summary>
+    /// <summary>
     /// Theme format, a string that identifies the theming engines supported by the client
-    ///</summary>
+    /// </summary>
     public string Format { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

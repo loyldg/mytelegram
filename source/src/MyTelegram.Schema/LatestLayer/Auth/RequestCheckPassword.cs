@@ -2,25 +2,28 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Try logging to an account protected by a <a href="https://corefork.telegram.org/api/srp">2FA password</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 500 AUTH_KEY_UNSYNCHRONIZED Internal error, please repeat the method call.
-/// 400 PASSWORD_HASH_INVALID The provided password hash is invalid.
-/// 400 SRP_ID_INVALID Invalid SRP ID provided.
-/// 400 SRP_PASSWORD_CHANGED Password has changed.
-/// See <a href="https://corefork.telegram.org/method/auth.checkPassword" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>500 AUTH_KEY_UNSYNCHRONIZED Internal error, please repeat the method call.</c></para>
+/// <para><c>400 PASSWORD_HASH_INVALID The provided password hash is invalid.</c></para>
+/// <para><c>400 SRP_ID_INVALID Invalid SRP ID provided.</c></para>
+/// <para><c>400 SRP_PASSWORD_CHANGED Password has changed. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.checkPassword" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xd18b4d16)]
-public sealed class RequestCheckPassword : IRequest<MyTelegram.Schema.Auth.IAuthorization>
+public sealed partial class RequestCheckPassword : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
     public uint ConstructorId => 0xd18b4d16;
 
-    ///<summary>
+    /// <summary>
     /// The account's password (see <a href="https://corefork.telegram.org/api/srp">SRP</a>)
     /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
 
     public void ComputeFlag()

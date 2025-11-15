@@ -2,57 +2,57 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about an <a href="https://corefork.telegram.org/api/bots/referrals#becoming-an-affiliate">active affiliate program we have with a Mini App</a>
-/// See <a href="https://corefork.telegram.org/constructor/connectedBotStarRef" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/connectedBotStarRef" /></para>
+/// </summary>
 [TlObject(0x19a13f71)]
-public sealed class TConnectedBotStarRef : IConnectedBotStarRef
+public sealed partial class TConnectedBotStarRef : IConnectedBotStarRef
 {
     public uint ConstructorId => 0x19a13f71;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this affiliation was revoked by the affiliate using <a href="https://corefork.telegram.org/method/payments.editConnectedStarRefBot">payments.editConnectedStarRefBot</a>, or by the affiliation program owner using <a href="https://corefork.telegram.org/method/bots.updateStarRefProgram">bots.updateStarRefProgram</a>
-    ///</summary>
+    /// </summary>
     public bool Revoked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/links#referral-links">Referral link</a> to be shared
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did we affiliate with <code>bot_id</code>
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the mini app that created the affiliate program
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by <code>bot_id</code>
-    ///</summary>
+    /// </summary>
     public int CommissionPermille { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of months the program will be active; if not set, there is no expiration date.
-    ///</summary>
+    /// </summary>
     public int? DurationMonths { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of users that used the affiliate program
-    ///</summary>
+    /// </summary>
     public long Participants { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of Telegram Stars that were earned by the affiliate program
-    ///</summary>
+    /// </summary>
     public long Revenue { get; set; }
 
     public void ComputeFlag()

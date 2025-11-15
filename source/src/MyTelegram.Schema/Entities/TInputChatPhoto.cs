@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Existing photo to be set as a chat profile photo.
-/// See <a href="https://corefork.telegram.org/constructor/inputChatPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputChatPhoto" /></para>
+/// </summary>
 [TlObject(0x8953ad37)]
-public sealed class TInputChatPhoto : IInputChatPhoto
+public sealed partial class TInputChatPhoto : IInputChatPhoto
 {
     public uint ConstructorId => 0x8953ad37;
-    ///<summary>
+    /// <summary>
     /// Existing photo
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoto Id { get; set; }
 
     public void ComputeFlag()

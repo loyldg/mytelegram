@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Returns info on data center nearest to the user.
-/// See <a href="https://corefork.telegram.org/method/help.getNearestDc" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getNearestDc" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x1fb33026)]
-public sealed class RequestGetNearestDc : IRequest<MyTelegram.Schema.INearestDc>
+public sealed partial class RequestGetNearestDc : IRequest<MyTelegram.Schema.INearestDc>
 {
     public uint ConstructorId => 0x1fb33026;
 

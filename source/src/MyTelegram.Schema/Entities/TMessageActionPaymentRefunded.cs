@@ -2,44 +2,44 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a payment refund (service message received by both users and bots).
-/// See <a href="https://corefork.telegram.org/constructor/messageActionPaymentRefunded" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionPaymentRefunded" /></para>
+/// </summary>
 [TlObject(0x41b3e202)]
-public sealed class TMessageActionPaymentRefunded : IMessageAction
+public sealed partial class TMessageActionPaymentRefunded : IMessageAction
 {
     public uint ConstructorId => 0x41b3e202;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the peer that returned the funds.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Currency, <code>XTR</code> for Telegram Stars.
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long TotalAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot specified invoice payload (only received by bots).
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? Payload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Provider payment identifier
     /// See <a href="https://corefork.telegram.org/type/PaymentCharge" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPaymentCharge Charge { get; set; }
 
     public void ComputeFlag()

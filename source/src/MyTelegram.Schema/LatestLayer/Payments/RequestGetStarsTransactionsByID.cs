@@ -2,36 +2,42 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Obtain info about <a href="https://corefork.telegram.org/api/stars#balance-and-transaction-history">Telegram Star transactions »</a> using specific transaction IDs.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 TRANSACTION_ID_INVALID The specified transaction ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsTransactionsByID" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 TRANSACTION_ID_INVALID The specified transaction ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsTransactionsByID" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2dca16b8)]
-public sealed class RequestGetStarsTransactionsByID : IRequest<MyTelegram.Schema.Payments.IStarsStatus>
+public sealed partial class RequestGetStarsTransactionsByID : IRequest<MyTelegram.Schema.Payments.IStarsStatus>
 {
     public uint ConstructorId => 0x2dca16b8;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// If set, returns channel/bot ad revenue transactions in nanotons.
+    /// </summary>
     public bool Ton { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel or bot.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transaction IDs.
     /// See <a href="https://corefork.telegram.org/type/InputStarsTransaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputStarsTransaction> Id { get; set; }
 
     public void ComputeFlag()

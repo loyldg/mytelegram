@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// An exported group call invitation.
-/// See <a href="https://corefork.telegram.org/type/phone.ExportedGroupCallInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/phone.ExportedGroupCallInvite" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedGroupCallInvite"/> See <a href="https://corefork.telegram.org/constructor/phone.exportedGroupCallInvite" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedGroupCallInvite), nameof(TExportedGroupCallInvite))]
 public interface IExportedGroupCallInvite : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Invite link
-    ///</summary>
+    /// </summary>
     string Link { get; set; }
 }

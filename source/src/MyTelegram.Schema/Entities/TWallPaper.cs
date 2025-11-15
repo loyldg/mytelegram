@@ -2,64 +2,64 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a> based on an image.
-/// See <a href="https://corefork.telegram.org/constructor/wallPaper" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/wallPaper" /></para>
+/// </summary>
 [TlObject(0xa437c3ed)]
-public sealed class TWallPaper : IWallPaper
+public sealed partial class TWallPaper : IWallPaper
 {
     public uint ConstructorId => 0xa437c3ed;
-    ///<summary>
+    /// <summary>
     /// Identifier
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we created this wallpaper
-    ///</summary>
+    /// </summary>
     public bool Creator { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is the default wallpaper
-    ///</summary>
+    /// </summary>
     public bool Default { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a <a href="https://corefork.telegram.org/api/wallpapers#pattern-wallpapers">pattern wallpaper »</a>
-    ///</summary>
+    /// </summary>
     public bool Pattern { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this wallpaper should be used in dark mode.
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique wallpaper ID, used when generating <a href="https://corefork.telegram.org/api/links#wallpaper-links">wallpaper links</a> or <a href="https://corefork.telegram.org/api/wallpapers">importing wallpaper links</a>.
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The actual wallpaper
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info on how to generate the wallpaper, according to <a href="https://corefork.telegram.org/api/wallpapers">these instructions »</a>.
     /// See <a href="https://corefork.telegram.org/type/WallPaperSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaperSettings? Settings { get; set; }
 
     public void ComputeFlag()

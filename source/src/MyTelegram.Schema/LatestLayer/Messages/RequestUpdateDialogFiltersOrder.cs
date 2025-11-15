@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Reorder <a href="https://corefork.telegram.org/api/folders">folders</a>
-/// See <a href="https://corefork.telegram.org/method/messages.updateDialogFiltersOrder" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.updateDialogFiltersOrder" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc563c1e4)]
-public sealed class RequestUpdateDialogFiltersOrder : IRequest<IBool>
+public sealed partial class RequestUpdateDialogFiltersOrder : IRequest<IBool>
 {
     public uint ConstructorId => 0xc563c1e4;
 
-    ///<summary>
+    /// <summary>
     /// New <a href="https://corefork.telegram.org/api/folders">folder</a> order
-    ///</summary>
+    /// </summary>
     public TVector<int> Order { get; set; }
 
     public void ComputeFlag()

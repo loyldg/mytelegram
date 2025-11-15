@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Changes in notification settings.
-/// See <a href="https://corefork.telegram.org/constructor/updateNotifySettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateNotifySettings" /></para>
+/// </summary>
 [TlObject(0xbec268ef)]
-public sealed class TUpdateNotifySettings : IUpdate
+public sealed partial class TUpdateNotifySettings : IUpdate
 {
     public uint ConstructorId => 0xbec268ef;
-    ///<summary>
+    /// <summary>
     /// Notification source
     /// See <a href="https://corefork.telegram.org/type/NotifyPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.INotifyPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New notification settings
     /// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
 
     public void ComputeFlag()

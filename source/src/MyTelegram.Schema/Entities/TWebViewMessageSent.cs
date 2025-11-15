@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a sent inline webview message
-/// See <a href="https://corefork.telegram.org/constructor/webViewMessageSent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webViewMessageSent" /></para>
+/// </summary>
 [TlObject(0xc94511c)]
-public sealed class TWebViewMessageSent : IWebViewMessageSent
+public sealed partial class TWebViewMessageSent : IWebViewMessageSent
 {
     public uint ConstructorId => 0xc94511c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessageID" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessageID? MsgId { get; set; }
 
     public void ComputeFlag()

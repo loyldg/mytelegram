@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Active <a href="https://corefork.telegram.org/api/bots/referrals#becoming-an-affiliate">affiliations</a>
-/// See <a href="https://corefork.telegram.org/constructor/payments.connectedStarRefBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.connectedStarRefBots" /></para>
+/// </summary>
 [TlObject(0x98d5ea1d)]
-public sealed class TConnectedStarRefBots : IConnectedStarRefBots
+public sealed partial class TConnectedStarRefBots : IConnectedStarRefBots
 {
     public uint ConstructorId => 0x98d5ea1d;
-    ///<summary>
+    /// <summary>
     /// Total number of active affiliations
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The affiliations
     /// See <a href="https://corefork.telegram.org/type/ConnectedBotStarRef" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IConnectedBotStarRef> ConnectedBots { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peers mentioned in <code>connected_bots</code>
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

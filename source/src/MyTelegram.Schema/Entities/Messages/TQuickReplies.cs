@@ -2,36 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcuts »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messages.quickReplies" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.quickReplies" /></para>
+/// </summary>
 [TlObject(0xc68d6695)]
-public sealed class TQuickReplies : IQuickReplies
+public sealed partial class TQuickReplies : IQuickReplies
 {
     public uint ConstructorId => 0xc68d6695;
-    ///<summary>
+    /// <summary>
     /// Quick reply shortcuts.
     /// See <a href="https://corefork.telegram.org/type/QuickReply" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IQuickReply> QuickReplies { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Messages mentioned in <code>quick_replies</code>.
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

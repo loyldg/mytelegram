@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Obtain information about a <a href="https://corefork.telegram.org/api/giveaways">Telegram Premium giftcode »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GIFT_SLUG_EXPIRED The specified gift slug has expired.
-/// 400 GIFT_SLUG_INVALID The specified slug is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.checkGiftCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GIFT_SLUG_EXPIRED The specified gift slug has expired.</c></para>
+/// <para><c>400 GIFT_SLUG_INVALID The specified slug is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.checkGiftCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8e51b4c1)]
-public sealed class RequestCheckGiftCode : IRequest<MyTelegram.Schema.Payments.ICheckedGiftCode>
+public sealed partial class RequestCheckGiftCode : IRequest<MyTelegram.Schema.Payments.ICheckedGiftCode>
 {
     public uint ConstructorId => 0x8e51b4c1;
 
-    ///<summary>
+    /// <summary>
     /// The giftcode to check
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

@@ -1,23 +1,20 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+/// <summary>
 /// Get info about <a href="https://corefork.telegram.org/api/channel">channels/supergroups</a>
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/channels.getChannels" />
-///</summary>
-internal sealed class GetChannelsHandler(
-    IChatConverterService chatConverterService,
-    IQueryProcessor queryProcessor,
-    IAccessHashHelper accessHashHelper)
-    : RpcResultObjectHandler<RequestGetChannels, IChats>
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.getChannels"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
+internal sealed class GetChannelsHandler(IChatConverterService chatConverterService, IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<RequestGetChannels, IChats>
 {
-    protected override async Task<IChats> HandleCoreAsync(IRequestInput input,
-        RequestGetChannels obj)
+    protected override async Task<IChats> HandleCoreAsync(IRequestInput input, RequestGetChannels obj)
     {
         var channelIds = new List<long>();
         foreach (var inputChannel in obj.Id)
@@ -31,19 +28,15 @@ internal sealed class GetChannelsHandler(
 
         if (channelIds.Count > 0)
         {
-            var channelMemberReadModels =
-                await queryProcessor.ProcessAsync(
-                    new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIds));
-            var channels =
-                await chatConverterService.GetChannelListAsync(input, channelIds, channelMemberReadModels, layer: input.Layer);
+            var channelMemberReadModels = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIds));
+            var channels = await chatConverterService.GetChannelListAsync(input, channelIds, channelMemberReadModels, layer: input.Layer);
             return new TChats
             {
-                Chats = [.. channels]
+                Chats = [..channels]
             };
         }
 
         RpcErrors.RpcErrors400.ChannelInvalid.ThrowRpcError();
-
         throw new NotImplementedException();
     }
 }

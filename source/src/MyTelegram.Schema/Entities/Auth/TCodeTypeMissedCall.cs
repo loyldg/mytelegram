@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The next time, the authentication code will be delivered via an immediately canceled incoming call, handled manually by the user.
-/// See <a href="https://corefork.telegram.org/constructor/auth.codeTypeMissedCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.codeTypeMissedCall" /></para>
+/// </summary>
 [TlObject(0xd61ad6ee)]
-public sealed class TCodeTypeMissedCall : ICodeType
+public sealed partial class TCodeTypeMissedCall : ICodeType
 {
     public uint ConstructorId => 0xd61ad6ee;
     public void ComputeFlag()

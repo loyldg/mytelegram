@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Changes in the data center configuration options.
-/// See <a href="https://corefork.telegram.org/constructor/updateDcOptions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDcOptions" /></para>
+/// </summary>
 [TlObject(0x8e5e9873)]
-public sealed class TUpdateDcOptions : IUpdate
+public sealed partial class TUpdateDcOptions : IUpdate
 {
     public uint ConstructorId => 0x8e5e9873;
-    ///<summary>
+    /// <summary>
     /// New connection options
     /// See <a href="https://corefork.telegram.org/type/DcOption" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDcOption> DcOptions { get; set; }
 
     public void ComputeFlag()

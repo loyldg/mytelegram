@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer, or all peers in a certain folder
-/// See <a href="https://corefork.telegram.org/type/InputDialogPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputDialogPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputDialogPeer"/> See <a href="https://corefork.telegram.org/constructor/inputDialogPeer" /><br/>
+/// <see cref="TInputDialogPeerFolder"/> See <a href="https://corefork.telegram.org/constructor/inputDialogPeerFolder" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputDialogPeer), nameof(TInputDialogPeer))]
 [JsonDerivedType(typeof(TInputDialogPeerFolder), nameof(TInputDialogPeerFolder))]
 public interface IInputDialogPeer : IObject

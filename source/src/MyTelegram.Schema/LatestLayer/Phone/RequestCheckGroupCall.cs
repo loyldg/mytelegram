@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
-/// Check whether the group call Server Forwarding Unit is currently receiving the streams with the specified WebRTC source IDs.<br>
+/// <summary>
+/// Check whether the group call Server Forwarding Unit is currently receiving the streams with the specified WebRTC source IDs.<br/>
 /// Returns an intersection of the source IDs specified in <code>sources</code>, and the source IDs currently being forwarded by the SFU.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 400 GROUPCALL_JOIN_MISSING You haven't joined this group call.
-/// See <a href="https://corefork.telegram.org/method/phone.checkGroupCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>400 GROUPCALL_JOIN_MISSING You haven't joined this group call. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.checkGroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb59cf977)]
-public sealed class RequestCheckGroupCall : IRequest<TVector<int>>
+public sealed partial class RequestCheckGroupCall : IRequest<TVector<int>>
 {
     public uint ConstructorId => 0xb59cf977;
 
-    ///<summary>
+    /// <summary>
     /// Group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Source IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Sources { get; set; }
 
     public void ComputeFlag()

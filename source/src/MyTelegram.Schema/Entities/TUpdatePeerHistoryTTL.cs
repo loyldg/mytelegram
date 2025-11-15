@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The Time-To-Live for messages sent by the current user in a specific chat has changed
-/// See <a href="https://corefork.telegram.org/constructor/updatePeerHistoryTTL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePeerHistoryTTL" /></para>
+/// </summary>
 [TlObject(0xbb9bb9a5)]
-public sealed class TUpdatePeerHistoryTTL : IUpdate
+public sealed partial class TUpdatePeerHistoryTTL : IUpdate
 {
     public uint ConstructorId => 0xbb9bb9a5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The chat
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new Time-To-Live
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
     public void ComputeFlag()

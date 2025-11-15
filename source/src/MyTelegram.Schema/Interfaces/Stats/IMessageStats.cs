@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Message statistics
-/// See <a href="https://corefork.telegram.org/type/stats.MessageStats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/stats.MessageStats" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageStats"/> See <a href="https://corefork.telegram.org/constructor/stats.messageStats" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageStats), nameof(TMessageStats))]
 public interface IMessageStats : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Message view graph
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStatsGraph ViewsGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A graph containing the number of reactions on stories categorized by emotion
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStatsGraph ReactionsByEmotionGraph { get; set; }
 }

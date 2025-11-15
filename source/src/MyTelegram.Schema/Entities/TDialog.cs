@@ -2,95 +2,95 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chat
-/// See <a href="https://corefork.telegram.org/constructor/dialog" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dialog" /></para>
+/// </summary>
 [TlObject(0xd58a08c6)]
-public sealed class TDialog : ILayeredDialog
+public sealed partial class TDialog : ILayeredDialog
 {
     public uint ConstructorId => 0xd58a08c6;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is the dialog pinned
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the chat was manually marked as unread
-    ///</summary>
+    /// </summary>
     public bool UnreadMark { get; set; }
 
-    ///<summary>
-    /// Users may also choose to display messages from all topics of a <a href="https://corefork.telegram.org/api/forum">forum</a> as if they were sent to a normal group, using a "View as messages" setting in the local client.  <br>This setting only affects the current account, and is synced to other logged in sessions using the <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages">channels.toggleViewForumAsMessages</a> method; invoking this method will update the value of this flag.
-    ///</summary>
+    /// <summary>
+    /// Users may also choose to display messages from all topics of a <a href="https://corefork.telegram.org/api/forum">forum</a> as if they were sent to a normal group, using a "View as messages" setting in the local client.  <br/>This setting only affects the current account, and is synced to other logged in sessions using the <a href="https://corefork.telegram.org/method/channels.toggleViewForumAsMessages">channels.toggleViewForumAsMessages</a> method; invoking this method will update the value of this flag.
+    /// </summary>
     public bool ViewForumAsMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The chat
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The latest message ID
-    ///</summary>
+    /// </summary>
     public int TopMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position up to which all incoming messages are read.
-    ///</summary>
+    /// </summary>
     public int ReadInboxMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position up to which all outgoing messages are read.
-    ///</summary>
+    /// </summary>
     public int ReadOutboxMaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread messages
-    ///</summary>
+    /// </summary>
     public int UnreadCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of <a href="https://corefork.telegram.org/api/mentions">unread mentions</a>
-    ///</summary>
+    /// </summary>
     public int UnreadMentionsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread reactions to messages you sent
-    ///</summary>
+    /// </summary>
     public int UnreadReactionsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification settings
     /// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">PTS</a>
-    ///</summary>
+    /// </summary>
     public int? Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message <a href="https://corefork.telegram.org/api/drafts">draft</a>
     /// See <a href="https://corefork.telegram.org/type/DraftMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDraftMessage? Draft { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time-to-live of all messages sent in this dialog
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
     public void ComputeFlag()

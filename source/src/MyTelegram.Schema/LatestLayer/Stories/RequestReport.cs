@@ -2,37 +2,40 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Report a story.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.report" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.report" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x19d8eb45)]
-public sealed class RequestReport : IRequest<MyTelegram.Schema.IReportResult>
+public sealed partial class RequestReport : IRequest<MyTelegram.Schema.IReportResult>
 {
     public uint ConstructorId => 0x19d8eb45;
 
-    ///<summary>
+    /// <summary>
     /// The peer that uploaded the story.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of the stories to report.
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Menu option, intially empty
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Option { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Comment for report moderation
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
     public void ComputeFlag()

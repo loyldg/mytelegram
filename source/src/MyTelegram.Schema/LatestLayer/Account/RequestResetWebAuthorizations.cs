@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Reset all active web <a href="https://corefork.telegram.org/widgets/login">telegram login</a> sessions
-/// See <a href="https://corefork.telegram.org/method/account.resetWebAuthorizations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.resetWebAuthorizations" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x682d2594)]
-public sealed class RequestResetWebAuthorizations : IRequest<IBool>
+public sealed partial class RequestResetWebAuthorizations : IRequest<IBool>
 {
     public uint ConstructorId => 0x682d2594;
 

@@ -2,56 +2,60 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Reply to a message.
-/// See <a href="https://corefork.telegram.org/constructor/inputReplyToMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputReplyToMessage" /></para>
+/// </summary>
 [TlObject(0x869fbe10)]
-public sealed class TInputReplyToMessage : IInputReplyTo
+public sealed partial class TInputReplyToMessage : IInputReplyTo
 {
     public uint ConstructorId => 0x869fbe10;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message ID to reply to.
-    ///</summary>
+    /// </summary>
     public int ReplyToMsgId { get; set; }
 
-    ///<summary>
-    /// This field must contain the topic ID <strong>only</strong> when replying to messages in forum topics different from the "General" topic (i.e. <code>reply_to_msg_id</code> is set and <code>reply_to_msg_id != topicID</code> and <code>topicID != 1</code>).  <br>If the replied-to message is deleted before the method finishes execution, the value in this field will be used to send the message to the correct topic, instead of the "General" topic.
-    ///</summary>
+    /// <summary>
+    /// This field must contain the topic ID <strong>only</strong> when replying to messages in forum topics different from the "General" topic (i.e. <code>reply_to_msg_id</code> is set and <code>reply_to_msg_id != topicID</code> and <code>topicID != 1</code>).  <br/>If the replied-to message is deleted before the method finishes execution, the value in this field will be used to send the message to the correct topic, instead of the "General" topic.
+    /// </summary>
     public int? TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used to reply to messages sent to another chat (specified here), can only be used for non-<code>protected</code> chats and messages.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ReplyToPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used to quote-reply to only a certain section (specified here) of the original message. The maximum UTF-8 length for quotes is specified in the <a href="https://corefork.telegram.org/api/config#quote-length-max">quote_length_max</a> config key.
-    ///</summary>
+    /// </summary>
     public string? QuoteText { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a> from the <code>quote_text</code> field.
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? QuoteEntities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset of the message <code>quote_text</code> within the original message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>).
-    ///</summary>
+    /// </summary>
     public int? QuoteOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Must be set to the ID of the topic when replying to a message within a <a href="https://corefork.telegram.org/api/monoforum">monoforum topic</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? MonoforumPeerId { get; set; }
 
+    /// <summary>
+    /// Can be set to reply to the specified item of a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+    /// </summary>
     public int? TodoItemId { get; set; }
 
     public void ComputeFlag()

@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Upload a media file associated with an <a href="https://corefork.telegram.org/api/import">imported chat, click here for more info »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 IMPORT_ID_INVALID The specified import ID is invalid.
-/// 400 MEDIA_INVALID Media invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.uploadImportedMedia" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 IMPORT_ID_INVALID The specified import ID is invalid.</c></para>
+/// <para><c>400 MEDIA_INVALID Media invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.uploadImportedMedia" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2a862092)]
-public sealed class RequestUploadImportedMedia : IRequest<MyTelegram.Schema.IMessageMedia>
+public sealed partial class RequestUploadImportedMedia : IRequest<MyTelegram.Schema.IMessageMedia>
 {
     public uint ConstructorId => 0x2a862092;
 
-    ///<summary>
+    /// <summary>
     /// The Telegram chat where the media will be imported
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of a <a href="https://corefork.telegram.org/api/import">history import session</a>, returned by <a href="https://corefork.telegram.org/method/messages.initHistoryImport">messages.initHistoryImport</a>
-    ///</summary>
+    /// </summary>
     public long ImportId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File name
-    ///</summary>
+    /// </summary>
     public string FileName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media metadata
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia Media { get; set; }
 
     public void ComputeFlag()

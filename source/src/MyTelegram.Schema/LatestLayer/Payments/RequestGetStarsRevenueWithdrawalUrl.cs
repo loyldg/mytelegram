@@ -2,40 +2,49 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// Withdraw funds from a channel or bot's <a href="https://corefork.telegram.org/api/stars#withdrawing-stars">star balance »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PASSWORD_HASH_INVALID The provided password hash is invalid.
-/// 400 PASSWORD_MISSING You must <a href="https://corefork.telegram.org/api/srp">enable 2FA</a> before executing this operation.
-/// 400 PASSWORD_TOO_FRESH_%d The password was modified less than 24 hours ago, try again in %d seconds.
-/// 400 SESSION_TOO_FRESH_%d This session was created less than 24 hours ago, try again in %d seconds.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsRevenueWithdrawalUrl" />
-///</summary>
+/// <summary>
+/// Withdraw funds from a channel or bot's <a href="https://corefork.telegram.org/api/stars#withdrawing-revenue">star balance »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PASSWORD_HASH_INVALID The provided password hash is invalid.</c></para>
+/// <para><c>400 PASSWORD_MISSING You must <a href="https://corefork.telegram.org/api/srp">enable 2FA</a> before executing this operation.</c></para>
+/// <para><c>400 PASSWORD_TOO_FRESH_%d The password was modified less than 24 hours ago, try again in %d seconds.</c></para>
+/// <para><c>400 SESSION_TOO_FRESH_%d This session was created less than 24 hours ago, try again in %d seconds. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsRevenueWithdrawalUrl" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2433dc92)]
-public sealed class RequestGetStarsRevenueWithdrawalUrl : IRequest<MyTelegram.Schema.Payments.IStarsRevenueWithdrawalUrl>
+public sealed partial class RequestGetStarsRevenueWithdrawalUrl : IRequest<MyTelegram.Schema.Payments.IStarsRevenueWithdrawalUrl>
 {
     public uint ConstructorId => 0x2433dc92;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// If set, withdraws channel/ad revenue in TON.
+    /// </summary>
     public bool Ton { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel or bot from which to withdraw funds.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// The amount of stars or nanotons to withdraw.
+    /// </summary>
     public long? Amount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 2FA password, see <a href="https://corefork.telegram.org/api/srp#using-the-2fa-password">here »</a> for more info.
     /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
 
     public void ComputeFlag()

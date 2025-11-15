@@ -2,24 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/disallowedGiftsSettings" />
-///</summary>
+/// <summary>
+/// Disallow the reception of specific <a href="https://corefork.telegram.org/api/gifts">gift</a> types.
+/// <para>See <a href="https://corefork.telegram.org/constructor/disallowedGiftsSettings" /></para>
+/// </summary>
 [TlObject(0x71f276c4)]
-public sealed class TDisallowedGiftsSettings : IDisallowedGiftsSettings
+public sealed partial class TDisallowedGiftsSettings : IDisallowedGiftsSettings
 {
     public uint ConstructorId => 0x71f276c4;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Disallow the reception of gifts with an unlimited supply (those with the <a href="https://corefork.telegram.org/constructor/starGift">starGift</a>.<code>limited</code> flag <strong>not</strong> set).
+    /// </summary>
     public bool DisallowUnlimitedStargifts { get; set; }
 
+    /// <summary>
+    /// Disallow the reception of limited-supply gifts (those with the <a href="https://corefork.telegram.org/constructor/starGift">starGift</a>.<code>limited</code> flag set).
+    /// </summary>
     public bool DisallowLimitedStargifts { get; set; }
 
+    /// <summary>
+    /// Disallow the reception of <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gifts »</a>.
+    /// </summary>
     public bool DisallowUniqueStargifts { get; set; }
 
+    /// <summary>
+    /// Disallow the reception of <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">gifted Telegram Premium subscriptions »</a>.
+    /// </summary>
     public bool DisallowPremiumGifts { get; set; }
 
     public void ComputeFlag()

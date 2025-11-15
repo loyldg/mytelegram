@@ -2,35 +2,35 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Incomplete list of blocked users.
-/// See <a href="https://corefork.telegram.org/constructor/contacts.blockedSlice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.blockedSlice" /></para>
+/// </summary>
 [TlObject(0xe1664194)]
-public sealed class TBlockedSlice : IBlocked
+public sealed partial class TBlockedSlice : IBlocked
 {
     public uint ConstructorId => 0xe1664194;
-    ///<summary>
+    /// <summary>
     /// Total number of elements in the list
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of blocked users
     /// See <a href="https://corefork.telegram.org/type/PeerBlocked" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeerBlocked> Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Blocked chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

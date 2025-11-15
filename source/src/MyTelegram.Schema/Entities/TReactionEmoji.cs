@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Normal emoji message reaction
-/// See <a href="https://corefork.telegram.org/constructor/reactionEmoji" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/reactionEmoji" /></para>
+/// </summary>
 [TlObject(0x1b2286b8)]
-public sealed class TReactionEmoji : IReaction
+public sealed partial class TReactionEmoji : IReaction
 {
     public uint ConstructorId => 0x1b2286b8;
-    ///<summary>
+    /// <summary>
     /// Emoji
-    ///</summary>
+    /// </summary>
     public string Emoticon { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,23 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/users.usersSlice" />
-///</summary>
+/// <summary>
+/// Describes a partial list of users.
+/// <para>See <a href="https://corefork.telegram.org/constructor/users.usersSlice" /></para>
+/// </summary>
 [TlObject(0x315a4974)]
-public sealed class TUsersSlice : IUsers
+public sealed partial class TUsersSlice : IUsers
 {
     public uint ConstructorId => 0x315a4974;
+    /// <summary>
+    /// Total number of users (bigger than the users specified in <code>users</code>)
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Subset of users.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

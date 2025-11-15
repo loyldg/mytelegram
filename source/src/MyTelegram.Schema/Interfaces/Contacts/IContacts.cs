@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Info on the current user's contact list.
-/// See <a href="https://corefork.telegram.org/type/contacts.Contacts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/contacts.Contacts" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TContactsNotModified"/> See <a href="https://corefork.telegram.org/constructor/contacts.contactsNotModified" /><br/>
+/// <see cref="TContacts"/> See <a href="https://corefork.telegram.org/constructor/contacts.contacts" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TContactsNotModified), nameof(TContactsNotModified))]
 [JsonDerivedType(typeof(TContacts), nameof(TContacts))]
 public interface IContacts : IObject

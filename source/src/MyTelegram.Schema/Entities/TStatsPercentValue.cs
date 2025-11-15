@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// <a href="https://corefork.telegram.org/api/stats">Channel statistics percentage</a>.<br>
+/// <summary>
+/// <a href="https://corefork.telegram.org/api/stats">Channel statistics percentage</a>.<br/>
 /// Compute the percentage simply by doing <code>part * total / 100</code>
-/// See <a href="https://corefork.telegram.org/constructor/statsPercentValue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsPercentValue" /></para>
+/// </summary>
 [TlObject(0xcbce2fe0)]
-public sealed class TStatsPercentValue : IStatsPercentValue
+public sealed partial class TStatsPercentValue : IStatsPercentValue
 {
     public uint ConstructorId => 0xcbce2fe0;
-    ///<summary>
+    /// <summary>
     /// Partial value
-    ///</summary>
+    /// </summary>
     public double Part { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total value
-    ///</summary>
+    /// </summary>
     public double Total { get; set; }
 
     public void ComputeFlag()

@@ -2,110 +2,111 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chat invite info
-/// See <a href="https://corefork.telegram.org/constructor/chatInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatInvite" /></para>
+/// </summary>
 [TlObject(0x5c9d3702)]
-public sealed class TChatInvite : IChatInvite
+public sealed partial class TChatInvite : IChatInvite
 {
     public uint ConstructorId => 0x5c9d3702;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> or a <a href="https://corefork.telegram.org/api/channel">normal group</a>
-    ///</summary>
+    /// </summary>
     public bool Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a <a href="https://corefork.telegram.org/api/channel">channel</a>
-    ///</summary>
+    /// </summary>
     public bool Broadcast { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a public <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-    ///</summary>
+    /// </summary>
     public bool Public { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a <a href="https://corefork.telegram.org/api/channel">supergroup</a>
-    ///</summary>
+    /// </summary>
     public bool Megagroup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a> must be first approved by an administrator
-    ///</summary>
+    /// </summary>
     public bool RequestNeeded { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this chat or channel verified by Telegram?
-    ///</summary>
+    /// </summary>
     public bool Verified { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This chat is probably a scam
-    ///</summary>
+    /// </summary>
     public bool Scam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this chat was reported by many users as a fake or scam: be careful when interacting with it.
-    ///</summary>
+    /// </summary>
     public bool Fake { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the user has already paid for the associated <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscriptions »</a> and it hasn't expired yet, so they may re-join the channel using <a href="https://corefork.telegram.org/method/messages.importChatInvite">messages.importChatInvite</a> without repeating the payment.
-    ///</summary>
+    /// </summary>
     public bool CanRefulfillSubscription { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat/supergroup/channel title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description of the group of channel
-    ///</summary>
+    /// </summary>
     public string? About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat/supergroup/channel photo
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participant count
-    ///</summary>
+    /// </summary>
     public int ParticipantsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A few of the participants that are in the group
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser>? Participants { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/colors">Profile color palette ID</a>
-    ///</summary>
+    /// </summary>
     public int Color { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscriptions »</a>, contains the pricing of the subscription the user must activate to join the private channel.
     /// See <a href="https://corefork.telegram.org/type/StarsSubscriptionPricing" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsSubscriptionPricing? SubscriptionPricing { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscriptions »</a>, the ID of the payment form for the subscription.
-    ///</summary>
+    /// </summary>
     public long? SubscriptionFormId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Describes a <a href="https://corefork.telegram.org/api/bots/verification">bot verification icon »</a>.
     /// See <a href="https://corefork.telegram.org/type/BotVerification" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotVerification? BotVerification { get; set; }
 
     public void ComputeFlag()

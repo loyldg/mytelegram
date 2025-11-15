@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether the user accepts voice messages
-/// See <a href="https://corefork.telegram.org/constructor/privacyKeyVoiceMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyKeyVoiceMessages" /></para>
+/// </summary>
 [TlObject(0x697f414)]
-public sealed class TPrivacyKeyVoiceMessages : IPrivacyKey
+public sealed partial class TPrivacyKeyVoiceMessages : IPrivacyKey
 {
     public uint ConstructorId => 0x697f414;
     public void ComputeFlag()

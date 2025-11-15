@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Contains various <a href="https://corefork.telegram.org/api/config#client-configuration">client configuration parameters</a>
-/// See <a href="https://corefork.telegram.org/constructor/help.appConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.appConfig" /></para>
+/// </summary>
 [TlObject(0xdd18782e)]
-public sealed class TAppConfig : IAppConfig
+public sealed partial class TAppConfig : IAppConfig
 {
     public uint ConstructorId => 0xdd18782e;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/config#client-configuration">Client configuration parameters</a>
     /// See <a href="https://corefork.telegram.org/type/JSONValue" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IJSONValue Config { get; set; }
 
     public void ComputeFlag()

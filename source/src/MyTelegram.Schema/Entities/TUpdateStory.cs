@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new story was posted.
-/// See <a href="https://corefork.telegram.org/constructor/updateStory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateStory" /></para>
+/// </summary>
 [TlObject(0x75b3b798)]
-public sealed class TUpdateStory : IUpdate
+public sealed partial class TUpdateStory : IUpdate
 {
     public uint ConstructorId => 0x75b3b798;
-    ///<summary>
+    /// <summary>
     /// ID of the poster.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The story that was posted.
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoryItem Story { get; set; }
 
     public void ComputeFlag()

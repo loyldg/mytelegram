@@ -2,62 +2,71 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Join a group call
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DATA_JSON_INVALID The provided JSON data is invalid.
-/// 403 GROUPCALL_FORBIDDEN The group call has already ended.
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 400 GROUPCALL_SSRC_DUPLICATE_MUCH The app needs to retry joining the group call with a new SSRC value.
-/// 400 JOIN_AS_PEER_INVALID The specified peer cannot be used to join a group call.
-/// See <a href="https://corefork.telegram.org/method/phone.joinGroupCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DATA_JSON_INVALID The provided JSON data is invalid.</c></para>
+/// <para><c>403 GROUPCALL_FORBIDDEN The group call has already ended.</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>400 GROUPCALL_SSRC_DUPLICATE_MUCH The app needs to retry joining the group call with a new SSRC value.</c></para>
+/// <para><c>400 JOIN_AS_PEER_INVALID The specified peer cannot be used to join a group call. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.joinGroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8fb53057)]
-public sealed class RequestJoinGroupCall : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestJoinGroupCall : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x8fb53057;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the user will be muted by default upon joining.
-    ///</summary>
+    /// </summary>
     public bool Muted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the user's video will be disabled by default upon joining.
-    ///</summary>
+    /// </summary>
     public bool VideoStopped { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Join the group call, presenting yourself as the specified user/channel
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer JoinAs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The invitation hash from the <a href="https://corefork.telegram.org/api/links#video-chat-livestream-links">invite link »</a>, if provided allows speaking in a livestream or muted group chat.
-    ///</summary>
+    /// </summary>
     public string? InviteHash { get; set; }
 
+    /// <summary>
+    /// For conference calls, your public key.
+    /// </summary>
     public ReadOnlyMemory<byte>? PublicKey { get; set; }
 
+    /// <summary>
+    /// The <a href="https://corefork.telegram.org/api/end-to-end/group-calls">block containing an appropriate e2e.chain.changeSetGroupState event</a>.
+    /// </summary>
     public ReadOnlyMemory<byte>? Block { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// WebRTC parameters
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Params { get; set; }
 
     public void ComputeFlag()

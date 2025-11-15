@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// View and search recently sent media.<br>
+/// <summary>
+/// View and search recently sent media.<br/>
 /// This method does not support pagination.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.
-/// See <a href="https://corefork.telegram.org/method/messages.searchSentMedia" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.searchSentMedia" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x107e31a0)]
-public sealed class RequestSearchSentMedia : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestSearchSentMedia : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0x107e31a0;
 
-    ///<summary>
+    /// <summary>
     /// Optional search query
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message filter
     /// See <a href="https://corefork.telegram.org/type/MessagesFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessagesFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return (max 100).
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

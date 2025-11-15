@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Myself
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantSelf" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantSelf" /></para>
+/// </summary>
 [TlObject(0x4f607bef)]
-public sealed class TChannelParticipantSelf : IChannelParticipant
+public sealed partial class TChannelParticipantSelf : IChannelParticipant
 {
     public uint ConstructorId => 0x4f607bef;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether I joined upon specific approval of an admin
-    ///</summary>
+    /// </summary>
     public bool ViaRequest { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User that invited me to the channel/supergroup
-    ///</summary>
+    /// </summary>
     public long InviterId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did I join the channel/supergroup
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains the expiration date of the current <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscription period »</a> for the specified participant.
-    ///</summary>
+    /// </summary>
     public int? SubscriptionUntilDate { get; set; }
 
     public void ComputeFlag()

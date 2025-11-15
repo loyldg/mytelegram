@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// A list of saved notification sounds
-/// See <a href="https://corefork.telegram.org/constructor/account.savedRingtones" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.savedRingtones" /></para>
+/// </summary>
 [TlObject(0xc1e92cc5)]
-public sealed class TSavedRingtones : ISavedRingtones
+public sealed partial class TSavedRingtones : ISavedRingtones
 {
     public uint ConstructorId => 0xc1e92cc5;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Saved notification sounds
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Ringtones { get; set; }
 
     public void ComputeFlag()

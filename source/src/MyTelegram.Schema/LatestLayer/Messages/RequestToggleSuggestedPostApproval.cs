@@ -2,30 +2,50 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/messages.toggleSuggestedPostApproval" />
-///</summary>
+/// <summary>
+/// Approve or reject a <a href="https://corefork.telegram.org/api/suggested-posts">suggested post »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.toggleSuggestedPostApproval" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8107455c)]
-public sealed class RequestToggleSuggestedPostApproval : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleSuggestedPostApproval : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x8107455c;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Reject the suggested post.
+    /// </summary>
     public bool Reject { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Both for users and channels, must contain the ID of the <a href="https://corefork.telegram.org/api/monoforum">direct messages monoforum »</a> (for channels, the topic ID is extracted automatically from the <code>msg_id</code>).
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// ID of the suggestion message.
+    /// </summary>
     public int MsgId { get; set; }
 
+    /// <summary>
+    /// Custom scheduling date.
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
+    /// <summary>
+    /// Optional comment for rejections (can only be used if <code>reject</code> is set).
+    /// </summary>
     public string? RejectComment { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Item in block list
-/// See <a href="https://corefork.telegram.org/type/PageListItem" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PageListItem" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPageListItemText"/> See <a href="https://corefork.telegram.org/constructor/pageListItemText" /><br/>
+/// <see cref="TPageListItemBlocks"/> See <a href="https://corefork.telegram.org/constructor/pageListItemBlocks" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPageListItemText), nameof(TPageListItemText))]
 [JsonDerivedType(typeof(TPageListItemBlocks), nameof(TPageListItemBlocks))]
 public interface IPageListItem : IObject

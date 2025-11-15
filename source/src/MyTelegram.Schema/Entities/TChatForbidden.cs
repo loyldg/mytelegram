@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A group to which the user has no access. E.g., because the user was kicked from the group.
-/// See <a href="https://corefork.telegram.org/constructor/chatForbidden" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatForbidden" /></para>
+/// </summary>
 [TlObject(0x6592a1a7)]
-public sealed class TChatForbidden : IChat
+public sealed partial class TChatForbidden : IChat
 {
     public uint ConstructorId => 0x6592a1a7;
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group name
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

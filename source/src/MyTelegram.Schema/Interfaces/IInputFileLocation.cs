@@ -2,10 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines the location of a file for download.
-/// See <a href="https://corefork.telegram.org/type/InputFileLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputFileLocation" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputFileLocation" /><br/>
+/// <see cref="TInputEncryptedFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputEncryptedFileLocation" /><br/>
+/// <see cref="TInputDocumentFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputDocumentFileLocation" /><br/>
+/// <see cref="TInputSecureFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputSecureFileLocation" /><br/>
+/// <see cref="TInputTakeoutFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputTakeoutFileLocation" /><br/>
+/// <see cref="TInputPhotoFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputPhotoFileLocation" /><br/>
+/// <see cref="TInputPhotoLegacyFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputPhotoLegacyFileLocation" /><br/>
+/// <see cref="TInputPeerPhotoFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputPeerPhotoFileLocation" /><br/>
+/// <see cref="TInputStickerSetThumb"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetThumb" /><br/>
+/// <see cref="TInputGroupCallStream"/> See <a href="https://corefork.telegram.org/constructor/inputGroupCallStream" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputFileLocation), nameof(TInputFileLocation))]
 [JsonDerivedType(typeof(TInputEncryptedFileLocation), nameof(TInputEncryptedFileLocation))]
 [JsonDerivedType(typeof(TInputDocumentFileLocation), nameof(TInputDocumentFileLocation))]

@@ -2,59 +2,59 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Photo
-/// See <a href="https://corefork.telegram.org/constructor/photo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photo" /></para>
+/// </summary>
 [TlObject(0xfb197a65)]
-public sealed class TPhoto : IPhoto
+public sealed partial class TPhoto : IPhoto
 {
     public uint ConstructorId => 0xfb197a65;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the photo has mask stickers attached to it
-    ///</summary>
+    /// </summary>
     public bool HasStickers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/file_reference">file reference</a>
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/file-references">file reference</a>
+    /// </summary>
     public byte[] FileReference { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of upload
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Available sizes for download
     /// See <a href="https://corefork.telegram.org/type/PhotoSize" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPhotoSize> Sizes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#animated-profile-pictures">For animated profiles</a>, the MPEG4 videos
     /// See <a href="https://corefork.telegram.org/type/VideoSize" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IVideoSize>? VideoSizes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// DC ID to use for download
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
     public void ComputeFlag()

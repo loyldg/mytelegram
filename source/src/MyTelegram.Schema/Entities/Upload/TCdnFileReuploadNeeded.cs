@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// The file was cleared from the temporary RAM cache of the <a href="https://corefork.telegram.org/cdn">CDN</a> and has to be re-uploaded.
-/// See <a href="https://corefork.telegram.org/constructor/upload.cdnFileReuploadNeeded" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/upload.cdnFileReuploadNeeded" /></para>
+/// </summary>
 [TlObject(0xeea8e46e)]
-public sealed class TCdnFileReuploadNeeded : ICdnFile
+public sealed partial class TCdnFileReuploadNeeded : ICdnFile
 {
     public uint ConstructorId => 0xeea8e46e;
-    ///<summary>
+    /// <summary>
     /// Request token (see <a href="https://corefork.telegram.org/cdn">CDN</a>)
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> RequestToken { get; set; }
 
     public void ComputeFlag()

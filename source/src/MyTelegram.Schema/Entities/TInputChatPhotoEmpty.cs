@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor, remove group photo.
-/// See <a href="https://corefork.telegram.org/constructor/inputChatPhotoEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputChatPhotoEmpty" /></para>
+/// </summary>
 [TlObject(0x1ca48f57)]
-public sealed class TInputChatPhotoEmpty : IInputChatPhoto
+public sealed partial class TInputChatPhotoEmpty : IInputChatPhoto
 {
     public uint ConstructorId => 0x1ca48f57;
     public void ComputeFlag()

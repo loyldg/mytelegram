@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Exported <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/exportedChatlistInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/exportedChatlistInvite" /></para>
+/// </summary>
 [TlObject(0xc5181ac)]
-public sealed class TExportedChatlistInvite : IExportedChatlistInvite
+public sealed partial class TExportedChatlistInvite : IExportedChatlistInvite
 {
     public uint ConstructorId => 0xc5181ac;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the link
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peers to import
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
 
     public void ComputeFlag()

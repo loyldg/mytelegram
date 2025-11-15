@@ -2,73 +2,77 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New document
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedDocument" /></para>
+/// </summary>
 [TlObject(0x37c9330)]
-public sealed class TInputMediaUploadedDocument : IInputMedia
+public sealed partial class TInputMediaUploadedDocument : IInputMedia
 {
     public uint ConstructorId => 0x37c9330;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to send the file as a video even if it doesn't have an audio track (i.e. if set, the <a href="https://corefork.telegram.org/constructor/documentAttributeAnimated">documentAttributeAnimated</a> attribute will <strong>not</strong> be set even for videos without audio)
-    ///</summary>
+    /// </summary>
     public bool NosoundVideo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Force the media file to be uploaded as document
-    ///</summary>
+    /// </summary>
     public bool ForceFile { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this media should be hidden behind a spoiler warning
-    ///</summary>
+    /// </summary>
     public bool Spoiler { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/files">uploaded file</a>
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile File { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail of the document, uploaded as for the file
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile? Thumb { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MIME type of document
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attributes that specify the type of the document (video, audio, voice, sticker, etc.)
     /// See <a href="https://corefork.telegram.org/type/DocumentAttribute" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocumentAttribute> Attributes { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attached stickers
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputDocument>? Stickers { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Start playing the video at the specified timestamp (seconds).
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoto? VideoCover { get; set; }
 
+    /// <summary>
+    /// Start playing the video at the specified timestamp (seconds).
+    /// </summary>
     public int? VideoTimestamp { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time to live in seconds of self-destructing document
-    ///</summary>
+    /// </summary>
     public int? TtlSeconds { get; set; }
 
     public void ComputeFlag()

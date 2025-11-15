@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// A list of <a href="https://corefork.telegram.org/api/emoji-status">emoji statuses</a>
-/// See <a href="https://corefork.telegram.org/constructor/account.emojiStatuses" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.emojiStatuses" /></para>
+/// </summary>
 [TlObject(0x90c467d1)]
-public sealed class TEmojiStatuses : IEmojiStatuses
+public sealed partial class TEmojiStatuses : IEmojiStatuses
 {
     public uint ConstructorId => 0x90c467d1;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/emoji-status">Emoji statuses</a>
     /// See <a href="https://corefork.telegram.org/type/EmojiStatus" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IEmojiStatus> Statuses { get; set; }
 
     public void ComputeFlag()

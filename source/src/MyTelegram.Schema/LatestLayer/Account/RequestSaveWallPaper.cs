@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Install/uninstall <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 WALLPAPER_INVALID The specified wallpaper is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.saveWallPaper" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 WALLPAPER_INVALID The specified wallpaper is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.saveWallPaper" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6c5a5b37)]
-public sealed class RequestSaveWallPaper : IRequest<IBool>
+public sealed partial class RequestSaveWallPaper : IRequest<IBool>
 {
     public uint ConstructorId => 0x6c5a5b37;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> to install or uninstall
     /// See <a href="https://corefork.telegram.org/type/InputWallPaper" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputWallPaper Wallpaper { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Uninstall wallpaper?
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Unsave { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Wallpaper settings
     /// See <a href="https://corefork.telegram.org/type/WallPaperSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaperSettings Settings { get; set; }
 
     public void ComputeFlag()

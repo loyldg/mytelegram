@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Driver's license
-/// See <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense" /></para>
+/// </summary>
 [TlObject(0x6e425c4)]
-public sealed class TSecureValueTypeDriverLicense : ISecureValueType
+public sealed partial class TSecureValueTypeDriverLicense : ISecureValueType
 {
     public uint ConstructorId => 0x6e425c4;
     public void ComputeFlag()

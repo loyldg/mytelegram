@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Saved credit card
-/// See <a href="https://corefork.telegram.org/constructor/paymentSavedCredentialsCard" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/paymentSavedCredentialsCard" /></para>
+/// </summary>
 [TlObject(0xcdc27a1f)]
-public sealed class TPaymentSavedCredentialsCard : IPaymentSavedCredentials
+public sealed partial class TPaymentSavedCredentialsCard : IPaymentSavedCredentials
 {
     public uint ConstructorId => 0xcdc27a1f;
-    ///<summary>
+    /// <summary>
     /// Card ID
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

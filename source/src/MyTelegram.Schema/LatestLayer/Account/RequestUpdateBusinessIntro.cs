@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Set or remove the <a href="https://corefork.telegram.org/api/business#business-introduction">Telegram Business introduction »</a>.
-/// See <a href="https://corefork.telegram.org/method/account.updateBusinessIntro" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateBusinessIntro" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa614d034)]
-public sealed class RequestUpdateBusinessIntro : IRequest<IBool>
+public sealed partial class RequestUpdateBusinessIntro : IRequest<IBool>
 {
     public uint ConstructorId => 0xa614d034;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram Business introduction, to remove it call the method without setting this flag.
     /// See <a href="https://corefork.telegram.org/type/InputBusinessIntro" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBusinessIntro? Intro { get; set; }
 
     public void ComputeFlag()

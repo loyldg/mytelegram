@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Translated localization string
-/// See <a href="https://corefork.telegram.org/constructor/langPackString" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/langPackString" /></para>
+/// </summary>
 [TlObject(0xcad181f6)]
-public sealed class TLangPackString : ILangPackString
+public sealed partial class TLangPackString : ILangPackString
 {
     public uint ConstructorId => 0xcad181f6;
-    ///<summary>
+    /// <summary>
     /// Language key
-    ///</summary>
+    /// </summary>
     public string Key { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value
-    ///</summary>
+    /// </summary>
     public string Value { get; set; }
 
     public void ComputeFlag()

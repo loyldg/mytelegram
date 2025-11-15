@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Contains info about <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-app-previews">Main Mini App previews, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/bots.previewInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/bots.previewInfo" /></para>
+/// </summary>
 [TlObject(0xca71d64)]
-public sealed class TPreviewInfo : IPreviewInfo
+public sealed partial class TPreviewInfo : IPreviewInfo
 {
     public uint ConstructorId => 0xca71d64;
-    ///<summary>
+    /// <summary>
     /// All preview medias for the language code passed to <a href="https://corefork.telegram.org/method/bots.getPreviewInfo">bots.getPreviewInfo</a>.
     /// See <a href="https://corefork.telegram.org/type/BotPreviewMedia" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBotPreviewMedia> Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All available language codes for which preview medias were uploaded (regardless of the language code passed to <a href="https://corefork.telegram.org/method/bots.getPreviewInfo">bots.getPreviewInfo</a>).
-    ///</summary>
+    /// </summary>
     public TVector<string> LangCodes { get; set; }
 
     public void ComputeFlag()

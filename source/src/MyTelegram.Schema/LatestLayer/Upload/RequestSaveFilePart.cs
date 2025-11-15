@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Saves a part of file for further sending to one of the methods.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILE_PART_EMPTY The provided file part is empty.
-/// 400 FILE_PART_INVALID The file part number is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/upload.saveFilePart" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILE_PART_EMPTY The provided file part is empty.</c></para>
+/// <para><c>400 FILE_PART_INVALID The file part number is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/upload.saveFilePart" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb304a621)]
-public sealed class RequestSaveFilePart : IRequest<IBool>
+public sealed partial class RequestSaveFilePart : IRequest<IBool>
 {
     public uint ConstructorId => 0xb304a621;
 
-    ///<summary>
+    /// <summary>
     /// Random file identifier created by the client
-    ///</summary>
+    /// </summary>
     public long FileId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Numerical order of a part
-    ///</summary>
+    /// </summary>
     public int FilePart { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Binary data, content of a part
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

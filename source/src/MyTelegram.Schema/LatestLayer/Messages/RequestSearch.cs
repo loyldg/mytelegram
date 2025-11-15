@@ -2,112 +2,116 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Search for messages.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 FROM_PEER_INVALID The specified from_id is invalid.
-/// 400 INPUT_FILTER_INVALID The specified filter is invalid.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 PEER_ID_NOT_SUPPORTED The provided peer ID is not supported.
-/// 400 SEARCH_QUERY_EMPTY The search query is empty.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.search" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 FROM_PEER_INVALID The specified from_id is invalid.</c></para>
+/// <para><c>400 INPUT_FILTER_INVALID The specified filter is invalid.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PEER_ID_NOT_SUPPORTED The provided peer ID is not supported.</c></para>
+/// <para><c>400 SEARCH_QUERY_EMPTY The search query is empty.</c></para>
+/// <para><c>400 TAKEOUT_INVALID The specified takeout ID is invalid.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.search" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x29ee847a)]
-public sealed class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestSearch : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0x29ee847a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User or chat, histories with which are searched, or <a href="https://corefork.telegram.org/constructor/inputPeerEmpty">(inputPeerEmpty)</a> constructor to search in all private chats and <a href="https://corefork.telegram.org/api/channel">normal groups (not channels) »</a>. Use <a href="https://corefork.telegram.org/method/messages.searchGlobal">messages.searchGlobal</a> to search globally in all chats, groups, supergroups and channels.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text search request
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only return messages sent by the specified user ID
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Search within the <a href="https://corefork.telegram.org/api/saved-messages">saved message dialog »</a> with this ID.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? SavedPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// You may search for <a href="https://corefork.telegram.org/api/saved-messages#tags">saved messages tagged »</a> with one or more reactions using this flag.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IReaction>? SavedReaction { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/threads">Thread ID</a>
-    ///</summary>
+    /// </summary>
     public int? TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Filter to return only specified message types
     /// See <a href="https://corefork.telegram.org/type/MessagesFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessagesFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value was transferred, only messages with a sending date bigger than the transferred one will be returned
-    ///</summary>
+    /// </summary>
     public int MinDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value was transferred, only messages with a sending date smaller than the transferred one will be returned
-    ///</summary>
+    /// </summary>
     public int MaxDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only return messages starting from the specified message ID
-    ///</summary>
+    /// </summary>
     public int OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Additional offset</a>
-    ///</summary>
+    /// </summary>
     public int AddOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Number of results to return</a>, can be 0 to only return the message counter.
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Maximum message ID to return</a>
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Minimum message ID to return</a>
-    ///</summary>
+    /// </summary>
     public int MinId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Hash</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Fetch saved notification sounds
-/// See <a href="https://corefork.telegram.org/method/account.getSavedRingtones" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getSavedRingtones" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe1902288)]
-public sealed class RequestGetSavedRingtones : IRequest<MyTelegram.Schema.Account.ISavedRingtones>
+public sealed partial class RequestGetSavedRingtones : IRequest<MyTelegram.Schema.Account.ISavedRingtones>
 {
     public uint ConstructorId => 0xe1902288;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

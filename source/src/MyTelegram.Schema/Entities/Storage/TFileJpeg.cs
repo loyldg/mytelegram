@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// JPEG image. MIME type: <code>image/jpeg</code>.
-/// See <a href="https://corefork.telegram.org/constructor/storage.fileJpeg" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.fileJpeg" /></para>
+/// </summary>
 [TlObject(0x7efe0e)]
-public sealed class TFileJpeg : IFileType
+public sealed partial class TFileJpeg : IFileType
 {
     public uint ConstructorId => 0x7efe0e;
     public void ComputeFlag()

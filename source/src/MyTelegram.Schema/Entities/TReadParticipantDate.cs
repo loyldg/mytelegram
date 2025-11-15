@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about when a certain participant has read a message
-/// See <a href="https://corefork.telegram.org/constructor/readParticipantDate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/readParticipantDate" /></para>
+/// </summary>
 [TlObject(0x4a4ff172)]
-public sealed class TReadParticipantDate : IReadParticipantDate
+public sealed partial class TReadParticipantDate : IReadParticipantDate
 {
     public uint ConstructorId => 0x4a4ff172;
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When the user read the message
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

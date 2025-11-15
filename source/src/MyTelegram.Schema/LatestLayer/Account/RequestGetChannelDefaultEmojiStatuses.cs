@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get a list of default suggested <a href="https://corefork.telegram.org/api/emoji-status">channel emoji statuses</a>.
-/// See <a href="https://corefork.telegram.org/method/account.getChannelDefaultEmojiStatuses" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getChannelDefaultEmojiStatuses" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7727a7d5)]
-public sealed class RequestGetChannelDefaultEmojiStatuses : IRequest<MyTelegram.Schema.Account.IEmojiStatuses>
+public sealed partial class RequestGetChannelDefaultEmojiStatuses : IRequest<MyTelegram.Schema.Account.IEmojiStatuses>
 {
     public uint ConstructorId => 0x7727a7d5;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

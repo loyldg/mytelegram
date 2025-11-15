@@ -2,49 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Document (media of any type except for photos)
-/// See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotInlineResultDocument" /></para>
+/// </summary>
 [TlObject(0xfff8fdc4)]
-public sealed class TInputBotInlineResultDocument : IInputBotInlineResult
+public sealed partial class TInputBotInlineResultDocument : IInputBotInlineResult
 {
     public uint ConstructorId => 0xfff8fdc4;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result ID
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result type (see <a href="https://corefork.telegram.org/bots/api#inlinequeryresult">bot API docs</a>)
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result title
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result description
-    ///</summary>
+    /// </summary>
     public string? Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Document to send
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to send when the result is selected
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessage SendMessage { get; set; }
 
     public void ComputeFlag()

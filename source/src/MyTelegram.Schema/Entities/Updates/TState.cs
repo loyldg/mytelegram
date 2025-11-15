@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Updates state.
-/// See <a href="https://corefork.telegram.org/constructor/updates.state" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates.state" /></para>
+/// </summary>
 [TlObject(0xa56c2a3e)]
-public sealed class TState : IState
+public sealed partial class TState : IState
 {
     public uint ConstructorId => 0xa56c2a3e;
-    ///<summary>
+    /// <summary>
     /// Number of events occurred in a text box
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position in a sequence of updates in secret chats. For further details refer to article <a href="https://corefork.telegram.org/api/end-to-end">secret chats</a>
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of condition
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of sent updates
-    ///</summary>
+    /// </summary>
     public int Seq { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread messages
-    ///</summary>
+    /// </summary>
     public int UnreadCount { get; set; }
 
     public void ComputeFlag()

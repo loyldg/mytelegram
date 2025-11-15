@@ -2,13 +2,16 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Return all message <a href="https://corefork.telegram.org/api/drafts">drafts</a>.<br>
+/// <summary>
+/// Return all message <a href="https://corefork.telegram.org/api/drafts">drafts</a>.<br/>
 /// Returns all the latest <a href="https://corefork.telegram.org/constructor/updateDraftMessage">updateDraftMessage</a> updates related to all chats with drafts.
-/// See <a href="https://corefork.telegram.org/method/messages.getAllDrafts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getAllDrafts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6a3f8d65)]
-public sealed class RequestGetAllDrafts : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestGetAllDrafts : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x6a3f8d65;
 

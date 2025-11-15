@@ -2,72 +2,77 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Save a message <a href="https://corefork.telegram.org/api/drafts">draft</a> associated to a chat.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here&nbsp;»</a> for info on how to properly compute the entity offset/length.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.saveDraft" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.saveDraft" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x54ae308e)]
-public sealed class RequestSaveDraft : IRequest<IBool>
+public sealed partial class RequestSaveDraft : IRequest<IBool>
 {
     public uint ConstructorId => 0x54ae308e;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Disable generation of the webpage preview
-    ///</summary>
+    /// </summary>
     public bool NoWebpage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
-    ///</summary>
+    /// </summary>
     public bool InvertMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the message should be sent in reply to the specified message or story.
     /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination of the message that should be sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The draft
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message <a href="https://corefork.telegram.org/api/entities">entities</a> for styled text
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attached media
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia? Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies a <a href="https://corefork.telegram.org/api/effects">message effect »</a> to use for the message.
-    ///</summary>
+    /// </summary>
     public long? Effect { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Used to <a href="https://corefork.telegram.org/api/suggested-posts">suggest a post to a channel, see here »</a> for more info on the full flow.
     /// See <a href="https://corefork.telegram.org/type/SuggestedPost" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
     public void ComputeFlag()

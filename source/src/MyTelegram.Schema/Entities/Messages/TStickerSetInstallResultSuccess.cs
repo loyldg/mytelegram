@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The stickerset was installed successfully
-/// See <a href="https://corefork.telegram.org/constructor/messages.stickerSetInstallResultSuccess" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.stickerSetInstallResultSuccess" /></para>
+/// </summary>
 [TlObject(0x38641628)]
-public sealed class TStickerSetInstallResultSuccess : IStickerSetInstallResult
+public sealed partial class TStickerSetInstallResultSuccess : IStickerSetInstallResult
 {
     public uint ConstructorId => 0x38641628;
     public void ComputeFlag()

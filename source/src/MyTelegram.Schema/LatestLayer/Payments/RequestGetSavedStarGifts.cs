@@ -2,43 +2,85 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.getSavedStarGifts" />
-///</summary>
+/// <summary>
+/// Fetch the full list of <a href="https://corefork.telegram.org/api/gifts">gifts</a> owned by a peer.Note that unlike what the name suggests, the method can be used to fetch both "saved" and "unsaved" gifts (aka gifts both pinned and not pinned) to the profile, depending on the passed flags.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getSavedStarGifts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa319e569)]
-public sealed class RequestGetSavedStarGifts : IRequest<MyTelegram.Schema.Payments.ISavedStarGifts>
+public sealed partial class RequestGetSavedStarGifts : IRequest<MyTelegram.Schema.Payments.ISavedStarGifts>
 {
     public uint ConstructorId => 0xa319e569;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Exclude gifts not pinned on the profile.
+    /// </summary>
     public bool ExcludeUnsaved { get; set; }
 
+    /// <summary>
+    /// Exclude gifts pinned on the profile.
+    /// </summary>
     public bool ExcludeSaved { get; set; }
 
+    /// <summary>
+    /// Exclude gifts that do not have the <a href="https://corefork.telegram.org/constructor/starGift">starGift</a>.<code>limited</code> flag set.
+    /// </summary>
     public bool ExcludeUnlimited { get; set; }
 
-    public bool ExcludeLimited { get; set; }
-
+    /// <summary>
+    /// Exclude <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gifts »</a>.
+    /// </summary>
     public bool ExcludeUnique { get; set; }
 
+    /// <summary>
+    /// If set, sorts the gifts by price instead of reception date.
+    /// </summary>
     public bool SortByValue { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Exclude gifts that can be <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">upgraded to collectible gifts »</a>.
+    /// </summary>
+    public bool ExcludeUpgradable { get; set; }
+
+    /// <summary>
+    /// Exclude gifts that cannot be <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">upgraded to collectible gifts »</a>.
+    /// </summary>
+    public bool ExcludeUnupgradable { get; set; }
+
+    public bool PeerColorAvailable { get; set; }
+
+    public bool ExcludeHosted { get; set; }
+
+    /// <summary>
+    /// Fetch only gifts owned by the specified peer, such as: a user, with peer=<a href="https://corefork.telegram.org/constructor/inputPeerUser">inputPeerUser</a>; a channel, with peer=<a href="https://corefork.telegram.org/constructor/inputPeerChannel">inputPeerChannel</a>; a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">connected business user</a> (when executing the method as a bot, over the business connection), with peer=<a href="https://corefork.telegram.org/constructor/inputPeerUser">inputPeerUser</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// Only returns gifts within the specified <a href="https://corefork.telegram.org/api/gifts#gift-collections">collection »</a>.
+    /// </summary>
     public int? CollectionId { get; set; }
 
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets">Offset for pagination</a>.
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()
@@ -46,9 +88,12 @@ public sealed class RequestGetSavedStarGifts : IRequest<MyTelegram.Schema.Paymen
         if (ExcludeUnsaved) { Flags = Flags.SetBit(0); }
         if (ExcludeSaved) { Flags = Flags.SetBit(1); }
         if (ExcludeUnlimited) { Flags = Flags.SetBit(2); }
-        if (ExcludeLimited) { Flags = Flags.SetBit(3); }
         if (ExcludeUnique) { Flags = Flags.SetBit(4); }
         if (SortByValue) { Flags = Flags.SetBit(5); }
+        if (ExcludeUpgradable) { Flags = Flags.SetBit(7); }
+        if (ExcludeUnupgradable) { Flags = Flags.SetBit(8); }
+        if (PeerColorAvailable) { Flags = Flags.SetBit(9); }
+        if (ExcludeHosted) { Flags = Flags.SetBit(10); }
         if (/*CollectionId != 0 && */CollectionId.HasValue) { Flags = Flags.SetBit(6); }
     }
 
@@ -69,9 +114,12 @@ public sealed class RequestGetSavedStarGifts : IRequest<MyTelegram.Schema.Paymen
         if (Flags.IsBitSet(0)) { ExcludeUnsaved = true; }
         if (Flags.IsBitSet(1)) { ExcludeSaved = true; }
         if (Flags.IsBitSet(2)) { ExcludeUnlimited = true; }
-        if (Flags.IsBitSet(3)) { ExcludeLimited = true; }
         if (Flags.IsBitSet(4)) { ExcludeUnique = true; }
         if (Flags.IsBitSet(5)) { SortByValue = true; }
+        if (Flags.IsBitSet(7)) { ExcludeUpgradable = true; }
+        if (Flags.IsBitSet(8)) { ExcludeUnupgradable = true; }
+        if (Flags.IsBitSet(9)) { PeerColorAvailable = true; }
+        if (Flags.IsBitSet(10)) { ExcludeHosted = true; }
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
         if (Flags.IsBitSet(6)) { CollectionId = buffer.ReadInt32(); }
         Offset = buffer.ReadString();

@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// DEPRECATED legacy photo file location
-/// See <a href="https://corefork.telegram.org/constructor/inputPhotoLegacyFileLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPhotoLegacyFileLocation" /></para>
+/// </summary>
 [TlObject(0xd83466f3)]
-public sealed class TInputPhotoLegacyFileLocation : IInputFileLocation
+public sealed partial class TInputPhotoLegacyFileLocation : IInputFileLocation
 {
     public uint ConstructorId => 0xd83466f3;
-    ///<summary>
+    /// <summary>
     /// Photo ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File reference
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileReference { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Volume ID
-    ///</summary>
+    /// </summary>
     public long VolumeId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Local ID
-    ///</summary>
+    /// </summary>
     public int LocalId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret
-    ///</summary>
+    /// </summary>
     public long Secret { get; set; }
 
     public void ComputeFlag()

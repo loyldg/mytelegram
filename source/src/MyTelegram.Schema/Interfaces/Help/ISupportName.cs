@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Get localized name for support user
-/// See <a href="https://corefork.telegram.org/type/help.SupportName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.SupportName" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSupportName"/> See <a href="https://corefork.telegram.org/constructor/help.supportName" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSupportName), nameof(TSupportName))]
 public interface ISupportName : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Localized name
-    ///</summary>
+    /// </summary>
     string Name { get; set; }
 }

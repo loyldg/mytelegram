@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents the absence of a channel
-/// See <a href="https://corefork.telegram.org/constructor/inputChannelEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputChannelEmpty" /></para>
+/// </summary>
 [TlObject(0xee8c1e86)]
-public sealed class TInputChannelEmpty : IInputChannel
+public sealed partial class TInputChannelEmpty : IInputChannel
 {
     public uint ConstructorId => 0xee8c1e86;
     public void ComputeFlag()

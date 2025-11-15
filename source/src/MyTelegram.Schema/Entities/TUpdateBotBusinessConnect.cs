@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Connecting or disconnecting a <a href="https://corefork.telegram.org/api/business#connected-bots">business bot</a> or changing the connection settings will emit an <a href="https://corefork.telegram.org/constructor/updateBotBusinessConnect">updateBotBusinessConnect</a> update to the bot, with the new settings and a <code>connection_id</code> that will be used by the bot to handle updates from and send messages as the user.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotBusinessConnect" />
-///</summary>
+/// <summary>
+/// Connecting or disconnecting a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bot</a> or changing the connection settings will emit an <a href="https://corefork.telegram.org/constructor/updateBotBusinessConnect">updateBotBusinessConnect</a> update to the bot, with the new settings and a <code>connection_id</code> that will be used by the bot to handle updates from and send messages as the user.
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotBusinessConnect" /></para>
+/// </summary>
 [TlObject(0x8ae5c97a)]
-public sealed class TUpdateBotBusinessConnect : IUpdate
+public sealed partial class TUpdateBotBusinessConnect : IUpdate
 {
     public uint ConstructorId => 0x8ae5c97a;
-    ///<summary>
+    /// <summary>
     /// Business connection settings
     /// See <a href="https://corefork.telegram.org/type/BotBusinessConnection" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotBusinessConnection Connection { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

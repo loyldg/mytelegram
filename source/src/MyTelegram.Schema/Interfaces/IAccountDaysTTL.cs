@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Time-to-live of current account
-/// See <a href="https://corefork.telegram.org/type/AccountDaysTTL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/AccountDaysTTL" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAccountDaysTTL"/> See <a href="https://corefork.telegram.org/constructor/accountDaysTTL" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAccountDaysTTL), nameof(TAccountDaysTTL))]
 public interface IAccountDaysTTL : IObject
 {
-    ///<summary>
+    /// <summary>
     /// This account will self-destruct in the specified number of days
-    ///</summary>
+    /// </summary>
     int Days { get; set; }
 }

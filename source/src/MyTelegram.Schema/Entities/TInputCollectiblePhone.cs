@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/fragment">phone number fragment collectible</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputCollectiblePhone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputCollectiblePhone" /></para>
+/// </summary>
 [TlObject(0xa2e214a4)]
-public sealed class TInputCollectiblePhone : IInputCollectible
+public sealed partial class TInputCollectiblePhone : IInputCollectible
 {
     public uint ConstructorId => 0xa2e214a4;
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string Phone { get; set; }
 
     public void ComputeFlag()

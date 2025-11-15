@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Location of profile photo of channel/group/supergroup/user
-/// See <a href="https://corefork.telegram.org/constructor/inputPeerPhotoFileLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPeerPhotoFileLocation" /></para>
+/// </summary>
 [TlObject(0x37257e99)]
-public sealed class TInputPeerPhotoFileLocation : IInputFileLocation
+public sealed partial class TInputPeerPhotoFileLocation : IInputFileLocation
 {
     public uint ConstructorId => 0x37257e99;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to download the high-quality version of the picture
-    ///</summary>
+    /// </summary>
     public bool Big { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer whose profile picture should be downloaded
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo ID
-    ///</summary>
+    /// </summary>
     public long PhotoId { get; set; }
 
     public void ComputeFlag()

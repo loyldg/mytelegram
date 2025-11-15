@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Changes to the app's localization pack
-/// See <a href="https://corefork.telegram.org/constructor/langPackDifference" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/langPackDifference" /></para>
+/// </summary>
 [TlObject(0xf385c1f6)]
-public sealed class TLangPackDifference : ILangPackDifference
+public sealed partial class TLangPackDifference : ILangPackDifference
 {
     public uint ConstructorId => 0xf385c1f6;
-    ///<summary>
+    /// <summary>
     /// Language code
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previous version number
-    ///</summary>
+    /// </summary>
     public int FromVersion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New version number
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Localized strings
     /// See <a href="https://corefork.telegram.org/type/LangPackString" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ILangPackString> Strings { get; set; }
 
     public void ComputeFlag()

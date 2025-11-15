@@ -2,35 +2,39 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Enable or disable <a href="https://corefork.telegram.org/api/forum">forum functionality</a> in a supergroup.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_DISCUSSION_UNALLOWED You can't enable forum topics in a discussion group linked to a channel.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleForum" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_DISCUSSION_UNALLOWED You can't enable forum topics in a discussion group linked to a channel.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleForum" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3ff75734)]
-public sealed class RequestToggleForum : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleForum : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x3ff75734;
 
-    ///<summary>
+    /// <summary>
     /// Supergroup ID
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Enable or disable forum functionality
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If true enables the tabbed forum UI, otherwise enables the list-based forum UI.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Tabs { get; set; }
 
     public void ComputeFlag()

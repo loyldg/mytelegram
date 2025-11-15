@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor, non-existent user.
-/// See <a href="https://corefork.telegram.org/constructor/userEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/userEmpty" /></para>
+/// </summary>
 [TlObject(0xd3bc4b7a)]
-public sealed class TUserEmpty : IUser
+public sealed partial class TUserEmpty : IUser
 {
     public uint ConstructorId => 0xd3bc4b7a;
-    ///<summary>
+    /// <summary>
     /// User identifier or <code>0</code>
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

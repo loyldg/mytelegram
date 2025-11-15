@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Request recovery code of a <a href="https://corefork.telegram.org/api/srp">2FA password</a>, only for accounts with a <a href="https://corefork.telegram.org/api/srp#email-verification">recovery email configured</a>.
-/// See <a href="https://corefork.telegram.org/method/auth.requestPasswordRecovery" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.requestPasswordRecovery" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd897bc66)]
-public sealed class RequestRequestPasswordRecovery : IRequest<MyTelegram.Schema.Auth.IPasswordRecovery>
+public sealed partial class RequestRequestPasswordRecovery : IRequest<MyTelegram.Schema.Auth.IPasswordRecovery>
 {
     public uint ConstructorId => 0xd897bc66;
 

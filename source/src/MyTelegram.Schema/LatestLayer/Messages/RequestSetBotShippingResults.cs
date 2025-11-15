@@ -2,38 +2,41 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an <a href="https://corefork.telegram.org/constructor/updateBotShippingQuery">updateBotShippingQuery</a> update. Use this method to reply to shipping queries.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 QUERY_ID_INVALID The query ID is invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/messages.setBotShippingResults" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 QUERY_ID_INVALID The query ID is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setBotShippingResults" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe5f672fa)]
-public sealed class RequestSetBotShippingResults : IRequest<IBool>
+public sealed partial class RequestSetBotShippingResults : IRequest<IBool>
 {
     public uint ConstructorId => 0xe5f672fa;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique identifier for the query to be answered
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable"). Telegram will display this message to the user.
-    ///</summary>
+    /// </summary>
     public string? Error { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A vector of available shipping options.
     /// See <a href="https://corefork.telegram.org/type/ShippingOption" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IShippingOption>? ShippingOptions { get; set; }
 
     public void ComputeFlag()

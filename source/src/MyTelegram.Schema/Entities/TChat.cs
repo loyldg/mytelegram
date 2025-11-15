@@ -2,96 +2,96 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a group.When updating the <a href="https://corefork.telegram.org/api/peers">local peer database</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).See <a href="https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L5152">here »</a> for an implementation of the logic to use when updating the <a href="https://corefork.telegram.org/api/peers">local user peer database</a>.
-/// See <a href="https://corefork.telegram.org/constructor/chat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chat" /></para>
+/// </summary>
 [TlObject(0x41cbf256)]
-public sealed class TChat : IChat//, ILayeredChat
+public sealed partial class TChat : IChat//, ILayeredChat
 {
     public uint ConstructorId => 0x41cbf256;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current user is the creator of the group
-    ///</summary>
+    /// </summary>
     public bool Creator { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current user has left the group
-    ///</summary>
+    /// </summary>
     public bool Left { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the group was <a href="https://corefork.telegram.org/api/channel">migrated</a>
-    ///</summary>
+    /// </summary>
     public bool Deactivated { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether a group call is currently active
-    ///</summary>
+    /// </summary>
     public bool CallActive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether there's anyone in the group call
-    ///</summary>
+    /// </summary>
     public bool CallNotEmpty { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this group is <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">protected</a>, thus does not allow forwarding messages from it
-    ///</summary>
+    /// </summary>
     public bool Noforwards { get; set; }
 
-    ///<summary>
-    /// ID of the group, see <a href="https://corefork.telegram.org/api/peers#peer-id">here »</a> for more info
-    ///</summary>
+    /// <summary>
+    /// ID of the group, see <a href="https://corefork.telegram.org/api/peers#peer-id">here »</a> for more info and the available ID range.
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat photo
     /// See <a href="https://corefork.telegram.org/type/ChatPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatPhoto Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participant count
-    ///</summary>
+    /// </summary>
     public int ParticipantsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of creation of the group
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used in basic groups to reorder updates and make sure that all of them were received.
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Means this chat was <a href="https://corefork.telegram.org/api/channel">upgraded</a> to a supergroup
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel? MigratedTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/rights">Admin rights</a> of the user in the group
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights? AdminRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/rights">Default banned rights</a> of all users in the group
     /// See <a href="https://corefork.telegram.org/type/ChatBannedRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatBannedRights? DefaultBannedRights { get; set; }
 
     public void ComputeFlag()

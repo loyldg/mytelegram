@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Utility bill
-/// See <a href="https://corefork.telegram.org/constructor/secureValueTypeUtilityBill" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueTypeUtilityBill" /></para>
+/// </summary>
 [TlObject(0xfc36954e)]
-public sealed class TSecureValueTypeUtilityBill : ISecureValueType
+public sealed partial class TSecureValueTypeUtilityBill : ISecureValueType
 {
     public uint ConstructorId => 0xfc36954e;
     public void ComputeFlag()

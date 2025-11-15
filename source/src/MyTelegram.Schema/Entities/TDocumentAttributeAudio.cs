@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an audio file
-/// See <a href="https://corefork.telegram.org/constructor/documentAttributeAudio" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentAttributeAudio" /></para>
+/// </summary>
 [TlObject(0x9852f9c6)]
-public sealed class TDocumentAttributeAudio : IDocumentAttribute
+public sealed partial class TDocumentAttributeAudio : IDocumentAttribute
 {
     public uint ConstructorId => 0x9852f9c6;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a voice message
-    ///</summary>
+    /// </summary>
     public bool Voice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Duration in seconds
-    ///</summary>
+    /// </summary>
     public int Duration { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of song
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Performer
-    ///</summary>
+    /// </summary>
     public string? Performer { get; set; }
 
-    ///<summary>
-    /// Waveform: consists in a series of bitpacked 5-bit values. <br>Example implementation: <a href="https://github.com/DrKLO/Telegram/blob/96dce2c9aabc33b87db61d830aa087b6b03fe397/TMessagesProj/jni/audio.c#L546">android</a>.
-    ///</summary>
+    /// <summary>
+    /// Waveform: consists in a series of bitpacked 5-bit values. <br/>Example implementation: <a href="https://github.com/DrKLO/Telegram/blob/96dce2c9aabc33b87db61d830aa087b6b03fe397/TMessagesProj/jni/audio.c#L546">android</a>.
+    /// </summary>
     public ReadOnlyMemory<byte>? Waveform { get; set; }
 
     public void ComputeFlag()

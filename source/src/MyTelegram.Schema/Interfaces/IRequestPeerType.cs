@@ -2,17 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Filtering criteria to use for the peer selection list shown to the user.
-/// See <a href="https://corefork.telegram.org/type/RequestPeerType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/RequestPeerType" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TRequestPeerTypeUser"/> See <a href="https://corefork.telegram.org/constructor/requestPeerTypeUser" /><br/>
+/// <see cref="TRequestPeerTypeChat"/> See <a href="https://corefork.telegram.org/constructor/requestPeerTypeChat" /><br/>
+/// <see cref="TRequestPeerTypeBroadcast"/> See <a href="https://corefork.telegram.org/constructor/requestPeerTypeBroadcast" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TRequestPeerTypeUser), nameof(TRequestPeerTypeUser))]
 [JsonDerivedType(typeof(TRequestPeerTypeChat), nameof(TRequestPeerTypeChat))]
 [JsonDerivedType(typeof(TRequestPeerTypeBroadcast), nameof(TRequestPeerTypeBroadcast))]
 public interface IRequestPeerType : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 }

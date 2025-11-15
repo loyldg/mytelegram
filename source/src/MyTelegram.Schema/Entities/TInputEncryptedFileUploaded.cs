@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Sets new encrypted file saved by parts using upload.saveFilePart method.
-/// See <a href="https://corefork.telegram.org/constructor/inputEncryptedFileUploaded" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputEncryptedFileUploaded" /></para>
+/// </summary>
 [TlObject(0x64bd0306)]
-public sealed class TInputEncryptedFileUploaded : IInputEncryptedFile
+public sealed partial class TInputEncryptedFileUploaded : IInputEncryptedFile
 {
     public uint ConstructorId => 0x64bd0306;
-    ///<summary>
+    /// <summary>
     /// Random file ID created by client
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of saved parts
-    ///</summary>
+    /// </summary>
     public int Parts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// In case <a href="https://en.wikipedia.org/wiki/MD5">md5-HASH</a> of the (already encrypted) file was transmitted, file content will be checked prior to use
-    ///</summary>
+    /// </summary>
     public string Md5Checksum { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 32-bit fingerprint of the key used to encrypt a file
-    ///</summary>
+    /// </summary>
     public int KeyFingerprint { get; set; }
 
     public void ComputeFlag()

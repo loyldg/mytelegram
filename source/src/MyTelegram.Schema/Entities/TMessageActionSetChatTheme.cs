@@ -2,18 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The chat theme was changed
-/// See <a href="https://corefork.telegram.org/constructor/messageActionSetChatTheme" />
-///</summary>
-[TlObject(0xaa786345)]
-public sealed class TMessageActionSetChatTheme : IMessageAction
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionSetChatTheme" /></para>
+/// </summary>
+[TlObject(0xb91bbd3a)]
+public sealed partial class TMessageActionSetChatTheme : IMessageAction
 {
-    public uint ConstructorId => 0xaa786345;
-    ///<summary>
-    /// The emoji that identifies a chat theme
-    ///</summary>
-    public string Emoticon { get; set; }
+    public uint ConstructorId => 0xb91bbd3a;
+    /// <summary>
+    /// The new chat theme.
+    /// See <a href="https://corefork.telegram.org/type/ChatTheme" />
+    /// </summary>
+    public MyTelegram.Schema.IChatTheme Theme { get; set; }
 
     public void ComputeFlag()
     {
@@ -23,11 +24,11 @@ public sealed class TMessageActionSetChatTheme : IMessageAction
     {
         ComputeFlag();
         writer.Write(ConstructorId);
-        writer.Write(Emoticon);
+        writer.Write(Theme);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
-        Emoticon = buffer.ReadString();
+        Theme = buffer.Read<MyTelegram.Schema.IChatTheme>();
     }
 }

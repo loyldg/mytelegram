@@ -2,27 +2,31 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Informs server about a purchase made through the App Store: for official applications only.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 RECEIPT_EMPTY The specified receipt is empty.
-/// See <a href="https://corefork.telegram.org/method/payments.assignAppStoreTransaction" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 INPUT_PURPOSE_INVALID The specified payment purpose is invalid.</c></para>
+/// <para><c>400 RECEIPT_EMPTY The specified receipt is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.assignAppStoreTransaction" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x80ed747d)]
-public sealed class RequestAssignAppStoreTransaction : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestAssignAppStoreTransaction : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x80ed747d;
 
-    ///<summary>
+    /// <summary>
     /// Receipt
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Receipt { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment purpose
     /// See <a href="https://corefork.telegram.org/type/InputStorePaymentPurpose" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Telegram game
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaGame" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaGame" /></para>
+/// </summary>
 [TlObject(0xfdb19008)]
-public sealed class TMessageMediaGame : IMessageMedia
+public sealed partial class TMessageMediaGame : IMessageMedia
 {
     public uint ConstructorId => 0xfdb19008;
-    ///<summary>
+    /// <summary>
     /// Game
     /// See <a href="https://corefork.telegram.org/type/Game" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGame Game { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Obtain available <a href="https://corefork.telegram.org/api/reactions">message reactions »</a>
-/// See <a href="https://corefork.telegram.org/method/messages.getAvailableReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getAvailableReactions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x18dea0ac)]
-public sealed class RequestGetAvailableReactions : IRequest<MyTelegram.Schema.Messages.IAvailableReactions>
+public sealed partial class RequestGetAvailableReactions : IRequest<MyTelegram.Schema.Messages.IAvailableReactions>
 {
     public uint ConstructorId => 0x18dea0ac;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

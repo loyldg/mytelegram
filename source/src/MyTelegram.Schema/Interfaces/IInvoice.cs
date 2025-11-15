@@ -2,91 +2,95 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Invoice
-/// See <a href="https://corefork.telegram.org/type/Invoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Invoice" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInvoice"/> See <a href="https://corefork.telegram.org/constructor/invoice" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInvoice), nameof(TInvoice))]
 public interface IInvoice : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Test invoice
-    ///</summary>
+    /// </summary>
     bool Test { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if you require the user's full name to complete the order
-    ///</summary>
+    /// </summary>
     bool NameRequested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if you require the user's phone number to complete the order
-    ///</summary>
+    /// </summary>
     bool PhoneRequested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if you require the user's email address to complete the order
-    ///</summary>
+    /// </summary>
     bool EmailRequested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if you require the user's shipping address to complete the order
-    ///</summary>
+    /// </summary>
     bool ShippingAddressRequested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if the final price depends on the shipping method
-    ///</summary>
+    /// </summary>
     bool Flexible { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if user's phone number should be sent to provider
-    ///</summary>
+    /// </summary>
     bool PhoneToProvider { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if user's email address should be sent to provider
-    ///</summary>
+    /// </summary>
     bool EmailToProvider { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a recurring payment
-    ///</summary>
+    /// </summary>
     bool Recurring { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code, or <code>XTR</code> for <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
     /// See <a href="https://corefork.telegram.org/type/LabeledPrice" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ILabeledPrice> Prices { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     long? MaxTipAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A vector of suggested amounts of tips in the <em>smallest units</em> of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed <code>max_tip_amount</code>.
-    ///</summary>
+    /// </summary>
     TVector<long>? SuggestedTipAmounts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Terms of service URL
-    ///</summary>
+    /// </summary>
     string? TermsUrl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of seconds between consecutive Telegram Star debiting for <a href="https://corefork.telegram.org/api/subscriptions#bot-subscriptions">bot subscription</a> invoices
-    ///</summary>
+    /// </summary>
     int? SubscriptionPeriod { get; set; }
 }

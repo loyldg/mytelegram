@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Page caption
-/// See <a href="https://corefork.telegram.org/type/PageCaption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PageCaption" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPageCaption"/> See <a href="https://corefork.telegram.org/constructor/pageCaption" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPageCaption), nameof(TPageCaption))]
 public interface IPageCaption : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Caption
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IRichText Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Credits
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IRichText Credit { get; set; }
 }

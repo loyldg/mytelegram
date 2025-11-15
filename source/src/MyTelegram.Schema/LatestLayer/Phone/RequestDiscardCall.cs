@@ -2,50 +2,53 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Refuse or end running call
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CALL_ALREADY_ACCEPTED The call was already accepted.
-/// 500 CALL_OCCUPY_FAILED The call failed because the user is already making another call.
-/// 400 CALL_PEER_INVALID The provided call peer object is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.discardCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CALL_ALREADY_ACCEPTED The call was already accepted.</c></para>
+/// <para><c>500 CALL_OCCUPY_FAILED The call failed because the user is already making another call.</c></para>
+/// <para><c>400 CALL_PEER_INVALID The provided call peer object is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.discardCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb2cbc1c0)]
-public sealed class RequestDiscardCall : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDiscardCall : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xb2cbc1c0;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a video call
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The phone call
     /// See <a href="https://corefork.telegram.org/type/InputPhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoneCall Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Call duration
-    ///</summary>
+    /// </summary>
     public int Duration { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Why was the call discarded
     /// See <a href="https://corefork.telegram.org/type/PhoneCallDiscardReason" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallDiscardReason Reason { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Preferred libtgvoip relay ID
-    ///</summary>
+    /// </summary>
     public long ConnectionId { get; set; }
 
     public void ComputeFlag()

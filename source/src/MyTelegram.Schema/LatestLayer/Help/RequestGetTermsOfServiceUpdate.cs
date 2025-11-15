@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Look for updates of telegram's terms of service
-/// See <a href="https://corefork.telegram.org/method/help.getTermsOfServiceUpdate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getTermsOfServiceUpdate" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2ca51fd1)]
-public sealed class RequestGetTermsOfServiceUpdate : IRequest<MyTelegram.Schema.Help.ITermsOfServiceUpdate>
+public sealed partial class RequestGetTermsOfServiceUpdate : IRequest<MyTelegram.Schema.Help.ITermsOfServiceUpdate>
 {
     public uint ConstructorId => 0x2ca51fd1;
 

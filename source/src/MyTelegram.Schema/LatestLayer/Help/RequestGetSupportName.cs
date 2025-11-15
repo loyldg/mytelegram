@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Get localized name of the telegram support user
-/// See <a href="https://corefork.telegram.org/method/help.getSupportName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getSupportName" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd360e72c)]
-public sealed class RequestGetSupportName : IRequest<MyTelegram.Schema.Help.ISupportName>
+public sealed partial class RequestGetSupportName : IRequest<MyTelegram.Schema.Help.ISupportName>
 {
     public uint ConstructorId => 0xd360e72c;
 

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The server-side configuration has changed; the client should re-fetch the config using <a href="https://corefork.telegram.org/method/help.getConfig">help.getConfig</a> and <a href="https://corefork.telegram.org/method/help.getAppConfig">help.getAppConfig</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateConfig" /></para>
+/// </summary>
 [TlObject(0xa229dd06)]
-public sealed class TUpdateConfig : IUpdate
+public sealed partial class TUpdateConfig : IUpdate
 {
     public uint ConstructorId => 0xa229dd06;
     public void ComputeFlag()

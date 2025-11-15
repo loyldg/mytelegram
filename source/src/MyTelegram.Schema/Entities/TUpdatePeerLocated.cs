@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// List of peers near you was updated
-/// See <a href="https://corefork.telegram.org/constructor/updatePeerLocated" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePeerLocated" /></para>
+/// </summary>
 [TlObject(0xb4afcfb0)]
-public sealed class TUpdatePeerLocated : IUpdate
+public sealed partial class TUpdatePeerLocated : IUpdate
 {
     public uint ConstructorId => 0xb4afcfb0;
-    ///<summary>
+    /// <summary>
     /// Geolocated peer list update
     /// See <a href="https://corefork.telegram.org/type/PeerLocated" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeerLocated> Peers { get; set; }
 
     public void ComputeFlag()

@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Reset the <a href="https://corefork.telegram.org/api/srp">2FA password</a> using the recovery code sent using <a href="https://corefork.telegram.org/method/auth.requestPasswordRecovery">auth.requestPasswordRecovery</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CODE_EMPTY The provided code is empty.
-/// 400 NEW_SETTINGS_INVALID The new password settings are invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.recoverPassword" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CODE_EMPTY The provided code is empty.</c></para>
+/// <para><c>400 NEW_SETTINGS_INVALID The new password settings are invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.recoverPassword" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x37096c70)]
-public sealed class RequestRecoverPassword : IRequest<MyTelegram.Schema.Auth.IAuthorization>
+public sealed partial class RequestRecoverPassword : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
     public uint ConstructorId => 0x37096c70;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Code received via email
-    ///</summary>
+    /// </summary>
     public string Code { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New password
     /// See <a href="https://corefork.telegram.org/type/account.PasswordInputSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Account.IPasswordInputSettings? NewSettings { get; set; }
 
     public void ComputeFlag()

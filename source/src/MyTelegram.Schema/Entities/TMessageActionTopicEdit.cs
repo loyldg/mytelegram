@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/forum#forum-topics">Forum topic</a> information was edited.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionTopicEdit" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionTopicEdit" /></para>
+/// </summary>
 [TlObject(0xc0944820)]
-public sealed class TMessageActionTopicEdit : IMessageAction
+public sealed partial class TMessageActionTopicEdit : IMessageAction
 {
     public uint ConstructorId => 0xc0944820;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New topic title.
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the new <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji</a> used as topic icon, or if it was removed.
-    ///</summary>
+    /// </summary>
     public long? IconEmojiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the topic was opened or closed.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? Closed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the topic was hidden or unhidden (only valid for the "General" topic, <code>id=1</code>).
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? Hidden { get; set; }
 
     public void ComputeFlag()

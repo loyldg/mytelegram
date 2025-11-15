@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer in a folder
-/// See <a href="https://corefork.telegram.org/constructor/inputFolderPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputFolderPeer" /></para>
+/// </summary>
 [TlObject(0xfbd2c296)]
-public sealed class TInputFolderPeer : IInputFolderPeer
+public sealed partial class TInputFolderPeer : IInputFolderPeer
 {
     public uint ConstructorId => 0xfbd2c296;
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int FolderId { get; set; }
 
     public void ComputeFlag()

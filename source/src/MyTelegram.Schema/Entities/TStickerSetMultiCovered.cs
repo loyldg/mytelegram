@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Stickerset, with multiple stickers as preview
-/// See <a href="https://corefork.telegram.org/constructor/stickerSetMultiCovered" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stickerSetMultiCovered" /></para>
+/// </summary>
 [TlObject(0x3407e51b)]
-public sealed class TStickerSetMultiCovered : IStickerSetCovered
+public sealed partial class TStickerSetMultiCovered : IStickerSetCovered
 {
     public uint ConstructorId => 0x3407e51b;
-    ///<summary>
+    /// <summary>
     /// Stickerset
     /// See <a href="https://corefork.telegram.org/type/StickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStickerSet Set { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Preview stickers
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Covers { get; set; }
 
     public void ComputeFlag()

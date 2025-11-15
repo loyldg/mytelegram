@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Credit card info, provided by the card's bank(s)
-/// See <a href="https://corefork.telegram.org/constructor/payments.bankCardData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.bankCardData" /></para>
+/// </summary>
 [TlObject(0x3e24e573)]
-public sealed class TBankCardData : IBankCardData
+public sealed partial class TBankCardData : IBankCardData
 {
     public uint ConstructorId => 0x3e24e573;
-    ///<summary>
+    /// <summary>
     /// Credit card title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info URL(s) provided by the card's bank(s)
     /// See <a href="https://corefork.telegram.org/type/BankCardOpenUrl" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBankCardOpenUrl> OpenUrls { get; set; }
 
     public void ComputeFlag()

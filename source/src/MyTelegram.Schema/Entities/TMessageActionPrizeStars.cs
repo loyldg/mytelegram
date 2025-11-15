@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// You won some <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> in a <a href="https://corefork.telegram.org/api/giveaways#star-giveaways">Telegram Star giveaway »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionPrizeStars" />
-///</summary>
+/// <summary>
+/// You won some <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> in a <a href="https://corefork.telegram.org/api/giveaways#star-giveaways">Telegram Star giveaway »</a>.This service message should be displayed below the appropriate sticker from the <a href="https://corefork.telegram.org/constructor/inputStickerSetPremiumGifts">inputStickerSetPremiumGifts »</a> <a href="https://corefork.telegram.org/api/stickers#stickersets">stickerset »</a>:
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionPrizeStars" /></para>
+/// </summary>
 [TlObject(0xb00c47a2)]
-public sealed class TMessageActionPrizeStars : IMessageAction
+public sealed partial class TMessageActionPrizeStars : IMessageAction
 {
     public uint ConstructorId => 0xb00c47a2;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this indicates the reverse transaction that refunds the remaining stars to the creator of a giveaway if, when the giveaway ends, the number of members in the channel is smaller than the number of winners in the giveaway.
-    ///</summary>
+    /// </summary>
     public bool Unclaimed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of Telegram Stars you won
-    ///</summary>
+    /// </summary>
     public long Stars { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the telegram star transaction.
-    ///</summary>
+    /// </summary>
     public string TransactionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the peer that was automatically boosted by the winners of the giveaway.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer BoostPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message containing the <a href="https://corefork.telegram.org/constructor/messageMediaGiveaway">messageMediaGiveaway</a>
-    ///</summary>
+    /// </summary>
     public int GiveawayMsgId { get; set; }
 
     public void ComputeFlag()

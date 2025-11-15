@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Poll
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaPoll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaPoll" /></para>
+/// </summary>
 [TlObject(0x4bd6e798)]
-public sealed class TMessageMediaPoll : IMessageMedia
+public sealed partial class TMessageMediaPoll : IMessageMedia
 {
     public uint ConstructorId => 0x4bd6e798;
-    ///<summary>
+    /// <summary>
     /// The poll
     /// See <a href="https://corefork.telegram.org/type/Poll" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPoll Poll { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The results of the poll
     /// See <a href="https://corefork.telegram.org/type/PollResults" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPollResults Results { get; set; }
 
     public void ComputeFlag()

@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// Request a reupload of a certain file to a <a href="https://corefork.telegram.org/cdn">CDN DC</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CDN_METHOD_INVALID You can't call this method in a CDN DC.
-/// 500 CDN_UPLOAD_TIMEOUT A server-side timeout occurred while reuploading the file to the CDN DC.
-/// 400 FILE_TOKEN_INVALID The master DC did not accept the <code>file_token</code> (e.g., the token has expired). Continue downloading the file from the master DC using upload.getFile.
-/// 400 LOCATION_INVALID The provided location is invalid.
-/// 400 REQUEST_TOKEN_INVALID The master DC did not accept the <code>request_token</code> from the CDN DC. Continue downloading the file from the master DC using upload.getFile.
-/// 400 RSA_DECRYPT_FAILED Internal RSA decryption failed.
-/// See <a href="https://corefork.telegram.org/method/upload.reuploadCdnFile" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CDN_METHOD_INVALID You can't call this method in a CDN DC.</c></para>
+/// <para><c>500 CDN_UPLOAD_TIMEOUT A server-side timeout occurred while reuploading the file to the CDN DC.</c></para>
+/// <para><c>400 FILE_TOKEN_INVALID The master DC did not accept the <code>file_token</code> (e.g., the token has expired). Continue downloading the file from the master DC using upload.getFile.</c></para>
+/// <para><c>400 LOCATION_INVALID The provided location is invalid.</c></para>
+/// <para><c>400 REQUEST_TOKEN_INVALID The master DC did not accept the <code>request_token</code> from the CDN DC. Continue downloading the file from the master DC using upload.getFile.</c></para>
+/// <para><c>400 RSA_DECRYPT_FAILED Internal RSA decryption failed. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/upload.reuploadCdnFile" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9b2754a8)]
-public sealed class RequestReuploadCdnFile : IRequest<TVector<MyTelegram.Schema.IFileHash>>
+public sealed partial class RequestReuploadCdnFile : IRequest<TVector<MyTelegram.Schema.IFileHash>>
 {
     public uint ConstructorId => 0x9b2754a8;
 
-    ///<summary>
+    /// <summary>
     /// File token
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileToken { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Request token
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> RequestToken { get; set; }
 
     public void ComputeFlag()

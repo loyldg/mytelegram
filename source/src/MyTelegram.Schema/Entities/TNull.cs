@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Corresponds to an arbitrary empty object.
-/// See <a href="https://corefork.telegram.org/constructor/null" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/null" /></para>
+/// </summary>
 [TlObject(0x56730bcc)]
-public sealed class TNull : INull
+public sealed partial class TNull : INull
 {
     public uint ConstructorId => 0x56730bcc;
     public void ComputeFlag()

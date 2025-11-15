@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Contains a confirmation text to be shown to the user, upon <a href="https://corefork.telegram.org/api/import">importing chat history, click here for more info »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messages.checkedHistoryImportPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.checkedHistoryImportPeer" /></para>
+/// </summary>
 [TlObject(0xa24de717)]
-public sealed class TCheckedHistoryImportPeer : ICheckedHistoryImportPeer
+public sealed partial class TCheckedHistoryImportPeer : ICheckedHistoryImportPeer
 {
     public uint ConstructorId => 0xa24de717;
-    ///<summary>
+    /// <summary>
     /// A confirmation text to be shown to the user, upon <a href="https://corefork.telegram.org/api/import">importing chat history »</a>.
-    ///</summary>
+    /// </summary>
     public string ConfirmText { get; set; }
 
     public void ComputeFlag()

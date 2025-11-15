@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/reactions">message reactions »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// See <a href="https://corefork.telegram.org/method/messages.getMessagesReactions" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getMessagesReactions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8bba90e6)]
-public sealed class RequestGetMessagesReactions : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestGetMessagesReactions : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x8bba90e6;
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

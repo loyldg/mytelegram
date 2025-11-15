@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Optional: notify the server that the user is currently busy in a call: this will automatically refuse all incoming phone calls until the current phone call is ended.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CALL_ALREADY_DECLINED The call was already declined.
-/// 400 CALL_PEER_INVALID The provided call peer object is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.receivedCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CALL_ALREADY_DECLINED The call was already declined.</c></para>
+/// <para><c>400 CALL_PEER_INVALID The provided call peer object is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.receivedCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x17d54f61)]
-public sealed class RequestReceivedCall : IRequest<IBool>
+public sealed partial class RequestReceivedCall : IRequest<IBool>
 {
     public uint ConstructorId => 0x17d54f61;
 
-    ///<summary>
+    /// <summary>
     /// The phone call we're currently in
     /// See <a href="https://corefork.telegram.org/type/InputPhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoneCall Peer { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Featured stickers haven't changed
-/// See <a href="https://corefork.telegram.org/constructor/messages.featuredStickersNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.featuredStickersNotModified" /></para>
+/// </summary>
 [TlObject(0xc6dc0c66)]
-public sealed class TFeaturedStickersNotModified : IFeaturedStickers
+public sealed partial class TFeaturedStickersNotModified : IFeaturedStickers
 {
     public uint ConstructorId => 0xc6dc0c66;
-    ///<summary>
+    /// <summary>
     /// Total number of featured stickers
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/sponsored-messages#reporting-sponsored-messages">report option for a sponsored message »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/sponsoredMessageReportOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sponsoredMessageReportOption" /></para>
+/// </summary>
 [TlObject(0x430d3150)]
-public sealed class TSponsoredMessageReportOption : ISponsoredMessageReportOption
+public sealed partial class TSponsoredMessageReportOption : ISponsoredMessageReportOption
 {
     public uint ConstructorId => 0x430d3150;
-    ///<summary>
+    /// <summary>
     /// Localized description of the option.
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Option identifier to pass to <a href="https://corefork.telegram.org/method/channels.reportSponsoredMessage">channels.reportSponsoredMessage</a>.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Option { get; set; }
 
     public void ComputeFlag()

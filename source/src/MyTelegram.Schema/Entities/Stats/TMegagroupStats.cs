@@ -2,114 +2,114 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Supergroup <a href="https://corefork.telegram.org/api/stats">statistics</a>
-/// See <a href="https://corefork.telegram.org/constructor/stats.megagroupStats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stats.megagroupStats" /></para>
+/// </summary>
 [TlObject(0xef7ff916)]
-public sealed class TMegagroupStats : IMegagroupStats
+public sealed partial class TMegagroupStats : IMegagroupStats
 {
     public uint ConstructorId => 0xef7ff916;
-    ///<summary>
+    /// <summary>
     /// Period in consideration
     /// See <a href="https://corefork.telegram.org/type/StatsDateRangeDays" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsDateRangeDays Period { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Member count change for period in consideration
     /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev Members { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message number change for period in consideration
     /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of users that viewed messages, for range in consideration
     /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev Viewers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of users that posted messages, for range in consideration
     /// See <a href="https://corefork.telegram.org/type/StatsAbsValueAndPrev" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsAbsValueAndPrev Posters { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Supergroup growth graph (absolute subscriber count)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph GrowthGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Members growth (relative subscriber count)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph MembersGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New members by source graph
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph NewMembersBySourceGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Subscriber language graph (pie chart)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph LanguagesGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message activity graph (stacked bar graph, message type)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph MessagesGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group activity graph (deleted, modified messages, blocked users)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph ActionsGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Activity per hour graph (absolute)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph TopHoursGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Activity per day of week graph (absolute)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph WeekdaysGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about most active group members
     /// See <a href="https://corefork.telegram.org/type/StatsGroupTopPoster" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStatsGroupTopPoster> TopPosters { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about most active group admins
     /// See <a href="https://corefork.telegram.org/type/StatsGroupTopAdmin" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStatsGroupTopAdmin> TopAdmins { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about most active group inviters
     /// See <a href="https://corefork.telegram.org/type/StatsGroupTopInviter" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStatsGroupTopInviter> TopInviters { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about users mentioned in statistics
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

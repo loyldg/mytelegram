@@ -2,50 +2,54 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Related articles
-/// See <a href="https://corefork.telegram.org/type/PageRelatedArticle" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PageRelatedArticle" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPageRelatedArticle"/> See <a href="https://corefork.telegram.org/constructor/pageRelatedArticle" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPageRelatedArticle), nameof(TPageRelatedArticle))]
 public interface IPageRelatedArticle : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of article
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webpage ID of generated IV preview
-    ///</summary>
+    /// </summary>
     long WebpageId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description
-    ///</summary>
+    /// </summary>
     string? Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of preview photo
-    ///</summary>
+    /// </summary>
     long? PhotoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Author name
-    ///</summary>
+    /// </summary>
     string? Author { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of publication
-    ///</summary>
+    /// </summary>
     int? PublishedDate { get; set; }
 }

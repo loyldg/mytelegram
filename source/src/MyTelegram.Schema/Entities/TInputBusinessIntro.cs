@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/business#business-introduction">Telegram Business introduction »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputBusinessIntro" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBusinessIntro" /></para>
+/// </summary>
 [TlObject(0x9c469cd)]
-public sealed class TInputBusinessIntro : IInputBusinessIntro
+public sealed partial class TInputBusinessIntro : IInputBusinessIntro
 {
     public uint ConstructorId => 0x9c469cd;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title of the introduction message
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Profile introduction
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional introduction <a href="https://corefork.telegram.org/api/stickers">sticker</a>.
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument? Sticker { get; set; }
 
     public void ComputeFlag()

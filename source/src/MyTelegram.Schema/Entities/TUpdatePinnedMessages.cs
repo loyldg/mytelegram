@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Some messages were pinned in a chat
-/// See <a href="https://corefork.telegram.org/constructor/updatePinnedMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePinnedMessages" /></para>
+/// </summary>
 [TlObject(0xed85eab5)]
-public sealed class TUpdatePinnedMessages : IUpdate
+public sealed partial class TUpdatePinnedMessages : IUpdate
 {
     public uint ConstructorId => 0xed85eab5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the messages were pinned or unpinned
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()

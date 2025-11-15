@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// The notification sound list hasn't changed.
-/// See <a href="https://corefork.telegram.org/constructor/account.savedRingtonesNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.savedRingtonesNotModified" /></para>
+/// </summary>
 [TlObject(0xfbf6e8b1)]
-public sealed class TSavedRingtonesNotModified : ISavedRingtones
+public sealed partial class TSavedRingtonesNotModified : ISavedRingtones
 {
     public uint ConstructorId => 0xfbf6e8b1;
     public void ComputeFlag()

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Exported chat invite
-/// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ExportedChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatInviteExported"/> See <a href="https://corefork.telegram.org/constructor/chatInviteExported" /><br/>
+/// <see cref="TChatInvitePublicJoinRequests"/> See <a href="https://corefork.telegram.org/constructor/chatInvitePublicJoinRequests" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatInviteExported), nameof(TChatInviteExported))]
 [JsonDerivedType(typeof(TChatInvitePublicJoinRequests), nameof(TChatInvitePublicJoinRequests))]
 public interface IExportedChatInvite : IObject

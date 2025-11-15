@@ -2,21 +2,44 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/SearchPostsFlood" />
-///</summary>
+/// <summary>
+/// Indicates if the specified <a href="https://corefork.telegram.org/api/search#posts-tab">global post search »</a> requires payment.
+/// <para>See <a href="https://corefork.telegram.org/type/SearchPostsFlood" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSearchPostsFlood"/> See <a href="https://corefork.telegram.org/constructor/searchPostsFlood" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSearchPostsFlood), nameof(TSearchPostsFlood))]
 public interface ISearchPostsFlood : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// The specified query is free (and it <strong>will not use up free search slots</strong>).
+    /// </summary>
     bool QueryIsFree { get; set; }
 
+    /// <summary>
+    /// Total number of daily free search slots.
+    /// </summary>
     int TotalDaily { get; set; }
 
+    /// <summary>
+    /// Remaining number of free search slots.
+    /// </summary>
     int Remains { get; set; }
 
+    /// <summary>
+    /// If there are no more search slots, specifies the unixtime when more search slots will be available.
+    /// </summary>
     int? WaitTill { get; set; }
 
+    /// <summary>
+    /// The number of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> to pay for each non-free search.
+    /// </summary>
     long StarsAmount { get; set; }
 }

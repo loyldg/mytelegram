@@ -2,46 +2,46 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Contains info about a single resolved <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep link »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/account.resolvedBusinessChatLinks" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.resolvedBusinessChatLinks" /></para>
+/// </summary>
 [TlObject(0x9a23af21)]
-public sealed class TResolvedBusinessChatLinks : IResolvedBusinessChatLinks
+public sealed partial class TResolvedBusinessChatLinks : IResolvedBusinessChatLinks
 {
     public uint ConstructorId => 0x9a23af21;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to pre-fill in the message input field.
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

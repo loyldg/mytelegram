@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Full info about a <a href="https://corefork.telegram.org/api/channel#channels">channel</a>, <a href="https://corefork.telegram.org/api/channel#supergroups">supergroup</a>, <a href="https://corefork.telegram.org/api/channel#gigagroups">gigagroup</a> or <a href="https://corefork.telegram.org/api/channel#basic-groups">basic group</a>.
-/// See <a href="https://corefork.telegram.org/type/messages.ChatFull" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.ChatFull" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatFull"/> See <a href="https://corefork.telegram.org/constructor/messages.chatFull" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatFull), nameof(TChatFull))]
 public interface IChatFull : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Full info
     /// See <a href="https://corefork.telegram.org/type/ChatFull" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IChatFull FullChat { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

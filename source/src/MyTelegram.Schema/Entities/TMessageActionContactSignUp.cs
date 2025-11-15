@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A contact just signed up to telegram
-/// See <a href="https://corefork.telegram.org/constructor/messageActionContactSignUp" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionContactSignUp" /></para>
+/// </summary>
 [TlObject(0xf3f25f76)]
-public sealed class TMessageActionContactSignUp : IMessageAction
+public sealed partial class TMessageActionContactSignUp : IMessageAction
 {
     public uint ConstructorId => 0xf3f25f76;
     public void ComputeFlag()

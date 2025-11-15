@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// JSON boolean value
-/// See <a href="https://corefork.telegram.org/constructor/jsonBool" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/jsonBool" /></para>
+/// </summary>
 [TlObject(0xc7345e6a)]
-public sealed class TJsonBool : IJSONValue
+public sealed partial class TJsonBool : IJSONValue
 {
     public uint ConstructorId => 0xc7345e6a;
-    ///<summary>
+    /// <summary>
     /// Value
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Value { get; set; }
 
     public void ComputeFlag()

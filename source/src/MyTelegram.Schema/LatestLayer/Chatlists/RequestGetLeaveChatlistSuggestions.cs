@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Returns identifiers of pinned or always included chats from a chat folder imported using a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>, which are suggested to be left when the chat folder is deleted.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// 400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.
-/// See <a href="https://corefork.telegram.org/method/chatlists.getLeaveChatlistSuggestions" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid.</c></para>
+/// <para><c>400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.getLeaveChatlistSuggestions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xfdbcd714)]
-public sealed class RequestGetLeaveChatlistSuggestions : IRequest<TVector<MyTelegram.Schema.IPeer>>
+public sealed partial class RequestGetLeaveChatlistSuggestions : IRequest<TVector<MyTelegram.Schema.IPeer>>
 {
     public uint ConstructorId => 0xfdbcd714;
 
-    ///<summary>
+    /// <summary>
     /// Folder ID
     /// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
     public void ComputeFlag()

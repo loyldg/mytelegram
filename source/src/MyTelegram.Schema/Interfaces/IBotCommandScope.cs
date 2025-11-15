@@ -2,10 +2,20 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a scope where the bot commands, specified using <a href="https://corefork.telegram.org/method/bots.setBotCommands">bots.setBotCommands</a> will be valid.
-/// See <a href="https://corefork.telegram.org/type/BotCommandScope" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BotCommandScope" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotCommandScopeDefault"/> See <a href="https://corefork.telegram.org/constructor/botCommandScopeDefault" /><br/>
+/// <see cref="TBotCommandScopeUsers"/> See <a href="https://corefork.telegram.org/constructor/botCommandScopeUsers" /><br/>
+/// <see cref="TBotCommandScopeChats"/> See <a href="https://corefork.telegram.org/constructor/botCommandScopeChats" /><br/>
+/// <see cref="TBotCommandScopeChatAdmins"/> See <a href="https://corefork.telegram.org/constructor/botCommandScopeChatAdmins" /><br/>
+/// <see cref="TBotCommandScopePeer"/> See <a href="https://corefork.telegram.org/constructor/botCommandScopePeer" /><br/>
+/// <see cref="TBotCommandScopePeerAdmins"/> See <a href="https://corefork.telegram.org/constructor/botCommandScopePeerAdmins" /><br/>
+/// <see cref="TBotCommandScopePeerUser"/> See <a href="https://corefork.telegram.org/constructor/botCommandScopePeerUser" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotCommandScopeDefault), nameof(TBotCommandScopeDefault))]
 [JsonDerivedType(typeof(TBotCommandScopeUsers), nameof(TBotCommandScopeUsers))]
 [JsonDerivedType(typeof(TBotCommandScopeChats), nameof(TBotCommandScopeChats))]

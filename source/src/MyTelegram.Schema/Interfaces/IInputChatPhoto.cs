@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a new group profile photo.
-/// See <a href="https://corefork.telegram.org/type/InputChatPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputChatPhoto" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputChatPhotoEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputChatPhotoEmpty" /><br/>
+/// <see cref="TInputChatUploadedPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputChatUploadedPhoto" /><br/>
+/// <see cref="TInputChatPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputChatPhoto" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputChatPhotoEmpty), nameof(TInputChatPhotoEmpty))]
 [JsonDerivedType(typeof(TInputChatUploadedPhoto), nameof(TInputChatUploadedPhoto))]
 [JsonDerivedType(typeof(TInputChatPhoto), nameof(TInputChatPhoto))]

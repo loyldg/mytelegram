@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// How a peer voted in a poll (reduced constructor, returned if an <code>option</code> was provided to <a href="https://corefork.telegram.org/method/messages.getPollVotes">messages.getPollVotes</a>)
-/// See <a href="https://corefork.telegram.org/constructor/messagePeerVoteInputOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messagePeerVoteInputOption" /></para>
+/// </summary>
 [TlObject(0x74cda504)]
-public sealed class TMessagePeerVoteInputOption : IMessagePeerVote
+public sealed partial class TMessagePeerVoteInputOption : IMessagePeerVote
 {
     public uint ConstructorId => 0x74cda504;
-    ///<summary>
+    /// <summary>
     /// The peer that voted for the queried <code>option</code>
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did the peer cast the vote
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

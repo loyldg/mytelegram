@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// RTMP URL and stream key to be used in streaming software
-/// See <a href="https://corefork.telegram.org/constructor/phone.groupCallStreamRtmpUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phone.groupCallStreamRtmpUrl" /></para>
+/// </summary>
 [TlObject(0x2dbf3432)]
-public sealed class TGroupCallStreamRtmpUrl : IGroupCallStreamRtmpUrl
+public sealed partial class TGroupCallStreamRtmpUrl : IGroupCallStreamRtmpUrl
 {
     public uint ConstructorId => 0x2dbf3432;
-    ///<summary>
+    /// <summary>
     /// RTMP URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stream key
-    ///</summary>
+    /// </summary>
     public string Key { get; set; }
 
     public void ComputeFlag()

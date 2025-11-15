@@ -2,10 +2,20 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object which is perceived by the client without a call on its part when an event occurs.
-/// See <a href="https://corefork.telegram.org/type/Updates" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Updates" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUpdatesTooLong"/> See <a href="https://corefork.telegram.org/constructor/updatesTooLong" /><br/>
+/// <see cref="TUpdateShortMessage"/> See <a href="https://corefork.telegram.org/constructor/updateShortMessage" /><br/>
+/// <see cref="TUpdateShortChatMessage"/> See <a href="https://corefork.telegram.org/constructor/updateShortChatMessage" /><br/>
+/// <see cref="TUpdateShort"/> See <a href="https://corefork.telegram.org/constructor/updateShort" /><br/>
+/// <see cref="TUpdatesCombined"/> See <a href="https://corefork.telegram.org/constructor/updatesCombined" /><br/>
+/// <see cref="TUpdates"/> See <a href="https://corefork.telegram.org/constructor/updates" /><br/>
+/// <see cref="TUpdateShortSentMessage"/> See <a href="https://corefork.telegram.org/constructor/updateShortSentMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUpdatesTooLong), nameof(TUpdatesTooLong))]
 [JsonDerivedType(typeof(TUpdateShortMessage), nameof(TUpdateShortMessage))]
 [JsonDerivedType(typeof(TUpdateShortChatMessage), nameof(TUpdateShortChatMessage))]

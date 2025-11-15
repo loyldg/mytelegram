@@ -2,55 +2,59 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// Status
-/// See <a href="https://corefork.telegram.org/type/smsjobs.Status" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/smsjobs.Status" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatus"/> See <a href="https://corefork.telegram.org/constructor/smsjobs.status" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatus), nameof(TStatus))]
 public interface IStatus : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allow international numbers
-    ///</summary>
+    /// </summary>
     bool AllowInternational { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Recently sent
-    ///</summary>
+    /// </summary>
     int RecentSent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Since
-    ///</summary>
+    /// </summary>
     int RecentSince { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Remaining
-    ///</summary>
+    /// </summary>
     int RecentRemains { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total sent
-    ///</summary>
+    /// </summary>
     int TotalSent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total since
-    ///</summary>
+    /// </summary>
     int TotalSince { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last gift deep link
-    ///</summary>
+    /// </summary>
     string? LastGiftSlug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Terms of service URL
-    ///</summary>
+    /// </summary>
     string TermsUrl { get; set; }
 }

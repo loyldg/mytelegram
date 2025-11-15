@@ -2,130 +2,137 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Send an <a href="https://corefork.telegram.org/api/files#albums-grouped-media">album or grouped media</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_FORWARDS_RESTRICTED You can't forward messages from a protected chat.
-/// 403 CHAT_SEND_MEDIA_FORBIDDEN You can't send media in this chat.
-/// 403 CHAT_SEND_PHOTOS_FORBIDDEN You can't send photos in this chat.
-/// 403 CHAT_SEND_VIDEOS_FORBIDDEN You can't send videos in this chat.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here&nbsp;»</a> for info on how to properly compute the entity offset/length.
-/// 400 FILE_REFERENCE_%d_EXPIRED The file reference of the media file at index %d in the passed media array expired, it <a href="https://corefork.telegram.org/api/file_reference">must be refreshed</a>.
-/// 400 FILE_REFERENCE_%d_INVALID The file reference of the media file at index %d in the passed media array is invalid.
-/// 400 MEDIA_CAPTION_TOO_LONG The caption is too long.
-/// 400 MEDIA_EMPTY The provided media object is invalid.
-/// 400 MEDIA_INVALID Media invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 MULTI_MEDIA_TOO_LONG Too many media files for album.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.
-/// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
-/// 400 RANDOM_ID_EMPTY Random ID empty.
-/// 400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.
-/// 400 REPLY_TO_INVALID The specified <code>reply_to</code> field is invalid.
-/// 400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.
-/// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
-/// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
-/// 420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
-/// 400 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.
-/// 400 TOPIC_DELETED The specified topic was deleted.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/messages.sendMultiMedia" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 ALLOW_PAYMENT_REQUIRED_%d This peer charges %d <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> per message, but the <code>allow_paid_stars</code> was not set or its value is smaller than %d.</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_FORWARDS_RESTRICTED You can't forward messages from a protected chat.</c></para>
+/// <para><c>403 CHAT_SEND_MEDIA_FORBIDDEN You can't send media in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_PHOTOS_FORBIDDEN You can't send photos in this chat.</c></para>
+/// <para><c>403 CHAT_SEND_VIDEOS_FORBIDDEN You can't send videos in this chat.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 EFFECT_ID_INVALID The specified effect ID is invalid.</c></para>
+/// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
+/// <para><c>400 FILE_REFERENCE_%d_EXPIRED The file reference of the media file at index %d in the passed media array expired, it <a href="https://corefork.telegram.org/api/file-references">must be refreshed as specified in the documentation</a>. .</c></para>
+/// <para><c>400 FILE_REFERENCE_%d_INVALID The <a href="https://corefork.telegram.org/api/file-references">file reference</a> of the media file at index %d in the passed media array is invalid.</c></para>
+/// <para><c>400 MEDIA_CAPTION_TOO_LONG The caption is too long.</c></para>
+/// <para><c>400 MEDIA_EMPTY The provided media object is invalid.</c></para>
+/// <para><c>400 MEDIA_INVALID Media invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 MULTI_MEDIA_TOO_LONG Too many media files for album.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.</c></para>
+/// <para><c>400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.</c></para>
+/// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.</c></para>
+/// <para><c>400 RANDOM_ID_EMPTY Random ID empty.</c></para>
+/// <para><c>400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.</c></para>
+/// <para><c>400 REPLY_TO_INVALID The specified <code>reply_to</code> field is invalid.</c></para>
+/// <para><c>400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.</c></para>
+/// <para><c>400 SCHEDULE_TOO_MUCH There are too many scheduled messages.</c></para>
+/// <para><c>400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.</c></para>
+/// <para><c>420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.</c></para>
+/// <para><c>400 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.</c></para>
+/// <para><c>400 TOPIC_DELETED The specified topic was deleted.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendMultiMedia" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1bf89d74)]
-public sealed class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendMultiMedia : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x1bf89d74;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to send the album silently (no notification triggered)
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Send in background?
-    ///</summary>
+    /// </summary>
     public bool Background { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to clear <a href="https://corefork.telegram.org/api/drafts">drafts</a>
-    ///</summary>
+    /// </summary>
     public bool ClearDraft { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for bots, disallows forwarding and saving of the messages, even if the destination chat doesn't have <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">content protection</a> enabled
-    ///</summary>
+    /// </summary>
     public bool Noforwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to move used stickersets to top, <a href="https://corefork.telegram.org/api/stickers#recent-stickersets">see here for more info on this flag »</a>
-    ///</summary>
+    /// </summary>
     public bool UpdateStickersetsOrder { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
-    ///</summary>
+    /// </summary>
     public bool InvertMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bots only: if set, allows sending up to 1000 messages per second, ignoring <a href="https://corefork.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
-    ///</summary>
+    /// </summary>
     public bool AllowPaidFloodskip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The destination chat
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the message should be sent in reply to the specified message or story.
     /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The medias to send: note that they must be separately uploaded using <a href="https://corefork.telegram.org/method/messages.uploadMedia">messages.uploadMedia</a> first, using raw <code>inputMediaUploaded*</code> constructors is not supported.
     /// See <a href="https://corefork.telegram.org/type/InputSingleMedia" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputSingleMedia> MultiMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Scheduled message date for scheduled messages
-    ///</summary>
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Send this message as the specified peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Add the message to the specified <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut »</a>, instead.
     /// See <a href="https://corefork.telegram.org/type/InputQuickReplyShortcut" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputQuickReplyShortcut? QuickReplyShortcut { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies a <a href="https://corefork.telegram.org/api/effects">message effect »</a> to use for the message.
-    ///</summary>
+    /// </summary>
     public long? Effect { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>, specifies the amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> the user has agreed to pay in order to send the message.
-    ///</summary>
+    /// </summary>
     public long? AllowPaidStars { get; set; }
 
     public void ComputeFlag()

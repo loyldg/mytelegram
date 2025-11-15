@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel/supergroup username was changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsername" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsername" /></para>
+/// </summary>
 [TlObject(0x6a4afc38)]
-public sealed class TChannelAdminLogEventActionChangeUsername : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangeUsername : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x6a4afc38;
-    ///<summary>
+    /// <summary>
     /// Old username
-    ///</summary>
+    /// </summary>
     public string PrevValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New username
-    ///</summary>
+    /// </summary>
     public string NewValue { get; set; }
 
     public void ComputeFlag()

@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to gift <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> to a friend.
-/// See <a href="https://corefork.telegram.org/constructor/inputStorePaymentStarsGift" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStorePaymentStarsGift" /></para>
+/// </summary>
 [TlObject(0x1d741ef7)]
-public sealed class TInputStorePaymentStarsGift : IInputStorePaymentPurpose
+public sealed partial class TInputStorePaymentStarsGift : IInputStorePaymentPurpose
 {
     public uint ConstructorId => 0x1d741ef7;
-    ///<summary>
+    /// <summary>
     /// The user to which the stars should be gifted.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Amount of stars to gift
-    ///</summary>
+    /// </summary>
     public long Stars { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long Amount { get; set; }
 
     public void ComputeFlag()

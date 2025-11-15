@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The <a href="https://corefork.telegram.org/api/bots/commands">command set</a> of a certain bot in a certain chat has changed.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotCommands" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotCommands" /></para>
+/// </summary>
 [TlObject(0x4d712f2e)]
-public sealed class TUpdateBotCommands : IUpdate
+public sealed partial class TUpdateBotCommands : IUpdate
 {
     public uint ConstructorId => 0x4d712f2e;
-    ///<summary>
+    /// <summary>
     /// The affected chat
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the bot that changed its command set
-    ///</summary>
+    /// </summary>
     public long BotId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New bot commands
     /// See <a href="https://corefork.telegram.org/type/BotCommand" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBotCommand> Commands { get; set; }
 
     public void ComputeFlag()

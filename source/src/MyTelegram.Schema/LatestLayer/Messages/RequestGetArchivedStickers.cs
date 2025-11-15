@@ -2,38 +2,41 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get all archived stickers
-/// See <a href="https://corefork.telegram.org/method/messages.getArchivedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getArchivedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x57f17692)]
-public sealed class RequestGetArchivedStickers : IRequest<MyTelegram.Schema.Messages.IArchivedStickers>
+public sealed partial class RequestGetArchivedStickers : IRequest<MyTelegram.Schema.Messages.IArchivedStickers>
 {
     public uint ConstructorId => 0x57f17692;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Get <a href="https://corefork.telegram.org/api/stickers#mask-stickers">mask stickers</a>
-    ///</summary>
+    /// </summary>
     public bool Masks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Get <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickers</a>
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

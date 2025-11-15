@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Clear saved payment information
-/// See <a href="https://corefork.telegram.org/method/payments.clearSavedInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.clearSavedInfo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd83d70c1)]
-public sealed class RequestClearSavedInfo : IRequest<IBool>
+public sealed partial class RequestClearSavedInfo : IRequest<IBool>
 {
     public uint ConstructorId => 0xd83d70c1;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Remove saved payment credentials
-    ///</summary>
+    /// </summary>
     public bool Credentials { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clear the last order settings saved by the user
-    ///</summary>
+    /// </summary>
     public bool Info { get; set; }
 
     public void ComputeFlag()

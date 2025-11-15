@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Get a list of available <a href="https://corefork.telegram.org/api/gifts">gifts, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarGifts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarGifts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc4563590)]
-public sealed class RequestGetStarGifts : IRequest<MyTelegram.Schema.Payments.IStarGifts>
+public sealed partial class RequestGetStarGifts : IRequest<MyTelegram.Schema.Payments.IStarGifts>
 {
     public uint ConstructorId => 0xc4563590;
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.<br>The hash may be generated locally by using the <code>id</code>s of the returned or stored sticker <a href="https://corefork.telegram.org/constructor/starGift">starGift</a>s.
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.<br/>The hash may be generated locally by using the <code>id</code>s of the returned or stored sticker <a href="https://corefork.telegram.org/constructor/starGift">starGift</a>s.
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

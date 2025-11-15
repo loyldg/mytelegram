@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Media autosave settings have changed and must be refetched using <a href="https://corefork.telegram.org/method/account.getAutoSaveSettings">account.getAutoSaveSettings</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateAutoSaveSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateAutoSaveSettings" /></para>
+/// </summary>
 [TlObject(0xec05b097)]
-public sealed class TUpdateAutoSaveSettings : IUpdate
+public sealed partial class TUpdateAutoSaveSettings : IUpdate
 {
     public uint ConstructorId => 0xec05b097;
     public void ComputeFlag()

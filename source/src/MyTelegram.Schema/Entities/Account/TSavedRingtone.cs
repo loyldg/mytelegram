@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// The notification sound was already in MP3 format and was saved without any modification
-/// See <a href="https://corefork.telegram.org/constructor/account.savedRingtone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.savedRingtone" /></para>
+/// </summary>
 [TlObject(0xb7263f6d)]
-public sealed class TSavedRingtone : ISavedRingtone
+public sealed partial class TSavedRingtone : ISavedRingtone
 {
     public uint ConstructorId => 0xb7263f6d;
     public void ComputeFlag()

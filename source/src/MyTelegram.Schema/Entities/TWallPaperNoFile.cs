@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a> only based on colors/gradients.
-/// See <a href="https://corefork.telegram.org/constructor/wallPaperNoFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/wallPaperNoFile" /></para>
+/// </summary>
 [TlObject(0xe0804116)]
-public sealed class TWallPaperNoFile : IWallPaper
+public sealed partial class TWallPaperNoFile : IWallPaper
 {
     public uint ConstructorId => 0xe0804116;
-    ///<summary>
+    /// <summary>
     /// Wallpaper ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is the default wallpaper
-    ///</summary>
+    /// </summary>
     public bool Default { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this wallpaper should be used in dark mode.
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info on how to generate the wallpaper.
     /// See <a href="https://corefork.telegram.org/type/WallPaperSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaperSettings? Settings { get; set; }
 
     public void ComputeFlag()

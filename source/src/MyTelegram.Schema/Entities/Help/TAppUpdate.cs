@@ -2,60 +2,60 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// An update is available for the application.
-/// See <a href="https://corefork.telegram.org/constructor/help.appUpdate" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.appUpdate" /></para>
+/// </summary>
 [TlObject(0xccbbce30)]
-public sealed class TAppUpdate : IAppUpdate
+public sealed partial class TAppUpdate : IAppUpdate
 {
     public uint ConstructorId => 0xccbbce30;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unskippable, the new info must be shown to the user (with a popup or something else)
-    ///</summary>
+    /// </summary>
     public bool CanNotSkip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Update ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New version name
-    ///</summary>
+    /// </summary>
     public string Version { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text description of the update
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application binary
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application download URL
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Associated sticker
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? Sticker { get; set; }
 
     public void ComputeFlag()

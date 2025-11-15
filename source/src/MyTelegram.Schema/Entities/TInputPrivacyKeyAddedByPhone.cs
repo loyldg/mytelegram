@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether people can add you to their contact list by your phone number
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyAddedByPhone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyAddedByPhone" /></para>
+/// </summary>
 [TlObject(0xd1219bdd)]
-public sealed class TInputPrivacyKeyAddedByPhone : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyAddedByPhone : IInputPrivacyKey
 {
     public uint ConstructorId => 0xd1219bdd;
     public void ComputeFlag()

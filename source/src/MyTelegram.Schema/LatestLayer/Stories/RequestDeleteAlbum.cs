@@ -2,19 +2,30 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/stories.deleteAlbum" />
-///</summary>
+/// <summary>
+/// Delete a <a href="https://corefork.telegram.org/api/stories#story-albums">story album</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.deleteAlbum" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8d3456d0)]
-public sealed class RequestDeleteAlbum : IRequest<IBool>
+public sealed partial class RequestDeleteAlbum : IRequest<IBool>
 {
     public uint ConstructorId => 0x8d3456d0;
 
-    ///<summary>
+    /// <summary>
+    /// Owned peer where the album is located.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// ID of the album to delete.
+    /// </summary>
     public int AlbumId { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Resets all notification settings from users and groups.
-/// See <a href="https://corefork.telegram.org/method/account.resetNotifySettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.resetNotifySettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdb7e1747)]
-public sealed class RequestResetNotifySettings : IRequest<IBool>
+public sealed partial class RequestResetNotifySettings : IRequest<IBool>
 {
     public uint ConstructorId => 0xdb7e1747;
 

@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user joined the <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a> using a specific invite link
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite" /></para>
+/// </summary>
 [TlObject(0xfe9fc158)]
-public sealed class TChannelAdminLogEventActionParticipantJoinByInvite : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantJoinByInvite : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xfe9fc158;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The participant joined by importing a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     public bool ViaChatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The invite link used to join the <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a>
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
     public void ComputeFlag()

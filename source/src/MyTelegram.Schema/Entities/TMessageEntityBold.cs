@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity representing <strong>bold text</strong>.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityBold" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityBold" /></para>
+/// </summary>
 [TlObject(0xbd610bc9)]
-public sealed class TMessageEntityBold : IMessageEntity
+public sealed partial class TMessageEntityBold : IMessageEntity
 {
     public uint ConstructorId => 0xbd610bc9;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

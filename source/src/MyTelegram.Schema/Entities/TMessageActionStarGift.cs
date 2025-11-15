@@ -2,72 +2,112 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// You received a <a href="https://corefork.telegram.org/api/gifts">gift, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionStarGift" />
-///</summary>
-[TlObject(0x4717e8a4)]
-public sealed class TMessageActionStarGift : IMessageAction
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionStarGift" /></para>
+/// </summary>
+[TlObject(0xf24de7fa)]
+public sealed partial class TMessageActionStarGift : IMessageAction
 {
-    public uint ConstructorId => 0x4717e8a4;
-    ///<summary>
+    public uint ConstructorId => 0xf24de7fa;
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the name of the sender of the gift will be hidden if the destination user decides to display the gift on their profile
-    ///</summary>
+    /// </summary>
     public bool NameHidden { get; set; }
 
-    ///<summary>
-    /// Whether this gift was added to the destination user's profile (may be toggled using <a href="https://corefork.telegram.org/method/payments.saveStarGift">payments.saveStarGift</a> and fetched using <a href="https://corefork.telegram.org/method/payments.getUserStarGifts">payments.getUserStarGifts</a>)
-    ///</summary>
+    /// <summary>
+    /// Whether this gift was added to the destination user's profile (may be toggled using <a href="https://corefork.telegram.org/method/payments.saveStarGift">payments.saveStarGift</a> and fetched using <a href="https://corefork.telegram.org/method/payments.getSavedStarGifts">payments.getSavedStarGifts</a>)
+    /// </summary>
     public bool Saved { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this gift was converted to <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> and cannot be displayed on the profile anymore.
-    ///</summary>
+    /// </summary>
     public bool Converted { get; set; }
 
+    /// <summary>
+    /// This gift was upgraded to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+    /// </summary>
     public bool Upgraded { get; set; }
 
+    /// <summary>
+    /// This gift is not available anymore because a request to refund the payment related to this gift was made, and the money was returned.
+    /// </summary>
     public bool Refunded { get; set; }
 
+    /// <summary>
+    /// If set, this gift can be <a href="https://corefork.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift">upgraded to a collectible gift</a>; can only be set for the receiver of a gift.
+    /// </summary>
     public bool CanUpgrade { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The sender has already pre-paid for the upgrade of this gift to a collectible gift.
+    /// </summary>
+    public bool PrepaidUpgrade { get; set; }
+
+    /// <summary>
+    /// This service message is the notification of a <a href="https://corefork.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade">separate pre-payment for the upgrade of a gift we own</a>.
+    /// </summary>
+    public bool UpgradeSeparate { get; set; }
+
+    /// <summary>
     /// Info about the gift
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarGift Gift { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Additional message from the sender of the gift
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
-    ///<summary>
-    /// The receiver of this gift may convert it to this many Telegram Stars, instead of displaying it on their profile page.<br><code>convert_stars</code> will be equal to <code>stars</code> only if the gift was bought using recently bought Telegram Stars, otherwise it will be less than <code>stars</code>.
-    ///</summary>
+    /// <summary>
+    /// The receiver of this gift may convert it to this many Telegram Stars, instead of displaying it on their profile page.<br/><code>convert_stars</code> will be equal to <code>stars</code> only if the gift was bought using recently bought Telegram Stars, otherwise it will be less than <code>stars</code>.
+    /// </summary>
     public long? ConvertStars { get; set; }
 
+    /// <summary>
+    /// If set, this gift was <a href="https://corefork.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift">upgraded to a collectible gift</a>, and the corresponding <a href="https://corefork.telegram.org/constructor/messageActionStarGiftUnique">messageActionStarGiftUnique</a> is available at the specified message ID.
+    /// </summary>
     public int? UpgradeMsgId { get; set; }
 
+    /// <summary>
+    /// The number of Telegram Stars the user can pay to <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">convert the gift into a collectible gift »</a>.
+    /// </summary>
     public long? UpgradeStars { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Sender of the gift (unset for anonymous gifts).
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Receiver of the gift.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? Peer { get; set; }
 
+    /// <summary>
+    /// For channel gifts, ID to use in <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftChat">inputSavedStarGiftChat</a> constructors.
+    /// </summary>
     public long? SavedId { get; set; }
+
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade">Hash to prepay for a gift upgrade separately »</a>.
+    /// </summary>
+    public string? PrepaidUpgradeHash { get; set; }
+
+    /// <summary>
+    /// For <a href="https://corefork.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade">separate upgrades</a>, the identifier of the message with the gift whose upgrade was prepaid (only valid for the receiver of the service message).
+    /// </summary>
+    public int? GiftMsgId { get; set; }
 
     public void ComputeFlag()
     {
@@ -77,6 +117,8 @@ public sealed class TMessageActionStarGift : IMessageAction
         if (Upgraded) { Flags = Flags.SetBit(5); }
         if (Refunded) { Flags = Flags.SetBit(9); }
         if (CanUpgrade) { Flags = Flags.SetBit(10); }
+        if (PrepaidUpgrade) { Flags = Flags.SetBit(13); }
+        if (UpgradeSeparate) { Flags = Flags.SetBit(16); }
         if (Message != null) { Flags = Flags.SetBit(1); }
         if (/*ConvertStars != 0 &&*/ ConvertStars.HasValue) { Flags = Flags.SetBit(4); }
         if (/*UpgradeMsgId != 0 && */UpgradeMsgId.HasValue) { Flags = Flags.SetBit(5); }
@@ -84,6 +126,8 @@ public sealed class TMessageActionStarGift : IMessageAction
         if (FromId != null) { Flags = Flags.SetBit(11); }
         if (Peer != null) { Flags = Flags.SetBit(12); }
         if (/*SavedId != 0 &&*/ SavedId.HasValue) { Flags = Flags.SetBit(12); }
+        if (PrepaidUpgradeHash != null) { Flags = Flags.SetBit(14); }
+        if (/*GiftMsgId != 0 && */GiftMsgId.HasValue) { Flags = Flags.SetBit(15); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -99,6 +143,8 @@ public sealed class TMessageActionStarGift : IMessageAction
         if (Flags.IsBitSet(11)) { writer.Write(FromId); }
         if (Flags.IsBitSet(12)) { writer.Write(Peer); }
         if (Flags.IsBitSet(12)) { writer.Write(SavedId.Value); }
+        if (Flags.IsBitSet(14)) { writer.Write(PrepaidUpgradeHash); }
+        if (Flags.IsBitSet(15)) { writer.Write(GiftMsgId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -110,6 +156,8 @@ public sealed class TMessageActionStarGift : IMessageAction
         if (Flags.IsBitSet(5)) { Upgraded = true; }
         if (Flags.IsBitSet(9)) { Refunded = true; }
         if (Flags.IsBitSet(10)) { CanUpgrade = true; }
+        if (Flags.IsBitSet(13)) { PrepaidUpgrade = true; }
+        if (Flags.IsBitSet(16)) { UpgradeSeparate = true; }
         Gift = buffer.Read<MyTelegram.Schema.IStarGift>();
         if (Flags.IsBitSet(1)) { Message = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
         if (Flags.IsBitSet(4)) { ConvertStars = buffer.ReadInt64(); }
@@ -118,5 +166,7 @@ public sealed class TMessageActionStarGift : IMessageAction
         if (Flags.IsBitSet(11)) { FromId = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(12)) { Peer = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(12)) { SavedId = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(14)) { PrepaidUpgradeHash = buffer.ReadString(); }
+        if (Flags.IsBitSet(15)) { GiftMsgId = buffer.ReadInt32(); }
     }
 }

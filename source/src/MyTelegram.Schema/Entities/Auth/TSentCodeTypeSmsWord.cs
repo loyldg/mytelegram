@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The code was sent via SMS as a secret word, starting with the letter specified in <code>beginning</code>
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSmsWord" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeSmsWord" /></para>
+/// </summary>
 [TlObject(0xa416ac81)]
-public sealed class TSentCodeTypeSmsWord : ISentCodeType
+public sealed partial class TSentCodeTypeSmsWord : ISentCodeType
 {
     public uint ConstructorId => 0xa416ac81;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the secret word in the sent SMS (which may contain multiple words) starts with this letter.
-    ///</summary>
+    /// </summary>
     public string? Beginning { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Payment credentials
-/// See <a href="https://corefork.telegram.org/type/InputPaymentCredentials" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputPaymentCredentials" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputPaymentCredentialsSaved"/> See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentialsSaved" /><br/>
+/// <see cref="TInputPaymentCredentials"/> See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentials" /><br/>
+/// <see cref="TInputPaymentCredentialsApplePay"/> See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentialsApplePay" /><br/>
+/// <see cref="TInputPaymentCredentialsGooglePay"/> See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentialsGooglePay" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputPaymentCredentialsSaved), nameof(TInputPaymentCredentialsSaved))]
 [JsonDerivedType(typeof(TInputPaymentCredentials), nameof(TInputPaymentCredentials))]
 [JsonDerivedType(typeof(TInputPaymentCredentialsApplePay), nameof(TInputPaymentCredentialsApplePay))]

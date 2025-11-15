@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Contains information about an unsupported <a href="https://corefork.telegram.org/api/links#unsupported-links">deep link »</a>
-/// See <a href="https://corefork.telegram.org/type/help.DeepLinkInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.DeepLinkInfo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDeepLinkInfoEmpty"/> See <a href="https://corefork.telegram.org/constructor/help.deepLinkInfoEmpty" /><br/>
+/// <see cref="TDeepLinkInfo"/> See <a href="https://corefork.telegram.org/constructor/help.deepLinkInfo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDeepLinkInfoEmpty), nameof(TDeepLinkInfoEmpty))]
 [JsonDerivedType(typeof(TDeepLinkInfo), nameof(TDeepLinkInfo))]
 public interface IDeepLinkInfo : IObject

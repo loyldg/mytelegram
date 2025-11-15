@@ -2,44 +2,48 @@
 
 namespace MyTelegram.Schema.Photos;
 
-///<summary>
+/// <summary>
 /// Installs a previously uploaded photo as a profile photo.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ALBUM_PHOTOS_TOO_MANY You have uploaded too many profile photos, delete some before retrying.
-/// 400 FILE_PARTS_INVALID The number of file parts is invalid.
-/// 400 IMAGE_PROCESS_FAILED Failure while processing image.
-/// 400 LOCATION_INVALID The provided location is invalid.
-/// 400 PHOTO_CROP_SIZE_SMALL Photo is too small.
-/// 400 PHOTO_EXT_INVALID The extension of the photo is invalid.
-/// 400 PHOTO_ID_INVALID Photo ID invalid.
-/// See <a href="https://corefork.telegram.org/method/photos.updateProfilePhoto" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 ALBUM_PHOTOS_TOO_MANY You have uploaded too many profile photos, delete some before retrying.</c></para>
+/// <para><c>400 BOT_FALLBACK_UNSUPPORTED The fallback flag can't be set for bots.</c></para>
+/// <para><c>400 FILE_PARTS_INVALID The number of file parts is invalid.</c></para>
+/// <para><c>400 IMAGE_PROCESS_FAILED Failure while processing image.</c></para>
+/// <para><c>400 LOCATION_INVALID The provided location is invalid.</c></para>
+/// <para><c>400 PHOTO_CROP_SIZE_SMALL Photo is too small.</c></para>
+/// <para><c>400 PHOTO_EXT_INVALID The extension of the photo is invalid.</c></para>
+/// <para><c>400 PHOTO_ID_INVALID Photo ID invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/photos.updateProfilePhoto" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9e82039)]
-public sealed class RequestUpdateProfilePhoto : IRequest<MyTelegram.Schema.Photos.IPhoto>
+public sealed partial class RequestUpdateProfilePhoto : IRequest<MyTelegram.Schema.Photos.IPhoto>
 {
     public uint ConstructorId => 0x9e82039;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the chosen profile photo will be shown to users that can't display your main profile photo due to your privacy settings.
-    ///</summary>
+    /// </summary>
     public bool Fallback { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can contain info of a bot we own, to change the profile photo of that bot, instead of the current user.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser? Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Input photo
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoto Id { get; set; }
 
     public void ComputeFlag()

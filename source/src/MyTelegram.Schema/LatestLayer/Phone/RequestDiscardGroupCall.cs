@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Terminate a group call
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_ALREADY_DISCARDED The group call was already discarded.
-/// 403 GROUPCALL_FORBIDDEN The group call has already ended.
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.discardGroupCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_ALREADY_DISCARDED The group call was already discarded.</c></para>
+/// <para><c>403 GROUPCALL_FORBIDDEN The group call has already ended.</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.discardGroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7a777135)]
-public sealed class RequestDiscardGroupCall : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDiscardGroupCall : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x7a777135;
 
-    ///<summary>
+    /// <summary>
     /// The group call to terminate
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     public void ComputeFlag()

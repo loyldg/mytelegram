@@ -2,17 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/todoCompletion" />
-///</summary>
+/// <summary>
+/// A completed <a href="https://corefork.telegram.org/api/todo">todo list »</a> item.
+/// <para>See <a href="https://corefork.telegram.org/constructor/todoCompletion" /></para>
+/// </summary>
 [TlObject(0x4cc120b7)]
-public sealed class TTodoCompletion : ITodoCompletion
+public sealed partial class TTodoCompletion : ITodoCompletion
 {
     public uint ConstructorId => 0x4cc120b7;
+    /// <summary>
+    /// The ID of the completed item.
+    /// </summary>
     public int Id { get; set; }
 
+    /// <summary>
+    /// ID of the user that completed the item.
+    /// </summary>
     public long CompletedBy { get; set; }
 
+    /// <summary>
+    /// When was the item completed.
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

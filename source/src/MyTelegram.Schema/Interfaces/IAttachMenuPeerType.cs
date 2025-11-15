@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a supported peer type for a <a href="https://corefork.telegram.org/bots/webapps#launching-mini-apps-from-the-attachment-menu">bot mini app attachment menu</a>
-/// See <a href="https://corefork.telegram.org/type/AttachMenuPeerType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/AttachMenuPeerType" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAttachMenuPeerTypeSameBotPM"/> See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypeSameBotPM" /><br/>
+/// <see cref="TAttachMenuPeerTypeBotPM"/> See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypeBotPM" /><br/>
+/// <see cref="TAttachMenuPeerTypePM"/> See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypePM" /><br/>
+/// <see cref="TAttachMenuPeerTypeChat"/> See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypeChat" /><br/>
+/// <see cref="TAttachMenuPeerTypeBroadcast"/> See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypeBroadcast" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAttachMenuPeerTypeSameBotPM), nameof(TAttachMenuPeerTypeSameBotPM))]
 [JsonDerivedType(typeof(TAttachMenuPeerTypeBotPM), nameof(TAttachMenuPeerTypeBotPM))]
 [JsonDerivedType(typeof(TAttachMenuPeerTypePM), nameof(TAttachMenuPeerTypePM))]

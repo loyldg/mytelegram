@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Chat invite
-/// See <a href="https://corefork.telegram.org/type/ChatInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatInviteAlready"/> See <a href="https://corefork.telegram.org/constructor/chatInviteAlready" /><br/>
+/// <see cref="TChatInvite"/> See <a href="https://corefork.telegram.org/constructor/chatInvite" /><br/>
+/// <see cref="TChatInvitePeek"/> See <a href="https://corefork.telegram.org/constructor/chatInvitePeek" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatInviteAlready), nameof(TChatInviteAlready))]
 [JsonDerivedType(typeof(TChatInvite), nameof(TChatInvite))]
 [JsonDerivedType(typeof(TChatInvitePeek), nameof(TChatInvitePeek))]

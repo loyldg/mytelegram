@@ -2,14 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/account.getCollectibleEmojiStatuses" />
-///</summary>
+/// <summary>
+/// Obtain a list of <a href="https://corefork.telegram.org/api/emoji-status">emoji statuses »</a> for owned <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gifts</a>.
+/// <para>See <a href="https://corefork.telegram.org/method/account.getCollectibleEmojiStatuses" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2e7b4543)]
-public sealed class RequestGetCollectibleEmojiStatuses : IRequest<MyTelegram.Schema.Account.IEmojiStatuses>
+public sealed partial class RequestGetCollectibleEmojiStatuses : IRequest<MyTelegram.Schema.Account.IEmojiStatuses>
 {
     public uint ConstructorId => 0x2e7b4543;
 
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets">Hash for pagination</a>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

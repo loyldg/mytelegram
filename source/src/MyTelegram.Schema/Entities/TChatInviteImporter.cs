@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// When and which user joined the chat using a chat invite
-/// See <a href="https://corefork.telegram.org/constructor/chatInviteImporter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatInviteImporter" /></para>
+/// </summary>
 [TlObject(0x8c5adfd9)]
-public sealed class TChatInviteImporter : IChatInviteImporter
+public sealed partial class TChatInviteImporter : IChatInviteImporter
 {
     public uint ConstructorId => 0x8c5adfd9;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this user currently has a pending <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a>
-    ///</summary>
+    /// </summary>
     public bool Requested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The participant joined by importing a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     public bool ViaChatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did the user join
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For users with pending requests, contains bio of the user that requested to join
-    ///</summary>
+    /// </summary>
     public string? About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The administrator that approved the <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a> of the user
-    ///</summary>
+    /// </summary>
     public long? ApprovedBy { get; set; }
 
     public void ComputeFlag()

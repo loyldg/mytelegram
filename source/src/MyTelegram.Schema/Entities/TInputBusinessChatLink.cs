@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about a <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep link »</a> to be created by the current account.
-/// See <a href="https://corefork.telegram.org/constructor/inputBusinessChatLink" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBusinessChatLink" /></para>
+/// </summary>
 [TlObject(0x11679fa7)]
-public sealed class TInputBusinessChatLink : IInputBusinessChatLink
+public sealed partial class TInputBusinessChatLink : IInputBusinessChatLink
 {
     public uint ConstructorId => 0x11679fa7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to pre-fill in the message input field.
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Human-readable name of the link, to simplify management in the UI (only visible to the creator of the link).
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
     public void ComputeFlag()

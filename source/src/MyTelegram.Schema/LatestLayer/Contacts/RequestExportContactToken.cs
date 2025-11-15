@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Generates a <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a> for the currently logged-in user.
-/// See <a href="https://corefork.telegram.org/method/contacts.exportContactToken" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.exportContactToken" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf8654027)]
-public sealed class RequestExportContactToken : IRequest<MyTelegram.Schema.IExportedContactToken>
+public sealed partial class RequestExportContactToken : IRequest<MyTelegram.Schema.IExportedContactToken>
 {
     public uint ConstructorId => 0xf8654027;
 

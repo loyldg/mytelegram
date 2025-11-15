@@ -2,62 +2,65 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// React to message.Starting from layer 159, the reaction will be sent from the peer specified using <a href="https://corefork.telegram.org/method/messages.saveDefaultSendAs">messages.saveDefaultSendAs</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 ANONYMOUS_REACTIONS_DISABLED Sorry, anonymous administrators cannot leave reactions or participate in polls.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 CUSTOM_REACTIONS_TOO_MANY Too many custom reactions were specified.
-/// 400 DOCUMENT_INVALID The specified document is invalid.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 MESSAGE_NOT_MODIFIED The provided message data is identical to the previous message data, the message wasn't modified.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 400 REACTIONS_TOO_MANY The message already has exactly <code>reactions_uniq_max</code> reaction emojis, you can't react with a new emoji, see <a href="https://corefork.telegram.org/api/config#client-configuration">the docs for more info&nbsp;»</a>.
-/// 400 REACTION_EMPTY Empty reaction provided.
-/// 400 REACTION_INVALID The specified reaction is invalid.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/messages.sendReaction" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 ANONYMOUS_REACTIONS_DISABLED Sorry, anonymous administrators cannot leave reactions or participate in polls.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 CUSTOM_REACTIONS_TOO_MANY Too many custom reactions were specified.</c></para>
+/// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 MESSAGE_NOT_MODIFIED The provided message data is identical to the previous message data, the message wasn't modified.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
+/// <para><c>400 REACTIONS_TOO_MANY The message already has exactly <code>reactions_uniq_max</code> reaction emojis, you can't react with a new emoji, see <a href="https://corefork.telegram.org/api/config#client-configuration">the docs for more info »</a>.</c></para>
+/// <para><c>400 REACTION_EMPTY Empty reaction provided.</c></para>
+/// <para><c>400 REACTION_INVALID The specified reaction is invalid.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendReaction" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd30d78d4)]
-public sealed class RequestSendReaction : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendReaction : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xd30d78d4;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether a bigger and longer reaction should be shown
-    ///</summary>
+    /// </summary>
     public bool Big { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to add this reaction to the <a href="https://corefork.telegram.org/api/reactions#recent-reactions">recent reactions list »</a>.
-    ///</summary>
+    /// </summary>
     public bool AddToRecent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID to react to
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
-    /// A list of reactions
+    /// <summary>
+    /// A list of reactions (doesn't accept <a href="https://corefork.telegram.org/constructor/reactionPaid">reactionPaid</a> constructors, use <a href="https://corefork.telegram.org/method/messages.sendPaidReaction">messages.sendPaidReaction</a> to send paid reactions, instead).
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IReaction>? Reaction { get; set; }
 
     public void ComputeFlag()

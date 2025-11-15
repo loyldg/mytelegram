@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Returns the support user for the "ask a question" feature.
-/// See <a href="https://corefork.telegram.org/method/help.getSupport" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getSupport" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9cdf08cd)]
-public sealed class RequestGetSupport : IRequest<MyTelegram.Schema.Help.ISupport>
+public sealed partial class RequestGetSupport : IRequest<MyTelegram.Schema.Help.ISupport>
 {
     public uint ConstructorId => 0x9cdf08cd;
 

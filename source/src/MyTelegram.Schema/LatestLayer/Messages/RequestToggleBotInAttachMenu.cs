@@ -2,38 +2,41 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Enable or disable <a href="https://corefork.telegram.org/api/bots/attach">web bot attachment menu »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/messages.toggleBotInAttachMenu" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.toggleBotInAttachMenu" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x69f59d69)]
-public sealed class RequestToggleBotInAttachMenu : IRequest<IBool>
+public sealed partial class RequestToggleBotInAttachMenu : IRequest<IBool>
 {
     public uint ConstructorId => 0x69f59d69;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user authorizes the bot to write messages to them, if requested by <a href="https://corefork.telegram.org/constructor/attachMenuBot">attachMenuBot</a>.<code>request_write_access</code>
-    ///</summary>
+    /// </summary>
     public bool WriteAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot ID
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Toggle
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
     public void ComputeFlag()

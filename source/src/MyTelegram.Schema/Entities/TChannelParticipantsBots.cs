@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Fetch only bot participants
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantsBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantsBots" /></para>
+/// </summary>
 [TlObject(0xb0d1865b)]
-public sealed class TChannelParticipantsBots : IChannelParticipantsFilter
+public sealed partial class TChannelParticipantsBots : IChannelParticipantsFilter
 {
     public uint ConstructorId => 0xb0d1865b;
     public void ComputeFlag()

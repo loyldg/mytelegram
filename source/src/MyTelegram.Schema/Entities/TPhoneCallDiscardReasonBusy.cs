@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The phone call was discarded because the user is busy in another call
-/// See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonBusy" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonBusy" /></para>
+/// </summary>
 [TlObject(0xfaf7e8c9)]
-public sealed class TPhoneCallDiscardReasonBusy : IPhoneCallDiscardReason
+public sealed partial class TPhoneCallDiscardReasonBusy : IPhoneCallDiscardReason
 {
     public uint ConstructorId => 0xfaf7e8c9;
     public void ComputeFlag()

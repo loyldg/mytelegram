@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Reply markup for bot and inline keyboards
-/// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ReplyMarkup" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TReplyKeyboardHide"/> See <a href="https://corefork.telegram.org/constructor/replyKeyboardHide" /><br/>
+/// <see cref="TReplyKeyboardForceReply"/> See <a href="https://corefork.telegram.org/constructor/replyKeyboardForceReply" /><br/>
+/// <see cref="TReplyKeyboardMarkup"/> See <a href="https://corefork.telegram.org/constructor/replyKeyboardMarkup" /><br/>
+/// <see cref="TReplyInlineMarkup"/> See <a href="https://corefork.telegram.org/constructor/replyInlineMarkup" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TReplyKeyboardHide), nameof(TReplyKeyboardHide))]
 [JsonDerivedType(typeof(TReplyKeyboardForceReply), nameof(TReplyKeyboardForceReply))]
 [JsonDerivedType(typeof(TReplyKeyboardMarkup), nameof(TReplyKeyboardMarkup))]

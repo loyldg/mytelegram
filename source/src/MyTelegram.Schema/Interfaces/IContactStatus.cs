@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contact status: online / offline.
-/// See <a href="https://corefork.telegram.org/type/ContactStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ContactStatus" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TContactStatus"/> See <a href="https://corefork.telegram.org/constructor/contactStatus" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TContactStatus), nameof(TContactStatus))]
 public interface IContactStatus : IObject
 {
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Online status
     /// See <a href="https://corefork.telegram.org/type/UserStatus" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IUserStatus Status { get; set; }
 }

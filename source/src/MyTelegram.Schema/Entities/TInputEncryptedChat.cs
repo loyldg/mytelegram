@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Creates an encrypted chat.
-/// See <a href="https://corefork.telegram.org/constructor/inputEncryptedChat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputEncryptedChat" /></para>
+/// </summary>
 [TlObject(0xf141b5e1)]
-public sealed class TInputEncryptedChat : IInputEncryptedChat
+public sealed partial class TInputEncryptedChat : IInputEncryptedChat
 {
     public uint ConstructorId => 0xf141b5e1;
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public int ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Checking sum from constructor <a href="https://corefork.telegram.org/constructor/encryptedChat">encryptedChat</a>, <a href="https://corefork.telegram.org/constructor/encryptedChatWaiting">encryptedChatWaiting</a> or <a href="https://corefork.telegram.org/constructor/encryptedChatRequested">encryptedChatRequested</a>
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

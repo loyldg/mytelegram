@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Search for <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickersets »</a>
-/// See <a href="https://corefork.telegram.org/method/messages.searchEmojiStickerSets" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.searchEmojiStickerSets" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x92b4494c)]
-public sealed class RequestSearchEmojiStickerSets : IRequest<MyTelegram.Schema.Messages.IFoundStickerSets>
+public sealed partial class RequestSearchEmojiStickerSets : IRequest<MyTelegram.Schema.Messages.IFoundStickerSets>
 {
     public uint ConstructorId => 0x92b4494c;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Exclude featured stickersets from results
-    ///</summary>
+    /// </summary>
     public bool ExcludeFeatured { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query string
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

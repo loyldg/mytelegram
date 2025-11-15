@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A specific previously uploaded notification sound should be used
-/// See <a href="https://corefork.telegram.org/constructor/notificationSoundRingtone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/notificationSoundRingtone" /></para>
+/// </summary>
 [TlObject(0xff6c8049)]
-public sealed class TNotificationSoundRingtone : INotificationSound
+public sealed partial class TNotificationSoundRingtone : INotificationSound
 {
     public uint ConstructorId => 0xff6c8049;
-    ///<summary>
+    /// <summary>
     /// Document ID of notification sound uploaded using <a href="https://corefork.telegram.org/method/account.uploadRingtone">account.uploadRingtone</a>
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

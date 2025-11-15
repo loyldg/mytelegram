@@ -2,10 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Location of a certain size of a picture
-/// See <a href="https://corefork.telegram.org/type/PhotoSize" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PhotoSize" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPhotoSizeEmpty"/> See <a href="https://corefork.telegram.org/constructor/photoSizeEmpty" /><br/>
+/// <see cref="TPhotoSize"/> See <a href="https://corefork.telegram.org/constructor/photoSize" /><br/>
+/// <see cref="TPhotoCachedSize"/> See <a href="https://corefork.telegram.org/constructor/photoCachedSize" /><br/>
+/// <see cref="TPhotoStrippedSize"/> See <a href="https://corefork.telegram.org/constructor/photoStrippedSize" /><br/>
+/// <see cref="TPhotoSizeProgressive"/> See <a href="https://corefork.telegram.org/constructor/photoSizeProgressive" /><br/>
+/// <see cref="TPhotoPathSize"/> See <a href="https://corefork.telegram.org/constructor/photoPathSize" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPhotoSizeEmpty), nameof(TPhotoSizeEmpty))]
 [JsonDerivedType(typeof(TPhotoSize), nameof(TPhotoSize))]
 [JsonDerivedType(typeof(TPhotoCachedSize), nameof(TPhotoCachedSize))]
@@ -14,8 +23,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPhotoPathSize), nameof(TPhotoPathSize))]
 public interface IPhotoSize : IObject
 {
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#image-thumbnail-types">Thumbnail type »</a>
-    ///</summary>
+    /// </summary>
     string Type { get; set; }
 }

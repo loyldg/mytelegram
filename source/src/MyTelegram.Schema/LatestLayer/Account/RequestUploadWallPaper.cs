@@ -2,44 +2,47 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Create and upload a new <a href="https://corefork.telegram.org/api/wallpapers">wallpaper</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 WALLPAPER_FILE_INVALID The specified wallpaper file is invalid.
-/// 400 WALLPAPER_MIME_INVALID The specified wallpaper MIME type is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.uploadWallPaper" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 WALLPAPER_FILE_INVALID The specified wallpaper file is invalid.</c></para>
+/// <para><c>400 WALLPAPER_MIME_INVALID The specified wallpaper MIME type is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.uploadWallPaper" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe39a8f03)]
-public sealed class RequestUploadWallPaper : IRequest<MyTelegram.Schema.IWallPaper>
+public sealed partial class RequestUploadWallPaper : IRequest<MyTelegram.Schema.IWallPaper>
 {
     public uint ConstructorId => 0xe39a8f03;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag when uploading wallpapers to be passed to <a href="https://corefork.telegram.org/method/messages.setChatWallPaper">messages.setChatWallPaper</a>.
-    ///</summary>
+    /// </summary>
     public bool ForChat { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The JPG/PNG wallpaper
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile File { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MIME type of uploaded wallpaper
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Wallpaper settings
     /// See <a href="https://corefork.telegram.org/type/WallPaperSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWallPaperSettings Settings { get; set; }
 
     public void ComputeFlag()

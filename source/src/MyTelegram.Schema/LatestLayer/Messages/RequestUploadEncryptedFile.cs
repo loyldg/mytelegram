@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Upload encrypted file and associate it to a secret chat
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.uploadEncryptedFile" />
-///</summary>
+/// <summary>
+/// Upload encrypted file and associate it to a secret chat (without actually sending it to the chat).
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.uploadEncryptedFile" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5057c497)]
-public sealed class RequestUploadEncryptedFile : IRequest<MyTelegram.Schema.IEncryptedFile>
+public sealed partial class RequestUploadEncryptedFile : IRequest<MyTelegram.Schema.IEncryptedFile>
 {
     public uint ConstructorId => 0x5057c497;
 
-    ///<summary>
+    /// <summary>
     /// The secret chat to associate the file to
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedChat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedChat Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The file
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedFile File { get; set; }
 
     public void ComputeFlag()
