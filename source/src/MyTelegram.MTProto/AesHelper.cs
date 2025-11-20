@@ -47,7 +47,7 @@ public class AesHelper : IAesHelper, ITransientDependency
         iv.CopyTo(ivBytes);
         var prevBytes = ivBytes;
         var inputSpan = MemoryMarshal.Cast<byte, long>(input);
-        var outputSpan = MemoryMarshal.Cast<byte, long>(outputBytes);
+        var outputSpan = MemoryMarshal.Cast<byte, long>(outputBytes.AsSpan());
         var prev = MemoryMarshal.Cast<byte, long>(prevBytes);
         for (int i = 0, count = input.Length / 8; i < count;)
         {
