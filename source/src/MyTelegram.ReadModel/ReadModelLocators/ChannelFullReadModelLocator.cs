@@ -12,9 +12,9 @@ public class ChannelFullReadModelLocator : IChannelFullReadModelLocator, ITransi
         {
             switch (aggregateEvent)
             {
-                case ChannelMemberJoinedEvent channelMemberJoinedEvent:
-                    yield return ChannelId.Create(channelMemberJoinedEvent.ChannelId).Value;
-                    break;
+                //case ChannelMemberJoinedEvent channelMemberJoinedEvent:
+                //    yield return ChannelId.Create(channelMemberJoinedEvent.ChannelId).Value;
+                //    break;
                 case ChannelMemberLeftEvent channelMemberLeftEvent:
                     yield return ChannelId.Create(channelMemberLeftEvent.ChannelId).Value;
                     break;

@@ -22,9 +22,9 @@ public class ChannelReadModelLocator : IChannelReadModelLocator, ITransientDepen
                 case DeleteReplyMessagesCompletedSagaEvent deleteReplyMessagesCompletedEvent:
                     yield return ChannelId.Create(deleteReplyMessagesCompletedEvent.ChannelId).Value;
                     break;
-                case ChannelMemberJoinedEvent channelMemberJoinedEvent:
-                    yield return ChannelId.Create(channelMemberJoinedEvent.ChannelId).Value;
-                    break;
+                //case ChannelMemberJoinedEvent channelMemberJoinedEvent:
+                //    yield return ChannelId.Create(channelMemberJoinedEvent.ChannelId).Value;
+                //    break;
                 case ChannelMemberLeftEvent channelMemberLeftEvent:
                     yield return ChannelId.Create(channelMemberLeftEvent.ChannelId).Value;
                     break;

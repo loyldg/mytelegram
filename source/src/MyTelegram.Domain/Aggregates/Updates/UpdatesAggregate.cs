@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.Events.Updates;
-
-namespace MyTelegram.Domain.Aggregates.Updates;
+﻿namespace MyTelegram.Domain.Aggregates.Updates;
 
 public class UpdatesAggregate : MyInMemorySnapshotAggregateRoot<UpdatesAggregate, UpdatesId, UpdatesSnapshot>, INotSaveAggregateEvents
 {
@@ -10,7 +8,7 @@ public class UpdatesAggregate : MyInMemorySnapshotAggregateRoot<UpdatesAggregate
         Register(_state);
     }
 
-    public void Create(long ownerPeerId, long? excludeAuthKeyId, long? excludeUserId,
+    public void CreateUpdates(long ownerPeerId, long? excludeAuthKeyId, long? excludeUserId,
         long? onlySendToUserId,
         long? onlySendToThisAuthKeyId,
         UpdatesType updatesType, int pts, int? messageId, int date, long globalSeqNo,

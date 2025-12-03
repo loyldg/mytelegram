@@ -12,10 +12,11 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
     public void EditChannelAdmin2(RequestInfo requestInfo, long channelId, long userId, int adminRights, string rank)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelAdminEditedEvent2(requestInfo, channelId, userId, adminRights, rank, adminRights != 0));
+        var isAdmin = adminRights != 0;
+        Emit(new ChannelAdminEditedEvent2(requestInfo, channelId, userId, adminRights, rank, isAdmin));
     }
 
-    public void Create(
+    public void CreateChannelMember(
         RequestInfo requestInfo,
         long channelId,
         long userId,
@@ -23,8 +24,8 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
         int date,
         bool isBot,
         long? chatInviteId,
-        ChatJoinType chatJoinType,
-        bool isBroadcast
+        bool isBroadcast,
+        ChatJoinType chatJoinType = ChatJoinType.InvitedByAdmin
         )
     {
         // Kicked user can not join channel by invite link
@@ -39,14 +40,14 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.UserAlreadyParticipant);
             RpcErrors.RpcErrors400.UserAlreadyParticipant.ThrowRpcError();
         }
-
+        var isRejoin = !IsNew;
         Emit(new ChannelMemberCreatedEvent(
             requestInfo,
             channelId,
             userId,
             inviterId,
             date,
-            !IsNew,
+            isRejoin,
             _state.BannedRights,
             isBot,
             chatInviteId,
@@ -55,7 +56,7 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             ));
     }
 
-    public void CreateCreator(RequestInfo requestInfo,
+    public void CreateChannelCreator(RequestInfo requestInfo,
         long channelId,
         long userId,
         int date,
@@ -63,10 +64,11 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
         )
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+        var inviterId = userId;
         Emit(new ChannelCreatorCreatedEvent(requestInfo,
             channelId,
             userId,
-            userId,
+            inviterId,
             date,
             isBroadcast));
     }
@@ -128,10 +130,20 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
 
     public void LeaveChannel(RequestInfo requestInfo,
         long channelId,
+        long memberUserId,
+        bool notifyOtherParticipants
+        )
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new ChannelMemberLeftEvent(requestInfo, channelId, memberUserId, _state.IsBot, _state.Broadcast, notifyOtherParticipants));
+    }
+
+    public void LeaveChannel2(RequestInfo requestInfo,
+        long channelId,
         long memberUserId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelMemberLeftEvent(requestInfo, channelId, memberUserId, _state.IsBot, _state.Broadcast));
+        Emit(new ChannelMemberLeftEvent2(requestInfo, channelId, memberUserId, _state.IsBot, _state.Broadcast));
     }
 
     protected override Task<ChannelMemberSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)

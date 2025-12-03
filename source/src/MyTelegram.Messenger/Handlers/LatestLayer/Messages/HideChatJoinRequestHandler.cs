@@ -55,7 +55,7 @@ internal sealed class HideChatJoinRequestHandler(IQueryProcessor queryProcessor,
             broadcast = channelReadModel.Broadcast;
         }
 
-        var command = new HideChatJoinRequestCommand2(JoinChannelId.Create(channelId, userPeer.PeerId), input.ToRequestInfo(), userPeer.PeerId, obj.Approved, topMessageId, channelHistoryMinId, broadcast);
+        var command = new HideChatJoinRequestCommand(JoinChannelId.Create(channelId, userPeer.PeerId), input.ToRequestInfo(), userPeer.PeerId, obj.Approved, topMessageId, channelHistoryMinId, broadcast);
         await commandBus.PublishAsync(command);
         return null !;
     }

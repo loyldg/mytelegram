@@ -33,7 +33,7 @@ internal sealed class UpdateDialogFilterHandler(ICommandBus commandBus, IPeerHel
                 var includePeers = f.IncludePeers.Select(GetInputPeer).ToList();
                 var excludePeers = f.ExcludePeers.Select(GetInputPeer).ToList();
                 var filter = new DialogFilter(obj.Id, f.Contacts, f.NonContacts, f.Groups, f.Broadcasts, f.Bots, f.ExcludeMuted, f.ExcludeRead, f.ExcludeArchived, f.TitleNoanimate, f.Title, f.Emoticon, f.Color, pinnedPeers, includePeers, excludePeers, false);
-                var command = new UpdateDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id), input.ToRequestInfo(), input.UserId, filter.Id, filter);
+                var command = new UpdateDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id), input.ToRequestInfo(), input.UserId, filter);
                 await commandBus.PublishAsync(command, default);
             }
             else

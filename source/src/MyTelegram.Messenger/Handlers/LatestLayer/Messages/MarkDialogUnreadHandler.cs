@@ -17,7 +17,7 @@ internal sealed class MarkDialogUnreadHandler(ICommandBus commandBus, IPeerHelpe
         {
             case TInputDialogPeer inputDialogPeer:
                 var peer = peerHelper.GetPeer(inputDialogPeer.Peer, input.UserId);
-                var command = new MarkDialogAsUnreadCommand(DialogId.Create(input.UserId, peer), input.ToRequestInfo(), obj.Unread);
+                var command = new MarkDialogAsUnreadCommand(DialogId.Create(input.UserId, peer), obj.Unread);
                 await commandBus.PublishAsync(command, CancellationToken.None);
                 break;
             case TInputDialogPeerFolder inputDialogPeerFolder:

@@ -39,7 +39,7 @@ internal sealed class SaveDraftHandler(ICommandBus commandBus, IPeerHelper peerH
             media = await mediaHelper.SaveMediaAsync(obj.Media);
         }
 
-        var saveDraftCommand = new SaveDraftCommand(dialogId, input.ToRequestInfo(), new Draft(obj.NoWebpage, obj.InvertMedia, replyToMsgId, obj.Message, CurrentDate, entities2: obj.Entities, media: media, effect: obj.Effect, media2: obj.Media, replyTo: obj.ReplyTo));
+        var saveDraftCommand = new SaveDraftCommand(dialogId, input.ToRequestInfo(), new Draft(obj.NoWebpage, obj.InvertMedia, replyToMsgId, obj.Message, CurrentDate, entities2: obj.Entities, media: media, effect: obj.Effect, media2: obj.Media, replyTo: obj.ReplyTo), null);
         await commandBus.PublishAsync(saveDraftCommand);
         return new TBoolTrue();
     }

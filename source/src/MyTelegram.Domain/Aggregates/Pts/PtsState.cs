@@ -47,14 +47,14 @@ public class PtsState : AggregateState<PtsAggregate, PtsId, PtsState>,
         Qts = aggregateEvent.NewQts;
     }
 
-    public void Apply(PtsCreatedEvent aggregateEvent)
-    {
-        PeerId = aggregateEvent.PeerId;
-        Pts = aggregateEvent.Pts;
-        Qts = aggregateEvent.Qts;
-        UnreadCount = aggregateEvent.UnreadCount;
-        Date = aggregateEvent.Date;
-    }
+    //public void Apply(PtsCreatedEvent aggregateEvent)
+    //{
+    //    PeerId = aggregateEvent.PeerId;
+    //    Pts = aggregateEvent.Pts;
+    //    Qts = aggregateEvent.Qts;
+    //    UnreadCount = aggregateEvent.UnreadCount;
+    //    Date = aggregateEvent.Date;
+    //}
 
     public void LoadSnapshot(PtsSnapshot snapshot)
     {

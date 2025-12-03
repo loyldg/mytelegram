@@ -1,5 +1,4 @@
 ﻿using MyTelegram.Domain.Aggregates.Temp;
-using MyTelegram.Domain.Events.Temp;
 
 namespace MyTelegram.ReadModel.Impl;
 

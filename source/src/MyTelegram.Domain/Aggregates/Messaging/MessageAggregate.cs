@@ -12,13 +12,15 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     public void UpdateMessagePinned(RequestInfo requestInfo, bool pinned)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new MessagePinnedUpdatedEvent(requestInfo, _state.MessageItem.OwnerPeer.PeerId, _state.MessageItem.MessageId, pinned, _state.MessageItem.ToPeer, _state.MessageItem.Post));
+        var ownerPeerId = _state.MessageItem.OwnerPeer.PeerId;
+        Emit(new MessagePinnedUpdatedEvent(requestInfo, ownerPeerId, _state.MessageItem.MessageId, pinned, _state.MessageItem.ToPeer, _state.MessageItem.Post));
     }
 
     public void UnpinMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new MessageUnpinnedEvent(requestInfo, _state.MessageItem.OwnerPeer.PeerId, _state.MessageItem.MessageId));
+        var ownerPeerId = _state.MessageItem.OwnerPeer.PeerId;
+        Emit(new MessageUnpinnedEvent(requestInfo, ownerPeerId, _state.MessageItem.MessageId));
     }
 
     public void AddInboxItemsToOutboxMessage(List<InboxItem> inboxItems)
@@ -37,7 +39,8 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         int inboxMessageId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new InboxMessageIdAddedToOutboxMessageEvent(new InboxItem(inboxOwnerPeerId, inboxMessageId)));
+        var inboxItem = new InboxItem(inboxOwnerPeerId, inboxMessageId);
+        Emit(new InboxMessageIdAddedToOutboxMessageEvent(inboxItem));
     }
 
     public void CreateInboxMessage(
@@ -51,12 +54,14 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
 
     public void CreateOutboxMessage(RequestInfo requestInfo,
         MessageItem outboxMessageItem,
-        List<long>? mentionedUserIds,
-        List<ReplyToMsgItem>? replyToMsgItems,
-        bool clearDraft,
-        int groupItemCount,
-        long? linkedChannelId,
-        List<long>? chatMembers)
+        List<long>? mentionedUserIds = null,
+        List<ReplyToMsgItem>? replyToMsgItems = null,
+        //IReplyTo? replyTo,
+        //IInputReplyTo? inputReplyTo, 
+        bool clearDraft = true,
+        int groupItemCount = 1,
+        long? linkedChannelId = null,
+        List<long>? chatMembers = null)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
         if (outboxMessageItem.Post)
@@ -83,12 +88,15 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     public void DeleteChannelMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var channelId = _state.MessageItem.OwnerPeer.PeerId;
+        var postChannelId = _state.MessageItem.FwdHeader?.SavedFromPeer?.PeerId;
+        var postMessageId = _state.MessageItem.FwdHeader?.SavedFromMsgId;
         Emit(new ChannelMessageDeletedEvent(requestInfo,
-            _state.MessageItem.OwnerPeer.PeerId,
+            channelId,
             _state.MessageItem.MessageId,
             _state.MessageItem.IsForwardFromChannelPost,
-            _state.MessageItem.FwdHeader?.SavedFromPeer?.PeerId,
-            _state.MessageItem.FwdHeader?.SavedFromMsgId));
+            postChannelId,
+            postMessageId));
     }
 
     public void DeleteInboxMessage(RequestInfo requestInfo)
@@ -105,48 +113,26 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     public void DeleteMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var ownerPeerId = _state.MessageItem.OwnerPeer.PeerId;
+        var senderPeerId = _state.MessageItem.SenderPeer.PeerId;
         Emit(new MessageDeleted4Event(
             requestInfo,
             _state.MessageItem.ToPeer,
-            _state.MessageItem.OwnerPeer.PeerId,
+            ownerPeerId,
             _state.MessageItem.MessageId,
             _state.MessageItem.IsOut,
-            _state.MessageItem.SenderPeer.PeerId,
-            _state.SenderMessageId,
-            _state.InboxItems));
+            senderPeerId,
+            _state.SenderMessageId));
     }
 
     public void DeleteOtherPartyMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var ownerPeerId = _state.MessageItem.OwnerPeer.PeerId;
         Emit(new OtherPartyMessageDeletedEvent(
             requestInfo,
-            _state.MessageItem.OwnerPeer.PeerId,
+            ownerPeerId,
             _state.MessageItem.MessageId));
-    }
-
-    public void DeleteOutboxMessage(RequestInfo requestInfo)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new OutboxMessageDeletedEvent(
-            requestInfo,
-            _state.MessageItem.OwnerPeer.PeerId,
-            _state.MessageItem.MessageId,
-            _state.InboxItems));
-    }
-
-    public void DeleteSelfMessage(RequestInfo requestInfo, int messageId)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new SelfMessageDeletedEvent(
-            requestInfo,
-            _state.MessageItem.OwnerPeer.PeerId,
-            messageId,
-            _state.MessageItem.IsOut,
-            _state.MessageItem.SenderPeer.PeerId,
-            _state.SenderMessageId,
-            _state.InboxItems
-        ));
     }
 
     public void EditInboxMessage(
@@ -238,7 +224,8 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         long randomId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new MessageForwardedEvent(requestInfo, randomId, _state.MessageItem));
+        var originalMessageItem = _state.MessageItem;
+        Emit(new MessageForwardedEvent(requestInfo, randomId, originalMessageItem));
     }
 
     public void IncrementViews()
@@ -253,20 +240,21 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     public void PinChannelMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelMessagePinnedEvent(requestInfo, _state.MessageItem.ToPeer.PeerId,
-            _state.MessageItem.MessageId));
+        var channelId = _state.MessageItem.ToPeer.PeerId;
+        Emit(new ChannelMessagePinnedEvent(requestInfo, channelId, _state.MessageItem.MessageId));
     }
     public void ReadInboxHistory(RequestInfo requestInfo,
         long readerUid)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var isOut = _state.MessageItem.SenderPeer.PeerId == readerUid;
         Emit(new InboxMessageHasReadEvent(requestInfo,
             readerUid,
             _state.MessageItem.MessageId,
             _state.MessageItem.SenderPeer.PeerId,
             _state.SenderMessageId,
             _state.MessageItem.ToPeer,
-            _state.MessageItem.SenderPeer.PeerId == readerUid
+            isOut
         ));
     }
 
@@ -298,8 +286,10 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         }
 
         reply.RecentRepliers = recentRepliers;
-        Emit(new ReplyChannelMessageCompletedEvent(requestInfo, _state.MessageItem.ToPeer.PeerId,
-            _state.MessageItem.MessageId, reply, postChannelId, postMessageId));
+        var channelId = _state.MessageItem.ToPeer.PeerId;
+        var replyToMessageId = _state.MessageItem.MessageId;
+        Emit(new ReplyChannelMessageCompletedEvent(requestInfo, channelId,
+            replyToMessageId, reply, postChannelId, postMessageId));
     }
 
     public void UpdateInboxMessagePinned(
@@ -311,9 +301,10 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         var item = _state.MessageItem;
+        var ownerPeerId = item.OwnerPeer.PeerId;
         Emit(new InboxMessagePinnedUpdatedEvent(
             requestInfo,
-            item.OwnerPeer.PeerId,
+            ownerPeerId,
             item.MessageId,
             pinned,
             pmOneSide,
@@ -326,8 +317,10 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     public void UpdateMessageRely(int pts)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new MessageReplyUpdatedEvent(_state.MessageItem.OwnerPeer.PeerId,
-            MyTelegramConsts.DeletedChannelIdForChannelPost, _state.MessageItem.MessageId, pts));
+        var ownerChannelId = _state.MessageItem.OwnerPeer.PeerId;
+        var channelId = MyTelegramConsts.DeletedChannelIdForChannelPost;
+        Emit(new MessageReplyUpdatedEvent(ownerChannelId,
+            channelId, _state.MessageItem.MessageId, pts));
     }
 
     public void UpdateOutboxMessagePinned(
@@ -339,16 +332,18 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         var item = _state.MessageItem;
+        var ownerPeerId = item.OwnerPeer.PeerId;
+        var senderPeerId = item.SenderPeer.PeerId;
         Emit(new OutboxMessagePinnedUpdatedEvent(
             requestInfo,
-            item.OwnerPeer.PeerId,
+            ownerPeerId,
             item.MessageId,
             pinned,
             pmOneSide,
             silent,
             date,
             _state.InboxItems,
-            item.SenderPeer.PeerId,
+            senderPeerId,
             _state.SenderMessageId,
             item.ToPeer,
             _state.Pts,

@@ -1,7 +1,5 @@
 ﻿using Google.Protobuf;
 using MyTelegram.Domain.Aggregates.Photo;
-using MyTelegram.Domain.Commands.Photo;
-using TWebPage = MyTelegram.Schema.TWebPage;
 
 namespace MyTelegram.Messenger.Services.Impl;
 

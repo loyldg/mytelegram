@@ -11,6 +11,7 @@
     <ProjectReference Include="..\MyTelegram.Domain.Shared\MyTelegram.Domain.Shared.csproj" />
         <ProjectReference Include="..\MyTelegram.EventFlow\MyTelegram.EventFlow.csproj" />
     <ProjectReference Include="..\MyTelegram.Schema\MyTelegram.Schema.csproj" />
+    <ProjectReference Include="..\MyTelegram.SourceGenerators\MyTelegram.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

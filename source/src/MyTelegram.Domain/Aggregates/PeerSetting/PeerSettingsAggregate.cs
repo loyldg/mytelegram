@@ -10,7 +10,9 @@ public class PeerSettingsAggregate : SnapshotAggregateRoot<PeerSettingsAggregate
 
     public void HidePeerSettingsBar(RequestInfo requestInfo, long targetPeerId)
     {
-        Emit(new PeerSettingsBarHiddenEvent(requestInfo.UserId, targetPeerId));
+        var ownerPeerId = requestInfo.UserId;
+        var peerId = targetPeerId;
+        Emit(new PeerSettingsBarHiddenEvent(ownerPeerId, peerId));
     }
 
     protected override Task<PeerSettingsSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)

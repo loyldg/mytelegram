@@ -1,6 +1,4 @@
-﻿#pragma warning disable CS8618
-
-namespace MyTelegram.Domain.Aggregates.User;
+﻿namespace MyTelegram.Domain.Aggregates.User;
 
 public class UserState : AggregateState<UserAggregate, UserId, UserState>,
     IApply<UserCreatedEvent>,

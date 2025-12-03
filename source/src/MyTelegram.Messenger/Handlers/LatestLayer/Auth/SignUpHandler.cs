@@ -28,8 +28,8 @@ internal sealed class SignUpHandler(ICommandBus commandBus, IRandomHelper random
         var phoneNumber = obj.PhoneNumber.ToPhoneNumber();
         var userReadModel = await queryProcessor.ProcessAsync(new GetUserByPhoneNumberQuery(phoneNumber));
         var userId = userReadModel?.UserId ?? 0;
-        var command = new CheckSignUpCodeCommand(AppCodeId.Create(phoneNumber, obj.PhoneCodeHash), input.ToRequestInfo(), obj.PhoneCodeHash, userId, randomHelper.NextInt64(), phoneNumber, obj.FirstName, obj.LastName);
+        var command = new CheckSignUpCodeCommand(AppCodeId.Create(phoneNumber, obj.PhoneCodeHash), input.ToRequestInfo(), userId, obj.PhoneCodeHash, randomHelper.NextInt64(), phoneNumber, obj.FirstName, obj.LastName);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

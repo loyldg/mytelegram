@@ -39,10 +39,8 @@ public class PollReadModel : IPollReadModel,
         Question = domainEvent.AggregateEvent.Question;
         CorrectAnswers = domainEvent.AggregateEvent.CorrectAnswers;
         Solution = domainEvent.AggregateEvent.Solution;
-        SolutionEntities = domainEvent.AggregateEvent.SolutionEntities;
-        QuestionEntities = domainEvent.AggregateEvent.QuestionEntities;
-        SolutionEntities2 = domainEvent.AggregateEvent.SolutionEntities2;
-        QuestionEntities2 = domainEvent.AggregateEvent.QuestionEntities2;
+        SolutionEntities2 = domainEvent.AggregateEvent.SolutionEntities;
+        QuestionEntities2 = domainEvent.AggregateEvent.QuestionEntities;
 
         return Task.CompletedTask;
     }

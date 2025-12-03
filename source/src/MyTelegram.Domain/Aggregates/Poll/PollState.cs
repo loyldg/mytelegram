@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using MyTelegram.Domain.Events.Poll;
 
 namespace MyTelegram.Domain.Aggregates.Poll;
 

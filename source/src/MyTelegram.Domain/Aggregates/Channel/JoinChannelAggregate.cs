@@ -59,9 +59,10 @@ public class JoinChannelAggregate :
         Emit(new JoinChannelRequestUpdatedEvent(requestInfo, _state.ChannelId, userId, approved, _state.InviteId, topMessageId, channelHistoryMinId, broadcast));
     }
 
-    public void Create(RequestInfo requestInfo, long channelId, long userId, long? inviteId)
+    public void CreateJoinChannelRequest(RequestInfo requestInfo, long channelId, long? inviteId)
     {
-        Emit(new JoinChannelRequestCreatedEvent(requestInfo, channelId, userId, DateTime.UtcNow.ToTimestamp(), inviteId));
+        var date = DateTime.UtcNow.ToTimestamp();
+        Emit(new JoinChannelRequestCreatedEvent(requestInfo, channelId, requestInfo.UserId, date, inviteId));
     }
 
     protected override Task<JoinChannelSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)

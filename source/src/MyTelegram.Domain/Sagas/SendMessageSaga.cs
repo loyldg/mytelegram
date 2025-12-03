@@ -192,13 +192,13 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
 
         _state.UserInboxItems.TryGetValue(inboxMessageItem.BatchId ?? Guid.Empty, out var inboxItems);
 
-        var command = new AddInboxItemsToOutboxMessageCommand(
-            MessageId.Create(inboxMessageItem.SenderPeer.PeerId,
-                senderMessageId, inboxMessageItem.QuickReplyItem != null),
-            _state.RequestInfo,
-            inboxItems ?? []
-        );
-        Publish(command);
+        //var command = new AddInboxItemsToOutboxMessageCommand(
+        //    MessageId.Create(inboxMessageItem.SenderPeer.PeerId,
+        //        senderMessageId, inboxMessageItem.QuickReplyItem != null),
+        //    _state.RequestInfo,
+        //    inboxItems ?? []
+        //);
+        //Publish(command);
 
         if (_state.IsCreateInboxMessagesCompleted())
         {
@@ -234,7 +234,8 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
             outboxMessageItem.ToPeer,
             outboxMessageItem.MessageId,
             pts,
-            defaultHistoryTtl
+            defaultHistoryTtl,
+            false
         );
         Publish(command);
 
@@ -297,9 +298,7 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
             null,
             outboxMessageItem.SendAs,
             true,
-            false,
-            outboxMessageItem.TtlPeriod,
-            null
+            false
         );
         Publish(command);
     }

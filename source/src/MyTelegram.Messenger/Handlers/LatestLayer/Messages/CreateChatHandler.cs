@@ -65,9 +65,9 @@ internal sealed class CreateChatHandler(ICommandBus commandBus, IIdGenerator idG
             memberUserIds.RemoveAll(needRemoveUserIdsFromList.Contains);
         }
 
-        var createChannelCommand = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId, obj.Title, //obj.Broadcast,
-        false, true, string.Empty, null, null, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, true, ttlFromDefaultSetting, memberUserIds, botUserIds);
+        var createChannelCommand = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId,  //obj.Broadcast,
+        false, true, obj.Title, string.Empty, null, null, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, true, ttlFromDefaultSetting, memberUserIds, botUserIds);
         await commandBus.PublishAsync(createChannelCommand);
-        return null !;
+        return null!;
     }
 }

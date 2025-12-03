@@ -2,7 +2,7 @@
 
 public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearHistorySagaId, ClearHistorySagaLocator>,
     ISagaIsStartedBy<DialogAggregate, DialogId, HistoryClearedEvent>,
-    ISagaHandles<MessageAggregate, MessageId, MessageDeletedEvent>,
+    //ISagaHandles<MessageAggregate, MessageId, MessageDeletedEvent>,
     ISagaHandles<MessageAggregate, MessageId, OtherPartyMessageDeletedEvent>,
     IApply<ClearHistorySagaCompletedSagaEvent>
 {
@@ -20,14 +20,14 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
         CompleteAsync();
     }
 
-    public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, MessageDeletedEvent> domainEvent,
-        ISagaContext sagaContext,
-        CancellationToken cancellationToken)
-    {
-        await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MessageId)
-     ;
-        DeleteMessagesForOtherParty(domainEvent.AggregateEvent);
-    }
+    //public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, MessageDeletedEvent> domainEvent,
+    //    ISagaContext sagaContext,
+    //    CancellationToken cancellationToken)
+    //{
+    //    await IncrementPtsAsync(domainEvent.AggregateEvent.OwnerPeerId, domainEvent.AggregateEvent.MessageId)
+    // ;
+    //    DeleteMessagesForOtherParty(domainEvent.AggregateEvent);
+    //}
 
     public async Task HandleAsync(
         IDomainEvent<MessageAggregate, MessageId, OtherPartyMessageDeletedEvent> domainEvent,
@@ -60,45 +60,45 @@ public class ClearHistorySaga : MyInMemoryAggregateSaga<ClearHistorySaga, ClearH
         //return Task.CompletedTask;
     }
 
-    private void DeleteMessagesForOtherParty(MessageDeletedEvent aggregateEvent)
-    {
-        if (!_state.Revoke)
-        {
-            return;
-        }
+    //private void DeleteMessagesForOtherParty(MessageDeletedEvent aggregateEvent)
+    //{
+    //    if (!_state.Revoke)
+    //    {
+    //        return;
+    //    }
 
-        // Only user peer support clear other member's history
-        if (_state.ToPeer.PeerType != PeerType.User)
-        {
-            return;
-        }
+    //    // Only user peer support clear other member's history
+    //    if (_state.ToPeer.PeerType != PeerType.User)
+    //    {
+    //        return;
+    //    }
 
-        if (aggregateEvent.IsOut)
-        {
-            if (aggregateEvent.InboxItems?.Count > 0)
-            {
-                foreach (var inboxItem in aggregateEvent.InboxItems)
-                {
-                    if (inboxItem.InboxOwnerPeerId == _state.RequestInfo.UserId)
-                    {
-                        continue;
-                    }
+    //    if (aggregateEvent.IsOut)
+    //    {
+    //        if (aggregateEvent.InboxItems?.Count > 0)
+    //        {
+    //            foreach (var inboxItem in aggregateEvent.InboxItems)
+    //            {
+    //                if (inboxItem.InboxOwnerPeerId == _state.RequestInfo.UserId)
+    //                {
+    //                    continue;
+    //                }
 
-                    var command = new DeleteOtherPartyMessageCommand(
-                        MessageId.Create(inboxItem.InboxOwnerPeerId, inboxItem.InboxMessageId),
-                        _state.RequestInfo
-                        );
-                    Publish(command);
-                }
-            }
-        }
-        else if (_state.ToPeer.PeerType == PeerType.User)
-        {
-            var command = new DeleteOtherPartyMessageCommand(
-                MessageId.Create(aggregateEvent.SenderPeerId, aggregateEvent.SenderMessageId), _state.RequestInfo);
-            Publish(command);
-        }
-    }
+    //                var command = new DeleteOtherPartyMessageCommand(
+    //                    MessageId.Create(inboxItem.InboxOwnerPeerId, inboxItem.InboxMessageId),
+    //                    _state.RequestInfo
+    //                    );
+    //                Publish(command);
+    //            }
+    //        }
+    //    }
+    //    else if (_state.ToPeer.PeerType == PeerType.User)
+    //    {
+    //        var command = new DeleteOtherPartyMessageCommand(
+    //            MessageId.Create(aggregateEvent.SenderPeerId, aggregateEvent.SenderMessageId), _state.RequestInfo);
+    //        Publish(command);
+    //    }
+    //}
 
     //private void DeleteMessagesForSelf(long selfUserId,
     //    IReadOnlyList<int> messageIdList)

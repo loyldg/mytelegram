@@ -237,7 +237,7 @@ public class DeleteChannelMessagesSaga : MyInMemoryAggregateSaga<DeleteChannelMe
     public async Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, ChannelMessageDeletedEvent> domainEvent, ISagaContext sagaContext, CancellationToken cancellationToken)
     {
         await IncrementPtsAsync(domainEvent.AggregateEvent.ChannelId);
-        if (domainEvent.AggregateEvent.IsThisMessageForwardFromChannelPost &&
+        if (domainEvent.AggregateEvent.IsForwardFromChannelPost &&
             domainEvent.AggregateEvent.PostChannelId.HasValue &&
             domainEvent.AggregateEvent.PostMessageId.HasValue
             )

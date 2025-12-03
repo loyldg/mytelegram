@@ -101,8 +101,9 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
         }
 
         var hashtags = messageAppService.GetHashtags(obj.Message);
-        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, obj.Message ?? string.Empty, entities, CurrentDate, media, obj.ReplyMarkup, [], obj.InvertMedia, hashtags);
+        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, obj.Message ?? string.Empty,
+            CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

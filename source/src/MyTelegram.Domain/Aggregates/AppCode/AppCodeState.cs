@@ -4,10 +4,10 @@ public class AppCodeState : AggregateState<AppCodeAggregate, AppCodeId, AppCodeS
     IApply<AppCodeCreatedEvent>,
     IApply<AppCodeCanceledEvent>,
     IApply<SignUpRequiredSagaEvent>,
-    IApply<AppCodeCheckFailedEvent>,
+    //IApply<AppCodeCheckFailedEvent>,
     IApply<CheckSignUpCodeCompletedEvent>,
-    IApply<CheckSignInCodeCompletedEvent>,
-    IApply<CheckAppCodeCompletedEvent>
+    IApply<CheckSignInCodeCompletedEvent>//,
+    //IApply<CheckAppCodeCompletedEvent>
 
 {
     public bool Canceled { get; private set; }
@@ -28,10 +28,10 @@ public class AppCodeState : AggregateState<AppCodeAggregate, AppCodeId, AppCodeS
         Canceled = true;
     }
 
-    public void Apply(AppCodeCheckFailedEvent aggregateEvent)
-    {
-        FailedCount++;
-    }
+    //public void Apply(AppCodeCheckFailedEvent aggregateEvent)
+    //{
+    //    FailedCount++;
+    //}
 
     public void Apply(AppCodeCreatedEvent aggregateEvent)
     {
@@ -62,13 +62,13 @@ public class AppCodeState : AggregateState<AppCodeAggregate, AppCodeId, AppCodeS
     {
     }
 
-    public void Apply(CheckAppCodeCompletedEvent aggregateEvent)
-    {
-        if (!aggregateEvent.IsValidCode)
-        {
-            FailedCount++;
-        }
-    }
+    //public void Apply(CheckAppCodeCompletedEvent aggregateEvent)
+    //{
+    //    if (!aggregateEvent.IsValidCode)
+    //    {
+    //        FailedCount++;
+    //    }
+    //}
 
     public void LoadSnapshot(AppCodeSnapshot snapshot)
     {

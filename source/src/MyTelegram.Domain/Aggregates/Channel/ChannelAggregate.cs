@@ -10,6 +10,12 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Register(_state);
     }
 
+    public void UpdateChannelTopMessageId(int topMessageId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new ChannelTopMessageIdUpdatedEvent(_state.ChannelId, topMessageId));
+    }
+
     public void ToggleJoinRequest(RequestInfo requestInfo, bool enabled)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -26,8 +32,8 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     public void UpdateParticipantCount(int updatedCount)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        var newCount = _state.ParticipantCount + updatedCount;
-        Emit(new ChannelParticipantCountChangedEvent(_state.ChannelId, newCount));
+        var newParticipantCount = _state.ParticipantCount + updatedCount;
+        Emit(new ChannelParticipantCountChangedEvent(_state.ChannelId, newParticipantCount));
     }
 
     public void DeleteChannel(RequestInfo requestInfo)
@@ -39,7 +45,8 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
         }
 
-        Emit(new ChannelDeletedEvent(requestInfo, _state.ChannelId, _state.Broadcast, !_state.Broadcast, _state.AccessHash, _state.Title));
+        var megagroup = !_state.Broadcast;
+        Emit(new ChannelDeletedEvent(requestInfo, _state.ChannelId, _state.Broadcast, megagroup, _state.AccessHash, _state.Title));
     }
 
     public void CheckChannelState(
@@ -101,7 +108,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             _state.LinkedChannelId));
     }
 
-    public void Create(RequestInfo requestInfo,
+    public void CreateChannel(RequestInfo requestInfo,
         long channelId,
         long creatorId,
         bool broadcast,
@@ -119,19 +126,19 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         long? migratedFromChatId,
         int? migratedMaxId,
         long? photoId,
-        bool autoCreateFromChat,
-        bool ttlFromDefaultSetting,
-        List<long>? memberUserIds,
-        List<long>? botUserIds
+        bool autoCreateFromChat = false,
+        bool ttlFromDefaultSetting = false,
+        List<long>? memberUserIds = null,
+        List<long>? botUserIds = null
         )
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new ChannelCreatedEvent(requestInfo,
             channelId,
             creatorId,
-            title,
             broadcast,
             megaGroup,
+            title,
             about,
             geoPoint,
             address,
@@ -151,7 +158,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         ));
     }
 
-    public void EditAbout(RequestInfo requestInfo,
+    public void EditChannelAbout(RequestInfo requestInfo,
         long selfUserId,
         string? about)
     {
@@ -167,7 +174,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new ChannelAboutEditedEvent(requestInfo, _state.ChannelId, about));
     }
 
-    public void EditAdmin(RequestInfo requestInfo,
+    public void EditChannelAdmin(RequestInfo requestInfo,
         long promotedBy,
         bool canEdit,
         long userId,
@@ -187,8 +194,9 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         CheckAdminRights(requestInfo, r => r.AddAdmins);
 
         // flags value==0 means no rights(should remove member from admin list)
-        var removeFromAdminList = adminRights.GetFlags().ToInt32() == 0;
+        var removeAdminFromList = adminRights.GetFlags().ToInt32() == 0;
         var isNewAdmin = !_state.ChatAdmins.ContainsKey(userId);
+        var isBroadcast = _state.Broadcast;
 
         Emit(new ChannelAdminRightsEditedEvent(requestInfo,
             _state.ChannelId,
@@ -200,23 +208,22 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             isNewAdmin,
             adminRights,
             rank,
-            removeFromAdminList,
+            removeAdminFromList,
             date,
-            _state.Broadcast
+            isBroadcast
         ));
     }
 
-    public void EditChatDefaultBannedRights(RequestInfo requestInfo,
-        ChatBannedRights bannedRights,
+    public void EditChannelDefaultBannedRights(RequestInfo requestInfo,
+        ChatBannedRights defaultBannedRights,
         long selfUserId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         CheckAdminRights(requestInfo, r => r.Other);
-
-        Emit(new ChannelDefaultBannedRightsEditedEvent(requestInfo, _state.ChannelId, bannedRights));
+        Emit(new ChannelDefaultBannedRightsEditedEvent(requestInfo, defaultBannedRights, _state.ChannelId));
     }
 
-    public void EditPhoto(RequestInfo requestInfo,
+    public void EditChannelPhoto(RequestInfo requestInfo,
         long? photoId,
         IMessageAction messageAction,
         long randomId)
@@ -234,7 +241,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             ));
     }
 
-    public void EditTitle(RequestInfo requestInfo,
+    public void EditChannelTitle(RequestInfo requestInfo,
         string title,
         IMessageAction messageAction,
         long randomId)
@@ -255,8 +262,8 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     public void IncrementParticipantCount()
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        var participantCount = _state.ParticipantCount + 1;
-        Emit(new IncrementParticipantCountEvent(_state.ChannelId, participantCount));
+        var newParticipantCount = _state.ParticipantCount + 1;
+        Emit(new IncrementParticipantCountEvent(_state.ChannelId, newParticipantCount));
     }
 
     public void ReadChannelLatestNonBotOutboxMessage(
@@ -280,14 +287,15 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         {
             RpcErrors.RpcErrors400.BroadcastIdInvalid.ThrowRpcError();
         }
-
-        Emit(new DiscussionGroupUpdatedEvent(requestInfo, broadcastChannelId, groupChannelId, _state.LinkedChannelId));
+        var oldGroupChannelId = _state.LinkedChannelId;
+        Emit(new DiscussionGroupUpdatedEvent(requestInfo, broadcastChannelId, groupChannelId, oldGroupChannelId));
     }
 
     public void SetLinkedChannelId(RequestInfo requestInfo, long? linkedChannelId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new LinkedChannelChangedEvent(requestInfo, _state.ChannelId, linkedChannelId, _state.LinkedChannelId));
+        var oldLinkedChannelId = _state.LinkedChannelId;
+        Emit(new LinkedChannelChangedEvent(requestInfo, _state.ChannelId, linkedChannelId, oldLinkedChannelId));
     }
 
     public void SetPinnedMsgId(int pinnedMsgId,
@@ -297,7 +305,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new NewMsgIdPinnedEvent(pinnedMsgId, pinned));
     }
 
-    public void SetPts(long senderPeerId,
+    public void SetChannelPts(long senderPeerId,
         int pts,
         int messageId,
         int date)
@@ -306,7 +314,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new SetChannelPtsEvent(senderPeerId, pts, messageId, date));
     }
 
-    public void ToggleNoForwards(RequestInfo requestInfo, bool enabled)
+    public void ToggleChannelNoForwards(RequestInfo requestInfo, bool enabled)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         CheckAdminRights(requestInfo, rights => rights.ChangeInfo);
@@ -341,20 +349,22 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new SlowModeChangedEvent(requestInfo, _state.ChannelId, seconds));
     }
 
-    public void UpdateColor(RequestInfo requestInfo, PeerColor color, long? backgroundEmojiId, bool forProfile)
+    public void UpdateChannelColor(RequestInfo requestInfo, PeerColor color, long? backgroundEmojiId, bool forProfile)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         CheckAdminRights(requestInfo, rights => rights.ChangeInfo);
         Emit(new ChannelColorUpdatedEvent(requestInfo, _state.ChannelId, color, backgroundEmojiId, forProfile));
     }
-    public void UpdateUserName(RequestInfo requestInfo,
+
+    public void UpdateChannelUserName(RequestInfo requestInfo,
             string userName)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var oldUserName = _state.UserName;
         Emit(new ChannelUserNameChangedEvent(requestInfo,
             _state.ChannelId,
             userName,
-            _state.UserName));
+            oldUserName));
     }
 
     protected override Task<ChannelSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)

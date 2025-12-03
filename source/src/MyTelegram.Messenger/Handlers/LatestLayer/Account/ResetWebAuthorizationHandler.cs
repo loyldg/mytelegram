@@ -1,6 +1,4 @@
-using EventFlow;
 using MyTelegram.Domain.Aggregates.Device;
-using MyTelegram.Domain.Commands.Device;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// <summary>

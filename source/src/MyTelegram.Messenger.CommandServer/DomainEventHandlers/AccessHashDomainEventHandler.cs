@@ -1,5 +1,4 @@
 ﻿using MyTelegram.Domain.Aggregates.Photo;
-using MyTelegram.Domain.Events.Photo;
 using MyTelegram.Messenger.Services.Caching;
 
 namespace MyTelegram.Messenger.CommandServer.DomainEventHandlers;
