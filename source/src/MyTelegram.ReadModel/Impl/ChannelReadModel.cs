@@ -5,7 +5,7 @@ public class ChannelReadModel : IChannelReadModel,
 
     //IAmReadModelFor<MessageSaga, MessageSagaId, SendChannelMessageSuccessEvent>,
 
-    IAmReadModelFor<ChannelAggregate, ChannelId, StartSendChannelMessageEvent>,
+    //IAmReadModelFor<ChannelAggregate, ChannelId, StartSendChannelMessageEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelAboutEditedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, SetChannelPtsEvent>,
@@ -16,7 +16,7 @@ public class ChannelReadModel : IChannelReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
-    IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
+    //IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, DiscussionGroupUpdatedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelNoForwardsChangedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelSignatureChangedEvent>,
@@ -235,18 +235,18 @@ public class ChannelReadModel : IChannelReadModel,
         return Task.CompletedTask;
     }
 
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<ChannelAggregate, ChannelId, StartSendChannelMessageEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        //TopMessageBoxId = domainEvent.AggregateEvent.MessageBoxId;
-        TopMessageId = domainEvent.AggregateEvent.MessageId;
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<ChannelAggregate, ChannelId, StartSendChannelMessageEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    //TopMessageBoxId = domainEvent.AggregateEvent.MessageBoxId;
+    //    TopMessageId = domainEvent.AggregateEvent.MessageId;
 
-        // LastSendDate = DateTime.UtcNow.ToTimestamp();
-        LastSendDate = domainEvent.AggregateEvent.Date;
-        LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
-        return Task.CompletedTask;
-    }
+    //    // LastSendDate = DateTime.UtcNow.ToTimestamp();
+    //    LastSendDate = domainEvent.AggregateEvent.Date;
+    //    LastSenderPeerId = domainEvent.AggregateEvent.SenderPeerId;
+    //    return Task.CompletedTask;
+    //}
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent> domainEvent,
@@ -303,21 +303,21 @@ public class ChannelReadModel : IChannelReadModel,
         return Task.CompletedTask;
     }
 
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        if (domainEvent.AggregateEvent.IsRejoin)
-        {
-            ParticipantsCount++;
-        }
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    if (domainEvent.AggregateEvent.IsRejoin)
+    //    {
+    //        ParticipantsCount++;
+    //    }
 
-        if (domainEvent.AggregateEvent.IsBot)
-        {
-            Bots.Add(domainEvent.AggregateEvent.MemberUserId);
-        }
-        return Task.CompletedTask;
-    }
+    //    if (domainEvent.AggregateEvent.IsBot)
+    //    {
+    //        Bots.Add(domainEvent.AggregateEvent.MemberUserId);
+    //    }
+    //    return Task.CompletedTask;
+    //}
 
     //public Task ApplyAsync(IReadModelContext context,
     //    IDomainEvent<ChannelAggregate, ChannelId, ChannelAvailableReactionsChangedEvent> domainEvent,

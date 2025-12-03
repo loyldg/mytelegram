@@ -45,23 +45,23 @@ IPeerHelper peerHelper, IQueryProcessor queryProcessor, IPtsHelper ptsHelper, IA
         switch (peer.PeerType)
         {
             case PeerType.Chat:
-            {
-            }
+                {
+                }
 
                 break;
             case PeerType.User:
-            {
-                if (obj.Peer is TInputPeerUser inputUser)
                 {
-                    await accessHashHelper.CheckAccessHashAsync(input, inputUser.UserId, inputUser.AccessHash, AccessHashType.User);
+                    if (obj.Peer is TInputPeerUser inputUser)
+                    {
+                        await accessHashHelper.CheckAccessHashAsync(input, inputUser.UserId, inputUser.AccessHash, AccessHashType.User);
+                    }
                 }
-            }
 
                 break;
         }
 
-        var command = new StartDeleteHistoryCommand(TempId.New, input.ToRequestInfo(), messageItemsToBeDeleted, obj.Revoke, obj.Revoke);
+        var command = new StartDeleteHistoryCommand(TempId.New, input.ToRequestInfo(), messageItemsToBeDeleted, obj.Revoke, obj.Revoke, false);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

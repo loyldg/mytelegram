@@ -91,10 +91,10 @@ public class
         Emit(new ChatInviteDeletedEvent(requestInfo, _state.ChannelId, _state.InviteId));
     }
 
-    public void HideChatJoinRequest(RequestInfo requestInfo, long userId, bool approved)
-    {
-        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-    }
+    //public void HideChatJoinRequest(RequestInfo requestInfo, long userId, bool approved)
+    //{
+    //    Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+    //}
 
     protected override Task<ChatInviteSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
     {

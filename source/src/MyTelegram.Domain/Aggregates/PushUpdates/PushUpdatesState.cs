@@ -1,7 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.PushUpdates;
 
 public class PushUpdatesState : AggregateState<PushUpdatesAggregate, PushUpdatesId, PushUpdatesState>,
-    IApply<PushUpdatesCreatedEvent>,
     IApply<EncryptedPushUpdatesCreatedEvent>
 {
     public byte[] Data { get; private set; } = default!;
@@ -15,17 +14,5 @@ public class PushUpdatesState : AggregateState<PushUpdatesAggregate, PushUpdates
 
     public void Apply(EncryptedPushUpdatesCreatedEvent aggregateEvent)
     {
-    }
-
-    public void Apply(PushUpdatesCreatedEvent aggregateEvent)
-    {
-        //PeerId = aggregateEvent.ToPeer.PeerId;
-        //ExcludeAuthKeyId = aggregateEvent.ExcludeAuthKeyId;
-        //ExcludeUid = aggregateEvent.ExcludeUid;
-        //OnlySendToThisAuthKeyId = aggregateEvent.OnlySendToThisAuthKeyId;
-        //Data = aggregateEvent.Data;
-        //Pts = aggregateEvent.Pts;
-        //PtsType = aggregateEvent.PtsType;
-        //SeqNo = aggregateEvent.SeqNo;
     }
 }

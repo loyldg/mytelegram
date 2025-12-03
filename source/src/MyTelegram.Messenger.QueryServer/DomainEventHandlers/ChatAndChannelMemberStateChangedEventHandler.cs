@@ -3,7 +3,7 @@
 public class ChatAndChannelMemberStateChangedEventHandler(IEventBus eventBus) :
     ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
     ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>,
-    ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
+    //ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
     ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
     ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>
 {
@@ -46,13 +46,13 @@ public class ChatAndChannelMemberStateChangedEventHandler(IEventBus eventBus) :
             new[] { domainEvent.AggregateEvent.UserId }));
     }
 
-    public Task HandleAsync(IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        return eventBus.PublishAsync(new ChannelMemberChangedEvent(domainEvent.AggregateEvent.ChannelId,
-            MemberStateChangeType.Add,
-            new[] { domainEvent.AggregateEvent.MemberUserId }));
-    }
+    //public Task HandleAsync(IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    return eventBus.PublishAsync(new ChannelMemberChangedEvent(domainEvent.AggregateEvent.ChannelId,
+    //        MemberStateChangeType.Add,
+    //        new[] { domainEvent.AggregateEvent.MemberUserId }));
+    //}
 
     public Task HandleAsync(IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent> domainEvent,
         CancellationToken cancellationToken)

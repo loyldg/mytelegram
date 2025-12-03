@@ -44,8 +44,8 @@ internal sealed class CreateChannelHandler(ICommandBus commandBus, IIdGenerator 
                 break;
         }
 
-        var command = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId, obj.Title, obj.Broadcast, megagroup, obj.About ?? string.Empty, geoPoint, obj.Address, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, ttlFromDefaultSetting: ttlFromDefaultSetting);
+        var command = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId, obj.Broadcast, megagroup, obj.Title, obj.About ?? string.Empty, geoPoint, obj.Address, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, ttlFromDefaultSetting: ttlFromDefaultSetting);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

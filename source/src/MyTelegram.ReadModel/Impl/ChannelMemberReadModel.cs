@@ -3,7 +3,7 @@
 public class ChannelMemberReadModel : IChannelMemberReadModel,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelCreatorCreatedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>,
-    IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
+    //IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelAdminEditedEvent2>
@@ -84,20 +84,6 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
 
         ChatInviteId = domainEvent.AggregateEvent.ChatInviteId;
         ChatJoinType = domainEvent.AggregateEvent.ChatJoinType;
-        IsBroadcast = domainEvent.AggregateEvent.IsBroadcast;
-
-        return Task.CompletedTask;
-    }
-
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        Id = domainEvent.AggregateIdentity.Value;
-        ChannelId = domainEvent.AggregateEvent.ChannelId;
-        UserId = domainEvent.AggregateEvent.MemberUserId;
-        InviterId = domainEvent.AggregateEvent.MemberUserId;
-        Date = domainEvent.AggregateEvent.Date;
         IsBroadcast = domainEvent.AggregateEvent.IsBroadcast;
 
         return Task.CompletedTask;

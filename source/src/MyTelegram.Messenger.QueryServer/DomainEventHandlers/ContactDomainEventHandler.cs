@@ -54,7 +54,7 @@ public class ContactDomainEventHandler(
         CancellationToken cancellationToken)
     {
         var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo,
-            domainEvent.AggregateEvent.TargetUid,
+            domainEvent.AggregateEvent.TargetUserId,
             true, false,
             domainEvent.AggregateEvent.RequestInfo.Layer
         );
@@ -66,7 +66,7 @@ public class ContactDomainEventHandler(
             Seq = 0,
             Updates = new TVector<IUpdate>(new TUpdatePeerSettings
             {
-                Peer = new TPeerUser { UserId = domainEvent.AggregateEvent.TargetUid },
+                Peer = new TPeerUser { UserId = domainEvent.AggregateEvent.TargetUserId },
                 Settings = new TPeerSettings()
             }),
             Users = new TVector<IUser>(user)

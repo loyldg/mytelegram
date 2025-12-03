@@ -34,10 +34,11 @@ public class QrCodeAggregate : AggregateRoot<QrCodeAggregate, QrCodeId>
         {
             RpcErrors.RpcErrors400.AuthTokenAlreadyAccepted.ThrowRpcError();
         }
-
+        var qrCodeLoginRequestTempAuthKeyId = _state.TempAuthKeyId;
+        var qrCodeLoginRequestPermAuthKeyId = _state.PermAuthKeyId;
         Emit(new LoginTokenAcceptedEvent(requestInfo,
-            _state.TempAuthKeyId,
-            _state.PermAuthKeyId,
+            qrCodeLoginRequestTempAuthKeyId,
+            qrCodeLoginRequestPermAuthKeyId,
             token,
             userId));
     }

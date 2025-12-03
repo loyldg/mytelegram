@@ -26,7 +26,7 @@ public class VoteSaga : MyInMemoryAggregateSaga<VoteSaga, VoteSagaId, VoteSagaLo
             Publish(command);
         }
 
-        foreach (var _ in domainEvent.AggregateEvent.RetractVoteOptions ?? Array.Empty<string>())
+        foreach (var _ in domainEvent.AggregateEvent.RetractVoteOptions ?? [])
         {
             var command = new DeleteVoteAnswerCommand(
                 domainEvent.AggregateIdentity,

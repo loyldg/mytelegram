@@ -123,8 +123,23 @@ internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper
             }
         }
 
-        var command = new StartForwardMessagesCommand(TempId.New, input.ToRequestInfo(), obj.Silent, obj.Background, obj.WithMyScore, obj.DropAuthor, obj.DropMediaCaptions, obj.Noforwards, fromPeer, toPeer, obj.Id.ToList(), obj.RandomId.ToList(), obj.ScheduleDate, sendAs, false, post, null, fromNames);
+        var command = new StartForwardMessagesCommand(TempId.New,
+            input.ToRequestInfo(),
+            obj.Silent,
+            obj.Background,
+            obj.WithMyScore,
+            obj.DropAuthor,
+            obj.DropMediaCaptions,
+            obj.Noforwards,
+            fromPeer,
+            toPeer,
+            obj.Id.ToList(),
+            obj.RandomId.ToList(),
+            obj.ScheduleDate,
+            sendAs,
+            false,
+            post);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

@@ -13,9 +13,9 @@ public class
 
     public void ImportContacts(RequestInfo requestInfo,
         long selfUserId,
-        IReadOnlyCollection<PhoneContact> contacts)
+        IReadOnlyCollection<PhoneContact> phoneContacts)
     {
-        Emit(new ContactsImportedEvent(requestInfo, selfUserId, contacts));
+        Emit(new ContactsImportedEvent(requestInfo, selfUserId, phoneContacts));
     }
 
     public void ImportSingleContact(RequestInfo requestInfo, long selfUserId,

@@ -1,4 +1,4 @@
-﻿using MyTelegram.Domain.Events.Temp;
+﻿using MyTelegram.Domain.Aggregates.Temp;
 
 namespace MyTelegram.ReadModel.ReadModelLocators;
 

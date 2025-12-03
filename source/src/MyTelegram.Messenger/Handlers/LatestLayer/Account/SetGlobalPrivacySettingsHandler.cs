@@ -16,7 +16,7 @@ internal sealed class SetGlobalPrivacySettingsHandler(ICommandBus commandBus) : 
 {
     protected override async Task<IGlobalPrivacySettings> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestSetGlobalPrivacySettings obj)
     {
-        var command = new UpdateUserGlobalPrivacySettingsCommand(UserId.Create(input.UserId), input.ToRequestInfo(), new GlobalPrivacySettings(obj.Settings.ArchiveAndMuteNewNoncontactPeers, obj.Settings.KeepArchivedUnmuted, obj.Settings.KeepArchivedFolders, obj.Settings.HideReadMarks, obj.Settings.NewNoncontactPeersRequirePremium, obj.Settings.NoncontactPeersPaidStars));
+        var command = new UpdateGlobalPrivacySettingsCommand(UserId.Create(input.UserId), input.ToRequestInfo(), new GlobalPrivacySettings(obj.Settings.ArchiveAndMuteNewNoncontactPeers, obj.Settings.KeepArchivedUnmuted, obj.Settings.KeepArchivedFolders, obj.Settings.HideReadMarks, obj.Settings.NewNoncontactPeersRequirePremium, obj.Settings.NoncontactPeersPaidStars));
         await commandBus.PublishAsync(command);
         return new TGlobalPrivacySettings
         {

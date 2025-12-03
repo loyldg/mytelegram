@@ -23,7 +23,8 @@ internal sealed class UpdateColorHandler(ICommandBus commandBus)
                 color = new PeerColor(peerColor.Color, peerColor.BackgroundEmojiId);
                 break;
         }
-        var command = new UpdateUserColorCommand(UserId.Create(input.UserId), input.ToRequestInfo(), color, obj.ForProfile);
+        
+        var command = new UpdateColorCommand(UserId.Create(input.UserId), input.ToRequestInfo(), color, obj.ForProfile);
         await commandBus.PublishAsync(command, CancellationToken.None);
         return new TBoolTrue();
     }

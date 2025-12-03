@@ -147,9 +147,9 @@ public class MySagaAggregateStore(
             case UpdateContactProfilePhotoSagaId updateContactProfilePhotoSagaId:
                 domainEvents = await aggregateStore.UpdateAsync<UpdateContactProfilePhotoSaga, UpdateContactProfilePhotoSagaId>(updateContactProfilePhotoSagaId, sourceId, updateSaga, cancellationToken);
                 break;
-            case UpdatePinnedMessageSagaId updatePinnedMessageSagaId:
-                domainEvents = await aggregateStore.UpdateAsync<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId>(updatePinnedMessageSagaId, sourceId, updateSaga, cancellationToken);
-                break;
+            //case UpdatePinnedMessageSagaId updatePinnedMessageSagaId:
+            //    domainEvents = await aggregateStore.UpdateAsync<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId>(updatePinnedMessageSagaId, sourceId, updateSaga, cancellationToken);
+            //    break;
             case UpdateUserNameSagaId updateUserNameSagaId:
                 domainEvents = await aggregateStore.UpdateAsync<UpdateUserNameSaga, UpdateUserNameSagaId>(updateUserNameSagaId, sourceId, updateSaga, cancellationToken);
                 break;

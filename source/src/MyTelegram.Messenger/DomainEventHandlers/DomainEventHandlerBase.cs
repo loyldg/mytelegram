@@ -1,8 +1,5 @@
 ﻿using MyTelegram.Domain.Aggregates.RpcResult;
 using MyTelegram.Domain.Aggregates.Updates;
-using MyTelegram.Domain.Commands.Pts;
-using MyTelegram.Domain.Commands.RpcResult;
-using MyTelegram.Domain.Commands.Updates;
 
 namespace MyTelegram.Messenger.DomainEventHandlers;
 

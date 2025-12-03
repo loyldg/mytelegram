@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.Events.Updates;
-
-namespace MyTelegram.Domain.Aggregates.Updates;
+﻿namespace MyTelegram.Domain.Aggregates.Updates;
 
 public class UpdatesState : AggregateState<UpdatesAggregate, UpdatesId, UpdatesState>,
     IApply<UpdatesCreatedEvent>

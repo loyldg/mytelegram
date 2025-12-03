@@ -45,22 +45,24 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             _state.PhoneNumber,
             _state.FirstName,
             _state.LastName,
-            _state.HasPassword,
-            false));
+            _state.HasPassword));
     }
 
-    public void Create(RequestInfo requestInfo,
+    public void CreateUser(RequestInfo requestInfo,
         long userId,
         long accessHash,
         string phoneNumber,
         string firstName,
         string? lastName = null,
         string? userName = null,
-        bool bot = false)
+        bool bot = false
+    )
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
         Specs.IsNotEmptyOrNull.ThrowDomainErrorIfNotSatisfied(firstName);
 
+        var creationTime = DateTime.UtcNow;
+        var accountTtl = AccountDefaultTtl;
         Emit(new UserCreatedEvent(requestInfo,
             userId,
             accessHash,
@@ -69,9 +71,8 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             lastName,
             userName,
             bot,
-            bot ? 0 : null,
-            AccountDefaultTtl,
-            DateTime.UtcNow
+            accountTtl,
+            creationTime
         ));
     }
 
@@ -119,27 +120,32 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
             bool fallback)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var date = DateTime.UtcNow.ToTimestamp();
         Emit(new UserProfilePhotoChangedEvent(requestInfo,
             _state.UserId,
             photoId,
             fallback,
             _state.IsBot,
-            DateTime.UtcNow.ToTimestamp()
+            date
             ));
     }
 
-    public void UpdateUserName(RequestInfo requestInfo,
+    public void UpdateUserName2(RequestInfo requestInfo,
         string userName)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new UserNameUpdatedEvent(requestInfo,
-            new UserItem(_state.UserId,
+        var userItem = new UserItem(_state.UserId,
                 _state.AccessHash,
                 _state.PhoneNumber,
                 _state.FirstName,
                 _state.LastName,
-                userName),
-            _state.UserName, DateTime.UtcNow.ToTimestamp())
+                userName);
+        var date = DateTime.UtcNow.ToTimestamp();
+        var oldUserName = _state.UserName;
+        Emit(new UserNameUpdatedEvent(requestInfo,
+            userItem,
+            oldUserName,
+            date)
             );
     }
 
@@ -155,13 +161,15 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var date = DateTime.UtcNow.ToTimestamp();
         Emit(new UserProfilePhotoUploadedEvent(requestInfo,
             photoId,
             fallback,
             videoEmojiMarkup,
-            DateTime.UtcNow.ToTimestamp()
+            date
             /*, hasVideo, videoStartTs*/));
     }
+
     protected override Task<UserSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
     {
         return Task.FromResult(new UserSnapshot(_state.UserId,

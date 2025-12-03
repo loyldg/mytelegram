@@ -93,7 +93,7 @@ internal sealed class SendCodeHandler(ICommandBus commandBus, IPeerHelper peerHe
     {
         var code = verificationCodeGenerator.Generate();
         var appCodeId = AppCodeId.Create(phoneNumber.ToPhoneNumber(), phoneCodeHash);
-        var sendAppCodeCommand = new SendAppCodeCommand(appCodeId, input.ToRequestInfo()with { UserId = userReadModel?.UserId ?? 0 }, userReadModel?.UserId ?? 0, phoneNumber.ToPhoneNumber(), code, phoneCodeHash, DateTime.UtcNow.ToTimestamp());
+        var sendAppCodeCommand = new CreateAppCodeCommand(appCodeId, input.ToRequestInfo()with { UserId = userReadModel?.UserId ?? 0 }, userReadModel?.UserId ?? 0, phoneNumber.ToPhoneNumber(), code, phoneCodeHash, DateTime.UtcNow.ToTimestamp());
         await commandBus.PublishAsync(sendAppCodeCommand);
         return new TSentCode
         {

@@ -49,7 +49,7 @@ internal sealed class SetDiscussionGroupHandler(ICommandBus commandBus, IChannel
                 throw new ArgumentOutOfRangeException();
         }
 
-        var command = new StartSetDiscussionGroupCommand(TempId.New, input.ToRequestInfo(), broadcastChannel.ChannelId, groupId);
+        var command = new StartSetChannelDiscussionGroupCommand(TempId.New, input.ToRequestInfo(), broadcastChannel.ChannelId, groupId);
         await commandBus.PublishAsync(command);
         return null !;
     }

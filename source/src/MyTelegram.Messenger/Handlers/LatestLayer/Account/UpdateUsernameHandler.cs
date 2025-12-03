@@ -31,7 +31,7 @@ internal sealed class UpdateUsernameHandler(ICommandBus commandBus, IQueryProces
             RpcErrors.RpcErrors400.UsernameNotModified.ThrowRpcError();
         }
 
-        var command = new SetUserNameCommand(UserNameId.Create(obj.Username.ToLower()), input.ToRequestInfo(), input.UserId.ToUserPeer(), obj.Username, oldUserName);
+        var command = new UpdateUserNameCommand(UserNameId.Create(obj.Username.ToLower()), input.ToRequestInfo(), input.UserId.ToUserPeer(), obj.Username, oldUserName);
         await commandBus.PublishAsync(command);
         return null !;
     }

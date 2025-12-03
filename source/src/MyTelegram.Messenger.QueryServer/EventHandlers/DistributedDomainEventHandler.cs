@@ -37,9 +37,9 @@ public class DistributedDomainEventHandler(
             case ChannelCreatedEvent channelCreatedEvent:
                 chatEventCacheHelper.Add(channelCreatedEvent);
                 break;
-            case StartInviteToChannelEvent startInviteToChannelEvent:
-                chatEventCacheHelper.Add(startInviteToChannelEvent);
-                break;
+            //case StartInviteToChannelEvent startInviteToChannelEvent:
+            //    chatEventCacheHelper.Add(startInviteToChannelEvent);
+            //    break;
         }
 
         await cachedReadModelUpdater.UpdateAsync([domainEvent], default);

@@ -1,5 +1,4 @@
 ﻿using MyTelegram.Domain.Aggregates.Device;
-using MyTelegram.Domain.Commands.Device;
 
 namespace MyTelegram.Messenger.CommandServer.EventHandlers;
 

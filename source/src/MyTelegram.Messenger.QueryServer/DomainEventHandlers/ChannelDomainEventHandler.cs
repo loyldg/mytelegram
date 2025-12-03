@@ -1,5 +1,4 @@
 ﻿using MyTelegram.Domain.Aggregates.ChatInvite;
-using MyTelegram.Domain.Events.ChatInvite;
 using MyTelegram.Messenger.Services.Caching;
 using MyTelegram.Messenger.Services.Interfaces;
 using TChannelParticipant = MyTelegram.Schema.TChannelParticipant;
@@ -33,7 +32,7 @@ public class ChannelDomainEventHandler(
         ISubscribeSynchronousTo<ChannelAggregate, ChannelId, PreHistoryHiddenChangedEvent>,
         ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent>,
         ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent>,
-        ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
+        //ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
         ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
         ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
         ISubscribeSynchronousTo<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedSagaEvent>,
@@ -41,10 +40,10 @@ public class ChannelDomainEventHandler(
         ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelSignatureChangedEvent>,
         ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelColorUpdatedEvent>,
         ISubscribeSynchronousTo<ChatInviteAggregate, ChatInviteId, ChatInviteCreatedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent>,
+        //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent>,
+        //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent>,
         ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelDeletedEvent>,
-        ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedSagaEvent>,
+        //ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedSagaEvent>,
         ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelParticipantsHiddenUpdatedEvent>,
         ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelJoinRequestUpdatedEvent>,
         ISubscribeSynchronousTo<JoinChannelAggregate, JoinChannelId, JoinChannelRequestCreatedEvent>,
@@ -195,52 +194,52 @@ public class ChannelDomainEventHandler(
         return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, new TBoolTrue());
     }
 
-    public async Task HandleAsync(
-        IDomainEvent<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        // We should notify all channel admins to approve the request after chatInvites imported 
-        var update = new TUpdatePendingJoinRequests
-        {
-            Peer = new TPeerChannel
-            {
-                ChannelId = domainEvent.AggregateEvent.ChannelId
-            },
-            RequestsPending = domainEvent.AggregateEvent.RequestsPending ?? 0,
-            RecentRequesters = new TVector<long>(domainEvent.AggregateEvent.RecentRequesters)
-        };
+    //public async Task HandleAsync(
+    //    IDomainEvent<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    // We should notify all channel admins to approve the request after chatInvites imported 
+    //    var update = new TUpdatePendingJoinRequests
+    //    {
+    //        Peer = new TPeerChannel
+    //        {
+    //            ChannelId = domainEvent.AggregateEvent.ChannelId
+    //        },
+    //        RequestsPending = domainEvent.AggregateEvent.RequestsPending ?? 0,
+    //        RecentRequesters = new TVector<long>(domainEvent.AggregateEvent.RecentRequesters)
+    //    };
 
-        var updates = new TUpdates
-        {
-            Updates = new TVector<IUpdate>(update),
-            Chats = [],
-            Date = DateTime.UtcNow.ToTimestamp(),
-            Users = []
-        };
+    //    var updates = new TUpdates
+    //    {
+    //        Updates = new TVector<IUpdate>(update),
+    //        Chats = [],
+    //        Date = DateTime.UtcNow.ToTimestamp(),
+    //        Users = []
+    //    };
 
-        foreach (var userId in domainEvent.AggregateEvent.ChannelAdmins)
-        {
-            await PushMessageToPeerAsync(new Peer(PeerType.User, userId), updates);
-        }
-    }
+    //    foreach (var userId in domainEvent.AggregateEvent.ChannelAdmins)
+    //    {
+    //        await PushMessageToPeerAsync(new Peer(PeerType.User, userId), updates);
+    //    }
+    //}
 
-    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        var update = new TUpdateChannel
-        {
-            ChannelId = domainEvent.AggregateEvent.ChannelId
-        };
-        var updates = new TUpdates
-        {
-            Chats = [],
-            Date = DateTime.UtcNow.ToTimestamp(),
-            Updates = new TVector<IUpdate>(update),
-            Users = []
-        };
+    //public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    var update = new TUpdateChannel
+    //    {
+    //        ChannelId = domainEvent.AggregateEvent.ChannelId
+    //    };
+    //    var updates = new TUpdates
+    //    {
+    //        Chats = [],
+    //        Date = DateTime.UtcNow.ToTimestamp(),
+    //        Updates = new TVector<IUpdate>(update),
+    //        Users = []
+    //    };
 
-        return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, updates);
-    }
+    //    return SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, updates);
+    //}
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, DiscussionGroupUpdatedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -298,14 +297,14 @@ public class ChannelDomainEventHandler(
         });
     }
 
-    public Task HandleAsync(
-        IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        return SendChannelUpdatedRpcResultAndNotifyChannelMembersAsync(domainEvent.AggregateEvent.ChannelId,
-            domainEvent.AggregateEvent.MemberUserId, domainEvent.AggregateEvent.RequestInfo,
-            domainEvent.AggregateEvent.Date);
-    }
+    //public Task HandleAsync(
+    //    IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    return SendChannelUpdatedRpcResultAndNotifyChannelMembersAsync(domainEvent.AggregateEvent.ChannelId,
+    //        domainEvent.AggregateEvent.MemberUserId, domainEvent.AggregateEvent.RequestInfo,
+    //        domainEvent.AggregateEvent.Date);
+    //}
 
     public async Task HandleAsync(
         IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent> domainEvent,
@@ -471,47 +470,47 @@ public class ChannelDomainEventHandler(
         return updates;
     }
 
-    public async Task HandleAsync(
-        IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedSagaEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        var r = updatesConverterService.ToSelfUpdatePinnedMessageUpdates(domainEvent.AggregateEvent);
-        if (domainEvent.AggregateEvent.PmOneSide || domainEvent.AggregateEvent.ShouldReplyRpcResult)
-        {
-            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
-                r,
-                domainEvent.AggregateEvent.SenderPeerId,
-                domainEvent.AggregateEvent.Pts,
-                domainEvent.AggregateEvent.ToPeer.PeerType
-            );
-            await PushUpdatesToPeerAsync(
-                new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
-                r,
-                pts: domainEvent.AggregateEvent.Pts);
-        }
+    //public async Task HandleAsync(
+    //    IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedSagaEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    var r = updatesConverterService.ToSelfUpdatePinnedMessageUpdates(domainEvent.AggregateEvent);
+    //    if (domainEvent.AggregateEvent.PmOneSide || domainEvent.AggregateEvent.ShouldReplyRpcResult)
+    //    {
+    //        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
+    //            r,
+    //            domainEvent.AggregateEvent.SenderPeerId,
+    //            domainEvent.AggregateEvent.Pts,
+    //            domainEvent.AggregateEvent.ToPeer.PeerType
+    //        );
+    //        await PushUpdatesToPeerAsync(
+    //            new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
+    //            r,
+    //            pts: domainEvent.AggregateEvent.Pts);
+    //    }
 
-        var updates = updatesConverterService.ToUpdatePinnedMessageUpdates(domainEvent.AggregateEvent);
-        if (domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel)
-        {
-            //var (channelReadModel, photoReadModel) =
-            //    await GetChannelAsync(domainEvent.AggregateEvent.ToPeer.PeerId);
-        }
+    //    var updates = updatesConverterService.ToUpdatePinnedMessageUpdates(domainEvent.AggregateEvent);
+    //    if (domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel)
+    //    {
+    //        //var (channelReadModel, photoReadModel) =
+    //        //    await GetChannelAsync(domainEvent.AggregateEvent.ToPeer.PeerId);
+    //    }
 
-        await PushUpdatesToPeerAsync(
-            domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel
-                ? new Peer(PeerType.Channel, domainEvent.AggregateEvent.OwnerPeerId)
-                : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
-            updates,
-            excludeUserId: domainEvent.AggregateEvent.SenderPeerId,
-            pts: domainEvent.AggregateEvent.Pts
-        );
+    //    await PushUpdatesToPeerAsync(
+    //        domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel
+    //            ? new Peer(PeerType.Channel, domainEvent.AggregateEvent.OwnerPeerId)
+    //            : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
+    //        updates,
+    //        excludeUserId: domainEvent.AggregateEvent.SenderPeerId,
+    //        pts: domainEvent.AggregateEvent.Pts
+    //    );
 
-        if (domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel)
-        {
-            await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo,
-                domainEvent.AggregateEvent.ToPeer.PeerId);
-        }
-    }
+    //    if (domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel)
+    //    {
+    //        await NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo,
+    //            domainEvent.AggregateEvent.ToPeer.PeerId);
+    //    }
+    //}
 
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -520,12 +519,12 @@ public class ChannelDomainEventHandler(
         return Task.CompletedTask;
     }
 
-    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        chatEventCacheHelper.Add(domainEvent.AggregateEvent);
-        return Task.CompletedTask;
-    }
+    //public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, StartInviteToChannelEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    chatEventCacheHelper.Add(domainEvent.AggregateEvent);
+    //    return Task.CompletedTask;
+    //}
 
     private async Task<(IChannelReadModel, IPhotoReadModel?)> GetChannelAndPhotoAsync(long channelId)
     {

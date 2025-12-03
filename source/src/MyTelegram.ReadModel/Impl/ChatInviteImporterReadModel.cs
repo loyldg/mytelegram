@@ -1,8 +1,7 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
 public class ChatInviteImporterReadModel : IChatInviteImporterReadModel,
-        IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteImportedEvent>,
-        IAmReadModelFor<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent>
+        IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteImportedEvent>
 {
     public string Id { get; private set; } = default!;
     public long PeerId { get; private set; }
@@ -29,15 +28,15 @@ public class ChatInviteImporterReadModel : IChatInviteImporterReadModel,
         return Task.CompletedTask;
     }
 
-    public Task ApplyAsync(IReadModelContext context, IDomainEvent<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent> domainEvent, CancellationToken cancellationToken)
-    {
-        Id = ChatInviteImporterId.Create(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.UserId).Value;
-        Approved=domainEvent.AggregateEvent.Approved;
+    //public Task ApplyAsync(IReadModelContext context, IDomainEvent<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent> domainEvent, CancellationToken cancellationToken)
+    //{
+    //    Id = ChatInviteImporterId.Create(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.UserId).Value;
+    //    Approved = domainEvent.AggregateEvent.Approved;
 
-        ChatInviteRequestState = domainEvent.AggregateEvent.Approved
-            ? ChatInviteRequestState.Approved
-            : ChatInviteRequestState.Rejected;
+    //    ChatInviteRequestState = domainEvent.AggregateEvent.Approved
+    //        ? ChatInviteRequestState.Approved
+    //        : ChatInviteRequestState.Rejected;
 
-        return Task.CompletedTask;
-    }
+    //    return Task.CompletedTask;
+    //}
 }

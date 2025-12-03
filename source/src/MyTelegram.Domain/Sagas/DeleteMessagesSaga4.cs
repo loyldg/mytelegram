@@ -1,6 +1,4 @@
-﻿using DeleteMessagesStartedEvent = MyTelegram.Domain.Events.Temp.DeleteMessagesStartedEvent;
-
-namespace MyTelegram.Domain.Sagas;
+﻿namespace MyTelegram.Domain.Sagas;
 
 public class DeleteMessageSaga4StartedEvent(RequestInfo requestInfo,
     //List<int> messageIds,
@@ -157,14 +155,14 @@ public class
         {
             if (_state.NewTopMessageId.HasValue)
             {
-                var command = new UpdateTopMessageIdCommand(
+                var command = new UpdateDialogTopMessageIdCommand(
                     DialogId.Create(_state.RequestInfo.UserId, _state.ToPeer), _state.NewTopMessageId.Value);
                 Publish(command);
             }
 
             if (_state.NewTopMessageIdForOtherParticipant.HasValue)
             {
-                var command = new UpdateTopMessageIdCommand(
+                var command = new UpdateDialogTopMessageIdCommand(
                     DialogId.Create(_state.ToPeer.PeerId, PeerType.User, _state.RequestInfo.UserId),
                     _state.NewTopMessageIdForOtherParticipant.Value);
                 Publish(command);

@@ -1,7 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
 public class UserNameReadModel : IUserNameReadModel,
-    IAmReadModelFor<UserNameAggregate, UserNameId, SetUserNameSuccessEvent>,
     IAmReadModelFor<UserNameAggregate, UserNameId, UserNameDeletedEvent>,
     IAmReadModelFor<UserNameAggregate, UserNameId, UserNameCreatedEvent>,
     IAmReadModelFor<UserNameAggregate, UserNameId, UserNameChangedEvent>
@@ -13,19 +12,6 @@ public class UserNameReadModel : IUserNameReadModel,
     public virtual string UserName { get; private set; } = null!;
     public int Date { get; private set; }
     public virtual long? Version { get; set; }
-
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<UserNameAggregate, UserNameId, SetUserNameSuccessEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        Id = domainEvent.AggregateIdentity.Value;
-        UserName = domainEvent.AggregateEvent.UserName;
-        PeerType = domainEvent.AggregateEvent.PeerType;
-        PeerId = domainEvent.AggregateEvent.PeerId;
-        Date = domainEvent.AggregateEvent.Date;
-
-        return Task.CompletedTask;
-    }
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<UserNameAggregate, UserNameId, UserNameDeletedEvent> domainEvent,
