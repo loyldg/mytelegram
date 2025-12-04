@@ -96,6 +96,7 @@ public class TempState : AggregateState<TempAggregate, TempId, TempState>,
 /// Add this temp aggregate only for triggering a domain event to start new saga
 /// All domain events will not be saved
 /// </summary>
+[EnableAutoGeneration]
 public class TempAggregate : AggregateRoot<TempAggregate, TempId>, INotSaveAggregateEvents
 {
     private readonly TempState _state = new();

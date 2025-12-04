@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Messaging;
 
+[EnableAutoGeneration]
 public class ReadingHistoryAggregate : AggregateRoot<ReadingHistoryAggregate, ReadingHistoryId>
 {
     private readonly ReadingHistoryState _state = new();

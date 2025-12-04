@@ -13,6 +13,7 @@ public class PushDeviceState : AggregateState<PushDeviceAggregate, PushDeviceId,
     }
 }
 
+[EnableAutoGeneration]
 public class PushDeviceAggregate : AggregateRoot<PushDeviceAggregate, PushDeviceId>
 {
     private readonly PushDeviceState _state = new();

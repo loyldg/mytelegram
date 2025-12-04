@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.QrCode;
 
+[EnableAutoGeneration]
 public class QrCodeAggregate : AggregateRoot<QrCodeAggregate, QrCodeId>
 {
     private readonly QrCodeState _state = new();

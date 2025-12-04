@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Dialog;
 
+[EnableAutoGeneration]
 public class DialogFilterAggregate : AggregateRoot<DialogFilterAggregate, DialogFilterId>
 {
     private readonly DialogFilterState _state = new();

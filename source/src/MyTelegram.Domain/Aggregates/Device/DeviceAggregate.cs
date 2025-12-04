@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Device;
 
+[EnableAutoGeneration]
 public class DeviceAggregate : SnapshotAggregateRoot<DeviceAggregate, DeviceId, DeviceSnapshot>
 {
     private readonly DeviceState _state = new();

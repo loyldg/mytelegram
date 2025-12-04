@@ -43,6 +43,7 @@ public class JoinChannelState : AggregateState<JoinChannelAggregate, JoinChannel
     }
 }
 
+[EnableAutoGeneration]
 public class JoinChannelAggregate :
     MyInMemorySnapshotAggregateRoot<JoinChannelAggregate, JoinChannelId, JoinChannelSnapshot>
 {

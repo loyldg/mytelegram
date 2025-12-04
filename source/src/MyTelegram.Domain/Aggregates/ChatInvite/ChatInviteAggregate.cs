@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.ChatInvite;
 
+[EnableAutoGeneration]
 public class
     ChatInviteAggregate : MyInMemorySnapshotAggregateRoot<ChatInviteAggregate, ChatInviteId, ChatInviteSnapshot>
 {

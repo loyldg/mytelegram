@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.RpcResult;
 
+[EnableAutoGeneration]
 public class RpcResultAggregate : MyInMemorySnapshotAggregateRoot<RpcResultAggregate, RpcResultId, RpcResultSnapshot>, INotSaveAggregateEvents
 {
     private readonly RpcResultState _state = new();
