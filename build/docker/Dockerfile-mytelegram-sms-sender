@@ -22,6 +22,7 @@ COPY ["src/MyTelegram.EventBus.RabbitMQ/MyTelegram.EventBus.RabbitMQ.csproj", "s
 COPY ["src/MyTelegram.EventBus/MyTelegram.EventBus.csproj", "src/MyTelegram.EventBus/"]
 COPY ["src/MyTelegram.Services/MyTelegram.Services.csproj", "src/MyTelegram.Services/"]
 COPY ["src/MyTelegram.EventFlow/MyTelegram.EventFlow.csproj", "src/MyTelegram.EventFlow/"]
+
 RUN dotnet restore  -a $TARGETARCH "./src/MyTelegram.SmsSender/MyTelegram.SmsSender.csproj"
 COPY . .
 WORKDIR "/src/src/MyTelegram.SmsSender"

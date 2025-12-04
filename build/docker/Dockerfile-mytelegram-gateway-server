@@ -31,6 +31,7 @@ COPY ["src/MyTelegram.Schema/MyTelegram.Schema.csproj", "src/MyTelegram.Schema/"
 COPY ["src/MyTelegram.EventBus.RabbitMQ/MyTelegram.EventBus.RabbitMQ.csproj", "src/MyTelegram.EventBus.RabbitMQ/"]
 COPY ["src/MyTelegram.EventBus/MyTelegram.EventBus.csproj", "src/MyTelegram.EventBus/"]
 COPY ["src/MyTelegram.MTProto/MyTelegram.MTProto.csproj", "src/MyTelegram.MTProto/"]
+
 RUN dotnet restore  -a $TARGETARCH "./src/MyTelegram.GatewayServer/MyTelegram.GatewayServer.csproj"
 COPY . .
 WORKDIR "/src/src/MyTelegram.GatewayServer"
