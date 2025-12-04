@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Messaging;
 
+[EnableAutoGeneration]
 public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageId, MessageSnapshot>
 {
     private readonly MessageState _state = new();

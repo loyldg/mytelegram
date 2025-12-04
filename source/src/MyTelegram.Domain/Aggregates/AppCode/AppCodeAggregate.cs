@@ -1,6 +1,7 @@
 ﻿
 namespace MyTelegram.Domain.Aggregates.AppCode;
 
+[EnableAutoGeneration]
 public class AppCodeAggregate : SnapshotAggregateRoot<AppCodeAggregate, AppCodeId, AppCodeSnapshot>
 {
     private readonly int _expireMinutes = 10;

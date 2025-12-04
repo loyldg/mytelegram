@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram;
 
-[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.Method)]
 public class DisableAutoGenerationAttribute : Attribute
 {
 

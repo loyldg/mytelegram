@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.PeerSetting;
 
+[EnableAutoGeneration]
 public class PeerSettingsAggregate : SnapshotAggregateRoot<PeerSettingsAggregate, PeerSettingsId, PeerSettingsSnapshot>
 {
     private readonly PeerSettingsState _state = new();

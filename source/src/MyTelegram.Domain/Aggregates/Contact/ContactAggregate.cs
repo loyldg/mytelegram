@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Contact;
 
+[EnableAutoGeneration]
 public class ContactAggregate : SnapshotAggregateRoot<ContactAggregate, ContactId, ContactSnapshot>
 {
     private readonly ContactState _state = new();

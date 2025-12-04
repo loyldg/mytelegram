@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.PushUpdates;
 
+[EnableAutoGeneration]
 public class PushUpdatesAggregate : AggregateRoot<PushUpdatesAggregate, PushUpdatesId>
 {
     private readonly PushUpdatesState _state = new();

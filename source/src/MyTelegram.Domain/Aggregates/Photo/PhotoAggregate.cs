@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Photo;
 
+[EnableAutoGeneration]
 public class PhotoAggregate : AggregateRoot<PhotoAggregate, PhotoId>
 {
     private readonly PhotoState _state = new();

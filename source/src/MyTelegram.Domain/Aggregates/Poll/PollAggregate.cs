@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Poll;
 
+[EnableAutoGeneration]
 public class PollAggregate : AggregateRoot<PollAggregate, PollId>
 {
     private readonly PollState _state = new();

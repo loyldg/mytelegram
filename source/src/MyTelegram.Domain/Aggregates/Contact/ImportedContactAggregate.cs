@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Contact;
 
+[EnableAutoGeneration]
 public class
     ImportedContactAggregate : SnapshotAggregateRoot<ImportedContactAggregate, ImportedContactId,
         ImportedContactSnapshot>

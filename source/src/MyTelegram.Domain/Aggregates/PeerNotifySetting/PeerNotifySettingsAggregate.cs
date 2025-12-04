@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.PeerNotifySetting;
 
+[EnableAutoGeneration]
 public class PeerNotifySettingsAggregate : SnapshotAggregateRoot<PeerNotifySettingsAggregate, PeerNotifySettingsId,
     PeerNotifySettingsSnapshot>
 {

@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Dialog;
 
+[EnableAutoGeneration]
 public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, DialogId, DialogSnapshot>
 {
     private readonly DialogState _state = new();

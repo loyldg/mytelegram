@@ -206,13 +206,14 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
                && cls.Identifier.Text.EndsWith("Aggregate");
     }
 
-    private static bool HasDisableAutoGeneration(ISymbol symbol)
+    private static bool HasAttribute(ISymbol symbol, string attributeName)
     {
         foreach (var attr in symbol.GetAttributes())
         {
             var name = attr.AttributeClass?.Name;
 
-            if (name is "DisableAutoGenerationAttribute" or "DisableAutoGeneration")
+            if (string.Equals(name, attributeName, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(name, $"{attributeName}Attribute", StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
@@ -268,13 +269,24 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
             return null;
         }
 
-        if (HasDisableAutoGeneration(methodSymbol))
+        var classSymbol = methodSymbol.ContainingType;
+        var isAutoGenEnabledAtClassLevel = false;
+        var isAutoGenDisabledAtClassLevel = false;
+        var isAutoGenEnabledAtMethod = HasAttribute(methodSymbol, "EnableAutoGenerationAttribute");
+        var isAutoGenDisabledAtMethod = HasAttribute(methodSymbol, "DisableAutoGenerationAttribute");
+
+        if (classSymbol != null)
+        {
+            isAutoGenEnabledAtClassLevel = HasAttribute(classSymbol, "EnableAutoGenerationAttribute");
+            //isAutoGenDisabledAtClassLevel = HasAttribute(classSymbol, "DisableAutoGenerationAttribute");
+        }
+
+        if (isAutoGenDisabledAtMethod)
         {
             return null;
         }
 
-        var classSymbol = methodSymbol.ContainingType;
-        if (classSymbol != null && HasDisableAutoGeneration(classSymbol))
+        if (!isAutoGenEnabledAtClassLevel && !isAutoGenEnabledAtMethod)
         {
             return null;
         }

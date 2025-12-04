@@ -32,6 +32,7 @@ public class UserConfigState : AggregateState<UserConfigAggregate, UserConfigId,
     }
 }
 
+[EnableAutoGeneration]
 public class UserConfigAggregate : MyInMemorySnapshotAggregateRoot<UserConfigAggregate, UserConfigId, UserConfigSnapshot>
 {
     private readonly UserConfigState _state = new();

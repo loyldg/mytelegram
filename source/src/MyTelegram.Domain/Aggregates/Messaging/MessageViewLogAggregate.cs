@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Messaging;
 
+[EnableAutoGeneration]
 public class MessageViewLogAggregate : AggregateRoot<MessageViewLogAggregate, MessageViewLogId>
 {
     private readonly MessageViewLogState _state = new();

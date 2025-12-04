@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Channel;
 
+[EnableAutoGeneration]
 public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate, ChannelId, ChannelSnapshot>
 {
     private readonly ChannelState _state = new();
