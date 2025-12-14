@@ -20,7 +20,7 @@ MyTelegram is a self-hosted C# implementation of the Telegram server-side API, d
 - End-to-End Encrypted Chat
 - Voice & Video Calls
 - Bot Support (Partial)
-- 2FA (Two-Factor Authentication)
+- Privacy settings & 2FA
 - Stickers
 - Reactions
 - Star Gifts
@@ -31,6 +31,7 @@ MyTelegram is a self-hosted C# implementation of the Telegram server-side API, d
 - Chatlist
 - Telegram Business
 - Stories
+- Passkey login
 - Email Login
 - Email Sender
 - Direct Messages
@@ -38,7 +39,7 @@ MyTelegram is a self-hosted C# implementation of the Telegram server-side API, d
 
 ---
 
-## Running the MyTelegram Server
+## Running MyTelegram Server
 
 ### Run with Docker
 
