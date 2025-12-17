@@ -36,12 +36,12 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         return string.Join(", ", parameters.Select(p => $"command.{Capitalize(p.ParameterName)}"));
     }
 
-    private static string BuildProperties(IEnumerable<ParameterModel> parameters, bool hasRequestInfo)
+    private static string BuildProperties(IEnumerable<ParameterModel> parameters, bool hasRequestInfo, bool doNotInheritRequestCommand2 = false)
     {
         var sb = new StringBuilder();
         foreach (var p in parameters)
         {
-            if (hasRequestInfo && p.ParameterName == "requestInfo")
+            if (hasRequestInfo && p.ParameterName == "requestInfo" && !doNotInheritRequestCommand2)
             {
                 continue;
             }
@@ -80,14 +80,14 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         var commandCtorParameters = BuildCtorParams(commandParameters);
 
         var eventProperties = BuildProperties(parameters, hasRequestInfo);
-        var commandProperties = BuildProperties(commandParameters, hasRequestInfo);
+        var commandProperties = BuildProperties(commandParameters, hasRequestInfo, model.DoNotInheritRequestCommand);
         var methodArgs = BuildMethodArguments(commandParameters);
 
         var eventBase = hasRequestInfo
             ? $"RequestAggregateEvent2<{model.AggregateName}, {model.IdType}>({parameters[0].ParameterName})"
             : $"AggregateEvent<{model.AggregateName}, {model.IdType}>";
 
-        var commandBase = hasRequestInfo
+        var commandBase = hasRequestInfo && !model.DoNotInheritRequestCommand
             ? $"RequestCommand2<{model.AggregateName}, {model.IdType}, IExecutionResult>(aggregateId, {parameters[0].ParameterName})"
             : $"Command<{model.AggregateName}, {model.IdType}, IExecutionResult>(aggregateId)";
 
@@ -274,6 +274,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         var isAutoGenDisabledAtClassLevel = false;
         var isAutoGenEnabledAtMethod = HasAttribute(methodSymbol, "EnableAutoGenerationAttribute");
         var isAutoGenDisabledAtMethod = HasAttribute(methodSymbol, "DisableAutoGenerationAttribute");
+        var doNotInheritRequestCommand = HasAttribute(methodSymbol, "DoNotInheritRequestCommandAttribute");
 
         if (classSymbol != null)
         {
@@ -334,7 +335,8 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
             eventParameters,
             commandParameters,
             methodSyntax,
-            methodSymbol
+            methodSymbol,
+            doNotInheritRequestCommand
         );
     }
 
@@ -474,12 +476,15 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         List<ParameterModel> eventParameters,
         List<ParameterModel> commandParameters,
         MethodDeclarationSyntax syntax,
-        IMethodSymbol symbol)
+        IMethodSymbol symbol,
+        bool doNotInheritRequestCommand
+        )
     {
         public string AggregateName { get; } = aggregateName;
         public string EventName { get; } = eventName;
         public string IdType { get; } = idType;
         public IMethodSymbol MethodSymbol { get; } = symbol;
+        public bool DoNotInheritRequestCommand { get; } = doNotInheritRequestCommand;
         public MethodDeclarationSyntax MethodSyntax { get; } = syntax;
         public string Namespace { get; } = ns;
         public List<ParameterModel> EventParameters { get; } = eventParameters;

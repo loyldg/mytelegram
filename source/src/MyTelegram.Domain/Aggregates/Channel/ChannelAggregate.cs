@@ -292,6 +292,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Emit(new DiscussionGroupUpdatedEvent(requestInfo, broadcastChannelId, groupChannelId, oldGroupChannelId));
     }
 
+    [DoNotInheritRequestCommand]
     public void SetLinkedChannelId(RequestInfo requestInfo, long? linkedChannelId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);

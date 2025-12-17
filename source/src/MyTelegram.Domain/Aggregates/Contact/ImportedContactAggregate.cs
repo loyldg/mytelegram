@@ -19,6 +19,7 @@ public class
         Emit(new ContactsImportedEvent(requestInfo, selfUserId, phoneContacts));
     }
 
+    [DoNotInheritRequestCommand]
     public void ImportSingleContact(RequestInfo requestInfo, long selfUserId,
         PhoneContact phoneContact)
     {

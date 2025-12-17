@@ -10,6 +10,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Register(_state);
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateDialogFolder(RequestInfo requestInfo, int? folderId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -17,6 +18,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new DialogFolderUpdatedEvent(requestInfo, ownerUserId, _state.ToPeer, folderId));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateDialog(RequestInfo requestInfo, long ownerUserId, Peer toPeer, int topMessageId, int pts, int? defaultHistoryTtl, bool isMonoForum)
     {
         Emit(new DialogUpdatedEvent(requestInfo, ownerUserId, toPeer, topMessageId, pts, IsNew, defaultHistoryTtl, isMonoForum));
@@ -135,6 +137,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
             topMsgId));
     }
 
+    [DoNotInheritRequestCommand]
     public void ReadInboxMessage2(RequestInfo requestInfo,
         long readerUserId,
         long ownerPeerId,
@@ -178,6 +181,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new MentionReadEvent(ownerUserId, _state.ToPeer, messageId, unreadMentionsCount));
     }
 
+    [DoNotInheritRequestCommand]
     public void ReceiveInboxMessage(
         RequestInfo requestInfo,
         int messageId,
@@ -206,6 +210,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
            draft, topicId));
     }
 
+    [DoNotInheritRequestCommand]
     public void SetOutboxTopMessage(
         //RequestInfo requestInfo,
         int messageId,
@@ -242,6 +247,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new DialogPinChangedEvent(requestInfo, ownerPeerId, pinned));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateReadChannelInbox(RequestInfo requestInfo, long messageSenderUserId, int maxId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -249,6 +255,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new UpdateReadChannelInboxEvent(requestInfo, messageSenderUserId, channelId, maxId));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateReadChannelOutbox(RequestInfo requestInfo, int maxId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);

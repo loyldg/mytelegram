@@ -10,6 +10,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         Register(_state);
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateMessagePinned(RequestInfo requestInfo, bool pinned)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -17,6 +18,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         Emit(new MessagePinnedUpdatedEvent(requestInfo, ownerPeerId, _state.MessageItem.MessageId, pinned, _state.MessageItem.ToPeer, _state.MessageItem.Post));
     }
 
+    [DoNotInheritRequestCommand]
     public void UnpinMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -86,6 +88,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         ));
     }
 
+    [DoNotInheritRequestCommand]
     public void DeleteChannelMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -100,6 +103,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             postMessageId));
     }
 
+    [DoNotInheritRequestCommand]
     public void DeleteInboxMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -220,6 +224,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         ));
     }
 
+    [DoNotInheritRequestCommand]
     public void ForwardMessage(
         RequestInfo requestInfo,
         long randomId)
@@ -238,12 +243,15 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         }
     }
 
+    [DoNotInheritRequestCommand]
     public void PinChannelMessage(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         var channelId = _state.MessageItem.ToPeer.PeerId;
         Emit(new ChannelMessagePinnedEvent(requestInfo, channelId, _state.MessageItem.MessageId));
     }
+
+    [DoNotInheritRequestCommand]
     public void ReadInboxHistory(RequestInfo requestInfo,
         long readerUid)
     {
@@ -259,6 +267,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         ));
     }
 
+    [DoNotInheritRequestCommand]
     public void ReplyToMessage(RequestInfo requestInfo, Peer replierPeer, int repliesPts, int messageId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -293,6 +302,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             replyToMessageId, reply, postChannelId, postMessageId));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateInboxMessagePinned(
         RequestInfo requestInfo,
         bool pinned,
@@ -324,6 +334,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             channelId, _state.MessageItem.MessageId, pts));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateOutboxMessagePinned(
         RequestInfo requestInfo,
         bool pinned,

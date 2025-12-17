@@ -22,6 +22,7 @@ public class PushDeviceAggregate : AggregateRoot<PushDeviceAggregate, PushDevice
         Register(_state);
     }
 
+    [DoNotInheritRequestCommand]
     public void RegisterDevice(RequestInfo requestInfo,
         long userId,
         long permAuthKeyId,

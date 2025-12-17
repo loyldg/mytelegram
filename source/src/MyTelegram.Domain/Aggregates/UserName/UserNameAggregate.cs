@@ -20,6 +20,7 @@ public class UserNameAggregate : SnapshotAggregateRoot<UserNameAggregate, UserNa
         Emit(new UserNameDeletedEvent(_state.Peer));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateUserName(RequestInfo requestInfo,
         Peer peer,
         string? userName,
