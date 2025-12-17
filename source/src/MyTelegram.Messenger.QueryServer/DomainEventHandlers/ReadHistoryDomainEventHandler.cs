@@ -100,7 +100,7 @@ public class ReadHistoryDomainEventHandler(
 
         var updateReadHistoryInbox = new TUpdateReadHistoryInbox
         {
-            Peer = domainEvent.AggregateEvent.RequestInfo.UserId.ToUserPeer().ToPeer(),
+            Peer = domainEvent.AggregateEvent.PeerId.ToUserPeer().ToPeer(),
             MaxId = domainEvent.AggregateEvent.MaxId,
             Pts = domainEvent.AggregateEvent.Pts,
             PtsCount = 1

@@ -14,10 +14,12 @@ public class ReadHistoryStartedSagaEvent(RequestInfo requestInfo) : AggregateEve
     public RequestInfo RequestInfo { get; } = requestInfo;
 }
 
-public class UpdateInboxMaxIdCompletedSagaEvent(RequestInfo requestInfo, int maxId, int pts) : RequestAggregateEvent2<ReadHistorySaga, ReadHistorySagaId>(requestInfo)
+public class UpdateInboxMaxIdCompletedSagaEvent(RequestInfo requestInfo, int maxId, int pts, long peerId)
+    : RequestAggregateEvent2<ReadHistorySaga, ReadHistorySagaId>(requestInfo)
 {
     public int MaxId { get; } = maxId;
     public int Pts { get; } = pts;
+    public long PeerId { get; } = peerId;
 }
 
 public class UpdateOutboxMaxIdCompletedSagaEvent(long userId, long toPeerId, int maxId, int pts, int ptsCount)
@@ -49,7 +51,8 @@ public class ReadHistorySaga : MyInMemoryAggregateSaga<ReadHistorySaga, ReadHist
     {
         Emit(new ReadHistoryStartedSagaEvent(domainEvent.AggregateEvent.RequestInfo));
         var pts = await IncrementPtsAsync(domainEvent.AggregateEvent.RequestInfo.UserId);
-        Emit(new UpdateInboxMaxIdCompletedSagaEvent(_state.RequestInfo, domainEvent.AggregateEvent.ReadInboxMaxId, pts));
+        Emit(new UpdateInboxMaxIdCompletedSagaEvent(_state.RequestInfo, domainEvent.AggregateEvent.ReadInboxMaxId, pts,
+            domainEvent.AggregateEvent.SenderUserId));
         CreateReadingHistory(domainEvent.AggregateEvent.SenderUserId, domainEvent.AggregateEvent.SenderMessageId);
         UpdateReadOutboxMaxId(domainEvent.AggregateEvent.SenderUserId, domainEvent.AggregateEvent.SenderMessageId);
     }
