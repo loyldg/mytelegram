@@ -2,45 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// When and which user joined the chat using a chat invite
-/// See <a href="https://corefork.telegram.org/type/ChatInviteImporter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChatInviteImporter" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatInviteImporter"/> See <a href="https://corefork.telegram.org/constructor/chatInviteImporter" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatInviteImporter), nameof(TChatInviteImporter))]
 public interface IChatInviteImporter : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this user currently has a pending <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a>
-    ///</summary>
+    /// </summary>
     bool Requested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The participant joined by importing a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     bool ViaChatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did the user join
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For users with pending requests, contains bio of the user that requested to join
-    ///</summary>
+    /// </summary>
     string? About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The administrator that approved the <a href="https://corefork.telegram.org/api/invites#join-requests">join request »</a> of the user
-    ///</summary>
+    /// </summary>
     long? ApprovedBy { get; set; }
 }

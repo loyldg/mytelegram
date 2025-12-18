@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-app-previews">Main Mini App preview media, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/type/BotPreviewMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BotPreviewMedia" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotPreviewMedia"/> See <a href="https://corefork.telegram.org/constructor/botPreviewMedia" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotPreviewMedia), nameof(TBotPreviewMedia))]
 public interface IBotPreviewMedia : IObject
 {
-    ///<summary>
+    /// <summary>
     /// When was this media last updated.
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The actual photo/video.
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IMessageMedia Media { get; set; }
 }

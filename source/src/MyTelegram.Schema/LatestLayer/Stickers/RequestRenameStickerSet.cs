@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// Renames a stickerset.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKERSET_INVALID The provided sticker set is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.renameStickerSet" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKERSET_INVALID The provided sticker set is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stickers.renameStickerSet" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x124b1c00)]
-public sealed class RequestRenameStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestRenameStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0x124b1c00;
 
-    ///<summary>
+    /// <summary>
     /// Stickerset to rename
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New stickerset title
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

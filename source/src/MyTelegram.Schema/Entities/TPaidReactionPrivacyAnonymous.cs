@@ -2,11 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyAnonymous" />
-///</summary>
+/// <summary>
+/// Send paid reactions anonymously.
+/// <para>See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyAnonymous" /></para>
+/// </summary>
 [TlObject(0x1f0c1ad9)]
-public sealed class TPaidReactionPrivacyAnonymous : IPaidReactionPrivacy
+public sealed partial class TPaidReactionPrivacyAnonymous : IPaidReactionPrivacy
 {
     public uint ConstructorId => 0x1f0c1ad9;
     public void ComputeFlag()

@@ -2,40 +2,44 @@
 
 namespace MyTelegram.Schema.Fragment;
 
-///<summary>
+/// <summary>
 /// Info about a <a href="https://corefork.telegram.org/api/fragment">fragment collectible</a>.
-/// See <a href="https://corefork.telegram.org/type/fragment.CollectibleInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/fragment.CollectibleInfo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCollectibleInfo"/> See <a href="https://corefork.telegram.org/constructor/fragment.collectibleInfo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCollectibleInfo), nameof(TCollectibleInfo))]
 public interface ICollectibleInfo : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Purchase date (unixtime)
-    ///</summary>
+    /// </summary>
     int PurchaseDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code for <code>amount</code>
-    ///</summary>
+    /// </summary>
     string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     long Amount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Cryptocurrency name.
-    ///</summary>
+    /// </summary>
     string CryptoCurrency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price, in the smallest units of the cryptocurrency.
-    ///</summary>
+    /// </summary>
     long CryptoAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://fragment.com/">Fragment</a> URL with more info about the collectible
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 }

@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about why a specific user could not be <a href="https://corefork.telegram.org/api/invites#direct-invites">invited »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/missingInvitee" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/missingInvitee" /></para>
+/// </summary>
 [TlObject(0x628c9224)]
-public sealed class TMissingInvitee : IMissingInvitee
+public sealed partial class TMissingInvitee : IMissingInvitee
 {
     public uint ConstructorId => 0x628c9224;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, we could not add the user <em>only because</em> the current account needs to purchase a <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription to complete the operation.
-    ///</summary>
+    /// </summary>
     public bool PremiumWouldAllowInvite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, we could not add the user because of their privacy settings, and additionally, the current account needs to purchase a <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription to directly share an invite link with the user via a private message.
-    ///</summary>
+    /// </summary>
     public bool PremiumRequiredForPm { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the user. If neither of the flags below are set, we could not add the user because of their privacy settings, and we can create and directly share an <a href="https://corefork.telegram.org/api/invites#invite-links">invite link</a> with them using a normal message, instead.
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
     public void ComputeFlag()

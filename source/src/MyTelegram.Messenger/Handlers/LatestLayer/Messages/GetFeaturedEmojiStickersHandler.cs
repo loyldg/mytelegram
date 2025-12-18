@@ -1,18 +1,15 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Gets featured custom emoji stickersets.
-/// See <a href="https://corefork.telegram.org/method/messages.getFeaturedEmojiStickers" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getFeaturedEmojiStickers"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetFeaturedEmojiStickersHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetFeaturedEmojiStickers, MyTelegram.Schema.Messages.IFeaturedStickers>
 {
-    protected override Task<MyTelegram.Schema.Messages.IFeaturedStickers> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetFeaturedEmojiStickers obj)
+    protected override Task<MyTelegram.Schema.Messages.IFeaturedStickers> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetFeaturedEmojiStickers obj)
     {
-        return Task.FromResult<MyTelegram.Schema.Messages.IFeaturedStickers>(new TFeaturedStickers
-        {
-            Sets = new(),
-            Unread = new()
-        });
+        return Task.FromResult<MyTelegram.Schema.Messages.IFeaturedStickers>(new TFeaturedStickers { Sets = new(), Unread = new() });
     }
 }

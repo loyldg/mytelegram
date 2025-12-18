@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Hash of an uploaded file, to be checked for validity after download
-/// See <a href="https://corefork.telegram.org/type/FileHash" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/FileHash" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFileHash"/> See <a href="https://corefork.telegram.org/constructor/fileHash" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFileHash), nameof(TFileHash))]
 public interface IFileHash : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Offset from where to start computing SHA-256 hash
-    ///</summary>
+    /// </summary>
     long Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length
-    ///</summary>
+    /// </summary>
     int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// SHA-256 Hash of file chunk, to be checked for validity after download
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Hash { get; set; }
 }

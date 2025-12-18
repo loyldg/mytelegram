@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The stickerset was installed, but since there are too many stickersets some were archived
-/// See <a href="https://corefork.telegram.org/constructor/messages.stickerSetInstallResultArchive" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.stickerSetInstallResultArchive" /></para>
+/// </summary>
 [TlObject(0x35e410a8)]
-public sealed class TStickerSetInstallResultArchive : IStickerSetInstallResult
+public sealed partial class TStickerSetInstallResultArchive : IStickerSetInstallResult
 {
     public uint ConstructorId => 0x35e410a8;
-    ///<summary>
+    /// <summary>
     /// Archived stickersets
     /// See <a href="https://corefork.telegram.org/type/StickerSetCovered" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerSetCovered> Sets { get; set; }
 
     public void ComputeFlag()

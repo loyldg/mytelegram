@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostSuccess" />
-///</summary>
+/// <summary>
+/// A <a href="https://corefork.telegram.org/api/suggested-posts">suggested post »</a> was successfully posted, and payment for it was successfully received.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostSuccess" /></para>
+/// </summary>
 [TlObject(0x95ddcf69)]
-public sealed class TMessageActionSuggestedPostSuccess : IMessageAction
+public sealed partial class TMessageActionSuggestedPostSuccess : IMessageAction
 {
     public uint ConstructorId => 0x95ddcf69;
-    ///<summary>
+    /// <summary>
+    /// The price.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount Price { get; set; }
 
     public void ComputeFlag()

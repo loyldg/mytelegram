@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a file saved in parts using the method <a href="https://corefork.telegram.org/method/upload.saveFilePart">upload.saveFilePart</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputFile" /></para>
+/// </summary>
 [TlObject(0xf52ff27f)]
-public sealed class TInputFile : IInputFile
+public sealed partial class TInputFile : IInputFile
 {
     public uint ConstructorId => 0xf52ff27f;
-    ///<summary>
+    /// <summary>
     /// Random file identifier created by the client
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of parts saved
-    ///</summary>
+    /// </summary>
     public int Parts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Full name of the file
-    ///</summary>
+    /// </summary>
     public string Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// In case the file's <a href="https://en.wikipedia.org/wiki/MD5#MD5_hashes">md5-hash</a> was passed, contents of the file will be checked prior to use
-    ///</summary>
+    /// </summary>
     public string Md5Checksum { get; set; }
 
     public void ComputeFlag()

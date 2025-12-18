@@ -2,19 +2,30 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/phone.sendConferenceCallBroadcast" />
-///</summary>
+/// <summary>
+/// Broadcast a blockchain block to all members of a conference call, see <a href="https://corefork.telegram.org/api/end-to-end/group-calls">here »</a> for more info.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.sendConferenceCallBroadcast" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc6701900)]
-public sealed class RequestSendConferenceCallBroadcast : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendConferenceCallBroadcast : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xc6701900;
 
-    ///<summary>
+    /// <summary>
+    /// The conference where to broadcast the block.
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
+    /// <summary>
+    /// The block to broadcast.
+    /// </summary>
     public ReadOnlyMemory<byte> Block { get; set; }
 
     public void ComputeFlag()

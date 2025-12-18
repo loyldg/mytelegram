@@ -2,27 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/saved-messages">saved message dialog »</a>.
-/// See <a href="https://corefork.telegram.org/type/SavedDialog" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SavedDialog" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedDialog"/> See <a href="https://corefork.telegram.org/constructor/savedDialog" /><br/>
+/// <see cref="TMonoForumDialog"/> See <a href="https://corefork.telegram.org/constructor/monoForumDialog" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedDialog), nameof(TSavedDialog))]
 [JsonDerivedType(typeof(TMonoForumDialog), nameof(TMonoForumDialog))]
 public interface ISavedDialog : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The dialog
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The latest message ID
-    ///</summary>
+    /// </summary>
     int TopMessage { get; set; }
 }

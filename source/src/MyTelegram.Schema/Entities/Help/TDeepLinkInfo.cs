@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Deep link info, see <a href="https://corefork.telegram.org/api/links#unsupported-links">the here for more details</a>
-/// See <a href="https://corefork.telegram.org/constructor/help.deepLinkInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.deepLinkInfo" /></para>
+/// </summary>
 [TlObject(0x6a4ee832)]
-public sealed class TDeepLinkInfo : IDeepLinkInfo
+public sealed partial class TDeepLinkInfo : IDeepLinkInfo
 {
     public uint ConstructorId => 0x6a4ee832;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// An update of the app is required to parse this link
-    ///</summary>
+    /// </summary>
     public bool UpdateApp { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to show to the user
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
     public void ComputeFlag()

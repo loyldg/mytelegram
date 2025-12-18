@@ -1,8 +1,5 @@
 ﻿using MyTelegram.Domain.Aggregates.RpcResult;
 using MyTelegram.Domain.Aggregates.Updates;
-using MyTelegram.Domain.Commands.Pts;
-using MyTelegram.Domain.Commands.RpcResult;
-using MyTelegram.Domain.Commands.Updates;
 
 namespace MyTelegram.Messenger.DomainEventHandlers;
 
@@ -37,8 +34,7 @@ public abstract class DomainEventHandlerBase(
         long? onlySendToThisAuthKeyId = null,
         UpdatesType updatesType = UpdatesType.Updates,
         int pts = 0,
-        bool skipSaveUpdates = false,
-        LayeredData<IUpdates>? layeredData = null
+        bool skipSaveUpdates = false
     )
     {
         var globalSeqNo = 0L;
@@ -323,53 +319,6 @@ public abstract class DomainEventHandlerBase(
             excludeUserIds: excludeUserIds
         );
     }
-
-    //protected async Task PushMessageToPeerAsync<TData, TExtraData>(
-    //    Peer toPeer,
-    //    TData data,
-    //    long? excludeAuthKeyId = null,
-    //    long? excludeUserId = null,
-    //    long? onlySendToUserId = null,
-    //    long? onlySendToThisAuthKeyId = null,
-    //    int pts = 0,
-    //    UpdatesType updatesType = UpdatesType.Updates,
-    //    TExtraData? extraData = default,
-    //    PushData? pushData = null,
-    //    List<long>? excludeUserIds = null
-    //)
-    //    where TData : IObject
-    //{
-    //    var globalSeqNo = 0L;
-
-    //    if (data is IUpdates updates)
-    //    {
-    //        globalSeqNo = await SavePushUpdatesAsync(
-    //            toPeer.PeerId,
-    //            //0,
-    //            updates,
-    //            pts,
-    //            excludeAuthKeyId,
-    //            excludeUserId,
-    //            onlySendToUserId,
-    //            onlySendToThisAuthKeyId,
-    //            updatesType: updatesType
-    //        );
-    //    }
-
-    //    await objectMessageSender.PushMessageToPeerAsync(
-    //        toPeer,
-    //        data,
-    //        excludeAuthKeyId,
-    //        excludeUserId,
-    //        onlySendToUserId,
-    //        onlySendToThisAuthKeyId,
-    //        pts,
-    //        globalSeqNo: globalSeqNo,
-    //        //extraData: extraData,
-    //        pushData: pushData,
-    //        excludeUserIds: excludeUserIds
-    //    );
-    //}
 
     protected Task PushMessageToAuthKeyIdAsync<TData>(
         Peer toPeer,

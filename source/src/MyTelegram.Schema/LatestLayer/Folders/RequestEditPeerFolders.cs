@@ -2,25 +2,28 @@
 
 namespace MyTelegram.Schema.Folders;
 
-///<summary>
+/// <summary>
 /// Edit peers in <a href="https://corefork.telegram.org/api/folders#peer-folders">peer folder</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 FOLDER_ID_INVALID Invalid folder ID.
-/// See <a href="https://corefork.telegram.org/method/folders.editPeerFolders" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 FOLDER_ID_INVALID Invalid folder ID. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/folders.editPeerFolders" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6847d0ab)]
-public sealed class RequestEditPeerFolders : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditPeerFolders : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x6847d0ab;
 
-    ///<summary>
+    /// <summary>
     /// New peer list
     /// See <a href="https://corefork.telegram.org/type/InputFolderPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputFolderPeer> FolderPeers { get; set; }
 
     public void ComputeFlag()

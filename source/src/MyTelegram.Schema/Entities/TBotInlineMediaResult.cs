@@ -2,55 +2,55 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Media result
-/// See <a href="https://corefork.telegram.org/constructor/botInlineMediaResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botInlineMediaResult" /></para>
+/// </summary>
 [TlObject(0x17db940b)]
-public sealed class TBotInlineMediaResult : IBotInlineResult
+public sealed partial class TBotInlineMediaResult : IBotInlineResult
 {
     public uint ConstructorId => 0x17db940b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result ID
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result type (see <a href="https://corefork.telegram.org/bots/api#inlinequeryresult">bot API docs</a>)
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If type is <code>photo</code>, the photo to send
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If type is <code>document</code>, the document to send
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result title
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description
-    ///</summary>
+    /// </summary>
     public string? Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Depending on the <code>type</code> and on the <a href="https://corefork.telegram.org/type/BotInlineMessage">constructor</a>, contains the caption of the media or the content of the message to be sent <strong>instead</strong> of the media
     /// See <a href="https://corefork.telegram.org/type/BotInlineMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotInlineMessage SendMessage { get; set; }
 
     public void ComputeFlag()

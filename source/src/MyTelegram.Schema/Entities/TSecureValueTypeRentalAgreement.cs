@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Rental agreement
-/// See <a href="https://corefork.telegram.org/constructor/secureValueTypeRentalAgreement" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueTypeRentalAgreement" /></para>
+/// </summary>
 [TlObject(0x8b883488)]
-public sealed class TSecureValueTypeRentalAgreement : ISecureValueType
+public sealed partial class TSecureValueTypeRentalAgreement : ISecureValueType
 {
     public uint ConstructorId => 0x8b883488;
     public void ComputeFlag()

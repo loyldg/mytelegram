@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to <a href="https://corefork.telegram.org/api/stories#editing-stories">edit the thumbnail/static preview of a story, see here »</a> for more info on the full flow.
-/// See <a href="https://corefork.telegram.org/constructor/inputFileStoryDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputFileStoryDocument" /></para>
+/// </summary>
 [TlObject(0x62dc8b48)]
-public sealed class TInputFileStoryDocument : IInputFile
+public sealed partial class TInputFileStoryDocument : IInputFile
 {
     public uint ConstructorId => 0x62dc8b48;
-    ///<summary>
+    /// <summary>
     /// The old story video.
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Id { get; set; }
 
     public void ComputeFlag()

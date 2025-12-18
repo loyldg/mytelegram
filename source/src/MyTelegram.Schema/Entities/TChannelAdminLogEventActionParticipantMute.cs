@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A group call participant was muted
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantMute" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantMute" /></para>
+/// </summary>
 [TlObject(0xf92424d2)]
-public sealed class TChannelAdminLogEventActionParticipantMute : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantMute : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xf92424d2;
-    ///<summary>
+    /// <summary>
     /// The participant that was muted
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGroupCallParticipant Participant { get; set; }
 
     public void ComputeFlag()

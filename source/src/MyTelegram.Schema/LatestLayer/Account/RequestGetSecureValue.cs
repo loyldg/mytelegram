@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get saved <a href="https://corefork.telegram.org/passport">Telegram Passport</a> document, <a href="https://corefork.telegram.org/passport/encryption#encryption">for more info see the passport docs »</a>
-/// See <a href="https://corefork.telegram.org/method/account.getSecureValue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getSecureValue" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x73665bc2)]
-public sealed class RequestGetSecureValue : IRequest<TVector<MyTelegram.Schema.ISecureValue>>
+public sealed partial class RequestGetSecureValue : IRequest<TVector<MyTelegram.Schema.ISecureValue>>
 {
     public uint ConstructorId => 0x73665bc2;
 
-    ///<summary>
+    /// <summary>
     /// Requested value types
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISecureValueType> Types { get; set; }
 
     public void ComputeFlag()

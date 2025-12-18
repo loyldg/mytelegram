@@ -2,18 +2,23 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/stories.albums" />
-///</summary>
+/// <summary>
+/// <a href="https://corefork.telegram.org/api/stories#story-albums">Story albums »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/stories.albums" /></para>
+/// </summary>
 [TlObject(0xc3987a3a)]
-public sealed class TAlbums : IAlbums
+public sealed partial class TAlbums : IAlbums
 {
     public uint ConstructorId => 0xc3987a3a;
+    /// <summary>
+    /// Hash to pass to <a href="https://corefork.telegram.org/method/stories.getAlbums">stories.getAlbums</a> to avoid returning any results if they haven't changed.
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The albums.
     /// See <a href="https://corefork.telegram.org/type/StoryAlbum" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStoryAlbum> Albums { get; set; }
 
     public void ComputeFlag()

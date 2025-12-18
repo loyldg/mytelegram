@@ -1,6 +1,5 @@
 ﻿using EventFlow.Aggregates.ExecutionResults;
 using MyTelegram.Domain.Aggregates.Device;
-using MyTelegram.Domain.Commands.Device;
 
 namespace MyTelegram.Messenger.CommandServer.BackgroundServices;
 
@@ -11,14 +10,14 @@ public class NewDeviceCreatedEventDataProcessor(
     public Task ProcessAsync(NewDeviceCreatedEvent eventData)
     {
         var createDeviceCommand = new CreateDeviceCommand(DeviceId.Create(eventData.PermAuthKeyId),
-            eventData.RequestInfo,
+            //eventData.RequestInfo,
             eventData.PermAuthKeyId,
             eventData.TempAuthKeyId,
             eventData.UserId,
             eventData.ApiId,
             eventData.AppVersion,
             eventData.AppVersion,
-            eventData.Hash,
+            //eventData.Hash,
             eventData.OfficialApp,
             eventData.PasswordPending,
             eventData.DeviceModel,

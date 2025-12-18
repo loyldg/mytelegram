@@ -2,13 +2,13 @@
 
 public class GetMessagesInput(
     long selfUserId,
-    long ownerUid,
+    long ownerPeerId,
     List<int> messageIdList,
     Peer? peer)
     : GetPagedListInput
 {
     public List<int> MessageIdList { get; } = messageIdList;
-    public long OwnerPeerId { get; } = ownerUid;
+    public long OwnerPeerId { get; } = ownerPeerId;
     public Peer? Peer { get; } = peer;
     public long SelfUserId { get; } = selfUserId;
 }

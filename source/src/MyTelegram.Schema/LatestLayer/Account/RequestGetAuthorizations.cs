@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get logged-in sessions
-/// See <a href="https://corefork.telegram.org/method/account.getAuthorizations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getAuthorizations" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe320c158)]
-public sealed class RequestGetAuthorizations : IRequest<MyTelegram.Schema.Account.IAuthorizations>
+public sealed partial class RequestGetAuthorizations : IRequest<MyTelegram.Schema.Account.IAuthorizations>
 {
     public uint ConstructorId => 0xe320c158;
 

@@ -2,10 +2,64 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel admin log event
-/// See <a href="https://corefork.telegram.org/type/ChannelAdminLogEventAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChannelAdminLogEventAction" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelAdminLogEventActionChangeTitle"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeTitle" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeAbout"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAbout" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeUsername"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsername" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangePhoto"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangePhoto" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleInvites"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleInvites" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleSignatures"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSignatures" /><br/>
+/// <see cref="TChannelAdminLogEventActionUpdatePinned"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionUpdatePinned" /><br/>
+/// <see cref="TChannelAdminLogEventActionEditMessage"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionEditMessage" /><br/>
+/// <see cref="TChannelAdminLogEventActionDeleteMessage"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDeleteMessage" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantJoin"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoin" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantLeave"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantLeave" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantInvite"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantInvite" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantToggleBan"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantToggleAdmin"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeStickerSet"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet" /><br/>
+/// <see cref="TChannelAdminLogEventActionTogglePreHistoryHidden"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden" /><br/>
+/// <see cref="TChannelAdminLogEventActionDefaultBannedRights"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights" /><br/>
+/// <see cref="TChannelAdminLogEventActionStopPoll"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionStopPoll" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeLinkedChat"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeLocation"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeLocation" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleSlowMode"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode" /><br/>
+/// <see cref="TChannelAdminLogEventActionStartGroupCall"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionStartGroupCall" /><br/>
+/// <see cref="TChannelAdminLogEventActionDiscardGroupCall"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDiscardGroupCall" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantMute"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantMute" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantUnmute"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantUnmute" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleGroupCallSetting"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleGroupCallSetting" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantJoinByInvite"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite" /><br/>
+/// <see cref="TChannelAdminLogEventActionExportedInviteDelete"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete" /><br/>
+/// <see cref="TChannelAdminLogEventActionExportedInviteRevoke"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke" /><br/>
+/// <see cref="TChannelAdminLogEventActionExportedInviteEdit"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantVolume"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantVolume" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeHistoryTTL"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantJoinByRequest"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleNoForwards"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleNoForwards" /><br/>
+/// <see cref="TChannelAdminLogEventActionSendMessage"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionSendMessage" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeAvailableReactions"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeAvailableReactions" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeUsernames"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsernames" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleForum"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleForum" /><br/>
+/// <see cref="TChannelAdminLogEventActionCreateTopic"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionCreateTopic" /><br/>
+/// <see cref="TChannelAdminLogEventActionEditTopic"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionEditTopic" /><br/>
+/// <see cref="TChannelAdminLogEventActionDeleteTopic"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDeleteTopic" /><br/>
+/// <see cref="TChannelAdminLogEventActionPinTopic"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionPinTopic" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleAntiSpam"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleAntiSpam" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangePeerColor"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangePeerColor" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeProfilePeerColor"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeProfilePeerColor" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeWallpaper"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeWallpaper" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeEmojiStatus"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStatus" /><br/>
+/// <see cref="TChannelAdminLogEventActionChangeEmojiStickerSet"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStickerSet" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleSignatureProfiles"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSignatureProfiles" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantSubExtend"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend" /><br/>
+/// <see cref="TChannelAdminLogEventActionToggleAutotranslation"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleAutotranslation" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelAdminLogEventActionChangeTitle), nameof(TChannelAdminLogEventActionChangeTitle))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionChangeAbout), nameof(TChannelAdminLogEventActionChangeAbout))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionChangeUsername), nameof(TChannelAdminLogEventActionChangeUsername))]

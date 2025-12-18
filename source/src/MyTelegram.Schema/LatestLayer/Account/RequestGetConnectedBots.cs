@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
-/// List all currently connected <a href="https://corefork.telegram.org/api/business#connected-bots">business bots »</a>
-/// See <a href="https://corefork.telegram.org/method/account.getConnectedBots" />
-///</summary>
+/// <summary>
+/// List all currently connected <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bots »</a>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getConnectedBots" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4ea4c80f)]
-public sealed class RequestGetConnectedBots : IRequest<MyTelegram.Schema.Account.IConnectedBots>
+public sealed partial class RequestGetConnectedBots : IRequest<MyTelegram.Schema.Account.IConnectedBots>
 {
     public uint ConstructorId => 0x4ea4c80f;
 

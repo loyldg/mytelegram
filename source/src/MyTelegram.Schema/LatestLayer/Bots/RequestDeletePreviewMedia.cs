@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Delete a <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-app-previews">main mini app preview, see here »</a> for more info.Only owners of bots with a configured Main Mini App can use this method, see <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-app-previews">see here »</a> for more info on how to check if you can invoke this method.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/bots.deletePreviewMedia" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.deletePreviewMedia" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2d0135b3)]
-public sealed class RequestDeletePreviewMedia : IRequest<IBool>
+public sealed partial class RequestDeletePreviewMedia : IRequest<IBool>
 {
     public uint ConstructorId => 0x2d0135b3;
 
-    ///<summary>
+    /// <summary>
     /// The bot that owns the Main Mini App.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ISO 639-1 language code, indicating the localization of the preview to delete.
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The photo/video preview to delete, previously fetched as specified <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-app-previews">here »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputMedia> Media { get; set; }
 
     public void ComputeFlag()

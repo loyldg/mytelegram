@@ -2,53 +2,53 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Info about <a href="https://corefork.telegram.org/api/threads">the comment section of a channel post, or a simple message thread</a>
-/// See <a href="https://corefork.telegram.org/constructor/messageReplies" />
-///</summary>
+/// <summary>
+/// Info about <a href="https://corefork.telegram.org/api/threads">the comment section of a channel post, a simple message thread, a forum topic, or a direct messages topic</a> (all features ultimately based on message threads).
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageReplies" /></para>
+/// </summary>
 [TlObject(0x83d60fc2)]
-public sealed class TMessageReplies : IMessageReplies
+public sealed partial class TMessageReplies : IMessageReplies
 {
     public uint ConstructorId => 0x83d60fc2;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this constructor contains information about the <a href="https://corefork.telegram.org/api/threads">comment section of a channel post, or a simple message thread</a>
-    ///</summary>
+    /// </summary>
     public bool Comments { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains the total number of replies in this thread or comment section.
-    ///</summary>
+    /// </summary>
     public int Replies { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">PTS</a> of the message that started this thread.
-    ///</summary>
+    /// </summary>
     public int RepliesPts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For channel post comments, contains information about the last few comment posters for a specific thread, to show a small list of commenter profile pictures in client previews.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer>? RecentRepliers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For channel post comments, contains the ID of the associated <a href="https://corefork.telegram.org/api/discussion">discussion supergroup</a>
-    ///</summary>
+    /// </summary>
     public long? ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the latest message in this thread or comment section.
-    ///</summary>
+    /// </summary>
     public int? MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains the ID of the latest read message in this thread or comment section.
-    ///</summary>
+    /// </summary>
     public int? ReadMaxId { get; set; }
 
     public void ComputeFlag()

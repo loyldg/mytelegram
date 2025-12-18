@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about an RTMP stream in a group call or livestream
-/// See <a href="https://corefork.telegram.org/type/GroupCallStreamChannel" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/GroupCallStreamChannel" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TGroupCallStreamChannel"/> See <a href="https://corefork.telegram.org/constructor/groupCallStreamChannel" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TGroupCallStreamChannel), nameof(TGroupCallStreamChannel))]
 public interface IGroupCallStreamChannel : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Channel ID
-    ///</summary>
+    /// </summary>
     int Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the duration of the video segment to fetch in milliseconds, by bitshifting <code>1000</code> to the right <code>scale</code> times: <code>duration_ms := 1000 &gt;&gt; scale</code>.
-    ///</summary>
+    /// </summary>
     int Scale { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last seen timestamp to easily start fetching livestream chunks using <a href="https://corefork.telegram.org/constructor/inputGroupCallStream">inputGroupCallStream</a>
-    ///</summary>
+    /// </summary>
     long LastTimestampMs { get; set; }
 }

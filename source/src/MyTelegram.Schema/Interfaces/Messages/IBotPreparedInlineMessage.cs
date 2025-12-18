@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/bots/inline#21-using-a-prepared-inline-message">prepared inline message saved by a bot, to be sent to the user via a web app »</a>
-/// See <a href="https://corefork.telegram.org/type/messages.BotPreparedInlineMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.BotPreparedInlineMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotPreparedInlineMessage"/> See <a href="https://corefork.telegram.org/constructor/messages.botPreparedInlineMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotPreparedInlineMessage), nameof(TBotPreparedInlineMessage))]
 public interface IBotPreparedInlineMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The ID of the saved message, to be passed to the <code>id</code> field of the <a href="https://corefork.telegram.org/api/web-events#web-app-send-prepared-message">web_app_send_prepared_message event »</a>
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Expiration date of the message
-    ///</summary>
+    /// </summary>
     int ExpireDate { get; set; }
 }

@@ -2,37 +2,41 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Updates user profile.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ABOUT_TOO_LONG About string too long.
-/// 400 FIRSTNAME_INVALID The first name is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.updateProfile" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 ABOUT_TOO_LONG About string too long.</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 FIRSTNAME_INVALID The first name is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateProfile" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x78515775)]
-public sealed class RequestUpdateProfile : IRequest<MyTelegram.Schema.IUser>
+public sealed partial class RequestUpdateProfile : IRequest<MyTelegram.Schema.IUser>
 {
     public uint ConstructorId => 0x78515775;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New user first name
-    ///</summary>
+    /// </summary>
     public string? FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New user last name
-    ///</summary>
+    /// </summary>
     public string? LastName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New bio
-    ///</summary>
+    /// </summary>
     public string? About { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The list of <a href="https://corefork.telegram.org/api/custom-emoji">custom emojis</a> hasn't changed.
-/// See <a href="https://corefork.telegram.org/constructor/emojiListNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiListNotModified" /></para>
+/// </summary>
 [TlObject(0x481eadfa)]
-public sealed class TEmojiListNotModified : IEmojiList
+public sealed partial class TEmojiListNotModified : IEmojiList
 {
     public uint ConstructorId => 0x481eadfa;
     public void ComputeFlag()

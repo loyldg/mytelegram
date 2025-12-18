@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Messages found and affected by changes
-/// See <a href="https://corefork.telegram.org/constructor/messages.affectedFoundMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.affectedFoundMessages" /></para>
+/// </summary>
 [TlObject(0xef8d3e6c)]
-public sealed class TAffectedFoundMessages : IAffectedFoundMessages
+public sealed partial class TAffectedFoundMessages : IAffectedFoundMessages
 {
     public uint ConstructorId => 0xef8d3e6c;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If bigger than zero, the request must be repeated to remove more messages
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Affected message IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
     public void ComputeFlag()

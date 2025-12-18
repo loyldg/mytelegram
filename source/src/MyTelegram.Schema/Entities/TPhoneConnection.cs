@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Identifies an endpoint that can be used to connect to the other user in a phone call
-/// See <a href="https://corefork.telegram.org/constructor/phoneConnection" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneConnection" /></para>
+/// </summary>
 [TlObject(0x9cc123c7)]
-public sealed class TPhoneConnection : IPhoneConnection
+public sealed partial class TPhoneConnection : IPhoneConnection
 {
     public uint ConstructorId => 0x9cc123c7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether TCP should be used
-    ///</summary>
+    /// </summary>
     public bool Tcp { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Endpoint ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IP address of endpoint
-    ///</summary>
+    /// </summary>
     public string Ip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IPv6 address of endpoint
-    ///</summary>
+    /// </summary>
     public string Ipv6 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Port ID
-    ///</summary>
+    /// </summary>
     public int Port { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Our peer tag
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> PeerTag { get; set; }
 
     public void ComputeFlag()

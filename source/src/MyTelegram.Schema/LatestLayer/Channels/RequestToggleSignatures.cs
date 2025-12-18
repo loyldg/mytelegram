@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Enable/disable message signatures in channels
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleSignatures" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleSignatures" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x418d549c)]
-public sealed class RequestToggleSignatures : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleSignatures : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x418d549c;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, enables message signatures.
-    ///</summary>
+    /// </summary>
     public bool SignaturesEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, messages from channel admins will link to their profiles, just like for group messages: can only be set if the <code>signatures_enabled</code> flag is set.
-    ///</summary>
+    /// </summary>
     public bool ProfilesEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     public void ComputeFlag()

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Information about a message in a specific position
-/// See <a href="https://corefork.telegram.org/constructor/searchResultPosition" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/searchResultPosition" /></para>
+/// </summary>
 [TlObject(0x7f648b67)]
-public sealed class TSearchResultPosition : ISearchResultsPosition
+public sealed partial class TSearchResultPosition : ISearchResultsPosition
 {
     public uint ConstructorId => 0x7f648b67;
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the message sent
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 0-based message position in the full list of suitable messages
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
     public void ComputeFlag()

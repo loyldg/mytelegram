@@ -2,10 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An invoice
-/// See <a href="https://corefork.telegram.org/type/InputInvoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputInvoice" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputInvoiceMessage"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceMessage" /><br/>
+/// <see cref="TInputInvoiceSlug"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceSlug" /><br/>
+/// <see cref="TInputInvoicePremiumGiftCode"/> See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumGiftCode" /><br/>
+/// <see cref="TInputInvoiceStars"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStars" /><br/>
+/// <see cref="TInputInvoiceChatInviteSubscription"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceChatInviteSubscription" /><br/>
+/// <see cref="TInputInvoiceStarGift"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGift" /><br/>
+/// <see cref="TInputInvoiceStarGiftUpgrade"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftUpgrade" /><br/>
+/// <see cref="TInputInvoiceStarGiftTransfer"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftTransfer" /><br/>
+/// <see cref="TInputInvoicePremiumGiftStars"/> See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumGiftStars" /><br/>
+/// <see cref="TInputInvoiceBusinessBotTransferStars"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceBusinessBotTransferStars" /><br/>
+/// <see cref="TInputInvoiceStarGiftResale"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftResale" /><br/>
+/// <see cref="TInputInvoiceStarGiftPrepaidUpgrade"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftPrepaidUpgrade" /><br/>
+/// <see cref="TInputInvoicePremiumAuthCode"/> See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumAuthCode" /><br/>
+/// <see cref="TInputInvoiceStarGiftDropOriginalDetails"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftDropOriginalDetails" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputInvoiceMessage), nameof(TInputInvoiceMessage))]
 [JsonDerivedType(typeof(TInputInvoiceSlug), nameof(TInputInvoiceSlug))]
 [JsonDerivedType(typeof(TInputInvoicePremiumGiftCode), nameof(TInputInvoicePremiumGiftCode))]
@@ -17,6 +34,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputInvoicePremiumGiftStars), nameof(TInputInvoicePremiumGiftStars))]
 [JsonDerivedType(typeof(TInputInvoiceBusinessBotTransferStars), nameof(TInputInvoiceBusinessBotTransferStars))]
 [JsonDerivedType(typeof(TInputInvoiceStarGiftResale), nameof(TInputInvoiceStarGiftResale))]
+[JsonDerivedType(typeof(TInputInvoiceStarGiftPrepaidUpgrade), nameof(TInputInvoiceStarGiftPrepaidUpgrade))]
+[JsonDerivedType(typeof(TInputInvoicePremiumAuthCode), nameof(TInputInvoicePremiumAuthCode))]
+[JsonDerivedType(typeof(TInputInvoiceStarGiftDropOriginalDetails), nameof(TInputInvoiceStarGiftDropOriginalDetails))]
 public interface IInputInvoice : IObject
 {
 }

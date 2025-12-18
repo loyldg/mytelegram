@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user of the chat is now in proximity of another user
-/// See <a href="https://corefork.telegram.org/constructor/messageActionGeoProximityReached" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGeoProximityReached" /></para>
+/// </summary>
 [TlObject(0x98e0d697)]
-public sealed class TMessageActionGeoProximityReached : IMessageAction
+public sealed partial class TMessageActionGeoProximityReached : IMessageAction
 {
     public uint ConstructorId => 0x98e0d697;
-    ///<summary>
+    /// <summary>
     /// The user or chat that is now in proximity of <code>to_id</code>
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user or chat that subscribed to <a href="https://corefork.telegram.org/api/live-location#proximity-alert">live geolocation proximity alerts</a>
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer ToId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Distance, in meters (0-100000)
-    ///</summary>
+    /// </summary>
     public int Distance { get; set; }
 
     public void ComputeFlag()

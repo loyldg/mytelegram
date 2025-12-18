@@ -2,63 +2,63 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Settings used by telegram servers for sending the confirm code.Example implementations: <a href="https://github.com/DrKLO/Telegram/blob/master/TMessagesProj/src/main/java/org/telegram/ui/LoginActivity.java">telegram for android</a>, <a href="https://github.com/tdlib/td/tree/master/td/telegram/SendCodeHelper.cpp">tdlib</a>.
-/// See <a href="https://corefork.telegram.org/constructor/codeSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/codeSettings" /></para>
+/// </summary>
 [TlObject(0xad253d78)]
-public sealed class TCodeSettings : ICodeSettings
+public sealed partial class TCodeSettings : ICodeSettings
 {
     public uint ConstructorId => 0xad253d78;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow phone verification via <a href="https://corefork.telegram.org/api/auth">phone calls</a>.
-    ///</summary>
+    /// </summary>
     public bool AllowFlashcall { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pass true if the phone number is used on the current device. Ignored if allow_flashcall is not set.
-    ///</summary>
+    /// </summary>
     public bool CurrentNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the <a href="https://developers.google.com/identity/sms-retriever/overview">android SMS receiver APIs</a>
-    ///</summary>
+    /// </summary>
     public bool AllowAppHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this device supports receiving the code using the <a href="https://corefork.telegram.org/constructor/auth.codeTypeMissedCall">auth.codeTypeMissedCall</a> method
-    ///</summary>
+    /// </summary>
     public bool AllowMissedCall { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether Firebase auth is supported
-    ///</summary>
+    /// </summary>
     public bool AllowFirebase { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if there is a SIM card in the current device, but it is not possible to check whether the specified phone number matches the SIM's phone number.
-    ///</summary>
+    /// </summary>
     public bool UnknownNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previously stored future auth tokens, see <a href="https://corefork.telegram.org/api/auth#future-auth-tokens">the documentation for more info »</a>
-    ///</summary>
+    /// </summary>
     public TVector<ReadOnlyMemory<byte>>? LogoutTokens { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used only by official iOS apps for Firebase auth: device token for apple push.
-    ///</summary>
+    /// </summary>
     public string? Token { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used only by official iOS apps for firebase auth: whether a sandbox-certificate will be used during transmission of the push notification.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? AppSandbox { get; set; }
 
     public void ComputeFlag()

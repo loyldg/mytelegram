@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// The 2FA password was reset successfully.
-/// See <a href="https://corefork.telegram.org/constructor/account.resetPasswordOk" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.resetPasswordOk" /></para>
+/// </summary>
 [TlObject(0xe926d63e)]
-public sealed class TResetPasswordOk : IResetPasswordResult
+public sealed partial class TResetPasswordOk : IResetPasswordResult
 {
     public uint ConstructorId => 0xe926d63e;
     public void ComputeFlag()

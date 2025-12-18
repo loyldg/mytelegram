@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.RpcResult;
 
+[EnableAutoGeneration]
 public class RpcResultAggregate : MyInMemorySnapshotAggregateRoot<RpcResultAggregate, RpcResultId, RpcResultSnapshot>, INotSaveAggregateEvents
 {
     private readonly RpcResultState _state = new();
@@ -9,16 +10,18 @@ public class RpcResultAggregate : MyInMemorySnapshotAggregateRoot<RpcResultAggre
         Register(_state);
     }
 
-    public void Delete()
+    public void DeleteRpcResult()
     {
         Emit(new RpcResultDeletedEvent());
     }
 
-    public void Create(RequestInfo requestInfo,
+    public void CreateRpcResult(RequestInfo requestInfo,
         byte[] rpcData)
     {
         //Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new RpcResultCreatedEvent(requestInfo, rpcData, DateTime.UtcNow.ToTimestamp()));
+        var date = DateTime.UtcNow.ToTimestamp();
+
+        Emit(new RpcResultCreatedEvent(requestInfo, rpcData, date));
     }
 
     protected override Task<RpcResultSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)

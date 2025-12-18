@@ -2,38 +2,53 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/payments.SavedStarGifts" />
-///</summary>
+/// <summary>
+/// Represents a list of <a href="https://corefork.telegram.org/api/gifts">gifts</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/payments.SavedStarGifts" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedStarGifts"/> See <a href="https://corefork.telegram.org/constructor/payments.savedStarGifts" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedStarGifts), nameof(TSavedStarGifts))]
 public interface ISavedStarGifts : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// Total number of results (can be less than the returned <code>gifts</code>, in which case <code>next_offset</code> will be set).
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Ternary value: can be not set, set&amp;true, set&amp;false. <br/>Can only be set for channels we own: the value indicates whether we <a href="https://corefork.telegram.org/api/gifts#notifications-for-received-channel-gifts">enabled gift notifications</a> for this channel.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     bool? ChatNotificationsEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Gifts
     /// See <a href="https://corefork.telegram.org/type/SavedStarGift" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ISavedStarGift> Gifts { get; set; }
 
+    /// <summary>
+    /// Offset to pass to <a href="https://corefork.telegram.org/method/payments.getSavedStarGifts">payments.getSavedStarGifts</a> to fetch the next page of results.
+    /// </summary>
     string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Channels mentioned in <code>gifts</code>
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Users mentioned in <code>gifts</code>
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

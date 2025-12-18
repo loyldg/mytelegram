@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Update the <a href="https://corefork.telegram.org/api/saved-messages#tags">description of a saved message tag »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 400 REACTION_INVALID The specified reaction is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.updateSavedReactionTag" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
+/// <para><c>400 REACTION_INVALID The specified reaction is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.updateSavedReactionTag" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x60297dec)]
-public sealed class RequestUpdateSavedReactionTag : IRequest<IBool>
+public sealed partial class RequestUpdateSavedReactionTag : IRequest<IBool>
 {
     public uint ConstructorId => 0x60297dec;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/reactions">Reaction</a> associated to the tag
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Tag description, max 12 UTF-8 characters; to remove the description call the method without setting this flag.
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
     public void ComputeFlag()

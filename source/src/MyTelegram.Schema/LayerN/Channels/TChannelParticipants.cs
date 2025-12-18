@@ -8,7 +8,7 @@ namespace MyTelegram.Schema.Channels.LayerN;
 /// See <a href="https://corefork.telegram.org/constructor/channels.channelParticipants" />
 ///</summary>
 [TlObject(0xf56ee2a8)]
-public sealed class TChannelParticipants : IObject
+public sealed partial class TChannelParticipants : IObject
 {
     public uint ConstructorId => 0xf56ee2a8;
     ///<summary>

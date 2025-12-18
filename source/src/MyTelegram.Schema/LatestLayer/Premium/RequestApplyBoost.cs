@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Premium;
 
-///<summary>
+/// <summary>
 /// Apply one or more <a href="https://corefork.telegram.org/api/boost">boosts »</a> to a peer.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOOSTS_EMPTY No boost slots were specified.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 SLOTS_EMPTY The specified slot list is empty.
-/// See <a href="https://corefork.telegram.org/method/premium.applyBoost" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOOSTS_EMPTY No boost slots were specified.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 SLOTS_EMPTY The specified slot list is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/premium.applyBoost" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6b7da746)]
-public sealed class RequestApplyBoost : IRequest<MyTelegram.Schema.Premium.IMyBoosts>
+public sealed partial class RequestApplyBoost : IRequest<MyTelegram.Schema.Premium.IMyBoosts>
 {
     public uint ConstructorId => 0x6b7da746;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Which <a href="https://corefork.telegram.org/api/boost">boost slots</a> to assign to this peer.
-    ///</summary>
+    /// </summary>
     public TVector<int>? Slots { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer to boost.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

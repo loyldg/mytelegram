@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The history of a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> was hidden.
-/// See <a href="https://corefork.telegram.org/constructor/updateChannelAvailableMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChannelAvailableMessages" /></para>
+/// </summary>
 [TlObject(0xb23fc698)]
-public sealed class TUpdateChannelAvailableMessages : IUpdate
+public sealed partial class TUpdateChannelAvailableMessages : IUpdate
 {
     public uint ConstructorId => 0xb23fc698;
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of a maximum unavailable message in a channel due to hidden history.
-    ///</summary>
+    /// </summary>
     public int AvailableMinId { get; set; }
 
     public void ComputeFlag()

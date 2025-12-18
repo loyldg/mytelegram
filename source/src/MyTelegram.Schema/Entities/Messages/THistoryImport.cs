@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// ID of a specific <a href="https://corefork.telegram.org/api/import">chat import session, click here for more info »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messages.historyImport" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.historyImport" /></para>
+/// </summary>
 [TlObject(0x1662af0b)]
-public sealed class THistoryImport : IHistoryImport
+public sealed partial class THistoryImport : IHistoryImport
 {
     public uint ConstructorId => 0x1662af0b;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/import">History import ID</a>
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

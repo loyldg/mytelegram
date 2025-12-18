@@ -2,90 +2,96 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/sponsored-messages">sponsored message</a>.
-/// See <a href="https://corefork.telegram.org/constructor/sponsoredMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sponsoredMessage" /></para>
+/// </summary>
 [TlObject(0x7dbf8673)]
-public sealed class TSponsoredMessage : ISponsoredMessage
+public sealed partial class TSponsoredMessage : ISponsoredMessage
 {
     public uint ConstructorId => 0x7dbf8673;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message needs to be labeled as "recommended" instead of "sponsored"
-    ///</summary>
+    /// </summary>
     public bool Recommended { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this message can be <a href="https://corefork.telegram.org/api/sponsored-messages#reporting-sponsored-messages">reported as specified here »</a>.
-    ///</summary>
+    /// </summary>
     public bool CanReport { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains the URL to open when the user clicks on the sponsored message.
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contains the title of the sponsored message.
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sponsored message
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a> in <code>message</code>.
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains a custom profile photo bubble that should be displayed for the sponsored message, like for messages sent in groups.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains some media.
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageMedia? Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the sponsored message should use the <a href="https://corefork.telegram.org/api/colors">message accent color »</a> specified in <code>color</code>.
     /// See <a href="https://corefork.telegram.org/type/PeerColor" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerColor? Color { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Label of the sponsored message button.
-    ///</summary>
+    /// </summary>
     public string ButtonText { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains additional information about the sponsor to be shown along with the message.
-    ///</summary>
+    /// </summary>
     public string? SponsorInfo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains additional information about the sponsored message to be shown along with the message.
-    ///</summary>
+    /// </summary>
     public string? AdditionalInfo { get; set; }
 
+    /// <summary>
+    /// For <a href="https://corefork.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements">sponsored messages to show on channel videos »</a>, allow the user to hide the ad only after the specified amount of seconds.
+    /// </summary>
     public int? MinDisplayDuration { get; set; }
 
+    /// <summary>
+    /// For <a href="https://corefork.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements">sponsored messages to show on channel videos »</a>, autohide the ad after after the specified amount of seconds.
+    /// </summary>
     public int? MaxDisplayDuration { get; set; }
 
     public void ComputeFlag()

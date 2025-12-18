@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Favorited stickers
-/// See <a href="https://corefork.telegram.org/constructor/messages.favedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.favedStickers" /></para>
+/// </summary>
 [TlObject(0x2cb51097)]
-public sealed class TFavedStickers : IFavedStickers
+public sealed partial class TFavedStickers : IFavedStickers
 {
     public uint ConstructorId => 0x2cb51097;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emojis associated to stickers
     /// See <a href="https://corefork.telegram.org/type/StickerPack" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerPack> Packs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Favorited stickers
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Stickers { get; set; }
 
     public void ComputeFlag()

@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Saved payment credentials
-/// See <a href="https://corefork.telegram.org/type/PaymentSavedCredentials" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PaymentSavedCredentials" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPaymentSavedCredentialsCard"/> See <a href="https://corefork.telegram.org/constructor/paymentSavedCredentialsCard" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPaymentSavedCredentialsCard), nameof(TPaymentSavedCredentialsCard))]
 public interface IPaymentSavedCredentials : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Card ID
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 }

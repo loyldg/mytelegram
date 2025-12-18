@@ -33,10 +33,11 @@ public class UnencryptedMessageHandler(
             }
 
             var obj = eventData.MessageData.ToTObject<IObject>();
-      
             var r = await handler.HandleAsync(
                 new RequestInput(
                     eventData.ConnectionId,
+                    eventData.ConnectionType,
+                    //eventData.DcId,
                     eventData.RequestId,
                     eventData.ObjectId,
                     eventData.MessageId,

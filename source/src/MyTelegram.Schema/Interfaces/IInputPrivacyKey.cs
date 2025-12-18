@@ -2,10 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Privacy <strong>keys</strong> together with <a href="https://corefork.telegram.org/api/privacy#privacy-rules">privacy rules »</a> indicate <em>what</em> can or can't someone do and are specified by a <a href="https://corefork.telegram.org/type/PrivacyKey">PrivacyKey</a> constructor, and its input counterpart <a href="https://corefork.telegram.org/type/InputPrivacyKey">InputPrivacyKey</a>.See the <a href="https://corefork.telegram.org/api/privacy">privacy documentation »</a> for more info.
-/// See <a href="https://corefork.telegram.org/type/InputPrivacyKey" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputPrivacyKey" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputPrivacyKeyStatusTimestamp"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStatusTimestamp" /><br/>
+/// <see cref="TInputPrivacyKeyChatInvite"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyChatInvite" /><br/>
+/// <see cref="TInputPrivacyKeyPhoneCall"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyPhoneCall" /><br/>
+/// <see cref="TInputPrivacyKeyPhoneP2P"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyPhoneP2P" /><br/>
+/// <see cref="TInputPrivacyKeyForwards"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyForwards" /><br/>
+/// <see cref="TInputPrivacyKeyProfilePhoto"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyProfilePhoto" /><br/>
+/// <see cref="TInputPrivacyKeyPhoneNumber"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyPhoneNumber" /><br/>
+/// <see cref="TInputPrivacyKeyAddedByPhone"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyAddedByPhone" /><br/>
+/// <see cref="TInputPrivacyKeyVoiceMessages"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyVoiceMessages" /><br/>
+/// <see cref="TInputPrivacyKeyAbout"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyAbout" /><br/>
+/// <see cref="TInputPrivacyKeyBirthday"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyBirthday" /><br/>
+/// <see cref="TInputPrivacyKeyStarGiftsAutoSave"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStarGiftsAutoSave" /><br/>
+/// <see cref="TInputPrivacyKeyNoPaidMessages"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyNoPaidMessages" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputPrivacyKeyStatusTimestamp), nameof(TInputPrivacyKeyStatusTimestamp))]
 [JsonDerivedType(typeof(TInputPrivacyKeyChatInvite), nameof(TInputPrivacyKeyChatInvite))]
 [JsonDerivedType(typeof(TInputPrivacyKeyPhoneCall), nameof(TInputPrivacyKeyPhoneCall))]

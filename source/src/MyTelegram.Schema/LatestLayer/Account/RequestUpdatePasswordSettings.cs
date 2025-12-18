@@ -2,36 +2,39 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Set a new 2FA password
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 EMAIL_INVALID The specified email is invalid.
-/// 400 EMAIL_UNCONFIRMED Email unconfirmed.
-/// 400 EMAIL_UNCONFIRMED_%d The provided email isn't confirmed, %d is the length of the verification code that was just sent to the email: use <a href="https://corefork.telegram.org/method/account.verifyEmail">account.verifyEmail</a> to enter the received verification code and enable the recovery email.
-/// 400 NEW_SALT_INVALID The new salt is invalid.
-/// 400 NEW_SETTINGS_EMPTY No password is set on the current account, and no new password was specified in <code>new_settings</code>.
-/// 400 NEW_SETTINGS_INVALID The new password settings are invalid.
-/// 400 PASSWORD_HASH_INVALID The provided password hash is invalid.
-/// 400 SRP_ID_INVALID Invalid SRP ID provided.
-/// 400 SRP_PASSWORD_CHANGED Password has changed.
-/// See <a href="https://corefork.telegram.org/method/account.updatePasswordSettings" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 EMAIL_INVALID The specified email is invalid.</c></para>
+/// <para><c>400 EMAIL_UNCONFIRMED Email unconfirmed.</c></para>
+/// <para><c>400 EMAIL_UNCONFIRMED_%d The provided email isn't confirmed, %d is the length of the verification code that was just sent to the email: use <a href="https://corefork.telegram.org/method/account.verifyEmail">account.verifyEmail</a> to enter the received verification code and enable the recovery email.</c></para>
+/// <para><c>400 NEW_SALT_INVALID The new salt is invalid.</c></para>
+/// <para><c>400 NEW_SETTINGS_EMPTY No password is set on the current account, and no new password was specified in <code>new_settings</code>.</c></para>
+/// <para><c>400 NEW_SETTINGS_INVALID The new password settings are invalid.</c></para>
+/// <para><c>400 PASSWORD_HASH_INVALID The provided password hash is invalid.</c></para>
+/// <para><c>400 SRP_ID_INVALID Invalid SRP ID provided.</c></para>
+/// <para><c>400 SRP_PASSWORD_CHANGED Password has changed. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updatePasswordSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa59b102f)]
-public sealed class RequestUpdatePasswordSettings : IRequest<IBool>
+public sealed partial class RequestUpdatePasswordSettings : IRequest<IBool>
 {
     public uint ConstructorId => 0xa59b102f;
 
-    ///<summary>
+    /// <summary>
     /// The old password (see <a href="https://corefork.telegram.org/api/srp">SRP</a>)
     /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new password (see <a href="https://corefork.telegram.org/api/srp">SRP</a>)
     /// See <a href="https://corefork.telegram.org/type/account.PasswordInputSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Account.IPasswordInputSettings NewSettings { get; set; }
 
     public void ComputeFlag()

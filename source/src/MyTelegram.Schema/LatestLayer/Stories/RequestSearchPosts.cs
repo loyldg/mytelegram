@@ -2,48 +2,51 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Globally search for <a href="https://corefork.telegram.org/api/stories">stories</a> using a hashtag or a <a href="https://corefork.telegram.org/api/stories#location-tags">location media area</a>, see <a href="https://corefork.telegram.org/api/stories#searching-stories">here »</a> for more info on the full flow.Either <code>hashtag</code> <strong>or</strong> <code>area</code> <strong>must</strong> be set when invoking the method.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 HASHTAG_INVALID The specified hashtag is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.searchPosts" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 HASHTAG_INVALID The specified hashtag is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.searchPosts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd1810907)]
-public sealed class RequestSearchPosts : IRequest<MyTelegram.Schema.Stories.IFoundStories>
+public sealed partial class RequestSearchPosts : IRequest<MyTelegram.Schema.Stories.IFoundStories>
 {
     public uint ConstructorId => 0xd1810907;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Hashtag (without the <code>#</code>)
-    ///</summary>
+    /// </summary>
     public string? Hashtag { get; set; }
 
-    ///<summary>
-    /// A <a href="https://corefork.telegram.org/constructor/mediaAreaGeoPoint">mediaAreaGeoPoint</a> or a <a href="https://corefork.telegram.org/constructor/mediaAreaVenue">mediaAreaVenue</a>.  <br>Note <a href="https://corefork.telegram.org/constructor/mediaAreaGeoPoint">mediaAreaGeoPoint</a> areas may be searched only if they have an associated <code>address</code>.
+    /// <summary>
+    /// A <a href="https://corefork.telegram.org/constructor/mediaAreaGeoPoint">mediaAreaGeoPoint</a> or a <a href="https://corefork.telegram.org/constructor/mediaAreaVenue">mediaAreaVenue</a>.  <br/>Note <a href="https://corefork.telegram.org/constructor/mediaAreaGeoPoint">mediaAreaGeoPoint</a> areas may be searched only if they have an associated <code>address</code>.
     /// See <a href="https://corefork.telegram.org/type/MediaArea" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMediaArea? Area { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, returns only stories posted by this peer.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>: initially an empty string, then the <code>next_offset</code> from the previously returned <a href="https://corefork.telegram.org/constructor/stories.foundStories">stories.foundStories</a>.
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

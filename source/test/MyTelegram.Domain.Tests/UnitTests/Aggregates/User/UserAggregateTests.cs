@@ -15,7 +15,7 @@ public class UserAggregateTests : TestsFor<UserAggregate>
 
         Sut.ApplyEvents(new[] { domainEvent });
 
-        Assert.Throws<DomainError>(() => Sut.Create(A<RequestInfo>(),
+        Assert.Throws<DomainError>(() => Sut.CreateUser(A<RequestInfo>(),
             1,
             0,
             aggregateEvent.PhoneNumber,
@@ -30,7 +30,7 @@ public class UserAggregateTests : TestsFor<UserAggregate>
         var userId = 1;
         var accessHash = 1;
 
-        Sut.Create(A<RequestInfo>(), userId, accessHash, phoneNumber, firstName);
+        Sut.CreateUser(A<RequestInfo>(), userId, accessHash, phoneNumber, firstName);
 
         Sut.Version.ShouldBe(1);
         Sut.UncommittedEvents.Count().ShouldBe(1);
@@ -46,7 +46,7 @@ public class UserAggregateTests : TestsFor<UserAggregate>
     [Fact]
     public void Create_User_With_Empty_FirstName_Throws_Exception()
     {
-        Assert.Throws<DomainError>(() => Sut.Create(A<RequestInfo>(),
+        Assert.Throws<DomainError>(() => Sut.CreateUser(A<RequestInfo>(),
             1,
             0,
             "0",

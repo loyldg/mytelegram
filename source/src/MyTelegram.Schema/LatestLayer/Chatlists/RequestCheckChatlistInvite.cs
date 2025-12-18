@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Obtain information about a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 INVITE_SLUG_EMPTY The specified invite slug is empty.
-/// 400 INVITE_SLUG_EXPIRED The specified chat folder link has expired.
-/// See <a href="https://corefork.telegram.org/method/chatlists.checkChatlistInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 INVITE_SLUG_EMPTY The specified invite slug is empty.</c></para>
+/// <para><c>400 INVITE_SLUG_EXPIRED The specified chat folder link has expired. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.checkChatlistInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x41c10fff)]
-public sealed class RequestCheckChatlistInvite : IRequest<MyTelegram.Schema.Chatlists.IChatlistInvite>
+public sealed partial class RequestCheckChatlistInvite : IRequest<MyTelegram.Schema.Chatlists.IChatlistInvite>
 {
     public uint ConstructorId => 0x41c10fff;
 
-    ///<summary>
+    /// <summary>
     /// <code>slug</code> obtained from the <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

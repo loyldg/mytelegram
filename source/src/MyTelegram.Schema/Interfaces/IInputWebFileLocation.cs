@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Location of remote file
-/// See <a href="https://corefork.telegram.org/type/InputWebFileLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputWebFileLocation" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputWebFileLocation"/> See <a href="https://corefork.telegram.org/constructor/inputWebFileLocation" /><br/>
+/// <see cref="TInputWebFileGeoPointLocation"/> See <a href="https://corefork.telegram.org/constructor/inputWebFileGeoPointLocation" /><br/>
+/// <see cref="TInputWebFileAudioAlbumThumbLocation"/> See <a href="https://corefork.telegram.org/constructor/inputWebFileAudioAlbumThumbLocation" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputWebFileLocation), nameof(TInputWebFileLocation))]
 [JsonDerivedType(typeof(TInputWebFileGeoPointLocation), nameof(TInputWebFileGeoPointLocation))]
 [JsonDerivedType(typeof(TInputWebFileAudioAlbumThumbLocation), nameof(TInputWebFileAudioAlbumThumbLocation))]

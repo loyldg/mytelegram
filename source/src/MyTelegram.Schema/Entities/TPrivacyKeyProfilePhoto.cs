@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether the profile picture of the user is visible
-/// See <a href="https://corefork.telegram.org/constructor/privacyKeyProfilePhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyKeyProfilePhoto" /></para>
+/// </summary>
 [TlObject(0x96151fed)]
-public sealed class TPrivacyKeyProfilePhoto : IPrivacyKey
+public sealed partial class TPrivacyKeyProfilePhoto : IPrivacyKey
 {
     public uint ConstructorId => 0x96151fed;
     public void ComputeFlag()

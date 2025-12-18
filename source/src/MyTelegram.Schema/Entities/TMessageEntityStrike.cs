@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity representing <del>strikethrough</del> text.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityStrike" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityStrike" /></para>
+/// </summary>
 [TlObject(0xbf0693d4)]
-public sealed class TMessageEntityStrike : IMessageEntity
+public sealed partial class TMessageEntityStrike : IMessageEntity
 {
     public uint ConstructorId => 0xbf0693d4;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

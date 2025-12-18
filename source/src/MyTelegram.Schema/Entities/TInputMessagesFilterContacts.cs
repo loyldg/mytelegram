@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only messages containing contacts
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterContacts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterContacts" /></para>
+/// </summary>
 [TlObject(0xe062db83)]
-public sealed class TInputMessagesFilterContacts : IMessagesFilter
+public sealed partial class TInputMessagesFilterContacts : IMessagesFilter
 {
     public uint ConstructorId => 0xe062db83;
     public void ComputeFlag()

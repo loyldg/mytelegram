@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Phone call
-/// See <a href="https://corefork.telegram.org/type/phone.PhoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/phone.PhoneCall" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPhoneCall"/> See <a href="https://corefork.telegram.org/constructor/phone.phoneCall" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPhoneCall), nameof(TPhoneCall))]
 public interface IPhoneCall : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The VoIP phone call
     /// See <a href="https://corefork.telegram.org/type/PhoneCall" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPhoneCall PhoneCall { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// VoIP phone call participants
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

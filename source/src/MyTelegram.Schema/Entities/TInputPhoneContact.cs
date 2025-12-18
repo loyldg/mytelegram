@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Phone contact.
-/// See <a href="https://corefork.telegram.org/constructor/inputPhoneContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPhoneContact" /></para>
+/// </summary>
 [TlObject(0xf392b7f4)]
-public sealed class TInputPhoneContact : IInputContact
+public sealed partial class TInputPhoneContact : IInputContact
 {
     public uint ConstructorId => 0xf392b7f4;
-    ///<summary>
+    /// <summary>
     /// An arbitrary 64-bit integer: it should be set, for example, to an incremental number when using <a href="https://corefork.telegram.org/method/contacts.importContacts">contacts.importContacts</a>, in order to retry importing only the contacts that weren't imported successfully, according to the client_ids returned in <a href="https://corefork.telegram.org/constructor/contacts.importedContacts">contacts.importedContacts</a>.<code>retry_contacts</code>.
-    ///</summary>
+    /// </summary>
     public long ClientId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string Phone { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contact's first name
-    ///</summary>
+    /// </summary>
     public string FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contact's last name
-    ///</summary>
+    /// </summary>
     public string LastName { get; set; }
 
     public void ComputeFlag()

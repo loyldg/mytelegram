@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Rich text email link
-/// See <a href="https://corefork.telegram.org/constructor/textEmail" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textEmail" /></para>
+/// </summary>
 [TlObject(0xde5a0dd6)]
-public sealed class TTextEmail : IRichText
+public sealed partial class TTextEmail : IRichText
 {
     public uint ConstructorId => 0xde5a0dd6;
-    ///<summary>
+    /// <summary>
     /// Link text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Email address
-    ///</summary>
+    /// </summary>
     public string Email { get; set; }
 
     public void ComputeFlag()

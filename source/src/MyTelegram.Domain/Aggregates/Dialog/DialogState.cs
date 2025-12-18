@@ -7,7 +7,7 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
     IApply<ReadInboxMessage2Event>,
     IApply<OutboxMessageHasReadEvent>,
     IApply<DraftSavedEvent>,
-    IApply<OutboxAlreadyReadEvent>,
+    //IApply<OutboxAlreadyReadEvent>,
     IApply<ReadChannelInboxMessageEvent>,
     IApply<ChannelHistoryClearedEvent>,
     IApply<HistoryClearedEvent>,
@@ -16,7 +16,7 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
     IApply<PinnedOrderChangedEvent>,
     IApply<DialogUnreadMarkChangedEvent>,
     IApply<DraftClearedEvent>,
-    IApply<DeleteUserMessagesStartedEvent>,
+    //IApply<DeleteUserMessagesStartedEvent>,
     IApply<MentionCreatedEvent>,
     IApply<MentionReadEvent>,
     IApply<UpdateReadChannelOutboxEvent>,
@@ -45,9 +45,9 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
         ChannelHistoryMinId = aggregateEvent.HistoryMinId;
     }
 
-    public void Apply(DeleteUserMessagesStartedEvent aggregateEvent)
-    {
-    }
+    //public void Apply(DeleteUserMessagesStartedEvent aggregateEvent)
+    //{
+    //}
 
     public void Apply(DialogCreatedEvent aggregateEvent)
     {
@@ -112,9 +112,9 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
         UnreadMentionsCount = aggregateEvent.UnreadMentionsCount;
     }
 
-    public void Apply(OutboxAlreadyReadEvent aggregateEvent)
-    {
-    }
+    //public void Apply(OutboxAlreadyReadEvent aggregateEvent)
+    //{
+    //}
 
     public void Apply(OutboxMessageHasReadEvent aggregateEvent)
     {

@@ -2,44 +2,47 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Upload theme
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 THEME_FILE_INVALID Invalid theme file provided.
-/// 400 THEME_MIME_INVALID The theme's MIME type is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.uploadTheme" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 THEME_FILE_INVALID Invalid theme file provided.</c></para>
+/// <para><c>400 THEME_MIME_INVALID The theme's MIME type is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.uploadTheme" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1c3db333)]
-public sealed class RequestUploadTheme : IRequest<MyTelegram.Schema.IDocument>
+public sealed partial class RequestUploadTheme : IRequest<MyTelegram.Schema.IDocument>
 {
     public uint ConstructorId => 0x1c3db333;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/themes#uploading-theme-files">Previously uploaded</a> theme file with platform-specific colors for UI components, can be left unset when creating themes that only modify the wallpaper or accent colors.
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile File { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile? Thumb { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File name
-    ///</summary>
+    /// </summary>
     public string FileName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MIME type, must be <code>application/x-tgtheme-{format}</code>, where <code>format</code> depends on the client
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
     public void ComputeFlag()

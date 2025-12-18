@@ -2,56 +2,59 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Query an inline bot
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INLINE_DISABLED This bot can't be used in inline mode.
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 BOT_RESPONSE_TIMEOUT A timeout occurred while fetching data from the bot.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// -503 Timeout Timeout while fetching data.
-/// See <a href="https://corefork.telegram.org/method/messages.getInlineBotResults" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INLINE_DISABLED This bot can't be used in inline mode.</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 BOT_RESPONSE_TIMEOUT A timeout occurred while fetching data from the bot.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>-503 Timeout Timeout while fetching data. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getInlineBotResults" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x514e999d)]
-public sealed class RequestGetInlineBotResults : IRequest<MyTelegram.Schema.Messages.IBotResults>
+public sealed partial class RequestGetInlineBotResults : IRequest<MyTelegram.Schema.Messages.IBotResults>
 {
     public uint ConstructorId => 0x514e999d;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The bot to query
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The currently opened chat
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The geolocation, if requested
     /// See <a href="https://corefork.telegram.org/type/InputGeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGeoPoint? GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The query
-    ///</summary>
+    /// </summary>
     public string Query { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The offset within the results, will be passed directly as-is to the bot.
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
     public void ComputeFlag()

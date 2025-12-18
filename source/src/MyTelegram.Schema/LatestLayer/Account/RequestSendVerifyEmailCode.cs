@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Send an email verification code.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 EMAIL_INVALID The specified email is invalid.
-/// 400 EMAIL_NOT_ALLOWED The specified email cannot be used to complete the operation.
-/// 400 EMAIL_NOT_SETUP In order to change the login email with emailVerifyPurposeLoginChange, an existing login email must already be set using emailVerifyPurposeLoginSetup.
-/// 400 PHONE_HASH_EXPIRED An invalid or expired <code>phone_code_hash</code> was provided.
-/// 400 PHONE_NUMBER_INVALID The phone number is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.sendVerifyEmailCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 EMAIL_INVALID The specified email is invalid.</c></para>
+/// <para><c>400 EMAIL_NOT_ALLOWED The specified email cannot be used to complete the operation.</c></para>
+/// <para><c>400 EMAIL_NOT_SETUP In order to change the login email with emailVerifyPurposeLoginChange, an existing login email must already be set using emailVerifyPurposeLoginSetup.</c></para>
+/// <para><c>400 PHONE_HASH_EXPIRED An invalid or expired <code>phone_code_hash</code> was provided.</c></para>
+/// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.sendVerifyEmailCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x98e037bb)]
-public sealed class RequestSendVerifyEmailCode : IRequest<MyTelegram.Schema.Account.ISentEmailCode>
+public sealed partial class RequestSendVerifyEmailCode : IRequest<MyTelegram.Schema.Account.ISentEmailCode>
 {
     public uint ConstructorId => 0x98e037bb;
 
-    ///<summary>
+    /// <summary>
     /// Verification purpose.
     /// See <a href="https://corefork.telegram.org/type/EmailVerifyPurpose" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEmailVerifyPurpose Purpose { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The email where to send the code.
-    ///</summary>
+    /// </summary>
     public string Email { get; set; }
 
     public void ComputeFlag()

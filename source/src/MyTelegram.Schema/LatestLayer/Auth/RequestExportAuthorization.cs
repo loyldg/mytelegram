@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Returns data for copying authorization to another data-center.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 DC_ID_INVALID The provided DC ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.exportAuthorization" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 DC_ID_INVALID The provided DC ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.exportAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe5bfffcd)]
-public sealed class RequestExportAuthorization : IRequest<MyTelegram.Schema.Auth.IExportedAuthorization>
+public sealed partial class RequestExportAuthorization : IRequest<MyTelegram.Schema.Auth.IExportedAuthorization>
 {
     public uint ConstructorId => 0xe5bfffcd;
 
-    ///<summary>
+    /// <summary>
     /// Number of a target data-center
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
     public void ComputeFlag()

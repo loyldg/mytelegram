@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether people can send you voice messages or round videos (<a href="https://corefork.telegram.org/api/premium">Premium</a> users only).
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyVoiceMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyVoiceMessages" /></para>
+/// </summary>
 [TlObject(0xaee69d68)]
-public sealed class TInputPrivacyKeyVoiceMessages : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyVoiceMessages : IInputPrivacyKey
 {
     public uint ConstructorId => 0xaee69d68;
     public void ComputeFlag()

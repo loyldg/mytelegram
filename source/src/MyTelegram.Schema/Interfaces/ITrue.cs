@@ -2,10 +2,14 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// See <a href="https://corefork.telegram.org/mtproto/TL-formal#predefined-identifiers">predefined identifiers</a>.
-/// See <a href="https://corefork.telegram.org/type/True" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/True" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTrue"/> See <a href="https://corefork.telegram.org/constructor/true" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTrue), nameof(TTrue))]
 public interface ITrue : IObject
 {

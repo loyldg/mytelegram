@@ -2,10 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Various possible attributes of a document (used to define if it's a sticker, a GIF, a video, a mask sticker, an image, an audio, and so on)
-/// See <a href="https://corefork.telegram.org/type/DocumentAttribute" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/DocumentAttribute" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDocumentAttributeImageSize"/> See <a href="https://corefork.telegram.org/constructor/documentAttributeImageSize" /><br/>
+/// <see cref="TDocumentAttributeAnimated"/> See <a href="https://corefork.telegram.org/constructor/documentAttributeAnimated" /><br/>
+/// <see cref="TDocumentAttributeSticker"/> See <a href="https://corefork.telegram.org/constructor/documentAttributeSticker" /><br/>
+/// <see cref="TDocumentAttributeVideo"/> See <a href="https://corefork.telegram.org/constructor/documentAttributeVideo" /><br/>
+/// <see cref="TDocumentAttributeAudio"/> See <a href="https://corefork.telegram.org/constructor/documentAttributeAudio" /><br/>
+/// <see cref="TDocumentAttributeFilename"/> See <a href="https://corefork.telegram.org/constructor/documentAttributeFilename" /><br/>
+/// <see cref="TDocumentAttributeHasStickers"/> See <a href="https://corefork.telegram.org/constructor/documentAttributeHasStickers" /><br/>
+/// <see cref="TDocumentAttributeCustomEmoji"/> See <a href="https://corefork.telegram.org/constructor/documentAttributeCustomEmoji" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDocumentAttributeImageSize), nameof(TDocumentAttributeImageSize))]
 [JsonDerivedType(typeof(TDocumentAttributeAnimated), nameof(TDocumentAttributeAnimated))]
 [JsonDerivedType(typeof(TDocumentAttributeSticker), nameof(TDocumentAttributeSticker))]

@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Specifies a requirement that must be satisfied in order to contact a user.
-/// See <a href="https://corefork.telegram.org/type/RequirementToContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/RequirementToContact" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TRequirementToContactEmpty"/> See <a href="https://corefork.telegram.org/constructor/requirementToContactEmpty" /><br/>
+/// <see cref="TRequirementToContactPremium"/> See <a href="https://corefork.telegram.org/constructor/requirementToContactPremium" /><br/>
+/// <see cref="TRequirementToContactPaidMessages"/> See <a href="https://corefork.telegram.org/constructor/requirementToContactPaidMessages" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TRequirementToContactEmpty), nameof(TRequirementToContactEmpty))]
 [JsonDerivedType(typeof(TRequirementToContactPremium), nameof(TRequirementToContactPremium))]
 [JsonDerivedType(typeof(TRequirementToContactPaidMessages), nameof(TRequirementToContactPaidMessages))]

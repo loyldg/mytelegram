@@ -1,5 +1,4 @@
 ﻿using EventFlow.Aggregates.ExecutionResults;
-using MyTelegram.Domain.Events.Pts;
 using MyTelegram.Messenger.Services.Caching;
 
 namespace MyTelegram.Messenger.CommandServer.DomainEventHandlers;
@@ -8,7 +7,7 @@ public class PtsEventHandler(IPtsHelper ptsHelper,
     IPeerHelper peerHelper,
     IIdGenerator idGenerator,
     IQueuedCommandExecutor<PtsAggregate, PtsId, IExecutionResult> ptsCommandExecutor) :
-    ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedBoxPtsCompletedSagaEvent>,
+    //ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedBoxPtsCompletedSagaEvent>,
     ISubscribeSynchronousTo<ClearHistorySaga, ClearHistorySagaId, ClearSingleUserHistoryCompletedSagaEvent>,
     ISubscribeSynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id, DeleteMessagePtsIncrementedSagaEvent>,
     ISubscribeSynchronousTo<ReadHistorySaga, ReadHistorySagaId, ReadHistoryPtsIncrementSagaEvent>,
@@ -69,12 +68,12 @@ public class PtsEventHandler(IPtsHelper ptsHelper,
         return UpdatePtsAsync(domainEvent.AggregateEvent.PeerId, domainEvent.AggregateEvent.Pts);
     }
 
-    public Task HandleAsync(
-        IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedBoxPtsCompletedSagaEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        return UpdatePtsAsync(domainEvent.AggregateEvent.PeerId, domainEvent.AggregateEvent.Pts);
-    }
+    //public Task HandleAsync(
+    //    IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedBoxPtsCompletedSagaEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    return UpdatePtsAsync(domainEvent.AggregateEvent.PeerId, domainEvent.AggregateEvent.Pts);
+    //}
 
     public Task HandleAsync(IDomainEvent<DeleteChannelMessagesSaga, DeleteChannelMessagesSagaId, DeleteChannelMessagePtsIncrementedSagaEvent> domainEvent, CancellationToken cancellationToken)
     {

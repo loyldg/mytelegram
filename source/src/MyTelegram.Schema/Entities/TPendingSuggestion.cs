@@ -2,25 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/pendingSuggestion" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/config#custom-suggestions">custom pending suggestion »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/pendingSuggestion" /></para>
+/// </summary>
 [TlObject(0xe7e82e12)]
-public sealed class TPendingSuggestion : IPendingSuggestion
+public sealed partial class TPendingSuggestion : IPendingSuggestion
 {
     public uint ConstructorId => 0xe7e82e12;
+    /// <summary>
+    /// The suggestion ID, can be passed to <a href="https://corefork.telegram.org/method/help.dismissSuggestion">help.dismissSuggestion</a>.
+    /// </summary>
     public string Suggestion { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Title of the suggestion.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Body of the suggestion.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities Description { get; set; }
 
+    /// <summary>
+    /// URL to open when the user clicks on the suggestion.
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

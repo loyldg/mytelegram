@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Fetch info about a specific <a href="https://corefork.telegram.org/api/bots/referrals">bot affiliation »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getConnectedStarRefBot" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getConnectedStarRefBot" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb7d998f0)]
-public sealed class RequestGetConnectedStarRefBot : IRequest<MyTelegram.Schema.Payments.IConnectedStarRefBots>
+public sealed partial class RequestGetConnectedStarRefBot : IRequest<MyTelegram.Schema.Payments.IConnectedStarRefBots>
 {
     public uint ConstructorId => 0xb7d998f0;
 
-    ///<summary>
+    /// <summary>
     /// The affiliated peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The bot that offers the affiliate program
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
     public void ComputeFlag()

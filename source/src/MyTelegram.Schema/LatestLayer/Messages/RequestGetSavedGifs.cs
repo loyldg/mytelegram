@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get saved GIFs.
-/// See <a href="https://corefork.telegram.org/method/messages.getSavedGifs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSavedGifs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5cf09635)]
-public sealed class RequestGetSavedGifs : IRequest<MyTelegram.Schema.Messages.ISavedGifs>
+public sealed partial class RequestGetSavedGifs : IRequest<MyTelegram.Schema.Messages.ISavedGifs>
 {
     public uint ConstructorId => 0x5cf09635;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

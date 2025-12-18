@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Change media autodownload settings
-/// See <a href="https://corefork.telegram.org/method/account.saveAutoDownloadSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.saveAutoDownloadSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x76f36233)]
-public sealed class RequestSaveAutoDownloadSettings : IRequest<IBool>
+public sealed partial class RequestSaveAutoDownloadSettings : IRequest<IBool>
 {
     public uint ConstructorId => 0x76f36233;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to save media in the low data usage preset
-    ///</summary>
+    /// </summary>
     public bool Low { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to save media in the high data usage preset
-    ///</summary>
+    /// </summary>
     public bool High { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media autodownload settings
     /// See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoDownloadSettings Settings { get; set; }
 
     public void ComputeFlag()

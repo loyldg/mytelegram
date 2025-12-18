@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Set the default <a href="https://corefork.telegram.org/api/rights#suggested-bot-rights">suggested admin rights</a> for bots being added as admins to channels, see <a href="https://corefork.telegram.org/api/rights#suggested-bot-rights">here for more info on how to handle them »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 RIGHTS_NOT_MODIFIED The new admin rights are equal to the old rights, no change was made.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/bots.setBotBroadcastDefaultAdminRights" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 RIGHTS_NOT_MODIFIED The new admin rights are equal to the old rights, no change was made.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.setBotBroadcastDefaultAdminRights" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x788464e1)]
-public sealed class RequestSetBotBroadcastDefaultAdminRights : IRequest<IBool>
+public sealed partial class RequestSetBotBroadcastDefaultAdminRights : IRequest<IBool>
 {
     public uint ConstructorId => 0x788464e1;
 
-    ///<summary>
+    /// <summary>
     /// Admin rights
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights AdminRights { get; set; }
 
     public void ComputeFlag()

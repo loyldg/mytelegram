@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a range of chat messages
-/// See <a href="https://corefork.telegram.org/type/MessageRange" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageRange" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageRange"/> See <a href="https://corefork.telegram.org/constructor/messageRange" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageRange), nameof(TMessageRange))]
 public interface IMessageRange : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Start of range (message ID)
-    ///</summary>
+    /// </summary>
     int MinId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// End of range (message ID)
-    ///</summary>
+    /// </summary>
     int MaxId { get; set; }
 }

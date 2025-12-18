@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Info about multiple <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep links »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/chatlists.exportedInvites" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatlists.exportedInvites" /></para>
+/// </summary>
 [TlObject(0x10ab6dc7)]
-public sealed class TExportedInvites : IExportedInvites
+public sealed partial class TExportedInvites : IExportedInvites
 {
     public uint ConstructorId => 0x10ab6dc7;
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep links »</a>.
     /// See <a href="https://corefork.telegram.org/type/ExportedChatlistInvite" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IExportedChatlistInvite> Invites { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related chat information
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Related user information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

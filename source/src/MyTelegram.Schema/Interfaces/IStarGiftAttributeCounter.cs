@@ -2,16 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/StarGiftAttributeCounter" />
-///</summary>
+/// <summary>
+/// Indicates the total number of gifts that have the specified attribute.
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftAttributeCounter" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarGiftAttributeCounter"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeCounter" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarGiftAttributeCounter), nameof(TStarGiftAttributeCounter))]
 public interface IStarGiftAttributeCounter : IObject
 {
-    ///<summary>
+    /// <summary>
+    /// The attribute (just the ID, without the attribute itself).
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeId" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarGiftAttributeId Attribute { get; set; }
 
+    /// <summary>
+    /// Total number of gifts with this attribute.
+    /// </summary>
     int Count { get; set; }
 }

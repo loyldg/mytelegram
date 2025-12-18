@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get pinned <a href="https://corefork.telegram.org/api/saved-messages">saved dialogs, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/method/messages.getPinnedSavedDialogs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getPinnedSavedDialogs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd63d94e0)]
-public sealed class RequestGetPinnedSavedDialogs : IRequest<MyTelegram.Schema.Messages.ISavedDialogs>
+public sealed partial class RequestGetPinnedSavedDialogs : IRequest<MyTelegram.Schema.Messages.ISavedDialogs>
 {
     public uint ConstructorId => 0xd63d94e0;
 

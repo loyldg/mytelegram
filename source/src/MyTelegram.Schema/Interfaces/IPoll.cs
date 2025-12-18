@@ -2,62 +2,66 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a poll message
-/// See <a href="https://corefork.telegram.org/type/Poll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Poll" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPoll"/> See <a href="https://corefork.telegram.org/constructor/poll" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPoll), nameof(TPoll))]
 public interface IPoll : IObject
 {
-    ///<summary>
+    /// <summary>
     /// ID of the poll
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the poll is closed and doesn't accept any more answers
-    ///</summary>
+    /// </summary>
     bool Closed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether cast votes are publicly visible to all users (non-anonymous poll)
-    ///</summary>
+    /// </summary>
     bool PublicVoters { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether multiple options can be chosen as answer
-    ///</summary>
+    /// </summary>
     bool MultipleChoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a quiz (with wrong and correct answers, results shown in the return type)
-    ///</summary>
+    /// </summary>
     bool Quiz { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The question of the poll (only <a href="https://corefork.telegram.org/api/premium">Premium</a> users can use <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji entities</a> here).
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ITextWithEntities Question { get; set; }
 
-    ///<summary>
-    /// The possible answers, vote using <a href="https://corefork.telegram.org/method/messages.sendVote">messages.sendVote</a>.
+    /// <summary>
+    /// The possible answers (2-<a href="https://corefork.telegram.org/api/config#poll-answers-max">poll_answers_max</a>), vote using <a href="https://corefork.telegram.org/method/messages.sendVote">messages.sendVote</a>.
     /// See <a href="https://corefork.telegram.org/type/PollAnswer" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPollAnswer> Answers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
-    ///</summary>
+    /// </summary>
     int? ClosePeriod { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.
-    ///</summary>
+    /// </summary>
     int? CloseDate { get; set; }
 }

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/colors">color palette that can be used in profile pages »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/help.peerColorProfileSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.peerColorProfileSet" /></para>
+/// </summary>
 [TlObject(0x767d61eb)]
-public sealed class TPeerColorProfileSet : IPeerColorSet
+public sealed partial class TPeerColorProfileSet : IPeerColorSet
 {
     public uint ConstructorId => 0x767d61eb;
-    ///<summary>
+    /// <summary>
     /// A list of 1-2 colors in RGB format, shown in the color palette settings to describe the current palette.
-    ///</summary>
+    /// </summary>
     public TVector<int> PaletteColors { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of 1-2 colors in RGB format describing the colors used to generate the actual background used in the profile page.
-    ///</summary>
+    /// </summary>
     public TVector<int> BgColors { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of 2 colors in RGB format describing the colors of the gradient used for the unread active story indicator around the profile photo.
-    ///</summary>
+    /// </summary>
     public TVector<int> StoryColors { get; set; }
 
     public void ComputeFlag()

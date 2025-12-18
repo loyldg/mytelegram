@@ -2,49 +2,52 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get poll results for non-anonymous polls
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 BROADCAST_FORBIDDEN Channel poll voters and reactions cannot be fetched to prevent deanonymization.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 403 POLL_VOTE_REQUIRED Cast a vote in the poll before calling this method.
-/// See <a href="https://corefork.telegram.org/method/messages.getPollVotes" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 BROADCAST_FORBIDDEN Channel poll voters and reactions cannot be fetched to prevent deanonymization.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>403 POLL_VOTE_REQUIRED Cast a vote in the poll before calling this method. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getPollVotes" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb86e380e)]
-public sealed class RequestGetPollVotes : IRequest<MyTelegram.Schema.Messages.IVotesList>
+public sealed partial class RequestGetPollVotes : IRequest<MyTelegram.Schema.Messages.IVotesList>
 {
     public uint ConstructorId => 0xb86e380e;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat where the poll was sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Get only results for the specified poll <code>option</code>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? Option { get; set; }
 
-    ///<summary>
-    /// Offset for results, taken from the <code>next_offset</code> field of <a href="https://corefork.telegram.org/constructor/messages.votesList">messages.votesList</a>, initially an empty string. <br>Note: if no more results are available, the method call will return an empty <code>next_offset</code>; thus, avoid providing the <code>next_offset</code> returned in <a href="https://corefork.telegram.org/constructor/messages.votesList">messages.votesList</a> if it is empty, to avoid an infinite loop.
-    ///</summary>
+    /// <summary>
+    /// Offset for results, taken from the <code>next_offset</code> field of <a href="https://corefork.telegram.org/constructor/messages.votesList">messages.votesList</a>, initially an empty string. <br/>Note: if no more results are available, the method call will return an empty <code>next_offset</code>; thus, avoid providing the <code>next_offset</code> returned in <a href="https://corefork.telegram.org/constructor/messages.votesList">messages.votesList</a> if it is empty, to avoid an infinite loop.
+    /// </summary>
     public string? Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of results to return
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

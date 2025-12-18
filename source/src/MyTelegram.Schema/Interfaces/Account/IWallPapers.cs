@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpapers</a>
-/// See <a href="https://corefork.telegram.org/type/account.WallPapers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.WallPapers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWallPapersNotModified"/> See <a href="https://corefork.telegram.org/constructor/account.wallPapersNotModified" /><br/>
+/// <see cref="TWallPapers"/> See <a href="https://corefork.telegram.org/constructor/account.wallPapers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWallPapersNotModified), nameof(TWallPapersNotModified))]
 [JsonDerivedType(typeof(TWallPapers), nameof(TWallPapers))]
 public interface IWallPapers : IObject

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/saved-messages">Pinned saved dialogs »</a> were updated
-/// See <a href="https://corefork.telegram.org/constructor/updatePinnedSavedDialogs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePinnedSavedDialogs" /></para>
+/// </summary>
 [TlObject(0x686c85a6)]
-public sealed class TUpdatePinnedSavedDialogs : IUpdate
+public sealed partial class TUpdatePinnedSavedDialogs : IUpdate
 {
     public uint ConstructorId => 0x686c85a6;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New order of pinned saved dialogs
     /// See <a href="https://corefork.telegram.org/type/DialogPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDialogPeer>? Order { get; set; }
 
     public void ComputeFlag()

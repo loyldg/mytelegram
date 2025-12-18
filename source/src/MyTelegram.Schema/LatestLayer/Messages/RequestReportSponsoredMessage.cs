@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Report a <a href="https://corefork.telegram.org/api/sponsored-messages">sponsored message »</a>, see <a href="https://corefork.telegram.org/api/sponsored-messages#reporting-sponsored-messages">here »</a> for more info on the full flow.
-/// See <a href="https://corefork.telegram.org/method/messages.reportSponsoredMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.reportSponsoredMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x12cbf0c4)]
-public sealed class RequestReportSponsoredMessage : IRequest<MyTelegram.Schema.Channels.ISponsoredMessageReportResult>
+public sealed partial class RequestReportSponsoredMessage : IRequest<MyTelegram.Schema.Channels.ISponsoredMessageReportResult>
 {
     public uint ConstructorId => 0x12cbf0c4;
 
-    ///<summary>
+    /// <summary>
     /// The ad's unique ID.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chosen report option, initially an empty string, see <a href="https://corefork.telegram.org/api/sponsored-messages#reporting-sponsored-messages">here »</a> for more info on the full flow.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Option { get; set; }
 
     public void ComputeFlag()

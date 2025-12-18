@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/profile#birthday">Birthday</a> information for a user.Also used to invite users to gift <a href="https://corefork.telegram.org/api/premium#gifting-telegram-premium">Telegram Premium subscriptions »</a> to other users with birthdays within a +1/-1 day time range, related to the current day.
-/// See <a href="https://corefork.telegram.org/constructor/birthday" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/birthday" /></para>
+/// </summary>
 [TlObject(0x6c8e1e06)]
-public sealed class TBirthday : IBirthday
+public sealed partial class TBirthday : IBirthday
 {
     public uint ConstructorId => 0x6c8e1e06;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Birth day
-    ///</summary>
+    /// </summary>
     public int Day { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Birth month
-    ///</summary>
+    /// </summary>
     public int Month { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// (Optional) birth year.
-    ///</summary>
+    /// </summary>
     public int? Year { get; set; }
 
     public void ComputeFlag()

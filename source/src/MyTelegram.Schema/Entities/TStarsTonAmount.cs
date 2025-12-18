@@ -2,13 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/starsTonAmount" />
-///</summary>
+/// <summary>
+/// Describes an amount of toncoin in nanotons (i.e. <code>1/1_000_000_000</code> of a toncoin).
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsTonAmount" /></para>
+/// </summary>
 [TlObject(0x74aee3e0)]
-public sealed class TStarsTonAmount : IStarsAmount
+public sealed partial class TStarsTonAmount : IStarsAmount
 {
     public uint ConstructorId => 0x74aee3e0;
+    /// <summary>
+    /// The amount in nanotons.
+    /// </summary>
     public long Amount { get; set; }
 
     public void ComputeFlag()

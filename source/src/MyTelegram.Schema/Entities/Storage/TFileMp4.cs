@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// MPEG-4 video. MIME type: <code>video/mp4</code>.
-/// See <a href="https://corefork.telegram.org/constructor/storage.fileMp4" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.fileMp4" /></para>
+/// </summary>
 [TlObject(0xb3cea0e4)]
-public sealed class TFileMp4 : IFileType
+public sealed partial class TFileMp4 : IFileType
 {
     public uint ConstructorId => 0xb3cea0e4;
     public void ComputeFlag()

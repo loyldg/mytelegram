@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Apple pay payment credentials
-/// See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentialsApplePay" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPaymentCredentialsApplePay" /></para>
+/// </summary>
 [TlObject(0xaa1c39f)]
-public sealed class TInputPaymentCredentialsApplePay : IInputPaymentCredentials
+public sealed partial class TInputPaymentCredentialsApplePay : IInputPaymentCredentials
 {
     public uint ConstructorId => 0xaa1c39f;
-    ///<summary>
+    /// <summary>
     /// Payment data
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON PaymentData { get; set; }
 
     public void ComputeFlag()

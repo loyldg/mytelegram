@@ -2,21 +2,24 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Log out an active web <a href="https://corefork.telegram.org/widgets/login">telegram login</a> session
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 HASH_INVALID The provided hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.resetWebAuthorization" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 HASH_INVALID The provided hash is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.resetWebAuthorization" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2d01b9ef)]
-public sealed class RequestResetWebAuthorization : IRequest<IBool>
+public sealed partial class RequestResetWebAuthorization : IRequest<IBool>
 {
     public uint ConstructorId => 0x2d01b9ef;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/constructor/webAuthorization">Session</a> hash
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

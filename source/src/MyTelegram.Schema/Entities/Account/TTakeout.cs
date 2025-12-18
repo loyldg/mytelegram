@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Takeout info
-/// See <a href="https://corefork.telegram.org/constructor/account.takeout" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.takeout" /></para>
+/// </summary>
 [TlObject(0x4dba4501)]
-public sealed class TTakeout : ITakeout
+public sealed partial class TTakeout : ITakeout
 {
     public uint ConstructorId => 0x4dba4501;
-    ///<summary>
+    /// <summary>
     /// Takeout ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

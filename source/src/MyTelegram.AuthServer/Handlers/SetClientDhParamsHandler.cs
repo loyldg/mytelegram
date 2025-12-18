@@ -13,13 +13,7 @@ public class SetClientDhParamsHandler(
     )
     {
         var dto = await step3ServerHelper.SetClientDhParamsAnswerAsync(obj);
-        logger.LogInformation(
-            "[Step3] [{IsPerm}] authKey created successfully, connectionId: {ConnectionId}, authKeyId: {AuthKeyId:x2}, reqMsgId: {ReqMsgId}",
-            dto.IsPermanent ? "Perm" : "Temp",
-            input.ConnectionId,
-            dto.AuthKeyId,
-            input.ReqMsgId
-        );
+        logger.HandshakeStep3(dto.IsPermanent ? "Perm" : "Temp", input.ConnectionId, input.AuthKeyId, input.ReqMsgId, input.ConnectionType == ConnectionType.Media);
 
         // Cached authentication data expires in 120 seconds
         var cacheKey = AuthKeyCacheItem.GetCacheKey(dto.AuthKeyId);
@@ -31,6 +25,7 @@ public class SetClientDhParamsHandler(
         await eventBus.PublishAsync(
             new AuthKeyCreatedIntegrationEvent(
                 input.ConnectionId,
+                input.ConnectionType,
                 input.ReqMsgId,
                 dto.AuthKey,
                 dto.ServerSalt,

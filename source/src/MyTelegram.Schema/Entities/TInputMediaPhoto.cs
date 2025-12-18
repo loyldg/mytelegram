@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Forwarded photo
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaPhoto" /></para>
+/// </summary>
 [TlObject(0xb3ba0635)]
-public sealed class TInputMediaPhoto : IInputMedia
+public sealed partial class TInputMediaPhoto : IInputMedia
 {
     public uint ConstructorId => 0xb3ba0635;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this media should be hidden behind a spoiler warning
-    ///</summary>
+    /// </summary>
     public bool Spoiler { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo to be forwarded
     /// See <a href="https://corefork.telegram.org/type/InputPhoto" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPhoto Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time to live in seconds of self-destructing photo
-    ///</summary>
+    /// </summary>
     public int? TtlSeconds { get; set; }
 
     public void ComputeFlag()

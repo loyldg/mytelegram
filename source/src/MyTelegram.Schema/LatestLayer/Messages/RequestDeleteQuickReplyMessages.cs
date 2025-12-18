@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Delete one or more messages from a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut</a>. This will also emit an <a href="https://corefork.telegram.org/constructor/updateDeleteQuickReplyMessages">updateDeleteQuickReplyMessages</a> update.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 SHORTCUT_INVALID The specified shortcut is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.deleteQuickReplyMessages" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SHORTCUT_INVALID The specified shortcut is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.deleteQuickReplyMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe105e910)]
-public sealed class RequestDeleteQuickReplyMessages : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDeleteQuickReplyMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xe105e910;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Shortcut ID</a>.
-    ///</summary>
+    /// </summary>
     public int ShortcutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of shortcut messages to delete.
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

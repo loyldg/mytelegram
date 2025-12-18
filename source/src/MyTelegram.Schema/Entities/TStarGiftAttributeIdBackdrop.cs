@@ -2,13 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/starGiftAttributeIdBackdrop" />
-///</summary>
+/// <summary>
+/// The ID of a backdrop of a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeIdBackdrop" /></para>
+/// </summary>
 [TlObject(0x1f01c757)]
-public sealed class TStarGiftAttributeIdBackdrop : IStarGiftAttributeId
+public sealed partial class TStarGiftAttributeIdBackdrop : IStarGiftAttributeId
 {
     public uint ConstructorId => 0x1f01c757;
+    /// <summary>
+    /// Unique ID of the backdrop.
+    /// </summary>
     public int BackdropId { get; set; }
 
     public void ComputeFlag()

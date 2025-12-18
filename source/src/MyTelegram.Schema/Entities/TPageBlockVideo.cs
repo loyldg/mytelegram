@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Video
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockVideo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockVideo" /></para>
+/// </summary>
 [TlObject(0x7c8fe7b6)]
-public sealed class TPageBlockVideo : IPageBlock
+public sealed partial class TPageBlockVideo : IPageBlock
 {
     public uint ConstructorId => 0x7c8fe7b6;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the video is set to autoplay
-    ///</summary>
+    /// </summary>
     public bool Autoplay { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the video is set to loop
-    ///</summary>
+    /// </summary>
     public bool Loop { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Video ID
-    ///</summary>
+    /// </summary>
     public long VideoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Caption
     /// See <a href="https://corefork.telegram.org/type/PageCaption" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
     public void ComputeFlag()

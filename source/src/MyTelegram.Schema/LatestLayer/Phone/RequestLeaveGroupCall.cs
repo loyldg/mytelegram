@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Leave a group call
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.leaveGroupCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.leaveGroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x500377f9)]
-public sealed class RequestLeaveGroupCall : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestLeaveGroupCall : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x500377f9;
 
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Your source ID
-    ///</summary>
+    /// </summary>
     public int Source { get; set; }
 
     public void ComputeFlag()

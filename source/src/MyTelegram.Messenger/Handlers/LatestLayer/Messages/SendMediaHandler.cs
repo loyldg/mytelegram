@@ -1,21 +1,26 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Send a media
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
+/// 406 ALLOW_PAYMENT_REQUIRED This peer only accepts <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>: this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages.  .
+/// 403 ALLOW_PAYMENT_REQUIRED_%d This peer charges %d <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> per message, but the <code>allow_paid_stars</code> was not set or its value is smaller than %d.
 /// 400 BOT_GAMES_DISABLED Games can't be sent to channels.
 /// 400 BOT_PAYMENTS_DISABLED Please enable bot payments in botfather before calling this method.
 /// 400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN You can't forward polls with public voters.
+/// 400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.
+/// 400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.
+/// 400 BUTTON_COPY_TEXT_INVALID The specified <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy">keyboardButtonCopy</a>.<code>copy_text</code> is invalid.
 /// 400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.
 /// 400 BUTTON_POS_INVALID The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...).
 /// 400 BUTTON_TYPE_INVALID The type of one or more of the buttons you provided is invalid.
 /// 400 BUTTON_URL_INVALID Button URL invalid.
+/// 400 BUTTON_USER_PRIVACY_RESTRICTED The privacy setting of the user specified in a <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUserProfile">inputKeyboardButtonUserProfile</a> button do not allow creating such a button.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
 /// 400 CHAT_FORWARDS_RESTRICTED You can't forward messages from a protected chat.
-/// 403 CHAT_GUEST_SEND_FORBIDDEN You join the discussion group before commenting, see <a href="https://corefork.telegram.org/api/discussion#requiring-users-to-join-the-group">here»</a> for more info.
+/// 403 CHAT_GUEST_SEND_FORBIDDEN You join the discussion group before commenting, see <a href="https://corefork.telegram.org/api/discussion#requiring-users-to-join-the-group">here »</a> for more info.
 /// 400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.
 /// 403 CHAT_SEND_AUDIOS_FORBIDDEN You can't send audio messages in this chat.
 /// 403 CHAT_SEND_DOCS_FORBIDDEN You can't send documents in this chat.
@@ -31,17 +36,21 @@
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
 /// 400 CURRENCY_TOTAL_AMOUNT_INVALID The total amount of all prices is invalid.
 /// 400 DOCUMENT_INVALID The specified document is invalid.
+/// 400 EFFECT_ID_INVALID The specified effect ID is invalid.
 /// 400 EMOTICON_INVALID The specified emoji is invalid.
-/// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here»</a> for info on how to properly compute the entity offset/length.
+/// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.
+/// 400 EXTENDED_MEDIA_AMOUNT_INVALID The specified <code>stars_amount</code> of the passed <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia">inputMediaPaidMedia</a> is invalid.
+/// 400 EXTENDED_MEDIA_INVALID The specified paid media is invalid.
 /// 400 EXTERNAL_URL_INVALID External URL invalid.
 /// 400 FILE_PARTS_INVALID The number of file parts is invalid.
 /// 400 FILE_PART_LENGTH_INVALID The length of a file part is invalid.
-/// 400 FILE_REFERENCE_EMPTY An empty <a href="https://corefork.telegram.org/api/file_reference">file reference</a> was specified.
-/// 400 FILE_REFERENCE_EXPIRED File reference expired, it must be refetched as described in <a href="https://corefork.telegram.org/api/file_reference">the documentation</a>.
+/// 400 FILE_REFERENCE_EMPTY An empty <a href="https://corefork.telegram.org/api/file-references">file reference</a> was specified.
+/// 400 FILE_REFERENCE_EXPIRED File reference expired, it must be refetched as described in <a href="https://corefork.telegram.org/api/file-references">the documentation</a>.
 /// 400 GAME_BOT_INVALID Bots can't send another bot's game.
 /// 400 IMAGE_PROCESS_FAILED Failure while processing image.
 /// 400 INPUT_FILE_INVALID The specified <a href="https://corefork.telegram.org/type/InputFile">InputFile</a> is invalid.
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
+/// 400 INVOICE_PAYLOAD_INVALID The specified invoice payload is invalid.
 /// 400 MD5_CHECKSUM_INVALID The MD5 checksums do not match.
 /// 400 MEDIA_CAPTION_TOO_LONG The caption is too long.
 /// 400 MEDIA_EMPTY The provided media object is invalid.
@@ -49,7 +58,7 @@
 /// 400 MESSAGE_EMPTY The provided message is empty.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 PAYMENT_PROVIDER_INVALID The specified payment provider is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 406 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 PHOTO_EXT_INVALID The extension of the photo is invalid.
 /// 400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.
 /// 400 PHOTO_SAVE_FILE_INVALID Internal issues, try again later.
@@ -60,6 +69,7 @@
 /// 400 POLL_QUESTION_INVALID One of the poll questions is not acceptable.
 /// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
 /// 403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
+/// 400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.
 /// 400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.
 /// 400 QUIZ_CORRECT_ANSWERS_EMPTY No correct quiz answer was specified.
 /// 400 QUIZ_CORRECT_ANSWERS_TOO_MUCH You specified too many correct answers in a quiz, quizzes can only have one right answer!
@@ -71,12 +81,19 @@
 /// 400 REPLY_MARKUP_INVALID The provided reply markup is invalid.
 /// 400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.
 /// 400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.
+/// 400 REPLY_MESSAGE_ID_INVALID The specified reply-to message ID is invalid.
 /// 400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.
 /// 400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.
 /// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
 /// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
 /// 420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+/// 400 STARS_INVOICE_INVALID The specified Telegram Star invoice is invalid.
 /// 400 STORY_ID_INVALID The specified story ID is invalid.
+/// 400 SUBSCRIPTION_EXPORT_MISSING You cannot send a <a href="https://corefork.telegram.org/api/subscriptions#bot-subscriptions">bot subscription invoice</a> directly, you may only create invoice links using <a href="https://corefork.telegram.org/method/payments.exportInvoice">payments.exportInvoice</a>.
+/// 400 SUGGESTED_POST_PEER_INVALID You cannot send suggested posts to non-<a href="https://corefork.telegram.org/api/monoforum">monoforum</a> peers.
+/// 400 TERMS_URL_INVALID The specified <a href="https://corefork.telegram.org/constructor/invoice">invoice</a>.<code>terms_url</code> is invalid.
+/// 400 TODO_ITEMS_EMPTY A checklist was specified, but no <a href="https://corefork.telegram.org/api/todo">checklist items</a> were passed.
+/// 400 TODO_ITEM_DUPLICATE Duplicate <a href="https://corefork.telegram.org/api/todo">checklist items</a> detected.
 /// 406 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.
 /// 406 TOPIC_DELETED The specified topic was deleted.
 /// 400 TTL_MEDIA_INVALID Invalid media Time To Live was provided.
@@ -91,26 +108,14 @@
 /// 400 WEBPAGE_NOT_FOUND A preview for the specified webpage <code>url</code> could not be generated.
 /// 400 WEBPAGE_URL_INVALID The specified webpage <code>url</code> is invalid.
 /// 400 YOU_BLOCKED_USER You blocked this user.
-/// See <a href="https://corefork.telegram.org/method/messages.sendMedia" />
-///</summary>
-internal sealed class SendMediaHandler(
-    IMediaHelper mediaHelper,
-    IMessageAppService messageAppService,
-    IPeerHelper peerHelper,
-    IRandomHelper randomHelper,
-    ICommandBus commandBus,
-    IAccessHashHelper accessHashHelper,
-    IPrivacyAppService privacyAppService
-)
-    : RpcResultObjectHandler<
-        MyTelegram.Schema.Messages.RequestSendMedia,
-        MyTelegram.Schema.IUpdates
-    >
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.sendMedia"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
+internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppService messageAppService, IPeerHelper peerHelper, IRandomHelper randomHelper, ICommandBus commandBus, IAccessHashHelper accessHashHelper, IPrivacyAppService privacyAppService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendMedia, MyTelegram.Schema.IUpdates>
 {
-    protected override async Task<IUpdates> HandleCoreAsync(
-        IRequestInput input,
-        RequestSendMedia obj
-    )
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestSendMedia obj)
     {
         await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         await accessHashHelper.CheckAccessHashAsync(input, obj.SendAs);
@@ -122,27 +127,23 @@ internal sealed class SendMediaHandler(
                 {
                     needCheckAudioMessagePrivacy = true;
                 }
+
                 break;
-                //case Schema.Layer197.TInputMediaUploadedDocument inputMediaUploadedDocumentLayer197:
-                //    if (inputMediaUploadedDocumentLayer197.Attributes.Any(p => p is TDocumentAttributeAudio))
-                //    {
-                //        needCheckAudioMessagePrivacy = true;
-                //    }
-                //    break;
+        //case Schema.Layer197.TInputMediaUploadedDocument inputMediaUploadedDocumentLayer197:
+        //    if (inputMediaUploadedDocumentLayer197.Attributes.Any(p => p is TDocumentAttributeAudio))
+        //    {
+        //        needCheckAudioMessagePrivacy = true;
+        //    }
+        //    break;
         }
 
         if (needCheckAudioMessagePrivacy && obj.Peer is TInputPeerUser inputPeerUser)
         {
-            await privacyAppService.ApplyPrivacyAsync(
-                input.UserId,
-                inputPeerUser.UserId,
-                (_) =>
-                {
-                    //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatSendVoicesForbidden);
-                    RpcErrors.RpcErrors403.ChatSendVoicesForbidden.ThrowRpcError();
-                },
-                [PrivacyType.VoiceMessages]
-            );
+            await privacyAppService.ApplyPrivacyAsync(input.UserId, inputPeerUser.UserId, (_) =>
+            {
+                //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatSendVoicesForbidden);
+                RpcErrors.RpcErrors403.ChatSendVoicesForbidden.ThrowRpcError();
+            }, [PrivacyType.VoiceMessages]);
         }
 
         var toPeer = peerHelper.GetPeer(obj.Peer, input.UserId);
@@ -151,7 +152,6 @@ internal sealed class SendMediaHandler(
         {
             pollId = randomHelper.NextInt64();
             inputMediaPoll.Poll.Id = pollId.Value;
-
             await CreatePollAsync(toPeer, inputMediaPoll);
         }
 
@@ -164,32 +164,10 @@ internal sealed class SendMediaHandler(
             topMsgId = replyToMessage.TopMsgId;
         }
 
-        var sendMessageInput = new SendMessageInput(
-            input.ToRequestInfo(),
-            input.UserId,
-            peerHelper.GetPeer(obj.Peer, input.UserId),
-            obj.Message,
-            obj.RandomId,
-            clearDraft: obj.ClearDraft,
-            entities: obj.Entities,
-            media: media,
-            //replyToMsgId: replyToMsgId,
-            inputReplyTo: obj.ReplyTo,
-            sendMessageType: SendMessageType.Media,
-            messageType: mediaHelper.GeMessageType(media),
-            pollId: pollId,
-            topMsgId: topMsgId,
-            sendAs: peerHelper.GetPeer(obj.SendAs, input.UserId),
-            effect: obj.Effect,
-            inputQuickReplyShortcut: obj.QuickReplyShortcut,
-            replyMarkup: obj.ReplyMarkup,
-            silent: obj.Silent,
-            scheduleDate: obj.ScheduleDate,
-            invertMedia: obj.InvertMedia
-        );
+        var sendMessageInput = new SendMessageInput(input.ToRequestInfo(), input.UserId, peerHelper.GetPeer(obj.Peer, input.UserId), obj.Message, obj.RandomId, clearDraft: obj.ClearDraft, entities: obj.Entities, media: media, //replyToMsgId: replyToMsgId,
+        inputReplyTo: obj.ReplyTo, sendMessageType: SendMessageType.Media, messageType: mediaHelper.GeMessageType(media), pollId: pollId, topMsgId: topMsgId, sendAs: peerHelper.GetPeer(obj.SendAs, input.UserId), effect: obj.Effect, inputQuickReplyShortcut: obj.QuickReplyShortcut, replyMarkup: obj.ReplyMarkup, silent: obj.Silent, scheduleDate: obj.ScheduleDate, invertMedia: obj.InvertMedia);
         await messageAppService.SendMessageAsync([sendMessageInput]);
-
-        return null!;
+        return null !;
     }
 
     private async Task CreatePollAsync(Peer toPeer, TInputMediaPoll inputMediaPoll)
@@ -201,25 +179,7 @@ internal sealed class SendMediaHandler(
             solutionEntities = [];
         }
 
-        var command = new CreatePollCommand(
-            PollId.Create(toPeer.PeerId, poll.Id),
-            toPeer,
-            poll.Id,
-            poll.MultipleChoice,
-            poll.Quiz,
-            inputMediaPoll.Poll.PublicVoters,
-            poll.Question.Text,
-            poll.Answers.Select(p => new PollAnswer(
-                    p.Text.Text,
-                    p.Option,
-                    p.Text.Entities.ToBytes()
-                ))
-                .ToList(),
-            inputMediaPoll.CorrectAnswers?.ToList(),
-            inputMediaPoll.Solution,
-            solutionEntities,
-            poll.Question.Entities
-        );
+        var command = new CreatePollCommand(PollId.Create(toPeer.PeerId, poll.Id), toPeer, poll.Id, poll.MultipleChoice, poll.Quiz, inputMediaPoll.Poll.PublicVoters, poll.Question.Text, poll.Answers.Select(p => new PollAnswer(p.Text.Text, p.Option, p.Text.Entities.ToBytes())).ToList(), inputMediaPoll.CorrectAnswers?.ToList(), inputMediaPoll.Solution, solutionEntities, poll.Question.Entities);
         await commandBus.PublishAsync(command, default);
     }
 }

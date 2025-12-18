@@ -2,40 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New photo to be set as group profile photo.The <code>file</code>, <code>video</code> and <code>video_emoji_markup</code> flags are mutually exclusive.
-/// See <a href="https://corefork.telegram.org/constructor/inputChatUploadedPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputChatUploadedPhoto" /></para>
+/// </summary>
 [TlObject(0xbdcdaec0)]
-public sealed class TInputChatUploadedPhoto : IInputChatPhoto
+public sealed partial class TInputChatUploadedPhoto : IInputChatPhoto
 {
     public uint ConstructorId => 0xbdcdaec0;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File saved in parts using the method <a href="https://corefork.telegram.org/method/upload.saveFilePart">upload.saveFilePart</a>
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile? File { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Square video for animated profile picture
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile? Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Floating point UNIX timestamp in seconds, indicating the frame of the video/sticker that should be used as static preview; can only be used if <code>video</code> or <code>video_emoji_markup</code> is set.
-    ///</summary>
+    /// </summary>
     public double? VideoStartTs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Animated sticker profile picture, must contain either a <a href="https://corefork.telegram.org/constructor/videoSizeEmojiMarkup">videoSizeEmojiMarkup</a> or a <a href="https://corefork.telegram.org/constructor/videoSizeStickerMarkup">videoSizeStickerMarkup</a> constructor.
     /// See <a href="https://corefork.telegram.org/type/VideoSize" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IVideoSize? VideoEmojiMarkup { get; set; }
 
     public void ComputeFlag()

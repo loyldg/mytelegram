@@ -1,24 +1,22 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/transcribe">Transcribe voice message</a>
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
+/// 400 MSG_ID_INVALID Invalid message ID provided.
+/// 400 MSG_VOICE_MISSING The specified message is not a voice message.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
 /// 400 TRANSCRIPTION_FAILED Audio transcription failed.
-/// See <a href="https://corefork.telegram.org/method/messages.transcribeAudio" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.transcribeAudio"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class TranscribeAudioHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestTranscribeAudio, MyTelegram.Schema.Messages.ITranscribedAudio>
 {
-    protected override Task<MyTelegram.Schema.Messages.ITranscribedAudio> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestTranscribeAudio obj)
+    protected override Task<MyTelegram.Schema.Messages.ITranscribedAudio> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestTranscribeAudio obj)
     {
-        return Task.FromResult<ITranscribedAudio>(new TTranscribedAudio
-        {
-            Pending = false,
-            Text = "TranscribeAudioHandler not implemented",
-            TranscriptionId = 0
-        });
+        return Task.FromResult<ITranscribedAudio>(new TTranscribedAudio { Pending = false, Text = "TranscribeAudioHandler not implemented", TranscriptionId = 0 });
     }
 }

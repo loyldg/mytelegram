@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Get an <a href="https://corefork.telegram.org/api/links#video-chat-livestream-links">invite link</a> for a group call or livestream
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 403 PUBLIC_CHANNEL_MISSING You can only export group call invite links for public chats or channels.
-/// See <a href="https://corefork.telegram.org/method/phone.exportGroupCallInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>403 PUBLIC_CHANNEL_MISSING You can only export group call invite links for public chats or channels. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.exportGroupCallInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe6aa647f)]
-public sealed class RequestExportGroupCallInvite : IRequest<MyTelegram.Schema.Phone.IExportedGroupCallInvite>
+public sealed partial class RequestExportGroupCallInvite : IRequest<MyTelegram.Schema.Phone.IExportedGroupCallInvite>
 {
     public uint ConstructorId => 0xe6aa647f;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For livestreams or muted group chats, if set, users that join using this link will be able to speak without explicitly requesting permission by (for example by raising their hand).
-    ///</summary>
+    /// </summary>
     public bool CanSelfUnmute { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     public void ComputeFlag()

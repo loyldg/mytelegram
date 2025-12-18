@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object defines a group profile photo.
-/// See <a href="https://corefork.telegram.org/type/ChatPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChatPhoto" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatPhotoEmpty"/> See <a href="https://corefork.telegram.org/constructor/chatPhotoEmpty" /><br/>
+/// <see cref="TChatPhoto"/> See <a href="https://corefork.telegram.org/constructor/chatPhoto" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatPhotoEmpty), nameof(TChatPhotoEmpty))]
 [JsonDerivedType(typeof(TChatPhoto), nameof(TChatPhoto))]
 public interface IChatPhoto : IObject

@@ -2,37 +2,41 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Sticker
-/// See <a href="https://corefork.telegram.org/type/InputStickerSetItem" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputStickerSetItem" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputStickerSetItem"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetItem" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputStickerSetItem), nameof(TInputStickerSetItem))]
 public interface IInputStickerSetItem : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The sticker
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IInputDocument Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Associated emoji
-    ///</summary>
+    /// </summary>
     string Emoji { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Coordinates for mask sticker
     /// See <a href="https://corefork.telegram.org/type/MaskCoords" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IMaskCoords? MaskCoords { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set of keywords, separated by commas (can't be provided for mask stickers)
-    ///</summary>
+    /// </summary>
     string? Keywords { get; set; }
 }

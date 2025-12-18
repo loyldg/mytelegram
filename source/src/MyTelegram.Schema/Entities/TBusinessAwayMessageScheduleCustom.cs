@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Send <a href="https://corefork.telegram.org/api/business#away-messages">Telegram Business away messages</a> to users writing to us in private in the specified time span.
-/// See <a href="https://corefork.telegram.org/constructor/businessAwayMessageScheduleCustom" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/businessAwayMessageScheduleCustom" /></para>
+/// </summary>
 [TlObject(0xcc4d9ecc)]
-public sealed class TBusinessAwayMessageScheduleCustom : IBusinessAwayMessageSchedule
+public sealed partial class TBusinessAwayMessageScheduleCustom : IBusinessAwayMessageSchedule
 {
     public uint ConstructorId => 0xcc4d9ecc;
-    ///<summary>
+    /// <summary>
     /// Start date (UNIX timestamp).
-    ///</summary>
+    /// </summary>
     public int StartDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// End date (UNIX timestamp).
-    ///</summary>
+    /// </summary>
     public int EndDate { get; set; }
 
     public void ComputeFlag()

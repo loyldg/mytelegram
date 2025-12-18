@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A message was deleted
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDeleteMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionDeleteMessage" /></para>
+/// </summary>
 [TlObject(0x42e047bb)]
-public sealed class TChannelAdminLogEventActionDeleteMessage : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionDeleteMessage : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x42e047bb;
-    ///<summary>
+    /// <summary>
     /// The message that was deleted
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
     public void ComputeFlag()

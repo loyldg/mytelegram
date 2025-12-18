@@ -2,32 +2,35 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Pin or unpin a <a href="https://corefork.telegram.org/api/saved-messages">saved message dialog »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.toggleSavedDialogPin" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.toggleSavedDialogPin" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xac81bbde)]
-public sealed class RequestToggleSavedDialogPin : IRequest<IBool>
+public sealed partial class RequestToggleSavedDialogPin : IRequest<IBool>
 {
     public uint ConstructorId => 0xac81bbde;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to pin or unpin the dialog
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The dialog to pin
     /// See <a href="https://corefork.telegram.org/type/InputDialogPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDialogPeer Peer { get; set; }
 
     public void ComputeFlag()

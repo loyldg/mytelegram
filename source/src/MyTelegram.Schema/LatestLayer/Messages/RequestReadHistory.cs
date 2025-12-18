@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Marks message history as read.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.readHistory" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.readHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe306d3a)]
-public sealed class RequestReadHistory : IRequest<MyTelegram.Schema.Messages.IAffectedMessages>
+public sealed partial class RequestReadHistory : IRequest<MyTelegram.Schema.Messages.IAffectedMessages>
 {
     public uint ConstructorId => 0xe306d3a;
 
-    ///<summary>
+    /// <summary>
     /// Target user or group
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value is passed, only messages with identifiers less or equal than the given one will be read
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about or the order of <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcuts »</a> was changed.
-/// See <a href="https://corefork.telegram.org/constructor/updateQuickReplies" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateQuickReplies" /></para>
+/// </summary>
 [TlObject(0xf9470ab2)]
-public sealed class TUpdateQuickReplies : IUpdate
+public sealed partial class TUpdateQuickReplies : IUpdate
 {
     public uint ConstructorId => 0xf9470ab2;
-    ///<summary>
+    /// <summary>
     /// New quick reply shortcut order and information.
     /// See <a href="https://corefork.telegram.org/type/QuickReply" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IQuickReply> QuickReplies { get; set; }
 
     public void ComputeFlag()

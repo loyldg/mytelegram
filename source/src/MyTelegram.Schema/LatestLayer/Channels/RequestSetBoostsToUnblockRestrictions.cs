@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Admins with <a href="https://corefork.telegram.org/constructor/chatAdminRights">ban_users admin rights »</a> may allow users that apply a certain number of <a href="https://corefork.telegram.org/api/boost">booosts »</a> to the group to bypass <a href="https://corefork.telegram.org/method/channels.toggleSlowMode">slow mode »</a> and <a href="https://corefork.telegram.org/api/rights#default-rights">other »</a> supergroup restrictions, see <a href="https://corefork.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions">here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// See <a href="https://corefork.telegram.org/method/channels.setBoostsToUnblockRestrictions" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.setBoostsToUnblockRestrictions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xad399cee)]
-public sealed class RequestSetBoostsToUnblockRestrictions : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSetBoostsToUnblockRestrictions : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xad399cee;
 
-    ///<summary>
+    /// <summary>
     /// The supergroup.
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of required boosts (1-8, 0 to disable).
-    ///</summary>
+    /// </summary>
     public int Boosts { get; set; }
 
     public void ComputeFlag()

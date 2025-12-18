@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Peer settings
-/// See <a href="https://corefork.telegram.org/type/messages.PeerSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.PeerSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerSettings"/> See <a href="https://corefork.telegram.org/constructor/messages.peerSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerSettings), nameof(TPeerSettings))]
 public interface IPeerSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Peer settings
     /// See <a href="https://corefork.telegram.org/type/PeerSettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeerSettings Settings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

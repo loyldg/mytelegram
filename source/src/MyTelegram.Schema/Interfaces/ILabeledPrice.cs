@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Labeled pricetag
-/// See <a href="https://corefork.telegram.org/type/LabeledPrice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/LabeledPrice" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TLabeledPrice"/> See <a href="https://corefork.telegram.org/constructor/labeledPrice" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TLabeledPrice), nameof(TLabeledPrice))]
 public interface ILabeledPrice : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Portion label
-    ///</summary>
+    /// </summary>
     string Label { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     long Amount { get; set; }
 }

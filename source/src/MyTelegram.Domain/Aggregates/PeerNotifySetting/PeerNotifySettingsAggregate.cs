@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.PeerNotifySetting;
 
+[EnableAutoGeneration]
 public class PeerNotifySettingsAggregate : SnapshotAggregateRoot<PeerNotifySettingsAggregate, PeerNotifySettingsId,
     PeerNotifySettingsSnapshot>
 {
@@ -19,11 +20,12 @@ public class PeerNotifySettingsAggregate : SnapshotAggregateRoot<PeerNotifySetti
         int? muteUntil,
         string? sound)
     {
+        var peerNotifySettings = new PeerNotifySettings(showPreviews, silent, muteUntil, sound);
         Emit(new PeerNotifySettingsUpdatedEvent(requestInfo,
             ownerPeerId,
             peerType,
             peerId,
-            new MyTelegram.PeerNotifySettings(showPreviews, silent, muteUntil, sound)));
+            peerNotifySettings));
     }
 
     protected override Task<PeerNotifySettingsSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)

@@ -2,30 +2,33 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Delete a previously created <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// 400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.
-/// 400 INVITE_SLUG_EXPIRED The specified chat folder link has expired.
-/// 400 INVITE_SLUG_INVALID The specified invitation slug is invalid.
-/// See <a href="https://corefork.telegram.org/method/chatlists.deleteExportedInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid.</c></para>
+/// <para><c>400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.</c></para>
+/// <para><c>400 INVITE_SLUG_EXPIRED The specified chat folder link has expired.</c></para>
+/// <para><c>400 INVITE_SLUG_INVALID The specified invitation slug is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.deleteExportedInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x719c5c5e)]
-public sealed class RequestDeleteExportedInvite : IRequest<IBool>
+public sealed partial class RequestDeleteExportedInvite : IRequest<IBool>
 {
     public uint ConstructorId => 0x719c5c5e;
 
-    ///<summary>
+    /// <summary>
     /// The related folder
     /// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <code>slug</code> obtained from the <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

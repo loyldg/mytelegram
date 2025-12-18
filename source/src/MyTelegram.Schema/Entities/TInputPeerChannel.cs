@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a channel for further interaction.
-/// See <a href="https://corefork.telegram.org/constructor/inputPeerChannel" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPeerChannel" /></para>
+/// </summary>
 [TlObject(0x27bcbbfc)]
-public sealed class TInputPeerChannel : IInputPeer
+public sealed partial class TInputPeerChannel : IInputPeer
 {
     public uint ConstructorId => 0x27bcbbfc;
-    ///<summary>
+    /// <summary>
     /// Channel identifier
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <strong>access_hash</strong> value from the <a href="https://corefork.telegram.org/constructor/channel">channel</a> constructor
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

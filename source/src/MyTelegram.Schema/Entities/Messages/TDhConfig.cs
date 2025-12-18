@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// New set of configuring parameters.
-/// See <a href="https://corefork.telegram.org/constructor/messages.dhConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.dhConfig" /></para>
+/// </summary>
 [TlObject(0x2c221edd)]
-public sealed class TDhConfig : IDhConfig
+public sealed partial class TDhConfig : IDhConfig
 {
     public uint ConstructorId => 0x2c221edd;
-    ///<summary>
+    /// <summary>
     /// New value <strong>prime</strong>, see <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Wikipedia</a>
-    ///</summary>
+    /// </summary>
     public int G { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New value <strong>primitive root</strong>, see <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Wikipedia</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> P { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Version of set of parameters
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Random sequence of bytes of assigned length
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Random { get; set; }
 
     public void ComputeFlag()

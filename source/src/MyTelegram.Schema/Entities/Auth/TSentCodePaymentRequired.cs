@@ -2,16 +2,37 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodePaymentRequired" />
-///</summary>
-[TlObject(0xd7cef980)]
-public sealed class TSentCodePaymentRequired : ISentCode
+/// <summary>
+/// Official apps may receive this constructor, indicating that due to the high cost of SMS verification codes for the user's country/provider, the user must purchase a <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription in order to proceed with the login/signup.
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodePaymentRequired" /></para>
+/// </summary>
+[TlObject(0xe0955a3c)]
+public sealed partial class TSentCodePaymentRequired : ISentCode
 {
-    public uint ConstructorId => 0xd7cef980;
+    public uint ConstructorId => 0xe0955a3c;
+    /// <summary>
+    /// Store identifier of the Telegram Premium subscription.
+    /// </summary>
     public string StoreProduct { get; set; }
 
+    /// <summary>
+    /// Phone code hash, to be stored and later re-used with <a href="https://corefork.telegram.org/method/auth.signIn">auth.signIn</a>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
+
+    /// <summary>
+    /// An email address that can be contacted for more information about this request.
+    /// </summary>
+    public string SupportEmailAddress { get; set; }
+
+    /// <summary>
+    /// The mandatory subject for the email.
+    /// </summary>
+    public string SupportEmailSubject { get; set; }
+
+    public string Currency { get; set; }
+
+    public long Amount { get; set; }
 
     public void ComputeFlag()
     {
@@ -23,11 +44,19 @@ public sealed class TSentCodePaymentRequired : ISentCode
         writer.Write(ConstructorId);
         writer.Write(StoreProduct);
         writer.Write(PhoneCodeHash);
+        writer.Write(SupportEmailAddress);
+        writer.Write(SupportEmailSubject);
+        writer.Write(Currency);
+        writer.Write(Amount);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         StoreProduct = buffer.ReadString();
         PhoneCodeHash = buffer.ReadString();
+        SupportEmailAddress = buffer.ReadString();
+        SupportEmailSubject = buffer.ReadString();
+        Currency = buffer.ReadString();
+        Amount = buffer.ReadInt64();
     }
 }

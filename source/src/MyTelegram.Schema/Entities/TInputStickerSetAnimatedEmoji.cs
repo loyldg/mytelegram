@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Animated emojis stickerset
-/// See <a href="https://corefork.telegram.org/constructor/inputStickerSetAnimatedEmoji" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickerSetAnimatedEmoji" /></para>
+/// </summary>
 [TlObject(0x28703c8)]
-public sealed class TInputStickerSetAnimatedEmoji : IInputStickerSet
+public sealed partial class TInputStickerSetAnimatedEmoji : IInputStickerSet
 {
     public uint ConstructorId => 0x28703c8;
     public void ComputeFlag()

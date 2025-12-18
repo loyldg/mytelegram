@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
-/// See <a href="https://corefork.telegram.org/constructor/secureValueErrorFiles" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueErrorFiles" /></para>
+/// </summary>
 [TlObject(0x666220e9)]
-public sealed class TSecureValueErrorFiles : ISecureValueError
+public sealed partial class TSecureValueErrorFiles : ISecureValueError
 {
     public uint ConstructorId => 0x666220e9;
-    ///<summary>
+    /// <summary>
     /// One of <a href="https://corefork.telegram.org/constructor/secureValueTypeUtilityBill">secureValueTypeUtilityBill</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeBankStatement">secureValueTypeBankStatement</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeRentalAgreement">secureValueTypeRentalAgreement</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypePassportRegistration">secureValueTypePassportRegistration</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeTemporaryRegistration">secureValueTypeTemporaryRegistration</a>
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File hash
-    ///</summary>
+    /// </summary>
     public TVector<ReadOnlyMemory<byte>> FileHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

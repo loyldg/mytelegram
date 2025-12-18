@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// All reactions or all non-custom reactions are allowed
-/// See <a href="https://corefork.telegram.org/constructor/chatReactionsAll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatReactionsAll" /></para>
+/// </summary>
 [TlObject(0x52928bca)]
-public sealed class TChatReactionsAll : IChatReactions
+public sealed partial class TChatReactionsAll : IChatReactions
 {
     public uint ConstructorId => 0x52928bca;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow custom reactions
-    ///</summary>
+    /// </summary>
     public bool AllowCustom { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Allow bots and mini apps
-/// See <a href="https://corefork.telegram.org/constructor/privacyValueAllowBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyValueAllowBots" /></para>
+/// </summary>
 [TlObject(0x21461b5d)]
-public sealed class TPrivacyValueAllowBots : IPrivacyRule
+public sealed partial class TPrivacyValueAllowBots : IPrivacyRule
 {
     public uint ConstructorId => 0x21461b5d;
     public void ComputeFlag()

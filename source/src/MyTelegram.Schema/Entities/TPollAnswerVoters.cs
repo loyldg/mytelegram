@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A poll answer, and how users voted on it
-/// See <a href="https://corefork.telegram.org/constructor/pollAnswerVoters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pollAnswerVoters" /></para>
+/// </summary>
 [TlObject(0x3b6ddad2)]
-public sealed class TPollAnswerVoters : IPollAnswerVoters
+public sealed partial class TPollAnswerVoters : IPollAnswerVoters
 {
     public uint ConstructorId => 0x3b6ddad2;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have chosen this answer
-    ///</summary>
+    /// </summary>
     public bool Chosen { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For quizzes, whether the option we have chosen is correct
-    ///</summary>
+    /// </summary>
     public bool Correct { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The param that has to be passed to <a href="https://corefork.telegram.org/method/messages.sendVote">messages.sendVote</a>.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Option { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// How many users voted for this option
-    ///</summary>
+    /// </summary>
     public int Voters { get; set; }
 
     public void ComputeFlag()

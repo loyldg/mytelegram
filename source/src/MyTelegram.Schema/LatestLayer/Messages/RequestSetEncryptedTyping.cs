@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Send typing event by the current user to a secret chat.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.setEncryptedTyping" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setEncryptedTyping" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x791451ed)]
-public sealed class RequestSetEncryptedTyping : IRequest<IBool>
+public sealed partial class RequestSetEncryptedTyping : IRequest<IBool>
 {
     public uint ConstructorId => 0x791451ed;
 
-    ///<summary>
+    /// <summary>
     /// Secret chat ID
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedChat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedChat Peer { get; set; }
 
-    ///<summary>
-    /// Typing.<br><strong>Possible values</strong>:<br><a href="https://corefork.telegram.org/constructor/boolTrue">(boolTrue)</a>, if the user started typing and more than <strong>5 seconds</strong> have passed since the last request<br><a href="https://corefork.telegram.org/constructor/boolFalse">(boolFalse)</a>, if the user stopped typing
+    /// <summary>
+    /// Typing.<br/><strong>Possible values</strong>:<br/><a href="https://corefork.telegram.org/constructor/boolTrue">(boolTrue)</a>, if the user started typing and more than <strong>5 seconds</strong> have passed since the last request<br/><a href="https://corefork.telegram.org/constructor/boolFalse">(boolFalse)</a>, if the user stopped typing
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Typing { get; set; }
 
     public void ComputeFlag()

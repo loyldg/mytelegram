@@ -2,61 +2,61 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Channel messages
-/// See <a href="https://corefork.telegram.org/constructor/messages.channelMessages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.channelMessages" /></para>
+/// </summary>
 [TlObject(0xc776ba4e)]
-public sealed class TChannelMessages : IMessages
+public sealed partial class TChannelMessages : IMessages
 {
     public uint ConstructorId => 0xc776ba4e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, returned results may be inexact
-    ///</summary>
+    /// </summary>
     public bool Inexact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of results were found server-side (may not be all included here)
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
-    /// Indicates the absolute position of <code>messages[0]</code> within the total result set with count <code>count</code>. <br>This is useful, for example, if the result was fetched using <code>offset_id</code>, and we need to display a <code>progress/total</code> counter (like <code>photo 134 of 200</code>, for all media in a chat, we could simply use <code>photo ${offset_id_offset} of ${count}</code>.
-    ///</summary>
+    /// <summary>
+    /// Indicates the absolute position of <code>messages[0]</code> within the total result set with count <code>count</code>. <br/>This is useful, for example, if the result was fetched using <code>offset_id</code>, and we need to display a <code>progress/total</code> counter (like <code>photo 134 of 200</code>, for all media in a chat, we could simply use <code>photo ${offset_id_offset} of ${count}</code>.
+    /// </summary>
     public int? OffsetIdOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Found messages
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/forum#forum-topics">Forum topic</a> information
     /// See <a href="https://corefork.telegram.org/type/ForumTopic" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IForumTopic> Topics { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

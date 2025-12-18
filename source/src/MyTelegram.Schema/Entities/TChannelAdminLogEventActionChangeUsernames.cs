@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The list of usernames associated with the channel was changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsernames" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeUsernames" /></para>
+/// </summary>
 [TlObject(0xf04fb3a9)]
-public sealed class TChannelAdminLogEventActionChangeUsernames : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangeUsernames : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xf04fb3a9;
-    ///<summary>
+    /// <summary>
     /// Previous set of usernames
-    ///</summary>
+    /// </summary>
     public TVector<string> PrevValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New set of usernames
-    ///</summary>
+    /// </summary>
     public TVector<string> NewValue { get; set; }
 
     public void ComputeFlag()

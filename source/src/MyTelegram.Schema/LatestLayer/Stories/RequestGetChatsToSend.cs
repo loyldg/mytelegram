@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Obtain a list of channels where the user can post <a href="https://corefork.telegram.org/api/stories">stories</a>
-/// See <a href="https://corefork.telegram.org/method/stories.getChatsToSend" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getChatsToSend" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa56a8b60)]
-public sealed class RequestGetChatsToSend : IRequest<MyTelegram.Schema.Messages.IChats>
+public sealed partial class RequestGetChatsToSend : IRequest<MyTelegram.Schema.Messages.IChats>
 {
     public uint ConstructorId => 0xa56a8b60;
 

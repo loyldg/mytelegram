@@ -2,21 +2,30 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messages.webPagePreview" />
-///</summary>
-[TlObject(0xb53e8b21)]
-public sealed class TWebPagePreview : IWebPagePreview
+/// <summary>
+/// Represents a webpage preview.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.webPagePreview" /></para>
+/// </summary>
+[TlObject(0x8c9a88ac)]
+public sealed partial class TWebPagePreview : IWebPagePreview
 {
-    public uint ConstructorId => 0xb53e8b21;
-    ///<summary>
+    public uint ConstructorId => 0x8c9a88ac;
+    /// <summary>
+    /// The <a href="https://corefork.telegram.org/constructor/messageMediaWebPage">messageMediaWebPage</a> or a <a href="https://corefork.telegram.org/constructor/messageMediaEmpty">messageMediaEmpty</a> if there is no preview.
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageMedia Media { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Chats mentioned in the <code>gift</code> field.
+    /// See <a href="https://corefork.telegram.org/type/Chat" />
+    /// </summary>
+    public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
+
+    /// <summary>
+    /// Users mentioned within the <code>media</code> object.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()
@@ -28,12 +37,14 @@ public sealed class TWebPagePreview : IWebPagePreview
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Media);
+        writer.Write(Chats);
         writer.Write(Users);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Media = buffer.Read<MyTelegram.Schema.IMessageMedia>();
+        Chats = buffer.Read<TVector<MyTelegram.Schema.IChat>>();
         Users = buffer.Read<TVector<MyTelegram.Schema.IUser>>();
     }
 }

@@ -2,31 +2,34 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Verify an email address.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 EMAIL_INVALID The specified email is invalid.
-/// 400 EMAIL_NOT_ALLOWED The specified email cannot be used to complete the operation.
-/// 400 EMAIL_VERIFY_EXPIRED The verification email has expired.
-/// 400 PHONE_NUMBER_INVALID The phone number is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.verifyEmail" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 EMAIL_INVALID The specified email is invalid.</c></para>
+/// <para><c>400 EMAIL_NOT_ALLOWED The specified email cannot be used to complete the operation.</c></para>
+/// <para><c>400 EMAIL_VERIFY_EXPIRED The verification email has expired.</c></para>
+/// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.verifyEmail" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x32da4cf)]
-public sealed class RequestVerifyEmail : IRequest<MyTelegram.Schema.Account.IEmailVerified>
+public sealed partial class RequestVerifyEmail : IRequest<MyTelegram.Schema.Account.IEmailVerified>
 {
     public uint ConstructorId => 0x32da4cf;
 
-    ///<summary>
+    /// <summary>
     /// Verification purpose
     /// See <a href="https://corefork.telegram.org/type/EmailVerifyPurpose" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEmailVerifyPurpose Purpose { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Email verification code or token
     /// See <a href="https://corefork.telegram.org/type/EmailVerification" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEmailVerification Verification { get; set; }
 
     public void ComputeFlag()

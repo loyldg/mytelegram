@@ -2,40 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Full constructor of updates
-/// See <a href="https://corefork.telegram.org/constructor/updates" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updates" /></para>
+/// </summary>
 [TlObject(0x74ae4240)]
-public sealed class TUpdates : IUpdates
+public sealed partial class TUpdates : IUpdates
 {
     public uint ConstructorId => 0x74ae4240;
-    ///<summary>
+    /// <summary>
     /// List of updates
     /// See <a href="https://corefork.telegram.org/type/Update" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUpdate> Updates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users mentioned in updates
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of chats mentioned in updates
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of sent updates
-    ///</summary>
+    /// </summary>
     public int Seq { get; set; }
 
     public void ComputeFlag()

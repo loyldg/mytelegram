@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Clear bot commands for the specified bot scope and language code
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 LANG_CODE_INVALID The specified language code is invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/bots.resetBotCommands" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 LANG_CODE_INVALID The specified language code is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.resetBotCommands" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3d8de0f9)]
-public sealed class RequestResetBotCommands : IRequest<IBool>
+public sealed partial class RequestResetBotCommands : IRequest<IBool>
 {
     public uint ConstructorId => 0x3d8de0f9;
 
-    ///<summary>
+    /// <summary>
     /// Command scope
     /// See <a href="https://corefork.telegram.org/type/BotCommandScope" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotCommandScope Scope { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Language code
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
     public void ComputeFlag()

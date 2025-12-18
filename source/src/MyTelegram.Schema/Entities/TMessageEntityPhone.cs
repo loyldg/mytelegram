@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity representing a phone number.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityPhone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityPhone" /></para>
+/// </summary>
 [TlObject(0x9b69e34b)]
-public sealed class TMessageEntityPhone : IMessageEntity
+public sealed partial class TMessageEntityPhone : IMessageEntity
 {
     public uint ConstructorId => 0x9b69e34b;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

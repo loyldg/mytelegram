@@ -2,33 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The manual unread mark of a chat was changed
-/// See <a href="https://corefork.telegram.org/constructor/updateDialogUnreadMark" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDialogUnreadMark" /></para>
+/// </summary>
 [TlObject(0xb658f23e)]
-public sealed class TUpdateDialogUnreadMark : IUpdate
+public sealed partial class TUpdateDialogUnreadMark : IUpdate
 {
     public uint ConstructorId => 0xb658f23e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Was the chat marked or unmarked as read
-    ///</summary>
+    /// </summary>
     public bool Unread { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The dialog
     /// See <a href="https://corefork.telegram.org/type/DialogPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDialogPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, the mark is related to the specified <a href="https://corefork.telegram.org/api/monoforum">monoforum topic ID »</a>.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SavedPeerId { get; set; }
 
     public void ComputeFlag()

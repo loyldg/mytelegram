@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is recording a voice message.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageRecordAudioAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageRecordAudioAction" /></para>
+/// </summary>
 [TlObject(0xd52f73f7)]
-public sealed class TSendMessageRecordAudioAction : ISendMessageAction
+public sealed partial class TSendMessageRecordAudioAction : ISendMessageAction
 {
     public uint ConstructorId => 0xd52f73f7;
     public void ComputeFlag()

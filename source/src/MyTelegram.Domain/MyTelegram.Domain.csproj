@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -11,6 +11,7 @@
     <ProjectReference Include="..\MyTelegram.Domain.Shared\MyTelegram.Domain.Shared.csproj" />
         <ProjectReference Include="..\MyTelegram.EventFlow\MyTelegram.EventFlow.csproj" />
     <ProjectReference Include="..\MyTelegram.Schema\MyTelegram.Schema.csproj" />
+    <ProjectReference Include="..\MyTelegram.SourceGenerators\MyTelegram.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

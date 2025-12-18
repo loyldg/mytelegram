@@ -2,38 +2,41 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Import chat history from a foreign chat app into a specific Telegram chat, <a href="https://corefork.telegram.org/api/import">click here for more info about imported chats »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 IMPORT_FILE_INVALID The specified chat export file is invalid.
-/// 400 IMPORT_FORMAT_DATE_INVALID The date specified in the import file is invalid.
-/// 400 IMPORT_FORMAT_UNRECOGNIZED The specified chat export file was exported from an unsupported chat app.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_%dMIN Import for this chat is already in progress, wait %d minutes before starting a new one.
-/// See <a href="https://corefork.telegram.org/method/messages.initHistoryImport" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 IMPORT_FILE_INVALID The specified chat export file is invalid.</c></para>
+/// <para><c>400 IMPORT_FORMAT_DATE_INVALID The date specified in the import file is invalid.</c></para>
+/// <para><c>400 IMPORT_FORMAT_UNRECOGNIZED The specified chat export file was exported from an unsupported chat app.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_%dMIN Import for this chat is already in progress, wait %d minutes before starting a new one. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.initHistoryImport" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x34090c3b)]
-public sealed class RequestInitHistoryImport : IRequest<MyTelegram.Schema.Messages.IHistoryImport>
+public sealed partial class RequestInitHistoryImport : IRequest<MyTelegram.Schema.Messages.IHistoryImport>
 {
     public uint ConstructorId => 0x34090c3b;
 
-    ///<summary>
+    /// <summary>
     /// The Telegram chat where the <a href="https://corefork.telegram.org/api/import">history should be imported</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File with messages to import.
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile File { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of media files associated with the chat that will be uploaded using <a href="https://corefork.telegram.org/method/messages.uploadImportedMedia">messages.uploadImportedMedia</a>.
-    ///</summary>
+    /// </summary>
     public int MediaCount { get; set; }
 
     public void ComputeFlag()

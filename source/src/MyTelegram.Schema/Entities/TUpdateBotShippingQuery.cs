@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// This object contains information about an incoming shipping query.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotShippingQuery" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotShippingQuery" /></para>
+/// </summary>
 [TlObject(0xb5aefd7d)]
-public sealed class TUpdateBotShippingQuery : IUpdate
+public sealed partial class TUpdateBotShippingQuery : IUpdate
 {
     public uint ConstructorId => 0xb5aefd7d;
-    ///<summary>
+    /// <summary>
     /// Unique query identifier
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User who sent the query
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot specified invoice payload
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Payload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User specified shipping address
     /// See <a href="https://corefork.telegram.org/type/PostAddress" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPostAddress ShippingAddress { get; set; }
 
     public void ComputeFlag()

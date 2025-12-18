@@ -2,61 +2,61 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An invoice
-/// See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaInvoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaInvoice" /></para>
+/// </summary>
 [TlObject(0xd7e78225)]
-public sealed class TInputBotInlineMessageMediaInvoice : IInputBotInlineMessage
+public sealed partial class TInputBotInlineMessageMediaInvoice : IInputBotInlineMessage
 {
     public uint ConstructorId => 0xd7e78225;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product name, 1-32 characters
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product description, 1-255 characters
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice photo
     /// See <a href="https://corefork.telegram.org/type/InputWebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The invoice
     /// See <a href="https://corefork.telegram.org/type/Invoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Payload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payments provider token, obtained via <a href="https://t.me/botfather">Botfather</a>
-    ///</summary>
+    /// </summary>
     public string Provider { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A JSON-serialized object for data about the invoice, which will be shared with the payment provider. A detailed description of the required fields should be provided by the payment provider.
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON ProviderData { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
     public void ComputeFlag()

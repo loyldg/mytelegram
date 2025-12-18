@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// No PSA/MTProxy info is available
-/// See <a href="https://corefork.telegram.org/constructor/help.promoDataEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.promoDataEmpty" /></para>
+/// </summary>
 [TlObject(0x98f6ac75)]
-public sealed class TPromoDataEmpty : IPromoData
+public sealed partial class TPromoDataEmpty : IPromoData
 {
     public uint ConstructorId => 0x98f6ac75;
-    ///<summary>
+    /// <summary>
     /// Re-fetch PSA/MTProxy info after the specified number of seconds
-    ///</summary>
+    /// </summary>
     public int Expires { get; set; }
 
     public void ComputeFlag()

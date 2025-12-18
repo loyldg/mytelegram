@@ -2,34 +2,40 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/stars">Telegram Star revenue statistics »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsRevenueStats" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsRevenueStats" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd91ffad6)]
-public sealed class RequestGetStarsRevenueStats : IRequest<MyTelegram.Schema.Payments.IStarsRevenueStats>
+public sealed partial class RequestGetStarsRevenueStats : IRequest<MyTelegram.Schema.Payments.IStarsRevenueStats>
 {
     public uint ConstructorId => 0xd91ffad6;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to enable dark theme for graph colors
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
+    /// <summary>
+    /// If set, fetches channel/bot ad revenue statistics in TON.
+    /// </summary>
     public bool Ton { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Get statistics for the specified bot, channel or ourselves (<a href="https://corefork.telegram.org/constructor/inputPeerSelf">inputPeerSelf</a>).
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

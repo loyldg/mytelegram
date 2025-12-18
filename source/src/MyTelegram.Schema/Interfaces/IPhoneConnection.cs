@@ -2,36 +2,41 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Phone call connection
-/// See <a href="https://corefork.telegram.org/type/PhoneConnection" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PhoneConnection" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPhoneConnection"/> See <a href="https://corefork.telegram.org/constructor/phoneConnection" /><br/>
+/// <see cref="TPhoneConnectionWebrtc"/> See <a href="https://corefork.telegram.org/constructor/phoneConnectionWebrtc" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPhoneConnection), nameof(TPhoneConnection))]
 [JsonDerivedType(typeof(TPhoneConnectionWebrtc), nameof(TPhoneConnectionWebrtc))]
 public interface IPhoneConnection : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Endpoint ID
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IP address of endpoint
-    ///</summary>
+    /// </summary>
     string Ip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IPv6 address of endpoint
-    ///</summary>
+    /// </summary>
     string Ipv6 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Port ID
-    ///</summary>
+    /// </summary>
     int Port { get; set; }
 }

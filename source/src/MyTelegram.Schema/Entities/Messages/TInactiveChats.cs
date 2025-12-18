@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Inactive chat list
-/// See <a href="https://corefork.telegram.org/constructor/messages.inactiveChats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.inactiveChats" /></para>
+/// </summary>
 [TlObject(0xa927fec5)]
-public sealed class TInactiveChats : IInactiveChats
+public sealed partial class TInactiveChats : IInactiveChats
 {
     public uint ConstructorId => 0xa927fec5;
-    ///<summary>
+    /// <summary>
     /// When was the chat last active
-    ///</summary>
+    /// </summary>
     public TVector<int> Dates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat list
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the chat list
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

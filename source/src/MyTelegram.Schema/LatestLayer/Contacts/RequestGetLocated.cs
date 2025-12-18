@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Get users and geochats near you, see <a href="https://corefork.telegram.org/api/nearby">here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 406 BUSINESS_ADDRESS_ACTIVE The user is currently advertising a <a href="https://corefork.telegram.org/api/business#location">Business Location</a>, the location may only be changed (or removed) using <a href="https://corefork.telegram.org/method/account.updateBusinessLocation">account.updateBusinessLocation&nbsp;»</a>.  .
-/// 400 GEO_POINT_INVALID Invalid geoposition provided.
-/// 406 USERPIC_PRIVACY_REQUIRED You need to disable privacy settings for your profile picture in order to make your geolocation public.
-/// 406 USERPIC_UPLOAD_REQUIRED You must have a profile picture to publish your geolocation.
-/// See <a href="https://corefork.telegram.org/method/contacts.getLocated" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>406 BUSINESS_ADDRESS_ACTIVE The user is currently advertising a <a href="https://corefork.telegram.org/api/business#location">Business Location</a>, the location may only be changed (or removed) using <a href="https://corefork.telegram.org/method/account.updateBusinessLocation">account.updateBusinessLocation »</a>.  .</c></para>
+/// <para><c>400 GEO_POINT_INVALID Invalid geoposition provided.</c></para>
+/// <para><c>406 USERPIC_PRIVACY_REQUIRED You need to disable privacy settings for your profile picture in order to make your geolocation public.</c></para>
+/// <para><c>406 USERPIC_UPLOAD_REQUIRED You must have a profile picture to publish your geolocation. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.getLocated" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd348bc44)]
-public sealed class RequestGetLocated : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestGetLocated : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xd348bc44;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// While the geolocation of the current user is public, clients should update it in the background every half-an-hour or so, while setting this flag. <br>Do this only if the new location is more than 1 KM away from the previous one, or if the previous location is unknown.
-    ///</summary>
+    /// <summary>
+    /// While the geolocation of the current user is public, clients should update it in the background every half-an-hour or so, while setting this flag. <br/>Do this only if the new location is more than 1 KM away from the previous one, or if the previous location is unknown.
+    /// </summary>
     public bool Background { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Geolocation
     /// See <a href="https://corefork.telegram.org/type/InputGeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGeoPoint GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the geolocation of the current user will be public for the specified number of seconds; pass 0x7fffffff to disable expiry, 0 to make the current geolocation private; if the flag isn't set, no changes will be applied.
-    ///</summary>
+    /// </summary>
     public int? SelfExpires { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The current account's <a href="https://corefork.telegram.org/api/stars">Telegram Stars balance »</a> has changed.
-/// See <a href="https://corefork.telegram.org/constructor/updateStarsBalance" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateStarsBalance" /></para>
+/// </summary>
 [TlObject(0x4e80a379)]
-public sealed class TUpdateStarsBalance : IUpdate
+public sealed partial class TUpdateStarsBalance : IUpdate
 {
     public uint ConstructorId => 0x4e80a379;
-    ///<summary>
+    /// <summary>
     /// New balance.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount Balance { get; set; }
 
     public void ComputeFlag()

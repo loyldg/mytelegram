@@ -2,32 +2,35 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Check if a <a href="https://corefork.telegram.org/api/bots/webapps">mini app</a> can request the download of a specific file: called when handling <a href="https://corefork.telegram.org/api/web-events#web-app-request-file-download">web_app_request_file_download events »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/bots.checkDownloadFileParams" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.checkDownloadFileParams" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x50077589)]
-public sealed class RequestCheckDownloadFileParams : IRequest<IBool>
+public sealed partial class RequestCheckDownloadFileParams : IRequest<IBool>
 {
     public uint ConstructorId => 0x50077589;
 
-    ///<summary>
+    /// <summary>
     /// The bot that owns the <a href="https://corefork.telegram.org/api/bots/webapps">mini app</a> that requested the download
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <code>filename</code> from the <a href="https://corefork.telegram.org/api/web-events#web-app-request-file-download">web_app_request_file_download event »</a>
-    ///</summary>
+    /// </summary>
     public string FileName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <code>url</code> from the <a href="https://corefork.telegram.org/api/web-events#web-app-request-file-download">web_app_request_file_download event »</a>
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

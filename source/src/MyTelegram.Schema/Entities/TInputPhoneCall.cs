@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Phone call
-/// See <a href="https://corefork.telegram.org/constructor/inputPhoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPhoneCall" /></para>
+/// </summary>
 [TlObject(0x1e36fded)]
-public sealed class TInputPhoneCall : IInputPhoneCall
+public sealed partial class TInputPhoneCall : IInputPhoneCall
 {
     public uint ConstructorId => 0x1e36fded;
-    ///<summary>
+    /// <summary>
     /// Call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a stickerset
-/// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputStickerSet" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputStickerSetEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmpty" /><br/>
+/// <see cref="TInputStickerSetID"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetID" /><br/>
+/// <see cref="TInputStickerSetShortName"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetShortName" /><br/>
+/// <see cref="TInputStickerSetAnimatedEmoji"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetAnimatedEmoji" /><br/>
+/// <see cref="TInputStickerSetDice"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetDice" /><br/>
+/// <see cref="TInputStickerSetAnimatedEmojiAnimations"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetAnimatedEmojiAnimations" /><br/>
+/// <see cref="TInputStickerSetPremiumGifts"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetPremiumGifts" /><br/>
+/// <see cref="TInputStickerSetEmojiGenericAnimations"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmojiGenericAnimations" /><br/>
+/// <see cref="TInputStickerSetEmojiDefaultStatuses"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmojiDefaultStatuses" /><br/>
+/// <see cref="TInputStickerSetEmojiDefaultTopicIcons"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmojiDefaultTopicIcons" /><br/>
+/// <see cref="TInputStickerSetEmojiChannelDefaultStatuses"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmojiChannelDefaultStatuses" /><br/>
+/// <see cref="TInputStickerSetTonGifts"/> See <a href="https://corefork.telegram.org/constructor/inputStickerSetTonGifts" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputStickerSetEmpty), nameof(TInputStickerSetEmpty))]
 [JsonDerivedType(typeof(TInputStickerSetID), nameof(TInputStickerSetID))]
 [JsonDerivedType(typeof(TInputStickerSetShortName), nameof(TInputStickerSetShortName))]

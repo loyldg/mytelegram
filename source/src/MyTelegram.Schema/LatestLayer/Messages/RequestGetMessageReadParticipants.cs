@@ -2,30 +2,33 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get which users read a specific message: only available for groups and supergroups with less than <a href="https://corefork.telegram.org/api/config#chat-read-mark-size-threshold"><code>chat_read_mark_size_threshold</code> members</a>, read receipts will be stored for <a href="https://corefork.telegram.org/api/config#chat-read-mark-expire-period"><code>chat_read_mark_expire_period</code> seconds after the message was sent</a>, see <a href="https://corefork.telegram.org/api/config#client-configuration">client configuration for more info »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_TOO_BIG This method is not available for groups with more than <code>chat_read_mark_size_threshold</code> members, <a href="https://corefork.telegram.org/api/config#client-configuration">see client configuration&nbsp;»</a>.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 MSG_TOO_OLD <a href="https://corefork.telegram.org/api/config#chat-read-mark-expire-period"><code>chat_read_mark_expire_period</code> seconds</a> have passed since the message was sent, read receipts were deleted.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getMessageReadParticipants" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_TOO_BIG This method is not available for groups with more than <code>chat_read_mark_size_threshold</code> members, <a href="https://corefork.telegram.org/api/config#client-configuration">see client configuration »</a>.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 MSG_TOO_OLD <a href="https://corefork.telegram.org/api/config#chat-read-mark-expire-period"><code>chat_read_mark_expire_period</code> seconds</a> have passed since the message was sent, read receipts were deleted.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getMessageReadParticipants" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x31c1c44f)]
-public sealed class RequestGetMessageReadParticipants : IRequest<TVector<MyTelegram.Schema.IReadParticipantDate>>
+public sealed partial class RequestGetMessageReadParticipants : IRequest<TVector<MyTelegram.Schema.IReadParticipantDate>>
 {
     public uint ConstructorId => 0x31c1c44f;
 
-    ///<summary>
+    /// <summary>
     /// Dialog
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

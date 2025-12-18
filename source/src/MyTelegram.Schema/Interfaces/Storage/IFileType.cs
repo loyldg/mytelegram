@@ -2,10 +2,23 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// Object describes the file type.
-/// See <a href="https://corefork.telegram.org/type/storage.FileType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/storage.FileType" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFileUnknown"/> See <a href="https://corefork.telegram.org/constructor/storage.fileUnknown" /><br/>
+/// <see cref="TFilePartial"/> See <a href="https://corefork.telegram.org/constructor/storage.filePartial" /><br/>
+/// <see cref="TFileJpeg"/> See <a href="https://corefork.telegram.org/constructor/storage.fileJpeg" /><br/>
+/// <see cref="TFileGif"/> See <a href="https://corefork.telegram.org/constructor/storage.fileGif" /><br/>
+/// <see cref="TFilePng"/> See <a href="https://corefork.telegram.org/constructor/storage.filePng" /><br/>
+/// <see cref="TFilePdf"/> See <a href="https://corefork.telegram.org/constructor/storage.filePdf" /><br/>
+/// <see cref="TFileMp3"/> See <a href="https://corefork.telegram.org/constructor/storage.fileMp3" /><br/>
+/// <see cref="TFileMov"/> See <a href="https://corefork.telegram.org/constructor/storage.fileMov" /><br/>
+/// <see cref="TFileMp4"/> See <a href="https://corefork.telegram.org/constructor/storage.fileMp4" /><br/>
+/// <see cref="TFileWebp"/> See <a href="https://corefork.telegram.org/constructor/storage.fileWebp" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFileUnknown), nameof(TFileUnknown))]
 [JsonDerivedType(typeof(TFilePartial), nameof(TFilePartial))]
 [JsonDerivedType(typeof(TFileJpeg), nameof(TFileJpeg))]

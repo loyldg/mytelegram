@@ -2,43 +2,46 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Get group call participants
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.getGroupParticipants" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.getGroupParticipants" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc558d8ab)]
-public sealed class RequestGetGroupParticipants : IRequest<MyTelegram.Schema.Phone.IGroupParticipants>
+public sealed partial class RequestGetGroupParticipants : IRequest<MyTelegram.Schema.Phone.IGroupParticipants>
 {
     public uint ConstructorId => 0xc558d8ab;
 
-    ///<summary>
+    /// <summary>
     /// Group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, will fetch group participant info about the specified peers
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Ids { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, will fetch group participant info about the specified WebRTC source IDs
-    ///</summary>
+    /// </summary>
     public TVector<int> Sources { get; set; }
 
-    ///<summary>
-    /// Offset for results, taken from the <code>next_offset</code> field of <a href="https://corefork.telegram.org/constructor/phone.groupParticipants">phone.groupParticipants</a>, initially an empty string. <br>Note: if no more results are available, the method call will return an empty <code>next_offset</code>; thus, avoid providing the <code>next_offset</code> returned in <a href="https://corefork.telegram.org/constructor/phone.groupParticipants">phone.groupParticipants</a> if it is empty, to avoid an infinite loop.
-    ///</summary>
+    /// <summary>
+    /// Offset for results, taken from the <code>next_offset</code> field of <a href="https://corefork.telegram.org/constructor/phone.groupParticipants">phone.groupParticipants</a>, initially an empty string. <br/>Note: if no more results are available, the method call will return an empty <code>next_offset</code>; thus, avoid providing the <code>next_offset</code> returned in <a href="https://corefork.telegram.org/constructor/phone.groupParticipants">phone.groupParticipants</a> if it is empty, to avoid an infinite loop.
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

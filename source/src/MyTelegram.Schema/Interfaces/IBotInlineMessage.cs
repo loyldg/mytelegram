@@ -2,10 +2,20 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Inline message
-/// See <a href="https://corefork.telegram.org/type/BotInlineMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BotInlineMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotInlineMessageMediaAuto"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaAuto" /><br/>
+/// <see cref="TBotInlineMessageText"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageText" /><br/>
+/// <see cref="TBotInlineMessageMediaGeo"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaGeo" /><br/>
+/// <see cref="TBotInlineMessageMediaVenue"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaVenue" /><br/>
+/// <see cref="TBotInlineMessageMediaContact"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaContact" /><br/>
+/// <see cref="TBotInlineMessageMediaInvoice"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaInvoice" /><br/>
+/// <see cref="TBotInlineMessageMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaWebPage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotInlineMessageMediaAuto), nameof(TBotInlineMessageMediaAuto))]
 [JsonDerivedType(typeof(TBotInlineMessageText), nameof(TBotInlineMessageText))]
 [JsonDerivedType(typeof(TBotInlineMessageMediaGeo), nameof(TBotInlineMessageMediaGeo))]
@@ -15,14 +25,14 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TBotInlineMessageMediaWebPage), nameof(TBotInlineMessageMediaWebPage))]
 public interface IBotInlineMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 }

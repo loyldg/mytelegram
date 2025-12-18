@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Obtain a list of related languages that must be used when fetching <a href="https://corefork.telegram.org/api/custom-emoji#emoji-keywords">emoji keyword lists »</a>.Usually the method will return the passed language codes (if localized) + <code>en</code> + some language codes for similar languages (if applicable).
-/// See <a href="https://corefork.telegram.org/method/messages.getEmojiKeywordsLanguages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getEmojiKeywordsLanguages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4e9963b2)]
-public sealed class RequestGetEmojiKeywordsLanguages : IRequest<TVector<MyTelegram.Schema.IEmojiLanguage>>
+public sealed partial class RequestGetEmojiKeywordsLanguages : IRequest<TVector<MyTelegram.Schema.IEmojiLanguage>>
 {
     public uint ConstructorId => 0x4e9963b2;
 
-    ///<summary>
+    /// <summary>
     /// The user's language codes
-    ///</summary>
+    /// </summary>
     public TVector<string> LangCodes { get; set; }
 
     public void ComputeFlag()

@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
+/// <summary>
 /// Returns basic user info according to their identifiers.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/users.getUsers" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/users.getUsers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd91a548)]
-public sealed class RequestGetUsers : IRequest<TVector<MyTelegram.Schema.IUser>>
+public sealed partial class RequestGetUsers : IRequest<TVector<MyTelegram.Schema.IUser>>
 {
     public uint ConstructorId => 0xd91a548;
 
-    ///<summary>
+    /// <summary>
     /// List of user identifiers
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Id { get; set; }
 
     public void ComputeFlag()

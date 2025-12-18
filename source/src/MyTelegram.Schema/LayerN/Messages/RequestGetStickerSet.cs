@@ -12,7 +12,7 @@ namespace MyTelegram.Schema.Messages.LayerN;
 /// See <a href="https://corefork.telegram.org/method/messages.getStickerSet" />
 ///</summary>
 [TlObject(0x2619a90e)]
-public sealed class RequestGetStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestGetStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0x2619a90e;
     ///<summary>

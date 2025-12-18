@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.
-/// See <a href="https://corefork.telegram.org/constructor/secureValueErrorReverseSide" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueErrorReverseSide" /></para>
+/// </summary>
 [TlObject(0x868a2aa5)]
-public sealed class TSecureValueErrorReverseSide : ISecureValueError
+public sealed partial class TSecureValueErrorReverseSide : ISecureValueError
 {
     public uint ConstructorId => 0x868a2aa5;
-    ///<summary>
+    /// <summary>
     /// One of <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense">secureValueTypeDriverLicense</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard">secureValueTypeIdentityCard</a>
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

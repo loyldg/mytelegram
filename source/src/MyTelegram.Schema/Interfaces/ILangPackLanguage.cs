@@ -2,70 +2,74 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Language pack language
-/// See <a href="https://corefork.telegram.org/type/LangPackLanguage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/LangPackLanguage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TLangPackLanguage"/> See <a href="https://corefork.telegram.org/constructor/langPackLanguage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TLangPackLanguage), nameof(TLangPackLanguage))]
 public interface ILangPackLanguage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the language pack is official
-    ///</summary>
+    /// </summary>
     bool Official { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this a localization pack for an RTL language
-    ///</summary>
+    /// </summary>
     bool Rtl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this a beta localization pack?
-    ///</summary>
+    /// </summary>
     bool Beta { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Language name
-    ///</summary>
+    /// </summary>
     string Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Language name in the language itself
-    ///</summary>
+    /// </summary>
     string NativeName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Language code (pack identifier)
-    ///</summary>
+    /// </summary>
     string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs
-    ///</summary>
+    /// </summary>
     string? BaseLangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A language code to be used to apply plural forms. See <a href="https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html">https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html</a> for more info
-    ///</summary>
+    /// </summary>
     string PluralCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of non-deleted strings from the language pack
-    ///</summary>
+    /// </summary>
     int StringsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of translated strings from the language pack
-    ///</summary>
+    /// </summary>
     int TranslatedCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Link to language translation interface; empty for custom local language packs
-    ///</summary>
+    /// </summary>
     string TranslationsUrl { get; set; }
 }

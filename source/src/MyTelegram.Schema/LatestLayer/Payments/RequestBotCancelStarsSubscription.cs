@@ -2,37 +2,41 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Cancel a <a href="https://corefork.telegram.org/api/subscriptions#bot-subscriptions">bot subscription</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.botCancelStarsSubscription" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHARGE_ID_INVALID The specified charge_id is invalid.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.botCancelStarsSubscription" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6dfa0622)]
-public sealed class RequestBotCancelStarsSubscription : IRequest<IBool>
+public sealed partial class RequestBotCancelStarsSubscription : IRequest<IBool>
 {
     public uint ConstructorId => 0x6dfa0622;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// If <strong>not</strong> set, disables autorenewal of the subscriptions, and prevents the user from reactivating the subscription once the current period expires: a subscription cancelled by the bot will have the <a href="https://corefork.telegram.org/constructor/starsSubscription">starsSubscription</a>.<code>bot_canceled</code> flag set.  <br>The bot can can partially undo this operation by setting this flag: this will allow the user to reactivate the subscription.
-    ///</summary>
+    /// <summary>
+    /// If <strong>not</strong> set, disables autorenewal of the subscriptions, and prevents the user from reactivating the subscription once the current period expires: a subscription cancelled by the bot will have the <a href="https://corefork.telegram.org/constructor/starsSubscription">starsSubscription</a>.<code>bot_canceled</code> flag set.  <br/>The bot can can partially undo this operation by setting this flag: this will allow the user to reactivate the subscription.
+    /// </summary>
     public bool Restore { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The ID of the user whose subscription should be (un)cancelled
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <code>provider_charge_id</code> from the <a href="https://corefork.telegram.org/constructor/messageActionPaymentSentMe">messageActionPaymentSentMe</a> service message sent to the bot for the first subscription payment.
-    ///</summary>
+    /// </summary>
     public string ChargeId { get; set; }
 
     public void ComputeFlag()

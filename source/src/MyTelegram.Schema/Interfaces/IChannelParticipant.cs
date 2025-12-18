@@ -2,10 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel participant
-/// See <a href="https://corefork.telegram.org/type/ChannelParticipant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChannelParticipant" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelParticipant"/> See <a href="https://corefork.telegram.org/constructor/channelParticipant" /><br/>
+/// <see cref="TChannelParticipantSelf"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantSelf" /><br/>
+/// <see cref="TChannelParticipantCreator"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantCreator" /><br/>
+/// <see cref="TChannelParticipantAdmin"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantAdmin" /><br/>
+/// <see cref="TChannelParticipantBanned"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantBanned" /><br/>
+/// <see cref="TChannelParticipantLeft"/> See <a href="https://corefork.telegram.org/constructor/channelParticipantLeft" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelParticipant), nameof(TChannelParticipant))]
 [JsonDerivedType(typeof(TChannelParticipantSelf), nameof(TChannelParticipantSelf))]
 [JsonDerivedType(typeof(TChannelParticipantCreator), nameof(TChannelParticipantCreator))]

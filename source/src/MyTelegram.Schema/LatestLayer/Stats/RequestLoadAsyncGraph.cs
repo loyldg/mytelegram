@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Load <a href="https://corefork.telegram.org/api/stats">channel statistics graph</a> asynchronously
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GRAPH_EXPIRED_RELOAD This graph has expired, please obtain a new graph token.
-/// 400 GRAPH_INVALID_RELOAD Invalid graph token provided, please reload the stats and provide the updated token.
-/// 400 GRAPH_OUTDATED_RELOAD The graph is outdated, please get a new async token using stats.getBroadcastStats.
-/// See <a href="https://corefork.telegram.org/method/stats.loadAsyncGraph" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GRAPH_EXPIRED_RELOAD This graph has expired, please obtain a new graph token.</c></para>
+/// <para><c>400 GRAPH_INVALID_RELOAD Invalid graph token provided, please reload the stats and provide the updated token.</c></para>
+/// <para><c>400 GRAPH_OUTDATED_RELOAD The graph is outdated, please get a new async token using stats.getBroadcastStats. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stats.loadAsyncGraph" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x621d5fa0)]
-public sealed class RequestLoadAsyncGraph : IRequest<MyTelegram.Schema.IStatsGraph>
+public sealed partial class RequestLoadAsyncGraph : IRequest<MyTelegram.Schema.IStatsGraph>
 {
     public uint ConstructorId => 0x621d5fa0;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Graph token from <a href="https://corefork.telegram.org/constructor/statsGraphAsync">statsGraphAsync</a> constructor
-    ///</summary>
+    /// </summary>
     public string Token { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Zoom value, if required
-    ///</summary>
+    /// </summary>
     public long? X { get; set; }
 
     public void ComputeFlag()

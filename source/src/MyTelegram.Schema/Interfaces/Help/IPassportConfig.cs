@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Telegram <a href="https://corefork.telegram.org/passport">passport</a> configuration
-/// See <a href="https://corefork.telegram.org/type/help.PassportConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.PassportConfig" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPassportConfigNotModified"/> See <a href="https://corefork.telegram.org/constructor/help.passportConfigNotModified" /><br/>
+/// <see cref="TPassportConfig"/> See <a href="https://corefork.telegram.org/constructor/help.passportConfig" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPassportConfigNotModified), nameof(TPassportConfigNotModified))]
 [JsonDerivedType(typeof(TPassportConfig), nameof(TPassportConfig))]
 public interface IPassportConfig : IObject

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// An invite to a group call or livestream
-/// See <a href="https://corefork.telegram.org/constructor/phone.exportedGroupCallInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phone.exportedGroupCallInvite" /></para>
+/// </summary>
 [TlObject(0x204bd158)]
-public sealed class TExportedGroupCallInvite : IExportedGroupCallInvite
+public sealed partial class TExportedGroupCallInvite : IExportedGroupCallInvite
 {
     public uint ConstructorId => 0x204bd158;
-    ///<summary>
+    /// <summary>
     /// Invite link
-    ///</summary>
+    /// </summary>
     public string Link { get; set; }
 
     public void ComputeFlag()

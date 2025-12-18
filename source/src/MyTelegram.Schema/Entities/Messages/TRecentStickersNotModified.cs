@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// No new recent sticker was found
-/// See <a href="https://corefork.telegram.org/constructor/messages.recentStickersNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.recentStickersNotModified" /></para>
+/// </summary>
 [TlObject(0xb17f890)]
-public sealed class TRecentStickersNotModified : IRecentStickers
+public sealed partial class TRecentStickersNotModified : IRecentStickers
 {
     public uint ConstructorId => 0xb17f890;
     public void ComputeFlag()

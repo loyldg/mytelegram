@@ -2,53 +2,56 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Sends a message with a file attachment to a secret chat
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 DATA_TOO_LONG Data too long.
-/// 400 ENCRYPTION_DECLINED The secret chat was declined.
-/// 400 FILE_EMTPY An empty file was provided.
-/// 400 MD5_CHECKSUM_INVALID The MD5 checksums do not match.
-/// 400 MSG_WAIT_FAILED A waiting call returned an error.
-/// See <a href="https://corefork.telegram.org/method/messages.sendEncryptedFile" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 DATA_TOO_LONG Data too long.</c></para>
+/// <para><c>400 ENCRYPTION_DECLINED The secret chat was declined.</c></para>
+/// <para><c>400 FILE_EMTPY An empty file was provided.</c></para>
+/// <para><c>400 MD5_CHECKSUM_INVALID The MD5 checksums do not match.</c></para>
+/// <para><c>400 MSG_WAIT_FAILED A waiting call returned an error. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendEncryptedFile" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5559481d)]
-public sealed class RequestSendEncryptedFile : IRequest<MyTelegram.Schema.Messages.ISentEncryptedMessage>
+public sealed partial class RequestSendEncryptedFile : IRequest<MyTelegram.Schema.Messages.ISentEncryptedMessage>
 {
     public uint ConstructorId => 0x5559481d;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to send the file without triggering a notification
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret chat ID
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedChat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedChat Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client message ID necessary to prevent message resending
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// TL-serialization of <a href="https://corefork.telegram.org/type/DecryptedMessage">DecryptedMessage</a> type, encrypted with a key generated during chat initialization
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Data { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File attachment for the secret chat
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedFile File { get; set; }
 
     public void ComputeFlag()

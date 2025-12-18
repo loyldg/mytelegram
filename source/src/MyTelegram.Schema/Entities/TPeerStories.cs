@@ -2,34 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stories">Stories</a> associated to a peer
-/// See <a href="https://corefork.telegram.org/constructor/peerStories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/peerStories" /></para>
+/// </summary>
 [TlObject(0x9a35e999)]
-public sealed class TPeerStories : IPeerStories
+public sealed partial class TPeerStories : IPeerStories
 {
     public uint ConstructorId => 0x9a35e999;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, contains the ID of the maximum read story
-    ///</summary>
+    /// </summary>
     public int? MaxReadId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stories
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStoryItem> Stories { get; set; }
 
     public void ComputeFlag()

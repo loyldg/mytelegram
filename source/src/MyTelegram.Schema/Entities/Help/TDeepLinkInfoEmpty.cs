@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Deep link info empty
-/// See <a href="https://corefork.telegram.org/constructor/help.deepLinkInfoEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.deepLinkInfoEmpty" /></para>
+/// </summary>
 [TlObject(0x66afa166)]
-public sealed class TDeepLinkInfoEmpty : IDeepLinkInfo
+public sealed partial class TDeepLinkInfoEmpty : IDeepLinkInfo
 {
     public uint ConstructorId => 0x66afa166;
     public void ComputeFlag()

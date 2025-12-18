@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Placeholder <a href="https://corefork.telegram.org/api/bots/menu">bot menu button</a> never returned to users: see <a href="https://corefork.telegram.org/api/bots/menu">the docs for more info</a>.
-/// See <a href="https://corefork.telegram.org/constructor/botMenuButtonDefault" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botMenuButtonDefault" /></para>
+/// </summary>
 [TlObject(0x7533a588)]
-public sealed class TBotMenuButtonDefault : IBotMenuButton
+public sealed partial class TBotMenuButtonDefault : IBotMenuButton
 {
     public uint ConstructorId => 0x7533a588;
     public void ComputeFlag()

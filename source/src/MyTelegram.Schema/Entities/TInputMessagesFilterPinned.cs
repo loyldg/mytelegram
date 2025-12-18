@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Fetch only pinned messages
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPinned" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPinned" /></para>
+/// </summary>
 [TlObject(0x1bb00451)]
-public sealed class TInputMessagesFilterPinned : IMessagesFilter
+public sealed partial class TInputMessagesFilterPinned : IMessagesFilter
 {
     public uint ConstructorId => 0x1bb00451;
     public void ComputeFlag()

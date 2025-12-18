@@ -2,14 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/payments.StarGiftUpgradePreview" />
-///</summary>
+/// <summary>
+/// A preview of the possible attributes (chosen randomly) a <a href="https://corefork.telegram.org/api/gifts">gift »</a> can receive after upgrading it to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>, see <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">here »</a> for more info.
+/// <para>See <a href="https://corefork.telegram.org/type/payments.StarGiftUpgradePreview" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarGiftUpgradePreview"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftUpgradePreview" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarGiftUpgradePreview), nameof(TStarGiftUpgradePreview))]
 public interface IStarGiftUpgradePreview : IObject
 {
-    ///<summary>
+    /// <summary>
+    /// Possible gift attributes
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttribute" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IStarGiftAttribute> SampleAttributes { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/StarGiftUpgradePrice" />
+    /// </summary>
+    TVector<MyTelegram.Schema.IStarGiftUpgradePrice> Prices { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/StarGiftUpgradePrice" />
+    /// </summary>
+    TVector<MyTelegram.Schema.IStarGiftUpgradePrice> NextPrices { get; set; }
 }

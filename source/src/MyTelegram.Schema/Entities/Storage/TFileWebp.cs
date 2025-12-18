@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// WEBP image. MIME type: <code>image/webp</code>.
-/// See <a href="https://corefork.telegram.org/constructor/storage.fileWebp" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.fileWebp" /></para>
+/// </summary>
 [TlObject(0x1081464c)]
-public sealed class TFileWebp : IFileType
+public sealed partial class TFileWebp : IFileType
 {
     public uint ConstructorId => 0x1081464c;
     public void ComputeFlag()

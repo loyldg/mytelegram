@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Recent t.me stickerset installation URL
-/// See <a href="https://corefork.telegram.org/constructor/recentMeUrlStickerSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/recentMeUrlStickerSet" /></para>
+/// </summary>
 [TlObject(0xbc0a57dc)]
-public sealed class TRecentMeUrlStickerSet : IRecentMeUrl
+public sealed partial class TRecentMeUrlStickerSet : IRecentMeUrl
 {
     public uint ConstructorId => 0xbc0a57dc;
-    ///<summary>
+    /// <summary>
     /// t.me URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickerset
     /// See <a href="https://corefork.telegram.org/type/StickerSetCovered" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStickerSetCovered Set { get; set; }
 
     public void ComputeFlag()

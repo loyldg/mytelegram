@@ -2,38 +2,41 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Sends a service message to a secret chat.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 DATA_INVALID Encrypted data invalid.
-/// 400 ENCRYPTION_DECLINED The secret chat was declined.
-/// 400 ENCRYPTION_ID_INVALID The provided secret chat ID is invalid.
-/// 500 MSG_WAIT_FAILED A waiting call returned an error.
-/// 403 USER_DELETED You can't send this secret message because the other participant deleted their account.
-/// 403 USER_IS_BLOCKED You were blocked by this user.
-/// See <a href="https://corefork.telegram.org/method/messages.sendEncryptedService" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 DATA_INVALID Encrypted data invalid.</c></para>
+/// <para><c>400 ENCRYPTION_DECLINED The secret chat was declined.</c></para>
+/// <para><c>400 ENCRYPTION_ID_INVALID The provided secret chat ID is invalid.</c></para>
+/// <para><c>500 MSG_WAIT_FAILED A waiting call returned an error.</c></para>
+/// <para><c>403 USER_DELETED You can't send this secret message because the other participant deleted their account.</c></para>
+/// <para><c>403 USER_IS_BLOCKED You were blocked by this user. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendEncryptedService" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x32d439a4)]
-public sealed class RequestSendEncryptedService : IRequest<MyTelegram.Schema.Messages.ISentEncryptedMessage>
+public sealed partial class RequestSendEncryptedService : IRequest<MyTelegram.Schema.Messages.ISentEncryptedMessage>
 {
     public uint ConstructorId => 0x32d439a4;
 
-    ///<summary>
+    /// <summary>
     /// Secret chat ID
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedChat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedChat Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client message ID required to prevent message resending
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// TL-serialization of  <a href="https://corefork.telegram.org/type/DecryptedMessage">DecryptedMessage</a> type, encrypted with a key generated during chat initialization
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Data { get; set; }
 
     public void ComputeFlag()

@@ -2,66 +2,66 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Information about found messages sent on a specific day
-/// See <a href="https://corefork.telegram.org/constructor/messages.searchResultsCalendar" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.searchResultsCalendar" /></para>
+/// </summary>
 [TlObject(0x147ee23c)]
-public sealed class TSearchResultsCalendar : ISearchResultsCalendar
+public sealed partial class TSearchResultsCalendar : ISearchResultsCalendar
 {
     public uint ConstructorId => 0x147ee23c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the results may be inexact
-    ///</summary>
+    /// </summary>
     public bool Inexact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of results matching query
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Starting timestamp of attached messages
-    ///</summary>
+    /// </summary>
     public int MinDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Ending timestamp of attached messages
-    ///</summary>
+    /// </summary>
     public int MinMsgId { get; set; }
 
-    ///<summary>
-    /// Indicates the absolute position of <code>messages[0]</code> within the total result set with count <code>count</code>. <br>This is useful, for example, if we need to display a <code>progress/total</code> counter (like <code>photo 134 of 200</code>, for all media in a chat, we could simply use <code>photo ${offset_id_offset} of ${count}</code>.
-    ///</summary>
+    /// <summary>
+    /// Indicates the absolute position of <code>messages[0]</code> within the total result set with count <code>count</code>. <br/>This is useful, for example, if we need to display a <code>progress/total</code> counter (like <code>photo 134 of 200</code>, for all media in a chat, we could simply use <code>photo ${offset_id_offset} of ${count}</code>.
+    /// </summary>
     public int? OffsetIdOffset { get; set; }
 
-    ///<summary>
-    /// Used to split the <code>messages</code> by days: multiple <a href="https://corefork.telegram.org/type/SearchResultsCalendarPeriod">SearchResultsCalendarPeriod</a> constructors are returned, each containing information about the first, last and total number of messages matching the filter that were sent on a specific day.  <br>This information can be easily used to split the returned <code>messages</code> by day.
+    /// <summary>
+    /// Used to split the <code>messages</code> by days: multiple <a href="https://corefork.telegram.org/type/SearchResultsCalendarPeriod">SearchResultsCalendarPeriod</a> constructors are returned, each containing information about the first, last and total number of messages matching the filter that were sent on a specific day.  <br/>This information can be easily used to split the returned <code>messages</code> by day.
     /// See <a href="https://corefork.telegram.org/type/SearchResultsCalendarPeriod" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISearchResultsCalendarPeriod> Periods { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Messages
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

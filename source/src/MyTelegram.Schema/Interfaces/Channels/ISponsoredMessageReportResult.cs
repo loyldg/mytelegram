@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Status of the method call used to report a <a href="https://corefork.telegram.org/api/sponsored-messages">sponsored message »</a>.
-/// See <a href="https://corefork.telegram.org/type/channels.SponsoredMessageReportResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/channels.SponsoredMessageReportResult" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSponsoredMessageReportResultChooseOption"/> See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultChooseOption" /><br/>
+/// <see cref="TSponsoredMessageReportResultAdsHidden"/> See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultAdsHidden" /><br/>
+/// <see cref="TSponsoredMessageReportResultReported"/> See <a href="https://corefork.telegram.org/constructor/channels.sponsoredMessageReportResultReported" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSponsoredMessageReportResultChooseOption), nameof(TSponsoredMessageReportResultChooseOption))]
 [JsonDerivedType(typeof(TSponsoredMessageReportResultAdsHidden), nameof(TSponsoredMessageReportResultAdsHidden))]
 [JsonDerivedType(typeof(TSponsoredMessageReportResultReported), nameof(TSponsoredMessageReportResultReported))]

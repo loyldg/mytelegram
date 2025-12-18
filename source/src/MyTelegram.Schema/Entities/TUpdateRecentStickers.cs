@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The recent sticker list was updated
-/// See <a href="https://corefork.telegram.org/constructor/updateRecentStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateRecentStickers" /></para>
+/// </summary>
 [TlObject(0x9a422c20)]
-public sealed class TUpdateRecentStickers : IUpdate
+public sealed partial class TUpdateRecentStickers : IUpdate
 {
     public uint ConstructorId => 0x9a422c20;
     public void ComputeFlag()

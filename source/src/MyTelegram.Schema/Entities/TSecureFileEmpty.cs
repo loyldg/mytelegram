@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor
-/// See <a href="https://corefork.telegram.org/constructor/secureFileEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureFileEmpty" /></para>
+/// </summary>
 [TlObject(0x64199744)]
-public sealed class TSecureFileEmpty : ISecureFile
+public sealed partial class TSecureFileEmpty : ISecureFile
 {
     public uint ConstructorId => 0x64199744;
     public void ComputeFlag()

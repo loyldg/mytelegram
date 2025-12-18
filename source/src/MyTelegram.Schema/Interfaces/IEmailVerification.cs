@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Email verification code or token
-/// See <a href="https://corefork.telegram.org/type/EmailVerification" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EmailVerification" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmailVerificationCode"/> See <a href="https://corefork.telegram.org/constructor/emailVerificationCode" /><br/>
+/// <see cref="TEmailVerificationGoogle"/> See <a href="https://corefork.telegram.org/constructor/emailVerificationGoogle" /><br/>
+/// <see cref="TEmailVerificationApple"/> See <a href="https://corefork.telegram.org/constructor/emailVerificationApple" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmailVerificationCode), nameof(TEmailVerificationCode))]
 [JsonDerivedType(typeof(TEmailVerificationGoogle), nameof(TEmailVerificationGoogle))]
 [JsonDerivedType(typeof(TEmailVerificationApple), nameof(TEmailVerificationApple))]

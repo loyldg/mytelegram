@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer geolocated nearby
-/// See <a href="https://corefork.telegram.org/constructor/peerLocated" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/peerLocated" /></para>
+/// </summary>
 [TlObject(0xca461b5d)]
-public sealed class TPeerLocated : IPeerLocated
+public sealed partial class TPeerLocated : IPeerLocated
 {
     public uint ConstructorId => 0xca461b5d;
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Validity period of current data
-    ///</summary>
+    /// </summary>
     public int Expires { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Distance from the peer in meters
-    ///</summary>
+    /// </summary>
     public int Distance { get; set; }
 
     public void ComputeFlag()

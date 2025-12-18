@@ -2,28 +2,41 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/TodoList" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/TodoList" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTodoList"/> See <a href="https://corefork.telegram.org/constructor/todoList" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTodoList), nameof(TTodoList))]
 public interface ITodoList : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// If set, users different from the creator of the list can append items to the list.
+    /// </summary>
     bool OthersCanAppend { get; set; }
 
+    /// <summary>
+    /// If set, users different from the creator of the list can complete items in the list.
+    /// </summary>
     bool OthersCanComplete { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Title of the todo list, maximum length equal to <a href="https://corefork.telegram.org/api/config#todo-title-length-max">todo_title_length_max »</a>.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ITextWithEntities Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Items of the list.
     /// See <a href="https://corefork.telegram.org/type/TodoItem" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ITodoItem> List { get; set; }
 }

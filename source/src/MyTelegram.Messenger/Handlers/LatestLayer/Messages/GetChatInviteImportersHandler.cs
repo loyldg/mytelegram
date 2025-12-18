@@ -1,10 +1,9 @@
-﻿using GetChatInviteByLinkQuery = MyTelegram.Queries.GetChatInviteByLinkQuery;
+using GetChatInviteByLinkQuery = MyTelegram.Queries.GetChatInviteByLinkQuery;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+/// <summary>
 /// Get info about the users that joined the chat using a specific chat invite
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
@@ -13,24 +12,19 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 400 INVITE_HASH_EXPIRED The invite link has expired.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 SEARCH_WITH_LINK_NOT_SUPPORTED You cannot provide a search query and an invite link at the same time.
-/// See <a href="https://corefork.telegram.org/method/messages.getChatInviteImporters" />
-///</summary>
-internal sealed class GetChatInviteImportersHandler(
-    IQueryProcessor queryProcessor,
-    IAccessHashHelper accessHashHelper,
-    IPeerHelper peerHelper,
-    IUserConverterService userConverterService)
-    : RpcResultObjectHandler<RequestGetChatInviteImporters,
-            IChatInviteImporters>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getChatInviteImporters"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper, IPeerHelper peerHelper, IUserConverterService userConverterService) : RpcResultObjectHandler<RequestGetChatInviteImporters, IChatInviteImporters>
 {
-    protected override async Task<IChatInviteImporters> HandleCoreAsync(IRequestInput input,
-        RequestGetChatInviteImporters obj)
+    protected override async Task<IChatInviteImporters> HandleCoreAsync(IRequestInput input, RequestGetChatInviteImporters obj)
     {
         if (obj.Peer is TInputPeerChannel inputPeerChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel);
             var userPeer = peerHelper.GetPeer(obj.OffsetUser);
-
             var channelAdminReadModel = await queryProcessor.ProcessAsync(new GetChatAdminQuery(inputPeerChannel.ChannelId, input.UserId));
             if (channelAdminReadModel == null)
             {
@@ -44,13 +38,7 @@ internal sealed class GetChatInviteImportersHandler(
                 inviteId = chatInviteReadModel?.InviteId;
             }
 
-            var inviteImporterReadModels = await queryProcessor.ProcessAsync(
-                new GetChatInviteImportersQuery(inputPeerChannel.ChannelId,
-                    obj.Requested ? ChatInviteRequestState.WaitingForApproval : null,
-                    inviteId,
-                    obj.OffsetDate,
-                    userPeer.PeerId, obj.Q, obj.Limit));
-
+            var inviteImporterReadModels = await queryProcessor.ProcessAsync(new GetChatInviteImportersQuery(inputPeerChannel.ChannelId, obj.Requested ? ChatInviteRequestState.WaitingForApproval : null, inviteId, obj.OffsetDate, userPeer.PeerId, obj.Q, obj.Limit));
             var importers = new List<TChatInviteImporter>();
             var userIds = new List<long>();
             var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
@@ -58,7 +46,6 @@ internal sealed class GetChatInviteImportersHandler(
             foreach (var readModel in inviteImporterReadModels)
             {
                 //userDict.TryGetValue(readModel.UserId, out var user);
-
                 var importer = new TChatInviteImporter
                 {
                     //About = user?.About,
@@ -66,17 +53,16 @@ internal sealed class GetChatInviteImportersHandler(
                     Date = readModel.Date,
                     Requested = !readModel.IsJoinRequestProcessed,
                     UserId = readModel.UserId,
-                    //ViaChatlist = readModel.ViaChatList
+                //ViaChatlist = readModel.ViaChatList
                 };
                 importers.Add(importer);
                 userIds.Add(readModel.UserId);
             }
 
-
             return new TChatInviteImporters
             {
-                Importers = [.. importers],
-                Users = [.. users],
+                Importers = [..importers],
+                Users = [..users],
             };
         }
 

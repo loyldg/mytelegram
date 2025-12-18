@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a range of chat messages
-/// See <a href="https://corefork.telegram.org/constructor/messageRange" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageRange" /></para>
+/// </summary>
 [TlObject(0xae30253)]
-public sealed class TMessageRange : IMessageRange
+public sealed partial class TMessageRange : IMessageRange
 {
     public uint ConstructorId => 0xae30253;
-    ///<summary>
+    /// <summary>
     /// Start of range (message ID)
-    ///</summary>
+    /// </summary>
     public int MinId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// End of range (message ID)
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
     public void ComputeFlag()

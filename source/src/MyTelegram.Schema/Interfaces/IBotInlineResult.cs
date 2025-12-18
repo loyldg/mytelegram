@@ -2,32 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Results of an inline query
-/// See <a href="https://corefork.telegram.org/type/BotInlineResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BotInlineResult" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotInlineResult"/> See <a href="https://corefork.telegram.org/constructor/botInlineResult" /><br/>
+/// <see cref="TBotInlineMediaResult"/> See <a href="https://corefork.telegram.org/constructor/botInlineMediaResult" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotInlineResult), nameof(TBotInlineResult))]
 [JsonDerivedType(typeof(TBotInlineMediaResult), nameof(TBotInlineMediaResult))]
 public interface IBotInlineResult : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result ID
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result type (see <a href="https://corefork.telegram.org/bots/api#inlinequeryresult">bot API docs</a>)
-    ///</summary>
+    /// </summary>
     string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Depending on the <code>type</code> and on the <a href="https://corefork.telegram.org/type/BotInlineMessage">constructor</a>, contains the caption of the media or the content of the message to be sent <strong>instead</strong> of the media
     /// See <a href="https://corefork.telegram.org/type/BotInlineMessage" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IBotInlineMessage SendMessage { get; set; }
 }

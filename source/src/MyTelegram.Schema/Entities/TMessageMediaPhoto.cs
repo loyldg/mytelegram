@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Attached photo.
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaPhoto" /></para>
+/// </summary>
 [TlObject(0x695150d7)]
-public sealed class TMessageMediaPhoto : IMessageMedia
+public sealed partial class TMessageMediaPhoto : IMessageMedia
 {
     public uint ConstructorId => 0x695150d7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this media should be hidden behind a spoiler warning
-    ///</summary>
+    /// </summary>
     public bool Spoiler { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time to live in seconds of self-destructing photo
-    ///</summary>
+    /// </summary>
     public int? TtlSeconds { get; set; }
 
     public void ComputeFlag()

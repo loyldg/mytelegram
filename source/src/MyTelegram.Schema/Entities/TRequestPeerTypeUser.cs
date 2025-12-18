@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Choose a user.
-/// See <a href="https://corefork.telegram.org/constructor/requestPeerTypeUser" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/requestPeerTypeUser" /></para>
+/// </summary>
 [TlObject(0x5f3b8a00)]
-public sealed class TRequestPeerTypeUser : IRequestPeerType
+public sealed partial class TRequestPeerTypeUser : IRequestPeerType
 {
     public uint ConstructorId => 0x5f3b8a00;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow choosing only bots.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow choosing only <a href="https://corefork.telegram.org/api/premium">Premium</a> users.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? Premium { get; set; }
 
     public void ComputeFlag()

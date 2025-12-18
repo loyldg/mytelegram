@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// View, forward counter + info about replies of a specific message
-/// See <a href="https://corefork.telegram.org/constructor/messageViews" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageViews" /></para>
+/// </summary>
 [TlObject(0x455b853d)]
-public sealed class TMessageViews : IMessageViews
+public sealed partial class TMessageViews : IMessageViews
 {
     public uint ConstructorId => 0x455b853d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// View count of message
-    ///</summary>
+    /// </summary>
     public int? Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Forward count of message
-    ///</summary>
+    /// </summary>
     public int? Forwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reply and <a href="https://corefork.telegram.org/api/threads">thread</a> information of message
     /// See <a href="https://corefork.telegram.org/type/MessageReplies" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageReplies? Replies { get; set; }
 
     public void ComputeFlag()

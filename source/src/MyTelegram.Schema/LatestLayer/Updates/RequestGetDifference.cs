@@ -2,61 +2,65 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Get new <a href="https://corefork.telegram.org/api/updates">updates</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CDN_METHOD_INVALID You can't call this method in a CDN DC.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 DATE_EMPTY Date empty.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PERSISTENT_TIMESTAMP_EMPTY Persistent timestamp empty.
-/// 400 PERSISTENT_TIMESTAMP_INVALID Persistent timestamp invalid.
-/// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
-/// 400 USERNAME_INVALID The provided username is not valid.
-/// 400 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel.
-/// See <a href="https://corefork.telegram.org/method/updates.getDifference" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CDN_METHOD_INVALID You can't call this method in a CDN DC.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 DATE_EMPTY Date empty.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PERSISTENT_TIMESTAMP_EMPTY Persistent timestamp empty.</c></para>
+/// <para><c>400 PERSISTENT_TIMESTAMP_INVALID Persistent timestamp invalid.</c></para>
+/// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.</c></para>
+/// <para><c>400 USERNAME_INVALID The provided username is not valid.</c></para>
+/// <para><c>400 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/updates.getDifference" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x19c2f763)]
-public sealed class RequestGetDifference : IRequest<MyTelegram.Schema.Updates.IDifference>
+public sealed partial class RequestGetDifference : IRequest<MyTelegram.Schema.Updates.IDifference>
 {
     public uint ConstructorId => 0x19c2f763;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// PTS, see <a href="https://corefork.telegram.org/api/updates">updates</a>.
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// PTS limit
-    ///</summary>
+    /// </summary>
     public int? PtsLimit { get; set; }
 
-    ///<summary>
-    /// For fast updating: if provided and <code>pts + pts_total_limit &lt; remote pts</code>, <a href="https://corefork.telegram.org/constructor/updates.differenceTooLong">updates.differenceTooLong</a> will be returned.<br>Simply tells the server to not return the difference if it is bigger than <code>pts_total_limit</code><br>If the remote pts is too big (&gt; ~4000000), this field will default to 1000000
-    ///</summary>
+    /// <summary>
+    /// For fast updating: if provided and <code>pts + pts_total_limit &lt; remote pts</code>, <a href="https://corefork.telegram.org/constructor/updates.differenceTooLong">updates.differenceTooLong</a> will be returned.<br/>Simply tells the server to not return the difference if it is bigger than <code>pts_total_limit</code><br/>If the remote pts is too big (&gt; ~4000000), this field will default to 1000000
+    /// </summary>
     public int? PtsTotalLimit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// date, see <a href="https://corefork.telegram.org/api/updates">updates</a>.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// QTS, see <a href="https://corefork.telegram.org/api/updates">updates</a>.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// QTS limit
-    ///</summary>
+    /// </summary>
     public int? QtsLimit { get; set; }
 
     public void ComputeFlag()

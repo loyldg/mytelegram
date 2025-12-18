@@ -6,7 +6,7 @@ namespace MyTelegram.Services.NativeAot;
 
 #if !DEBUG
 
-// Count:69
+// Count:70
 // MyTelegram.Core
 [JsonSerializable(typeof(MyTelegram.Core.AcksDataReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.AppCodeCreatedIntegrationEvent))]
@@ -15,6 +15,7 @@ namespace MyTelegram.Services.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Core.AuthKeyCreatedIntegrationEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.AuthKeyNotFoundEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.AuthKeyUnRegisteredIntegrationEvent))]
+[JsonSerializable(typeof(MyTelegram.Core.AuthorizationCacheItem))]
 [JsonSerializable(typeof(MyTelegram.Core.BindUserIdToAuthKeyIntegrationEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.BindUserIdToAuthKeySuccessEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.BindUserIdToSessionEvent))]

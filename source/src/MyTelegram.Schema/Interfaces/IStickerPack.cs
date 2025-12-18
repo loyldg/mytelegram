@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Stickerpack
-/// See <a href="https://corefork.telegram.org/type/StickerPack" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StickerPack" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStickerPack"/> See <a href="https://corefork.telegram.org/constructor/stickerPack" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStickerPack), nameof(TStickerPack))]
 public interface IStickerPack : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Emoji
-    ///</summary>
+    /// </summary>
     string Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickers
-    ///</summary>
+    /// </summary>
     TVector<long> Documents { get; set; }
 }

@@ -2,45 +2,45 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// List of peers that reacted to or intercated with a specific <a href="https://corefork.telegram.org/api/stories">story</a>
-/// See <a href="https://corefork.telegram.org/constructor/stories.storyReactionsList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stories.storyReactionsList" /></para>
+/// </summary>
 [TlObject(0xaa5f789c)]
-public sealed class TStoryReactionsList : IStoryReactionsList
+public sealed partial class TStoryReactionsList : IStoryReactionsList
 {
     public uint ConstructorId => 0xaa5f789c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of reactions matching query
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of peers that reacted to or interacted with a specific story
     /// See <a href="https://corefork.telegram.org/type/StoryReaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStoryReaction> Reactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates the next offset to use to load more results by invoking <a href="https://corefork.telegram.org/method/stories.getStoryReactionsList">stories.getStoryReactionsList</a>.
-    ///</summary>
+    /// </summary>
     public string? NextOffset { get; set; }
 
     public void ComputeFlag()

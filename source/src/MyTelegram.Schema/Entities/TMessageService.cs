@@ -2,102 +2,103 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a service message
-/// See <a href="https://corefork.telegram.org/constructor/messageService" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageService" /></para>
+/// </summary>
 [TlObject(0x7a800e0a)]
-public sealed class TMessageService : IMessage, ILayeredServiceMessage
+public sealed partial class TMessageService : IMessage, ILayeredServiceMessage
 {
     public uint ConstructorId => 0x7a800e0a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message is outgoing
-    ///</summary>
+    /// </summary>
     public bool Out { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we were mentioned in the message
-    ///</summary>
+    /// </summary>
     public bool Mentioned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message contains unread media
-    ///</summary>
+    /// </summary>
     public bool MediaUnread { get; set; }
 
-    ///<summary>
-    /// Whether you can <a href="https://corefork.telegram.org/api/reactions">react to this messages »</a>.
-    ///</summary>
+    /// <summary>
+    /// Whether you can <a href="https://corefork.telegram.org/api/reactions">react to this message »</a>.
+    /// </summary>
     public bool ReactionsArePossible { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the message is silent
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether it's a channel post
-    ///</summary>
+    /// </summary>
     public bool Post { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This is a legacy message: it has to be refetched with the new layer
-    ///</summary>
+    /// </summary>
     public bool Legacy { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the sender of this message
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sender of service message
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Will only be set for service messages within a <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a>: <code>peer</code> will be equal to the ID of the monoforum and the <code>saved_peer_id</code> flag will be set to the ID of a topic.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SavedPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reply (thread) information
     /// See <a href="https://corefork.telegram.org/type/MessageReplyHeader" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageReplyHeader? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Event connected with the service message
     /// See <a href="https://corefork.telegram.org/type/MessageAction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageAction Action { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/reactions">Reactions »</a>.
     /// See <a href="https://corefork.telegram.org/type/MessageReactions" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageReactions? Reactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time To Live of the message, once message.date+message.ttl_period === time(), the message will be deleted on the server, and must be deleted locally as well.
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Text of a text message with an invitation to install Telegram.
-/// See <a href="https://corefork.telegram.org/constructor/help.inviteText" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.inviteText" /></para>
+/// </summary>
 [TlObject(0x18cb9f78)]
-public sealed class TInviteText : IInviteText
+public sealed partial class TInviteText : IInviteText
 {
     public uint ConstructorId => 0x18cb9f78;
-    ///<summary>
+    /// <summary>
     /// Text of the message
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
     public void ComputeFlag()

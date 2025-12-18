@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An empty block separating a page
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockDivider" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockDivider" /></para>
+/// </summary>
 [TlObject(0xdb20b188)]
-public sealed class TPageBlockDivider : IPageBlock
+public sealed partial class TPageBlockDivider : IPageBlock
 {
     public uint ConstructorId => 0xdb20b188;
     public void ComputeFlag()

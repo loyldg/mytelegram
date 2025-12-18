@@ -2,53 +2,56 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Search for stickers using AI-powered keyword search
-/// See <a href="https://corefork.telegram.org/method/messages.searchStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.searchStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x29b1c66a)]
-public sealed class RequestSearchStickers : IRequest<MyTelegram.Schema.Messages.IFoundStickers>
+public sealed partial class RequestSearchStickers : IRequest<MyTelegram.Schema.Messages.IFoundStickers>
 {
     public uint ConstructorId => 0x29b1c66a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, returns <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickers</a>
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The search term
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Space-separated list of emojis to search for
-    ///</summary>
+    /// </summary>
     public string Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of possible IETF language tags of the user's input language; may be empty if unknown
-    ///</summary>
+    /// </summary>
     public TVector<string> LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offset for pagination</a>
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>. <br>The hash may be generated locally by using the <code>id</code>s of the returned or stored sticker <a href="https://corefork.telegram.org/constructor/document">document</a>s.
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>. <br/>The hash may be generated locally by using the <code>id</code>s of the returned or stored sticker <a href="https://corefork.telegram.org/constructor/document">document</a>s.
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

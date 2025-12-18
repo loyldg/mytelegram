@@ -2,60 +2,60 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://instantview.telegram.org/">Instant view</a> page
-/// See <a href="https://corefork.telegram.org/constructor/page" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/page" /></para>
+/// </summary>
 [TlObject(0x98657f0d)]
-public sealed class TPage : IPage
+public sealed partial class TPage : IPage
 {
     public uint ConstructorId => 0x98657f0d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Indicates that not full page preview is available to the client and it will need to fetch full Instant View from the server using <a href="https://corefork.telegram.org/method/messages.getWebPagePreview">messages.getWebPagePreview</a>.
-    ///</summary>
+    /// </summary>
     public bool Part { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the page contains RTL text
-    ///</summary>
+    /// </summary>
     public bool Rtl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is an <a href="https://instantview.telegram.org/docs#what-39s-new-in-2-0">IV v2</a> page
-    ///</summary>
+    /// </summary>
     public bool V2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Original page HTTP URL
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Page elements (like with HTML elements, only as TL constructors)
     /// See <a href="https://corefork.telegram.org/type/PageBlock" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPageBlock> Blocks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photos in page
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPhoto> Photos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media in page
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Documents { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// View count
-    ///</summary>
+    /// </summary>
     public int? Views { get; set; }
 
     public void ComputeFlag()

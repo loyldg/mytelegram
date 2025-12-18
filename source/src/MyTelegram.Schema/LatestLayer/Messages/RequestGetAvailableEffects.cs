@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Fetch the full list of usable <a href="https://corefork.telegram.org/api/effects">animated message effects »</a>.
-/// See <a href="https://corefork.telegram.org/method/messages.getAvailableEffects" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getAvailableEffects" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdea20a39)]
-public sealed class RequestGetAvailableEffects : IRequest<MyTelegram.Schema.Messages.IAvailableEffects>
+public sealed partial class RequestGetAvailableEffects : IRequest<MyTelegram.Schema.Messages.IAvailableEffects>
 {
     public uint ConstructorId => 0xdea20a39;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

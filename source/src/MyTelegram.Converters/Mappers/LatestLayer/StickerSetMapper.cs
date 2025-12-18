@@ -47,9 +47,9 @@ internal sealed class StickerSetMapper
                 switch (p.Type)
                 {
                     case "i":
-                        return (IPhotoSize)new TPhotoStrippedSize { Type = p.Type, Bytes = p.Bytes };
+                        return (IPhotoSize)new TPhotoStrippedSize { Type = p.Type, Bytes = p.Bytes ?? ReadOnlyMemory<byte>.Empty };
                     case "j":
-                        return new TPhotoPathSize { Type = p.Type, Bytes = p.Bytes };
+                        return new TPhotoPathSize { Type = p.Type, Bytes = p.Bytes ?? ReadOnlyMemory<byte>.Empty };
                 }
 
                 return new TPhotoSize

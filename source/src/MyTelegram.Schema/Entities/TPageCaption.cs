@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Page caption
-/// See <a href="https://corefork.telegram.org/constructor/pageCaption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageCaption" /></para>
+/// </summary>
 [TlObject(0x6f747657)]
-public sealed class TPageCaption : IPageCaption
+public sealed partial class TPageCaption : IPageCaption
 {
     public uint ConstructorId => 0x6f747657;
-    ///<summary>
+    /// <summary>
     /// Caption
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Credits
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Credit { get; set; }
 
     public void ComputeFlag()

@@ -2,21 +2,35 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/stories.createAlbum" />
-///</summary>
+/// <summary>
+/// Creates a <a href="https://corefork.telegram.org/api/stories#story-albums">story album</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.createAlbum" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa36396e5)]
-public sealed class RequestCreateAlbum : IRequest<MyTelegram.Schema.IStoryAlbum>
+public sealed partial class RequestCreateAlbum : IRequest<MyTelegram.Schema.IStoryAlbum>
 {
     public uint ConstructorId => 0xa36396e5;
 
-    ///<summary>
+    /// <summary>
+    /// The owned peer where to create the album.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// Album name.
+    /// </summary>
     public string Title { get; set; }
 
+    /// <summary>
+    /// Stories to add to the album.
+    /// </summary>
     public TVector<int> Stories { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Outgoing messages in a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> were read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadChannelOutbox" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadChannelOutbox" /></para>
+/// </summary>
 [TlObject(0xb75f99a9)]
-public sealed class TUpdateReadChannelOutbox : IUpdate
+public sealed partial class TUpdateReadChannelOutbox : IUpdate
 {
     public uint ConstructorId => 0xb75f99a9;
-    ///<summary>
+    /// <summary>
     /// Channel/supergroup ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Position up to which all outgoing messages are read.
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
     public void ComputeFlag()

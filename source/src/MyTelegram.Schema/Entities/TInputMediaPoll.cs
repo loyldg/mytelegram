@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A poll
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaPoll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaPoll" /></para>
+/// </summary>
 [TlObject(0xf94e5f1)]
-public sealed class TInputMediaPoll : IInputMedia
+public sealed partial class TInputMediaPoll : IInputMedia
 {
     public uint ConstructorId => 0xf94e5f1;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The poll to send
     /// See <a href="https://corefork.telegram.org/type/Poll" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPoll Poll { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Correct answer IDs (for quiz polls)
-    ///</summary>
+    /// </summary>
     public TVector<string>? CorrectAnswers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Explanation of quiz solution
-    ///</summary>
+    /// </summary>
     public string? Solution { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? SolutionEntities { get; set; }
 
     public void ComputeFlag()

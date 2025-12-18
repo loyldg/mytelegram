@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/emoji-status">Emoji status</a>
-/// See <a href="https://corefork.telegram.org/type/EmojiStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EmojiStatus" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmojiStatusEmpty"/> See <a href="https://corefork.telegram.org/constructor/emojiStatusEmpty" /><br/>
+/// <see cref="TEmojiStatus"/> See <a href="https://corefork.telegram.org/constructor/emojiStatus" /><br/>
+/// <see cref="TEmojiStatusCollectible"/> See <a href="https://corefork.telegram.org/constructor/emojiStatusCollectible" /><br/>
+/// <see cref="TInputEmojiStatusCollectible"/> See <a href="https://corefork.telegram.org/constructor/inputEmojiStatusCollectible" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmojiStatusEmpty), nameof(TEmojiStatusEmpty))]
 [JsonDerivedType(typeof(TEmojiStatus), nameof(TEmojiStatus))]
 [JsonDerivedType(typeof(TEmojiStatusCollectible), nameof(TEmojiStatusCollectible))]

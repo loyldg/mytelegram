@@ -2,24 +2,36 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.createStarGiftCollection" />
-///</summary>
+/// <summary>
+/// Create a <a href="https://corefork.telegram.org/api/gifts#gift-collections">star gift collection »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.createStarGiftCollection" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1f4a0e87)]
-public sealed class RequestCreateStarGiftCollection : IRequest<MyTelegram.Schema.IStarGiftCollection>
+public sealed partial class RequestCreateStarGiftCollection : IRequest<MyTelegram.Schema.IStarGiftCollection>
 {
     public uint ConstructorId => 0x1f4a0e87;
 
-    ///<summary>
+    /// <summary>
+    /// Peer where to create the collection.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// Title of the collection.
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Gifts added to the collection.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputSavedStarGift> Stargift { get; set; }
 
     public void ComputeFlag()

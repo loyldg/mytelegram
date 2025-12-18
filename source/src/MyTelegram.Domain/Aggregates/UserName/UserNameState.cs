@@ -1,7 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.UserName;
 
 public class UserNameState : AggregateState<UserNameAggregate, UserNameId, UserNameState>,
-    IApply<SetUserNameSuccessEvent>,
     IApply<UserNameCreatedEvent>,
     IApply<UserNameChangedEvent>,
     IApply<UserNameDeletedEvent>
@@ -9,11 +8,6 @@ public class UserNameState : AggregateState<UserNameAggregate, UserNameId, UserN
     public bool IsDeleted { get; private set; }
     public Peer Peer { get; private set; } = default!;
     public string? UserName { get; private set; }
-    public void Apply(SetUserNameSuccessEvent aggregateEvent)
-    {
-        IsDeleted = false;
-        UserName = aggregateEvent.UserName;
-    }
 
     public void Apply(UserNameCreatedEvent aggregateEvent)
     {

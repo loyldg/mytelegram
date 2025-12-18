@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get installed mask stickers
-/// See <a href="https://corefork.telegram.org/method/messages.getMaskStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getMaskStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x640f82b8)]
-public sealed class RequestGetMaskStickers : IRequest<MyTelegram.Schema.Messages.IAllStickers>
+public sealed partial class RequestGetMaskStickers : IRequest<MyTelegram.Schema.Messages.IAllStickers>
 {
     public uint ConstructorId => 0x640f82b8;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

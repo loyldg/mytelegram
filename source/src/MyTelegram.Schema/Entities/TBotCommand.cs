@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a bot command that can be used in a chat
-/// See <a href="https://corefork.telegram.org/constructor/botCommand" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botCommand" /></para>
+/// </summary>
 [TlObject(0xc27ac8c7)]
-public sealed class TBotCommand : IBotCommand
+public sealed partial class TBotCommand : IBotCommand
 {
     public uint ConstructorId => 0xc27ac8c7;
-    ///<summary>
+    /// <summary>
     /// <code>/command</code> name
-    ///</summary>
+    /// </summary>
     public string Command { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description of the command
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
     public void ComputeFlag()

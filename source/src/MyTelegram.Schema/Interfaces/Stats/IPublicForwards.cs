@@ -2,43 +2,47 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Contains info about the forwards of a <a href="https://corefork.telegram.org/api/stories">story</a> as a message to public chats and reposts by public channels.
-/// See <a href="https://corefork.telegram.org/type/stats.PublicForwards" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/stats.PublicForwards" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPublicForwards"/> See <a href="https://corefork.telegram.org/constructor/stats.publicForwards" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPublicForwards), nameof(TPublicForwards))]
 public interface IPublicForwards : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of results
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the forwards of a story.
     /// See <a href="https://corefork.telegram.org/type/PublicForward" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPublicForward> Forwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset used for <a href="https://corefork.telegram.org/api/offsets">pagination</a>.
-    ///</summary>
+    /// </summary>
     string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

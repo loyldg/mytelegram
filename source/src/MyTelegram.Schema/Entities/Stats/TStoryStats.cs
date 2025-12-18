@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Contains <a href="https://corefork.telegram.org/api/stats">statistics</a> about a <a href="https://corefork.telegram.org/api/stories">story</a>.
-/// See <a href="https://corefork.telegram.org/constructor/stats.storyStats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stats.storyStats" /></para>
+/// </summary>
 [TlObject(0x50cd067c)]
-public sealed class TStoryStats : IStoryStats
+public sealed partial class TStoryStats : IStoryStats
 {
     public uint ConstructorId => 0x50cd067c;
-    ///<summary>
+    /// <summary>
     /// A graph containing the number of story views and shares
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph ViewsGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A bar graph containing the number of story reactions categorized by "emotion" (i.e. Positive, Negative, Other, etc...)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStatsGraph ReactionsByEmotionGraph { get; set; }
 
     public void ComputeFlag()

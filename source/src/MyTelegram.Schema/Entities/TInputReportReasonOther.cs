@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Other
-/// See <a href="https://corefork.telegram.org/constructor/inputReportReasonOther" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputReportReasonOther" /></para>
+/// </summary>
 [TlObject(0xc1e4a2b1)]
-public sealed class TInputReportReasonOther : IReportReason
+public sealed partial class TInputReportReasonOther : IReportReason
 {
     public uint ConstructorId => 0xc1e4a2b1;
     public void ComputeFlag()

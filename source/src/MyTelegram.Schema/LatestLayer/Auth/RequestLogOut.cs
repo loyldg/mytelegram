@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Logs out the user.
-/// See <a href="https://corefork.telegram.org/method/auth.logOut" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.logOut" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3e72ba19)]
-public sealed class RequestLogOut : IRequest<MyTelegram.Schema.Auth.ILoggedOut>
+public sealed partial class RequestLogOut : IRequest<MyTelegram.Schema.Auth.ILoggedOut>
 {
     public uint ConstructorId => 0x3e72ba19;
 

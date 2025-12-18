@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A new session logged into the current user's account through an unknown device.
-/// See <a href="https://corefork.telegram.org/constructor/updateNewAuthorization" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateNewAuthorization" /></para>
+/// </summary>
 [TlObject(0x8951abef)]
-public sealed class TUpdateNewAuthorization : IUpdate
+public sealed partial class TUpdateNewAuthorization : IUpdate
 {
     public uint ConstructorId => 0x8951abef;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the session is <a href="https://corefork.telegram.org/api/auth#confirming-login">unconfirmed, see here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public bool Unconfirmed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Authorization date
-    ///</summary>
+    /// </summary>
     public int? Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of device, for example <em>Android</em>
-    ///</summary>
+    /// </summary>
     public string? Device { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Location, for example <em>USA, NY (IP=1.2.3.4)</em>
-    ///</summary>
+    /// </summary>
     public string? Location { get; set; }
 
     public void ComputeFlag()

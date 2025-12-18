@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Invoke a method within a <a href="https://corefork.telegram.org/api/takeout">takeout session, see here » for more info</a>.
-/// See <a href="https://corefork.telegram.org/method/invokeWithTakeout" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/invokeWithTakeout" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xaca9fd2e)]
-public sealed class RequestInvokeWithTakeout : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInvokeWithTakeout : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xaca9fd2e;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/takeout">Takeout session ID »</a>
-    ///</summary>
+    /// </summary>
     public long TakeoutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query
-    ///</summary>
+    /// </summary>
     public IObject Query { get; set; }
 
     public void ComputeFlag()

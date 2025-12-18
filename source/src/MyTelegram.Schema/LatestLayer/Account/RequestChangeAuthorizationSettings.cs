@@ -2,43 +2,46 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Change settings related to a session.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 HASH_INVALID The provided hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.changeAuthorizationSettings" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 HASH_INVALID The provided hash is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.changeAuthorizationSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x40f48462)]
-public sealed class RequestChangeAuthorizationSettings : IRequest<IBool>
+public sealed partial class RequestChangeAuthorizationSettings : IRequest<IBool>
 {
     public uint ConstructorId => 0x40f48462;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, <a href="https://corefork.telegram.org/api/auth#confirming-login">confirms a newly logged in session »</a>.
-    ///</summary>
+    /// </summary>
     public bool Confirmed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Session ID from the <a href="https://corefork.telegram.org/constructor/authorization">authorization</a> constructor, fetchable using <a href="https://corefork.telegram.org/method/account.getAuthorizations">account.getAuthorizations</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to enable or disable receiving encrypted chats: if the flag is not set, the previous setting is not changed
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? EncryptedRequestsDisabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to enable or disable receiving calls: if the flag is not set, the previous setting is not changed
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? CallRequestsDisabled { get; set; }
 
     public void ComputeFlag()

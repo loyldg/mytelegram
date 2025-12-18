@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The specified bot commands will only be valid in all private chats with users.
-/// See <a href="https://corefork.telegram.org/constructor/botCommandScopeUsers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botCommandScopeUsers" /></para>
+/// </summary>
 [TlObject(0x3c4f04d8)]
-public sealed class TBotCommandScopeUsers : IBotCommandScope
+public sealed partial class TBotCommandScopeUsers : IBotCommandScope
 {
     public uint ConstructorId => 0x3c4f04d8;
     public void ComputeFlag()

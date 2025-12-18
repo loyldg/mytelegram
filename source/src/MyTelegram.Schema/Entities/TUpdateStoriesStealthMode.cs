@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates that <a href="https://corefork.telegram.org/api/stories#stealth-mode">stories stealth mode</a> was activated.
-/// See <a href="https://corefork.telegram.org/constructor/updateStoriesStealthMode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateStoriesStealthMode" /></para>
+/// </summary>
 [TlObject(0x2c084dc1)]
-public sealed class TUpdateStoriesStealthMode : IUpdate
+public sealed partial class TUpdateStoriesStealthMode : IUpdate
 {
     public uint ConstructorId => 0x2c084dc1;
-    ///<summary>
+    /// <summary>
     /// Information about the current <a href="https://corefork.telegram.org/api/stories#stealth-mode">stealth mode</a> session.
     /// See <a href="https://corefork.telegram.org/type/StoriesStealthMode" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoriesStealthMode StealthMode { get; set; }
 
     public void ComputeFlag()

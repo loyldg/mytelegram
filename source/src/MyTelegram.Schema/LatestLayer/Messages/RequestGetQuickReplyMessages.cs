@@ -2,36 +2,39 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Fetch (a subset or all) messages in a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 SHORTCUT_INVALID The specified shortcut is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getQuickReplyMessages" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SHORTCUT_INVALID The specified shortcut is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getQuickReplyMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x94a495c3)]
-public sealed class RequestGetQuickReplyMessages : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestGetQuickReplyMessages : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0x94a495c3;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Quick reply shortcut ID.
-    ///</summary>
+    /// </summary>
     public int ShortcutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of the messages to fetch, if empty fetches all of them.
-    ///</summary>
+    /// </summary>
     public TVector<int>? Id { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// <summary>
+    /// Hash for pagination, generated as specified <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">here »</a> (not the usual algorithm used for hash generation).
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

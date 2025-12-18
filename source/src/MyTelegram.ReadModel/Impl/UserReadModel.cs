@@ -108,7 +108,6 @@ public class UserReadModel : IUserReadModel,
         AccessHash = domainEvent.AggregateEvent.AccessHash;
         LastUpdateDate = domainEvent.AggregateEvent.CreationTime;
         Bot = domainEvent.AggregateEvent.Bot;
-        BotInfoVersion = domainEvent.AggregateEvent.BotInfoVersion;
         AccountTtl = domainEvent.AggregateEvent.AccountTtl;
         SensitiveCanChange = true;
         ShowContactSignUpNotification = false;

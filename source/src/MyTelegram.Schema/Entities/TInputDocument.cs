@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a document for subsequent interaction.
-/// See <a href="https://corefork.telegram.org/constructor/inputDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputDocument" /></para>
+/// </summary>
 [TlObject(0x1abfb575)]
-public sealed class TInputDocument : IInputDocument
+public sealed partial class TInputDocument : IInputDocument
 {
     public uint ConstructorId => 0x1abfb575;
-    ///<summary>
+    /// <summary>
     /// Document ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <strong>access_hash</strong> parameter from the <a href="https://corefork.telegram.org/constructor/document">document</a> constructor
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/file_reference">File reference</a>
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/file-references">File reference</a>
+    /// </summary>
     public ReadOnlyMemory<byte> FileReference { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An error occurred while generating the <a href="https://corefork.telegram.org/api/stats">statistics graph</a>
-/// See <a href="https://corefork.telegram.org/constructor/statsGraphError" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsGraphError" /></para>
+/// </summary>
 [TlObject(0xbedc9822)]
-public sealed class TStatsGraphError : IStatsGraph
+public sealed partial class TStatsGraphError : IStatsGraph
 {
     public uint ConstructorId => 0xbedc9822;
-    ///<summary>
+    /// <summary>
     /// The error
-    ///</summary>
+    /// </summary>
     public string Error { get; set; }
 
     public void ComputeFlag()

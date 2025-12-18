@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Fetch a list of <a href="https://corefork.telegram.org/api/giveaways#star-giveaways">star giveaway options »</a>.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsGiveawayOptions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsGiveawayOptions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xbd1efd3e)]
-public sealed class RequestGetStarsGiveawayOptions : IRequest<TVector<MyTelegram.Schema.IStarsGiveawayOption>>
+public sealed partial class RequestGetStarsGiveawayOptions : IRequest<TVector<MyTelegram.Schema.IStarsGiveawayOption>>
 {
     public uint ConstructorId => 0xbd1efd3e;
 

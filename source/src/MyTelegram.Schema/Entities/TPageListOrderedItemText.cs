@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Ordered list of text items
-/// See <a href="https://corefork.telegram.org/constructor/pageListOrderedItemText" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageListOrderedItemText" /></para>
+/// </summary>
 [TlObject(0x5e068047)]
-public sealed class TPageListOrderedItemText : IPageListOrderedItem
+public sealed partial class TPageListOrderedItemText : IPageListOrderedItem
 {
     public uint ConstructorId => 0x5e068047;
-    ///<summary>
+    /// <summary>
     /// Number of element within ordered list
-    ///</summary>
+    /// </summary>
     public string Num { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
     public void ComputeFlag()

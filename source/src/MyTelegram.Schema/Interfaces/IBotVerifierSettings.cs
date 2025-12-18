@@ -2,22 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/BotVerifierSettings" />
-///</summary>
+/// <summary>
+/// Info about the current <a href="https://corefork.telegram.org/api/bots/verification">verifier bot »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/BotVerifierSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBotVerifierSettings"/> See <a href="https://corefork.telegram.org/constructor/botVerifierSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBotVerifierSettings), nameof(TBotVerifierSettings))]
 public interface IBotVerifierSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// Indicates whether the bot is allowed to set a custom description field for individual verified peers, different from the <code>custom_description</code> provided here.
+    /// </summary>
     bool CanModifyCustomDescription { get; set; }
 
+    /// <summary>
+    /// Verification icon
+    /// </summary>
     long Icon { get; set; }
 
+    /// <summary>
+    /// The name of the organization that provides the verification
+    /// </summary>
     string Company { get; set; }
 
+    /// <summary>
+    /// An optional default description for the verification
+    /// </summary>
     string? CustomDescription { get; set; }
 }

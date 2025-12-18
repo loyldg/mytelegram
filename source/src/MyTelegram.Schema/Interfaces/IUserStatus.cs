@@ -2,10 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User online status
-/// See <a href="https://corefork.telegram.org/type/UserStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/UserStatus" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUserStatusEmpty"/> See <a href="https://corefork.telegram.org/constructor/userStatusEmpty" /><br/>
+/// <see cref="TUserStatusOnline"/> See <a href="https://corefork.telegram.org/constructor/userStatusOnline" /><br/>
+/// <see cref="TUserStatusOffline"/> See <a href="https://corefork.telegram.org/constructor/userStatusOffline" /><br/>
+/// <see cref="TUserStatusRecently"/> See <a href="https://corefork.telegram.org/constructor/userStatusRecently" /><br/>
+/// <see cref="TUserStatusLastWeek"/> See <a href="https://corefork.telegram.org/constructor/userStatusLastWeek" /><br/>
+/// <see cref="TUserStatusLastMonth"/> See <a href="https://corefork.telegram.org/constructor/userStatusLastMonth" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUserStatusEmpty), nameof(TUserStatusEmpty))]
 [JsonDerivedType(typeof(TUserStatusOnline), nameof(TUserStatusOnline))]
 [JsonDerivedType(typeof(TUserStatusOffline), nameof(TUserStatusOffline))]

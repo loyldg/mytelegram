@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Link to section within the page itself (like <code>&lt;a href="#target"&gt;anchor&lt;/a&gt;</code>)
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockAnchor" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockAnchor" /></para>
+/// </summary>
 [TlObject(0xce0d37b0)]
-public sealed class TPageBlockAnchor : IPageBlock
+public sealed partial class TPageBlockAnchor : IPageBlock
 {
     public uint ConstructorId => 0xce0d37b0;
-    ///<summary>
+    /// <summary>
     /// Name of target section
-    ///</summary>
+    /// </summary>
     public string Name { get; set; }
 
     public void ComputeFlag()

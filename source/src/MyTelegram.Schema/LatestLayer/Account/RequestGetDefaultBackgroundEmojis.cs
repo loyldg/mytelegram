@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get a set of suggested <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickers</a> that can be used in an <a href="https://corefork.telegram.org/api/colors">accent color pattern</a>.
-/// See <a href="https://corefork.telegram.org/method/account.getDefaultBackgroundEmojis" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getDefaultBackgroundEmojis" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa60ab9ce)]
-public sealed class RequestGetDefaultBackgroundEmojis : IRequest<MyTelegram.Schema.IEmojiList>
+public sealed partial class RequestGetDefaultBackgroundEmojis : IRequest<MyTelegram.Schema.IEmojiList>
 {
     public uint ConstructorId => 0xa60ab9ce;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

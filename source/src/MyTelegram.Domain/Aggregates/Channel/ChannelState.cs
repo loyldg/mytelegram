@@ -2,8 +2,8 @@
 
 public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelState>,
     IApply<ChannelCreatedEvent>,
-    IApply<StartSendChannelMessageEvent>,
-    IApply<StartInviteToChannelEvent>,
+    //IApply<StartSendChannelMessageEvent>,
+    //IApply<StartInviteToChannelEvent>,
     IApply<IncrementParticipantCountEvent>,
     IApply<DiscussionGroupUpdatedEvent>,
     IApply<ReadChannelLatestNoneBotOutboxMessageEvent>,
@@ -19,10 +19,10 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     IApply<ChannelUserNameChangedEvent>,
     IApply<CheckChannelStateCompletedEvent>,
     IApply<ChannelNoForwardsChangedEvent>,
-    IApply<ChatJoinRequestHiddenEvent>,
+    //IApply<ChatJoinRequestHiddenEvent>,
     IApply<ChannelSignatureChangedEvent>,
     IApply<ChannelColorUpdatedEvent>,
-    IApply<ChatInviteRequestPendingUpdatedEvent>,
+    //IApply<ChatInviteRequestPendingUpdatedEvent>,
     IApply<LinkedChannelChangedEvent>,
     IApply<ChannelDeletedEvent>,
     IApply<ChannelParticipantCountChangedEvent>,
@@ -174,17 +174,17 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         UserName = aggregateEvent.UserName;
     }
 
-    public void Apply(ChatInviteRequestPendingUpdatedEvent aggregateEvent)
-    {
-        RequestsPending = aggregateEvent.RequestsPending;
-        RecentRequesters = aggregateEvent.RecentRequesters;
-    }
+    //public void Apply(ChatInviteRequestPendingUpdatedEvent aggregateEvent)
+    //{
+    //    RequestsPending = aggregateEvent.RequestsPending;
+    //    RecentRequesters = aggregateEvent.RecentRequesters;
+    //}
 
-    public void Apply(ChatJoinRequestHiddenEvent aggregateEvent)
-    {
-        RequestsPending = aggregateEvent.RequestsPending;
-        RecentRequesters = aggregateEvent.RecentRequesters;
-    }
+    //public void Apply(ChatJoinRequestHiddenEvent aggregateEvent)
+    //{
+    //    RequestsPending = aggregateEvent.RequestsPending;
+    //    RecentRequesters = aggregateEvent.RecentRequesters;
+    //}
 
     public void Apply(CheckChannelStateCompletedEvent aggregateEvent)
     {
@@ -233,31 +233,31 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         SlowModeSeconds = aggregateEvent.Seconds;
     }
 
-    public void Apply(StartInviteToChannelEvent aggregateEvent)
-    {
-        foreach (var memberUid in aggregateEvent.MemberUidList)
-        {
-            if (memberUid > MyTelegramConsts.BotUserInitId)
-            {
-                if (!BotUserIdList.Contains(memberUid))
-                {
-                    BotUserIdList.Add(memberUid);
-                }
-            }
-        }
-    }
+    //public void Apply(StartInviteToChannelEvent aggregateEvent)
+    //{
+    //    foreach (var memberUid in aggregateEvent.MemberUidList)
+    //    {
+    //        if (memberUid > MyTelegramConsts.BotUserInitId)
+    //        {
+    //            if (!BotUserIdList.Contains(memberUid))
+    //            {
+    //                BotUserIdList.Add(memberUid);
+    //            }
+    //        }
+    //    }
+    //}
 
-    public void Apply(StartSendChannelMessageEvent aggregateEvent)
-    {
-        MaxMessageId = aggregateEvent.MessageId;
-        if (!aggregateEvent.SenderIsBot)
-        {
-            LatestNonBotSenderPeerId = aggregateEvent.SenderPeerId;
-            LatestNonBotSenderMessageId = aggregateEvent.MessageId;
-        }
+    //public void Apply(StartSendChannelMessageEvent aggregateEvent)
+    //{
+    //    MaxMessageId = aggregateEvent.MessageId;
+    //    if (!aggregateEvent.SenderIsBot)
+    //    {
+    //        LatestNonBotSenderPeerId = aggregateEvent.SenderPeerId;
+    //        LatestNonBotSenderMessageId = aggregateEvent.MessageId;
+    //    }
 
-        LastSendDate = aggregateEvent.Date;
-    }
+    //    LastSendDate = aggregateEvent.Date;
+    //}
 
     public ChatAdmin? GetAdmin(long adminId)
     {

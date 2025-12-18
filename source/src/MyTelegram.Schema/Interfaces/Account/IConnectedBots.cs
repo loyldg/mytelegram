@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
-/// Info about currently connected <a href="https://corefork.telegram.org/api/business#connected-bots">business bots</a>.
-/// See <a href="https://corefork.telegram.org/type/account.ConnectedBots" />
-///</summary>
+/// <summary>
+/// Info about currently connected <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bots</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/account.ConnectedBots" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TConnectedBots"/> See <a href="https://corefork.telegram.org/constructor/account.connectedBots" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TConnectedBots), nameof(TConnectedBots))]
 public interface IConnectedBots : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Info about the connected bots
     /// See <a href="https://corefork.telegram.org/type/ConnectedBot" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IConnectedBot> ConnectedBots { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot information
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

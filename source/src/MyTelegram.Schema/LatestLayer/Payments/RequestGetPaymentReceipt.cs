@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Get payment receipt
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getPaymentReceipt" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getPaymentReceipt" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2478d1cc)]
-public sealed class RequestGetPaymentReceipt : IRequest<MyTelegram.Schema.Payments.IPaymentReceipt>
+public sealed partial class RequestGetPaymentReceipt : IRequest<MyTelegram.Schema.Payments.IPaymentReceipt>
 {
     public uint ConstructorId => 0x2478d1cc;
 
-    ///<summary>
+    /// <summary>
     /// The peer where the payment receipt was sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of receipt
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

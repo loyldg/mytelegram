@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about a <a href="https://corefork.telegram.org/api/stickers">stickerset »</a>, for a <a href="https://corefork.telegram.org/constructor/webPage">webPage</a> preview of a <a href="https://corefork.telegram.org/api/links#stickerset-links">stickerset deep link »</a> (the <a href="https://corefork.telegram.org/constructor/webPage">webPage</a> will have a <code>type</code> of <code>telegram_stickerset</code>).
-/// See <a href="https://corefork.telegram.org/constructor/webPageAttributeStickerSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPageAttributeStickerSet" /></para>
+/// </summary>
 [TlObject(0x50cc03d3)]
-public sealed class TWebPageAttributeStickerSet : IWebPageAttribute
+public sealed partial class TWebPageAttributeStickerSet : IWebPageAttribute
 {
     public uint ConstructorId => 0x50cc03d3;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this i s a <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickerset</a>.
-    ///</summary>
+    /// </summary>
     public bool Emojis { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the color of this TGS custom emoji stickerset should be changed to the text color when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context.
-    ///</summary>
+    /// </summary>
     public bool TextColor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A subset of the stickerset in the stickerset.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Stickers { get; set; }
 
     public void ComputeFlag()

@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Number of users that reacted with a certain emoji
-/// See <a href="https://corefork.telegram.org/type/ReactionCount" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ReactionCount" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TReactionCount"/> See <a href="https://corefork.telegram.org/constructor/reactionCount" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TReactionCount), nameof(TReactionCount))]
 public interface IReactionCount : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
-    /// If set, indicates that the current user also sent this reaction. <br>The integer value indicates when was the reaction added: the bigger the value, the newer the reaction.
-    ///</summary>
+    /// <summary>
+    /// If set, indicates that the current user also sent this reaction. <br/>The integer value indicates when was the reaction added: the bigger the value, the newer the reaction.
+    /// </summary>
     int? ChosenOrder { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reaction.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IReaction Reaction { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of users that reacted with this emoji.
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 }

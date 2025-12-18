@@ -2,42 +2,89 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/BusinessBotRights" />
-///</summary>
+/// <summary>
+/// <a href="https://corefork.telegram.org/api/bots/connected-business-bots">Business bot rights</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/BusinessBotRights" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBusinessBotRights"/> See <a href="https://corefork.telegram.org/constructor/businessBotRights" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBusinessBotRights), nameof(TBusinessBotRights))]
 public interface IBusinessBotRights : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// Whether the bot can send and edit messages in private chats that had incoming messages in the last 24 hours.
+    /// </summary>
     bool Reply { get; set; }
 
+    /// <summary>
+    /// Whether the bot can mark incoming private messages as read.
+    /// </summary>
     bool ReadMessages { get; set; }
 
+    /// <summary>
+    /// Whether the bot can delete messages sent by the bot.
+    /// </summary>
     bool DeleteSentMessages { get; set; }
 
+    /// <summary>
+    /// Whether the bot can delete received private messages in managed chats.
+    /// </summary>
     bool DeleteReceivedMessages { get; set; }
 
+    /// <summary>
+    /// Whether the bot can edit the first and last name of the business account.
+    /// </summary>
     bool EditName { get; set; }
 
+    /// <summary>
+    /// Whether the bot can edit the bio of the business account.
+    /// </summary>
     bool EditBio { get; set; }
 
+    /// <summary>
+    /// Whether the bot can edit the profile photo of the business account.
+    /// </summary>
     bool EditProfilePhoto { get; set; }
 
+    /// <summary>
+    /// Whether the bot can edit the username of the business account.
+    /// </summary>
     bool EditUsername { get; set; }
 
+    /// <summary>
+    /// Whether the bot can view gifts and the amount of Telegram Stars owned by the business account.
+    /// </summary>
     bool ViewGifts { get; set; }
 
+    /// <summary>
+    /// Whether the bot can convert regular gifts owned by the business account to Telegram Stars.
+    /// </summary>
     bool SellGifts { get; set; }
 
+    /// <summary>
+    /// Whether the bot can change the privacy settings pertaining to gifts for the business account.
+    /// </summary>
     bool ChangeGiftSettings { get; set; }
 
+    /// <summary>
+    /// Whether the bot can transfer and upgrade gifts owned by the business account.
+    /// </summary>
     bool TransferAndUpgradeGifts { get; set; }
 
+    /// <summary>
+    /// Whether the bot can transfer Telegram Stars received by the business account to its own account, or use them to upgrade and transfer gifts.
+    /// </summary>
     bool TransferStars { get; set; }
 
+    /// <summary>
+    /// Whether the bot can post, edit and delete stories on behalf of the business account.
+    /// </summary>
     bool ManageStories { get; set; }
 }

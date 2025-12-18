@@ -2,49 +2,52 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Set the callback answer to a user button press (bots only)
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_TOO_LONG The provided message is too long.
-/// 400 QUERY_ID_INVALID The query ID is invalid.
-/// 400 URL_INVALID Invalid URL provided.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/messages.setBotCallbackAnswer" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_TOO_LONG The provided message is too long.</c></para>
+/// <para><c>400 QUERY_ID_INVALID The query ID is invalid.</c></para>
+/// <para><c>400 URL_INVALID Invalid URL provided.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setBotCallbackAnswer" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd58f130a)]
-public sealed class RequestSetBotCallbackAnswer : IRequest<IBool>
+public sealed partial class RequestSetBotCallbackAnswer : IRequest<IBool>
 {
     public uint ConstructorId => 0xd58f130a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to show the message as a popup instead of a toast notification
-    ///</summary>
+    /// </summary>
     public bool Alert { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query ID
-    ///</summary>
+    /// </summary>
     public long QueryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Popup to show
-    ///</summary>
+    /// </summary>
     public string? Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL to open
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Cache validity
-    ///</summary>
+    /// </summary>
     public int CacheTime { get; set; }
 
     public void ComputeFlag()

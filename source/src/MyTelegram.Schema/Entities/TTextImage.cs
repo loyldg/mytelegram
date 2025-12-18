@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Inline image
-/// See <a href="https://corefork.telegram.org/constructor/textImage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textImage" /></para>
+/// </summary>
 [TlObject(0x81ccf4f)]
-public sealed class TTextImage : IRichText
+public sealed partial class TTextImage : IRichText
 {
     public uint ConstructorId => 0x81ccf4f;
-    ///<summary>
+    /// <summary>
     /// Document ID
-    ///</summary>
+    /// </summary>
     public long DocumentId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Width
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Height
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
     public void ComputeFlag()

@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Contains info about <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep links »</a> created by the current account.
-/// See <a href="https://corefork.telegram.org/constructor/account.businessChatLinks" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.businessChatLinks" /></para>
+/// </summary>
 [TlObject(0xec43a2d1)]
-public sealed class TBusinessChatLinks : IBusinessChatLinks
+public sealed partial class TBusinessChatLinks : IBusinessChatLinks
 {
     public uint ConstructorId => 0xec43a2d1;
-    ///<summary>
+    /// <summary>
     /// Links
     /// See <a href="https://corefork.telegram.org/type/BusinessChatLink" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBusinessChatLink> Links { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

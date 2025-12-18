@@ -2,39 +2,42 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Activate or deactivate a purchased <a href="https://fragment.com/">fragment.com</a> username associated to a <a href="https://corefork.telegram.org/api/channel">supergroup or channel</a> we own.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 USERNAMES_ACTIVE_TOO_MUCH The maximum number of active usernames was reached.
-/// 400 USERNAME_INVALID The provided username is not valid.
-/// 400 USERNAME_NOT_MODIFIED The username was not modified.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleUsername" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 USERNAMES_ACTIVE_TOO_MUCH The maximum number of active usernames was reached.</c></para>
+/// <para><c>400 USERNAME_INVALID The provided username is not valid.</c></para>
+/// <para><c>400 USERNAME_NOT_MODIFIED The username was not modified. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleUsername" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x50f24105)]
-public sealed class RequestToggleUsername : IRequest<IBool>
+public sealed partial class RequestToggleUsername : IRequest<IBool>
 {
     public uint ConstructorId => 0x50f24105;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Supergroup or channel</a>
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Username
-    ///</summary>
+    /// </summary>
     public string Username { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to activate or deactivate the username
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Active { get; set; }
 
     public void ComputeFlag()

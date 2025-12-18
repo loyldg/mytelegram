@@ -21,52 +21,11 @@ internal sealed class UserFullMapper
         TUserFull destination
     )
     {
-        //destination.Blocked = source.Blocked;
-        //destination.PhoneCallsAvailable = source.PhoneCallsAvailable;
-        //destination.PhoneCallsPrivate = source.PhoneCallsPrivate;
-        //destination.CanPinMessage = source.CanPinMessage;
-        //destination.HasScheduled = source.HasScheduled;
-        //destination.VideoCallsAvailable = source.VideoCallsAvailable;
-        //destination.VoiceMessagesForbidden = source.VoiceMessagesForbidden;
-        //destination.TranslationsDisabled = source.TranslationsDisabled;
-        //destination.StoriesPinnedAvailable = source.StoriesPinnedAvailable;
-        //destination.BlockedMyStoriesFrom = source.BlockedMyStoriesFrom;
-        //destination.WallpaperOverridden = source.WallpaperOverridden;
-        //destination.ContactRequirePremium = source.ContactRequirePremium;
-        //destination.ReadDatesPrivate = source.ReadDatesPrivate;
-        //destination.SponsoredEnabled = source.SponsoredEnabled;
-        //destination.CanViewRevenue = source.CanViewRevenue;
-        //destination.BotCanManageEmojiStatus = source.BotCanManageEmojiStatus;
-        //destination.Id = source.Id;
-        //destination.About = source.About;
-        //destination.Settings = source.Settings;
-        //destination.PersonalPhoto = source.PersonalPhoto;
-        //destination.ProfilePhoto = source.ProfilePhoto;
-        //destination.FallbackPhoto = source.FallbackPhoto;
-        //destination.NotifySettings = source.NotifySettings;
-        //destination.BotInfo = source.BotInfo;
-        //destination.PinnedMsgId = source.PinnedMsgId;
-        //destination.CommonChatsCount = source.CommonChatsCount;
-        //destination.FolderId = source.FolderId;
-        //destination.TtlPeriod = source.TtlPeriod;
-        //destination.ThemeEmoticon = source.ThemeEmoticon;
-        //destination.PrivateForwardName = source.PrivateForwardName;
-        //destination.BotGroupAdminRights = source.BotGroupAdminRights;
-        //destination.BotBroadcastAdminRights = source.BotBroadcastAdminRights;
-        //destination.PremiumGifts = source.PremiumGifts;
-        //destination.Wallpaper = source.Wallpaper;
-        //destination.Stories = source.Stories;
         destination.BusinessWorkHours = source.BusinessWorkHours;
         destination.BusinessLocation = source.BusinessLocation;
         destination.BusinessGreetingMessage = source.BusinessGreetingMessage;
         destination.BusinessAwayMessage = source.BusinessAwayMessage;
         destination.BusinessIntro = source.BusinessIntro;
-        //destination.Birthday = source.Birthday;
-        //destination.PersonalChannelId = source.PersonalChannelId;
-        //destination.PersonalChannelMessage = source.PersonalChannelMessage;
-        //destination.StargiftsCount = source.StargiftsCount;
-        //destination.StarrefProgram = source.StarrefProgram;
-        //destination.BotVerification = source.BotVerification;
 
         destination.Id = source.UserId;
         destination.Settings = new TPeerSettings();

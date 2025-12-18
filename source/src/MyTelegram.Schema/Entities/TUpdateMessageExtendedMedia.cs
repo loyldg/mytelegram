@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// You <a href="https://corefork.telegram.org/api/paid-media">bought a paid media »</a>: this update contains the revealed media.
-/// See <a href="https://corefork.telegram.org/constructor/updateMessageExtendedMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateMessageExtendedMedia" /></para>
+/// </summary>
 [TlObject(0xd5a41724)]
-public sealed class TUpdateMessageExtendedMedia : IUpdate
+public sealed partial class TUpdateMessageExtendedMedia : IUpdate
 {
     public uint ConstructorId => 0xd5a41724;
-    ///<summary>
+    /// <summary>
     /// Peer where the paid media was posted
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message containing the paid media
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Revealed media, contains only <a href="https://corefork.telegram.org/constructor/messageExtendedMedia">messageExtendedMedia</a> constructors.
     /// See <a href="https://corefork.telegram.org/type/MessageExtendedMedia" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageExtendedMedia> ExtendedMedia { get; set; }
 
     public void ComputeFlag()

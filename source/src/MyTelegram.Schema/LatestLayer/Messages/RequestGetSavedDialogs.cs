@@ -2,54 +2,58 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Returns the current saved dialog list, see <a href="https://corefork.telegram.org/api/saved-messages">here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/method/messages.getSavedDialogs" />
-///</summary>
+/// <summary>
+/// Returns the current <a href="https://corefork.telegram.org/api/saved-messages">saved dialog list »</a> or <a href="https://corefork.telegram.org/api/monoforum">monoforum topic list »</a>.
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSavedDialogs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1e91fc99)]
-public sealed class RequestGetSavedDialogs : IRequest<MyTelegram.Schema.Messages.ISavedDialogs>
+public sealed partial class RequestGetSavedDialogs : IRequest<MyTelegram.Schema.Messages.ISavedDialogs>
 {
     public uint ConstructorId => 0x1e91fc99;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Exclude pinned dialogs
-    ///</summary>
+    /// </summary>
     public bool ExcludePinned { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, fetches the topic list of the passed monoforum, otherwise fetches the saved dialog list.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? ParentPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int OffsetDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a> (<code>top_message</code> ID used for pagination)
-    ///</summary>
+    /// </summary>
     public int OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offset peer for pagination</a>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer OffsetPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of list elements to be returned
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

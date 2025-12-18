@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Represents a list of <a href="https://corefork.telegram.org/api/emoji-categories">emoji categories</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messages.emojiGroups" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.emojiGroups" /></para>
+/// </summary>
 [TlObject(0x881fb94b)]
-public sealed class TEmojiGroups : IEmojiGroups
+public sealed partial class TEmojiGroups : IEmojiGroups
 {
     public uint ConstructorId => 0x881fb94b;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of <a href="https://corefork.telegram.org/api/emoji-categories">emoji categories</a>.
     /// See <a href="https://corefork.telegram.org/type/EmojiGroup" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IEmojiGroup> Groups { get; set; }
 
     public void ComputeFlag()

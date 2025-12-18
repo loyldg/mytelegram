@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Check whether chat history exported from another chat app can be <a href="https://corefork.telegram.org/api/import">imported into a specific Telegram chat, click here for more info »</a>.If the check succeeds, and no RPC errors are returned, a <a href="https://corefork.telegram.org/type/messages.CheckedHistoryImportPeer">messages.CheckedHistoryImportPeer</a> constructor will be returned, with a confirmation text to be shown to the user, before actually initializing the import.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.
-/// See <a href="https://corefork.telegram.org/method/messages.checkHistoryImportPeer" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.checkHistoryImportPeer" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5dc60f03)]
-public sealed class RequestCheckHistoryImportPeer : IRequest<MyTelegram.Schema.Messages.ICheckedHistoryImportPeer>
+public sealed partial class RequestCheckHistoryImportPeer : IRequest<MyTelegram.Schema.Messages.ICheckedHistoryImportPeer>
 {
     public uint ConstructorId => 0x5dc60f03;
 
-    ///<summary>
+    /// <summary>
     /// The chat where we want to <a href="https://corefork.telegram.org/api/import">import history »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

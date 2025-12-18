@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Paid media preview for not yet purchased paid media, <a href="https://corefork.telegram.org/api/paid-media">see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/messageExtendedMediaPreview" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageExtendedMediaPreview" /></para>
+/// </summary>
 [TlObject(0xad628cc8)]
-public sealed class TMessageExtendedMediaPreview : IMessageExtendedMedia
+public sealed partial class TMessageExtendedMediaPreview : IMessageExtendedMedia
 {
     public uint ConstructorId => 0xad628cc8;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Width
-    ///</summary>
+    /// </summary>
     public int? W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Height
-    ///</summary>
+    /// </summary>
     public int? H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#stripped-thumbnails">Extremely low resolution thumbnail</a>.
     /// See <a href="https://corefork.telegram.org/type/PhotoSize" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhotoSize? Thumb { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Video duration for videos.
-    ///</summary>
+    /// </summary>
     public int? VideoDuration { get; set; }
 
     public void ComputeFlag()

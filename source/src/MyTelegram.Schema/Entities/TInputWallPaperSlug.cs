@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a> by slug (a unique ID, obtained from a <a href="https://corefork.telegram.org/api/links#wallpaper-links">wallpaper link »</a>)
-/// See <a href="https://corefork.telegram.org/constructor/inputWallPaperSlug" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputWallPaperSlug" /></para>
+/// </summary>
 [TlObject(0x72091c80)]
-public sealed class TInputWallPaperSlug : IInputWallPaper
+public sealed partial class TInputWallPaperSlug : IInputWallPaper
 {
     public uint ConstructorId => 0x72091c80;
-    ///<summary>
+    /// <summary>
     /// Unique wallpaper ID
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

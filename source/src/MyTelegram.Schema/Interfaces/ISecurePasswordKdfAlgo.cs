@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// KDF algorithm to use for computing telegram <a href="https://corefork.telegram.org/passport">passport</a> hash
-/// See <a href="https://corefork.telegram.org/type/SecurePasswordKdfAlgo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecurePasswordKdfAlgo" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecurePasswordKdfAlgoUnknown"/> See <a href="https://corefork.telegram.org/constructor/securePasswordKdfAlgoUnknown" /><br/>
+/// <see cref="TSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000"/> See <a href="https://corefork.telegram.org/constructor/securePasswordKdfAlgoPBKDF2HMACSHA512iter100000" /><br/>
+/// <see cref="TSecurePasswordKdfAlgoSHA512"/> See <a href="https://corefork.telegram.org/constructor/securePasswordKdfAlgoSHA512" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecurePasswordKdfAlgoUnknown), nameof(TSecurePasswordKdfAlgoUnknown))]
 [JsonDerivedType(typeof(TSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000), nameof(TSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000))]
 [JsonDerivedType(typeof(TSecurePasswordKdfAlgoSHA512), nameof(TSecurePasswordKdfAlgoSHA512))]

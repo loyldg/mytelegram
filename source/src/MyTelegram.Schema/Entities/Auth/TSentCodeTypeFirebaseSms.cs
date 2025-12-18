@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// An authentication code should be delivered via SMS after Firebase attestation, as described in the <a href="https://corefork.telegram.org/api/auth">auth documentation »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFirebaseSms" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFirebaseSms" /></para>
+/// </summary>
 [TlObject(0x9fd736)]
-public sealed class TSentCodeTypeFirebaseSms : ISentCodeType
+public sealed partial class TSentCodeTypeFirebaseSms : ISentCodeType
 {
     public uint ConstructorId => 0x9fd736;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// On Android, the nonce to be used as described in the <a href="https://corefork.telegram.org/api/auth">auth documentation »</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? Nonce { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Google Play Integrity project ID
-    ///</summary>
+    /// </summary>
     public long? PlayIntegrityProjectId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Play Integrity API nonce
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? PlayIntegrityNonce { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// On iOS, must be compared with the <code>receipt</code> extracted from the received push notification.
-    ///</summary>
+    /// </summary>
     public string? Receipt { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// On iOS: if a push notification with the <code>ios_push_secret</code> isn't received within <code>push_timeout</code> seconds, the <code>next_type</code> authentication method must be used, with <a href="https://corefork.telegram.org/method/auth.resendCode">auth.resendCode</a>.
-    ///</summary>
+    /// </summary>
     public int? PushTimeout { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of the code that will be delivered.
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

@@ -1,5 +1,5 @@
-﻿using MyTelegram.Domain.Aggregates.PeerNotifySetting;
-using MyTelegram.Domain.Events.PeerNotifySettings;
+﻿using MyTelegram.Domain.Aggregates.AppCode;
+using MyTelegram.Domain.Aggregates.PeerNotifySetting;
 using MyTelegram.Messenger.Extensions;
 using MyTelegram.Messenger.Services.Interfaces;
 
@@ -16,7 +16,8 @@ public class OtherDomainEventHandler(
     IUpdatesConverterService updatesConverterService,
     IUserConverterService userConverterService,
     ILayeredService<IAuthorizationConverter> layeredAuthorizationService,
-    ICacheManager<GlobalPrivacySettingsCacheItem> cacheManager)
+    ICacheManager<GlobalPrivacySettingsCacheItem> cacheManager,
+    ILogger<OtherDomainEventHandler> logger)
     : DomainEventHandlerBase(objectMessageSender,
             commandBus,
             idGenerator,
@@ -28,7 +29,8 @@ public class OtherDomainEventHandler(
         ISubscribeSynchronousTo<UserAggregate, UserId, UserGlobalPrivacySettingsChangedEvent>,
         ISubscribeSynchronousTo<PinForwardedChannelMessageSaga, PinForwardedChannelMessageSagaId,
             PinChannelMessagePtsIncrementedSagaEvent>,
-        ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent>
+        //ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent>,
+        ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>
 {
     private readonly IObjectMessageSender _objectMessageSender = objectMessageSender;
 
@@ -129,35 +131,35 @@ public class OtherDomainEventHandler(
                 .CreateSignUpAuthorization());
     }
 
-    public async Task HandleAsync(
-        IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedSagaEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        var r = updatesConverterService
-            .ToSelfUpdatePinnedMessageUpdates(domainEvent.AggregateEvent);
-        if (domainEvent.AggregateEvent.PmOneSide || domainEvent.AggregateEvent.ShouldReplyRpcResult)
-        {
-            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
-                r,
-                domainEvent.AggregateEvent.SenderPeerId,
-                domainEvent.AggregateEvent.Pts,
-                domainEvent.AggregateEvent.ToPeer.PeerType
-            );
-            await PushUpdatesToPeerAsync(
-                new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
-                r,
-                pts: domainEvent.AggregateEvent.Pts);
-        }
+    //public async Task HandleAsync(
+    //    IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedSagaEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    var r = updatesConverterService
+    //        .ToSelfUpdatePinnedMessageUpdates(domainEvent.AggregateEvent);
+    //    if (domainEvent.AggregateEvent.PmOneSide || domainEvent.AggregateEvent.ShouldReplyRpcResult)
+    //    {
+    //        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
+    //            r,
+    //            domainEvent.AggregateEvent.SenderPeerId,
+    //            domainEvent.AggregateEvent.Pts,
+    //            domainEvent.AggregateEvent.ToPeer.PeerType
+    //        );
+    //        await PushUpdatesToPeerAsync(
+    //            new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
+    //            r,
+    //            pts: domainEvent.AggregateEvent.Pts);
+    //    }
 
-        await PushUpdatesToPeerAsync(
-            domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel
-                ? new Peer(PeerType.Channel, domainEvent.AggregateEvent.OwnerPeerId)
-                : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
-            updatesConverterService.ToUpdatePinnedMessageUpdates(domainEvent.AggregateEvent),
-            excludeUserId: domainEvent.AggregateEvent.SenderPeerId,
-            pts: domainEvent.AggregateEvent.Pts
-        );
-    }
+    //    await PushUpdatesToPeerAsync(
+    //        domainEvent.AggregateEvent.ToPeer.PeerType == PeerType.Channel
+    //            ? new Peer(PeerType.Channel, domainEvent.AggregateEvent.OwnerPeerId)
+    //            : new Peer(PeerType.User, domainEvent.AggregateEvent.OwnerPeerId),
+    //        updatesConverterService.ToUpdatePinnedMessageUpdates(domainEvent.AggregateEvent),
+    //        excludeUserId: domainEvent.AggregateEvent.SenderPeerId,
+    //        pts: domainEvent.AggregateEvent.Pts
+    //    );
+    //}
 
     public Task HandleAsync(IDomainEvent<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent> domainEvent, CancellationToken cancellationToken)
     {
@@ -225,33 +227,33 @@ public class OtherDomainEventHandler(
         return PushMessageToPeerAsync(domainEvent.AggregateEvent.ChannelId.ToChannelPeer(), updateShort);
     }
 
-    public async Task HandleAsync(IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent> domainEvent, CancellationToken cancellationToken)
-    {
-        var updatePinnedMessages = new TUpdatePinnedMessages
-        {
-            Pinned = domainEvent.AggregateEvent.Pinned,
-            Peer = new TPeerUser
-            {
-                UserId = domainEvent.AggregateEvent.RequestInfo.UserId
-            },
-            Messages = new TVector<int>(domainEvent.AggregateEvent.MessageIds),
-            Pts = domainEvent.AggregateEvent.Pts,
-            PtsCount = 1
-        };
-        var updates = new TUpdates
-        {
-            Updates = new TVector<IUpdate>(updatePinnedMessages),
-            Users = new(),
-            Chats = new(),
-            Date = DateTime.UtcNow.ToTimestamp(),
-        };
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, updates,
-            pts: domainEvent.AggregateEvent.Pts);
+    //public async Task HandleAsync(IDomainEvent<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent> domainEvent, CancellationToken cancellationToken)
+    //{
+    //    var updatePinnedMessages = new TUpdatePinnedMessages
+    //    {
+    //        Pinned = domainEvent.AggregateEvent.Pinned,
+    //        Peer = new TPeerUser
+    //        {
+    //            UserId = domainEvent.AggregateEvent.RequestInfo.UserId
+    //        },
+    //        Messages = new TVector<int>(domainEvent.AggregateEvent.MessageIds),
+    //        Pts = domainEvent.AggregateEvent.Pts,
+    //        PtsCount = 1
+    //    };
+    //    var updates = new TUpdates
+    //    {
+    //        Updates = new TVector<IUpdate>(updatePinnedMessages),
+    //        Users = new(),
+    //        Chats = new(),
+    //        Date = DateTime.UtcNow.ToTimestamp(),
+    //    };
+    //    await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, updates,
+    //        pts: domainEvent.AggregateEvent.Pts);
 
-        await PushUpdatesToPeerAsync(domainEvent.AggregateEvent.RequestInfo.UserId.ToUserPeer(), updates,
-            domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId, pts: domainEvent.AggregateEvent.Pts);
+    //    await PushUpdatesToPeerAsync(domainEvent.AggregateEvent.RequestInfo.UserId.ToUserPeer(), updates,
+    //        domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId, pts: domainEvent.AggregateEvent.Pts);
 
-    }
+    //}
 
     private async Task NotifyNewAuthorizationAsync(SignInSuccessSagaEvent aggregateEvent)
     {
@@ -318,6 +320,16 @@ public class OtherDomainEventHandler(
                 Date = now,
             };
             await PushUpdatesToPeerAsync(aggregateEvent.UserId.ToUserPeer(), updates, excludeAuthKeyId: aggregateEvent.PermAuthKeyId);
+        }
+    }
+
+    public async Task HandleAsync(IDomainEvent<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        if (!domainEvent.AggregateEvent.IsCodeValid)
+        {
+            logger.LogWarning("Invalid phone code: {@Request}", domainEvent.AggregateEvent.RequestInfo);
+            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
+                RpcErrors.RpcErrors400.PhoneCodeInvalid.ToRpcError());
         }
     }
 }

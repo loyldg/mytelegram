@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to fetch information about a <a href="https://corefork.telegram.org/api/bots/webapps#direct-link-mini-apps">direct link Mini App</a>
-/// See <a href="https://corefork.telegram.org/type/InputBotApp" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputBotApp" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputBotAppID"/> See <a href="https://corefork.telegram.org/constructor/inputBotAppID" /><br/>
+/// <see cref="TInputBotAppShortName"/> See <a href="https://corefork.telegram.org/constructor/inputBotAppShortName" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputBotAppID), nameof(TInputBotAppID))]
 [JsonDerivedType(typeof(TInputBotAppShortName), nameof(TInputBotAppShortName))]
 public interface IInputBotApp : IObject

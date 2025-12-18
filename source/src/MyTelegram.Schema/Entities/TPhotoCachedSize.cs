@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Description of an image and its content.
-/// See <a href="https://corefork.telegram.org/constructor/photoCachedSize" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photoCachedSize" /></para>
+/// </summary>
 [TlObject(0x21e1ad6)]
-public sealed class TPhotoCachedSize : IPhotoSize
+public sealed partial class TPhotoCachedSize : IPhotoSize
 {
     public uint ConstructorId => 0x21e1ad6;
-    ///<summary>
+    /// <summary>
     /// Thumbnail type
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Image width
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Image height
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Binary data, file content
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

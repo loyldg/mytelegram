@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New emoji keywords
-/// See <a href="https://corefork.telegram.org/type/EmojiKeywordsDifference" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EmojiKeywordsDifference" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmojiKeywordsDifference"/> See <a href="https://corefork.telegram.org/constructor/emojiKeywordsDifference" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmojiKeywordsDifference), nameof(TEmojiKeywordsDifference))]
 public interface IEmojiKeywordsDifference : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Language code for keywords
-    ///</summary>
+    /// </summary>
     string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previous emoji keyword list version
-    ///</summary>
+    /// </summary>
     int FromVersion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current version of emoji keyword list
-    ///</summary>
+    /// </summary>
     int Version { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emojis associated to keywords
     /// See <a href="https://corefork.telegram.org/type/EmojiKeyword" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IEmojiKeyword> Keywords { get; set; }
 }

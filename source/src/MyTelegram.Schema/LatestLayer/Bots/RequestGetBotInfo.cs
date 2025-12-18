@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Get localized name, about text and description of a bot (or of the current account, if called by a bot).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 LANG_CODE_INVALID The specified language code is invalid.
-/// 400 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-/// See <a href="https://corefork.telegram.org/method/bots.getBotInfo" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 LANG_CODE_INVALID The specified language code is invalid.</c></para>
+/// <para><c>400 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.getBotInfo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdcd914fd)]
-public sealed class RequestGetBotInfo : IRequest<MyTelegram.Schema.Bots.IBotInfo>
+public sealed partial class RequestGetBotInfo : IRequest<MyTelegram.Schema.Bots.IBotInfo>
 {
     public uint ConstructorId => 0xdcd914fd;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If called by a user, <strong>must</strong> contain the peer of a bot we own.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser? Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Language code, if left empty this method will return the fallback about text and description.
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
     public void ComputeFlag()

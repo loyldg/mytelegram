@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Change the phone number of the current account
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_CODE_EMPTY phone_code is missing.
-/// 400 PHONE_CODE_EXPIRED The phone code you provided has expired.
-/// 406 PHONE_NUMBER_INVALID The phone number is invalid.
-/// 400 PHONE_NUMBER_OCCUPIED The phone number is already in use.
-/// See <a href="https://corefork.telegram.org/method/account.changePhone" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_CODE_EMPTY phone_code is missing.</c></para>
+/// <para><c>400 PHONE_CODE_EXPIRED The phone code you provided has expired.</c></para>
+/// <para><c>406 PHONE_NUMBER_INVALID The phone number is invalid.</c></para>
+/// <para><c>400 PHONE_NUMBER_OCCUPIED The phone number is already in use. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.changePhone" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x70c32edb)]
-public sealed class RequestChangePhone : IRequest<MyTelegram.Schema.IUser>
+public sealed partial class RequestChangePhone : IRequest<MyTelegram.Schema.IUser>
 {
     public uint ConstructorId => 0x70c32edb;
 
-    ///<summary>
+    /// <summary>
     /// New phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code hash received when calling <a href="https://corefork.telegram.org/method/account.sendChangePhoneCode">account.sendChangePhoneCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code received when calling <a href="https://corefork.telegram.org/method/account.sendChangePhoneCode">account.sendChangePhoneCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCode { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used only when reordering folders to indicate the default (all chats) folder.
-/// See <a href="https://corefork.telegram.org/constructor/dialogFilterDefault" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dialogFilterDefault" /></para>
+/// </summary>
 [TlObject(0x363293ae)]
-public sealed class TDialogFilterDefault : IDialogFilter
+public sealed partial class TDialogFilterDefault : IDialogFilter
 {
     public uint ConstructorId => 0x363293ae;
     public void ComputeFlag()

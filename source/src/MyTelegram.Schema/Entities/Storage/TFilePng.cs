@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// PNG image. MIME type: <code>image/png</code>.
-/// See <a href="https://corefork.telegram.org/constructor/storage.filePng" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.filePng" /></para>
+/// </summary>
 [TlObject(0xa4f63c0)]
-public sealed class TFilePng : IFileType
+public sealed partial class TFilePng : IFileType
 {
     public uint ConstructorId => 0xa4f63c0;
     public void ComputeFlag()

@@ -2,28 +2,30 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Obtain a list of bot commands for the specified bot scope and language code
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/bots.getBotCommands" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.getBotCommands" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe34c0dd6)]
-public sealed class RequestGetBotCommands : IRequest<TVector<MyTelegram.Schema.IBotCommand>>
+public sealed partial class RequestGetBotCommands : IRequest<TVector<MyTelegram.Schema.IBotCommand>>
 {
     public uint ConstructorId => 0xe34c0dd6;
 
-    ///<summary>
+    /// <summary>
     /// Command scope
     /// See <a href="https://corefork.telegram.org/type/BotCommandScope" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotCommandScope Scope { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Language code
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
     public void ComputeFlag()

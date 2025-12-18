@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Add GIF to saved gifs list
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GIF_ID_INVALID The provided GIF ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.saveGif" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GIF_ID_INVALID The provided GIF ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.saveGif" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x327a30cb)]
-public sealed class RequestSaveGif : IRequest<IBool>
+public sealed partial class RequestSaveGif : IRequest<IBool>
 {
     public uint ConstructorId => 0x327a30cb;
 
-    ///<summary>
+    /// <summary>
     /// GIF to save
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to remove GIF from saved gifs list
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Unsave { get; set; }
 
     public void ComputeFlag()

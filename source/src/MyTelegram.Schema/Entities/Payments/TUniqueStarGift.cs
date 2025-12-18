@@ -2,21 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/payments.uniqueStarGift" />
-///</summary>
-[TlObject(0xcaa2f60b)]
-public sealed class TUniqueStarGift : IUniqueStarGift
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.uniqueStarGift" /></para>
+/// </summary>
+[TlObject(0x416c56e8)]
+public sealed partial class TUniqueStarGift : IUniqueStarGift
 {
-    public uint ConstructorId => 0xcaa2f60b;
-    ///<summary>
+    public uint ConstructorId => 0x416c56e8;
+    /// <summary>
+    /// The <a href="https://corefork.telegram.org/constructor/starGiftUnique">starGiftUnique</a> constructor.
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarGift Gift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Chats mentioned in the <code>gift</code> field.
+    /// See <a href="https://corefork.telegram.org/type/Chat" />
+    /// </summary>
+    public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
+
+    /// <summary>
+    /// Users mentioned in the <code>gift</code> field.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()
@@ -28,12 +37,14 @@ public sealed class TUniqueStarGift : IUniqueStarGift
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Gift);
+        writer.Write(Chats);
         writer.Write(Users);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Gift = buffer.Read<MyTelegram.Schema.IStarGift>();
+        Chats = buffer.Read<TVector<MyTelegram.Schema.IChat>>();
         Users = buffer.Read<TVector<MyTelegram.Schema.IUser>>();
     }
 }

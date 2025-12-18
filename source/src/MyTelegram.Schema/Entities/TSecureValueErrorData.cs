@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
-/// See <a href="https://corefork.telegram.org/constructor/secureValueErrorData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureValueErrorData" /></para>
+/// </summary>
 [TlObject(0xe8a40bd9)]
-public sealed class TSecureValueErrorData : ISecureValueError
+public sealed partial class TSecureValueErrorData : ISecureValueError
 {
     public uint ConstructorId => 0xe8a40bd9;
-    ///<summary>
+    /// <summary>
     /// The section of the user's Telegram Passport which has the error, one of <a href="https://corefork.telegram.org/constructor/secureValueTypePersonalDetails">secureValueTypePersonalDetails</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypePassport">secureValueTypePassport</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense">secureValueTypeDriverLicense</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard">secureValueTypeIdentityCard</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport">secureValueTypeInternalPassport</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeAddress">secureValueTypeAddress</a>
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Data hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> DataHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the data field which has the error
-    ///</summary>
+    /// </summary>
     public string Field { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

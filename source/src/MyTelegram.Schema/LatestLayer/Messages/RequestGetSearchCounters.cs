@@ -2,44 +2,47 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get the number of results that would be found by a <a href="https://corefork.telegram.org/method/messages.search">messages.search</a> call with the same parameters
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getSearchCounters" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSearchCounters" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1bbcf300)]
-public sealed class RequestGetSearchCounters : IRequest<TVector<MyTelegram.Schema.Messages.ISearchCounter>>
+public sealed partial class RequestGetSearchCounters : IRequest<TVector<MyTelegram.Schema.Messages.ISearchCounter>>
 {
     public uint ConstructorId => 0x1bbcf300;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer where to search
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Search within the <a href="https://corefork.telegram.org/api/saved-messages">saved message dialog »</a> with this ID.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? SavedPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, consider only messages within the specified <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a>
-    ///</summary>
+    /// </summary>
     public int? TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Search filters
     /// See <a href="https://corefork.telegram.org/type/MessagesFilter" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessagesFilter> Filters { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Stickers;
 
-///<summary>
+/// <summary>
 /// A suggested short name for a stickerpack
-/// See <a href="https://corefork.telegram.org/constructor/stickers.suggestedShortName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stickers.suggestedShortName" /></para>
+/// </summary>
 [TlObject(0x85fea03f)]
-public sealed class TSuggestedShortName : ISuggestedShortName
+public sealed partial class TSuggestedShortName : ISuggestedShortName
 {
     public uint ConstructorId => 0x85fea03f;
-    ///<summary>
+    /// <summary>
     /// Suggested short name
-    ///</summary>
+    /// </summary>
     public string ShortName { get; set; }
 
     public void ComputeFlag()

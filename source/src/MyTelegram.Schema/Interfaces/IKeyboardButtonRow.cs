@@ -2,16 +2,20 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bot or inline keyboard rows
-/// See <a href="https://corefork.telegram.org/type/KeyboardButtonRow" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/KeyboardButtonRow" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TKeyboardButtonRow"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRow" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TKeyboardButtonRow), nameof(TKeyboardButtonRow))]
 public interface IKeyboardButtonRow : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Bot or inline keyboard buttons
     /// See <a href="https://corefork.telegram.org/type/KeyboardButton" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IKeyboardButton> Buttons { get; set; }
 }

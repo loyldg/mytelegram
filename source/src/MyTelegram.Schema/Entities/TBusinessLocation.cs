@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents the location of a <a href="https://corefork.telegram.org/api/business#location">Telegram Business »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/businessLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/businessLocation" /></para>
+/// </summary>
 [TlObject(0xac5c1af7)]
-public sealed class TBusinessLocation : IBusinessLocation
+public sealed partial class TBusinessLocation : IBusinessLocation
 {
     public uint ConstructorId => 0xac5c1af7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Geographical coordinates (optional).
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint? GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Textual description of the address (mandatory).
-    ///</summary>
+    /// </summary>
     public string Address { get; set; }
 
     public void ComputeFlag()

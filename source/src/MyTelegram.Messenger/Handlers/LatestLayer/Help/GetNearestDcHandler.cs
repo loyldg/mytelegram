@@ -1,14 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Help;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Help;
+/// <summary>
 /// Returns info on data center nearest to the user.
-/// See <a href="https://corefork.telegram.org/method/help.getNearestDc" />
-///</summary>
-internal sealed class GetNearestDcHandler(IOptions<MyTelegramMessengerServerOptions> options)
-    : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetNearestDc, MyTelegram.Schema.INearestDc>
+/// <para><c>See <a href="https://corefork.telegram.org/method/help.getNearestDc"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
+internal sealed class GetNearestDcHandler(IOptions<MyTelegramMessengerServerOptions> options) : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetNearestDc, MyTelegram.Schema.INearestDc>
 {
-    protected override Task<INearestDc> HandleCoreAsync(IRequestInput input,
-        RequestGetNearestDc obj)
+    protected override Task<INearestDc> HandleCoreAsync(IRequestInput input, RequestGetNearestDc obj)
     {
         INearestDc r = new TNearestDc
         {
@@ -16,7 +16,6 @@ internal sealed class GetNearestDcHandler(IOptions<MyTelegramMessengerServerOpti
             NearestDc = options.Value.ThisDcId,
             ThisDc = options.Value.ThisDcId
         };
-
         return Task.FromResult(r);
     }
 }

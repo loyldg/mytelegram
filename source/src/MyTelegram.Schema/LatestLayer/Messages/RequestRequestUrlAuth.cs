@@ -2,39 +2,42 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get more info about a Seamless Telegram Login authorization request, for more info <a href="https://corefork.telegram.org/api/url-authorization">click here »</a>
-/// See <a href="https://corefork.telegram.org/method/messages.requestUrlAuth" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.requestUrlAuth" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x198fb446)]
-public sealed class RequestRequestUrlAuth : IRequest<MyTelegram.Schema.IUrlAuthResult>
+public sealed partial class RequestRequestUrlAuth : IRequest<MyTelegram.Schema.IUrlAuthResult>
 {
     public uint ConstructorId => 0x198fb446;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer where the message is located
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message
-    ///</summary>
+    /// </summary>
     public int? MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The ID of the button with the authorization request
-    ///</summary>
+    /// </summary>
     public int? ButtonId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL used for <a href="https://corefork.telegram.org/api/url-authorization#link-url-authorization">link URL authorization, click here for more info »</a>
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
     public void ComputeFlag()

@@ -2,36 +2,39 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Make a user admin in a <a href="https://corefork.telegram.org/api/channel#basic-groups">basic group</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// 400 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel.
-/// See <a href="https://corefork.telegram.org/method/messages.editChatAdmin" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>400 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.editChatAdmin" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa85bd1c2)]
-public sealed class RequestEditChatAdmin : IRequest<IBool>
+public sealed partial class RequestEditChatAdmin : IRequest<IBool>
 {
     public uint ConstructorId => 0xa85bd1c2;
 
-    ///<summary>
+    /// <summary>
     /// The ID of the group
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user to make admin
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to make them admin
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool IsAdmin { get; set; }
 
     public void ComputeFlag()

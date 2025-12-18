@@ -2,7 +2,7 @@
 
 public class QueuedObjectMessageSender(
     IMessageQueueProcessor<ISessionMessage> sessionMessageQueueProcessor,
-    IGZipHelper gzipHelper)
+    IAccessHashHelper2 accessHashHelper2)
     : IObjectMessageSender, ITransientDependency
 {
     public Task PushSessionMessageToAuthKeyIdAsync<TData>(long authKeyId,
@@ -56,6 +56,8 @@ public class QueuedObjectMessageSender(
     public Task SendMessageToPeerAsync<TData>(RequestInfo requestInfo,
         TData data) where TData : IObject
     {
+        UpdateAccessHashIfNeeded(requestInfo, data);
+
         sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(requestInfo.ReqMsgId, Array.Empty<byte>())
         {
             DataObject = data
@@ -68,6 +70,8 @@ public class QueuedObjectMessageSender(
     public Task SendFileDataToPeerAsync<TData>(RequestInfo requestInfo,
         TData data) where TData : IObject
     {
+        UpdateAccessHashIfNeeded(requestInfo, data);
+
         sessionMessageQueueProcessor.Enqueue(new FileDataResultResponseReceivedEvent(requestInfo.ReqMsgId, data.ToBytes()),
             requestInfo.PermAuthKeyId);
 
@@ -78,6 +82,8 @@ public class QueuedObjectMessageSender(
         TData data,
         int pts = 0) where TData : IObject
     {
+        UpdateAccessHashIfNeeded(requestInfo, data);
+
         return SendRpcMessageToClientAsync(requestInfo.ReqMsgId, data, pts, requestInfo.PermAuthKeyId);
     }
 
@@ -98,6 +104,8 @@ public class QueuedObjectMessageSender(
         long authKeyId, long permAuthKeyId, long userId,
         int pts = 0) where TData : IObject
     {
+        UpdateAccessHashIfNeeded(requestInfo, data);
+
         var rpcResult = CreateRpcResult(requestInfo.ReqMsgId, data);
         sessionMessageQueueProcessor.Enqueue(
             new DataResultResponseWithUserIdReceivedEvent(requestInfo.ReqMsgId, rpcResult.ToBytes(), userId, authKeyId,
@@ -123,5 +131,19 @@ public class QueuedObjectMessageSender(
         //}
 
         return rpcResult;
+    }
+
+    private void UpdateAccessHashIfNeeded(RequestInfo requestInfo, IObject data)
+    {
+        if (data is IAccessHashOwner o)
+        {
+            foreach (var hasAccessHash in o.GetAccessHashes())
+            {
+                hasAccessHash.AccessHash = accessHashHelper2.GenerateAccessHash(requestInfo.UserId,
+                    requestInfo.AccessHashKeyId, hasAccessHash.Id, (AccessHashType)hasAccessHash.AccessHashType2);
+
+                //Console.WriteLine($"Update access hash:UserId:{requestInfo.UserId} AccessHashKeyId:{requestInfo.AccessHashKeyId} Id:{hasAccessHash.Id} {hasAccessHash.AccessHashType2} {hasAccessHash.AccessHash}");
+            }
+        }
     }
 }

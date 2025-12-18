@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Credit card info, provided by the card's bank(s)
-/// See <a href="https://corefork.telegram.org/type/payments.BankCardData" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.BankCardData" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBankCardData"/> See <a href="https://corefork.telegram.org/constructor/payments.bankCardData" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBankCardData), nameof(TBankCardData))]
 public interface IBankCardData : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Credit card title
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info URL(s) provided by the card's bank(s)
     /// See <a href="https://corefork.telegram.org/type/BankCardOpenUrl" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IBankCardOpenUrl> OpenUrls { get; set; }
 }

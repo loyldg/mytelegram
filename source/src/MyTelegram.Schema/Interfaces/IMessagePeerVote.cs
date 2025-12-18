@@ -2,23 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// How a user voted in a poll
-/// See <a href="https://corefork.telegram.org/type/MessagePeerVote" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessagePeerVote" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessagePeerVote"/> See <a href="https://corefork.telegram.org/constructor/messagePeerVote" /><br/>
+/// <see cref="TMessagePeerVoteInputOption"/> See <a href="https://corefork.telegram.org/constructor/messagePeerVoteInputOption" /><br/>
+/// <see cref="TMessagePeerVoteMultiple"/> See <a href="https://corefork.telegram.org/constructor/messagePeerVoteMultiple" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessagePeerVote), nameof(TMessagePeerVote))]
 [JsonDerivedType(typeof(TMessagePeerVoteInputOption), nameof(TMessagePeerVoteInputOption))]
 [JsonDerivedType(typeof(TMessagePeerVoteMultiple), nameof(TMessagePeerVoteMultiple))]
 public interface IMessagePeerVote : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The peer that voted for the queried <code>option</code>
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did the peer cast the vote
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 }

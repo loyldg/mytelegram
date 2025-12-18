@@ -2,45 +2,48 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get link and embed info of a message in a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/channels.exportMessageLink" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.exportMessageLink" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe63fadeb)]
-public sealed class RequestExportMessageLink : IRequest<MyTelegram.Schema.IExportedMessageLink>
+public sealed partial class RequestExportMessageLink : IRequest<MyTelegram.Schema.IExportedMessageLink>
 {
     public uint ConstructorId => 0xe63fadeb;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to include other grouped media (for albums)
-    ///</summary>
+    /// </summary>
     public bool Grouped { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to also include a thread ID, if available, inside of the link
-    ///</summary>
+    /// </summary>
     public bool Thread { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

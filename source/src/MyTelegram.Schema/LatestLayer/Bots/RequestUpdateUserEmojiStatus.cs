@@ -2,29 +2,33 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Change the emoji status of a user (invoked by bots, see <a href="https://corefork.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot">here »</a> for more info on the full flow)
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/bots.updateUserEmojiStatus" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>403 USER_PERMISSION_DENIED The user hasn't granted or has revoked the bot's access to change their emoji status using <a href="https://corefork.telegram.org/method/bots.toggleUserEmojiStatusPermission">bots.toggleUserEmojiStatusPermission</a>. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.updateUserEmojiStatus" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xed9f30c5)]
-public sealed class RequestUpdateUserEmojiStatus : IRequest<IBool>
+public sealed partial class RequestUpdateUserEmojiStatus : IRequest<IBool>
 {
     public uint ConstructorId => 0xed9f30c5;
 
-    ///<summary>
+    /// <summary>
     /// The user whose emoji status should be changed
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The emoji status
     /// See <a href="https://corefork.telegram.org/type/EmojiStatus" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEmojiStatus EmojiStatus { get; set; }
 
     public void ComputeFlag()

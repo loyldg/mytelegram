@@ -2,10 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entities, representing styled text in a message
-/// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageEntity" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageEntityUnknown"/> See <a href="https://corefork.telegram.org/constructor/messageEntityUnknown" /><br/>
+/// <see cref="TMessageEntityMention"/> See <a href="https://corefork.telegram.org/constructor/messageEntityMention" /><br/>
+/// <see cref="TMessageEntityHashtag"/> See <a href="https://corefork.telegram.org/constructor/messageEntityHashtag" /><br/>
+/// <see cref="TMessageEntityBotCommand"/> See <a href="https://corefork.telegram.org/constructor/messageEntityBotCommand" /><br/>
+/// <see cref="TMessageEntityUrl"/> See <a href="https://corefork.telegram.org/constructor/messageEntityUrl" /><br/>
+/// <see cref="TMessageEntityEmail"/> See <a href="https://corefork.telegram.org/constructor/messageEntityEmail" /><br/>
+/// <see cref="TMessageEntityBold"/> See <a href="https://corefork.telegram.org/constructor/messageEntityBold" /><br/>
+/// <see cref="TMessageEntityItalic"/> See <a href="https://corefork.telegram.org/constructor/messageEntityItalic" /><br/>
+/// <see cref="TMessageEntityCode"/> See <a href="https://corefork.telegram.org/constructor/messageEntityCode" /><br/>
+/// <see cref="TMessageEntityPre"/> See <a href="https://corefork.telegram.org/constructor/messageEntityPre" /><br/>
+/// <see cref="TMessageEntityTextUrl"/> See <a href="https://corefork.telegram.org/constructor/messageEntityTextUrl" /><br/>
+/// <see cref="TMessageEntityMentionName"/> See <a href="https://corefork.telegram.org/constructor/messageEntityMentionName" /><br/>
+/// <see cref="TInputMessageEntityMentionName"/> See <a href="https://corefork.telegram.org/constructor/inputMessageEntityMentionName" /><br/>
+/// <see cref="TMessageEntityPhone"/> See <a href="https://corefork.telegram.org/constructor/messageEntityPhone" /><br/>
+/// <see cref="TMessageEntityCashtag"/> See <a href="https://corefork.telegram.org/constructor/messageEntityCashtag" /><br/>
+/// <see cref="TMessageEntityUnderline"/> See <a href="https://corefork.telegram.org/constructor/messageEntityUnderline" /><br/>
+/// <see cref="TMessageEntityStrike"/> See <a href="https://corefork.telegram.org/constructor/messageEntityStrike" /><br/>
+/// <see cref="TMessageEntityBankCard"/> See <a href="https://corefork.telegram.org/constructor/messageEntityBankCard" /><br/>
+/// <see cref="TMessageEntitySpoiler"/> See <a href="https://corefork.telegram.org/constructor/messageEntitySpoiler" /><br/>
+/// <see cref="TMessageEntityCustomEmoji"/> See <a href="https://corefork.telegram.org/constructor/messageEntityCustomEmoji" /><br/>
+/// <see cref="TMessageEntityBlockquote"/> See <a href="https://corefork.telegram.org/constructor/messageEntityBlockquote" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageEntityUnknown), nameof(TMessageEntityUnknown))]
 [JsonDerivedType(typeof(TMessageEntityMention), nameof(TMessageEntityMention))]
 [JsonDerivedType(typeof(TMessageEntityHashtag), nameof(TMessageEntityHashtag))]
@@ -29,13 +53,13 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageEntityBlockquote), nameof(TMessageEntityBlockquote))]
 public interface IMessageEntity : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     int Length { get; set; }
 }

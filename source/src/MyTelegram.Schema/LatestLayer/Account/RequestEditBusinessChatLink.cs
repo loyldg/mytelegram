@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Edit a created <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHATLINK_SLUG_EMPTY The specified slug is empty.
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// See <a href="https://corefork.telegram.org/method/account.editBusinessChatLink" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHATLINK_SLUG_EMPTY The specified slug is empty.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.editBusinessChatLink" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8c3410af)]
-public sealed class RequestEditBusinessChatLink : IRequest<MyTelegram.Schema.IBusinessChatLink>
+public sealed partial class RequestEditBusinessChatLink : IRequest<MyTelegram.Schema.IBusinessChatLink>
 {
     public uint ConstructorId => 0x8c3410af;
 
-    ///<summary>
+    /// <summary>
     /// Slug of the link, obtained as specified <a href="https://corefork.telegram.org/api/links#business-chat-links">here »</a>.
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New link information.
     /// See <a href="https://corefork.telegram.org/type/InputBusinessChatLink" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBusinessChatLink Link { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about an <a href="https://corefork.telegram.org/mtproto/mtproto-transports#transport-obfuscation">MTProxy</a> used to connect.
-/// See <a href="https://corefork.telegram.org/constructor/inputClientProxy" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputClientProxy" /></para>
+/// </summary>
 [TlObject(0x75588b3f)]
-public sealed class TInputClientProxy : IInputClientProxy
+public sealed partial class TInputClientProxy : IInputClientProxy
 {
     public uint ConstructorId => 0x75588b3f;
-    ///<summary>
+    /// <summary>
     /// Proxy address
-    ///</summary>
+    /// </summary>
     public string Address { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Proxy port
-    ///</summary>
+    /// </summary>
     public int Port { get; set; }
 
     public void ComputeFlag()

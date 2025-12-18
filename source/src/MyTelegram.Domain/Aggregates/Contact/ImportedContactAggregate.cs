@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Contact;
 
+[EnableAutoGeneration]
 public class
     ImportedContactAggregate : SnapshotAggregateRoot<ImportedContactAggregate, ImportedContactId,
         ImportedContactSnapshot>
@@ -13,11 +14,12 @@ public class
 
     public void ImportContacts(RequestInfo requestInfo,
         long selfUserId,
-        IReadOnlyCollection<PhoneContact> contacts)
+        IReadOnlyCollection<PhoneContact> phoneContacts)
     {
-        Emit(new ContactsImportedEvent(requestInfo, selfUserId, contacts));
+        Emit(new ContactsImportedEvent(requestInfo, selfUserId, phoneContacts));
     }
 
+    [DoNotInheritRequestCommand]
     public void ImportSingleContact(RequestInfo requestInfo, long selfUserId,
         PhoneContact phoneContact)
     {

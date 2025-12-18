@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is choosing a sticker
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageChooseStickerAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageChooseStickerAction" /></para>
+/// </summary>
 [TlObject(0xb05ac6b1)]
-public sealed class TSendMessageChooseStickerAction : ISendMessageAction
+public sealed partial class TSendMessageChooseStickerAction : ISendMessageAction
 {
     public uint ConstructorId => 0xb05ac6b1;
     public void ComputeFlag()

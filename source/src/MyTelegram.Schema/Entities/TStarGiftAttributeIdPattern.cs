@@ -2,13 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/starGiftAttributeIdPattern" />
-///</summary>
+/// <summary>
+/// The ID of a pattern of a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeIdPattern" /></para>
+/// </summary>
 [TlObject(0x4a162433)]
-public sealed class TStarGiftAttributeIdPattern : IStarGiftAttributeId
+public sealed partial class TStarGiftAttributeIdPattern : IStarGiftAttributeId
 {
     public uint ConstructorId => 0x4a162433;
+    /// <summary>
+    /// The <a href="https://corefork.telegram.org/api/stickers">sticker</a> representing the symbol
+    /// </summary>
     public long DocumentId { get; set; }
 
     public void ComputeFlag()

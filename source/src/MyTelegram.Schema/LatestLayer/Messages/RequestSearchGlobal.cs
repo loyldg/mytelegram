@@ -2,85 +2,88 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Search for messages and peers globally
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FOLDER_ID_INVALID Invalid folder ID.
-/// 400 INPUT_FILTER_INVALID The specified filter is invalid.
-/// 400 SEARCH_QUERY_EMPTY The search query is empty.
-/// See <a href="https://corefork.telegram.org/method/messages.searchGlobal" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FOLDER_ID_INVALID Invalid folder ID.</c></para>
+/// <para><c>400 INPUT_FILTER_INVALID The specified filter is invalid.</c></para>
+/// <para><c>400 SEARCH_QUERY_EMPTY The search query is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.searchGlobal" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4bc6589a)]
-public sealed class RequestSearchGlobal : IRequest<MyTelegram.Schema.Messages.IMessages>
+public sealed partial class RequestSearchGlobal : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
     public uint ConstructorId => 0x4bc6589a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, only returns results from channels (used in the <a href="https://corefork.telegram.org/api/search#global-search">global channel search tab »</a>).
-    ///</summary>
+    /// </summary>
     public bool BroadcastsOnly { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to search only in groups
-    ///</summary>
+    /// </summary>
     public bool GroupsOnly { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to search only in private chats
-    ///</summary>
+    /// </summary>
     public bool UsersOnly { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Query
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Global search filter
     /// See <a href="https://corefork.telegram.org/type/MessagesFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessagesFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value was specified, the method will return only messages with date bigger than min_date
-    ///</summary>
+    /// </summary>
     public int MinDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If a positive value was transferred, the method will return only messages with date smaller than max_date
-    ///</summary>
+    /// </summary>
     public int MaxDate { get; set; }
 
-    ///<summary>
-    /// Initially 0, then set to the <a href="https://corefork.telegram.org/constructor/messages.messagesSlice"><code>next_rate</code> parameter of messages.messagesSlice</a>
-    ///</summary>
+    /// <summary>
+    /// Initially 0, then set to the <a href="https://corefork.telegram.org/constructor/messages.messagesSlice"><code>next_rate</code> parameter of messages.messagesSlice</a>, or if that is absent, the <code>date</code> of the last returned message.
+    /// </summary>
     public int OffsetRate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer OffsetPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

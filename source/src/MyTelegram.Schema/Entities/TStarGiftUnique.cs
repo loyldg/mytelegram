@@ -2,70 +2,150 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/starGiftUnique" />
-///</summary>
-[TlObject(0x3a274d50)]
-public sealed class TStarGiftUnique : ILayeredStarGiftUnique
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible star gift, see here »</a> for more info.The sticker that represents the gift is contained in a <a href="https://corefork.telegram.org/constructor/starGiftAttributeModel">starGiftAttributeModel</a> object in <code>attributes</code>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftUnique" /></para>
+/// </summary>
+[TlObject(0xb0bf741b)]
+public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
 {
-    public uint ConstructorId => 0x3a274d50;
-    ///<summary>
+    public uint ConstructorId => 0xb0bf741b;
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// This gift can only be bought by users with a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription.
+    /// </summary>
     public bool RequirePremium { get; set; }
 
+    /// <summary>
+    /// Whether the gift can be bought only using Toncoins.
+    /// </summary>
     public bool ResaleTonOnly { get; set; }
 
+    /// <summary>
+    /// A chat theme associated to this gift is available, <a href="https://corefork.telegram.org/api/themes#chat-themes">see here »</a> for more info on how to use it.
+    /// </summary>
+    public bool ThemeAvailable { get; set; }
+
+    /// <summary>
+    /// Identifier of the collectible gift.
+    /// </summary>
     public long Id { get; set; }
 
+    /// <summary>
+    /// Unique ID of the gift.
+    /// </summary>
+    public long GiftId { get; set; }
+
+    /// <summary>
+    /// Collectible title.
+    /// </summary>
     public string Title { get; set; }
 
+    /// <summary>
+    /// Slug that can be used to create a <a href="https://corefork.telegram.org/api/links#collectible-gift-link">collectible gift deep link »</a>, or <a href="https://corefork.telegram.org/api/gifts">elsewhere in the API where a collectible slug is accepted</a>.
+    /// </summary>
     public string Slug { get; set; }
 
+    /// <summary>
+    /// Unique identifier of this collectible gift among all (already upgraded) collectible gifts of the same type.
+    /// </summary>
     public int Num { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The owner of the gift.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? OwnerId { get; set; }
 
+    /// <summary>
+    /// The name of the owner if neither <code>owner_id</code> nor <code>owner_address</code> are set.
+    /// </summary>
     public string? OwnerName { get; set; }
 
+    /// <summary>
+    /// For <a href="https://corefork.telegram.org/api/gifts#withdraw-a-collectible-gift-to-the-ton-blockchain">NFTs on the TON blockchain</a>, contains the address of the owner (append it to the <a href="https://corefork.telegram.org/api/config#ton-blockchain-explorer-url">ton_blockchain_explorer_url client configuration value »</a> to obtain a link with information about the address).
+    /// </summary>
     public string? OwnerAddress { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Collectible attributes
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttribute" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAttribute> Attributes { get; set; }
 
+    /// <summary>
+    /// Total number of gifts of the same type that were upgraded to a collectible gift.
+    /// </summary>
     public int AvailabilityIssued { get; set; }
 
+    /// <summary>
+    /// Total number of gifts of the same type that can be upgraded or were already upgraded to a collectible gift.
+    /// </summary>
     public int AvailabilityTotal { get; set; }
 
+    /// <summary>
+    /// For <a href="https://corefork.telegram.org/api/gifts#withdraw-a-collectible-gift-to-the-ton-blockchain">NFTs on the TON blockchain</a>, contains the address of the NFT (append it to the <a href="https://corefork.telegram.org/api/config#ton-blockchain-explorer-url">ton_blockchain_explorer_url client configuration value »</a> to obtain a link with information about the address).
+    /// </summary>
     public string? GiftAddress { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Resale price of the gift.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarsAmount>? ResellAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// This gift was released by the specified peer.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? ReleasedBy { get; set; }
+
+    /// <summary>
+    /// Price of the gift.
+    /// </summary>
+    public long? ValueAmount { get; set; }
+
+    /// <summary>
+    /// Currency for the gift's price.
+    /// </summary>
+    public string? ValueCurrency { get; set; }
+
+    /// <summary>
+    /// The current chat where the associated <a href="https://corefork.telegram.org/api/themes#chat-themes">chat theme</a> is installed, if any (gift-based themes can only be installed in one chat at a time).
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public MyTelegram.Schema.IPeer? ThemePeer { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/PeerColor" />
+    /// </summary>
+    public MyTelegram.Schema.IPeerColor? PeerColor { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public MyTelegram.Schema.IPeer? HostId { get; set; }
 
     public void ComputeFlag()
     {
         if (RequirePremium) { Flags = Flags.SetBit(6); }
         if (ResaleTonOnly) { Flags = Flags.SetBit(7); }
+        if (ThemeAvailable) { Flags = Flags.SetBit(9); }
         if (OwnerId != null) { Flags = Flags.SetBit(0); }
         if (OwnerName != null) { Flags = Flags.SetBit(1); }
         if (OwnerAddress != null) { Flags = Flags.SetBit(2); }
         if (GiftAddress != null) { Flags = Flags.SetBit(3); }
         if (ResellAmount?.Count > 0) { Flags = Flags.SetBit(4); }
         if (ReleasedBy != null) { Flags = Flags.SetBit(5); }
+        if (/*ValueAmount != 0 &&*/ ValueAmount.HasValue) { Flags = Flags.SetBit(8); }
+        if (ValueCurrency != null) { Flags = Flags.SetBit(8); }
+        if (ThemePeer != null) { Flags = Flags.SetBit(10); }
+        if (PeerColor != null) { Flags = Flags.SetBit(11); }
+        if (HostId != null) { Flags = Flags.SetBit(12); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -74,6 +154,7 @@ public sealed class TStarGiftUnique : ILayeredStarGiftUnique
         writer.Write(ConstructorId);
         writer.Write(Flags);
         writer.Write(Id);
+        writer.Write(GiftId);
         writer.Write(Title);
         writer.Write(Slug);
         writer.Write(Num);
@@ -86,6 +167,11 @@ public sealed class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(3)) { writer.Write(GiftAddress); }
         if (Flags.IsBitSet(4)) { writer.Write(ResellAmount); }
         if (Flags.IsBitSet(5)) { writer.Write(ReleasedBy); }
+        if (Flags.IsBitSet(8)) { writer.Write(ValueAmount.Value); }
+        if (Flags.IsBitSet(8)) { writer.Write(ValueCurrency); }
+        if (Flags.IsBitSet(10)) { writer.Write(ThemePeer); }
+        if (Flags.IsBitSet(11)) { writer.Write(PeerColor); }
+        if (Flags.IsBitSet(12)) { writer.Write(HostId); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -93,7 +179,9 @@ public sealed class TStarGiftUnique : ILayeredStarGiftUnique
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(6)) { RequirePremium = true; }
         if (Flags.IsBitSet(7)) { ResaleTonOnly = true; }
+        if (Flags.IsBitSet(9)) { ThemeAvailable = true; }
         Id = buffer.ReadInt64();
+        GiftId = buffer.ReadInt64();
         Title = buffer.ReadString();
         Slug = buffer.ReadString();
         Num = buffer.ReadInt32();
@@ -106,5 +194,10 @@ public sealed class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(3)) { GiftAddress = buffer.ReadString(); }
         if (Flags.IsBitSet(4)) { ResellAmount = buffer.Read<TVector<MyTelegram.Schema.IStarsAmount>>(); }
         if (Flags.IsBitSet(5)) { ReleasedBy = buffer.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags.IsBitSet(8)) { ValueAmount = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(8)) { ValueCurrency = buffer.ReadString(); }
+        if (Flags.IsBitSet(10)) { ThemePeer = buffer.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags.IsBitSet(11)) { PeerColor = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
+        if (Flags.IsBitSet(12)) { HostId = buffer.Read<MyTelegram.Schema.IPeer>(); }
     }
 }

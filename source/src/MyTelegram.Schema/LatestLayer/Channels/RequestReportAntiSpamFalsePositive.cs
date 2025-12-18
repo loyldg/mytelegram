@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Report a <a href="https://corefork.telegram.org/api/antispam">native antispam</a> false positive
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// See <a href="https://corefork.telegram.org/method/channels.reportAntiSpamFalsePositive" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.reportAntiSpamFalsePositive" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa850a693)]
-public sealed class RequestReportAntiSpamFalsePositive : IRequest<IBool>
+public sealed partial class RequestReportAntiSpamFalsePositive : IRequest<IBool>
 {
     public uint ConstructorId => 0xa850a693;
 
-    ///<summary>
+    /// <summary>
     /// Supergroup ID
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID that was mistakenly deleted by the <a href="https://corefork.telegram.org/api/antispam">native antispam</a> system, taken from the <a href="https://corefork.telegram.org/api/recent-actions">admin log</a>
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

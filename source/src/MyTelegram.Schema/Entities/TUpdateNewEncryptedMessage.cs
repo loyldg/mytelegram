@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New encrypted message.
-/// See <a href="https://corefork.telegram.org/constructor/updateNewEncryptedMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateNewEncryptedMessage" /></para>
+/// </summary>
 [TlObject(0x12bcbd9a)]
-public sealed class TUpdateNewEncryptedMessage : IUpdate
+public sealed partial class TUpdateNewEncryptedMessage : IUpdate
 {
     public uint ConstructorId => 0x12bcbd9a;
-    ///<summary>
+    /// <summary>
     /// Message
     /// See <a href="https://corefork.telegram.org/type/EncryptedMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEncryptedMessage Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

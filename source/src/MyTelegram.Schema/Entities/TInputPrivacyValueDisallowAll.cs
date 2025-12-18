@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Disallow all
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowAll" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyValueDisallowAll" /></para>
+/// </summary>
 [TlObject(0xd66b66c9)]
-public sealed class TInputPrivacyValueDisallowAll : IInputPrivacyRule
+public sealed partial class TInputPrivacyValueDisallowAll : IInputPrivacyRule
 {
     public uint ConstructorId => 0xd66b66c9;
     public void ComputeFlag()

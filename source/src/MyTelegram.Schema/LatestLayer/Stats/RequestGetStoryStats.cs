@@ -2,38 +2,41 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/stats">statistics</a> for a certain <a href="https://corefork.telegram.org/api/stories">story</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STORIES_NEVER_CREATED This peer hasn't ever posted any stories.
-/// See <a href="https://corefork.telegram.org/method/stats.getStoryStats" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STORIES_NEVER_CREATED This peer hasn't ever posted any stories. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stats.getStoryStats" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x374fef40)]
-public sealed class RequestGetStoryStats : IRequest<MyTelegram.Schema.Stats.IStoryStats>
+public sealed partial class RequestGetStoryStats : IRequest<MyTelegram.Schema.Stats.IStoryStats>
 {
     public uint ConstructorId => 0x374fef40;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to enable the dark theme for graph colors
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer that posted the story
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

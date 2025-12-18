@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Selects a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut</a> by name.
-/// See <a href="https://corefork.telegram.org/constructor/inputQuickReplyShortcut" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputQuickReplyShortcut" /></para>
+/// </summary>
 [TlObject(0x24596d41)]
-public sealed class TInputQuickReplyShortcut : IInputQuickReplyShortcut
+public sealed partial class TInputQuickReplyShortcut : IInputQuickReplyShortcut
 {
     public uint ConstructorId => 0x24596d41;
-    ///<summary>
+    /// <summary>
     /// Shortcut name.
-    ///</summary>
+    /// </summary>
     public string Shortcut { get; set; }
 
     public void ComputeFlag()

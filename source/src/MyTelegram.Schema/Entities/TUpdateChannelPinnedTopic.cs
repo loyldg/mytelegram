@@ -7,7 +7,7 @@ namespace MyTelegram.Schema;
 /// See <a href="https://corefork.telegram.org/constructor/updateChannelPinnedTopic" />
 ///</summary>
 [TlObject(0x192efbe3)]
-public sealed class TUpdateChannelPinnedTopic : IUpdate
+public sealed partial class TUpdateChannelPinnedTopic : IUpdate
 {
     public uint ConstructorId => 0x192efbe3;
     ///<summary>

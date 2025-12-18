@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Encrypted file.
-/// See <a href="https://corefork.telegram.org/constructor/encryptedFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/encryptedFile" /></para>
+/// </summary>
 [TlObject(0xa8008cd8)]
-public sealed class TEncryptedFile : IEncryptedFile
+public sealed partial class TEncryptedFile : IEncryptedFile
 {
     public uint ConstructorId => 0xa8008cd8;
-    ///<summary>
+    /// <summary>
     /// File ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Checking sum depending on user ID
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File size in bytes
-    ///</summary>
+    /// </summary>
     public long Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of data center
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 32-bit fingerprint of key used for file encryption
-    ///</summary>
+    /// </summary>
     public int KeyFingerprint { get; set; }
 
     public void ComputeFlag()

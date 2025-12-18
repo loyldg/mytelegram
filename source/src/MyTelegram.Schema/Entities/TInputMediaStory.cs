@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Forwarded story
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaStory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaStory" /></para>
+/// </summary>
 [TlObject(0x89fdd778)]
-public sealed class TInputMediaStory : IInputMedia
+public sealed partial class TInputMediaStory : IInputMedia
 {
     public uint ConstructorId => 0x89fdd778;
-    ///<summary>
+    /// <summary>
     /// Peer where the story was posted
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Birthday information of a contact.
-/// See <a href="https://corefork.telegram.org/type/ContactBirthday" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ContactBirthday" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TContactBirthday"/> See <a href="https://corefork.telegram.org/constructor/contactBirthday" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TContactBirthday), nameof(TContactBirthday))]
 public interface IContactBirthday : IObject
 {
-    ///<summary>
+    /// <summary>
     /// User ID.
-    ///</summary>
+    /// </summary>
     long ContactId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Birthday information.
     /// See <a href="https://corefork.telegram.org/type/Birthday" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IBirthday Birthday { get; set; }
 }

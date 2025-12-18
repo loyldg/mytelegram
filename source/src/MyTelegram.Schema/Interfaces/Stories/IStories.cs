@@ -2,43 +2,47 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// List of <a href="https://corefork.telegram.org/api/stories#pinned-or-archived-stories">stories</a>
-/// See <a href="https://corefork.telegram.org/type/stories.Stories" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/stories.Stories" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStories"/> See <a href="https://corefork.telegram.org/constructor/stories.stories" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStories), nameof(TStories))]
 public interface IStories : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of stories that can be fetched
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stories
     /// See <a href="https://corefork.telegram.org/type/StoryItem" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IStoryItem> Stories { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of pinned stories.
-    ///</summary>
+    /// </summary>
     TVector<int>? PinnedToTop { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

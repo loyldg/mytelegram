@@ -2,27 +2,33 @@
 
 namespace MyTelegram.Schema.Updates;
 
-///<summary>
+/// <summary>
 /// Contains the difference (new messages) between our local channel state and the remote state
-/// See <a href="https://corefork.telegram.org/type/updates.ChannelDifference" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/updates.ChannelDifference" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChannelDifferenceEmpty"/> See <a href="https://corefork.telegram.org/constructor/updates.channelDifferenceEmpty" /><br/>
+/// <see cref="TChannelDifferenceTooLong"/> See <a href="https://corefork.telegram.org/constructor/updates.channelDifferenceTooLong" /><br/>
+/// <see cref="TChannelDifference"/> See <a href="https://corefork.telegram.org/constructor/updates.channelDifference" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChannelDifferenceEmpty), nameof(TChannelDifferenceEmpty))]
 [JsonDerivedType(typeof(TChannelDifferenceTooLong), nameof(TChannelDifferenceTooLong))]
 [JsonDerivedType(typeof(TChannelDifference), nameof(TChannelDifference))]
 public interface IChannelDifference : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether there are more updates that must be fetched (always false)
-    ///</summary>
+    /// </summary>
     bool Final { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clients are supposed to refetch the channel difference after timeout seconds have elapsed, if the user is <a href="https://corefork.telegram.org/api/updates#subscribing-to-updates-of-channels-supergroups">currently viewing the chat, see here »</a> for more info.
-    ///</summary>
+    /// </summary>
     int? Timeout { get; set; }
 }

@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Report menu option
-/// See <a href="https://corefork.telegram.org/type/MessageReportOption" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageReportOption" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageReportOption"/> See <a href="https://corefork.telegram.org/constructor/messageReportOption" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageReportOption), nameof(TMessageReportOption))]
 public interface IMessageReportOption : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Option title
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Option identifier: if the user selects this option, re-invoke <a href="https://corefork.telegram.org/method/messages.report">messages.report</a>, passing this option to <code>option</code>
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Option { get; set; }
 }

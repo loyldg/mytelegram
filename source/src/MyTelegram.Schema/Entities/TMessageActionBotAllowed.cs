@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// We have given the bot permission to send us direct messages.The optional fields specify how did we authorize the bot to send us messages.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionBotAllowed" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionBotAllowed" /></para>
+/// </summary>
 [TlObject(0xc516d679)]
-public sealed class TMessageActionBotAllowed : IMessageAction
+public sealed partial class TMessageActionBotAllowed : IMessageAction
 {
     public uint ConstructorId => 0xc516d679;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// We have authorized the bot to send us messages by installing the bot's <a href="https://corefork.telegram.org/api/bots/attach">attachment menu</a>.
-    ///</summary>
+    /// </summary>
     public bool AttachMenu { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// We have allowed the bot to send us messages using <a href="https://corefork.telegram.org/method/bots.allowSendMessage">bots.allowSendMessage »</a>.
-    ///</summary>
+    /// </summary>
     public bool FromRequest { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// We have authorized the bot to send us messages by logging into a website via <a href="https://corefork.telegram.org/widgets/login">Telegram Login »</a>; this field contains the domain name of the website on which the user has logged in.
-    ///</summary>
+    /// </summary>
     public string? Domain { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// We have authorized the bot to send us messages by opening the specified <a href="https://corefork.telegram.org/api/bots/webapps">bot mini app</a>.
     /// See <a href="https://corefork.telegram.org/type/BotApp" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotApp? App { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Contains various <a href="https://corefork.telegram.org/api/config#client-configuration">client configuration parameters</a>
-/// See <a href="https://corefork.telegram.org/type/help.AppConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.AppConfig" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAppConfigNotModified"/> See <a href="https://corefork.telegram.org/constructor/help.appConfigNotModified" /><br/>
+/// <see cref="TAppConfig"/> See <a href="https://corefork.telegram.org/constructor/help.appConfig" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAppConfigNotModified), nameof(TAppConfigNotModified))]
 [JsonDerivedType(typeof(TAppConfig), nameof(TAppConfig))]
 public interface IAppConfig : IObject

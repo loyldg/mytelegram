@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a sticker
-/// See <a href="https://corefork.telegram.org/constructor/documentAttributeSticker" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentAttributeSticker" /></para>
+/// </summary>
 [TlObject(0x6319d612)]
-public sealed class TDocumentAttributeSticker : IDocumentAttribute
+public sealed partial class TDocumentAttributeSticker : IDocumentAttribute
 {
     public uint ConstructorId => 0x6319d612;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a mask sticker
-    ///</summary>
+    /// </summary>
     public bool Mask { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Alternative emoji representation of sticker
-    ///</summary>
+    /// </summary>
     public string Alt { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Associated stickerset
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mask coordinates (if this is a mask sticker, attached to a photo)
     /// See <a href="https://corefork.telegram.org/type/MaskCoords" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMaskCoords? MaskCoords { get; set; }
 
     public void ComputeFlag()

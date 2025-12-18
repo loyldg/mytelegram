@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Name, ISO code, localized name and phone codes/patterns of all available countries
-/// See <a href="https://corefork.telegram.org/constructor/help.countriesList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.countriesList" /></para>
+/// </summary>
 [TlObject(0x87d0759e)]
-public sealed class TCountriesList : ICountriesList
+public sealed partial class TCountriesList : ICountriesList
 {
     public uint ConstructorId => 0x87d0759e;
-    ///<summary>
+    /// <summary>
     /// Name, ISO code, localized name and phone codes/patterns of all available countries
     /// See <a href="https://corefork.telegram.org/type/help.Country" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.Help.ICountry> Countries { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,26 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.canPurchaseStore" />
-///</summary>
+/// <summary>
+/// Checks whether a purchase is possible. Must be called before in-store purchase, official apps only.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 INPUT_PURPOSE_INVALID The specified payment purpose is invalid.</c></para>
+/// <para><c>406 PREMIUM_CURRENTLY_UNAVAILABLE You cannot currently purchase a Premium subscription. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.canPurchaseStore" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x4fdc5ea7)]
-public sealed class RequestCanPurchaseStore : IRequest<IBool>
+public sealed partial class RequestCanPurchaseStore : IRequest<IBool>
 {
     public uint ConstructorId => 0x4fdc5ea7;
 
-    ///<summary>
+    /// <summary>
+    /// Payment purpose.
     /// See <a href="https://corefork.telegram.org/type/InputStorePaymentPurpose" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
     public void ComputeFlag()

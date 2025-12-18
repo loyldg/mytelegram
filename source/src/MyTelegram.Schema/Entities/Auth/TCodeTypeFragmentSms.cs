@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The next time, the authentication code will be delivered via <a href="https://fragment.com/">fragment.com</a>
-/// See <a href="https://corefork.telegram.org/constructor/auth.codeTypeFragmentSms" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.codeTypeFragmentSms" /></para>
+/// </summary>
 [TlObject(0x6ed998c)]
-public sealed class TCodeTypeFragmentSms : ICodeType
+public sealed partial class TCodeTypeFragmentSms : ICodeType
 {
     public uint ConstructorId => 0x6ed998c;
     public void ComputeFlag()

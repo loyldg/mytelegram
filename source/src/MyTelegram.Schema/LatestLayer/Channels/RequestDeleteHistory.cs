@@ -2,41 +2,44 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Delete the history of a <a href="https://corefork.telegram.org/api/channel">supergroup</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PARICIPANT_MISSING The current user is not in the channel.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHANNEL_TOO_BIG This channel has too many participants (&gt;1000) to be deleted.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// See <a href="https://corefork.telegram.org/method/channels.deleteHistory" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PARICIPANT_MISSING The current user is not in the channel.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHANNEL_TOO_BIG This channel has too many participants (&gt;1000) to be deleted.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.deleteHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9baa9647)]
-public sealed class RequestDeleteHistory : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDeleteHistory : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x9baa9647;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the history should be deleted for everyone
-    ///</summary>
+    /// </summary>
     public bool ForEveryone { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Supergroup</a> whose history must be deleted
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of message <strong>up to which</strong> the history must be deleted
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Unsupported IV element
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockUnsupported" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockUnsupported" /></para>
+/// </summary>
 [TlObject(0x13567e8a)]
-public sealed class TPageBlockUnsupported : IPageBlock
+public sealed partial class TPageBlockUnsupported : IPageBlock
 {
     public uint ConstructorId => 0x13567e8a;
     public void ComputeFlag()

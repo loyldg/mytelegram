@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Represents a custom emoji.<br>
+/// <summary>
+/// Represents a custom emoji.<br/>
 /// Note that this entity must wrap exactly one regular emoji (the one contained in <a href="https://corefork.telegram.org/constructor/documentAttributeCustomEmoji">documentAttributeCustomEmoji</a>.<code>alt</code>) in the related text, otherwise the server will ignore it.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityCustomEmoji" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityCustomEmoji" /></para>
+/// </summary>
 [TlObject(0xc8cf05f8)]
-public sealed class TMessageEntityCustomEmoji : IMessageEntity
+public sealed partial class TMessageEntityCustomEmoji : IMessageEntity
 {
     public uint ConstructorId => 0xc8cf05f8;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Document ID of the <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji</a>, use <a href="https://corefork.telegram.org/method/messages.getCustomEmojiDocuments">messages.getCustomEmojiDocuments</a> to fetch the emoji animation and the actual emoji it represents.
-    ///</summary>
+    /// </summary>
     public long DocumentId { get; set; }
 
     public void ComputeFlag()

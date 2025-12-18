@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a credit card number
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityBankCard" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityBankCard" /></para>
+/// </summary>
 [TlObject(0x761e6af4)]
-public sealed class TMessageEntityBankCard : IMessageEntity
+public sealed partial class TMessageEntityBankCard : IMessageEntity
 {
     public uint ConstructorId => 0x761e6af4;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a Telegram Premium purchase
-/// See <a href="https://corefork.telegram.org/type/InputStorePaymentPurpose" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputStorePaymentPurpose" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputStorePaymentPremiumSubscription"/> See <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumSubscription" /><br/>
+/// <see cref="TInputStorePaymentGiftPremium"/> See <a href="https://corefork.telegram.org/constructor/inputStorePaymentGiftPremium" /><br/>
+/// <see cref="TInputStorePaymentPremiumGiftCode"/> See <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumGiftCode" /><br/>
+/// <see cref="TInputStorePaymentPremiumGiveaway"/> See <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumGiveaway" /><br/>
+/// <see cref="TInputStorePaymentStarsTopup"/> See <a href="https://corefork.telegram.org/constructor/inputStorePaymentStarsTopup" /><br/>
+/// <see cref="TInputStorePaymentStarsGift"/> See <a href="https://corefork.telegram.org/constructor/inputStorePaymentStarsGift" /><br/>
+/// <see cref="TInputStorePaymentStarsGiveaway"/> See <a href="https://corefork.telegram.org/constructor/inputStorePaymentStarsGiveaway" /><br/>
+/// <see cref="TInputStorePaymentAuthCode"/> See <a href="https://corefork.telegram.org/constructor/inputStorePaymentAuthCode" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputStorePaymentPremiumSubscription), nameof(TInputStorePaymentPremiumSubscription))]
 [JsonDerivedType(typeof(TInputStorePaymentGiftPremium), nameof(TInputStorePaymentGiftPremium))]
 [JsonDerivedType(typeof(TInputStorePaymentPremiumGiftCode), nameof(TInputStorePaymentPremiumGiftCode))]

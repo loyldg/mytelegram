@@ -2,26 +2,36 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get a list of <a href="https://corefork.telegram.org/api/sponsored-messages">sponsored messages for a peer, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/method/messages.getSponsoredMessages" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSponsoredMessages" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3d6ce850)]
-public sealed class RequestGetSponsoredMessages : IRequest<MyTelegram.Schema.Messages.ISponsoredMessages>
+public sealed partial class RequestGetSponsoredMessages : IRequest<MyTelegram.Schema.Messages.ISponsoredMessages>
 {
     public uint ConstructorId => 0x3d6ce850;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The currently open channel/bot.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// Must be set when fetching <a href="https://corefork.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements">sponsored messages to show on channel videos »</a>.
+    /// </summary>
     public int? MsgId { get; set; }
 
     public void ComputeFlag()

@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Mask coordinates (if this is a mask sticker, attached to a photo)
-/// See <a href="https://corefork.telegram.org/type/MaskCoords" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MaskCoords" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMaskCoords"/> See <a href="https://corefork.telegram.org/constructor/maskCoords" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMaskCoords), nameof(TMaskCoords))]
 public interface IMaskCoords : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Part of the face, relative to which the mask should be placed
-    ///</summary>
+    /// </summary>
     int N { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
-    ///</summary>
+    /// </summary>
     double X { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Shift by Y-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just below the default mask position)
-    ///</summary>
+    /// </summary>
     double Y { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mask scaling coefficient. (For example, 2.0 means a doubled size)
-    ///</summary>
+    /// </summary>
     double Zoom { get; set; }
 }

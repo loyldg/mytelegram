@@ -2,33 +2,36 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Invite a set of users to a group call.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 CHAT_TYPE_INVALID The specified user type is invalid.
-/// 403 GROUPCALL_FORBIDDEN The group call has already ended.
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 400 INVITE_FORBIDDEN_WITH_JOINAS If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
-/// 400 USER_ALREADY_INVITED You have already invited this user.
-/// 403 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel.
-/// See <a href="https://corefork.telegram.org/method/phone.inviteToGroupCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 CHAT_TYPE_INVALID The specified user type is invalid.</c></para>
+/// <para><c>403 GROUPCALL_FORBIDDEN The group call has already ended.</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>400 INVITE_FORBIDDEN_WITH_JOINAS If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.</c></para>
+/// <para><c>400 USER_ALREADY_INVITED You have already invited this user.</c></para>
+/// <para><c>403 USER_NOT_PARTICIPANT You're not a member of this supergroup/channel. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.inviteToGroupCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7b393160)]
-public sealed class RequestInviteToGroupCall : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestInviteToGroupCall : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x7b393160;
 
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The users to invite.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Users { get; set; }
 
     public void ComputeFlag()

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contact status update.
-/// See <a href="https://corefork.telegram.org/constructor/updateUserStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateUserStatus" /></para>
+/// </summary>
 [TlObject(0xe5bdf8de)]
-public sealed class TUpdateUserStatus : IUpdate
+public sealed partial class TUpdateUserStatus : IUpdate
 {
     public uint ConstructorId => 0xe5bdf8de;
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New status
     /// See <a href="https://corefork.telegram.org/type/UserStatus" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUserStatus Status { get; set; }
 
     public void ComputeFlag()

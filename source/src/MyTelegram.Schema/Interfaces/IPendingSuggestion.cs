@@ -2,23 +2,36 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/PendingSuggestion" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/config#custom-suggestions">custom pending suggestion »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/PendingSuggestion" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPendingSuggestion"/> See <a href="https://corefork.telegram.org/constructor/pendingSuggestion" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPendingSuggestion), nameof(TPendingSuggestion))]
 public interface IPendingSuggestion : IObject
 {
+    /// <summary>
+    /// The suggestion ID, can be passed to <a href="https://corefork.telegram.org/method/help.dismissSuggestion">help.dismissSuggestion</a>.
+    /// </summary>
     string Suggestion { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Title of the suggestion.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ITextWithEntities Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Body of the suggestion.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ITextWithEntities Description { get; set; }
 
+    /// <summary>
+    /// URL to open when the user clicks on the suggestion.
+    /// </summary>
     string Url { get; set; }
 }

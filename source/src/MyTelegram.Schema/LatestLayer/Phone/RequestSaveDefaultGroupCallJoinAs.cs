@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Set the default peer that will be used to join a group call in a specific dialog.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 JOIN_AS_PEER_INVALID The specified peer cannot be used to join a group call.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.saveDefaultGroupCallJoinAs" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 JOIN_AS_PEER_INVALID The specified peer cannot be used to join a group call.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.saveDefaultGroupCallJoinAs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x575e1f8c)]
-public sealed class RequestSaveDefaultGroupCallJoinAs : IRequest<IBool>
+public sealed partial class RequestSaveDefaultGroupCallJoinAs : IRequest<IBool>
 {
     public uint ConstructorId => 0x575e1f8c;
 
-    ///<summary>
+    /// <summary>
     /// The dialog
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The default peer that will be used to join group calls in this dialog, presenting yourself as a specific user/channel.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer JoinAs { get; set; }
 
     public void ComputeFlag()

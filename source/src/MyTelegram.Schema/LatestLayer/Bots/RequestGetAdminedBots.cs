@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Get a list of bots owned by the current user
-/// See <a href="https://corefork.telegram.org/method/bots.getAdminedBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.getAdminedBots" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb0711d83)]
-public sealed class RequestGetAdminedBots : IRequest<TVector<MyTelegram.Schema.IUser>>
+public sealed partial class RequestGetAdminedBots : IRequest<TVector<MyTelegram.Schema.IUser>>
 {
     public uint ConstructorId => 0xb0711d83;
 

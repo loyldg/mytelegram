@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Langpack;
 
-///<summary>
+/// <summary>
 /// Get information about a language in a localization pack
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 LANG_CODE_NOT_SUPPORTED The specified language code is not supported.
-/// 400 LANG_PACK_INVALID The provided language pack is invalid.
-/// See <a href="https://corefork.telegram.org/method/langpack.getLanguage" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 LANG_CODE_NOT_SUPPORTED The specified language code is not supported.</c></para>
+/// <para><c>400 LANG_PACK_INVALID The provided language pack is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/langpack.getLanguage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x6a596502)]
-public sealed class RequestGetLanguage : IRequest<MyTelegram.Schema.ILangPackLanguage>
+public sealed partial class RequestGetLanguage : IRequest<MyTelegram.Schema.ILangPackLanguage>
 {
     public uint ConstructorId => 0x6a596502;
 
-    ///<summary>
+    /// <summary>
     /// Platform identifier (i.e. <code>android</code>, <code>tdesktop</code>, etc).
-    ///</summary>
+    /// </summary>
     public string LangPack { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Either an ISO 639-1 language code or a language pack name obtained from a <a href="https://corefork.telegram.org/api/links#language-pack-links">language pack link</a>.
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
     public void ComputeFlag()

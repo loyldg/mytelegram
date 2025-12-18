@@ -2,40 +2,64 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/monoForumDialog" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/monoForumDialog" /></para>
+/// </summary>
 [TlObject(0x64407ea7)]
-public sealed class TMonoForumDialog : ISavedDialog
+public sealed partial class TMonoForumDialog : ISavedDialog
 {
     public uint ConstructorId => 0x64407ea7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Whether this topic has a manually set (with <a href="https://corefork.telegram.org/method/messages.markDialogUnread">messages.markDialogUnread</a>) unread mark.
+    /// </summary>
     public bool UnreadMark { get; set; }
 
+    /// <summary>
+    /// If set, an admin has exempted this peer from payment to send messages using <a href="https://corefork.telegram.org/method/account.toggleNoPaidMessagesException">account.toggleNoPaidMessagesException</a>.
+    /// </summary>
     public bool NopaidMessagesException { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The peer associated to the topic, AKA the topic ID.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
+    /// <summary>
+    /// The latest message ID
+    /// </summary>
     public int TopMessage { get; set; }
 
+    /// <summary>
+    /// Position up to which all incoming messages are read.
+    /// </summary>
     public int ReadInboxMaxId { get; set; }
 
+    /// <summary>
+    /// Position up to which all outgoing messages are read.
+    /// </summary>
     public int ReadOutboxMaxId { get; set; }
 
+    /// <summary>
+    /// Number of unread messages.
+    /// </summary>
     public int UnreadCount { get; set; }
 
+    /// <summary>
+    /// Number of unread reactions.
+    /// </summary>
     public int UnreadReactionsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// A pending message <a href="https://corefork.telegram.org/api/drafts">draft</a>.
     /// See <a href="https://corefork.telegram.org/type/DraftMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDraftMessage? Draft { get; set; }
 
     public void ComputeFlag()

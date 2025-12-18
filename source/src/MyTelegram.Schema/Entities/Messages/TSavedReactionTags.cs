@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// List of <a href="https://corefork.telegram.org/api/saved-messages#tags">reaction tag »</a> names assigned by the user.
-/// See <a href="https://corefork.telegram.org/constructor/messages.savedReactionTags" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.savedReactionTags" /></para>
+/// </summary>
 [TlObject(0x3259950a)]
-public sealed class TSavedReactionTags : ISavedReactionTags
+public sealed partial class TSavedReactionTags : ISavedReactionTags
 {
     public uint ConstructorId => 0x3259950a;
-    ///<summary>
+    /// <summary>
     /// Saved reaction tags.
     /// See <a href="https://corefork.telegram.org/type/SavedReactionTag" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISavedReactionTag> Tags { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>. Can also be manually regenerated, if needed, using the <a href="https://corefork.telegram.org/api/saved-messages#tags">custom algorithm specified here »</a>.
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

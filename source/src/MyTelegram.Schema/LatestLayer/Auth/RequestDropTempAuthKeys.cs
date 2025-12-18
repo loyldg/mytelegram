@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Delete all temporary authorization keys <strong>except for</strong> the ones specified
-/// See <a href="https://corefork.telegram.org/method/auth.dropTempAuthKeys" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.dropTempAuthKeys" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8e48a188)]
-public sealed class RequestDropTempAuthKeys : IRequest<IBool>
+public sealed partial class RequestDropTempAuthKeys : IRequest<IBool>
 {
     public uint ConstructorId => 0x8e48a188;
 
-    ///<summary>
+    /// <summary>
     /// The auth keys that <strong>shouldn't</strong> be dropped.
-    ///</summary>
+    /// </summary>
     public TVector<long> ExceptAuthKeys { get; set; }
 
     public void ComputeFlag()

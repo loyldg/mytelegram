@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Private info associated to the password info (recovery email, telegram <a href="https://corefork.telegram.org/passport">passport</a> info &amp; so on)
-/// See <a href="https://corefork.telegram.org/type/account.PasswordSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.PasswordSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPasswordSettings"/> See <a href="https://corefork.telegram.org/constructor/account.passwordSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPasswordSettings), nameof(TPasswordSettings))]
 public interface IPasswordSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/srp#email-verification">2FA Recovery email</a>
-    ///</summary>
+    /// </summary>
     string? Email { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram <a href="https://corefork.telegram.org/passport">passport</a> settings
     /// See <a href="https://corefork.telegram.org/type/SecureSecretSettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ISecureSecretSettings? SecureSettings { get; set; }
 }

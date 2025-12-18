@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only messages containing geolocations
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterGeo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterGeo" /></para>
+/// </summary>
 [TlObject(0xe7026d0d)]
-public sealed class TInputMessagesFilterGeo : IMessagesFilter
+public sealed partial class TInputMessagesFilterGeo : IMessagesFilter
 {
     public uint ConstructorId => 0xe7026d0d;
     public void ComputeFlag()

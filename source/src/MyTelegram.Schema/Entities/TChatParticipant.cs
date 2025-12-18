@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Group member.
-/// See <a href="https://corefork.telegram.org/constructor/chatParticipant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatParticipant" /></para>
+/// </summary>
 [TlObject(0xc02d4007)]
-public sealed class TChatParticipant : IChatParticipant
+public sealed partial class TChatParticipant : IChatParticipant
 {
     public uint ConstructorId => 0xc02d4007;
-    ///<summary>
+    /// <summary>
     /// Member user ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the user that added the member to the group
-    ///</summary>
+    /// </summary>
     public long InviterId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date added to the group
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

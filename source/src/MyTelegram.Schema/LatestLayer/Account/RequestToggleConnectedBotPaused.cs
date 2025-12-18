@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
-/// Pause or unpause a specific chat, temporarily disconnecting it from all <a href="https://corefork.telegram.org/api/business#connected-bots">business bots »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.toggleConnectedBotPaused" />
-///</summary>
+/// <summary>
+/// Pause or unpause a specific chat, temporarily disconnecting it from all <a href="https://corefork.telegram.org/api/bots/connected-business-bots">business bots »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.toggleConnectedBotPaused" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x646e1097)]
-public sealed class RequestToggleConnectedBotPaused : IRequest<IBool>
+public sealed partial class RequestToggleConnectedBotPaused : IRequest<IBool>
 {
     public uint ConstructorId => 0x646e1097;
 
-    ///<summary>
+    /// <summary>
     /// The chat to pause
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to pause or unpause the chat
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Paused { get; set; }
 
     public void ComputeFlag()

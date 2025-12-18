@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Page theme
-/// See <a href="https://corefork.telegram.org/constructor/webPageAttributeTheme" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPageAttributeTheme" /></para>
+/// </summary>
 [TlObject(0x54b56617)]
-public sealed class TWebPageAttributeTheme : IWebPageAttribute
+public sealed partial class TWebPageAttributeTheme : IWebPageAttribute
 {
     public uint ConstructorId => 0x54b56617;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme files
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument>? Documents { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme settings
     /// See <a href="https://corefork.telegram.org/type/ThemeSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IThemeSettings? Settings { get; set; }
 
     public void ComputeFlag()

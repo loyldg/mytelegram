@@ -2,38 +2,42 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Update <a href="https://corefork.telegram.org/api/folders">folder</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHATLIST_EXCLUDE_INVALID The specified <code>exclude_peers</code> are invalid.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// 400 FILTER_INCLUDE_EMPTY The include_peers vector of the filter is empty.
-/// 400 FILTER_TITLE_EMPTY The title field of the filter is empty.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.updateDialogFilter" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHATLIST_EXCLUDE_INVALID The specified <code>exclude_peers</code> are invalid.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid.</c></para>
+/// <para><c>400 FILTER_INCLUDE_EMPTY The include_peers vector of the filter is empty.</c></para>
+/// <para><c>400 FILTER_TITLE_EMPTY The title field of the filter is empty.</c></para>
+/// <para><c>400 MESSAGE_TOO_LONG The provided message is too long.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.updateDialogFilter" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1ad4a04a)]
-public sealed class RequestUpdateDialogFilter : IRequest<IBool>
+public sealed partial class RequestUpdateDialogFilter : IRequest<IBool>
 {
     public uint ConstructorId => 0x1ad4a04a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> info
     /// See <a href="https://corefork.telegram.org/type/DialogFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDialogFilter? Filter { get; set; }
 
     public void ComputeFlag()

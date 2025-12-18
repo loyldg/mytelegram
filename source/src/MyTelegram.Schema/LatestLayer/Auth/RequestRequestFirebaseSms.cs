@@ -2,47 +2,50 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Request an SMS code via Firebase.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_CODE_EMPTY phone_code is missing.
-/// 400 PHONE_NUMBER_INVALID The phone number is invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.requestFirebaseSms" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_CODE_EMPTY phone_code is missing.</c></para>
+/// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.requestFirebaseSms" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x8e39261e)]
-public sealed class RequestRequestFirebaseSms : IRequest<IBool>
+public sealed partial class RequestRequestFirebaseSms : IRequest<IBool>
 {
     public uint ConstructorId => 0x8e39261e;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code hash returned by <a href="https://corefork.telegram.org/method/auth.sendCode">auth.sendCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// On Android, a JWS object obtained as described in the <a href="https://corefork.telegram.org/api/auth">auth documentation »</a>
-    ///</summary>
+    /// </summary>
     public string? SafetyNetToken { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// On Android, an object obtained as described in the <a href="https://corefork.telegram.org/api/auth">auth documentation »</a>
-    ///</summary>
+    /// </summary>
     public string? PlayIntegrityToken { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret token received via an apple push notification
-    ///</summary>
+    /// </summary>
     public string? IosPushSecret { get; set; }
 
     public void ComputeFlag()

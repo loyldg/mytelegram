@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A message was posted in a channel
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionSendMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionSendMessage" /></para>
+/// </summary>
 [TlObject(0x278f2868)]
-public sealed class TChannelAdminLogEventActionSendMessage : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionSendMessage : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x278f2868;
-    ///<summary>
+    /// <summary>
     /// The message that was sent
     /// See <a href="https://corefork.telegram.org/type/Message" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
     public void ComputeFlag()

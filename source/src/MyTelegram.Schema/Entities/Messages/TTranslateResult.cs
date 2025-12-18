@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Translated text with <a href="https://corefork.telegram.org/api/entities">entities</a>
-/// See <a href="https://corefork.telegram.org/constructor/messages.translateResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.translateResult" /></para>
+/// </summary>
 [TlObject(0x33db32f8)]
-public sealed class TTranslateResult : ITranslatedText
+public sealed partial class TTranslateResult : ITranslatedText
 {
     public uint ConstructorId => 0x33db32f8;
-    ///<summary>
+    /// <summary>
     /// Text+<a href="https://corefork.telegram.org/api/entities">entities</a>, for each input message.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ITextWithEntities> Result { get; set; }
 
     public void ComputeFlag()

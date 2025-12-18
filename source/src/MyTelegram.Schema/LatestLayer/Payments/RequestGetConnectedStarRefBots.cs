@@ -2,39 +2,42 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Fetch all affiliations we have created for a certain peer
-/// See <a href="https://corefork.telegram.org/method/payments.getConnectedStarRefBots" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getConnectedStarRefBots" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5869a553)]
-public sealed class RequestGetConnectedStarRefBots : IRequest<MyTelegram.Schema.Payments.IConnectedStarRefBots>
+public sealed partial class RequestGetConnectedStarRefBots : IRequest<MyTelegram.Schema.Payments.IConnectedStarRefBots>
 {
     public uint ConstructorId => 0x5869a553;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The affiliated peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, returns only results older than the specified unixtime
-    ///</summary>
+    /// </summary>
     public int? OffsetDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>, taken from the last returned <a href="https://corefork.telegram.org/constructor/connectedBotStarRef">connectedBotStarRef</a>.<code>url</code> (initially empty)
-    ///</summary>
+    /// </summary>
     public string? OffsetLink { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

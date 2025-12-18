@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get media autodownload settings
-/// See <a href="https://corefork.telegram.org/method/account.getAutoDownloadSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getAutoDownloadSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x56da0b3f)]
-public sealed class RequestGetAutoDownloadSettings : IRequest<MyTelegram.Schema.Account.IAutoDownloadSettings>
+public sealed partial class RequestGetAutoDownloadSettings : IRequest<MyTelegram.Schema.Account.IAutoDownloadSettings>
 {
     public uint ConstructorId => 0x56da0b3f;
 

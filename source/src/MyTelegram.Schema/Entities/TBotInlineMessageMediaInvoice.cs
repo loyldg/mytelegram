@@ -2,59 +2,59 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Send an invoice
-/// See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaInvoice" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaInvoice" /></para>
+/// </summary>
 [TlObject(0x354a9b09)]
-public sealed class TBotInlineMessageMediaInvoice : IBotInlineMessage
+public sealed partial class TBotInlineMessageMediaInvoice : IBotInlineMessage
 {
     public uint ConstructorId => 0x354a9b09;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if you require the user's shipping address to complete the order
-    ///</summary>
+    /// </summary>
     public bool ShippingAddressRequested { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Test invoice
-    ///</summary>
+    /// </summary>
     public bool Test { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product name, 1-32 characters
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product description, 1-255 characters
-    ///</summary>
+    /// </summary>
     public string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Product photo
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code, or <code>XTR</code> for <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long TotalAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
     public void ComputeFlag()

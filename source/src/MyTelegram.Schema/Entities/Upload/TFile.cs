@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema.Upload;
 
-///<summary>
+/// <summary>
 /// File content.
-/// See <a href="https://corefork.telegram.org/constructor/upload.file" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/upload.file" /></para>
+/// </summary>
 [TlObject(0x96a18d5)]
-public sealed class TFile : IFile
+public sealed partial class TFile : IFile
 {
     public uint ConstructorId => 0x96a18d5;
-    ///<summary>
+    /// <summary>
     /// File type
     /// See <a href="https://corefork.telegram.org/type/storage.FileType" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Storage.IFileType Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Modification time
-    ///</summary>
+    /// </summary>
     public int Mtime { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Binary data, file content
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

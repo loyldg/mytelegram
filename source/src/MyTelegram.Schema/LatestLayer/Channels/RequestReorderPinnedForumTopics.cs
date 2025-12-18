@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Channels;
 /// See <a href="https://corefork.telegram.org/method/channels.reorderPinnedForumTopics" />
 ///</summary>
 [TlObject(0x2950a18f)]
-public sealed class RequestReorderPinnedForumTopics : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestReorderPinnedForumTopics : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x2950a18f;
 

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The view counter of a message in a channel has changed
-/// See <a href="https://corefork.telegram.org/constructor/updateChannelMessageViews" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChannelMessageViews" /></para>
+/// </summary>
 [TlObject(0xf226ac08)]
-public sealed class TUpdateChannelMessageViews : IUpdate
+public sealed partial class TUpdateChannelMessageViews : IUpdate
 {
     public uint ConstructorId => 0xf226ac08;
-    ///<summary>
+    /// <summary>
     /// Channel ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New view counter
-    ///</summary>
+    /// </summary>
     public int Views { get; set; }
 
     public void ComputeFlag()

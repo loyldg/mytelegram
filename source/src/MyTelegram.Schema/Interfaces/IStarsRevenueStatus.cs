@@ -2,43 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes <a href="https://corefork.telegram.org/api/stars">Telegram Star revenue balances »</a>.
-/// See <a href="https://corefork.telegram.org/type/StarsRevenueStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StarsRevenueStatus" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarsRevenueStatus"/> See <a href="https://corefork.telegram.org/constructor/starsRevenueStatus" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarsRevenueStatus), nameof(TStarsRevenueStatus))]
 public interface IStarsRevenueStatus : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
-    /// If set, the user may <a href="https://corefork.telegram.org/api/stars#withdrawing-stars">withdraw</a> up to <code>available_balance</code> stars.
-    ///</summary>
+    /// <summary>
+    /// If set, the user may <a href="https://corefork.telegram.org/api/stars#withdrawing-revenue">withdraw</a> up to <code>available_balance</code> stars.
+    /// </summary>
     bool WithdrawalEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Amount of not-yet-withdrawn Telegram Stars.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarsAmount CurrentBalance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Amount of withdrawable Telegram Stars.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarsAmount AvailableBalance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total amount of earned Telegram Stars.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarsAmount OverallRevenue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unixtime indicating when will withdrawal be available to the user. If not set, withdrawal can be started now.
-    ///</summary>
+    /// </summary>
     int? NextWithdrawalAt { get; set; }
 }

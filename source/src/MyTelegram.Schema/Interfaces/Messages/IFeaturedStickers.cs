@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Featured stickers
-/// See <a href="https://corefork.telegram.org/type/messages.FeaturedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.FeaturedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFeaturedStickersNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.featuredStickersNotModified" /><br/>
+/// <see cref="TFeaturedStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.featuredStickers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFeaturedStickersNotModified), nameof(TFeaturedStickersNotModified))]
 [JsonDerivedType(typeof(TFeaturedStickers), nameof(TFeaturedStickers))]
 public interface IFeaturedStickers : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Total number of featured stickers
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 }

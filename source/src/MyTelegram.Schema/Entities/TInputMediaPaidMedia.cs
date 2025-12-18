@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/paid-media">Paid media, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia" /></para>
+/// </summary>
 [TlObject(0xc4103386)]
-public sealed class TInputMediaPaidMedia : IInputMedia
+public sealed partial class TInputMediaPaidMedia : IInputMedia
 {
     public uint ConstructorId => 0xc4103386;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The price of the media in <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public long StarsAmount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photos or videos.
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputMedia> ExtendedMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bots only, specifies a custom payload that will then be passed in <a href="https://corefork.telegram.org/constructor/updateBotPurchasedPaidMedia">updateBotPurchasedPaidMedia</a> when a payment is made (this field will not be visible to the user)
-    ///</summary>
+    /// </summary>
     public string? Payload { get; set; }
 
     public void ComputeFlag()

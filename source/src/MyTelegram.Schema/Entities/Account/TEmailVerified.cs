@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// The email was verified correctly.
-/// See <a href="https://corefork.telegram.org/constructor/account.emailVerified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.emailVerified" /></para>
+/// </summary>
 [TlObject(0x2b96cd1b)]
-public sealed class TEmailVerified : IEmailVerified
+public sealed partial class TEmailVerified : IEmailVerified
 {
     public uint ConstructorId => 0x2b96cd1b;
-    ///<summary>
+    /// <summary>
     /// The verified email address.
-    ///</summary>
+    /// </summary>
     public string Email { get; set; }
 
     public void ComputeFlag()

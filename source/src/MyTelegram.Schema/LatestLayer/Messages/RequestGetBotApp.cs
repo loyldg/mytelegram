@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Obtain information about a <a href="https://corefork.telegram.org/api/bots/webapps#direct-link-mini-apps">direct link Mini App</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_APP_BOT_INVALID The bot_id passed in the inputBotAppShortName constructor is invalid.
-/// 400 BOT_APP_INVALID The specified bot app is invalid.
-/// 400 BOT_APP_SHORTNAME_INVALID The specified bot app short name is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getBotApp" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_APP_BOT_INVALID The bot_id passed in the inputBotAppShortName constructor is invalid.</c></para>
+/// <para><c>400 BOT_APP_INVALID The specified bot app is invalid.</c></para>
+/// <para><c>400 BOT_APP_SHORTNAME_INVALID The specified bot app short name is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getBotApp" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x34fdc5c3)]
-public sealed class RequestGetBotApp : IRequest<MyTelegram.Schema.Messages.IBotApp>
+public sealed partial class RequestGetBotApp : IRequest<MyTelegram.Schema.Messages.IBotApp>
 {
     public uint ConstructorId => 0x34fdc5c3;
 
-    ///<summary>
+    /// <summary>
     /// Bot app information obtained from a <a href="https://corefork.telegram.org/api/links#direct-mini-app-links">Direct Mini App deep link »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputBotApp" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBotApp App { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

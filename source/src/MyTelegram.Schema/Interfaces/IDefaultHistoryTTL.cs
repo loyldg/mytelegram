@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about the default value of the Time-To-Live setting, applied to all new chats.
-/// See <a href="https://corefork.telegram.org/type/DefaultHistoryTTL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/DefaultHistoryTTL" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDefaultHistoryTTL"/> See <a href="https://corefork.telegram.org/constructor/defaultHistoryTTL" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDefaultHistoryTTL), nameof(TDefaultHistoryTTL))]
 public interface IDefaultHistoryTTL : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Time-To-Live setting applied to all new chats.
-    ///</summary>
+    /// </summary>
     int Period { get; set; }
 }

@@ -2,43 +2,46 @@
 
 namespace MyTelegram.Schema.Premium;
 
-///<summary>
+/// <summary>
 /// Obtains info about the boosts that were applied to a certain channel or supergroup (admins only)
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/premium.getBoostsList" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/premium.getBoostsList" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x60f67660)]
-public sealed class RequestGetBoostsList : IRequest<MyTelegram.Schema.Premium.IBoostsList>
+public sealed partial class RequestGetBoostsList : IRequest<MyTelegram.Schema.Premium.IBoostsList>
 {
     public uint ConstructorId => 0x60f67660;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to return only info about boosts received from <a href="https://corefork.telegram.org/api/giveaways">gift codes and giveaways created by the channel/supergroup »</a>
-    ///</summary>
+    /// </summary>
     public bool Gifts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel/supergroup
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for pagination, obtained from <a href="https://corefork.telegram.org/constructor/premium.boostsList">premium.boostsList</a>.<code>next_offset</code>
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Assigns a big file (over 10 MB in size), saved in part using the method <a href="https://corefork.telegram.org/method/upload.saveBigFilePart">upload.saveBigFilePart</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputFileBig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputFileBig" /></para>
+/// </summary>
 [TlObject(0xfa4f0bb5)]
-public sealed class TInputFileBig : IInputFile
+public sealed partial class TInputFileBig : IInputFile
 {
     public uint ConstructorId => 0xfa4f0bb5;
-    ///<summary>
+    /// <summary>
     /// Random file id, created by the client
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of parts saved
-    ///</summary>
+    /// </summary>
     public int Parts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Full file name
-    ///</summary>
+    /// </summary>
     public string Name { get; set; }
 
     public void ComputeFlag()

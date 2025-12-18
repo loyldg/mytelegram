@@ -1,19 +1,18 @@
-﻿using MyTelegram.Domain.Aggregates.Photo;
-using MyTelegram.Domain.Commands.Photo;
+using MyTelegram.Domain.Aggregates.Photo;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Photos;
-
-///<summary>
+/// <summary>
 /// Deletes profile photos. The method returns a list of successfully deleted photo IDs.
-/// See <a href="https://corefork.telegram.org/method/photos.deletePhotos" />
-///</summary>
-internal sealed class DeletePhotosHandler(IQueryProcessor queryProcessor,ICommandBus commandBus) : RpcResultObjectHandler<MyTelegram.Schema.Photos.RequestDeletePhotos, TVector<long>>
+/// <para><c>See <a href="https://corefork.telegram.org/method/photos.deletePhotos"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class DeletePhotosHandler(IQueryProcessor queryProcessor, ICommandBus commandBus) : RpcResultObjectHandler<MyTelegram.Schema.Photos.RequestDeletePhotos, TVector<long>>
 {
-    protected override async Task<TVector<long>> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Photos.RequestDeletePhotos obj)
+    protected override async Task<TVector<long>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Photos.RequestDeletePhotos obj)
     {
         var photoIds = new Dictionary<long, long>();
-
         foreach (var inputPhoto in obj.Id)
         {
             switch (inputPhoto)
@@ -25,8 +24,7 @@ internal sealed class DeletePhotosHandler(IQueryProcessor queryProcessor,IComman
         }
 
         var deletedIds = new List<long>();
-        var photoReadModels =
-            await queryProcessor.ProcessAsync(new GetPhotoListQuery(input.UserId, photoIds.Keys.ToList()));
+        var photoReadModels = await queryProcessor.ProcessAsync(new GetPhotoListQuery(input.UserId, photoIds.Keys.ToList()));
         foreach (var photoReadModel in photoReadModels)
         {
             if (photoIds.TryGetValue(photoReadModel.PhotoId, out var accessHash))
@@ -44,6 +42,6 @@ internal sealed class DeletePhotosHandler(IQueryProcessor queryProcessor,IComman
             await commandBus.PublishAsync(command);
         }
 
-        return [.. deletedIds];
+        return[..deletedIds];
     }
 }

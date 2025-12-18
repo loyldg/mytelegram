@@ -1,8 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Answer an inline query, for bots only
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 ARTICLE_TITLE_EMPTY The title of the article is empty.
 /// 400 AUDIO_CONTENT_URL_EMPTY The remote URL specified in the content field is empty.
@@ -17,6 +16,7 @@
 /// 400 MESSAGE_EMPTY The provided message is empty.
 /// 400 MESSAGE_TOO_LONG The provided message is too long.
 /// 400 NEXT_OFFSET_INVALID The specified offset is longer than 64 bytes.
+/// 400 PEER_TYPES_INVALID The passed <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline">keyboardButtonSwitchInline</a>.<code>peer_types</code> field is invalid.
 /// 400 PHOTO_CONTENT_TYPE_INVALID Photo mime-type invalid.
 /// 400 PHOTO_CONTENT_URL_EMPTY Photo URL invalid.
 /// 400 PHOTO_INVALID Photo invalid.
@@ -33,19 +33,24 @@
 /// 400 START_PARAM_INVALID Start parameter invalid.
 /// 400 STICKER_DOCUMENT_INVALID The specified sticker document is invalid.
 /// 400 SWITCH_PM_TEXT_EMPTY The switch_pm.text field was empty.
+/// 400 SWITCH_WEBVIEW_URL_INVALID The URL specified in switch_webview.url is invalid!
 /// 400 URL_INVALID Invalid URL provided.
-/// 403 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
+/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
+/// 400 VIDEO_CONTENT_TYPE_INVALID The video's content type is invalid.
 /// 400 VIDEO_TITLE_EMPTY The specified video title is empty.
 /// 400 WEBDOCUMENT_INVALID Invalid webdocument URL provided.
 /// 400 WEBDOCUMENT_MIME_INVALID Invalid webdocument mime type provided.
 /// 400 WEBDOCUMENT_SIZE_TOO_BIG Webdocument is too big!
+/// 400 WEBDOCUMENT_URL_EMPTY The passed web document URL is empty.
 /// 400 WEBDOCUMENT_URL_INVALID The specified webdocument URL is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.setInlineBotResults" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.setInlineBotResults"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 internal sealed class SetInlineBotResultsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSetInlineBotResults, IBool>
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSetInlineBotResults obj)
+    protected override Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestSetInlineBotResults obj)
     {
         throw new NotImplementedException();
     }

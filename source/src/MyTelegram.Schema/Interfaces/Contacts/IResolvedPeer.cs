@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Peer returned after resolving a <code>@username</code>
-/// See <a href="https://corefork.telegram.org/type/contacts.ResolvedPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/contacts.ResolvedPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TResolvedPeer"/> See <a href="https://corefork.telegram.org/constructor/contacts.resolvedPeer" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TResolvedPeer), nameof(TResolvedPeer))]
 public interface IResolvedPeer : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

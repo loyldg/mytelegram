@@ -105,14 +105,20 @@ builder.WebHost.ConfigureKestrel(options =>
                         options.Listen(iep,
                             listenOptions =>
                             {
-                                if (item.MediaOnly)
+                                //if (item.MediaOnly)
+                                //{
+                                //    listenOptions.Use(async (connectionContext, next) =>
+                                //    {
+                                //        connectionContext.Features.Set(new ConnectionTypeFeature(ConnectionType.Media, item.Id));
+                                //        await next();
+                                //    });
+                                //}
+
+                                listenOptions.Use(async (connectionContext, next) =>
                                 {
-                                    listenOptions.Use(async (connectionContext, next) =>
-                                    {
-                                        connectionContext.Features.Set(new ConnectionTypeFeature(ConnectionType.Media));
-                                        await next();
-                                    });
-                                }
+                                    connectionContext.Features.Set(new ConnectionTypeFeature(item.MediaOnly ? ConnectionType.Media : ConnectionType.Generic, item.Id));
+                                    await next();
+                                });
 
                                 if (item.EnableProxyProtocolV2)
                                 {
@@ -134,14 +140,20 @@ builder.WebHost.ConfigureKestrel(options =>
                         options.Listen(iep,
                             listenOptions =>
                             {
-                                if (item.MediaOnly)
-                                {
-                                    listenOptions.Use(async (connectionContext, next) =>
+                                //if (item.MediaOnly)
+                                //{
+                                //    listenOptions.Use(async (connectionContext, next) =>
+                                //    {
+                                //        connectionContext.Features.Set(new ConnectionTypeFeature(ConnectionType.Media, item.Id));
+                                //        await next();
+                                //    });
+                                //}
+                                listenOptions.Use(async (connectionContext, next) =>
                                     {
-                                        connectionContext.Features.Set(new ConnectionTypeFeature(ConnectionType.Media));
+                                        connectionContext.Features.Set(new ConnectionTypeFeature(item.MediaOnly ? ConnectionType.Media : ConnectionType.Generic, item.Id));
                                         await next();
                                     });
-                                }
+
 
                                 if (item.EnableProxyProtocolV2)
                                 {

@@ -2,55 +2,61 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Send compiled payment form
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 TMP_PASSWORD_INVALID The passed tmp_password is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.sendPaymentForm" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FORM_UNSUPPORTED Please update your client.</c></para>
+/// <para><c>400 INVOICE_INVALID The specified invoice is invalid.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PAYMENT_CREDENTIALS_INVALID The specified payment credentials are invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 TMP_PASSWORD_INVALID The passed tmp_password is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.sendPaymentForm" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0x2d03522f)]
-public sealed class RequestSendPaymentForm : IRequest<MyTelegram.Schema.Payments.IPaymentResult>
+public sealed partial class RequestSendPaymentForm : IRequest<MyTelegram.Schema.Payments.IPaymentResult>
 {
     public uint ConstructorId => 0x2d03522f;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Form ID
-    ///</summary>
+    /// </summary>
     public long FormId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/InputInvoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputInvoice Invoice { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of saved and validated <a href="https://corefork.telegram.org/constructor/payments.validatedRequestedInfo">order info</a>
-    ///</summary>
+    /// </summary>
     public string? RequestedInfoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chosen shipping option ID
-    ///</summary>
+    /// </summary>
     public string? ShippingOptionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment credentials
     /// See <a href="https://corefork.telegram.org/type/InputPaymentCredentials" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPaymentCredentials Credentials { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Tip, in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long? TipAmount { get; set; }
 
     public void ComputeFlag()

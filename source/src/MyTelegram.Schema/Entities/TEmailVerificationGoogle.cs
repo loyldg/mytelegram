@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Google ID email verification token
-/// See <a href="https://corefork.telegram.org/constructor/emailVerificationGoogle" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emailVerificationGoogle" /></para>
+/// </summary>
 [TlObject(0xdb909ec2)]
-public sealed class TEmailVerificationGoogle : IEmailVerification
+public sealed partial class TEmailVerificationGoogle : IEmailVerification
 {
     public uint ConstructorId => 0xdb909ec2;
-    ///<summary>
+    /// <summary>
     /// Token
-    ///</summary>
+    /// </summary>
     public string Token { get; set; }
 
     public void ComputeFlag()

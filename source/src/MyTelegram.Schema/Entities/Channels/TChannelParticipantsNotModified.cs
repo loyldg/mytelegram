@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// No new participant info could be found
-/// See <a href="https://corefork.telegram.org/constructor/channels.channelParticipantsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channels.channelParticipantsNotModified" /></para>
+/// </summary>
 [TlObject(0xf0173fe9)]
-public sealed class TChannelParticipantsNotModified : IChannelParticipants
+public sealed partial class TChannelParticipantsNotModified : IChannelParticipants
 {
     public uint ConstructorId => 0xf0173fe9;
     public void ComputeFlag()

@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Initiate a 2FA password reset: can only be used if the user is already logged-in, <a href="https://corefork.telegram.org/api/srp#password-reset">see here for more info »</a>
-/// See <a href="https://corefork.telegram.org/method/account.resetPassword" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.resetPassword" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9308ce1b)]
-public sealed class RequestResetPassword : IRequest<MyTelegram.Schema.Account.IResetPasswordResult>
+public sealed partial class RequestResetPassword : IRequest<MyTelegram.Schema.Account.IResetPasswordResult>
 {
     public uint ConstructorId => 0x9308ce1b;
 

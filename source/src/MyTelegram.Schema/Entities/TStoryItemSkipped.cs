@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an active story, whose full information was omitted for space and performance reasons; use <a href="https://corefork.telegram.org/method/stories.getStoriesByID">stories.getStoriesByID</a> to fetch full info about the skipped story when and if needed.
-/// See <a href="https://corefork.telegram.org/constructor/storyItemSkipped" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyItemSkipped" /></para>
+/// </summary>
 [TlObject(0xffadc913)]
-public sealed class TStoryItemSkipped : IStoryItem
+public sealed partial class TStoryItemSkipped : IStoryItem
 {
     public uint ConstructorId => 0xffadc913;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this story can only be viewed by <a href="https://corefork.telegram.org/api/privacy">our close friends, see here »</a> for more info
-    ///</summary>
+    /// </summary>
     public bool CloseFriends { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the story posted.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When does the story expire.
-    ///</summary>
+    /// </summary>
     public int ExpireDate { get; set; }
 
     public void ComputeFlag()

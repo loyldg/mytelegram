@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// JSON numeric value
-/// See <a href="https://corefork.telegram.org/constructor/jsonNumber" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/jsonNumber" /></para>
+/// </summary>
 [TlObject(0x2be0dfa4)]
-public sealed class TJsonNumber : IJSONValue
+public sealed partial class TJsonNumber : IJSONValue
 {
     public uint ConstructorId => 0x2be0dfa4;
-    ///<summary>
+    /// <summary>
     /// Value
-    ///</summary>
+    /// </summary>
     public double Value { get; set; }
 
     public void ComputeFlag()

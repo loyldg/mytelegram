@@ -2,54 +2,54 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A service message for the user.The app must show the message to the user upon receiving this update. In case the <strong>popup</strong> parameter was passed, the text message must be displayed in a popup alert immediately upon receipt. It is recommended to handle the text as you would an ordinary message in terms of highlighting links, etc. The message must also be stored locally as part of the message history with the user id <code>777000</code> (Telegram Notifications).
-/// See <a href="https://corefork.telegram.org/constructor/updateServiceNotification" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateServiceNotification" /></para>
+/// </summary>
 [TlObject(0xebe46819)]
-public sealed class TUpdateServiceNotification : IUpdate
+public sealed partial class TUpdateServiceNotification : IUpdate
 {
     public uint ConstructorId => 0xebe46819;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the message must be displayed in a popup.
-    ///</summary>
+    /// </summary>
     public bool Popup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
-    ///</summary>
+    /// </summary>
     public bool InvertMedia { get; set; }
 
-    ///<summary>
-    /// When was the notification received<br>The message must also be stored locally as part of the message history with the user id <code>777000</code> (Telegram Notifications).
-    ///</summary>
+    /// <summary>
+    /// When was the notification received<br/>The message must also be stored locally as part of the message history with the user id <code>777000</code> (Telegram Notifications).
+    /// </summary>
     public int? InboxDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// String, identical in format and contents to the <a href="https://corefork.telegram.org/api/errors#error-type"><strong>type</strong></a> field in API errors. Describes type of service message. It is acceptable to ignore repeated messages of the same <strong>type</strong> within a short period of time (15 minutes).
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message text
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media content (optional)
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageMedia Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Theme by theme ID
-/// See <a href="https://corefork.telegram.org/constructor/inputThemeSlug" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputThemeSlug" /></para>
+/// </summary>
 [TlObject(0xf5890df1)]
-public sealed class TInputThemeSlug : IInputTheme
+public sealed partial class TInputThemeSlug : IInputTheme
 {
     public uint ConstructorId => 0xf5890df1;
-    ///<summary>
+    /// <summary>
     /// Unique theme ID obtained from a <a href="https://corefork.telegram.org/api/links#theme-links">theme deep link »</a>
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

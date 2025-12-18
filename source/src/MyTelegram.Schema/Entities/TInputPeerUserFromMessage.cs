@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines a <a href="https://corefork.telegram.org/api/min">min</a> user that was seen in a certain message of a certain chat.
-/// See <a href="https://corefork.telegram.org/constructor/inputPeerUserFromMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPeerUserFromMessage" /></para>
+/// </summary>
 [TlObject(0xa87b0a1c)]
-public sealed class TInputPeerUserFromMessage : IInputPeer
+public sealed partial class TInputPeerUserFromMessage : IInputPeer
 {
     public uint ConstructorId => 0xa87b0a1c;
-    ///<summary>
+    /// <summary>
     /// The chat where the user was seen
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The identifier of the user that was seen
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
     public void ComputeFlag()

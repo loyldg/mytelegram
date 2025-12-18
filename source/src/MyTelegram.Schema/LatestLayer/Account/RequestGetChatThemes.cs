@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get all available chat <a href="https://corefork.telegram.org/api/themes">themes »</a>.
-/// See <a href="https://corefork.telegram.org/method/account.getChatThemes" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getChatThemes" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd638de89)]
-public sealed class RequestGetChatThemes : IRequest<MyTelegram.Schema.Account.IThemes>
+public sealed partial class RequestGetChatThemes : IRequest<MyTelegram.Schema.Account.IThemes>
 {
     public uint ConstructorId => 0xd638de89;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

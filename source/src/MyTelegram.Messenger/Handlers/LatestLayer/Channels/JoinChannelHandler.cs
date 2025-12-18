@@ -1,13 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+/// <summary>
 /// Join a channel/supergroup
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
+/// 400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 CHAT_INVALID Invalid chat.
+/// 420 FROZEN_METHOD_INVALID The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and thus cannot execute the specified action.
 /// 400 INVITE_HASH_EMPTY The invite hash is empty.
 /// 406 INVITE_HASH_EXPIRED The invite link has expired.
 /// 400 INVITE_HASH_INVALID The invite hash is invalid.
@@ -17,28 +18,21 @@
 /// 400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).
 /// 400 USER_ALREADY_PARTICIPANT The user is already in the group.
 /// 400 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.
-/// See <a href="https://corefork.telegram.org/method/channels.joinChannel" />
-///</summary>
-internal sealed class JoinChannelHandler(
-    ICommandBus commandBus,
-    IChannelAppService channelAppService,
-    IQueryProcessor queryProcessor,
-    IAccessHashHelper accessHashHelper)
-    : RpcResultObjectHandler<RequestJoinChannel, IUpdates>
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.joinChannel"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class JoinChannelHandler(ICommandBus commandBus, IChannelAppService channelAppService, IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<RequestJoinChannel, IUpdates>
 {
-    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input,
-        RequestJoinChannel obj)
+    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestJoinChannel obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
-
-            var channelMemberReadModel =
-                await queryProcessor.ProcessAsync(
-                    new GetChannelMemberByUserIdQuery(channelReadModel.ChannelId, input.UserId));
-
+            var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel.ChannelId, input.UserId));
             if (channelMemberReadModel != null)
             {
                 if (channelMemberReadModel.Kicked)
@@ -62,20 +56,16 @@ internal sealed class JoinChannelHandler(
 
             if (channelReadModel.JoinRequest)
             {
-                var command = new CreateJoinChannelRequestCommand(
-                    JoinChannelId.Create(channelReadModel.ChannelId, input.UserId), input.ToRequestInfo(),
-                    channelReadModel.ChannelId, null);
+                var command = new CreateJoinChannelRequestCommand(JoinChannelId.Create(channelReadModel.ChannelId, input.UserId), input.ToRequestInfo(), channelReadModel.ChannelId, null);
                 await commandBus.PublishAsync(command);
             }
             else
             {
-                var command = new StartJoinChannelCommand(TempId.New, input.ToRequestInfo(), channelReadModel.ChannelId,
-                    channelReadModel.Broadcast, channelReadModel.TopMessageId, channelHistoryMinId);
+                var command = new StartJoinChannelCommand(TempId.New, input.ToRequestInfo(), channelReadModel.ChannelId, channelReadModel.Broadcast, channelReadModel.TopMessageId, channelHistoryMinId);
                 await commandBus.PublishAsync(command);
             }
 
-
-            return null!;
+            return null !;
         }
 
         throw new NotImplementedException();

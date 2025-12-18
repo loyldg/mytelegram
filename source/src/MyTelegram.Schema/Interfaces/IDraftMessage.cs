@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a message <a href="https://corefork.telegram.org/api/drafts">draft</a>.
-/// See <a href="https://corefork.telegram.org/type/DraftMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/DraftMessage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDraftMessageEmpty"/> See <a href="https://corefork.telegram.org/constructor/draftMessageEmpty" /><br/>
+/// <see cref="TDraftMessage"/> See <a href="https://corefork.telegram.org/constructor/draftMessage" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDraftMessageEmpty), nameof(TDraftMessageEmpty))]
 [JsonDerivedType(typeof(TDraftMessage), nameof(TDraftMessage))]
 public interface IDraftMessage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 }

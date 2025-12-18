@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Look for <a href="https://corefork.telegram.org/api/custom-emoji">custom emojis</a> associated to a UTF8 emoji
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 EMOTICON_EMPTY The emoji is empty.
-/// See <a href="https://corefork.telegram.org/method/messages.searchCustomEmoji" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 EMOTICON_EMPTY The emoji is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.searchCustomEmoji" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2c11c0d7)]
-public sealed class RequestSearchCustomEmoji : IRequest<MyTelegram.Schema.IEmojiList>
+public sealed partial class RequestSearchCustomEmoji : IRequest<MyTelegram.Schema.IEmojiList>
 {
     public uint ConstructorId => 0x2c11c0d7;
 
-    ///<summary>
+    /// <summary>
     /// The emoji
-    ///</summary>
+    /// </summary>
     public string Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

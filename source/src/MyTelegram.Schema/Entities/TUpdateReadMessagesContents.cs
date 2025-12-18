@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Contents of messages in the common <a href="https://corefork.telegram.org/api/updates">message box</a> were read
-/// See <a href="https://corefork.telegram.org/constructor/updateReadMessagesContents" />
-///</summary>
+/// <summary>
+/// Contents of messages in the common <a href="https://corefork.telegram.org/api/updates">message box</a> were read (emitted specifically for messages like voice messages or video, only once the media is watched and marked as read using <a href="https://corefork.telegram.org/method/messages.readMessageContents">messages.readMessageContents</a>).
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateReadMessagesContents" /></para>
+/// </summary>
 [TlObject(0xf8227181)]
-public sealed class TUpdateReadMessagesContents : IUpdate
+public sealed partial class TUpdateReadMessagesContents : IUpdate
 {
     public uint ConstructorId => 0xf8227181;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of read messages
-    ///</summary>
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the last message in <code>messages</code> marked as read.
-    ///</summary>
+    /// </summary>
     public int? Date { get; set; }
 
     public void ComputeFlag()

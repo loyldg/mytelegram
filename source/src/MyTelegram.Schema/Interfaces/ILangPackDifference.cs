@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Language pack changes
-/// See <a href="https://corefork.telegram.org/type/LangPackDifference" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/LangPackDifference" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TLangPackDifference"/> See <a href="https://corefork.telegram.org/constructor/langPackDifference" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TLangPackDifference), nameof(TLangPackDifference))]
 public interface ILangPackDifference : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Language code
-    ///</summary>
+    /// </summary>
     string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previous version number
-    ///</summary>
+    /// </summary>
     int FromVersion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New version number
-    ///</summary>
+    /// </summary>
     int Version { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Localized strings
     /// See <a href="https://corefork.telegram.org/type/LangPackString" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ILangPackString> Strings { get; set; }
 }

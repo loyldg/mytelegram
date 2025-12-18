@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Charged payment
-/// See <a href="https://corefork.telegram.org/type/PaymentCharge" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PaymentCharge" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPaymentCharge"/> See <a href="https://corefork.telegram.org/constructor/paymentCharge" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPaymentCharge), nameof(TPaymentCharge))]
 public interface IPaymentCharge : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Telegram payment identifier
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Provider payment identifier
-    ///</summary>
+    /// </summary>
     string ProviderChargeId { get; set; }
 }

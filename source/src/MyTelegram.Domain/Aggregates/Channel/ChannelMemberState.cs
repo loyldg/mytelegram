@@ -1,14 +1,14 @@
-﻿using EventFlow.Aggregates;
+﻿namespace MyTelegram.Domain.Aggregates.Channel;
 
-namespace MyTelegram.Domain.Aggregates.Channel;
 
 public class ChannelMemberState : AggregateState<ChannelMemberAggregate, ChannelMemberId, ChannelMemberState>,
     IApply<ChannelMemberCreatedEvent>,
     IApply<ChannelCreatorCreatedEvent>,
-    IApply<ChannelMemberJoinedEvent>,
+    //IApply<ChannelMemberJoinedEvent>,
     IApply<ChannelMemberBannedRightsChangedEvent>,
     IApply<ChannelMemberLeftEvent>,
-	IApply<ChannelAdminEditedEvent2>
+    IApply<ChannelMemberLeftEvent2>,
+    IApply<ChannelAdminEditedEvent2>
 {
     public bool Banned { get; private set; }
 
@@ -27,9 +27,9 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
     {
         BannedRights = aggregateEvent.BannedRights;
         Kicked = aggregateEvent.Kicked;
-        KickedBy= aggregateEvent.KickedBy;
+        KickedBy = aggregateEvent.KickedBy;
         Left = aggregateEvent.Left;
-        Banned= aggregateEvent.Banned;
+        Banned = aggregateEvent.Banned;
     }
 
     public void Apply(ChannelMemberCreatedEvent aggregateEvent)
@@ -38,15 +38,15 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
         KickedBy = 0;
         Left = false;
         Banned = false;
-        IsBot= aggregateEvent.IsBot;
+        IsBot = aggregateEvent.IsBot;
         Broadcast = aggregateEvent.IsBroadcast;
 
         BannedRights = null;
     }
 
-    public void Apply(ChannelMemberJoinedEvent aggregateEvent)
-    {
-    }
+    //public void Apply(ChannelMemberJoinedEvent aggregateEvent)
+    //{
+    //}
 
     public void Apply(ChannelMemberLeftEvent aggregateEvent)
     {
@@ -60,9 +60,15 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
         KickedBy = snapshot.KickedBy;
         Left = snapshot.Left;
         Banned = snapshot.Banned;
-        IsBot= snapshot.IsBot;
-        Broadcast= snapshot.Broadcast;
+        IsBot = snapshot.IsBot;
+        Broadcast = snapshot.Broadcast;
     }
+
+    public void Apply(ChannelMemberLeftEvent2 aggregateEvent)
+    {
+        Left = true;
+    }
+
     public void Apply(ChannelAdminEditedEvent2 aggregateEvent)
     {
         

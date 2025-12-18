@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Data for copying of authorization between data centers.
-/// See <a href="https://corefork.telegram.org/constructor/auth.exportedAuthorization" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.exportedAuthorization" /></para>
+/// </summary>
 [TlObject(0xb434e2b8)]
-public sealed class TExportedAuthorization : IExportedAuthorization
+public sealed partial class TExportedAuthorization : IExportedAuthorization
 {
     public uint ConstructorId => 0xb434e2b8;
-    ///<summary>
+    /// <summary>
     /// current user identifier
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// authorizes key
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

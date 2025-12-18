@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema.Smsjobs;
 
-///<summary>
+/// <summary>
 /// SMS jobs eligibility
-/// See <a href="https://corefork.telegram.org/type/smsjobs.EligibilityToJoin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/smsjobs.EligibilityToJoin" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEligibleToJoin"/> See <a href="https://corefork.telegram.org/constructor/smsjobs.eligibleToJoin" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEligibleToJoin), nameof(TEligibleToJoin))]
 public interface IEligibilityToJoin : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Terms of service URL
-    ///</summary>
+    /// </summary>
     string TermsUrl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Monthly sent SMSes
-    ///</summary>
+    /// </summary>
     int MonthlySentSms { get; set; }
 }

@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Order info provided by the user
-/// See <a href="https://corefork.telegram.org/constructor/paymentRequestedInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/paymentRequestedInfo" /></para>
+/// </summary>
 [TlObject(0x909c3f94)]
-public sealed class TPaymentRequestedInfo : IPaymentRequestedInfo
+public sealed partial class TPaymentRequestedInfo : IPaymentRequestedInfo
 {
     public uint ConstructorId => 0x909c3f94;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's full name
-    ///</summary>
+    /// </summary>
     public string? Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's phone number
-    ///</summary>
+    /// </summary>
     public string? Phone { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's email address
-    ///</summary>
+    /// </summary>
     public string? Email { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's shipping address
     /// See <a href="https://corefork.telegram.org/type/PostAddress" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPostAddress? ShippingAddress { get; set; }
 
     public void ComputeFlag()

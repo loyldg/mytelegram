@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// This <a href="https://corefork.telegram.org/api/stats">channel statistics graph</a> must be generated asynchronously using <a href="https://corefork.telegram.org/method/stats.loadAsyncGraph">stats.loadAsyncGraph</a> to reduce server load
-/// See <a href="https://corefork.telegram.org/constructor/statsGraphAsync" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsGraphAsync" /></para>
+/// </summary>
 [TlObject(0x4a27eb2d)]
-public sealed class TStatsGraphAsync : IStatsGraph
+public sealed partial class TStatsGraphAsync : IStatsGraph
 {
     public uint ConstructorId => 0x4a27eb2d;
-    ///<summary>
+    /// <summary>
     /// Token to use for fetching the async graph
-    ///</summary>
+    /// </summary>
     public string Token { get; set; }
 
     public void ComputeFlag()

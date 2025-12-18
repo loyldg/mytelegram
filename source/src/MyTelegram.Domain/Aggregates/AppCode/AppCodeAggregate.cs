@@ -1,9 +1,11 @@
 ﻿
 namespace MyTelegram.Domain.Aggregates.AppCode;
 
+[EnableAutoGeneration]
 public class AppCodeAggregate : SnapshotAggregateRoot<AppCodeAggregate, AppCodeId, AppCodeSnapshot>
 {
     private readonly int _expireMinutes = 10;
+    private readonly int _maxAllowedSendCountPerDay = 100;
     private readonly int _maxFailedCount = 5;
     private readonly AppCodeState _state = new();
 
@@ -24,6 +26,8 @@ public class AppCodeAggregate : SnapshotAggregateRoot<AppCodeAggregate, AppCodeI
         string code,
         long userId)
     {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+
         var isCodeValid = CheckCodeCore(code,
             _maxFailedCount,
             RpcErrors.RpcErrors400.PhoneCodeInvalid,
@@ -44,8 +48,13 @@ public class AppCodeAggregate : SnapshotAggregateRoot<AppCodeAggregate, AppCodeI
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
 
+        var isCodeValid = CheckCodeCore(_state.Code,
+            _maxFailedCount,
+            RpcErrors.RpcErrors400.PhoneCodeInvalid,
+            RpcErrors.RpcErrors400.PhoneCodeExpired);
+
         Emit(new CheckSignUpCodeCompletedEvent(requestInfo,
-            true,
+            isCodeValid,
             userId,
             accessHash,
             phoneNumber,
@@ -54,7 +63,7 @@ public class AppCodeAggregate : SnapshotAggregateRoot<AppCodeAggregate, AppCodeI
         ));
     }
 
-    public void Create(RequestInfo requestInfo,
+    public void CreateAppCode(RequestInfo requestInfo,
         long userId,
         string phoneNumber,
         string code,

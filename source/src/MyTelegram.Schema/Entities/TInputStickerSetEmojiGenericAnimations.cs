@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Generic animation stickerset containing animations to play when <a href="https://corefork.telegram.org/api/reactions">reacting to messages using a normal emoji without a custom animation</a>
-/// See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmojiGenericAnimations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickerSetEmojiGenericAnimations" /></para>
+/// </summary>
 [TlObject(0x4c4d4ce)]
-public sealed class TInputStickerSetEmojiGenericAnimations : IInputStickerSet
+public sealed partial class TInputStickerSetEmojiGenericAnimations : IInputStickerSet
 {
     public uint ConstructorId => 0x4c4d4ce;
     public void ComputeFlag()

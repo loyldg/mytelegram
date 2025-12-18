@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The participant list of a certain group call has changed
-/// See <a href="https://corefork.telegram.org/constructor/updateGroupCallParticipants" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateGroupCallParticipants" /></para>
+/// </summary>
 [TlObject(0xf2ebdb4e)]
-public sealed class TUpdateGroupCallParticipants : IUpdate
+public sealed partial class TUpdateGroupCallParticipants : IUpdate
 {
     public uint ConstructorId => 0xf2ebdb4e;
-    ///<summary>
+    /// <summary>
     /// Group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New participant list
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipant" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IGroupCallParticipant> Participants { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Version
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
     public void ComputeFlag()

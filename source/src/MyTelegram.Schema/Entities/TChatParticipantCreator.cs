@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents the creator of the group
-/// See <a href="https://corefork.telegram.org/constructor/chatParticipantCreator" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatParticipantCreator" /></para>
+/// </summary>
 [TlObject(0xe46bcee4)]
-public sealed class TChatParticipantCreator : IChatParticipant
+public sealed partial class TChatParticipantCreator : IChatParticipant
 {
     public uint ConstructorId => 0xe46bcee4;
-    ///<summary>
+    /// <summary>
     /// ID of the user that created the group
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
     public void ComputeFlag()

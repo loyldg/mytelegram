@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes a <a href="https://corefork.telegram.org/api/business#away-messages">Telegram Business away message</a>, automatically sent to users writing to us when we're offline, during closing hours, while we're on vacation, or in some other custom time period when we cannot immediately answer to the user.
-/// See <a href="https://corefork.telegram.org/constructor/inputBusinessAwayMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputBusinessAwayMessage" /></para>
+/// </summary>
 [TlObject(0x832175e0)]
-public sealed class TInputBusinessAwayMessage : IInputBusinessAwayMessage
+public sealed partial class TInputBusinessAwayMessage : IInputBusinessAwayMessage
 {
     public uint ConstructorId => 0x832175e0;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the messages will not be sent if the account was online in the last 10 minutes.
-    ///</summary>
+    /// </summary>
     public bool OfflineOnly { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shorcut, containing the away messages to send, see here » for more info</a>.
-    ///</summary>
+    /// </summary>
     public int ShortcutId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies when should the away messages be sent.
     /// See <a href="https://corefork.telegram.org/type/BusinessAwayMessageSchedule" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessAwayMessageSchedule Schedule { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allowed recipients for the away messages.
     /// See <a href="https://corefork.telegram.org/type/InputBusinessRecipients" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputBusinessRecipients Recipients { get; set; }
 
     public void ComputeFlag()

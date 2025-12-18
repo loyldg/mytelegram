@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Identifier of a private chat, basic group, group or channel (see <a href="https://corefork.telegram.org/api/peers">here »</a> for more info).
-/// See <a href="https://corefork.telegram.org/type/Peer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Peer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerUser"/> See <a href="https://corefork.telegram.org/constructor/peerUser" /><br/>
+/// <see cref="TPeerChat"/> See <a href="https://corefork.telegram.org/constructor/peerChat" /><br/>
+/// <see cref="TPeerChannel"/> See <a href="https://corefork.telegram.org/constructor/peerChannel" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerUser), nameof(TPeerUser))]
 [JsonDerivedType(typeof(TPeerChat), nameof(TPeerChat))]
 [JsonDerivedType(typeof(TPeerChannel), nameof(TPeerChannel))]

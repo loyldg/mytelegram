@@ -11,7 +11,7 @@ public sealed class AccessHashHelper2(
 {
     private byte[]? _accessHashSecretKeyBytes;
 
-    public Task<bool> IsAccessHashValidAsync(IRequestWithAccessHashKeyId request, long targetId, long accessHash,
+    public ValueTask<bool> IsAccessHashValidAsync(IRequestWithAccessHashKeyId request, long targetId, long accessHash,
         AccessHashType? accessHashType = null)
     {
         return IsAccessHashValidAsync(request.UserId, request.AccessHashKeyId, targetId, accessHash, accessHashType);
@@ -21,39 +21,38 @@ public sealed class AccessHashHelper2(
     {
         if (!await IsAccessHashValidAsync(currentUserId, accessHashKeyId, targetId, accessHash, accessHashType))
         {
-            switch (accessHashType)
-            {
-                case AccessHashType.WallPaper:
-                    RpcErrors.RpcErrors400.WallpaperInvalid.ThrowRpcError();
-                    break;
-                case AccessHashType.Theme:
-                    RpcErrors.RpcErrors400.ThemeInvalid.ThrowRpcError();
-                    break;
-                case AccessHashType.GroupCall:
-                    RpcErrors.RpcErrors400.GroupcallInvalid.ThrowRpcError();
-                    break;
-                case AccessHashType.StickerSet:
-                    RpcErrors.RpcErrors400.StickersetInvalid.ThrowRpcError();
-                    break;
-                case AccessHashType.User:
-                    RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
-                    break;
-                case AccessHashType.Channel:
-                    RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
-                    break;
-                case AccessHashType.Document:
-                    RpcErrors.RpcErrors400.DocumentInvalid.ThrowRpcError();
-                    break;
-                case AccessHashType.Photo:
-                    RpcErrors.RpcErrors400.PhotoInvalid.ThrowRpcError();
-                    break;
-                case AccessHashType.Sticker:
-                    RpcErrors.RpcErrors400.StickersetInvalid.ThrowRpcError();
-                    break;
-                default:
-                    RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
-                    break;
-            }
+            CreateRpcError(accessHashType).ThrowRpcError();
+        }
+    }
+
+    public RpcError CreateRpcError(AccessHashType? accessHashType)
+    {
+        switch (accessHashType)
+        {
+            case AccessHashType.WallPaper:
+                return RpcErrors.RpcErrors400.WallpaperInvalid;
+            case AccessHashType.Theme:
+                return RpcErrors.RpcErrors400.ThemeInvalid;
+            case AccessHashType.GroupCall:
+                return RpcErrors.RpcErrors400.GroupcallInvalid;
+            case AccessHashType.StickerSet:
+                return RpcErrors.RpcErrors400.StickersetInvalid;
+            case AccessHashType.User:
+                return RpcErrors.RpcErrors400.UserIdInvalid;
+            case AccessHashType.Channel:
+                return RpcErrors.RpcErrors400.ChannelIdInvalid;
+            case AccessHashType.Document:
+                return RpcErrors.RpcErrors400.DocumentInvalid;
+            case AccessHashType.Photo:
+                return RpcErrors.RpcErrors400.PhotoInvalid;
+            case AccessHashType.Sticker:
+                return RpcErrors.RpcErrors400.StickersetInvalid;
+            case AccessHashType.BotApp:
+                return RpcErrors.RpcErrors400.BotAppInvalid;
+            case AccessHashType.Call:
+                return RpcErrors.RpcErrors400.CallPeerInvalid;
+            default:
+                return RpcErrors.RpcErrors400.PeerIdInvalid;
         }
     }
 
@@ -124,7 +123,7 @@ public sealed class AccessHashHelper2(
         return CheckAccessHashAsync(request.UserId, request.AccessHashKeyId, inputChannel);
     }
 
-    public Task<bool> IsAccessHashValidAsync(long currentUserId, long accessHashKeyId, long targetId, long accessHash, AccessHashType? accessHashType = AccessHashType.Unknown)
+    public ValueTask<bool> IsAccessHashValidAsync(long currentUserId, long accessHashKeyId, long targetId, long accessHash, AccessHashType? accessHashType = AccessHashType.Unknown)
     {
         if (accessHashType == null)
         {
@@ -138,18 +137,23 @@ public sealed class AccessHashHelper2(
                     accessHashType = AccessHashType.User;
                     break;
                 case PeerType.Self:
-                    return Task.FromResult(true);
+                    return ValueTask.FromResult(true);
             }
         }
 
         if (accessHashType == null)
         {
-            return Task.FromResult(false);
+            return ValueTask.FromResult(false);
         }
 
         var accessHashForCurrentSession = GenerateAccessHash(currentUserId, accessHashKeyId, targetId, accessHashType.Value);
 
-        return Task.FromResult(accessHashForCurrentSession == accessHash);
+        // if (accessHashForCurrentSession != accessHash)
+        // {
+        //     Console.WriteLine($"currentUserId:{currentUserId} accessHashKeyId:{accessHashKeyId} targetId:{targetId} {accessHashType},accessHashForCurrentSession:{accessHashForCurrentSession},accessHash:{accessHash}");
+        // }
+
+        return ValueTask.FromResult(accessHashForCurrentSession == accessHash);
     }
 
     private void GenerateAccessHashSecretKeyForUser(ReadOnlySpan<byte> accessHasKeyBytesOfUser, Span<byte> destination)

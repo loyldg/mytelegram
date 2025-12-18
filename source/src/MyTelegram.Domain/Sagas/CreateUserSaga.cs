@@ -12,7 +12,7 @@ public class CreateUserSaga(
     {
         if (!string.IsNullOrEmpty(domainEvent.AggregateEvent.UserName))
         {
-            var command = new SetUserNameCommand(UserNameId.Create(domainEvent.AggregateEvent.UserName.ToLower()),
+            var command = new UpdateUserNameCommand(UserNameId.Create(domainEvent.AggregateEvent.UserName.ToLower()),
                 domainEvent.AggregateEvent.RequestInfo, domainEvent.AggregateEvent.UserId.ToUserPeer(),
                 domainEvent.AggregateEvent.UserName,
                 null

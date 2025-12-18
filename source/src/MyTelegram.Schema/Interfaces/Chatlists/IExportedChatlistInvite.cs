@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Exported <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// See <a href="https://corefork.telegram.org/type/chatlists.ExportedChatlistInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/chatlists.ExportedChatlistInvite" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedChatlistInvite"/> See <a href="https://corefork.telegram.org/constructor/chatlists.exportedChatlistInvite" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedChatlistInvite), nameof(TExportedChatlistInvite))]
 public interface IExportedChatlistInvite : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Folder ID
     /// See <a href="https://corefork.telegram.org/type/DialogFilter" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IDialogFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The exported <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
     /// See <a href="https://corefork.telegram.org/type/ExportedChatlistInvite" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IExportedChatlistInvite Invite { get; set; }
 }

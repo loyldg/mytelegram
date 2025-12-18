@@ -2,24 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/starsRating" />
-///</summary>
+/// <summary>
+/// Represents the profile's <a href="https://corefork.telegram.org/api/stars#star-rating">star rating, see here »</a> for more info.
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsRating" /></para>
+/// </summary>
 [TlObject(0x1b0e4f07)]
-public sealed class TStarsRating : IStarsRating
+public sealed partial class TStarsRating : IStarsRating
 {
     public uint ConstructorId => 0x1b0e4f07;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// The current level, may be negative.
+    /// </summary>
     public int Level { get; set; }
 
+    /// <summary>
+    /// The numerical value of the rating required for the current level.
+    /// </summary>
     public long CurrentLevelStars { get; set; }
 
+    /// <summary>
+    /// Numerical value of the current rating.
+    /// </summary>
     public long Stars { get; set; }
 
+    /// <summary>
+    /// The numerical value of the rating required for the next level.
+    /// </summary>
     public long? NextLevelStars { get; set; }
 
     public void ComputeFlag()

@@ -2,57 +2,60 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Use this method to set the score of the specified user in a game sent as a normal message (bots only).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_SCORE_NOT_MODIFIED The score wasn't modified.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 SCORE_INVALID The specified game score is invalid.
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/messages.setGameScore" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_SCORE_NOT_MODIFIED The score wasn't modified.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 SCORE_INVALID The specified game score is invalid.</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setGameScore" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8ef8ecc0)]
-public sealed class RequestSetGameScore : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSetGameScore : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x8ef8ecc0;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if the game message should be automatically edited to include the current scoreboard
-    ///</summary>
+    /// </summary>
     public bool EditMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
-    ///</summary>
+    /// </summary>
     public bool Force { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique identifier of target chat
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the sent message
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User identifier
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New score
-    ///</summary>
+    /// </summary>
     public int Score { get; set; }
 
     public void ComputeFlag()

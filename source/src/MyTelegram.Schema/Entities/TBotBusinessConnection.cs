@@ -2,47 +2,48 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Contains info about a <a href="https://corefork.telegram.org/api/business#connected-bots">bot business connection</a>.
-/// See <a href="https://corefork.telegram.org/constructor/botBusinessConnection" />
-///</summary>
+/// <summary>
+/// Contains info about a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">bot business connection</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/botBusinessConnection" /></para>
+/// </summary>
 [TlObject(0x8f34b2f5)]
-public sealed class TBotBusinessConnection : IBotBusinessConnection
+public sealed partial class TBotBusinessConnection : IBotBusinessConnection
 {
     public uint ConstructorId => 0x8f34b2f5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this business connection is currently disabled
-    ///</summary>
+    /// </summary>
     public bool Disabled { get; set; }
 
-    ///<summary>
-    /// Business connection ID, used to identify messages coming from the connection and to reply to them as specified <a href="https://corefork.telegram.org/api/business#connected-bots">here »</a>.
-    ///</summary>
+    /// <summary>
+    /// Business connection ID, used to identify messages coming from the connection and to reply to them as specified <a href="https://corefork.telegram.org/api/bots/connected-business-bots">here »</a>.
+    /// </summary>
     public string ConnectionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the user that the bot is connected to via this connection.
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
-    /// ID of the datacenter where to send queries wrapped in a <a href="https://corefork.telegram.org/method/invokeWithBusinessConnection">invokeWithBusinessConnection</a> as specified <a href="https://corefork.telegram.org/api/business#connected-bots">here »</a>.
-    ///</summary>
+    /// <summary>
+    /// ID of the datacenter where to send queries wrapped in a <a href="https://corefork.telegram.org/method/invokeWithBusinessConnection">invokeWithBusinessConnection</a> as specified <a href="https://corefork.telegram.org/api/bots/connected-business-bots">here »</a>.
+    /// </summary>
     public int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the connection created.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Business bot rights.
     /// See <a href="https://corefork.telegram.org/type/BusinessBotRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBusinessBotRights? Rights { get; set; }
 
     public void ComputeFlag()

@@ -111,6 +111,7 @@ builder.ConfigureServices((ctx,
     services.AddHostedService<MessageQueueDataProcessorBackgroundService<IDomainEvent>>();
     services.AddHostedService<QueuedCommandExecutorBackgroundService<DeviceAggregate, DeviceId>>();
     services.AddHostedService<QueuedCommandExecutorBackgroundService<PtsAggregate, PtsId>>();
+    services.AddHostedService<ChannelViewsBackgroundService>();
 
     services.Configure<HostOptions>(options =>
     {

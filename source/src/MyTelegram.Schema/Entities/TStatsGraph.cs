@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stats">Channel statistics graph</a>
-/// See <a href="https://corefork.telegram.org/constructor/statsGraph" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsGraph" /></para>
+/// </summary>
 [TlObject(0x8ea464b6)]
-public sealed class TStatsGraph : IStatsGraph
+public sealed partial class TStatsGraph : IStatsGraph
 {
     public uint ConstructorId => 0x8ea464b6;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Statistics data
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Json { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Zoom token
-    ///</summary>
+    /// </summary>
     public string? ZoomToken { get; set; }
 
     public void ComputeFlag()

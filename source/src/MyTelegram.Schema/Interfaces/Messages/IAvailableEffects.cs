@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Full list of usable <a href="https://corefork.telegram.org/api/effects">animated message effects »</a>.
-/// See <a href="https://corefork.telegram.org/type/messages.AvailableEffects" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.AvailableEffects" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAvailableEffectsNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.availableEffectsNotModified" /><br/>
+/// <see cref="TAvailableEffects"/> See <a href="https://corefork.telegram.org/constructor/messages.availableEffects" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAvailableEffectsNotModified), nameof(TAvailableEffectsNotModified))]
 [JsonDerivedType(typeof(TAvailableEffects), nameof(TAvailableEffects))]
 public interface IAvailableEffects : IObject

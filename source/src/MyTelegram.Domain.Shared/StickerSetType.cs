@@ -5,5 +5,6 @@ public enum StickerSetType
     Regular,
     CustomEmoji,
     Mask,
-    System
+    System,
+    StarGift
 }

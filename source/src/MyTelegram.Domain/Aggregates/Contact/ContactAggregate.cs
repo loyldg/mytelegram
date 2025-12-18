@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Contact;
 
+[EnableAutoGeneration]
 public class ContactAggregate : SnapshotAggregateRoot<ContactAggregate, ContactId, ContactSnapshot>
 {
     private readonly ContactState _state = new();
@@ -9,7 +10,7 @@ public class ContactAggregate : SnapshotAggregateRoot<ContactAggregate, ContactI
         Register(_state);
     }
 
-    public void UpdateProfilePhoto(RequestInfo requestInfo, long selfUserId, long targetUserId, long photoId,
+    public void UpdateContactProfilePhoto(RequestInfo requestInfo, long selfUserId, long targetUserId, long photoId,
         bool suggest, IPhoto? suggestPhoto)
     {
         Specs.AggregateIsCreated.ThrowFirstDomainErrorIfNotSatisfied(this);

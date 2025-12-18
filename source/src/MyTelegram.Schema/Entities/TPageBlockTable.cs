@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Table
-/// See <a href="https://corefork.telegram.org/constructor/pageBlockTable" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockTable" /></para>
+/// </summary>
 [TlObject(0xbf4dea82)]
-public sealed class TPageBlockTable : IPageBlock
+public sealed partial class TPageBlockTable : IPageBlock
 {
     public uint ConstructorId => 0xbf4dea82;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Does the table have a visible border?
-    ///</summary>
+    /// </summary>
     public bool Bordered { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is the table striped?
-    ///</summary>
+    /// </summary>
     public bool Striped { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Table rows
     /// See <a href="https://corefork.telegram.org/type/PageTableRow" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPageTableRow> Rows { get; set; }
 
     public void ComputeFlag()

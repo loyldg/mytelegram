@@ -2,48 +2,51 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Edit a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// 400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.
-/// 400 INVITE_SLUG_EMPTY The specified invite slug is empty.
-/// 400 INVITE_SLUG_EXPIRED The specified chat folder link has expired.
-/// 400 PEERS_LIST_EMPTY The specified list of peers is empty.
-/// See <a href="https://corefork.telegram.org/method/chatlists.editExportedInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid.</c></para>
+/// <para><c>400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.</c></para>
+/// <para><c>400 INVITE_SLUG_EMPTY The specified invite slug is empty.</c></para>
+/// <para><c>400 INVITE_SLUG_EXPIRED The specified chat folder link has expired.</c></para>
+/// <para><c>400 PEERS_LIST_EMPTY The specified list of peers is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.editExportedInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x653db63d)]
-public sealed class RequestEditExportedInvite : IRequest<MyTelegram.Schema.IExportedChatlistInvite>
+public sealed partial class RequestEditExportedInvite : IRequest<MyTelegram.Schema.IExportedChatlistInvite>
 {
     public uint ConstructorId => 0x653db63d;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Folder ID
     /// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <code>slug</code> obtained from the <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, sets a new name for the link
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, changes the list of peers shared with the link
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer>? Peers { get; set; }
 
     public void ComputeFlag()

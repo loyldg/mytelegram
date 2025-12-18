@@ -1,17 +1,15 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Represents a list of <a href="https://corefork.telegram.org/api/emoji-categories">emoji categories</a>, to be used when choosing a sticker.
-/// See <a href="https://corefork.telegram.org/method/messages.getEmojiStickerGroups" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getEmojiStickerGroups"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetEmojiStickerGroupsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetEmojiStickerGroups, MyTelegram.Schema.Messages.IEmojiGroups>
 {
-    protected override Task<MyTelegram.Schema.Messages.IEmojiGroups> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestGetEmojiStickerGroups obj)
+    protected override Task<MyTelegram.Schema.Messages.IEmojiGroups> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetEmojiStickerGroups obj)
     {
-        return Task.FromResult<MyTelegram.Schema.Messages.IEmojiGroups>(new TEmojiGroups
-        {
-            Groups = []
-        });
+        return Task.FromResult<MyTelegram.Schema.Messages.IEmojiGroups>(new TEmojiGroups { Groups = [] });
     }
 }

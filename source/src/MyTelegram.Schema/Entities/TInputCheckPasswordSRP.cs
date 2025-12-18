@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Constructor for checking the validity of a 2FA SRP password (see <a href="https://corefork.telegram.org/api/srp">SRP</a>)
-/// See <a href="https://corefork.telegram.org/constructor/inputCheckPasswordSRP" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputCheckPasswordSRP" /></para>
+/// </summary>
 [TlObject(0xd27ff082)]
-public sealed class TInputCheckPasswordSRP : IInputCheckPasswordSRP
+public sealed partial class TInputCheckPasswordSRP : IInputCheckPasswordSRP
 {
     public uint ConstructorId => 0xd27ff082;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/srp">SRP ID</a>
-    ///</summary>
+    /// </summary>
     public long SrpId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <code>A</code> parameter (see <a href="https://corefork.telegram.org/api/srp">SRP</a>)
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> A { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <code>M1</code> parameter (see <a href="https://corefork.telegram.org/api/srp">SRP</a>)
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> M1 { get; set; }
 
     public void ComputeFlag()

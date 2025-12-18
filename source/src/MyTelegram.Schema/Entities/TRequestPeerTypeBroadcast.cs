@@ -2,40 +2,40 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Choose a channel
-/// See <a href="https://corefork.telegram.org/constructor/requestPeerTypeBroadcast" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/requestPeerTypeBroadcast" /></para>
+/// </summary>
 [TlObject(0x339bef6c)]
-public sealed class TRequestPeerTypeBroadcast : IRequestPeerType
+public sealed partial class TRequestPeerTypeBroadcast : IRequestPeerType
 {
     public uint ConstructorId => 0x339bef6c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow only choosing channels that were created by the current user.
-    ///</summary>
+    /// </summary>
     public bool Creator { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, allows only choosing channels with or without a username, according to the value of <a href="https://corefork.telegram.org/type/Bool">Bool</a>.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? HasUsername { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, allows only choosing channels where the current user is an admin with at least the specified admin rights.
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights? UserAdminRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, allows only choosing channels where the bot is an admin with at least the specified admin rights.
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights? BotAdminRights { get; set; }
 
     public void ComputeFlag()

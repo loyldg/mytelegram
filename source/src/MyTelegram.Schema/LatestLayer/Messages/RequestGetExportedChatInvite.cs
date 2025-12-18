@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get info about a chat invite
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 INVITE_HASH_EXPIRED The invite link has expired.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getExportedChatInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 INVITE_HASH_EXPIRED The invite link has expired.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getExportedChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x73746f5c)]
-public sealed class RequestGetExportedChatInvite : IRequest<MyTelegram.Schema.Messages.IExportedChatInvite>
+public sealed partial class RequestGetExportedChatInvite : IRequest<MyTelegram.Schema.Messages.IExportedChatInvite>
 {
     public uint ConstructorId => 0x73746f5c;
 
-    ///<summary>
+    /// <summary>
     /// Chat
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invite link
-    ///</summary>
+    /// </summary>
     public string Link { get; set; }
 
     public void ComputeFlag()

@@ -5,6 +5,7 @@ namespace MyTelegram.Core;
 
 public record DataReceivedEvent(
     string ConnectionId,
+    ConnectionType ConnectionType,
     Guid RequestId,
     uint ObjectId,
     long UserId,

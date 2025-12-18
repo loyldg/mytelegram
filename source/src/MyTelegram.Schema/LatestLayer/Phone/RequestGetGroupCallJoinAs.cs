@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Get a list of peers that can be used to join a group call, presenting yourself as a specific user/channel.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.getGroupCallJoinAs" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.getGroupCallJoinAs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xef7c213a)]
-public sealed class RequestGetGroupCallJoinAs : IRequest<MyTelegram.Schema.Phone.IJoinAsPeers>
+public sealed partial class RequestGetGroupCallJoinAs : IRequest<MyTelegram.Schema.Phone.IJoinAsPeers>
 {
     public uint ConstructorId => 0xef7c213a;
 
-    ///<summary>
+    /// <summary>
     /// The dialog whose group call or livestream we're trying to join
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
     public void ComputeFlag()

@@ -2,4 +2,6 @@
 public record BindUserIdToSessionEvent(
     long UserId,
     long AuthKeyId,
-    long PermAuthKeyId);
+    long PermAuthKeyId,
+    long AccessHashKeyId
+    );

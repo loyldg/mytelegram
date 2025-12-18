@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/reactions">Message reaction</a>
-/// See <a href="https://corefork.telegram.org/type/Reaction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Reaction" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TReactionEmpty"/> See <a href="https://corefork.telegram.org/constructor/reactionEmpty" /><br/>
+/// <see cref="TReactionEmoji"/> See <a href="https://corefork.telegram.org/constructor/reactionEmoji" /><br/>
+/// <see cref="TReactionCustomEmoji"/> See <a href="https://corefork.telegram.org/constructor/reactionCustomEmoji" /><br/>
+/// <see cref="TReactionPaid"/> See <a href="https://corefork.telegram.org/constructor/reactionPaid" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TReactionEmpty), nameof(TReactionEmpty))]
 [JsonDerivedType(typeof(TReactionEmoji), nameof(TReactionEmoji))]
 [JsonDerivedType(typeof(TReactionCustomEmoji), nameof(TReactionCustomEmoji))]

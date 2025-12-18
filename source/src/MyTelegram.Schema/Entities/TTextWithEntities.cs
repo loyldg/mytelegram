@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Styled text with <a href="https://corefork.telegram.org/api/entities">message entities</a>
-/// See <a href="https://corefork.telegram.org/constructor/textWithEntities" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textWithEntities" /></para>
+/// </summary>
 [TlObject(0x751f3146)]
-public sealed class TTextWithEntities : ITextWithEntities
+public sealed partial class TTextWithEntities : ITextWithEntities
 {
     public uint ConstructorId => 0x751f3146;
-    ///<summary>
+    /// <summary>
     /// Text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 
     public void ComputeFlag()

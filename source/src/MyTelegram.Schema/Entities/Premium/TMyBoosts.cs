@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Premium;
 
-///<summary>
+/// <summary>
 /// A list of peers we are currently <a href="https://corefork.telegram.org/api/boost">boosting</a>, and how many <a href="https://corefork.telegram.org/api/boost">boost slots</a> we have left.
-/// See <a href="https://corefork.telegram.org/constructor/premium.myBoosts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/premium.myBoosts" /></para>
+/// </summary>
 [TlObject(0x9ae228e2)]
-public sealed class TMyBoosts : IMyBoosts
+public sealed partial class TMyBoosts : IMyBoosts
 {
     public uint ConstructorId => 0x9ae228e2;
-    ///<summary>
+    /// <summary>
     /// Info about boosted peers and remaining boost slots.
     /// See <a href="https://corefork.telegram.org/type/MyBoost" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMyBoost> MyBoosts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Referenced chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Referenced users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

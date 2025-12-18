@@ -2,45 +2,45 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Constructor for a group of updates.
-/// See <a href="https://corefork.telegram.org/constructor/updatesCombined" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatesCombined" /></para>
+/// </summary>
 [TlObject(0x725b04c3)]
-public sealed class TUpdatesCombined : IUpdates
+public sealed partial class TUpdatesCombined : IUpdates
 {
     public uint ConstructorId => 0x725b04c3;
-    ///<summary>
+    /// <summary>
     /// List of updates
     /// See <a href="https://corefork.telegram.org/type/Update" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUpdate> Updates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users mentioned in updates
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of chats mentioned in updates
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value <strong>seq</strong> for the earliest update in a group
-    ///</summary>
+    /// </summary>
     public int SeqStart { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value <strong>seq</strong> for the latest update in a group
-    ///</summary>
+    /// </summary>
     public int Seq { get; set; }
 
     public void ComputeFlag()

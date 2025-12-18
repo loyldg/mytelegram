@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel/supergroup creator
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantCreator" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantCreator" /></para>
+/// </summary>
 [TlObject(0x2fe601d3)]
-public sealed class TChannelParticipantCreator : IChannelParticipant
+public sealed partial class TChannelParticipantCreator : IChannelParticipant
 {
     public uint ConstructorId => 0x2fe601d3;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Creator admin rights
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights AdminRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The role (rank) of the group creator in the group: just an arbitrary string, <code>admin</code> by default
-    ///</summary>
+    /// </summary>
     public string? Rank { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// PDF document image. MIME type: <code>application/pdf</code>.
-/// See <a href="https://corefork.telegram.org/constructor/storage.filePdf" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.filePdf" /></para>
+/// </summary>
 [TlObject(0xae1e508d)]
-public sealed class TFilePdf : IFileType
+public sealed partial class TFilePdf : IFileType
 {
     public uint ConstructorId => 0xae1e508d;
     public void ComputeFlag()

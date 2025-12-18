@@ -2,13 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftUser" />
-///</summary>
+/// <summary>
+/// A gift received in a private chat with another user.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftUser" /></para>
+/// </summary>
 [TlObject(0x69279795)]
-public sealed class TInputSavedStarGiftUser : IInputSavedStarGift
+public sealed partial class TInputSavedStarGiftUser : IInputSavedStarGift
 {
     public uint ConstructorId => 0x69279795;
+    /// <summary>
+    /// ID of the <a href="https://corefork.telegram.org/constructor/messageService">messageService</a> with the <a href="https://corefork.telegram.org/constructor/messageActionStarGift">messageActionStarGift</a> with the gift.
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

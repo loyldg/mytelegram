@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Photo;
 
+[EnableAutoGeneration]
 public class PhotoAggregate : AggregateRoot<PhotoAggregate, PhotoId>
 {
     private readonly PhotoState _state = new();
@@ -15,13 +16,13 @@ public class PhotoAggregate : AggregateRoot<PhotoAggregate, PhotoId>
         Emit(new SetAsProfilePhotoCompletedEvent(_state.Photo.Id));
     }
 
-    public void Create(long userId, PhotoItem photo)
+    public void CreatePhoto(long userId, PhotoItem photo)
     {
         Specs.AggregateIsNew.ThrowFirstDomainErrorIfNotSatisfied(this);
         Emit(new PhotoCreatedEvent(userId, photo));
     }
 
-    public void Delete(long userId/*,long accessHash*/)
+    public void DeletePhoto(long userId/*,long accessHash*/)
     {
         Specs.AggregateIsCreated.ThrowFirstDomainErrorIfNotSatisfied(this);
         if (userId != _state.UserId)

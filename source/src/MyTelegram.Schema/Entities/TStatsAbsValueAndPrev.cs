@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Statistics value couple; initial and final value for period of time currently in consideration
-/// See <a href="https://corefork.telegram.org/constructor/statsAbsValueAndPrev" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/statsAbsValueAndPrev" /></para>
+/// </summary>
 [TlObject(0xcb43acde)]
-public sealed class TStatsAbsValueAndPrev : IStatsAbsValueAndPrev
+public sealed partial class TStatsAbsValueAndPrev : IStatsAbsValueAndPrev
 {
     public uint ConstructorId => 0xcb43acde;
-    ///<summary>
+    /// <summary>
     /// Current value
-    ///</summary>
+    /// </summary>
     public double Current { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Previous value
-    ///</summary>
+    /// </summary>
     public double Previous { get; set; }
 
     public void ComputeFlag()

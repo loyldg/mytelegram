@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Accept QR code login token, logging in the app that generated it.Returns info about the new session.For more info, see <a href="https://corefork.telegram.org/api/qr-login">login via QR code</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 AUTH_TOKEN_ALREADY_ACCEPTED The specified auth token was already accepted.
-/// 400 AUTH_TOKEN_EXCEPTION An error occurred while importing the auth token.
-/// 400 AUTH_TOKEN_EXPIRED The authorization token has expired.
-/// 400 AUTH_TOKEN_INVALIDX The specified auth token is invalid.
-/// See <a href="https://corefork.telegram.org/method/auth.acceptLoginToken" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 AUTH_TOKEN_ALREADY_ACCEPTED The specified auth token was already accepted.</c></para>
+/// <para><c>400 AUTH_TOKEN_EXCEPTION An error occurred while importing the auth token.</c></para>
+/// <para><c>400 AUTH_TOKEN_EXPIRED The authorization token has expired.</c></para>
+/// <para><c>400 AUTH_TOKEN_INVALIDX The specified auth token is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.acceptLoginToken" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe894ad4d)]
-public sealed class RequestAcceptLoginToken : IRequest<MyTelegram.Schema.IAuthorization>
+public sealed partial class RequestAcceptLoginToken : IRequest<MyTelegram.Schema.IAuthorization>
 {
     public uint ConstructorId => 0xe894ad4d;
 
-    ///<summary>
+    /// <summary>
     /// Login token embedded in QR code, for more info, see <a href="https://corefork.telegram.org/api/qr-login">login via QR code</a>.
-    ///</summary>
+    /// </summary>
     public byte[] Token { get; set; }
 
     public void ComputeFlag()

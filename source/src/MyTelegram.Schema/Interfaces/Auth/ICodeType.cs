@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Type of verification code that will be sent next if you call the resendCode method
-/// See <a href="https://corefork.telegram.org/type/auth.CodeType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/auth.CodeType" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCodeTypeSms"/> See <a href="https://corefork.telegram.org/constructor/auth.codeTypeSms" /><br/>
+/// <see cref="TCodeTypeCall"/> See <a href="https://corefork.telegram.org/constructor/auth.codeTypeCall" /><br/>
+/// <see cref="TCodeTypeFlashCall"/> See <a href="https://corefork.telegram.org/constructor/auth.codeTypeFlashCall" /><br/>
+/// <see cref="TCodeTypeMissedCall"/> See <a href="https://corefork.telegram.org/constructor/auth.codeTypeMissedCall" /><br/>
+/// <see cref="TCodeTypeFragmentSms"/> See <a href="https://corefork.telegram.org/constructor/auth.codeTypeFragmentSms" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCodeTypeSms), nameof(TCodeTypeSms))]
 [JsonDerivedType(typeof(TCodeTypeCall), nameof(TCodeTypeCall))]
 [JsonDerivedType(typeof(TCodeTypeFlashCall), nameof(TCodeTypeFlashCall))]

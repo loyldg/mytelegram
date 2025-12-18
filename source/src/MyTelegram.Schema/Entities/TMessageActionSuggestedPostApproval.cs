@@ -2,29 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostApproval" />
-///</summary>
+/// <summary>
+/// A <a href="https://corefork.telegram.org/api/suggested-posts">suggested post »</a> was approved or rejected.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostApproval" /></para>
+/// </summary>
 [TlObject(0xee7a1596)]
-public sealed class TMessageActionSuggestedPostApproval : IMessageAction
+public sealed partial class TMessageActionSuggestedPostApproval : IMessageAction
 {
     public uint ConstructorId => 0xee7a1596;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Whether the suggested post was rejected.
+    /// </summary>
     public bool Rejected { get; set; }
 
+    /// <summary>
+    /// If set, the post was approved but the user's balance is too low to pay for the suggested post.
+    /// </summary>
     public bool BalanceTooLow { get; set; }
 
+    /// <summary>
+    /// If the suggested post was rejected, can optionally contain a rejection comment.
+    /// </summary>
     public string? RejectComment { get; set; }
 
+    /// <summary>
+    /// Scheduling date.
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Price for the suggested post.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount? Price { get; set; }
 
     public void ComputeFlag()

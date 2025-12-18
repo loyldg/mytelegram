@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
+/// <summary>
 /// Check whether we can write to the specified users, used to implement bulk checks for <a href="https://corefork.telegram.org/api/privacy#require-premium-for-new-non-contact-users">Premium-only messages »</a> and <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>.For each input user, returns a <a href="https://corefork.telegram.org/type/RequirementToContact">RequirementToContact</a> constructor (at the same offset in the vector) containing requirements to contact them.
-/// See <a href="https://corefork.telegram.org/method/users.getRequirementsToContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/users.getRequirementsToContact" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd89a83a3)]
-public sealed class RequestGetRequirementsToContact : IRequest<TVector<MyTelegram.Schema.IRequirementToContact>>
+public sealed partial class RequestGetRequirementsToContact : IRequest<TVector<MyTelegram.Schema.IRequirementToContact>>
 {
     public uint ConstructorId => 0xd89a83a3;
 
-    ///<summary>
+    /// <summary>
     /// Users to check.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Id { get; set; }
 
     public void ComputeFlag()

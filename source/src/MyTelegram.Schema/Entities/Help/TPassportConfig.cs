@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Telegram <a href="https://corefork.telegram.org/passport">passport</a> configuration
-/// See <a href="https://corefork.telegram.org/constructor/help.passportConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.passportConfig" /></para>
+/// </summary>
 [TlObject(0xa098d6af)]
-public sealed class TPassportConfig : IPassportConfig
+public sealed partial class TPassportConfig : IPassportConfig
 {
     public uint ConstructorId => 0xa098d6af;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Localization
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON CountriesLangs { get; set; }
 
     public void ComputeFlag()

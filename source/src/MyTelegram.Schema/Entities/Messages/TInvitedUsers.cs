@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Contains info about successfully or unsuccessfully <a href="https://corefork.telegram.org/api/invites#direct-invites">invited »</a> users.
-/// See <a href="https://corefork.telegram.org/constructor/messages.invitedUsers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.invitedUsers" /></para>
+/// </summary>
 [TlObject(0x7f5defa6)]
-public sealed class TInvitedUsers : IInvitedUsers
+public sealed partial class TInvitedUsers : IInvitedUsers
 {
     public uint ConstructorId => 0x7f5defa6;
-    ///<summary>
+    /// <summary>
     /// List of updates about successfully invited users (and eventually info about the created group)
     /// See <a href="https://corefork.telegram.org/type/Updates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUpdates Updates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A list of users that could not be invited, along with the reason why they couldn't be invited.
     /// See <a href="https://corefork.telegram.org/type/MissingInvitee" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMissingInvitee> MissingInvitees { get; set; }
 
     public void ComputeFlag()

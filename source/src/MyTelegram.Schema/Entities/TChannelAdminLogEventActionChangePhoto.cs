@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The channel/supergroup's picture was changed
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangePhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangePhoto" /></para>
+/// </summary>
 [TlObject(0x434bd2af)]
-public sealed class TChannelAdminLogEventActionChangePhoto : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangePhoto : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x434bd2af;
-    ///<summary>
+    /// <summary>
     /// Previous picture
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto PrevPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New picture
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto NewPhoto { get; set; }
 
     public void ComputeFlag()

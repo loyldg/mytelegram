@@ -2,25 +2,38 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.transferStarGift" />
-///</summary>
+/// <summary>
+/// Transfer a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift</a> to another user or channel: can only be used if transfer is free (i.e. <a href="https://corefork.telegram.org/constructor/messageActionStarGiftUnique">messageActionStarGiftUnique</a>.<code>transfer_stars</code> is not set); see <a href="https://corefork.telegram.org/api/gifts#transferring-collectible-gifts">here »</a> for more info on the full flow (including the different flow to use in case the transfer isn't free).
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 PAYMENT_REQUIRED Payment is required for this action, see <a href="https://corefork.telegram.org/api/gifts">here »</a> for more info.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.</c></para>
+/// <para><c>400 STARGIFT_NOT_FOUND The specified gift was not found.</c></para>
+/// <para><c>400 STARGIFT_OWNER_INVALID You cannot transfer or sell a gift owned by another user.</c></para>
+/// <para><c>400 STARGIFT_PEER_INVALID The specified inputSavedStarGiftChat.peer is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.transferStarGift" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7f18176a)]
-public sealed class RequestTransferStarGift : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestTransferStarGift : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x7f18176a;
 
-    ///<summary>
+    /// <summary>
+    /// The gift to transfer.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Destination peer.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer ToId { get; set; }
 
     public void ComputeFlag()

@@ -2,45 +2,45 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Describes <a href="https://corefork.telegram.org/api/stars">Telegram Star revenue balances »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/starsRevenueStatus" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsRevenueStatus" /></para>
+/// </summary>
 [TlObject(0xfebe5491)]
-public sealed class TStarsRevenueStatus : IStarsRevenueStatus
+public sealed partial class TStarsRevenueStatus : IStarsRevenueStatus
 {
     public uint ConstructorId => 0xfebe5491;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// If set, the user may <a href="https://corefork.telegram.org/api/stars#withdrawing-stars">withdraw</a> up to <code>available_balance</code> stars.
-    ///</summary>
+    /// <summary>
+    /// If set, the user may <a href="https://corefork.telegram.org/api/stars#withdrawing-revenue">withdraw</a> up to <code>available_balance</code> stars.
+    /// </summary>
     public bool WithdrawalEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Amount of not-yet-withdrawn Telegram Stars.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount CurrentBalance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Amount of withdrawable Telegram Stars.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount AvailableBalance { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total amount of earned Telegram Stars.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount OverallRevenue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unixtime indicating when will withdrawal be available to the user. If not set, withdrawal can be started now.
-    ///</summary>
+    /// </summary>
     public int? NextWithdrawalAt { get; set; }
 
     public void ComputeFlag()

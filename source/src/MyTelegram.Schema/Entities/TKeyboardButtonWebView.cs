@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Button to open a <a href="https://corefork.telegram.org/api/bots/webapps">bot mini app</a> using <a href="https://corefork.telegram.org/method/messages.requestWebView">messages.requestWebView</a>, sending over user information after user confirmation.Can only be sent or received as part of an inline keyboard, use <a href="https://corefork.telegram.org/constructor/keyboardButtonSimpleWebView">keyboardButtonSimpleWebView</a> for reply keyboards.
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonWebView" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonWebView" /></para>
+/// </summary>
 [TlObject(0x13767230)]
-public sealed class TKeyboardButtonWebView : IKeyboardButton
+public sealed partial class TKeyboardButtonWebView : IKeyboardButton
 {
     public uint ConstructorId => 0x13767230;
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/bots/webapps">Web app url</a>
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Dialog filter (<a href="https://corefork.telegram.org/api/folders">folder »</a>)
-/// See <a href="https://corefork.telegram.org/type/DialogFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/DialogFilter" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDialogFilter"/> See <a href="https://corefork.telegram.org/constructor/dialogFilter" /><br/>
+/// <see cref="TDialogFilterDefault"/> See <a href="https://corefork.telegram.org/constructor/dialogFilterDefault" /><br/>
+/// <see cref="TDialogFilterChatlist"/> See <a href="https://corefork.telegram.org/constructor/dialogFilterChatlist" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDialogFilter), nameof(TDialogFilter))]
 [JsonDerivedType(typeof(TDialogFilterDefault), nameof(TDialogFilterDefault))]
 [JsonDerivedType(typeof(TDialogFilterChatlist), nameof(TDialogFilterChatlist))]

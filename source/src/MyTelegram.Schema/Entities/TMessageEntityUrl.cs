@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity representing an in-text url: <a href="https://google.com/">https://google.com</a>; for <a href="https://google.com/">text urls</a>, use <a href="https://corefork.telegram.org/constructor/messageEntityTextUrl">messageEntityTextUrl</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityUrl" /></para>
+/// </summary>
 [TlObject(0x6ed02538)]
-public sealed class TMessageEntityUrl : IMessageEntity
+public sealed partial class TMessageEntityUrl : IMessageEntity
 {
     public uint ConstructorId => 0x6ed02538;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

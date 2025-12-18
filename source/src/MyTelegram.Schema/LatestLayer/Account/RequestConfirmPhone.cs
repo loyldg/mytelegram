@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Confirm a phone number to cancel account deletion, for more info <a href="https://corefork.telegram.org/api/account-deletion">click here »</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CODE_HASH_INVALID Code hash invalid.
-/// 400 PHONE_CODE_EMPTY phone_code is missing.
-/// See <a href="https://corefork.telegram.org/method/account.confirmPhone" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CODE_HASH_INVALID Code hash invalid.</c></para>
+/// <para><c>400 PHONE_CODE_EMPTY phone_code is missing. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.confirmPhone" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5f2178c3)]
-public sealed class RequestConfirmPhone : IRequest<IBool>
+public sealed partial class RequestConfirmPhone : IRequest<IBool>
 {
     public uint ConstructorId => 0x5f2178c3;
 
-    ///<summary>
+    /// <summary>
     /// Phone code hash, for more info <a href="https://corefork.telegram.org/api/account-deletion">click here »</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// SMS code, for more info <a href="https://corefork.telegram.org/api/account-deletion">click here »</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCode { get; set; }
 
     public void ComputeFlag()

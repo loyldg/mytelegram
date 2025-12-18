@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get temporary payment password
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PASSWORD_HASH_INVALID The provided password hash is invalid.
-/// 400 SRP_A_INVALID The specified inputCheckPasswordSRP.A value is invalid.
-/// 400 TMP_PASSWORD_DISABLED The temporary password is disabled.
-/// See <a href="https://corefork.telegram.org/method/account.getTmpPassword" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PASSWORD_HASH_INVALID The provided password hash is invalid.</c></para>
+/// <para><c>400 SRP_A_INVALID The specified inputCheckPasswordSRP.A value is invalid.</c></para>
+/// <para><c>400 TMP_PASSWORD_DISABLED The temporary password is disabled. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getTmpPassword" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x449e0b51)]
-public sealed class RequestGetTmpPassword : IRequest<MyTelegram.Schema.Account.ITmpPassword>
+public sealed partial class RequestGetTmpPassword : IRequest<MyTelegram.Schema.Account.ITmpPassword>
 {
     public uint ConstructorId => 0x449e0b51;
 
-    ///<summary>
+    /// <summary>
     /// SRP password parameters
     /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time during which the temporary password will be valid, in seconds; should be between 60 and 86400
-    ///</summary>
+    /// </summary>
     public int Period { get; set; }
 
     public void ComputeFlag()

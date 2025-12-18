@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Installed themes
-/// See <a href="https://corefork.telegram.org/constructor/account.themes" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.themes" /></para>
+/// </summary>
 [TlObject(0x9a3d8c6d)]
-public sealed class TThemes : IThemes
+public sealed partial class TThemes : IThemes
 {
     public uint ConstructorId => 0x9a3d8c6d;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Themes
     /// See <a href="https://corefork.telegram.org/type/Theme" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ITheme> Themes { get; set; }
 
     public void ComputeFlag()

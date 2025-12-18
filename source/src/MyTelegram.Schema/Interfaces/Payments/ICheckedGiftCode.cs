@@ -2,63 +2,67 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Info about a <a href="https://corefork.telegram.org/api/giveaways">Telegram Premium Giftcode</a>.
-/// See <a href="https://corefork.telegram.org/type/payments.CheckedGiftCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.CheckedGiftCode" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCheckedGiftCode"/> See <a href="https://corefork.telegram.org/constructor/payments.checkedGiftCode" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCheckedGiftCode), nameof(TCheckedGiftCode))]
 public interface ICheckedGiftCode : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this giftcode was created by a <a href="https://corefork.telegram.org/api/giveaways">giveaway</a>.
-    ///</summary>
+    /// </summary>
     bool ViaGiveaway { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer that created the gift code.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer? FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of the giveaway in the channel specified in <code>from_id</code>.
-    ///</summary>
+    /// </summary>
     int? GiveawayMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The destination user of the gift.
-    ///</summary>
+    /// </summary>
     long? ToId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Creation date of the gift code.
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Duration in months of the gifted <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription.
-    ///</summary>
+    /// </summary>
     int Months { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the giftcode imported, if it was imported.
-    ///</summary>
+    /// </summary>
     int? UsedDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

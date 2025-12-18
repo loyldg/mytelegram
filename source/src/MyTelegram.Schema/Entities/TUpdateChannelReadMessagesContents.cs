@@ -2,37 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// The specified <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> messages were read
-/// See <a href="https://corefork.telegram.org/constructor/updateChannelReadMessagesContents" />
-///</summary>
+/// <summary>
+/// The specified <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> messages were read (emitted specifically for messages like voice messages or video, only once the media is watched and marked as read using <a href="https://corefork.telegram.org/method/channels.readMessageContents">channels.readMessageContents</a>)
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChannelReadMessagesContents" /></para>
+/// </summary>
 [TlObject(0x25f324f7)]
-public sealed class TUpdateChannelReadMessagesContents : IUpdate
+public sealed partial class TUpdateChannelReadMessagesContents : IUpdate
 {
     public uint ConstructorId => 0x25f324f7;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Channel/supergroup</a> ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/forum#forum-topics">Forum topic ID</a>.
-    ///</summary>
+    /// </summary>
     public int? TopMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, the messages were read within the specified <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a>.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SavedPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of messages that were read
-    ///</summary>
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
     public void ComputeFlag()

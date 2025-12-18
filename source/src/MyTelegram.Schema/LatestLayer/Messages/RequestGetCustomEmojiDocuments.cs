@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Fetch <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickers »</a>.Returns a list of <a href="https://corefork.telegram.org/constructor/document">documents</a> with the animated custom emoji in TGS format, and a <a href="https://corefork.telegram.org/constructor/documentAttributeCustomEmoji">documentAttributeCustomEmoji</a> attribute with the original emoji and info about the emoji stickerset this custom emoji belongs to.
-/// See <a href="https://corefork.telegram.org/method/messages.getCustomEmojiDocuments" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getCustomEmojiDocuments" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd9ab0f54)]
-public sealed class RequestGetCustomEmojiDocuments : IRequest<TVector<MyTelegram.Schema.IDocument>>
+public sealed partial class RequestGetCustomEmojiDocuments : IRequest<TVector<MyTelegram.Schema.IDocument>>
 {
     public uint ConstructorId => 0xd9ab0f54;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/custom-emoji">Custom emoji</a> IDs from a <a href="https://corefork.telegram.org/constructor/messageEntityCustomEmoji">messageEntityCustomEmoji</a>.
-    ///</summary>
+    /// </summary>
     public TVector<long> DocumentId { get; set; }
 
     public void ComputeFlag()

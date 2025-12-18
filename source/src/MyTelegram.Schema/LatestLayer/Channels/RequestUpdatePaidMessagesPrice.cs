@@ -2,34 +2,43 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
-/// Enable or disable <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> in this <a href="https://corefork.telegram.org/api/channel">supergroup</a> or <a href="https://corefork.telegram.org/api/forum#monoforums">monoforum</a>.Also used to <a href="https://corefork.telegram.org/api/forum#monoforums">enable or disable monoforums aka direct messages in a channel</a>.Note that passing the ID of the monoforum itself to <code>channel</code> will return a <code>CHANNEL_MONOFORUM_UNSUPPORTED</code> error: pass the ID of the associated channel to edit the settings of the associated monoforum, instead.
-/// See <a href="https://corefork.telegram.org/method/channels.updatePaidMessagesPrice" />
-///</summary>
+/// <summary>
+/// Enable or disable <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> in this <a href="https://corefork.telegram.org/api/channel">supergroup</a> or <a href="https://corefork.telegram.org/api/monoforum">monoforum</a>.Also used to <a href="https://corefork.telegram.org/api/monoforum">enable or disable monoforums aka direct messages in a channel</a>.Note that passing the ID of the monoforum itself to <code>channel</code> will return a <code>CHANNEL_MONOFORUM_UNSUPPORTED</code> error: pass the ID of the associated channel to edit the settings of the associated monoforum, instead.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 STARS_AMOUNT_INVALID The specified amount in stars is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.updatePaidMessagesPrice" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4b12327b)]
-public sealed class RequestUpdatePaidMessagesPrice : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestUpdatePaidMessagesPrice : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x4b12327b;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// Only usable for channels, enables or disables the associated <a href="https://corefork.telegram.org/api/forum#monoforums">monoforum aka direct messages</a>.
-    ///</summary>
+    /// <summary>
+    /// Only usable for channels, enables or disables the associated <a href="https://corefork.telegram.org/api/monoforum">monoforum aka direct messages</a>.
+    /// </summary>
     public bool BroadcastMessagesAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pass the supergroup ID for supergroups and the ID of the <a href="https://corefork.telegram.org/api/channel">channel</a> to modify the setting in the associated monoforum.
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the required amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> users must pay to send messages to the supergroup or monoforum.
-    ///</summary>
+    /// </summary>
     public long SendPaidMessagesStars { get; set; }
 
     public void ComputeFlag()

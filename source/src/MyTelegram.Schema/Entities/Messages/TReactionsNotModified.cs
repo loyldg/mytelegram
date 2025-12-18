@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The server-side list of <a href="https://corefork.telegram.org/api/reactions">message reactions</a> hasn't changed
-/// See <a href="https://corefork.telegram.org/constructor/messages.reactionsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.reactionsNotModified" /></para>
+/// </summary>
 [TlObject(0xb06fdbdf)]
-public sealed class TReactionsNotModified : IReactions
+public sealed partial class TReactionsNotModified : IReactions
 {
     public uint ConstructorId => 0xb06fdbdf;
     public void ComputeFlag()

@@ -2,56 +2,60 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a table in an <a href="https://instantview.telegram.org/">instant view table</a>
-/// See <a href="https://corefork.telegram.org/type/PageTableCell" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PageTableCell" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPageTableCell"/> See <a href="https://corefork.telegram.org/constructor/pageTableCell" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPageTableCell), nameof(TPageTableCell))]
 public interface IPageTableCell : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this element part of the column header
-    ///</summary>
+    /// </summary>
     bool Header { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Horizontally centered block
-    ///</summary>
+    /// </summary>
     bool AlignCenter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Right-aligned block
-    ///</summary>
+    /// </summary>
     bool AlignRight { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Vertically centered block
-    ///</summary>
+    /// </summary>
     bool ValignMiddle { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Block vertically-aligned to the bottom
-    ///</summary>
+    /// </summary>
     bool ValignBottom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Content
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IRichText? Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For how many columns should this cell extend
-    ///</summary>
+    /// </summary>
     int? Colspan { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For how many rows should this cell extend
-    ///</summary>
+    /// </summary>
     int? Rowspan { get; set; }
 }

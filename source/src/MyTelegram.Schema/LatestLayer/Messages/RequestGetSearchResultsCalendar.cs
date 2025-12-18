@@ -2,51 +2,54 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Returns information about the next messages of the specified type in the chat split by days.Returns the results in reverse chronological order.<br>
+/// <summary>
+/// Returns information about the next messages of the specified type in the chat split by days.Returns the results in reverse chronological order.<br/>
 /// Can return partial results for the last returned day.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getSearchResultsCalendar" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILTER_NOT_SUPPORTED The specified filter cannot be used in this context.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getSearchResultsCalendar" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6aa3f6bd)]
-public sealed class RequestGetSearchResultsCalendar : IRequest<MyTelegram.Schema.Messages.ISearchResultsCalendar>
+public sealed partial class RequestGetSearchResultsCalendar : IRequest<MyTelegram.Schema.Messages.ISearchResultsCalendar>
 {
     public uint ConstructorId => 0x6aa3f6bd;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer where to search
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Search within the <a href="https://corefork.telegram.org/api/saved-messages">saved message dialog »</a> with this ID.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? SavedPeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message filter, <a href="https://corefork.telegram.org/constructor/inputMessagesFilterEmpty">inputMessagesFilterEmpty</a>, <a href="https://corefork.telegram.org/constructor/inputMessagesFilterMyMentions">inputMessagesFilterMyMentions</a> filters are not supported by this method.
     /// See <a href="https://corefork.telegram.org/type/MessagesFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessagesFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int OffsetDate { get; set; }
 
     public void ComputeFlag()

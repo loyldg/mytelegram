@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A <a href="https://corefork.telegram.org/api/giveaways">giveaway</a> was started.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionGiveawayLaunch" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGiveawayLaunch" /></para>
+/// </summary>
 [TlObject(0xa80f51e4)]
-public sealed class TMessageActionGiveawayLaunch : IMessageAction
+public sealed partial class TMessageActionGiveawayLaunch : IMessageAction
 {
     public uint ConstructorId => 0xa80f51e4;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/stars#star-giveaways">Telegram Star giveaways</a>, the total number of Telegram Stars being given away.
-    ///</summary>
+    /// </summary>
     public long? Stars { get; set; }
 
     public void ComputeFlag()

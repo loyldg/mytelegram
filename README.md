@@ -1,83 +1,95 @@
 # MyTelegram
 
-[![API Layer](https://img.shields.io/badge/API_Layer-211-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-216-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![MyTelegram Channel](https://img.shields.io/badge/Subscribe-_MyTelegram_Channel-0088cc)](https://t.me/+9wMJrMqLTIoyYzM8)
 [![MyTelegram Discussion Group](https://img.shields.io/badge/Join_-MyTelegram_Discussion_Group-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
-MyTelegram is telegram server side api implementation written in c#, support private deployment
 
-## Features
+MyTelegram is a self-hosted C# implementation of the Telegram server-side API, designed for private deployments and extensibility.
 
-- API Layer: **`211`**
-- [MTProto transports](https://corefork.telegram.org/mtproto/mtproto-transports): **`Abridged`**,**`Intermediate`**
-- Private chat
-- Group chat
-- Supergroup chat
+## Supported Features
+
+### Open Source Features
+- API Layer: `216`
+- MTProto Transports: `Abridged`, `Intermediate`
+- Private Chat
+- Supergroup Chat
 - Channel
-- End-to-end-encryption chat(Pro version)
-- Voice/video call(Pro version)
-- Bot(Partial support, Pro version)
-- 2FA(Pro version)
-- Stickers(Pro version)
-- Reactions(Pro version)
-- Star gifts(Pro version)
-- ForumTopics(Pro version)
-- Themes/Wallpapers/Auto-Delete Messages/Scheduled Messages/Chatlist/Telegram Business/Stories/Email Login/Email Sender/Direct messages/Push Server(Firebase) (Pro version)
 
-## Run MyTelegram server
+### Pro Version Features
+- End-to-End Encrypted Chat
+- Voice & Video Calls
+- Bot Support (Partial)
+- Privacy settings & 2FA
+- Stickers
+- Reactions
+- Star Gifts
+- Forum Topics
+- Themes & Wallpapers
+- Auto-Delete Messages
+- Scheduled Messages
+- Chatlist
+- Telegram Business
+- Stories
+- Passkey login
+- Email Login
+- Email Sender
+- Direct Messages
+- Push Server (Firebase)
 
-- ### Run MyTelegram server with docker
+---
 
-1. Download docker-compose configuration files
-   ```
-   https://raw.githubusercontent.com/loyldg/mytelegram/dev/docker/compose/docker-compose.yml
+## Running MyTelegram Server
 
-   https://raw.githubusercontent.com/loyldg/mytelegram/dev/docker/compose/.env
-   ```
-2. Replace `192.168.1.100` with your own server IP in `.env`
-3. Run the following command in the directory where the docker-compose.yml file is located
-   ```
-      mkdir -p ./data/mytelegram
-      chmod -R a+w ./data/mytelegram
-      docker compose up
-   ```
-4. Default verification code is `22222`
+### Run with Docker
 
-## Build MyTelegram server docker images
+1. Download the Docker Compose configuration files:
 
-- ### Linux/amd64 (build)
+https://raw.githubusercontent.com/loyldg/mytelegram/dev/docker/compose/docker-compose.yml  
+https://raw.githubusercontent.com/loyldg/mytelegram/dev/docker/compose/.env
+
+2. Edit `.env` and replace `192.168.1.100` with your own server IP address.
+
+3. Start the server:
+
 ```
-build-all-amd64.sh
+mkdir -p ./data/mytelegram
+chmod -R a+w ./data/mytelegram
+docker compose up
 ```
-- ### Linux/arm64 (build)
-```
-build-all-arm64.sh
-```
+4. Default verification code (for testing only): `22222`
 
-## MyTelegram clients
-[TDesktop for mytelegram](https://github.com/loyldg/mytelegram-tdesktop)
+## Building Docker Images
 
-[Android client for mytelegram](https://github.com/loyldg/mytelegram-android)
+### Linux / amd64
+`./build-all-amd64.sh`
 
-[iOS client for mytelegram](https://github.com/loyldg/mytelegram-iOS)
+### Linux / arm64
+`./build-all-arm64.sh`
 
-[WebK for mytelegram](https://github.com/loyldg/mytelegram-webk)
+## MyTelegram Clients
 
-[WebA for mytelegram](https://github.com/loyldg/mytelegram-weba)
+| Platform | Repository |
+|----------|------------|
+| Desktop (TDesktop) | https://github.com/loyldg/mytelegram-tdesktop |
+| Android | https://github.com/loyldg/mytelegram-android |
+| iOS | https://github.com/loyldg/mytelegram-iOS |
+| WebK | https://github.com/loyldg/mytelegram-webk |
+| WebA | https://github.com/loyldg/mytelegram-weba |
 
-1. Git clone the client source code
-2. Search for the keyword **192.168.1.100** in all files, then replace it with your own IP.
+### Configure Clients
+1. Clone the client source code.  
+2. Search for `192.168.1.100` in all files and replace it with your own server IP.
 
+---
 
 ## Support MyTelegram
 
-Love MyTelegram? Please give a star to this repository ⭐
+If you find MyTelegram helpful, please consider giving the project a ⭐.
+
 
 ## Feedback
 
-Contact author: [https://t.me/mytelegram666](https://t.me/mytelegram666)  
-
-MyTelegram channel: [https://t.me/+9wMJrMqLTIoyYzM8](https://t.me/+9wMJrMqLTIoyYzM8)
-
-Mytelegram discussion group: [https://t.me/+S-aNBoRvCRpPyXrR](https://t.me/+S-aNBoRvCRpPyXrR)
-
+- Contact author: https://t.me/mytelegram666  
+- MyTelegram Channel: https://t.me/+9wMJrMqLTIoyYzM8  
+- Discussion Group: https://t.me/+S-aNBoRvCRpPyXrR

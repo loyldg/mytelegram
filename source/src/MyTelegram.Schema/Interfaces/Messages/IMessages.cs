@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Object contains information on list of messages with auxiliary data.
-/// See <a href="https://corefork.telegram.org/type/messages.Messages" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.Messages" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessages"/> See <a href="https://corefork.telegram.org/constructor/messages.messages" /><br/>
+/// <see cref="TMessagesSlice"/> See <a href="https://corefork.telegram.org/constructor/messages.messagesSlice" /><br/>
+/// <see cref="TChannelMessages"/> See <a href="https://corefork.telegram.org/constructor/messages.channelMessages" /><br/>
+/// <see cref="TMessagesNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.messagesNotModified" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessages), nameof(TMessages))]
 [JsonDerivedType(typeof(TMessagesSlice), nameof(TMessagesSlice))]
 [JsonDerivedType(typeof(TChannelMessages), nameof(TChannelMessages))]

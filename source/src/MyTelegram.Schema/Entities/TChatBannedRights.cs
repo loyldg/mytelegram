@@ -2,122 +2,122 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents the rights of a normal user in a <a href="https://corefork.telegram.org/api/channel">supergroup/channel/chat</a>. In this case, the flags are inverted: if set, a flag <strong>does not allow</strong> a user to do X.
-/// See <a href="https://corefork.telegram.org/constructor/chatBannedRights" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatBannedRights" /></para>
+/// </summary>
 [TlObject(0x9f120418)]
-public sealed class TChatBannedRights : IChatBannedRights
+public sealed partial class TChatBannedRights : IChatBannedRights
 {
     public uint ConstructorId => 0x9f120418;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to view messages in a <a href="https://corefork.telegram.org/api/channel">supergroup/channel/chat</a>
-    ///</summary>
+    /// </summary>
     public bool ViewMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send messages in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool SendMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send any media in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool SendMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send stickers in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool SendStickers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send gifs in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool SendGifs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send games in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool SendGames { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to use inline bots in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>.
-    ///</summary>
+    /// </summary>
     public bool SendInline { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to embed links in the messages of a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool EmbedLinks { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send polls in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool SendPolls { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow any user to change the description of a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool ChangeInfo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow any user to invite users in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool InviteUsers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow any user to pin messages in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>
-    ///</summary>
+    /// </summary>
     public bool PinMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow any user to create, delete or modify <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topics »</a>.
-    ///</summary>
+    /// </summary>
     public bool ManageTopics { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send photos in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>.
-    ///</summary>
+    /// </summary>
     public bool SendPhotos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send videos in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>.
-    ///</summary>
+    /// </summary>
     public bool SendVideos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send round videos in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>.
-    ///</summary>
+    /// </summary>
     public bool SendRoundvideos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send audio files in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>.
-    ///</summary>
+    /// </summary>
     public bool SendAudios { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send voice messages in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>.
-    ///</summary>
+    /// </summary>
     public bool SendVoices { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send documents in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>.
-    ///</summary>
+    /// </summary>
     public bool SendDocs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, does not allow a user to send text messages in a <a href="https://corefork.telegram.org/api/channel">supergroup/chat</a>.
-    ///</summary>
+    /// </summary>
     public bool SendPlain { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
-    ///</summary>
+    /// </summary>
     public int UntilDate { get; set; }
 
     public void ComputeFlag()

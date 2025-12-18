@@ -2,65 +2,66 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a message <a href="https://corefork.telegram.org/api/drafts">draft</a>.
-/// See <a href="https://corefork.telegram.org/constructor/draftMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/draftMessage" /></para>
+/// </summary>
 [TlObject(0x96eaa5eb)]
-public sealed class TDraftMessage : ILayeredDraftMessage
+public sealed partial class TDraftMessage : ILayeredDraftMessage
 {
     public uint ConstructorId => 0x96eaa5eb;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether no webpage preview will be generated
-    ///</summary>
+    /// </summary>
     public bool NoWebpage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
-    ///</summary>
+    /// </summary>
     public bool InvertMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the message should be sent in reply to the specified message or story.
     /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The draft
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message <a href="https://corefork.telegram.org/api/entities">entities</a> for styled text.
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media.
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia? Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of last update of the draft.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A <a href="https://corefork.telegram.org/api/effects">message effect that should be played as specified here »</a>.
-    ///</summary>
+    /// </summary>
     public long? Effect { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Used to <a href="https://corefork.telegram.org/api/suggested-posts">suggest a post to a channel, see here »</a> for more info on the full flow.
     /// See <a href="https://corefork.telegram.org/type/SuggestedPost" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
     public void ComputeFlag()

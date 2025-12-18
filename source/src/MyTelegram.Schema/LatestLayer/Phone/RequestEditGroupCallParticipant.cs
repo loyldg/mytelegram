@@ -2,74 +2,77 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Edit information about a given group call participantNote: <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">flags</a>.N?<a href="https://corefork.telegram.org/type/Bool">Bool</a> parameters can have three possible values:
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 GROUPCALL_FORBIDDEN The group call has already ended.
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 400 PARTICIPANT_JOIN_MISSING Trying to enable a presentation, when the user hasn't joined the Video Chat with <a href="https://corefork.telegram.org/method/phone.joinGroupCall">phone.joinGroupCall</a>.
-/// 400 RAISE_HAND_FORBIDDEN You cannot raise your hand.
-/// 400 USER_VOLUME_INVALID The specified user volume is invalid.
-/// 400 VIDEO_PAUSE_FORBIDDEN You cannot pause the video stream.
-/// 400 VIDEO_STOP_FORBIDDEN You cannot stop the video stream.
-/// See <a href="https://corefork.telegram.org/method/phone.editGroupCallParticipant" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 GROUPCALL_FORBIDDEN The group call has already ended.</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>400 PARTICIPANT_JOIN_MISSING Trying to enable a presentation, when the user hasn't joined the Video Chat with <a href="https://corefork.telegram.org/method/phone.joinGroupCall">phone.joinGroupCall</a>.</c></para>
+/// <para><c>400 RAISE_HAND_FORBIDDEN You cannot raise your hand.</c></para>
+/// <para><c>400 USER_VOLUME_INVALID The specified user volume is invalid.</c></para>
+/// <para><c>400 VIDEO_PAUSE_FORBIDDEN You cannot pause the video stream.</c></para>
+/// <para><c>400 VIDEO_STOP_FORBIDDEN You cannot stop the video stream. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.editGroupCallParticipant" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa5273abf)]
-public sealed class RequestEditGroupCallParticipant : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestEditGroupCallParticipant : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xa5273abf;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The group call participant (can also be the user itself)
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Participant { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to mute or unmute the specified participant
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? Muted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New volume
-    ///</summary>
+    /// </summary>
     public int? Volume { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Raise or lower hand
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? RaiseHand { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Start or stop the video stream
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? VideoStopped { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pause or resume the video stream
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? VideoPaused { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pause or resume the screen sharing stream
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? PresentationPaused { get; set; }
 
     public void ComputeFlag()

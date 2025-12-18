@@ -2,10 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Rich text
-/// See <a href="https://corefork.telegram.org/type/RichText" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/RichText" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTextEmpty"/> See <a href="https://corefork.telegram.org/constructor/textEmpty" /><br/>
+/// <see cref="TTextPlain"/> See <a href="https://corefork.telegram.org/constructor/textPlain" /><br/>
+/// <see cref="TTextBold"/> See <a href="https://corefork.telegram.org/constructor/textBold" /><br/>
+/// <see cref="TTextItalic"/> See <a href="https://corefork.telegram.org/constructor/textItalic" /><br/>
+/// <see cref="TTextUnderline"/> See <a href="https://corefork.telegram.org/constructor/textUnderline" /><br/>
+/// <see cref="TTextStrike"/> See <a href="https://corefork.telegram.org/constructor/textStrike" /><br/>
+/// <see cref="TTextFixed"/> See <a href="https://corefork.telegram.org/constructor/textFixed" /><br/>
+/// <see cref="TTextUrl"/> See <a href="https://corefork.telegram.org/constructor/textUrl" /><br/>
+/// <see cref="TTextEmail"/> See <a href="https://corefork.telegram.org/constructor/textEmail" /><br/>
+/// <see cref="TTextConcat"/> See <a href="https://corefork.telegram.org/constructor/textConcat" /><br/>
+/// <see cref="TTextSubscript"/> See <a href="https://corefork.telegram.org/constructor/textSubscript" /><br/>
+/// <see cref="TTextSuperscript"/> See <a href="https://corefork.telegram.org/constructor/textSuperscript" /><br/>
+/// <see cref="TTextMarked"/> See <a href="https://corefork.telegram.org/constructor/textMarked" /><br/>
+/// <see cref="TTextPhone"/> See <a href="https://corefork.telegram.org/constructor/textPhone" /><br/>
+/// <see cref="TTextImage"/> See <a href="https://corefork.telegram.org/constructor/textImage" /><br/>
+/// <see cref="TTextAnchor"/> See <a href="https://corefork.telegram.org/constructor/textAnchor" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTextEmpty), nameof(TTextEmpty))]
 [JsonDerivedType(typeof(TTextPlain), nameof(TTextPlain))]
 [JsonDerivedType(typeof(TTextBold), nameof(TTextBold))]

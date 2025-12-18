@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// High scores (in games)
-/// See <a href="https://corefork.telegram.org/type/messages.HighScores" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.HighScores" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="THighScores"/> See <a href="https://corefork.telegram.org/constructor/messages.highScores" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(THighScores), nameof(THighScores))]
 public interface IHighScores : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Highscores
     /// See <a href="https://corefork.telegram.org/type/HighScore" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IHighScore> Scores { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users, associated to the highscores
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

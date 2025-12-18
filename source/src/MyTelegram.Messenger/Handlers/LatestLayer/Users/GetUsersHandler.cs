@@ -1,8 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Users;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Users;
+/// <summary>
 /// Returns basic user info according to their identifiers.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
@@ -10,14 +9,14 @@
 /// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/users.getUsers" />
-///</summary>
-internal sealed class GetUsersHandler(
-    IUserConverterService userConverterService)
-    : RpcResultObjectHandler<MyTelegram.Schema.Users.RequestGetUsers, TVector<MyTelegram.Schema.IUser>>
+/// <para><c>See <a href="https://corefork.telegram.org/method/users.getUsers"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
+internal sealed class GetUsersHandler(IUserConverterService userConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Users.RequestGetUsers, TVector<MyTelegram.Schema.IUser>>
 {
-    protected override async Task<TVector<IUser>> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Users.RequestGetUsers obj)
+    protected override async Task<TVector<IUser>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Users.RequestGetUsers obj)
     {
         var userIds = new List<long>();
         foreach (var inputUser in obj.Id)
@@ -43,7 +42,6 @@ internal sealed class GetUsersHandler(
         }
 
         var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
-
-        return [.. users];
+        return[..users];
     }
 }

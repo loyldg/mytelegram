@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Suggested dialog filters (<a href="https://corefork.telegram.org/api/folders">folder »</a>)
-/// See <a href="https://corefork.telegram.org/type/DialogFilterSuggested" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/DialogFilterSuggested" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TDialogFilterSuggested"/> See <a href="https://corefork.telegram.org/constructor/dialogFilterSuggested" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TDialogFilterSuggested), nameof(TDialogFilterSuggested))]
 public interface IDialogFilterSuggested : IObject
 {
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder info</a>
     /// See <a href="https://corefork.telegram.org/type/DialogFilter" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IDialogFilter Filter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> description
-    ///</summary>
+    /// </summary>
     string Description { get; set; }
 }

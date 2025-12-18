@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Info on support user.
-/// See <a href="https://corefork.telegram.org/constructor/help.support" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.support" /></para>
+/// </summary>
 [TlObject(0x17c6b5f6)]
-public sealed class TSupport : ISupport
+public sealed partial class TSupport : ISupport
 {
     public uint ConstructorId => 0x17c6b5f6;
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUser User { get; set; }
 
     public void ComputeFlag()

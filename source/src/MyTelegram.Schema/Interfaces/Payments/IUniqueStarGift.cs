@@ -2,19 +2,32 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/payments.UniqueStarGift" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/type/payments.UniqueStarGift" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUniqueStarGift"/> See <a href="https://corefork.telegram.org/constructor/payments.uniqueStarGift" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUniqueStarGift), nameof(TUniqueStarGift))]
 public interface IUniqueStarGift : IObject
 {
-    ///<summary>
+    /// <summary>
+    /// The <a href="https://corefork.telegram.org/constructor/starGiftUnique">starGiftUnique</a> constructor.
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarGift Gift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Chats mentioned in the <code>gift</code> field.
+    /// See <a href="https://corefork.telegram.org/type/Chat" />
+    /// </summary>
+    TVector<MyTelegram.Schema.IChat> Chats { get; set; }
+
+    /// <summary>
+    /// Users mentioned in the <code>gift</code> field.
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

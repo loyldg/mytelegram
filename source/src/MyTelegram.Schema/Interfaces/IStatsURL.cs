@@ -2,14 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="" />
-///</summary>
+/// <summary>
+/// <para>See <a href="" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatsURL"/> See <a href="https://corefork.telegram.org/constructor/statsURL" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatsURL), nameof(TStatsURL))]
 public interface IStatsURL : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Chat statistics
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 }

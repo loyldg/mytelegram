@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a blocked user
-/// See <a href="https://corefork.telegram.org/type/PeerBlocked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PeerBlocked" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerBlocked"/> See <a href="https://corefork.telegram.org/constructor/peerBlocked" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerBlocked), nameof(TPeerBlocked))]
 public interface IPeerBlocked : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Peer ID
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer PeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the peer blocked
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 }

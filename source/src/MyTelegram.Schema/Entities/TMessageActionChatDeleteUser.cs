@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User left the group.
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatDeleteUser" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatDeleteUser" /></para>
+/// </summary>
 [TlObject(0xa43f30cc)]
-public sealed class TMessageActionChatDeleteUser : IMessageAction
+public sealed partial class TMessageActionChatDeleteUser : IMessageAction
 {
     public uint ConstructorId => 0xa43f30cc;
-    ///<summary>
+    /// <summary>
     /// Leaving user ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
     public void ComputeFlag()

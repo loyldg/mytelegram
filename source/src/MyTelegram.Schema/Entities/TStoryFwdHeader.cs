@@ -2,38 +2,38 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains info about the original poster of a reposted story.
-/// See <a href="https://corefork.telegram.org/constructor/storyFwdHeader" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyFwdHeader" /></para>
+/// </summary>
 [TlObject(0xb826e150)]
-public sealed class TStoryFwdHeader : IStoryFwdHeader
+public sealed partial class TStoryFwdHeader : IStoryFwdHeader
 {
     public uint ConstructorId => 0xb826e150;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the story media was modified before reposting it (for example by overlaying a round video with a reaction).
-    ///</summary>
+    /// </summary>
     public bool Modified { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer that originally posted the story; will be empty for stories forwarded from a user with forwards privacy enabled, in which case <code>from_name</code> will be set, instead.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? From { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Will be set for stories forwarded from a user with forwards privacy enabled, in which case <code>from</code> will also be empty.
-    ///</summary>
+    /// </summary>
     public string? FromName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// , contains the story ID
-    ///</summary>
+    /// </summary>
     public int? StoryId { get; set; }
 
     public void ComputeFlag()

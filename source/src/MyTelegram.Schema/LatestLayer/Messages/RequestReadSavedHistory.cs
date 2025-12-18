@@ -2,24 +2,37 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/messages.readSavedHistory" />
-///</summary>
+/// <summary>
+/// Mark messages as read in a <a href="https://corefork.telegram.org/api/monoforum">monoforum topic »</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 PARENT_PEER_INVALID The specified <code>parent_peer</code> is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.readSavedHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xba4a3b5b)]
-public sealed class RequestReadSavedHistory : IRequest<IBool>
+public sealed partial class RequestReadSavedHistory : IRequest<IBool>
 {
     public uint ConstructorId => 0xba4a3b5b;
 
-    ///<summary>
+    /// <summary>
+    /// ID of the monoforum group.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer ParentPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// ID of the topic.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// If a positive value is passed, only messages with identifiers less or equal than the given one will be read.
+    /// </summary>
     public int MaxId { get; set; }
 
     public void ComputeFlag()

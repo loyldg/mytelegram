@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Set maximum Time-To-Live of all messages in the specified chat
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 TTL_PERIOD_INVALID The specified TTL period is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.setHistoryTTL" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 TTL_PERIOD_INVALID The specified TTL period is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setHistoryTTL" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb80e5fe4)]
-public sealed class RequestSetHistoryTTL : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSetHistoryTTL : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xb80e5fe4;
 
-    ///<summary>
+    /// <summary>
     /// The dialog
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Automatically delete all messages sent in the chat after this many seconds
-    ///</summary>
+    /// </summary>
     public int Period { get; set; }
 
     public void ComputeFlag()

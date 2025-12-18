@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/colors">color palette »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/peerColor" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/peerColor" /></para>
+/// </summary>
 [TlObject(0xb54b5acf)]
-public sealed class TPeerColor : IPeerColor
+public sealed partial class TPeerColor : IPeerColor
 {
     public uint ConstructorId => 0xb54b5acf;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/colors">Color palette ID, see here »</a> for more info; if not set, the default palette should be used.
-    ///</summary>
+    /// </summary>
     public int? Color { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji ID</a> used to generate the pattern.
-    ///</summary>
+    /// </summary>
     public long? BackgroundEmojiId { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Report reason
-/// See <a href="https://corefork.telegram.org/type/ReportReason" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ReportReason" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputReportReasonSpam"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonSpam" /><br/>
+/// <see cref="TInputReportReasonViolence"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonViolence" /><br/>
+/// <see cref="TInputReportReasonPornography"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonPornography" /><br/>
+/// <see cref="TInputReportReasonChildAbuse"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonChildAbuse" /><br/>
+/// <see cref="TInputReportReasonOther"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonOther" /><br/>
+/// <see cref="TInputReportReasonCopyright"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonCopyright" /><br/>
+/// <see cref="TInputReportReasonGeoIrrelevant"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonGeoIrrelevant" /><br/>
+/// <see cref="TInputReportReasonFake"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonFake" /><br/>
+/// <see cref="TInputReportReasonIllegalDrugs"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonIllegalDrugs" /><br/>
+/// <see cref="TInputReportReasonPersonalDetails"/> See <a href="https://corefork.telegram.org/constructor/inputReportReasonPersonalDetails" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputReportReasonSpam), nameof(TInputReportReasonSpam))]
 [JsonDerivedType(typeof(TInputReportReasonViolence), nameof(TInputReportReasonViolence))]
 [JsonDerivedType(typeof(TInputReportReasonPornography), nameof(TInputReportReasonPornography))]

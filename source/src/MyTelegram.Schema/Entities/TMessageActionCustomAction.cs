@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Custom action (most likely not supported by the current layer, an upgrade might be needed)
-/// See <a href="https://corefork.telegram.org/constructor/messageActionCustomAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionCustomAction" /></para>
+/// </summary>
 [TlObject(0xfae69f56)]
-public sealed class TMessageActionCustomAction : IMessageAction
+public sealed partial class TMessageActionCustomAction : IMessageAction
 {
     public uint ConstructorId => 0xfae69f56;
-    ///<summary>
+    /// <summary>
     /// Action message
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
     public void ComputeFlag()

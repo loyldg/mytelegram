@@ -2,98 +2,101 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Dialog filter AKA <a href="https://corefork.telegram.org/api/folders">folder</a>
-/// See <a href="https://corefork.telegram.org/constructor/dialogFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dialogFilter" /></para>
+/// </summary>
 [TlObject(0xaa472651)]
-public sealed class TDialogFilter : IDialogFilter
+public sealed partial class TDialogFilter : IDialogFilter
 {
     public uint ConstructorId => 0xaa472651;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to include all contacts in this <a href="https://corefork.telegram.org/api/folders">folder</a>
-    ///</summary>
+    /// </summary>
     public bool Contacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to include all non-contacts in this <a href="https://corefork.telegram.org/api/folders">folder</a>
-    ///</summary>
+    /// </summary>
     public bool NonContacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to include all groups in this <a href="https://corefork.telegram.org/api/folders">folder</a>
-    ///</summary>
+    /// </summary>
     public bool Groups { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to include all channels in this <a href="https://corefork.telegram.org/api/folders">folder</a>
-    ///</summary>
+    /// </summary>
     public bool Broadcasts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to include all bots in this <a href="https://corefork.telegram.org/api/folders">folder</a>
-    ///</summary>
+    /// </summary>
     public bool Bots { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to exclude muted chats from this <a href="https://corefork.telegram.org/api/folders">folder</a>
-    ///</summary>
+    /// </summary>
     public bool ExcludeMuted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to exclude read chats from this <a href="https://corefork.telegram.org/api/folders">folder</a>
-    ///</summary>
+    /// </summary>
     public bool ExcludeRead { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to exclude archived chats from this <a href="https://corefork.telegram.org/api/folders">folder</a>
-    ///</summary>
+    /// </summary>
     public bool ExcludeArchived { get; set; }
 
+    /// <summary>
+    /// If set, any animated emojis present in <code>title</code> should not be animated and should be instead frozen on the first frame.
+    /// </summary>
     public bool TitleNoanimate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> name (max 12 UTF-8 chars)
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ITextWithEntities Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emoji to use as icon for the folder.
-    ///</summary>
+    /// </summary>
     public string? Emoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A color ID for the <a href="https://corefork.telegram.org/api/folders#folder-tags">folder tag associated to this folder, see here »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int? Color { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pinned chats, <a href="https://corefork.telegram.org/api/folders">folders</a> can have unlimited pinned chats
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> PinnedPeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Include the following chats in this <a href="https://corefork.telegram.org/api/folders">folder</a>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> IncludePeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Exclude the following chats from this <a href="https://corefork.telegram.org/api/folders">folder</a>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> ExcludePeers { get; set; }
 
     public void ComputeFlag()

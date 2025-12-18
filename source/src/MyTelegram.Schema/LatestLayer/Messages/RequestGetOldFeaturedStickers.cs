@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Method for fetching previously featured stickers
-/// See <a href="https://corefork.telegram.org/method/messages.getOldFeaturedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getOldFeaturedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7ed094a1)]
-public sealed class RequestGetOldFeaturedStickers : IRequest<MyTelegram.Schema.Messages.IFeaturedStickers>
+public sealed partial class RequestGetOldFeaturedStickers : IRequest<MyTelegram.Schema.Messages.IFeaturedStickers>
 {
     public uint ConstructorId => 0x7ed094a1;
 
-    ///<summary>
+    /// <summary>
     /// Offset
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Returns localized text of a text message with an invitation.
-/// See <a href="https://corefork.telegram.org/method/help.getInviteText" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getInviteText" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4d392343)]
-public sealed class RequestGetInviteText : IRequest<MyTelegram.Schema.Help.IInviteText>
+public sealed partial class RequestGetInviteText : IRequest<MyTelegram.Schema.Help.IInviteText>
 {
     public uint ConstructorId => 0x4d392343;
 

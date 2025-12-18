@@ -2,95 +2,127 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/gifts">star gift, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/starGift" />
-///</summary>
-[TlObject(0xbcff5b)]
-public sealed class TStarGift : ILayeredStarGift
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGift" /></para>
+/// </summary>
+[TlObject(0x80ac53c3)]
+public sealed partial class TStarGift : ILayeredStarGift
 {
-    public uint ConstructorId => 0xbcff5b;
-    ///<summary>
+    public uint ConstructorId => 0x80ac53c3;
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a limited-supply gift.
-    ///</summary>
+    /// </summary>
     public bool Limited { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this gift sold out and cannot be bought anymore.
-    ///</summary>
+    /// </summary>
     public bool SoldOut { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a birthday-themed gift
-    ///</summary>
+    /// </summary>
     public bool Birthday { get; set; }
 
+    /// <summary>
+    /// This gift can only be bought by users with a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription.
+    /// </summary>
     public bool RequirePremium { get; set; }
 
+    /// <summary>
+    /// If set, the maximum number of gifts of this type that can be owned by a single user is limited and specified in <code>per_user_total</code>, and the remaining slots for the current user in <code>per_user_remains</code>.
+    /// </summary>
     public bool LimitedPerUser { get; set; }
 
-    ///<summary>
+    public bool PeerColorAvailable { get; set; }
+
+    /// <summary>
     /// Identifier of the gift
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/stickers">Sticker</a> that represents the gift.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument Sticker { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Price of the gift in <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>.
-    ///</summary>
+    /// </summary>
     public long Stars { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For limited-supply gifts: the remaining number of gifts that may be bought.
-    ///</summary>
+    /// </summary>
     public int? AvailabilityRemains { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For limited-supply gifts: the total number of gifts that was available in the initial supply.
-    ///</summary>
+    /// </summary>
     public int? AvailabilityTotal { get; set; }
 
+    /// <summary>
+    /// The total number of (upgraded to <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectibles</a>) gifts of this type currently on <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">resale</a>
+    /// </summary>
     public long? AvailabilityResale { get; set; }
 
-    ///<summary>
-    /// The receiver of this gift may convert it to this many Telegram Stars, instead of displaying it on their profile page.<br><code>convert_stars</code> will be equal to <code>stars</code> only if the gift was bought using recently bought Telegram Stars, otherwise it will be less than <code>stars</code>.
-    ///</summary>
+    /// <summary>
+    /// The receiver of this gift may convert it to this many Telegram Stars, instead of displaying it on their profile page.<br/><code>convert_stars</code> will be equal to <code>stars</code> only if the gift was bought using recently bought Telegram Stars, otherwise it will be less than <code>stars</code>.
+    /// </summary>
     public long ConvertStars { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For sold out gifts only: when was the gift first bought.
-    ///</summary>
+    /// </summary>
     public int? FirstSaleDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For sold out gifts only: when was the gift last bought.
-    ///</summary>
+    /// </summary>
     public int? LastSaleDate { get; set; }
 
+    /// <summary>
+    /// The number of Telegram Stars the user can pay to <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">convert the gift into a collectible gift »</a>.
+    /// </summary>
     public long? UpgradeStars { get; set; }
 
+    /// <summary>
+    /// The minimum price in <a href="https://corefork.telegram.org/api/stars">Stars</a> for gifts of this type currently on <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">resale</a>.
+    /// </summary>
     public long? ResellMinStars { get; set; }
 
+    /// <summary>
+    /// Title of the gift
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// This gift was released by the specified peer.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? ReleasedBy { get; set; }
 
+    /// <summary>
+    /// Maximum number of gifts of this type that can be owned by any user.
+    /// </summary>
     public int? PerUserTotal { get; set; }
 
+    /// <summary>
+    /// Remaining number of gifts of this type that can be owned by the current user.
+    /// </summary>
     public int? PerUserRemains { get; set; }
+
+    /// <summary>
+    /// If set, the specified gift <em>possibly</em> cannot be sent until the specified date, see <a href="https://corefork.telegram.org/api/gifts">here »</a> for the full flow.
+    /// </summary>
+    public int? LockedUntilDate { get; set; }
 
     public void ComputeFlag()
     {
@@ -99,6 +131,7 @@ public sealed class TStarGift : ILayeredStarGift
         if (Birthday) { Flags = Flags.SetBit(2); }
         if (RequirePremium) { Flags = Flags.SetBit(7); }
         if (LimitedPerUser) { Flags = Flags.SetBit(8); }
+        if (PeerColorAvailable) { Flags = Flags.SetBit(10); }
         if (/*AvailabilityRemains != 0 && */AvailabilityRemains.HasValue) { Flags = Flags.SetBit(0); }
         if (/*AvailabilityTotal != 0 && */AvailabilityTotal.HasValue) { Flags = Flags.SetBit(0); }
         if (/*AvailabilityResale != 0 &&*/ AvailabilityResale.HasValue) { Flags = Flags.SetBit(4); }
@@ -110,6 +143,7 @@ public sealed class TStarGift : ILayeredStarGift
         if (ReleasedBy != null) { Flags = Flags.SetBit(6); }
         if (/*PerUserTotal != 0 && */PerUserTotal.HasValue) { Flags = Flags.SetBit(8); }
         if (/*PerUserRemains != 0 && */PerUserRemains.HasValue) { Flags = Flags.SetBit(8); }
+        if (/*LockedUntilDate != 0 && */LockedUntilDate.HasValue) { Flags = Flags.SetBit(9); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -132,6 +166,7 @@ public sealed class TStarGift : ILayeredStarGift
         if (Flags.IsBitSet(6)) { writer.Write(ReleasedBy); }
         if (Flags.IsBitSet(8)) { writer.Write(PerUserTotal.Value); }
         if (Flags.IsBitSet(8)) { writer.Write(PerUserRemains.Value); }
+        if (Flags.IsBitSet(9)) { writer.Write(LockedUntilDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -142,6 +177,7 @@ public sealed class TStarGift : ILayeredStarGift
         if (Flags.IsBitSet(2)) { Birthday = true; }
         if (Flags.IsBitSet(7)) { RequirePremium = true; }
         if (Flags.IsBitSet(8)) { LimitedPerUser = true; }
+        if (Flags.IsBitSet(10)) { PeerColorAvailable = true; }
         Id = buffer.ReadInt64();
         Sticker = buffer.Read<MyTelegram.Schema.IDocument>();
         Stars = buffer.ReadInt64();
@@ -157,5 +193,6 @@ public sealed class TStarGift : ILayeredStarGift
         if (Flags.IsBitSet(6)) { ReleasedBy = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(8)) { PerUserTotal = buffer.ReadInt32(); }
         if (Flags.IsBitSet(8)) { PerUserRemains = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(9)) { LockedUntilDate = buffer.ReadInt32(); }
     }
 }

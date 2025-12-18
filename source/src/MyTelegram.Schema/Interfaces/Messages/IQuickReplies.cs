@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcuts »</a>.
-/// See <a href="https://corefork.telegram.org/type/messages.QuickReplies" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.QuickReplies" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TQuickReplies"/> See <a href="https://corefork.telegram.org/constructor/messages.quickReplies" /><br/>
+/// <see cref="TQuickRepliesNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.quickRepliesNotModified" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TQuickReplies), nameof(TQuickReplies))]
 [JsonDerivedType(typeof(TQuickRepliesNotModified), nameof(TQuickRepliesNotModified))]
 public interface IQuickReplies : IObject

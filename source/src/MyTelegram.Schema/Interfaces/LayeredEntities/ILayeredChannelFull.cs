@@ -84,4 +84,5 @@ public interface ILayeredChannelFull : IChatFull
     bool ParticipantsHidden { get; set; }
 
     TVector<MyTelegram.Schema.IBotInfo> BotInfo { get; set; }
+    int? StargiftsCount { get; set; }
 }

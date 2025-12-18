@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/stories#story-links">story deep link</a>
-/// See <a href="https://corefork.telegram.org/type/ExportedStoryLink" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ExportedStoryLink" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedStoryLink"/> See <a href="https://corefork.telegram.org/constructor/exportedStoryLink" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedStoryLink), nameof(TExportedStoryLink))]
 public interface IExportedStoryLink : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/stories#story-links">story deep link</a>.
-    ///</summary>
+    /// </summary>
     string Link { get; set; }
 }

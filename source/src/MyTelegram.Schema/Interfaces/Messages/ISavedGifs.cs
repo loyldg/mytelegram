@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Saved GIFs
-/// See <a href="https://corefork.telegram.org/type/messages.SavedGifs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.SavedGifs" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedGifsNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.savedGifsNotModified" /><br/>
+/// <see cref="TSavedGifs"/> See <a href="https://corefork.telegram.org/constructor/messages.savedGifs" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedGifsNotModified), nameof(TSavedGifsNotModified))]
 [JsonDerivedType(typeof(TSavedGifs), nameof(TSavedGifs))]
 public interface ISavedGifs : IObject

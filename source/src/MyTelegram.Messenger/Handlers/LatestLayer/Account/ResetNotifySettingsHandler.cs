@@ -1,13 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
+/// <summary>
 /// Resets all notification settings from users and groups.
-/// See <a href="https://corefork.telegram.org/method/account.resetNotifySettings" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/account.resetNotifySettings"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class ResetNotifySettingsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestResetNotifySettings, IBool>
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestResetNotifySettings obj)
+    protected override Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestResetNotifySettings obj)
     {
         // TODO: ResetNotifySettingsHandler
         return Task.FromResult<IBool>(new TBoolTrue());

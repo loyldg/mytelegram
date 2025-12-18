@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The bot attachment menu entry is available in <a href="https://corefork.telegram.org/api/channel">groups and supergroups</a>
-/// See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypeChat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/attachMenuPeerTypeChat" /></para>
+/// </summary>
 [TlObject(0x509113f)]
-public sealed class TAttachMenuPeerTypeChat : IAttachMenuPeerType
+public sealed partial class TAttachMenuPeerTypeChat : IAttachMenuPeerType
 {
     public uint ConstructorId => 0x509113f;
     public void ComputeFlag()

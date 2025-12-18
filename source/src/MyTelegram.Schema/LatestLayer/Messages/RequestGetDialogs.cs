@@ -2,60 +2,65 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Returns the current user dialog list.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 FOLDER_ID_INVALID Invalid folder ID.
-/// 400 OFFSET_PEER_ID_INVALID The provided offset peer is invalid.
-/// 400 TAKEOUT_INVALID The specified takeout ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getDialogs" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 FOLDER_ID_INVALID Invalid folder ID.</c></para>
+/// <para><c>400 OFFSET_PEER_ID_INVALID The provided offset peer is invalid.</c></para>
+/// <para><c>400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.</c></para>
+/// <para><c>400 TAKEOUT_INVALID The specified takeout ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getDialogs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa0f4cb4f)]
-public sealed class RequestGetDialogs : IRequest<MyTelegram.Schema.Messages.IDialogs>
+public sealed partial class RequestGetDialogs : IRequest<MyTelegram.Schema.Messages.IDialogs>
 {
     public uint ConstructorId => 0xa0f4cb4f;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Exclude pinned dialogs
-    ///</summary>
+    /// </summary>
     public bool ExcludePinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int OffsetDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a> (<code>top_message</code> ID used for pagination)
-    ///</summary>
+    /// </summary>
     public int OffsetId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offset peer for pagination</a>
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer OffsetPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of list elements to be returned
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Peer-specific autosave settings
-/// See <a href="https://corefork.telegram.org/type/AutoSaveException" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/AutoSaveException" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAutoSaveException"/> See <a href="https://corefork.telegram.org/constructor/autoSaveException" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAutoSaveException), nameof(TAutoSaveException))]
 public interface IAutoSaveException : IObject
 {
-    ///<summary>
+    /// <summary>
     /// The peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Media autosave settings
     /// See <a href="https://corefork.telegram.org/type/AutoSaveSettings" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IAutoSaveSettings Settings { get; set; }
 }

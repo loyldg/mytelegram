@@ -2,87 +2,90 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Phone call
-/// See <a href="https://corefork.telegram.org/constructor/phoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCall" /></para>
+/// </summary>
 [TlObject(0x30535af5)]
-public sealed class TPhoneCall : IPhoneCall
+public sealed partial class TPhoneCall : IPhoneCall
 {
     public uint ConstructorId => 0x30535af5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether P2P connection to the other peer is allowed
-    ///</summary>
+    /// </summary>
     public bool P2pAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this is a video call
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
+    /// <summary>
+    /// If set, the other party supports upgrading of the call to a <a href="https://corefork.telegram.org/api/end-to-end/group-calls">conference call</a>.
+    /// </summary>
     public bool ConferenceSupported { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of creation of the call
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID of the creator of the call
-    ///</summary>
+    /// </summary>
     public long AdminId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID of the other participant in the call
-    ///</summary>
+    /// </summary>
     public long ParticipantId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/end-to-end/voice-calls">Parameter for key exchange</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> GAOrB { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/end-to-end/voice-calls">Key fingerprint</a>
-    ///</summary>
+    /// </summary>
     public long KeyFingerprint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Call protocol info to be passed to libtgvoip
     /// See <a href="https://corefork.telegram.org/type/PhoneCallProtocol" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of endpoints the user can connect to exchange call data
     /// See <a href="https://corefork.telegram.org/type/PhoneConnection" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPhoneConnection> Connections { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the call actually started
-    ///</summary>
+    /// </summary>
     public int StartDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Custom JSON-encoded call parameters to be passed to tgcalls.
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON? CustomParameters { get; set; }
 
     public void ComputeFlag()

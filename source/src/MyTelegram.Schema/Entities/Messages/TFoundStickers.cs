@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Found stickers
-/// See <a href="https://corefork.telegram.org/constructor/messages.foundStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.foundStickers" /></para>
+/// </summary>
 [TlObject(0x82c9e290)]
-public sealed class TFoundStickers : IFoundStickers
+public sealed partial class TFoundStickers : IFoundStickers
 {
     public uint ConstructorId => 0x82c9e290;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>
-    ///</summary>
+    /// </summary>
     public int? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Found stickers
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Stickers { get; set; }
 
     public void ComputeFlag()

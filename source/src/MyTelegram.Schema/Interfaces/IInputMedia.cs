@@ -2,10 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines media content of a message.
-/// See <a href="https://corefork.telegram.org/type/InputMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputMedia" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputMediaEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputMediaEmpty" /><br/>
+/// <see cref="TInputMediaUploadedPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedPhoto" /><br/>
+/// <see cref="TInputMediaPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPhoto" /><br/>
+/// <see cref="TInputMediaGeoPoint"/> See <a href="https://corefork.telegram.org/constructor/inputMediaGeoPoint" /><br/>
+/// <see cref="TInputMediaContact"/> See <a href="https://corefork.telegram.org/constructor/inputMediaContact" /><br/>
+/// <see cref="TInputMediaUploadedDocument"/> See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedDocument" /><br/>
+/// <see cref="TInputMediaDocument"/> See <a href="https://corefork.telegram.org/constructor/inputMediaDocument" /><br/>
+/// <see cref="TInputMediaVenue"/> See <a href="https://corefork.telegram.org/constructor/inputMediaVenue" /><br/>
+/// <see cref="TInputMediaPhotoExternal"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPhotoExternal" /><br/>
+/// <see cref="TInputMediaDocumentExternal"/> See <a href="https://corefork.telegram.org/constructor/inputMediaDocumentExternal" /><br/>
+/// <see cref="TInputMediaGame"/> See <a href="https://corefork.telegram.org/constructor/inputMediaGame" /><br/>
+/// <see cref="TInputMediaInvoice"/> See <a href="https://corefork.telegram.org/constructor/inputMediaInvoice" /><br/>
+/// <see cref="TInputMediaGeoLive"/> See <a href="https://corefork.telegram.org/constructor/inputMediaGeoLive" /><br/>
+/// <see cref="TInputMediaPoll"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPoll" /><br/>
+/// <see cref="TInputMediaDice"/> See <a href="https://corefork.telegram.org/constructor/inputMediaDice" /><br/>
+/// <see cref="TInputMediaStory"/> See <a href="https://corefork.telegram.org/constructor/inputMediaStory" /><br/>
+/// <see cref="TInputMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/inputMediaWebPage" /><br/>
+/// <see cref="TInputMediaPaidMedia"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia" /><br/>
+/// <see cref="TInputMediaTodo"/> See <a href="https://corefork.telegram.org/constructor/inputMediaTodo" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputMediaEmpty), nameof(TInputMediaEmpty))]
 [JsonDerivedType(typeof(TInputMediaUploadedPhoto), nameof(TInputMediaUploadedPhoto))]
 [JsonDerivedType(typeof(TInputMediaPhoto), nameof(TInputMediaPhoto))]

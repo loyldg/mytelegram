@@ -2,13 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonMigrateConferenceCall" />
-///</summary>
+/// <summary>
+/// This phone call was migrated to a <a href="https://corefork.telegram.org/api/end-to-end/group-calls">conference call</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCallDiscardReasonMigrateConferenceCall" /></para>
+/// </summary>
 [TlObject(0x9fbbf1f7)]
-public sealed class TPhoneCallDiscardReasonMigrateConferenceCall : IPhoneCallDiscardReason
+public sealed partial class TPhoneCallDiscardReasonMigrateConferenceCall : IPhoneCallDiscardReason
 {
     public uint ConstructorId => 0x9fbbf1f7;
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/links#conference-links">Conference link »</a> slug.
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

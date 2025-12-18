@@ -9,7 +9,7 @@ namespace MyTelegram.Schema.LayerN.Entities.MessageMedia;
 /// See <a href="https://corefork.telegram.org/constructor/messageMediaDocument" />
 ///</summary>
 [TlObject(0x4cf4d72d)]
-public sealed class TMessageMediaDocumentLayer160 : IMessageMedia
+public sealed partial class TMessageMediaDocumentLayer160 : IMessageMedia
 {
     public uint ConstructorId => 0x4cf4d72d;
     ///<summary>

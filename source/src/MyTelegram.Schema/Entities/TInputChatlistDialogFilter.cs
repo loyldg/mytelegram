@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Folder ID
-/// See <a href="https://corefork.telegram.org/constructor/inputChatlistDialogFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputChatlistDialogFilter" /></para>
+/// </summary>
 [TlObject(0xf3e0da33)]
-public sealed class TInputChatlistDialogFilter : IInputChatlist
+public sealed partial class TInputChatlistDialogFilter : IInputChatlist
 {
     public uint ConstructorId => 0xf3e0da33;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> ID
-    ///</summary>
+    /// </summary>
     public int FilterId { get; set; }
 
     public void ComputeFlag()

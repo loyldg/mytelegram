@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a peer that can be used to send messages
-/// See <a href="https://corefork.telegram.org/constructor/sendAsPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendAsPeer" /></para>
+/// </summary>
 [TlObject(0xb81c7034)]
-public sealed class TSendAsPeer : ISendAsPeer
+public sealed partial class TSendAsPeer : ISendAsPeer
 {
     public uint ConstructorId => 0xb81c7034;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether a Telegram Premium account is required to send messages as this peer
-    ///</summary>
+    /// </summary>
     public bool PremiumRequired { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
     public void ComputeFlag()

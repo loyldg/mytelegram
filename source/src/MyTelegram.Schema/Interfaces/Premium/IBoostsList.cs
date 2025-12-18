@@ -2,37 +2,41 @@
 
 namespace MyTelegram.Schema.Premium;
 
-///<summary>
+/// <summary>
 /// List of <a href="https://corefork.telegram.org/api/boost">boosts</a> that were applied to a peer by multiple users.
-/// See <a href="https://corefork.telegram.org/type/premium.BoostsList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/premium.BoostsList" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBoostsList"/> See <a href="https://corefork.telegram.org/constructor/premium.boostsList" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBoostsList), nameof(TBoostsList))]
 public interface IBoostsList : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of results
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/boost">Boosts</a>
     /// See <a href="https://corefork.telegram.org/type/Boost" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IBoost> Boosts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset that can be used for <a href="https://corefork.telegram.org/api/offsets">pagination</a>.
-    ///</summary>
+    /// </summary>
     string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

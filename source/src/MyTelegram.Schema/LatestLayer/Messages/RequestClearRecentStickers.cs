@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Clear recent stickers
-/// See <a href="https://corefork.telegram.org/method/messages.clearRecentStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.clearRecentStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8999602d)]
-public sealed class RequestClearRecentStickers : IRequest<IBool>
+public sealed partial class RequestClearRecentStickers : IRequest<IBool>
 {
     public uint ConstructorId => 0x8999602d;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag to clear the list of stickers recently attached to photo or video files
-    ///</summary>
+    /// </summary>
     public bool Attached { get; set; }
 
     public void ComputeFlag()

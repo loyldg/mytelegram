@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Delete a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 406 CHANNEL_TOO_LARGE Channel is too large to be deleted; this error is issued when trying to delete channels with more than 1000 members (subject to change).
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// See <a href="https://corefork.telegram.org/method/channels.deleteChannel" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>406 CHANNEL_TOO_LARGE Channel is too large to be deleted; this error is issued when trying to delete channels with more than 1000 members (subject to change).</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.deleteChannel" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc0111fe3)]
-public sealed class RequestDeleteChannel : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDeleteChannel : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xc0111fe3;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Channel/supergroup</a> to delete
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
     public void ComputeFlag()

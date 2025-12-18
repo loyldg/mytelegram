@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A chat invite was edited
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit" /></para>
+/// </summary>
 [TlObject(0xe90ebb59)]
-public sealed class TChannelAdminLogEventActionExportedInviteEdit : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionExportedInviteEdit : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xe90ebb59;
-    ///<summary>
+    /// <summary>
     /// Previous chat invite information
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite PrevInvite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New chat invite information
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite NewInvite { get; set; }
 
     public void ComputeFlag()

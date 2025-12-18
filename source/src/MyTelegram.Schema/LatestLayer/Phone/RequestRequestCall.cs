@@ -2,53 +2,57 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Start a telegram phone call
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CALL_PROTOCOL_FLAGS_INVALID Call protocol flags invalid.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 PARTICIPANT_VERSION_OUTDATED The other participant does not use an up to date telegram client with support for calls.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// 403 USER_IS_BLOCKED You were blocked by this user.
-/// 403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this.
-/// See <a href="https://corefork.telegram.org/method/phone.requestCall" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CALL_PROTOCOL_FLAGS_INVALID Call protocol flags invalid.</c></para>
+/// <para><c>400 CALL_PROTOCOL_LAYER_INVALID The specified protocol layer version range is invalid.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 PARTICIPANT_VERSION_OUTDATED The other participant does not use an up to date telegram client with support for calls.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>403 USER_IS_BLOCKED You were blocked by this user.</c></para>
+/// <para><c>403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.requestCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x42ff96ed)]
-public sealed class RequestRequestCall : IRequest<MyTelegram.Schema.Phone.IPhoneCall>
+public sealed partial class RequestRequestCall : IRequest<MyTelegram.Schema.Phone.IPhoneCall>
 {
     public uint ConstructorId => 0x42ff96ed;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to start a video call
-    ///</summary>
+    /// </summary>
     public bool Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Destination of the phone call
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Random ID to avoid resending the same object
-    ///</summary>
+    /// </summary>
     public int RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/end-to-end/voice-calls">Parameter for E2E encryption key exchange »</a>
-    ///</summary>
+    /// </summary>
     public byte[] GAHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone call settings
     /// See <a href="https://corefork.telegram.org/type/PhoneCallProtocol" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
     public void ComputeFlag()

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Discarded or deleted chat.
-/// See <a href="https://corefork.telegram.org/constructor/encryptedChatDiscarded" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/encryptedChatDiscarded" /></para>
+/// </summary>
 [TlObject(0x1e1c7c45)]
-public sealed class TEncryptedChatDiscarded : IEncryptedChat
+public sealed partial class TEncryptedChatDiscarded : IEncryptedChat
 {
     public uint ConstructorId => 0x1e1c7c45;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether both users of this secret chat should also remove all of its messages
-    ///</summary>
+    /// </summary>
     public bool HistoryDeleted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

@@ -38,9 +38,9 @@ internal sealed class DocumentMapper
                     switch (p.Type)
                     {
                         case "i":
-                            return (IPhotoSize)new TPhotoStrippedSize { Type = p.Type, Bytes = p.Bytes };
+                            return (IPhotoSize)new TPhotoStrippedSize { Type = p.Type, Bytes = p.Bytes?? Array.Empty<byte>()};
                         case "j":
-                            return new TPhotoPathSize { Type = p.Type, Bytes = p.Bytes };
+                            return new TPhotoPathSize { Type = p.Type, Bytes = p.Bytes?? Array.Empty<byte>() };
                     }
 
                     return new TPhotoSize

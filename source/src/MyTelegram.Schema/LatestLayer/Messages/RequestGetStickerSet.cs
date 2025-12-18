@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get info about a stickerset
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 EMOTICON_STICKERPACK_MISSING inputStickerSetDice.emoji cannot be empty.
-/// 406 STICKERSET_INVALID The provided sticker set is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getStickerSet" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 EMOTICON_STICKERPACK_MISSING inputStickerSetDice.emoji cannot be empty.</c></para>
+/// <para><c>406 STICKERSET_INVALID The provided sticker set is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getStickerSet" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc8a0ec74)]
-public sealed class RequestGetStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
+public sealed partial class RequestGetStickerSet : IRequest<MyTelegram.Schema.Messages.IStickerSet>
 {
     public uint ConstructorId => 0xc8a0ec74;
 
-    ///<summary>
+    /// <summary>
     /// Stickerset
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int Hash { get; set; }
 
     public void ComputeFlag()

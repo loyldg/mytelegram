@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// There are new updates in the specified channel, the client must fetch them.<br>
+/// <summary>
+/// There are new updates in the specified channel, the client must fetch them.<br/>
 /// If the difference is too long or if the channel isn't currently in the states, start fetching from the specified pts.
-/// See <a href="https://corefork.telegram.org/constructor/updateChannelTooLong" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChannelTooLong" /></para>
+/// </summary>
 [TlObject(0x108d941f)]
-public sealed class TUpdateChannelTooLong : IUpdate
+public sealed partial class TUpdateChannelTooLong : IUpdate
 {
     public uint ConstructorId => 0x108d941f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/updates">PTS</a>.
-    ///</summary>
+    /// </summary>
     public int? Pts { get; set; }
 
     public void ComputeFlag()

@@ -2,49 +2,52 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/reactions">message reaction</a> list, along with the sender of each reaction.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 BROADCAST_FORBIDDEN Channel poll voters and reactions cannot be fetched to prevent deanonymization.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/messages.getMessageReactionsList" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 BROADCAST_FORBIDDEN Channel poll voters and reactions cannot be fetched to prevent deanonymization.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getMessageReactionsList" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x461b3f48)]
-public sealed class RequestGetMessageReactionsList : IRequest<MyTelegram.Schema.Messages.IMessageReactionsList>
+public sealed partial class RequestGetMessageReactionsList : IRequest<MyTelegram.Schema.Messages.IMessageReactionsList>
 {
     public uint ConstructorId => 0x461b3f48;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Get only reactions of this type
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction? Reaction { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for pagination (taken from the <code>next_offset</code> field of the returned <a href="https://corefork.telegram.org/type/messages.MessageReactionsList">messages.MessageReactionsList</a>); empty in the first request.
-    ///</summary>
+    /// </summary>
     public string? Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

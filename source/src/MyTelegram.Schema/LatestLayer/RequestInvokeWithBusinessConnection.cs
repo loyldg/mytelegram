@@ -2,23 +2,26 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Invoke a method using a <a href="https://corefork.telegram.org/api/business#connected-bots">Telegram Business Bot connection, see here » for more info, including a list of the methods that can be wrapped in this constructor</a>.Make sure to always send queries wrapped in a <code>invokeWithBusinessConnection</code> to the datacenter ID, specified in the <code>dc_id</code> field of the <a href="https://corefork.telegram.org/constructor/botBusinessConnection">botBusinessConnection</a> that is being used.
-/// See <a href="https://corefork.telegram.org/method/invokeWithBusinessConnection" />
-///</summary>
+/// <summary>
+/// Invoke a method using a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">Telegram Business Bot connection, see here » for more info, including a list of the methods that can be wrapped in this constructor</a>.Make sure to always send queries wrapped in a <code>invokeWithBusinessConnection</code> to the datacenter ID, specified in the <code>dc_id</code> field of the <a href="https://corefork.telegram.org/constructor/botBusinessConnection">botBusinessConnection</a> that is being used.
+/// <para>See <a href="https://corefork.telegram.org/method/invokeWithBusinessConnection" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdd289f8e)]
-public sealed class RequestInvokeWithBusinessConnection : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInvokeWithBusinessConnection : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xdd289f8e;
 
-    ///<summary>
+    /// <summary>
     /// Business connection ID.
-    ///</summary>
+    /// </summary>
     public string ConnectionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The actual query.
-    ///</summary>
+    /// </summary>
     public IObject Query { get; set; }
 
     public void ComputeFlag()

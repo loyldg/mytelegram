@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A single media in an <a href="https://corefork.telegram.org/api/files#albums-grouped-media">album or grouped media</a> sent with <a href="https://corefork.telegram.org/method/messages.sendMultiMedia">messages.sendMultiMedia</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputSingleMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputSingleMedia" /></para>
+/// </summary>
 [TlObject(0x1cc6e91f)]
-public sealed class TInputSingleMedia : IInputSingleMedia
+public sealed partial class TInputSingleMedia : IInputSingleMedia
 {
     public uint ConstructorId => 0x1cc6e91f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The media
     /// See <a href="https://corefork.telegram.org/type/InputMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputMedia Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client media ID required to prevent message resending
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A caption for the media
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message <a href="https://corefork.telegram.org/api/entities">entities</a> for styled text
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Stickers to show when receiving a gifted Telegram Premium subscription
-/// See <a href="https://corefork.telegram.org/constructor/inputStickerSetPremiumGifts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStickerSetPremiumGifts" /></para>
+/// </summary>
 [TlObject(0xc88b3b02)]
-public sealed class TInputStickerSetPremiumGifts : IInputStickerSet
+public sealed partial class TInputStickerSetPremiumGifts : IInputStickerSet
 {
     public uint ConstructorId => 0xc88b3b02;
     public void ComputeFlag()

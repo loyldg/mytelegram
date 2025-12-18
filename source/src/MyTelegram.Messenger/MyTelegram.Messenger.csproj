@@ -1,13 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Cuckoo\Microsoft.Cuckoo.csproj" />
+    <PackageReference Include="System.IO.Hashing" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyTelegram.Caching.Redis\MyTelegram.Caching.Redis.csproj" />
     <ProjectReference Include="..\MyTelegram.Converters\MyTelegram.Converters.csproj" />
     <ProjectReference Include="..\MyTelegram.Domain\MyTelegram.Domain.csproj" />

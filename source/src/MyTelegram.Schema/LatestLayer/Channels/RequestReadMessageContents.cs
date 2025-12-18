@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
-/// Mark <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> message contents as read
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/channels.readMessageContents" />
-///</summary>
+/// <summary>
+/// Mark <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> message contents as read, emitting an <a href="https://corefork.telegram.org/constructor/updateChannelReadMessagesContents">updateChannelReadMessagesContents</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.readMessageContents" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xeab5dc38)]
-public sealed class RequestReadMessageContents : IRequest<IBool>
+public sealed partial class RequestReadMessageContents : IRequest<IBool>
 {
     public uint ConstructorId => 0xeab5dc38;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Channel/supergroup</a>
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of messages whose contents should be marked as read
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

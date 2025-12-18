@@ -2,63 +2,66 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get the admin log of a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/channels.getAdminLog" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getAdminLog" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x33ddf480)]
-public sealed class RequestGetAdminLog : IRequest<MyTelegram.Schema.Channels.IAdminLogResults>
+public sealed partial class RequestGetAdminLog : IRequest<MyTelegram.Schema.Channels.IAdminLogResults>
 {
     public uint ConstructorId => 0x33ddf480;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Search query, can be empty
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Event filter
     /// See <a href="https://corefork.telegram.org/type/ChannelAdminLogEventsFilter" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChannelAdminLogEventsFilter? EventsFilter { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only show events from these admins
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputUser>? Admins { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum ID of message to return (see <a href="https://corefork.telegram.org/api/offsets">pagination</a>)
-    ///</summary>
+    /// </summary>
     public long MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Minimum ID of message to return (see <a href="https://corefork.telegram.org/api/offsets">pagination</a>)
-    ///</summary>
+    /// </summary>
     public long MinId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

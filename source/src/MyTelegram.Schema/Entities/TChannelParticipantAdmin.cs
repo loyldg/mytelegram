@@ -2,58 +2,58 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Admin
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantAdmin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantAdmin" /></para>
+/// </summary>
 [TlObject(0x34c3bb53)]
-public sealed class TChannelParticipantAdmin : IChannelParticipant
+public sealed partial class TChannelParticipantAdmin : IChannelParticipant
 {
     public uint ConstructorId => 0x34c3bb53;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can this admin promote other admins with the same permissions?
-    ///</summary>
+    /// </summary>
     public bool CanEdit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this the current user
-    ///</summary>
+    /// </summary>
     public bool Self { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Admin user ID
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User that invited the admin to the channel/group
-    ///</summary>
+    /// </summary>
     public long? InviterId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User that promoted the user to admin
-    ///</summary>
+    /// </summary>
     public long PromotedBy { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did the user join
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Admin <a href="https://corefork.telegram.org/api/rights">rights</a>
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights AdminRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The role (rank) of the admin in the group: just an arbitrary string, <code>admin</code> by default
-    ///</summary>
+    /// </summary>
     public string? Rank { get; set; }
 
     public void ComputeFlag()

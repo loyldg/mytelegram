@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The forward counter of a message in a channel has changed
-/// See <a href="https://corefork.telegram.org/constructor/updateChannelMessageForwards" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChannelMessageForwards" /></para>
+/// </summary>
 [TlObject(0xd29a27f4)]
-public sealed class TUpdateChannelMessageForwards : IUpdate
+public sealed partial class TUpdateChannelMessageForwards : IUpdate
 {
     public uint ConstructorId => 0xd29a27f4;
-    ///<summary>
+    /// <summary>
     /// Channel ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New forward counter
-    ///</summary>
+    /// </summary>
     public int Forwards { get; set; }
 
     public void ComputeFlag()

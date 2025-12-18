@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is uploading a voice message.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageUploadAudioAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageUploadAudioAction" /></para>
+/// </summary>
 [TlObject(0xf351d7ab)]
-public sealed class TSendMessageUploadAudioAction : ISendMessageAction
+public sealed partial class TSendMessageUploadAudioAction : ISendMessageAction
 {
     public uint ConstructorId => 0xf351d7ab;
-    ///<summary>
+    /// <summary>
     /// Progress percentage
-    ///</summary>
+    /// </summary>
     public int Progress { get; set; }
 
     public void ComputeFlag()

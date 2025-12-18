@@ -2,81 +2,84 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Get most used peers
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 TYPES_EMPTY No top peer type was provided.
-/// See <a href="https://corefork.telegram.org/method/contacts.getTopPeers" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 TYPES_EMPTY No top peer type was provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.getTopPeers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x973478b6)]
-public sealed class RequestGetTopPeers : IRequest<MyTelegram.Schema.Contacts.ITopPeers>
+public sealed partial class RequestGetTopPeers : IRequest<MyTelegram.Schema.Contacts.ITopPeers>
 {
     public uint ConstructorId => 0x973478b6;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users we've chatted most frequently with
-    ///</summary>
+    /// </summary>
     public bool Correspondents { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Most used bots
-    ///</summary>
+    /// </summary>
     public bool BotsPm { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Most used inline bots
-    ///</summary>
+    /// </summary>
     public bool BotsInline { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Most frequently called users
-    ///</summary>
+    /// </summary>
     public bool PhoneCalls { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users to which the users often forwards messages to
-    ///</summary>
+    /// </summary>
     public bool ForwardUsers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats to which the users often forwards messages to
-    ///</summary>
+    /// </summary>
     public bool ForwardChats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Often-opened groups and supergroups
-    ///</summary>
+    /// </summary>
     public bool Groups { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Most frequently visited channels
-    ///</summary>
+    /// </summary>
     public bool Channels { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Most frequently used <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-apps">Main Mini Bot Apps</a>.
-    ///</summary>
+    /// </summary>
     public bool BotsApp { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

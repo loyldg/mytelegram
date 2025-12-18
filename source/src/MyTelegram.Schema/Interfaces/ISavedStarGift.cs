@@ -2,59 +2,124 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/SavedStarGift" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/gifts">gift</a> owned by a peer.
+/// <para>See <a href="https://corefork.telegram.org/type/SavedStarGift" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedStarGift"/> See <a href="https://corefork.telegram.org/constructor/savedStarGift" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedStarGift), nameof(TSavedStarGift))]
 public interface ISavedStarGift : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// If set, the gift sender in <code>from_id</code> and the <code>message</code> are set only for the receiver of the gift.
+    /// </summary>
     bool NameHidden { get; set; }
 
+    /// <summary>
+    /// If set, the gift is <strong>not</strong> pinned on the user's profile.
+    /// </summary>
     bool Unsaved { get; set; }
 
+    /// <summary>
+    /// This gift was upgraded to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a> and then re-downgraded to a regular gift because a request to refund the payment related to the upgrade was made, and the money was returned.
+    /// </summary>
     bool Refunded { get; set; }
 
+    /// <summary>
+    /// Only set for non-collectible gifts, if they can be upgraded to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+    /// </summary>
     bool CanUpgrade { get; set; }
 
+    /// <summary>
+    /// Whether this gift is pinned on top of the user's profile page.
+    /// </summary>
     bool PinnedToTop { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// If set, someone already <a href="https://corefork.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade">separately pre-paid</a> for the upgrade of this gift.
+    /// </summary>
+    bool UpgradeSeparate { get; set; }
+
+    /// <summary>
+    /// Sender of the gift (unset for anonymous gifts).
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer? FromId { get; set; }
 
+    /// <summary>
+    /// Reception date of the gift.
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The collectible gift.
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarGift Gift { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Message attached to the gift.
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
+    /// <summary>
+    /// For gifts received by users, ID to use in <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftUser">inputSavedStarGiftUser</a> constructors.
+    /// </summary>
     int? MsgId { get; set; }
 
+    /// <summary>
+    /// For gifts received by channels, ID to use in <a href="https://corefork.telegram.org/constructor/inputSavedStarGiftChat">inputSavedStarGiftChat</a> constructors.
+    /// </summary>
     long? SavedId { get; set; }
 
+    /// <summary>
+    /// For non-collectible gifts, the receiver of this gift may convert it to this many Telegram Stars, instead of displaying it on their profile page.
+    /// </summary>
     long? ConvertStars { get; set; }
 
+    /// <summary>
+    /// <strong>Only</strong> for <strong>pre-paid</strong> non-collectible gifts, the number of Telegram Stars the sender has <strong>already paid</strong> to <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">convert the gift into a collectible gift »</a> (this is different from the meaning of the flag in <a href="https://corefork.telegram.org/constructor/messageActionStarGift">messageActionStarGift</a>, where it signals the upgrade price for not yet upgraded gifts).
+    /// </summary>
     long? UpgradeStars { get; set; }
 
+    /// <summary>
+    /// If set, indicates that the current gift can't be <a href="https://corefork.telegram.org/api/gifts#withdraw-a-collectible-gift-to-the-ton-blockchain">exported to the TON blockchain »</a> yet: the owner will be able to export it at the specified unixtime.
+    /// </summary>
     int? CanExportAt { get; set; }
 
+    /// <summary>
+    /// If set, indicates that the gift can be <a href="https://corefork.telegram.org/api/gifts#transferring-collectible-gifts">transferred »</a> to another user by paying the specified amount of stars.
+    /// </summary>
     long? TransferStars { get; set; }
 
+    /// <summary>
+    /// If set, indicates that the current gift can't be <a href="https://corefork.telegram.org/api/gifts#transferring-collectible-gifts">transferred »</a> yet: the owner will be able to transfer it at the specified unixtime.
+    /// </summary>
     int? CanTransferAt { get; set; }
 
+    /// <summary>
+    /// If set, indicates that the current gift can't be <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">resold »</a> yet: the owner will be able to put it up for sale at the specified unixtime.
+    /// </summary>
     int? CanResellAt { get; set; }
 
+    /// <summary>
+    /// IDs of the <a href="https://corefork.telegram.org/api/gifts#gift-collections">collections »</a> that this gift is a part of.
+    /// </summary>
     TVector<int>? CollectionId { get; set; }
+
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade">Hash to prepay for a gift upgrade separately »</a>.
+    /// </summary>
+    string? PrepaidUpgradeHash { get; set; }
+
+    long? DropOriginalDetailsStars { get; set; }
 }

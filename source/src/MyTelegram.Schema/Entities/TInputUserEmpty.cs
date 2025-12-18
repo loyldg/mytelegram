@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor, does not define a user.
-/// See <a href="https://corefork.telegram.org/constructor/inputUserEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputUserEmpty" /></para>
+/// </summary>
 [TlObject(0xb98886cf)]
-public sealed class TInputUserEmpty : IInputUser
+public sealed partial class TInputUserEmpty : IInputUser
 {
     public uint ConstructorId => 0xb98886cf;
     public void ComputeFlag()

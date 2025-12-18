@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The supergroup's <a href="https://corefork.telegram.org/api/boost#setting-a-custom-emoji-stickerset-for-supergroups">custom emoji stickerset</a> was changed.
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStickerSet" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStickerSet" /></para>
+/// </summary>
 [TlObject(0x46d840ab)]
-public sealed class TChannelAdminLogEventActionChangeEmojiStickerSet : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionChangeEmojiStickerSet : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x46d840ab;
-    ///<summary>
+    /// <summary>
     /// Old value
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet PrevStickerset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New value
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet NewStickerset { get; set; }
 
     public void ComputeFlag()

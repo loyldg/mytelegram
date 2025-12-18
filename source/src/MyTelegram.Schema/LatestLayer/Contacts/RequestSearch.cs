@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Returns users found by username substring.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 QUERY_TOO_SHORT The query string is too short.
-/// 400 SEARCH_QUERY_EMPTY The search query is empty.
-/// See <a href="https://corefork.telegram.org/method/contacts.search" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 QUERY_TOO_SHORT The query string is too short.</c></para>
+/// <para><c>400 SEARCH_QUERY_EMPTY The search query is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.search" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x11f812d8)]
-public sealed class RequestSearch : IRequest<MyTelegram.Schema.Contacts.IFound>
+public sealed partial class RequestSearch : IRequest<MyTelegram.Schema.Contacts.IFound>
 {
     public uint ConstructorId => 0x11f812d8;
 
-    ///<summary>
+    /// <summary>
     /// Target substring
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of users to be returned
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

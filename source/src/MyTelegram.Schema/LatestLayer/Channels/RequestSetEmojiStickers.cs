@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Set a <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji stickerset</a> for supergroups. Only usable after reaching at least the <a href="https://corefork.telegram.org/api/boost">boost level »</a> specified in the <a href="https://corefork.telegram.org/api/config#group-emoji-stickers-level-min"><code>group_emoji_stickers_level_min</code> »</a> config parameter.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// See <a href="https://corefork.telegram.org/method/channels.setEmojiStickers" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.setEmojiStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3cd930b7)]
-public sealed class RequestSetEmojiStickers : IRequest<IBool>
+public sealed partial class RequestSetEmojiStickers : IRequest<IBool>
 {
     public uint ConstructorId => 0x3cd930b7;
 
-    ///<summary>
+    /// <summary>
     /// The supergroup
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The custom emoji stickerset to associate to the supergroup
     /// See <a href="https://corefork.telegram.org/type/InputStickerSet" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
     public void ComputeFlag()

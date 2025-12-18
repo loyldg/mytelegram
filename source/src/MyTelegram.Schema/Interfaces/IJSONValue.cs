@@ -2,10 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// JSON value
-/// See <a href="https://corefork.telegram.org/type/JSONValue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/JSONValue" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TJsonNull"/> See <a href="https://corefork.telegram.org/constructor/jsonNull" /><br/>
+/// <see cref="TJsonBool"/> See <a href="https://corefork.telegram.org/constructor/jsonBool" /><br/>
+/// <see cref="TJsonNumber"/> See <a href="https://corefork.telegram.org/constructor/jsonNumber" /><br/>
+/// <see cref="TJsonString"/> See <a href="https://corefork.telegram.org/constructor/jsonString" /><br/>
+/// <see cref="TJsonArray"/> See <a href="https://corefork.telegram.org/constructor/jsonArray" /><br/>
+/// <see cref="TJsonObject"/> See <a href="https://corefork.telegram.org/constructor/jsonObject" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TJsonNull), nameof(TJsonNull))]
 [JsonDerivedType(typeof(TJsonBool), nameof(TJsonBool))]
 [JsonDerivedType(typeof(TJsonNumber), nameof(TJsonNumber))]

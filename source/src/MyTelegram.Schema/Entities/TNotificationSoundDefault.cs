@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates the default notification sound should be used
-/// See <a href="https://corefork.telegram.org/constructor/notificationSoundDefault" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/notificationSoundDefault" /></para>
+/// </summary>
 [TlObject(0x97e8bebe)]
-public sealed class TNotificationSoundDefault : INotificationSound
+public sealed partial class TNotificationSoundDefault : INotificationSound
 {
     public uint ConstructorId => 0x97e8bebe;
     public void ComputeFlag()

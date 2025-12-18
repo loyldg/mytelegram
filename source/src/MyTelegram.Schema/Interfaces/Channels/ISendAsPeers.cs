@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// A list of peers that can be used to send messages in a specific group
-/// See <a href="https://corefork.telegram.org/type/channels.SendAsPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/channels.SendAsPeers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSendAsPeers"/> See <a href="https://corefork.telegram.org/constructor/channels.sendAsPeers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSendAsPeers), nameof(TSendAsPeers))]
 public interface ISendAsPeers : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Peers that can be used to send messages to the group
     /// See <a href="https://corefork.telegram.org/type/SendAsPeer" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ISendAsPeer> Peers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

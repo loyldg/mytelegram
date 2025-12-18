@@ -63,6 +63,7 @@ internal sealed class GetHistoryConverterService(IUserConverterService userConve
                 Messages = [.. messages],
                 Users = [.. users],
                 OffsetIdOffset = offsetId,
+                Topics = []
             };
         }
 
@@ -70,7 +71,8 @@ internal sealed class GetHistoryConverterService(IUserConverterService userConve
         {
             Chats = [.. channels],
             Messages = [.. messages],
-            Users = [.. users]
+            Users = [.. users],
+            Topics = []
         };
     }
 }

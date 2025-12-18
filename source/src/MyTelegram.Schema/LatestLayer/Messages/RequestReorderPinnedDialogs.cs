@@ -2,37 +2,40 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Reorder pinned dialogs
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.reorderPinnedDialogs" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.reorderPinnedDialogs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3b1adf37)]
-public sealed class RequestReorderPinnedDialogs : IRequest<IBool>
+public sealed partial class RequestReorderPinnedDialogs : IRequest<IBool>
 {
     public uint ConstructorId => 0x3b1adf37;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, dialogs pinned server-side but not present in the <code>order</code> field will be unpinned.
-    ///</summary>
+    /// </summary>
     public bool Force { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New dialog order
     /// See <a href="https://corefork.telegram.org/type/InputDialogPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputDialogPeer> Order { get; set; }
 
     public void ComputeFlag()

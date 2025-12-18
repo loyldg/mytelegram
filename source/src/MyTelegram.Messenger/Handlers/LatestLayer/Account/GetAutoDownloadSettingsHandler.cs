@@ -1,13 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
+/// <summary>
 /// Get media autodownload settings
-/// See <a href="https://corefork.telegram.org/method/account.getAutoDownloadSettings" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/account.getAutoDownloadSettings"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetAutoDownloadSettingsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetAutoDownloadSettings, MyTelegram.Schema.Account.IAutoDownloadSettings>
 {
-    protected override Task<MyTelegram.Schema.Account.IAutoDownloadSettings> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestGetAutoDownloadSettings obj)
+    protected override Task<MyTelegram.Schema.Account.IAutoDownloadSettings> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestGetAutoDownloadSettings obj)
     {
         var settings = new MyTelegram.Schema.TAutoDownloadSettings
         {
@@ -20,9 +21,12 @@ internal sealed class GetAutoDownloadSettingsHandler : RpcResultObjectHandler<My
             VideoSizeMax = 1024 * 1024 * 10,
             VideoUploadMaxbitrate = 1024 * 1024 * 4
         };
-        MyTelegram.Schema.Account.IAutoDownloadSettings r =
-            new Schema.Account.TAutoDownloadSettings { High = settings, Low = settings, Medium = settings };
-
+        MyTelegram.Schema.Account.IAutoDownloadSettings r = new Schema.Account.TAutoDownloadSettings
+        {
+            High = settings,
+            Low = settings,
+            Medium = settings
+        };
         return Task.FromResult(r);
     }
 }

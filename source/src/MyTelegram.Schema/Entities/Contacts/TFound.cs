@@ -2,36 +2,36 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Users found by name substring and auxiliary data.
-/// See <a href="https://corefork.telegram.org/constructor/contacts.found" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/contacts.found" /></para>
+/// </summary>
 [TlObject(0xb3134d9d)]
-public sealed class TFound : IFound
+public sealed partial class TFound : IFound
 {
     public uint ConstructorId => 0xb3134d9d;
-    ///<summary>
+    /// <summary>
     /// Personalized results
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer> MyResults { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of found user identifiers
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPeer> Results { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Found chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

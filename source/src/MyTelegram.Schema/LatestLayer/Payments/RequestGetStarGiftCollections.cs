@@ -2,19 +2,30 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.getStarGiftCollections" />
-///</summary>
+/// <summary>
+/// Fetches all <a href="https://corefork.telegram.org/api/gifts#gift-collections">star gift collections »</a> of a peer.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarGiftCollections" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x981b91dd)]
-public sealed class RequestGetStarGiftCollections : IRequest<MyTelegram.Schema.Payments.IStarGiftCollections>
+public sealed partial class RequestGetStarGiftCollections : IRequest<MyTelegram.Schema.Payments.IStarGiftCollections>
 {
     public uint ConstructorId => 0x981b91dd;
 
-    ///<summary>
+    /// <summary>
+    /// The peer.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    /// Hash (<a href="https://corefork.telegram.org/api/offsets#hash-generation">generated as specified here »</a>) using the <a href="https://corefork.telegram.org/constructor/starGiftCollection">starGiftCollection</a>.<code>hash</code> field (<strong>not</strong> the <code>collection_id</code> field) of all collections returned by a previous method call, to avoid refetching the result if it hasn't changed.
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

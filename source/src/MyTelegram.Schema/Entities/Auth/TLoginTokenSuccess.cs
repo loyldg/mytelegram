@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Login via token (QR code) succeeded!
-/// See <a href="https://corefork.telegram.org/constructor/auth.loginTokenSuccess" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.loginTokenSuccess" /></para>
+/// </summary>
 [TlObject(0x390d5c5e)]
-public sealed class TLoginTokenSuccess : ILoginToken
+public sealed partial class TLoginTokenSuccess : ILoginToken
 {
     public uint ConstructorId => 0x390d5c5e;
-    ///<summary>
+    /// <summary>
     /// Authorization info
     /// See <a href="https://corefork.telegram.org/type/auth.Authorization" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.Auth.IAuthorization Authorization { get; set; }
 
     public void ComputeFlag()

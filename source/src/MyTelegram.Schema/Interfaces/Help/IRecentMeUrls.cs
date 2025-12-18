@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Recent t.me URLs
-/// See <a href="https://corefork.telegram.org/type/help.RecentMeUrls" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/help.RecentMeUrls" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TRecentMeUrls"/> See <a href="https://corefork.telegram.org/constructor/help.recentMeUrls" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TRecentMeUrls), nameof(TRecentMeUrls))]
 public interface IRecentMeUrls : IObject
 {
-    ///<summary>
+    /// <summary>
     /// URLs
     /// See <a href="https://corefork.telegram.org/type/RecentMeUrl" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IRecentMeUrl> Urls { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

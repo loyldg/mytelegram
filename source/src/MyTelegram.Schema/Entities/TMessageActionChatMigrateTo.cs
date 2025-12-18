@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates the chat was <a href="https://corefork.telegram.org/api/channel">migrated</a> to the specified supergroup
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatMigrateTo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatMigrateTo" /></para>
+/// </summary>
 [TlObject(0xe1037f92)]
-public sealed class TMessageActionChatMigrateTo : IMessageAction
+public sealed partial class TMessageActionChatMigrateTo : IMessageAction
 {
     public uint ConstructorId => 0xe1037f92;
-    ///<summary>
+    /// <summary>
     /// The supergroup it was migrated to
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
     public void ComputeFlag()

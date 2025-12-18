@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether P2P connections in phone calls with this user are allowed
-/// See <a href="https://corefork.telegram.org/constructor/privacyKeyPhoneP2P" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/privacyKeyPhoneP2P" /></para>
+/// </summary>
 [TlObject(0x39491cc8)]
-public sealed class TPrivacyKeyPhoneP2P : IPrivacyKey
+public sealed partial class TPrivacyKeyPhoneP2P : IPrivacyKey
 {
     public uint ConstructorId => 0x39491cc8;
     public void ComputeFlag()

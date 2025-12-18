@@ -2,95 +2,99 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Open a <a href="https://corefork.telegram.org/bots/webapps">bot mini app</a>, sending over user information after user confirmation.After calling this method, until the user closes the webview, <a href="https://corefork.telegram.org/method/messages.prolongWebView">messages.prolongWebView</a> must be called every 60 seconds.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 BOT_WEBVIEW_DISABLED A webview cannot be opened in the specified conditions: emitted for example if <code>from_bot_menu</code> or <code>url</code> are set and <code>peer</code> is not the chat with the bot.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
-/// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
-/// 400 THEME_PARAMS_INVALID The specified <code>theme_params</code> field is invalid.
-/// 400 URL_INVALID Invalid URL provided.
-/// 400 YOU_BLOCKED_USER You blocked this user.
-/// See <a href="https://corefork.telegram.org/method/messages.requestWebView" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 BOT_WEBVIEW_DISABLED A webview cannot be opened in the specified conditions: emitted for example if <code>from_bot_menu</code> or <code>url</code> are set and <code>peer</code> is not the chat with the bot.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
+/// <para><c>400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.</c></para>
+/// <para><c>400 THEME_PARAMS_INVALID The specified <code>theme_params</code> field is invalid.</c></para>
+/// <para><c>400 URL_INVALID Invalid URL provided.</c></para>
+/// <para><c>400 YOU_BLOCKED_USER You blocked this user. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.requestWebView" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x269dc2c1)]
-public sealed class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewResult>
+public sealed partial class RequestRequestWebView : IRequest<MyTelegram.Schema.IWebViewResult>
 {
     public uint ConstructorId => 0x269dc2c1;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the webview was opened by clicking on the bot's <a href="https://corefork.telegram.org/api/bots/menu">menu button »</a>.
-    ///</summary>
+    /// </summary>
     public bool FromBotMenu { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the inline message that will be sent by the bot on behalf of the user once the web app interaction is <a href="https://corefork.telegram.org/method/messages.sendWebViewResultMessage">terminated</a> should be sent silently (no notifications for the receivers).
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, requests to open the mini app in compact mode (as opposed to normal or fullscreen mode). Must be set if the <code>mode</code> parameter of the <a href="https://corefork.telegram.org/api/links#bot-attachment-or-side-menu-links">attachment menu deep link</a> is equal to <code>compact</code>.
-    ///</summary>
+    /// </summary>
     public bool Compact { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, requests to open the mini app in fullscreen mode (as opposed to normal or compact mode). Must be set if the <code>mode</code> parameter of the <a href="https://corefork.telegram.org/api/links#bot-attachment-or-side-menu-links">attachment menu deep link</a> is equal to <code>fullscreen</code>.
-    ///</summary>
+    /// </summary>
     public bool Fullscreen { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Dialog where the web app is being opened, and where the resulting message will be sent (see the <a href="https://corefork.telegram.org/api/bots/webapps">docs for more info »</a>).
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot that owns the <a href="https://corefork.telegram.org/api/bots/webapps">web app</a>
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/bots/webapps">Web app URL</a>
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If the web app was opened from the attachment menu using a <a href="https://corefork.telegram.org/api/links#bot-attachment-or-side-menu-links">attachment menu deep link</a>, <code>start_param</code> should contain the <code>data</code> from the <code>startattach</code> parameter.
-    ///</summary>
+    /// </summary>
     public string? StartParam { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/bots/webapps#theme-parameters">Theme parameters »</a>
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON? ThemeParams { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name of the application; 0-64 English letters, digits, and underscores
-    ///</summary>
+    /// </summary>
     public string Platform { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the inline message that will be sent by the bot on behalf of the user once the web app interaction is <a href="https://corefork.telegram.org/method/messages.sendWebViewResultMessage">terminated</a> should be sent in reply to the specified message or story.
     /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Open the web app as the specified peer, sending the resulting the message as the specified peer.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
     public void ComputeFlag()

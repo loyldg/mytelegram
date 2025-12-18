@@ -1,6 +1,4 @@
-﻿using MyTelegram.Domain.Commands;
-
-namespace MyTelegram.Domain.Aggregates.UserConfig;
+﻿namespace MyTelegram.Domain.Aggregates.UserConfig;
 
 public class UserConfigId(string value) : Identity<UserConfigId>(value)
 {
@@ -34,30 +32,7 @@ public class UserConfigState : AggregateState<UserConfigAggregate, UserConfigId,
     }
 }
 
-public class UserConfigChangedEvent(RequestInfo requestInfo, long userId, string key, string value) : RequestAggregateEvent2<UserConfigAggregate, UserConfigId>(requestInfo)
-{
-    public long UserId { get; } = userId;
-    public string Key { get; } = key;
-    public string Value { get; } = value;
-}
-
-public class UpdateUserConfigCommand(UserConfigId aggregateId, RequestInfo requestInfo, long userId, string key, string value) : RequestCommand2<UserConfigAggregate, UserConfigId, IExecutionResult>(aggregateId, requestInfo)
-{
-    public long UserId { get; } = userId;
-    public string Key { get; } = key;
-    public string Value { get; } = value;
-}
-
-public class UpdateUserConfigCommandHandler : CommandHandler<UserConfigAggregate, UserConfigId, UpdateUserConfigCommand>
-{
-    public override Task ExecuteAsync(UserConfigAggregate aggregate, UpdateUserConfigCommand command, CancellationToken cancellationToken)
-    {
-        aggregate.UpdateConfig(command.RequestInfo,command.UserId,command.Key,command.Value);
-
-        return Task.CompletedTask;
-    }
-}
-
+[EnableAutoGeneration]
 public class UserConfigAggregate : MyInMemorySnapshotAggregateRoot<UserConfigAggregate, UserConfigId, UserConfigSnapshot>
 {
     private readonly UserConfigState _state = new();
@@ -67,7 +42,7 @@ public class UserConfigAggregate : MyInMemorySnapshotAggregateRoot<UserConfigAgg
         Register(_state);
     }
 
-    public void UpdateConfig(RequestInfo requestInfo, long userId, string key, string value)
+    public void UpdateUserConfig(RequestInfo requestInfo, long userId, string key, string value)
     {
         Emit(new UserConfigChangedEvent(requestInfo, userId, key, value));
     }

@@ -2,24 +2,24 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Web authorizations
-/// See <a href="https://corefork.telegram.org/constructor/account.webAuthorizations" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.webAuthorizations" /></para>
+/// </summary>
 [TlObject(0xed56c9fc)]
-public sealed class TWebAuthorizations : IWebAuthorizations
+public sealed partial class TWebAuthorizations : IWebAuthorizations
 {
     public uint ConstructorId => 0xed56c9fc;
-    ///<summary>
+    /// <summary>
     /// Web authorization list
     /// See <a href="https://corefork.telegram.org/type/WebAuthorization" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IWebAuthorization> Authorizations { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

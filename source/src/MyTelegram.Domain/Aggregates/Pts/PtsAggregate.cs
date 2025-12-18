@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Pts;
 
-
+[EnableAutoGeneration]
 public class PtsAggregate : MyInMemorySnapshotAggregateRoot<PtsAggregate, PtsId, PtsSnapshot>, INotSaveAggregateEvents
 {
     private readonly PtsState _state = new();
@@ -79,34 +79,26 @@ public class PtsAggregate : MyInMemorySnapshotAggregateRoot<PtsAggregate, PtsId,
         long permAuthKeyId,
         int newPts, long globalSeqNo, int changedUnreadCount, int? messageId)
     {
-        if (!IsNew)
+        if (newPts < _state.Pts)
         {
-            if (_state.Pts < newPts)
-            {
-                Emit(new PtsUpdatedEvent(peerId, permAuthKeyId, newPts, DateTime.UtcNow.ToTimestamp(), globalSeqNo, changedUnreadCount, messageId));
-            }
+            newPts = _state.Pts;
         }
-        else
-        {
-            Emit(new PtsUpdatedEvent(peerId, permAuthKeyId, newPts, DateTime.UtcNow.ToTimestamp(), globalSeqNo, changedUnreadCount, messageId));
-        }
+        var date = DateTime.UtcNow.ToTimestamp();
+
+        Emit(new PtsUpdatedEvent(peerId, permAuthKeyId, newPts, date, globalSeqNo, changedUnreadCount, messageId));
     }
 
     public void UpdateQts(long peerId,
         long permAuthKeyId,
         int newQts, long globalSeqNo)
     {
-        if (!IsNew)
+        if (newQts < _state.Qts)
         {
-            if (_state.Qts < newQts)
-            {
-                Emit(new QtsUpdatedEvent(peerId, permAuthKeyId, newQts, DateTime.UtcNow.ToTimestamp(), globalSeqNo));
-            }
+            newQts = _state.Qts;
         }
-        else
-        {
-            Emit(new QtsUpdatedEvent(peerId, permAuthKeyId, newQts, DateTime.UtcNow.ToTimestamp(), globalSeqNo));
-        }
+        var date = DateTime.UtcNow.ToTimestamp();
+
+        Emit(new QtsUpdatedEvent(peerId, permAuthKeyId, newQts, date, globalSeqNo));
     }
 
     public void UpdatePtsForAuthKeyId(long peerId,

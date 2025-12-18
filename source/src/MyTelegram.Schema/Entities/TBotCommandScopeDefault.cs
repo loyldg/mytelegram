@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The commands will be valid in all dialogs
-/// See <a href="https://corefork.telegram.org/constructor/botCommandScopeDefault" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botCommandScopeDefault" /></para>
+/// </summary>
 [TlObject(0x2f6cb2ab)]
-public sealed class TBotCommandScopeDefault : IBotCommandScope
+public sealed partial class TBotCommandScopeDefault : IBotCommandScope
 {
     public uint ConstructorId => 0x2f6cb2ab;
     public void ComputeFlag()

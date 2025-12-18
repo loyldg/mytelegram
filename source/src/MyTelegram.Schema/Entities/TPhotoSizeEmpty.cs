@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor. Image with this thumbnail is unavailable.
-/// See <a href="https://corefork.telegram.org/constructor/photoSizeEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photoSizeEmpty" /></para>
+/// </summary>
 [TlObject(0xe17e23c)]
-public sealed class TPhotoSizeEmpty : IPhotoSize
+public sealed partial class TPhotoSizeEmpty : IPhotoSize
 {
     public uint ConstructorId => 0xe17e23c;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#image-thumbnail-types">Thumbnail type »</a>
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
     public void ComputeFlag()

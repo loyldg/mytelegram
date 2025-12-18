@@ -2,73 +2,76 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Initialize connection
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CONNECTION_LAYER_INVALID Layer invalid.
-/// See <a href="https://corefork.telegram.org/method/initConnection" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CONNECTION_LAYER_INVALID Layer invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/initConnection" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xc1cd5ea9)]
-public sealed class RequestInitConnection : IRequest<IObject>, IHasSubQuery
+public sealed partial class RequestInitConnection : IRequest<IObject>, IHasSubQuery
 {
     public uint ConstructorId => 0xc1cd5ea9;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application identifier (see. <a href="https://corefork.telegram.org/myapp">App configuration</a>)
-    ///</summary>
+    /// </summary>
     public int ApiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Device model
-    ///</summary>
+    /// </summary>
     public string DeviceModel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Operation system version
-    ///</summary>
+    /// </summary>
     public string SystemVersion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Application version
-    ///</summary>
+    /// </summary>
     public string AppVersion { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Code for the language used on the device's OS, ISO 639-1 standard
-    ///</summary>
+    /// </summary>
     public string SystemLangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Platform identifier (i.e. <code>android</code>, <code>tdesktop</code>, etc).
-    ///</summary>
+    /// </summary>
     public string LangPack { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Either an ISO 639-1 language code or a language pack name obtained from a <a href="https://corefork.telegram.org/api/links#language-pack-links">language pack link</a>.
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about an MTProto proxy
     /// See <a href="https://corefork.telegram.org/type/InputClientProxy" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputClientProxy? Proxy { get; set; }
 
-    ///<summary>
-    /// Additional initConnection parameters. <br>For now, only the <code>tz_offset</code> field is supported, for specifying the timezone offset in seconds.
+    /// <summary>
+    /// Additional initConnection parameters. <br/>For now, only the <code>tz_offset</code> field is supported, for specifying the timezone offset in seconds.
     /// See <a href="https://corefork.telegram.org/type/JSONValue" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IJSONValue? Params { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The query itself
-    ///</summary>
+    /// </summary>
     public IObject Query { get; set; }
 
     public void ComputeFlag()

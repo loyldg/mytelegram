@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The list of <a href="https://corefork.telegram.org/api/saved-messages#tags">reaction tag »</a> names assigned by the user hasn't changed.
-/// See <a href="https://corefork.telegram.org/constructor/messages.savedReactionTagsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.savedReactionTagsNotModified" /></para>
+/// </summary>
 [TlObject(0x889b59ef)]
-public sealed class TSavedReactionTagsNotModified : ISavedReactionTags
+public sealed partial class TSavedReactionTagsNotModified : ISavedReactionTags
 {
     public uint ConstructorId => 0x889b59ef;
     public void ComputeFlag()

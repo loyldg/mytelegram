@@ -2,70 +2,74 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Media autodownload settings
-/// See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/AutoDownloadSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TAutoDownloadSettings"/> See <a href="https://corefork.telegram.org/constructor/autoDownloadSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TAutoDownloadSettings), nameof(TAutoDownloadSettings))]
 public interface IAutoDownloadSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Disable automatic media downloads?
-    ///</summary>
+    /// </summary>
     bool Disabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to preload the first seconds of videos larger than the specified limit
-    ///</summary>
+    /// </summary>
     bool VideoPreloadLarge { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to preload the next audio track when you're listening to music
-    ///</summary>
+    /// </summary>
     bool AudioPreloadNext { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to enable data saving mode in phone calls
-    ///</summary>
+    /// </summary>
     bool PhonecallsLessData { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to preload <a href="https://corefork.telegram.org/api/stories">stories</a>; in particular, the first <a href="https://corefork.telegram.org/constructor/documentAttributeVideo">documentAttributeVideo</a>.<code>preload_prefix_size</code> bytes of story videos should be preloaded.
-    ///</summary>
+    /// </summary>
     bool StoriesPreload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum size of photos to preload
-    ///</summary>
+    /// </summary>
     int PhotoSizeMax { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum size of videos to preload
-    ///</summary>
+    /// </summary>
     long VideoSizeMax { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum size of other files to preload
-    ///</summary>
+    /// </summary>
     long FileSizeMax { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum suggested bitrate for <strong>uploading</strong> videos
-    ///</summary>
+    /// </summary>
     int VideoUploadMaxbitrate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A limit, specifying the maximum number of files that should be downloaded in parallel from the same DC, for files smaller than 20MB.
-    ///</summary>
+    /// </summary>
     int SmallQueueActiveOperationsMax { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A limit, specifying the maximum number of files that should be downloaded in parallel from the same DC, for files bigger than 20MB.
-    ///</summary>
+    /// </summary>
     int LargeQueueActiveOperationsMax { get; set; }
 }

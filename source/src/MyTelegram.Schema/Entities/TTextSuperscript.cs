@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Superscript text
-/// See <a href="https://corefork.telegram.org/constructor/textSuperscript" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/textSuperscript" /></para>
+/// </summary>
 [TlObject(0xc7fb5e01)]
-public sealed class TTextSuperscript : IRichText
+public sealed partial class TTextSuperscript : IRichText
 {
     public uint ConstructorId => 0xc7fb5e01;
-    ///<summary>
+    /// <summary>
     /// Text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
     public void ComputeFlag()

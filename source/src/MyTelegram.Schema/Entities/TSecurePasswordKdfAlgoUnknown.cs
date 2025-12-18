@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Unknown KDF algo (most likely the client has to be updated)
-/// See <a href="https://corefork.telegram.org/constructor/securePasswordKdfAlgoUnknown" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/securePasswordKdfAlgoUnknown" /></para>
+/// </summary>
 [TlObject(0x4a8537)]
-public sealed class TSecurePasswordKdfAlgoUnknown : ISecurePasswordKdfAlgo
+public sealed partial class TSecurePasswordKdfAlgoUnknown : ISecurePasswordKdfAlgo
 {
     public uint ConstructorId => 0x4a8537;
     public void ComputeFlag()

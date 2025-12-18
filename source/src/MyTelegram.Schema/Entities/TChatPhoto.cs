@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Group profile photo.
-/// See <a href="https://corefork.telegram.org/constructor/chatPhoto" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatPhoto" /></para>
+/// </summary>
 [TlObject(0x1c6e1c11)]
-public sealed class TChatPhoto : IChatPhoto
+public sealed partial class TChatPhoto : IChatPhoto
 {
     public uint ConstructorId => 0x1c6e1c11;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user has an animated profile picture
-    ///</summary>
+    /// </summary>
     public bool HasVideo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Photo ID
-    ///</summary>
+    /// </summary>
     public long PhotoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#stripped-thumbnails">Stripped thumbnail</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? StrippedThumb { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// DC where this photo is stored
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
     public void ComputeFlag()

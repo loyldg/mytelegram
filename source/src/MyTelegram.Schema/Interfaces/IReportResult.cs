@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a report menu or result
-/// See <a href="https://corefork.telegram.org/type/ReportResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ReportResult" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TReportResultChooseOption"/> See <a href="https://corefork.telegram.org/constructor/reportResultChooseOption" /><br/>
+/// <see cref="TReportResultAddComment"/> See <a href="https://corefork.telegram.org/constructor/reportResultAddComment" /><br/>
+/// <see cref="TReportResultReported"/> See <a href="https://corefork.telegram.org/constructor/reportResultReported" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TReportResultChooseOption), nameof(TReportResultChooseOption))]
 [JsonDerivedType(typeof(TReportResultAddComment), nameof(TReportResultAddComment))]
 [JsonDerivedType(typeof(TReportResultReported), nameof(TReportResultReported))]

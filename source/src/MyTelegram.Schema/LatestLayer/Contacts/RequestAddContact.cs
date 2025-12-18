@@ -2,55 +2,64 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Add an existing telegram user as contact.Use <a href="https://corefork.telegram.org/method/contacts.importContacts">contacts.importContacts</a> to add contacts by phone number, without knowing their Telegram ID.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CONTACT_ID_INVALID The provided contact ID is invalid.
-/// 400 CONTACT_NAME_EMPTY Contact name empty.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/contacts.addContact" />
-///</summary>
-[TlObject(0xe8f463d0)]
-public sealed class RequestAddContact : IRequest<MyTelegram.Schema.IUpdates>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CONTACT_ID_INVALID The provided contact ID is invalid.</c></para>
+/// <para><c>400 CONTACT_NAME_EMPTY Contact name empty.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.addContact" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+[TlObject(0xd9ba2e54)]
+public sealed partial class RequestAddContact : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xe8f463d0;
+    public uint ConstructorId => 0xd9ba2e54;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allow the other user to see our phone number?
-    ///</summary>
+    /// </summary>
     public bool AddPhonePrivacyException { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Telegram ID of the other user
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// First name
-    ///</summary>
+    /// </summary>
     public string FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last name
-    ///</summary>
+    /// </summary>
     public string LastName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User's phone number, may be omitted to simply add the user to the contact list, without a phone number.
-    ///</summary>
+    /// </summary>
     public string Phone { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
+    /// </summary>
+    public MyTelegram.Schema.ITextWithEntities? Note { get; set; }
 
     public void ComputeFlag()
     {
         if (AddPhonePrivacyException) { Flags = Flags.SetBit(0); }
+        if (Note != null) { Flags = Flags.SetBit(1); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -62,6 +71,7 @@ public sealed class RequestAddContact : IRequest<MyTelegram.Schema.IUpdates>
         writer.Write(FirstName);
         writer.Write(LastName);
         writer.Write(Phone);
+        if (Flags.IsBitSet(1)) { writer.Write(Note); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -72,5 +82,6 @@ public sealed class RequestAddContact : IRequest<MyTelegram.Schema.IUpdates>
         FirstName = buffer.ReadString();
         LastName = buffer.ReadString();
         Phone = buffer.ReadString();
+        if (Flags.IsBitSet(1)) { Note = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
     }
 }

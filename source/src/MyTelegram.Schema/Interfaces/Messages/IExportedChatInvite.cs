@@ -2,23 +2,28 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Contains info about a chat invite, and eventually a pointer to the newest chat invite.
-/// See <a href="https://corefork.telegram.org/type/messages.ExportedChatInvite" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.ExportedChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TExportedChatInvite"/> See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInvite" /><br/>
+/// <see cref="TExportedChatInviteReplaced"/> See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInviteReplaced" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TExportedChatInvite), nameof(TExportedChatInvite))]
 [JsonDerivedType(typeof(TExportedChatInviteReplaced), nameof(TExportedChatInviteReplaced))]
 public interface IExportedChatInvite : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Info about the chat invite
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

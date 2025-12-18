@@ -2,46 +2,62 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to top up the <a href="https://corefork.telegram.org/api/stars">Telegram Stars balance</a> of the current account.
-/// See <a href="https://corefork.telegram.org/constructor/inputStorePaymentStarsTopup" />
-///</summary>
-[TlObject(0xdddd0f56)]
-public sealed class TInputStorePaymentStarsTopup : IInputStorePaymentPurpose
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStorePaymentStarsTopup" /></para>
+/// </summary>
+[TlObject(0xf9a2a6cb)]
+public sealed partial class TInputStorePaymentStarsTopup : IInputStorePaymentPurpose
 {
-    public uint ConstructorId => 0xdddd0f56;
-    ///<summary>
+    public uint ConstructorId => 0xf9a2a6cb;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
+
+    /// <summary>
     /// Amount of stars to topup
-    ///</summary>
+    /// </summary>
     public long Stars { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long Amount { get; set; }
+
+    /// <summary>
+    /// Should be populated with the peer where the topup process was initiated due to low funds (i.e. a bot for bot payments, a channel for paid media/reactions, etc); leave this flag unpopulated if the topup flow was not initated when attempting to spend more Stars than currently available on the account's balance.
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    /// </summary>
+    public MyTelegram.Schema.IInputPeer? SpendPurposePeer { get; set; }
 
     public void ComputeFlag()
     {
+        if (SpendPurposePeer != null) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Stars);
         writer.Write(Currency);
         writer.Write(Amount);
+        if (Flags.IsBitSet(0)) { writer.Write(SpendPurposePeer); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Stars = buffer.ReadInt64();
         Currency = buffer.ReadString();
         Amount = buffer.ReadInt64();
+        if (Flags.IsBitSet(0)) { SpendPurposePeer = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
     }
 }

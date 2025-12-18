@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Telegram <a href="https://corefork.telegram.org/passport">passport</a> settings
-/// See <a href="https://corefork.telegram.org/type/SecureSecretSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecureSecretSettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecureSecretSettings"/> See <a href="https://corefork.telegram.org/constructor/secureSecretSettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecureSecretSettings), nameof(TSecureSecretSettings))]
 public interface ISecureSecretSettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Secure KDF algo
     /// See <a href="https://corefork.telegram.org/type/SecurePasswordKdfAlgo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.ISecurePasswordKdfAlgo SecureAlgo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secure secret
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> SecureSecret { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret ID
-    ///</summary>
+    /// </summary>
     long SecureSecretId { get; set; }
 }

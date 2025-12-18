@@ -2,10 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object sets encrypted file for attachment
-/// See <a href="https://corefork.telegram.org/type/InputEncryptedFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputEncryptedFile" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputEncryptedFileEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputEncryptedFileEmpty" /><br/>
+/// <see cref="TInputEncryptedFileUploaded"/> See <a href="https://corefork.telegram.org/constructor/inputEncryptedFileUploaded" /><br/>
+/// <see cref="TInputEncryptedFile"/> See <a href="https://corefork.telegram.org/constructor/inputEncryptedFile" /><br/>
+/// <see cref="TInputEncryptedFileBigUploaded"/> See <a href="https://corefork.telegram.org/constructor/inputEncryptedFileBigUploaded" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputEncryptedFileEmpty), nameof(TInputEncryptedFileEmpty))]
 [JsonDerivedType(typeof(TInputEncryptedFileUploaded), nameof(TInputEncryptedFileUploaded))]
 [JsonDerivedType(typeof(TInputEncryptedFile), nameof(TInputEncryptedFile))]

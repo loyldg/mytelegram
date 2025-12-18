@@ -2,60 +2,67 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Fetch <a href="https://corefork.telegram.org/api/stars#balance-and-transaction-history">Telegram Stars transactions</a>.The <code>inbound</code> and <code>outbound</code> flags are mutually exclusive: if none of the two are set, both incoming and outgoing transactions are fetched.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsTransactions" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 SUBSCRIPTION_ID_INVALID The specified subscription_id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarsTransactions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x69da4557)]
-public sealed class RequestGetStarsTransactions : IRequest<MyTelegram.Schema.Payments.IStarsStatus>
+public sealed partial class RequestGetStarsTransactions : IRequest<MyTelegram.Schema.Payments.IStarsStatus>
 {
     public uint ConstructorId => 0x69da4557;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, fetches only incoming transactions.
-    ///</summary>
+    /// </summary>
     public bool Inbound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, fetches only outgoing transactions.
-    ///</summary>
+    /// </summary>
     public bool Outbound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Return transactions in ascending order by date (instead of descending order by date).
-    ///</summary>
+    /// </summary>
     public bool Ascending { get; set; }
 
+    /// <summary>
+    /// If set, returns the channel/ad revenue transactions in nanotons, instead.
+    /// </summary>
     public bool Ton { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, fetches only transactions for the specified <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscription »</a>.
-    ///</summary>
+    /// </summary>
     public string? SubscriptionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Fetch the transaction history of the peer (<a href="https://corefork.telegram.org/constructor/inputPeerSelf">inputPeerSelf</a> or a bot we own).
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets">Offset for pagination, obtained from the returned <code>next_offset</code>, initially an empty string »</a>.
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// No notification sound should be used
-/// See <a href="https://corefork.telegram.org/constructor/notificationSoundNone" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/notificationSoundNone" /></para>
+/// </summary>
 [TlObject(0x6f0c34df)]
-public sealed class TNotificationSoundNone : INotificationSound
+public sealed partial class TNotificationSoundNone : INotificationSound
 {
     public uint ConstructorId => 0x6f0c34df;
     public void ComputeFlag()

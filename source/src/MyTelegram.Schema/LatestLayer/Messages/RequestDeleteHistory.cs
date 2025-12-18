@@ -2,60 +2,63 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Deletes communication history.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_REVOKE_DATE_UNSUPPORTED <code>min_date</code> and <code>max_date</code> are not available for using with non-user peers.
-/// 400 MAX_DATE_INVALID The specified maximum date is invalid.
-/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
-/// 400 MIN_DATE_INVALID The specified minimum date is invalid.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.deleteHistory" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_REVOKE_DATE_UNSUPPORTED <code>min_date</code> and <code>max_date</code> are not available for using with non-user peers.</c></para>
+/// <para><c>400 MAX_DATE_INVALID The specified maximum date is invalid.</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
+/// <para><c>400 MIN_DATE_INVALID The specified minimum date is invalid.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.deleteHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb08f922a)]
-public sealed class RequestDeleteHistory : IRequest<MyTelegram.Schema.Messages.IAffectedHistory>
+public sealed partial class RequestDeleteHistory : IRequest<MyTelegram.Schema.Messages.IAffectedHistory>
 {
     public uint ConstructorId => 0xb08f922a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Just clear history for the current user, without actually removing messages for every chat user
-    ///</summary>
+    /// </summary>
     public bool JustClear { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to delete the message history for all chat participants
-    ///</summary>
+    /// </summary>
     public bool Revoke { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User or chat, communication history of which will be deleted
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum ID of message to delete
-    ///</summary>
+    /// </summary>
     public int MaxId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Delete all messages newer than this UNIX timestamp
-    ///</summary>
+    /// </summary>
     public int? MinDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Delete all messages older than this UNIX timestamp
-    ///</summary>
+    /// </summary>
     public int? MaxDate { get; set; }
 
     public void ComputeFlag()

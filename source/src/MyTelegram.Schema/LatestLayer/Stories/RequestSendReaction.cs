@@ -2,46 +2,49 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// React to a story.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 REACTION_INVALID The specified reaction is invalid.
-/// 400 STORY_ID_EMPTY You specified no story IDs.
-/// 400 STORY_ID_INVALID The specified story ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.sendReaction" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 REACTION_INVALID The specified reaction is invalid.</c></para>
+/// <para><c>400 STORY_ID_EMPTY You specified no story IDs.</c></para>
+/// <para><c>400 STORY_ID_INVALID The specified story ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.sendReaction" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7fd736b2)]
-public sealed class RequestSendReaction : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendReaction : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x7fd736b2;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to add this reaction to the <a href="https://corefork.telegram.org/api/reactions#recent-reactions">recent reactions list »</a>.
-    ///</summary>
+    /// </summary>
     public bool AddToRecent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The peer that sent the story
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the story to react to
-    ///</summary>
+    /// </summary>
     public int StoryId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reaction
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
     public void ComputeFlag()

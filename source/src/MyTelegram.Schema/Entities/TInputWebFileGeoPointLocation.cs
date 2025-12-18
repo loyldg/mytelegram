@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to download a server-generated image with the map preview from a <a href="https://corefork.telegram.org/constructor/geoPoint">geoPoint</a>, see the <a href="https://corefork.telegram.org/api/files#downloading-webfiles">webfile docs for more info »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputWebFileGeoPointLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputWebFileGeoPointLocation" /></para>
+/// </summary>
 [TlObject(0x9f2221c9)]
-public sealed class TInputWebFileGeoPointLocation : IInputWebFileLocation
+public sealed partial class TInputWebFileGeoPointLocation : IInputWebFileLocation
 {
     public uint ConstructorId => 0x9f2221c9;
-    ///<summary>
+    /// <summary>
     /// Generated from the <code>lat</code>, <code>long</code> and <code>accuracy_radius</code> parameters of the <a href="https://corefork.telegram.org/constructor/geoPoint">geoPoint</a>
     /// See <a href="https://corefork.telegram.org/type/InputGeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGeoPoint GeoPoint { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash of the <a href="https://corefork.telegram.org/constructor/geoPoint">geoPoint</a>
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Map width in pixels before applying scale; 16-1024
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Map height in pixels before applying scale; 16-1024
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Map zoom level; 13-20
-    ///</summary>
+    /// </summary>
     public int Zoom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Map scale; 1-3
-    ///</summary>
+    /// </summary>
     public int Scale { get; set; }
 
     public void ComputeFlag()

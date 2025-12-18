@@ -1,20 +1,15 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
+/// <summary>
 /// Returns list of chats with non-default notification settings
-/// See <a href="https://corefork.telegram.org/method/account.getNotifyExceptions" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/account.getNotifyExceptions"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetNotifyExceptionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetNotifyExceptions, MyTelegram.Schema.IUpdates>
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestGetNotifyExceptions obj)
+    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestGetNotifyExceptions obj)
     {
-        return Task.FromResult<IUpdates>(new TUpdates
-        {
-            Updates = [],
-            Chats = [],
-            Users = [],
-            Date = CurrentDate
-        });
+        return Task.FromResult<IUpdates>(new TUpdates { Updates = [], Chats = [], Users = [], Date = CurrentDate });
     }
 }

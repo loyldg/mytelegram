@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/folders">Folder and folder tags</a> information
-/// See <a href="https://corefork.telegram.org/constructor/messages.dialogFilters" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.dialogFilters" /></para>
+/// </summary>
 [TlObject(0x2ad93719)]
-public sealed class TDialogFilters : IDialogFilters
+public sealed partial class TDialogFilters : IDialogFilters
 {
     public uint ConstructorId => 0x2ad93719;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether <a href="https://corefork.telegram.org/api/folders#folder-tags">folder tags</a> are enabled.
-    ///</summary>
+    /// </summary>
     public bool TagsEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Folders.
     /// See <a href="https://corefork.telegram.org/type/DialogFilter" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDialogFilter> Filters { get; set; }
 
     public void ComputeFlag()

@@ -2,34 +2,34 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Recently used stickers
-/// See <a href="https://corefork.telegram.org/constructor/messages.recentStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.recentStickers" /></para>
+/// </summary>
 [TlObject(0x88d37c56)]
-public sealed class TRecentStickers : IRecentStickers
+public sealed partial class TRecentStickers : IRecentStickers
 {
     public uint ConstructorId => 0x88d37c56;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emojis associated to stickers
     /// See <a href="https://corefork.telegram.org/type/StickerPack" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerPack> Packs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Recent stickers
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Stickers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was each sticker last used
-    ///</summary>
+    /// </summary>
     public TVector<int> Dates { get; set; }
 
     public void ComputeFlag()

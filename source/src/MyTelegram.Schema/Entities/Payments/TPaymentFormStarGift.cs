@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Represents a payment form for a <a href="https://corefork.telegram.org/api/gifts">gift, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/payments.paymentFormStarGift" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.paymentFormStarGift" /></para>
+/// </summary>
 [TlObject(0xb425cfe1)]
-public sealed class TPaymentFormStarGift : IPaymentForm
+public sealed partial class TPaymentFormStarGift : IPaymentForm
 {
     public uint ConstructorId => 0xb425cfe1;
-    ///<summary>
+    /// <summary>
     /// Form ID.
-    ///</summary>
+    /// </summary>
     public long FormId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invoice
     /// See <a href="https://corefork.telegram.org/type/Invoice" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInvoice Invoice { get; set; }
 
     public void ComputeFlag()

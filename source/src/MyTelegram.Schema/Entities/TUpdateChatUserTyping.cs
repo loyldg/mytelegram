@@ -2,29 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The user is preparing a message in a group; typing, recording, uploading, etc. This update is valid for 6 seconds. If no further updates of this kind are received after 6 seconds, it should be considered that the user stopped doing whatever they were doing
-/// See <a href="https://corefork.telegram.org/constructor/updateChatUserTyping" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChatUserTyping" /></para>
+/// </summary>
 [TlObject(0x83487af0)]
-public sealed class TUpdateChatUserTyping : IUpdate
+public sealed partial class TUpdateChatUserTyping : IUpdate
 {
     public uint ConstructorId => 0x83487af0;
-    ///<summary>
+    /// <summary>
     /// Group id
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer that started typing (can be the chat itself, in case of anonymous admins).
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Type of action
     /// See <a href="https://corefork.telegram.org/type/SendMessageAction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISendMessageAction Action { get; set; }
 
     public void ComputeFlag()

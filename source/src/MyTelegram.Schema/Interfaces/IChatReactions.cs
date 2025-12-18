@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Available chat reactions
-/// See <a href="https://corefork.telegram.org/type/ChatReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/ChatReactions" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatReactionsNone"/> See <a href="https://corefork.telegram.org/constructor/chatReactionsNone" /><br/>
+/// <see cref="TChatReactionsAll"/> See <a href="https://corefork.telegram.org/constructor/chatReactionsAll" /><br/>
+/// <see cref="TChatReactionsSome"/> See <a href="https://corefork.telegram.org/constructor/chatReactionsSome" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatReactionsNone), nameof(TChatReactionsNone))]
 [JsonDerivedType(typeof(TChatReactionsAll), nameof(TChatReactionsAll))]
 [JsonDerivedType(typeof(TChatReactionsSome), nameof(TChatReactionsSome))]

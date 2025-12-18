@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Get the IDs of the maximum read stories for a set of peers.
-/// See <a href="https://corefork.telegram.org/method/stories.getPeerMaxIDs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getPeerMaxIDs" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x535983c3)]
-public sealed class RequestGetPeerMaxIDs : IRequest<TVector<int>>
+public sealed partial class RequestGetPeerMaxIDs : IRequest<TVector<int>>
 {
     public uint ConstructorId => 0x535983c3;
 
-    ///<summary>
+    /// <summary>
     /// Peers
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Id { get; set; }
 
     public void ComputeFlag()

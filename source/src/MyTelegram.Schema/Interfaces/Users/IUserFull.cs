@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
+/// <summary>
 /// Full user information, with attached context peers for reactions
-/// See <a href="https://corefork.telegram.org/type/users.UserFull" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/users.UserFull" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUserFull"/> See <a href="https://corefork.telegram.org/constructor/users.userFull" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUserFull), nameof(TUserFull))]
 public interface IUserFull : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Full user information
     /// See <a href="https://corefork.telegram.org/type/UserFull" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IUserFull FullUser { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

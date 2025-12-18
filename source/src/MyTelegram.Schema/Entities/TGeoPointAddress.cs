@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Address optionally associated to a <a href="https://corefork.telegram.org/constructor/geoPoint">geoPoint</a>.
-/// See <a href="https://corefork.telegram.org/constructor/geoPointAddress" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/geoPointAddress" /></para>
+/// </summary>
 [TlObject(0xde4c5d93)]
-public sealed class TGeoPointAddress : IGeoPointAddress
+public sealed partial class TGeoPointAddress : IGeoPointAddress
 {
     public uint ConstructorId => 0xde4c5d93;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Two-letter ISO 3166-1 alpha-2 country code
-    ///</summary>
+    /// </summary>
     public string CountryIso2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// State
-    ///</summary>
+    /// </summary>
     public string? State { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// City
-    ///</summary>
+    /// </summary>
     public string? City { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Street
-    ///</summary>
+    /// </summary>
     public string? Street { get; set; }
 
     public void ComputeFlag()

@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Poll;
 
+[EnableAutoGeneration]
 public class PollAggregate : AggregateRoot<PollAggregate, PollId>
 {
     private readonly PollState _state = new();
@@ -81,19 +82,19 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
         ));
     }
 
-    public void Close(int closeDate)
+    public void ClosePoll(int closeDate)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new PollClosedEvent(_state.ToPeer, _state.PollId, closeDate));
     }
 
-    public void Create(Peer toPeer,
+    public void CreatePoll(Peer toPeer,
         long pollId,
         bool multipleChoice,
         bool quiz,
         bool publicVoters,
         string question,
-        IReadOnlyCollection<PollAnswer> answers,
+        List<PollAnswer> answers,
         IReadOnlyCollection<string>? correctAnswers,
         string? solution,
         //byte[]? solutionEntities,
@@ -114,12 +115,10 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
             quiz,
             publicVoters,
             question,
-            answers.ToList(),
+            answers,
             correctAnswers,
             solution,
-            null,
             solutionEntities,
-            null,
             questionEntities
             ));
     }

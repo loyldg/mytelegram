@@ -2,79 +2,79 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Animations associated with a message reaction
-/// See <a href="https://corefork.telegram.org/constructor/availableReaction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/availableReaction" /></para>
+/// </summary>
 [TlObject(0xc077ec01)]
-public sealed class TAvailableReaction : IAvailableReaction
+public sealed partial class TAvailableReaction : IAvailableReaction
 {
     public uint ConstructorId => 0xc077ec01;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If not set, the reaction can be added to new messages and enabled in chats.
-    ///</summary>
+    /// </summary>
     public bool Inactive { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this reaction can only be used by Telegram Premium users
-    ///</summary>
+    /// </summary>
     public bool Premium { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reaction emoji
-    ///</summary>
+    /// </summary>
     public string Reaction { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reaction description
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Static icon for the reaction
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument StaticIcon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The animated sticker to show when the user opens the reaction dropdown
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument AppearAnimation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The animated sticker to show when the user hovers over the reaction
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument SelectAnimation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The animated sticker to show when the reaction is chosen and activated
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument ActivateAnimation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The background effect (still an animated sticker) to play under the <code>activate_animation</code>, when the reaction is chosen and activated
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument EffectAnimation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The animation that plays around the button when you press an existing reaction (played together with <code>center_icon</code>).
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? AroundAnimation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The animation of the emoji inside the button when you press an existing reaction (played together with <code>around_animation</code>).
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? CenterIcon { get; set; }
 
     public void ComputeFlag()

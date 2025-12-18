@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Keywords for a certain sticker
-/// See <a href="https://corefork.telegram.org/constructor/stickerKeyword" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stickerKeyword" /></para>
+/// </summary>
 [TlObject(0xfcfeb29c)]
-public sealed class TStickerKeyword : IStickerKeyword
+public sealed partial class TStickerKeyword : IStickerKeyword
 {
     public uint ConstructorId => 0xfcfeb29c;
-    ///<summary>
+    /// <summary>
     /// Sticker ID
-    ///</summary>
+    /// </summary>
     public long DocumentId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Keywords
-    ///</summary>
+    /// </summary>
     public TVector<string> Keyword { get; set; }
 
     public void ComputeFlag()

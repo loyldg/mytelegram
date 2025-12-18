@@ -2,45 +2,45 @@
 
 namespace MyTelegram.Schema.Stats;
 
-///<summary>
+/// <summary>
 /// Contains info about the forwards of a <a href="https://corefork.telegram.org/api/stories">story</a> as a message to public chats and reposts by public channels.
-/// See <a href="https://corefork.telegram.org/constructor/stats.publicForwards" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/stats.publicForwards" /></para>
+/// </summary>
 [TlObject(0x93037e20)]
-public sealed class TPublicForwards : IPublicForwards
+public sealed partial class TPublicForwards : IPublicForwards
 {
     public uint ConstructorId => 0x93037e20;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total number of results
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the forwards of a story.
     /// See <a href="https://corefork.telegram.org/type/PublicForward" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPublicForward> Forwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset used for <a href="https://corefork.telegram.org/api/offsets">pagination</a>.
-    ///</summary>
+    /// </summary>
     public string? NextOffset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

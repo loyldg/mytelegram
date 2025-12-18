@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a user, shared by a user with the currently logged in bot using <a href="https://corefork.telegram.org/method/messages.sendBotRequestedPeer">messages.sendBotRequestedPeer</a>.All fields except the ID are optional, and will be populated if present on the chosen user, according to the parameters of the requesting <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonRequestPeer">inputKeyboardButtonRequestPeer</a>.
-/// See <a href="https://corefork.telegram.org/constructor/requestedPeerUser" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/requestedPeerUser" /></para>
+/// </summary>
 [TlObject(0xd62ff46a)]
-public sealed class TRequestedPeerUser : IRequestedPeer
+public sealed partial class TRequestedPeerUser : IRequestedPeer
 {
     public uint ConstructorId => 0xd62ff46a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID.
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// First name.
-    ///</summary>
+    /// </summary>
     public string? FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last name.
-    ///</summary>
+    /// </summary>
     public string? LastName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Username.
-    ///</summary>
+    /// </summary>
     public string? Username { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Profile photo.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? Photo { get; set; }
 
     public void ComputeFlag()

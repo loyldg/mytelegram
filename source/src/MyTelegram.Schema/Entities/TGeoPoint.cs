@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// GeoPoint.
-/// See <a href="https://corefork.telegram.org/constructor/geoPoint" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/geoPoint" /></para>
+/// </summary>
 [TlObject(0xb2a2f663)]
-public sealed class TGeoPoint : IGeoPoint
+public sealed partial class TGeoPoint : IGeoPoint
 {
     public uint ConstructorId => 0xb2a2f663;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Longitude
-    ///</summary>
+    /// </summary>
     public double Long { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Latitude
-    ///</summary>
+    /// </summary>
     public double Lat { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
-    ///</summary>
+    /// </summary>
     public int? AccuracyRadius { get; set; }
 
     public void ComputeFlag()

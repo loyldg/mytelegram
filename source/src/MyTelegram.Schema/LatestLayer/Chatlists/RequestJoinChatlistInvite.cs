@@ -2,29 +2,34 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// Import a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>, joining some or all the chats in the folder.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_INCLUDE_EMPTY The include_peers vector of the filter is empty.
-/// 400 INVITE_SLUG_EMPTY The specified invite slug is empty.
-/// 400 INVITE_SLUG_EXPIRED The specified chat folder link has expired.
-/// See <a href="https://corefork.telegram.org/method/chatlists.joinChatlistInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.</c></para>
+/// <para><c>400 CHATLISTS_TOO_MUCH You have created too many folder links, hitting the <code>chatlist_invites_limit_default</code>/<code>chatlist_invites_limit_premium</code> <a href="https://corefork.telegram.org/api/config#chatlist-invites-limit-default">limits »</a>.</c></para>
+/// <para><c>400 FILTER_INCLUDE_EMPTY The include_peers vector of the filter is empty.</c></para>
+/// <para><c>400 INVITE_SLUG_EMPTY The specified invite slug is empty.</c></para>
+/// <para><c>400 INVITE_SLUG_EXPIRED The specified chat folder link has expired. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.joinChatlistInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa6b1e39a)]
-public sealed class RequestJoinChatlistInvite : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestJoinChatlistInvite : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xa6b1e39a;
 
-    ///<summary>
+    /// <summary>
     /// <code>slug</code> obtained from a <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep link »</a>.
-    ///</summary>
+    /// </summary>
     public string Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of new chats to join, fetched using <a href="https://corefork.telegram.org/method/chatlists.checkChatlistInvite">chatlists.checkChatlistInvite</a> and filtered as specified in the <a href="https://corefork.telegram.org/api/folders#shared-folders">documentation »</a>.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Peers { get; set; }
 
     public void ComputeFlag()

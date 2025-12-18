@@ -2,45 +2,50 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Adds a user to a chat and sends a service message on it.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_GROUPS_BLOCKED This bot can't be added to groups.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).
-/// 400 USER_ALREADY_PARTICIPANT The user is already in the group.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// 400 USER_IS_BLOCKED You were blocked by this user.
-/// 403 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.
-/// 403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this.
-/// 400 YOU_BLOCKED_USER You blocked this user.
-/// See <a href="https://corefork.telegram.org/method/messages.addChatUser" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_GROUPS_BLOCKED This bot can't be added to groups.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_INVALID Invalid chat.</c></para>
+/// <para><c>400 CHAT_MEMBER_ADD_FAILED Could not add participants.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).</c></para>
+/// <para><c>400 USER_ALREADY_PARTICIPANT The user is already in the group.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>400 USER_IS_BLOCKED You were blocked by this user.</c></para>
+/// <para><c>403 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.</c></para>
+/// <para><c>403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this.</c></para>
+/// <para><c>400 YOU_BLOCKED_USER You blocked this user. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.addChatUser" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xcbc6d107)]
-public sealed class RequestAddChatUser : IRequest<MyTelegram.Schema.Messages.IInvitedUsers>
+public sealed partial class RequestAddChatUser : IRequest<MyTelegram.Schema.Messages.IInvitedUsers>
 {
     public uint ConstructorId => 0xcbc6d107;
 
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID to be added
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of last messages to be forwarded
-    ///</summary>
+    /// </summary>
     public int FwdLimit { get; set; }
 
     public void ComputeFlag()

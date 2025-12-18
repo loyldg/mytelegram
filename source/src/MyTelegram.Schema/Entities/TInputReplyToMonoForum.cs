@@ -2,16 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputReplyToMonoForum" />
-///</summary>
+/// <summary>
+/// Used to send messages to a <a href="https://corefork.telegram.org/api/monoforum">monoforum topic</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputReplyToMonoForum" /></para>
+/// </summary>
 [TlObject(0x69d66c45)]
-public sealed class TInputReplyToMonoForum : IInputReplyTo
+public sealed partial class TInputReplyToMonoForum : IInputReplyTo
 {
     public uint ConstructorId => 0x69d66c45;
-    ///<summary>
+    /// <summary>
+    /// The topic ID.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer MonoforumPeerId { get; set; }
 
     public void ComputeFlag()

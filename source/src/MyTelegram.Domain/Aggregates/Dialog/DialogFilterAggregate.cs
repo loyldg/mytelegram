@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Dialog;
 
+[EnableAutoGeneration]
 public class DialogFilterAggregate : AggregateRoot<DialogFilterAggregate, DialogFilterId>
 {
     private readonly DialogFilterState _state = new();
@@ -16,6 +17,7 @@ public class DialogFilterAggregate : AggregateRoot<DialogFilterAggregate, Dialog
     public void DeleteDialogFilter(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DialogFilterDeletedEvent(requestInfo, _state.Id));
+        var filterId = _state.Id;
+        Emit(new DialogFilterDeletedEvent(requestInfo, filterId));
     }
 }

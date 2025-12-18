@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An ended group call
-/// See <a href="https://corefork.telegram.org/constructor/groupCallDiscarded" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/groupCallDiscarded" /></para>
+/// </summary>
 [TlObject(0x7780bcb4)]
-public sealed class TGroupCallDiscarded : IGroupCall
+public sealed partial class TGroupCallDiscarded : IGroupCall
 {
     public uint ConstructorId => 0x7780bcb4;
-    ///<summary>
+    /// <summary>
     /// Group call ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call duration
-    ///</summary>
+    /// </summary>
     public int Duration { get; set; }
 
     public void ComputeFlag()

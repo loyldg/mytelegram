@@ -2,17 +2,29 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/payments.starGiftUpgradePreview" />
-///</summary>
-[TlObject(0x167bd90b)]
-public sealed class TStarGiftUpgradePreview : IStarGiftUpgradePreview
+/// <summary>
+/// A preview of the possible attributes (chosen randomly) a <a href="https://corefork.telegram.org/api/gifts">gift »</a> can receive after upgrading it to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>, see <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">here »</a> for more info.
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starGiftUpgradePreview" /></para>
+/// </summary>
+[TlObject(0x3de1dfed)]
+public sealed partial class TStarGiftUpgradePreview : IStarGiftUpgradePreview
 {
-    public uint ConstructorId => 0x167bd90b;
-    ///<summary>
+    public uint ConstructorId => 0x3de1dfed;
+    /// <summary>
+    /// Possible gift attributes
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttribute" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAttribute> SampleAttributes { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/StarGiftUpgradePrice" />
+    /// </summary>
+    public TVector<MyTelegram.Schema.IStarGiftUpgradePrice> Prices { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/StarGiftUpgradePrice" />
+    /// </summary>
+    public TVector<MyTelegram.Schema.IStarGiftUpgradePrice> NextPrices { get; set; }
 
     public void ComputeFlag()
     {
@@ -23,10 +35,14 @@ public sealed class TStarGiftUpgradePreview : IStarGiftUpgradePreview
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(SampleAttributes);
+        writer.Write(Prices);
+        writer.Write(NextPrices);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         SampleAttributes = buffer.Read<TVector<MyTelegram.Schema.IStarGiftAttribute>>();
+        Prices = buffer.Read<TVector<MyTelegram.Schema.IStarGiftUpgradePrice>>();
+        NextPrices = buffer.Read<TVector<MyTelegram.Schema.IStarGiftUpgradePrice>>();
     }
 }

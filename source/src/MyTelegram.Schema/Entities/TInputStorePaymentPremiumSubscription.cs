@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a Telegram Premium purchase
-/// See <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumSubscription" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumSubscription" /></para>
+/// </summary>
 [TlObject(0xa6751e66)]
-public sealed class TInputStorePaymentPremiumSubscription : IInputStorePaymentPurpose
+public sealed partial class TInputStorePaymentPremiumSubscription : IInputStorePaymentPurpose
 {
     public uint ConstructorId => 0xa6751e66;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pass true if this is a restore of a Telegram Premium purchase; only for the App Store
-    ///</summary>
+    /// </summary>
     public bool Restore { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pass true if this is an upgrade from a monthly subscription to a yearly subscription; only for App Store
-    ///</summary>
+    /// </summary>
     public bool Upgrade { get; set; }
 
     public void ComputeFlag()

@@ -2,113 +2,117 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a group call participant
-/// See <a href="https://corefork.telegram.org/type/GroupCallParticipant" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/GroupCallParticipant" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TGroupCallParticipant"/> See <a href="https://corefork.telegram.org/constructor/groupCallParticipant" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TGroupCallParticipant), nameof(TGroupCallParticipant))]
 public interface IGroupCallParticipant : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the participant is muted
-    ///</summary>
+    /// </summary>
     bool Muted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the participant has left
-    ///</summary>
+    /// </summary>
     bool Left { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the participant can unmute themselves
-    ///</summary>
+    /// </summary>
     bool CanSelfUnmute { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the participant has just joined
-    ///</summary>
+    /// </summary>
     bool JustJoined { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, and <a href="https://corefork.telegram.org/constructor/updateGroupCallParticipants">updateGroupCallParticipants</a>.version &lt; locally stored call.version, info about this participant should be ignored. If (...), and <a href="https://corefork.telegram.org/constructor/updateGroupCallParticipants">updateGroupCallParticipants</a>.version &gt; call.version+1, the participant list should be refetched using <a href="https://corefork.telegram.org/method/phone.getGroupParticipants">phone.getGroupParticipants</a>.
-    ///</summary>
+    /// </summary>
     bool Versioned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If not set, the <code>volume</code> and <code>muted_by_you</code> fields can be safely used to overwrite locally cached information; otherwise, <code>volume</code> will contain valid information only if <code>volume_by_admin</code> is set both in the cache and in the received constructor.
-    ///</summary>
+    /// </summary>
     bool Min { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this participant was muted by the current user
-    ///</summary>
+    /// </summary>
     bool MutedByYou { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether our volume can only changed by an admin
-    ///</summary>
+    /// </summary>
     bool VolumeByAdmin { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this participant is the current user
-    ///</summary>
+    /// </summary>
     bool Self { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this participant is currently broadcasting video
-    ///</summary>
+    /// </summary>
     bool VideoJoined { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer information
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did this participant join the group call
-    ///</summary>
+    /// </summary>
     int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was this participant last active in the group call
-    ///</summary>
+    /// </summary>
     int? ActiveDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Source ID
-    ///</summary>
+    /// </summary>
     int Source { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Volume, if not set the volume is set to 100%.
-    ///</summary>
+    /// </summary>
     int? Volume { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about this participant
-    ///</summary>
+    /// </summary>
     string? About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the UI visualization order of peers with raised hands: peers with a higher rating should be showed first in the list.
-    ///</summary>
+    /// </summary>
     long? RaiseHandRating { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the video stream the participant is currently broadcasting
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipantVideo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IGroupCallParticipantVideo? Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the screen sharing stream the participant is currently broadcasting
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipantVideo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IGroupCallParticipantVideo? Presentation { get; set; }
 }

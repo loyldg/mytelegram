@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stories">Story</a> view date and reaction information
-/// See <a href="https://corefork.telegram.org/constructor/storyView" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyView" /></para>
+/// </summary>
 [TlObject(0xb0bdeac5)]
-public sealed class TStoryView : IStoryView
+public sealed partial class TStoryView : IStoryView
 {
     public uint ConstructorId => 0xb0bdeac5;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/block">completely blocked</a> this user, including from viewing more of our stories.
-    ///</summary>
+    /// </summary>
     public bool Blocked { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether we have <a href="https://corefork.telegram.org/api/block">blocked</a> this user from viewing more of our stories.
-    ///</summary>
+    /// </summary>
     public bool BlockedMyStoriesFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user that viewed the story
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did the user view the story
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If present, contains the reaction that the user left on the story
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction? Reaction { get; set; }
 
     public void ComputeFlag()

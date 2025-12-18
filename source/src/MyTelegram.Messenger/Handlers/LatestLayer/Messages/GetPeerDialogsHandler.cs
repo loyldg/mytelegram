@@ -1,29 +1,24 @@
-﻿using MyTelegram.Schema.Updates;
+using MyTelegram.Schema.Updates;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+/// <summary>
 /// Get dialog info of specified peers
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
+/// 400 FROZEN_PARTICIPANT_MISSING The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and cannot access the specified peer.
+/// 400 INPUT_PEERS_EMPTY The specified peer array is empty.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getPeerDialogs" />
-///</summary>
-internal sealed class GetPeerDialogsHandler(
-    IDialogAppService dialogAppService,
-    IPeerHelper peerHelper,
-    IPtsHelper ptsHelper,
-    IAccessHashHelper accessHashHelper,
-    IQueryProcessor queryProcessor,
-    IUserConverterService userConverterService,
-    IDialogConverterService dialogConverterService)
-    : RpcResultObjectHandler<RequestGetPeerDialogs, IPeerDialogs>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getPeerDialogs"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class GetPeerDialogsHandler(IDialogAppService dialogAppService, IPeerHelper peerHelper, IPtsHelper ptsHelper, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor, IUserConverterService userConverterService, IDialogConverterService dialogConverterService) : RpcResultObjectHandler<RequestGetPeerDialogs, IPeerDialogs>
 {
-    protected override async Task<IPeerDialogs> HandleCoreAsync(IRequestInput input,
-        RequestGetPeerDialogs obj)
+    protected override async Task<IPeerDialogs> HandleCoreAsync(IRequestInput input, RequestGetPeerDialogs obj)
     {
         var userId = input.UserId;
         var peerList = new List<Peer>();
@@ -34,57 +29,51 @@ internal sealed class GetPeerDialogsHandler(
                 case TInputDialogPeer dialogPeer when dialogPeer.Peer is TInputPeerSelf || dialogPeer.Peer is TInputPeerEmpty:
                     continue;
                 case TInputDialogPeer dialogPeer:
+                {
+                    var peer = peerHelper.GetPeer(dialogPeer.Peer, userId);
+                    if (peerHelper.IsEncryptedDialogPeer(peer.PeerId))
                     {
-                        var peer = peerHelper.GetPeer(dialogPeer.Peer, userId);
-                        if (peerHelper.IsEncryptedDialogPeer(peer.PeerId))
-                        {
-                            continue;
-                        }
-
-                        var shouldCheckAccessHash = true;
-                        switch (dialogPeer.Peer)
-                        {
-                            case TInputPeerUser inputPeerUser:
-                                if (inputPeerUser.UserId != input.UserId)
-                                {
-                                    shouldCheckAccessHash = false;
-                                }
-                                break;
-                        }
-
-                        if (shouldCheckAccessHash)
-                        {
-                            await accessHashHelper.CheckAccessHashAsync(input, dialogPeer.Peer);
-                        }
-
-                        peerList.Add(peer);
-                        break;
+                        continue;
                     }
+
+                    var shouldCheckAccessHash = true;
+                    switch (dialogPeer.Peer)
+                    {
+                        case TInputPeerUser inputPeerUser:
+                            if (inputPeerUser.UserId != input.UserId)
+                            {
+                                shouldCheckAccessHash = false;
+                            }
+
+                            break;
+                    }
+
+                    if (shouldCheckAccessHash)
+                    {
+                        await accessHashHelper.CheckAccessHashAsync(input, dialogPeer.Peer);
+                    }
+
+                    peerList.Add(peer);
+                    break;
+                }
+
                 case TInputDialogPeerFolder inputDialogPeerFolder:
-                    {
-                        var peers = await queryProcessor.ProcessAsync(
-                            new GetDialogsByFolderIdQuery(userId, inputDialogPeerFolder.FolderId));
-                        peerList.AddRange(peers);
-                    }
+                {
+                    var peers = await queryProcessor.ProcessAsync(new GetDialogsByFolderIdQuery(userId, inputDialogPeerFolder.FolderId));
+                    peerList.AddRange(peers);
+                }
+
                     break;
             }
         }
 
         var limit = peerList.Count == 0 ? 10 : peerList.Count;
-        var output = await dialogAppService
-            .GetDialogsAsync(new GetDialogInput
-            {
-                OwnerId = userId,
-                Limit = limit,
-                PeerIdList = peerList.Select(p => p.PeerId).ToList()
-            });
+        var output = await dialogAppService.GetDialogsAsync(new GetDialogInput { OwnerId = userId, Limit = limit, PeerIdList = peerList.Select(p => p.PeerId).ToList() });
         var pts = await queryProcessor.ProcessAsync(new GetPtsByPeerIdQuery(input.UserId));
         var cachedPts = ptsHelper.GetCachedPts(input.UserId);
-
         output.PtsReadModel = pts;
         output.CachedPts = cachedPts;
         var peerDialogs = dialogConverterService.ToPeerDialogs(input, output, input.Layer);
-
         foreach (var dialog in peerDialogs.Dialogs)
         {
             switch (dialog)
@@ -103,9 +92,8 @@ internal sealed class GetPeerDialogsHandler(
         {
             var userIds = peerList.Where(p => p.PeerType == PeerType.User).Select(p => p.PeerId).Distinct().ToList();
             var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
-
             var channels = output.ChannelList.ToDictionary(k => k.ChannelId, v => v);
-            peerDialogs.Dialogs = [.. peerList.Select(p =>
+            peerDialogs.Dialogs = [..peerList.Select(p =>
             {
                 var d = new TDialog
                 {
@@ -123,7 +111,6 @@ internal sealed class GetPeerDialogsHandler(
 
                 return d;
             })];
-
             if (peerDialogs.Users == null)
             {
                 peerDialogs.Users = [];
@@ -143,7 +130,6 @@ internal sealed class GetPeerDialogsHandler(
             UnreadCount = ptsCacheItem.UnreadCount,
             Date = ptsCacheItem.Date
         };
-
         return peerDialogs;
     }
 }

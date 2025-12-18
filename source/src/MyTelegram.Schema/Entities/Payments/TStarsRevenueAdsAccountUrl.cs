@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Contains a URL leading to a page where the user will be able to place ads for the channel/bot, paying using <a href="https://corefork.telegram.org/api/stars#paying-for-ads">Telegram Stars</a>.
-/// See <a href="https://corefork.telegram.org/constructor/payments.starsRevenueAdsAccountUrl" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starsRevenueAdsAccountUrl" /></para>
+/// </summary>
 [TlObject(0x394e7f21)]
-public sealed class TStarsRevenueAdsAccountUrl : IStarsRevenueAdsAccountUrl
+public sealed partial class TStarsRevenueAdsAccountUrl : IStarsRevenueAdsAccountUrl
 {
     public uint ConstructorId => 0x394e7f21;
-    ///<summary>
+    /// <summary>
     /// URL to open.
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
     public void ComputeFlag()

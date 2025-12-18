@@ -2,36 +2,67 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/emojiStatusCollectible" />
-///</summary>
+/// <summary>
+/// An <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">owned collectible gift »</a> as emoji status.<strong>Cannot</strong> be passed to <a href="https://corefork.telegram.org/method/account.updateEmojiStatus">account.updateEmojiStatus</a>, must be converted to an <a href="https://corefork.telegram.org/constructor/inputEmojiStatusCollectible">inputEmojiStatusCollectible</a> first before passing it to that method.
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiStatusCollectible" /></para>
+/// </summary>
 [TlObject(0x7184603b)]
-public sealed class TEmojiStatusCollectible : IEmojiStatus
+public sealed partial class TEmojiStatusCollectible : IEmojiStatus
 {
     public uint ConstructorId => 0x7184603b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// ID of the collectible (from <a href="https://corefork.telegram.org/constructor/starGiftUnique">starGiftUnique</a>.<code>id</code>).
+    /// </summary>
     public long CollectibleId { get; set; }
 
+    /// <summary>
+    /// ID of the <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji</a> representing the status.
+    /// </summary>
     public long DocumentId { get; set; }
 
+    /// <summary>
+    /// Name of the collectible.
+    /// </summary>
     public string Title { get; set; }
 
+    /// <summary>
+    /// Unique identifier of the collectible that may be used to create a <a href="https://corefork.telegram.org/api/links#collectible-gift-link">collectible gift link »</a> for the current collectible, or to fetch further info about the collectible using <a href="https://corefork.telegram.org/method/payments.getUniqueStarGift">payments.getUniqueStarGift</a>.
+    /// </summary>
     public string Slug { get; set; }
 
+    /// <summary>
+    /// The ID of a pattern to apply on the profile's backdrop, correlated to the <a href="https://corefork.telegram.org/constructor/starGiftAttributePattern">starGiftAttributePattern</a> from the gift in <code>slug</code>.
+    /// </summary>
     public long PatternDocumentId { get; set; }
 
+    /// <summary>
+    /// Color of the center of the profile backdrop in RGB24 format, from the gift's <a href="https://corefork.telegram.org/constructor/starGiftAttributeBackdrop">starGiftAttributeBackdrop</a>.
+    /// </summary>
     public int CenterColor { get; set; }
 
+    /// <summary>
+    /// Color of the edges of the profile backdrop in RGB24 format, from the gift's <a href="https://corefork.telegram.org/constructor/starGiftAttributeBackdrop">starGiftAttributeBackdrop</a>.
+    /// </summary>
     public int EdgeColor { get; set; }
 
+    /// <summary>
+    /// Color of the <code>pattern_document_id</code> applied on the profile backdrop in RGB24 format, from the gift's <a href="https://corefork.telegram.org/constructor/starGiftAttributeBackdrop">starGiftAttributeBackdrop</a>.
+    /// </summary>
     public int PatternColor { get; set; }
 
+    /// <summary>
+    /// Color of text on the profile backdrop in RGB24 format, from the gift's <a href="https://corefork.telegram.org/constructor/starGiftAttributeBackdrop">starGiftAttributeBackdrop</a>.
+    /// </summary>
     public int TextColor { get; set; }
 
+    /// <summary>
+    /// If set, the emoji status will be active until the specified unixtime.
+    /// </summary>
     public int? Until { get; set; }
 
     public void ComputeFlag()

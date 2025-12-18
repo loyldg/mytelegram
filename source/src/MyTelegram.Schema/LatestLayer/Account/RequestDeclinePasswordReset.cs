@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Abort a pending 2FA password reset, <a href="https://corefork.telegram.org/api/srp#password-reset">see here for more info »</a>
-/// See <a href="https://corefork.telegram.org/method/account.declinePasswordReset" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.declinePasswordReset" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4c9409f6)]
-public sealed class RequestDeclinePasswordReset : IRequest<IBool>
+public sealed partial class RequestDeclinePasswordReset : IRequest<IBool>
 {
     public uint ConstructorId => 0x4c9409f6;
 

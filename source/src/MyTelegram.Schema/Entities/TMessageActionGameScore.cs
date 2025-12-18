@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Someone scored in a game
-/// See <a href="https://corefork.telegram.org/constructor/messageActionGameScore" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGameScore" /></para>
+/// </summary>
 [TlObject(0x92a72876)]
-public sealed class TMessageActionGameScore : IMessageAction
+public sealed partial class TMessageActionGameScore : IMessageAction
 {
     public uint ConstructorId => 0x92a72876;
-    ///<summary>
+    /// <summary>
     /// Game ID
-    ///</summary>
+    /// </summary>
     public long GameId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Score
-    ///</summary>
+    /// </summary>
     public int Score { get; set; }
 
     public void ComputeFlag()

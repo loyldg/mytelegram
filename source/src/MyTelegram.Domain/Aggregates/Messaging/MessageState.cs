@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using ReplyChannelMessageCompletedEvent = MyTelegram.Domain.Events.Messaging.ReplyChannelMessageCompletedEvent;
 
 namespace MyTelegram.Domain.Aggregates.Messaging;
 
@@ -7,19 +6,19 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
     IApply<OutboxMessageCreatedEvent>,
     IApply<InboxMessageCreatedEvent>,
     IApply<InboxMessageIdAddedToOutboxMessageEvent>,
-    IApply<MessageDeletedEvent>,
-    IApply<OutboxMessageEditedEvent>,
-    IApply<InboxMessageEditedEvent>,
+    //IApply<MessageDeletedEvent>,
+    //IApply<OutboxMessageEditedEvent>,
+    //IApply<InboxMessageEditedEvent>,
     IApply<MessageForwardedEvent>,
     IApply<InboxMessageHasReadEvent>,
-    IApply<ReplyToMessageEvent>,
+    //IApply<ReplyToMessageEvent>,
     IApply<MessageViewsIncrementedEvent>,
-    IApply<UpdatePinnedMessageStartedEvent>,
+    //IApply<UpdatePinnedMessageStartedEvent>,
     IApply<InboxMessagePinnedUpdatedEvent>,
     IApply<OutboxMessagePinnedUpdatedEvent>,
     IApply<OtherPartyMessageDeletedEvent>,
-    IApply<SelfMessageDeletedEvent>,
-    IApply<OutboxMessageDeletedEvent>,
+    //IApply<SelfMessageDeletedEvent>,
+    //IApply<OutboxMessageDeletedEvent>,
     IApply<InboxMessageDeletedEvent>,
     IApply<InboxItemsAddedToOutboxMessageEvent>,
     IApply<MessageDeleted4Event>,
@@ -77,11 +76,11 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
         IsDeleted = true;
     }
 
-    public void Apply(InboxMessageEditedEvent aggregateEvent)
-    {
-        EditDate = aggregateEvent.EditDate;
-        Edited = true;
-    }
+    //public void Apply(InboxMessageEditedEvent aggregateEvent)
+    //{
+    //    EditDate = aggregateEvent.EditDate;
+    //    Edited = true;
+    //}
 
     public void Apply(InboxMessageHasReadEvent aggregateEvent)
     {
@@ -102,10 +101,10 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
         IsDeleted = true;
     }
 
-    public void Apply(MessageDeletedEvent aggregateEvent)
-    {
-        IsDeleted = true;
-    }
+    //public void Apply(MessageDeletedEvent aggregateEvent)
+    //{
+    //    IsDeleted = true;
+    //}
 
     public void Apply(MessageForwardedEvent aggregateEvent)
     {
@@ -145,16 +144,11 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
         SenderMessageId = aggregateEvent.OutboxMessageItem.MessageId;
     }
 
-    public void Apply(OutboxMessageDeletedEvent aggregateEvent)
-    {
-        IsDeleted = true;
-    }
-
-    public void Apply(OutboxMessageEditedEvent aggregateEvent)
-    {
-        EditDate = aggregateEvent.EditDate;
-        Edited = true;
-    }
+    //public void Apply(OutboxMessageEditedEvent aggregateEvent)
+    //{
+    //    EditDate = aggregateEvent.EditDate;
+    //    Edited = true;
+    //}
 
     public void Apply(OutboxMessagePinnedUpdatedEvent aggregateEvent)
     {
@@ -166,20 +160,20 @@ public class MessageState : AggregateState<MessageAggregate, MessageId, MessageS
         MessageItem = MessageItem with { Reply = aggregateEvent.Reply };
     }
 
-    public void Apply(ReplyToMessageEvent aggregateEvent)
-    {
-    }
+    //public void Apply(ReplyToMessageEvent aggregateEvent)
+    //{
+    //}
 
-    public void Apply(SelfMessageDeletedEvent aggregateEvent)
-    {
-        IsDeleted = true;
-    }
+    //public void Apply(SelfMessageDeletedEvent aggregateEvent)
+    //{
+    //    IsDeleted = true;
+    //}
 
-    public void Apply(UpdatePinnedMessageStartedEvent aggregateEvent)
-    {
-        Pinned = aggregateEvent.Pinned;
-        PmOneSide = aggregateEvent.PmOneSide;
-    }
+    //public void Apply(UpdatePinnedMessageStartedEvent aggregateEvent)
+    //{
+    //    Pinned = aggregateEvent.Pinned;
+    //    PmOneSide = aggregateEvent.PmOneSide;
+    //}
 
     public void LoadSnapshot(MessageSnapshot snapshot)
     {

@@ -2,85 +2,85 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a forwarded message
-/// See <a href="https://corefork.telegram.org/constructor/messageFwdHeader" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageFwdHeader" /></para>
+/// </summary>
 [TlObject(0x4e4df4bb)]
-public sealed class TMessageFwdHeader : IMessageFwdHeader
+public sealed partial class TMessageFwdHeader : IMessageFwdHeader
 {
     public uint ConstructorId => 0x4e4df4bb;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this message was <a href="https://corefork.telegram.org/api/import">imported from a foreign chat service, click here for more info »</a>
-    ///</summary>
+    /// </summary>
     public bool Imported { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for messages forwarded to <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>, set if the original message was outgoing (though the message may have been originally outgoing even if this flag is not set, if <code>from_id</code> points to the current user).
-    ///</summary>
+    /// </summary>
     public bool SavedOut { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The ID of the user that originally sent the message
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The name of the user that originally sent the message
-    ///</summary>
+    /// </summary>
     public string? FromName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the message originally sent
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the channel message that was forwarded
-    ///</summary>
+    /// </summary>
     public int? ChannelPost { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For channels and if signatures are enabled, author of the channel message
-    ///</summary>
+    /// </summary>
     public string? PostAuthor { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for messages forwarded to <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>, contains the dialog where the message was originally sent.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SavedFromPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for messages forwarded to <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>, contains the original ID of the message in <code>saved_from_peer</code>.
-    ///</summary>
+    /// </summary>
     public int? SavedFromMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for forwarded messages reforwarded to <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>, contains the sender of the original message (i.e. if user A sends a message, then user B forwards it somewhere, then user C saves it to saved messages, this field will contain the ID of user B and <code>from_id</code> will contain the ID of user A).
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? SavedFromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for forwarded messages from users with forward privacy enabled, sent by users with forward privacy enabled, reforwarded to <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>, contains the sender of the original message (i.e. if user A (fwd privacy enabled) sends a message, then user B (fwd privacy enabled) forwards it somewhere, then user C saves it to saved messages, this field will contain the name of user B and <code>from_name</code> will contain the name of user A).
-    ///</summary>
+    /// </summary>
     public string? SavedFromName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for forwarded messages reforwarded to <a href="https://corefork.telegram.org/api/saved-messages">saved messages »</a>, indicates when was the original message sent (i.e. if user A sends a message @ unixtime 1, then user B forwards it somewhere @ unixtime 2, then user C saves it to saved messages @ unixtime 3, this field will contain 2, <code>date</code> will contain 1 and the <code>date</code> of the containing <a href="https://corefork.telegram.org/constructor/message">message</a> will contain 3).
-    ///</summary>
+    /// </summary>
     public int? SavedDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// PSA type
-    ///</summary>
+    /// </summary>
     public string? PsaType { get; set; }
 
     public void ComputeFlag()
@@ -91,14 +91,8 @@ public sealed class TMessageFwdHeader : IMessageFwdHeader
         if (FromName != null) { Flags = Flags.SetBit(5); }
         if (/*ChannelPost != 0 && */ChannelPost.HasValue) { Flags = Flags.SetBit(2); }
         if (PostAuthor != null) { Flags = Flags.SetBit(3); }
-        //if (SavedFromPeer != null) { Flags = Flags.SetBit(4); }
-        //if (/*SavedFromMsgId != 0 && */SavedFromMsgId.HasValue) { Flags = Flags.SetBit(4); }
-
-        if (SavedFromPeer != null && SavedFromMsgId != null)
-        {
-            Flags = Flags.SetBit(4);
-        }
-
+        if (SavedFromPeer != null) { Flags = Flags.SetBit(4); }
+        if (/*SavedFromMsgId != 0 && */SavedFromMsgId.HasValue) { Flags = Flags.SetBit(4); }
         if (SavedFromId != null) { Flags = Flags.SetBit(8); }
         if (SavedFromName != null) { Flags = Flags.SetBit(9); }
         if (/*SavedDate != 0 && */SavedDate.HasValue) { Flags = Flags.SetBit(10); }
@@ -115,15 +109,8 @@ public sealed class TMessageFwdHeader : IMessageFwdHeader
         writer.Write(Date);
         if (Flags.IsBitSet(2)) { writer.Write(ChannelPost.Value); }
         if (Flags.IsBitSet(3)) { writer.Write(PostAuthor); }
-        //if (Flags.IsBitSet(4)) { writer.Write(SavedFromPeer); }
-        //if (Flags.IsBitSet(4)) { writer.Write(SavedFromMsgId.Value); }
-
-        if (Flags.IsBitSet(4) && SavedFromMsgId != null && SavedFromPeer != null)
-        {
-            writer.Write(SavedFromPeer);
-            writer.Write(SavedFromMsgId.Value);
-        }
-
+        if (Flags.IsBitSet(4) && SavedFromPeer != null) { writer.Write(SavedFromPeer); }
+        if (Flags.IsBitSet(4) && SavedFromPeer != null) { writer.Write(SavedFromMsgId.Value); }
         if (Flags.IsBitSet(8)) { writer.Write(SavedFromId); }
         if (Flags.IsBitSet(9)) { writer.Write(SavedFromName); }
         if (Flags.IsBitSet(10)) { writer.Write(SavedDate.Value); }

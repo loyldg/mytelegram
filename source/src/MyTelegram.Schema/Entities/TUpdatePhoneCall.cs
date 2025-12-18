@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An incoming phone call
-/// See <a href="https://corefork.telegram.org/constructor/updatePhoneCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updatePhoneCall" /></para>
+/// </summary>
 [TlObject(0xab0f6b1e)]
-public sealed class TUpdatePhoneCall : IUpdate
+public sealed partial class TUpdatePhoneCall : IUpdate
 {
     public uint ConstructorId => 0xab0f6b1e;
-    ///<summary>
+    /// <summary>
     /// Phone call
     /// See <a href="https://corefork.telegram.org/type/PhoneCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoneCall PhoneCall { get; set; }
 
     public void ComputeFlag()

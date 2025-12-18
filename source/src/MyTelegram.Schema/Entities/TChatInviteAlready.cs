@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The user has already joined this chat
-/// See <a href="https://corefork.telegram.org/constructor/chatInviteAlready" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatInviteAlready" /></para>
+/// </summary>
 [TlObject(0x5a686d7c)]
-public sealed class TChatInviteAlready : IChatInvite
+public sealed partial class TChatInviteAlready : IChatInvite
 {
     public uint ConstructorId => 0x5a686d7c;
-    ///<summary>
+    /// <summary>
     /// The chat connected to the invite
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChat Chat { get; set; }
 
     public void ComputeFlag()

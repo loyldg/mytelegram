@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Reply to a story.
-/// See <a href="https://corefork.telegram.org/constructor/inputReplyToStory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputReplyToStory" /></para>
+/// </summary>
 [TlObject(0x5881323a)]
-public sealed class TInputReplyToStory : IInputReplyTo
+public sealed partial class TInputReplyToStory : IInputReplyTo
 {
     public uint ConstructorId => 0x5881323a;
-    ///<summary>
+    /// <summary>
     /// Sender of the story
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the story to reply to.
-    ///</summary>
+    /// </summary>
     public int StoryId { get; set; }
 
     public void ComputeFlag()

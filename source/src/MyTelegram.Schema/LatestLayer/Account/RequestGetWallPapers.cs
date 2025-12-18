@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Returns a list of available <a href="https://corefork.telegram.org/api/wallpapers">wallpapers</a>.
-/// See <a href="https://corefork.telegram.org/method/account.getWallPapers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getWallPapers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7967d36)]
-public sealed class RequestGetWallPapers : IRequest<MyTelegram.Schema.Account.IWallPapers>
+public sealed partial class RequestGetWallPapers : IRequest<MyTelegram.Schema.Account.IWallPapers>
 {
     public uint ConstructorId => 0x7967d36;
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

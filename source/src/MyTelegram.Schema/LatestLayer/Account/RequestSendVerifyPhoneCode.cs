@@ -2,27 +2,30 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Send the verification phone code for telegram <a href="https://corefork.telegram.org/passport">passport</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_NUMBER_INVALID The phone number is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.sendVerifyPhoneCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.sendVerifyPhoneCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa5a356f9)]
-public sealed class RequestSendVerifyPhoneCode : IRequest<MyTelegram.Schema.Auth.ISentCode>
+public sealed partial class RequestSendVerifyPhoneCode : IRequest<MyTelegram.Schema.Auth.ISentCode>
 {
     public uint ConstructorId => 0xa5a356f9;
 
-    ///<summary>
+    /// <summary>
     /// The phone number to verify
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone code settings
     /// See <a href="https://corefork.telegram.org/type/CodeSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ICodeSettings Settings { get; set; }
 
     public void ComputeFlag()

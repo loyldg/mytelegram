@@ -2,41 +2,45 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a user in the <a href="https://corefork.telegram.org/api/reactions#paid-reactions">paid Star reactions leaderboard</a> for a message.
-/// See <a href="https://corefork.telegram.org/type/MessageReactor" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/MessageReactor" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageReactor"/> See <a href="https://corefork.telegram.org/constructor/messageReactor" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageReactor), nameof(TMessageReactor))]
 public interface IMessageReactor : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the reactor is one of the most active reactors; may be unset if the reactor is the current user.
-    ///</summary>
+    /// </summary>
     bool Top { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, this reactor is the current user.
-    ///</summary>
+    /// </summary>
     bool My { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the reactor is anonymous.
-    ///</summary>
+    /// </summary>
     bool Anonymous { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Identifier of the peer that reacted: may be unset for anonymous reactors different from the current user (i.e. if the current user sent an anonymous reaction <code>anonymous</code> will be set but this field will also be set).
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer? PeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of sent Telegram Stars.
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 }

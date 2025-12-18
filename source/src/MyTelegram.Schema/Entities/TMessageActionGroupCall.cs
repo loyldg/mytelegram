@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The group call has ended
-/// See <a href="https://corefork.telegram.org/constructor/messageActionGroupCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGroupCall" /></para>
+/// </summary>
 [TlObject(0x7a0d7f42)]
-public sealed class TMessageActionGroupCall : IMessageAction
+public sealed partial class TMessageActionGroupCall : IMessageAction
 {
     public uint ConstructorId => 0x7a0d7f42;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call duration
-    ///</summary>
+    /// </summary>
     public int? Duration { get; set; }
 
     public void ComputeFlag()

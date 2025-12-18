@@ -2,51 +2,51 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Choose a chat or supergroup
-/// See <a href="https://corefork.telegram.org/constructor/requestPeerTypeChat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/requestPeerTypeChat" /></para>
+/// </summary>
 [TlObject(0xc9f06e1b)]
-public sealed class TRequestPeerTypeChat : IRequestPeerType
+public sealed partial class TRequestPeerTypeChat : IRequestPeerType
 {
     public uint ConstructorId => 0xc9f06e1b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow only choosing chats or supergroups that were created by the current user.
-    ///</summary>
+    /// </summary>
     public bool Creator { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow only choosing chats or supergroups where the bot is a participant.
-    ///</summary>
+    /// </summary>
     public bool BotParticipant { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, allows only choosing channels with or without a username, according to the value of <a href="https://corefork.telegram.org/type/Bool">Bool</a>.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? HasUsername { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, allows only choosing chats or supergroups that are or aren't <a href="https://corefork.telegram.org/api/forum">forums</a>, according to the value of <a href="https://corefork.telegram.org/type/Bool">Bool</a>.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? Forum { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, allows only choosing chats or supergroups where the current user is an admin with at least the specified admin rights.
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights? UserAdminRights { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If specified, allows only choosing chats or supergroups where the bot is an admin with at least the specified admin rights.
     /// See <a href="https://corefork.telegram.org/type/ChatAdminRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatAdminRights? BotAdminRights { get; set; }
 
     public void ComputeFlag()

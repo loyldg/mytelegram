@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/wallpapers">Wallpaper</a>
-/// See <a href="https://corefork.telegram.org/type/InputWallPaper" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputWallPaper" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputWallPaper"/> See <a href="https://corefork.telegram.org/constructor/inputWallPaper" /><br/>
+/// <see cref="TInputWallPaperSlug"/> See <a href="https://corefork.telegram.org/constructor/inputWallPaperSlug" /><br/>
+/// <see cref="TInputWallPaperNoFile"/> See <a href="https://corefork.telegram.org/constructor/inputWallPaperNoFile" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputWallPaper), nameof(TInputWallPaper))]
 [JsonDerivedType(typeof(TInputWallPaperSlug), nameof(TInputWallPaperSlug))]
 [JsonDerivedType(typeof(TInputWallPaperNoFile), nameof(TInputWallPaperNoFile))]

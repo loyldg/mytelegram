@@ -2,23 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftUpgrade" />
-///</summary>
+/// <summary>
+/// Used to <a href="https://corefork.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift">pay to upgrade a Gift to a collectible gift</a>, see the <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gifts »</a> documentation for more info on the full flow.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftUpgrade" /></para>
+/// </summary>
 [TlObject(0x4d818d5d)]
-public sealed class TInputInvoiceStarGiftUpgrade : IInputInvoice
+public sealed partial class TInputInvoiceStarGiftUpgrade : IInputInvoice
 {
     public uint ConstructorId => 0x4d818d5d;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Set this flag to keep the original gift text, sender and receiver in the upgraded gift as a <a href="https://corefork.telegram.org/constructor/starGiftAttributeOriginalDetails">starGiftAttributeOriginalDetails</a> attribute.
+    /// </summary>
     public bool KeepOriginalDetails { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The identifier of the received gift to upgrade.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
     public void ComputeFlag()

@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Installed themes
-/// See <a href="https://corefork.telegram.org/type/account.Themes" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.Themes" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TThemesNotModified"/> See <a href="https://corefork.telegram.org/constructor/account.themesNotModified" /><br/>
+/// <see cref="TThemes"/> See <a href="https://corefork.telegram.org/constructor/account.themes" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TThemesNotModified), nameof(TThemesNotModified))]
 [JsonDerivedType(typeof(TThemes), nameof(TThemes))]
 public interface IThemes : IObject

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An invoice contained in a <a href="https://corefork.telegram.org/constructor/messageMediaInvoice">messageMediaInvoice</a> message or <a href="https://corefork.telegram.org/api/paid-media">paid media »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/inputInvoiceMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceMessage" /></para>
+/// </summary>
 [TlObject(0xc5b56859)]
-public sealed class TInputInvoiceMessage : IInputInvoice
+public sealed partial class TInputInvoiceMessage : IInputInvoice
 {
     public uint ConstructorId => 0xc5b56859;
-    ///<summary>
+    /// <summary>
     /// Chat where the invoice/paid media was sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

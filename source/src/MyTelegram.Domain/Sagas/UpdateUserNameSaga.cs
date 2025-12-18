@@ -48,7 +48,7 @@ public class UpdateUserNameSaga(UpdateUserNameSagaId id, IEventStore eventStore)
         {
             case PeerType.User:
                 {
-                    var command = new UpdateUserNameCommand(UserId.Create(domainEvent.AggregateEvent.Peer.PeerId),
+                    var command = new UpdateUserNameCommand2(UserId.Create(domainEvent.AggregateEvent.Peer.PeerId),
                         domainEvent.AggregateEvent.RequestInfo,
                         domainEvent.AggregateEvent.UserName ?? string.Empty
                     );
@@ -60,7 +60,7 @@ public class UpdateUserNameSaga(UpdateUserNameSagaId id, IEventStore eventStore)
                 {
                     var command = new UpdateChannelUserNameCommand(ChannelId.Create(domainEvent.AggregateEvent.Peer.PeerId),
                         domainEvent.AggregateEvent.RequestInfo,
-                        domainEvent.AggregateEvent.Peer.PeerId,
+                        //domainEvent.AggregateEvent.Peer.PeerId,
                         domainEvent.AggregateEvent.UserName ?? string.Empty
                     );
                     Publish(command);

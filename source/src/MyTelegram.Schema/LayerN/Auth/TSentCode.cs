@@ -8,7 +8,7 @@ namespace MyTelegram.Schema.Auth.LayerN;
 /// See <a href="https://corefork.telegram.org/constructor/auth.sentCode" />
 ///</summary>
 [TlObject(0x5e002502)]
-public sealed class TSentCode : ISentCode
+public sealed partial class TSentCode : ISentCode
 {
     public uint ConstructorId => 0x5e002502;
     ///<summary>

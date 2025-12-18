@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Button to request a user's geolocation
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestGeoLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestGeoLocation" /></para>
+/// </summary>
 [TlObject(0xfc796b3f)]
-public sealed class TKeyboardButtonRequestGeoLocation : IKeyboardButton
+public sealed partial class TKeyboardButtonRequestGeoLocation : IKeyboardButton
 {
     public uint ConstructorId => 0xfc796b3f;
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

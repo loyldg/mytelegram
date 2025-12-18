@@ -2,15 +2,22 @@
 
 namespace MyTelegram.Schema.Users;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/users.Users" />
-///</summary>
+/// <summary>
+/// Describes a list of users (or bots).
+/// <para>See <a href="https://corefork.telegram.org/type/users.Users" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUsers"/> See <a href="https://corefork.telegram.org/constructor/users.users" /><br/>
+/// <see cref="TUsersSlice"/> See <a href="https://corefork.telegram.org/constructor/users.usersSlice" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUsers), nameof(TUsers))]
 [JsonDerivedType(typeof(TUsersSlice), nameof(TUsersSlice))]
 public interface IUsers : IObject
 {
-    ///<summary>
+    /// <summary>
+    /// Users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

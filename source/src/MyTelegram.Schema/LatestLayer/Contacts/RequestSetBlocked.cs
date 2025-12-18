@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Replace the contents of an entire <a href="https://corefork.telegram.org/api/block">blocklist, see here for more info »</a>.
-/// See <a href="https://corefork.telegram.org/method/contacts.setBlocked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.setBlocked" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x94c65c76)]
-public sealed class RequestSetBlocked : IRequest<IBool>
+public sealed partial class RequestSetBlocked : IRequest<IBool>
 {
     public uint ConstructorId => 0x94c65c76;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to edit the story blocklist; if not set, will edit the main blocklist. See <a href="https://corefork.telegram.org/api/block">here »</a> for differences between the two.
-    ///</summary>
+    /// </summary>
     public bool MyStoriesFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Full content of the blocklist.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

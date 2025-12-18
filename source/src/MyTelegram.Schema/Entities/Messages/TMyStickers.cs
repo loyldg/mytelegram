@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The list of <a href="https://corefork.telegram.org/api/stickers">stickersets owned by the current account »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/messages.myStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.myStickers" /></para>
+/// </summary>
 [TlObject(0xfaff629d)]
-public sealed class TMyStickers : IMyStickers
+public sealed partial class TMyStickers : IMyStickers
 {
     public uint ConstructorId => 0xfaff629d;
-    ///<summary>
+    /// <summary>
     /// Total number of owned stickersets.
-    ///</summary>
+    /// </summary>
     public int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickersets
     /// See <a href="https://corefork.telegram.org/type/StickerSetCovered" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerSetCovered> Sets { get; set; }
 
     public void ComputeFlag()

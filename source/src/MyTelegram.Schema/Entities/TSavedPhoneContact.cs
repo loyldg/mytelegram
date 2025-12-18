@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Saved contact
-/// See <a href="https://corefork.telegram.org/constructor/savedPhoneContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/savedPhoneContact" /></para>
+/// </summary>
 [TlObject(0x1142bd56)]
-public sealed class TSavedPhoneContact : ISavedContact
+public sealed partial class TSavedPhoneContact : ISavedContact
 {
     public uint ConstructorId => 0x1142bd56;
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string Phone { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// First name
-    ///</summary>
+    /// </summary>
     public string FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Last name
-    ///</summary>
+    /// </summary>
     public string LastName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date added
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

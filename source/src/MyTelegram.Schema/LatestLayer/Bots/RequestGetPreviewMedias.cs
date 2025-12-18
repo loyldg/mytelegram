@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Fetch <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-app-previews">main mini app previews, see here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/bots.getPreviewMedias" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.getPreviewMedias" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa2a5594d)]
-public sealed class RequestGetPreviewMedias : IRequest<TVector<MyTelegram.Schema.IBotPreviewMedia>>
+public sealed partial class RequestGetPreviewMedias : IRequest<TVector<MyTelegram.Schema.IBotPreviewMedia>>
 {
     public uint ConstructorId => 0xa2a5594d;
 
-    ///<summary>
+    /// <summary>
     /// The bot that owns the Main Mini App.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
     public void ComputeFlag()

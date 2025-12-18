@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Return only phone calls
-/// See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPhoneCalls" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPhoneCalls" /></para>
+/// </summary>
 [TlObject(0x80c99768)]
-public sealed class TInputMessagesFilterPhoneCalls : IMessagesFilter
+public sealed partial class TInputMessagesFilterPhoneCalls : IMessagesFilter
 {
     public uint ConstructorId => 0x80c99768;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Return only missed phone calls
-    ///</summary>
+    /// </summary>
     public bool Missed { get; set; }
 
     public void ComputeFlag()

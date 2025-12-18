@@ -2,35 +2,38 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Rate <a href="https://corefork.telegram.org/api/transcribe">transcribed voice message</a>
-/// See <a href="https://corefork.telegram.org/method/messages.rateTranscribedAudio" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.rateTranscribedAudio" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7f1d072f)]
-public sealed class RequestRateTranscribedAudio : IRequest<IBool>
+public sealed partial class RequestRateTranscribedAudio : IRequest<IBool>
 {
     public uint ConstructorId => 0x7f1d072f;
 
-    ///<summary>
+    /// <summary>
     /// Peer where the voice message was sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transcription ID
-    ///</summary>
+    /// </summary>
     public long TranscriptionId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the transcription was correct
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Good { get; set; }
 
     public void ComputeFlag()

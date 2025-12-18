@@ -50,9 +50,7 @@ public class ProxyProtocol
                 {
                     var localEndPoint = connection.LocalEndPoint as IPEndPoint;
                     var remoteEndPoint = connection.RemoteEndPoint as IPEndPoint;
-                    logger.LogWarning(
-                        "Parse proxy protocol failed, localEndPoint: {@LocalAddress}:{Port}, remoteEndPoint: {@RemoteAddress}:{RemotePort}",
-                        localEndPoint?.Address, localEndPoint?.Port, remoteEndPoint?.Address, remoteEndPoint?.Port);
+                    logger.ParseProxyProtocolFailed(localEndPoint?.Address, localEndPoint?.Port, remoteEndPoint?.Address, remoteEndPoint?.Port);
                 }
 
                 break;

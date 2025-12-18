@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to fetch info about a <a href="https://corefork.telegram.org/api/stars#balance-and-transaction-history">Telegram Star transaction »</a>.
-/// See <a href="https://corefork.telegram.org/type/InputStarsTransaction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputStarsTransaction" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputStarsTransaction"/> See <a href="https://corefork.telegram.org/constructor/inputStarsTransaction" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputStarsTransaction), nameof(TInputStarsTransaction))]
 public interface IInputStarsTransaction : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, fetches info about the refund transaction for this transaction.
-    ///</summary>
+    /// </summary>
     bool Refund { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Transaction ID.
-    ///</summary>
+    /// </summary>
     string Id { get; set; }
 }

@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Privacy rules
-/// See <a href="https://corefork.telegram.org/type/account.PrivacyRules" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.PrivacyRules" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPrivacyRules"/> See <a href="https://corefork.telegram.org/constructor/account.privacyRules" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPrivacyRules), nameof(TPrivacyRules))]
 public interface IPrivacyRules : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Privacy rules
     /// See <a href="https://corefork.telegram.org/type/PrivacyRule" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPrivacyRule> Rules { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats to which the rules apply
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users to which the rules apply
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

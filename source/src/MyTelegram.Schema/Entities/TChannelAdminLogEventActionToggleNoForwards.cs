@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Forwards were enabled or disabled
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleNoForwards" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleNoForwards" /></para>
+/// </summary>
 [TlObject(0xcb2ac766)]
-public sealed class TChannelAdminLogEventActionToggleNoForwards : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionToggleNoForwards : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xcb2ac766;
-    ///<summary>
+    /// <summary>
     /// Old value
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool NewValue { get; set; }
 
     public void ComputeFlag()

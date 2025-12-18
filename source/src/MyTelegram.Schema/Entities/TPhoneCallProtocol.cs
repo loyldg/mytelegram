@@ -2,42 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Protocol info for libtgvoip
-/// See <a href="https://corefork.telegram.org/constructor/phoneCallProtocol" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phoneCallProtocol" /></para>
+/// </summary>
 [TlObject(0xfc878fc8)]
-public sealed class TPhoneCallProtocol : IPhoneCallProtocol
+public sealed partial class TPhoneCallProtocol : IPhoneCallProtocol
 {
     public uint ConstructorId => 0xfc878fc8;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow P2P connection to the other participant
-    ///</summary>
+    /// </summary>
     public bool UdpP2p { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to allow connection to the other participants through the reflector servers
-    ///</summary>
+    /// </summary>
     public bool UdpReflector { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Minimum layer for remote libtgvoip
-    ///</summary>
+    /// </summary>
     public int MinLayer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum layer for remote libtgvoip
-    ///</summary>
+    /// </summary>
     public int MaxLayer { get; set; }
 
-    ///<summary>
-    /// When using <a href="https://corefork.telegram.org/method/phone.requestCall">phone.requestCall</a> and <a href="https://corefork.telegram.org/method/phone.acceptCall">phone.acceptCall</a>, specify all library versions supported by the client. <br>The server will merge and choose the best library version supported by both peers, returning only the best value in the result of the callee's <a href="https://corefork.telegram.org/method/phone.acceptCall">phone.acceptCall</a> and in the <a href="https://corefork.telegram.org/constructor/phoneCallAccepted">phoneCallAccepted</a> update received by the caller.
-    ///</summary>
+    /// <summary>
+    /// When using <a href="https://corefork.telegram.org/method/phone.requestCall">phone.requestCall</a> and <a href="https://corefork.telegram.org/method/phone.acceptCall">phone.acceptCall</a>, specify all library versions supported by the client. <br/>The server will merge and choose the best library version supported by both peers, returning only the best value in the result of the callee's <a href="https://corefork.telegram.org/method/phone.acceptCall">phone.acceptCall</a> and in the <a href="https://corefork.telegram.org/constructor/phoneCallAccepted">phoneCallAccepted</a> update received by the caller.
+    /// </summary>
     public TVector<string> LibraryVersions { get; set; }
 
     public void ComputeFlag()

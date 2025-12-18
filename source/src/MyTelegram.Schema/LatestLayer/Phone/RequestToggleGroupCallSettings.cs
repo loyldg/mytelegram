@@ -2,45 +2,54 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Change group call settings
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 GROUPCALL_INVALID The specified group call is invalid.
-/// 400 GROUPCALL_NOT_MODIFIED Group call settings weren't modified.
-/// See <a href="https://corefork.telegram.org/method/phone.toggleGroupCallSettings" />
-///</summary>
-[TlObject(0x74bbb43d)]
-public sealed class RequestToggleGroupCallSettings : IRequest<MyTelegram.Schema.IUpdates>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
+/// <para><c>400 GROUPCALL_NOT_MODIFIED Group call settings weren't modified. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.toggleGroupCallSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+[TlObject(0xe9723804)]
+public sealed partial class RequestToggleGroupCallSettings : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x74bbb43d;
+    public uint ConstructorId => 0xe9723804;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Invalidate existing invite links
-    ///</summary>
+    /// </summary>
     public bool ResetInviteHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether all users will that join this group call are muted by default upon joining the group call
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? JoinMuted { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Bool" />
+    /// </summary>
+    public bool? MessagesEnabled { get; set; }
 
     public void ComputeFlag()
     {
         if (ResetInviteHash) { Flags = Flags.SetBit(1); }
         if (JoinMuted != null) { Flags = Flags.SetBit(0); }
+        if (MessagesEnabled != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -50,6 +59,7 @@ public sealed class RequestToggleGroupCallSettings : IRequest<MyTelegram.Schema.
         writer.Write(Flags);
         writer.Write(Call);
         if (Flags.IsBitSet(0)) { writer.Write(JoinMuted.Value); }
+        if (Flags.IsBitSet(2)) { writer.Write(MessagesEnabled.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -58,5 +68,6 @@ public sealed class RequestToggleGroupCallSettings : IRequest<MyTelegram.Schema.
         if (Flags.IsBitSet(1)) { ResetInviteHash = true; }
         Call = buffer.Read<MyTelegram.Schema.IInputGroupCall>();
         if (Flags.IsBitSet(0)) { JoinMuted = buffer.Read(); }
+        if (Flags.IsBitSet(2)) { MessagesEnabled = buffer.Read(); }
     }
 }

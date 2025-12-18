@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info on members is unavailable
-/// See <a href="https://corefork.telegram.org/constructor/chatParticipantsForbidden" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatParticipantsForbidden" /></para>
+/// </summary>
 [TlObject(0x8763d3e1)]
-public sealed class TChatParticipantsForbidden : IChatParticipants
+public sealed partial class TChatParticipantsForbidden : IChatParticipants
 {
     public uint ConstructorId => 0x8763d3e1;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group ID
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about the group membership of the current user
     /// See <a href="https://corefork.telegram.org/type/ChatParticipant" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatParticipant? SelfParticipant { get; set; }
 
     public void ComputeFlag()

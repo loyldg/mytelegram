@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A screenshot of the chat was taken
-/// See <a href="https://corefork.telegram.org/constructor/messageActionScreenshotTaken" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionScreenshotTaken" /></para>
+/// </summary>
 [TlObject(0x4792929b)]
-public sealed class TMessageActionScreenshotTaken : IMessageAction
+public sealed partial class TMessageActionScreenshotTaken : IMessageAction
 {
     public uint ConstructorId => 0x4792929b;
     public void ComputeFlag()

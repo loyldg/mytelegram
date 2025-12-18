@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Name, ISO code, localized name and phone codes/patterns of a specific country
-/// See <a href="https://corefork.telegram.org/constructor/help.country" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.country" /></para>
+/// </summary>
 [TlObject(0xc3878e23)]
-public sealed class TCountry : ICountry
+public sealed partial class TCountry : ICountry
 {
     public uint ConstructorId => 0xc3878e23;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this country should not be shown in the list
-    ///</summary>
+    /// </summary>
     public bool Hidden { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ISO code of country
-    ///</summary>
+    /// </summary>
     public string Iso2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the country in the country's language
-    ///</summary>
+    /// </summary>
     public string DefaultName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Name of the country in the user's language, if different from the original name
-    ///</summary>
+    /// </summary>
     public string? Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Phone codes/patterns
     /// See <a href="https://corefork.telegram.org/type/help.CountryCode" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.Help.ICountryCode> CountryCodes { get; set; }
 
     public void ComputeFlag()

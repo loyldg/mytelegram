@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Allow the specified bot to send us messages
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// See <a href="https://corefork.telegram.org/method/bots.allowSendMessage" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.allowSendMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xf132e3ef)]
-public sealed class RequestAllowSendMessage : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestAllowSendMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf132e3ef;
 
-    ///<summary>
+    /// <summary>
     /// The bot
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
     public void ComputeFlag()

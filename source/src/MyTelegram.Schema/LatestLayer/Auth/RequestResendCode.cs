@@ -2,40 +2,43 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Resend the login code via another medium, the phone code type is determined by the return value of the previous auth.sendCode/auth.resendCode: see <a href="https://corefork.telegram.org/api/auth">login</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PHONE_CODE_EMPTY phone_code is missing.
-/// 400 PHONE_CODE_EXPIRED The phone code you provided has expired.
-/// 400 PHONE_CODE_HASH_EMPTY phone_code_hash is missing.
-/// 406 PHONE_NUMBER_INVALID The phone number is invalid.
-/// 406 SEND_CODE_UNAVAILABLE Returned when all available options for this type of number were already used (e.g. flash-call, then SMS, then this error might be returned to trigger a second resend).
-/// See <a href="https://corefork.telegram.org/method/auth.resendCode" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_CODE_EMPTY phone_code is missing.</c></para>
+/// <para><c>400 PHONE_CODE_EXPIRED The phone code you provided has expired.</c></para>
+/// <para><c>400 PHONE_CODE_HASH_EMPTY phone_code_hash is missing.</c></para>
+/// <para><c>406 PHONE_NUMBER_INVALID The phone number is invalid.</c></para>
+/// <para><c>406 SEND_CODE_UNAVAILABLE Returned when all available options for this type of number were already used (e.g. flash-call, then SMS, then this error might be returned to trigger a second resend). </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.resendCode" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xcae47523)]
-public sealed class RequestResendCode : IRequest<MyTelegram.Schema.Auth.ISentCode>
+public sealed partial class RequestResendCode : IRequest<MyTelegram.Schema.Auth.ISentCode>
 {
     public uint ConstructorId => 0xcae47523;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The phone code hash obtained from <a href="https://corefork.telegram.org/method/auth.sendCode">auth.sendCode</a>
-    ///</summary>
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Official clients only, used if the device integrity verification failed, and no secret could be obtained to invoke <a href="https://corefork.telegram.org/method/auth.requestFirebaseSms">auth.requestFirebaseSms</a>: in this case, the device integrity verification failure reason must be passed here.
-    ///</summary>
+    /// </summary>
     public string? Reason { get; set; }
 
     public void ComputeFlag()

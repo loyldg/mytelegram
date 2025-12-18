@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Filter for getting only certain types of channel messages
-/// See <a href="https://corefork.telegram.org/constructor/channelMessagesFilter" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelMessagesFilter" /></para>
+/// </summary>
 [TlObject(0xcd77d957)]
-public sealed class TChannelMessagesFilter : IChannelMessagesFilter
+public sealed partial class TChannelMessagesFilter : IChannelMessagesFilter
 {
     public uint ConstructorId => 0xcd77d957;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to exclude new messages from the search
-    ///</summary>
+    /// </summary>
     public bool ExcludeNewMessages { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// A range of messages to fetch
     /// See <a href="https://corefork.telegram.org/type/MessageRange" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageRange> Ranges { get; set; }
 
     public void ComputeFlag()

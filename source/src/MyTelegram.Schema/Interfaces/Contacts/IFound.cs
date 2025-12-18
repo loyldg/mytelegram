@@ -2,34 +2,38 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Object contains info on users found by name substring and auxiliary data.
-/// See <a href="https://corefork.telegram.org/type/contacts.Found" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/contacts.Found" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TFound"/> See <a href="https://corefork.telegram.org/constructor/contacts.found" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TFound), nameof(TFound))]
 public interface IFound : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Personalized results
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPeer> MyResults { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of found user identifiers
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IPeer> Results { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Found chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

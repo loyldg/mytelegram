@@ -2,72 +2,73 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about bots (available bot commands, etc)
-/// See <a href="https://corefork.telegram.org/constructor/botInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botInfo" /></para>
+/// </summary>
 [TlObject(0x4d8a0299)]
-public sealed class TBotInfo : IBotInfo
+public sealed partial class TBotInfo : IBotInfo
 {
     public uint ConstructorId => 0x4d8a0299;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the bot has some <a href="https://corefork.telegram.org/api/bots/webapps#main-mini-app-previews">preview medias for the configured Main Mini App, see here »</a> for more info on Main Mini App preview medias.
-    ///</summary>
+    /// </summary>
     public bool HasPreviewMedias { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the bot
-    ///</summary>
+    /// </summary>
     public long? UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description of the bot
-    ///</summary>
+    /// </summary>
     public string? Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description photo
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? DescriptionPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description animation in MPEG4 format
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDocument? DescriptionDocument { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot commands that can be used in the chat
     /// See <a href="https://corefork.telegram.org/type/BotCommand" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBotCommand>? Commands { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Indicates the action to execute when pressing the in-UI menu button for bots
     /// See <a href="https://corefork.telegram.org/type/BotMenuButton" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotMenuButton? MenuButton { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The HTTP link to the privacy policy of the bot. If not set, then the <code>/privacy</code> command must be used, if supported by the bot (i.e. if it's present in the <code>commands</code> vector). If it isn't supported, then <a href="https://telegram.org/privacy-tpa">https://telegram.org/privacy-tpa</a> must be opened, instead.
-    ///</summary>
+    /// </summary>
     public string? PrivacyPolicyUrl { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/bots/webapps">Mini app »</a> settings<br>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/bots/webapps">Mini app »</a> settings<br/>
     /// See <a href="https://corefork.telegram.org/type/BotAppSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotAppSettings? AppSettings { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// This bot can <a href="https://corefork.telegram.org/api/bots/verification">verify peers</a>: this field contains more info about the verification the bot can assign to peers.
     /// See <a href="https://corefork.telegram.org/type/BotVerifierSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotVerifierSettings? VerifierSettings { get; set; }
 
     public void ComputeFlag()

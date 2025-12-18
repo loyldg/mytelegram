@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message to which the specified message replies to
-/// See <a href="https://corefork.telegram.org/constructor/inputMessageReplyTo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMessageReplyTo" /></para>
+/// </summary>
 [TlObject(0xbad88395)]
-public sealed class TInputMessageReplyTo : IInputMessage
+public sealed partial class TInputMessageReplyTo : IInputMessage
 {
     public uint ConstructorId => 0xbad88395;
-    ///<summary>
+    /// <summary>
     /// ID of the message that replies to the message we need
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
     public void ComputeFlag()

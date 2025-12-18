@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Returns current configuration, including data center configuration.
-/// See <a href="https://corefork.telegram.org/method/help.getConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/help.getConfig" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✔]
+/// </remarks>
 [TlObject(0xc4f9186b)]
-public sealed class RequestGetConfig : IRequest<MyTelegram.Schema.IConfig>
+public sealed partial class RequestGetConfig : IRequest<MyTelegram.Schema.IConfig>
 {
     public uint ConstructorId => 0xc4f9186b;
 

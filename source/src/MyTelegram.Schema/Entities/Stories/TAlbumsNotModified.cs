@@ -2,11 +2,12 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/stories.albumsNotModified" />
-///</summary>
+/// <summary>
+/// The <a href="https://corefork.telegram.org/api/stories#story-albums">story album list »</a> hasn't changed.
+/// <para>See <a href="https://corefork.telegram.org/constructor/stories.albumsNotModified" /></para>
+/// </summary>
 [TlObject(0x564edaeb)]
-public sealed class TAlbumsNotModified : IAlbums
+public sealed partial class TAlbumsNotModified : IAlbums
 {
     public uint ConstructorId => 0x564edaeb;
     public void ComputeFlag()

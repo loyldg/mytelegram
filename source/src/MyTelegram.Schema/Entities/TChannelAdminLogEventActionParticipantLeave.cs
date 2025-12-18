@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user left the channel/supergroup (in the case of big groups, info of the user that has joined isn't shown)
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantLeave" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantLeave" /></para>
+/// </summary>
 [TlObject(0xf89777f2)]
-public sealed class TChannelAdminLogEventActionParticipantLeave : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionParticipantLeave : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xf89777f2;
     public void ComputeFlag()

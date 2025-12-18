@@ -1,25 +1,20 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Check the validity of a chat invite link and get basic info about it
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 INVITE_HASH_EMPTY The invite hash is empty.
 /// 406 INVITE_HASH_EXPIRED The invite link has expired.
 /// 400 INVITE_HASH_INVALID The invite hash is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.checkChatInvite" />
-///</summary>
-internal sealed class CheckChatInviteHandler(
-    IQueryProcessor queryProcessor,
-    IPhotoAppService photoAppService,
-    IChannelAppService channelAppService,
-    IChatConverterService chatConverterService,
-    ILayeredService<IPhotoConverter> layeredPhotoService)
-    : RpcResultObjectHandler<RequestCheckChatInvite, IChatInvite>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.checkChatInvite"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class CheckChatInviteHandler(IQueryProcessor queryProcessor, IPhotoAppService photoAppService, IChannelAppService channelAppService, IChatConverterService chatConverterService, ILayeredService<IPhotoConverter> layeredPhotoService) : RpcResultObjectHandler<RequestCheckChatInvite, IChatInvite>
 {
-    protected override async Task<IChatInvite> HandleCoreAsync(IRequestInput input,
-        RequestCheckChatInvite obj)
+    protected override async Task<IChatInvite> HandleCoreAsync(IRequestInput input, RequestCheckChatInvite obj)
     {
         if (string.IsNullOrEmpty(obj.Hash))
         {
@@ -41,25 +36,19 @@ internal sealed class CheckChatInviteHandler(
         }
 
         var channelReadModel = await channelAppService.GetAsync(chatInviteReadModel.PeerId);
-        if (channelReadModel == null!)
+        if (channelReadModel == null !)
         {
             RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
         }
+
         var chatPhoto = await photoAppService.GetAsync(channelReadModel!.PhotoId);
-
-        var channelMemberReadModel =
-            await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel!.ChannelId,
-                input.UserId));
-
+        var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel!.ChannelId, input.UserId));
         // Public channel/Super group
-        if (!string.IsNullOrEmpty(channelReadModel.UserName) ||
-            channelMemberReadModel is { Left: false, Kicked: false })
+        if (!string.IsNullOrEmpty(channelReadModel.UserName) || channelMemberReadModel is { Left: false, Kicked: false })
         {
             if (channelMemberReadModel != null)
             {
-                var channel = chatConverterService.ToChannel(input, channelReadModel, chatPhoto,
-                    channelMemberReadModel, null, input.Layer);
-
+                var channel = chatConverterService.ToChannel(input, channelReadModel, chatPhoto, channelMemberReadModel, null, input.Layer);
                 return new TChatInviteAlready
                 {
                     Chat = channel

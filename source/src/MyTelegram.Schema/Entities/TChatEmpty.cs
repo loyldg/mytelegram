@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Empty constructor, group doesn't exist
-/// See <a href="https://corefork.telegram.org/constructor/chatEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatEmpty" /></para>
+/// </summary>
 [TlObject(0x29562865)]
-public sealed class TChatEmpty : IChat
+public sealed partial class TChatEmpty : IChat
 {
     public uint ConstructorId => 0x29562865;
-    ///<summary>
+    /// <summary>
     /// Group identifier
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
     public void ComputeFlag()

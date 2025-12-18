@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// A list of <a href="https://corefork.telegram.org/api/emoji-status">emoji statuses</a>
-/// See <a href="https://corefork.telegram.org/type/account.EmojiStatuses" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/account.EmojiStatuses" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmojiStatusesNotModified"/> See <a href="https://corefork.telegram.org/constructor/account.emojiStatusesNotModified" /><br/>
+/// <see cref="TEmojiStatuses"/> See <a href="https://corefork.telegram.org/constructor/account.emojiStatuses" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmojiStatusesNotModified), nameof(TEmojiStatusesNotModified))]
 [JsonDerivedType(typeof(TEmojiStatuses), nameof(TEmojiStatuses))]
 public interface IEmojiStatuses : IObject

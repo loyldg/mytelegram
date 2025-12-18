@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The list of <a href="https://corefork.telegram.org/api/stickers">stickersets owned by the current account »</a>.
-/// See <a href="https://corefork.telegram.org/type/messages.MyStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.MyStickers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMyStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.myStickers" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMyStickers), nameof(TMyStickers))]
 public interface IMyStickers : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Total number of owned stickersets.
-    ///</summary>
+    /// </summary>
     int Count { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Stickersets
     /// See <a href="https://corefork.telegram.org/type/StickerSetCovered" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IStickerSetCovered> Sets { get; set; }
 }

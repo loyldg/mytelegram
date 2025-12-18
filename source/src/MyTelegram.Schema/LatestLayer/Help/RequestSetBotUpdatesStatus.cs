@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 USER_BOT_REQUIRED This method can only be called by a bot.
-/// See <a href="https://corefork.telegram.org/method/help.setBotUpdatesStatus" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 USER_BOT_REQUIRED This method can only be called by a bot. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/help.setBotUpdatesStatus" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✖] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xec22cfcd)]
-public sealed class RequestSetBotUpdatesStatus : IRequest<IBool>
+public sealed partial class RequestSetBotUpdatesStatus : IRequest<IBool>
 {
     public uint ConstructorId => 0xec22cfcd;
 
-    ///<summary>
+    /// <summary>
     /// Number of pending updates
-    ///</summary>
+    /// </summary>
     public int PendingUpdatesCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Error message, if present
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
     public void ComputeFlag()

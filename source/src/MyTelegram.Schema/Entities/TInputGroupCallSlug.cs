@@ -2,13 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/inputGroupCallSlug" />
-///</summary>
+/// <summary>
+/// Join a conference call through an <a href="https://corefork.telegram.org/api/links#conference-links">invitation link »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputGroupCallSlug" /></para>
+/// </summary>
 [TlObject(0xfe06823f)]
-public sealed class TInputGroupCallSlug : IInputGroupCall
+public sealed partial class TInputGroupCallSlug : IInputGroupCall
 {
     public uint ConstructorId => 0xfe06823f;
+    /// <summary>
+    /// Slug from the <a href="https://corefork.telegram.org/api/links#conference-links">conference link »</a>.
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

@@ -2,11 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyDefault" />
-///</summary>
+/// <summary>
+/// Uses the default reaction privacy, set using <a href="https://corefork.telegram.org/method/messages.togglePaidReactionPrivacy">messages.togglePaidReactionPrivacy</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/paidReactionPrivacyDefault" /></para>
+/// </summary>
 [TlObject(0x206ad49e)]
-public sealed class TPaidReactionPrivacyDefault : IPaidReactionPrivacy
+public sealed partial class TPaidReactionPrivacyDefault : IPaidReactionPrivacy
 {
     public uint ConstructorId => 0x206ad49e;
     public void ComputeFlag()

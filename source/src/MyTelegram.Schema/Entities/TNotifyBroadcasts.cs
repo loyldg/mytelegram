@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel notification settings
-/// See <a href="https://corefork.telegram.org/constructor/notifyBroadcasts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/notifyBroadcasts" /></para>
+/// </summary>
 [TlObject(0xd612e8ef)]
-public sealed class TNotifyBroadcasts : INotifyPeer
+public sealed partial class TNotifyBroadcasts : INotifyPeer
 {
     public uint ConstructorId => 0xd612e8ef;
     public void ComputeFlag()

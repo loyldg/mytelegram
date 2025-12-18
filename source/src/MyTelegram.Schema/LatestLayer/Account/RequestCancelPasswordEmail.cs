@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Cancel the code that was sent to verify an email to use as <a href="https://corefork.telegram.org/api/srp">2FA recovery method</a>.
-/// See <a href="https://corefork.telegram.org/method/account.cancelPasswordEmail" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.cancelPasswordEmail" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xc1cbd5b6)]
-public sealed class RequestCancelPasswordEmail : IRequest<IBool>
+public sealed partial class RequestCancelPasswordEmail : IRequest<IBool>
 {
     public uint ConstructorId => 0xc1cbd5b6;
 

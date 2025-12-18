@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The list of recent <a href="https://corefork.telegram.org/api/reactions">message reactions</a> has changed
-/// See <a href="https://corefork.telegram.org/constructor/updateRecentReactions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateRecentReactions" /></para>
+/// </summary>
 [TlObject(0x6f7863f4)]
-public sealed class TUpdateRecentReactions : IUpdate
+public sealed partial class TUpdateRecentReactions : IUpdate
 {
     public uint ConstructorId => 0x6f7863f4;
     public void ComputeFlag()

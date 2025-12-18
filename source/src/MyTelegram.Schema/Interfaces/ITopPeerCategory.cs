@@ -2,10 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Top peer category
-/// See <a href="https://corefork.telegram.org/type/TopPeerCategory" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/TopPeerCategory" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTopPeerCategoryBotsPM"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryBotsPM" /><br/>
+/// <see cref="TTopPeerCategoryBotsInline"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryBotsInline" /><br/>
+/// <see cref="TTopPeerCategoryCorrespondents"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryCorrespondents" /><br/>
+/// <see cref="TTopPeerCategoryGroups"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryGroups" /><br/>
+/// <see cref="TTopPeerCategoryChannels"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryChannels" /><br/>
+/// <see cref="TTopPeerCategoryPhoneCalls"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryPhoneCalls" /><br/>
+/// <see cref="TTopPeerCategoryForwardUsers"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryForwardUsers" /><br/>
+/// <see cref="TTopPeerCategoryForwardChats"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryForwardChats" /><br/>
+/// <see cref="TTopPeerCategoryBotsApp"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryBotsApp" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTopPeerCategoryBotsPM), nameof(TTopPeerCategoryBotsPM))]
 [JsonDerivedType(typeof(TTopPeerCategoryBotsInline), nameof(TTopPeerCategoryBotsInline))]
 [JsonDerivedType(typeof(TTopPeerCategoryCorrespondents), nameof(TTopPeerCategoryCorrespondents))]

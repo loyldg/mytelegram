@@ -2,44 +2,44 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Banned/kicked user
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantBanned" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantBanned" /></para>
+/// </summary>
 [TlObject(0x6df8014e)]
-public sealed class TChannelParticipantBanned : IChannelParticipant
+public sealed partial class TChannelParticipantBanned : IChannelParticipant
 {
     public uint ConstructorId => 0x6df8014e;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user has left the group
-    ///</summary>
+    /// </summary>
     public bool Left { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The banned peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User was kicked by the specified admin
-    ///</summary>
+    /// </summary>
     public long KickedBy { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When did the user join the group
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Banned <a href="https://corefork.telegram.org/api/rights">rights</a>
     /// See <a href="https://corefork.telegram.org/type/ChatBannedRights" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatBannedRights BannedRights { get; set; }
 
     public void ComputeFlag()

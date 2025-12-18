@@ -2,30 +2,34 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
-/// Change the chat theme of a certain chat
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 EMOJI_INVALID The specified theme emoji is valid.
-/// 400 EMOJI_NOT_MODIFIED The theme wasn't changed.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.setChatTheme" />
-///</summary>
-[TlObject(0xe63be13f)]
-public sealed class RequestSetChatTheme : IRequest<MyTelegram.Schema.IUpdates>
+/// <summary>
+/// Change the chat theme of a certain chat, see <a href="https://corefork.telegram.org/api/themes#chat-themes">here »</a> for more info.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 EMOJI_INVALID The specified theme emoji is valid.</c></para>
+/// <para><c>400 EMOJI_NOT_MODIFIED The theme wasn't changed.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setChatTheme" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+[TlObject(0x81202c9)]
+public sealed partial class RequestSetChatTheme : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xe63be13f;
+    public uint ConstructorId => 0x81202c9;
 
-    ///<summary>
+    /// <summary>
     /// Private chat where to change theme
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
-    /// Emoji, identifying a specific chat theme; a list of chat themes can be fetched using <a href="https://corefork.telegram.org/method/account.getChatThemes">account.getChatThemes</a>
-    ///</summary>
-    public string Emoticon { get; set; }
+    /// <summary>
+    /// The theme to set.
+    /// See <a href="https://corefork.telegram.org/type/InputChatTheme" />
+    /// </summary>
+    public MyTelegram.Schema.IInputChatTheme Theme { get; set; }
 
     public void ComputeFlag()
     {
@@ -36,12 +40,12 @@ public sealed class RequestSetChatTheme : IRequest<MyTelegram.Schema.IUpdates>
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
-        writer.Write(Emoticon);
+        writer.Write(Theme);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
-        Emoticon = buffer.ReadString();
+        Theme = buffer.Read<MyTelegram.Schema.IInputChatTheme>();
     }
 }

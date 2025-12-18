@@ -2,18 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://instantview.telegram.org/">Instant View</a> webpage preview
-/// See <a href="https://corefork.telegram.org/type/WebPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/WebPage" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebPageEmpty"/> See <a href="https://corefork.telegram.org/constructor/webPageEmpty" /><br/>
+/// <see cref="TWebPagePending"/> See <a href="https://corefork.telegram.org/constructor/webPagePending" /><br/>
+/// <see cref="TWebPage"/> See <a href="https://corefork.telegram.org/constructor/webPage" /><br/>
+/// <see cref="TWebPageNotModified"/> See <a href="https://corefork.telegram.org/constructor/webPageNotModified" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebPageEmpty), nameof(TWebPageEmpty))]
 [JsonDerivedType(typeof(TWebPagePending), nameof(TWebPagePending))]
 [JsonDerivedType(typeof(TWebPage), nameof(TWebPage))]
 [JsonDerivedType(typeof(TWebPageNotModified), nameof(TWebPageNotModified))]
 public interface IWebPage : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 }

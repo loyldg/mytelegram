@@ -1,5 +1,7 @@
 ﻿// ReSharper disable once CheckNamespace
 
+using MyTelegram.Abstractions;
+
 namespace MyTelegram;
 
 /// <summary>
@@ -8,7 +10,9 @@ namespace MyTelegram;
 public interface IRequestInput : IRequestWithAccessHashKeyId
 {
     string ConnectionId { get; }
+    ConnectionType ConnectionType { get; }
 
+    //int DcId { get; }
     /// <summary>
     ///     Temp auth key id
     /// </summary>

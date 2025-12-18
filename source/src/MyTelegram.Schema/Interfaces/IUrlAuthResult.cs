@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// URL authorization result
-/// See <a href="https://corefork.telegram.org/type/UrlAuthResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/UrlAuthResult" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUrlAuthResultRequest"/> See <a href="https://corefork.telegram.org/constructor/urlAuthResultRequest" /><br/>
+/// <see cref="TUrlAuthResultAccepted"/> See <a href="https://corefork.telegram.org/constructor/urlAuthResultAccepted" /><br/>
+/// <see cref="TUrlAuthResultDefault"/> See <a href="https://corefork.telegram.org/constructor/urlAuthResultDefault" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUrlAuthResultRequest), nameof(TUrlAuthResultRequest))]
 [JsonDerivedType(typeof(TUrlAuthResultAccepted), nameof(TUrlAuthResultAccepted))]
 [JsonDerivedType(typeof(TUrlAuthResultDefault), nameof(TUrlAuthResultDefault))]

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/forum">Forum</a> functionality was enabled or disabled.
-/// See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleForum" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleForum" /></para>
+/// </summary>
 [TlObject(0x2cc6383)]
-public sealed class TChannelAdminLogEventActionToggleForum : IChannelAdminLogEventAction
+public sealed partial class TChannelAdminLogEventActionToggleForum : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0x2cc6383;
-    ///<summary>
+    /// <summary>
     /// Whether <a href="https://corefork.telegram.org/api/forum">forum</a> functionality was enabled or disabled.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool NewValue { get; set; }
 
     public void ComputeFlag()

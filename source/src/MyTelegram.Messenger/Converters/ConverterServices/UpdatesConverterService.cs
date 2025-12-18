@@ -190,63 +190,63 @@ public class UpdatesConverterService(
         return ToInboxForwardMessageUpdates(item, item.Pts);
     }
 
-    public IUpdates ToInviteToChannelUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent,
-        StartInviteToChannelEvent startInviteToChannelEvent,
-        IChannelReadModel channelReadModel,
-        //IChat channel,
-        bool createUpdatesForSelf,
-        int layer
-        )
-    {
-        var item = aggregateEvent.MessageItem;
-        var channel = chatConverterService.ToChannel(createUpdatesForSelf ? aggregateEvent.RequestInfo : RequestInfo.Empty,
-            channelReadModel,
-            null,
-            null,
-            false,
-            aggregateEvent.RequestInfo.Layer
-        );
+    //public IUpdates ToInviteToChannelUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent,
+    //    StartInviteToChannelEvent startInviteToChannelEvent,
+    //    IChannelReadModel channelReadModel,
+    //    //IChat channel,
+    //    bool createUpdatesForSelf,
+    //    int layer
+    //    )
+    //{
+    //    var item = aggregateEvent.MessageItem;
+    //    var channel = chatConverterService.ToChannel(createUpdatesForSelf ? aggregateEvent.RequestInfo : RequestInfo.Empty,
+    //        channelReadModel,
+    //        null,
+    //        null,
+    //        false,
+    //        aggregateEvent.RequestInfo.Layer
+    //    );
 
-        if (!createUpdatesForSelf)
-        {
-            return new TUpdates
-            {
-                Updates = new TVector<IUpdate>([new TUpdateChannel
-                {
-                    ChannelId = channel.Id
-                }
-                ]),
-                Chats = new TVector<IChat>(channel),
-                Users = [],
-                Date = DateTime.UtcNow.ToTimestamp()
-            };
-        }
+    //    if (!createUpdatesForSelf)
+    //    {
+    //        return new TUpdates
+    //        {
+    //            Updates = new TVector<IUpdate>([new TUpdateChannel
+    //            {
+    //                ChannelId = channel.Id
+    //            }
+    //            ]),
+    //            Chats = new TVector<IChat>(channel),
+    //            Users = [],
+    //            Date = DateTime.UtcNow.ToTimestamp()
+    //        };
+    //    }
 
-        var updateList = ToChannelMessageServiceUpdates(item.MessageId,
-            item.RandomId,
-            item.Pts,
-            item.SenderPeer,
-            item.ToPeer,
-            new TMessageActionChatAddUser { Users = [.. startInviteToChannelEvent.MemberUidList] },
-            item.Date,
-            0,
-            createUpdatesForSelf,
-            layer
-        );
+    //    var updateList = ToChannelMessageServiceUpdates(item.MessageId,
+    //        item.RandomId,
+    //        item.Pts,
+    //        item.SenderPeer,
+    //        item.ToPeer,
+    //        new TMessageActionChatAddUser { Users = [.. startInviteToChannelEvent.MemberUidList] },
+    //        item.Date,
+    //        0,
+    //        createUpdatesForSelf,
+    //        layer
+    //    );
 
-        return new TUpdates
-        {
-            Chats = new TVector<IChat>(channel),
-            Date = item.Date,
-            Updates = [.. updateList],
-            Users = []
-        };
-    }
+    //    return new TUpdates
+    //    {
+    //        Chats = new TVector<IChat>(channel),
+    //        Date = item.Date,
+    //        Updates = [.. updateList],
+    //        Users = []
+    //    };
+    //}
 
-    public IUpdates ToSelfUpdatePinnedMessageUpdates(UpdatePinnedMessageCompletedSagaEvent aggregateEvent)
-    {
-        return ToUpdatePinnedMessageUpdates(aggregateEvent, true);
-    }
+    //public IUpdates ToSelfUpdatePinnedMessageUpdates(UpdatePinnedMessageCompletedSagaEvent aggregateEvent)
+    //{
+    //    return ToUpdatePinnedMessageUpdates(aggregateEvent, true);
+    //}
 
     public IUpdates ToUpdatePinnedMessageServiceUpdates(long selfUserId, SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer)
     {
@@ -263,10 +263,10 @@ public class UpdatesConverterService(
         };
     }
 
-    public IUpdates ToUpdatePinnedMessageUpdates(UpdatePinnedMessageCompletedSagaEvent aggregateEvent)
-    {
-        return ToUpdatePinnedMessageUpdates(aggregateEvent, false);
-    }
+    //public IUpdates ToUpdatePinnedMessageUpdates(UpdatePinnedMessageCompletedSagaEvent aggregateEvent)
+    //{
+    //    return ToUpdatePinnedMessageUpdates(aggregateEvent, false);
+    //}
 
     public IUpdates ToUpdatePinnedMessageUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer)
     {
@@ -477,46 +477,46 @@ public class UpdatesConverterService(
         return [updateMessageId, updateNewMessage];
     }
 
-    private IUpdates ToUpdatePinnedMessageUpdates(UpdatePinnedMessageCompletedSagaEvent aggregateEvent,
-        bool createForSelf)
-    {
-        if (aggregateEvent.ToPeer.PeerType == PeerType.Channel)
-        {
-            var updatePinnedChannelMessages = new TUpdatePinnedChannelMessages
-            {
-                Pinned = aggregateEvent.Pinned,
-                ChannelId = aggregateEvent.ToPeer.PeerId,
-                Messages = new TVector<int>(aggregateEvent.MessageId),
-                Pts = aggregateEvent.Pts,
-                PtsCount = 1
-            };
-            return new TUpdateShort { Update = updatePinnedChannelMessages, Date = aggregateEvent.Date };
-        }
+    //private IUpdates ToUpdatePinnedMessageUpdates(UpdatePinnedMessageCompletedSagaEvent aggregateEvent,
+    //    bool createForSelf)
+    //{
+    //    if (aggregateEvent.ToPeer.PeerType == PeerType.Channel)
+    //    {
+    //        var updatePinnedChannelMessages = new TUpdatePinnedChannelMessages
+    //        {
+    //            Pinned = aggregateEvent.Pinned,
+    //            ChannelId = aggregateEvent.ToPeer.PeerId,
+    //            Messages = new TVector<int>(aggregateEvent.MessageId),
+    //            Pts = aggregateEvent.Pts,
+    //            PtsCount = 1
+    //        };
+    //        return new TUpdateShort { Update = updatePinnedChannelMessages, Date = aggregateEvent.Date };
+    //    }
 
-        var toPeer = aggregateEvent.ToPeer;
-        if (!createForSelf)
-        {
-            toPeer = new Peer(PeerType.User, aggregateEvent.SenderPeerId);
-        }
+    //    var toPeer = aggregateEvent.ToPeer;
+    //    if (!createForSelf)
+    //    {
+    //        toPeer = new Peer(PeerType.User, aggregateEvent.SenderPeerId);
+    //    }
 
-        var updatePinnedMessages = new TUpdatePinnedMessages
-        {
-            Messages = new TVector<int>(aggregateEvent.MessageId),
-            Pts = aggregateEvent.Pts,
-            Peer = toPeer.ToPeer(),
-            Pinned = aggregateEvent.Pinned,
-            PtsCount = 1
-        };
-        var updates = new TUpdates
-        {
-            Chats = [],
-            Date = aggregateEvent.Date,
-            Updates = new TVector<IUpdate>(updatePinnedMessages),
-            Seq = 0,
-            Users = []
-        };
-        return updates;
-    }
+    //    var updatePinnedMessages = new TUpdatePinnedMessages
+    //    {
+    //        Messages = new TVector<int>(aggregateEvent.MessageId),
+    //        Pts = aggregateEvent.Pts,
+    //        Peer = toPeer.ToPeer(),
+    //        Pinned = aggregateEvent.Pinned,
+    //        PtsCount = 1
+    //    };
+    //    var updates = new TUpdates
+    //    {
+    //        Chats = [],
+    //        Date = aggregateEvent.Date,
+    //        Updates = new TVector<IUpdate>(updatePinnedMessages),
+    //        Seq = 0,
+    //        Users = []
+    //    };
+    //    return updates;
+    //}
 
     public IMessageReplyHeader? ToMessageReplyHeader(int? replyToMsgId,
         int? topMsgId)

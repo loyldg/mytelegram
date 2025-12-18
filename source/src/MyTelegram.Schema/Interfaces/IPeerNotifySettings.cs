@@ -2,80 +2,84 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Notification settings.
-/// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PeerNotifySettings" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPeerNotifySettings"/> See <a href="https://corefork.telegram.org/constructor/peerNotifySettings" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPeerNotifySettings), nameof(TPeerNotifySettings))]
 public interface IPeerNotifySettings : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// (Ternary value) If set, indicates whether or not to display previews of messages in notifications; otherwise the default behavior should be used.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     bool? ShowPreviews { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// (Ternary value) If set, indicates whether to mute or unmute the peer; otherwise the default behavior should be used.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     bool? Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mute all notifications until this date
-    ///</summary>
+    /// </summary>
     int? MuteUntil { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification sound for the official iOS application
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.INotificationSound? IosSound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification sound for the official android application
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.INotificationSound? AndroidSound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification sound for other applications
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.INotificationSound? OtherSound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether story notifications should be disabled.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     bool? StoriesMuted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the sender name should be displayed in story notifications.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     bool? StoriesHideSender { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sound for story notifications on the official iOS application
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.INotificationSound? StoriesIosSound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sound for story notifications on the official Android application
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.INotificationSound? StoriesAndroidSound { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sound for story notifications on other applications
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.INotificationSound? StoriesOtherSound { get; set; }
 }

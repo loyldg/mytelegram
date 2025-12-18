@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The code will be sent via a flash phone call, that will be closed immediately. The phone code will then be the phone number itself, just make sure that the phone number matches the specified pattern.
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFlashCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeFlashCall" /></para>
+/// </summary>
 [TlObject(0xab03c6d9)]
-public sealed class TSentCodeTypeFlashCall : ISentCodeType
+public sealed partial class TSentCodeTypeFlashCall : ISentCodeType
 {
     public uint ConstructorId => 0xab03c6d9;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/pattern">pattern</a> to match
-    ///</summary>
+    /// </summary>
     public string Pattern { get; set; }
 
     public void ComputeFlag()

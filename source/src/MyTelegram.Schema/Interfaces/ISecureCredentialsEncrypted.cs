@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Encrypted secure credentials
-/// See <a href="https://corefork.telegram.org/type/SecureCredentialsEncrypted" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecureCredentialsEncrypted" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecureCredentialsEncrypted"/> See <a href="https://corefork.telegram.org/constructor/secureCredentialsEncrypted" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecureCredentialsEncrypted), nameof(TSecureCredentialsEncrypted))]
 public interface ISecureCredentialsEncrypted : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication, as described in <a href="https://corefork.telegram.org/passport#decrypting-data">decrypting data »</a>
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Data { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Data hash for data authentication as described in <a href="https://corefork.telegram.org/passport#decrypting-data">decrypting data »</a>
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret, encrypted with the bot's public RSA key, required for data decryption as described in <a href="https://corefork.telegram.org/passport#decrypting-data">decrypting data »</a>
-    ///</summary>
+    /// </summary>
     ReadOnlyMemory<byte> Secret { get; set; }
 }

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// Unknown type.
-/// See <a href="https://corefork.telegram.org/constructor/storage.fileUnknown" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.fileUnknown" /></para>
+/// </summary>
 [TlObject(0xaa963b05)]
-public sealed class TFileUnknown : IFileType
+public sealed partial class TFileUnknown : IFileType
 {
     public uint ConstructorId => 0xaa963b05;
     public void ComputeFlag()

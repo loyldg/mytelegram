@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The list of bot mini apps hasn't changed
-/// See <a href="https://corefork.telegram.org/constructor/attachMenuBotsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/attachMenuBotsNotModified" /></para>
+/// </summary>
 [TlObject(0xf1d88a5c)]
-public sealed class TAttachMenuBotsNotModified : IAttachMenuBots
+public sealed partial class TAttachMenuBotsNotModified : IAttachMenuBots
 {
     public uint ConstructorId => 0xf1d88a5c;
     public void ComputeFlag()

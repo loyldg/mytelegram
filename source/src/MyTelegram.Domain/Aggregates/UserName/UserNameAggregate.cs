@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.UserName;
 
+[EnableAutoGeneration]
 public class UserNameAggregate : SnapshotAggregateRoot<UserNameAggregate, UserNameId, UserNameSnapshot>
 {
     private readonly UserNameState _state = new();
@@ -8,17 +9,18 @@ public class UserNameAggregate : SnapshotAggregateRoot<UserNameAggregate, UserNa
         Register(_state);
     }
 
-    public void Create(Peer peer, string userName, int date)
+    public void CreateUserName(Peer peer, string userName, int date)
     {
         Emit(new UserNameCreatedEvent(peer, userName, date));
     }
 
-    public void Delete()
+    public void DeleteUserName()
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new UserNameDeletedEvent(_state.Peer));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateUserName(RequestInfo requestInfo,
         Peer peer,
         string? userName,

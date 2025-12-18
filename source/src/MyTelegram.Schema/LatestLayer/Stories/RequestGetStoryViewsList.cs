@@ -2,63 +2,66 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Obtain the list of users that have viewed a specific <a href="https://corefork.telegram.org/api/stories">story we posted</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STORY_ID_INVALID The specified story ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.getStoryViewsList" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STORY_ID_INVALID The specified story ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.getStoryViewsList" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7ed23c57)]
-public sealed class RequestGetStoryViewsList : IRequest<MyTelegram.Schema.Stories.IStoryViewsList>
+public sealed partial class RequestGetStoryViewsList : IRequest<MyTelegram.Schema.Stories.IStoryViewsList>
 {
     public uint ConstructorId => 0x7ed23c57;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to only fetch view reaction/views made by our <a href="https://corefork.telegram.org/api/contacts">contacts</a>
-    ///</summary>
+    /// </summary>
     public bool JustContacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to return <a href="https://corefork.telegram.org/constructor/storyView">storyView</a> info about users that reacted to the story (i.e. if set, the server will first sort results by view date as usual, and then also additionally sort the list by putting <a href="https://corefork.telegram.org/constructor/storyView">storyView</a>s with an associated reaction first in the list). Ignored if <code>forwards_first</code> is set.
-    ///</summary>
+    /// </summary>
     public bool ReactionsFirst { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, returns forwards and reposts first, then reactions, then other views; otherwise returns interactions sorted just by interaction date.
-    ///</summary>
+    /// </summary>
     public bool ForwardsFirst { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer where the story was posted
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Search for specific peers
-    ///</summary>
+    /// </summary>
     public string? Q { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story ID
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Offset for pagination, obtained from <a href="https://corefork.telegram.org/constructor/stories.storyViewsList">stories.storyViewsList</a>.<code>next_offset</code>
-    ///</summary>
+    /// </summary>
     public string Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

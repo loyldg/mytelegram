@@ -2,47 +2,47 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Secure <a href="https://corefork.telegram.org/passport">passport</a> file, for more info <a href="https://corefork.telegram.org/passport/encryption#inputsecurefile">see the passport docs »</a>
-/// See <a href="https://corefork.telegram.org/constructor/secureFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureFile" /></para>
+/// </summary>
 [TlObject(0x7d09c27e)]
-public sealed class TSecureFile : ISecureFile
+public sealed partial class TSecureFile : ISecureFile
 {
     public uint ConstructorId => 0x7d09c27e;
-    ///<summary>
+    /// <summary>
     /// ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File size
-    ///</summary>
+    /// </summary>
     public long Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// DC ID
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of upload
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File hash
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> FileHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Secret
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Secret { get; set; }
 
     public void ComputeFlag()

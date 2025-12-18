@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Info about a <a href="https://corefork.telegram.org/api/channel">chat</a>, shared by a user with the currently logged in bot using <a href="https://corefork.telegram.org/method/messages.sendBotRequestedPeer">messages.sendBotRequestedPeer</a>.All fields except the ID are optional, and will be populated if present on the chosen chat, according to the parameters of the requesting <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonRequestPeer">inputKeyboardButtonRequestPeer</a>.
-/// See <a href="https://corefork.telegram.org/constructor/requestedPeerChat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/requestedPeerChat" /></para>
+/// </summary>
 [TlObject(0x7307544f)]
-public sealed class TRequestedPeerChat : IRequestedPeer
+public sealed partial class TRequestedPeerChat : IRequestedPeer
 {
     public uint ConstructorId => 0x7307544f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat ID.
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat title.
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat photo.
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? Photo { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/mediaAreaStarGift" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/mediaAreaStarGift" /></para>
+/// </summary>
 [TlObject(0x5787686d)]
-public sealed class TMediaAreaStarGift : IMediaArea
+public sealed partial class TMediaAreaStarGift : IMediaArea
 {
     public uint ConstructorId => 0x5787686d;
-    ///<summary>
+    /// <summary>
+    /// Coordinates of the media area.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
+    /// <summary>
+    /// <code>slug</code> from <a href="https://corefork.telegram.org/constructor/starGiftUnique">starGiftUnique</a>.<code>slug</code>, that can be resolved as <a href="https://corefork.telegram.org/api/gifts#sharing-and-getting-info-about-a-collectible-gift">specified here »</a>.
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

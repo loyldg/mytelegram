@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user was accepted into the group by an admin
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatJoinedByRequest" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatJoinedByRequest" /></para>
+/// </summary>
 [TlObject(0xebbca3cb)]
-public sealed class TMessageActionChatJoinedByRequest : IMessageAction
+public sealed partial class TMessageActionChatJoinedByRequest : IMessageAction
 {
     public uint ConstructorId => 0xebbca3cb;
     public void ComputeFlag()

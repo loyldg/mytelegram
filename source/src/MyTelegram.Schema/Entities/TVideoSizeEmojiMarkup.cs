@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// An <a href="https://corefork.telegram.org/api/files#animated-profile-pictures">animated profile picture</a> based on a <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji sticker</a>.
-/// See <a href="https://corefork.telegram.org/constructor/videoSizeEmojiMarkup" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/videoSizeEmojiMarkup" /></para>
+/// </summary>
 [TlObject(0xf85c413c)]
-public sealed class TVideoSizeEmojiMarkup : IVideoSize
+public sealed partial class TVideoSizeEmojiMarkup : IVideoSize
 {
     public uint ConstructorId => 0xf85c413c;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/custom-emoji">Custom emoji ID</a>: the custom emoji sticker is shown at the center of the profile picture and occupies at most 67% of it.
-    ///</summary>
+    /// </summary>
     public long EmojiId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 1, 2, 3 or 4 RBG-24 colors used to generate a solid (1), gradient (2) or freeform gradient (3, 4) background, similar to how <a href="https://corefork.telegram.org/api/wallpapers#fill-types">fill wallpapers</a> are generated. The rotation angle for gradient backgrounds is 0.
-    ///</summary>
+    /// </summary>
     public TVector<int> BackgroundColors { get; set; }
 
     public void ComputeFlag()

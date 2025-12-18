@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Popular contact
-/// See <a href="https://corefork.telegram.org/constructor/popularContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/popularContact" /></para>
+/// </summary>
 [TlObject(0x5ce14175)]
-public sealed class TPopularContact : IPopularContact
+public sealed partial class TPopularContact : IPopularContact
 {
     public uint ConstructorId => 0x5ce14175;
-    ///<summary>
+    /// <summary>
     /// Contact identifier
-    ///</summary>
+    /// </summary>
     public long ClientId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// How many people imported this contact
-    ///</summary>
+    /// </summary>
     public int Importers { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Storage;
 
-///<summary>
+/// <summary>
 /// GIF image. MIME type: <code>image/gif</code>.
-/// See <a href="https://corefork.telegram.org/constructor/storage.fileGif" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storage.fileGif" /></para>
+/// </summary>
 [TlObject(0xcae1aadf)]
-public sealed class TFileGif : IFileType
+public sealed partial class TFileGif : IFileType
 {
     public uint ConstructorId => 0xcae1aadf;
     public void ComputeFlag()

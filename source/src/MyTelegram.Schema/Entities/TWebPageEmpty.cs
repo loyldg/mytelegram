@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// No preview is available for the webpage
-/// See <a href="https://corefork.telegram.org/constructor/webPageEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPageEmpty" /></para>
+/// </summary>
 [TlObject(0x211a1788)]
-public sealed class TWebPageEmpty : IWebPage
+public sealed partial class TWebPageEmpty : IWebPage
 {
     public uint ConstructorId => 0x211a1788;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Preview ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of the webpage.
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
     public void ComputeFlag()

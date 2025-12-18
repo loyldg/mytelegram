@@ -2,32 +2,35 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Set whether all users should <a href="https://corefork.telegram.org/api/invites#join-requests">request admin approval to join the group »</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 CHAT_PUBLIC_REQUIRED You can only enable join requests in public groups.
-/// See <a href="https://corefork.telegram.org/method/channels.toggleJoinRequest" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 CHAT_PUBLIC_REQUIRED You can only enable join requests in public groups. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.toggleJoinRequest" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4c2985b6)]
-public sealed class RequestToggleJoinRequest : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestToggleJoinRequest : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x4c2985b6;
 
-    ///<summary>
+    /// <summary>
     /// Group
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Toggle
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Enabled { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Some reactions are allowed
-/// See <a href="https://corefork.telegram.org/constructor/chatReactionsSome" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatReactionsSome" /></para>
+/// </summary>
 [TlObject(0x661d4037)]
-public sealed class TChatReactionsSome : IChatReactions
+public sealed partial class TChatReactionsSome : IChatReactions
 {
     public uint ConstructorId => 0x661d4037;
-    ///<summary>
+    /// <summary>
     /// Allowed set of reactions: the <a href="https://corefork.telegram.org/api/config#reactions-in-chat-max">reactions_in_chat_max</a> configuration field indicates the maximum number of reactions that can be specified in this field.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IReaction> Reactions { get; set; }
 
     public void ComputeFlag()

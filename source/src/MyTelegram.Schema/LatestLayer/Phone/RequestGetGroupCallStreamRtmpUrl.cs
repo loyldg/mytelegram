@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Get RTMP URL and stream key for RTMP livestreams. Can be used even before creating the actual RTMP livestream with <a href="https://corefork.telegram.org/method/phone.createGroupCall">phone.createGroupCall</a> (the <code>rtmp_stream</code> flag must be set).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/phone.getGroupCallStreamRtmpUrl" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.getGroupCallStreamRtmpUrl" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xdeb3abbf)]
-public sealed class RequestGetGroupCallStreamRtmpUrl : IRequest<MyTelegram.Schema.Phone.IGroupCallStreamRtmpUrl>
+public sealed partial class RequestGetGroupCallStreamRtmpUrl : IRequest<MyTelegram.Schema.Phone.IGroupCallStreamRtmpUrl>
 {
     public uint ConstructorId => 0xdeb3abbf;
 
-    ///<summary>
+    /// <summary>
     /// Peer to livestream into
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to revoke the previous stream key or simply return the existing one
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Revoke { get; set; }
 
     public void ComputeFlag()

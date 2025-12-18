@@ -1,8 +1,9 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+using MyTelegram.Messenger.Services.Impl;
 
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+/// <summary>
 /// Delete a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a>
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
@@ -10,23 +11,20 @@
 /// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
 /// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// See <a href="https://corefork.telegram.org/method/channels.deleteChannel" />
-///</summary>
-internal sealed class DeleteChannelHandler(
-    ICommandBus commandBus,
-    IAccessHashHelper accessHashHelper,
-    IPeerHelper peerHelper
-    ) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteChannel, MyTelegram.Schema.IUpdates>
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.deleteChannel"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class DeleteChannelHandler(ICommandBus commandBus, IAccessHashHelper accessHashHelper, IChannelAdminRightsChecker channelAdminRightsChecker, IPeerHelper peerHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteChannel, MyTelegram.Schema.IUpdates>
 {
-    protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Channels.RequestDeleteChannel obj)
+    protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestDeleteChannel obj)
     {
         await accessHashHelper.CheckAccessHashAsync(input, obj.Channel);
+        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
         var peer = peerHelper.GetChannel(obj.Channel);
         var command = new DeleteChannelCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo());
-
         await commandBus.PublishAsync(command);
-
-        return null!;
+        return null !;
     }
 }

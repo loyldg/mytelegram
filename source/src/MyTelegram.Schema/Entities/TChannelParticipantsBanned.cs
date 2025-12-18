@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Fetch only banned participants
-/// See <a href="https://corefork.telegram.org/constructor/channelParticipantsBanned" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantsBanned" /></para>
+/// </summary>
 [TlObject(0x1427a5e1)]
-public sealed class TChannelParticipantsBanned : IChannelParticipantsFilter
+public sealed partial class TChannelParticipantsBanned : IChannelParticipantsFilter
 {
     public uint ConstructorId => 0x1427a5e1;
-    ///<summary>
+    /// <summary>
     /// Optional filter for searching banned participants by name (otherwise empty)
-    ///</summary>
+    /// </summary>
     public string Q { get; set; }
 
     public void ComputeFlag()

@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a list of <a href="https://corefork.telegram.org/api/custom-emoji">custom emojis</a>.
-/// See <a href="https://corefork.telegram.org/constructor/emojiList" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/emojiList" /></para>
+/// </summary>
 [TlObject(0x7a1e11d1)]
-public sealed class TEmojiList : IEmojiList
+public sealed partial class TEmojiList : IEmojiList
 {
     public uint ConstructorId => 0x7a1e11d1;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Custom emoji IDs
-    ///</summary>
+    /// </summary>
     public TVector<long> DocumentId { get; set; }
 
     public void ComputeFlag()

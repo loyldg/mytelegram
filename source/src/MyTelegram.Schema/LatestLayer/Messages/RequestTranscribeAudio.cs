@@ -2,29 +2,34 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/transcribe">Transcribe voice message</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 400 TRANSCRIPTION_FAILED Audio transcription failed.
-/// See <a href="https://corefork.telegram.org/method/messages.transcribeAudio" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 MSG_VOICE_MISSING The specified message is not a voice message.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
+/// <para><c>400 TRANSCRIPTION_FAILED Audio transcription failed. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.transcribeAudio" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x269e9a49)]
-public sealed class RequestTranscribeAudio : IRequest<MyTelegram.Schema.Messages.ITranscribedAudio>
+public sealed partial class RequestTranscribeAudio : IRequest<MyTelegram.Schema.Messages.ITranscribedAudio>
 {
     public uint ConstructorId => 0x269e9a49;
 
-    ///<summary>
+    /// <summary>
     /// Peer ID where the voice message was sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Voice message ID
-    ///</summary>
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

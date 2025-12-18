@@ -2,48 +2,51 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Modify autosave settings
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.saveAutoSaveSettings" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.saveAutoSaveSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd69b8361)]
-public sealed class RequestSaveAutoSaveSettings : IRequest<IBool>
+public sealed partial class RequestSaveAutoSaveSettings : IRequest<IBool>
 {
     public uint ConstructorId => 0xd69b8361;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the new settings should affect all private chats
-    ///</summary>
+    /// </summary>
     public bool Users { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the new settings should affect all groups
-    ///</summary>
+    /// </summary>
     public bool Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the new settings should affect all <a href="https://corefork.telegram.org/api/channel">channels</a>
-    ///</summary>
+    /// </summary>
     public bool Broadcasts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the new settings should affect a specific peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The new autosave settings
     /// See <a href="https://corefork.telegram.org/type/AutoSaveSettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAutoSaveSettings Settings { get; set; }
 
     public void ComputeFlag()

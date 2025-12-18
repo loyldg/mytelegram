@@ -1,6 +1,5 @@
 ﻿using EventFlow.Queries;
 using MyTelegram.Domain.Aggregates.Channel;
-using MyTelegram.Domain.Commands.Channel;
 using MyTelegram.Queries;
 
 namespace MyTelegram.DataSeeder.DataSeeders;

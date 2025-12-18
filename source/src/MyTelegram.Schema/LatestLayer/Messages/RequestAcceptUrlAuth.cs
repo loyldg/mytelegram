@@ -2,44 +2,47 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Use this to accept a Seamless Telegram Login authorization request, for more info <a href="https://corefork.telegram.org/api/url-authorization">click here »</a>
-/// See <a href="https://corefork.telegram.org/method/messages.acceptUrlAuth" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.acceptUrlAuth" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb12c7125)]
-public sealed class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IUrlAuthResult>
+public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IUrlAuthResult>
 {
     public uint ConstructorId => 0xb12c7125;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag to allow the bot to send messages to you (if requested)
-    ///</summary>
+    /// </summary>
     public bool WriteAllowed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The location of the message
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of the message with the login button
-    ///</summary>
+    /// </summary>
     public int? MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the login button
-    ///</summary>
+    /// </summary>
     public int? ButtonId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL used for <a href="https://corefork.telegram.org/api/url-authorization#link-url-authorization">link URL authorization, click here for more info »</a>
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
     public void ComputeFlag()

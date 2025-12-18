@@ -2,25 +2,28 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Get info about <a href="https://corefork.telegram.org/api/channel">channels/supergroups</a>
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// See <a href="https://corefork.telegram.org/method/channels.getChannels" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getChannels" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xa7f6bbb)]
-public sealed class RequestGetChannels : IRequest<MyTelegram.Schema.Messages.IChats>
+public sealed partial class RequestGetChannels : IRequest<MyTelegram.Schema.Messages.IChats>
 {
     public uint ConstructorId => 0xa7f6bbb;
 
-    ///<summary>
+    /// <summary>
     /// IDs of channels/supergroups to get info about
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputChannel> Id { get; set; }
 
     public void ComputeFlag()

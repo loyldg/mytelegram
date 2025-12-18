@@ -2,69 +2,69 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Used to pay for a <a href="https://corefork.telegram.org/api/giveaways">giveaway, see here »</a> for more info.
-/// See <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumGiveaway" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStorePaymentPremiumGiveaway" /></para>
+/// </summary>
 [TlObject(0x160544ca)]
-public sealed class TInputStorePaymentPremiumGiveaway : IInputStorePaymentPurpose
+public sealed partial class TInputStorePaymentPremiumGiveaway : IInputStorePaymentPurpose
 {
     public uint ConstructorId => 0x160544ca;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, only new subscribers starting from the giveaway creation date will be able to participate to the giveaway.
-    ///</summary>
+    /// </summary>
     public bool OnlyNewSubscribers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, giveaway winners are public and will be listed in a <a href="https://corefork.telegram.org/constructor/messageMediaGiveawayResults">messageMediaGiveawayResults</a> message that will be automatically sent to the channel once the giveaway ends.
-    ///</summary>
+    /// </summary>
     public bool WinnersAreVisible { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel/supergroup starting the giveaway, that the user must join to participate, that will receive the giveaway <a href="https://corefork.telegram.org/api/boost">boosts</a>; see <a href="https://corefork.telegram.org/api/giveaways">here »</a> for more info on giveaways.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer BoostPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Additional channels that the user must join to participate to the giveaway can be specified here.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer>? AdditionalPeers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The set of users that can participate to the giveaway can be restricted by passing here an explicit whitelist of up to <a href="https://corefork.telegram.org/api/config#giveaway-countries-max">giveaway_countries_max</a> countries, specified as two-letter ISO 3166-1 alpha-2 country codes.
-    ///</summary>
+    /// </summary>
     public TVector<string>? CountriesIso2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can contain a textual description of additional giveaway prizes.
-    ///</summary>
+    /// </summary>
     public string? PrizeDescription { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Random ID to avoid resending the giveaway
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The end date of the giveaway, must be at most <a href="https://corefork.telegram.org/api/config#giveaway-period-max">giveaway_period_max</a> seconds in the future; see <a href="https://corefork.telegram.org/api/giveaways">here »</a> for more info on giveaways.
-    ///</summary>
+    /// </summary>
     public int UntilDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
-    ///</summary>
+    /// </summary>
     public string Currency { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of <code>US$ 1.45</code> pass <code>amount = 145</code>. See the exp parameter in <a href="https://corefork.telegram.org/bots/payments/currencies.json">currencies.json</a>, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
-    ///</summary>
+    /// </summary>
     public long Amount { get; set; }
 
     public void ComputeFlag()

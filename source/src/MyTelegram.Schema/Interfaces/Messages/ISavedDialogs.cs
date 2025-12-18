@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Represents some <a href="https://corefork.telegram.org/api/saved-messages">saved message dialogs »</a>.
-/// See <a href="https://corefork.telegram.org/type/messages.SavedDialogs" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.SavedDialogs" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSavedDialogs"/> See <a href="https://corefork.telegram.org/constructor/messages.savedDialogs" /><br/>
+/// <see cref="TSavedDialogsSlice"/> See <a href="https://corefork.telegram.org/constructor/messages.savedDialogsSlice" /><br/>
+/// <see cref="TSavedDialogsNotModified"/> See <a href="https://corefork.telegram.org/constructor/messages.savedDialogsNotModified" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSavedDialogs), nameof(TSavedDialogs))]
 [JsonDerivedType(typeof(TSavedDialogsSlice), nameof(TSavedDialogsSlice))]
 [JsonDerivedType(typeof(TSavedDialogsNotModified), nameof(TSavedDialogsNotModified))]

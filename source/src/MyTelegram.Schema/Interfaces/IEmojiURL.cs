@@ -2,15 +2,19 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Emoji URL
-/// See <a href="https://corefork.telegram.org/type/EmojiURL" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/EmojiURL" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TEmojiURL"/> See <a href="https://corefork.telegram.org/constructor/emojiURL" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TEmojiURL), nameof(TEmojiURL))]
 public interface IEmojiURL : IObject
 {
-    ///<summary>
+    /// <summary>
     /// An HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 }

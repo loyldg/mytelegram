@@ -2,52 +2,52 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A language pack string which has different forms based on the number of some object it mentions. See <a href="https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html">https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html</a> for more info
-/// See <a href="https://corefork.telegram.org/constructor/langPackStringPluralized" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/langPackStringPluralized" /></para>
+/// </summary>
 [TlObject(0x6c47ac9f)]
-public sealed class TLangPackStringPluralized : ILangPackString
+public sealed partial class TLangPackStringPluralized : ILangPackString
 {
     public uint ConstructorId => 0x6c47ac9f;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Localization key
-    ///</summary>
+    /// </summary>
     public string Key { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value for zero objects
-    ///</summary>
+    /// </summary>
     public string? ZeroValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value for one object
-    ///</summary>
+    /// </summary>
     public string? OneValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value for two objects
-    ///</summary>
+    /// </summary>
     public string? TwoValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value for a few objects
-    ///</summary>
+    /// </summary>
     public string? FewValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Value for many objects
-    ///</summary>
+    /// </summary>
     public string? ManyValue { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Default value
-    ///</summary>
+    /// </summary>
     public string OtherValue { get; set; }
 
     public void ComputeFlag()

@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Public key to use <strong>only</strong> during handshakes to <a href="https://corefork.telegram.org/cdn">CDN</a> DCs.
-/// See <a href="https://corefork.telegram.org/type/CdnPublicKey" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/CdnPublicKey" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCdnPublicKey"/> See <a href="https://corefork.telegram.org/constructor/cdnPublicKey" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCdnPublicKey), nameof(TCdnPublicKey))]
 public interface ICdnPublicKey : IObject
 {
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/cdn">CDN DC</a> ID
-    ///</summary>
+    /// </summary>
     int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// RSA public key
-    ///</summary>
+    /// </summary>
     string PublicKey { get; set; }
 }

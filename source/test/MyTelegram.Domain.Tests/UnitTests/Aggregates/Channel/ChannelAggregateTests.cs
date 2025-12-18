@@ -12,7 +12,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
     [Fact]
     public void EditAbout_For_Not_Exists_Channel_Throws_Exception()
     {
-        Assert.Throws<DomainError>(() => Sut.EditAbout(A<RequestInfo>(), 1, "test"));
+        Assert.Throws<DomainError>(() => Sut.EditChannelAbout(A<RequestInfo>(), 1, "test"));
     }
 
     [Fact]
@@ -24,7 +24,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         Sut.ApplyEvents(new IDomainEvent[] { channelCreatedEvent });
         var requestInfo = A<RequestInfo>() with { UserId = aggregateEvent.CreatorId };
 
-        Sut.EditAbout(requestInfo, aggregateEvent.CreatorId, about);
+        Sut.EditChannelAbout(requestInfo, aggregateEvent.CreatorId, about);
 
         var uncommittedEvent = Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<ChannelAboutEditedEvent>();
         uncommittedEvent.About.ShouldBe(about);
@@ -39,7 +39,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         Sut.ApplyEvents(new IDomainEvent[] { channelCreatedEvent });
         var requestInfo = A<RequestInfo>() with { UserId = aggregateEvent.CreatorId };
 
-        var exception = Assert.Throws<RpcException>(() => Sut.EditAbout(requestInfo, aggregateEvent.CreatorId, longAbout));
+        var exception = Assert.Throws<RpcException>(() => Sut.EditChannelAbout(requestInfo, aggregateEvent.CreatorId, longAbout));
 
         exception.Message.ShouldBe(RpcErrors.RpcErrors400.ChatAboutTooLong.Message);
     }
@@ -52,7 +52,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         var channelCreatedEvent = ADomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent>(aggregateEvent, 1);
         Sut.ApplyEvents(new IDomainEvent[] { channelCreatedEvent });
 
-        var exception = Assert.Throws<RpcException>(() => Sut.EditAbout(A<RequestInfo>(), aggregateEvent.CreatorId + 1, about));
+        var exception = Assert.Throws<RpcException>(() => Sut.EditChannelAbout(A<RequestInfo>(), aggregateEvent.CreatorId + 1, about));
 
         exception.Message.ShouldBe(RpcErrors.RpcErrors400.ChatAdminRequired.Message);
     }
@@ -75,7 +75,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         //Sut.ApplyEvents(new IDomainEvent[] { domainEvent });
         var creatorId = 1;
         var senderPeerId = 2;
-        Sut.Create(A<RequestInfo>(),
+        Sut.CreateChannel(A<RequestInfo>(),
             1,
             creatorId,
             true,
@@ -115,7 +115,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         var creatorId = 1;
         var senderPeerId = 2;
         var requestInfo = A<RequestInfo>() with { UserId = creatorId };
-        Sut.Create(requestInfo,
+        Sut.CreateChannel(requestInfo,
             1,
             creatorId,
             false,
@@ -148,7 +148,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             true,
             true, true, true, true, true, true, true, true,
             int.MaxValue);
-        Sut.EditChatDefaultBannedRights(requestInfo, bannedWriteMessageRights, creatorId);
+        Sut.EditChannelDefaultBannedRights(requestInfo, bannedWriteMessageRights, creatorId);
 
         var exception = Assert.Throws<RpcException>(() =>
             Sut.CheckChannelState(A<RequestInfo>(), senderPeerId,
@@ -164,7 +164,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
     {
         var creatorId = 1;
         var senderPeerId = 2;
-        Sut.Create(A<RequestInfo>(),
+        Sut.CreateChannel(A<RequestInfo>(),
             1,
             creatorId,
             false,
@@ -191,7 +191,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             1,
             DateTime.UtcNow.ToTimestamp(),
             false,
-            null,
+            0,
             new List<long>(),
             null);
         var domainEvent = ADomainEvent<ChannelAggregate, ChannelId, CheckChannelStateCompletedEvent>(checkStateCompletedEvent, 3);
@@ -210,9 +210,9 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
         var aggregateEvent = new ChannelCreatedEvent(A<RequestInfo>(),
             1,
             creatorId,
-            "test",
             false,
             true,
+            "test",
             null,
             null,
             null,

@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Set account self-destruction period
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 TTL_DAYS_INVALID The provided TTL is invalid.
-/// See <a href="https://corefork.telegram.org/method/account.setAccountTTL" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 TTL_DAYS_INVALID The provided TTL is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.setAccountTTL" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2442485e)]
-public sealed class RequestSetAccountTTL : IRequest<IBool>
+public sealed partial class RequestSetAccountTTL : IRequest<IBool>
 {
     public uint ConstructorId => 0x2442485e;
 
-    ///<summary>
+    /// <summary>
     /// Time to live in days
     /// See <a href="https://corefork.telegram.org/type/AccountDaysTTL" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IAccountDaysTTL Ttl { get; set; }
 
     public void ComputeFlag()

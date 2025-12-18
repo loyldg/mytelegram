@@ -2,26 +2,30 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates a peer that can be used to send messages
-/// See <a href="https://corefork.telegram.org/type/SendAsPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SendAsPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSendAsPeer"/> See <a href="https://corefork.telegram.org/constructor/sendAsPeer" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSendAsPeer), nameof(TSendAsPeer))]
 public interface ISendAsPeer : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether a Telegram Premium account is required to send messages as this peer
-    ///</summary>
+    /// </summary>
     bool PremiumRequired { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 }

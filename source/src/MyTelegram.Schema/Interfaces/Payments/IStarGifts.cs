@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Available <a href="https://corefork.telegram.org/api/gifts">gifts »</a>.
-/// See <a href="https://corefork.telegram.org/type/payments.StarGifts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.StarGifts" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarGiftsNotModified"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftsNotModified" /><br/>
+/// <see cref="TStarGifts"/> See <a href="https://corefork.telegram.org/constructor/payments.starGifts" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarGiftsNotModified), nameof(TStarGiftsNotModified))]
 [JsonDerivedType(typeof(TStarGifts), nameof(TStarGifts))]
 public interface IStarGifts : IObject

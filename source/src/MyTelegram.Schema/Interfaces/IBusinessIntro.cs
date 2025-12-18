@@ -2,31 +2,35 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/business#business-introduction">Telegram Business introduction »</a>.
-/// See <a href="https://corefork.telegram.org/type/BusinessIntro" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BusinessIntro" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBusinessIntro"/> See <a href="https://corefork.telegram.org/constructor/businessIntro" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBusinessIntro), nameof(TBusinessIntro))]
 public interface IBusinessIntro : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title of the introduction message (max <a href="https://corefork.telegram.org/api/config#intro-title-length-limit">intro_title_length_limit »</a> UTF-8 characters).
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Profile introduction (max <a href="https://corefork.telegram.org/api/config#intro-description-length-limit">intro_description_length_limit »</a> UTF-8 characters).
-    ///</summary>
+    /// </summary>
     string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional introduction <a href="https://corefork.telegram.org/api/stickers">sticker</a>.
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IDocument? Sticker { get; set; }
 }

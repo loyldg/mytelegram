@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Table row
-/// See <a href="https://corefork.telegram.org/constructor/pageTableRow" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageTableRow" /></para>
+/// </summary>
 [TlObject(0xe0c0c5e5)]
-public sealed class TPageTableRow : IPageTableRow
+public sealed partial class TPageTableRow : IPageTableRow
 {
     public uint ConstructorId => 0xe0c0c5e5;
-    ///<summary>
+    /// <summary>
     /// Table cells
     /// See <a href="https://corefork.telegram.org/type/PageTableCell" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPageTableCell> Cells { get; set; }
 
     public void ComputeFlag()

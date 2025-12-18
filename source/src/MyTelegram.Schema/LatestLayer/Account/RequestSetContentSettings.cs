@@ -2,26 +2,29 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Set sensitive content settings (for viewing or hiding NSFW content)
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 403 SENSITIVE_CHANGE_FORBIDDEN You can't change your sensitive content settings.
-/// See <a href="https://corefork.telegram.org/method/account.setContentSettings" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>403 SENSITIVE_CHANGE_FORBIDDEN You can't change your sensitive content settings. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.setContentSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb574b16b)]
-public sealed class RequestSetContentSettings : IRequest<IBool>
+public sealed partial class RequestSetContentSettings : IRequest<IBool>
 {
     public uint ConstructorId => 0xb574b16b;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Enable NSFW content
-    ///</summary>
+    /// </summary>
     public bool SensitiveEnabled { get; set; }
 
     public void ComputeFlag()

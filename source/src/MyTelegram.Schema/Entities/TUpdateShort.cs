@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Shortened constructor containing info on one update not requiring auxiliary data
-/// See <a href="https://corefork.telegram.org/constructor/updateShort" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateShort" /></para>
+/// </summary>
 [TlObject(0x78d4dec1)]
-public sealed class TUpdateShort : IUpdates
+public sealed partial class TUpdateShort : IUpdates
 {
     public uint ConstructorId => 0x78d4dec1;
-    ///<summary>
+    /// <summary>
     /// Update
     /// See <a href="https://corefork.telegram.org/type/Update" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IUpdate Update { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of event
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

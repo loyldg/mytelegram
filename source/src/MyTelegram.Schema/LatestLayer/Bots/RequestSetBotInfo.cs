@@ -2,48 +2,51 @@
 
 namespace MyTelegram.Schema.Bots;
 
-///<summary>
+/// <summary>
 /// Set localized name, about text and description of a bot (or of the current account, if called by a bot).
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-/// See <a href="https://corefork.telegram.org/method/bots.setBotInfo" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 USER_BOT_INVALID User accounts must provide the <code>bot</code> method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/bots.setBotInfo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x10cf3123)]
-public sealed class RequestSetBotInfo : IRequest<IBool>
+public sealed partial class RequestSetBotInfo : IRequest<IBool>
 {
     public uint ConstructorId => 0x10cf3123;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If called by a user, <strong>must</strong> contain the peer of a bot we own.
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser? Bot { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Language code, if left empty update the fallback about text and description
-    ///</summary>
+    /// </summary>
     public string LangCode { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New bot name
-    ///</summary>
+    /// </summary>
     public string? Name { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New about text
-    ///</summary>
+    /// </summary>
     public string? About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New description
-    ///</summary>
+    /// </summary>
     public string? Description { get; set; }
 
     public void ComputeFlag()

@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Dialog;
 
+[EnableAutoGeneration]
 public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, DialogId, DialogSnapshot>
 {
     private readonly DialogState _state = new();
@@ -9,21 +10,26 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Register(_state);
     }
 
-    public void UpdateDialogFolder(RequestInfo requestInfo, int? folder)
+    [DoNotInheritRequestCommand]
+    public void UpdateDialogFolder(RequestInfo requestInfo, int? folderId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DialogFolderUpdatedEvent(requestInfo, _state.OwnerId, _state.ToPeer, folder));
+        var ownerUserId = _state.OwnerId;
+        Emit(new DialogFolderUpdatedEvent(requestInfo, ownerUserId, _state.ToPeer, folderId));
     }
 
-    public void UpdateDialog(RequestInfo requestInfo, long ownerUserId, Peer toPeer, int topMessageId, int pts, int? defaultHistoryTtl)
+    [DoNotInheritRequestCommand]
+    public void UpdateDialog(RequestInfo requestInfo, long ownerUserId, Peer toPeer, int topMessageId, int pts, int? defaultHistoryTtl, bool isMonoForum)
     {
-        Emit(new DialogUpdatedEvent(requestInfo, ownerUserId, toPeer, topMessageId, pts, IsNew, defaultHistoryTtl));
+        Emit(new DialogUpdatedEvent(requestInfo, ownerUserId, toPeer, topMessageId, pts, IsNew, defaultHistoryTtl, isMonoForum));
     }
-
+	
     public void ClearChannelHistory(RequestInfo requestInfo, int availableMinId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ChannelHistoryClearedEvent(requestInfo, _state.ToPeer.PeerId, availableMinId));
+        var channelId = _state.ToPeer.PeerId;
+        var historyMinId = availableMinId;
+        Emit(new ChannelHistoryClearedEvent(requestInfo, channelId, historyMinId));
     }
 
     public void ClearDraft()
@@ -39,7 +45,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         string messageActionData,
         long randomId,
         List<int> messageIdListToBeDelete,
-        int nextMaxId)
+        int historyMinId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new HistoryClearedEvent(requestInfo,
@@ -50,17 +56,18 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
             messageActionData,
             randomId,
             messageIdListToBeDelete,
-            nextMaxId
+            historyMinId
         ));
     }
 
     public void ClearParticipantHistory(RequestInfo requestInfo)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ParticipantHistoryClearedEvent(requestInfo, _state.OwnerId, _state.TopMessageId));
+        var historyMinId = _state.TopMessageId;
+        Emit(new ParticipantHistoryClearedEvent(requestInfo, _state.OwnerId, historyMinId));
     }
 
-    public void Create(
+    public void CreateDialog(
         RequestInfo requestInfo,
         long ownerId,
         Peer toPeer,
@@ -68,23 +75,27 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         int topMessageId)
     {
         //Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+        var creationTime = DateTime.UtcNow;
         Emit(new DialogCreatedEvent(ownerId,
             toPeer,
             channelHistoryMinId,
             topMessageId,
-            DateTime.UtcNow
+            creationTime
         ));
     }
 
     public void CreateMention(int messageId)
     {
-        Emit(new MentionCreatedEvent(_state.OwnerId, _state.ToPeer, messageId, _state.UnreadMentionsCount + 1));
+        var unreadMentionsCount = _state.UnreadMentionsCount + 1;
+        var ownerUserId = _state.OwnerId;
+        Emit(new MentionCreatedEvent(ownerUserId, _state.ToPeer, messageId, unreadMentionsCount));
     }
 
     public void MarkDialogAsUnread(bool unread)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DialogUnreadMarkChangedEvent(unread));
+        var unreadMark = unread;
+        Emit(new DialogUnreadMarkChangedEvent(unreadMark));
     }
 
     public void OutboxMessageHasRead(RequestInfo requestInfo,
@@ -93,17 +104,18 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Peer toPeer
     )
     {
-        if (maxMessageId > _state.ReadOutboxMaxId)
+        //Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var hasRead = maxMessageId > _state.ReadOutboxMaxId;
+        if (_state.ReadOutboxMaxId > maxMessageId)
         {
-            Emit(new OutboxMessageHasReadEvent(requestInfo,
-                maxMessageId,
-                ownerPeerId,
-                toPeer));
+            maxMessageId = _state.ReadOutboxMaxId;
         }
-        else
-        {
-            Emit(new OutboxAlreadyReadEvent(requestInfo, _state.ReadOutboxMaxId, maxMessageId, _state.ToPeer));
-        }
+        Emit(new OutboxMessageHasReadEvent(requestInfo,
+            maxMessageId,
+            ownerPeerId,
+            toPeer,
+            hasRead
+            ));
     }
 
     public void ReadChannelInboxMessage(RequestInfo requestInfo,
@@ -125,10 +137,11 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
             topMsgId));
     }
 
+    [DoNotInheritRequestCommand]
     public void ReadInboxMessage2(RequestInfo requestInfo,
         long readerUserId,
         long ownerPeerId,
-        int maxId,
+        int maxMessageId,
         int unreadCount,
         Peer toPeer,
         int date
@@ -150,7 +163,7 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new ReadInboxMessage2Event(requestInfo,
             readerUserId,
             ownerPeerId,
-            maxId,
+            maxMessageId,
             readCount,
             unreadCount,
             toPeer, date));
@@ -164,10 +177,11 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         {
             unreadMentionsCount = 0;
         }
-
-        Emit(new MentionReadEvent(_state.OwnerId, _state.ToPeer, messageId, unreadMentionsCount));
+        var ownerUserId = _state.OwnerId;
+        Emit(new MentionReadEvent(ownerUserId, _state.ToPeer, messageId, unreadMentionsCount));
     }
 
+    [DoNotInheritRequestCommand]
     public void ReceiveInboxMessage(
         RequestInfo requestInfo,
         int messageId,
@@ -183,16 +197,20 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
     }
 
     public void SaveDraft(RequestInfo requestInfo,
-        Draft draft
+        Draft draft,
+        int? topicId
     )
     {
         //Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var ownerPeerId = _state.OwnerId;
+        var peer = _state.ToPeer;
         Emit(new DraftSavedEvent(requestInfo,
-            _state.OwnerId,
-            _state.ToPeer,
-           draft));
+            ownerPeerId,
+            peer,
+           draft, topicId));
     }
 
+    [DoNotInheritRequestCommand]
     public void SetOutboxTopMessage(
         //RequestInfo requestInfo,
         int messageId,
@@ -221,41 +239,49 @@ public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, 
         Emit(new PinnedOrderChangedEvent(order));
     }
 
-    public void TogglePinned(RequestInfo requestInfo,
+    public void ToggleDialogPinned(RequestInfo requestInfo,
         bool pinned)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new DialogPinChangedEvent(requestInfo, _state.OwnerId, pinned));
+        var ownerPeerId = _state.OwnerId;
+        Emit(new DialogPinChangedEvent(requestInfo, ownerPeerId, pinned));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateReadChannelInbox(RequestInfo requestInfo, long messageSenderUserId, int maxId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new UpdateReadChannelInboxEvent(requestInfo, messageSenderUserId, _state.ToPeer.PeerId, maxId));
+        var channelId = _state.ToPeer.PeerId;
+        Emit(new UpdateReadChannelInboxEvent(requestInfo, messageSenderUserId, channelId, maxId));
     }
 
+    [DoNotInheritRequestCommand]
     public void UpdateReadChannelOutbox(RequestInfo requestInfo, int maxId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new UpdateReadChannelOutboxEvent(requestInfo, _state.OwnerId, _state.ToPeer.PeerId, maxId));
+        var messageSenderUserId = _state.OwnerId;
+        var channelId = _state.ToPeer.PeerId;
+        Emit(new UpdateReadChannelOutboxEvent(requestInfo, messageSenderUserId, channelId, maxId));
     }
 
     public void UpdateReadInboxMaxId(RequestInfo requestInfo, int maxId, long senderUserId, int senderMessageId, int unreadCount)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ReadInboxMaxIdUpdatedEvent(requestInfo, _state.OwnerId, _state.ToPeer.PeerId, maxId, senderUserId,
+        var readInboxMaxId = maxId;
+        Emit(new ReadInboxMaxIdUpdatedEvent(requestInfo, _state.OwnerId, _state.ToPeer.PeerId, readInboxMaxId, senderUserId,
             senderMessageId,
             unreadCount
             ));
     }
 
-    public void UpdateReadOutboxMaxId(RequestInfo requestInfo, int maxId)
+    public void UpdateReadOutboxMaxId(RequestInfo requestInfo, int readOutboxMaxId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new ReadOutboxMaxIdUpdatedEvent(requestInfo, _state.OwnerId, _state.ToPeer.PeerId, maxId));
+        var ownerUserId = _state.OwnerId;
+        Emit(new ReadOutboxMaxIdUpdatedEvent(requestInfo, ownerUserId, _state.ToPeer.PeerId, readOutboxMaxId));
     }
 
-    public void UpdateTopMessageId(int newTopMessageId)
+    public void UpdateDialogTopMessageId(int newTopMessageId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         Emit(new TopMessageIdUpdatedEvent(_state.OwnerId, _state.ToPeer, newTopMessageId));

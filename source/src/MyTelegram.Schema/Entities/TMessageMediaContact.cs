@@ -2,37 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Attached contact.
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaContact" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaContact" /></para>
+/// </summary>
 [TlObject(0x70322949)]
-public sealed class TMessageMediaContact : IMessageMedia
+public sealed partial class TMessageMediaContact : IMessageMedia
 {
     public uint ConstructorId => 0x70322949;
-    ///<summary>
+    /// <summary>
     /// Phone number
-    ///</summary>
+    /// </summary>
     public string PhoneNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contact's first name
-    ///</summary>
+    /// </summary>
     public string FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Contact's last name
-    ///</summary>
+    /// </summary>
     public string LastName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// VCARD of contact
-    ///</summary>
+    /// </summary>
     public string Vcard { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User identifier or <code>0</code>, if the user with the given phone number is not registered
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
     public void ComputeFlag()

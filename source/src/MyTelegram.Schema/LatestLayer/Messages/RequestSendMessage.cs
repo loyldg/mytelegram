@@ -2,186 +2,202 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Sends a message to a chat
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 ADMIN_RIGHTS_EMPTY The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).
-/// 400 BOT_DOMAIN_INVALID Bot domain invalid.
-/// 400 BOT_INVALID This is not a valid bot.
-/// 400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.
-/// 400 BUSINESS_PEER_USAGE_MISSING You cannot send a message to a user through a <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a> if the user hasn't recently contacted us.
-/// 400 BUTTON_COPY_TEXT_INVALID The specified <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy">keyboardButtonCopy</a>.<code>copy_text</code> is invalid.
-/// 400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.
-/// 400 BUTTON_ID_INVALID The specified button ID is invalid.
-/// 400 BUTTON_TYPE_INVALID The type of one or more of the buttons you provided is invalid.
-/// 400 BUTTON_URL_INVALID Button URL invalid.
-/// 400 BUTTON_USER_INVALID The <code>user_id</code> passed to inputKeyboardButtonUserProfile is invalid!
-/// 400 BUTTON_USER_PRIVACY_RESTRICTED The privacy setting of the user specified in a <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUserProfile">inputKeyboardButtonUserProfile</a> button do not allow creating such a button.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 403 CHAT_GUEST_SEND_FORBIDDEN You join the discussion group before commenting, see <a href="https://corefork.telegram.org/api/discussion#requiring-users-to-join-the-group">here&nbsp;»</a> for more info.
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.
-/// 403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.
-/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
-/// 400 DOCUMENT_INVALID The specified document is invalid.
-/// 400 ENCRYPTION_DECLINED The secret chat was declined.
-/// 400 ENTITIES_TOO_LONG You provided too many styled message entities.
-/// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here&nbsp;»</a> for info on how to properly compute the entity offset/length.
-/// 400 ENTITY_MENTION_USER_INVALID You mentioned an invalid user.
-/// 400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.
-/// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
-/// 400 MESSAGE_EMPTY The provided message is empty.
-/// 400 MESSAGE_TOO_LONG The provided message is too long.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 500 MSG_WAIT_FAILED A waiting call returned an error.
-/// 406 PAYMENT_UNSUPPORTED A detailed description of the error will be received separately as described <a href="https://corefork.telegram.org/api/errors#406-not-acceptable">here&nbsp;»</a>.
-/// 404 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.
-/// 400 POLL_OPTION_INVALID Invalid poll option provided.
-/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 406 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
-/// 400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.
-/// 400 QUOTE_TEXT_INVALID The specified <code>reply_to</code>.<code>quote_text</code> field is invalid.
-/// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
-/// 400 REPLY_MARKUP_INVALID The provided reply markup is invalid.
-/// 400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.
-/// 400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.
-/// 400 REPLY_MESSAGE_ID_INVALID The specified reply-to message ID is invalid.
-/// 400 REPLY_TO_INVALID The specified <code>reply_to</code> field is invalid.
-/// 400 REPLY_TO_USER_INVALID The replied-to user is invalid.
-/// 400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.
-/// 400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.
-/// 400 SCHEDULE_STATUS_PRIVATE Can't schedule until user is online, if the user's last seen timestamp is hidden by their privacy settings.
-/// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
-/// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
-/// 420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
-/// 400 STORY_ID_INVALID The specified story ID is invalid.
-/// 406 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.
-/// 406 TOPIC_DELETED The specified topic was deleted.
-/// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
-/// 403 USER_IS_BLOCKED You were blocked by this user.
-/// 400 USER_IS_BOT Bots can't send messages to other bots.
-/// 400 WC_CONVERT_URL_INVALID WC convert URL invalid.
-/// 400 YOU_BLOCKED_USER You blocked this user.
-/// See <a href="https://corefork.telegram.org/method/messages.sendMessage" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 ADMIN_RIGHTS_EMPTY The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).</c></para>
+/// <para><c>406 ALLOW_PAYMENT_REQUIRED This peer only accepts <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>: this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages.  .</c></para>
+/// <para><c>403 ALLOW_PAYMENT_REQUIRED_%d This peer charges %d <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> per message, but the <code>allow_paid_stars</code> was not set or its value is smaller than %d.</c></para>
+/// <para><c>400 BALANCE_TOO_LOW The transaction cannot be completed because the current <a href="https://corefork.telegram.org/api/stars">Telegram Stars balance</a> is too low.</c></para>
+/// <para><c>400 BOT_DOMAIN_INVALID Bot domain invalid.</c></para>
+/// <para><c>400 BOT_INVALID This is not a valid bot.</c></para>
+/// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.</c></para>
+/// <para><c>400 BUSINESS_PEER_USAGE_MISSING You cannot send a message to a user through a <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a> if the user hasn't recently contacted us.</c></para>
+/// <para><c>400 BUTTON_COPY_TEXT_INVALID The specified <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy">keyboardButtonCopy</a>.<code>copy_text</code> is invalid.</c></para>
+/// <para><c>400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.</c></para>
+/// <para><c>400 BUTTON_ID_INVALID The specified button ID is invalid.</c></para>
+/// <para><c>400 BUTTON_TYPE_INVALID The type of one or more of the buttons you provided is invalid.</c></para>
+/// <para><c>400 BUTTON_URL_INVALID Button URL invalid.</c></para>
+/// <para><c>400 BUTTON_USER_INVALID The <code>user_id</code> passed to inputKeyboardButtonUserProfile is invalid!</c></para>
+/// <para><c>400 BUTTON_USER_PRIVACY_RESTRICTED The privacy setting of the user specified in a <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUserProfile">inputKeyboardButtonUserProfile</a> button do not allow creating such a button.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.</c></para>
+/// <para><c>406 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>403 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_FORWARDS_RESTRICTED You can't forward messages from a protected chat.</c></para>
+/// <para><c>403 CHAT_GUEST_SEND_FORBIDDEN You join the discussion group before commenting, see <a href="https://corefork.telegram.org/api/discussion#requiring-users-to-join-the-group">here »</a> for more info.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 CHAT_RESTRICTED You can't send messages in this chat, you were restricted.</c></para>
+/// <para><c>403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 ENCRYPTION_DECLINED The secret chat was declined.</c></para>
+/// <para><c>400 ENTITIES_TOO_LONG You provided too many styled message entities.</c></para>
+/// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
+/// <para><c>400 ENTITY_MENTION_USER_INVALID You mentioned an invalid user.</c></para>
+/// <para><c>400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MESSAGE_EMPTY The provided message is empty.</c></para>
+/// <para><c>400 MESSAGE_TOO_LONG The provided message is too long.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>500 MSG_WAIT_FAILED A waiting call returned an error.</c></para>
+/// <para><c>406 PAYMENT_UNSUPPORTED A detailed description of the error will be received separately as described <a href="https://corefork.telegram.org/api/errors#406-not-acceptable">here »</a>.</c></para>
+/// <para><c>404 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PEER_TYPES_INVALID The passed <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline">keyboardButtonSwitchInline</a>.<code>peer_types</code> field is invalid.</c></para>
+/// <para><c>400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.</c></para>
+/// <para><c>400 POLL_OPTION_INVALID Invalid poll option provided.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
+/// <para><c>403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
+/// <para><c>400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.</c></para>
+/// <para><c>400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.</c></para>
+/// <para><c>400 QUOTE_TEXT_INVALID The specified <code>reply_to</code>.<code>quote_text</code> field is invalid.</c></para>
+/// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.</c></para>
+/// <para><c>400 REPLY_MARKUP_INVALID The provided reply markup is invalid.</c></para>
+/// <para><c>400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.</c></para>
+/// <para><c>400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.</c></para>
+/// <para><c>400 REPLY_MESSAGE_ID_INVALID The specified reply-to message ID is invalid.</c></para>
+/// <para><c>400 REPLY_TO_INVALID The specified <code>reply_to</code> field is invalid.</c></para>
+/// <para><c>400 REPLY_TO_MONOFORUM_PEER_INVALID The specified inputReplyToMonoForum.monoforum_peer_id is invalid.</c></para>
+/// <para><c>400 REPLY_TO_USER_INVALID The replied-to user is invalid.</c></para>
+/// <para><c>400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.</c></para>
+/// <para><c>400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.</c></para>
+/// <para><c>400 SCHEDULE_STATUS_PRIVATE Can't schedule until user is online, if the user's last seen timestamp is hidden by their privacy settings.</c></para>
+/// <para><c>400 SCHEDULE_TOO_MUCH There are too many scheduled messages.</c></para>
+/// <para><c>400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.</c></para>
+/// <para><c>420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.</c></para>
+/// <para><c>400 STORIES_NEVER_CREATED This peer hasn't ever posted any stories.</c></para>
+/// <para><c>400 STORY_ID_INVALID The specified story ID is invalid.</c></para>
+/// <para><c>400 SUGGESTED_POST_AMOUNT_INVALID The specified price for the suggested post is invalid.</c></para>
+/// <para><c>400 SUGGESTED_POST_PEER_INVALID You cannot send suggested posts to non-<a href="https://corefork.telegram.org/api/monoforum">monoforum</a> peers.</c></para>
+/// <para><c>406 TOPIC_CLOSED This topic was closed, you can't send messages to it anymore.</c></para>
+/// <para><c>406 TOPIC_DELETED The specified topic was deleted.</c></para>
+/// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.</c></para>
+/// <para><c>403 USER_IS_BLOCKED You were blocked by this user.</c></para>
+/// <para><c>400 USER_IS_BOT Bots can't send messages to other bots.</c></para>
+/// <para><c>400 WC_CONVERT_URL_INVALID WC convert URL invalid.</c></para>
+/// <para><c>400 YOU_BLOCKED_USER You blocked this user. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.sendMessage" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xfe05dc9a)]
-public sealed class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xfe05dc9a;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Set this flag to disable generation of the webpage preview
-    ///</summary>
+    /// </summary>
     public bool NoWebpage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Send this message silently (no notifications for the receivers)
-    ///</summary>
+    /// </summary>
     public bool Silent { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Send this message as background message
-    ///</summary>
+    /// </summary>
     public bool Background { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Clear the draft field
-    ///</summary>
+    /// </summary>
     public bool ClearDraft { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only for bots, disallows forwarding and saving of the messages, even if the destination chat doesn't have <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">content protection</a> enabled
-    ///</summary>
+    /// </summary>
     public bool Noforwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to move used stickersets to top, <a href="https://corefork.telegram.org/api/stickers#recent-stickersets">see here for more info on this flag »</a>
-    ///</summary>
+    /// </summary>
     public bool UpdateStickersetsOrder { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, any eventual webpage preview will be shown on top of the message instead of at the bottom.
-    ///</summary>
+    /// </summary>
     public bool InvertMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bots only: if set, allows sending up to 1000 messages per second, ignoring <a href="https://corefork.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
-    ///</summary>
+    /// </summary>
     public bool AllowPaidFloodskip { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The destination where the message will be sent
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
-    /// If set, indicates that the message should be sent in reply to the specified message or story. <br>Also used to quote other messages.
+    /// <summary>
+    /// If set, indicates that the message should be sent in reply to the specified message or story. <br/>Also used to quote other messages.
     /// See <a href="https://corefork.telegram.org/type/InputReplyTo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputReplyTo? ReplyTo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The message
-    ///</summary>
+    /// </summary>
     public string Message { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client message ID required to prevent message resending
-    ///</summary>
+    /// </summary>
     public long RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reply markup for sending bot buttons
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message <a href="https://corefork.telegram.org/api/entities">entities</a> for sending styled text
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Scheduled message date for <a href="https://corefork.telegram.org/api/scheduled-messages">scheduled messages</a>
-    ///</summary>
+    /// </summary>
     public int? ScheduleDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Send this message as the specified peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Add the message to the specified <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut »</a>, instead.
     /// See <a href="https://corefork.telegram.org/type/InputQuickReplyShortcut" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputQuickReplyShortcut? QuickReplyShortcut { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Specifies a <a href="https://corefork.telegram.org/api/effects">message effect »</a> to use for the message.
-    ///</summary>
+    /// </summary>
     public long? Effect { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a>, specifies the amount of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> the user has agreed to pay in order to send the message.
-    ///</summary>
+    /// </summary>
     public long? AllowPaidStars { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Used to <a href="https://corefork.telegram.org/api/suggested-posts">suggest a post to a channel, see here »</a> for more info on the full flow.
     /// See <a href="https://corefork.telegram.org/type/SuggestedPost" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
     public void ComputeFlag()

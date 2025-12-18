@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Channel statistics date range
-/// See <a href="https://corefork.telegram.org/type/StatsDateRangeDays" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/StatsDateRangeDays" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStatsDateRangeDays"/> See <a href="https://corefork.telegram.org/constructor/statsDateRangeDays" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStatsDateRangeDays), nameof(TStatsDateRangeDays))]
 public interface IStatsDateRangeDays : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Initial date
-    ///</summary>
+    /// </summary>
     int MinDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Final date
-    ///</summary>
+    /// </summary>
     int MaxDate { get; set; }
 }

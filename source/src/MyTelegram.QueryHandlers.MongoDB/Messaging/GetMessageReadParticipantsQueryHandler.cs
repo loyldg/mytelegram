@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using MongoDB.Driver.Linq;
 
 namespace MyTelegram.QueryHandlers.MongoDB.Messaging;
 
@@ -15,7 +15,7 @@ public class GetMessageReadParticipantsQueryHandler(IQueryOnlyReadModelStore<Rea
                 .OrderBy(p => p.MessageId)
                 .GroupBy(p => p.ReaderPeerId)
                 .Select(g => g.First())
-                .ToAsyncEnumerable()
+                //.ToAsyncEnumerable()
                 .ToListAsync(cancellationToken: cancellationToken)
              ;
         return readingHistoryList;

@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bots only: a user has purchased a <a href="https://corefork.telegram.org/api/paid-media">paid media</a>.
-/// See <a href="https://corefork.telegram.org/constructor/updateBotPurchasedPaidMedia" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateBotPurchasedPaidMedia" /></para>
+/// </summary>
 [TlObject(0x283bd312)]
-public sealed class TUpdateBotPurchasedPaidMedia : IUpdate
+public sealed partial class TUpdateBotPurchasedPaidMedia : IUpdate
 {
     public uint ConstructorId => 0x283bd312;
-    ///<summary>
+    /// <summary>
     /// The user that bought the media
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payload passed by the bot in <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia">inputMediaPaidMedia</a>.<code>payload</code>
-    ///</summary>
+    /// </summary>
     public string Payload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
-    ///</summary>
+    /// </summary>
     public int Qts { get; set; }
 
     public void ComputeFlag()

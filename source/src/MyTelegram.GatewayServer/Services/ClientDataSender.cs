@@ -11,9 +11,7 @@ public class ClientDataSender(
     {
         if (!clientManager.TryGetClientData(data.ConnectionId, out var d))
         {
-            logger.LogWarning(
-                "[0] Cannot find cached client info, skip sending message, connectionId: {ConnectionId}",
-                data.ConnectionId);
+            logger.CachedClientInfoNotFound(data.ConnectionId);
             return Task.CompletedTask;
         }
 
@@ -28,11 +26,7 @@ public class ClientDataSender(
         {
             if (!clientManager.TryGetClientData(data.AuthKeyId, out d))
             {
-                logger.LogWarning(
-                    "Cannot find cached client info, skip sending message, connectionId: {ConnectionId}, authKeyId: {AuthKeyId}",
-                    data.ConnectionId,
-                    data.AuthKeyId
-                );
+                logger.CachedClientInfoNotFound2(data.ConnectionId, data.AuthKeyId);
                 messageQueueProcessor.Enqueue(new ClientDisconnectedEvent(data.ConnectionId, data.AuthKeyId, 0), 0);
                 return Task.CompletedTask;
             }
@@ -71,7 +65,6 @@ public class ClientDataSender(
             case ClientType.Tcp:
                 await clientData.ConnectionContext!.Transport.Output.WriteAsync(encodedBytes);
                 await clientData.ConnectionContext!.Transport.Output.FlushAsync();
-
                 break;
 
             case ClientType.WebSocket:

@@ -2,16 +2,21 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object defines a user.
-/// See <a href="https://corefork.telegram.org/type/User" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/User" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUserEmpty"/> See <a href="https://corefork.telegram.org/constructor/userEmpty" /><br/>
+/// <see cref="TUser"/> See <a href="https://corefork.telegram.org/constructor/user" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUserEmpty), nameof(TUserEmpty))]
 [JsonDerivedType(typeof(TUser), nameof(TUser))]
 public interface IUser : IObject
 {
-    ///<summary>
+    /// <summary>
     /// User identifier or <code>0</code>
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 }

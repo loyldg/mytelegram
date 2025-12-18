@@ -1,9 +1,9 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Send a result obtained using <a href="https://corefork.telegram.org/method/messages.getInlineBotResults">messages.getInlineBotResults</a>.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
+/// 403 ALLOW_PAYMENT_REQUIRED_%d This peer charges %d <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> per message, but the <code>allow_paid_stars</code> was not set or its value is smaller than %d.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
 /// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
@@ -15,6 +15,7 @@
 /// 403 CHAT_SEND_INLINE_FORBIDDEN You can't send inline messages in this group.
 /// 403 CHAT_SEND_MEDIA_FORBIDDEN You can't send media in this chat.
 /// 403 CHAT_SEND_PHOTOS_FORBIDDEN You can't send photos in this chat.
+/// 403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.
 /// 403 CHAT_SEND_STICKERS_FORBIDDEN You can't send stickers in this chat.
 /// 403 CHAT_SEND_VOICES_FORBIDDEN You can't send voice recordings in this chat.
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
@@ -24,11 +25,17 @@
 /// 400 MEDIA_EMPTY The provided media object is invalid.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
 /// 400 QUERY_ID_EMPTY The query ID is empty.
+/// 400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.
 /// 500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.
+/// 400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.
 /// 400 RESULT_ID_EMPTY Result ID empty.
+/// 400 RESULT_ID_INVALID One of the specified result IDs is invalid.
 /// 400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.
 /// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
+/// 400 SEND_AS_PEER_INVALID You can't send messages as the specified peer.
+/// 500 SEND_MEDIA_INVALID The specified media is invalid.
 /// 420 SLOWMODE_WAIT_%d Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
 /// 400 TOPIC_DELETED The specified topic was deleted.
 /// 400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.
@@ -36,12 +43,14 @@
 /// 400 WEBPAGE_CURL_FAILED Failure while fetching the webpage with cURL.
 /// 400 WEBPAGE_MEDIA_EMPTY Webpage media empty.
 /// 400 YOU_BLOCKED_USER You blocked this user.
-/// See <a href="https://corefork.telegram.org/method/messages.sendInlineBotResult" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.sendInlineBotResult"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class SendInlineBotResultHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendInlineBotResult, MyTelegram.Schema.IUpdates>
 {
-    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Messages.RequestSendInlineBotResult obj)
+    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestSendInlineBotResult obj)
     {
         throw new NotImplementedException();
     }

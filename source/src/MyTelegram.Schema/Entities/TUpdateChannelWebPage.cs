@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A webpage preview of a link in a <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> message was generated
-/// See <a href="https://corefork.telegram.org/constructor/updateChannelWebPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChannelWebPage" /></para>
+/// </summary>
 [TlObject(0x2f2ba99f)]
-public sealed class TUpdateChannelWebPage : IUpdate
+public sealed partial class TUpdateChannelWebPage : IUpdate
 {
     public uint ConstructorId => 0x2f2ba99f;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/channel">Channel/supergroup</a> ID
-    ///</summary>
+    /// </summary>
     public long ChannelId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Generated webpage preview
     /// See <a href="https://corefork.telegram.org/type/WebPage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebPage Webpage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>
-    ///</summary>
+    /// </summary>
     public int Pts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Number of events that were generated</a>
-    ///</summary>
+    /// </summary>
     public int PtsCount { get; set; }
 
     public void ComputeFlag()

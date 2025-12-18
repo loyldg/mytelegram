@@ -2,132 +2,135 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/stories">story</a>.
-/// See <a href="https://corefork.telegram.org/constructor/storyItem" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/storyItem" /></para>
+/// </summary>
 [TlObject(0xedf164f1)]
-public sealed class TStoryItem : IStoryItem
+public sealed partial class TStoryItem : IStoryItem
 {
     public uint ConstructorId => 0xedf164f1;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this story is pinned on the user's profile
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this story is public and can be viewed by everyone
-    ///</summary>
+    /// </summary>
     public bool Public { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this story can only be viewed by <a href="https://corefork.telegram.org/api/privacy">our close friends, see here »</a> for more info
-    ///</summary>
+    /// </summary>
     public bool CloseFriends { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Full information about this story was omitted for space and performance reasons; use <a href="https://corefork.telegram.org/method/stories.getStoriesByID">stories.getStoriesByID</a> to fetch full info about this story when and if needed.
-    ///</summary>
+    /// </summary>
     public bool Min { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this story is <a href="https://telegram.org/blog/protected-content-delete-by-date-and-more">protected</a> and thus cannot be forwarded; clients should also prevent users from saving attached media (i.e. videos should only be streamed, photos should be kept in RAM, et cetera).
-    ///</summary>
+    /// </summary>
     public bool Noforwards { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Indicates whether the story was edited.
-    ///</summary>
+    /// </summary>
     public bool Edited { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this story can only be viewed by our contacts
-    ///</summary>
+    /// </summary>
     public bool Contacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this story can only be viewed by a select list of our contacts
-    ///</summary>
+    /// </summary>
     public bool SelectedContacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// indicates whether we sent this story.
-    ///</summary>
+    /// </summary>
     public bool Out { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the story.
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the story posted.
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Sender of the story.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? FromId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/stories#reposting-stories">reposted stories »</a>, contains info about the original story.
     /// See <a href="https://corefork.telegram.org/type/StoryFwdHeader" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoryFwdHeader? FwdFrom { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When does the story expire.
-    ///</summary>
+    /// </summary>
     public int ExpireDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story caption.
-    ///</summary>
+    /// </summary>
     public string? Caption { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Story media.
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMessageMedia Media { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// List of media areas, see <a href="https://corefork.telegram.org/api/stories#media-areas">here »</a> for more info on media areas.
     /// See <a href="https://corefork.telegram.org/type/MediaArea" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMediaArea>? MediaAreas { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/privacy">Privacy rules</a> indicating who can and can't view this story
     /// See <a href="https://corefork.telegram.org/type/PrivacyRule" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPrivacyRule>? Privacy { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// View date and reaction information
     /// See <a href="https://corefork.telegram.org/type/StoryViews" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStoryViews? Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reaction we sent.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction? SentReaction { get; set; }
 
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/stories#story-albums">Albums</a> this story is part of.
+    /// </summary>
     public TVector<int>? Albums { get; set; }
 
     public void ComputeFlag()

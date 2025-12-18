@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Get stickers attached to a photo or video
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MEDIA_EMPTY The provided media object is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.getAttachedStickers" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MEDIA_EMPTY The provided media object is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getAttachedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xcc5b67cc)]
-public sealed class RequestGetAttachedStickers : IRequest<TVector<MyTelegram.Schema.IStickerSetCovered>>
+public sealed partial class RequestGetAttachedStickers : IRequest<TVector<MyTelegram.Schema.IStickerSetCovered>>
 {
     public uint ConstructorId => 0xcc5b67cc;
 
-    ///<summary>
+    /// <summary>
     /// Stickered media
     /// See <a href="https://corefork.telegram.org/type/InputStickeredMedia" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputStickeredMedia Media { get; set; }
 
     public void ComputeFlag()

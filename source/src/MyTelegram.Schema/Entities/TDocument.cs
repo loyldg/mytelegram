@@ -2,70 +2,70 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Document
-/// See <a href="https://corefork.telegram.org/constructor/document" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/document" /></para>
+/// </summary>
 [TlObject(0x8fd4c4d8)]
-public sealed class TDocument : ILayeredDocument
+public sealed partial class TDocument : ILayeredDocument
 {
     public uint ConstructorId => 0x8fd4c4d8;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Document ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Check sum, dependent on document ID
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/file_reference">File reference</a>
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/file-references">File reference</a>
+    /// </summary>
     public ReadOnlyMemory<byte> FileReference { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Creation date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MIME type
-    ///</summary>
+    /// </summary>
     public string MimeType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Size
-    ///</summary>
+    /// </summary>
     public long Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnails
     /// See <a href="https://corefork.telegram.org/type/PhotoSize" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IPhotoSize>? Thumbs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Video thumbnails
     /// See <a href="https://corefork.telegram.org/type/VideoSize" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IVideoSize>? VideoThumbs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// DC ID
-    ///</summary>
+    /// </summary>
     public int DcId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attributes
     /// See <a href="https://corefork.telegram.org/type/DocumentAttribute" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IDocumentAttribute> Attributes { get; set; }
 
     public void ComputeFlag()

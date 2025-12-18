@@ -2,52 +2,52 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Related article
-/// See <a href="https://corefork.telegram.org/constructor/pageRelatedArticle" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/pageRelatedArticle" /></para>
+/// </summary>
 [TlObject(0xb390dc08)]
-public sealed class TPageRelatedArticle : IPageRelatedArticle
+public sealed partial class TPageRelatedArticle : IPageRelatedArticle
 {
     public uint ConstructorId => 0xb390dc08;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of article
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webpage ID of generated IV preview
-    ///</summary>
+    /// </summary>
     public long WebpageId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Description
-    ///</summary>
+    /// </summary>
     public string? Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of preview photo
-    ///</summary>
+    /// </summary>
     public long? PhotoId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Author name
-    ///</summary>
+    /// </summary>
     public string? Author { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of publication
-    ///</summary>
+    /// </summary>
     public int? PublishedDate { get; set; }
 
     public void ComputeFlag()

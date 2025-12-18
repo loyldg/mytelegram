@@ -1,16 +1,17 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Stickers;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Stickers;
+/// <summary>
 /// Replace a sticker in a <a href="https://corefork.telegram.org/api/stickers">stickerset »</a>.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 STICKER_INVALID The provided sticker is invalid.
-/// See <a href="https://corefork.telegram.org/method/stickers.replaceSticker" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/stickers.replaceSticker"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 internal sealed class ReplaceStickerHandler : RpcResultObjectHandler<MyTelegram.Schema.Stickers.RequestReplaceSticker, MyTelegram.Schema.Messages.IStickerSet>
 {
-    protected override Task<MyTelegram.Schema.Messages.IStickerSet> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Stickers.RequestReplaceSticker obj)
+    protected override Task<MyTelegram.Schema.Messages.IStickerSet> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Stickers.RequestReplaceSticker obj)
     {
         throw new NotImplementedException();
     }

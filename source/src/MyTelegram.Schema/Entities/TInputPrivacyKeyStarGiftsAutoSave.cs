@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether received <a href="https://corefork.telegram.org/api/gifts">gifts</a> will be automatically displayed on our profile
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStarGiftsAutoSave" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStarGiftsAutoSave" /></para>
+/// </summary>
 [TlObject(0xe1732341)]
-public sealed class TInputPrivacyKeyStarGiftsAutoSave : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyStarGiftsAutoSave : IInputPrivacyKey
 {
     public uint ConstructorId => 0xe1732341;
     public void ComputeFlag()

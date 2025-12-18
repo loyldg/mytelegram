@@ -2,20 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionPaidMessagesPrice" />
-///</summary>
+/// <summary>
+/// The price of <a href="https://corefork.telegram.org/api/paid-messages">paid messages »</a> in this chat was changed.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionPaidMessagesPrice" /></para>
+/// </summary>
 [TlObject(0x84b88578)]
-public sealed class TMessageActionPaidMessagesPrice : IMessageAction
+public sealed partial class TMessageActionPaidMessagesPrice : IMessageAction
 {
     public uint ConstructorId => 0x84b88578;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Can only be set for channels, if set indicates that <a href="https://corefork.telegram.org/api/monoforum">direct messages were enabled »</a>, otherwise indicates that direct messages were disabled; the price of paid messages is related to the price of direct messages (aka those sent to the associated <a href="https://corefork.telegram.org/api/monoforum">monoforum</a>).
+    /// </summary>
     public bool BroadcastMessagesAllowed { get; set; }
 
+    /// <summary>
+    /// The new price in <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a>, can be <code>0</code> if messages are now free.
+    /// </summary>
     public long Stars { get; set; }
 
     public void ComputeFlag()

@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Get saved payment information
-/// See <a href="https://corefork.telegram.org/method/payments.getSavedInfo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getSavedInfo" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x227d824b)]
-public sealed class RequestGetSavedInfo : IRequest<MyTelegram.Schema.Payments.ISavedInfo>
+public sealed partial class RequestGetSavedInfo : IRequest<MyTelegram.Schema.Payments.ISavedInfo>
 {
     public uint ConstructorId => 0x227d824b;
 

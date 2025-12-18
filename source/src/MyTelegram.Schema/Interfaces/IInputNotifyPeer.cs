@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object defines the set of users and/or groups that generate notifications.
-/// See <a href="https://corefork.telegram.org/type/InputNotifyPeer" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputNotifyPeer" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputNotifyPeer"/> See <a href="https://corefork.telegram.org/constructor/inputNotifyPeer" /><br/>
+/// <see cref="TInputNotifyUsers"/> See <a href="https://corefork.telegram.org/constructor/inputNotifyUsers" /><br/>
+/// <see cref="TInputNotifyChats"/> See <a href="https://corefork.telegram.org/constructor/inputNotifyChats" /><br/>
+/// <see cref="TInputNotifyBroadcasts"/> See <a href="https://corefork.telegram.org/constructor/inputNotifyBroadcasts" /><br/>
+/// <see cref="TInputNotifyForumTopic"/> See <a href="https://corefork.telegram.org/constructor/inputNotifyForumTopic" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputNotifyPeer), nameof(TInputNotifyPeer))]
 [JsonDerivedType(typeof(TInputNotifyUsers), nameof(TInputNotifyUsers))]
 [JsonDerivedType(typeof(TInputNotifyChats), nameof(TInputNotifyChats))]

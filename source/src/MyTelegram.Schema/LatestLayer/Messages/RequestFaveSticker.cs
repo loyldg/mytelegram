@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Mark or unmark a sticker as favorite
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 STICKER_ID_INVALID The provided sticker ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.faveSticker" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STICKER_ID_INVALID The provided sticker ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.faveSticker" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb9ffc55b)]
-public sealed class RequestFaveSticker : IRequest<IBool>
+public sealed partial class RequestFaveSticker : IRequest<IBool>
 {
     public uint ConstructorId => 0xb9ffc55b;
 
-    ///<summary>
+    /// <summary>
     /// Sticker in question
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether to add or remove a sticker from favorites
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool Unfave { get; set; }
 
     public void ComputeFlag()

@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Returns the current user's contact list.
-/// See <a href="https://corefork.telegram.org/method/contacts.getContacts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.getContacts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5dd69e12)]
-public sealed class RequestGetContacts : IRequest<MyTelegram.Schema.Contacts.IContacts>
+public sealed partial class RequestGetContacts : IRequest<MyTelegram.Schema.Contacts.IContacts>
 {
     public uint ConstructorId => 0x5dd69e12;
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.<br>Note that the hash is computed <a href="https://corefork.telegram.org/api/offsets#hash-generation">using the usual algorithm</a>, passing to the algorithm first the previously returned <a href="https://corefork.telegram.org/constructor/contacts.contacts">contacts.contacts</a>.<code>saved_count</code> field, then max <code>100000</code> sorted user IDs from the contact list, including the ID of the currently logged in user if it is saved as a contact. <br>Example: <a href="https://github.com/tdlib/td/blob/63c7d0301825b78c30dc7307f1f1466be049eb79/td/telegram/UserManager.cpp#L5754">tdlib implementation</a>.
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>.<br/>Note that the hash is computed <a href="https://corefork.telegram.org/api/offsets#hash-generation">using the usual algorithm</a>, passing to the algorithm first the previously returned <a href="https://corefork.telegram.org/constructor/contacts.contacts">contacts.contacts</a>.<code>saved_count</code> field, then max <code>100000</code> sorted user IDs from the contact list, including the ID of the currently logged in user if it is saved as a contact. <br/>Example: <a href="https://github.com/tdlib/td/blob/63c7d0301825b78c30dc7307f1f1466be049eb79/td/telegram/UserManager.cpp#L5754">tdlib implementation</a>.
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

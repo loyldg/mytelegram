@@ -2,37 +2,42 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// <a href="https://corefork.telegram.org/api/stars">Star revenue statistics, see here »</a> for more info.Note that all balances and currency amounts and graph values are in Stars.
-/// See <a href="https://corefork.telegram.org/type/payments.StarsRevenueStats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.StarsRevenueStats" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarsRevenueStats"/> See <a href="https://corefork.telegram.org/constructor/payments.starsRevenueStats" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarsRevenueStats), nameof(TStarsRevenueStats))]
 public interface IStarsRevenueStats : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// For ad revenue statistics, ad impressions graph
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStatsGraph? TopHoursGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Star revenue graph (number of earned stars)
     /// See <a href="https://corefork.telegram.org/type/StatsGraph" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStatsGraph RevenueGraph { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current balance, current withdrawable balance and overall earned Telegram Stars
     /// See <a href="https://corefork.telegram.org/type/StarsRevenueStatus" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IStarsRevenueStatus Status { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Current conversion rate of Telegram Stars to USD
-    ///</summary>
+    /// </summary>
     double UsdRate { get; set; }
 }

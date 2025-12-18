@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Message with a file enclosure sent to a protected chat
-/// See <a href="https://corefork.telegram.org/constructor/messages.sentEncryptedFile" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.sentEncryptedFile" /></para>
+/// </summary>
 [TlObject(0x9493ff32)]
-public sealed class TSentEncryptedFile : ISentEncryptedMessage
+public sealed partial class TSentEncryptedFile : ISentEncryptedMessage
 {
     public uint ConstructorId => 0x9493ff32;
-    ///<summary>
+    /// <summary>
     /// Sending date
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attached file
     /// See <a href="https://corefork.telegram.org/type/EncryptedFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IEncryptedFile File { get; set; }
 
     public void ComputeFlag()

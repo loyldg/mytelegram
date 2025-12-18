@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Changes the user's first name, last name and username.
-/// See <a href="https://corefork.telegram.org/constructor/updateUserName" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateUserName" /></para>
+/// </summary>
 [TlObject(0xa7848924)]
-public sealed class TUpdateUserName : IUpdate
+public sealed partial class TUpdateUserName : IUpdate
 {
     public uint ConstructorId => 0xa7848924;
-    ///<summary>
+    /// <summary>
     /// User identifier
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New first name. Corresponds to the new value of <strong>real_first_name</strong> field of the <a href="https://corefork.telegram.org/constructor/userFull">userFull</a> constructor.
-    ///</summary>
+    /// </summary>
     public string FirstName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// New last name. Corresponds to the new value of <strong>real_last_name</strong> field of the <a href="https://corefork.telegram.org/constructor/userFull">userFull</a> constructor.
-    ///</summary>
+    /// </summary>
     public string LastName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Usernames.
     /// See <a href="https://corefork.telegram.org/type/Username" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUsername> Usernames { get; set; }
 
     public void ComputeFlag()

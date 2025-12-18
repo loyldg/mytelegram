@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Force the user to send a reply
-/// See <a href="https://corefork.telegram.org/constructor/replyKeyboardForceReply" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/replyKeyboardForceReply" /></para>
+/// </summary>
 [TlObject(0x86b40b08)]
-public sealed class TReplyKeyboardForceReply : IReplyMarkup
+public sealed partial class TReplyKeyboardForceReply : IReplyMarkup
 {
     public uint ConstructorId => 0x86b40b08;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again.
-    ///</summary>
+    /// </summary>
     public bool SingleUse { get; set; }
 
-    ///<summary>
-    /// Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message. <br>Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
-    ///</summary>
+    /// <summary>
+    /// Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message. <br/>Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
+    /// </summary>
     public bool Selective { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The placeholder to be shown in the input field when the keyboard is active; 1-64 characters.
-    ///</summary>
+    /// </summary>
     public string? Placeholder { get; set; }
 
     public void ComputeFlag()

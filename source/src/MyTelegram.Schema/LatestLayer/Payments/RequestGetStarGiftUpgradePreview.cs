@@ -2,14 +2,24 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.getStarGiftUpgradePreview" />
-///</summary>
+/// <summary>
+/// Obtain a preview of the possible attributes (chosen randomly) a <a href="https://corefork.telegram.org/api/gifts">gift »</a> can receive after upgrading it to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>, see <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">here »</a> for more info.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STARGIFT_INVALID The passed gift is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarGiftUpgradePreview" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x9c9abcb1)]
-public sealed class RequestGetStarGiftUpgradePreview : IRequest<MyTelegram.Schema.Payments.IStarGiftUpgradePreview>
+public sealed partial class RequestGetStarGiftUpgradePreview : IRequest<MyTelegram.Schema.Payments.IStarGiftUpgradePreview>
 {
     public uint ConstructorId => 0x9c9abcb1;
 
+    /// <summary>
+    /// The gift to upgrade.
+    /// </summary>
     public long GiftId { get; set; }
 
     public void ComputeFlag()

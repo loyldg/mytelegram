@@ -1,9 +1,13 @@
 ﻿// ReSharper disable once CheckNamespace
 
+using MyTelegram.Abstractions;
+
 namespace MyTelegram;
 
 public record RequestInput(
     string ConnectionId,
+    ConnectionType ConnectionType,
+    //int DcId,
     Guid RequestId,
     uint ObjectId,
     long ReqMsgId,
@@ -22,4 +26,7 @@ public record RequestInput(
     public uint ObjectId { get; set; } = ObjectId;
     public int Layer { get; set; } = Layer;
     public DeviceType DeviceType { get; set; } = DeviceType;
+
+    public long UserId { get; set; } = UserId;
+    public long AccessHashKeyId { get; set; }= AccessHashKeyId;
 }

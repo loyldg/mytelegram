@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// Contains info on a confirmation code message sent via SMS, phone call or Telegram.
-/// See <a href="https://corefork.telegram.org/type/auth.SentCode" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/auth.SentCode" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSentCode"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCode" /><br/>
+/// <see cref="TSentCodeSuccess"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodeSuccess" /><br/>
+/// <see cref="TSentCodePaymentRequired"/> See <a href="https://corefork.telegram.org/constructor/auth.sentCodePaymentRequired" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSentCode), nameof(TSentCode))]
 [JsonDerivedType(typeof(TSentCodeSuccess), nameof(TSentCodeSuccess))]
 [JsonDerivedType(typeof(TSentCodePaymentRequired), nameof(TSentCodePaymentRequired))]

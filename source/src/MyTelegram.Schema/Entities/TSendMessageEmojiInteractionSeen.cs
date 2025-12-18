@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is watching an animated emoji reaction triggered by another user, <a href="https://corefork.telegram.org/api/animated-emojis#emoji-reactions">click here for more info »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageEmojiInteractionSeen" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageEmojiInteractionSeen" /></para>
+/// </summary>
 [TlObject(0xb665902e)]
-public sealed class TSendMessageEmojiInteractionSeen : ISendMessageAction
+public sealed partial class TSendMessageEmojiInteractionSeen : ISendMessageAction
 {
     public uint ConstructorId => 0xb665902e;
-    ///<summary>
+    /// <summary>
     /// Emoji
-    ///</summary>
+    /// </summary>
     public string Emoticon { get; set; }
 
     public void ComputeFlag()

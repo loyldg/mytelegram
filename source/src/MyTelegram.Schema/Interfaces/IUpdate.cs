@@ -2,10 +2,160 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object contains info on events occurred.
-/// See <a href="https://corefork.telegram.org/type/Update" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Update" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TUpdateNewMessage"/> See <a href="https://corefork.telegram.org/constructor/updateNewMessage" /><br/>
+/// <see cref="TUpdateMessageID"/> See <a href="https://corefork.telegram.org/constructor/updateMessageID" /><br/>
+/// <see cref="TUpdateDeleteMessages"/> See <a href="https://corefork.telegram.org/constructor/updateDeleteMessages" /><br/>
+/// <see cref="TUpdateUserTyping"/> See <a href="https://corefork.telegram.org/constructor/updateUserTyping" /><br/>
+/// <see cref="TUpdateChatUserTyping"/> See <a href="https://corefork.telegram.org/constructor/updateChatUserTyping" /><br/>
+/// <see cref="TUpdateChatParticipants"/> See <a href="https://corefork.telegram.org/constructor/updateChatParticipants" /><br/>
+/// <see cref="TUpdateUserStatus"/> See <a href="https://corefork.telegram.org/constructor/updateUserStatus" /><br/>
+/// <see cref="TUpdateUserName"/> See <a href="https://corefork.telegram.org/constructor/updateUserName" /><br/>
+/// <see cref="TUpdateNewAuthorization"/> See <a href="https://corefork.telegram.org/constructor/updateNewAuthorization" /><br/>
+/// <see cref="TUpdateNewEncryptedMessage"/> See <a href="https://corefork.telegram.org/constructor/updateNewEncryptedMessage" /><br/>
+/// <see cref="TUpdateEncryptedChatTyping"/> See <a href="https://corefork.telegram.org/constructor/updateEncryptedChatTyping" /><br/>
+/// <see cref="TUpdateEncryption"/> See <a href="https://corefork.telegram.org/constructor/updateEncryption" /><br/>
+/// <see cref="TUpdateEncryptedMessagesRead"/> See <a href="https://corefork.telegram.org/constructor/updateEncryptedMessagesRead" /><br/>
+/// <see cref="TUpdateChatParticipantAdd"/> See <a href="https://corefork.telegram.org/constructor/updateChatParticipantAdd" /><br/>
+/// <see cref="TUpdateChatParticipantDelete"/> See <a href="https://corefork.telegram.org/constructor/updateChatParticipantDelete" /><br/>
+/// <see cref="TUpdateDcOptions"/> See <a href="https://corefork.telegram.org/constructor/updateDcOptions" /><br/>
+/// <see cref="TUpdateNotifySettings"/> See <a href="https://corefork.telegram.org/constructor/updateNotifySettings" /><br/>
+/// <see cref="TUpdateServiceNotification"/> See <a href="https://corefork.telegram.org/constructor/updateServiceNotification" /><br/>
+/// <see cref="TUpdatePrivacy"/> See <a href="https://corefork.telegram.org/constructor/updatePrivacy" /><br/>
+/// <see cref="TUpdateUserPhone"/> See <a href="https://corefork.telegram.org/constructor/updateUserPhone" /><br/>
+/// <see cref="TUpdateReadHistoryInbox"/> See <a href="https://corefork.telegram.org/constructor/updateReadHistoryInbox" /><br/>
+/// <see cref="TUpdateReadHistoryOutbox"/> See <a href="https://corefork.telegram.org/constructor/updateReadHistoryOutbox" /><br/>
+/// <see cref="TUpdateWebPage"/> See <a href="https://corefork.telegram.org/constructor/updateWebPage" /><br/>
+/// <see cref="TUpdateReadMessagesContents"/> See <a href="https://corefork.telegram.org/constructor/updateReadMessagesContents" /><br/>
+/// <see cref="TUpdateChannelTooLong"/> See <a href="https://corefork.telegram.org/constructor/updateChannelTooLong" /><br/>
+/// <see cref="TUpdateChannel"/> See <a href="https://corefork.telegram.org/constructor/updateChannel" /><br/>
+/// <see cref="TUpdateNewChannelMessage"/> See <a href="https://corefork.telegram.org/constructor/updateNewChannelMessage" /><br/>
+/// <see cref="TUpdateReadChannelInbox"/> See <a href="https://corefork.telegram.org/constructor/updateReadChannelInbox" /><br/>
+/// <see cref="TUpdateDeleteChannelMessages"/> See <a href="https://corefork.telegram.org/constructor/updateDeleteChannelMessages" /><br/>
+/// <see cref="TUpdateChannelMessageViews"/> See <a href="https://corefork.telegram.org/constructor/updateChannelMessageViews" /><br/>
+/// <see cref="TUpdateChatParticipantAdmin"/> See <a href="https://corefork.telegram.org/constructor/updateChatParticipantAdmin" /><br/>
+/// <see cref="TUpdateNewStickerSet"/> See <a href="https://corefork.telegram.org/constructor/updateNewStickerSet" /><br/>
+/// <see cref="TUpdateStickerSetsOrder"/> See <a href="https://corefork.telegram.org/constructor/updateStickerSetsOrder" /><br/>
+/// <see cref="TUpdateStickerSets"/> See <a href="https://corefork.telegram.org/constructor/updateStickerSets" /><br/>
+/// <see cref="TUpdateSavedGifs"/> See <a href="https://corefork.telegram.org/constructor/updateSavedGifs" /><br/>
+/// <see cref="TUpdateBotInlineQuery"/> See <a href="https://corefork.telegram.org/constructor/updateBotInlineQuery" /><br/>
+/// <see cref="TUpdateBotInlineSend"/> See <a href="https://corefork.telegram.org/constructor/updateBotInlineSend" /><br/>
+/// <see cref="TUpdateEditChannelMessage"/> See <a href="https://corefork.telegram.org/constructor/updateEditChannelMessage" /><br/>
+/// <see cref="TUpdateBotCallbackQuery"/> See <a href="https://corefork.telegram.org/constructor/updateBotCallbackQuery" /><br/>
+/// <see cref="TUpdateEditMessage"/> See <a href="https://corefork.telegram.org/constructor/updateEditMessage" /><br/>
+/// <see cref="TUpdateInlineBotCallbackQuery"/> See <a href="https://corefork.telegram.org/constructor/updateInlineBotCallbackQuery" /><br/>
+/// <see cref="TUpdateReadChannelOutbox"/> See <a href="https://corefork.telegram.org/constructor/updateReadChannelOutbox" /><br/>
+/// <see cref="TUpdateDraftMessage"/> See <a href="https://corefork.telegram.org/constructor/updateDraftMessage" /><br/>
+/// <see cref="TUpdateReadFeaturedStickers"/> See <a href="https://corefork.telegram.org/constructor/updateReadFeaturedStickers" /><br/>
+/// <see cref="TUpdateRecentStickers"/> See <a href="https://corefork.telegram.org/constructor/updateRecentStickers" /><br/>
+/// <see cref="TUpdateConfig"/> See <a href="https://corefork.telegram.org/constructor/updateConfig" /><br/>
+/// <see cref="TUpdatePtsChanged"/> See <a href="https://corefork.telegram.org/constructor/updatePtsChanged" /><br/>
+/// <see cref="TUpdateChannelWebPage"/> See <a href="https://corefork.telegram.org/constructor/updateChannelWebPage" /><br/>
+/// <see cref="TUpdateDialogPinned"/> See <a href="https://corefork.telegram.org/constructor/updateDialogPinned" /><br/>
+/// <see cref="TUpdatePinnedDialogs"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedDialogs" /><br/>
+/// <see cref="TUpdateBotWebhookJSON"/> See <a href="https://corefork.telegram.org/constructor/updateBotWebhookJSON" /><br/>
+/// <see cref="TUpdateBotWebhookJSONQuery"/> See <a href="https://corefork.telegram.org/constructor/updateBotWebhookJSONQuery" /><br/>
+/// <see cref="TUpdateBotShippingQuery"/> See <a href="https://corefork.telegram.org/constructor/updateBotShippingQuery" /><br/>
+/// <see cref="TUpdateBotPrecheckoutQuery"/> See <a href="https://corefork.telegram.org/constructor/updateBotPrecheckoutQuery" /><br/>
+/// <see cref="TUpdatePhoneCall"/> See <a href="https://corefork.telegram.org/constructor/updatePhoneCall" /><br/>
+/// <see cref="TUpdateLangPackTooLong"/> See <a href="https://corefork.telegram.org/constructor/updateLangPackTooLong" /><br/>
+/// <see cref="TUpdateLangPack"/> See <a href="https://corefork.telegram.org/constructor/updateLangPack" /><br/>
+/// <see cref="TUpdateFavedStickers"/> See <a href="https://corefork.telegram.org/constructor/updateFavedStickers" /><br/>
+/// <see cref="TUpdateChannelReadMessagesContents"/> See <a href="https://corefork.telegram.org/constructor/updateChannelReadMessagesContents" /><br/>
+/// <see cref="TUpdateContactsReset"/> See <a href="https://corefork.telegram.org/constructor/updateContactsReset" /><br/>
+/// <see cref="TUpdateChannelAvailableMessages"/> See <a href="https://corefork.telegram.org/constructor/updateChannelAvailableMessages" /><br/>
+/// <see cref="TUpdateDialogUnreadMark"/> See <a href="https://corefork.telegram.org/constructor/updateDialogUnreadMark" /><br/>
+/// <see cref="TUpdateMessagePoll"/> See <a href="https://corefork.telegram.org/constructor/updateMessagePoll" /><br/>
+/// <see cref="TUpdateChatDefaultBannedRights"/> See <a href="https://corefork.telegram.org/constructor/updateChatDefaultBannedRights" /><br/>
+/// <see cref="TUpdateFolderPeers"/> See <a href="https://corefork.telegram.org/constructor/updateFolderPeers" /><br/>
+/// <see cref="TUpdatePeerSettings"/> See <a href="https://corefork.telegram.org/constructor/updatePeerSettings" /><br/>
+/// <see cref="TUpdatePeerLocated"/> See <a href="https://corefork.telegram.org/constructor/updatePeerLocated" /><br/>
+/// <see cref="TUpdateNewScheduledMessage"/> See <a href="https://corefork.telegram.org/constructor/updateNewScheduledMessage" /><br/>
+/// <see cref="TUpdateDeleteScheduledMessages"/> See <a href="https://corefork.telegram.org/constructor/updateDeleteScheduledMessages" /><br/>
+/// <see cref="TUpdateTheme"/> See <a href="https://corefork.telegram.org/constructor/updateTheme" /><br/>
+/// <see cref="TUpdateGeoLiveViewed"/> See <a href="https://corefork.telegram.org/constructor/updateGeoLiveViewed" /><br/>
+/// <see cref="TUpdateLoginToken"/> See <a href="https://corefork.telegram.org/constructor/updateLoginToken" /><br/>
+/// <see cref="TUpdateMessagePollVote"/> See <a href="https://corefork.telegram.org/constructor/updateMessagePollVote" /><br/>
+/// <see cref="TUpdateDialogFilter"/> See <a href="https://corefork.telegram.org/constructor/updateDialogFilter" /><br/>
+/// <see cref="TUpdateDialogFilterOrder"/> See <a href="https://corefork.telegram.org/constructor/updateDialogFilterOrder" /><br/>
+/// <see cref="TUpdateDialogFilters"/> See <a href="https://corefork.telegram.org/constructor/updateDialogFilters" /><br/>
+/// <see cref="TUpdatePhoneCallSignalingData"/> See <a href="https://corefork.telegram.org/constructor/updatePhoneCallSignalingData" /><br/>
+/// <see cref="TUpdateChannelMessageForwards"/> See <a href="https://corefork.telegram.org/constructor/updateChannelMessageForwards" /><br/>
+/// <see cref="TUpdateReadChannelDiscussionInbox"/> See <a href="https://corefork.telegram.org/constructor/updateReadChannelDiscussionInbox" /><br/>
+/// <see cref="TUpdateReadChannelDiscussionOutbox"/> See <a href="https://corefork.telegram.org/constructor/updateReadChannelDiscussionOutbox" /><br/>
+/// <see cref="TUpdatePeerBlocked"/> See <a href="https://corefork.telegram.org/constructor/updatePeerBlocked" /><br/>
+/// <see cref="TUpdateChannelUserTyping"/> See <a href="https://corefork.telegram.org/constructor/updateChannelUserTyping" /><br/>
+/// <see cref="TUpdatePinnedMessages"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedMessages" /><br/>
+/// <see cref="TUpdatePinnedChannelMessages"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedChannelMessages" /><br/>
+/// <see cref="TUpdateChat"/> See <a href="https://corefork.telegram.org/constructor/updateChat" /><br/>
+/// <see cref="TUpdateGroupCallParticipants"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCallParticipants" /><br/>
+/// <see cref="TUpdateGroupCall"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCall" /><br/>
+/// <see cref="TUpdatePeerHistoryTTL"/> See <a href="https://corefork.telegram.org/constructor/updatePeerHistoryTTL" /><br/>
+/// <see cref="TUpdateChatParticipant"/> See <a href="https://corefork.telegram.org/constructor/updateChatParticipant" /><br/>
+/// <see cref="TUpdateChannelParticipant"/> See <a href="https://corefork.telegram.org/constructor/updateChannelParticipant" /><br/>
+/// <see cref="TUpdateBotStopped"/> See <a href="https://corefork.telegram.org/constructor/updateBotStopped" /><br/>
+/// <see cref="TUpdateGroupCallConnection"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCallConnection" /><br/>
+/// <see cref="TUpdateBotCommands"/> See <a href="https://corefork.telegram.org/constructor/updateBotCommands" /><br/>
+/// <see cref="TUpdatePendingJoinRequests"/> See <a href="https://corefork.telegram.org/constructor/updatePendingJoinRequests" /><br/>
+/// <see cref="TUpdateBotChatInviteRequester"/> See <a href="https://corefork.telegram.org/constructor/updateBotChatInviteRequester" /><br/>
+/// <see cref="TUpdateMessageReactions"/> See <a href="https://corefork.telegram.org/constructor/updateMessageReactions" /><br/>
+/// <see cref="TUpdateAttachMenuBots"/> See <a href="https://corefork.telegram.org/constructor/updateAttachMenuBots" /><br/>
+/// <see cref="TUpdateWebViewResultSent"/> See <a href="https://corefork.telegram.org/constructor/updateWebViewResultSent" /><br/>
+/// <see cref="TUpdateBotMenuButton"/> See <a href="https://corefork.telegram.org/constructor/updateBotMenuButton" /><br/>
+/// <see cref="TUpdateSavedRingtones"/> See <a href="https://corefork.telegram.org/constructor/updateSavedRingtones" /><br/>
+/// <see cref="TUpdateTranscribedAudio"/> See <a href="https://corefork.telegram.org/constructor/updateTranscribedAudio" /><br/>
+/// <see cref="TUpdateReadFeaturedEmojiStickers"/> See <a href="https://corefork.telegram.org/constructor/updateReadFeaturedEmojiStickers" /><br/>
+/// <see cref="TUpdateUserEmojiStatus"/> See <a href="https://corefork.telegram.org/constructor/updateUserEmojiStatus" /><br/>
+/// <see cref="TUpdateRecentEmojiStatuses"/> See <a href="https://corefork.telegram.org/constructor/updateRecentEmojiStatuses" /><br/>
+/// <see cref="TUpdateRecentReactions"/> See <a href="https://corefork.telegram.org/constructor/updateRecentReactions" /><br/>
+/// <see cref="TUpdateMoveStickerSetToTop"/> See <a href="https://corefork.telegram.org/constructor/updateMoveStickerSetToTop" /><br/>
+/// <see cref="TUpdateMessageExtendedMedia"/> See <a href="https://corefork.telegram.org/constructor/updateMessageExtendedMedia" /><br/>
+/// <see cref="TUpdateUser"/> See <a href="https://corefork.telegram.org/constructor/updateUser" /><br/>
+/// <see cref="TUpdateAutoSaveSettings"/> See <a href="https://corefork.telegram.org/constructor/updateAutoSaveSettings" /><br/>
+/// <see cref="TUpdateStory"/> See <a href="https://corefork.telegram.org/constructor/updateStory" /><br/>
+/// <see cref="TUpdateReadStories"/> See <a href="https://corefork.telegram.org/constructor/updateReadStories" /><br/>
+/// <see cref="TUpdateStoryID"/> See <a href="https://corefork.telegram.org/constructor/updateStoryID" /><br/>
+/// <see cref="TUpdateStoriesStealthMode"/> See <a href="https://corefork.telegram.org/constructor/updateStoriesStealthMode" /><br/>
+/// <see cref="TUpdateSentStoryReaction"/> See <a href="https://corefork.telegram.org/constructor/updateSentStoryReaction" /><br/>
+/// <see cref="TUpdateBotChatBoost"/> See <a href="https://corefork.telegram.org/constructor/updateBotChatBoost" /><br/>
+/// <see cref="TUpdateChannelViewForumAsMessages"/> See <a href="https://corefork.telegram.org/constructor/updateChannelViewForumAsMessages" /><br/>
+/// <see cref="TUpdatePeerWallpaper"/> See <a href="https://corefork.telegram.org/constructor/updatePeerWallpaper" /><br/>
+/// <see cref="TUpdateBotMessageReaction"/> See <a href="https://corefork.telegram.org/constructor/updateBotMessageReaction" /><br/>
+/// <see cref="TUpdateBotMessageReactions"/> See <a href="https://corefork.telegram.org/constructor/updateBotMessageReactions" /><br/>
+/// <see cref="TUpdateSavedDialogPinned"/> See <a href="https://corefork.telegram.org/constructor/updateSavedDialogPinned" /><br/>
+/// <see cref="TUpdatePinnedSavedDialogs"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedSavedDialogs" /><br/>
+/// <see cref="TUpdateSavedReactionTags"/> See <a href="https://corefork.telegram.org/constructor/updateSavedReactionTags" /><br/>
+/// <see cref="TUpdateSmsJob"/> See <a href="https://corefork.telegram.org/constructor/updateSmsJob" /><br/>
+/// <see cref="TUpdateQuickReplies"/> See <a href="https://corefork.telegram.org/constructor/updateQuickReplies" /><br/>
+/// <see cref="TUpdateNewQuickReply"/> See <a href="https://corefork.telegram.org/constructor/updateNewQuickReply" /><br/>
+/// <see cref="TUpdateDeleteQuickReply"/> See <a href="https://corefork.telegram.org/constructor/updateDeleteQuickReply" /><br/>
+/// <see cref="TUpdateQuickReplyMessage"/> See <a href="https://corefork.telegram.org/constructor/updateQuickReplyMessage" /><br/>
+/// <see cref="TUpdateDeleteQuickReplyMessages"/> See <a href="https://corefork.telegram.org/constructor/updateDeleteQuickReplyMessages" /><br/>
+/// <see cref="TUpdateBotBusinessConnect"/> See <a href="https://corefork.telegram.org/constructor/updateBotBusinessConnect" /><br/>
+/// <see cref="TUpdateBotNewBusinessMessage"/> See <a href="https://corefork.telegram.org/constructor/updateBotNewBusinessMessage" /><br/>
+/// <see cref="TUpdateBotEditBusinessMessage"/> See <a href="https://corefork.telegram.org/constructor/updateBotEditBusinessMessage" /><br/>
+/// <see cref="TUpdateBotDeleteBusinessMessage"/> See <a href="https://corefork.telegram.org/constructor/updateBotDeleteBusinessMessage" /><br/>
+/// <see cref="TUpdateNewStoryReaction"/> See <a href="https://corefork.telegram.org/constructor/updateNewStoryReaction" /><br/>
+/// <see cref="TUpdateStarsBalance"/> See <a href="https://corefork.telegram.org/constructor/updateStarsBalance" /><br/>
+/// <see cref="TUpdateBusinessBotCallbackQuery"/> See <a href="https://corefork.telegram.org/constructor/updateBusinessBotCallbackQuery" /><br/>
+/// <see cref="TUpdateStarsRevenueStatus"/> See <a href="https://corefork.telegram.org/constructor/updateStarsRevenueStatus" /><br/>
+/// <see cref="TUpdateBotPurchasedPaidMedia"/> See <a href="https://corefork.telegram.org/constructor/updateBotPurchasedPaidMedia" /><br/>
+/// <see cref="TUpdatePaidReactionPrivacy"/> See <a href="https://corefork.telegram.org/constructor/updatePaidReactionPrivacy" /><br/>
+/// <see cref="TUpdateSentPhoneCode"/> See <a href="https://corefork.telegram.org/constructor/updateSentPhoneCode" /><br/>
+/// <see cref="TUpdateGroupCallChainBlocks"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCallChainBlocks" /><br/>
+/// <see cref="TUpdateReadMonoForumInbox"/> See <a href="https://corefork.telegram.org/constructor/updateReadMonoForumInbox" /><br/>
+/// <see cref="TUpdateReadMonoForumOutbox"/> See <a href="https://corefork.telegram.org/constructor/updateReadMonoForumOutbox" /><br/>
+/// <see cref="TUpdateMonoForumNoPaidException"/> See <a href="https://corefork.telegram.org/constructor/updateMonoForumNoPaidException" /><br/>
+/// <see cref="TUpdateGroupCallMessage"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCallMessage" /><br/>
+/// <see cref="TUpdateGroupCallEncryptedMessage"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCallEncryptedMessage" /><br/>
+/// <see cref="TUpdatePinnedForumTopic"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedForumTopic" /><br/>
+/// <see cref="TUpdatePinnedForumTopics"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedForumTopics" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TUpdateNewMessage), nameof(TUpdateNewMessage))]
 [JsonDerivedType(typeof(TUpdateMessageID), nameof(TUpdateMessageID))]
 [JsonDerivedType(typeof(TUpdateDeleteMessages), nameof(TUpdateDeleteMessages))]
@@ -113,8 +263,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateRecentReactions), nameof(TUpdateRecentReactions))]
 [JsonDerivedType(typeof(TUpdateMoveStickerSetToTop), nameof(TUpdateMoveStickerSetToTop))]
 [JsonDerivedType(typeof(TUpdateMessageExtendedMedia), nameof(TUpdateMessageExtendedMedia))]
-[JsonDerivedType(typeof(TUpdateChannelPinnedTopic), nameof(TUpdateChannelPinnedTopic))]
-[JsonDerivedType(typeof(TUpdateChannelPinnedTopics), nameof(TUpdateChannelPinnedTopics))]
 [JsonDerivedType(typeof(TUpdateUser), nameof(TUpdateUser))]
 [JsonDerivedType(typeof(TUpdateAutoSaveSettings), nameof(TUpdateAutoSaveSettings))]
 [JsonDerivedType(typeof(TUpdateStory), nameof(TUpdateStory))]
@@ -151,6 +299,10 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateReadMonoForumInbox), nameof(TUpdateReadMonoForumInbox))]
 [JsonDerivedType(typeof(TUpdateReadMonoForumOutbox), nameof(TUpdateReadMonoForumOutbox))]
 [JsonDerivedType(typeof(TUpdateMonoForumNoPaidException), nameof(TUpdateMonoForumNoPaidException))]
+[JsonDerivedType(typeof(TUpdateGroupCallMessage), nameof(TUpdateGroupCallMessage))]
+[JsonDerivedType(typeof(TUpdateGroupCallEncryptedMessage), nameof(TUpdateGroupCallEncryptedMessage))]
+[JsonDerivedType(typeof(TUpdatePinnedForumTopic), nameof(TUpdatePinnedForumTopic))]
+[JsonDerivedType(typeof(TUpdatePinnedForumTopics), nameof(TUpdatePinnedForumTopics))]
 public interface IUpdate : IObject
 {
 }

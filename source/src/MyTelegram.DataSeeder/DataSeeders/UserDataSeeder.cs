@@ -12,8 +12,6 @@ public class UserDataSeeder(
     {
         await CreateOfficialUserAsync();
         await CreateDefaultSupportUserAsync();
-        //await CreateBotFatherUserAsync();
-        //await CreateGroupAnonymousBotUserAsync();
         await CreateAnonymousUserAsync();
 
         if (options.CurrentValue.CreateTestUsers)
@@ -22,7 +20,7 @@ public class UserDataSeeder(
             var testUserCount = 30;
             for (var i = 1; i < testUserCount; i++)
             {
-                await CreateUserIfNeedAsync(initUserId + i,
+                await CreateUserIfNeededAsync(initUserId + i,
                     $"1{i}",
                     $"{i}",
                     $"{i}",
@@ -32,7 +30,7 @@ public class UserDataSeeder(
         }
     }
 
-    public async Task<bool> CreateUserIfNeedAsync(long userId,
+    public async Task<bool> CreateUserIfNeededAsync(long userId,
         string phoneNumber,
         string firstName,
         string? lastName,
@@ -41,7 +39,7 @@ public class UserDataSeeder(
     {
         var aggregateId = UserId.Create(userId);
         var u = new UserAggregate(aggregateId);
-        await u.LoadAsync(eventStore, snapshotStore, default);
+        await u.LoadAsync(eventStore, snapshotStore, CancellationToken.None);
         if (u.IsNew)
         {
             var accessHash = Random.Shared.NextInt64();
@@ -75,7 +73,7 @@ public class UserDataSeeder(
     private async Task CreateDefaultSupportUserAsync()
     {
         var userId = MyTelegramConsts.DefaultSupportUserId;
-        var created = await CreateUserIfNeedAsync(userId,
+        var created = await CreateUserIfNeededAsync(userId,
             MyTelegramConsts.DefaultSupportUserId.ToString(),
             "MyTelegram Support",
             null,
@@ -97,13 +95,13 @@ public class UserDataSeeder(
     {
         var userId = MyTelegramConsts.AnonymousUserId;
         var firstName = "Anonymous User";
-        await CreateUserIfNeedAsync(userId, string.Empty, firstName, null, null, false);
+        await CreateUserIfNeededAsync(userId, string.Empty, firstName, null, null, false);
     }
 
     private async Task CreateOfficialUserAsync()
     {
         var userId = MyTelegramConsts.OfficialUserId;
-        var created = await CreateUserIfNeedAsync(userId,
+        var created = await CreateUserIfNeededAsync(userId,
             "42777",
             "MyTelegram",
             null,

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.PushDevice;
 
-public class PushDeviceAggregate(PushDeviceId id) : AggregateRoot<PushDeviceAggregate, PushDeviceId>(id),
+public class PushDeviceState : AggregateState<PushDeviceAggregate, PushDeviceId, PushDeviceState>,
     IApply<PushDeviceRegisteredEvent>,
     IApply<PushDeviceUnRegisteredEvent>
 {
@@ -11,7 +11,18 @@ public class PushDeviceAggregate(PushDeviceId id) : AggregateRoot<PushDeviceAggr
     public void Apply(PushDeviceUnRegisteredEvent aggregateEvent)
     {
     }
+}
 
+[EnableAutoGeneration]
+public class PushDeviceAggregate : AggregateRoot<PushDeviceAggregate, PushDeviceId>
+{
+    private readonly PushDeviceState _state = new();
+    public PushDeviceAggregate(PushDeviceId id) : base(id)
+    {
+        Register(_state);
+    }
+
+    [DoNotInheritRequestCommand]
     public void RegisterDevice(RequestInfo requestInfo,
         long userId,
         long permAuthKeyId,

@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Premium;
 
-///<summary>
+/// <summary>
 /// Returns the lists of boost that were applied to a channel/supergroup by a specific user (admins only)
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/premium.getUserBoosts" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/premium.getUserBoosts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x39854d1f)]
-public sealed class RequestGetUserBoosts : IRequest<MyTelegram.Schema.Premium.IBoostsList>
+public sealed partial class RequestGetUserBoosts : IRequest<MyTelegram.Schema.Premium.IBoostsList>
 {
     public uint ConstructorId => 0x39854d1f;
 
-    ///<summary>
+    /// <summary>
     /// The channel/supergroup
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The user
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
     public void ComputeFlag()

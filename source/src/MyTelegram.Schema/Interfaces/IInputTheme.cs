@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Cloud theme
-/// See <a href="https://corefork.telegram.org/type/InputTheme" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InputTheme" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInputTheme"/> See <a href="https://corefork.telegram.org/constructor/inputTheme" /><br/>
+/// <see cref="TInputThemeSlug"/> See <a href="https://corefork.telegram.org/constructor/inputThemeSlug" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInputTheme), nameof(TInputTheme))]
 [JsonDerivedType(typeof(TInputThemeSlug), nameof(TInputThemeSlug))]
 public interface IInputTheme : IObject

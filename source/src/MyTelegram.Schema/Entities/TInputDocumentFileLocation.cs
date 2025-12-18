@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Document location (video, voice, audio, basically every type except photo)
-/// See <a href="https://corefork.telegram.org/constructor/inputDocumentFileLocation" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputDocumentFileLocation" /></para>
+/// </summary>
 [TlObject(0xbad07584)]
-public sealed class TInputDocumentFileLocation : IInputFileLocation
+public sealed partial class TInputDocumentFileLocation : IInputFileLocation
 {
     public uint ConstructorId => 0xbad07584;
-    ///<summary>
+    /// <summary>
     /// Document ID
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <strong>access_hash</strong> parameter from the <a href="https://corefork.telegram.org/constructor/document">document</a> constructor
-    ///</summary>
+    /// </summary>
     public long AccessHash { get; set; }
 
-    ///<summary>
-    /// <a href="https://corefork.telegram.org/api/file_reference">File reference</a>
-    ///</summary>
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/file-references">File reference</a>
+    /// </summary>
     public ReadOnlyMemory<byte> FileReference { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail size to download the thumbnail
-    ///</summary>
+    /// </summary>
     public string ThumbSize { get; set; }
 
     public void ComputeFlag()

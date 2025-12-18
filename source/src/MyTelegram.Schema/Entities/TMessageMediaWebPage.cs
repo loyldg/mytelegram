@@ -2,43 +2,43 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Preview of webpage
-/// See <a href="https://corefork.telegram.org/constructor/messageMediaWebPage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaWebPage" /></para>
+/// </summary>
 [TlObject(0xddf10c3b)]
-public sealed class TMessageMediaWebPage : IMessageMedia
+public sealed partial class TMessageMediaWebPage : IMessageMedia
 {
     public uint ConstructorId => 0xddf10c3b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies that a large media preview should be used.
-    ///</summary>
+    /// </summary>
     public bool ForceLargeMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, specifies that a small media preview should be used.
-    ///</summary>
+    /// </summary>
     public bool ForceSmallMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, indicates that the URL used for the webpage preview was specified manually using <a href="https://corefork.telegram.org/constructor/inputMediaWebPage">inputMediaWebPage</a>, and may not be related to any of the URLs specified in the message.
-    ///</summary>
+    /// </summary>
     public bool Manual { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, the webpage can be opened directly without user confirmation; otherwise, user confirmation is required, showing the exact URL that will be opened.
-    ///</summary>
+    /// </summary>
     public bool Safe { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Webpage preview
     /// See <a href="https://corefork.telegram.org/type/WebPage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebPage Webpage { get; set; }
 
     public void ComputeFlag()

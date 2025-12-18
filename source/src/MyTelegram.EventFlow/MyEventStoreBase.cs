@@ -92,7 +92,7 @@ public class MyEventStoreBase(
             .Select(e => eventJsonSerializer.Deserialize(e))
             .ToList();
         //IAsyncEnumerable<IDomainEvent> a=new 
-
+        
         // TODO: Pass a real IAsyncEnumerable instead
         domainEvents = await eventUpgradeManager.UpgradeAsync(
             domainEvents.ToAsyncEnumerable(),

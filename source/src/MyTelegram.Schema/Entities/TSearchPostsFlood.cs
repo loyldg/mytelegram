@@ -2,23 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/searchPostsFlood" />
-///</summary>
+/// <summary>
+/// Indicates if the specified <a href="https://corefork.telegram.org/api/search#posts-tab">global post search »</a> requires payment.
+/// <para>See <a href="https://corefork.telegram.org/constructor/searchPostsFlood" /></para>
+/// </summary>
 [TlObject(0x3e0b5b6a)]
-public sealed class TSearchPostsFlood : ISearchPostsFlood
+public sealed partial class TSearchPostsFlood : ISearchPostsFlood
 {
     public uint ConstructorId => 0x3e0b5b6a;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// The specified query is free (and it <strong>will not use up free search slots</strong>).
+    /// </summary>
     public bool QueryIsFree { get; set; }
 
+    /// <summary>
+    /// Total number of daily free search slots.
+    /// </summary>
     public int TotalDaily { get; set; }
 
+    /// <summary>
+    /// Remaining number of free search slots.
+    /// </summary>
     public int Remains { get; set; }
 
+    /// <summary>
+    /// If there are no more search slots, specifies the unixtime when more search slots will be available.
+    /// </summary>
     public int? WaitTill { get; set; }
 
+    /// <summary>
+    /// The number of <a href="https://corefork.telegram.org/api/stars">Telegram Stars</a> to pay for each non-free search.
+    /// </summary>
     public long StarsAmount { get; set; }
 
     public void ComputeFlag()

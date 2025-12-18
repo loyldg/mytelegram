@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Info about all installed stickers
-/// See <a href="https://corefork.telegram.org/constructor/messages.allStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.allStickers" /></para>
+/// </summary>
 [TlObject(0xcdbbcebb)]
-public sealed class TAllStickers : IAllStickers
+public sealed partial class TAllStickers : IAllStickers
 {
     public uint ConstructorId => 0xcdbbcebb;
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/offsets#hash-generation">Hash used for caching, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public long Hash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All stickersets
     /// See <a href="https://corefork.telegram.org/type/StickerSet" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IStickerSet> Sets { get; set; }
 
     public void ComputeFlag()

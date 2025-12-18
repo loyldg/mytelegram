@@ -2,27 +2,31 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Inactive chat list
-/// See <a href="https://corefork.telegram.org/type/messages.InactiveChats" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.InactiveChats" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInactiveChats"/> See <a href="https://corefork.telegram.org/constructor/messages.inactiveChats" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInactiveChats), nameof(TInactiveChats))]
 public interface IInactiveChats : IObject
 {
-    ///<summary>
+    /// <summary>
     /// When was the chat last active
-    ///</summary>
+    /// </summary>
     TVector<int> Dates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat list
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in the chat list
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A user joined the chat via an invite link
-/// See <a href="https://corefork.telegram.org/constructor/messageActionChatJoinedByLink" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChatJoinedByLink" /></para>
+/// </summary>
 [TlObject(0x31224c3)]
-public sealed class TMessageActionChatJoinedByLink : IMessageAction
+public sealed partial class TMessageActionChatJoinedByLink : IMessageAction
 {
     public uint ConstructorId => 0x31224c3;
-    ///<summary>
+    /// <summary>
     /// ID of the user that created the invite link
-    ///</summary>
+    /// </summary>
     public long InviterId { get; set; }
 
     public void ComputeFlag()

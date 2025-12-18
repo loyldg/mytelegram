@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The list of recent <a href="https://corefork.telegram.org/api/emoji-status">emoji statuses</a> has changed
-/// See <a href="https://corefork.telegram.org/constructor/updateRecentEmojiStatuses" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateRecentEmojiStatuses" /></para>
+/// </summary>
 [TlObject(0x30f443db)]
-public sealed class TUpdateRecentEmojiStatuses : IUpdate
+public sealed partial class TUpdateRecentEmojiStatuses : IUpdate
 {
     public uint ConstructorId => 0x30f443db;
     public void ComputeFlag()

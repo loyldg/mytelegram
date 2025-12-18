@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema.Help;
 
-///<summary>
+/// <summary>
 /// No changes were made to telegram's terms of service
-/// See <a href="https://corefork.telegram.org/constructor/help.termsOfServiceUpdateEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/help.termsOfServiceUpdateEmpty" /></para>
+/// </summary>
 [TlObject(0xe3309f7f)]
-public sealed class TTermsOfServiceUpdateEmpty : ITermsOfServiceUpdate
+public sealed partial class TTermsOfServiceUpdateEmpty : ITermsOfServiceUpdate
 {
     public uint ConstructorId => 0xe3309f7f;
-    ///<summary>
+    /// <summary>
     /// New TOS updates will have to be queried using <a href="https://corefork.telegram.org/method/help.getTermsOfServiceUpdate">help.getTermsOfServiceUpdate</a> in <code>expires</code> seconds
-    ///</summary>
+    /// </summary>
     public int Expires { get; set; }
 
     public void ComputeFlag()

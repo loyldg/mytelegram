@@ -2,34 +2,37 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Import a chat invite and join a private chat/supergroup/channel
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
-/// 400 CHAT_INVALID Invalid chat.
-/// 400 INVITE_HASH_EMPTY The invite hash is empty.
-/// 406 INVITE_HASH_EXPIRED The invite link has expired.
-/// 400 INVITE_HASH_INVALID The invite hash is invalid.
-/// 400 INVITE_REQUEST_SENT You have successfully requested to join this chat or channel.
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STARS_PAYMENT_REQUIRED To import this chat invite link, you must first <a href="https://corefork.telegram.org/api/subscriptions#channel-subscriptions">pay for the associated Telegram Star subscription&nbsp;»</a>.
-/// 400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).
-/// 400 USER_ALREADY_PARTICIPANT The user is already in the group.
-/// 400 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.
-/// See <a href="https://corefork.telegram.org/method/messages.importChatInvite" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNELS_TOO_MUCH You have joined too many channels/supergroups.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 CHAT_INVALID Invalid chat.</c></para>
+/// <para><c>400 INVITE_HASH_EMPTY The invite hash is empty.</c></para>
+/// <para><c>406 INVITE_HASH_EXPIRED The invite link has expired.</c></para>
+/// <para><c>400 INVITE_HASH_INVALID The invite hash is invalid.</c></para>
+/// <para><c>400 INVITE_REQUEST_SENT You have successfully requested to join this chat or channel.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STARS_PAYMENT_REQUIRED To import this chat invite link, you must first <a href="https://corefork.telegram.org/api/subscriptions#channel-subscriptions">pay for the associated Telegram Star subscription »</a>.</c></para>
+/// <para><c>400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).</c></para>
+/// <para><c>400 USER_ALREADY_PARTICIPANT The user is already in the group.</c></para>
+/// <para><c>400 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.importChatInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x6c50051c)]
-public sealed class RequestImportChatInvite : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestImportChatInvite : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x6c50051c;
 
-    ///<summary>
+    /// <summary>
     /// <code>hash</code> from a <a href="https://corefork.telegram.org/api/links#chat-invite-links">chat invite deep link</a>
-    ///</summary>
+    /// </summary>
     public string Hash { get; set; }
 
     public void ComputeFlag()

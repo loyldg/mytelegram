@@ -2,22 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/type/StarsRating" />
-///</summary>
+/// <summary>
+/// Represents the profile's <a href="https://corefork.telegram.org/api/stars#star-rating">star rating, see here »</a> for more info.
+/// <para>See <a href="https://corefork.telegram.org/type/StarsRating" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TStarsRating"/> See <a href="https://corefork.telegram.org/constructor/starsRating" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TStarsRating), nameof(TStarsRating))]
 public interface IStarsRating : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    /// The current level, may be negative.
+    /// </summary>
     int Level { get; set; }
 
+    /// <summary>
+    /// The numerical value of the rating required for the current level.
+    /// </summary>
     long CurrentLevelStars { get; set; }
 
+    /// <summary>
+    /// Numerical value of the current rating.
+    /// </summary>
     long Stars { get; set; }
 
+    /// <summary>
+    /// The numerical value of the rating required for the next level.
+    /// </summary>
     long? NextLevelStars { get; set; }
 }

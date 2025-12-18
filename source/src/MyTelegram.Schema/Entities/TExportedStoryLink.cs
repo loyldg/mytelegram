@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a <a href="https://corefork.telegram.org/api/stories#story-links">story deep link</a>.
-/// See <a href="https://corefork.telegram.org/constructor/exportedStoryLink" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/exportedStoryLink" /></para>
+/// </summary>
 [TlObject(0x3fc9053b)]
-public sealed class TExportedStoryLink : IExportedStoryLink
+public sealed partial class TExportedStoryLink : IExportedStoryLink
 {
     public uint ConstructorId => 0x3fc9053b;
-    ///<summary>
+    /// <summary>
     /// The <a href="https://corefork.telegram.org/api/stories#story-links">story deep link</a>.
-    ///</summary>
+    /// </summary>
     public string Link { get; set; }
 
     public void ComputeFlag()

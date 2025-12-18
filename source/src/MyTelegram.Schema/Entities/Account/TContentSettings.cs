@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Sensitive content settings
-/// See <a href="https://corefork.telegram.org/constructor/account.contentSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.contentSettings" /></para>
+/// </summary>
 [TlObject(0x57e28221)]
-public sealed class TContentSettings : IContentSettings
+public sealed partial class TContentSettings : IContentSettings
 {
     public uint ConstructorId => 0x57e28221;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether viewing of sensitive (NSFW) content is enabled
-    ///</summary>
+    /// </summary>
     public bool SensitiveEnabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the current client can change the sensitive content settings to view NSFW content
-    ///</summary>
+    /// </summary>
     public bool SensitiveCanChange { get; set; }
 
     public void ComputeFlag()

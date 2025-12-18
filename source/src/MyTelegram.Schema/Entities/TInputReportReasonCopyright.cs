@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Report for copyrighted content
-/// See <a href="https://corefork.telegram.org/constructor/inputReportReasonCopyright" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputReportReasonCopyright" /></para>
+/// </summary>
 [TlObject(0x9b89f93a)]
-public sealed class TInputReportReasonCopyright : IReportReason
+public sealed partial class TInputReportReasonCopyright : IReportReason
 {
     public uint ConstructorId => 0x9b89f93a;
     public void ComputeFlag()

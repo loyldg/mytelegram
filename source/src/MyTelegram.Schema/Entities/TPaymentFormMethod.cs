@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an additional payment method
-/// See <a href="https://corefork.telegram.org/constructor/paymentFormMethod" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/paymentFormMethod" /></para>
+/// </summary>
 [TlObject(0x88f8f21b)]
-public sealed class TPaymentFormMethod : IPaymentFormMethod
+public sealed partial class TPaymentFormMethod : IPaymentFormMethod
 {
     public uint ConstructorId => 0x88f8f21b;
-    ///<summary>
+    /// <summary>
     /// URL to open in a webview to process the payment
-    ///</summary>
+    /// </summary>
     public string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Payment method description
-    ///</summary>
+    /// </summary>
     public string Title { get; set; }
 
     public void ComputeFlag()

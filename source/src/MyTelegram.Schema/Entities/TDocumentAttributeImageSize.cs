@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Defines the width and height of an image uploaded as document
-/// See <a href="https://corefork.telegram.org/constructor/documentAttributeImageSize" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/documentAttributeImageSize" /></para>
+/// </summary>
 [TlObject(0x6c37c15c)]
-public sealed class TDocumentAttributeImageSize : IDocumentAttribute
+public sealed partial class TDocumentAttributeImageSize : IDocumentAttribute
 {
     public uint ConstructorId => 0x6c37c15c;
-    ///<summary>
+    /// <summary>
     /// Width of image
-    ///</summary>
+    /// </summary>
     public int W { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Height of image
-    ///</summary>
+    /// </summary>
     public int H { get; set; }
 
     public void ComputeFlag()

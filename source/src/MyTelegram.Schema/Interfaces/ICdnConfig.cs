@@ -2,16 +2,20 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Configuration for <a href="https://corefork.telegram.org/cdn">CDN</a> file downloads.
-/// See <a href="https://corefork.telegram.org/type/CdnConfig" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/CdnConfig" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TCdnConfig"/> See <a href="https://corefork.telegram.org/constructor/cdnConfig" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TCdnConfig), nameof(TCdnConfig))]
 public interface ICdnConfig : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Vector of public keys to use <strong>only</strong> during handshakes to <a href="https://corefork.telegram.org/cdn">CDN</a> DCs.
     /// See <a href="https://corefork.telegram.org/type/CdnPublicKey" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.ICdnPublicKey> PublicKeys { get; set; }
 }

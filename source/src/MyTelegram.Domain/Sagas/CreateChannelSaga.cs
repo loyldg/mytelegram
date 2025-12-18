@@ -95,7 +95,7 @@ public class CreateChannelSaga :
         //Publish(createDialogCommand);
 
         // Add creator to channel member list
-        var createMemberCommand = new CreateChannelCreatorMemberCommand(
+        var createMemberCommand = new CreateChannelCreatorCommand(
             ChannelMemberId.Create(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.CreatorId),
             domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.ChannelId,

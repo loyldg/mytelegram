@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Change default emoji reaction to use in the quick reaction menu: the value is synced across devices and can be fetched using <a href="https://corefork.telegram.org/method/help.getConfig">help.getConfig, <code>reactions_default</code> field</a>.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 REACTION_INVALID The specified reaction is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.setDefaultReaction" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 REACTION_INVALID The specified reaction is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setDefaultReaction" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x4f47a016)]
-public sealed class RequestSetDefaultReaction : IRequest<IBool>
+public sealed partial class RequestSetDefaultReaction : IRequest<IBool>
 {
     public uint ConstructorId => 0x4f47a016;
 
-    ///<summary>
+    /// <summary>
     /// New emoji reaction
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
     public void ComputeFlag()

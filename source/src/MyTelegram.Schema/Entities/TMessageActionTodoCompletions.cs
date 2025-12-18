@@ -2,15 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/messageActionTodoCompletions" />
-///</summary>
+/// <summary>
+/// Items were marked as completed or not completed in a <a href="https://corefork.telegram.org/api/todo">todo list »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionTodoCompletions" /></para>
+/// </summary>
 [TlObject(0xcc7c5c89)]
-public sealed class TMessageActionTodoCompletions : IMessageAction
+public sealed partial class TMessageActionTodoCompletions : IMessageAction
 {
     public uint ConstructorId => 0xcc7c5c89;
+    /// <summary>
+    /// Items marked as completed.
+    /// </summary>
     public TVector<int> Completed { get; set; }
 
+    /// <summary>
+    /// Items marked as not completed.
+    /// </summary>
     public TVector<int> Incompleted { get; set; }
 
     public void ComputeFlag()

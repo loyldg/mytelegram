@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Deletes several contacts from the list.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 MSG_ID_INVALID Invalid message ID provided.
-/// See <a href="https://corefork.telegram.org/method/contacts.deleteContacts" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.deleteContacts" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x96a0e00)]
-public sealed class RequestDeleteContacts : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDeleteContacts : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x96a0e00;
 
-    ///<summary>
+    /// <summary>
     /// User ID list
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Id { get; set; }
 
     public void ComputeFlag()

@@ -2,157 +2,191 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
-/// Represents a <a href="https://corefork.telegram.org/api/stars">Telegram Stars transaction »</a>.
-/// See <a href="https://corefork.telegram.org/constructor/starsTransaction" />
-///</summary>
+/// <summary>
+/// Represents a <a href="https://corefork.telegram.org/api/stars">Telegram Stars or TON transaction »</a>.
+/// <para>See <a href="https://corefork.telegram.org/constructor/starsTransaction" /></para>
+/// </summary>
 [TlObject(0x13659eb0)]
-public sealed class TStarsTransaction : IStarsTransaction
+public sealed partial class TStarsTransaction : IStarsTransaction
 {
     public uint ConstructorId => 0x13659eb0;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether this transaction is a refund.
-    ///</summary>
+    /// </summary>
     public bool Refund { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The transaction is currently pending.
-    ///</summary>
+    /// </summary>
     public bool Pending { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This transaction has failed.
-    ///</summary>
+    /// </summary>
     public bool Failed { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This transaction was a gift from the user in <code>peer.peer</code>.
-    ///</summary>
+    /// </summary>
     public bool Gift { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This transaction is a <a href="https://corefork.telegram.org/api/reactions#paid-reactions">paid reaction »</a>.
-    ///</summary>
+    /// </summary>
     public bool Reaction { get; set; }
 
+    /// <summary>
+    /// This transaction pays for the upgrade of a gift to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
+    /// </summary>
     public bool StargiftUpgrade { get; set; }
 
+    /// <summary>
+    /// This transaction transfers stars from the balance of a user account <a href="https://corefork.telegram.org/api/bots/connected-business-bots">connected to a business bot</a>, to the balance of the business bot, see <a href="https://corefork.telegram.org/api/stars#transferring-stars-from-a-business-account-to-the-business-bot">here »</a> for more info.
+    /// </summary>
     public bool BusinessTransfer { get; set; }
 
+    /// <summary>
+    /// This transaction is related to the <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">resale of a collectible gift »</a>.
+    /// </summary>
     public bool StargiftResale { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Represents payment for a <a href="https://corefork.telegram.org/api/search#posts-tab">paid global post search »</a>.
+    /// </summary>
+    public bool PostsSearch { get; set; }
+
+    /// <summary>
+    /// Represents payment for a <a href="https://corefork.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade">separate prepaid upgrade of a gift</a>.
+    /// </summary>
+    public bool StargiftPrepaidUpgrade { get; set; }
+
+    public bool StargiftDropOriginalDetails { get; set; }
+
+    /// <summary>
     /// Transaction ID.
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// Amount of Telegram Stars or TON.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount Amount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Date of the transaction (unixtime).
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Source of the incoming transaction, or its recipient for outgoing transactions.
     /// See <a href="https://corefork.telegram.org/type/StarsTransactionPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsTransactionPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For transactions with bots, title of the bought product.
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For transactions with bots, description of the bought product.
-    ///</summary>
+    /// </summary>
     public string? Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For transactions with bots, photo of the bought product.
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If neither <code>pending</code> nor <code>failed</code> are set, the transaction was completed successfully, and this field will contain the point in time (Unix timestamp) when the withdrawal was completed successfully.
-    ///</summary>
+    /// </summary>
     public int? TransactionDate { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If neither <code>pending</code> nor <code>failed</code> are set, the transaction was completed successfully, and this field will contain a URL where the withdrawal transaction can be viewed.
-    ///</summary>
+    /// </summary>
     public string? TransactionUrl { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Bot specified invoice payload (i.e. the <code>payload</code> passed to <a href="https://corefork.telegram.org/constructor/inputMediaInvoice">inputMediaInvoice</a> when <a href="https://corefork.telegram.org/api/payments">creating the invoice</a>).
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? BotPayload { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/paid-media">paid media transactions »</a>, message ID of the paid media posted to <code>peer.peer</code> (can point to a deleted message; either way, <code>extended_media</code> will always contain the bought media).
-    ///</summary>
+    /// </summary>
     public int? MsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The purchased <a href="https://corefork.telegram.org/api/paid-media">paid media »</a>.
     /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IMessageMedia>? ExtendedMedia { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The number of seconds between consecutive Telegram Star debiting for <a href="https://corefork.telegram.org/api/stars#star-subscriptions">Telegram Star subscriptions »</a>.
-    ///</summary>
+    /// </summary>
     public int? SubscriptionPeriod { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the message containing the <a href="https://corefork.telegram.org/constructor/messageMediaGiveaway">messageMediaGiveaway</a>, for incoming <a href="https://corefork.telegram.org/api/giveaways#star-giveaways">star giveaway prizes</a>.
-    ///</summary>
+    /// </summary>
     public int? GiveawayPostId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This transaction indicates a purchase or a sale (conversion back to Stars) of a <a href="https://corefork.telegram.org/api/stars">gift »</a>.
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarGift? Stargift { get; set; }
 
-    ///<summary>
-    /// This transaction is payment for <a href="https://corefork.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">paid bot broadcasts</a>.  <br>Paid broadcasts are only allowed if the <code>allow_paid_floodskip</code> parameter of <a href="https://corefork.telegram.org/method/messages.sendMessage">messages.sendMessage</a> and other message sending methods is set while trying to broadcast more than 30 messages per second to bot users. <br>The integer value returned by this flag indicates the number of billed API calls.
-    ///</summary>
+    /// <summary>
+    /// This transaction is payment for <a href="https://corefork.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once">paid bot broadcasts</a>.  <br/>Paid broadcasts are only allowed if the <code>allow_paid_floodskip</code> parameter of <a href="https://corefork.telegram.org/method/messages.sendMessage">messages.sendMessage</a> and other message sending methods is set while trying to broadcast more than 30 messages per second to bot users. <br/>The integer value returned by this flag indicates the number of billed API calls.
+    /// </summary>
     public int? FloodskipNumber { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This transaction is the receival (or refund) of an <a href="https://corefork.telegram.org/api/bots/referrals">affiliate commission</a> (i.e. this is the transaction received by the peer that created the <a href="https://corefork.telegram.org/api/links#referral-links">referral link</a>, flag 17 is for transactions made by users that imported the referral link).
-    ///</summary>
+    /// </summary>
     public int? StarrefCommissionPermille { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For transactions made by <a href="https://corefork.telegram.org/api/bots/referrals">referred users</a>, the peer that received the affiliate commission.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? StarrefPeer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For transactions made by <a href="https://corefork.telegram.org/api/bots/referrals">referred users</a>, the amount of Telegram Stars received by the affiliate, can be negative for refunds.
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IStarsAmount? StarrefAmount { get; set; }
 
+    /// <summary>
+    /// This transaction is related to the reception or transmission of a <a href="https://corefork.telegram.org/api/paid-messages">paid message »</a>.
+    /// </summary>
     public int? PaidMessages { get; set; }
 
+    /// <summary>
+    /// This transaction indicates the payment for a <a href="https://corefork.telegram.org/api/premium#gifting-telegram-premium">gifted Telegram Premium subscription »</a>.
+    /// </summary>
     public int? PremiumGiftMonths { get; set; }
 
+    /// <summary>
+    /// Indicates that this is payment for ad revenue from the specified unixtime (always set together with <strong>ads_proceeds_to_date</strong>).
+    /// </summary>
     public int? AdsProceedsFromDate { get; set; }
 
+    /// <summary>
+    /// Indicates that this is payment for ad revenue to the specified unixtime.
+    /// </summary>
     public int? AdsProceedsToDate { get; set; }
 
     public void ComputeFlag()
@@ -165,6 +199,9 @@ public sealed class TStarsTransaction : IStarsTransaction
         if (StargiftUpgrade) { Flags = Flags.SetBit(18); }
         if (BusinessTransfer) { Flags = Flags.SetBit(21); }
         if (StargiftResale) { Flags = Flags.SetBit(22); }
+        if (PostsSearch) { Flags = Flags.SetBit(24); }
+        if (StargiftPrepaidUpgrade) { Flags = Flags.SetBit(25); }
+        if (StargiftDropOriginalDetails) { Flags = Flags.SetBit(26); }
         if (Title != null) { Flags = Flags.SetBit(0); }
         if (Description != null) { Flags = Flags.SetBit(1); }
         if (Photo != null) { Flags = Flags.SetBit(2); }
@@ -227,6 +264,9 @@ public sealed class TStarsTransaction : IStarsTransaction
         if (Flags.IsBitSet(18)) { StargiftUpgrade = true; }
         if (Flags.IsBitSet(21)) { BusinessTransfer = true; }
         if (Flags.IsBitSet(22)) { StargiftResale = true; }
+        if (Flags.IsBitSet(24)) { PostsSearch = true; }
+        if (Flags.IsBitSet(25)) { StargiftPrepaidUpgrade = true; }
+        if (Flags.IsBitSet(26)) { StargiftDropOriginalDetails = true; }
         Id = buffer.ReadString();
         Amount = buffer.Read<MyTelegram.Schema.IStarsAmount>();
         Date = buffer.ReadInt32();

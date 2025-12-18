@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message entity <a href="https://corefork.telegram.org/api/mentions">mentioning</a> a user by <code>@username</code>; <a href="https://corefork.telegram.org/constructor/messageEntityMentionName">messageEntityMentionName</a> can also be used to mention users by their ID.
-/// See <a href="https://corefork.telegram.org/constructor/messageEntityMention" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageEntityMention" /></para>
+/// </summary>
 [TlObject(0xfa04579d)]
-public sealed class TMessageEntityMention : IMessageEntity
+public sealed partial class TMessageEntityMention : IMessageEntity
 {
     public uint ConstructorId => 0xfa04579d;
-    ///<summary>
+    /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

@@ -2,28 +2,28 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// New WebRTC parameters
-/// See <a href="https://corefork.telegram.org/constructor/updateGroupCallConnection" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateGroupCallConnection" /></para>
+/// </summary>
 [TlObject(0xb783982)]
-public sealed class TUpdateGroupCallConnection : IUpdate
+public sealed partial class TUpdateGroupCallConnection : IUpdate
 {
     public uint ConstructorId => 0xb783982;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Are these parameters related to the screen capture session currently in progress?
-    ///</summary>
+    /// </summary>
     public bool Presentation { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// WebRTC parameters
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON Params { get; set; }
 
     public void ComputeFlag()

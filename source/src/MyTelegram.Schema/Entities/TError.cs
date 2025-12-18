@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Error.
-/// See <a href="https://corefork.telegram.org/constructor/error" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/error" /></para>
+/// </summary>
 [TlObject(0xc4b9f9bb)]
-public sealed class TError : IError
+public sealed partial class TError : IError
 {
     public uint ConstructorId => 0xc4b9f9bb;
-    ///<summary>
+    /// <summary>
     /// Error code
-    ///</summary>
+    /// </summary>
     public int Code { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

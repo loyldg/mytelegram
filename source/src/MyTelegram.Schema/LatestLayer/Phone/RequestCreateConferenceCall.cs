@@ -2,54 +2,57 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
+/// <summary>
 /// Create and optionally join a new conference call.
-/// See <a href="https://corefork.telegram.org/method/phone.createConferenceCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.createConferenceCall" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7d0444bb)]
-public sealed class RequestCreateConferenceCall : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestCreateConferenceCall : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x7d0444bb;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, mute our microphone when joining the call (can only be used if <code>join</code> is set).
-    ///</summary>
+    /// </summary>
     public bool Muted { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, our video stream is disabled (can only be used if <code>join</code> is set).
-    ///</summary>
+    /// </summary>
     public bool VideoStopped { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, also join the call, otherwise just create the call link.
-    ///</summary>
+    /// </summary>
     public bool Join { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique client message ID required to prevent creation of duplicate group calls.
-    ///</summary>
+    /// </summary>
     public int RandomId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Public key (can only be used if <code>join</code> is set).
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? PublicKey { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Initial blockchain block (can only be used if <code>join</code> is set).
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte>? Block { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Parameters from tgcalls (can only be used if <code>join</code> is set).
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IDataJSON? Params { get; set; }
 
     public void ComputeFlag()

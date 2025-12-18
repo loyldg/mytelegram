@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A message was pinned
-/// See <a href="https://corefork.telegram.org/constructor/messageActionPinMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionPinMessage" /></para>
+/// </summary>
 [TlObject(0x94bd38ed)]
-public sealed class TMessageActionPinMessage : IMessageAction
+public sealed partial class TMessageActionPinMessage : IMessageAction
 {
     public uint ConstructorId => 0x94bd38ed;
     public void ComputeFlag()

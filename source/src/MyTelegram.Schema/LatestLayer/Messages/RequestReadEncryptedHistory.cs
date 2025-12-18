@@ -2,29 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Marks message history within a secret chat as read.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ID_INVALID The provided chat id is invalid.
-/// 400 MAX_DATE_INVALID The specified maximum date is invalid.
-/// 400 MSG_WAIT_FAILED A waiting call returned an error.
-/// See <a href="https://corefork.telegram.org/method/messages.readEncryptedHistory" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
+/// <para><c>400 MAX_DATE_INVALID The specified maximum date is invalid.</c></para>
+/// <para><c>400 MSG_WAIT_FAILED A waiting call returned an error. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.readEncryptedHistory" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x7f4b690a)]
-public sealed class RequestReadEncryptedHistory : IRequest<IBool>
+public sealed partial class RequestReadEncryptedHistory : IRequest<IBool>
 {
     public uint ConstructorId => 0x7f4b690a;
 
-    ///<summary>
+    /// <summary>
     /// Secret chat ID
     /// See <a href="https://corefork.telegram.org/type/InputEncryptedChat" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputEncryptedChat Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Maximum date value for received messages in history
-    ///</summary>
+    /// </summary>
     public int MaxDate { get; set; }
 
     public void ComputeFlag()

@@ -2,14 +2,24 @@
 
 namespace MyTelegram.Schema.Phone;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/phone.declineConferenceCallInvite" />
-///</summary>
+/// <summary>
+/// Declines a conference call invite.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.declineConferenceCallInvite" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x3c479971)]
-public sealed class RequestDeclineConferenceCallInvite : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestDeclineConferenceCallInvite : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x3c479971;
 
+    /// <summary>
+    /// The ID of the <a href="https://corefork.telegram.org/constructor/messageActionConferenceCall">messageActionConferenceCall</a> to decline.
+    /// </summary>
     public int MsgId { get; set; }
 
     public void ComputeFlag()

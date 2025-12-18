@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Removes all contacts without an associated Telegram account.
-/// See <a href="https://corefork.telegram.org/method/contacts.resetSaved" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.resetSaved" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x879537f1)]
-public sealed class RequestResetSaved : IRequest<IBool>
+public sealed partial class RequestResetSaved : IRequest<IBool>
 {
     public uint ConstructorId => 0x879537f1;
 

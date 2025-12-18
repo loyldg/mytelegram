@@ -2,61 +2,64 @@
 
 namespace MyTelegram.Schema.Photos;
 
-///<summary>
+/// <summary>
 /// Upload a custom profile picture for a contact, or suggest a new profile picture to a contact.The <code>file</code>, <code>video</code> and <code>video_emoji_markup</code> flags are mutually exclusive.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CONTACT_MISSING The specified user is not a contact.
-/// 400 USER_ID_INVALID The provided user ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/photos.uploadContactProfilePhoto" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CONTACT_MISSING The specified user is not a contact.</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/photos.uploadContactProfilePhoto" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xe14c4a71)]
-public sealed class RequestUploadContactProfilePhoto : IRequest<MyTelegram.Schema.Photos.IPhoto>
+public sealed partial class RequestUploadContactProfilePhoto : IRequest<MyTelegram.Schema.Photos.IPhoto>
 {
     public uint ConstructorId => 0xe14c4a71;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, will send a <a href="https://corefork.telegram.org/constructor/messageActionSuggestProfilePhoto">messageActionSuggestProfilePhoto</a> service message to <code>user_id</code>, suggesting them to use the specified profile picture; otherwise, will set a personal profile picture for the user (only visible to the current user).
-    ///</summary>
+    /// </summary>
     public bool Suggest { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, removes a previously set personal profile picture (does not affect suggested profile pictures, to remove them simply delete the <a href="https://corefork.telegram.org/constructor/messageActionSuggestProfilePhoto">messageActionSuggestProfilePhoto</a> service message with <a href="https://corefork.telegram.org/method/messages.deleteMessages">messages.deleteMessages</a>).
-    ///</summary>
+    /// </summary>
     public bool Save { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The contact
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Profile photo
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile? File { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#animated-profile-pictures">Animated profile picture</a> video
     /// See <a href="https://corefork.telegram.org/type/InputFile" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputFile? Video { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Floating point UNIX timestamp in seconds, indicating the frame of the video/sticker that should be used as static preview; can only be used if <code>video</code> or <code>video_emoji_markup</code> is set.
-    ///</summary>
+    /// </summary>
     public double? VideoStartTs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Animated sticker profile picture, must contain either a <a href="https://corefork.telegram.org/constructor/videoSizeEmojiMarkup">videoSizeEmojiMarkup</a> or a <a href="https://corefork.telegram.org/constructor/videoSizeStickerMarkup">videoSizeStickerMarkup</a> constructor.
     /// See <a href="https://corefork.telegram.org/type/VideoSize" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IVideoSize? VideoEmojiMarkup { get; set; }
 
     public void ComputeFlag()

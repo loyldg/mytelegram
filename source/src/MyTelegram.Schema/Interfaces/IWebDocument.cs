@@ -2,32 +2,37 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Remote document
-/// See <a href="https://corefork.telegram.org/type/WebDocument" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/WebDocument" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebDocument"/> See <a href="https://corefork.telegram.org/constructor/webDocument" /><br/>
+/// <see cref="TWebDocumentNoProxy"/> See <a href="https://corefork.telegram.org/constructor/webDocumentNoProxy" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebDocument), nameof(TWebDocument))]
 [JsonDerivedType(typeof(TWebDocumentNoProxy), nameof(TWebDocumentNoProxy))]
 public interface IWebDocument : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Document URL
-    ///</summary>
+    /// </summary>
     string Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// File size
-    ///</summary>
+    /// </summary>
     int Size { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// MIME type
-    ///</summary>
+    /// </summary>
     string MimeType { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Attributes for media types
     /// See <a href="https://corefork.telegram.org/type/DocumentAttribute" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IDocumentAttribute> Attributes { get; set; }
 }

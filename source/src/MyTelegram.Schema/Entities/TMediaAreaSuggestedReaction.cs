@@ -2,39 +2,39 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents a reaction bubble.
-/// See <a href="https://corefork.telegram.org/constructor/mediaAreaSuggestedReaction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/mediaAreaSuggestedReaction" /></para>
+/// </summary>
 [TlObject(0x14455871)]
-public sealed class TMediaAreaSuggestedReaction : IMediaArea
+public sealed partial class TMediaAreaSuggestedReaction : IMediaArea
 {
     public uint ConstructorId => 0x14455871;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the reaction bubble has a dark background.
-    ///</summary>
+    /// </summary>
     public bool Dark { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the reaction bubble is mirrored (see <a href="https://corefork.telegram.org/api/stories#reactions">here »</a> for more info).
-    ///</summary>
+    /// </summary>
     public bool Flipped { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The coordinates of the media area corresponding to the reaction button.
     /// See <a href="https://corefork.telegram.org/type/MediaAreaCoordinates" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IMediaAreaCoordinates Coordinates { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The reaction that should be sent when this area is clicked.
     /// See <a href="https://corefork.telegram.org/type/Reaction" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
     public void ComputeFlag()

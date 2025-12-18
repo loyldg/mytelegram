@@ -2,18 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// One of
-/// See <a href="https://corefork.telegram.org/constructor/secureRequiredTypeOneOf" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/secureRequiredTypeOneOf" /></para>
+/// </summary>
 [TlObject(0x27477b4)]
-public sealed class TSecureRequiredTypeOneOf : ISecureRequiredType
+public sealed partial class TSecureRequiredTypeOneOf : ISecureRequiredType
 {
     public uint ConstructorId => 0x27477b4;
-    ///<summary>
+    /// <summary>
     /// Secure required value types
     /// See <a href="https://corefork.telegram.org/type/SecureRequiredType" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISecureRequiredType> Types { get; set; }
 
     public void ComputeFlag()

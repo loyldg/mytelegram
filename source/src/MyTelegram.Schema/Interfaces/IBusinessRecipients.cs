@@ -2,45 +2,49 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Specifies the chats that <strong>can</strong> receive Telegram Business <a href="https://corefork.telegram.org/api/business#away-messages">away »</a> and <a href="https://corefork.telegram.org/api/business#greeting-messages">greeting »</a> messages.
-/// See <a href="https://corefork.telegram.org/type/BusinessRecipients" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/BusinessRecipients" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TBusinessRecipients"/> See <a href="https://corefork.telegram.org/constructor/businessRecipients" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TBusinessRecipients), nameof(TBusinessRecipients))]
 public interface IBusinessRecipients : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All existing private chats.
-    ///</summary>
+    /// </summary>
     bool ExistingChats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All new private chats.
-    ///</summary>
+    /// </summary>
     bool NewChats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All private chats with contacts.
-    ///</summary>
+    /// </summary>
     bool Contacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// All private chats with non-contacts.
-    ///</summary>
+    /// </summary>
     bool NonContacts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If set, inverts the selection.
-    ///</summary>
+    /// </summary>
     bool ExcludeSelected { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Only private chats with the specified users.
-    ///</summary>
+    /// </summary>
     TVector<long>? Users { get; set; }
 }

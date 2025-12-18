@@ -2,44 +2,44 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Send a geolocation
-/// See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaGeo" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaGeo" /></para>
+/// </summary>
 [TlObject(0x51846fd)]
-public sealed class TBotInlineMessageMediaGeo : IBotInlineMessage
+public sealed partial class TBotInlineMessageMediaGeo : IBotInlineMessage
 {
     public uint ConstructorId => 0x51846fd;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Geolocation
     /// See <a href="https://corefork.telegram.org/type/GeoPoint" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/live-location">live locations</a>, a direction in which the location moves, in degrees; 1-360.
-    ///</summary>
+    /// </summary>
     public int? Heading { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Validity period
-    ///</summary>
+    /// </summary>
     public int? Period { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// For <a href="https://corefork.telegram.org/api/live-location">live locations</a>, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
-    ///</summary>
+    /// </summary>
     public int? ProximityNotificationRadius { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
     public void ComputeFlag()

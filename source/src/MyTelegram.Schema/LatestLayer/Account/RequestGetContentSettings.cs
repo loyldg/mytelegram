@@ -2,12 +2,15 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Get sensitive content settings
-/// See <a href="https://corefork.telegram.org/method/account.getContentSettings" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.getContentSettings" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x8b9b4dae)]
-public sealed class RequestGetContentSettings : IRequest<MyTelegram.Schema.Account.IContentSettings>
+public sealed partial class RequestGetContentSettings : IRequest<MyTelegram.Schema.Account.IContentSettings>
 {
     public uint ConstructorId => 0x8b9b4dae;
 

@@ -2,10 +2,42 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Represents an <a href="https://instantview.telegram.org/">instant view page element</a>
-/// See <a href="https://corefork.telegram.org/type/PageBlock" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PageBlock" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPageBlockUnsupported"/> See <a href="https://corefork.telegram.org/constructor/pageBlockUnsupported" /><br/>
+/// <see cref="TPageBlockTitle"/> See <a href="https://corefork.telegram.org/constructor/pageBlockTitle" /><br/>
+/// <see cref="TPageBlockSubtitle"/> See <a href="https://corefork.telegram.org/constructor/pageBlockSubtitle" /><br/>
+/// <see cref="TPageBlockAuthorDate"/> See <a href="https://corefork.telegram.org/constructor/pageBlockAuthorDate" /><br/>
+/// <see cref="TPageBlockHeader"/> See <a href="https://corefork.telegram.org/constructor/pageBlockHeader" /><br/>
+/// <see cref="TPageBlockSubheader"/> See <a href="https://corefork.telegram.org/constructor/pageBlockSubheader" /><br/>
+/// <see cref="TPageBlockParagraph"/> See <a href="https://corefork.telegram.org/constructor/pageBlockParagraph" /><br/>
+/// <see cref="TPageBlockPreformatted"/> See <a href="https://corefork.telegram.org/constructor/pageBlockPreformatted" /><br/>
+/// <see cref="TPageBlockFooter"/> See <a href="https://corefork.telegram.org/constructor/pageBlockFooter" /><br/>
+/// <see cref="TPageBlockDivider"/> See <a href="https://corefork.telegram.org/constructor/pageBlockDivider" /><br/>
+/// <see cref="TPageBlockAnchor"/> See <a href="https://corefork.telegram.org/constructor/pageBlockAnchor" /><br/>
+/// <see cref="TPageBlockList"/> See <a href="https://corefork.telegram.org/constructor/pageBlockList" /><br/>
+/// <see cref="TPageBlockBlockquote"/> See <a href="https://corefork.telegram.org/constructor/pageBlockBlockquote" /><br/>
+/// <see cref="TPageBlockPullquote"/> See <a href="https://corefork.telegram.org/constructor/pageBlockPullquote" /><br/>
+/// <see cref="TPageBlockPhoto"/> See <a href="https://corefork.telegram.org/constructor/pageBlockPhoto" /><br/>
+/// <see cref="TPageBlockVideo"/> See <a href="https://corefork.telegram.org/constructor/pageBlockVideo" /><br/>
+/// <see cref="TPageBlockCover"/> See <a href="https://corefork.telegram.org/constructor/pageBlockCover" /><br/>
+/// <see cref="TPageBlockEmbed"/> See <a href="https://corefork.telegram.org/constructor/pageBlockEmbed" /><br/>
+/// <see cref="TPageBlockEmbedPost"/> See <a href="https://corefork.telegram.org/constructor/pageBlockEmbedPost" /><br/>
+/// <see cref="TPageBlockCollage"/> See <a href="https://corefork.telegram.org/constructor/pageBlockCollage" /><br/>
+/// <see cref="TPageBlockSlideshow"/> See <a href="https://corefork.telegram.org/constructor/pageBlockSlideshow" /><br/>
+/// <see cref="TPageBlockChannel"/> See <a href="https://corefork.telegram.org/constructor/pageBlockChannel" /><br/>
+/// <see cref="TPageBlockAudio"/> See <a href="https://corefork.telegram.org/constructor/pageBlockAudio" /><br/>
+/// <see cref="TPageBlockKicker"/> See <a href="https://corefork.telegram.org/constructor/pageBlockKicker" /><br/>
+/// <see cref="TPageBlockTable"/> See <a href="https://corefork.telegram.org/constructor/pageBlockTable" /><br/>
+/// <see cref="TPageBlockOrderedList"/> See <a href="https://corefork.telegram.org/constructor/pageBlockOrderedList" /><br/>
+/// <see cref="TPageBlockDetails"/> See <a href="https://corefork.telegram.org/constructor/pageBlockDetails" /><br/>
+/// <see cref="TPageBlockRelatedArticles"/> See <a href="https://corefork.telegram.org/constructor/pageBlockRelatedArticles" /><br/>
+/// <see cref="TPageBlockMap"/> See <a href="https://corefork.telegram.org/constructor/pageBlockMap" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPageBlockUnsupported), nameof(TPageBlockUnsupported))]
 [JsonDerivedType(typeof(TPageBlockTitle), nameof(TPageBlockTitle))]
 [JsonDerivedType(typeof(TPageBlockSubtitle), nameof(TPageBlockSubtitle))]

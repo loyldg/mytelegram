@@ -1,17 +1,20 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
+/// <summary>
 /// Verify an email address.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 EMAIL_INVALID The specified email is invalid.
+/// 400 EMAIL_NOT_ALLOWED The specified email cannot be used to complete the operation.
 /// 400 EMAIL_VERIFY_EXPIRED The verification email has expired.
-/// See <a href="https://corefork.telegram.org/method/account.verifyEmail" />
-///</summary>
+/// 400 PHONE_NUMBER_INVALID The phone number is invalid.
+/// <para><c>See <a href="https://corefork.telegram.org/method/account.verifyEmail"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
+/// </remarks>
 internal sealed class VerifyEmailHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestVerifyEmail, MyTelegram.Schema.Account.IEmailVerified>
 {
-    protected override Task<MyTelegram.Schema.Account.IEmailVerified> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Account.RequestVerifyEmail obj)
+    protected override Task<MyTelegram.Schema.Account.IEmailVerified> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestVerifyEmail obj)
     {
         throw new NotImplementedException();
     }

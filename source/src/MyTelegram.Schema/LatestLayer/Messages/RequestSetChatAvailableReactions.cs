@@ -2,46 +2,51 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Change the set of <a href="https://corefork.telegram.org/api/reactions">message reactions »</a> that can be used in a certain group, supergroup or channel
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
-/// 400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/messages.setChatAvailableReactions" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
+/// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 REACTION_INVALID The specified reaction is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.setChatAvailableReactions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x864b2581)]
-public sealed class RequestSetChatAvailableReactions : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestSetChatAvailableReactions : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x864b2581;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group where to apply changes
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allowed reaction emojis
     /// See <a href="https://corefork.telegram.org/type/ChatReactions" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatReactions AvailableReactions { get; set; }
 
-    ///<summary>
-    /// This flag may be used to impose a custom limit of unique reactions (i.e. a customizable version of <a href="https://corefork.telegram.org/api/config#reactions-uniq-max">appConfig.reactions_uniq_max</a>); this field and the other info set by the method will then be available to users in <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> and <a href="https://corefork.telegram.org/constructor/chatFull">chatFull</a>. <br>If this flag is not set, the previously configured <code>reactions_limit</code> will not be altered.
-    ///</summary>
+    /// <summary>
+    /// This flag may be used to impose a custom limit of unique reactions (i.e. a customizable version of <a href="https://corefork.telegram.org/api/config#reactions-uniq-max">appConfig.reactions_uniq_max</a>); this field and the other info set by the method will then be available to users in <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a> and <a href="https://corefork.telegram.org/constructor/chatFull">chatFull</a>. <br/>If this flag is not set, the previously configured <code>reactions_limit</code> will not be altered.
+    /// </summary>
     public int? ReactionsLimit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// If this flag is set and a <a href="https://corefork.telegram.org/type/Bool">Bool</a> is passed, the method will enable or disable <a href="https://corefork.telegram.org/api/reactions#paid-reactions">paid message reactions »</a>. If this flag is not set, the previously stored setting will not be changed.
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool? PaidEnabled { get; set; }
 
     public void ComputeFlag()

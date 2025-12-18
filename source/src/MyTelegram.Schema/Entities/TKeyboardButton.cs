@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Bot keyboard button
-/// See <a href="https://corefork.telegram.org/constructor/keyboardButton" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButton" /></para>
+/// </summary>
 [TlObject(0xa2fa4880)]
-public sealed class TKeyboardButton : IKeyboardButton
+public sealed partial class TKeyboardButton : IKeyboardButton
 {
     public uint ConstructorId => 0xa2fa4880;
-    ///<summary>
+    /// <summary>
     /// Button text
-    ///</summary>
+    /// </summary>
     public string Text { get; set; }
 
     public void ComputeFlag()

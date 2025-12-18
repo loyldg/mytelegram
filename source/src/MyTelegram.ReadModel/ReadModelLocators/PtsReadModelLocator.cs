@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.ReadModel.ReadModelLocators;
+﻿using MyTelegram.Domain.Aggregates.PushUpdates;
+
+namespace MyTelegram.ReadModel.ReadModelLocators;
 
 public class PtsReadModelLocator : IPtsReadModelLocator, ITransientDependency
 {
@@ -45,15 +47,15 @@ public class PtsReadModelLocator : IPtsReadModelLocator, ITransientDependency
             case UserCreatedEvent userCreatedEvent:
                 ownerPeerId = userCreatedEvent.UserId;
                 break;
-            case UpdatePinnedBoxPtsCompletedSagaEvent updatePinnedBoxPtsCompletedEvent:
-                ownerPeerId = updatePinnedBoxPtsCompletedEvent.PeerId;
-                break;
+            //case UpdatePinnedBoxPtsCompletedSagaEvent updatePinnedBoxPtsCompletedEvent:
+            //    ownerPeerId = updatePinnedBoxPtsCompletedEvent.PeerId;
+            //    break;
             case ChannelCreatedEvent channelCreatedEvent:
                 ownerPeerId = channelCreatedEvent.ChannelId;
                 break;
-            case UpdateOutboxPinnedCompletedSagaEvent updateOutboxPinnedCompletedEvent:
-                ownerPeerId = updateOutboxPinnedCompletedEvent.OwnerPeerId;
-                break;
+            //case UpdateOutboxPinnedCompletedSagaEvent updateOutboxPinnedCompletedEvent:
+            //    ownerPeerId = updateOutboxPinnedCompletedEvent.OwnerPeerId;
+            //    break;
         }
 
         if (ownerPeerId != 0)

@@ -2,125 +2,125 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Full info about a <a href="https://corefork.telegram.org/api/channel#basic-groups">basic group</a>.When updating the <a href="https://corefork.telegram.org/api/peers">local peer database »</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).
-/// See <a href="https://corefork.telegram.org/constructor/chatFull" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatFull" /></para>
+/// </summary>
 [TlObject(0x2633421b)]
-public sealed class TChatFull : IChatFull//, ILayeredChatFull
+public sealed partial class TChatFull : IChatFull//, ILayeredChatFull
 {
     public uint ConstructorId => 0x2633421b;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Can we change the username of this chat
-    ///</summary>
+    /// </summary>
     public bool CanSetUsername { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether <a href="https://corefork.telegram.org/api/scheduled-messages">scheduled messages</a> are available
-    ///</summary>
+    /// </summary>
     public bool HasScheduled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the <a href="https://corefork.telegram.org/api/translation">real-time chat translation popup</a> should be hidden.
-    ///</summary>
+    /// </summary>
     public bool TranslationsDisabled { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the chat
-    ///</summary>
+    /// </summary>
     public long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// About string for this chat
-    ///</summary>
+    /// </summary>
     public string About { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Participant list
     /// See <a href="https://corefork.telegram.org/type/ChatParticipants" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatParticipants Participants { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat photo
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPhoto? ChatPhoto { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Notification settings
     /// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chat invite
     /// See <a href="https://corefork.telegram.org/type/ExportedChatInvite" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IExportedChatInvite? ExportedInvite { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Info about bots that are in this chat
     /// See <a href="https://corefork.telegram.org/type/BotInfo" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IBotInfo>? BotInfo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID of the last <a href="https://corefork.telegram.org/api/pin">pinned message</a>
-    ///</summary>
+    /// </summary>
     public int? PinnedMsgId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
-    ///</summary>
+    /// </summary>
     public int? FolderId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Group call information
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputGroupCall? Call { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Time-To-Live of messages sent by the current user to this chat
-    ///</summary>
+    /// </summary>
     public int? TtlPeriod { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When using <a href="https://corefork.telegram.org/method/phone.getGroupCallJoinAs">phone.getGroupCallJoinAs</a> to get a list of peers that can be used to join a group call, this field indicates the peer that should be selected by default.
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer? GroupcallDefaultJoinAs { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Emoji representing a specific chat theme
-    ///</summary>
+    /// </summary>
     public string? ThemeEmoticon { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Pending <a href="https://corefork.telegram.org/api/invites#join-requests">join requests »</a>
-    ///</summary>
+    /// </summary>
     public int? RequestsPending { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of users who requested to join recently
-    ///</summary>
+    /// </summary>
     public TVector<long>? RecentRequesters { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Allowed <a href="https://corefork.telegram.org/api/reactions">message reactions »</a>
     /// See <a href="https://corefork.telegram.org/type/ChatReactions" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IChatReactions? AvailableReactions { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// This flag may be used to impose a custom limit of unique reactions (i.e. a customizable version of <a href="https://corefork.telegram.org/api/config#reactions-uniq-max">appConfig.reactions_uniq_max</a>).
-    ///</summary>
+    /// </summary>
     public int? ReactionsLimit { get; set; }
 
     public void ComputeFlag()

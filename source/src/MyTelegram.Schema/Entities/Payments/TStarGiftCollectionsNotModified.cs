@@ -2,11 +2,12 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/constructor/payments.starGiftCollectionsNotModified" />
-///</summary>
+/// <summary>
+/// The list of <a href="https://corefork.telegram.org/api/gifts#gift-collections">star gift collections »</a> hasn't changed.
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starGiftCollectionsNotModified" /></para>
+/// </summary>
 [TlObject(0xa0ba4f17)]
-public sealed class TStarGiftCollectionsNotModified : IStarGiftCollections
+public sealed partial class TStarGiftCollectionsNotModified : IStarGiftCollections
 {
     public uint ConstructorId => 0xa0ba4f17;
     public void ComputeFlag()

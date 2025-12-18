@@ -2,25 +2,29 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Game high score
-/// See <a href="https://corefork.telegram.org/type/HighScore" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/HighScore" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="THighScore"/> See <a href="https://corefork.telegram.org/constructor/highScore" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(THighScore), nameof(THighScore))]
 public interface IHighScore : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Position in highscore list
-    ///</summary>
+    /// </summary>
     int Pos { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// User ID
-    ///</summary>
+    /// </summary>
     long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Score
-    ///</summary>
+    /// </summary>
     int Score { get; set; }
 }

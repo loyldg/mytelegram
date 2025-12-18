@@ -2,22 +2,31 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/payments.toggleStarGiftsPinnedToTop" />
-///</summary>
+/// <summary>
+/// Pins a received gift on top of the profile of the user or owned channels by using <a href="https://corefork.telegram.org/method/payments.toggleStarGiftsPinnedToTop">payments.toggleStarGiftsPinnedToTop</a>.
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.toggleStarGiftsPinnedToTop" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x1513e7b0)]
-public sealed class RequestToggleStarGiftsPinnedToTop : IRequest<IBool>
+public sealed partial class RequestToggleStarGiftsPinnedToTop : IRequest<IBool>
 {
     public uint ConstructorId => 0x1513e7b0;
 
-    ///<summary>
+    /// <summary>
+    /// The peer where to pin the gift.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
+    /// The gift to pin.
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputSavedStarGift> Stargift { get; set; }
 
     public void ComputeFlag()

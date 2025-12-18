@@ -1,18 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/folders">folders</a>
-/// See <a href="https://corefork.telegram.org/method/messages.getDialogFilters" />
-///</summary>
-internal sealed class GetDialogFiltersHandler(
-    IQueryProcessor queryProcessor,
-    IAccessHashHelper2 accessHashHelper2,
-    ILayeredService<IDialogFilterConverter> dialogFilterLayeredService)
-    : RpcResultObjectHandler<RequestGetDialogFilters,
-            IDialogFilters>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getDialogFilters"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class GetDialogFiltersHandler(IQueryProcessor queryProcessor, IAccessHashHelper2 accessHashHelper2, ILayeredService<IDialogFilterConverter> dialogFilterLayeredService) : RpcResultObjectHandler<RequestGetDialogFilters, IDialogFilters>
 {
-    protected override async Task<IDialogFilters> HandleCoreAsync(IRequestInput input,
-        RequestGetDialogFilters obj)
+    protected override async Task<IDialogFilters> HandleCoreAsync(IRequestInput input, RequestGetDialogFilters obj)
     {
         if (input.UserId == 0)
         {
@@ -24,7 +20,6 @@ internal sealed class GetDialogFiltersHandler(
         }
 
         var filterReadModels = await queryProcessor.ProcessAsync(new GetDialogFiltersQuery(input.UserId), CancellationToken.None);
-
         var filters = new TVector<IDialogFilter>
         {
             new TDialogFilterDefault()
@@ -62,12 +57,10 @@ internal sealed class GetDialogFiltersHandler(
             switch (inputPeer)
             {
                 case TInputPeerChannel inputPeerChannel:
-                    inputPeerChannel.AccessHash = accessHashHelper2.GenerateAccessHash(requestInput.UserId,
-                        requestInput.AccessHashKeyId, inputPeerChannel.ChannelId, AccessHashType.Channel);
+                    inputPeerChannel.AccessHash = accessHashHelper2.GenerateAccessHash(requestInput.UserId, requestInput.AccessHashKeyId, inputPeerChannel.ChannelId, AccessHashType.Channel);
                     break;
                 case TInputPeerUser inputPeerUser:
-                    inputPeerUser.AccessHash = accessHashHelper2.GenerateAccessHash(requestInput.UserId,
-                        requestInput.AccessHashKeyId, inputPeerUser.UserId, AccessHashType.User);
+                    inputPeerUser.AccessHash = accessHashHelper2.GenerateAccessHash(requestInput.UserId, requestInput.AccessHashKeyId, inputPeerUser.UserId, AccessHashType.User);
                     break;
             }
         }

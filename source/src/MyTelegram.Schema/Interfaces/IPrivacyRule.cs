@@ -2,10 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Privacy <strong>rules</strong> together with <a href="https://corefork.telegram.org/api/privacy#privacy-keys">privacy keys</a> indicate <em>what</em> can or can't someone do and are specified by a <a href="https://corefork.telegram.org/type/PrivacyRule">PrivacyRule</a> constructor, and its input counterpart <a href="https://corefork.telegram.org/type/InputPrivacyRule">InputPrivacyRule</a>.See the <a href="https://corefork.telegram.org/api/privacy">privacy documentation »</a> for more info.
-/// See <a href="https://corefork.telegram.org/type/PrivacyRule" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/PrivacyRule" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TPrivacyValueAllowContacts"/> See <a href="https://corefork.telegram.org/constructor/privacyValueAllowContacts" /><br/>
+/// <see cref="TPrivacyValueAllowAll"/> See <a href="https://corefork.telegram.org/constructor/privacyValueAllowAll" /><br/>
+/// <see cref="TPrivacyValueAllowUsers"/> See <a href="https://corefork.telegram.org/constructor/privacyValueAllowUsers" /><br/>
+/// <see cref="TPrivacyValueDisallowContacts"/> See <a href="https://corefork.telegram.org/constructor/privacyValueDisallowContacts" /><br/>
+/// <see cref="TPrivacyValueDisallowAll"/> See <a href="https://corefork.telegram.org/constructor/privacyValueDisallowAll" /><br/>
+/// <see cref="TPrivacyValueDisallowUsers"/> See <a href="https://corefork.telegram.org/constructor/privacyValueDisallowUsers" /><br/>
+/// <see cref="TPrivacyValueAllowChatParticipants"/> See <a href="https://corefork.telegram.org/constructor/privacyValueAllowChatParticipants" /><br/>
+/// <see cref="TPrivacyValueDisallowChatParticipants"/> See <a href="https://corefork.telegram.org/constructor/privacyValueDisallowChatParticipants" /><br/>
+/// <see cref="TPrivacyValueAllowCloseFriends"/> See <a href="https://corefork.telegram.org/constructor/privacyValueAllowCloseFriends" /><br/>
+/// <see cref="TPrivacyValueAllowPremium"/> See <a href="https://corefork.telegram.org/constructor/privacyValueAllowPremium" /><br/>
+/// <see cref="TPrivacyValueAllowBots"/> See <a href="https://corefork.telegram.org/constructor/privacyValueAllowBots" /><br/>
+/// <see cref="TPrivacyValueDisallowBots"/> See <a href="https://corefork.telegram.org/constructor/privacyValueDisallowBots" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TPrivacyValueAllowContacts), nameof(TPrivacyValueAllowContacts))]
 [JsonDerivedType(typeof(TPrivacyValueAllowAll), nameof(TPrivacyValueAllowAll))]
 [JsonDerivedType(typeof(TPrivacyValueAllowUsers), nameof(TPrivacyValueAllowUsers))]

@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// View, forward counter + info about replies
-/// See <a href="https://corefork.telegram.org/type/messages.MessageViews" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.MessageViews" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMessageViews"/> See <a href="https://corefork.telegram.org/constructor/messages.messageViews" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMessageViews), nameof(TMessageViews))]
 public interface IMessageViews : IObject
 {
-    ///<summary>
+    /// <summary>
     /// View, forward counter + info about replies
     /// See <a href="https://corefork.telegram.org/type/MessageViews" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMessageViews> Views { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Chats mentioned in constructor
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Users mentioned in constructor
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

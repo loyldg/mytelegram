@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Device;
 
+[EnableAutoGeneration]
 public class DeviceAggregate : SnapshotAggregateRoot<DeviceAggregate, DeviceId, DeviceSnapshot>
 {
     private readonly DeviceState _state = new();
@@ -13,10 +14,11 @@ public class DeviceAggregate : SnapshotAggregateRoot<DeviceAggregate, DeviceId, 
         long permAuthKeyId)
     {
         //Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new BindUidToDeviceEvent(userId, permAuthKeyId, DateTime.UtcNow.ToTimestamp()));
+        var date = DateTime.UtcNow.ToTimestamp();
+        Emit(new BindUidToDeviceEvent(userId, permAuthKeyId, date));
     }
 
-    public void Create(
+    public void CreateDevice(
         long permAuthKeyId,
         long tempAuthKeyId,
         long userId,
@@ -61,8 +63,9 @@ public class DeviceAggregate : SnapshotAggregateRoot<DeviceAggregate, DeviceId, 
                 }
             }
         }
-
-        Emit(new DeviceCreatedEvent(IsNew,
+        parameters = newParameters;
+        var isNewDevice = IsNew;
+        Emit(new DeviceCreatedEvent(isNewDevice,
             permAuthKeyId,
             tempAuthKeyId,
             userId,
@@ -80,10 +83,11 @@ public class DeviceAggregate : SnapshotAggregateRoot<DeviceAggregate, DeviceId, 
             langCode,
             ip,
             layer,
-            date, newParameters));
+            date,
+            parameters));
     }
 
-    public void UnRegisterDevice(long permAuthKeyId,
+    public void UnRegisterDeviceForAuthKey(long permAuthKeyId,
         long tempAuthKeyId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);

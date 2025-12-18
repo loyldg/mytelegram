@@ -2,22 +2,25 @@
 
 namespace MyTelegram.Schema.Chatlists;
 
-///<summary>
+/// <summary>
 /// List all <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep links »</a> associated to a folder
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 FILTER_ID_INVALID The specified filter ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/chatlists.getExportedInvites" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 FILTER_ID_INVALID The specified filter ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/chatlists.getExportedInvites" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xce03da83)]
-public sealed class RequestGetExportedInvites : IRequest<MyTelegram.Schema.Chatlists.IExportedInvites>
+public sealed partial class RequestGetExportedInvites : IRequest<MyTelegram.Schema.Chatlists.IExportedInvites>
 {
     public uint ConstructorId => 0xce03da83;
 
-    ///<summary>
+    /// <summary>
     /// The folder
     /// See <a href="https://corefork.telegram.org/type/InputChatlist" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
     public void ComputeFlag()

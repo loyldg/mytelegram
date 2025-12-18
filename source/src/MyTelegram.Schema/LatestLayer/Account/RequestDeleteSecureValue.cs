@@ -2,19 +2,22 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Delete stored <a href="https://corefork.telegram.org/passport">Telegram Passport</a> documents, <a href="https://corefork.telegram.org/passport/encryption#encryption">for more info see the passport docs »</a>
-/// See <a href="https://corefork.telegram.org/method/account.deleteSecureValue" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/account.deleteSecureValue" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb880bc4b)]
-public sealed class RequestDeleteSecureValue : IRequest<IBool>
+public sealed partial class RequestDeleteSecureValue : IRequest<IBool>
 {
     public uint ConstructorId => 0xb880bc4b;
 
-    ///<summary>
+    /// <summary>
     /// Document types to delete
     /// See <a href="https://corefork.telegram.org/type/SecureValueType" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISecureValueType> Types { get; set; }
 
     public void ComputeFlag()

@@ -5,7 +5,7 @@ namespace MyTelegram.Messenger.Services.Impl;
 // https://corefork.telegram.org/api/config
 public partial class AppConfigHelper
 {
-    private static int _hash = 2130643969;
+    private static int _hash = -20708172;
     private static TJsonObject? _jsonValue;
     public IJSONValue GetAppConfig()
     {
@@ -62,6 +62,9 @@ public partial class AppConfigHelper
                 // Maximum number of main mini app previews » that can be added for a localization. (integer)
                 new TJsonObjectValue { Key = "bot_preview_medias_max", Value = new TJsonNumber { Value = 12 } },
 
+                // Maximum UTF-8 length of bot verification description fields ». (integer)
+                new TJsonObjectValue { Key = "bot_verification_description_length_limit", Value = new TJsonNumber { Value = 70 } },
+
                 // Maximum number of active business chat links. (integer)
                 new TJsonObjectValue { Key = "business_chat_links_limit", Value = new TJsonNumber { Value = 100 } },
 
@@ -96,6 +99,9 @@ public partial class AppConfigHelper
 
                 // The maximum UTF-8 length of media captions sendable by Premium users (integer)
                 new TJsonObjectValue { Key = "caption_length_limit_premium", Value = new TJsonNumber { Value = 4096 } },
+
+                //  
+                new TJsonObjectValue { Key = "channel_autotranslation_level_min", Value = new TJsonNumber { Value = 3 } },
 
                 // After reaching at least this boost level », channels gain the ability to change their message accent palette emoji ».  (integer)
                 new TJsonObjectValue { Key = "channel_bg_icon_level_min", Value = new TJsonNumber { Value = 4 } },
@@ -150,6 +156,9 @@ public partial class AppConfigHelper
 
                 // Maximum number of shareable folders Premium users may have. (integer)
                 new TJsonObjectValue { Key = "chatlists_joined_limit_premium", Value = new TJsonNumber { Value = 20 } },
+
+                //  
+                new TJsonObjectValue { Key = "conference_call_size_limit", Value = new TJsonNumber { Value = 200 } },
 
                 // Default emoji status stickerset ID. (integer)
                 // Note that the stickerset can be fetched using inputStickerSetEmojiDefaultStatuses.
@@ -331,6 +340,12 @@ public partial class AppConfigHelper
                     }
                 },
 
+                //  
+                new TJsonObjectValue { Key = "freeze_since_date", Value = new TJsonNumber { Value = 0 } },
+
+                //  
+                new TJsonObjectValue { Key = "freeze_until_date", Value = new TJsonNumber { Value = 0 } },
+
                 // Specifies the name of the service providing GIF search through gif_search_username (string)
                 new TJsonObjectValue { Key = "gif_search_branding", Value = new TJsonString { Value = "tenor" } },
 
@@ -443,11 +458,14 @@ public partial class AppConfigHelper
                 // To protect user privacy, read receipts for private chats are only stored for pm_read_date_expire_period seconds after the message was sent. (integer)
                 new TJsonObjectValue { Key = "pm_read_date_expire_period", Value = new TJsonNumber { Value = 604800 } },
 
+                //  
+                new TJsonObjectValue { Key = "poll_answers_max", Value = new TJsonNumber { Value = 12 } },
+
                 // Contains the username of the official Telegram Premium bot that may be used to buy a Telegram Premium subscription, see here for detailed instructions » (string)
                 new TJsonObjectValue { Key = "premium_bot_username", Value = new TJsonString { Value = "PremiumBot" } },
 
                 // Whether a gift icon should be shown in the attachment menu in private chats with users, offering the current user to gift a Telegram Premium subscription to the other user in the chat. (boolean)
-                new TJsonObjectValue { Key = "premium_gift_attach_menu_icon", Value = new TJsonBool { Value = true } },
+                new TJsonObjectValue { Key = "premium_gift_attach_menu_icon", Value = new TJsonBool { Value = false } },
 
                 // Whether a gift icon should be shown in the text bar in private chats with users (ie like the / icon in chats with bots), offering the current user to gift a Telegram Premium subscription to the other user in the chat. Can only be true if premium_gift_attach_menu_icon is also true. (boolean)
                 new TJsonObjectValue { Key = "premium_gift_text_field_icon", Value = new TJsonBool { Value = false } },
@@ -488,6 +506,7 @@ public partial class AppConfigHelper
                             new TJsonString { Value = "animated_userpics" },
                             new TJsonString { Value = "premium_stickers" },
                             new TJsonString { Value = "effects" },
+                            new TJsonString { Value = "todo" },
                         ]
                     }
                 },
@@ -586,11 +605,20 @@ public partial class AppConfigHelper
                 // If true, gifts » must be disabled. (boolean)
                 new TJsonObjectValue { Key = "stargifts_blocked", Value = new TJsonBool { Value = true } },
 
+                //  
+                new TJsonObjectValue { Key = "stargifts_collection_gifts_limit", Value = new TJsonNumber { Value = 500 } },
+
+                //  
+                new TJsonObjectValue { Key = "stargifts_collections_limit", Value = new TJsonNumber { Value = 10 } },
+
                 // A Gift » can be converted back into Telegram Stars only if it was received less than stargifts_convert_period_max seconds ago. (integer)
-                new TJsonObjectValue { Key = "stargifts_convert_period_max", Value = new TJsonNumber { Value = 7776000 } },
+                new TJsonObjectValue { Key = "stargifts_convert_period_max", Value = new TJsonNumber { Value = 604800 } },
 
                 // The maximum length of gift messages, see here » for more info. (integer)
-                new TJsonObjectValue { Key = "stargifts_message_length_max", Value = new TJsonNumber { Value = 255 } },
+                new TJsonObjectValue { Key = "stargifts_message_length_max", Value = new TJsonNumber { Value = 128 } },
+
+                //  
+                new TJsonObjectValue { Key = "stargifts_pinned_to_top_limit", Value = new TJsonNumber { Value = 6 } },
 
                 // If false, the current user cannot join referral programs, becoming an affiliate ». (boolean)
                 new TJsonObjectValue { Key = "starref_connect_allowed", Value = new TJsonBool { Value = false } },
@@ -620,6 +648,18 @@ public partial class AppConfigHelper
                 // Star gifting functionality should only be enabled if this flag is equal to true. (boolean)
                 new TJsonObjectValue { Key = "stars_gifts_enabled", Value = new TJsonBool { Value = true } },
 
+                // Specifies the maximum price of paid messages ». (integer)
+                new TJsonObjectValue { Key = "stars_paid_message_amount_max", Value = new TJsonNumber { Value = 10000 } },
+
+                // When sending a paid message, the receiver will receive an amount of stars equal to the price of the message multiplied by stars_paid_message_commission_permille divided by 1000. (integer)
+                new TJsonObjectValue { Key = "stars_paid_message_commission_permille", Value = new TJsonNumber { Value = 850 } },
+
+                // Specifies whether paid messages » can be enabled for the current user. (bool)
+                new TJsonObjectValue { Key = "stars_paid_messages_available", Value = new TJsonBool { Value = true } },
+
+                // When choosing the price for paid direct channel messages, the UI should display stars_paid_messages_channel_amount_default as the initial default value.
+                new TJsonObjectValue { Key = "stars_paid_messages_channel_amount_default", Value = new TJsonNumber { Value = 10 } },
+
                 // Maximum price in Telegram Stars for posted paid media. (integer)
                 new TJsonObjectValue { Key = "stars_paid_post_amount_max", Value = new TJsonNumber { Value = 2500 } },
 
@@ -629,11 +669,44 @@ public partial class AppConfigHelper
                 // If false, indicates that Telegram Stars may be used in the current region; otherwise, all Star-related UI options should be hidden from the user. (boolean)
                 new TJsonObjectValue { Key = "stars_purchase_blocked", Value = new TJsonBool { Value = true } },
 
+                //  
+                new TJsonObjectValue { Key = "stars_rating_learnmore_url", Value = new TJsonString { Value = "https://telegram.org/blog/telegram-stars" } },
+
+                //  
+                new TJsonObjectValue { Key = "stars_revenue_withdrawal_max", Value = new TJsonNumber { Value = 25000000 } },
+
                 // Minimum required amount of Telegram Stars on a channel or bot's balance to allow withdrawal ». (integer)
                 new TJsonObjectValue { Key = "stars_revenue_withdrawal_min", Value = new TJsonNumber { Value = 1000 } },
 
+                // The maximum price that can be specified when reselling collectible gifts ». (integer)
+                new TJsonObjectValue { Key = "stars_stargift_resale_amount_max", Value = new TJsonNumber { Value = 100000 } },
+
+                // The minimum price that can be specified when reselling collectible gifts ». (integer)
+                new TJsonObjectValue { Key = "stars_stargift_resale_amount_min", Value = new TJsonNumber { Value = 125 } },
+
+                // When reselling collectible gifts », you will get resell_stars*stars_stargift_resale_commission_permille/1000 stars. (integer)
+                new TJsonObjectValue { Key = "stars_stargift_resale_commission_permille", Value = new TJsonNumber { Value = 800 } },
+
                 // Specifies the maximum allowed price in Stars of a Telegram Star subscription ». (int)
-                new TJsonObjectValue { Key = "stars_subscription_amount_max", Value = new TJsonNumber { Value = 2500 } },
+                new TJsonObjectValue { Key = "stars_subscription_amount_max", Value = new TJsonNumber { Value = 10000 } },
+
+                //  
+                new TJsonObjectValue { Key = "stars_suggested_post_age_min", Value = new TJsonNumber { Value = 86400 } },
+
+                //  
+                new TJsonObjectValue { Key = "stars_suggested_post_amount_max", Value = new TJsonNumber { Value = 100000 } },
+
+                //  
+                new TJsonObjectValue { Key = "stars_suggested_post_amount_min", Value = new TJsonNumber { Value = 5 } },
+
+                //  
+                new TJsonObjectValue { Key = "stars_suggested_post_commission_permille", Value = new TJsonNumber { Value = 850 } },
+
+                //  
+                new TJsonObjectValue { Key = "stars_suggested_post_future_max", Value = new TJsonNumber { Value = 2678400 } },
+
+                //  
+                new TJsonObjectValue { Key = "stars_suggested_post_future_min", Value = new TJsonNumber { Value = 300 } },
 
                 // Specifies the number of US dollars required to buy one thousand Telegram Stars. (float)
                 new TJsonObjectValue { Key = "stars_usd_sell_rate_x1000", Value = new TJsonNumber { Value = 1410 } },
@@ -659,6 +732,12 @@ public partial class AppConfigHelper
                 // Defines how many Premium stickers to show in the sticker suggestion popup when entering an emoji into the text field, see the sticker docs for more info (integer)
                 new TJsonObjectValue { Key = "stickers_premium_by_emoji_num", Value = new TJsonNumber { Value = 0 } },
 
+                //  
+                new TJsonObjectValue { Key = "stories_album_stories_limit", Value = new TJsonNumber { Value = 1000 } },
+
+                //  
+                new TJsonObjectValue { Key = "stories_albums_limit", Value = new TJsonNumber { Value = 100 } },
+
                 // Maximum number of URL media areas » that can be added to a posted story. (integer)
                 new TJsonObjectValue { Key = "stories_area_url_max", Value = new TJsonNumber { Value = 3 } },
 
@@ -675,13 +754,13 @@ public partial class AppConfigHelper
                 new TJsonObjectValue { Key = "stories_posting", Value = new TJsonString { Value = "enabled" } },
 
                 // Maximum number of stories that can be sent in a month by non-Premium users. (integer)
-                new TJsonObjectValue { Key = "stories_sent_monthly_limit_default", Value = new TJsonNumber { Value = 30 } },
+                new TJsonObjectValue { Key = "stories_sent_monthly_limit_default", Value = new TJsonNumber { Value = 10 } },
 
                 // Maximum number of stories that can be sent in a month by Premium users. (integer)
                 new TJsonObjectValue { Key = "stories_sent_monthly_limit_premium", Value = new TJsonNumber { Value = 3000 } },
 
                 // Maximum number of stories that can be sent in a week by non-Premium users. (integer)
-                new TJsonObjectValue { Key = "stories_sent_weekly_limit_default", Value = new TJsonNumber { Value = 7 } },
+                new TJsonObjectValue { Key = "stories_sent_weekly_limit_default", Value = new TJsonNumber { Value = 3 } },
 
                 // Maximum number of stories that can be sent in a week by Premium users. (integer)
                 new TJsonObjectValue { Key = "stories_sent_weekly_limit_premium", Value = new TJsonNumber { Value = 700 } },
@@ -711,7 +790,7 @@ public partial class AppConfigHelper
                 new TJsonObjectValue { Key = "story_caption_length_limit_premium", Value = new TJsonNumber { Value = 2048 } },
 
                 // The maximum number of active stories for non-Premium users (integer).
-                new TJsonObjectValue { Key = "story_expiring_limit_default", Value = new TJsonNumber { Value = 3 } },
+                new TJsonObjectValue { Key = "story_expiring_limit_default", Value = new TJsonNumber { Value = 1 } },
 
                 // The maximum number of active stories for Premium users (integer).
                 new TJsonObjectValue { Key = "story_expiring_limit_premium", Value = new TJsonNumber { Value = 100 } },
@@ -729,8 +808,44 @@ public partial class AppConfigHelper
                 // When fetching the admin list of a supergroup using channels.getParticipants, if native antispam functionality in the specified supergroup, the bot should be manually added to the admin list displayed to the user.  (numeric string that represents a Telegram user/bot ID, should be casted to an int64)
                 new TJsonObjectValue { Key = "telegram_antispam_user_id", Value = new TJsonString { Value = "5434988373" } },
 
+                //  
+                new TJsonObjectValue { Key = "todo_item_length_max", Value = new TJsonNumber { Value = 200 } },
+
+                //  
+                new TJsonObjectValue { Key = "todo_items_max", Value = new TJsonNumber { Value = 30 } },
+
+                //  
+                new TJsonObjectValue { Key = "todo_title_length_max", Value = new TJsonNumber { Value = 255 } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_blockchain_explorer_url", Value = new TJsonString { Value = "https://tonviewer.com/" } },
+
                 // Specifies the domain name to be used to securely open TON sites ». (string)
                 new TJsonObjectValue { Key = "ton_proxy_address", Value = new TJsonString { Value = "magic.org" } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_stargift_resale_amount_max", Value = new TJsonNumber { Value = 100000000000000 } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_stargift_resale_amount_min", Value = new TJsonNumber { Value = 1000000000 } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_stargift_resale_commission_permille", Value = new TJsonNumber { Value = 900 } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_suggested_post_amount_max", Value = new TJsonNumber { Value = 10000000000000 } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_suggested_post_amount_min", Value = new TJsonNumber { Value = 1 } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_suggested_post_commission_permille", Value = new TJsonNumber { Value = 850 } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_topup_url", Value = new TJsonString { Value = "https://fragment.com/ads/topup" } },
+
+                //  
+                new TJsonObjectValue { Key = "ton_usd_rate", Value = new TJsonNumber { Value = 3.5293105384415675 } },
 
                 // Maximum number of topics that can be pinned in a single forum. (integer)
                 new TJsonObjectValue { Key = "topics_pinned_limit", Value = new TJsonNumber { Value = 5 } },

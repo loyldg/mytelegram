@@ -9,11 +9,11 @@ public class MessageReadModel : IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessageEditedEventV2>,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessagePinnedUpdatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessagePinnedUpdatedEvent>,
-    IAmReadModelFor<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent>,
-    IAmReadModelFor<MessageAggregate, MessageId, MessageDeletedEvent>,
-    IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageDeletedEvent>,
+    //IAmReadModelFor<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent>,
+    //IAmReadModelFor<MessageAggregate, MessageId, MessageDeletedEvent>,
+    //IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageDeletedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessageDeletedEvent>,
-    IAmReadModelFor<MessageAggregate, MessageId, SelfMessageDeletedEvent>,
+    //IAmReadModelFor<MessageAggregate, MessageId, SelfMessageDeletedEvent>,
     //IAmReadModelFor<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedEvent>,
     //IAmReadModelFor<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, MessageDeleted4Event>,
@@ -295,29 +295,29 @@ public class MessageReadModel : IMessageReadModel,
         return Task.CompletedTask;
     }
 
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        Pinned = domainEvent.AggregateEvent.Pinned;
-        return Task.CompletedTask;
-    }
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<MessageAggregate, MessageId, UpdatePinnedMessageStartedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    Pinned = domainEvent.AggregateEvent.Pinned;
+    //    return Task.CompletedTask;
+    //}
 
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<MessageAggregate, MessageId, MessageDeletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        context.MarkForDeletion();
-        return Task.CompletedTask;
-    }
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<MessageAggregate, MessageId, MessageDeletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    context.MarkForDeletion();
+    //    return Task.CompletedTask;
+    //}
 
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<MessageAggregate, MessageId, OutboxMessageDeletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        context.MarkForDeletion();
-        return Task.CompletedTask;
-    }
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<MessageAggregate, MessageId, OutboxMessageDeletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    context.MarkForDeletion();
+    //    return Task.CompletedTask;
+    //}
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<MessageAggregate, MessageId, InboxMessageDeletedEvent> domainEvent,
@@ -327,13 +327,13 @@ public class MessageReadModel : IMessageReadModel,
         return Task.CompletedTask;
     }
 
-    public Task ApplyAsync(IReadModelContext context,
-        IDomainEvent<MessageAggregate, MessageId, SelfMessageDeletedEvent> domainEvent,
-        CancellationToken cancellationToken)
-    {
-        context.MarkForDeletion();
-        return Task.CompletedTask;
-    }
+    //public Task ApplyAsync(IReadModelContext context,
+    //    IDomainEvent<MessageAggregate, MessageId, SelfMessageDeletedEvent> domainEvent,
+    //    CancellationToken cancellationToken)
+    //{
+    //    context.MarkForDeletion();
+    //    return Task.CompletedTask;
+    //}
 
     public Task ApplyAsync(IReadModelContext context, IDomainEvent<MessageAggregate, MessageId, MessageDeleted4Event> domainEvent, CancellationToken cancellationToken)
     {

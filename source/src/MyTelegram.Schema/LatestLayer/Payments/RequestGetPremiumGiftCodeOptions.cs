@@ -2,24 +2,27 @@
 
 namespace MyTelegram.Schema.Payments;
 
-///<summary>
+/// <summary>
 /// Obtain a list of Telegram Premium <a href="https://corefork.telegram.org/api/giveaways">giveaway/gift code »</a> options.
-/// See <a href="https://corefork.telegram.org/method/payments.getPremiumGiftCodeOptions" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getPremiumGiftCodeOptions" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2757ba54)]
-public sealed class RequestGetPremiumGiftCodeOptions : IRequest<TVector<MyTelegram.Schema.IPremiumGiftCodeOption>>
+public sealed partial class RequestGetPremiumGiftCodeOptions : IRequest<TVector<MyTelegram.Schema.IPremiumGiftCodeOption>>
 {
     public uint ConstructorId => 0x2757ba54;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The channel that will start the giveaway
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer? BoostPeer { get; set; }
 
     public void ComputeFlag()

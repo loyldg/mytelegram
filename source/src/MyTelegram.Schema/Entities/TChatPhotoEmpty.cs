@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Group photo is not set.
-/// See <a href="https://corefork.telegram.org/constructor/chatPhotoEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/chatPhotoEmpty" /></para>
+/// </summary>
 [TlObject(0x37c1011c)]
-public sealed class TChatPhotoEmpty : IChatPhoto
+public sealed partial class TChatPhotoEmpty : IChatPhoto
 {
     public uint ConstructorId => 0x37c1011c;
     public void ComputeFlag()

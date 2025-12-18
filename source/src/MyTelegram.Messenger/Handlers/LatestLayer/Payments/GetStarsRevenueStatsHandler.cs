@@ -1,42 +1,20 @@
-﻿using MyTelegram.Schema.Payments;
+using MyTelegram.Schema.Payments;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
-
-///<summary>
+/// <summary>
 /// Get <a href="https://corefork.telegram.org/api/stars">Telegram Star revenue statistics »</a>.
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// See <a href="https://corefork.telegram.org/method/payments.getStarsRevenueStats" />
-///</summary>
+/// <para><c>See <a href="https://corefork.telegram.org/method/payments.getStarsRevenueStats"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 internal sealed class GetStarsRevenueStatsHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestGetStarsRevenueStats, MyTelegram.Schema.Payments.IStarsRevenueStats>
 {
-    protected override Task<MyTelegram.Schema.Payments.IStarsRevenueStats> HandleCoreAsync(IRequestInput input,
-        MyTelegram.Schema.Payments.RequestGetStarsRevenueStats obj)
+    protected override Task<MyTelegram.Schema.Payments.IStarsRevenueStats> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Payments.RequestGetStarsRevenueStats obj)
     {
-        return Task.FromResult<MyTelegram.Schema.Payments.IStarsRevenueStats>(new TStarsRevenueStats
-        {
-            Status = new TStarsRevenueStatus
-            {
-                AvailableBalance = new TStarsAmount
-                {
-                    Amount = 10000
-                },
-                CurrentBalance = new TStarsAmount
-                {
-                    Amount = 10000
-                },
-                OverallRevenue = new TStarsAmount
-                {
-                    Amount = 10000
-                },
-                WithdrawalEnabled = false
-            },
-            RevenueGraph = new TStatsGraphError
-            {
-                Error = "Not implemented"
-            },
-            UsdRate = 1
-        });
+        return Task.FromResult<MyTelegram.Schema.Payments.IStarsRevenueStats>(new TStarsRevenueStats { Status = new TStarsRevenueStatus { AvailableBalance = new TStarsAmount { Amount = 10000 }, CurrentBalance = new TStarsAmount { Amount = 10000 }, OverallRevenue = new TStarsAmount { Amount = 10000 }, WithdrawalEnabled = false }, RevenueGraph = new TStatsGraphError { Error = "Not implemented" }, UsdRate = 1 });
     }
 }

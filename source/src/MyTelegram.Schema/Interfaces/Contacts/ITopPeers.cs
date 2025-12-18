@@ -2,10 +2,16 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
+/// <summary>
 /// Top peers
-/// See <a href="https://corefork.telegram.org/type/contacts.TopPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/contacts.TopPeers" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TTopPeersNotModified"/> See <a href="https://corefork.telegram.org/constructor/contacts.topPeersNotModified" /><br/>
+/// <see cref="TTopPeers"/> See <a href="https://corefork.telegram.org/constructor/contacts.topPeers" /><br/>
+/// <see cref="TTopPeersDisabled"/> See <a href="https://corefork.telegram.org/constructor/contacts.topPeersDisabled" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TTopPeersNotModified), nameof(TTopPeersNotModified))]
 [JsonDerivedType(typeof(TTopPeers), nameof(TTopPeers))]
 [JsonDerivedType(typeof(TTopPeersDisabled), nameof(TTopPeersDisabled))]

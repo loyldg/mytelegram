@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// A low-resolution compressed JPG payload
-/// See <a href="https://corefork.telegram.org/constructor/photoStrippedSize" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/photoStrippedSize" /></para>
+/// </summary>
 [TlObject(0xe0b0bc2e)]
-public sealed class TPhotoStrippedSize : IPhotoSize
+public sealed partial class TPhotoStrippedSize : IPhotoSize
 {
     public uint ConstructorId => 0xe0b0bc2e;
-    ///<summary>
+    /// <summary>
     /// Thumbnail type
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail data, see <a href="https://corefork.telegram.org/api/files#stripped-thumbnails">here for more info on decompression »</a>
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
     public void ComputeFlag()

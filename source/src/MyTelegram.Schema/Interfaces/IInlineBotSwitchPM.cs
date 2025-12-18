@@ -2,20 +2,24 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// The bot requested the user to message them in private
-/// See <a href="https://corefork.telegram.org/type/InlineBotSwitchPM" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/InlineBotSwitchPM" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TInlineBotSwitchPM"/> See <a href="https://corefork.telegram.org/constructor/inlineBotSwitchPM" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TInlineBotSwitchPM), nameof(TInlineBotSwitchPM))]
 public interface IInlineBotSwitchPM : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Text for the button that switches the user to a private chat with the bot and sends the bot a start message with the parameter <code>start_parameter</code> (can be empty)
-    ///</summary>
+    /// </summary>
     string Text { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The parameter for the <code>/start parameter</code>
-    ///</summary>
+    /// </summary>
     string StartParam { get; set; }
 }

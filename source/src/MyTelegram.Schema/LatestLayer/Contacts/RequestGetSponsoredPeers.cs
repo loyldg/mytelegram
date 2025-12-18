@@ -2,14 +2,24 @@
 
 namespace MyTelegram.Schema.Contacts;
 
-///<summary>
-/// See <a href="https://corefork.telegram.org/method/contacts.getSponsoredPeers" />
-///</summary>
+/// <summary>
+/// Obtain a list of sponsored peer search results for a given query
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SEARCH_QUERY_EMPTY The search query is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/contacts.getSponsoredPeers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb6c8c393)]
-public sealed class RequestGetSponsoredPeers : IRequest<MyTelegram.Schema.Contacts.ISponsoredPeers>
+public sealed partial class RequestGetSponsoredPeers : IRequest<MyTelegram.Schema.Contacts.ISponsoredPeers>
 {
     public uint ConstructorId => 0xb6c8c393;
 
+    /// <summary>
+    /// The query
+    /// </summary>
     public string Q { get; set; }
 
     public void ComputeFlag()

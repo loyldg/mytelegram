@@ -2,21 +2,25 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Contains information about an inline message sent by a <a href="https://core.telegram.org/bots/webapps">Web App</a> on behalf of a user.
-/// See <a href="https://corefork.telegram.org/type/WebViewMessageSent" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/WebViewMessageSent" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TWebViewMessageSent"/> See <a href="https://corefork.telegram.org/constructor/webViewMessageSent" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TWebViewMessageSent), nameof(TWebViewMessageSent))]
 public interface IWebViewMessageSent : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message ID
     /// See <a href="https://corefork.telegram.org/type/InputBotInlineMessageID" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IInputBotInlineMessageID? MsgId { get; set; }
 }

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// The full list of usable <a href="https://corefork.telegram.org/api/effects">animated message effects »</a> hasn't changed.
-/// See <a href="https://corefork.telegram.org/constructor/messages.availableEffectsNotModified" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.availableEffectsNotModified" /></para>
+/// </summary>
 [TlObject(0xd1ed9a5b)]
-public sealed class TAvailableEffectsNotModified : IAvailableEffects
+public sealed partial class TAvailableEffectsNotModified : IAvailableEffects
 {
     public uint ConstructorId => 0xd1ed9a5b;
     public void ComputeFlag()

@@ -2,52 +2,56 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Indicates an already sent game
-/// See <a href="https://corefork.telegram.org/type/Game" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Game" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TGame"/> See <a href="https://corefork.telegram.org/constructor/game" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TGame), nameof(TGame))]
 public interface IGame : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the game
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Access hash of the game
-    ///</summary>
+    /// </summary>
     long AccessHash { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Short name for the game
-    ///</summary>
+    /// </summary>
     string ShortName { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Title of the game
-    ///</summary>
+    /// </summary>
     string Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Game description
-    ///</summary>
+    /// </summary>
     string Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Game preview
     /// See <a href="https://corefork.telegram.org/type/Photo" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IPhoto Photo { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Optional attached document
     /// See <a href="https://corefork.telegram.org/type/Document" />
-    ///</summary>
+    /// </summary>
     MyTelegram.Schema.IDocument? Document { get; set; }
 }

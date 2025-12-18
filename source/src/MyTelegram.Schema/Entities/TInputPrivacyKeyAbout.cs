@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Whether people can see your bio
-/// See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyAbout" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyAbout" /></para>
+/// </summary>
 [TlObject(0x3823cc40)]
-public sealed class TInputPrivacyKeyAbout : IInputPrivacyKey
+public sealed partial class TInputPrivacyKeyAbout : IInputPrivacyKey
 {
     public uint ConstructorId => 0x3823cc40;
     public void ComputeFlag()

@@ -2,12 +2,12 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// No reaction
-/// See <a href="https://corefork.telegram.org/constructor/reactionEmpty" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/reactionEmpty" /></para>
+/// </summary>
 [TlObject(0x79f5d419)]
-public sealed class TReactionEmpty : IReaction
+public sealed partial class TReactionEmpty : IReaction
 {
     public uint ConstructorId => 0x79f5d419;
     public void ComputeFlag()

@@ -2,28 +2,32 @@
 
 namespace MyTelegram.Schema.Premium;
 
-///<summary>
+/// <summary>
 /// A list of peers we are currently <a href="https://corefork.telegram.org/api/boost">boosting</a>, and how many <a href="https://corefork.telegram.org/api/boost">boost slots</a> we have left.
-/// See <a href="https://corefork.telegram.org/type/premium.MyBoosts" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/premium.MyBoosts" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TMyBoosts"/> See <a href="https://corefork.telegram.org/constructor/premium.myBoosts" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TMyBoosts), nameof(TMyBoosts))]
 public interface IMyBoosts : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Info about boosted peers and remaining boost slots.
     /// See <a href="https://corefork.telegram.org/type/MyBoost" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IMyBoost> MyBoosts { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Referenced chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Referenced users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 }

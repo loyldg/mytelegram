@@ -2,54 +2,57 @@
 
 namespace MyTelegram.Schema.Account;
 
-///<summary>
+/// <summary>
 /// Update theme
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 THEME_INVALID Invalid theme provided.
-/// See <a href="https://corefork.telegram.org/method/account.updateTheme" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 THEME_INVALID Invalid theme provided. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.updateTheme" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x2bf40ccc)]
-public sealed class RequestUpdateTheme : IRequest<MyTelegram.Schema.ITheme>
+public sealed partial class RequestUpdateTheme : IRequest<MyTelegram.Schema.ITheme>
 {
     public uint ConstructorId => 0x2bf40ccc;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme format, a string that identifies the theming engines supported by the client
-    ///</summary>
+    /// </summary>
     public string Format { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme to update
     /// See <a href="https://corefork.telegram.org/type/InputTheme" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputTheme Theme { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Unique theme ID
-    ///</summary>
+    /// </summary>
     public string? Slug { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme name
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme file
     /// See <a href="https://corefork.telegram.org/type/InputDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputDocument? Document { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Theme settings
     /// See <a href="https://corefork.telegram.org/type/InputThemeSettings" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IInputThemeSettings>? Settings { get; set; }
 
     public void ComputeFlag()

@@ -2,17 +2,17 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// User is uploading a photo.
-/// See <a href="https://corefork.telegram.org/constructor/sendMessageUploadPhotoAction" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageUploadPhotoAction" /></para>
+/// </summary>
 [TlObject(0xd1d34a26)]
-public sealed class TSendMessageUploadPhotoAction : ISendMessageAction
+public sealed partial class TSendMessageUploadPhotoAction : ISendMessageAction
 {
     public uint ConstructorId => 0xd1d34a26;
-    ///<summary>
+    /// <summary>
     /// Progress percentage
-    ///</summary>
+    /// </summary>
     public int Progress { get; set; }
 
     public void ComputeFlag()

@@ -2,23 +2,23 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Information about a blocked peer
-/// See <a href="https://corefork.telegram.org/constructor/peerBlocked" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/peerBlocked" /></para>
+/// </summary>
 [TlObject(0xe8fd8014)]
-public sealed class TPeerBlocked : IPeerBlocked
+public sealed partial class TPeerBlocked : IPeerBlocked
 {
     public uint ConstructorId => 0xe8fd8014;
-    ///<summary>
+    /// <summary>
     /// Peer ID
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer PeerId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// When was the peer blocked
-    ///</summary>
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

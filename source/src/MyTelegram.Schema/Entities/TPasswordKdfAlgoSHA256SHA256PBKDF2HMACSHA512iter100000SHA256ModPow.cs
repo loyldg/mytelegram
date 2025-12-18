@@ -2,32 +2,32 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// This key derivation algorithm defines that <a href="https://corefork.telegram.org/api/srp">SRP 2FA login</a> must be used
-/// See <a href="https://corefork.telegram.org/constructor/passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow" /></para>
+/// </summary>
 [TlObject(0x3a912d4a)]
-public sealed class TPasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow : IPasswordKdfAlgo
+public sealed partial class TPasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow : IPasswordKdfAlgo
 {
     public uint ConstructorId => 0x3a912d4a;
-    ///<summary>
+    /// <summary>
     /// One of two salts used by the derivation function (see <a href="https://corefork.telegram.org/api/srp">SRP 2FA login</a>)
-    ///</summary>
+    /// </summary>
     public byte[] Salt1 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// One of two salts used by the derivation function (see <a href="https://corefork.telegram.org/api/srp">SRP 2FA login</a>)
-    ///</summary>
+    /// </summary>
     public byte[] Salt2 { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Base (see <a href="https://corefork.telegram.org/api/srp">SRP 2FA login</a>)
-    ///</summary>
+    /// </summary>
     public int G { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// 2048-bit modulus (see <a href="https://corefork.telegram.org/api/srp">SRP 2FA login</a>)
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> P { get; set; }
 
     public void ComputeFlag()

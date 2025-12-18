@@ -2,10 +2,15 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Required secure file type
-/// See <a href="https://corefork.telegram.org/type/SecureRequiredType" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/SecureRequiredType" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TSecureRequiredType"/> See <a href="https://corefork.telegram.org/constructor/secureRequiredType" /><br/>
+/// <see cref="TSecureRequiredTypeOneOf"/> See <a href="https://corefork.telegram.org/constructor/secureRequiredTypeOneOf" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TSecureRequiredType), nameof(TSecureRequiredType))]
 [JsonDerivedType(typeof(TSecureRequiredTypeOneOf), nameof(TSecureRequiredTypeOneOf))]
 public interface ISecureRequiredType : IObject

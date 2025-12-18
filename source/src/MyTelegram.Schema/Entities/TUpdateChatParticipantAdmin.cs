@@ -2,33 +2,33 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Admin permissions of a user in a <a href="https://corefork.telegram.org/api/channel#basic-groups">basic group</a> were changed
-/// See <a href="https://corefork.telegram.org/constructor/updateChatParticipantAdmin" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateChatParticipantAdmin" /></para>
+/// </summary>
 [TlObject(0xd7ca61a2)]
-public sealed class TUpdateChatParticipantAdmin : IUpdate
+public sealed partial class TUpdateChatParticipantAdmin : IUpdate
 {
     public uint ConstructorId => 0xd7ca61a2;
-    ///<summary>
+    /// <summary>
     /// Chat ID
-    ///</summary>
+    /// </summary>
     public long ChatId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// ID of the (de)admined user
-    ///</summary>
+    /// </summary>
     public long UserId { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Whether the user was rendered admin
     /// See <a href="https://corefork.telegram.org/type/Bool" />
-    ///</summary>
+    /// </summary>
     public bool IsAdmin { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Used in basic groups to reorder updates and make sure that all of them was received.
-    ///</summary>
+    /// </summary>
     public int Version { get; set; }
 
     public void ComputeFlag()

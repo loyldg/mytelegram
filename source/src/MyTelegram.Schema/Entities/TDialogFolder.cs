@@ -2,59 +2,59 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Dialog in folder
-/// See <a href="https://corefork.telegram.org/constructor/dialogFolder" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/dialogFolder" /></para>
+/// </summary>
 [TlObject(0x71bd134c)]
-public sealed class TDialogFolder : IDialog
+public sealed partial class TDialogFolder : IDialog
 {
     public uint ConstructorId => 0x71bd134c;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Is this folder pinned
-    ///</summary>
+    /// </summary>
     public bool Pinned { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// The folder
     /// See <a href="https://corefork.telegram.org/type/Folder" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IFolder Folder { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Peer in folder
     /// See <a href="https://corefork.telegram.org/type/Peer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Latest message ID of dialog
-    ///</summary>
+    /// </summary>
     public int TopMessage { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread muted peers in folder
-    ///</summary>
+    /// </summary>
     public int UnreadMutedPeersCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread unmuted peers in folder
-    ///</summary>
+    /// </summary>
     public int UnreadUnmutedPeersCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread messages from muted peers in folder
-    ///</summary>
+    /// </summary>
     public int UnreadMutedMessagesCount { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Number of unread messages from unmuted peers in folder
-    ///</summary>
+    /// </summary>
     public int UnreadUnmutedMessagesCount { get; set; }
 
     public void ComputeFlag()

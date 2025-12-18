@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Message ID, for which PUSH-notifications were cancelled.
-/// See <a href="https://corefork.telegram.org/constructor/receivedNotifyMessage" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/receivedNotifyMessage" /></para>
+/// </summary>
 [TlObject(0xa384b779)]
-public sealed class TReceivedNotifyMessage : IReceivedNotifyMessage
+public sealed partial class TReceivedNotifyMessage : IReceivedNotifyMessage
 {
     public uint ConstructorId => 0xa384b779;
-    ///<summary>
+    /// <summary>
     /// Message ID, for which PUSH-notifications were canceled
-    ///</summary>
+    /// </summary>
     public int Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Reserved for future use
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
     public void ComputeFlag()

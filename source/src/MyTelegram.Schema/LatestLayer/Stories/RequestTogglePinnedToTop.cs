@@ -2,28 +2,31 @@
 
 namespace MyTelegram.Schema.Stories;
 
-///<summary>
+/// <summary>
 /// Pin some stories to the top of the profile, see <a href="https://corefork.telegram.org/api/stories#pinned-or-archived-stories">here »</a> for more info.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 PEER_ID_INVALID The provided peer id is invalid.
-/// 400 STORY_ID_INVALID The specified story ID is invalid.
-/// See <a href="https://corefork.telegram.org/method/stories.togglePinnedToTop" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 STORY_ID_INVALID The specified story ID is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.togglePinnedToTop" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xb297e9b)]
-public sealed class RequestTogglePinnedToTop : IRequest<IBool>
+public sealed partial class RequestTogglePinnedToTop : IRequest<IBool>
 {
     public uint ConstructorId => 0xb297e9b;
 
-    ///<summary>
+    /// <summary>
     /// Peer where to pin stories.
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// IDs of the stories to pin (max <a href="https://corefork.telegram.org/api/config#stories-pinned-to-top-count-max">stories_pinned_to_top_count_max</a>).
-    ///</summary>
+    /// </summary>
     public TVector<int> Id { get; set; }
 
     public void ComputeFlag()

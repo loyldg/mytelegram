@@ -2,10 +2,18 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Object defines a group.
-/// See <a href="https://corefork.telegram.org/type/Chat" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/type/Chat" /></para>
+/// </summary>
+/// <remarks>
+/// <para>Implementations:</para>
+/// <see cref="TChatEmpty"/> See <a href="https://corefork.telegram.org/constructor/chatEmpty" /><br/>
+/// <see cref="TChat"/> See <a href="https://corefork.telegram.org/constructor/chat" /><br/>
+/// <see cref="TChatForbidden"/> See <a href="https://corefork.telegram.org/constructor/chatForbidden" /><br/>
+/// <see cref="TChannel"/> See <a href="https://corefork.telegram.org/constructor/channel" /><br/>
+/// <see cref="TChannelForbidden"/> See <a href="https://corefork.telegram.org/constructor/channelForbidden" /><br/>
+/// </remarks>
 [JsonDerivedType(typeof(TChatEmpty), nameof(TChatEmpty))]
 [JsonDerivedType(typeof(TChat), nameof(TChat))]
 [JsonDerivedType(typeof(TChatForbidden), nameof(TChatForbidden))]
@@ -13,8 +21,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChannelForbidden), nameof(TChannelForbidden))]
 public interface IChat : IObject
 {
-    ///<summary>
+    /// <summary>
     /// Group identifier
-    ///</summary>
+    /// </summary>
     long Id { get; set; }
 }

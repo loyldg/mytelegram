@@ -2,43 +2,46 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// Update the <a href="https://corefork.telegram.org/api/colors">accent color and background custom emoji »</a> of a channel.
-/// <para>Possible errors</para>
-/// Code Type Description
-/// 400 BOOSTS_REQUIRED The specified channel must first be <a href="https://corefork.telegram.org/api/boost">boosted by its users</a> in order to perform this action.
-/// 400 CHANNEL_INVALID The provided channel is invalid.
-/// See <a href="https://corefork.telegram.org/method/channels.updateColor" />
-///</summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 BOOSTS_REQUIRED The specified channel must first be <a href="https://corefork.telegram.org/api/boost">boosted by its users</a> in order to perform this action.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.updateColor" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0xd8aa3671)]
-public sealed class RequestUpdateColor : IRequest<MyTelegram.Schema.IUpdates>
+public sealed partial class RequestUpdateColor : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xd8aa3671;
 
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
-    /// Whether to change the accent color emoji pattern of the profile page; otherwise, the accent color and emoji pattern of messages will be changed. <br>Channels can change both message and profile palettes; supergroups can only change the profile palette, of course after reaching the <a href="https://corefork.telegram.org/api/colors">appropriate boost level</a>.
-    ///</summary>
+    /// <summary>
+    /// Whether to change the accent color emoji pattern of the profile page; otherwise, the accent color and emoji pattern of messages will be changed. <br/>Channels can change both message and profile palettes; supergroups can only change the profile palette, of course after reaching the <a href="https://corefork.telegram.org/api/colors">appropriate boost level</a>.
+    /// </summary>
     public bool ForProfile { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Channel whose accent color should be changed.
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/colors">ID of the accent color palette »</a> to use (not RGB24, see <a href="https://corefork.telegram.org/api/colors">here »</a> for more info); if not set, the default palette is used.
-    ///</summary>
+    /// </summary>
     public int? Color { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Custom emoji ID used in the accent color pattern.
-    ///</summary>
+    /// </summary>
     public long? BackgroundEmojiId { get; set; }
 
     public void ComputeFlag()

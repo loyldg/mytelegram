@@ -8,7 +8,7 @@ namespace MyTelegram.Schema.LayerN;
 /// See <a href="https://corefork.telegram.org/constructor/phoneCallProtocol" />
 ///</summary>
 [TlObject(0xa2bb35cb)]
-public sealed class TPhoneCallProtocolLayerN : IPhoneCallProtocol
+public sealed partial class TPhoneCallProtocolLayerN : IPhoneCallProtocol
 {
     public uint ConstructorId => 0xa2bb35cb;
     ///<summary>

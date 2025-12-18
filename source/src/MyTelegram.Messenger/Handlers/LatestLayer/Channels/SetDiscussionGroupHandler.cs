@@ -1,8 +1,7 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
-
-///<summary>
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
+/// <summary>
 /// Associate a group to a channel as <a href="https://corefork.telegram.org/api/discussion">discussion group</a> for that channel
-/// <para>Possible errors</para>
+/// Possible errors
 /// Code Type Description
 /// 400 BROADCAST_ID_INVALID Broadcast ID invalid.
 /// 400 CHANNEL_INVALID The provided channel is invalid.
@@ -11,15 +10,14 @@
 /// 400 LINK_NOT_MODIFIED Discussion link not modified.
 /// 400 MEGAGROUP_ID_INVALID Invalid supergroup ID.
 /// 400 MEGAGROUP_PREHISTORY_HIDDEN Group with hidden history for new members can't be set as discussion groups.
-/// See <a href="https://corefork.telegram.org/method/channels.setDiscussionGroup" />
-///</summary>
-internal sealed class SetDiscussionGroupHandler(
-    ICommandBus commandBus,
-    IAccessHashHelper accessHashHelper)
-    : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSetDiscussionGroup, IBool>
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.setDiscussionGroup"/> </c></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
+internal sealed class SetDiscussionGroupHandler(ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSetDiscussionGroup, IBool>
 {
-    protected override async Task<IBool> HandleCoreAsync(IRequestInput input,
-        RequestSetDiscussionGroup obj)
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestSetDiscussionGroup obj)
     {
         if (obj.Broadcast is TInputChannel broadcastChannel)
         {
@@ -30,8 +28,9 @@ internal sealed class SetDiscussionGroupHandler(
             throw new NotImplementedException();
         }
 
+        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Broadcast, input.UserId);
+        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Group, input.UserId);
         long? groupId = null;
-
         if (obj.Group is TInputChannel groupChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, groupChannel.ChannelId, groupChannel.AccessHash, AccessHashType.Channel);
@@ -42,20 +41,16 @@ internal sealed class SetDiscussionGroupHandler(
             case TInputChannel inputChannel:
                 groupId = inputChannel.ChannelId;
                 break;
-
             case TInputChannelEmpty _:
                 break;
-
             case TInputChannelFromMessage _:
                 break;
-
             default:
                 throw new ArgumentOutOfRangeException();
         }
 
-        var command =
-            new StartSetDiscussionGroupCommand(TempId.New, input.ToRequestInfo(), broadcastChannel.ChannelId, groupId);
+        var command = new StartSetChannelDiscussionGroupCommand(TempId.New, input.ToRequestInfo(), broadcastChannel.ChannelId, groupId);
         await commandBus.PublishAsync(command);
-        return null!;
+        return null !;
     }
 }

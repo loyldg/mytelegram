@@ -2,30 +2,30 @@
 
 namespace MyTelegram.Schema.Channels;
 
-///<summary>
+/// <summary>
 /// A list of peers that can be used to send messages in a specific group
-/// See <a href="https://corefork.telegram.org/constructor/channels.sendAsPeers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/channels.sendAsPeers" /></para>
+/// </summary>
 [TlObject(0xf496b0c6)]
-public sealed class TSendAsPeers : ISendAsPeers
+public sealed partial class TSendAsPeers : ISendAsPeers
 {
     public uint ConstructorId => 0xf496b0c6;
-    ///<summary>
+    /// <summary>
     /// Peers that can be used to send messages to the group
     /// See <a href="https://corefork.telegram.org/type/SendAsPeer" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.ISendAsPeer> Peers { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned chats
     /// See <a href="https://corefork.telegram.org/type/Chat" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Mentioned users
     /// See <a href="https://corefork.telegram.org/type/User" />
-    ///</summary>
+    /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     public void ComputeFlag()

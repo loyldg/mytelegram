@@ -2,18 +2,21 @@
 
 namespace MyTelegram.Schema.Messages;
 
-///<summary>
+/// <summary>
 /// Mark new featured stickers as read
-/// See <a href="https://corefork.telegram.org/method/messages.readFeaturedStickers" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.readFeaturedStickers" /></para>
+/// </summary>
+/// <remarks>
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// </remarks>
 [TlObject(0x5b118126)]
-public sealed class RequestReadFeaturedStickers : IRequest<IBool>
+public sealed partial class RequestReadFeaturedStickers : IRequest<IBool>
 {
     public uint ConstructorId => 0x5b118126;
 
-    ///<summary>
+    /// <summary>
     /// IDs of stickersets to mark as read
-    ///</summary>
+    /// </summary>
     public TVector<long> Id { get; set; }
 
     public void ComputeFlag()

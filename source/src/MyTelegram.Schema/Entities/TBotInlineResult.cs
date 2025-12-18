@@ -2,60 +2,60 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// Generic result
-/// See <a href="https://corefork.telegram.org/constructor/botInlineResult" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/botInlineResult" /></para>
+/// </summary>
 [TlObject(0x11965f3a)]
-public sealed class TBotInlineResult : IBotInlineResult
+public sealed partial class TBotInlineResult : IBotInlineResult
 {
     public uint ConstructorId => 0x11965f3a;
-    ///<summary>
+    /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    ///</summary>
+    /// </summary>
     public int Flags { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result ID
-    ///</summary>
+    /// </summary>
     public string Id { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result type (see <a href="https://corefork.telegram.org/bots/api#inlinequeryresult">bot API docs</a>)
-    ///</summary>
+    /// </summary>
     public string Type { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result title
-    ///</summary>
+    /// </summary>
     public string? Title { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Result description
-    ///</summary>
+    /// </summary>
     public string? Description { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// URL of article or webpage
-    ///</summary>
+    /// </summary>
     public string? Url { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail for the result
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Thumb { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Content of the result
     /// See <a href="https://corefork.telegram.org/type/WebDocument" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IWebDocument? Content { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Message to send
     /// See <a href="https://corefork.telegram.org/type/BotInlineMessage" />
-    ///</summary>
+    /// </summary>
     public MyTelegram.Schema.IBotInlineMessage SendMessage { get; set; }
 
     public void ComputeFlag()

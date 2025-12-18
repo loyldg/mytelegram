@@ -2,22 +2,22 @@
 
 namespace MyTelegram.Schema.Auth;
 
-///<summary>
+/// <summary>
 /// The code will be sent via a flash phone call, that will be closed immediately. The last digits of the phone number that calls are the code that must be entered manually by the user.
-/// See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeMissedCall" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodeTypeMissedCall" /></para>
+/// </summary>
 [TlObject(0x82006484)]
-public sealed class TSentCodeTypeMissedCall : ISentCodeType
+public sealed partial class TSentCodeTypeMissedCall : ISentCodeType
 {
     public uint ConstructorId => 0x82006484;
-    ///<summary>
+    /// <summary>
     /// Prefix of the phone number from which the call will be made
-    ///</summary>
+    /// </summary>
     public string Prefix { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length of the verification code
-    ///</summary>
+    /// </summary>
     public int Length { get; set; }
 
     public void ComputeFlag()

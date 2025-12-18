@@ -2,27 +2,27 @@
 
 namespace MyTelegram.Schema;
 
-///<summary>
+/// <summary>
 /// SHA256 Hash of an uploaded file, to be checked for validity after download
-/// See <a href="https://corefork.telegram.org/constructor/fileHash" />
-///</summary>
+/// <para>See <a href="https://corefork.telegram.org/constructor/fileHash" /></para>
+/// </summary>
 [TlObject(0xf39b035c)]
-public sealed class TFileHash : IFileHash
+public sealed partial class TFileHash : IFileHash
 {
     public uint ConstructorId => 0xf39b035c;
-    ///<summary>
+    /// <summary>
     /// Offset from where to start computing SHA-256 hash
-    ///</summary>
+    /// </summary>
     public long Offset { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// Length
-    ///</summary>
+    /// </summary>
     public int Limit { get; set; }
 
-    ///<summary>
+    /// <summary>
     /// SHA-256 Hash of file chunk, to be checked for validity after download
-    ///</summary>
+    /// </summary>
     public ReadOnlyMemory<byte> Hash { get; set; }
 
     public void ComputeFlag()
