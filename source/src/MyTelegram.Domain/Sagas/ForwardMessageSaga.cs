@@ -128,6 +128,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
                 case PeerType.Channel:
                     fwd.FromId = item.SenderPeer;
                     fwd.SavedFromMsgId = item.MessageId;
+                    fwd.SavedFromPeer = item.OwnerPeer;
                     fwd.PostAuthor = item.PostAuthor;
                     if (item.Post)
                     {
@@ -152,6 +153,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
                             fwd.FromId = item.FwdHeader.FromId;
                             fwd.ChannelPost = item.FwdHeader.ChannelPost;
                             fwd.SavedFromMsgId = item.FwdHeader.SavedFromMsgId;
+                            fwd.SavedFromPeer = item.OwnerPeer;
                         }
                     }
 
@@ -170,8 +172,9 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             if (isForwardToSavedMessages)
             {
                 fwd.SavedOut = item.SenderUserId == aggregateEvent.RequestInfo.UserId;
-                fwd.SavedFromPeer = _state.FromPeer;
                 fwd.SavedFromMsgId = item.MessageId;
+                fwd.SavedFromPeer = _state.FromPeer;
+
                 sendAs = aggregateEvent.OriginalMessageItem.SendAs;
             }
             if (!string.IsNullOrEmpty(fwd.FromName))

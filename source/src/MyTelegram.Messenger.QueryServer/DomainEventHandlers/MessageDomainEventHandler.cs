@@ -386,6 +386,29 @@ public partial class MessageDomainEventHandler(
         SetChannelInfo(RequestInfo.Empty with { UserId = -1 }, channelMemberUpdates, sendAsReadModel, sendAsPhotoReadModel, 0);
         SetChannelInfo(RequestInfo.Empty with { UserId = -1 }, channelMemberUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel, 0);
 
+        ILayeredUser? user = null;
+        if (item.FwdHeader?.FromId?.PeerType == PeerType.User)
+        {
+            var userId = item.FwdHeader.FromId.PeerId;
+            user = await userConverterService.GetUserAsync(aggregateEvent.RequestInfo, userId, false, false,
+                aggregateEvent.RequestInfo.Layer);
+
+            if (selfUpdates is TUpdates tUpdates)
+            {
+                tUpdates.Users.Add(user);
+            }
+
+            if (selfOtherDeviceUpdates is TUpdates tUpdates2)
+            {
+                tUpdates2.Users.Add(user);
+            }
+
+            if (channelAdminUpdates is TUpdates tUpdates3)
+            {
+                tUpdates3.Users.Add(user);
+            }
+        }
+
         var updatesType = UpdatesType.Updates;
         if (item.MessageSubType == MessageSubType.Normal || item.MessageSubType == MessageSubType.ForwardMessage)
         {
@@ -437,6 +460,15 @@ public partial class MessageDomainEventHandler(
                 SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, channelReadModel, photoReadModel, 0);
                 SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, sendAsReadModel, sendAsPhotoReadModel, 0);
                 SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel, 0);
+
+                if (user != null)
+                {
+                    if (mentionedUpdates is TUpdates tUpdates)
+                    {
+                        tUpdates.Users.Add(user);
+                    }
+                }
+
                 await PushUpdatesToPeerAsync(mentionedUserId.ToUserPeer(), mentionedUpdates);
             }
         }
