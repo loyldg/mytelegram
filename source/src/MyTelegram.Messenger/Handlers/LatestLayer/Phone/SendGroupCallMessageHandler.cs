@@ -6,9 +6,9 @@ namespace MyTelegram.Messenger.Handlers.Phone;
 /// <remarks>
 /// Access: [User ✖] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SendGroupCallMessageHandler : RpcResultObjectHandler<MyTelegram.Schema.Phone.RequestSendGroupCallMessage, IBool>, IObjectHandler
+internal sealed class SendGroupCallMessageHandler : RpcResultObjectHandler<MyTelegram.Schema.Phone.RequestSendGroupCallMessage, MyTelegram.Schema.IUpdates>, IObjectHandler
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Phone.RequestSendGroupCallMessage obj)
+    protected override Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Phone.RequestSendGroupCallMessage obj)
     {
         throw new NotImplementedException();
     }
