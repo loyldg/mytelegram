@@ -44,10 +44,7 @@ public interface ICheckedGiftCode : IObject
     /// </summary>
     int Date { get; set; }
 
-    /// <summary>
-    /// Duration in months of the gifted <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription.
-    /// </summary>
-    int Months { get; set; }
+    int Days { get; set; }
 
     /// <summary>
     /// When was the giftcode imported, if it was imported.

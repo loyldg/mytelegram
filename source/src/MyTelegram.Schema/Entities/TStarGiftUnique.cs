@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible star gift, see here »</a> for more info.The sticker that represents the gift is contained in a <a href="https://corefork.telegram.org/constructor/starGiftAttributeModel">starGiftAttributeModel</a> object in <code>attributes</code>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/starGiftUnique" /></para>
 /// </summary>
-[TlObject(0xb0bf741b)]
+[TlObject(0x569d64c9)]
 public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
 {
-    public uint ConstructorId => 0xb0bf741b;
+    public uint ConstructorId => 0x569d64c9;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -114,6 +114,8 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     /// </summary>
     public string? ValueCurrency { get; set; }
 
+    public long? ValueUsdAmount { get; set; }
+
     /// <summary>
     /// The current chat where the associated <a href="https://corefork.telegram.org/api/themes#chat-themes">chat theme</a> is installed, if any (gift-based themes can only be installed in one chat at a time).
     /// See <a href="https://corefork.telegram.org/type/Peer" />
@@ -130,6 +132,8 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     /// </summary>
     public MyTelegram.Schema.IPeer? HostId { get; set; }
 
+    public int? OfferMinStars { get; set; }
+
     public void ComputeFlag()
     {
         if (RequirePremium) { Flags = Flags.SetBit(6); }
@@ -143,9 +147,11 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (ReleasedBy != null) { Flags = Flags.SetBit(5); }
         if (/*ValueAmount != 0 &&*/ ValueAmount.HasValue) { Flags = Flags.SetBit(8); }
         if (ValueCurrency != null) { Flags = Flags.SetBit(8); }
+        if (/*ValueUsdAmount != 0 &&*/ ValueUsdAmount.HasValue) { Flags = Flags.SetBit(8); }
         if (ThemePeer != null) { Flags = Flags.SetBit(10); }
         if (PeerColor != null) { Flags = Flags.SetBit(11); }
         if (HostId != null) { Flags = Flags.SetBit(12); }
+        if (/*OfferMinStars != 0 && */OfferMinStars.HasValue) { Flags = Flags.SetBit(13); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -169,9 +175,11 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(5)) { writer.Write(ReleasedBy); }
         if (Flags.IsBitSet(8)) { writer.Write(ValueAmount.Value); }
         if (Flags.IsBitSet(8)) { writer.Write(ValueCurrency); }
+        if (Flags.IsBitSet(8)) { writer.Write(ValueUsdAmount.Value); }
         if (Flags.IsBitSet(10)) { writer.Write(ThemePeer); }
         if (Flags.IsBitSet(11)) { writer.Write(PeerColor); }
         if (Flags.IsBitSet(12)) { writer.Write(HostId); }
+        if (Flags.IsBitSet(13)) { writer.Write(OfferMinStars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -196,8 +204,10 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(5)) { ReleasedBy = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(8)) { ValueAmount = buffer.ReadInt64(); }
         if (Flags.IsBitSet(8)) { ValueCurrency = buffer.ReadString(); }
+        if (Flags.IsBitSet(8)) { ValueUsdAmount = buffer.ReadInt64(); }
         if (Flags.IsBitSet(10)) { ThemePeer = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(11)) { PeerColor = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
         if (Flags.IsBitSet(12)) { HostId = buffer.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags.IsBitSet(13)) { OfferMinStars = buffer.ReadInt32(); }
     }
 }

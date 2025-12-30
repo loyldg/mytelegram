@@ -116,10 +116,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xac55d9c1)]
+[TlObject(0x330e77f)]
 public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xac55d9c1;
+    public uint ConstructorId => 0x330e77f;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -206,6 +206,8 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public int? ScheduleDate { get; set; }
 
+    public int? ScheduleRepeatPeriod { get; set; }
+
     /// <summary>
     /// Send this message as the specified peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
@@ -247,6 +249,7 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
         if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
         if (Entities?.Count > 0) { Flags = Flags.SetBit(3); }
         if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(10); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags = Flags.SetBit(24); }
         if (SendAs != null) { Flags = Flags.SetBit(13); }
         if (QuickReplyShortcut != null) { Flags = Flags.SetBit(17); }
         if (/*Effect != 0 &&*/ Effect.HasValue) { Flags = Flags.SetBit(18); }
@@ -267,6 +270,7 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
         if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
         if (Flags.IsBitSet(3)) { writer.Write(Entities); }
         if (Flags.IsBitSet(10)) { writer.Write(ScheduleDate.Value); }
+        if (Flags.IsBitSet(24)) { writer.Write(ScheduleRepeatPeriod.Value); }
         if (Flags.IsBitSet(13)) { writer.Write(SendAs); }
         if (Flags.IsBitSet(17)) { writer.Write(QuickReplyShortcut); }
         if (Flags.IsBitSet(18)) { writer.Write(Effect.Value); }
@@ -292,6 +296,7 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
         if (Flags.IsBitSet(2)) { ReplyMarkup = buffer.Read<MyTelegram.Schema.IReplyMarkup>(); }
         if (Flags.IsBitSet(3)) { Entities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
         if (Flags.IsBitSet(10)) { ScheduleDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(24)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
         if (Flags.IsBitSet(13)) { SendAs = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags.IsBitSet(17)) { QuickReplyShortcut = buffer.Read<MyTelegram.Schema.IInputQuickReplyShortcut>(); }
         if (Flags.IsBitSet(18)) { Effect = buffer.ReadInt64(); }

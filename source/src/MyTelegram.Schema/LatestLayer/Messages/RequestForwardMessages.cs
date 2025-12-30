@@ -66,10 +66,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x978928ca)]
+[TlObject(0x13704a7c)]
 public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x978928ca;
+    public uint ConstructorId => 0x13704a7c;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -149,6 +149,8 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
     /// </summary>
     public int? ScheduleDate { get; set; }
 
+    public int? ScheduleRepeatPeriod { get; set; }
+
     /// <summary>
     /// Forward the messages as the specified peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
@@ -160,6 +162,8 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
     /// See <a href="https://corefork.telegram.org/type/InputQuickReplyShortcut" />
     /// </summary>
     public MyTelegram.Schema.IInputQuickReplyShortcut? QuickReplyShortcut { get; set; }
+
+    public long? Effect { get; set; }
 
     /// <summary>
     /// Start playing the video at the specified timestamp (seconds).
@@ -189,8 +193,10 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
         if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(9); }
         if (ReplyTo != null) { Flags = Flags.SetBit(22); }
         if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(10); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags = Flags.SetBit(24); }
         if (SendAs != null) { Flags = Flags.SetBit(13); }
         if (QuickReplyShortcut != null) { Flags = Flags.SetBit(17); }
+        if (/*Effect != 0 &&*/ Effect.HasValue) { Flags = Flags.SetBit(18); }
         if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { Flags = Flags.SetBit(20); }
         if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { Flags = Flags.SetBit(21); }
         if (SuggestedPost != null) { Flags = Flags.SetBit(23); }
@@ -208,8 +214,10 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
         if (Flags.IsBitSet(9)) { writer.Write(TopMsgId.Value); }
         if (Flags.IsBitSet(22)) { writer.Write(ReplyTo); }
         if (Flags.IsBitSet(10)) { writer.Write(ScheduleDate.Value); }
+        if (Flags.IsBitSet(24)) { writer.Write(ScheduleRepeatPeriod.Value); }
         if (Flags.IsBitSet(13)) { writer.Write(SendAs); }
         if (Flags.IsBitSet(17)) { writer.Write(QuickReplyShortcut); }
+        if (Flags.IsBitSet(18)) { writer.Write(Effect.Value); }
         if (Flags.IsBitSet(20)) { writer.Write(VideoTimestamp.Value); }
         if (Flags.IsBitSet(21)) { writer.Write(AllowPaidStars.Value); }
         if (Flags.IsBitSet(23)) { writer.Write(SuggestedPost); }
@@ -232,8 +240,10 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
         if (Flags.IsBitSet(9)) { TopMsgId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(22)) { ReplyTo = buffer.Read<MyTelegram.Schema.IInputReplyTo>(); }
         if (Flags.IsBitSet(10)) { ScheduleDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(24)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
         if (Flags.IsBitSet(13)) { SendAs = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags.IsBitSet(17)) { QuickReplyShortcut = buffer.Read<MyTelegram.Schema.IInputQuickReplyShortcut>(); }
+        if (Flags.IsBitSet(18)) { Effect = buffer.ReadInt64(); }
         if (Flags.IsBitSet(20)) { VideoTimestamp = buffer.ReadInt32(); }
         if (Flags.IsBitSet(21)) { AllowPaidStars = buffer.ReadInt64(); }
         if (Flags.IsBitSet(23)) { SuggestedPost = buffer.Read<MyTelegram.Schema.ISuggestedPost>(); }

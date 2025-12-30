@@ -6,19 +6,21 @@ namespace MyTelegram.Schema;
 /// A new groupcall was started
 /// <para>See <a href="https://corefork.telegram.org/constructor/updateGroupCall" /></para>
 /// </summary>
-[TlObject(0x97d64341)]
+[TlObject(0x9d2216e0)]
 public sealed partial class TUpdateGroupCall : IUpdate
 {
-    public uint ConstructorId => 0x97d64341;
+    public uint ConstructorId => 0x9d2216e0;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
     public int Flags { get; set; }
 
+    public bool LiveStory { get; set; }
+
     /// <summary>
-    /// The <a href="https://corefork.telegram.org/api/channel">channel/supergroup</a> where this group call or livestream takes place
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
-    public long? ChatId { get; set; }
+    public MyTelegram.Schema.IPeer? Peer { get; set; }
 
     /// <summary>
     /// Info about the group call or livestream
@@ -28,7 +30,8 @@ public sealed partial class TUpdateGroupCall : IUpdate
 
     public void ComputeFlag()
     {
-        if (/*ChatId != 0 &&*/ ChatId.HasValue) { Flags = Flags.SetBit(0); }
+        if (LiveStory) { Flags = Flags.SetBit(2); }
+        if (Peer != null) { Flags = Flags.SetBit(1); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -36,14 +39,15 @@ public sealed partial class TUpdateGroupCall : IUpdate
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(ChatId.Value); }
+        if (Flags.IsBitSet(1)) { writer.Write(Peer); }
         writer.Write(Call);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
-        if (Flags.IsBitSet(0)) { ChatId = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(2)) { LiveStory = true; }
+        if (Flags.IsBitSet(1)) { Peer = buffer.Read<MyTelegram.Schema.IPeer>(); }
         Call = buffer.Read<MyTelegram.Schema.IGroupCall>();
     }
 }

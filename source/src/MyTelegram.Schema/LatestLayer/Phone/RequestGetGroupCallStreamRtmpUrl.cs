@@ -13,10 +13,14 @@ namespace MyTelegram.Schema.Phone;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xdeb3abbf)]
+[TlObject(0x5af4c73a)]
 public sealed partial class RequestGetGroupCallStreamRtmpUrl : IRequest<MyTelegram.Schema.Phone.IGroupCallStreamRtmpUrl>
 {
-    public uint ConstructorId => 0xdeb3abbf;
+    public uint ConstructorId => 0x5af4c73a;
+
+    public int Flags { get; set; }
+
+    public bool LiveStory { get; set; }
 
     /// <summary>
     /// Peer to livestream into
@@ -32,18 +36,22 @@ public sealed partial class RequestGetGroupCallStreamRtmpUrl : IRequest<MyTelegr
 
     public void ComputeFlag()
     {
+        if (LiveStory) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Peer);
         writer.Write(Revoke);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { LiveStory = true; }
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
         Revoke = buffer.Read();
     }

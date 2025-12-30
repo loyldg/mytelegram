@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A completed <a href="https://corefork.telegram.org/api/todo">todo list »</a> item.
 /// <para>See <a href="https://corefork.telegram.org/constructor/todoCompletion" /></para>
 /// </summary>
-[TlObject(0x4cc120b7)]
+[TlObject(0x221bb5e4)]
 public sealed partial class TTodoCompletion : ITodoCompletion
 {
-    public uint ConstructorId => 0x4cc120b7;
+    public uint ConstructorId => 0x221bb5e4;
     /// <summary>
     /// The ID of the completed item.
     /// </summary>
@@ -17,8 +17,9 @@ public sealed partial class TTodoCompletion : ITodoCompletion
 
     /// <summary>
     /// ID of the user that completed the item.
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
-    public long CompletedBy { get; set; }
+    public MyTelegram.Schema.IPeer CompletedBy { get; set; }
 
     /// <summary>
     /// When was the item completed.
@@ -41,7 +42,7 @@ public sealed partial class TTodoCompletion : ITodoCompletion
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Id = buffer.ReadInt32();
-        CompletedBy = buffer.ReadInt64();
+        CompletedBy = buffer.Read<MyTelegram.Schema.IPeer>();
         Date = buffer.ReadInt32();
     }
 }

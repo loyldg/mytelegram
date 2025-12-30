@@ -4,11 +4,10 @@ namespace MyTelegram.AuthServer.Extensions;
 
 public static partial class LoggerExtensions
 {
-    [LoggerMessage(1001, LogLevel.Information, "[Step1] ReqPqHandler, ConnectionId: {ConnectionId}, ReqMsgId: {ReqMsgId}", EventName = "ReqPqHandlerStep1")]
+    [LoggerMessage(LogLevel.Information, "[Step1] ReqPqHandler, ConnectionId: {ConnectionId}, ReqMsgId: {ReqMsgId}", EventName = "ReqPqHandlerStep1")]
     public static partial void HandshakeStep1(this ILogger logger, string connectionId, long reqMsgId);
 
     [LoggerMessage(
-        1002,
         LogLevel.Information,
         "[Step1] ReqPqMultiHandler, ConnectionId={ConnectionId}, ReqMsgId: {ReqMsgId}, AuthKeyId: {AuthKeyId} {ElapsedMs}ms",
         EventName = "ReqPqMultiHandlerStep1")]
@@ -24,7 +23,6 @@ public static partial class LoggerExtensions
     public static partial void HandshakeStep2(this ILogger logger, string connectionId, long reqMsgId);
 
     [LoggerMessage(
-        1004,
         LogLevel.Information,
         "[Step3] [{IsPerm}] authKey created successfully, ConnectionId: {ConnectionId}, AuthKeyId: {AuthKeyId:x2}, ReqMsgId: {ReqMsgId}, MediaOnly: {MediaOnly}",
         EventName = "AuthKeyCreatedStep3")]

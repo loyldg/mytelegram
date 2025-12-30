@@ -122,4 +122,6 @@ public interface ISavedStarGift : IObject
     string? PrepaidUpgradeHash { get; set; }
 
     long? DropOriginalDetailsStars { get; set; }
+
+    int? GiftNum { get; set; }
 }

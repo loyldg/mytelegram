@@ -9,10 +9,10 @@ namespace MyTelegram.Schema.Stories;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x535983c3)]
-public sealed partial class RequestGetPeerMaxIDs : IRequest<TVector<int>>
+[TlObject(0x78499170)]
+public sealed partial class RequestGetPeerMaxIDs : IRequest<TVector<MyTelegram.Schema.IRecentStory>>
 {
-    public uint ConstructorId => 0x535983c3;
+    public uint ConstructorId => 0x78499170;
 
     /// <summary>
     /// Peers

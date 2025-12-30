@@ -30,6 +30,8 @@ public sealed partial class RequestGetSendAs : IRequest<MyTelegram.Schema.Channe
     /// </summary>
     public bool ForPaidReactions { get; set; }
 
+    public bool ForLiveStories { get; set; }
+
     /// <summary>
     /// The group where we intend to send messages
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
@@ -39,6 +41,7 @@ public sealed partial class RequestGetSendAs : IRequest<MyTelegram.Schema.Channe
     public void ComputeFlag()
     {
         if (ForPaidReactions) { Flags = Flags.SetBit(0); }
+        if (ForLiveStories) { Flags = Flags.SetBit(1); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -53,6 +56,7 @@ public sealed partial class RequestGetSendAs : IRequest<MyTelegram.Schema.Channe
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { ForPaidReactions = true; }
+        if (Flags.IsBitSet(1)) { ForLiveStories = true; }
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
     }
 }

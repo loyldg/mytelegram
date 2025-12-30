@@ -155,6 +155,9 @@ namespace MyTelegram.Schema;
 /// <see cref="TUpdateGroupCallEncryptedMessage"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCallEncryptedMessage" /><br/>
 /// <see cref="TUpdatePinnedForumTopic"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedForumTopic" /><br/>
 /// <see cref="TUpdatePinnedForumTopics"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedForumTopics" /><br/>
+/// <see cref="TUpdateDeleteGroupCallMessages"/> See <a href="" /><br/>
+/// <see cref="TUpdateStarGiftAuctionState"/> See <a href="" /><br/>
+/// <see cref="TUpdateStarGiftAuctionUserState"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUpdateNewMessage), nameof(TUpdateNewMessage))]
 [JsonDerivedType(typeof(TUpdateMessageID), nameof(TUpdateMessageID))]
@@ -303,6 +306,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateGroupCallEncryptedMessage), nameof(TUpdateGroupCallEncryptedMessage))]
 [JsonDerivedType(typeof(TUpdatePinnedForumTopic), nameof(TUpdatePinnedForumTopic))]
 [JsonDerivedType(typeof(TUpdatePinnedForumTopics), nameof(TUpdatePinnedForumTopics))]
+[JsonDerivedType(typeof(TUpdateDeleteGroupCallMessages), nameof(TUpdateDeleteGroupCallMessages))]
+[JsonDerivedType(typeof(TUpdateStarGiftAuctionState), nameof(TUpdateStarGiftAuctionState))]
+[JsonDerivedType(typeof(TUpdateStarGiftAuctionUserState), nameof(TUpdateStarGiftAuctionUserState))]
 public interface IUpdate : IObject
 {
 }

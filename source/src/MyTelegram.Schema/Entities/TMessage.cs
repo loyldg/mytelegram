@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A message
 /// <para>See <a href="https://corefork.telegram.org/constructor/message" /></para>
 /// </summary>
-[TlObject(0x9815cec8)]
+[TlObject(0xb92f76cf)]
 public sealed partial class TMessage : IMessage, ILayeredMessage
 {
-    public uint ConstructorId => 0x9815cec8;
+    public uint ConstructorId => 0xb92f76cf;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -253,6 +253,8 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
     /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
+    public int? ScheduleRepeatPeriod { get; set; }
+
     public void ComputeFlag()
     {
         if (Out) { Flags = Flags.SetBit(1); }
@@ -295,6 +297,7 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (/*ReportDeliveryUntilDate != 0 && */ReportDeliveryUntilDate.HasValue) { Flags2 = Flags2.SetBit(5); }
         if (/*PaidMessageStars != 0 &&*/ PaidMessageStars.HasValue) { Flags2 = Flags2.SetBit(6); }
         if (SuggestedPost != null) { Flags2 = Flags2.SetBit(7); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags2 = Flags2.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -332,6 +335,7 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (Flags2.IsBitSet(5)) { writer.Write(ReportDeliveryUntilDate.Value); }
         if (Flags2.IsBitSet(6)) { writer.Write(PaidMessageStars.Value); }
         if (Flags2.IsBitSet(7)) { writer.Write(SuggestedPost); }
+        if (Flags2.IsBitSet(10)) { writer.Write(ScheduleRepeatPeriod.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -382,5 +386,6 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (Flags2.IsBitSet(5)) { ReportDeliveryUntilDate = buffer.ReadInt32(); }
         if (Flags2.IsBitSet(6)) { PaidMessageStars = buffer.ReadInt64(); }
         if (Flags2.IsBitSet(7)) { SuggestedPost = buffer.Read<MyTelegram.Schema.ISuggestedPost>(); }
+        if (Flags2.IsBitSet(10)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
     }
 }

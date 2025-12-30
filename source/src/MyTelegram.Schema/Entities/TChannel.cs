@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Channel/supergroup infoWhen updating the <a href="https://corefork.telegram.org/api/peers">local peer database</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).The only exception to the above rule is when the <code>min</code> flag is set, in which case <strong>only</strong> the following fields must be applied over any locally stored version:See <a href="https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L8329">here »</a> for an implementation of the logic to use when updating the <a href="https://corefork.telegram.org/api/peers">local user peer database</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/channel" /></para>
 /// </summary>
-[TlObject(0xfe685355)]
+[TlObject(0x1c32b11c)]
 public sealed partial class TChannel : IChat, ILayeredChannel
 {
-    public uint ConstructorId => 0xfe685355;
+    public uint ConstructorId => 0x1c32b11c;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -228,8 +228,9 @@ public sealed partial class TChannel : IChat, ILayeredChannel
 
     /// <summary>
     /// ID of the maximum read <a href="https://corefork.telegram.org/api/stories">story</a>.
+    /// See <a href="https://corefork.telegram.org/type/RecentStory" />
     /// </summary>
-    public int? StoriesMaxId { get; set; }
+    public MyTelegram.Schema.IRecentStory? StoriesMaxId { get; set; }
 
     /// <summary>
     /// The channel's <a href="https://corefork.telegram.org/api/colors">accent color</a>.
@@ -312,7 +313,7 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (DefaultBannedRights != null) { Flags = Flags.SetBit(18); }
         if (/*ParticipantsCount != 0 && */ParticipantsCount.HasValue) { Flags = Flags.SetBit(17); }
         if (Usernames?.Count > 0) { Flags2 = Flags2.SetBit(0); }
-        if (/*StoriesMaxId != 0 && */StoriesMaxId.HasValue) { Flags2 = Flags2.SetBit(4); }
+        if (StoriesMaxId != null) { Flags2 = Flags2.SetBit(4); }
         if (Color != null) { Flags2 = Flags2.SetBit(7); }
         if (ProfileColor != null) { Flags2 = Flags2.SetBit(8); }
         if (EmojiStatus != null) { Flags2 = Flags2.SetBit(9); }
@@ -341,7 +342,7 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (Flags.IsBitSet(18)) { writer.Write(DefaultBannedRights); }
         if (Flags.IsBitSet(17)) { writer.Write(ParticipantsCount.Value); }
         if (Flags2.IsBitSet(0)) { writer.Write(Usernames); }
-        if (Flags2.IsBitSet(4)) { writer.Write(StoriesMaxId.Value); }
+        if (Flags2.IsBitSet(4)) { writer.Write(StoriesMaxId); }
         if (Flags2.IsBitSet(7)) { writer.Write(Color); }
         if (Flags2.IsBitSet(8)) { writer.Write(ProfileColor); }
         if (Flags2.IsBitSet(9)) { writer.Write(EmojiStatus); }
@@ -396,7 +397,7 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (Flags.IsBitSet(18)) { DefaultBannedRights = buffer.Read<MyTelegram.Schema.IChatBannedRights>(); }
         if (Flags.IsBitSet(17)) { ParticipantsCount = buffer.ReadInt32(); }
         if (Flags2.IsBitSet(0)) { Usernames = buffer.Read<TVector<MyTelegram.Schema.IUsername>>(); }
-        if (Flags2.IsBitSet(4)) { StoriesMaxId = buffer.ReadInt32(); }
+        if (Flags2.IsBitSet(4)) { StoriesMaxId = buffer.Read<MyTelegram.Schema.IRecentStory>(); }
         if (Flags2.IsBitSet(7)) { Color = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
         if (Flags2.IsBitSet(8)) { ProfileColor = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
         if (Flags2.IsBitSet(9)) { EmojiStatus = buffer.Read<MyTelegram.Schema.IEmojiStatus>(); }

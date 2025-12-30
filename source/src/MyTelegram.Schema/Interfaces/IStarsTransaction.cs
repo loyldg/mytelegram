@@ -70,6 +70,12 @@ public interface IStarsTransaction : IObject
 
     bool StargiftDropOriginalDetails { get; set; }
 
+    bool PhonegroupMessage { get; set; }
+
+    bool StargiftAuctionBid { get; set; }
+
+    bool Offer { get; set; }
+
     /// <summary>
     /// Transaction ID.
     /// </summary>

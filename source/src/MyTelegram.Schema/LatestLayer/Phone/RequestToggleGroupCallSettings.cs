@@ -13,10 +13,10 @@ namespace MyTelegram.Schema.Phone;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xe9723804)]
+[TlObject(0x974392f2)]
 public sealed partial class RequestToggleGroupCallSettings : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xe9723804;
+    public uint ConstructorId => 0x974392f2;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -45,11 +45,14 @@ public sealed partial class RequestToggleGroupCallSettings : IRequest<MyTelegram
     /// </summary>
     public bool? MessagesEnabled { get; set; }
 
+    public long? SendPaidMessagesStars { get; set; }
+
     public void ComputeFlag()
     {
         if (ResetInviteHash) { Flags = Flags.SetBit(1); }
         if (JoinMuted != null) { Flags = Flags.SetBit(0); }
         if (MessagesEnabled != null) { Flags = Flags.SetBit(2); }
+        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { Flags = Flags.SetBit(3); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -60,6 +63,7 @@ public sealed partial class RequestToggleGroupCallSettings : IRequest<MyTelegram
         writer.Write(Call);
         if (Flags.IsBitSet(0)) { writer.Write(JoinMuted.Value); }
         if (Flags.IsBitSet(2)) { writer.Write(MessagesEnabled.Value); }
+        if (Flags.IsBitSet(3)) { writer.Write(SendPaidMessagesStars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -69,5 +73,6 @@ public sealed partial class RequestToggleGroupCallSettings : IRequest<MyTelegram
         Call = buffer.Read<MyTelegram.Schema.IInputGroupCall>();
         if (Flags.IsBitSet(0)) { JoinMuted = buffer.Read(); }
         if (Flags.IsBitSet(2)) { MessagesEnabled = buffer.Read(); }
+        if (Flags.IsBitSet(3)) { SendPaidMessagesStars = buffer.ReadInt64(); }
     }
 }

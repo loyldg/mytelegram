@@ -42,6 +42,8 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
 
     public bool Assigned { get; set; }
 
+    public bool FromOffer { get; set; }
+
     /// <summary>
     /// The collectible gift.
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
@@ -101,6 +103,7 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
         if (Refunded) { Flags = Flags.SetBit(5); }
         if (PrepaidUpgrade) { Flags = Flags.SetBit(11); }
         if (Assigned) { Flags = Flags.SetBit(13); }
+        if (FromOffer) { Flags = Flags.SetBit(14); }
         if (/*CanExportAt != 0 && */CanExportAt.HasValue) { Flags = Flags.SetBit(3); }
         if (/*TransferStars != 0 &&*/ TransferStars.HasValue) { Flags = Flags.SetBit(4); }
         if (FromId != null) { Flags = Flags.SetBit(6); }
@@ -138,6 +141,7 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
         if (Flags.IsBitSet(5)) { Refunded = true; }
         if (Flags.IsBitSet(11)) { PrepaidUpgrade = true; }
         if (Flags.IsBitSet(13)) { Assigned = true; }
+        if (Flags.IsBitSet(14)) { FromOffer = true; }
         Gift = buffer.Read<MyTelegram.Schema.IStarGift>();
         if (Flags.IsBitSet(3)) { CanExportAt = buffer.ReadInt32(); }
         if (Flags.IsBitSet(4)) { TransferStars = buffer.ReadInt64(); }

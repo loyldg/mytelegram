@@ -35,12 +35,15 @@ public sealed partial class TDisallowedGiftsSettings : IDisallowedGiftsSettings
     /// </summary>
     public bool DisallowPremiumGifts { get; set; }
 
+    public bool DisallowStargiftsFromChannels { get; set; }
+
     public void ComputeFlag()
     {
         if (DisallowUnlimitedStargifts) { Flags = Flags.SetBit(0); }
         if (DisallowLimitedStargifts) { Flags = Flags.SetBit(1); }
         if (DisallowUniqueStargifts) { Flags = Flags.SetBit(2); }
         if (DisallowPremiumGifts) { Flags = Flags.SetBit(3); }
+        if (DisallowStargiftsFromChannels) { Flags = Flags.SetBit(4); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -57,5 +60,6 @@ public sealed partial class TDisallowedGiftsSettings : IDisallowedGiftsSettings
         if (Flags.IsBitSet(1)) { DisallowLimitedStargifts = true; }
         if (Flags.IsBitSet(2)) { DisallowUniqueStargifts = true; }
         if (Flags.IsBitSet(3)) { DisallowPremiumGifts = true; }
+        if (Flags.IsBitSet(4)) { DisallowStargiftsFromChannels = true; }
     }
 }

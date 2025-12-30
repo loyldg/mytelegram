@@ -6,10 +6,12 @@ namespace MyTelegram.Schema;
 /// Phone contact.
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputPhoneContact" /></para>
 /// </summary>
-[TlObject(0xf392b7f4)]
+[TlObject(0x6a1dc4be)]
 public sealed partial class TInputPhoneContact : IInputContact
 {
-    public uint ConstructorId => 0xf392b7f4;
+    public uint ConstructorId => 0x6a1dc4be;
+    public int Flags { get; set; }
+
     /// <summary>
     /// An arbitrary 64-bit integer: it should be set, for example, to an incremental number when using <a href="https://corefork.telegram.org/method/contacts.importContacts">contacts.importContacts</a>, in order to retry importing only the contacts that weren't imported successfully, according to the client_ids returned in <a href="https://corefork.telegram.org/constructor/contacts.importedContacts">contacts.importedContacts</a>.<code>retry_contacts</code>.
     /// </summary>
@@ -30,25 +32,35 @@ public sealed partial class TInputPhoneContact : IInputContact
     /// </summary>
     public string LastName { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
+    /// </summary>
+    public MyTelegram.Schema.ITextWithEntities? Note { get; set; }
+
     public void ComputeFlag()
     {
+        if (Note != null) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(ClientId);
         writer.Write(Phone);
         writer.Write(FirstName);
         writer.Write(LastName);
+        if (Flags.IsBitSet(0)) { writer.Write(Note); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         ClientId = buffer.ReadInt64();
         Phone = buffer.ReadString();
         FirstName = buffer.ReadString();
         LastName = buffer.ReadString();
+        if (Flags.IsBitSet(0)) { Note = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
     }
 }

@@ -13,6 +13,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputPhoneContact), nameof(TInputPhoneContact))]
 public interface IInputContact : IObject
 {
+    int Flags { get; set; }
+
     /// <summary>
     /// An arbitrary 64-bit integer: it should be set, for example, to an incremental number when using <a href="https://corefork.telegram.org/method/contacts.importContacts">contacts.importContacts</a>, in order to retry importing only the contacts that weren't imported successfully, according to the client_ids returned in <a href="https://corefork.telegram.org/constructor/contacts.importedContacts">contacts.importedContacts</a>.<code>retry_contacts</code>.
     /// </summary>
@@ -32,4 +34,9 @@ public interface IInputContact : IObject
     /// Contact's last name
     /// </summary>
     string LastName { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
+    /// </summary>
+    MyTelegram.Schema.ITextWithEntities? Note { get; set; }
 }

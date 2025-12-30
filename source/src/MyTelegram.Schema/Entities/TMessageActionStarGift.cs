@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// You received a <a href="https://corefork.telegram.org/api/gifts">gift, see here »</a> for more info.
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageActionStarGift" /></para>
 /// </summary>
-[TlObject(0xf24de7fa)]
+[TlObject(0xea2c31d3)]
 public sealed partial class TMessageActionStarGift : IMessageAction
 {
-    public uint ConstructorId => 0xf24de7fa;
+    public uint ConstructorId => 0xea2c31d3;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -54,6 +54,8 @@ public sealed partial class TMessageActionStarGift : IMessageAction
     /// This service message is the notification of a <a href="https://corefork.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade">separate pre-payment for the upgrade of a gift we own</a>.
     /// </summary>
     public bool UpgradeSeparate { get; set; }
+
+    public bool AuctionAcquired { get; set; }
 
     /// <summary>
     /// Info about the gift
@@ -109,6 +111,13 @@ public sealed partial class TMessageActionStarGift : IMessageAction
     /// </summary>
     public int? GiftMsgId { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public MyTelegram.Schema.IPeer? ToId { get; set; }
+
+    public int? GiftNum { get; set; }
+
     public void ComputeFlag()
     {
         if (NameHidden) { Flags = Flags.SetBit(0); }
@@ -119,6 +128,7 @@ public sealed partial class TMessageActionStarGift : IMessageAction
         if (CanUpgrade) { Flags = Flags.SetBit(10); }
         if (PrepaidUpgrade) { Flags = Flags.SetBit(13); }
         if (UpgradeSeparate) { Flags = Flags.SetBit(16); }
+        if (AuctionAcquired) { Flags = Flags.SetBit(17); }
         if (Message != null) { Flags = Flags.SetBit(1); }
         if (/*ConvertStars != 0 &&*/ ConvertStars.HasValue) { Flags = Flags.SetBit(4); }
         if (/*UpgradeMsgId != 0 && */UpgradeMsgId.HasValue) { Flags = Flags.SetBit(5); }
@@ -128,6 +138,8 @@ public sealed partial class TMessageActionStarGift : IMessageAction
         if (/*SavedId != 0 &&*/ SavedId.HasValue) { Flags = Flags.SetBit(12); }
         if (PrepaidUpgradeHash != null) { Flags = Flags.SetBit(14); }
         if (/*GiftMsgId != 0 && */GiftMsgId.HasValue) { Flags = Flags.SetBit(15); }
+        if (ToId != null) { Flags = Flags.SetBit(18); }
+        if (/*GiftNum != 0 && */GiftNum.HasValue) { Flags = Flags.SetBit(19); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -145,6 +157,8 @@ public sealed partial class TMessageActionStarGift : IMessageAction
         if (Flags.IsBitSet(12)) { writer.Write(SavedId.Value); }
         if (Flags.IsBitSet(14)) { writer.Write(PrepaidUpgradeHash); }
         if (Flags.IsBitSet(15)) { writer.Write(GiftMsgId.Value); }
+        if (Flags.IsBitSet(18)) { writer.Write(ToId); }
+        if (Flags.IsBitSet(19)) { writer.Write(GiftNum.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -158,6 +172,7 @@ public sealed partial class TMessageActionStarGift : IMessageAction
         if (Flags.IsBitSet(10)) { CanUpgrade = true; }
         if (Flags.IsBitSet(13)) { PrepaidUpgrade = true; }
         if (Flags.IsBitSet(16)) { UpgradeSeparate = true; }
+        if (Flags.IsBitSet(17)) { AuctionAcquired = true; }
         Gift = buffer.Read<MyTelegram.Schema.IStarGift>();
         if (Flags.IsBitSet(1)) { Message = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
         if (Flags.IsBitSet(4)) { ConvertStars = buffer.ReadInt64(); }
@@ -168,5 +183,7 @@ public sealed partial class TMessageActionStarGift : IMessageAction
         if (Flags.IsBitSet(12)) { SavedId = buffer.ReadInt64(); }
         if (Flags.IsBitSet(14)) { PrepaidUpgradeHash = buffer.ReadString(); }
         if (Flags.IsBitSet(15)) { GiftMsgId = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(18)) { ToId = buffer.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags.IsBitSet(19)) { GiftNum = buffer.ReadInt32(); }
     }
 }

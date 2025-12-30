@@ -66,6 +66,8 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageActionSuggestedPostRefund"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostRefund" /><br/>
 /// <see cref="TMessageActionGiftTon"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiftTon" /><br/>
 /// <see cref="TMessageActionSuggestBirthday"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestBirthday" /><br/>
+/// <see cref="TMessageActionStarGiftPurchaseOffer"/> See <a href="" /><br/>
+/// <see cref="TMessageActionStarGiftPurchaseOfferDeclined"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageActionEmpty), nameof(TMessageActionEmpty))]
 [JsonDerivedType(typeof(TMessageActionChatCreate), nameof(TMessageActionChatCreate))]
@@ -125,6 +127,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionSuggestedPostRefund), nameof(TMessageActionSuggestedPostRefund))]
 [JsonDerivedType(typeof(TMessageActionGiftTon), nameof(TMessageActionGiftTon))]
 [JsonDerivedType(typeof(TMessageActionSuggestBirthday), nameof(TMessageActionSuggestBirthday))]
+[JsonDerivedType(typeof(TMessageActionStarGiftPurchaseOffer), nameof(TMessageActionStarGiftPurchaseOffer))]
+[JsonDerivedType(typeof(TMessageActionStarGiftPurchaseOfferDeclined), nameof(TMessageActionStarGiftPurchaseOfferDeclined))]
 public interface IMessageAction : IObject
 {
 }

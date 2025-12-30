@@ -8,10 +8,12 @@ namespace MyTelegram.Schema.Phone;
 /// <remarks>
 /// Access: [User ✖] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x87893014)]
-public sealed partial class RequestSendGroupCallMessage : IRequest<IBool>
+[TlObject(0xb1d11410)]
+public sealed partial class RequestSendGroupCallMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x87893014;
+    public uint ConstructorId => 0xb1d11410;
+
+    public int Flags { get; set; }
 
     /// <summary>
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
@@ -25,23 +27,38 @@ public sealed partial class RequestSendGroupCallMessage : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities Message { get; set; }
 
+    public long? AllowPaidStars { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputPeer" />
+    /// </summary>
+    public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
+
     public void ComputeFlag()
     {
+        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { Flags = Flags.SetBit(0); }
+        if (SendAs != null) { Flags = Flags.SetBit(1); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Call);
         writer.Write(RandomId);
         writer.Write(Message);
+        if (Flags.IsBitSet(0)) { writer.Write(AllowPaidStars.Value); }
+        if (Flags.IsBitSet(1)) { writer.Write(SendAs); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Call = buffer.Read<MyTelegram.Schema.IInputGroupCall>();
         RandomId = buffer.ReadInt64();
         Message = buffer.Read<MyTelegram.Schema.ITextWithEntities>();
+        if (Flags.IsBitSet(0)) { AllowPaidStars = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(1)) { SendAs = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
     }
 }

@@ -58,10 +58,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xdfd14005)]
+[TlObject(0x51e842e1)]
 public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xdfd14005;
+    public uint ConstructorId => 0x51e842e1;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -117,6 +117,8 @@ public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpd
     /// </summary>
     public int? ScheduleDate { get; set; }
 
+    public int? ScheduleRepeatPeriod { get; set; }
+
     /// <summary>
     /// If specified, edits a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shortcut message, instead »</a>.
     /// </summary>
@@ -131,6 +133,7 @@ public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpd
         if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
         if (Entities?.Count > 0) { Flags = Flags.SetBit(3); }
         if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(15); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags = Flags.SetBit(18); }
         if (/*QuickReplyShortcutId != 0 && */QuickReplyShortcutId.HasValue) { Flags = Flags.SetBit(17); }
     }
 
@@ -146,6 +149,7 @@ public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpd
         if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
         if (Flags.IsBitSet(3)) { writer.Write(Entities); }
         if (Flags.IsBitSet(15)) { writer.Write(ScheduleDate.Value); }
+        if (Flags.IsBitSet(18)) { writer.Write(ScheduleRepeatPeriod.Value); }
         if (Flags.IsBitSet(17)) { writer.Write(QuickReplyShortcutId.Value); }
     }
 
@@ -161,6 +165,7 @@ public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpd
         if (Flags.IsBitSet(2)) { ReplyMarkup = buffer.Read<MyTelegram.Schema.IReplyMarkup>(); }
         if (Flags.IsBitSet(3)) { Entities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
         if (Flags.IsBitSet(15)) { ScheduleDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(18)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
         if (Flags.IsBitSet(17)) { QuickReplyShortcutId = buffer.ReadInt32(); }
     }
 }

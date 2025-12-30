@@ -20,6 +20,8 @@ public sealed partial class TStoryItemSkipped : IStoryItem
     /// </summary>
     public bool CloseFriends { get; set; }
 
+    public bool Live { get; set; }
+
     /// <summary>
     /// Story ID
     /// </summary>
@@ -38,6 +40,7 @@ public sealed partial class TStoryItemSkipped : IStoryItem
     public void ComputeFlag()
     {
         if (CloseFriends) { Flags = Flags.SetBit(8); }
+        if (Live) { Flags = Flags.SetBit(9); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -54,6 +57,7 @@ public sealed partial class TStoryItemSkipped : IStoryItem
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(8)) { CloseFriends = true; }
+        if (Flags.IsBitSet(9)) { Live = true; }
         Id = buffer.ReadInt32();
         Date = buffer.ReadInt32();
         ExpireDate = buffer.ReadInt32();

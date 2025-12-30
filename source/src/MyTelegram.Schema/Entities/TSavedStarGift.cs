@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/gifts">gift</a> owned by a peer.
 /// <para>See <a href="https://corefork.telegram.org/constructor/savedStarGift" /></para>
 /// </summary>
-[TlObject(0x8983a452)]
+[TlObject(0xead6805e)]
 public sealed partial class TSavedStarGift : ISavedStarGift
 {
-    public uint ConstructorId => 0x8983a452;
+    public uint ConstructorId => 0xead6805e;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -120,6 +120,8 @@ public sealed partial class TSavedStarGift : ISavedStarGift
 
     public long? DropOriginalDetailsStars { get; set; }
 
+    public int? GiftNum { get; set; }
+
     public void ComputeFlag()
     {
         if (NameHidden) { Flags = Flags.SetBit(0); }
@@ -141,6 +143,7 @@ public sealed partial class TSavedStarGift : ISavedStarGift
         if (CollectionId?.Count > 0) { Flags = Flags.SetBit(15); }
         if (PrepaidUpgradeHash != null) { Flags = Flags.SetBit(16); }
         if (/*DropOriginalDetailsStars != 0 &&*/ DropOriginalDetailsStars.HasValue) { Flags = Flags.SetBit(18); }
+        if (/*GiftNum != 0 && */GiftNum.HasValue) { Flags = Flags.SetBit(19); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -163,6 +166,7 @@ public sealed partial class TSavedStarGift : ISavedStarGift
         if (Flags.IsBitSet(15)) { writer.Write(CollectionId); }
         if (Flags.IsBitSet(16)) { writer.Write(PrepaidUpgradeHash); }
         if (Flags.IsBitSet(18)) { writer.Write(DropOriginalDetailsStars.Value); }
+        if (Flags.IsBitSet(19)) { writer.Write(GiftNum.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -189,5 +193,6 @@ public sealed partial class TSavedStarGift : ISavedStarGift
         if (Flags.IsBitSet(15)) { CollectionId = buffer.Read<TVector<int>>(); }
         if (Flags.IsBitSet(16)) { PrepaidUpgradeHash = buffer.ReadString(); }
         if (Flags.IsBitSet(18)) { DropOriginalDetailsStars = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(19)) { GiftNum = buffer.ReadInt32(); }
     }
 }
