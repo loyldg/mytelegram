@@ -33,22 +33,123 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditAdminHandler(ICommandBus commandBus, IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditAdmin, MyTelegram.Schema.IUpdates>
+internal sealed class EditAdminHandler(ICommandBus commandBus,
+    IChannelAppService channelAppService,
+    IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditAdmin, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestEditAdmin obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
-            await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
+
+            var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
+            if (channelReadModel.CreatorId != input.UserId)
+            {
+                await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, p =>
+                {
+                    if (!p.AddAdmins)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.ChangeInfo && !p.ChangeInfo)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.PostMessages && !p.PostMessages)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.EditMessages && !p.EditMessages)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.DeleteMessages && !p.DeleteMessages)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.BanUsers && !p.BanUsers)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.InviteUsers && !p.InviteUsers)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.PinMessages && !p.PinMessages)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.Anonymous && !p.Anonymous)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.ManageCall && !p.ManageCall)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.Other && !p.Other)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.ManageTopics && !p.ManageTopics)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.PostStories && !p.PostStories)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.EditStories && !p.EditStories)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.DeleteStories && !p.DeleteStories)
+                    {
+                        return false;
+                    }
+
+                    if (obj.AdminRights.ManageDirectMessages && !p.ManageDirectMessages)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                });
+            }
+
             var peer = peerHelper.GetPeer(obj.UserId, input.UserId);
             var isBot = peerHelper.IsBotUser(peer.PeerId);
             var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
             var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), input.UserId, false, peer.PeerId, isBot, channelMember != null, new ChatAdminRights(obj.AdminRights.Flags), obj.Rank, CurrentDate);
             await commandBus.PublishAsync(command);
-            return null !;
+            return null!;
         }
 
         throw new NotImplementedException();
+    }
+
+    private bool HasPermission(bool newAdminRights, bool adminRights)
+    {
+        if (newAdminRights && !adminRights)
+        {
+            return false;
+        }
+
+        return true;
     }
 }
