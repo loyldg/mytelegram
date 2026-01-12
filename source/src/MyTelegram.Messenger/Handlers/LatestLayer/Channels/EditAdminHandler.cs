@@ -133,6 +133,10 @@ internal sealed class EditAdminHandler(ICommandBus commandBus,
             }
 
             var peer = peerHelper.GetPeer(obj.UserId, input.UserId);
+            if (peer.PeerId == channelReadModel.CreatorId && input.UserId != channelReadModel.CreatorId)
+            {
+                RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
+            }
             var isBot = peerHelper.IsBotUser(peer.PeerId);
             var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
             var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), input.UserId, false, peer.PeerId, isBot, channelMember != null, new ChatAdminRights(obj.AdminRights.Flags), obj.Rank, CurrentDate);
