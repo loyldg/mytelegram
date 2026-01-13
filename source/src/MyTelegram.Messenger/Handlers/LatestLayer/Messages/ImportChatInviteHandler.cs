@@ -53,7 +53,7 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
 
         if (chatInviteReadModel.UsageLimit > 0)
         {
-            if (chatInviteReadModel.Usage >= chatInviteReadModel.UsageLimit.Value)
+            if (chatInviteReadModel.Usage >= chatInviteReadModel.UsageLimit)
             {
                 RpcErrors.RpcErrors400.UsersTooMuch.ThrowRpcError();
             }
@@ -63,6 +63,11 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
         if (channelMember is { Left: false, Kicked: false })
         {
             RpcErrors.RpcErrors400.UserAlreadyParticipant.ThrowRpcError();
+        }
+
+        if (channelMember is { Kicked: true })
+        {
+            RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
         }
 
         var joinRequestReadModel = await queryProcessor.ProcessAsync(new GetJoinRequestQuery(chatInviteReadModel.PeerId, input.UserId));
@@ -83,6 +88,6 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
 
         var command = new ImportChatInviteCommand(ChatInviteId.Create(chatInviteReadModel.PeerId, chatInviteReadModel.InviteId), input.ToRequestInfo(), requestState, CurrentDate);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }
