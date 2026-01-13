@@ -43,6 +43,11 @@ internal sealed class CheckChatInviteHandler(IQueryProcessor queryProcessor, IPh
 
         var chatPhoto = await photoAppService.GetAsync(channelReadModel!.PhotoId);
         var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel!.ChannelId, input.UserId));
+        if (channelMemberReadModel is { Kicked: true })
+        {
+            RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
+        }
+
         // Public channel/Super group
         if (!string.IsNullOrEmpty(channelReadModel.UserName) || channelMemberReadModel is { Left: false, Kicked: false })
         {
