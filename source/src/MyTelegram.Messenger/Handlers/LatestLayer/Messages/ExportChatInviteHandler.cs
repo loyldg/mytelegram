@@ -52,7 +52,7 @@ internal sealed class ExportChatInviteHandler(ICommandBus commandBus,
                 }
             }
 
-            var command = new CreateChatInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteId), input.ToRequestInfo(), inputPeerChannel.ChannelId, chatInviteId, inviteHash, input.UserId, obj.Title, obj.RequestNeeded, null, obj.ExpireDate, obj.UsageLimit, false, CurrentDate, channelReadModel!.Broadcast);
+            var command = new CreateChatInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteId), input.ToRequestInfo(), inputPeerChannel.ChannelId, chatInviteId, inviteHash, input.UserId, obj.Title, obj.RequestNeeded, null, obj.ExpireDate, obj.UsageLimit, obj.LegacyRevokePermanent, CurrentDate, channelReadModel!.Broadcast);
             await commandBus.PublishAsync(command);
             return null!;
         }
