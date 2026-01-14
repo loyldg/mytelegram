@@ -18,6 +18,13 @@ public class EditBannedSaga(
             Publish(updateParticipantCountCommand);
         }
 
+        if (domainEvent.AggregateEvent.Banned && domainEvent.AggregateEvent.IsAdmin)
+        {
+            var command = new RemoveChannelAdminCommand(ChannelId.Create(domainEvent.AggregateEvent.ChannelId),
+                domainEvent.AggregateEvent.MemberUserId);
+            Publish(command);
+        }
+
         return Task.CompletedTask;
     }
 }

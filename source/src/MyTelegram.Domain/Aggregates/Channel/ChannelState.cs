@@ -28,7 +28,8 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     IApply<ChannelParticipantCountChangedEvent>,
     IApply<ChannelTopMessageIdUpdatedEvent>,
     IApply<ChannelParticipantsHiddenUpdatedEvent>,
-    IApply<ChannelJoinRequestUpdatedEvent>
+    IApply<ChannelJoinRequestUpdatedEvent>,
+    IApply<ChannelAdminRemovedEvent>
 {
     public Dictionary<long, ChatAdmin> ChatAdmins { get; private set; } = [];
     public static ChatBannedRights InitRights => ChatBannedRights.CreateDefaultBannedRights();
@@ -76,6 +77,7 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     public bool Verified { get; private set; }
     public bool ParticipantsHidden { get; private set; }
     public bool JoinRequest { get; private set; }
+    public int Date { get; private set; }
 
     public void Apply(ChannelAboutEditedEvent aggregateEvent)
     {
@@ -133,6 +135,7 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
         {
             { CreatorId, new ChatAdmin(CreatorId, true, CreatorId, ChatAdminRights.GetCreatorRights(), string.Empty) }
         };
+        Date = aggregateEvent.Date;
     }
 
     public void Apply(ChannelDefaultBannedRightsEditedEvent aggregateEvent)
@@ -331,5 +334,9 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
     public void Apply(ChannelJoinRequestUpdatedEvent aggregateEvent)
     {
         JoinRequest = aggregateEvent.Enabled;
+    }
+    public void Apply(ChannelAdminRemovedEvent aggregateEvent)
+    {
+        ChatAdmins = aggregateEvent.AdminList.ToDictionary(k => k.UserId);
     }
 }

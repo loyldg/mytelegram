@@ -84,7 +84,7 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
 
         bool kicked;
         long kickedBy;
-        bool left;
+        bool left = _state.Left;
         bool removedFromKicked = false;
         bool removedFromBanned = false;
         // User is banned all rights
@@ -98,7 +98,6 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
         {
             kicked = false;
             kickedBy = adminId;
-            left = false;
         }
 
         if (_state.BannedRights != null)
@@ -114,7 +113,6 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
         }
 
         var banned = bannedRights.ToIntValue() != ChatBannedRights.CreateDefaultBannedRights().ToIntValue();
-
         Emit(new ChannelMemberBannedRightsChangedEvent(requestInfo,
             adminId,
             channelId,
@@ -126,7 +124,9 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             banned,
             removedFromKicked,
             removedFromBanned,
-            bannedRights));
+            bannedRights,
+            _state.IsAdmin
+            ));
     }
 
     public void LeaveChannel(RequestInfo requestInfo,

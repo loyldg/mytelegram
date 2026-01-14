@@ -63,7 +63,7 @@ IUserConverterService userConverterService, IChatConverterService chatConverterS
             IChatInviteReadModel? chatInviteReadModel = null;
             if (channelReadModel.AdminList.Any(p => p.UserId == input.UserId))
             {
-                chatInviteReadModel = await queryProcessor.ProcessAsync(new GetPermanentChatInviteQuery(channelId));
+                chatInviteReadModel = await queryProcessor.ProcessAsync(new GetPermanentChatInviteQuery(channelId, input.UserId));
             }
 
             var chatFull = chatConverterService.ToChannelFull(input, channelReadModel, photoReadModel, channelFullReadModel!, channelMemberReadModel, peerNotifySettings, chatInviteReadModel, input.Layer);

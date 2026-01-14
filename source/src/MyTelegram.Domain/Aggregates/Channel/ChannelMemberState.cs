@@ -19,6 +19,7 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
     public bool Left { get; private set; }
     public bool IsBot { get; private set; }
     public bool Broadcast { get; private set; }
+    public bool IsAdmin { get; private set; }
     public void Apply(ChannelCreatorCreatedEvent aggregateEvent)
     {
     }
@@ -71,6 +72,6 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
 
     public void Apply(ChannelAdminEditedEvent2 aggregateEvent)
     {
-        
+        IsAdmin = aggregateEvent.IsAdmin;
     }
 }

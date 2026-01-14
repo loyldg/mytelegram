@@ -404,7 +404,7 @@ public record GetUpdatesByGlobalSeqNoQuery(long UserId, long MinGlobalSeqNo)
 public record GetReplyToMsgIdListQuery(Peer ToPeer, long SelfUserId, int? ReplyToMsgId)
     : IQuery<IReadOnlyCollection<ReplyToMsgItem>?>;
 
-public record GetPermanentChatInviteQuery(long PeerId) : IQuery<IChatInviteReadModel?>;
+public record GetPermanentChatInviteQuery(long ChannelId, long AdminUserId) : IQuery<IChatInviteReadModel?>;
 
 public record GetEncryptedMessagesQuery(long UserId, long PermAuthKeyId, int Qts)
     : IQuery<IReadOnlyCollection<IEncryptedMessageReadModel>>;

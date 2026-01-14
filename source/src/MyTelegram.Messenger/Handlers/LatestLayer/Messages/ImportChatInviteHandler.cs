@@ -58,6 +58,12 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
                 RpcErrors.RpcErrors400.UsersTooMuch.ThrowRpcError();
             }
         }
+        var channelReadModel = await channelAppService.GetAsync(channelId);
+        var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == chatInviteReadModel.AdminId);
+        if (admin == null)
+        {
+            RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
+        }
 
         var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelId, input.UserId));
         if (channelMember is { Left: false, Kicked: false })
@@ -79,7 +85,6 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
         var requestState = chatInviteReadModel.RequestNeeded ? ChatInviteRequestState.WaitingForApproval : ChatInviteRequestState.NoApprovalRequired;
         if (!chatInviteReadModel.RequestNeeded)
         {
-            var channelReadModel = await channelAppService.GetAsync(channelId);
             if (channelReadModel.JoinRequest)
             {
                 requestState = ChatInviteRequestState.WaitingForApproval;

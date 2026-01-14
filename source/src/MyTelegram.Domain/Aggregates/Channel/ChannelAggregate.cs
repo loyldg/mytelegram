@@ -11,6 +11,17 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         Register(_state);
     }
 
+    public void RemoveChannelAdmin(long adminUserId)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var channelId = _state.ChannelId;
+        var chatAdmins = _state.ChatAdmins;
+        chatAdmins.Remove(adminUserId, out _);
+        var adminList = chatAdmins.Values.ToList();
+
+        Emit(new ChannelAdminRemovedEvent(channelId, adminUserId, adminList));
+    }
+
     public void UpdateChannelTopMessageId(int topMessageId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -183,7 +194,8 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         bool isChannelMember,
         ChatAdminRights adminRights,
         string rank,
-        int date
+        int date,
+        bool shouldCreatePermanentChatInvite
     )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -211,7 +223,8 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
             rank,
             removeAdminFromList,
             date,
-            isBroadcast
+            isBroadcast,
+            shouldCreatePermanentChatInvite
         ));
     }
 

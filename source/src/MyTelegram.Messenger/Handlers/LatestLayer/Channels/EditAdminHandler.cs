@@ -44,116 +44,108 @@ internal sealed class EditAdminHandler(ICommandBus commandBus,
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
 
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
-            if (channelReadModel.CreatorId != input.UserId)
+            await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, p =>
             {
-                await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, p =>
+                if (!p.AddAdmins)
                 {
-                    if (!p.AddAdmins)
-                    {
-                        return false;
-                    }
+                    return false;
+                }
 
-                    if (obj.AdminRights.ChangeInfo && !p.ChangeInfo)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.ChangeInfo && !p.ChangeInfo)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.PostMessages && !p.PostMessages)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.PostMessages && !p.PostMessages)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.EditMessages && !p.EditMessages)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.EditMessages && !p.EditMessages)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.DeleteMessages && !p.DeleteMessages)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.DeleteMessages && !p.DeleteMessages)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.BanUsers && !p.BanUsers)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.BanUsers && !p.BanUsers)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.InviteUsers && !p.InviteUsers)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.InviteUsers && !p.InviteUsers)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.PinMessages && !p.PinMessages)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.PinMessages && !p.PinMessages)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.Anonymous && !p.Anonymous)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.Anonymous && !p.Anonymous)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.ManageCall && !p.ManageCall)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.ManageCall && !p.ManageCall)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.Other && !p.Other)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.Other && !p.Other)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.ManageTopics && !p.ManageTopics)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.ManageTopics && !p.ManageTopics)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.PostStories && !p.PostStories)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.PostStories && !p.PostStories)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.EditStories && !p.EditStories)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.EditStories && !p.EditStories)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.DeleteStories && !p.DeleteStories)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.DeleteStories && !p.DeleteStories)
+                {
+                    return false;
+                }
 
-                    if (obj.AdminRights.ManageDirectMessages && !p.ManageDirectMessages)
-                    {
-                        return false;
-                    }
+                if (obj.AdminRights.ManageDirectMessages && !p.ManageDirectMessages)
+                {
+                    return false;
+                }
 
-                    return true;
-                });
-            }
+                return true;
+            });
 
             var peer = peerHelper.GetPeer(obj.UserId, input.UserId);
             if (peer.PeerId == channelReadModel.CreatorId && input.UserId != channelReadModel.CreatorId)
             {
                 RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
             }
+
+            var chatInviteReadModel =
+                await queryProcessor.ProcessAsync(new GetPermanentChatInviteQuery(channelReadModel.ChannelId,
+                    peer.PeerId));
             var isBot = peerHelper.IsBotUser(peer.PeerId);
+            var shouldCreatePermanentChatInvite = chatInviteReadModel == null;
             var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
-            var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), input.UserId, false, peer.PeerId, isBot, channelMember != null, new ChatAdminRights(obj.AdminRights.Flags), obj.Rank, CurrentDate);
+            var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), input.UserId, false, peer.PeerId, isBot, channelMember != null, new ChatAdminRights(obj.AdminRights.Flags), obj.Rank, CurrentDate, shouldCreatePermanentChatInvite);
             await commandBus.PublishAsync(command);
             return null!;
         }
 
         throw new NotImplementedException();
-    }
-
-    private bool HasPermission(bool newAdminRights, bool adminRights)
-    {
-        if (newAdminRights && !adminRights)
-        {
-            return false;
-        }
-
-        return true;
     }
 }
