@@ -11,6 +11,12 @@ public class
         Register(_state);
     }
 
+    public void RevokeChatInvite()
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        Emit(new ChatInviteReovkedEvent(_state.ChannelId, _state.AdminId, _state.InviteId));
+    }
+
     public void ExportChatInvite(RequestInfo requestInfo, long channelId, long inviteId, string hash, long adminId, string? title,
         bool requestNeeded, int? startDate, int? expireDate, int? usageLimit, bool permanent, int date, bool isBroadcast)
     {
