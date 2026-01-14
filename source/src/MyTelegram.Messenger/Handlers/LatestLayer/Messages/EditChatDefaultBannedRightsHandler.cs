@@ -17,34 +17,28 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditChatDefaultBannedRightsHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditChatDefaultBannedRights, MyTelegram.Schema.IUpdates>
+internal sealed class EditChatDefaultBannedRightsHandler(ICommandBus commandBus,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
+    IPeerHelper peerHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditChatDefaultBannedRights, MyTelegram.Schema.IUpdates>
 {
-    private readonly ICommandBus _commandBus;
-    private readonly IPeerHelper _peerHelper;
-    private readonly IAccessHashHelper _accessHashHelper;
-    public EditChatDefaultBannedRightsHandler(ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper)
-    {
-        _commandBus = commandBus;
-        _peerHelper = peerHelper;
-        _accessHashHelper = accessHashHelper;
-    }
-
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestEditChatDefaultBannedRights obj)
     {
-        await _accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
-        var peer = _peerHelper.GetPeer(obj.Peer, input.UserId);
+        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
+        var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
         switch (peer.PeerType)
         {
             case PeerType.Channel:
-            {
-                var command = new EditChannelDefaultBannedRightsCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo(), GetChatBannedRights(obj.BannedRights), input.UserId);
-                await _commandBus.PublishAsync(command);
-            }
+                {
+                    await channelAdminRightsChecker.CheckAdminRightAsync(peer.PeerId, input.UserId, p => p.BanUsers);
+
+                    var command = new EditChannelDefaultBannedRightsCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo(), GetChatBannedRights(obj.BannedRights), input.UserId);
+                    await commandBus.PublishAsync(command);
+                }
 
                 break;
         }
 
-        return null !;
+        return null!;
     }
 
     private ChatBannedRights GetChatBannedRights(IChatBannedRights chatBannedRights)
