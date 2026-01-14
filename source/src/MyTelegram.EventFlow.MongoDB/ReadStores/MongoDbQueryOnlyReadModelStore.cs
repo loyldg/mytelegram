@@ -31,6 +31,25 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
         return collection.AsQueryable();
     }
 
+    public async Task<List<TResult>> GroupByAsync<TKey, TResult>(
+        Expression<Func<TReadModel, bool>>? filter,
+        Expression<Func<TReadModel, TKey>> keySelector,
+        Expression<Func<IGrouping<TKey, TReadModel>, TResult>> resultSelector)
+    {
+        var readModelDescription = readModelDescriptionProvider.GetReadModelDescription<TReadModel>();
+        var collection = GetDatabase().GetCollection<TReadModel>(readModelDescription.RootCollectionName.Value);
+        var query = collection.Aggregate();
+
+        if (filter != null)
+        {
+            query = query.Match(filter);
+        }
+
+        return await query
+            .Group(keySelector, resultSelector)
+            .ToListAsync();
+    }
+
     public Task<IReadOnlyCollection<TReadModel>> FindAsync(Expression<Func<TReadModel, bool>> filter, int skip = 0,
         int limit = 0,
         SortOptions<TReadModel>? sort = null,

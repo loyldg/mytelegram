@@ -163,6 +163,13 @@ public class MyInMemoryReadStore<TReadModel>(ILogger<MyInMemoryReadStore<TReadMo
         return Task.FromResult<long>(query2.Count());
     }
 
+    public async Task<List<TResult>> GroupByAsync<TKey, TResult>(Expression<Func<TReadModel, bool>>? filter, 
+        Expression<Func<TReadModel, TKey>> keySelector, 
+        Expression<Func<IGrouping<TKey, TReadModel>, TResult>> resultSelector)
+    {
+        throw new NotImplementedException();
+    }
+
     private static IQueryable<T2> CreateQuery<T1, T2>(IQueryable<T1> query, Expression<Func<T1, T2>> createResult, int skip = 0, int limit = 0, SortOptions<T1>? sort = null)
     {
         if (sort != null)

@@ -35,4 +35,9 @@ public interface IQueryOnlyReadModelStore<TQueryOnlyReadModel> //: IReadModelSto
         CancellationToken cancellationToken = default);
 
     Task<long> CountAsync(Expression<Func<TQueryOnlyReadModel, bool>> filter, CancellationToken cancellationToken = default);
+
+    Task<List<TResult>> GroupByAsync<TKey, TResult>(
+        Expression<Func<TQueryOnlyReadModel, bool>>? filter,
+        Expression<Func<TQueryOnlyReadModel, TKey>> keySelector,
+        Expression<Func<IGrouping<TKey, TQueryOnlyReadModel>, TResult>> resultSelector);
 }
