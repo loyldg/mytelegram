@@ -21,7 +21,7 @@ internal sealed class UnpinAllMessagesHandler(ICommandBus commandBus, IPeerHelpe
         var ownerPeerId = input.UserId;
         if (peer.PeerType == PeerType.Channel)
         {
-            await channelAdminRightsChecker.CheckAdminRightAsync(peer.PeerId, input.UserId, rights => rights.PinMessages, RpcErrors.RpcErrors400.ChatAdminRequired);
+            await channelAdminRightsChecker.CheckAdminRightAsync(peer.PeerId, input.UserId, rights => rights is { PinMessages: true, EditMessages: true }, RpcErrors.RpcErrors400.ChatAdminRequired);
             ownerPeerId = peer.PeerId;
         }
 
@@ -38,6 +38,6 @@ internal sealed class UnpinAllMessagesHandler(ICommandBus commandBus, IPeerHelpe
 
         var command = new StartUnpinAllMessagesCommand(TempId.New, input.ToRequestInfo(), messageItems, peer);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }
