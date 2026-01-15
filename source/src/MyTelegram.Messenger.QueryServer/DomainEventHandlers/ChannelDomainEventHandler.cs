@@ -606,38 +606,14 @@ public class ChannelDomainEventHandler(
     {
         return NotifyUpdateChannelAsync(domainEvent.AggregateEvent.RequestInfo, domainEvent.AggregateEvent.ChannelId);
     }
-    public async Task HandleAsync(IDomainEvent<JoinChannelAggregate, JoinChannelId, JoinChannelRequestCreatedEvent> domainEvent, CancellationToken cancellationToken)
+    public async Task HandleAsync(
+        IDomainEvent<JoinChannelAggregate, JoinChannelId, JoinChannelRequestCreatedEvent> domainEvent,
+        CancellationToken cancellationToken)
     {
-        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, RpcErrors.RpcErrors400.InviteRequestSent.ToRpcError());
+        await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
+            RpcErrors.RpcErrors400.InviteRequestSent.ToRpcError());
         var channelId = domainEvent.AggregateEvent.ChannelId;
-        var pendingRequestsCount =
-            await queryProcessor.ProcessAsync(new GetPendingRequestsCountQuery(channelId), cancellationToken);
-        var recentRequesters =
-            await queryProcessor.ProcessAsync(
-                new GetRecentRequestUserIdListQuery(channelId, 5), cancellationToken);
-        var channelReadModel = await channelAppService.GetAsync(channelId);
-        var updatePendingJoinRequests = new TUpdatePendingJoinRequests
-        {
-            Peer = channelId.ToChannelPeer().ToPeer(),
-            RecentRequesters = [.. recentRequesters],
-            RequestsPending = pendingRequestsCount
-        };
-        var users = await userConverterService.GetUserListAsync(RequestInfo.Empty, [.. recentRequesters]);
-
-        var updates = new TUpdates
-        {
-            Updates = [updatePendingJoinRequests],
-            Users = [.. users],
-            Chats = [],
-            Date = DateTime.UtcNow.ToTimestamp()
-        };
-        foreach (var chatAdmin in channelReadModel.AdminList)
-        {
-            if (chatAdmin.AdminRights.InviteUsers)
-            {
-                await PushUpdatesToPeerAsync(chatAdmin.UserId.ToUserPeer(), updates);
-            }
-        }
+        await NotifyChannelAdminUpdatePendingJoinRequestsAsync(channelId);
     }
 
     public async Task HandleAsync(IDomainEvent<ApproveJoinChannelSaga, ApproveJoinChannelSagaId, ApproveJoinChannelCompletedSagaEvent> domainEvent, CancellationToken cancellationToken)
@@ -671,6 +647,40 @@ public class ChannelDomainEventHandler(
                 Date = DateTime.UtcNow.ToTimestamp()
             };
             await PushUpdatesToPeerAsync(domainEvent.AggregateEvent.UserId.ToUserPeer(), updatesForJoinedMember);
+        }
+
+        await NotifyChannelAdminUpdatePendingJoinRequestsAsync(domainEvent.AggregateEvent.ChannelId);
+    }
+
+    private async Task NotifyChannelAdminUpdatePendingJoinRequestsAsync(long channelId)
+    {
+        var pendingRequestsCount =
+            await queryProcessor.ProcessAsync(new GetPendingRequestsCountQuery(channelId));
+        var recentRequesters =
+            await queryProcessor.ProcessAsync(
+                new GetRecentRequestUserIdListQuery(channelId, 5));
+        var channelReadModel = await channelAppService.GetAsync(channelId);
+        var updatePendingJoinRequests = new TUpdatePendingJoinRequests
+        {
+            Peer = channelId.ToChannelPeer().ToPeer(),
+            RecentRequesters = [.. recentRequesters],
+            RequestsPending = pendingRequestsCount
+        };
+        var users = await userConverterService.GetUserListAsync(RequestInfo.Empty, [.. recentRequesters]);
+
+        var updates = new TUpdates
+        {
+            Updates = [updatePendingJoinRequests],
+            Users = [.. users],
+            Chats = [],
+            Date = DateTime.UtcNow.ToTimestamp()
+        };
+        foreach (var chatAdmin in channelReadModel.AdminList)
+        {
+            if (chatAdmin.AdminRights.InviteUsers)
+            {
+                await PushUpdatesToPeerAsync(chatAdmin.UserId.ToUserPeer(), updates);
+            }
         }
     }
 

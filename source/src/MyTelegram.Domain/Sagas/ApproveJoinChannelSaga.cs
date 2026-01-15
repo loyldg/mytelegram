@@ -21,7 +21,9 @@ public class ApproveJoinChannelSaga : MyInMemoryAggregateSaga<ApproveJoinChannel
                 domainEvent.AggregateEvent.ChannelId,
                 domainEvent.AggregateEvent.TopMessageId,
                 domainEvent.AggregateEvent.ChannelHistoryMinId,
-                domainEvent.AggregateEvent.Broadcast));
+                domainEvent.AggregateEvent.Broadcast,
+                domainEvent.AggregateEvent.UserId
+                ));
 
             var inviterId = domainEvent.AggregateEvent.UserId;
 
@@ -76,7 +78,8 @@ public class ApproveJoinChannelSaga : MyInMemoryAggregateSaga<ApproveJoinChannel
             var ownerPeerId = _state.ChannelId;
             var outMessageId = 0;
             var ownerPeer = ownerPeerId.ToChannelPeer();
-            var senderUserId = requestInfo.UserId;
+            //var senderUserId = requestInfo.UserId;
+            var senderUserId = _state.UserId;
             var senderPeer = senderUserId.ToUserPeer();
 
             var messageItem = new MessageItem(
@@ -106,13 +109,20 @@ public class ApproveJoinChannelSaga : MyInMemoryAggregateSaga<ApproveJoinChannel
     }
 }
 
-public class ApproveJoinChannelStartedSagaEvent(RequestInfo requestInfo, long channelId, int topMessageId, int channelHistoryMinId, bool broadcast) : AggregateEvent<ApproveJoinChannelSaga, ApproveJoinChannelSagaId>
+public class ApproveJoinChannelStartedSagaEvent(RequestInfo requestInfo,
+    long channelId,
+    int topMessageId,
+    int channelHistoryMinId,
+    bool broadcast,
+    long userId
+    ) : AggregateEvent<ApproveJoinChannelSaga, ApproveJoinChannelSagaId>
 {
     public RequestInfo RequestInfo { get; } = requestInfo;
     public long ChannelId { get; } = channelId;
     public int TopMessageId { get; } = topMessageId;
     public int ChannelHistoryMinId { get; } = channelHistoryMinId;
     public bool Broadcast { get; } = broadcast;
+    public long UserId { get; } = userId;
 }
 
 public class ApproveJoinChannelCompletedSagaEvent(RequestInfo requestInfo, long channelId, long userId, bool approved, bool broadcast) : RequestAggregateEvent2<ApproveJoinChannelSaga, ApproveJoinChannelSagaId>(requestInfo)
@@ -134,7 +144,7 @@ public class ApproveJoinChannelSagaState : AggregateState<ApproveJoinChannelSaga
     public int TopMessageId { get; private set; }
     public int ChannelHistoryMinId { get; private set; }
     public bool Broadcast { get; private set; }
-
+    public long UserId { get; private set; }
     public void Apply(ApproveJoinChannelStartedSagaEvent aggregateEvent)
     {
         RequestInfo = aggregateEvent.RequestInfo;
@@ -142,6 +152,7 @@ public class ApproveJoinChannelSagaState : AggregateState<ApproveJoinChannelSaga
         TopMessageId = aggregateEvent.TopMessageId;
         ChannelHistoryMinId = aggregateEvent.ChannelHistoryMinId;
         Broadcast = aggregateEvent.Broadcast;
+        UserId = aggregateEvent.UserId;
     }
 
     public void Apply(ApproveJoinChannelCompletedSagaEvent aggregateEvent)
