@@ -1,3 +1,4 @@
+// ReSharper disable All
 using GetSimpleMessageListQuery = MyTelegram.Queries.GetSimpleMessageListQuery;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
@@ -34,7 +35,7 @@ internal sealed class UpdatePinnedMessageHandler(ICommandBus commandBus, IPeerHe
             var channelReadModel = await channelAppService.GetAsync(peer.PeerId);
             if (channelReadModel!.DefaultBannedRights?.PinMessages ?? true)
             {
-                await channelAdminRightsChecker.CheckAdminRightAsync(peer.PeerId, input.UserId, rights => rights.PinMessages, RpcErrors.RpcErrors400.ChatAdminRequired);
+                await channelAdminRightsChecker.CheckAdminRightAsync(peer.PeerId, input.UserId, rights => rights.PinMessages && rights.EditMessages, RpcErrors.RpcErrors400.ChatAdminRequired);
             }
         }
 
@@ -46,6 +47,6 @@ internal sealed class UpdatePinnedMessageHandler(ICommandBus commandBus, IPeerHe
 
         var command = new StartUpdatePinnedMessagesCommand(TempId.New, input.ToRequestInfo(), messageItems, peer, !obj.Unpin, obj.PmOneside);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }
