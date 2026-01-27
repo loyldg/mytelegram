@@ -17,13 +17,13 @@ IPollConverterService pollConverterService, IAccessHashHelper accessHashHelper) 
     {
         await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var peer = peerHelper.GetPeer(obj.Peer);
-        var pollId = await queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default);
+        var pollId = await queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId));
         if (pollId == null)
         {
             RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
         }
 
-        var pollReadModel = await queryProcessor.ProcessAsync(new GetPollQuery(peer.PeerId, pollId!.Value), default);
+        var pollReadModel = await queryProcessor.ProcessAsync(new GetPollQuery(pollId!.Value));
         if (pollReadModel == null)
         {
             RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();

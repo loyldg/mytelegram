@@ -16,7 +16,7 @@ public class VoteDomainEventHandler(
         CancellationToken cancellationToken)
     {
         var pollReadModel = await queryProcessor
-            .ProcessAsync(new GetPollQuery(domainEvent.AggregateEvent.ToPeer.PeerId, domainEvent.AggregateEvent.PollId), cancellationToken);
+            .ProcessAsync(new GetPollQuery(domainEvent.AggregateEvent.PollId), cancellationToken);
         if (pollReadModel != null)
         {
             var selfUpdates = sendVoteConverterService.ToSelfUpdates(pollReadModel,

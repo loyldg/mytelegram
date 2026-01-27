@@ -5,7 +5,7 @@ public class GetPollQueryHandler(IQueryOnlyReadModelStore<PollReadModel> store) 
     public async Task<IPollReadModel?> ExecuteQueryAsync(GetPollQuery query,
         CancellationToken cancellationToken)
     {
-        return await store.FirstOrDefaultAsync(p => p.ToPeerId == query.ToPeerId && p.PollId == query.PollId,
+        return await store.FirstOrDefaultAsync(p => p.PollId == query.PollId,
             cancellationToken: cancellationToken);
     }
 }
