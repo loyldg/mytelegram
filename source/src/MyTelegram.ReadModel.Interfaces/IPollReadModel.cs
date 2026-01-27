@@ -2,6 +2,7 @@
 
 public interface IPollReadModel : IReadModel
 {
+    string Id { get; }
     long ToPeerId { get; }
     long PollId { get; }
     bool MultipleChoice { get; }

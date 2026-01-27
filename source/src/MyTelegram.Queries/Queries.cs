@@ -235,9 +235,12 @@ public record GetPhoneCallConfigQuery(long UserId) : IQuery<IPhoneCallConfigRead
 public record GetPollAnswerVotersQuery(long PollId, long VoterPeerId)
     : IQuery<IReadOnlyCollection<IPollAnswerVoterReadModel>>;
 
+public record GetPollVotesQuery(long PollId, string? Option, int Skip, int Limit)
+    : IQuery<IReadOnlyCollection<IPollAnswerVoterReadModel>>;
+
 public record GetPollIdByMessageIdQuery(long PeerId, int MessageId) : IQuery<long?>;
 
-public record GetPollQuery(long ToPeerId, long PollId) : IQuery<IPollReadModel?>;
+public record GetPollQuery(/*long ToPeerId,*/ long PollId) : IQuery<IPollReadModel?>;
 
 public record GetPollsQuery(List<long> PollIds) : IQuery<IReadOnlyCollection<IPollReadModel>>;
 

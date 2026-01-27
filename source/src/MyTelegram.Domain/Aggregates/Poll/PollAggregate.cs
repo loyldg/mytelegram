@@ -100,7 +100,8 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
         //byte[]? solutionEntities,
         //byte[]? questionEntities
         IList<IMessageEntity>? solutionEntities,
-        IList<IMessageEntity>? questionEntities
+        IList<IMessageEntity>? questionEntities,
+        long creatorUserId
         )
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
@@ -119,7 +120,8 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
             correctAnswers,
             solution,
             solutionEntities,
-            questionEntities
+            questionEntities,
+            creatorUserId
             ));
     }
 
@@ -129,7 +131,8 @@ public class PollAggregate : AggregateRoot<PollAggregate, PollId>
         bool correct)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        Emit(new VoteAnswerCreatedEvent(pollId, voterPeerId, option, correct));
+        var date = DateTime.UtcNow.ToTimestamp();
+        Emit(new VoteAnswerCreatedEvent(pollId, voterPeerId, option, correct, date));
     }
 
     public void DeleteVoteAnswer(long pollId,

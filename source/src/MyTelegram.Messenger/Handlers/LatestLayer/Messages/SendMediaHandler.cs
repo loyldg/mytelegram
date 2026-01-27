@@ -152,7 +152,7 @@ internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppServ
         {
             pollId = randomHelper.NextInt64();
             inputMediaPoll.Poll.Id = pollId.Value;
-            await CreatePollAsync(toPeer, inputMediaPoll);
+            await CreatePollAsync(input.UserId, toPeer, inputMediaPoll);
         }
 
         var media = await mediaHelper.SaveMediaAsync(obj.Media);
@@ -170,7 +170,7 @@ internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppServ
         return null !;
     }
 
-    private async Task CreatePollAsync(Peer toPeer, TInputMediaPoll inputMediaPoll)
+    private async Task CreatePollAsync(long creatorUserId, Peer toPeer, TInputMediaPoll inputMediaPoll)
     {
         var poll = inputMediaPoll.Poll;
         var solutionEntities = inputMediaPoll.SolutionEntities;
@@ -179,7 +179,16 @@ internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppServ
             solutionEntities = [];
         }
 
-        var command = new CreatePollCommand(PollId.Create(toPeer.PeerId, poll.Id), toPeer, poll.Id, poll.MultipleChoice, poll.Quiz, inputMediaPoll.Poll.PublicVoters, poll.Question.Text, poll.Answers.Select(p => new PollAnswer(p.Text.Text, p.Option, p.Text.Entities.ToBytes())).ToList(), inputMediaPoll.CorrectAnswers?.ToList(), inputMediaPoll.Solution, solutionEntities, poll.Question.Entities);
-        await commandBus.PublishAsync(command, default);
+        var command = new CreatePollCommand(PollId.Create(poll.Id),
+            toPeer, poll.Id, poll.MultipleChoice,
+            poll.Quiz, inputMediaPoll.Poll.PublicVoters,
+            poll.Question.Text,
+            poll.Answers.Select(p => new PollAnswer(p.Text.Text, p.Option, p.Text.Entities.ToBytes())).ToList(),
+            inputMediaPoll.CorrectAnswers?.ToList(),
+            inputMediaPoll.Solution, solutionEntities,
+            poll.Question.Entities,
+            creatorUserId
+            );
+        await commandBus.PublishAsync(command);
     }
 }

@@ -9,6 +9,7 @@ public class PollAnswerVoterReadModel : IPollAnswerVoterReadModel,
     public long PollId { get; private set; }
     public virtual long? Version { get; set; }
     public long VoterPeerId { get; private set; }
+    public int Date { get; private set; }
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<PollAggregate, PollId, VoteAnswerCreatedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -21,6 +22,7 @@ public class PollAnswerVoterReadModel : IPollAnswerVoterReadModel,
         PollId = domainEvent.AggregateEvent.PollId;
         Option = domainEvent.AggregateEvent.Option;
         VoterPeerId = domainEvent.AggregateEvent.VoterPeerId;
+        Date = domainEvent.AggregateEvent.Date;
 
         return Task.CompletedTask;
     }

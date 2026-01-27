@@ -1,3 +1,5 @@
+using MyTelegram.Domain.Aggregates.Poll;
+
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <summary>
 /// Vote in a <a href="https://corefork.telegram.org/constructor/poll">poll</a>Starting from layer 159, the vote will be sent from the peer specified using <a href="https://corefork.telegram.org/method/messages.saveDefaultSendAs">messages.saveDefaultSendAs</a>.
@@ -23,14 +25,26 @@ internal sealed class SendVoteHandler(ICommandBus commandBus, IQueryProcessor qu
     {
         await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var peer = peerHelper.GetPeer(obj.Peer);
-        var pollId = await queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId));
+        var pollId = await queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default);
         if (pollId == null)
         {
-            RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
+            RpcErrors.RpcErrors400.PollQuestionInvalid.ThrowRpcError();
         }
 
-        var command = new VoteCommand(PollId.Create(peer.PeerId, pollId!.Value), input.ToRequestInfo(), input.UserId, obj.Options.Select(p => p).ToList());
-        await commandBus.PublishAsync(command);
-        return null !;
+        var pollReadModel = await queryProcessor.ProcessAsync(new GetPollQuery(pollId!.Value));
+        if (pollReadModel == null)
+        {
+            RpcErrors.RpcErrors400.PollQuestionInvalid.ThrowRpcError();
+        }
+
+        if (pollReadModel!.Closed)
+        {
+            RpcErrors.RpcErrors400.MessagePollClosed.ThrowRpcError();
+        }
+
+        var command = new VoteCommand(PollId.With(pollReadModel.Id), input.ToRequestInfo(), input.UserId, obj.Options.Select(p => p).ToList());
+        await commandBus.PublishAsync(command, default);
+
+        return null!;
     }
 }
