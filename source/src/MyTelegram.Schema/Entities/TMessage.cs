@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A message
 /// <para>See <a href="https://corefork.telegram.org/constructor/message" /></para>
 /// </summary>
-[TlObject(0xb92f76cf)]
+[TlObject(0x9cb490e9)]
 public sealed partial class TMessage : IMessage, ILayeredMessage
 {
-    public uint ConstructorId => 0xb92f76cf;
+    public uint ConstructorId => 0x9cb490e9;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -255,6 +255,8 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
 
     public int? ScheduleRepeatPeriod { get; set; }
 
+    public string? SummaryFromLanguage { get; set; }
+
     public void ComputeFlag()
     {
         if (Out) { Flags = Flags.SetBit(1); }
@@ -298,6 +300,7 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (/*PaidMessageStars != 0 &&*/ PaidMessageStars.HasValue) { Flags2 = Flags2.SetBit(6); }
         if (SuggestedPost != null) { Flags2 = Flags2.SetBit(7); }
         if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags2 = Flags2.SetBit(10); }
+        if (SummaryFromLanguage != null) { Flags2 = Flags2.SetBit(11); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -336,6 +339,7 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (Flags2.IsBitSet(6)) { writer.Write(PaidMessageStars.Value); }
         if (Flags2.IsBitSet(7)) { writer.Write(SuggestedPost); }
         if (Flags2.IsBitSet(10)) { writer.Write(ScheduleRepeatPeriod.Value); }
+        if (Flags2.IsBitSet(11)) { writer.Write(SummaryFromLanguage); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -387,5 +391,6 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (Flags2.IsBitSet(6)) { PaidMessageStars = buffer.ReadInt64(); }
         if (Flags2.IsBitSet(7)) { SuggestedPost = buffer.Read<MyTelegram.Schema.ISuggestedPost>(); }
         if (Flags2.IsBitSet(10)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
+        if (Flags2.IsBitSet(11)) { SummaryFromLanguage = buffer.ReadString(); }
     }
 }

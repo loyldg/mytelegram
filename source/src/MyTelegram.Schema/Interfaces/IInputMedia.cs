@@ -27,6 +27,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/inputMediaWebPage" /><br/>
 /// <see cref="TInputMediaPaidMedia"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia" /><br/>
 /// <see cref="TInputMediaTodo"/> See <a href="https://corefork.telegram.org/constructor/inputMediaTodo" /><br/>
+/// <see cref="TInputMediaStakeDice"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputMediaEmpty), nameof(TInputMediaEmpty))]
 [JsonDerivedType(typeof(TInputMediaUploadedPhoto), nameof(TInputMediaUploadedPhoto))]
@@ -47,6 +48,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputMediaWebPage), nameof(TInputMediaWebPage))]
 [JsonDerivedType(typeof(TInputMediaPaidMedia), nameof(TInputMediaPaidMedia))]
 [JsonDerivedType(typeof(TInputMediaTodo), nameof(TInputMediaTodo))]
+[JsonDerivedType(typeof(TInputMediaStakeDice), nameof(TInputMediaStakeDice))]
 public interface IInputMedia : IObject
 {
 }

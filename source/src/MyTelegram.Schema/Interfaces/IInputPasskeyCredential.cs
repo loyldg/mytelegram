@@ -8,16 +8,10 @@ namespace MyTelegram.Schema;
 /// <remarks>
 /// <para>Implementations:</para>
 /// <see cref="TInputPasskeyCredentialPublicKey"/> See <a href="" /><br/>
+/// <see cref="TInputPasskeyCredentialFirebasePNV"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputPasskeyCredentialPublicKey), nameof(TInputPasskeyCredentialPublicKey))]
+[JsonDerivedType(typeof(TInputPasskeyCredentialFirebasePNV), nameof(TInputPasskeyCredentialFirebasePNV))]
 public interface IInputPasskeyCredential : IObject
 {
-    string Id { get; set; }
-
-    string RawId { get; set; }
-
-    /// <summary>
-    /// See <a href="https://corefork.telegram.org/type/InputPasskeyResponse" />
-    /// </summary>
-    MyTelegram.Schema.IInputPasskeyResponse Response { get; set; }
 }
