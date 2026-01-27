@@ -25,6 +25,8 @@ public class PollReadModel : IPollReadModel,
     public long ToPeerId { get; private set; }
     public int TotalVoters { get; private set; }
     public virtual long? Version { get; set; }
+
+    public long? CreatorUserId { get; private set; }
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<PollAggregate, PollId, PollCreatedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -41,6 +43,7 @@ public class PollReadModel : IPollReadModel,
         Solution = domainEvent.AggregateEvent.Solution;
         SolutionEntities2 = domainEvent.AggregateEvent.SolutionEntities;
         QuestionEntities2 = domainEvent.AggregateEvent.QuestionEntities;
+        CreatorUserId = domainEvent.AggregateEvent.CreatorUserId;
 
         return Task.CompletedTask;
     }
