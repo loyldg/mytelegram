@@ -3,6 +3,7 @@ using EventFlow.MongoDB.Extensions;
 using MyTelegram.EventBus.Extensions;
 using MyTelegram.EventFlow.MongoDB.Extensions;
 using MyTelegram.Messenger.CommandServer.EventHandlers;
+using MyTelegram.Messenger.CommandServer.DomainEventHandlers;
 using MyTelegram.Messenger.NativeAot;
 using MyTelegram.QueryHandlers.MongoDB;
 using MyTelegram.ReadModel.MongoDB;
@@ -18,9 +19,9 @@ public static class MyTelegramMessengerCommandServerExtensions
         services.AddSubscription<BindUserIdToAuthKeyIntegrationEvent, MessengerEventHandler>();
         services.AddSubscription<AuthKeyUnRegisteredIntegrationEvent, MessengerEventHandler>();
 
-        services.AddSubscription<NewPtsMessageHasSentEvent, PtsEventHandler>();
-        services.AddSubscription<RpcMessageHasSentEvent, PtsEventHandler>();
-        services.AddSubscription<AcksDataReceivedEvent, PtsEventHandler>();
+        services.AddSubscription<NewPtsMessageHasSentEvent, MyTelegram.Messenger.CommandServer.EventHandlers.PtsEventHandler>();
+        services.AddSubscription<RpcMessageHasSentEvent, MyTelegram.Messenger.CommandServer.EventHandlers.PtsEventHandler>();
+        services.AddSubscription<AcksDataReceivedEvent, MyTelegram.Messenger.CommandServer.EventHandlers.PtsEventHandler>();
 
     }
 
@@ -53,5 +54,8 @@ public static class MyTelegramMessengerCommandServerExtensions
 		services.AddEventStoreMongoDbContext();
         services.AddReadModelMongoDbContext();
         services.AddEventHandlers();
+
+        // Register admin command handler for official account
+        services.AddTransient<OfficialAccountCommandHandler>();
     }
 }
