@@ -186,7 +186,9 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         IMessageMedia? media,
         IReplyMarkup? replyMarkup,
         bool invertMedia,
-        List<string>? hashtags)
+        List<string>? hashtags,
+        InboxItem? inboxItem
+        )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         if (_state.MessageItem.Date + MyTelegramConsts.EditTimeLimit < DateTime.UtcNow.ToTimestamp())
@@ -220,7 +222,8 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
 
         Emit(new OutboxMessageEditedEventV2(requestInfo,
             oldMessageItem,
-            newMessageItem
+            newMessageItem,
+            inboxItem
         ));
     }
 

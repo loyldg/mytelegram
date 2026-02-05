@@ -45,8 +45,8 @@ internal sealed class AppendTodoListHandler(IQueryProcessor queryProcessor, ICom
             }
         }
 
-        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.MsgId), input.ToRequestInfo(), obj.MsgId, string.Empty, CurrentDate, null, media, null, false, null);
+        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.MsgId), input.ToRequestInfo(), obj.MsgId, string.Empty, CurrentDate, null, media, null, false, null, null);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

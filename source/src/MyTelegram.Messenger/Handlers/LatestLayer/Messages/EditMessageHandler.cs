@@ -59,20 +59,6 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestEditMessage obj)
     {
-        IChatReadModel? chatReadModel = null;
-        switch (obj.Peer)
-        {
-            case TInputPeerChannel inputPeerChannel:
-                await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel.ChannelId, inputPeerChannel.AccessHash, AccessHashType.Channel);
-                break;
-            case TInputPeerChat inputPeerChat:
-                chatReadModel = await queryProcessor.ProcessAsync(new GetChatByChatIdQuery(inputPeerChat.ChatId));
-                break;
-            case TInputPeerUser inputPeerUser:
-                await accessHashHelper.CheckAccessHashAsync(input, inputPeerUser.UserId, inputPeerUser.AccessHash, AccessHashType.User);
-                break;
-        }
-
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
         var ownerPeerId = input.UserId;
         if (peer.PeerType == PeerType.Channel)
@@ -92,6 +78,24 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
                 media = await mediaHelper.SaveMediaAsync(obj.Media);
             }
         }
+        var messageReadModel = await queryProcessor.ProcessAsync(new GetMessageByIdQuery(MessageId.Create(ownerPeerId, obj.Id).Value));
+        if (messageReadModel == null)
+        {
+            RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
+        }
+
+        InboxItem? inboxItem = null;
+        if (messageReadModel!.ToPeerType == PeerType.User)
+        {
+            var inboxMessageReadModel =
+                await queryProcessor.ProcessAsync(new GetMessageByBatchIdQuery(messageReadModel.BatchId,
+                    messageReadModel.OwnerPeerId));
+
+            if (inboxMessageReadModel != null)
+            {
+                inboxItem = new InboxItem(inboxMessageReadModel.OwnerPeerId, inboxMessageReadModel.MessageId);
+            }
+        }
 
         var entities = obj.Entities ?? [];
         await messageAppService.ProcessMessageEntitiesAsync(obj.Message, entities, peer);
@@ -102,7 +106,7 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
 
         var hashtags = messageAppService.GetHashtags(obj.Message);
         var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, obj.Message ?? string.Empty,
-            CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags);
+            CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags, inboxItem);
         await commandBus.PublishAsync(command);
         return null!;
     }

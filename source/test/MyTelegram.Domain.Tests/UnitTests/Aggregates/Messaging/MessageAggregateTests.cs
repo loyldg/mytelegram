@@ -114,7 +114,7 @@ public class MessageAggregateTests : TestsFor<MessageAggregate>
             null,
             null,
             null,
-            false, null);
+            false, null, null);
 
         var uncommittedEvent = Sut.UncommittedEvents.Single().AggregateEvent.ShouldBeOfType<OutboxMessageEditedEventV2>();
         uncommittedEvent.NewMessageItem.Message.ShouldBe(newMessage);
@@ -135,7 +135,7 @@ public class MessageAggregateTests : TestsFor<MessageAggregate>
                 null,
                 null,
                 null,
-                false, null));
+                false, null, null));
 
         exception.Message.ShouldBe(RpcErrors.RpcErrors400.MessageEditTimeExpired.Message);
     }
@@ -155,7 +155,7 @@ public class MessageAggregateTests : TestsFor<MessageAggregate>
                 null,
                 null,
                 null,
-                false, null));
+                false, null, null));
 
         exception.Message.ShouldBe(RpcErrors.RpcErrors403.MessageAuthorRequired.Message);
     }
