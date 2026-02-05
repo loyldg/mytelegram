@@ -84,19 +84,6 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
             RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
         }
 
-        InboxItem? inboxItem = null;
-        if (messageReadModel!.ToPeerType == PeerType.User)
-        {
-            var inboxMessageReadModel =
-                await queryProcessor.ProcessAsync(new GetMessageByBatchIdQuery(messageReadModel.BatchId,
-                    messageReadModel.OwnerPeerId));
-
-            if (inboxMessageReadModel != null)
-            {
-                inboxItem = new InboxItem(inboxMessageReadModel.OwnerPeerId, inboxMessageReadModel.MessageId);
-            }
-        }
-
         var entities = obj.Entities ?? [];
         await messageAppService.ProcessMessageEntitiesAsync(obj.Message, entities, peer);
         if (entities.Count == 0)
@@ -106,7 +93,7 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
 
         var hashtags = messageAppService.GetHashtags(obj.Message);
         var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, obj.Message ?? string.Empty,
-            CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags, inboxItem);
+            CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags);
         await commandBus.PublishAsync(command);
         return null!;
     }

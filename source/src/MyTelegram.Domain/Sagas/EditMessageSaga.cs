@@ -63,24 +63,6 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEventV2>,
                 Publish(command);
             }
         }
-
-        if (aggregateEvent.InboxItem != null)
-        {
-            var inboxItem = aggregateEvent.InboxItem;
-            var command = new EditInboxMessageCommand(
-                MessageId.Create(inboxItem.InboxOwnerPeerId, inboxItem.InboxMessageId),
-                _state.RequestInfo,
-                inboxItem.InboxMessageId,
-                newItem.Message,
-                newItem.EditDate ?? DateTime.UtcNow.ToTimestamp(),
-                newItem.Entities,
-                newItem.Media,
-                newItem.ReplyMarkup,
-                newItem.InvertMedia,
-                newItem.Hashtags
-            );
-            Publish(command);
-        }
     }
 
     private Task HandleEditCompletedAsync()

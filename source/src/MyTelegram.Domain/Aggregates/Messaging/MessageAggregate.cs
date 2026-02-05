@@ -186,8 +186,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         IMessageMedia? media,
         IReplyMarkup? replyMarkup,
         bool invertMedia,
-        List<string>? hashtags,
-        InboxItem? inboxItem
+        List<string>? hashtags
         )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -222,8 +221,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
 
         Emit(new OutboxMessageEditedEventV2(requestInfo,
             oldMessageItem,
-            newMessageItem,
-            inboxItem
+            newMessageItem
         ));
     }
 
