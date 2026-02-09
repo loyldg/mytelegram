@@ -126,6 +126,17 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
         await CreateInboxMessageAsync(domainEvent.AggregateEvent);
 
         CreateMentions(domainEvent.AggregateEvent.MentionedUserIds, domainEvent.AggregateEvent.OutboxMessageItem.MessageId);
+        ClearDraft(domainEvent.AggregateEvent);
+    }
+
+    private void ClearDraft(OutboxMessageCreatedEvent aggregateEvent)
+    {
+        if (aggregateEvent.ClearDraft)
+        {
+            var command = new ClearDraftCommand(DialogId.Create(aggregateEvent.OutboxMessageItem.OwnerPeer.PeerId,
+                aggregateEvent.OutboxMessageItem.ToPeer));
+            Publish(command);
+        }
     }
 
     private void CreateMentions(List<long>? mentionedUserIds, int messageId)
