@@ -10,6 +10,12 @@ internal sealed class GetForumTopicsHandler : RpcResultObjectHandler<MyTelegram.
 {
     protected override Task<MyTelegram.Schema.Messages.IForumTopics> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetForumTopics obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<MyTelegram.Schema.Messages.IForumTopics>(new TForumTopics
+        {
+            Chats = [],
+            Messages = [],
+            Topics = [],
+            Users = []
+        });
     }
 }
