@@ -58,7 +58,7 @@ public class QueuedObjectMessageSender(
     {
         UpdateAccessHashIfNeeded(requestInfo, data);
 
-        sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(requestInfo.ReqMsgId, Array.Empty<byte>())
+        sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(requestInfo.ConnectionId, requestInfo.AuthKeyId, requestInfo.SessionId, requestInfo.ReqMsgId, Array.Empty<byte>())
         {
             DataObject = data
         },
@@ -72,7 +72,7 @@ public class QueuedObjectMessageSender(
     {
         UpdateAccessHashIfNeeded(requestInfo, data);
 
-        sessionMessageQueueProcessor.Enqueue(new FileDataResultResponseReceivedEvent(requestInfo.ReqMsgId, data.ToBytes()),
+        sessionMessageQueueProcessor.Enqueue(new FileDataResultResponseReceivedEvent(requestInfo.ConnectionId, requestInfo.AuthKeyId, requestInfo.SessionId, requestInfo.ReqMsgId, data.ToBytes()),
             requestInfo.PermAuthKeyId);
 
         return Task.CompletedTask;
@@ -84,14 +84,18 @@ public class QueuedObjectMessageSender(
     {
         UpdateAccessHashIfNeeded(requestInfo, data);
 
-        return SendRpcMessageToClientAsync(requestInfo.ReqMsgId, data, pts, requestInfo.PermAuthKeyId);
+        return SendRpcMessageToClientAsync(requestInfo.ConnectionId, requestInfo.AuthKeyId, requestInfo.SessionId, requestInfo.ReqMsgId, data, pts, requestInfo.PermAuthKeyId);
     }
 
-    public Task SendRpcMessageToClientAsync<TData>(long reqMsgId, TData data, int pts = 0, long permAuthKeyId = 0) where TData : IObject
+    public Task SendRpcMessageToClientAsync<TData>(
+        string connectionId,
+        long tempAuthKeyId,
+        long sessionId,
+        long reqMsgId, TData data, int pts = 0, long permAuthKeyId = 0) where TData : IObject
     {
         var rpcResult = CreateRpcResult(reqMsgId, data);
 
-        sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(reqMsgId, Array.Empty<byte>())
+        sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(connectionId, tempAuthKeyId, sessionId, reqMsgId, Array.Empty<byte>())
         {
             DataObject = rpcResult
         },
@@ -108,7 +112,7 @@ public class QueuedObjectMessageSender(
 
         var rpcResult = CreateRpcResult(requestInfo.ReqMsgId, data);
         sessionMessageQueueProcessor.Enqueue(
-            new DataResultResponseWithUserIdReceivedEvent(requestInfo.ReqMsgId, rpcResult.ToBytes(), userId, authKeyId,
+            new DataResultResponseWithUserIdReceivedEvent(requestInfo.ConnectionId, requestInfo.AuthKeyId, requestInfo.SessionId, requestInfo.ReqMsgId, rpcResult.ToBytes(), userId, authKeyId,
                 permAuthKeyId),
             requestInfo.PermAuthKeyId);
 
