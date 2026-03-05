@@ -7,6 +7,25 @@ namespace MyTelegram.Core;
 
 public class AesHelper : IAesHelper, ISingletonDependency
 {
+    private const int TagSize = 16;
+
+    public void EncryptGcm(ReadOnlySpan<byte> plainText, Span<byte> cipherText,
+        ReadOnlySpan<byte> key,
+        Span<byte> nonce, Span<byte> tag, ReadOnlySpan<byte> associatedData = default)
+    {
+        RandomNumberGenerator.Fill(nonce);
+        using var aes = new AesGcm(key, TagSize);
+        aes.Encrypt(nonce, plainText, cipherText, tag, associatedData);
+    }
+
+    public void DecryptGcm(Span<byte> plainText, ReadOnlySpan<byte> cipherText,
+        ReadOnlySpan<byte> key,
+        ReadOnlySpan<byte> nonce, ReadOnlySpan<byte> tag, ReadOnlySpan<byte> associatedData = default)
+    {
+        using var aes = new AesGcm(key, TagSize);
+        aes.Decrypt(nonce, cipherText, tag, plainText, associatedData);
+    }
+
     public void EncryptIge(ReadOnlySpan<byte> source, byte[] key, ReadOnlySpan<byte> iv, Span<byte> destination)
     {
         var outputBytes = ArrayPool<byte>.Shared.Rent(source.Length);
