@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Details about the authorization request, for more info <a href="https://corefork.telegram.org/api/url-authorization">click here »</a>
 /// <para>See <a href="https://corefork.telegram.org/constructor/urlAuthResultRequest" /></para>
 /// </summary>
-[TlObject(0x92d33a0e)]
+[TlObject(0x32fabf1a)]
 public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
 {
-    public uint ConstructorId => 0x92d33a0e;
+    public uint ConstructorId => 0x32fabf1a;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,8 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
     /// Whether the bot would like to send messages to the user
     /// </summary>
     public bool RequestWriteAccess { get; set; }
+
+    public bool RequestPhoneNumber { get; set; }
 
     /// <summary>
     /// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See <a href="https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot">Linking your domain to the bot</a> for more details.
@@ -31,9 +33,22 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
     /// </summary>
     public string Domain { get; set; }
 
+    public string? Browser { get; set; }
+
+    public string? Platform { get; set; }
+
+    public string? Ip { get; set; }
+
+    public string? Region { get; set; }
+
     public void ComputeFlag()
     {
         if (RequestWriteAccess) { Flags = Flags.SetBit(0); }
+        if (RequestPhoneNumber) { Flags = Flags.SetBit(1); }
+        if (Browser != null) { Flags = Flags.SetBit(2); }
+        if (Platform != null) { Flags = Flags.SetBit(2); }
+        if (Ip != null) { Flags = Flags.SetBit(2); }
+        if (Region != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -43,13 +58,22 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
         writer.Write(Flags);
         writer.Write(Bot);
         writer.Write(Domain);
+        if (Flags.IsBitSet(2)) { writer.Write(Browser); }
+        if (Flags.IsBitSet(2)) { writer.Write(Platform); }
+        if (Flags.IsBitSet(2)) { writer.Write(Ip); }
+        if (Flags.IsBitSet(2)) { writer.Write(Region); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { RequestWriteAccess = true; }
+        if (Flags.IsBitSet(1)) { RequestPhoneNumber = true; }
         Bot = buffer.Read<MyTelegram.Schema.IUser>();
         Domain = buffer.ReadString();
+        if (Flags.IsBitSet(2)) { Browser = buffer.ReadString(); }
+        if (Flags.IsBitSet(2)) { Platform = buffer.ReadString(); }
+        if (Flags.IsBitSet(2)) { Ip = buffer.ReadString(); }
+        if (Flags.IsBitSet(2)) { Region = buffer.ReadString(); }
     }
 }

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible star gift, see here »</a> for more info.The sticker that represents the gift is contained in a <a href="https://corefork.telegram.org/constructor/starGiftAttributeModel">starGiftAttributeModel</a> object in <code>attributes</code>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/starGiftUnique" /></para>
 /// </summary>
-[TlObject(0x569d64c9)]
+[TlObject(0x85f0a9cd)]
 public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
 {
-    public uint ConstructorId => 0x569d64c9;
+    public uint ConstructorId => 0x85f0a9cd;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -29,6 +29,10 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     /// A chat theme associated to this gift is available, <a href="https://corefork.telegram.org/api/themes#chat-themes">see here »</a> for more info on how to use it.
     /// </summary>
     public bool ThemeAvailable { get; set; }
+
+    public bool Burned { get; set; }
+
+    public bool Crafted { get; set; }
 
     /// <summary>
     /// Identifier of the collectible gift.
@@ -134,11 +138,15 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
 
     public int? OfferMinStars { get; set; }
 
+    public int? CraftChancePermille { get; set; }
+
     public void ComputeFlag()
     {
         if (RequirePremium) { Flags = Flags.SetBit(6); }
         if (ResaleTonOnly) { Flags = Flags.SetBit(7); }
         if (ThemeAvailable) { Flags = Flags.SetBit(9); }
+        if (Burned) { Flags = Flags.SetBit(14); }
+        if (Crafted) { Flags = Flags.SetBit(15); }
         if (OwnerId != null) { Flags = Flags.SetBit(0); }
         if (OwnerName != null) { Flags = Flags.SetBit(1); }
         if (OwnerAddress != null) { Flags = Flags.SetBit(2); }
@@ -152,6 +160,7 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (PeerColor != null) { Flags = Flags.SetBit(11); }
         if (HostId != null) { Flags = Flags.SetBit(12); }
         if (/*OfferMinStars != 0 && */OfferMinStars.HasValue) { Flags = Flags.SetBit(13); }
+        if (/*CraftChancePermille != 0 && */CraftChancePermille.HasValue) { Flags = Flags.SetBit(16); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -180,6 +189,7 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(11)) { writer.Write(PeerColor); }
         if (Flags.IsBitSet(12)) { writer.Write(HostId); }
         if (Flags.IsBitSet(13)) { writer.Write(OfferMinStars.Value); }
+        if (Flags.IsBitSet(16)) { writer.Write(CraftChancePermille.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -188,6 +198,8 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(6)) { RequirePremium = true; }
         if (Flags.IsBitSet(7)) { ResaleTonOnly = true; }
         if (Flags.IsBitSet(9)) { ThemeAvailable = true; }
+        if (Flags.IsBitSet(14)) { Burned = true; }
+        if (Flags.IsBitSet(15)) { Crafted = true; }
         Id = buffer.ReadInt64();
         GiftId = buffer.ReadInt64();
         Title = buffer.ReadString();
@@ -209,5 +221,6 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(11)) { PeerColor = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
         if (Flags.IsBitSet(12)) { HostId = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(13)) { OfferMinStars = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(16)) { CraftChancePermille = buffer.ReadInt32(); }
     }
 }

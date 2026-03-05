@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A <a href="https://corefork.telegram.org/api/stickers">sticker</a> applied on the backdrop of a <a href="https://corefork.telegram.org/api/gifts">collectible gift »</a> using a repeating pattern.
 /// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributePattern" /></para>
 /// </summary>
-[TlObject(0x13acff19)]
+[TlObject(0x4e7085ea)]
 public sealed partial class TStarGiftAttributePattern : IStarGiftAttribute
 {
-    public uint ConstructorId => 0x13acff19;
+    public uint ConstructorId => 0x4e7085ea;
     /// <summary>
     /// Name of the symbol
     /// </summary>
@@ -22,8 +22,9 @@ public sealed partial class TStarGiftAttributePattern : IStarGiftAttribute
     public MyTelegram.Schema.IDocument Document { get; set; }
 
     /// <summary>
-    /// The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
+    /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeRarity" />
     /// </summary>
+    public MyTelegram.Schema.IStarGiftAttributeRarity Rarity { get; set; }
     public int RarityPermille { get; set; }
 
     public void ComputeFlag()
@@ -32,17 +33,21 @@ public sealed partial class TStarGiftAttributePattern : IStarGiftAttribute
 
     public void Serialize(IBufferWriter<byte> writer)
     {
+        if (Rarity == null)
+        {
+            Rarity = new TStarGiftAttributeRarity { Permille = RarityPermille };
+        }
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Name);
         writer.Write(Document);
-        writer.Write(RarityPermille);
+        writer.Write(Rarity);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Name = buffer.ReadString();
         Document = buffer.Read<MyTelegram.Schema.IDocument>();
-        RarityPermille = buffer.ReadInt32();
+        Rarity = buffer.Read<MyTelegram.Schema.IStarGiftAttributeRarity>();
     }
 }

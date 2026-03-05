@@ -68,6 +68,8 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageActionSuggestBirthday"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestBirthday" /><br/>
 /// <see cref="TMessageActionStarGiftPurchaseOffer"/> See <a href="" /><br/>
 /// <see cref="TMessageActionStarGiftPurchaseOfferDeclined"/> See <a href="" /><br/>
+/// <see cref="TMessageActionNewCreatorPending"/> See <a href="" /><br/>
+/// <see cref="TMessageActionChangeCreator"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageActionEmpty), nameof(TMessageActionEmpty))]
 [JsonDerivedType(typeof(TMessageActionChatCreate), nameof(TMessageActionChatCreate))]
@@ -129,6 +131,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionSuggestBirthday), nameof(TMessageActionSuggestBirthday))]
 [JsonDerivedType(typeof(TMessageActionStarGiftPurchaseOffer), nameof(TMessageActionStarGiftPurchaseOffer))]
 [JsonDerivedType(typeof(TMessageActionStarGiftPurchaseOfferDeclined), nameof(TMessageActionStarGiftPurchaseOfferDeclined))]
+[JsonDerivedType(typeof(TMessageActionNewCreatorPending), nameof(TMessageActionNewCreatorPending))]
+[JsonDerivedType(typeof(TMessageActionChangeCreator), nameof(TMessageActionChangeCreator))]
 public interface IMessageAction : IObject
 {
 }

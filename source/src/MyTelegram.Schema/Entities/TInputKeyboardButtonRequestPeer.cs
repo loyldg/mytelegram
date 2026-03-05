@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Prompts the user to select and share one or more peers with the bot using <a href="https://corefork.telegram.org/method/messages.sendBotRequestedPeer">messages.sendBotRequestedPeer</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonRequestPeer" /></para>
 /// </summary>
-[TlObject(0xc9662d05)]
+[TlObject(0x2b78156)]
 public sealed partial class TInputKeyboardButtonRequestPeer : IKeyboardButton
 {
-    public uint ConstructorId => 0xc9662d05;
+    public uint ConstructorId => 0x2b78156;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -29,6 +29,11 @@ public sealed partial class TInputKeyboardButtonRequestPeer : IKeyboardButton
     /// Set this flag to request the peer's photo (if any).
     /// </summary>
     public bool PhotoRequested { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
 
     /// <summary>
     /// Button text
@@ -56,6 +61,7 @@ public sealed partial class TInputKeyboardButtonRequestPeer : IKeyboardButton
         if (NameRequested) { Flags = Flags.SetBit(0); }
         if (UsernameRequested) { Flags = Flags.SetBit(1); }
         if (PhotoRequested) { Flags = Flags.SetBit(2); }
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -63,6 +69,7 @@ public sealed partial class TInputKeyboardButtonRequestPeer : IKeyboardButton
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         writer.Write(ButtonId);
         writer.Write(PeerType);
@@ -75,6 +82,7 @@ public sealed partial class TInputKeyboardButtonRequestPeer : IKeyboardButton
         if (Flags.IsBitSet(0)) { NameRequested = true; }
         if (Flags.IsBitSet(1)) { UsernameRequested = true; }
         if (Flags.IsBitSet(2)) { PhotoRequested = true; }
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         ButtonId = buffer.ReadInt32();
         PeerType = buffer.Read<MyTelegram.Schema.IRequestPeerType>();

@@ -6,28 +6,33 @@ namespace MyTelegram.Schema;
 /// Details about an accepted authorization request, for more info <a href="https://corefork.telegram.org/api/url-authorization">click here »</a>
 /// <para>See <a href="https://corefork.telegram.org/constructor/urlAuthResultAccepted" /></para>
 /// </summary>
-[TlObject(0x8f8c0e4e)]
+[TlObject(0x623a8fa0)]
 public sealed partial class TUrlAuthResultAccepted : IUrlAuthResult
 {
-    public uint ConstructorId => 0x8f8c0e4e;
+    public uint ConstructorId => 0x623a8fa0;
+    public int Flags { get; set; }
+
     /// <summary>
     /// The URL name of the website on which the user has logged in.
     /// </summary>
-    public string Url { get; set; }
+    public string? Url { get; set; }
 
     public void ComputeFlag()
     {
+        if (Url != null) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
-        writer.Write(Url);
+        writer.Write(Flags);
+        if (Flags.IsBitSet(0)) { writer.Write(Url); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
-        Url = buffer.ReadString();
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Url = buffer.ReadString(); }
     }
 }

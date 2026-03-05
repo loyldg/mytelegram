@@ -6,10 +6,17 @@ namespace MyTelegram.Schema;
 /// Clipboard button: when clicked, the attached text must be copied to the clipboard.
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy" /></para>
 /// </summary>
-[TlObject(0x75d2698e)]
+[TlObject(0xbcc4af10)]
 public sealed partial class TKeyboardButtonCopy : IKeyboardButton
 {
-    public uint ConstructorId => 0x75d2698e;
+    public uint ConstructorId => 0xbcc4af10;
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
+
     /// <summary>
     /// Title of the button
     /// </summary>
@@ -22,18 +29,23 @@ public sealed partial class TKeyboardButtonCopy : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         writer.Write(CopyText);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         CopyText = buffer.ReadString();
     }

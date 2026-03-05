@@ -24,6 +24,8 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public bool WriteAllowed { get; set; }
 
+    public bool SharePhoneNumber { get; set; }
+
     /// <summary>
     /// The location of the message
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
@@ -48,6 +50,7 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
     public void ComputeFlag()
     {
         if (WriteAllowed) { Flags = Flags.SetBit(0); }
+        if (SharePhoneNumber) { Flags = Flags.SetBit(3); }
         if (Peer != null) { Flags = Flags.SetBit(1); }
         if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(1); }
         if (/*ButtonId != 0 && */ButtonId.HasValue) { Flags = Flags.SetBit(1); }
@@ -69,6 +72,7 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { WriteAllowed = true; }
+        if (Flags.IsBitSet(3)) { SharePhoneNumber = true; }
         if (Flags.IsBitSet(1)) { Peer = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags.IsBitSet(1)) { MsgId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(1)) { ButtonId = buffer.ReadInt32(); }

@@ -47,6 +47,13 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TKeyboardButtonCopy), nameof(TKeyboardButtonCopy))]
 public interface IKeyboardButton : IObject
 {
+    int Flags { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
+
     /// <summary>
     /// Button text
     /// </summary>

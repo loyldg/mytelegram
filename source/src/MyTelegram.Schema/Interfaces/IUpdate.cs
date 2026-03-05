@@ -159,6 +159,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TUpdateStarGiftAuctionState"/> See <a href="" /><br/>
 /// <see cref="TUpdateStarGiftAuctionUserState"/> See <a href="" /><br/>
 /// <see cref="TUpdateEmojiGameInfo"/> See <a href="" /><br/>
+/// <see cref="TUpdateStarGiftCraftFail"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUpdateNewMessage), nameof(TUpdateNewMessage))]
 [JsonDerivedType(typeof(TUpdateMessageID), nameof(TUpdateMessageID))]
@@ -311,6 +312,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateStarGiftAuctionState), nameof(TUpdateStarGiftAuctionState))]
 [JsonDerivedType(typeof(TUpdateStarGiftAuctionUserState), nameof(TUpdateStarGiftAuctionUserState))]
 [JsonDerivedType(typeof(TUpdateEmojiGameInfo), nameof(TUpdateEmojiGameInfo))]
+[JsonDerivedType(typeof(TUpdateStarGiftCraftFail), nameof(TUpdateStarGiftCraftFail))]
 public interface IUpdate : IObject
 {
 }

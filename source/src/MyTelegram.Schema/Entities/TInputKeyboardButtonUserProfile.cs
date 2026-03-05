@@ -6,10 +6,17 @@ namespace MyTelegram.Schema;
 /// Button that links directly to a user profile
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUserProfile" /></para>
 /// </summary>
-[TlObject(0xe988037b)]
+[TlObject(0x7d5e07c7)]
 public sealed partial class TInputKeyboardButtonUserProfile : IKeyboardButton
 {
-    public uint ConstructorId => 0xe988037b;
+    public uint ConstructorId => 0x7d5e07c7;
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
+
     /// <summary>
     /// Button text
     /// </summary>
@@ -23,18 +30,23 @@ public sealed partial class TInputKeyboardButtonUserProfile : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         writer.Write(UserId);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         UserId = buffer.Read<MyTelegram.Schema.IInputUser>();
     }

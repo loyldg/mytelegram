@@ -6,10 +6,17 @@ namespace MyTelegram.Schema;
 /// URL button
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonUrl" /></para>
 /// </summary>
-[TlObject(0x258aff05)]
+[TlObject(0xd80c25ec)]
 public sealed partial class TKeyboardButtonUrl : IKeyboardButton
 {
-    public uint ConstructorId => 0x258aff05;
+    public uint ConstructorId => 0xd80c25ec;
+    public int Flags { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
+
     /// <summary>
     /// Button label
     /// </summary>
@@ -22,18 +29,23 @@ public sealed partial class TKeyboardButtonUrl : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         writer.Write(Url);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         Url = buffer.ReadString();
     }

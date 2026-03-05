@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Button to force a user to switch to inline mode: pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field.
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline" /></para>
 /// </summary>
-[TlObject(0x93b9fbb5)]
+[TlObject(0x991399fc)]
 public sealed partial class TKeyboardButtonSwitchInline : IKeyboardButton
 {
-    public uint ConstructorId => 0x93b9fbb5;
+    public uint ConstructorId => 0x991399fc;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,11 @@ public sealed partial class TKeyboardButtonSwitchInline : IKeyboardButton
     /// If set, pressing the button will insert the bot's username and the specified inline <code>query</code> in the current chat's input field.
     /// </summary>
     public bool SamePeer { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
 
     /// <summary>
     /// Button label
@@ -39,6 +44,7 @@ public sealed partial class TKeyboardButtonSwitchInline : IKeyboardButton
     public void ComputeFlag()
     {
         if (SamePeer) { Flags = Flags.SetBit(0); }
+        if (Style != null) { Flags = Flags.SetBit(10); }
         if (PeerTypes?.Count > 0) { Flags = Flags.SetBit(1); }
     }
 
@@ -47,6 +53,7 @@ public sealed partial class TKeyboardButtonSwitchInline : IKeyboardButton
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         writer.Write(Query);
         if (Flags.IsBitSet(1)) { writer.Write(PeerTypes); }
@@ -56,6 +63,7 @@ public sealed partial class TKeyboardButtonSwitchInline : IKeyboardButton
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { SamePeer = true; }
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         Query = buffer.ReadString();
         if (Flags.IsBitSet(1)) { PeerTypes = buffer.Read<TVector<MyTelegram.Schema.IInlineQueryPeerType>>(); }

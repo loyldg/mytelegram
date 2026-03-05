@@ -124,4 +124,6 @@ public interface ISavedStarGift : IObject
     long? DropOriginalDetailsStars { get; set; }
 
     int? GiftNum { get; set; }
+
+    int? CanCraftAt { get; set; }
 }
