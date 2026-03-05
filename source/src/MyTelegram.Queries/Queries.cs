@@ -683,3 +683,4 @@ public record GetPhotosByPhotoIdLisQuery(IList<long> PhotoIds) : IQuery<IReadOnl
 public record GetUserConfigByKeyQuery(long UserId, string Key) : IQuery<IUserConfigReadModel?>;
 public record GetChannelMemberIdListQuery(long ChannelId, List<long> MemberUserIds) : IQuery<IReadOnlyCollection<long>>;
 public record GetMessageByBatchIdQuery(Guid BatchId, long ExcludePeerId) : IQuery<IMessageReadModel?>;
+public record GetFutureCreatorAfterLeaveQuery(long ChannelId, long CurrentCreatorUserId) : IQuery<long?>;
