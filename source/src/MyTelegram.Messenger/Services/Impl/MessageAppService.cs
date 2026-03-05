@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Messenger.Services.Impl;
+﻿using System.Text;
+
+namespace MyTelegram.Messenger.Services.Impl;
 
 public class MessageAppService(
     IQueryProcessor queryProcessor,
@@ -11,11 +13,16 @@ public class MessageAppService(
     IPrivacyAppService privacyAppService,
     IContactAppService contactAppService,
     IOffsetHelper offsetHelper,
+	IDataEncryptionHelper dataEncryptionHelper,
+    IOptionsMonitor<MyTelegramMessengerServerOptions> options,
     IIdGenerator idGenerator)
     : BaseAppService, IMessageAppService, ITransientDependency
 {
     private const string HashtagPattern = "#(\\w+)";
     private const string UrlPattern = @"(?:^|\s)((https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s,.:;!?]*)?)";
+
+    private static byte[]? _encryptionKey;
+    private static KeyConfig? _keyConfig;
 
     public void CheckBotPermission(long requestUserId, Peer toPeer)
     {
@@ -418,6 +425,21 @@ public class MessageAppService(
 
         var date = CurrentDate;
         var hashtags = GetHashtags(input.Message);
+        byte[]? encryptedData = null;
+        byte[]? inboxMessageEncryptedData = null;
+        if (!string.IsNullOrEmpty(input.Message) &&
+            options.CurrentValue.EncryptionConfig is { Enabled: true, MessageKeys.Count: > 0 })
+        {
+            _keyConfig ??= options.CurrentValue.EncryptionConfig.MessageKeys[0];
+            _encryptionKey ??= Encoding.UTF8.GetBytes(_keyConfig.Key);
+            encryptedData = dataEncryptionHelper.Encrypt(_keyConfig.Id, _encryptionKey, ownerPeerId, input.Message);
+
+            if (input.ToPeer.PeerType == PeerType.User && input.ToPeer.PeerId != input.SenderUserId)
+            {
+                inboxMessageEncryptedData =
+                    dataEncryptionHelper.Encrypt(_keyConfig.Id, _encryptionKey, input.ToPeer.PeerId, input.Message);
+            }
+        }
         var messageItem = new MessageItem(
             input.ToPeer with { PeerId = ownerPeerId /*, AccessHash = 0 */ },
             input.ToPeer,
@@ -457,7 +479,9 @@ public class MessageAppService(
             PublicPosts: isPublicPost,
             Hashtags: hashtags,
             MentionedUserIds: mentionedUserIds,
-            Views: views
+            Views: views,
+			EncryptedData: encryptedData,
+            InboxMessageEncryptedData: inboxMessageEncryptedData
         );
 
         var sendMessageItem = new SendMessageItem(messageItem, input.ClearDraft, mentionedUserIds, []);

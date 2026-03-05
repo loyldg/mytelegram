@@ -9,17 +9,19 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IUserConverterService userConverterService, IMessageConverterService messageConverterService, IPeerHelper peerHelper, IMessageAppService messageAppService) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSearchPosts, MyTelegram.Schema.Messages.IMessages>
+internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor,
+    ITokenizer tokenizer,
+    IChatConverterService chatConverterService, IUserConverterService userConverterService, IMessageConverterService messageConverterService, IPeerHelper peerHelper, IMessageAppService messageAppService) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSearchPosts, MyTelegram.Schema.Messages.IMessages>
 {
     protected override async Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestSearchPosts obj)
     {
-        if (string.IsNullOrEmpty(obj.Hashtag))
-        {
-            RpcErrors.RpcErrors400.HashtagInvalid.ThrowRpcError();
-        }
-
+        //if (string.IsNullOrEmpty(obj.Hashtag))
+        //{
+        //    RpcErrors.RpcErrors400.HashtagInvalid.ThrowRpcError();
+        //}
         var peer = peerHelper.GetPeer(obj.OffsetPeer);
-        var messageReadModels = await queryProcessor.ProcessAsync(new SearchPostsQuery(obj.Hashtag, obj.OffsetRate, peer.PeerId, obj.OffsetId, obj.Limit));
+        var tokens = tokenizer.BuildSearchTokens(obj.Query);
+        var messageReadModels = await queryProcessor.ProcessAsync(new SearchPostsQuery(obj.Hashtag, obj.Query, tokens, obj.OffsetRate, peer.PeerId, obj.OffsetId, obj.Limit));
         var messages = messageConverterService.ToMessageList(input.UserId, messageReadModels, [], [], [], input.Layer);
         var (userIds, channelIds) = messageAppService.GetExtraPeerIds(messageReadModels);
         var channelIdList = channelIds.ToList();
@@ -37,6 +39,7 @@ internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor, IChatCo
                 Messages = [.. messages],
                 Users = [.. users],
                 NextRate = nextRate,
+                Topics = []
             };
         }
 

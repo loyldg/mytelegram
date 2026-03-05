@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <summary>
 /// Edit message
@@ -55,8 +57,18 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IMessageAppService messageAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditMessage, MyTelegram.Schema.IUpdates>
+internal sealed class EditMessageHandler(IMediaHelper mediaHelper,
+    ICommandBus commandBus,
+    IPeerHelper peerHelper,
+    IAccessHashHelper accessHashHelper,
+    IMessageAppService messageAppService,
+    IDataEncryptionHelper dataEncryptionHelper,
+    IOptionsMonitor<MyTelegramMessengerServerOptions> options,
+    IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditMessage, MyTelegram.Schema.IUpdates>
 {
+    private static byte[]? _encryptionKey;
+    private static KeyConfig? _keyConfig;
+
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestEditMessage obj)
     {
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
@@ -84,6 +96,45 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
             RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
         }
 
+        var message = messageReadModel.Message;
+        var messageTextEdited = false;
+        if (!string.IsNullOrEmpty(obj.Message))
+        {
+            message = obj.Message;
+            messageTextEdited = true;
+        }
+
+        byte[]? encryptedData = null;
+        byte[]? inboxMessageEncryptedData = null;
+        if (messageTextEdited &&
+            options.CurrentValue.EncryptionConfig is { Enabled: true, MessageKeys.Count: > 0 })
+        {
+            _keyConfig ??= options.CurrentValue.EncryptionConfig.MessageKeys[0];
+            _encryptionKey ??= Encoding.UTF8.GetBytes(_keyConfig.Key);
+            encryptedData = dataEncryptionHelper.Encrypt(_keyConfig.Id, _encryptionKey, ownerPeerId, message);
+
+            if (messageReadModel.ToPeerType == PeerType.User && messageReadModel.ToPeerId != input.UserId)
+            {
+                inboxMessageEncryptedData =
+                    dataEncryptionHelper.Encrypt(_keyConfig.Id, _encryptionKey, messageReadModel.ToPeerId, message);
+            }
+
+            message = string.Empty;
+        }
+
+        //InboxItem? inboxItem = null;
+        //if (messageReadModel!.ToPeerType == PeerType.User)
+        //{
+        //    var inboxMessageReadModel =
+        //        await queryProcessor.ProcessAsync(new GetMessageByBatchIdQuery(messageReadModel.BatchId,
+        //            messageReadModel.OwnerPeerId));
+
+        //    if (inboxMessageReadModel != null)
+        //    {
+        //        inboxItem = new InboxItem(inboxMessageReadModel.OwnerPeerId, inboxMessageReadModel.MessageId);
+        //    }
+        //}
+
         var entities = obj.Entities ?? [];
         await messageAppService.ProcessMessageEntitiesAsync(obj.Message, entities, peer);
         if (entities.Count == 0)
@@ -92,8 +143,8 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
         }
 
         var hashtags = messageAppService.GetHashtags(obj.Message);
-        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, obj.Message ?? string.Empty,
-            CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags);
+        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, message,
+            CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags, encryptedData, inboxMessageEncryptedData);
         await commandBus.PublishAsync(command);
         return null!;
     }

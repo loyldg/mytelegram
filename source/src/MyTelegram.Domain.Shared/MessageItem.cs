@@ -54,7 +54,9 @@ public record MessageItem
     bool InvertMedia = false,
     bool PublicPosts = false,
     List<string>? Hashtags = null,
-    List<long>? MentionedUserIds = null
+    List<long>? MentionedUserIds = null,
+    ReadOnlyMemory<byte>? EncryptedData = null,
+    ReadOnlyMemory<byte>? InboxMessageEncryptedData = null
 //int? DefaultHistoryTtl = null,
 //int? Ttl = null
 );

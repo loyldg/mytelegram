@@ -149,7 +149,8 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         IMessageMedia? media,
         IReplyMarkup? replyMarkup,
         bool invertMedia,
-        List<string>? hashtags)
+        List<string>? hashtags,
+        ReadOnlyMemory<byte>? encryptedData = null)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
 
@@ -158,7 +159,15 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             newMessage = _state.MessageItem.Message;
         }
 
+        var newEncryptedData = _state.MessageItem.EncryptedData;
+        if (encryptedData != null)
+        {
+            newEncryptedData = encryptedData;
+            newMessage = null;
+        }
+
         var oldMessageItem = _state.MessageItem;
+        var editHide = oldMessageItem.SenderUserId == MyTelegramConsts.BotFatherUserId && (replyMarkup != null || oldMessageItem.ReplyMarkup != null);
         media ??= oldMessageItem.Media;
 
         var newMessageItem = oldMessageItem with
@@ -168,8 +177,10 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             Media = media,
             ReplyMarkup = replyMarkup,
             EditDate = editDate,
+            EditHide = editHide,
             InvertMedia = invertMedia,
-            Hashtags = hashtags
+            Hashtags = hashtags,
+            EncryptedData = newEncryptedData
         };
 
         Emit(new InboxMessageEditedEventV2(
@@ -186,7 +197,9 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         IMessageMedia? media,
         IReplyMarkup? replyMarkup,
         bool invertMedia,
-        List<string>? hashtags
+        List<string>? hashtags,
+        ReadOnlyMemory<byte>? encryptedData = null,
+        ReadOnlyMemory<byte>? inboxMessageEncryptedData = null
         )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -204,6 +217,18 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         {
             newMessage = _state.MessageItem.Message;
         }
+        var newEncryptedData = _state.MessageItem.EncryptedData;
+        var newInboxMessageEncryptedData = _state.MessageItem.InboxMessageEncryptedData;
+        if (encryptedData != null)
+        {
+            newEncryptedData = encryptedData;
+            newMessage = null;
+        }
+
+        if (inboxMessageEncryptedData != null)
+        {
+            newInboxMessageEncryptedData = inboxMessageEncryptedData;
+        }
 
         var oldMessageItem = _state.MessageItem;
         media ??= oldMessageItem.Media;
@@ -216,7 +241,9 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             ReplyMarkup = replyMarkup,
             EditDate = editDate,
             InvertMedia = invertMedia,
-            Hashtags = hashtags
+            Hashtags = hashtags,
+            EncryptedData = newEncryptedData,
+            InboxMessageEncryptedData = newInboxMessageEncryptedData
         };
 
         Emit(new OutboxMessageEditedEventV2(requestInfo,

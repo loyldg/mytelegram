@@ -94,6 +94,7 @@ public class MessageReadModel : IMessageReadModel,
     public List<string> Hashtags { get; private set; } = [];
     public List<long>? MentionedUserIds { get; private set; }
     public long? TodoId { get; private set; }
+    public ReadOnlyMemory<byte>? EncryptedData { get; private set; }
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<MessageAggregate, MessageId, OutboxMessageCreatedEvent> domainEvent,
@@ -164,6 +165,7 @@ public class MessageReadModel : IMessageReadModel,
         Pinned = messageItem.Pinned;
         InvertMedia = messageItem.InvertMedia;
         MentionedUserIds = messageItem.MentionedUserIds;
+        EncryptedData = messageItem.EncryptedData;
 
         return Task.CompletedTask;
     }
@@ -217,6 +219,7 @@ public class MessageReadModel : IMessageReadModel,
         }
 
         InvertMedia = messageItem.InvertMedia;
+        EncryptedData = messageItem.EncryptedData;
 
         return Task.CompletedTask;
     }

@@ -23,5 +23,6 @@ public interface IMessageConverterService
         bool mentioned = false,
         int layer = 0
     );
-    //IMessages ToMessages(GetMessageOutput output, int layer = 0);
+
+    string DecryptMessage(long ownerPeerId, int messageId, ReadOnlyMemory<byte>? encryptedData);
 }

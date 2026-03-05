@@ -1,13 +1,19 @@
-﻿namespace MyTelegram.Messenger.Converters.ConverterServices;
+﻿using System.Buffers.Binary;
+using System.Text;
+
+namespace MyTelegram.Messenger.Converters.ConverterServices;
 
 public class MessageConverterService(
     IMessageMediaResponseService messageMediaResponseService,
     ILayeredService<IMessageConverter> messageLayeredService,
     ILayeredService<IMessageServiceConverter> messageServiceLayeredService,
     ILayeredService<IMessageFwdHeaderConverter> messageFwdHeaderLayeredService,
-    ILayeredService<IPollConverter> pollLayeredService
+    ILayeredService<IPollConverter> pollLayeredService,
+    IDataEncryptionHelper dataEncryptionHelper,
+    IOptionsMonitor<MyTelegramMessengerServerOptions> options
 ) : IMessageConverterService, ITransientDependency
 {
+    private static Dictionary<int, byte[]> _keys = [];
     public IMessage ToMessage(
         long selfUserId,
         IMessageReadModel readModel,
@@ -129,6 +135,16 @@ public class MessageConverterService(
                         m.MediaUnread = true;
                     }
 
+                    if (readModel.EncryptedData?.Length > 0)
+                    {
+                        m.Message = DecryptMessage(readModel.OwnerPeerId, readModel.MessageId, readModel.EncryptedData);
+                    }
+
+                    if (string.IsNullOrEmpty(m.Message))
+                    {
+                        m.Message = string.Empty;
+                    }
+
                     return m;
                 }
         }
@@ -212,7 +228,7 @@ public class MessageConverterService(
                     }
 
                     var m = messageServiceLayeredService.GetConverter(layer).ToMessage(item);
-                    
+
                     m.Out = isOut;
                     m.Mentioned = mentioned;
                     m.MediaUnread = mentioned;
@@ -280,6 +296,11 @@ public class MessageConverterService(
                         m.FromScheduled = item.ScheduleDate.HasValue;
                     }
 
+                    if (item.EncryptedData?.Length > 0)
+                    {
+                        m.Message = DecryptMessage(item.OwnerPeer.PeerId, item.MessageId, item.EncryptedData);
+                    }
+
                     return m;
                 }
         }
@@ -319,5 +340,44 @@ public class MessageConverterService(
         }
 
         return messageReplies;
+    }
+
+    private void InitKeys()
+    {
+        if (_keys.Count == 0)
+        {
+            _keys = options.CurrentValue.EncryptionConfig.MessageKeys.ToDictionary(k => k.Id,
+                v => Encoding.UTF8.GetBytes(v.Key));
+        }
+    }
+
+    public string DecryptMessage(long ownerPeerId, int messageId, ReadOnlyMemory<byte>? encryptedData)
+    {
+        if (encryptedData == null)
+        {
+            return string.Empty;
+        }
+        //var key=op
+
+        InitKeys();
+
+        var encryptedSpan = encryptedData.Value.Span;
+        var keyId = BinaryPrimitives.ReadInt32LittleEndian(encryptedSpan);
+
+        if (!_keys.TryGetValue(keyId, out var masterKey))
+        {
+            return string.Empty;
+        }
+        var tempBytes = ArrayPool<byte>.Shared.Rent(encryptedSpan.Length);
+        try
+        {
+            var span = tempBytes.AsSpan(0, encryptedSpan.Length);
+            var count = dataEncryptionHelper.Decrypt(masterKey, ownerPeerId, encryptedSpan.Slice(4), span);
+            return Encoding.UTF8.GetString(span.Slice(0, count));
+        }
+        finally
+        {
+            ArrayPool<byte>.Shared.Return(tempBytes);
+        }
     }
 }

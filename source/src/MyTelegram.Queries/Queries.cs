@@ -210,7 +210,8 @@ public record GetMessagesQuery(
     MessageActionType? MessageActionType = null,
     bool BroadcastsOnly = false,
     bool GroupsOnly = false,
-    bool UsersOnly = false
+    bool UsersOnly = false,
+    List<long>? Tokens = null
 )
     : IQuery<IReadOnlyCollection<IMessageReadModel>>
 {
@@ -659,7 +660,7 @@ public record GetShareableFolderCountQuery(long UserId) : IQuery<int>;
 public record GetMaxFolderIdQuery(long UserId) : IQuery<int>;
 public record GetAllDialogFiltersQuery(int Skip, int Limit) : IQuery<IReadOnlyCollection<IDialogFilterReadModel>>;
 public record GetImportedDialogFolderQuery(long UserId, string Slug) : IQuery<IDialogFilterReadModel?>;
-public record SearchPostsQuery(string Hashtag, int OffsetRate, long OffsetPeerId, int OffsetId, int Limit) : IQuery<IReadOnlyCollection<IMessageReadModel>>;
+public record SearchPostsQuery(string Hashtag, string? Query, List<long>? Tokens, int OffsetRate, long OffsetPeerId, int OffsetId, int Limit) : IQuery<IReadOnlyCollection<IMessageReadModel>>;
 public record GetPostsCountQuery(string Hashtag, int OffsetRate, int OffsetId) : IQuery<int>;
 
 public record GetFilesQuery(List<long> FileIds) : IQuery<IReadOnlyCollection<IFileReadModel>>;

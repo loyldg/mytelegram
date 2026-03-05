@@ -59,4 +59,5 @@ public interface IMessageReadModel : IReadModel, IReactionItem
     List<string> Hashtags { get; }
     List<long>? MentionedUserIds { get; }
     long? TodoId { get; }
+    ReadOnlyMemory<byte>? EncryptedData { get; }
 }
