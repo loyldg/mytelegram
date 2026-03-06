@@ -1,6 +1,6 @@
 # MyTelegram
 
-[![API Layer](https://img.shields.io/badge/API_Layer-221-blueviolet)](https://corefork.telegram.org/methods)
+[![API Layer](https://img.shields.io/badge/API_Layer-222-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![MyTelegram Channel](https://img.shields.io/badge/Subscribe-_MyTelegram_Channel-0088cc)](https://t.me/+9wMJrMqLTIoyYzM8)
 [![MyTelegram Discussion Group](https://img.shields.io/badge/Join_-MyTelegram_Discussion_Group-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
@@ -10,7 +10,7 @@ MyTelegram is a self-hosted C# implementation of the Telegram server-side API, d
 ## Supported Features
 
 ### Open Source Features
-- API Layer: `221`
+- API Layer: `222`
 - MTProto Transports: `Abridged`, `Intermediate`
 - Private Chat
 - Supergroup Chat
@@ -19,8 +19,8 @@ MyTelegram is a self-hosted C# implementation of the Telegram server-side API, d
 ### Pro Version Features
 - End-to-End Encrypted Chat
 - Voice & Video Calls
-- Bot Support (Partial)
-- Privacy settings & 2FA
+- Bot Support
+- Privacy Settings & 2FA
 - Stickers
 - Reactions
 - Star Gifts
@@ -31,7 +31,7 @@ MyTelegram is a self-hosted C# implementation of the Telegram server-side API, d
 - Chatlist
 - Telegram Business
 - Stories
-- Passkey login
+- Passkey Login
 - Email Login
 - Email Sender
 - Direct Messages
