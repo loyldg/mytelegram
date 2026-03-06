@@ -353,7 +353,7 @@ public class MessageConverterService(
 
     public string DecryptMessage(long ownerPeerId, int messageId, ReadOnlyMemory<byte>? encryptedData)
     {
-        if (encryptedData == null)
+        if (encryptedData == null || encryptedData.Value.IsEmpty)
         {
             return string.Empty;
         }

@@ -52,6 +52,10 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         int senderMessageId)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+        if (inboxMessageItem.EncryptedData != null)
+        {
+            inboxMessageItem = inboxMessageItem with { Message = string.Empty };
+        }
         Emit(new InboxMessageCreatedEvent(requestInfo, inboxMessageItem, senderMessageId));
     }
 
@@ -75,6 +79,11 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         if (!outboxMessageItem.BatchId.HasValue)
         {
             outboxMessageItem = outboxMessageItem with { BatchId = SequentialGuid.Create() };
+        }
+
+        if (outboxMessageItem.EncryptedData != null)
+        {
+            outboxMessageItem = outboxMessageItem with { Message = string.Empty };
         }
 
         Emit(new OutboxMessageCreatedEvent(requestInfo,
@@ -163,7 +172,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         if (encryptedData != null)
         {
             newEncryptedData = encryptedData;
-            newMessage = null;
+            newMessage = string.Empty;
         }
 
         var oldMessageItem = _state.MessageItem;
@@ -222,7 +231,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         if (encryptedData != null)
         {
             newEncryptedData = encryptedData;
-            newMessage = null;
+            newMessage = string.Empty;
         }
 
         if (inboxMessageEncryptedData != null)
