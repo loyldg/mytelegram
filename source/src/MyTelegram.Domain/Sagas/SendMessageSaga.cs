@@ -102,7 +102,7 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
                     messageItem.QuickReplyItem != null
                 ),
                 requestInfo,
-                messageItem,
+                messageItem with { InboxMessageEncryptedData = null },
                 item.MentionedUserIds,
                 messageItem.ReplyToMsgItems,
                 item.ClearDraft,
@@ -357,6 +357,11 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
         var inboxMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, inboxOwnerUserId);
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, inboxOwnerUserId);
         var aggregateId = MessageId.Create(inboxOwnerUserId, inboxMessageId);
+        ReadOnlyMemory<byte>? encryptedData = null;
+        if (_state.OutboxMessageItems.TryGetValue(outboxMessageItem.MessageId, out var item))
+        {
+            encryptedData = item.MessageItem.InboxMessageEncryptedData;
+        }
         var inboxMessageItem = outMessageItem with
         {
             OwnerPeer = new Peer(PeerType.User, inboxOwnerUserId),
@@ -364,7 +369,8 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
             MessageId = inboxMessageId,
             IsOut = false,
             InputReplyTo = replyTo,
-            Pts = pts
+            Pts = pts,
+            EncryptedData = encryptedData
         };
 
         var command = new CreateInboxMessageCommand(aggregateId, _state.RequestInfo, inboxMessageItem, outMessageItem.MessageId);

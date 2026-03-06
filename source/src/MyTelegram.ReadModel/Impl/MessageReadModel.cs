@@ -235,6 +235,7 @@ public class MessageReadModel : IMessageReadModel,
         ReplyMarkup2 = item.ReplyMarkup;
         Media2 = item.Media;
         InvertMedia = item.InvertMedia;
+        EncryptedData = item.EncryptedData;
 
         return Task.CompletedTask;
     }
@@ -250,6 +251,7 @@ public class MessageReadModel : IMessageReadModel,
         ReplyMarkup2 = item.ReplyMarkup;
         Media2 = item.Media;
         InvertMedia = item.InvertMedia;
+        EncryptedData = item.EncryptedData;
 
         return Task.CompletedTask;
     }

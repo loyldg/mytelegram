@@ -31,7 +31,7 @@ public class SendMessageSagaState : AggregateState<SendMessageSaga, SendMessageS
     public List<MessageItem> InboxMessageItems { get; private set; } = [];
 
     public bool IsSendOutboxMessageCompleted => SentCount == SendMessageItems.Count;
-
+    public Dictionary<int, SendMessageItem> OutboxMessageItems { get; private set; } = [];
     public void Apply(SendMessageStartedSagaEvent aggregateEvent)
     {
         RequestInfo = aggregateEvent.RequestInfo;
@@ -48,6 +48,7 @@ public class SendMessageSagaState : AggregateState<SendMessageSaga, SendMessageS
         {
             TotalCount = SendMessageItems.Count * aggregateEvent.ChatMembers.Count;
         }
+        OutboxMessageItems = aggregateEvent.SendMessageItems.ToDictionary(k => k.MessageItem.MessageId);
     }
 
     public void Apply(ReceiveInboxMessageCompletedSagaEvent aggregateEvent)
