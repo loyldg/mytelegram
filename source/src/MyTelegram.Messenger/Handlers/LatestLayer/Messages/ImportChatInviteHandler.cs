@@ -58,6 +58,7 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
                 RpcErrors.RpcErrors400.UsersTooMuch.ThrowRpcError();
             }
         }
+
         var channelReadModel = await channelAppService.GetAsync(channelId);
         var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == chatInviteReadModel.AdminId);
         if (admin == null)
@@ -93,6 +94,6 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
 
         var command = new ImportChatInviteCommand(ChatInviteId.Create(chatInviteReadModel.PeerId, chatInviteReadModel.InviteId), input.ToRequestInfo(), requestState, CurrentDate);
         await commandBus.PublishAsync(command);
-        return null!;
+        return null !;
     }
 }

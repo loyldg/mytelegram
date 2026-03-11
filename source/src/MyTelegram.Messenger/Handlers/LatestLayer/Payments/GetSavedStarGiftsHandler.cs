@@ -6,11 +6,13 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
 /// Possible errors
 /// Code Type Description
 /// 400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.
+/// 400 COLLECTION_ID_INVALID  
+/// 400 MSG_ID_INVALID Invalid message ID provided.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// <para><c>See <a href="https://corefork.telegram.org/method/payments.getSavedStarGifts"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetSavedStarGiftsHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestGetSavedStarGifts, MyTelegram.Schema.Payments.ISavedStarGifts>
 {

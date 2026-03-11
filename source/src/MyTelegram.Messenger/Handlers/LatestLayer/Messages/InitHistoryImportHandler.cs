@@ -9,6 +9,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 400 IMPORT_FORMAT_UNRECOGNIZED The specified chat export file was exported from an unsupported chat app.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_%dMIN Import for this chat is already in progress, wait %d minutes before starting a new one.
+/// 400 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.
 /// <para><c>See <a href="https://corefork.telegram.org/method/messages.initHistoryImport"/> </c></para>
 /// </summary>
 /// <remarks>

@@ -10,6 +10,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN You can't forward polls with public voters.
 /// 400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.
 /// 400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.
+/// 400 BUSINESS_PEER_USAGE_MISSING You cannot send a message to a user through a <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a> if the user hasn't recently contacted us.
 /// 400 BUTTON_COPY_TEXT_INVALID The specified <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy">keyboardButtonCopy</a>.<code>copy_text</code> is invalid.
 /// 400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.
 /// 400 BUTTON_POS_INVALID The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...).
@@ -36,10 +37,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
 /// 400 CURRENCY_TOTAL_AMOUNT_INVALID The total amount of all prices is invalid.
 /// 400 DOCUMENT_INVALID The specified document is invalid.
+/// 400 EFFECT_CHAT_INVALID  
 /// 400 EFFECT_ID_INVALID The specified effect ID is invalid.
 /// 400 EMOTICON_INVALID The specified emoji is invalid.
 /// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.
 /// 400 EXTENDED_MEDIA_AMOUNT_INVALID The specified <code>stars_amount</code> of the passed <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia">inputMediaPaidMedia</a> is invalid.
+/// 400 EXTENDED_MEDIA_EMPTY  
 /// 400 EXTENDED_MEDIA_INVALID The specified paid media is invalid.
 /// 400 EXTERNAL_URL_INVALID External URL invalid.
 /// 400 FILE_PARTS_INVALID The number of file parts is invalid.
@@ -82,6 +85,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.
 /// 400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.
 /// 400 REPLY_MESSAGE_ID_INVALID The specified reply-to message ID is invalid.
+/// 400 REPLY_TO_MONOFORUM_PEER_INVALID The specified inputReplyToMonoForum.monoforum_peer_id is invalid.
 /// 400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.
 /// 400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.
 /// 400 SCHEDULE_TOO_MUCH There are too many scheduled messages.
@@ -165,7 +169,7 @@ internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppServ
         }
 
         var sendMessageInput = new SendMessageInput(input.ToRequestInfo(), input.UserId, peerHelper.GetPeer(obj.Peer, input.UserId), obj.Message, obj.RandomId, clearDraft: obj.ClearDraft, entities: obj.Entities, media: media, //replyToMsgId: replyToMsgId,
-        inputReplyTo: obj.ReplyTo, sendMessageType: SendMessageType.Media, messageType: mediaHelper.GeMessageType(media), pollId: pollId, topMsgId: topMsgId, sendAs: peerHelper.GetPeer(obj.SendAs, input.UserId), effect: obj.Effect, inputQuickReplyShortcut: obj.QuickReplyShortcut, replyMarkup: obj.ReplyMarkup, silent: obj.Silent, scheduleDate: obj.ScheduleDate, invertMedia: obj.InvertMedia);
+ inputReplyTo: obj.ReplyTo, sendMessageType: SendMessageType.Media, messageType: mediaHelper.GeMessageType(media), pollId: pollId, topMsgId: topMsgId, sendAs: peerHelper.GetPeer(obj.SendAs, input.UserId), effect: obj.Effect, inputQuickReplyShortcut: obj.QuickReplyShortcut, replyMarkup: obj.ReplyMarkup, silent: obj.Silent, scheduleDate: obj.ScheduleDate, invertMedia: obj.InvertMedia);
         await messageAppService.SendMessageAsync([sendMessageInput]);
         return null !;
     }
@@ -179,16 +183,7 @@ internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppServ
             solutionEntities = [];
         }
 
-        var command = new CreatePollCommand(PollId.Create(poll.Id),
-            toPeer, poll.Id, poll.MultipleChoice,
-            poll.Quiz, inputMediaPoll.Poll.PublicVoters,
-            poll.Question.Text,
-            poll.Answers.Select(p => new PollAnswer(p.Text.Text, p.Option, p.Text.Entities.ToBytes())).ToList(),
-            inputMediaPoll.CorrectAnswers?.ToList(),
-            inputMediaPoll.Solution, solutionEntities,
-            poll.Question.Entities,
-            creatorUserId
-            );
+        var command = new CreatePollCommand(PollId.Create(poll.Id), toPeer, poll.Id, poll.MultipleChoice, poll.Quiz, inputMediaPoll.Poll.PublicVoters, poll.Question.Text, poll.Answers.Select(p => new PollAnswer(p.Text.Text, p.Option, p.Text.Entities.ToBytes())).ToList(), inputMediaPoll.CorrectAnswers?.ToList(), inputMediaPoll.Solution, solutionEntities, poll.Question.Entities, creatorUserId);
         await commandBus.PublishAsync(command);
     }
 }

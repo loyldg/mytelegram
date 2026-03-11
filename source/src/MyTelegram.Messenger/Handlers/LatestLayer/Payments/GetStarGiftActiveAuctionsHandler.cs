@@ -1,13 +1,11 @@
-﻿
 using MyTelegram.Schema.Payments;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// <para><c>See <a href="https://corefork.telegram.org/method/payments.getStarGiftActiveAuctions"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetStarGiftActiveAuctionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestGetStarGiftActiveAuctions, MyTelegram.Schema.Payments.IStarGiftActiveAuctions>, IObjectHandler
 {
@@ -21,4 +19,3 @@ internal sealed class GetStarGiftActiveAuctionsHandler : RpcResultObjectHandler<
         };
     }
 }
-

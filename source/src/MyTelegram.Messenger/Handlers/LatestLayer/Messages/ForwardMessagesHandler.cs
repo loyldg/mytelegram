@@ -33,10 +33,11 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 400 MESSAGE_IDS_EMPTY No message ids were provided.
 /// 400 MESSAGE_ID_INVALID The provided message id is invalid.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
+/// 500 NEED_DOC_INVALID  
 /// 406 PAYMENT_UNSUPPORTED A detailed description of the error will be received separately as described <a href="https://corefork.telegram.org/api/errors#406-not-acceptable">here »</a>.
 /// 406 PEER_ID_INVALID The provided peer id is invalid.
 /// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
+/// 406 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
 /// 400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.
 /// 400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.
 /// 400 QUIZ_ANSWER_MISSING You can forward a quiz while hiding the original author only after choosing an option in the quiz.
@@ -123,23 +124,8 @@ internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper
             }
         }
 
-        var command = new StartForwardMessagesCommand(TempId.New,
-            input.ToRequestInfo(),
-            obj.Silent,
-            obj.Background,
-            obj.WithMyScore,
-            obj.DropAuthor,
-            obj.DropMediaCaptions,
-            obj.Noforwards,
-            fromPeer,
-            toPeer,
-            obj.Id.ToList(),
-            obj.RandomId.ToList(),
-            obj.ScheduleDate,
-            sendAs,
-            false,
-            post);
+        var command = new StartForwardMessagesCommand(TempId.New, input.ToRequestInfo(), obj.Silent, obj.Background, obj.WithMyScore, obj.DropAuthor, obj.DropMediaCaptions, obj.Noforwards, fromPeer, toPeer, obj.Id.ToList(), obj.RandomId.ToList(), obj.ScheduleDate, sendAs, false, post);
         await commandBus.PublishAsync(command);
-        return null!;
+        return null !;
     }
 }

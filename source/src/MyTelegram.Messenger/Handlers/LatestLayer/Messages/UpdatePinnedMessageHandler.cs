@@ -47,6 +47,6 @@ internal sealed class UpdatePinnedMessageHandler(ICommandBus commandBus, IPeerHe
 
         var command = new StartUpdatePinnedMessagesCommand(TempId.New, input.ToRequestInfo(), messageItems, peer, !obj.Unpin, obj.PmOneside);
         await commandBus.PublishAsync(command);
-        return null!;
+        return null !;
     }
 }

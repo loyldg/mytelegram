@@ -1,11 +1,12 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// Possible errors
+/// Code Type Description
+/// 400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.
+/// <para><c>See <a href="https://corefork.telegram.org/method/payments.craftStarGift"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class CraftStarGiftHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestCraftStarGift, MyTelegram.Schema.IUpdates>, IObjectHandler
 {
@@ -14,4 +15,3 @@ internal sealed class CraftStarGiftHandler : RpcResultObjectHandler<MyTelegram.S
         throw new NotImplementedException();
     }
 }
-

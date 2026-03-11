@@ -14,7 +14,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetDiscussionMessageHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAppService channelAppService, //ILayeredService<IChannelConverter> layeredChatService,
-IChatConverterService chatConverterService, IMessageConverterService messageConverterService, IAccessHashHelper accessHashHelper, IPhotoAppService photoAppService) : RpcResultObjectHandler<RequestGetDiscussionMessage, IDiscussionMessage>
+ IChatConverterService chatConverterService, IMessageConverterService messageConverterService, IAccessHashHelper accessHashHelper, IPhotoAppService photoAppService) : RpcResultObjectHandler<RequestGetDiscussionMessage, IDiscussionMessage>
 {
     protected override async Task<IDiscussionMessage> HandleCoreAsync(IRequestInput input, RequestGetDiscussionMessage obj)
     {

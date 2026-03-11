@@ -9,7 +9,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Users;
 /// <para><c>See <a href="https://corefork.telegram.org/method/users.getSavedMusic"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetSavedMusicHandler : RpcResultObjectHandler<MyTelegram.Schema.Users.RequestGetSavedMusic, MyTelegram.Schema.Users.ISavedMusic>, IObjectHandler
 {

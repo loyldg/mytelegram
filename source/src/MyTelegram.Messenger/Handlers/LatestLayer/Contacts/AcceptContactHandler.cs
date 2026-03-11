@@ -25,7 +25,7 @@ internal sealed class AcceptContactHandler(ICommandBus commandBus, IUserAppServi
         }
 
         var command = new AddContactCommand(ContactId.Create(input.UserId, peer.PeerId), input.ToRequestInfo(), input.UserId, peer.PeerId, userReadModel!.PhoneNumber, //null,
-        userReadModel.FirstName, userReadModel.LastName, false);
+ userReadModel.FirstName, userReadModel.LastName, false);
         await commandBus.PublishAsync(command, default);
         return null !;
     }

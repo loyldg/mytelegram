@@ -11,8 +11,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class UpdateColorHandler(ICommandBus commandBus)
-    : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestUpdateColor, IBool>
+internal sealed class UpdateColorHandler(ICommandBus commandBus) : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestUpdateColor, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestUpdateColor obj)
     {
@@ -23,7 +22,7 @@ internal sealed class UpdateColorHandler(ICommandBus commandBus)
                 color = new PeerColor(peerColor.Color, peerColor.BackgroundEmojiId);
                 break;
         }
-        
+
         var command = new UpdateColorCommand(UserId.Create(input.UserId), input.ToRequestInfo(), color, obj.ForProfile);
         await commandBus.PublishAsync(command, CancellationToken.None);
         return new TBoolTrue();

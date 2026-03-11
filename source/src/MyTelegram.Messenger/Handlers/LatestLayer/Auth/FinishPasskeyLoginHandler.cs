@@ -1,10 +1,14 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Auth;
-
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Auth;
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// Possible errors
+/// Code Type Description
+/// 500 AUTH_RESTART Restart the authorization process.
+/// 400 CREDENTIAL_INVALID  
+/// 500 PASSKEY_AUTH_RESTART  
+/// <para><c>See <a href="https://corefork.telegram.org/method/auth.finishPasskeyLogin"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
 /// </remarks>
 internal sealed class FinishPasskeyLoginHandler : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestFinishPasskeyLogin, MyTelegram.Schema.Auth.IAuthorization>
 {
@@ -13,4 +17,3 @@ internal sealed class FinishPasskeyLoginHandler : RpcResultObjectHandler<MyTeleg
         throw new NotImplementedException();
     }
 }
-

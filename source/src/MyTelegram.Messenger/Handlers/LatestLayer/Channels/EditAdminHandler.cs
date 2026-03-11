@@ -25,6 +25,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// 403 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.
 /// 400 USER_CREATOR For channels.editAdmin: you've tried to edit the admin rights of the owner, but you're not the owner; for channels.leaveChannel: you can't leave this channel, because you're its creator.
 /// 400 USER_ID_INVALID The provided user ID is invalid.
+/// 400 USER_KICKED This user was kicked from this supergroup/channel.
 /// 403 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.
 /// 403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this.
 /// 403 USER_RESTRICTED You're spamreported, you can't create channels or chats.
@@ -33,16 +34,13 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditAdminHandler(ICommandBus commandBus,
-    IChannelAppService channelAppService,
-    IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditAdmin, MyTelegram.Schema.IUpdates>
+internal sealed class EditAdminHandler(ICommandBus commandBus, IChannelAppService channelAppService, IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditAdmin, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestEditAdmin obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
             await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
-
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, p =>
             {
@@ -128,22 +126,19 @@ internal sealed class EditAdminHandler(ICommandBus commandBus,
 
                 return true;
             });
-
             var peer = peerHelper.GetPeer(obj.UserId, input.UserId);
             if (peer.PeerId == channelReadModel.CreatorId && input.UserId != channelReadModel.CreatorId)
             {
                 RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
             }
 
-            var chatInviteReadModel =
-                await queryProcessor.ProcessAsync(new GetPermanentChatInviteQuery(channelReadModel.ChannelId,
-                    peer.PeerId));
+            var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetPermanentChatInviteQuery(channelReadModel.ChannelId, peer.PeerId));
             var isBot = peerHelper.IsBotUser(peer.PeerId);
             var shouldCreatePermanentChatInvite = chatInviteReadModel == null;
             var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
             var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), input.UserId, false, peer.PeerId, isBot, channelMember != null, new ChatAdminRights(obj.AdminRights.Flags), obj.Rank, CurrentDate, shouldCreatePermanentChatInvite);
             await commandBus.PublishAsync(command);
-            return null!;
+            return null !;
         }
 
         throw new NotImplementedException();

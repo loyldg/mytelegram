@@ -1,11 +1,12 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.Payments;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// Possible errors
+/// Code Type Description
+/// 400 STARGIFT_INVALID The passed gift is invalid.
+/// <para><c>See <a href="https://corefork.telegram.org/method/payments.getStarGiftUpgradeAttributes"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetStarGiftUpgradeAttributesHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestGetStarGiftUpgradeAttributes, MyTelegram.Schema.Payments.IStarGiftUpgradeAttributes>, IObjectHandler
 {
@@ -14,4 +15,3 @@ internal sealed class GetStarGiftUpgradeAttributesHandler : RpcResultObjectHandl
         throw new NotImplementedException();
     }
 }
-

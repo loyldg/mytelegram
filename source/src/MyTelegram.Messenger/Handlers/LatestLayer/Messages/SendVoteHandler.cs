@@ -44,7 +44,6 @@ internal sealed class SendVoteHandler(ICommandBus commandBus, IQueryProcessor qu
 
         var command = new VoteCommand(PollId.With(pollReadModel.Id), input.ToRequestInfo(), input.UserId, obj.Options.Select(p => p).ToList());
         await commandBus.PublishAsync(command, default);
-
-        return null!;
+        return null !;
     }
 }

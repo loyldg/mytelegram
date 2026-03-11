@@ -4,14 +4,13 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// Possible errors
 /// Code Type Description
 /// 420 FROZEN_METHOD_INVALID The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and thus cannot execute the specified action.
+/// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
 /// <para><c>See <a href="https://corefork.telegram.org/method/channels.searchPosts"/> </c></para>
 /// </summary>
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor,
-    ITokenizer tokenizer,
-    IChatConverterService chatConverterService, IUserConverterService userConverterService, IMessageConverterService messageConverterService, IPeerHelper peerHelper, IMessageAppService messageAppService) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSearchPosts, MyTelegram.Schema.Messages.IMessages>
+internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor, ITokenizer tokenizer, IChatConverterService chatConverterService, IUserConverterService userConverterService, IMessageConverterService messageConverterService, IPeerHelper peerHelper, IMessageAppService messageAppService) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSearchPosts, MyTelegram.Schema.Messages.IMessages>
 {
     protected override async Task<MyTelegram.Schema.Messages.IMessages> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestSearchPosts obj)
     {
@@ -23,7 +22,7 @@ internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor,
         var tokens = tokenizer.BuildSearchTokens(obj.Query);
         var messageReadModels = await queryProcessor.ProcessAsync(new SearchPostsQuery(obj.Hashtag, obj.Query, tokens, obj.OffsetRate, peer.PeerId, obj.OffsetId, obj.Limit));
         var messages = messageConverterService.ToMessageList(input.UserId, messageReadModels, [], [], [], input.Layer);
-        var (userIds, channelIds) = messageAppService.GetExtraPeerIds(messageReadModels);
+        var(userIds, channelIds) = messageAppService.GetExtraPeerIds(messageReadModels);
         var channelIdList = channelIds.ToList();
         var channelMemberReadModels = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIdList));
         var channels = await chatConverterService.GetChannelListAsync(input, channelIdList, channelMemberReadModels, input.Layer);
@@ -35,9 +34,9 @@ internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor,
             return new TMessagesSlice
             {
                 Count = totalCount,
-                Chats = [.. channels],
-                Messages = [.. messages],
-                Users = [.. users],
+                Chats = [..channels],
+                Messages = [..messages],
+                Users = [..users],
                 NextRate = nextRate,
                 Topics = []
             };
@@ -45,9 +44,9 @@ internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor,
 
         return new TMessages
         {
-            Chats = [.. channels],
-            Messages = [.. messages],
-            Users = [.. users],
+            Chats = [..channels],
+            Messages = [..messages],
+            Users = [..users],
             Topics = []
         };
     }

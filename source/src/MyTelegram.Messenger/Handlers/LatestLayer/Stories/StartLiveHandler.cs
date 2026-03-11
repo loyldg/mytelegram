@@ -1,11 +1,12 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.Stories;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// Possible errors
+/// Code Type Description
+/// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// <para><c>See <a href="https://corefork.telegram.org/method/stories.startLive"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class StartLiveHandler : RpcResultObjectHandler<MyTelegram.Schema.Stories.RequestStartLive, MyTelegram.Schema.IUpdates>, IObjectHandler
 {
@@ -14,4 +15,3 @@ internal sealed class StartLiveHandler : RpcResultObjectHandler<MyTelegram.Schem
         throw new NotImplementedException();
     }
 }
-

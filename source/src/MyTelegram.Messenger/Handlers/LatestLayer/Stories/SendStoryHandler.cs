@@ -13,7 +13,9 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Stories;
 /// 400 MEDIA_TYPE_INVALID The specified media type cannot be used in stories.
 /// 400 MEDIA_VIDEO_STORY_MISSING A non-story video cannot be repubblished as a story (emitted when trying to resend a non-story video as a story using inputDocument).
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
+/// 400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.
 /// 400 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
+/// 400 REACTION_INVALID The specified reaction is invalid.
 /// 400 STORIES_TOO_MUCH You have hit the maximum active stories limit as specified by the <a href="https://corefork.telegram.org/api/config#story-expiring-limit-default"><code>story_expiring_limit_*</code> client configuration parameters</a>: you should buy a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription, delete an active story, or wait for the oldest story to expire.
 /// 400 STORY_PERIOD_INVALID The specified story period is invalid for this account.
 /// 400 VENUE_ID_INVALID The specified venue ID is invalid.

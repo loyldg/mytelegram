@@ -1,11 +1,12 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.Phone;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// Possible errors
+/// Code Type Description
+/// 400 GROUPCALL_INVALID The specified group call is invalid.
+/// <para><c>See <a href="https://corefork.telegram.org/method/phone.deleteGroupCallMessages"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class DeleteGroupCallMessagesHandler : RpcResultObjectHandler<MyTelegram.Schema.Phone.RequestDeleteGroupCallMessages, MyTelegram.Schema.IUpdates>, IObjectHandler
 {
@@ -14,4 +15,3 @@ internal sealed class DeleteGroupCallMessagesHandler : RpcResultObjectHandler<My
         throw new NotImplementedException();
     }
 }
-

@@ -1,11 +1,12 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.Payments;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// Possible errors
+/// Code Type Description
+/// 400 MESSAGE_ID_INVALID The provided message id is invalid.
+/// <para><c>See <a href="https://corefork.telegram.org/method/payments.resolveStarGiftOffer"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 internal sealed class ResolveStarGiftOfferHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestResolveStarGiftOffer, MyTelegram.Schema.IUpdates>, IObjectHandler
 {
@@ -14,4 +15,3 @@ internal sealed class ResolveStarGiftOfferHandler : RpcResultObjectHandler<MyTel
         throw new NotImplementedException();
     }
 }
-

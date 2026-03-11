@@ -19,9 +19,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditBannedHandler(IPeerHelper peerHelper, ICommandBus commandBus,
-    IChannelAppService channelAppService,
-    IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditBanned, MyTelegram.Schema.IUpdates>
+internal sealed class EditBannedHandler(IPeerHelper peerHelper, ICommandBus commandBus, IChannelAppService channelAppService, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditBanned, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestEditBanned obj)
     {
@@ -30,9 +28,7 @@ internal sealed class EditBannedHandler(IPeerHelper peerHelper, ICommandBus comm
             var channel = peerHelper.GetChannel(obj.Channel);
             var peer = peerHelper.GetPeer(obj.Participant);
             var channelReadModel = await channelAppService.GetAsync(channel.PeerId);
-
             await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, p => p.BanUsers && peer.PeerId != channelReadModel.CreatorId, RpcErrors.RpcErrors400.ChatAdminRequired);
-
             if (obj.BannedRights.SendPlain)
             {
                 obj.BannedRights.SendMessages = true;
@@ -42,7 +38,7 @@ internal sealed class EditBannedHandler(IPeerHelper peerHelper, ICommandBus comm
             var bannedRights = ChatBannedRights.FromValue(obj.BannedRights.Flags, obj.BannedRights.UntilDate);
             var command = new EditBannedCommand(ChannelMemberId.Create(channel.PeerId, peer.PeerId), input.ToRequestInfo(), input.UserId, channel.PeerId, peer.PeerId, bannedRights);
             await commandBus.PublishAsync(command);
-            return null!;
+            return null !;
         }
 
         throw new NotImplementedException();

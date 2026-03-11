@@ -5,6 +5,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// Code Type Description
 /// 400 PHONE_CODE_EMPTY phone_code is missing.
 /// 400 PHONE_CODE_EXPIRED The phone code you provided has expired.
+/// 400 PHONE_CODE_INVALID The provided phone code is invalid.
 /// 406 PHONE_NUMBER_INVALID The phone number is invalid.
 /// 400 PHONE_NUMBER_OCCUPIED The phone number is already in use.
 /// <para><c>See <a href="https://corefork.telegram.org/method/account.changePhone"/> </c></para>

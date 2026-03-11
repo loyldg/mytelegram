@@ -13,7 +13,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Contacts;
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 internal sealed class ResolveUsernameHandler(IQueryProcessor queryProcessor, //ILayeredService<IChatConverter> layeredChatService,
-//ILayeredService<IUserConverter> layeredUserService,
+ //ILayeredService<IUserConverter> layeredUserService,
 IChatConverterService chatConverterService, IUserConverterService userConverterService, IChannelAppService channelAppService, IPhotoAppService photoAppService) : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestResolveUsername, MyTelegram.Schema.Contacts.IResolvedPeer>
 {
     protected override async Task<IResolvedPeer> HandleCoreAsync(IRequestInput input, RequestResolveUsername obj)

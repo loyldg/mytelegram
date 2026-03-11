@@ -38,6 +38,6 @@ internal sealed class UnpinAllMessagesHandler(ICommandBus commandBus, IPeerHelpe
 
         var command = new StartUnpinAllMessagesCommand(TempId.New, input.ToRequestInfo(), messageItems, peer);
         await commandBus.PublishAsync(command);
-        return null!;
+        return null !;
     }
 }

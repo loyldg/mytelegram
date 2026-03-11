@@ -4,6 +4,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
 /// Possible errors
 /// Code Type Description
 /// 400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.
+/// 400 STARGIFT_OWNER_INVALID You cannot transfer or sell a gift owned by another user.
 /// 400 STARGIFT_SLUG_INVALID The specified gift slug is invalid.
 /// <para><c>See <a href="https://corefork.telegram.org/method/payments.getSavedStarGift"/> </c></para>
 /// </summary>

@@ -1,10 +1,9 @@
-﻿namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
-
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// <para><c>See <a href="https://corefork.telegram.org/method/account.deletePasskey"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class DeletePasskeyHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestDeletePasskey, IBool>
 {
@@ -13,4 +12,3 @@ internal sealed class DeletePasskeyHandler : RpcResultObjectHandler<MyTelegram.S
         return new TBoolTrue();
     }
 }
-

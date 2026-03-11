@@ -1,11 +1,9 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// <para><c>See <a href="https://corefork.telegram.org/method/messages.getEmojiGameInfo"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetEmojiGameInfoHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetEmojiGameInfo, MyTelegram.Schema.Messages.IEmojiGameInfo>, IObjectHandler
 {
@@ -14,4 +12,3 @@ internal sealed class GetEmojiGameInfoHandler : RpcResultObjectHandler<MyTelegra
         return Task.FromResult<MyTelegram.Schema.Messages.IEmojiGameInfo>(new TEmojiGameUnavailable());
     }
 }
-

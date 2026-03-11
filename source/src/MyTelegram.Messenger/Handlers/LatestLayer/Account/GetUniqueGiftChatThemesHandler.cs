@@ -7,7 +7,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetUniqueGiftChatThemesHandler: RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetUniqueGiftChatThemes, MyTelegram.Schema.Account.IChatThemes>, IObjectHandler
+internal sealed class GetUniqueGiftChatThemesHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetUniqueGiftChatThemes, MyTelegram.Schema.Account.IChatThemes>, IObjectHandler
 {
     protected override async Task<MyTelegram.Schema.Account.IChatThemes> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestGetUniqueGiftChatThemes obj)
     {
@@ -17,7 +17,6 @@ internal sealed class GetUniqueGiftChatThemesHandler: RpcResultObjectHandler<MyT
             Users = [],
             Themes = [],
         };
-
         return starGiftUniqueThemes;
     }
 }

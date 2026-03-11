@@ -1,11 +1,9 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// <para><c>See <a href="https://corefork.telegram.org/method/account.getPasskeys"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetPasskeysHandler : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestGetPasskeys, MyTelegram.Schema.Account.IPasskeys>
 {
@@ -17,4 +15,3 @@ internal sealed class GetPasskeysHandler : RpcResultObjectHandler<MyTelegram.Sch
         };
     }
 }
-

@@ -4,6 +4,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
 /// Possible errors
 /// Code Type Description
 /// 400 STARGIFT_INVALID The passed gift is invalid.
+/// 400 STARGIFT_UPGRADE_UNAVAILABLE A received gift can only be upgraded to a collectible gift if the <a href="https://corefork.telegram.org/constructor/messageActionStarGift">messageActionStarGift</a>/<a href="https://corefork.telegram.org/constructor/savedStarGift">savedStarGift</a>.<code>can_upgrade</code> flag is set.
 /// <para><c>See <a href="https://corefork.telegram.org/method/payments.getStarGiftUpgradePreview"/> </c></para>
 /// </summary>
 /// <remarks>

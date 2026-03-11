@@ -11,29 +11,14 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SearchGlobalHandler(IMessageAppService messageAppService,
-    ITokenizer tokenizer,
-    IQueryProcessor queryProcessor, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<RequestSearchGlobal, IMessages>
+internal sealed class SearchGlobalHandler(IMessageAppService messageAppService, ITokenizer tokenizer, IQueryProcessor queryProcessor, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<RequestSearchGlobal, IMessages>
 {
     protected override async Task<IMessages> HandleCoreAsync(IRequestInput input, RequestSearchGlobal obj)
     {
         var userId = input.UserId;
         var allJoinedChannelIdList = await queryProcessor.ProcessAsync(new GetAllJoinedChannelIdListQuery(input.UserId));
         var tokens = tokenizer.BuildSearchTokens(obj.Q);
-        var getMessageOutput = await messageAppService.SearchGlobalAsync(new SearchGlobalInput
-        {
-            OwnerPeerId = userId,
-            SelfUserId = userId,
-            Limit = obj.Limit,
-            Q = obj.Q,
-            FolderId = obj.FolderId,
-            OffsetId = obj.OffsetId,
-            JoinedChannelList = allJoinedChannelIdList.ToList(),
-            BroadcastsOnly = obj.BroadcastsOnly,
-            GroupsOnly = obj.GroupsOnly,
-            UsersOnly = obj.UsersOnly,
-            Tokens = tokens
-        });
+        var getMessageOutput = await messageAppService.SearchGlobalAsync(new SearchGlobalInput { OwnerPeerId = userId, SelfUserId = userId, Limit = obj.Limit, Q = obj.Q, FolderId = obj.FolderId, OffsetId = obj.OffsetId, JoinedChannelList = allJoinedChannelIdList.ToList(), BroadcastsOnly = obj.BroadcastsOnly, GroupsOnly = obj.GroupsOnly, UsersOnly = obj.UsersOnly, Tokens = tokens });
         return getHistoryConverterService.ToMessages(input, getMessageOutput, input.Layer);
     }
 }

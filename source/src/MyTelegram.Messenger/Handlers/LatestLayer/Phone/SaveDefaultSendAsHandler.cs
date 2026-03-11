@@ -1,11 +1,12 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.Phone;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// Possible errors
+/// Code Type Description
+/// 400 GROUPCALL_INVALID The specified group call is invalid.
+/// <para><c>See <a href="https://corefork.telegram.org/method/phone.saveDefaultSendAs"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class SaveDefaultSendAsHandler : RpcResultObjectHandler<MyTelegram.Schema.Phone.RequestSaveDefaultSendAs, IBool>, IObjectHandler
 {
@@ -14,4 +15,3 @@ internal sealed class SaveDefaultSendAsHandler : RpcResultObjectHandler<MyTelegr
         throw new NotImplementedException();
     }
 }
-

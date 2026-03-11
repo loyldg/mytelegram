@@ -11,6 +11,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Updates;
 /// 400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.
 /// 400 FROZEN_PARTICIPANT_MISSING The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and cannot access the specified peer.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
+/// 500 NEED_DOC_INVALID  
 /// 400 PERSISTENT_TIMESTAMP_EMPTY Persistent timestamp empty.
 /// 400 PERSISTENT_TIMESTAMP_INVALID Persistent timestamp invalid.
 /// 500 PERSISTENT_TIMESTAMP_OUTDATED Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL).
@@ -23,7 +24,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Updates;
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetChannelDifferenceHandler(IMessageAppService messageAppService, IQueryProcessor queryProcessor, IAckCacheService ackCacheService, //ILayeredService<IDifferenceConverter> layeredService,
-IDifferenceConverterService differenceConverterService, IAccessHashHelper accessHashHelper, ILogger<GetChannelDifferenceHandler> logger) : RpcResultObjectHandler<MyTelegram.Schema.Updates.RequestGetChannelDifference, MyTelegram.Schema.Updates.IChannelDifference>
+ IDifferenceConverterService differenceConverterService, IAccessHashHelper accessHashHelper, ILogger<GetChannelDifferenceHandler> logger) : RpcResultObjectHandler<MyTelegram.Schema.Updates.RequestGetChannelDifference, MyTelegram.Schema.Updates.IChannelDifference>
 {
     //private readonly IRpcResultProcessor _rpcResultProcessor;
     private readonly ILogger<GetChannelDifferenceHandler> _logger = logger;

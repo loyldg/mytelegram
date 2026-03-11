@@ -3,6 +3,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// Save a message <a href="https://corefork.telegram.org/api/drafts">draft</a> associated to a chat.
 /// Possible errors
 /// Code Type Description
+/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
 /// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
 /// 400 MSG_ID_INVALID Invalid message ID provided.

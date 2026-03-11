@@ -11,16 +11,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetPollVotesHandler(IQueryProcessor queryProcessor,
-    IChatConverterService chatConverterService,
-    IUserConverterService userConverterService,
-    IChannelAppService channelAppService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetPollVotes, MyTelegram.Schema.Messages.IVotesList>
+internal sealed class GetPollVotesHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IUserConverterService userConverterService, IChannelAppService channelAppService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetPollVotes, MyTelegram.Schema.Messages.IVotesList>
 {
     protected override async Task<MyTelegram.Schema.Messages.IVotesList> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetPollVotes obj)
     {
         var peer = obj.Peer.ToPeer();
         var ownerPeerId = peer.PeerId;
-
         if (peer.PeerType == PeerType.Channel)
         {
             var channelReadModel = await channelAppService.GetAsync(peer.PeerId);
@@ -30,8 +26,7 @@ internal sealed class GetPollVotesHandler(IQueryProcessor queryProcessor,
             }
         }
 
-        var messageReadModel =
-            await queryProcessor.ProcessAsync(new GetMessageByPeerIdAndMessageIdQuery(ownerPeerId, obj.Id));
+        var messageReadModel = await queryProcessor.ProcessAsync(new GetMessageByPeerIdAndMessageIdQuery(ownerPeerId, obj.Id));
         if (messageReadModel == null || messageReadModel.PollId == null)
         {
             RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
@@ -42,16 +37,15 @@ internal sealed class GetPollVotesHandler(IQueryProcessor queryProcessor,
         {
             limit = 100;
         }
-        int.TryParse(obj.Offset, out var offset);
 
-        var pollVoterReadModels =
-            await queryProcessor.ProcessAsync(new GetPollVotesQuery(messageReadModel!.PollId!.Value, obj.Option, offset,
-                limit));
+        int.TryParse(obj.Offset, out var offset);
+        var pollVoterReadModels = await queryProcessor.ProcessAsync(new GetPollVotesQuery(messageReadModel!.PollId!.Value, obj.Option, offset, limit));
         string? nextOffset = null;
         if (pollVoterReadModels.Count == limit)
         {
             nextOffset = (offset + pollVoterReadModels.Count).ToString();
         }
+
         var result = new TVotesList
         {
             Count = pollVoterReadModels.Count,
@@ -89,7 +83,6 @@ internal sealed class GetPollVotesHandler(IQueryProcessor queryProcessor,
 
         var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
         result.Users.AddRange(users);
-
         return result;
     }
 }

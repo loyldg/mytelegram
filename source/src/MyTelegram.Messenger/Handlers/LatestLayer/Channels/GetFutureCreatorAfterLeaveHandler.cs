@@ -1,11 +1,12 @@
-﻿
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
-
 /// <summary>
-/// <para><c>See <a href="" /> </c></para>
+/// Possible errors
+/// Code Type Description
+/// 400 CHANNEL_INVALID The provided channel is invalid.
+/// <para><c>See <a href="https://corefork.telegram.org/method/channels.getFutureCreatorAfterLeave"/> </c></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetFutureCreatorAfterLeaveHandler(IChannelAppService channelAppService, IQueryProcessor queryProcessor, IUserConverterService userConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestGetFutureCreatorAfterLeave, MyTelegram.Schema.IUser>, IObjectHandler
 {
@@ -22,9 +23,7 @@ internal sealed class GetFutureCreatorAfterLeaveHandler(IChannelAppService chann
         long? newAdminUserId;
         if (newAdmin == null)
         {
-            newAdminUserId =
-              await queryProcessor.ProcessAsync(
-                  new GetFutureCreatorAfterLeaveQuery(peer.PeerId, channelReadModel.CreatorId));
+            newAdminUserId = await queryProcessor.ProcessAsync(new GetFutureCreatorAfterLeaveQuery(peer.PeerId, channelReadModel.CreatorId));
         }
         else
         {
