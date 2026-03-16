@@ -3,7 +3,6 @@
 public class DataSeederService(
     ILogger<DataSeederService> logger,
     IDataSeederHelper dataSeederHelper,
-    IUserDataSeeder userDataSeeder,
 	IEnumerable<IDataSeeder> dataSeeders
 ) : IDataSeederService, ITransientDependency
 {
@@ -11,15 +10,6 @@ public class DataSeederService(
     {
         try
         {
-            var config = await dataSeederHelper.LoadDataSeederConfigAsync();
-
-            // Users
-            if (!config.IsUserCreated)
-            {
-                await userDataSeeder.SeedAsync();
-                config.IsUserCreated = true;
-            }
-			
 			foreach (var dataSeeder in dataSeeders)
             {
                 await dataSeeder.SeedAsync();

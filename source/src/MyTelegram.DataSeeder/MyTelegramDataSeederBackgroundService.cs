@@ -13,7 +13,7 @@ public class MyTelegramDataSeederBackgroundService(
     {
         await mongoDbIndexesCreator.CreateAllIndexesAsync();
         var myTelegramUserReadModel =
-            await queryProcessor.ProcessAsync(new GetUserByIdQuery(MyTelegramConsts.OfficialUserId),
+            await queryProcessor.ProcessAsync(new GetUserByIdQuery(MyTelegramConsts.NotificationServiceUserId),
                 stoppingToken);
         if (myTelegramUserReadModel == null)
         {
