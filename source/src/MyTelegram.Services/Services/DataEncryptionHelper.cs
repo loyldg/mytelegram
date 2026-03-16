@@ -64,13 +64,20 @@ public class DataEncryptionHelper(IAesHelper aesHelper) : IDataEncryptionHelper,
         Span<byte> plainSpan)
     {
         var tempBytes = ArrayPool<byte>.Shared.Rent(40);
-        var messageKeyAndSalt = tempBytes.AsSpan();
-        var messageKey = messageKeyAndSalt.Slice(0, 32);
-        var salt = messageKeyAndSalt.Slice(32, 8);
-        BinaryPrimitives.WriteInt64LittleEndian(salt, ownerPeerId);
+        try
+        {
+            var messageKeyAndSalt = tempBytes.AsSpan();
+            var messageKey = messageKeyAndSalt.Slice(0, 32);
+            var salt = messageKeyAndSalt.Slice(32, 8);
+            BinaryPrimitives.WriteInt64LittleEndian(salt, ownerPeerId);
 
-        HKDF.DeriveKey(HashAlgorithmName.SHA256, masterKey, messageKey, salt, KeyTypeBytes);
+            HKDF.DeriveKey(HashAlgorithmName.SHA256, masterKey, messageKey, salt, KeyTypeBytes);
 
-        return Decrypt(messageKey, cipherSpan, plainSpan);
+            return Decrypt(messageKey, cipherSpan, plainSpan);
+        }
+        finally
+        {
+            ArrayPool<byte>.Shared.Return(tempBytes);
+        }
     }
 }
