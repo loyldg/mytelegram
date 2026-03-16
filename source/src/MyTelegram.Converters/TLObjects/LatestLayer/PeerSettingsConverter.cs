@@ -8,7 +8,7 @@ internal sealed class PeerSettingsConverter(IObjectMapper objectMapper, IPeerHel
     public IPeerSettings ToPeerSettings(long selfUserId, long targetUserId, IPeerSettingsReadModel? readModel,
         ContactType? contactType)
     {
-        if (targetUserId == MyTelegramConsts.OfficialUserId || selfUserId == targetUserId ||
+        if (targetUserId == MyTelegramConsts.NotificationServiceUserId || selfUserId == targetUserId ||
             peerHelper.IsBotUser(targetUserId))
         {
             return new TPeerSettings();

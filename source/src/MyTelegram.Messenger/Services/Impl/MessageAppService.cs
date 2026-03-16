@@ -524,7 +524,7 @@ public class MessageAppService(
             if (globalPrivacySettings?.NewNoncontactPeersRequirePremium ?? false)
             {
                 var userReadModel = await userAppService.GetAsync(input.RequestInfo.UserId);
-                if (userReadModel.UserId != MyTelegramConsts.OfficialUserId && !userReadModel.Premium)
+                if (userReadModel.UserId != MyTelegramConsts.NotificationServiceUserId && !userReadModel.Premium)
                 {
                     var contactType =
                         await contactAppService.GetContactTypeAsync(input.RequestInfo.UserId, input.ToPeer.PeerId);

@@ -28,7 +28,7 @@ internal sealed class GetPeerSettingsHandler(IPeerSettingsAppService peerSetting
             }
         }
 
-        if (peer.PeerId == MyTelegramConsts.OfficialUserId || peer.PeerType == PeerType.Self)
+        if (peer.PeerId == MyTelegramConsts.NotificationServiceUserId || peer.PeerType == PeerType.Self)
         {
             return new MyTelegram.Schema.Messages.TPeerSettings
             {
