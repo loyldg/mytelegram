@@ -26,7 +26,7 @@ public class SendAppCodeEventHandler(
                 new TMessageEntityBold { Offset = 0, Length = 11 },
                 new TMessageEntitySpoiler{Offset = 12,Length = domainEvent.AggregateEvent.Code.Length},
                 new TMessageEntityBold { Offset = 22, Length = 3 },
-                new TMessageEntityBold { Offset = message.Length-48, Length = 10 },
+                new TMessageEntityBold { Offset = message.Length-48, Length = 11 },
 
             };
 
