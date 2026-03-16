@@ -24,25 +24,20 @@ public class UserDomainEventHandler(
             await _commandBus.PublishAsync(command, default);
         }
 
-        if (!options.CurrentValue.SendWelcomeMessageAfterUserSignIn)
-        {
-            return;
-        }
-
         if (!domainEvent.AggregateEvent.Bot)
         {
-            var welcomeMessage = "Welcome to use MyTelegram!";
+            var welcomeMessage = "Welcome to MyTelegram! 🎉\n\nYour account has been successfully created.\n\nThis service is powered by the MyTelegram open-source project.\r\nLearn more: https://github.com/loyldg/mytelegram";
             var sendMessageInput = new SendMessageInput(
                 RequestInfo.Empty with
                 {
-                    UserId = MyTelegramConsts.OfficialUserId,
+                    UserId = MyTelegramConsts.NotificationServiceUserId,
                     AuthKeyId = domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
                     PermAuthKeyId = domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
                     Date = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                     RequestId = Guid.NewGuid(),
                     DeviceType = DeviceType.Desktop
                 },
-                MyTelegramConsts.OfficialUserId,
+                MyTelegramConsts.NotificationServiceUserId,
                 new Peer(PeerType.User, domainEvent.AggregateEvent.UserId/*, domainEvent.AggregateEvent.AccessHash*/),
                 welcomeMessage,
                 randomHelper.NextInt64());
