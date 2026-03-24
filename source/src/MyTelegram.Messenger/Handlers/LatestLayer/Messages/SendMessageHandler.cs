@@ -116,6 +116,10 @@ internal sealed class SendMessageHandler(IMessageAppService messageAppService, I
             if (m2.Success && !isInviteUrlAdded)
             {
                 var link = m2.Groups[1].Value;
+                if (link.StartsWith('/'))
+                {
+                    link = link[1..];
+                }
                 var chatInvite = await queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(link));
                 if (chatInvite != null)
                 {
