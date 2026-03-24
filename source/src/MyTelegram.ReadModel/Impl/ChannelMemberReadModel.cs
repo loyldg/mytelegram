@@ -79,7 +79,7 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
         Left = false;
         Kicked = domainEvent.AggregateEvent.Kicked;
         KickedBy = domainEvent.AggregateEvent.KickedBy;
-        BannedRights = domainEvent.AggregateEvent.BannedRights.ToIntValue();
+        BannedRights = domainEvent.AggregateEvent.BannedRights?.ToIntValue() ?? 0;
         UntilDate = domainEvent.AggregateEvent.UntilDate;
 
         ChatInviteId = domainEvent.AggregateEvent.ChatInviteId;
