@@ -7,7 +7,8 @@ public class ChannelMemberSnapshot(
     long kickedBy,
     bool left,
     bool isBot,
-    bool broadcast
+    bool broadcast,
+    int untilDate
     )
     : ISnapshot
 {
@@ -20,4 +21,5 @@ public class ChannelMemberSnapshot(
     public bool Left { get; } = left;
     public bool IsBot { get; } = isBot;
     public bool Broadcast { get; } = broadcast;
+    public int UntilDate { get; } = untilDate;
 }

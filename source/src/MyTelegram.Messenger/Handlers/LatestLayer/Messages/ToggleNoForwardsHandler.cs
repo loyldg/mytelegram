@@ -19,12 +19,12 @@ internal sealed class ToggleNoForwardsHandler(ICommandBus commandBus, IAccessHas
         {
             case TInputPeerChannel inputPeerChannel:
                 await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel.ChannelId, inputPeerChannel.AccessHash, AccessHashType.Channel);
-            {
-                var command = new ToggleChannelNoForwardsCommand(ChannelId.Create(inputPeerChannel.ChannelId), input.ToRequestInfo(), obj.Enabled);
-                await commandBus.PublishAsync(command);
-            }
+                {
+                    var command = new ToggleChannelNoForwardsCommand(ChannelId.Create(inputPeerChannel.ChannelId), input.ToRequestInfo(), obj.Enabled);
+                    await commandBus.PublishAsync(command);
+                }
 
-                return null !;
+                return null!;
         }
 
         throw new NotImplementedException();

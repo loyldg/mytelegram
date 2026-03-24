@@ -20,6 +20,9 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
     public bool IsBot { get; private set; }
     public bool Broadcast { get; private set; }
     public bool IsAdmin { get; private set; }
+    public int Version { get; private set; }
+    public string? Rank { get; private set; }
+    public int UntilDate { get; private set; }
     public void Apply(ChannelCreatorCreatedEvent aggregateEvent)
     {
     }
@@ -41,8 +44,9 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
         Banned = false;
         IsBot = aggregateEvent.IsBot;
         Broadcast = aggregateEvent.IsBroadcast;
+        UntilDate = aggregateEvent.UntilDate;
 
-        BannedRights = null;
+        //BannedRights = null;
     }
 
     //public void Apply(ChannelMemberJoinedEvent aggregateEvent)
@@ -63,6 +67,7 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
         Banned = snapshot.Banned;
         IsBot = snapshot.IsBot;
         Broadcast = snapshot.Broadcast;
+        UntilDate = snapshot.UntilDate;
     }
 
     public void Apply(ChannelMemberLeftEvent2 aggregateEvent)
