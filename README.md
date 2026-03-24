@@ -58,6 +58,7 @@ chmod -R a+w ./data/mytelegram
 docker compose up
 ```
 4. Default verification code (for testing only): `22222`
+5. Default listening ports: `20443`, `20543`, `20643`, `20644`, `30443`, `30444`
 
 ## Building Docker Images
 
