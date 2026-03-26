@@ -1,5 +1,6 @@
 ﻿using MyTelegram.Domain.Aggregates.AppCode;
 using MyTelegram.Domain.Aggregates.PeerNotifySetting;
+using MyTelegram.Domain.Aggregates.UserName;
 using MyTelegram.Messenger.Extensions;
 using MyTelegram.Messenger.Services.Interfaces;
 
@@ -30,7 +31,8 @@ public class OtherDomainEventHandler(
         ISubscribeSynchronousTo<PinForwardedChannelMessageSaga, PinForwardedChannelMessageSagaId,
             PinChannelMessagePtsIncrementedSagaEvent>,
         //ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent>,
-        ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>
+        ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>,
+        ISubscribeSynchronousTo<UserNameAggregate, UserNameId, UserNameChangedEvent>
 {
     private readonly IObjectMessageSender _objectMessageSender = objectMessageSender;
 
@@ -330,6 +332,18 @@ public class OtherDomainEventHandler(
             logger.LogWarning("Invalid phone code: {@Request}", domainEvent.AggregateEvent.RequestInfo);
             await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
                 RpcErrors.RpcErrors400.PhoneCodeInvalid.ToRpcError());
+        }
+    }
+
+    public async Task HandleAsync(IDomainEvent<UserNameAggregate, UserNameId, UserNameChangedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        if (domainEvent.AggregateEvent.Peer.PeerType == PeerType.User)
+        {
+            var user = await userConverterService.GetUserAsync(
+                domainEvent.AggregateEvent.RequestInfo,
+                domainEvent.AggregateEvent.Peer.PeerId, layer: domainEvent.AggregateEvent.RequestInfo.Layer);
+
+            await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, user);
         }
     }
 }
