@@ -368,7 +368,7 @@ public partial class MessageDomainEventHandler(
         if (item.FwdHeader?.FromId?.PeerType == PeerType.Channel)
         {
             forwardFromChannelReadModel = await channelAppService.GetAsync(item.FwdHeader.FromId.PeerId);
-            forwardFromChannelPhotoReadModel = await photoAppService.GetAsync((long?)item.FwdHeader.FromId.PeerId);
+            forwardFromChannelPhotoReadModel = await photoAppService.GetAsync(forwardFromChannelReadModel.PhotoId);
         }
 
         var photoReadModel = await photoAppService.GetAsync(channelReadModel.PhotoId);
