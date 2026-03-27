@@ -10,6 +10,7 @@ public class MessageConverterService(
     ILayeredService<IMessageFwdHeaderConverter> messageFwdHeaderLayeredService,
     ILayeredService<IPollConverter> pollLayeredService,
     IDataEncryptionHelper dataEncryptionHelper,
+    IDataEncryptionHelper2 dataEncryptionHelper2,
     IOptionsMonitor<MyTelegramMessengerServerOptions> options
 ) : IMessageConverterService, ITransientDependency
 {
@@ -353,31 +354,32 @@ public class MessageConverterService(
 
     public string DecryptMessage(long ownerPeerId, int messageId, ReadOnlyMemory<byte>? encryptedData)
     {
-        if (encryptedData == null || encryptedData.Value.IsEmpty)
-        {
-            return string.Empty;
-        }
-        //var key=op
+        return dataEncryptionHelper2.DecryptMessage(ownerPeerId, encryptedData);
+        //if (encryptedData == null || encryptedData.Value.IsEmpty)
+        //{
+        //    return string.Empty;
+        //}
+        ////var key=op
 
-        InitKeys();
+        //InitKeys();
 
-        var encryptedSpan = encryptedData.Value.Span;
-        var keyId = BinaryPrimitives.ReadInt32LittleEndian(encryptedSpan);
+        //var encryptedSpan = encryptedData.Value.Span;
+        //var keyId = BinaryPrimitives.ReadInt32LittleEndian(encryptedSpan);
 
-        if (!_keys.TryGetValue(keyId, out var masterKey))
-        {
-            return string.Empty;
-        }
-        var tempBytes = ArrayPool<byte>.Shared.Rent(encryptedSpan.Length);
-        try
-        {
-            var span = tempBytes.AsSpan(0, encryptedSpan.Length);
-            var count = dataEncryptionHelper.Decrypt(masterKey, ownerPeerId, encryptedSpan.Slice(4), span);
-            return Encoding.UTF8.GetString(span.Slice(0, count));
-        }
-        finally
-        {
-            ArrayPool<byte>.Shared.Return(tempBytes);
-        }
+        //if (!_keys.TryGetValue(keyId, out var masterKey))
+        //{
+        //    return string.Empty;
+        //}
+        //var tempBytes = ArrayPool<byte>.Shared.Rent(encryptedSpan.Length);
+        //try
+        //{
+        //    var span = tempBytes.AsSpan(0, encryptedSpan.Length);
+        //    var count = dataEncryptionHelper.Decrypt(masterKey, ownerPeerId, encryptedSpan.Slice(4), span);
+        //    return Encoding.UTF8.GetString(span.Slice(0, count));
+        //}
+        //finally
+        //{
+        //    ArrayPool<byte>.Shared.Return(tempBytes);
+        //}
     }
 }

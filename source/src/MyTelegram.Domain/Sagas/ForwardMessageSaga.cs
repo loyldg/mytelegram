@@ -13,11 +13,15 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
         ISagaIsStartedBy<TempAggregate, TempId, ForwardMessagesStartedEvent>,
         ISagaHandles<MessageAggregate, MessageId, MessageForwardedEvent>
 {
+    private readonly IDataEncryptionHelper2 _dataEncryptionHelper2;
     private readonly IIdGenerator _idGenerator;
     private readonly ForwardMessageState _state = new();
 
-    public ForwardMessageSaga(ForwardMessageSagaId id, IEventStore eventStore, IIdGenerator idGenerator) : base(id, eventStore)
+    public ForwardMessageSaga(ForwardMessageSagaId id, IEventStore eventStore,
+        IDataEncryptionHelper2 dataEncryptionHelper2,
+        IIdGenerator idGenerator) : base(id, eventStore)
     {
+        _dataEncryptionHelper2 = dataEncryptionHelper2;
         _idGenerator = idGenerator;
         Register(_state);
     }
@@ -215,6 +219,44 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             message = string.Empty;
         }
 
+        Memory<byte>? encryptedMessageData = null;
+        Memory<byte>? encryptedInboxMessageData = null;
+        if (item.EncryptedData?.Length > 0)
+        {
+            // 4:keyId 12:nonce 16:tag messageKey:32 8:salt
+            var length = item.EncryptedData.Value.Length + 72;
+            encryptedMessageData = new byte[length];
+            var decryptedMessage = _dataEncryptionHelper2.DecryptMessage(item.OwnerPeer.PeerId, item.EncryptedData.Value);
+            var count = _dataEncryptionHelper2.Encrypt(ownerPeer.PeerId, decryptedMessage, encryptedMessageData.Value.Span);
+            encryptedMessageData = encryptedMessageData.Value[..count];
+
+            if (toPeer.PeerType != PeerType.Channel)
+            {
+                encryptedInboxMessageData = new byte[length];
+                var count2 =
+                    _dataEncryptionHelper2.Encrypt(toPeer.PeerId, decryptedMessage, encryptedInboxMessageData.Value.Span);
+                encryptedInboxMessageData = encryptedInboxMessageData.Value[..count2];
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                var length = message.Length * 4 + 72;
+                encryptedMessageData = new byte[length];
+                var count = _dataEncryptionHelper2.Encrypt(ownerPeer.PeerId, message, encryptedMessageData.Value.Span);
+                encryptedMessageData = encryptedMessageData.Value[..count];
+
+                if (toPeer.PeerType != PeerType.Channel)
+                {
+                    encryptedInboxMessageData = new byte[length];
+                    var count2 =
+                        _dataEncryptionHelper2.Encrypt(toPeer.PeerId, message, encryptedInboxMessageData.Value.Span);
+                    encryptedInboxMessageData = encryptedInboxMessageData.Value[..count2];
+                }
+            }
+        }
+
         var messageItem = new MessageItem(
             ownerPeer,
             toPeer,
@@ -245,7 +287,9 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             Pinned: _state.ForwardFromLinkedChannel,
             Silent: aggregateEvent.OriginalMessageItem.Silent,
             SavedPeerId: savedPeerId,
-            PostAuthor: aggregateEvent.OriginalMessageItem.PostAuthor
+            PostAuthor: aggregateEvent.OriginalMessageItem.PostAuthor,
+             EncryptedData: encryptedMessageData,
+            InboxMessageEncryptedData: encryptedInboxMessageData
         );
 
         var reqMsgId = _state.ForwardFromLinkedChannel ? 0 : _state.RequestInfo.ReqMsgId;
