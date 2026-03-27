@@ -1,4 +1,5 @@
 ﻿using System.Buffers.Binary;
+using System.Text;
 
 namespace MyTelegram.Messenger.Services.Impl;
 
