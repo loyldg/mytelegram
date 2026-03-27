@@ -82,7 +82,7 @@ public abstract class ReadModelWithCacheAppService<TReadModel>(IReadModelCacheHe
                     }
 
                     readModels.TryAdd(id, readModel);
-                    cacheHelper.Add(id, GetReadModelId(readModel), readModel);
+                    //cacheHelper.Add(id, GetReadModelId(readModel), readModel);
                 }
             }
         }
