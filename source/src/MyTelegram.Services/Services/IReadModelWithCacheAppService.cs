@@ -2,11 +2,14 @@
 
 namespace MyTelegram.Services.Services;
 
-public interface IReadModelWithCacheAppService<TReadModel>
+public interface IReadModelWithCacheAppService<TReadModel> : IReadModelWithCacheAppService<TReadModel, long>
     where TReadModel : IReadModel
 {
-    Task<TReadModel?> GetAsync(long? id);
-    Task<TReadModel> GetAsync(long id);
+}
 
-    Task<IReadOnlyCollection<TReadModel>> GetListAsync(IEnumerable<long> ids);
+public interface IReadModelWithCacheAppService<TReadModel, in TKey>
+    where TReadModel : IReadModel
+{
+    Task<TReadModel> GetAsync(TKey id, bool throwIfNotExists = true);
+    Task<IReadOnlyCollection<TReadModel>> GetListAsync(IEnumerable<TKey> ids);
 }

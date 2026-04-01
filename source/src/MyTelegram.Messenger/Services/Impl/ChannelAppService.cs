@@ -20,7 +20,7 @@ public class ChannelAppService(IQueryProcessor queryProcessor,
 
     protected override string GetReadModelId(IChannelReadModel readModel) => readModel.Id;
 
-    protected override long GetReadModelInt64Id(IChannelReadModel readModel) => readModel.ChannelId;
+    protected override long GetReadModelKey(IChannelReadModel readModel) => readModel.ChannelId;
     protected override Task<IChannelReadModel?> CreateNonExistsReadModelAsync(long id)
     {
         return Task.FromResult<IChannelReadModel?>(null);
@@ -61,5 +61,10 @@ public class ChannelAppService(IQueryProcessor queryProcessor,
         }
 
         return false;
+    }
+
+    protected override bool IsValidReadModel(IChannelReadModel readModel)
+    {
+        return !readModel.IsDeleted;
     }
 }

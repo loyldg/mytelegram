@@ -25,21 +25,33 @@ public class UserAppService(IQueryProcessor queryProcessor,
             () => queryProcessor.ProcessAsync(new GetUserFullQuery(userId)), p => p.Id);
     }
 
-    protected override async Task<IUserReadModel?> GetReadModelAsync(long id)
+    public override async Task<IUserReadModel> GetAsync(long id, bool throwIfNotExists = true)
     {
-        var userReadModel = await queryProcessor.ProcessAsync(new GetUserByIdQuery(id));
-
-        if (userReadModel == null)
+        var userReadModel = await base.GetAsync(id, false);
+        if (userReadModel?.IsDeleted ?? false)
         {
-            return await CreateNonExistsReadModelAsync(id);
+            userReadModelCacheHelper.Remove(userReadModel.Id);
         }
 
-        return userReadModel;
+        if (throwIfNotExists)
+        {
+            if (userReadModel == null)
+            {
+                RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
+            }
+        }
+
+        return userReadModel!;
+    }
+
+    protected override Task<IUserReadModel?> GetReadModelAsync(long id)
+    {
+        return queryProcessor.ProcessAsync(new GetUserByIdQuery(id));
     }
 
     protected override string GetReadModelId(IUserReadModel readModel) => readModel.Id;
 
-    protected override long GetReadModelInt64Id(IUserReadModel readModel) => readModel.UserId;
+    protected override long GetReadModelKey(IUserReadModel readModel) => readModel.UserId;
     protected override Task<IUserReadModel?> CreateNonExistsReadModelAsync(long id)
     {
         return Task.FromResult<IUserReadModel?>(new UserReadModel { UserId = id, IsDeleted = true, Id = UserId.Create(id).Value });

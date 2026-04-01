@@ -101,7 +101,7 @@ public class PhotoAppService(IQueryProcessor queryProcessor, IReadModelCacheHelp
 
     protected override string GetReadModelId(IPhotoReadModel readModel) => readModel.Id;
 
-    protected override long GetReadModelInt64Id(IPhotoReadModel readModel) => readModel.PhotoId;
+    protected override long GetReadModelKey(IPhotoReadModel readModel) => readModel.PhotoId;
     protected override Task<IPhotoReadModel?> CreateNonExistsReadModelAsync(long id)
     {
         return Task.FromResult<IPhotoReadModel?>(null);

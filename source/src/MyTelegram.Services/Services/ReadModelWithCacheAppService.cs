@@ -2,25 +2,25 @@
 
 namespace MyTelegram.Services.Services;
 
-public abstract class ReadModelWithCacheAppService<TReadModel>(IReadModelCacheHelper<TReadModel> cacheHelper) : IReadModelWithCacheAppService<TReadModel>
-    where TReadModel : IReadModel
+public abstract class ReadModelWithCacheAppService<TReadModel>(IReadModelCacheHelper<TReadModel, long> cacheHelper)
+    : ReadModelWithCacheAppService<TReadModel, long>(cacheHelper) where TReadModel : IReadModel;
+
+public abstract class ReadModelWithCacheAppService<TReadModel, TKey>(IReadModelCacheHelper<TReadModel, TKey> cacheHelper) : IReadModelWithCacheAppService<TReadModel, TKey>
+    where TReadModel : IReadModel where TKey : notnull
 {
-    public Task<TReadModel?> GetAsync(long? id)
-    {
-        TReadModel? readModel = default;
-        if (!id.HasValue || id == 0)
-        {
-            return Task.FromResult(readModel);
-        }
-
-        return cacheHelper.GetOrCreateAsync(id.Value, () => GetReadModelAsync(id.Value), GetReadModelId);
-    }
-
-    public async Task<TReadModel> GetAsync(long id)
+    public virtual async Task<TReadModel> GetAsync(TKey id, bool throwIfNotExists = true)
     {
         var readModel = await cacheHelper.GetOrCreateAsync(id, () => GetReadModelAsync(id), GetReadModelId);
+        if (readModel == null)
+        {
+            readModel = await CreateNonExistsReadModelAsync(id);
+        }
+        if (readModel == null && throwIfNotExists)
+        {
+            throw new ArgumentException($"ReadModel({typeof(TReadModel).Name}) with id {id} not exists");
+        }
 
-        return readModel ?? throw new ArgumentException($"ReadModel({typeof(TReadModel).Name}) with id {id} not exists");
+        return readModel!;
     }
 
     protected virtual bool IsValidReadModel(TReadModel readModel)
@@ -28,11 +28,11 @@ public abstract class ReadModelWithCacheAppService<TReadModel>(IReadModelCacheHe
         return true;
     }
 
-    public async Task<IReadOnlyCollection<TReadModel>> GetListAsync(IEnumerable<long> ids)
+    public async Task<IReadOnlyCollection<TReadModel>> GetListAsync(IEnumerable<TKey> ids)
     {
         //var readModels = new List<TReadModel>();
-        var readModels = new Dictionary<long, TReadModel>();
-        var idsNotExistInCache = new HashSet<long>();
+        var readModels = new Dictionary<TKey, TReadModel>();
+        var idsNotExistInCache = new HashSet<TKey>();
         foreach (var id in ids)
         {
             if (cacheHelper.TryGetReadModel(id, out var readModel))
@@ -66,9 +66,9 @@ public abstract class ReadModelWithCacheAppService<TReadModel>(IReadModelCacheHe
                 {
                     continue;
                 }
-                readModels.TryAdd(GetReadModelInt64Id(readModel), readModel);
-                cacheHelper.Add(GetReadModelInt64Id(readModel), GetReadModelId(readModel), readModel);
-                idsNotExistInCache.Remove(GetReadModelInt64Id(readModel));
+                readModels.TryAdd(GetReadModelKey(readModel), readModel);
+                cacheHelper.Add(GetReadModelKey(readModel), GetReadModelId(readModel), readModel);
+                idsNotExistInCache.Remove(GetReadModelKey(readModel));
             }
 
             foreach (var id in idsNotExistInCache)
@@ -90,11 +90,12 @@ public abstract class ReadModelWithCacheAppService<TReadModel>(IReadModelCacheHe
         return readModels.Values;
     }
 
-    protected abstract Task<TReadModel?> CreateNonExistsReadModelAsync(long id);
+    protected abstract Task<TReadModel?> CreateNonExistsReadModelAsync(TKey id);
 
-    protected abstract Task<IReadOnlyCollection<TReadModel>> GetReadModelListAsync(List<long> ids);
+    protected abstract Task<IReadOnlyCollection<TReadModel>> GetReadModelListAsync(List<TKey> ids);
 
-    protected abstract Task<TReadModel?> GetReadModelAsync(long id);
+    protected abstract Task<TReadModel?> GetReadModelAsync(TKey id);
     protected abstract string GetReadModelId(TReadModel readModel);
-    protected abstract long GetReadModelInt64Id(TReadModel readModel);
+    protected abstract TKey GetReadModelKey(TReadModel readModel);
+
 }
