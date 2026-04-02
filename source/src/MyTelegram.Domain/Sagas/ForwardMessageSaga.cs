@@ -181,6 +181,11 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
 
                 sendAs = aggregateEvent.OriginalMessageItem.SendAs;
             }
+            else
+            {
+                fwd.SavedFromPeer = null;
+                fwd.SavedFromMsgId = null;
+            }
             if (!string.IsNullOrEmpty(fwd.FromName))
             {
                 fwd.FromId = null;
