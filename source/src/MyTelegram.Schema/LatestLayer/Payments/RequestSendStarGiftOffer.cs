@@ -3,34 +3,62 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 INPUT_STARS_AMOUNT_INVALID  </c></para>
+/// <para><c>400 INPUT_STARS_NANOS_INVALID  </c></para>
+/// <para><c>400 INVOICE_INVALID The specified invoice is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 RESELL_STARS_TOO_FEW  </c></para>
+/// <para><c>400 RESELL_STARS_TOO_MUCH  </c></para>
+/// <para><c>400 STARGIFT_OFFER_INVALID  </c></para>
+/// <para><c>400 STARGIFT_OFFER_NOT_ALLOWED  </c></para>
+/// <para><c>400 STARGIFT_SLUG_INVALID The specified gift slug is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.sendStarGiftOffer" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x8fb86b41)]
 public sealed partial class RequestSendStarGiftOffer : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x8fb86b41;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string Slug { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
     /// </summary>
     public MyTelegram.Schema.IStarsAmount Price { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Duration { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long RandomId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? AllowPaidStars { get; set; }
 
     public void ComputeFlag()

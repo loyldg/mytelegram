@@ -13,6 +13,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputPhoneContact), nameof(TInputPhoneContact))]
 public interface IInputContact : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
     /// <summary>
@@ -36,6 +39,7 @@ public interface IInputContact : IObject
     string LastName { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     MyTelegram.Schema.ITextWithEntities? Note { get; set; }

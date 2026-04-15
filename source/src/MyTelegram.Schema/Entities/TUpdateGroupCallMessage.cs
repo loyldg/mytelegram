@@ -10,11 +10,13 @@ public sealed partial class TUpdateGroupCallMessage : IUpdate
 {
     public uint ConstructorId => 0xd8326f0d;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/GroupCallMessage" />
     /// </summary>
     public MyTelegram.Schema.IGroupCallMessage Message { get; set; }

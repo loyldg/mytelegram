@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Poll
 /// <para>See <a href="https://corefork.telegram.org/constructor/poll" /></para>
 /// </summary>
-[TlObject(0x58747131)]
+[TlObject(0xb8425be9)]
 public sealed partial class TPoll : IPoll
 {
-    public uint ConstructorId => 0x58747131;
+    public uint ConstructorId => 0xb8425be9;
     /// <summary>
     /// ID of the poll
     /// </summary>
@@ -40,6 +40,16 @@ public sealed partial class TPoll : IPoll
     /// </summary>
     public bool Quiz { get; set; }
 
+    public bool OpenAnswers { get; set; }
+
+    public bool RevotingDisabled { get; set; }
+
+    public bool ShuffleAnswers { get; set; }
+
+    public bool HideResultsUntilClose { get; set; }
+
+    public bool Creator { get; set; }
+
     /// <summary>
     /// The question of the poll (only <a href="https://corefork.telegram.org/api/premium">Premium</a> users can use <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji entities</a> here).
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
@@ -62,12 +72,19 @@ public sealed partial class TPoll : IPoll
     /// </summary>
     public int? CloseDate { get; set; }
 
+    public long Hash { get; set; }
+
     public void ComputeFlag()
     {
         if (Closed) { Flags = Flags.SetBit(0); }
         if (PublicVoters) { Flags = Flags.SetBit(1); }
         if (MultipleChoice) { Flags = Flags.SetBit(2); }
         if (Quiz) { Flags = Flags.SetBit(3); }
+        if (OpenAnswers) { Flags = Flags.SetBit(6); }
+        if (RevotingDisabled) { Flags = Flags.SetBit(7); }
+        if (ShuffleAnswers) { Flags = Flags.SetBit(8); }
+        if (HideResultsUntilClose) { Flags = Flags.SetBit(9); }
+        if (Creator) { Flags = Flags.SetBit(10); }
         if (/*ClosePeriod != 0 && */ClosePeriod.HasValue) { Flags = Flags.SetBit(4); }
         if (/*CloseDate != 0 && */CloseDate.HasValue) { Flags = Flags.SetBit(5); }
     }
@@ -82,6 +99,7 @@ public sealed partial class TPoll : IPoll
         writer.Write(Answers);
         if (Flags.IsBitSet(4)) { writer.Write(ClosePeriod.Value); }
         if (Flags.IsBitSet(5)) { writer.Write(CloseDate.Value); }
+        writer.Write(Hash);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -92,9 +110,15 @@ public sealed partial class TPoll : IPoll
         if (Flags.IsBitSet(1)) { PublicVoters = true; }
         if (Flags.IsBitSet(2)) { MultipleChoice = true; }
         if (Flags.IsBitSet(3)) { Quiz = true; }
+        if (Flags.IsBitSet(6)) { OpenAnswers = true; }
+        if (Flags.IsBitSet(7)) { RevotingDisabled = true; }
+        if (Flags.IsBitSet(8)) { ShuffleAnswers = true; }
+        if (Flags.IsBitSet(9)) { HideResultsUntilClose = true; }
+        if (Flags.IsBitSet(10)) { Creator = true; }
         Question = buffer.Read<MyTelegram.Schema.ITextWithEntities>();
         Answers = buffer.Read<TVector<MyTelegram.Schema.IPollAnswer>>();
         if (Flags.IsBitSet(4)) { ClosePeriod = buffer.ReadInt32(); }
         if (Flags.IsBitSet(5)) { CloseDate = buffer.ReadInt32(); }
+        Hash = buffer.ReadInt64();
     }
 }

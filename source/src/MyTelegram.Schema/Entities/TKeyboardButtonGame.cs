@@ -10,9 +10,13 @@ namespace MyTelegram.Schema;
 public sealed partial class TKeyboardButtonGame : IKeyboardButton
 {
     public uint ConstructorId => 0x89c590f9;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
     /// </summary>
     public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }

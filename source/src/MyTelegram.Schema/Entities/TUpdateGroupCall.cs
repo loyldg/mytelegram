@@ -15,9 +15,13 @@ public sealed partial class TUpdateGroupCall : IUpdate
     /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool LiveStory { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer? Peer { get; set; }

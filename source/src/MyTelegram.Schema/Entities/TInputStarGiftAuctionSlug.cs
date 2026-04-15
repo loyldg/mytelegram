@@ -3,12 +3,15 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputStarGiftAuctionSlug" /></para>
 /// </summary>
 [TlObject(0x7ab58308)]
 public sealed partial class TInputStarGiftAuctionSlug : IInputStarGiftAuction
 {
     public uint ConstructorId => 0x7ab58308;
+    /// <summary>
+    ///  
+    /// </summary>
     public string Slug { get; set; }
 
     public void ComputeFlag()

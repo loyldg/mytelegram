@@ -30,8 +30,14 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     /// </summary>
     public bool ThemeAvailable { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Burned { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Crafted { get; set; }
 
     /// <summary>
@@ -118,6 +124,9 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     /// </summary>
     public string? ValueCurrency { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? ValueUsdAmount { get; set; }
 
     /// <summary>
@@ -127,17 +136,25 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     public MyTelegram.Schema.IPeer? ThemePeer { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/PeerColor" />
     /// </summary>
     public MyTelegram.Schema.IPeerColor? PeerColor { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer? HostId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? OfferMinStars { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? CraftChancePermille { get; set; }
 
     public void ComputeFlag()

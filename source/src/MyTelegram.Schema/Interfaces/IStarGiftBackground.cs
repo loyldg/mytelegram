@@ -3,18 +3,27 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftBackground" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftBackground"/> See <a href="" /><br/>
+/// <see cref="TStarGiftBackground"/> See <a href="https://corefork.telegram.org/constructor/starGiftBackground" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftBackground), nameof(TStarGiftBackground))]
 public interface IStarGiftBackground : IObject
 {
+    /// <summary>
+    ///  
+    /// </summary>
     int CenterColor { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int EdgeColor { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int TextColor { get; set; }
 }

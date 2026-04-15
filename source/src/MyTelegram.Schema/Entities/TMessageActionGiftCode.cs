@@ -31,6 +31,9 @@ public sealed partial class TMessageActionGiftCode : IMessageAction
     /// </summary>
     public MyTelegram.Schema.IPeer? BoostPeer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Days { get; set; }
 
     /// <summary>

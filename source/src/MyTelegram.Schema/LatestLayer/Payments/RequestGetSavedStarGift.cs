@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Payments;
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.</c></para>
+/// <para><c>400 STARGIFT_OWNER_INVALID You cannot transfer or sell a gift owned by another user.</c></para>
 /// <para><c>400 STARGIFT_SLUG_INVALID The specified gift slug is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/payments.getSavedStarGift" /></para>
 /// </summary>

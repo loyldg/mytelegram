@@ -40,8 +40,14 @@ public sealed partial class TStarGift : ILayeredStarGift
     /// </summary>
     public bool LimitedPerUser { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool PeerColorAvailable { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Auction { get; set; }
 
     /// <summary>
@@ -126,15 +132,28 @@ public sealed partial class TStarGift : ILayeredStarGift
     /// </summary>
     public int? LockedUntilDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string? AuctionSlug { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? GiftsPerRound { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? AuctionStartDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? UpgradeVariants { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftBackground" />
     /// </summary>
     public MyTelegram.Schema.IStarGiftBackground? Background { get; set; }

@@ -3,20 +3,35 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonStyle" /></para>
 /// </summary>
 [TlObject(0x4fdd3430)]
 public sealed partial class TKeyboardButtonStyle : IKeyboardButtonStyle
 {
     public uint ConstructorId => 0x4fdd3430;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool BgPrimary { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool BgDanger { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool BgSuccess { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? Icon { get; set; }
 
     public void ComputeFlag()

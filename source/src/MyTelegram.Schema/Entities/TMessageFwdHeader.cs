@@ -91,8 +91,8 @@ public sealed partial class TMessageFwdHeader : IMessageFwdHeader
         if (FromName != null) { Flags = Flags.SetBit(5); }
         if (/*ChannelPost != 0 && */ChannelPost.HasValue) { Flags = Flags.SetBit(2); }
         if (PostAuthor != null) { Flags = Flags.SetBit(3); }
-        if (SavedFromPeer != null && SavedFromMsgId.HasValue) { Flags = Flags.SetBit(4); }
-        //if (/*SavedFromMsgId != 0 && */SavedFromMsgId.HasValue && SavedFromPeer != null) { Flags = Flags.SetBit(4); }
+        if (SavedFromPeer != null) { Flags = Flags.SetBit(4); }
+        if (/*SavedFromMsgId != 0 && */SavedFromMsgId.HasValue) { Flags = Flags.SetBit(4); }
         if (SavedFromId != null) { Flags = Flags.SetBit(8); }
         if (SavedFromName != null) { Flags = Flags.SetBit(9); }
         if (/*SavedDate != 0 && */SavedDate.HasValue) { Flags = Flags.SetBit(10); }

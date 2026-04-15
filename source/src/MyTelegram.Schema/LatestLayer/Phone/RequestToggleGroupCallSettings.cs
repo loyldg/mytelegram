@@ -41,10 +41,14 @@ public sealed partial class RequestToggleGroupCallSettings : IRequest<MyTelegram
     public bool? JoinMuted { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     /// </summary>
     public bool? MessagesEnabled { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? SendPaidMessagesStars { get; set; }
 
     public void ComputeFlag()

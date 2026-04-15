@@ -21,6 +21,7 @@ public sealed partial class TKeyboardButtonSwitchInline : IKeyboardButton
     public bool SamePeer { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
     /// </summary>
     public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }

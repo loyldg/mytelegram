@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A poll answer, and how users voted on it
 /// <para>See <a href="https://corefork.telegram.org/constructor/pollAnswerVoters" /></para>
 /// </summary>
-[TlObject(0x3b6ddad2)]
+[TlObject(0x3645230a)]
 public sealed partial class TPollAnswerVoters : IPollAnswerVoters
 {
-    public uint ConstructorId => 0x3b6ddad2;
+    public uint ConstructorId => 0x3645230a;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -33,12 +33,19 @@ public sealed partial class TPollAnswerVoters : IPollAnswerVoters
     /// <summary>
     /// How many users voted for this option
     /// </summary>
-    public int Voters { get; set; }
+    public int? Voters { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public TVector<MyTelegram.Schema.IPeer>? RecentVoters { get; set; }
 
     public void ComputeFlag()
     {
         if (Chosen) { Flags = Flags.SetBit(0); }
         if (Correct) { Flags = Flags.SetBit(1); }
+        if (/*Voters != 0 && */Voters.HasValue) { Flags = Flags.SetBit(2); }
+        if (RecentVoters?.Count > 0) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -47,7 +54,8 @@ public sealed partial class TPollAnswerVoters : IPollAnswerVoters
         writer.Write(ConstructorId);
         writer.Write(Flags);
         writer.Write(Option);
-        writer.Write(Voters);
+        if (Flags.IsBitSet(2)) { writer.Write(Voters.Value); }
+        if (Flags.IsBitSet(2)) { writer.Write(RecentVoters); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -56,6 +64,7 @@ public sealed partial class TPollAnswerVoters : IPollAnswerVoters
         if (Flags.IsBitSet(0)) { Chosen = true; }
         if (Flags.IsBitSet(1)) { Correct = true; }
         Option = buffer.ReadBytes();
-        Voters = buffer.ReadInt32();
+        if (Flags.IsBitSet(2)) { Voters = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(2)) { RecentVoters = buffer.Read<TVector<MyTelegram.Schema.IPeer>>(); }
     }
 }

@@ -3,16 +3,19 @@
 namespace MyTelegram.Schema.Account;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.deletePasskey" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xf5b5563f)]
 public sealed partial class RequestDeletePasskey : IRequest<IBool>
 {
     public uint ConstructorId => 0xf5b5563f;
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string Id { get; set; }
 
     public void ComputeFlag()

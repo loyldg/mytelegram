@@ -3,18 +3,24 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftAuctionRound" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftAuctionRound"/> See <a href="" /><br/>
-/// <see cref="TStarGiftAuctionRoundExtendable"/> See <a href="" /><br/>
+/// <see cref="TStarGiftAuctionRound"/> See <a href="https://corefork.telegram.org/constructor/starGiftAuctionRound" /><br/>
+/// <see cref="TStarGiftAuctionRoundExtendable"/> See <a href="https://corefork.telegram.org/constructor/starGiftAuctionRoundExtendable" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionRound), nameof(TStarGiftAuctionRound))]
 [JsonDerivedType(typeof(TStarGiftAuctionRoundExtendable), nameof(TStarGiftAuctionRoundExtendable))]
 public interface IStarGiftAuctionRound : IObject
 {
+    /// <summary>
+    ///  
+    /// </summary>
     int Num { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int Duration { get; set; }
 }

@@ -3,36 +3,59 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftAuctionAcquiredGift" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftAuctionAcquiredGift"/> See <a href="" /><br/>
+/// <see cref="TStarGiftAuctionAcquiredGift"/> See <a href="https://corefork.telegram.org/constructor/starGiftAuctionAcquiredGift" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionAcquiredGift), nameof(TStarGiftAuctionAcquiredGift))]
 public interface IStarGiftAuctionAcquiredGift : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool NameHidden { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     MyTelegram.Schema.IPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int Date { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long BidAmount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int Round { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int Pos { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int? GiftNum { get; set; }
 }

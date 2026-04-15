@@ -3,13 +3,13 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftAuctionState" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftAuctionStateNotModified"/> See <a href="" /><br/>
-/// <see cref="TStarGiftAuctionState"/> See <a href="" /><br/>
-/// <see cref="TStarGiftAuctionStateFinished"/> See <a href="" /><br/>
+/// <see cref="TStarGiftAuctionStateNotModified"/> See <a href="https://corefork.telegram.org/constructor/starGiftAuctionStateNotModified" /><br/>
+/// <see cref="TStarGiftAuctionState"/> See <a href="https://corefork.telegram.org/constructor/starGiftAuctionState" /><br/>
+/// <see cref="TStarGiftAuctionStateFinished"/> See <a href="https://corefork.telegram.org/constructor/starGiftAuctionStateFinished" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionStateNotModified), nameof(TStarGiftAuctionStateNotModified))]
 [JsonDerivedType(typeof(TStarGiftAuctionState), nameof(TStarGiftAuctionState))]

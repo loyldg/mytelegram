@@ -3,26 +3,37 @@
 namespace MyTelegram.Schema.Phone;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.deleteGroupCallParticipantMessages" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x1dbfeca0)]
 public sealed partial class RequestDeleteGroupCallParticipantMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x1dbfeca0;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool ReportSpam { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Participant { get; set; }

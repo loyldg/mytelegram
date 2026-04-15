@@ -9,10 +9,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x198fb446)]
+[TlObject(0x894cc99c)]
 public sealed partial class RequestRequestUrlAuth : IRequest<MyTelegram.Schema.IUrlAuthResult>
 {
-    public uint ConstructorId => 0x198fb446;
+    public uint ConstructorId => 0x894cc99c;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -40,12 +40,18 @@ public sealed partial class RequestRequestUrlAuth : IRequest<MyTelegram.Schema.I
     /// </summary>
     public string? Url { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public string? InAppOrigin { get; set; }
+
     public void ComputeFlag()
     {
         if (Peer != null) { Flags = Flags.SetBit(1); }
         if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(1); }
         if (/*ButtonId != 0 && */ButtonId.HasValue) { Flags = Flags.SetBit(1); }
         if (Url != null) { Flags = Flags.SetBit(2); }
+        if (InAppOrigin != null) { Flags = Flags.SetBit(3); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -57,6 +63,7 @@ public sealed partial class RequestRequestUrlAuth : IRequest<MyTelegram.Schema.I
         if (Flags.IsBitSet(1)) { writer.Write(MsgId.Value); }
         if (Flags.IsBitSet(1)) { writer.Write(ButtonId.Value); }
         if (Flags.IsBitSet(2)) { writer.Write(Url); }
+        if (Flags.IsBitSet(3)) { writer.Write(InAppOrigin); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -66,5 +73,6 @@ public sealed partial class RequestRequestUrlAuth : IRequest<MyTelegram.Schema.I
         if (Flags.IsBitSet(1)) { MsgId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(1)) { ButtonId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(2)) { Url = buffer.ReadString(); }
+        if (Flags.IsBitSet(3)) { InAppOrigin = buffer.ReadString(); }
     }
 }

@@ -25,6 +25,9 @@ public sealed partial class TChannelForbidden : IChat
     /// </summary>
     public bool Megagroup { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Monoforum { get; set; }
 
     /// <summary>

@@ -118,10 +118,19 @@ public sealed partial class TSavedStarGift : ISavedStarGift
     /// </summary>
     public string? PrepaidUpgradeHash { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? DropOriginalDetailsStars { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? GiftNum { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? CanCraftAt { get; set; }
 
     public void ComputeFlag()

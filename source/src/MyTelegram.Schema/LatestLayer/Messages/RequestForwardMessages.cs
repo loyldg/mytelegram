@@ -36,10 +36,11 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 MESSAGE_IDS_EMPTY No message ids were provided.</c></para>
 /// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>500 NEED_DOC_INVALID  </c></para>
 /// <para><c>406 PAYMENT_UNSUPPORTED A detailed description of the error will be received separately as described <a href="https://corefork.telegram.org/api/errors#406-not-acceptable">here »</a>.</c></para>
 /// <para><c>406 PEER_ID_INVALID The provided peer id is invalid.</c></para>
 /// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
-/// <para><c>403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
+/// <para><c>406 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
 /// <para><c>400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.</c></para>
 /// <para><c>400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.</c></para>
 /// <para><c>400 QUIZ_ANSWER_MISSING You can forward a quiz while hiding the original author only after choosing an option in the quiz.</c></para>
@@ -149,6 +150,9 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
     /// </summary>
     public int? ScheduleDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? ScheduleRepeatPeriod { get; set; }
 
     /// <summary>
@@ -163,6 +167,9 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
     /// </summary>
     public MyTelegram.Schema.IInputQuickReplyShortcut? QuickReplyShortcut { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? Effect { get; set; }
 
     /// <summary>

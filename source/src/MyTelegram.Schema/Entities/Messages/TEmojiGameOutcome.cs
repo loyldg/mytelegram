@@ -3,16 +3,25 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.emojiGameOutcome" /></para>
 /// </summary>
 [TlObject(0xda2ad647)]
 public sealed partial class TEmojiGameOutcome : IEmojiGameOutcome
 {
     public uint ConstructorId => 0xda2ad647;
+    /// <summary>
+    ///  
+    /// </summary>
     public ReadOnlyMemory<byte> Seed { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long StakeTonAmount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long TonAmount { get; set; }
 
     public void ComputeFlag()

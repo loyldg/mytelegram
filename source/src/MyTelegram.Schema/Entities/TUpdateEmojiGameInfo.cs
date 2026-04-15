@@ -3,13 +3,14 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateEmojiGameInfo" /></para>
 /// </summary>
 [TlObject(0xfb9c547a)]
 public sealed partial class TUpdateEmojiGameInfo : IUpdate
 {
     public uint ConstructorId => 0xfb9c547a;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/messages.EmojiGameInfo" />
     /// </summary>
     public MyTelegram.Schema.Messages.IEmojiGameInfo Info { get; set; }

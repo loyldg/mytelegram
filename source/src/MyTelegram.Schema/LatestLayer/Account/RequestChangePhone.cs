@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Account;
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 PHONE_CODE_EMPTY phone_code is missing.</c></para>
 /// <para><c>400 PHONE_CODE_EXPIRED The phone code you provided has expired.</c></para>
+/// <para><c>400 PHONE_CODE_INVALID The provided phone code is invalid.</c></para>
 /// <para><c>406 PHONE_NUMBER_INVALID The phone number is invalid.</c></para>
 /// <para><c>400 PHONE_NUMBER_OCCUPIED The phone number is already in use. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/account.changePhone" /></para>

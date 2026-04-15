@@ -68,12 +68,24 @@ public interface IStarsTransaction : IObject
     /// </summary>
     bool StargiftPrepaidUpgrade { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool StargiftDropOriginalDetails { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool PhonegroupMessage { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool StargiftAuctionBid { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool Offer { get; set; }
 
     /// <summary>

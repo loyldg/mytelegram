@@ -3,18 +3,30 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAuctionRoundExtendable" /></para>
 /// </summary>
 [TlObject(0xaa021e5)]
 public sealed partial class TStarGiftAuctionRoundExtendable : IStarGiftAuctionRound
 {
     public uint ConstructorId => 0xaa021e5;
+    /// <summary>
+    ///  
+    /// </summary>
     public int Num { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Duration { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int ExtendTop { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int ExtendWindow { get; set; }
 
     public void ComputeFlag()

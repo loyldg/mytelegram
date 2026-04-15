@@ -10,6 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TMessageMediaDice : IMessageMedia
 {
     public uint ConstructorId => 0x8cbec07;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
@@ -23,6 +26,7 @@ public sealed partial class TMessageMediaDice : IMessageMedia
     public string Emoticon { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/messages.EmojiGameOutcome" />
     /// </summary>
     public MyTelegram.Schema.Messages.IEmojiGameOutcome? GameOutcome { get; set; }

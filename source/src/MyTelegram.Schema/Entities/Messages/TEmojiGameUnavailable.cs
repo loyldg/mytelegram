@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.emojiGameUnavailable" /></para>
 /// </summary>
 [TlObject(0x59e65335)]
 public sealed partial class TEmojiGameUnavailable : IEmojiGameInfo

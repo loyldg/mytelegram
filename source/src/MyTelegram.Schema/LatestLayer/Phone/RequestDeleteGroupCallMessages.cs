@@ -3,25 +3,38 @@
 namespace MyTelegram.Schema.Phone;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.deleteGroupCallMessages" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xf64f54f7)]
 public sealed partial class RequestDeleteGroupCallMessages : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xf64f54f7;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool ReportSpam { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
     public void ComputeFlag()

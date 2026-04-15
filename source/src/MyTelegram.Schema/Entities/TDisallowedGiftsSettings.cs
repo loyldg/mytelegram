@@ -35,6 +35,9 @@ public sealed partial class TDisallowedGiftsSettings : IDisallowedGiftsSettings
     /// </summary>
     public bool DisallowPremiumGifts { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool DisallowStargiftsFromChannels { get; set; }
 
     public void ComputeFlag()

@@ -29,6 +29,10 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageEntitySpoiler"/> See <a href="https://corefork.telegram.org/constructor/messageEntitySpoiler" /><br/>
 /// <see cref="TMessageEntityCustomEmoji"/> See <a href="https://corefork.telegram.org/constructor/messageEntityCustomEmoji" /><br/>
 /// <see cref="TMessageEntityBlockquote"/> See <a href="https://corefork.telegram.org/constructor/messageEntityBlockquote" /><br/>
+/// <see cref="TMessageEntityFormattedDate"/> See <a href="" /><br/>
+/// <see cref="TMessageEntityDiffInsert"/> See <a href="" /><br/>
+/// <see cref="TMessageEntityDiffReplace"/> See <a href="" /><br/>
+/// <see cref="TMessageEntityDiffDelete"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageEntityUnknown), nameof(TMessageEntityUnknown))]
 [JsonDerivedType(typeof(TMessageEntityMention), nameof(TMessageEntityMention))]
@@ -51,6 +55,10 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageEntitySpoiler), nameof(TMessageEntitySpoiler))]
 [JsonDerivedType(typeof(TMessageEntityCustomEmoji), nameof(TMessageEntityCustomEmoji))]
 [JsonDerivedType(typeof(TMessageEntityBlockquote), nameof(TMessageEntityBlockquote))]
+[JsonDerivedType(typeof(TMessageEntityFormattedDate), nameof(TMessageEntityFormattedDate))]
+[JsonDerivedType(typeof(TMessageEntityDiffInsert), nameof(TMessageEntityDiffInsert))]
+[JsonDerivedType(typeof(TMessageEntityDiffReplace), nameof(TMessageEntityDiffReplace))]
+[JsonDerivedType(typeof(TMessageEntityDiffDelete), nameof(TMessageEntityDiffDelete))]
 public interface IMessageEntity : IObject
 {
     /// <summary>

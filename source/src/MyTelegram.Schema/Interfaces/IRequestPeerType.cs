@@ -11,10 +11,12 @@ namespace MyTelegram.Schema;
 /// <see cref="TRequestPeerTypeUser"/> See <a href="https://corefork.telegram.org/constructor/requestPeerTypeUser" /><br/>
 /// <see cref="TRequestPeerTypeChat"/> See <a href="https://corefork.telegram.org/constructor/requestPeerTypeChat" /><br/>
 /// <see cref="TRequestPeerTypeBroadcast"/> See <a href="https://corefork.telegram.org/constructor/requestPeerTypeBroadcast" /><br/>
+/// <see cref="TRequestPeerTypeCreateBot"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TRequestPeerTypeUser), nameof(TRequestPeerTypeUser))]
 [JsonDerivedType(typeof(TRequestPeerTypeChat), nameof(TRequestPeerTypeChat))]
 [JsonDerivedType(typeof(TRequestPeerTypeBroadcast), nameof(TRequestPeerTypeBroadcast))]
+[JsonDerivedType(typeof(TRequestPeerTypeCreateBot), nameof(TRequestPeerTypeCreateBot))]
 public interface IRequestPeerType : IObject
 {
     /// <summary>

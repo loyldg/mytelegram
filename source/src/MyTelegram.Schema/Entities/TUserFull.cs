@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Extended user infoWhen updating the <a href="https://corefork.telegram.org/api/peers">local peer database »</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).
 /// <para>See <a href="https://corefork.telegram.org/constructor/userFull" /></para>
 /// </summary>
-[TlObject(0xa02bc13e)]
+[TlObject(0x6cbe645)]
 public sealed partial class TUserFull : IUserFull
 {
-    public uint ConstructorId => 0xa02bc13e;
+    public uint ConstructorId => 0x6cbe645;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -104,6 +104,18 @@ public sealed partial class TUserFull : IUserFull
     /// If this flag is set for both us and another user (changed through <a href="https://corefork.telegram.org/constructor/globalPrivacySettings">globalPrivacySettings</a>), a gift button should always be displayed in the text field in private chats with the other user: once clicked, the gift UI should be displayed, offering the user options to gift <a href="https://corefork.telegram.org/api/premium">Telegram Premium »</a> subscriptions or <a href="https://corefork.telegram.org/api/gifts">Telegram Gifts »</a>.
     /// </summary>
     public bool DisplayGiftsButton { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool NoforwardsMyEnabled { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool NoforwardsPeerEnabled { get; set; }
+
+    public bool UnofficialSecurityRisk { get; set; }
 
     /// <summary>
     /// User ID
@@ -310,9 +322,12 @@ public sealed partial class TUserFull : IUserFull
     public MyTelegram.Schema.IDocument? SavedMusic { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Note { get; set; }
+
+    public long? BotManagerId { get; set; }
 
     public void ComputeFlag()
     {
@@ -333,6 +348,9 @@ public sealed partial class TUserFull : IUserFull
         if (CanViewRevenue) { Flags2 = Flags2.SetBit(9); }
         if (BotCanManageEmojiStatus) { Flags2 = Flags2.SetBit(10); }
         if (DisplayGiftsButton) { Flags2 = Flags2.SetBit(16); }
+        if (NoforwardsMyEnabled) { Flags2 = Flags2.SetBit(23); }
+        if (NoforwardsPeerEnabled) { Flags2 = Flags2.SetBit(24); }
+        if (UnofficialSecurityRisk) { Flags2 = Flags2.SetBit(26); }
         if (About != null) { Flags = Flags.SetBit(1); }
         if (PersonalPhoto != null) { Flags = Flags.SetBit(21); }
         if (ProfilePhoto != null) { Flags = Flags.SetBit(2); }
@@ -366,6 +384,7 @@ public sealed partial class TUserFull : IUserFull
         if (MainTab != null) { Flags2 = Flags2.SetBit(20); }
         if (SavedMusic != null) { Flags2 = Flags2.SetBit(21); }
         if (Note != null) { Flags2 = Flags2.SetBit(22); }
+        if (/*BotManagerId != 0 &&*/ BotManagerId.HasValue) { Flags2 = Flags2.SetBit(25); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -411,6 +430,7 @@ public sealed partial class TUserFull : IUserFull
         if (Flags2.IsBitSet(20)) { writer.Write(MainTab); }
         if (Flags2.IsBitSet(21)) { writer.Write(SavedMusic); }
         if (Flags2.IsBitSet(22)) { writer.Write(Note); }
+        if (Flags2.IsBitSet(25)) { writer.Write(BotManagerId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -434,6 +454,9 @@ public sealed partial class TUserFull : IUserFull
         if (Flags2.IsBitSet(9)) { CanViewRevenue = true; }
         if (Flags2.IsBitSet(10)) { BotCanManageEmojiStatus = true; }
         if (Flags2.IsBitSet(16)) { DisplayGiftsButton = true; }
+        if (Flags2.IsBitSet(23)) { NoforwardsMyEnabled = true; }
+        if (Flags2.IsBitSet(24)) { NoforwardsPeerEnabled = true; }
+        if (Flags2.IsBitSet(26)) { UnofficialSecurityRisk = true; }
         Id = buffer.ReadInt64();
         if (Flags.IsBitSet(1)) { About = buffer.ReadString(); }
         Settings = buffer.Read<MyTelegram.Schema.IPeerSettings>();
@@ -471,5 +494,6 @@ public sealed partial class TUserFull : IUserFull
         if (Flags2.IsBitSet(20)) { MainTab = buffer.Read<MyTelegram.Schema.IProfileTab>(); }
         if (Flags2.IsBitSet(21)) { SavedMusic = buffer.Read<MyTelegram.Schema.IDocument>(); }
         if (Flags2.IsBitSet(22)) { Note = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
+        if (Flags2.IsBitSet(25)) { BotManagerId = buffer.ReadInt64(); }
     }
 }

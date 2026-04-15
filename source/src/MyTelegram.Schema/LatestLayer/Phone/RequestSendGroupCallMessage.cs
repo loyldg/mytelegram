@@ -3,33 +3,48 @@
 namespace MyTelegram.Schema.Phone;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/phone.sendGroupCallMessage" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xb1d11410)]
 public sealed partial class RequestSendGroupCallMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xb1d11410;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long RandomId { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities Message { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? AllowPaidStars { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }

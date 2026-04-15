@@ -13,10 +13,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x73bb643b)]
+[TlObject(0xeda3e33b)]
 public sealed partial class RequestGetPollResults : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x73bb643b;
+    public uint ConstructorId => 0xeda3e33b;
 
     /// <summary>
     /// Peer where the poll was found
@@ -29,6 +29,8 @@ public sealed partial class RequestGetPollResults : IRequest<MyTelegram.Schema.I
     /// </summary>
     public int MsgId { get; set; }
 
+    public long PollHash { get; set; }
+
     public void ComputeFlag()
     {
     }
@@ -39,11 +41,13 @@ public sealed partial class RequestGetPollResults : IRequest<MyTelegram.Schema.I
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(MsgId);
+        writer.Write(PollHash);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
         MsgId = buffer.ReadInt32();
+        PollHash = buffer.ReadInt64();
     }
 }

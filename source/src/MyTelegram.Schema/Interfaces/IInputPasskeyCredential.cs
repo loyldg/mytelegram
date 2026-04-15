@@ -3,12 +3,12 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/InputPasskeyCredential" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TInputPasskeyCredentialPublicKey"/> See <a href="" /><br/>
-/// <see cref="TInputPasskeyCredentialFirebasePNV"/> See <a href="" /><br/>
+/// <see cref="TInputPasskeyCredentialPublicKey"/> See <a href="https://corefork.telegram.org/constructor/inputPasskeyCredentialPublicKey" /><br/>
+/// <see cref="TInputPasskeyCredentialFirebasePNV"/> See <a href="https://corefork.telegram.org/constructor/inputPasskeyCredentialFirebasePNV" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputPasskeyCredentialPublicKey), nameof(TInputPasskeyCredentialPublicKey))]
 [JsonDerivedType(typeof(TInputPasskeyCredentialFirebasePNV), nameof(TInputPasskeyCredentialFirebasePNV))]

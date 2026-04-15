@@ -38,5 +38,8 @@ public interface IDisallowedGiftsSettings : IObject
     /// </summary>
     bool DisallowPremiumGifts { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool DisallowStargiftsFromChannels { get; set; }
 }

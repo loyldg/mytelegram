@@ -145,9 +145,17 @@ public sealed partial class TUser : IUser, ILayeredUser
     /// </summary>
     public bool BotHasMainApp { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool BotForumView { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool BotForumCanManageTopics { get; set; }
+
+    public bool BotCanManageBots { get; set; }
 
     /// <summary>
     /// ID of the user, see <a href="https://corefork.telegram.org/api/peers#peer-id">here »</a> for more info and the available ID range.
@@ -286,6 +294,7 @@ public sealed partial class TUser : IUser, ILayeredUser
         if (BotHasMainApp) { Flags2 = Flags2.SetBit(13); }
         if (BotForumView) { Flags2 = Flags2.SetBit(16); }
         if (BotForumCanManageTopics) { Flags2 = Flags2.SetBit(17); }
+        if (BotCanManageBots) { Flags2 = Flags2.SetBit(18); }
         if (/*AccessHash != 0 &&*/ AccessHash.HasValue) { Flags = Flags.SetBit(0); }
         if (FirstName != null) { Flags = Flags.SetBit(1); }
         if (LastName != null) { Flags = Flags.SetBit(2); }
@@ -366,6 +375,7 @@ public sealed partial class TUser : IUser, ILayeredUser
         if (Flags2.IsBitSet(13)) { BotHasMainApp = true; }
         if (Flags2.IsBitSet(16)) { BotForumView = true; }
         if (Flags2.IsBitSet(17)) { BotForumCanManageTopics = true; }
+        if (Flags2.IsBitSet(18)) { BotCanManageBots = true; }
         Id = buffer.ReadInt64();
         if (Flags.IsBitSet(0)) { AccessHash = buffer.ReadInt64(); }
         if (Flags.IsBitSet(1)) { FirstName = buffer.ReadString(); }

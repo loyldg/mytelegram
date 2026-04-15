@@ -116,5 +116,8 @@ public interface IGroupCallParticipant : IObject
     /// </summary>
     MyTelegram.Schema.IGroupCallParticipantVideo? Presentation { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long? PaidStarsTotal { get; set; }
 }

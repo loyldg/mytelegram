@@ -3,12 +3,15 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPasskeyCredentialFirebasePNV" /></para>
 /// </summary>
 [TlObject(0x5b1ccb28)]
 public sealed partial class TInputPasskeyCredentialFirebasePNV : IInputPasskeyCredential
 {
     public uint ConstructorId => 0x5b1ccb28;
+    /// <summary>
+    ///  
+    /// </summary>
     public string PnvToken { get; set; }
 
     public void ComputeFlag()

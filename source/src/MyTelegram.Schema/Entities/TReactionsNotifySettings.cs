@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Reaction notification settings, see <a href="https://corefork.telegram.org/api/reactions#notifications-about-reactions">here »</a> for more info.
 /// <para>See <a href="https://corefork.telegram.org/constructor/reactionsNotifySettings" /></para>
 /// </summary>
-[TlObject(0x56e34970)]
+[TlObject(0x71e4ea58)]
 public sealed partial class TReactionsNotifySettings : IReactionsNotifySettings
 {
-    public uint ConstructorId => 0x56e34970;
+    public uint ConstructorId => 0x71e4ea58;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -28,6 +28,11 @@ public sealed partial class TReactionsNotifySettings : IReactionsNotifySettings
     public MyTelegram.Schema.IReactionNotificationsFrom? StoriesNotifyFrom { get; set; }
 
     /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/ReactionNotificationsFrom" />
+    /// </summary>
+    public MyTelegram.Schema.IReactionNotificationsFrom? PollVotesNotifyFrom { get; set; }
+
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/ringtones">Notification sound for reactions »</a>
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
     /// </summary>
@@ -43,6 +48,7 @@ public sealed partial class TReactionsNotifySettings : IReactionsNotifySettings
     {
         if (MessagesNotifyFrom != null) { Flags = Flags.SetBit(0); }
         if (StoriesNotifyFrom != null) { Flags = Flags.SetBit(1); }
+        if (PollVotesNotifyFrom != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -52,6 +58,7 @@ public sealed partial class TReactionsNotifySettings : IReactionsNotifySettings
         writer.Write(Flags);
         if (Flags.IsBitSet(0)) { writer.Write(MessagesNotifyFrom); }
         if (Flags.IsBitSet(1)) { writer.Write(StoriesNotifyFrom); }
+        if (Flags.IsBitSet(2)) { writer.Write(PollVotesNotifyFrom); }
         writer.Write(Sound);
         writer.Write(ShowPreviews);
     }
@@ -61,6 +68,7 @@ public sealed partial class TReactionsNotifySettings : IReactionsNotifySettings
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { MessagesNotifyFrom = buffer.Read<MyTelegram.Schema.IReactionNotificationsFrom>(); }
         if (Flags.IsBitSet(1)) { StoriesNotifyFrom = buffer.Read<MyTelegram.Schema.IReactionNotificationsFrom>(); }
+        if (Flags.IsBitSet(2)) { PollVotesNotifyFrom = buffer.Read<MyTelegram.Schema.IReactionNotificationsFrom>(); }
         Sound = buffer.Read<MyTelegram.Schema.INotificationSound>();
         ShowPreviews = buffer.Read();
     }

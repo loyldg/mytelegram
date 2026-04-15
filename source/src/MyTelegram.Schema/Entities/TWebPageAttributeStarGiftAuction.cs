@@ -3,17 +3,21 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/webPageAttributeStarGiftAuction" /></para>
 /// </summary>
 [TlObject(0x1c641c2)]
 public sealed partial class TWebPageAttributeStarGiftAuction : IWebPageAttribute
 {
     public uint ConstructorId => 0x1c641c2;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
     /// </summary>
     public MyTelegram.Schema.IStarGift Gift { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int EndDate { get; set; }
 
     public void ComputeFlag()

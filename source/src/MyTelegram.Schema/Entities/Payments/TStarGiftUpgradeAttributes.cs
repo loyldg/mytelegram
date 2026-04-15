@@ -3,13 +3,14 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starGiftUpgradeAttributes" /></para>
 /// </summary>
 [TlObject(0x46c6e36f)]
 public sealed partial class TStarGiftUpgradeAttributes : IStarGiftUpgradeAttributes
 {
     public uint ConstructorId => 0x46c6e36f;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttribute" />
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAttribute> Attributes { get; set; }

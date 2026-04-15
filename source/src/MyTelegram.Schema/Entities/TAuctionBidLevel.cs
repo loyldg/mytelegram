@@ -3,16 +3,25 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/auctionBidLevel" /></para>
 /// </summary>
 [TlObject(0x310240cc)]
 public sealed partial class TAuctionBidLevel : IAuctionBidLevel
 {
     public uint ConstructorId => 0x310240cc;
+    /// <summary>
+    ///  
+    /// </summary>
     public int Pos { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long Amount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Date { get; set; }
 
     public void ComputeFlag()

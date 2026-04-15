@@ -3,20 +3,32 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STARGIFT_INVALID The passed gift is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getCraftStarGifts" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xfd05dd00)]
 public sealed partial class RequestGetCraftStarGifts : IRequest<MyTelegram.Schema.Payments.ISavedStarGifts>
 {
     public uint ConstructorId => 0xfd05dd00;
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long GiftId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string Offset { get; set; }
 
+    /// <summary>
+    /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

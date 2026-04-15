@@ -9,8 +9,14 @@ namespace MyTelegram.Schema;
 public sealed partial class TStarGiftUpgradePrice : IStarGiftUpgradePrice
 {
     public uint ConstructorId => 0x99ea331d;
+    /// <summary>
+    ///  
+    /// </summary>
     public int Date { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long UpgradeStars { get; set; }
 
     public void ComputeFlag()

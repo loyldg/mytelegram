@@ -3,23 +3,36 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/groupCallDonor" /></para>
 /// </summary>
 [TlObject(0xee430c85)]
 public sealed partial class TGroupCallDonor : IGroupCallDonor
 {
     public uint ConstructorId => 0xee430c85;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Top { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool My { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer? PeerId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long Stars { get; set; }
 
     public void ComputeFlag()

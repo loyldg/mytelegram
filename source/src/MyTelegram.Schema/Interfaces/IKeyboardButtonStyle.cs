@@ -3,22 +3,37 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TKeyboardButtonStyle"/> See <a href="" /><br/>
+/// <see cref="TKeyboardButtonStyle"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonStyle" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TKeyboardButtonStyle), nameof(TKeyboardButtonStyle))]
 public interface IKeyboardButtonStyle : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool BgPrimary { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool BgDanger { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool BgSuccess { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long? Icon { get; set; }
 }

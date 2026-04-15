@@ -13,10 +13,12 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x91b2d060)]
+[TlObject(0x6c5cf2a7)]
 public sealed partial class RequestSendBotRequestedPeer : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x91b2d060;
+    public uint ConstructorId => 0x6c5cf2a7;
+
+    public int Flags { get; set; }
 
     /// <summary>
     /// The bot that sent the <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a> button.
@@ -27,7 +29,9 @@ public sealed partial class RequestSendBotRequestedPeer : IRequest<MyTelegram.Sc
     /// <summary>
     /// ID of the message that contained the reply keyboard with the <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a> button.
     /// </summary>
-    public int MsgId { get; set; }
+    public int? MsgId { get; set; }
+
+    public string? WebappReqId { get; set; }
 
     /// <summary>
     /// The <code>button_id</code> field from the <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer">keyboardButtonRequestPeer</a> constructor.
@@ -42,22 +46,28 @@ public sealed partial class RequestSendBotRequestedPeer : IRequest<MyTelegram.Sc
 
     public void ComputeFlag()
     {
+        if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(0); }
+        if (WebappReqId != null) { Flags = Flags.SetBit(1); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Peer);
-        writer.Write(MsgId);
+        if (Flags.IsBitSet(0)) { writer.Write(MsgId.Value); }
+        if (Flags.IsBitSet(1)) { writer.Write(WebappReqId); }
         writer.Write(ButtonId);
         writer.Write(RequestedPeers);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
-        MsgId = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { MsgId = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(1)) { WebappReqId = buffer.ReadString(); }
         ButtonId = buffer.ReadInt32();
         RequestedPeers = buffer.Read<TVector<MyTelegram.Schema.IInputPeer>>();
     }

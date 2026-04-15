@@ -16,6 +16,7 @@ public sealed partial class TKeyboardButtonRequestPoll : IKeyboardButton
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
     /// </summary>
     public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }

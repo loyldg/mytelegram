@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A specific peer has voted in a poll
 /// <para>See <a href="https://corefork.telegram.org/constructor/updateMessagePollVote" /></para>
 /// </summary>
-[TlObject(0x24f40e77)]
+[TlObject(0x7699f014)]
 public sealed partial class TUpdateMessagePollVote : IUpdate
 {
-    public uint ConstructorId => 0x24f40e77;
+    public uint ConstructorId => 0x7699f014;
     /// <summary>
     /// Poll ID
     /// </summary>
@@ -25,6 +25,8 @@ public sealed partial class TUpdateMessagePollVote : IUpdate
     /// Chosen option(s)
     /// </summary>
     public TVector<ReadOnlyMemory<byte>> Options { get; set; }
+
+    public TVector<int> Positions { get; set; }
 
     /// <summary>
     /// New <strong>qts</strong> value, see <a href="https://corefork.telegram.org/api/updates">updates »</a> for more info.
@@ -42,6 +44,7 @@ public sealed partial class TUpdateMessagePollVote : IUpdate
         writer.Write(PollId);
         writer.Write(Peer);
         writer.Write(Options);
+        writer.Write(Positions);
         writer.Write(Qts);
     }
 
@@ -50,6 +53,7 @@ public sealed partial class TUpdateMessagePollVote : IUpdate
         PollId = buffer.ReadInt64();
         Peer = buffer.Read<MyTelegram.Schema.IPeer>();
         Options = buffer.Read<TVector<ReadOnlyMemory<byte>>>();
+        Positions = buffer.Read<TVector<int>>();
         Qts = buffer.ReadInt32();
     }
 }

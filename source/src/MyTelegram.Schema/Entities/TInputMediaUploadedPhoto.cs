@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Photo
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedPhoto" /></para>
 /// </summary>
-[TlObject(0x1e287d04)]
+[TlObject(0x7d8375da)]
 public sealed partial class TInputMediaUploadedPhoto : IInputMedia
 {
-    public uint ConstructorId => 0x1e287d04;
+    public uint ConstructorId => 0x7d8375da;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,8 @@ public sealed partial class TInputMediaUploadedPhoto : IInputMedia
     /// Whether this media should be hidden behind a spoiler warning
     /// </summary>
     public bool Spoiler { get; set; }
+
+    public bool LivePhoto { get; set; }
 
     /// <summary>
     /// The <a href="https://corefork.telegram.org/api/files">uploaded file</a>
@@ -37,11 +39,18 @@ public sealed partial class TInputMediaUploadedPhoto : IInputMedia
     /// </summary>
     public int? TtlSeconds { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputDocument" />
+    /// </summary>
+    public MyTelegram.Schema.IInputDocument? Video { get; set; }
+
     public void ComputeFlag()
     {
         if (Spoiler) { Flags = Flags.SetBit(2); }
+        if (LivePhoto) { Flags = Flags.SetBit(3); }
         if (Stickers?.Count > 0) { Flags = Flags.SetBit(0); }
         if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags = Flags.SetBit(1); }
+        if (Video != null) { Flags = Flags.SetBit(3); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -52,14 +61,17 @@ public sealed partial class TInputMediaUploadedPhoto : IInputMedia
         writer.Write(File);
         if (Flags.IsBitSet(0)) { writer.Write(Stickers); }
         if (Flags.IsBitSet(1)) { writer.Write(TtlSeconds.Value); }
+        if (Flags.IsBitSet(3)) { writer.Write(Video); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(2)) { Spoiler = true; }
+        if (Flags.IsBitSet(3)) { LivePhoto = true; }
         File = buffer.Read<MyTelegram.Schema.IInputFile>();
         if (Flags.IsBitSet(0)) { Stickers = buffer.Read<TVector<MyTelegram.Schema.IInputDocument>>(); }
         if (Flags.IsBitSet(1)) { TtlSeconds = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(3)) { Video = buffer.Read<MyTelegram.Schema.IInputDocument>(); }
     }
 }

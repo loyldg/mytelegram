@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Phone;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/phone.sendGroupCallEncryptedMessage" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xe5afa56d)]
 public sealed partial class RequestSendGroupCallEncryptedMessage : IRequest<IBool>
@@ -14,10 +17,14 @@ public sealed partial class RequestSendGroupCallEncryptedMessage : IRequest<IBoo
     public uint ConstructorId => 0xe5afa56d;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public ReadOnlyMemory<byte> EncryptedMessage { get; set; }
 
     public void ComputeFlag()

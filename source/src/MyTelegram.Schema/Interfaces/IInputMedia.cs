@@ -27,7 +27,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/inputMediaWebPage" /><br/>
 /// <see cref="TInputMediaPaidMedia"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia" /><br/>
 /// <see cref="TInputMediaTodo"/> See <a href="https://corefork.telegram.org/constructor/inputMediaTodo" /><br/>
-/// <see cref="TInputMediaStakeDice"/> See <a href="" /><br/>
+/// <see cref="TInputMediaStakeDice"/> See <a href="https://corefork.telegram.org/constructor/inputMediaStakeDice" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputMediaEmpty), nameof(TInputMediaEmpty))]
 [JsonDerivedType(typeof(TInputMediaUploadedPhoto), nameof(TInputMediaUploadedPhoto))]

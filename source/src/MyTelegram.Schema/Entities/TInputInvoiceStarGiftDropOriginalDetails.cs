@@ -10,6 +10,7 @@ public sealed partial class TInputInvoiceStarGiftDropOriginalDetails : IInputInv
 {
     public uint ConstructorId => 0x923d8d1;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
     /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }

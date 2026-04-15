@@ -19,6 +19,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
 /// <para><c>400 EFFECT_ID_INVALID The specified effect ID is invalid.</c></para>
 /// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
+/// <para><c>400 FILE_REFERENCE_%d_EMPTY  </c></para>
 /// <para><c>400 FILE_REFERENCE_%d_EXPIRED The file reference of the media file at index %d in the passed media array expired, it <a href="https://corefork.telegram.org/api/file-references">must be refreshed as specified in the documentation</a>. .</c></para>
 /// <para><c>400 FILE_REFERENCE_%d_INVALID The <a href="https://corefork.telegram.org/api/file-references">file reference</a> of the media file at index %d in the passed media array is invalid.</c></para>
 /// <para><c>400 MEDIA_CAPTION_TOO_LONG The caption is too long.</c></para>
@@ -26,7 +27,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 MEDIA_INVALID Media invalid.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
 /// <para><c>400 MULTI_MEDIA_TOO_LONG Too many media files for album.</c></para>
-/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>406 PEER_ID_INVALID The provided peer id is invalid.</c></para>
 /// <para><c>400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.</c></para>
 /// <para><c>400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.</c></para>
 /// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.</c></para>

@@ -12,7 +12,13 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStarGiftUpgradePrice), nameof(TStarGiftUpgradePrice))]
 public interface IStarGiftUpgradePrice : IObject
 {
+    /// <summary>
+    ///  
+    /// </summary>
     int Date { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long UpgradeStars { get; set; }
 }

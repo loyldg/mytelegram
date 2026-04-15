@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Chat
 /// <para>See <a href="https://corefork.telegram.org/constructor/dialog" /></para>
 /// </summary>
-[TlObject(0xd58a08c6)]
+[TlObject(0xfc89f7f3)]
 public sealed partial class TDialog : ILayeredDialog
 {
-    public uint ConstructorId => 0xd58a08c6;
+    public uint ConstructorId => 0xfc89f7f3;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -66,6 +66,8 @@ public sealed partial class TDialog : ILayeredDialog
     /// </summary>
     public int UnreadReactionsCount { get; set; }
 
+    public int UnreadPollVotesCount { get; set; }
+
     /// <summary>
     /// Notification settings
     /// See <a href="https://corefork.telegram.org/type/PeerNotifySettings" />
@@ -116,6 +118,7 @@ public sealed partial class TDialog : ILayeredDialog
         writer.Write(UnreadCount);
         writer.Write(UnreadMentionsCount);
         writer.Write(UnreadReactionsCount);
+        writer.Write(UnreadPollVotesCount);
         writer.Write(NotifySettings);
         if (Flags.IsBitSet(0)) { writer.Write(Pts.Value); }
         if (Flags.IsBitSet(1)) { writer.Write(Draft); }
@@ -136,6 +139,7 @@ public sealed partial class TDialog : ILayeredDialog
         UnreadCount = buffer.ReadInt32();
         UnreadMentionsCount = buffer.ReadInt32();
         UnreadReactionsCount = buffer.ReadInt32();
+        UnreadPollVotesCount = buffer.ReadInt32();
         NotifySettings = buffer.Read<MyTelegram.Schema.IPeerNotifySettings>();
         if (Flags.IsBitSet(0)) { Pts = buffer.ReadInt32(); }
         if (Flags.IsBitSet(1)) { Draft = buffer.Read<MyTelegram.Schema.IDraftMessage>(); }

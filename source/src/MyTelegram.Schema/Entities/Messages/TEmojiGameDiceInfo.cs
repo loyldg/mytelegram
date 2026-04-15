@@ -3,22 +3,40 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messages.emojiGameDiceInfo" /></para>
 /// </summary>
 [TlObject(0x44e56023)]
 public sealed partial class TEmojiGameDiceInfo : IEmojiGameInfo
 {
     public uint ConstructorId => 0x44e56023;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string GameHash { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long PrevStake { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int CurrentStreak { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<int> Params { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? PlaysLeft { get; set; }
 
     public void ComputeFlag()

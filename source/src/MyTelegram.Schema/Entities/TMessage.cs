@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A message
 /// <para>See <a href="https://corefork.telegram.org/constructor/message" /></para>
 /// </summary>
-[TlObject(0x9cb490e9)]
+[TlObject(0x3ae56482)]
 public sealed partial class TMessage : IMessage, ILayeredMessage
 {
-    public uint ConstructorId => 0x9cb490e9;
+    public uint ConstructorId => 0x3ae56482;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -110,6 +110,11 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
     /// Supergroups only, contains the number of <a href="https://corefork.telegram.org/api/boost">boosts</a> this user has given the current supergroup, and should be shown in the UI in the header of the message. <br/>Only present for incoming messages from non-anonymous supergroup members that have boosted the supergroup. <br/>Note that this counter should be locally overridden for non-anonymous <em>outgoing</em> messages, according to the current value of <a href="https://corefork.telegram.org/constructor/channelFull">channelFull</a>.<code>boosts_applied</code>, to ensure the value is correct even for messages sent by the current user before a supergroup was boosted (or after a boost has expired or the number of boosts has changed); do not update this value for incoming messages from other users, even if their boosts have changed.
     /// </summary>
     public int? FromBoostsApplied { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public string? FromRank { get; set; }
 
     /// <summary>
     /// Peer ID, the chat where this message was sent
@@ -253,8 +258,14 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
     /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? ScheduleRepeatPeriod { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string? SummaryFromLanguage { get; set; }
 
     public void ComputeFlag()
@@ -276,6 +287,7 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (PaidSuggestedPostTon) { Flags2 = Flags2.SetBit(9); }
         if (FromId != null) { Flags = Flags.SetBit(8); }
         if (/*FromBoostsApplied != 0 && */FromBoostsApplied.HasValue) { Flags = Flags.SetBit(29); }
+        if (FromRank != null) { Flags2 = Flags2.SetBit(12); }
         if (SavedPeerId != null) { Flags = Flags.SetBit(28); }
         if (FwdFrom != null) { Flags = Flags.SetBit(2); }
         if (/*ViaBotId != 0 &&*/ ViaBotId.HasValue) { Flags = Flags.SetBit(11); }
@@ -312,6 +324,7 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         writer.Write(Id);
         if (Flags.IsBitSet(8)) { writer.Write(FromId); }
         if (Flags.IsBitSet(29)) { writer.Write(FromBoostsApplied.Value); }
+        if (Flags2.IsBitSet(12)) { writer.Write(FromRank); }
         writer.Write(PeerId);
         if (Flags.IsBitSet(28)) { writer.Write(SavedPeerId); }
         if (Flags.IsBitSet(2)) { writer.Write(FwdFrom); }
@@ -364,6 +377,7 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         Id = buffer.ReadInt32();
         if (Flags.IsBitSet(8)) { FromId = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(29)) { FromBoostsApplied = buffer.ReadInt32(); }
+        if (Flags2.IsBitSet(12)) { FromRank = buffer.ReadString(); }
         PeerId = buffer.Read<MyTelegram.Schema.IPeer>();
         if (Flags.IsBitSet(28)) { SavedPeerId = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(2)) { FwdFrom = buffer.Read<MyTelegram.Schema.IMessageFwdHeader>(); }

@@ -3,9 +3,10 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// Get <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gifts</a> of a specific type currently on resale, see <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">here »</a> for more info.<code>sort_by_price</code> and <code>sort_by_num</code> are mutually exclusive, if neither are set results are sorted by the unixtime (descending) when their resell price was last changed.See <a href="https://corefork.telegram.org/api/gifts#sending-gifts">here »</a> for detailed documentation on this method.  
+/// Get <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gifts</a> of a specific type currently on resale, see <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">here »</a> for more info.<code>sort_by_price</code> and <code>sort_by_num</code> are mutually exclusive, if neither are set results are sorted by the unixtime (descending) when their resell price was last changed.See <a href="https://corefork.telegram.org/api/gifts#sending-gifts">here »</a> for detailed documentation on this method.
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
+/// <para><c>400 STARGIFT_ATTRIBUTE_INVALID  </c></para>
 /// <para><c>400 STARGIFT_INVALID The passed gift is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/payments.getResaleStarGifts" /></para>
 /// </summary>
@@ -32,7 +33,12 @@ public sealed partial class RequestGetResaleStarGifts : IRequest<MyTelegram.Sche
     /// </summary>
     public bool SortByNum { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool ForCraft { get; set; }
+
+    public bool StarsOnly { get; set; }
 
     /// <summary>
     /// If a previous call to the method was made and <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts">payments.resaleStarGifts</a>.<code>attributes_hash</code> was set, pass it here to avoid returning any results if they haven't changed. <br/>Otherwise, set this flag and pass <code>0</code> to return <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts">payments.resaleStarGifts</a>.<code>attributes_hash</code> and <a href="https://corefork.telegram.org/constructor/payments.resaleStarGifts">payments.resaleStarGifts</a>.<code>attributes</code>, <strong>these two fields will not be set</strong> if this flag is not set.
@@ -65,6 +71,7 @@ public sealed partial class RequestGetResaleStarGifts : IRequest<MyTelegram.Sche
         if (SortByPrice) { Flags = Flags.SetBit(1); }
         if (SortByNum) { Flags = Flags.SetBit(2); }
         if (ForCraft) { Flags = Flags.SetBit(4); }
+        if (StarsOnly) { Flags = Flags.SetBit(5); }
         if (/*AttributesHash != 0 &&*/ AttributesHash.HasValue) { Flags = Flags.SetBit(0); }
         if (Attributes?.Count > 0) { Flags = Flags.SetBit(3); }
     }
@@ -87,6 +94,7 @@ public sealed partial class RequestGetResaleStarGifts : IRequest<MyTelegram.Sche
         if (Flags.IsBitSet(1)) { SortByPrice = true; }
         if (Flags.IsBitSet(2)) { SortByNum = true; }
         if (Flags.IsBitSet(4)) { ForCraft = true; }
+        if (Flags.IsBitSet(5)) { StarsOnly = true; }
         if (Flags.IsBitSet(0)) { AttributesHash = buffer.ReadInt64(); }
         GiftId = buffer.ReadInt64();
         if (Flags.IsBitSet(3)) { Attributes = buffer.Read<TVector<MyTelegram.Schema.IStarGiftAttributeId>>(); }

@@ -59,6 +59,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TChannelAdminLogEventActionToggleSignatureProfiles"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleSignatureProfiles" /><br/>
 /// <see cref="TChannelAdminLogEventActionParticipantSubExtend"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend" /><br/>
 /// <see cref="TChannelAdminLogEventActionToggleAutotranslation"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionToggleAutotranslation" /><br/>
+/// <see cref="TChannelAdminLogEventActionParticipantEditRank"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChannelAdminLogEventActionChangeTitle), nameof(TChannelAdminLogEventActionChangeTitle))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionChangeAbout), nameof(TChannelAdminLogEventActionChangeAbout))]
@@ -111,6 +112,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChannelAdminLogEventActionToggleSignatureProfiles), nameof(TChannelAdminLogEventActionToggleSignatureProfiles))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionParticipantSubExtend), nameof(TChannelAdminLogEventActionParticipantSubExtend))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionToggleAutotranslation), nameof(TChannelAdminLogEventActionToggleAutotranslation))]
+[JsonDerivedType(typeof(TChannelAdminLogEventActionParticipantEditRank), nameof(TChannelAdminLogEventActionParticipantEditRank))]
 public interface IChannelAdminLogEventAction : IObject
 {
 }

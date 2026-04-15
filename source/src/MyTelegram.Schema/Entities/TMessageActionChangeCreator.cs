@@ -3,12 +3,15 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionChangeCreator" /></para>
 /// </summary>
 [TlObject(0xe188503b)]
 public sealed partial class TMessageActionChangeCreator : IMessageAction
 {
     public uint ConstructorId => 0xe188503b;
+    /// <summary>
+    ///  
+    /// </summary>
     public long NewCreatorId { get; set; }
 
     public void ComputeFlag()

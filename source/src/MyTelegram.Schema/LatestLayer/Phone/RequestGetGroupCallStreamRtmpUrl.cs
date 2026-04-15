@@ -18,8 +18,14 @@ public sealed partial class RequestGetGroupCallStreamRtmpUrl : IRequest<MyTelegr
 {
     public uint ConstructorId => 0x5af4c73a;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool LiveStory { get; set; }
 
     /// <summary>

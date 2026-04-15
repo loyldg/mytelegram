@@ -3,16 +3,17 @@
 namespace MyTelegram.Schema.Account;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/account.PasskeyRegistrationOptions" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TPasskeyRegistrationOptions"/> See <a href="" /><br/>
+/// <see cref="TPasskeyRegistrationOptions"/> See <a href="https://corefork.telegram.org/constructor/account.passkeyRegistrationOptions" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPasskeyRegistrationOptions), nameof(TPasskeyRegistrationOptions))]
 public interface IPasskeyRegistrationOptions : IObject
 {
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
     /// </summary>
     MyTelegram.Schema.IDataJSON Options { get; set; }

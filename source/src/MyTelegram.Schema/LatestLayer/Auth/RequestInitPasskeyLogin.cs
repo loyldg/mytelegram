@@ -3,18 +3,29 @@
 namespace MyTelegram.Schema.Auth;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 API_ID_INVALID API ID invalid.</c></para>
+/// <para><c>500 AUTH_RESTART Restart the authorization process.</c></para>
+/// <para><c>500 PASSKEY_AUTH_RESTART   </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.initPasskeyLogin" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
 /// </remarks>
 [TlObject(0x518ad0b7)]
 public sealed partial class RequestInitPasskeyLogin : IRequest<MyTelegram.Schema.Auth.IPasskeyLoginOptions>
 {
     public uint ConstructorId => 0x518ad0b7;
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int ApiId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string ApiHash { get; set; }
 
     public void ComputeFlag()

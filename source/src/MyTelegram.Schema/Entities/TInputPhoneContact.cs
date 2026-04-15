@@ -10,6 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputPhoneContact : IInputContact
 {
     public uint ConstructorId => 0x6a1dc4be;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
@@ -33,6 +36,7 @@ public sealed partial class TInputPhoneContact : IInputContact
     public string LastName { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Note { get; set; }

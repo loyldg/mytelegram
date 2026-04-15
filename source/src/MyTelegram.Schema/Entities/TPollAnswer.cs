@@ -6,10 +6,12 @@ namespace MyTelegram.Schema;
 /// A possible answer of a poll
 /// <para>See <a href="https://corefork.telegram.org/constructor/pollAnswer" /></para>
 /// </summary>
-[TlObject(0xff16e2ca)]
+[TlObject(0x4b7d786a)]
 public sealed partial class TPollAnswer : IPollAnswer
 {
-    public uint ConstructorId => 0xff16e2ca;
+    public uint ConstructorId => 0x4b7d786a;
+    public int Flags { get; set; }
+
     /// <summary>
     /// Textual representation of the answer (only <a href="https://corefork.telegram.org/api/premium">Premium</a> users can use <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji entities</a> here).
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
@@ -21,21 +23,44 @@ public sealed partial class TPollAnswer : IPollAnswer
     /// </summary>
     public string Option { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
+    /// </summary>
+    public MyTelegram.Schema.IMessageMedia? Media { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public MyTelegram.Schema.IPeer? AddedBy { get; set; }
+
+    public int? Date { get; set; }
+
     public void ComputeFlag()
     {
+        if (Media != null) { Flags = Flags.SetBit(0); }
+        if (AddedBy != null) { Flags = Flags.SetBit(1); }
+        if (/*Date != 0 && */Date.HasValue) { Flags = Flags.SetBit(1); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Text);
         writer.Write(Option);
+        if (Flags.IsBitSet(0)) { writer.Write(Media); }
+        if (Flags.IsBitSet(1)) { writer.Write(AddedBy); }
+        if (Flags.IsBitSet(1)) { writer.Write(Date.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Text = buffer.Read<MyTelegram.Schema.ITextWithEntities>();
         Option = buffer.ReadString();
+        if (Flags.IsBitSet(0)) { Media = buffer.Read<MyTelegram.Schema.IMessageMedia>(); }
+        if (Flags.IsBitSet(1)) { AddedBy = buffer.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags.IsBitSet(1)) { Date = buffer.ReadInt32(); }
     }
 }

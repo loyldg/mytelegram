@@ -3,16 +3,17 @@
 namespace MyTelegram.Schema.Account;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/account.Passkeys" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TPasskeys"/> See <a href="" /><br/>
+/// <see cref="TPasskeys"/> See <a href="https://corefork.telegram.org/constructor/account.passkeys" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPasskeys), nameof(TPasskeys))]
 public interface IPasskeys : IObject
 {
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Passkey" />
     /// </summary>
     TVector<MyTelegram.Schema.IPasskey> Passkeys { get; set; }

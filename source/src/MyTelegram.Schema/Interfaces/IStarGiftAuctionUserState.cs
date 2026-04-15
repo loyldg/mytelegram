@@ -3,29 +3,48 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftAuctionUserState" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftAuctionUserState"/> See <a href="" /><br/>
+/// <see cref="TStarGiftAuctionUserState"/> See <a href="https://corefork.telegram.org/constructor/starGiftAuctionUserState" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionUserState), nameof(TStarGiftAuctionUserState))]
 public interface IStarGiftAuctionUserState : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool Returned { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long? BidAmount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int? BidDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long? MinBidAmount { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     MyTelegram.Schema.IPeer? BidPeer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int AcquiredCount { get; set; }
 }

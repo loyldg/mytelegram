@@ -18,7 +18,17 @@ namespace MyTelegram.Schema;
 public interface IChatParticipant : IObject
 {
     /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    int Flags { get; set; }
+
+    /// <summary>
     /// ID of the user that created the group
     /// </summary>
     long UserId { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    string? Rank { get; set; }
 }

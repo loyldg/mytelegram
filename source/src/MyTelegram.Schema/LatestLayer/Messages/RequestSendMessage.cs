@@ -33,6 +33,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.</c></para>
 /// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
 /// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 EFFECT_CHAT_INVALID  </c></para>
 /// <para><c>400 ENCRYPTION_DECLINED The secret chat was declined.</c></para>
 /// <para><c>400 ENTITIES_TOO_LONG You provided too many styled message entities.</c></para>
 /// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
@@ -49,7 +50,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.</c></para>
 /// <para><c>400 POLL_OPTION_INVALID Invalid poll option provided.</c></para>
 /// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
-/// <para><c>403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
+/// <para><c>406 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
 /// <para><c>400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.</c></para>
 /// <para><c>400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.</c></para>
 /// <para><c>400 QUOTE_TEXT_INVALID The specified <code>reply_to</code>.<code>quote_text</code> field is invalid.</c></para>
@@ -172,6 +173,9 @@ public sealed partial class RequestSendMessage : IRequest<MyTelegram.Schema.IUpd
     /// </summary>
     public int? ScheduleDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? ScheduleRepeatPeriod { get; set; }
 
     /// <summary>

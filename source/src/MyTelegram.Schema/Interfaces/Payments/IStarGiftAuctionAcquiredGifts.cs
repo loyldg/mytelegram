@@ -3,26 +3,29 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.StarGiftAuctionAcquiredGifts" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftAuctionAcquiredGifts"/> See <a href="" /><br/>
+/// <see cref="TStarGiftAuctionAcquiredGifts"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftAuctionAcquiredGifts" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionAcquiredGifts), nameof(TStarGiftAuctionAcquiredGifts))]
 public interface IStarGiftAuctionAcquiredGifts : IObject
 {
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionAcquiredGift" />
     /// </summary>
     TVector<MyTelegram.Schema.IStarGiftAuctionAcquiredGift> Gifts { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/User" />
     /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Chat" />
     /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }

@@ -3,25 +3,31 @@
 namespace MyTelegram.Schema.Phone;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/phone.groupCallStars" /></para>
 /// </summary>
 [TlObject(0x9d1dbd26)]
 public sealed partial class TGroupCallStars : IGroupCallStars
 {
     public uint ConstructorId => 0x9d1dbd26;
+    /// <summary>
+    ///  
+    /// </summary>
     public long TotalStars { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/GroupCallDonor" />
     /// </summary>
     public TVector<MyTelegram.Schema.IGroupCallDonor> TopDonors { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Chat" />
     /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/User" />
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }

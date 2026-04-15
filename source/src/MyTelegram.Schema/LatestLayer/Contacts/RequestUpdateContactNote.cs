@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Contacts;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CONTACT_ID_INVALID The provided contact ID is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/contacts.updateContactNote" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x139f63fb)]
 public sealed partial class RequestUpdateContactNote : IRequest<IBool>
@@ -14,11 +17,13 @@ public sealed partial class RequestUpdateContactNote : IRequest<IBool>
     public uint ConstructorId => 0x139f63fb;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
     /// </summary>
     public MyTelegram.Schema.IInputUser Id { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities Note { get; set; }

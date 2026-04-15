@@ -31,6 +31,11 @@ public interface IReactionsNotifySettings : IObject
     MyTelegram.Schema.IReactionNotificationsFrom? StoriesNotifyFrom { get; set; }
 
     /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/ReactionNotificationsFrom" />
+    /// </summary>
+    MyTelegram.Schema.IReactionNotificationsFrom? PollVotesNotifyFrom { get; set; }
+
+    /// <summary>
     /// <a href="https://corefork.telegram.org/api/ringtones">Notification sound for reactions »</a>
     /// See <a href="https://corefork.telegram.org/type/NotificationSound" />
     /// </summary>

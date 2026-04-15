@@ -10,6 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUpdateUserTyping : IUpdate
 {
     public uint ConstructorId => 0x2a17bf5c;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
@@ -17,6 +20,9 @@ public sealed partial class TUpdateUserTyping : IUpdate
     /// </summary>
     public long UserId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? TopMsgId { get; set; }
 
     /// <summary>

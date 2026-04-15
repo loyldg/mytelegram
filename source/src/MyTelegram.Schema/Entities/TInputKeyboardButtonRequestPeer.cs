@@ -31,6 +31,7 @@ public sealed partial class TInputKeyboardButtonRequestPeer : IKeyboardButton
     public bool PhotoRequested { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
     /// </summary>
     public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }

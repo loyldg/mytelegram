@@ -133,12 +133,12 @@ internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppServ
                 }
 
                 break;
-        //case Schema.Layer197.TInputMediaUploadedDocument inputMediaUploadedDocumentLayer197:
-        //    if (inputMediaUploadedDocumentLayer197.Attributes.Any(p => p is TDocumentAttributeAudio))
-        //    {
-        //        needCheckAudioMessagePrivacy = true;
-        //    }
-        //    break;
+                //case Schema.Layer197.TInputMediaUploadedDocument inputMediaUploadedDocumentLayer197:
+                //    if (inputMediaUploadedDocumentLayer197.Attributes.Any(p => p is TDocumentAttributeAudio))
+                //    {
+                //        needCheckAudioMessagePrivacy = true;
+                //    }
+                //    break;
         }
 
         if (needCheckAudioMessagePrivacy && obj.Peer is TInputPeerUser inputPeerUser)
@@ -171,7 +171,7 @@ internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppServ
         var sendMessageInput = new SendMessageInput(input.ToRequestInfo(), input.UserId, peerHelper.GetPeer(obj.Peer, input.UserId), obj.Message, obj.RandomId, clearDraft: obj.ClearDraft, entities: obj.Entities, media: media, //replyToMsgId: replyToMsgId,
  inputReplyTo: obj.ReplyTo, sendMessageType: SendMessageType.Media, messageType: mediaHelper.GeMessageType(media), pollId: pollId, topMsgId: topMsgId, sendAs: peerHelper.GetPeer(obj.SendAs, input.UserId), effect: obj.Effect, inputQuickReplyShortcut: obj.QuickReplyShortcut, replyMarkup: obj.ReplyMarkup, silent: obj.Silent, scheduleDate: obj.ScheduleDate, invertMedia: obj.InvertMedia);
         await messageAppService.SendMessageAsync([sendMessageInput]);
-        return null !;
+        return null!;
     }
 
     private async Task CreatePollAsync(long creatorUserId, Peer toPeer, TInputMediaPoll inputMediaPoll)
@@ -183,7 +183,7 @@ internal sealed class SendMediaHandler(IMediaHelper mediaHelper, IMessageAppServ
             solutionEntities = [];
         }
 
-        var command = new CreatePollCommand(PollId.Create(poll.Id), toPeer, poll.Id, poll.MultipleChoice, poll.Quiz, inputMediaPoll.Poll.PublicVoters, poll.Question.Text, poll.Answers.Select(p => new PollAnswer(p.Text.Text, p.Option, p.Text.Entities.ToBytes())).ToList(), inputMediaPoll.CorrectAnswers?.ToList(), inputMediaPoll.Solution, solutionEntities, poll.Question.Entities, creatorUserId);
+        var command = new CreatePollCommand(PollId.Create(poll.Id), toPeer, poll.Id, poll.MultipleChoice, poll.Quiz, inputMediaPoll.Poll.PublicVoters, poll.Question.Text, poll.Answers.Select((p, index) => new PollAnswer(p.Text.Text, index.ToString(), p.Text.Entities.ToBytes())).ToList(), inputMediaPoll.CorrectAnswers?.Select(p => p.ToString()).ToList(), inputMediaPoll.Solution, solutionEntities, poll.Question.Entities, creatorUserId);
         await commandBus.PublishAsync(command);
     }
 }

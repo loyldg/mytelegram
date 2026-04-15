@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 STARGIFT_INVALID The passed gift is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarGiftAuctionState" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x5c9ff4d6)]
 public sealed partial class RequestGetStarGiftAuctionState : IRequest<MyTelegram.Schema.Payments.IStarGiftAuctionState>
@@ -14,10 +17,14 @@ public sealed partial class RequestGetStarGiftAuctionState : IRequest<MyTelegram
     public uint ConstructorId => 0x5c9ff4d6;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputStarGiftAuction" />
     /// </summary>
     public MyTelegram.Schema.IInputStarGiftAuction Auction { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Version { get; set; }
 
     public void ComputeFlag()

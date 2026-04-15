@@ -3,30 +3,46 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.summarizeText" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x9d4104e2)]
+[TlObject(0xabbbd346)]
 public sealed partial class RequestSummarizeText : IRequest<MyTelegram.Schema.ITextWithEntities>
 {
-    public uint ConstructorId => 0x9d4104e2;
+    public uint ConstructorId => 0xabbbd346;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Id { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string? ToLang { get; set; }
+
+    public string? Tone { get; set; }
 
     public void ComputeFlag()
     {
         if (ToLang != null) { Flags = Flags.SetBit(0); }
+        if (Tone != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -37,6 +53,7 @@ public sealed partial class RequestSummarizeText : IRequest<MyTelegram.Schema.IT
         writer.Write(Peer);
         writer.Write(Id);
         if (Flags.IsBitSet(0)) { writer.Write(ToLang); }
+        if (Flags.IsBitSet(2)) { writer.Write(Tone); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -45,5 +62,6 @@ public sealed partial class RequestSummarizeText : IRequest<MyTelegram.Schema.IT
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
         Id = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { ToLang = buffer.ReadString(); }
+        if (Flags.IsBitSet(2)) { Tone = buffer.ReadString(); }
     }
 }

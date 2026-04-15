@@ -3,25 +3,38 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.reorderPinnedForumTopics" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xe7841f0)]
 public sealed partial class RequestReorderPinnedForumTopics : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xe7841f0;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Force { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<int> Order { get; set; }
 
     public void ComputeFlag()

@@ -3,10 +3,10 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/method/messages.getEmojiGameInfo" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xfb7e8ca7)]
 public sealed partial class RequestGetEmojiGameInfo : IRequest<MyTelegram.Schema.Messages.IEmojiGameInfo>

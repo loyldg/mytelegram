@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Photos;
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 CONTACT_MISSING The specified user is not a contact.</c></para>
+/// <para><c>400 NEED_ACTION_MISSING  </c></para>
 /// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/photos.uploadContactProfilePhoto" /></para>
 /// </summary>

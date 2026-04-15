@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeRarityUncommon" /></para>
 /// </summary>
 [TlObject(0xdbce6389)]
 public sealed partial class TStarGiftAttributeRarityUncommon : IStarGiftAttributeRarity

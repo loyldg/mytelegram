@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Forwarded photo
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaPhoto" /></para>
 /// </summary>
-[TlObject(0xb3ba0635)]
+[TlObject(0xe3af4434)]
 public sealed partial class TInputMediaPhoto : IInputMedia
 {
-    public uint ConstructorId => 0xb3ba0635;
+    public uint ConstructorId => 0xe3af4434;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,8 @@ public sealed partial class TInputMediaPhoto : IInputMedia
     /// Whether this media should be hidden behind a spoiler warning
     /// </summary>
     public bool Spoiler { get; set; }
+
+    public bool LivePhoto { get; set; }
 
     /// <summary>
     /// Photo to be forwarded
@@ -31,10 +33,17 @@ public sealed partial class TInputMediaPhoto : IInputMedia
     /// </summary>
     public int? TtlSeconds { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputDocument" />
+    /// </summary>
+    public MyTelegram.Schema.IInputDocument? Video { get; set; }
+
     public void ComputeFlag()
     {
         if (Spoiler) { Flags = Flags.SetBit(1); }
+        if (LivePhoto) { Flags = Flags.SetBit(2); }
         if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags = Flags.SetBit(0); }
+        if (Video != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -44,13 +53,16 @@ public sealed partial class TInputMediaPhoto : IInputMedia
         writer.Write(Flags);
         writer.Write(Id);
         if (Flags.IsBitSet(0)) { writer.Write(TtlSeconds.Value); }
+        if (Flags.IsBitSet(2)) { writer.Write(Video); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(1)) { Spoiler = true; }
+        if (Flags.IsBitSet(2)) { LivePhoto = true; }
         Id = buffer.Read<MyTelegram.Schema.IInputPhoto>();
         if (Flags.IsBitSet(0)) { TtlSeconds = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(2)) { Video = buffer.Read<MyTelegram.Schema.IInputDocument>(); }
     }
 }

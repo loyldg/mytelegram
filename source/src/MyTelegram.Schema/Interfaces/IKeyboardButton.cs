@@ -47,9 +47,13 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TKeyboardButtonCopy), nameof(TKeyboardButtonCopy))]
 public interface IKeyboardButton : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
     /// </summary>
     MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }

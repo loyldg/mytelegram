@@ -3,28 +3,45 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftAuctionBid" /></para>
 /// </summary>
 [TlObject(0x1ecafa10)]
 public sealed partial class TInputInvoiceStarGiftAuctionBid : IInputInvoice
 {
     public uint ConstructorId => 0x1ecafa10;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool HideName { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool UpdateBid { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer? Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long GiftId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long BidAmount { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }

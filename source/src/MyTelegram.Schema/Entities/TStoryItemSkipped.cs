@@ -20,6 +20,9 @@ public sealed partial class TStoryItemSkipped : IStoryItem
     /// </summary>
     public bool CloseFriends { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Live { get; set; }
 
     /// <summary>

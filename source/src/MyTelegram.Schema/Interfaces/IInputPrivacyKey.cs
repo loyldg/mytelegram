@@ -21,7 +21,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputPrivacyKeyBirthday"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyBirthday" /><br/>
 /// <see cref="TInputPrivacyKeyStarGiftsAutoSave"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStarGiftsAutoSave" /><br/>
 /// <see cref="TInputPrivacyKeyNoPaidMessages"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyNoPaidMessages" /><br/>
-/// <see cref="TInputPrivacyKeySavedMusic"/> See <a href="" /><br/>
+/// <see cref="TInputPrivacyKeySavedMusic"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeySavedMusic" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputPrivacyKeyStatusTimestamp), nameof(TInputPrivacyKeyStatusTimestamp))]
 [JsonDerivedType(typeof(TInputPrivacyKeyChatInvite), nameof(TInputPrivacyKeyChatInvite))]

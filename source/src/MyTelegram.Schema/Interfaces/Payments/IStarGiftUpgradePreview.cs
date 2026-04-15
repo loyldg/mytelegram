@@ -20,11 +20,13 @@ public interface IStarGiftUpgradePreview : IObject
     TVector<MyTelegram.Schema.IStarGiftAttribute> SampleAttributes { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftUpgradePrice" />
     /// </summary>
     TVector<MyTelegram.Schema.IStarGiftUpgradePrice> Prices { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftUpgradePrice" />
     /// </summary>
     TVector<MyTelegram.Schema.IStarGiftUpgradePrice> NextPrices { get; set; }

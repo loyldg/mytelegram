@@ -36,5 +36,10 @@ public interface IPollAnswerVoters : IObject
     /// <summary>
     /// How many users voted for this option
     /// </summary>
-    int Voters { get; set; }
+    int? Voters { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    TVector<MyTelegram.Schema.IPeer>? RecentVoters { get; set; }
 }

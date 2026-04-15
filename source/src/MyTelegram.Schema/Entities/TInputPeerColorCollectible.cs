@@ -9,6 +9,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputPeerColorCollectible : IPeerColor
 {
     public uint ConstructorId => 0xb8ea86a9;
+    /// <summary>
+    ///  
+    /// </summary>
     public long CollectibleId { get; set; }
 
     public void ComputeFlag()

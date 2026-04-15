@@ -6,10 +6,12 @@ namespace MyTelegram.Schema;
 /// Poll
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaPoll" /></para>
 /// </summary>
-[TlObject(0x4bd6e798)]
+[TlObject(0x773f4e66)]
 public sealed partial class TMessageMediaPoll : IMessageMedia
 {
-    public uint ConstructorId => 0x4bd6e798;
+    public uint ConstructorId => 0x773f4e66;
+    public int Flags { get; set; }
+
     /// <summary>
     /// The poll
     /// See <a href="https://corefork.telegram.org/type/Poll" />
@@ -22,21 +24,31 @@ public sealed partial class TMessageMediaPoll : IMessageMedia
     /// </summary>
     public MyTelegram.Schema.IPollResults Results { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
+    /// </summary>
+    public MyTelegram.Schema.IMessageMedia? AttachedMedia { get; set; }
+
     public void ComputeFlag()
     {
+        if (AttachedMedia != null) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Poll);
         writer.Write(Results);
+        if (Flags.IsBitSet(0)) { writer.Write(AttachedMedia); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Poll = buffer.Read<MyTelegram.Schema.IPoll>();
         Results = buffer.Read<MyTelegram.Schema.IPollResults>();
+        if (Flags.IsBitSet(0)) { AttachedMedia = buffer.Read<MyTelegram.Schema.IMessageMedia>(); }
     }
 }

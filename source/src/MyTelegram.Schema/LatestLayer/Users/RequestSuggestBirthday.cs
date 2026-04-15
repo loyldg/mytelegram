@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Users;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 USER_ID_INVALID The provided user ID is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/users.suggestBirthday" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xfc533372)]
 public sealed partial class RequestSuggestBirthday : IRequest<MyTelegram.Schema.IUpdates>
@@ -14,11 +17,13 @@ public sealed partial class RequestSuggestBirthday : IRequest<MyTelegram.Schema.
     public uint ConstructorId => 0xfc533372;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputUser" />
     /// </summary>
     public MyTelegram.Schema.IInputUser Id { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Birthday" />
     /// </summary>
     public MyTelegram.Schema.IBirthday Birthday { get; set; }

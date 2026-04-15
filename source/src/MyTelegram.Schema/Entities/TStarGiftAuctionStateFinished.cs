@@ -3,24 +3,45 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAuctionStateFinished" /></para>
 /// </summary>
 [TlObject(0x972dabbf)]
 public sealed partial class TStarGiftAuctionStateFinished : IStarGiftAuctionState
 {
     public uint ConstructorId => 0x972dabbf;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int StartDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int EndDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long AveragePrice { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? ListedCount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? FragmentListedCount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string? FragmentListedUrl { get; set; }
 
     public void ComputeFlag()

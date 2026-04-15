@@ -3,35 +3,43 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starGiftAuctionState" /></para>
 /// </summary>
 [TlObject(0x6b39f4ec)]
 public sealed partial class TStarGiftAuctionState : IStarGiftAuctionState
 {
     public uint ConstructorId => 0x6b39f4ec;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
     /// </summary>
     public MyTelegram.Schema.IStarGift Gift { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionState" />
     /// </summary>
     public MyTelegram.Schema.IStarGiftAuctionState State { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionUserState" />
     /// </summary>
     public MyTelegram.Schema.IStarGiftAuctionUserState UserState { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Timeout { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/User" />
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Chat" />
     /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }

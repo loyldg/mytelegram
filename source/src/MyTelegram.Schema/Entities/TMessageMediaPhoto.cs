@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Attached photo.
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaPhoto" /></para>
 /// </summary>
-[TlObject(0x695150d7)]
+[TlObject(0xe216eb63)]
 public sealed partial class TMessageMediaPhoto : IMessageMedia
 {
-    public uint ConstructorId => 0x695150d7;
+    public uint ConstructorId => 0xe216eb63;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,8 @@ public sealed partial class TMessageMediaPhoto : IMessageMedia
     /// Whether this media should be hidden behind a spoiler warning
     /// </summary>
     public bool Spoiler { get; set; }
+
+    public bool LivePhoto { get; set; }
 
     /// <summary>
     /// Photo
@@ -31,11 +33,18 @@ public sealed partial class TMessageMediaPhoto : IMessageMedia
     /// </summary>
     public int? TtlSeconds { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Document" />
+    /// </summary>
+    public MyTelegram.Schema.IDocument? Video { get; set; }
+
     public void ComputeFlag()
     {
         if (Spoiler) { Flags = Flags.SetBit(3); }
+        if (LivePhoto) { Flags = Flags.SetBit(4); }
         if (Photo != null) { Flags = Flags.SetBit(0); }
         if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags = Flags.SetBit(2); }
+        if (Video != null) { Flags = Flags.SetBit(4); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -45,13 +54,16 @@ public sealed partial class TMessageMediaPhoto : IMessageMedia
         writer.Write(Flags);
         if (Flags.IsBitSet(0)) { writer.Write(Photo); }
         if (Flags.IsBitSet(2)) { writer.Write(TtlSeconds.Value); }
+        if (Flags.IsBitSet(4)) { writer.Write(Video); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(3)) { Spoiler = true; }
+        if (Flags.IsBitSet(4)) { LivePhoto = true; }
         if (Flags.IsBitSet(0)) { Photo = buffer.Read<MyTelegram.Schema.IPhoto>(); }
         if (Flags.IsBitSet(2)) { TtlSeconds = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(4)) { Video = buffer.Read<MyTelegram.Schema.IDocument>(); }
     }
 }

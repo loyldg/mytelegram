@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TWebPageAttributeStickerSet"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeStickerSet" /><br/>
 /// <see cref="TWebPageAttributeUniqueStarGift"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeUniqueStarGift" /><br/>
 /// <see cref="TWebPageAttributeStarGiftCollection"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeStarGiftCollection" /><br/>
-/// <see cref="TWebPageAttributeStarGiftAuction"/> See <a href="" /><br/>
+/// <see cref="TWebPageAttributeStarGiftAuction"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeStarGiftAuction" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TWebPageAttributeTheme), nameof(TWebPageAttributeTheme))]
 [JsonDerivedType(typeof(TWebPageAttributeStory), nameof(TWebPageAttributeStory))]

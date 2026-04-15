@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Users;
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.</c></para>
 /// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
 /// <para><c>400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>

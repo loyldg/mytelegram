@@ -3,12 +3,12 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/InputStarGiftAuction" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TInputStarGiftAuction"/> See <a href="" /><br/>
-/// <see cref="TInputStarGiftAuctionSlug"/> See <a href="" /><br/>
+/// <see cref="TInputStarGiftAuction"/> See <a href="https://corefork.telegram.org/constructor/inputStarGiftAuction" /><br/>
+/// <see cref="TInputStarGiftAuctionSlug"/> See <a href="https://corefork.telegram.org/constructor/inputStarGiftAuctionSlug" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputStarGiftAuction), nameof(TInputStarGiftAuction))]
 [JsonDerivedType(typeof(TInputStarGiftAuctionSlug), nameof(TInputStarGiftAuctionSlug))]

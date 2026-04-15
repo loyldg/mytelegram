@@ -3,25 +3,40 @@
 namespace MyTelegram.Schema.Auth;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>500 AUTH_RESTART Restart the authorization process.</c></para>
+/// <para><c>400 CREDENTIAL_INVALID  </c></para>
+/// <para><c>500 PASSKEY_AUTH_RESTART   </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/auth.finishPasskeyLogin" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
 /// </remarks>
 [TlObject(0x9857ad07)]
 public sealed partial class RequestFinishPasskeyLogin : IRequest<MyTelegram.Schema.Auth.IAuthorization>
 {
     public uint ConstructorId => 0x9857ad07;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPasskeyCredential" />
     /// </summary>
     public MyTelegram.Schema.IInputPasskeyCredential Credential { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? FromDcId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? FromAuthKeyId { get; set; }
 
     public void ComputeFlag()

@@ -3,10 +3,10 @@
 namespace MyTelegram.Schema.Account;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.initPasskeyRegistration" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x429547e8)]
 public sealed partial class RequestInitPasskeyRegistration : IRequest<MyTelegram.Schema.Account.IPasskeyRegistrationOptions>

@@ -7,7 +7,9 @@ namespace MyTelegram.Schema.Channels;
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
 /// <para><c>400 CHAT_DISCUSSION_UNALLOWED You can't enable forum topics in a discussion group linked to a channel.</c></para>
+/// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
 /// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/channels.toggleForum" /></para>
 /// </summary>

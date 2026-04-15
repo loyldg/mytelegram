@@ -119,6 +119,11 @@ public interface IChatBannedRights : IObject
     bool SendPlain { get; set; }
 
     /// <summary>
+    ///  
+    /// </summary>
+    bool EditRank { get; set; }
+
+    /// <summary>
     /// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
     /// </summary>
     int UntilDate { get; set; }

@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateStarGiftCraftFail" /></para>
 /// </summary>
 [TlObject(0xac072444)]
 public sealed partial class TUpdateStarGiftCraftFail : IUpdate

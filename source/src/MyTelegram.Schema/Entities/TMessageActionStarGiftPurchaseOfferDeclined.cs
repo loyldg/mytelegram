@@ -3,22 +3,30 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/messageActionStarGiftPurchaseOfferDeclined" /></para>
 /// </summary>
 [TlObject(0x73ada76b)]
 public sealed partial class TMessageActionStarGiftPurchaseOfferDeclined : IMessageAction
 {
     public uint ConstructorId => 0x73ada76b;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Expired { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
     /// </summary>
     public MyTelegram.Schema.IStarGift Gift { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarsAmount" />
     /// </summary>
     public MyTelegram.Schema.IStarsAmount Price { get; set; }

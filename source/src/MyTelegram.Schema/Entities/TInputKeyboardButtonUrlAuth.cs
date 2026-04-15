@@ -21,6 +21,7 @@ public sealed partial class TInputKeyboardButtonUrlAuth : IKeyboardButton
     public bool RequestWriteAccess { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
     /// </summary>
     public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }

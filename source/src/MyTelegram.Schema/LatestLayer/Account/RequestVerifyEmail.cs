@@ -6,9 +6,11 @@ namespace MyTelegram.Schema.Account;
 /// Verify an email address.
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
+/// <para><c>400 CODE_INVALID Code invalid.</c></para>
 /// <para><c>400 EMAIL_INVALID The specified email is invalid.</c></para>
 /// <para><c>400 EMAIL_NOT_ALLOWED The specified email cannot be used to complete the operation.</c></para>
 /// <para><c>400 EMAIL_VERIFY_EXPIRED The verification email has expired.</c></para>
+/// <para><c>400 PHONE_CODE_EXPIRED The phone code you provided has expired.</c></para>
 /// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/account.verifyEmail" /></para>
 /// </summary>

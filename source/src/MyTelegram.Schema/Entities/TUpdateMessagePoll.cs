@@ -6,14 +6,23 @@ namespace MyTelegram.Schema;
 /// The results of a poll have changed
 /// <para>See <a href="https://corefork.telegram.org/constructor/updateMessagePoll" /></para>
 /// </summary>
-[TlObject(0xaca1657b)]
+[TlObject(0xd64c522b)]
 public sealed partial class TUpdateMessagePoll : IUpdate
 {
-    public uint ConstructorId => 0xaca1657b;
+    public uint ConstructorId => 0xd64c522b;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
     public int Flags { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public MyTelegram.Schema.IPeer? Peer { get; set; }
+
+    public int? MsgId { get; set; }
+
+    public int? TopMsgId { get; set; }
 
     /// <summary>
     /// Poll ID
@@ -34,6 +43,9 @@ public sealed partial class TUpdateMessagePoll : IUpdate
 
     public void ComputeFlag()
     {
+        if (Peer != null) { Flags = Flags.SetBit(1); }
+        if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(1); }
+        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(2); }
         if (Poll != null) { Flags = Flags.SetBit(0); }
     }
 
@@ -42,6 +54,9 @@ public sealed partial class TUpdateMessagePoll : IUpdate
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
+        if (Flags.IsBitSet(1)) { writer.Write(Peer); }
+        if (Flags.IsBitSet(1)) { writer.Write(MsgId.Value); }
+        if (Flags.IsBitSet(2)) { writer.Write(TopMsgId.Value); }
         writer.Write(PollId);
         if (Flags.IsBitSet(0)) { writer.Write(Poll); }
         writer.Write(Results);
@@ -50,6 +65,9 @@ public sealed partial class TUpdateMessagePoll : IUpdate
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(1)) { Peer = buffer.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags.IsBitSet(1)) { MsgId = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(2)) { TopMsgId = buffer.ReadInt32(); }
         PollId = buffer.ReadInt64();
         if (Flags.IsBitSet(0)) { Poll = buffer.Read<MyTelegram.Schema.IPoll>(); }
         Results = buffer.Read<MyTelegram.Schema.IPollResults>();

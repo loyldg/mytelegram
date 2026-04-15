@@ -41,6 +41,9 @@ public sealed partial class TCheckedGiftCode : ICheckedGiftCode
     /// </summary>
     public int Date { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Days { get; set; }
 
     /// <summary>

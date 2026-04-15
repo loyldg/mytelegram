@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.getForumTopicsByID" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xaf0a4a08)]
 public sealed partial class RequestGetForumTopicsByID : IRequest<MyTelegram.Schema.Messages.IForumTopics>
@@ -14,10 +17,14 @@ public sealed partial class RequestGetForumTopicsByID : IRequest<MyTelegram.Sche
     public uint ConstructorId => 0xaf0a4a08;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<int> Topics { get; set; }
 
     public void ComputeFlag()

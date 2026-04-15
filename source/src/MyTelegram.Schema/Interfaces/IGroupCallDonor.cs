@@ -3,25 +3,38 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/GroupCallDonor" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TGroupCallDonor"/> See <a href="" /><br/>
+/// <see cref="TGroupCallDonor"/> See <a href="https://corefork.telegram.org/constructor/groupCallDonor" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCallDonor), nameof(TGroupCallDonor))]
 public interface IGroupCallDonor : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool Top { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool My { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     MyTelegram.Schema.IPeer? PeerId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long Stars { get; set; }
 }

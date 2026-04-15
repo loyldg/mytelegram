@@ -9,7 +9,9 @@ namespace MyTelegram.Schema.Phone;
 /// <para><c>400 CALL_PROTOCOL_FLAGS_INVALID Call protocol flags invalid.</c></para>
 /// <para><c>400 CALL_PROTOCOL_LAYER_INVALID The specified protocol layer version range is invalid.</c></para>
 /// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>500 PARTICIPANT_CALL_FAILED  </c></para>
 /// <para><c>400 PARTICIPANT_VERSION_OUTDATED The other participant does not use an up to date telegram client with support for calls.</c></para>
+/// <para><c>500 RANDOM_ID_DUPLICATE You provided a random ID that was already used.</c></para>
 /// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
 /// <para><c>403 USER_IS_BLOCKED You were blocked by this user.</c></para>
 /// <para><c>403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this. </c></para>

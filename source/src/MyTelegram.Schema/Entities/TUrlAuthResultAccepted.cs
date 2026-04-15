@@ -10,6 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUrlAuthResultAccepted : IUrlAuthResult
 {
     public uint ConstructorId => 0x623a8fa0;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>

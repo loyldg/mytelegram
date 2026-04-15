@@ -16,7 +16,9 @@ namespace MyTelegram.Schema.Stories;
 /// <para><c>400 MEDIA_TYPE_INVALID The specified media type cannot be used in stories.</c></para>
 /// <para><c>400 MEDIA_VIDEO_STORY_MISSING A non-story video cannot be repubblished as a story (emitted when trying to resend a non-story video as a story using inputDocument).</c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
+/// <para><c>400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.</c></para>
 /// <para><c>400 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
+/// <para><c>400 REACTION_INVALID The specified reaction is invalid.</c></para>
 /// <para><c>400 STORIES_TOO_MUCH You have hit the maximum active stories limit as specified by the <a href="https://corefork.telegram.org/api/config#story-expiring-limit-default"><code>story_expiring_limit_*</code> client configuration parameters</a>: you should buy a <a href="https://corefork.telegram.org/api/premium">Premium</a> subscription, delete an active story, or wait for the oldest story to expire.</c></para>
 /// <para><c>400 STORY_PERIOD_INVALID The specified story period is invalid for this account.</c></para>
 /// <para><c>400 VENUE_ID_INVALID The specified venue ID is invalid. </c></para>
@@ -25,10 +27,10 @@ namespace MyTelegram.Schema.Stories;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x737fc2ec)]
+[TlObject(0x8f9e6898)]
 public sealed partial class RequestSendStory : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x737fc2ec;
+    public uint ConstructorId => 0x8f9e6898;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -111,6 +113,11 @@ public sealed partial class RequestSendStory : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public TVector<int>? Albums { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputDocument" />
+    /// </summary>
+    public MyTelegram.Schema.IInputDocument? Music { get; set; }
+
     public void ComputeFlag()
     {
         if (Pinned) { Flags = Flags.SetBit(2); }
@@ -123,6 +130,7 @@ public sealed partial class RequestSendStory : IRequest<MyTelegram.Schema.IUpdat
         if (FwdFromId != null) { Flags = Flags.SetBit(6); }
         if (/*FwdFromStory != 0 && */FwdFromStory.HasValue) { Flags = Flags.SetBit(6); }
         if (Albums?.Count > 0) { Flags = Flags.SetBit(8); }
+        if (Music != null) { Flags = Flags.SetBit(9); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -141,6 +149,7 @@ public sealed partial class RequestSendStory : IRequest<MyTelegram.Schema.IUpdat
         if (Flags.IsBitSet(6)) { writer.Write(FwdFromId); }
         if (Flags.IsBitSet(6)) { writer.Write(FwdFromStory.Value); }
         if (Flags.IsBitSet(8)) { writer.Write(Albums); }
+        if (Flags.IsBitSet(9)) { writer.Write(Music); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -160,5 +169,6 @@ public sealed partial class RequestSendStory : IRequest<MyTelegram.Schema.IUpdat
         if (Flags.IsBitSet(6)) { FwdFromId = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags.IsBitSet(6)) { FwdFromStory = buffer.ReadInt32(); }
         if (Flags.IsBitSet(8)) { Albums = buffer.Read<TVector<int>>(); }
+        if (Flags.IsBitSet(9)) { Music = buffer.Read<MyTelegram.Schema.IInputDocument>(); }
     }
 }

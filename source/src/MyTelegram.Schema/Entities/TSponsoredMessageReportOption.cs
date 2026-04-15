@@ -16,7 +16,7 @@ public sealed partial class TSponsoredMessageReportOption : ISponsoredMessageRep
     public string Text { get; set; }
 
     /// <summary>
-    /// Option identifier to pass to <a href="https://corefork.telegram.org/method/channels.reportSponsoredMessage">channels.reportSponsoredMessage</a>.
+    /// Option identifier to pass to <a href="https://corefork.telegram.org/method/messages.reportSponsoredMessage">messages.reportSponsoredMessage</a>.
     /// </summary>
     public ReadOnlyMemory<byte> Option { get; set; }
 

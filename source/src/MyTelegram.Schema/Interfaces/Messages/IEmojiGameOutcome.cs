@@ -3,18 +3,27 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.EmojiGameOutcome" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TEmojiGameOutcome"/> See <a href="" /><br/>
+/// <see cref="TEmojiGameOutcome"/> See <a href="https://corefork.telegram.org/constructor/messages.emojiGameOutcome" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiGameOutcome), nameof(TEmojiGameOutcome))]
 public interface IEmojiGameOutcome : IObject
 {
+    /// <summary>
+    ///  
+    /// </summary>
     ReadOnlyMemory<byte> Seed { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long StakeTonAmount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long TonAmount { get; set; }
 }

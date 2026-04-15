@@ -97,4 +97,9 @@ public interface IChatAdminRights : IObject
     /// If set, allows the admin to manage the <a href="https://corefork.telegram.org/api/monoforum">direct messages monoforum »</a> and <a href="https://corefork.telegram.org/api/suggested-posts">decline suggested posts »</a>.
     /// </summary>
     bool ManageDirectMessages { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    bool ManageRanks { get; set; }
 }

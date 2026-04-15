@@ -16,6 +16,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
 /// <para><c>403 GROUPCALL_FORBIDDEN The group call has already ended.</c></para>
 /// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
+/// <para><c>400 MESSAGE_TOO_LONG The provided message is too long.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
 /// <para><c>406 PEER_ID_INVALID The provided peer id is invalid.</c></para>
 /// <para><c>400 USER_BANNED_IN_CHANNEL You're banned from sending messages in supergroups/channels.</c></para>

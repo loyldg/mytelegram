@@ -9,18 +9,16 @@ namespace MyTelegram.Schema;
 /// <remarks>
 /// <para>Implementations:</para>
 /// <see cref="TPollAnswer"/> See <a href="https://corefork.telegram.org/constructor/pollAnswer" /><br/>
+/// <see cref="TInputPollAnswer"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPollAnswer), nameof(TPollAnswer))]
+[JsonDerivedType(typeof(TInputPollAnswer), nameof(TInputPollAnswer))]
 public interface IPollAnswer : IObject
 {
+    int Flags { get; set; }
+
     /// <summary>
-    /// Textual representation of the answer (only <a href="https://corefork.telegram.org/api/premium">Premium</a> users can use <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji entities</a> here).
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     MyTelegram.Schema.ITextWithEntities Text { get; set; }
-
-    /// <summary>
-    /// The param that has to be passed to <a href="https://corefork.telegram.org/method/messages.sendVote">messages.sendVote</a>.
-    /// </summary>
-    string Option { get; set; }
 }

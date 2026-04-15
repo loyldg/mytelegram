@@ -9,10 +9,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xb12c7125)]
+[TlObject(0x67a3f0de)]
 public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IUrlAuthResult>
 {
-    public uint ConstructorId => 0xb12c7125;
+    public uint ConstructorId => 0x67a3f0de;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -24,6 +24,9 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public bool WriteAllowed { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool SharePhoneNumber { get; set; }
 
     /// <summary>
@@ -47,6 +50,11 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public string? Url { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public string? MatchCode { get; set; }
+
     public void ComputeFlag()
     {
         if (WriteAllowed) { Flags = Flags.SetBit(0); }
@@ -55,6 +63,7 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
         if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(1); }
         if (/*ButtonId != 0 && */ButtonId.HasValue) { Flags = Flags.SetBit(1); }
         if (Url != null) { Flags = Flags.SetBit(2); }
+        if (MatchCode != null) { Flags = Flags.SetBit(4); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -66,6 +75,7 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
         if (Flags.IsBitSet(1)) { writer.Write(MsgId.Value); }
         if (Flags.IsBitSet(1)) { writer.Write(ButtonId.Value); }
         if (Flags.IsBitSet(2)) { writer.Write(Url); }
+        if (Flags.IsBitSet(4)) { writer.Write(MatchCode); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -77,5 +87,6 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
         if (Flags.IsBitSet(1)) { MsgId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(1)) { ButtonId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(2)) { Url = buffer.ReadString(); }
+        if (Flags.IsBitSet(4)) { MatchCode = buffer.ReadString(); }
     }
 }

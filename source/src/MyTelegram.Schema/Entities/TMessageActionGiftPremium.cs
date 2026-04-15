@@ -25,6 +25,9 @@ public sealed partial class TMessageActionGiftPremium : IMessageAction
     /// </summary>
     public long Amount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Days { get; set; }
 
     /// <summary>

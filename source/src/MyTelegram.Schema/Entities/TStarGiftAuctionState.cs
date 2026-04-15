@@ -3,38 +3,70 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAuctionState" /></para>
 /// </summary>
 [TlObject(0x771a4e66)]
 public sealed partial class TStarGiftAuctionState : IStarGiftAuctionState
 {
     public uint ConstructorId => 0x771a4e66;
+    /// <summary>
+    ///  
+    /// </summary>
     public int Version { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int StartDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int EndDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long MinBidAmount { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/AuctionBidLevel" />
     /// </summary>
     public TVector<MyTelegram.Schema.IAuctionBidLevel> BidLevels { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<long> TopBidders { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int NextRoundAt { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int LastGiftNum { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int GiftsLeft { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int CurrentRound { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int TotalRounds { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionRound" />
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAuctionRound> Rounds { get; set; }

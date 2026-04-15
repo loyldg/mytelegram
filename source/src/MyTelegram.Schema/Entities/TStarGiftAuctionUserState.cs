@@ -3,27 +3,46 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAuctionUserState" /></para>
 /// </summary>
 [TlObject(0x2eeed1c4)]
 public sealed partial class TStarGiftAuctionUserState : IStarGiftAuctionUserState
 {
     public uint ConstructorId => 0x2eeed1c4;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Returned { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? BidAmount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? BidDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? MinBidAmount { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer? BidPeer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int AcquiredCount { get; set; }
 
     public void ComputeFlag()

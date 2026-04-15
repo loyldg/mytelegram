@@ -44,6 +44,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>500 MSG_WAIT_FAILED A waiting call returned an error.</c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
 /// <para><c>400 PEER_TYPES_INVALID The passed <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline">keyboardButtonSwitchInline</a>.<code>peer_types</code> field is invalid.</c></para>
+/// <para><c>400 PHOTO_EXT_INVALID The extension of the photo is invalid.</c></para>
 /// <para><c>400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.</c></para>
 /// <para><c>400 PHOTO_SAVE_FILE_INVALID Internal issues, try again later.</c></para>
 /// <para><c>400 REPLY_MARKUP_INVALID The provided reply markup is invalid.</c></para>
@@ -117,6 +118,9 @@ public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpd
     /// </summary>
     public int? ScheduleDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? ScheduleRepeatPeriod { get; set; }
 
     /// <summary>

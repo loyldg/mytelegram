@@ -65,10 +65,19 @@ public sealed partial class TGroupCall : IGroupCall
     /// </summary>
     public bool Creator { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool MessagesEnabled { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool CanChangeMessagesEnabled { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Min { get; set; }
 
     /// <summary>
@@ -126,9 +135,13 @@ public sealed partial class TGroupCall : IGroupCall
     /// </summary>
     public string? InviteLink { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? SendPaidMessagesStars { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer? DefaultSendAs { get; set; }

@@ -2,7 +2,5 @@
 
 public class Layers
 {
-    public const int Layer224 = 224;
-
-    public const int LayerLatest = Layer224;
+    public const int LayerLatest = 224;
 }

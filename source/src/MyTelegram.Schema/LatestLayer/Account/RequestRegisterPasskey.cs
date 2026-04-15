@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Account;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CREDENTIAL_INVALID   </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/account.registerPasskey" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x55b41fd6)]
 public sealed partial class RequestRegisterPasskey : IRequest<MyTelegram.Schema.IPasskey>
@@ -14,6 +17,7 @@ public sealed partial class RequestRegisterPasskey : IRequest<MyTelegram.Schema.
     public uint ConstructorId => 0x55b41fd6;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPasskeyCredential" />
     /// </summary>
     public MyTelegram.Schema.IInputPasskeyCredential Credential { get; set; }

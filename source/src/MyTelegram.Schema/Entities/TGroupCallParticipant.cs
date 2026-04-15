@@ -113,6 +113,9 @@ public sealed partial class TGroupCallParticipant : IGroupCallParticipant
     /// </summary>
     public MyTelegram.Schema.IGroupCallParticipantVideo? Presentation { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? PaidStarsTotal { get; set; }
 
     public void ComputeFlag()

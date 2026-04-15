@@ -21,6 +21,7 @@ public sealed partial class TKeyboardButtonCallback : IKeyboardButton
     public bool RequiresPassword { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
     /// </summary>
     public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }

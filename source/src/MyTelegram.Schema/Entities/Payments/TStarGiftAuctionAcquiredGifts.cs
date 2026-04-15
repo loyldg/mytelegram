@@ -3,23 +3,26 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/payments.starGiftAuctionAcquiredGifts" /></para>
 /// </summary>
 [TlObject(0x7d5bd1f0)]
 public sealed partial class TStarGiftAuctionAcquiredGifts : IStarGiftAuctionAcquiredGifts
 {
     public uint ConstructorId => 0x7d5bd1f0;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionAcquiredGift" />
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAuctionAcquiredGift> Gifts { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/User" />
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Chat" />
     /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }

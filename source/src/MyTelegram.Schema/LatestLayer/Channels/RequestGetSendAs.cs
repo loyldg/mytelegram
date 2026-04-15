@@ -30,6 +30,9 @@ public sealed partial class RequestGetSendAs : IRequest<MyTelegram.Schema.Channe
     /// </summary>
     public bool ForPaidReactions { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool ForLiveStories { get; set; }
 
     /// <summary>

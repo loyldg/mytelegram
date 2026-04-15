@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A poll
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaPoll" /></para>
 /// </summary>
-[TlObject(0xf94e5f1)]
+[TlObject(0x883a4108)]
 public sealed partial class TInputMediaPoll : IInputMedia
 {
-    public uint ConstructorId => 0xf94e5f1;
+    public uint ConstructorId => 0x883a4108;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -24,7 +24,12 @@ public sealed partial class TInputMediaPoll : IInputMedia
     /// <summary>
     /// Correct answer IDs (for quiz polls)
     /// </summary>
-    public TVector<string>? CorrectAnswers { get; set; }
+    public TVector<int>? CorrectAnswers { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputMedia" />
+    /// </summary>
+    public MyTelegram.Schema.IInputMedia? AttachedMedia { get; set; }
 
     /// <summary>
     /// Explanation of quiz solution
@@ -37,11 +42,18 @@ public sealed partial class TInputMediaPoll : IInputMedia
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? SolutionEntities { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputMedia" />
+    /// </summary>
+    public MyTelegram.Schema.IInputMedia? SolutionMedia { get; set; }
+
     public void ComputeFlag()
     {
         if (CorrectAnswers?.Count > 0) { Flags = Flags.SetBit(0); }
+        if (AttachedMedia != null) { Flags = Flags.SetBit(3); }
         if (Solution != null) { Flags = Flags.SetBit(1); }
         if (SolutionEntities?.Count > 0) { Flags = Flags.SetBit(1); }
+        if (SolutionMedia != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -51,16 +63,20 @@ public sealed partial class TInputMediaPoll : IInputMedia
         writer.Write(Flags);
         writer.Write(Poll);
         if (Flags.IsBitSet(0)) { writer.Write(CorrectAnswers); }
+        if (Flags.IsBitSet(3)) { writer.Write(AttachedMedia); }
         if (Flags.IsBitSet(1)) { writer.Write(Solution); }
         if (Flags.IsBitSet(1)) { writer.Write(SolutionEntities); }
+        if (Flags.IsBitSet(2)) { writer.Write(SolutionMedia); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
         Poll = buffer.Read<MyTelegram.Schema.IPoll>();
-        if (Flags.IsBitSet(0)) { CorrectAnswers = buffer.Read<TVector<string>>(); }
+        if (Flags.IsBitSet(0)) { CorrectAnswers = buffer.Read<TVector<int>>(); }
+        if (Flags.IsBitSet(3)) { AttachedMedia = buffer.Read<MyTelegram.Schema.IInputMedia>(); }
         if (Flags.IsBitSet(1)) { Solution = buffer.ReadString(); }
         if (Flags.IsBitSet(1)) { SolutionEntities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
+        if (Flags.IsBitSet(2)) { SolutionMedia = buffer.Read<MyTelegram.Schema.IInputMedia>(); }
     }
 }

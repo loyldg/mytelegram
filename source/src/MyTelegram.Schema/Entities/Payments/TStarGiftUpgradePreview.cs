@@ -17,11 +17,13 @@ public sealed partial class TStarGiftUpgradePreview : IStarGiftUpgradePreview
     public TVector<MyTelegram.Schema.IStarGiftAttribute> SampleAttributes { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftUpgradePrice" />
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftUpgradePrice> Prices { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftUpgradePrice" />
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftUpgradePrice> NextPrices { get; set; }

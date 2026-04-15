@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Auth;
 /// Reset the <a href="https://core.telegram.org/api/auth#email-verification">login email »</a>.
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
+/// <para><c>400 EMAIL_INSTALL_MISSING  </c></para>
 /// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid.</c></para>
 /// <para><c>400 TASK_ALREADY_EXISTS An email reset was already requested. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/auth.resetLoginEmail" /></para>

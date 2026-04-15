@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.craftStarGift" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xb0f9684f)]
 public sealed partial class RequestCraftStarGift : IRequest<MyTelegram.Schema.IUpdates>
@@ -14,6 +17,7 @@ public sealed partial class RequestCraftStarGift : IRequest<MyTelegram.Schema.IU
     public uint ConstructorId => 0xb0f9684f;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputSavedStarGift" />
     /// </summary>
     public TVector<MyTelegram.Schema.IInputSavedStarGift> Stargift { get; set; }

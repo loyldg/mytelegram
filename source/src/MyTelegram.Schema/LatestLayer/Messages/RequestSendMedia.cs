@@ -13,6 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN You can't forward polls with public voters.</c></para>
 /// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
 /// <para><c>400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.</c></para>
+/// <para><c>400 BUSINESS_PEER_USAGE_MISSING You cannot send a message to a user through a <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a> if the user hasn't recently contacted us.</c></para>
 /// <para><c>400 BUTTON_COPY_TEXT_INVALID The specified <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy">keyboardButtonCopy</a>.<code>copy_text</code> is invalid.</c></para>
 /// <para><c>400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.</c></para>
 /// <para><c>400 BUTTON_POS_INVALID The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...).</c></para>
@@ -39,10 +40,12 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
 /// <para><c>400 CURRENCY_TOTAL_AMOUNT_INVALID The total amount of all prices is invalid.</c></para>
 /// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 EFFECT_CHAT_INVALID  </c></para>
 /// <para><c>400 EFFECT_ID_INVALID The specified effect ID is invalid.</c></para>
 /// <para><c>400 EMOTICON_INVALID The specified emoji is invalid.</c></para>
 /// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
 /// <para><c>400 EXTENDED_MEDIA_AMOUNT_INVALID The specified <code>stars_amount</code> of the passed <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia">inputMediaPaidMedia</a> is invalid.</c></para>
+/// <para><c>400 EXTENDED_MEDIA_EMPTY  </c></para>
 /// <para><c>400 EXTENDED_MEDIA_INVALID The specified paid media is invalid.</c></para>
 /// <para><c>400 EXTERNAL_URL_INVALID External URL invalid.</c></para>
 /// <para><c>400 FILE_PARTS_INVALID The number of file parts is invalid.</c></para>
@@ -85,6 +88,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.</c></para>
 /// <para><c>400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.</c></para>
 /// <para><c>400 REPLY_MESSAGE_ID_INVALID The specified reply-to message ID is invalid.</c></para>
+/// <para><c>400 REPLY_TO_MONOFORUM_PEER_INVALID The specified inputReplyToMonoForum.monoforum_peer_id is invalid.</c></para>
 /// <para><c>400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.</c></para>
 /// <para><c>400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.</c></para>
 /// <para><c>400 SCHEDULE_TOO_MUCH There are too many scheduled messages.</c></para>
@@ -206,6 +210,9 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public int? ScheduleDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? ScheduleRepeatPeriod { get; set; }
 
     /// <summary>

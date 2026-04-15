@@ -116,6 +116,11 @@ public sealed partial class TChatBannedRights : IChatBannedRights
     public bool SendPlain { get; set; }
 
     /// <summary>
+    ///  
+    /// </summary>
+    public bool EditRank { get; set; }
+
+    /// <summary>
     /// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
     /// </summary>
     public int UntilDate { get; set; }
@@ -142,6 +147,7 @@ public sealed partial class TChatBannedRights : IChatBannedRights
         if (SendVoices) { Flags = Flags.SetBit(23); }
         if (SendDocs) { Flags = Flags.SetBit(24); }
         if (SendPlain) { Flags = Flags.SetBit(25); }
+        if (EditRank) { Flags = Flags.SetBit(26); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -175,6 +181,7 @@ public sealed partial class TChatBannedRights : IChatBannedRights
         if (Flags.IsBitSet(23)) { SendVoices = true; }
         if (Flags.IsBitSet(24)) { SendDocs = true; }
         if (Flags.IsBitSet(25)) { SendPlain = true; }
+        if (Flags.IsBitSet(26)) { EditRank = true; }
         UntilDate = buffer.ReadInt32();
     }
 }

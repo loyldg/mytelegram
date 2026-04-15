@@ -3,16 +3,25 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftBackground" /></para>
 /// </summary>
 [TlObject(0xaff56398)]
 public sealed partial class TStarGiftBackground : IStarGiftBackground
 {
     public uint ConstructorId => 0xaff56398;
+    /// <summary>
+    ///  
+    /// </summary>
     public int CenterColor { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int EdgeColor { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int TextColor { get; set; }
 
     public void ComputeFlag()

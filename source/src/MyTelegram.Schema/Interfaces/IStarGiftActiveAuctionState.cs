@@ -3,26 +3,29 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftActiveAuctionState" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftActiveAuctionState"/> See <a href="" /><br/>
+/// <see cref="TStarGiftActiveAuctionState"/> See <a href="https://corefork.telegram.org/constructor/starGiftActiveAuctionState" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftActiveAuctionState), nameof(TStarGiftActiveAuctionState))]
 public interface IStarGiftActiveAuctionState : IObject
 {
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
     /// </summary>
     MyTelegram.Schema.IStarGift Gift { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionState" />
     /// </summary>
     MyTelegram.Schema.IStarGiftAuctionState State { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionUserState" />
     /// </summary>
     MyTelegram.Schema.IStarGiftAuctionUserState UserState { get; set; }

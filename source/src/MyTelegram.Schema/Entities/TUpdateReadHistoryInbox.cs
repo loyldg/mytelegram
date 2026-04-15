@@ -26,6 +26,9 @@ public sealed partial class TUpdateReadHistoryInbox : IUpdate
     /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? TopMsgId { get; set; }
 
     /// <summary>

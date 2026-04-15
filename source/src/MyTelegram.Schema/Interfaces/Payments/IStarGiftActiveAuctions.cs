@@ -3,12 +3,12 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.StarGiftActiveAuctions" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftActiveAuctionsNotModified"/> See <a href="" /><br/>
-/// <see cref="TStarGiftActiveAuctions"/> See <a href="" /><br/>
+/// <see cref="TStarGiftActiveAuctionsNotModified"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftActiveAuctionsNotModified" /><br/>
+/// <see cref="TStarGiftActiveAuctions"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftActiveAuctions" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftActiveAuctionsNotModified), nameof(TStarGiftActiveAuctionsNotModified))]
 [JsonDerivedType(typeof(TStarGiftActiveAuctions), nameof(TStarGiftActiveAuctions))]

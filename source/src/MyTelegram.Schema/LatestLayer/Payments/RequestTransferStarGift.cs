@@ -12,8 +12,11 @@ namespace MyTelegram.Schema.Payments;
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
 /// <para><c>400 SAVED_ID_EMPTY The passed inputSavedStarGiftChat.saved_id is empty.</c></para>
 /// <para><c>400 STARGIFT_NOT_FOUND The specified gift was not found.</c></para>
+/// <para><c>400 STARGIFT_NOT_OWNER  </c></para>
+/// <para><c>400 STARGIFT_NOT_UNIQUE  </c></para>
 /// <para><c>400 STARGIFT_OWNER_INVALID You cannot transfer or sell a gift owned by another user.</c></para>
-/// <para><c>400 STARGIFT_PEER_INVALID The specified inputSavedStarGiftChat.peer is invalid. </c></para>
+/// <para><c>400 STARGIFT_PEER_INVALID The specified inputSavedStarGiftChat.peer is invalid.</c></para>
+/// <para><c>400 STARGIFT_TRANSFER_TOO_EARLY_%d You cannot transfer this gift yet, wait %d seconds. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/payments.transferStarGift" /></para>
 /// </summary>
 /// <remarks>

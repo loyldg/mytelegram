@@ -3,17 +3,21 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPasskeyResponseRegister" /></para>
 /// </summary>
 [TlObject(0x3e63935c)]
 public sealed partial class TInputPasskeyResponseRegister : IInputPasskeyResponse
 {
     public uint ConstructorId => 0x3e63935c;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/DataJSON" />
     /// </summary>
     public MyTelegram.Schema.IDataJSON ClientData { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public ReadOnlyMemory<byte> AttestationData { get; set; }
 
     public void ComputeFlag()

@@ -44,6 +44,9 @@ public interface ICheckedGiftCode : IObject
     /// </summary>
     int Date { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int Days { get; set; }
 
     /// <summary>

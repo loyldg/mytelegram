@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAuctionStateNotModified" /></para>
 /// </summary>
 [TlObject(0xfe333952)]
 public sealed partial class TStarGiftAuctionStateNotModified : IStarGiftAuctionState

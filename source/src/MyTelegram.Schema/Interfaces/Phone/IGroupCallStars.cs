@@ -3,28 +3,34 @@
 namespace MyTelegram.Schema.Phone;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/phone.GroupCallStars" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TGroupCallStars"/> See <a href="" /><br/>
+/// <see cref="TGroupCallStars"/> See <a href="https://corefork.telegram.org/constructor/phone.groupCallStars" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCallStars), nameof(TGroupCallStars))]
 public interface IGroupCallStars : IObject
 {
+    /// <summary>
+    ///  
+    /// </summary>
     long TotalStars { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/GroupCallDonor" />
     /// </summary>
     TVector<MyTelegram.Schema.IGroupCallDonor> TopDonors { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Chat" />
     /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/User" />
     /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }

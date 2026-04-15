@@ -3,12 +3,15 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeRarity" /></para>
 /// </summary>
 [TlObject(0x36437737)]
 public sealed partial class TStarGiftAttributeRarity : IStarGiftAttributeRarity
 {
     public uint ConstructorId => 0x36437737;
+    /// <summary>
+    ///  
+    /// </summary>
     public int Permille { get; set; }
 
     public void ComputeFlag()

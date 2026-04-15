@@ -40,10 +40,19 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
     /// </summary>
     public bool PrepaidUpgrade { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Assigned { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool FromOffer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Craft { get; set; }
 
     /// <summary>
@@ -95,8 +104,14 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
     /// </summary>
     public int? CanResellAt { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? DropOriginalDetailsStars { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? CanCraftAt { get; set; }
 
     public void ComputeFlag()

@@ -20,10 +20,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x63183030)]
+[TlObject(0xa5eec345)]
 public sealed partial class RequestTranslateText : IRequest<MyTelegram.Schema.Messages.ITranslatedText>
 {
-    public uint ConstructorId => 0x63183030;
+    public uint ConstructorId => 0xa5eec345;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -52,11 +52,14 @@ public sealed partial class RequestTranslateText : IRequest<MyTelegram.Schema.Me
     /// </summary>
     public string ToLang { get; set; }
 
+    public string? Tone { get; set; }
+
     public void ComputeFlag()
     {
         if (Peer != null) { Flags = Flags.SetBit(0); }
         if (Id?.Count > 0) { Flags = Flags.SetBit(0); }
         if (Text?.Count > 0) { Flags = Flags.SetBit(1); }
+        if (Tone != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -68,6 +71,7 @@ public sealed partial class RequestTranslateText : IRequest<MyTelegram.Schema.Me
         if (Flags.IsBitSet(0)) { writer.Write(Id); }
         if (Flags.IsBitSet(1)) { writer.Write(Text); }
         writer.Write(ToLang);
+        if (Flags.IsBitSet(2)) { writer.Write(Tone); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -77,5 +81,6 @@ public sealed partial class RequestTranslateText : IRequest<MyTelegram.Schema.Me
         if (Flags.IsBitSet(0)) { Id = buffer.Read<TVector<int>>(); }
         if (Flags.IsBitSet(1)) { Text = buffer.Read<TVector<MyTelegram.Schema.ITextWithEntities>>(); }
         ToLang = buffer.ReadString();
+        if (Flags.IsBitSet(2)) { Tone = buffer.ReadString(); }
     }
 }

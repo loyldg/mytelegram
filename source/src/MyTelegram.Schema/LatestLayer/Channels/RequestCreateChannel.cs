@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Channels;
 /// <para><c>500 CHAT_INVALID Invalid chat.</c></para>
 /// <para><c>400 CHAT_TITLE_EMPTY No chat title provided.</c></para>
 /// <para><c>400 TTL_PERIOD_INVALID The specified TTL period is invalid.</c></para>
-/// <para><c>403 USER_RESTRICTED You're spamreported, you can't create channels or chats. </c></para>
+/// <para><c>406 USER_RESTRICTED You're spamreported, you can't create channels or chats. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/channels.createChannel" /></para>
 /// </summary>
 /// <remarks>

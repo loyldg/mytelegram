@@ -14,10 +14,15 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xb11eafa2)]
+[TlObject(0xb2081a35)]
 public sealed partial class RequestToggleNoForwards : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xb11eafa2;
+    public uint ConstructorId => 0xb2081a35;
+
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
 
     /// <summary>
     /// The chat or channel
@@ -31,21 +36,31 @@ public sealed partial class RequestToggleNoForwards : IRequest<MyTelegram.Schema
     /// </summary>
     public bool Enabled { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public int? RequestMsgId { get; set; }
+
     public void ComputeFlag()
     {
+        if (/*RequestMsgId != 0 && */RequestMsgId.HasValue) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Peer);
         writer.Write(Enabled);
+        if (Flags.IsBitSet(0)) { writer.Write(RequestMsgId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
         Enabled = buffer.Read();
+        if (Flags.IsBitSet(0)) { RequestMsgId = buffer.ReadInt32(); }
     }
 }

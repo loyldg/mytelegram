@@ -65,12 +65,24 @@ public sealed partial class TStarsTransaction : IStarsTransaction
     /// </summary>
     public bool StargiftPrepaidUpgrade { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool StargiftDropOriginalDetails { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool PhonegroupMessage { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool StargiftAuctionBid { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Offer { get; set; }
 
     /// <summary>

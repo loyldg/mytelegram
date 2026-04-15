@@ -3,16 +3,17 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.StarGiftUpgradeAttributes" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftUpgradeAttributes"/> See <a href="" /><br/>
+/// <see cref="TStarGiftUpgradeAttributes"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftUpgradeAttributes" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftUpgradeAttributes), nameof(TStarGiftUpgradeAttributes))]
 public interface IStarGiftUpgradeAttributes : IObject
 {
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttribute" />
     /// </summary>
     TVector<MyTelegram.Schema.IStarGiftAttribute> Attributes { get; set; }

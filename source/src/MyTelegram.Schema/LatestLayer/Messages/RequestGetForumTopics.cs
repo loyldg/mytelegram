@@ -3,31 +3,53 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.getForumTopics" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x3ba47bff)]
 public sealed partial class RequestGetForumTopics : IRequest<MyTelegram.Schema.Messages.IForumTopics>
 {
     public uint ConstructorId => 0x3ba47bff;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string? Q { get; set; }
 
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
+    /// </summary>
     public int OffsetDate { get; set; }
 
+    /// <summary>
+    /// <a href="https://corefork.telegram.org/api/offsets">Offsets for pagination, for more info click here</a>
+    /// </summary>
     public int OffsetId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int OffsetTopic { get; set; }
 
+    /// <summary>
+    /// Maximum number of results to return, <a href="https://corefork.telegram.org/api/offsets">see pagination</a>
+    /// </summary>
     public int Limit { get; set; }
 
     public void ComputeFlag()

@@ -3,16 +3,19 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.getStarGiftActiveAuctions" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xa5d0514d)]
 public sealed partial class RequestGetStarGiftActiveAuctions : IRequest<MyTelegram.Schema.Payments.IStarGiftActiveAuctions>
 {
     public uint ConstructorId => 0xa5d0514d;
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long Hash { get; set; }
 
     public void ComputeFlag()

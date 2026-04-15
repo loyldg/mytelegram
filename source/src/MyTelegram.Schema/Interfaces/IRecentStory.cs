@@ -3,18 +3,27 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/RecentStory" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TRecentStory"/> See <a href="" /><br/>
+/// <see cref="TRecentStory"/> See <a href="https://corefork.telegram.org/constructor/recentStory" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TRecentStory), nameof(TRecentStory))]
 public interface IRecentStory : IObject
 {
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     bool Live { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int? MaxId { get; set; }
 }

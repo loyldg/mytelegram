@@ -3,23 +3,26 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/starGiftActiveAuctionState" /></para>
 /// </summary>
 [TlObject(0xd31bc45d)]
 public sealed partial class TStarGiftActiveAuctionState : IStarGiftActiveAuctionState
 {
     public uint ConstructorId => 0xd31bc45d;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
     /// </summary>
     public MyTelegram.Schema.IStarGift Gift { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionState" />
     /// </summary>
     public MyTelegram.Schema.IStarGiftAuctionState State { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionUserState" />
     /// </summary>
     public MyTelegram.Schema.IStarGiftAuctionUserState UserState { get; set; }

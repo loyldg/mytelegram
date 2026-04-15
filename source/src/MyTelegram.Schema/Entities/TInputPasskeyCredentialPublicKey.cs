@@ -3,17 +3,24 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPasskeyCredentialPublicKey" /></para>
 /// </summary>
 [TlObject(0x3c27b78f)]
 public sealed partial class TInputPasskeyCredentialPublicKey : IInputPasskeyCredential
 {
     public uint ConstructorId => 0x3c27b78f;
+    /// <summary>
+    ///  
+    /// </summary>
     public string Id { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string RawId { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPasskeyResponse" />
     /// </summary>
     public MyTelegram.Schema.IInputPasskeyResponse Response { get; set; }

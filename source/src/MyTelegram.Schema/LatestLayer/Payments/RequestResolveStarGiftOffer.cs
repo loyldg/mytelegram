@@ -3,20 +3,32 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 MESSAGE_ID_INVALID The provided message id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/payments.resolveStarGiftOffer" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xe9ce781c)]
 public sealed partial class RequestResolveStarGiftOffer : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xe9ce781c;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Decline { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int OfferMsgId { get; set; }
 
     public void ComputeFlag()

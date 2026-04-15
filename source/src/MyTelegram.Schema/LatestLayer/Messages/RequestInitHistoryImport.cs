@@ -11,7 +11,8 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 IMPORT_FORMAT_DATE_INVALID The date specified in the import file is invalid.</c></para>
 /// <para><c>400 IMPORT_FORMAT_UNRECOGNIZED The specified chat export file was exported from an unsupported chat app.</c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
-/// <para><c>406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_%dMIN Import for this chat is already in progress, wait %d minutes before starting a new one. </c></para>
+/// <para><c>406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_%dMIN Import for this chat is already in progress, wait %d minutes before starting a new one.</c></para>
+/// <para><c>400 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.initHistoryImport" /></para>
 /// </summary>
 /// <remarks>

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Message replies and <a href="https://corefork.telegram.org/api/threads">thread</a> information
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageReplyHeader" /></para>
 /// </summary>
-[TlObject(0x6917560b)]
+[TlObject(0x1b97dd66)]
 public sealed partial class TMessageReplyHeader : IMessageReplyHeader
 {
-    public uint ConstructorId => 0x6917560b;
+    public uint ConstructorId => 0x1b97dd66;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -79,6 +79,8 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
     /// </summary>
     public int? TodoItemId { get; set; }
 
+    public ReadOnlyMemory<byte>? PollOption { get; set; }
+
     public void ComputeFlag()
     {
         if (ReplyToScheduled) { Flags = Flags.SetBit(2); }
@@ -93,6 +95,7 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
         if (QuoteEntities?.Count > 0) { Flags = Flags.SetBit(7); }
         if (/*QuoteOffset != 0 && */QuoteOffset.HasValue) { Flags = Flags.SetBit(10); }
         if (/*TodoItemId != 0 && */TodoItemId.HasValue) { Flags = Flags.SetBit(11); }
+        if (PollOption != null) { Flags = Flags.SetBit(12); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -109,6 +112,7 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
         if (Flags.IsBitSet(7)) { writer.Write(QuoteEntities); }
         if (Flags.IsBitSet(10)) { writer.Write(QuoteOffset.Value); }
         if (Flags.IsBitSet(11)) { writer.Write(TodoItemId.Value); }
+        if (Flags.IsBitSet(12)) { writer.Write(PollOption); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -126,5 +130,6 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
         if (Flags.IsBitSet(7)) { QuoteEntities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
         if (Flags.IsBitSet(10)) { QuoteOffset = buffer.ReadInt32(); }
         if (Flags.IsBitSet(11)) { TodoItemId = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(12)) { PollOption = buffer.ReadBytes(); }
     }
 }

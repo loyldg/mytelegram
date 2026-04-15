@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Stories;
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
 /// <para><c>400 REACTION_INVALID The specified reaction is invalid.</c></para>
+/// <para><c>400 STORIES_NEVER_CREATED This peer hasn't ever posted any stories.</c></para>
 /// <para><c>400 STORY_ID_EMPTY You specified no story IDs.</c></para>
 /// <para><c>400 STORY_ID_INVALID The specified story ID is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/stories.sendReaction" /></para>

@@ -3,12 +3,12 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/messages.EmojiGameInfo" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TEmojiGameUnavailable"/> See <a href="" /><br/>
-/// <see cref="TEmojiGameDiceInfo"/> See <a href="" /><br/>
+/// <see cref="TEmojiGameUnavailable"/> See <a href="https://corefork.telegram.org/constructor/messages.emojiGameUnavailable" /><br/>
+/// <see cref="TEmojiGameDiceInfo"/> See <a href="https://corefork.telegram.org/constructor/messages.emojiGameDiceInfo" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiGameUnavailable), nameof(TEmojiGameUnavailable))]
 [JsonDerivedType(typeof(TEmojiGameDiceInfo), nameof(TEmojiGameDiceInfo))]

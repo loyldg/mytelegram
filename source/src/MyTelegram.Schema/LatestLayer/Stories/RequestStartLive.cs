@@ -3,48 +3,76 @@
 namespace MyTelegram.Schema.Stories;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/stories.startLive" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xd069ccde)]
 public sealed partial class RequestStartLive : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xd069ccde;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Pinned { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Noforwards { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool RtmpStream { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string? Caption { get; set; }
 
     /// <summary>
+    /// <a href="https://corefork.telegram.org/api/entities">Message entities for styled text</a>
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPrivacyRule" />
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPrivacyRule> PrivacyRules { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long RandomId { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     /// </summary>
     public bool? MessagesEnabled { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? SendPaidMessagesStars { get; set; }
 
     public void ComputeFlag()

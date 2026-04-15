@@ -55,6 +55,9 @@ public sealed partial class TMessageActionStarGift : IMessageAction
     /// </summary>
     public bool UpgradeSeparate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool AuctionAcquired { get; set; }
 
     /// <summary>
@@ -112,10 +115,14 @@ public sealed partial class TMessageActionStarGift : IMessageAction
     public int? GiftMsgId { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer? ToId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? GiftNum { get; set; }
 
     public void ComputeFlag()

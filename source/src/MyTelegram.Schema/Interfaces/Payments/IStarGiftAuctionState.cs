@@ -3,38 +3,46 @@
 namespace MyTelegram.Schema.Payments;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/payments.StarGiftAuctionState" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftAuctionState"/> See <a href="" /><br/>
+/// <see cref="TStarGiftAuctionState"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftAuctionState" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionState), nameof(TStarGiftAuctionState))]
 public interface IStarGiftAuctionState : IObject
 {
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGift" />
     /// </summary>
     MyTelegram.Schema.IStarGift Gift { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionState" />
     /// </summary>
     MyTelegram.Schema.IStarGiftAuctionState State { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAuctionUserState" />
     /// </summary>
     MyTelegram.Schema.IStarGiftAuctionUserState UserState { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     int Timeout { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/User" />
     /// </summary>
     TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Chat" />
     /// </summary>
     TVector<MyTelegram.Schema.IChat> Chats { get; set; }

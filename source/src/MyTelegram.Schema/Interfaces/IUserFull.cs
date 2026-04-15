@@ -109,6 +109,18 @@ public interface IUserFull : IObject
     bool DisplayGiftsButton { get; set; }
 
     /// <summary>
+    ///  
+    /// </summary>
+    bool NoforwardsMyEnabled { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    bool NoforwardsPeerEnabled { get; set; }
+
+    bool UnofficialSecurityRisk { get; set; }
+
+    /// <summary>
     /// User ID
     /// </summary>
     long Id { get; set; }
@@ -313,7 +325,10 @@ public interface IUserFull : IObject
     MyTelegram.Schema.IDocument? SavedMusic { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     MyTelegram.Schema.ITextWithEntities? Note { get; set; }
+
+    long? BotManagerId { get; set; }
 }

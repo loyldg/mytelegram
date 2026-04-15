@@ -3,13 +3,14 @@
 namespace MyTelegram.Schema.Account;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/account.passkeys" /></para>
 /// </summary>
 [TlObject(0xf8e0aa1c)]
 public sealed partial class TPasskeys : IPasskeys
 {
     public uint ConstructorId => 0xf8e0aa1c;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Passkey" />
     /// </summary>
     public TVector<MyTelegram.Schema.IPasskey> Passkeys { get; set; }

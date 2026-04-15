@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Channels;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/channels.getFutureCreatorAfterLeave" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xa00918af)]
 public sealed partial class RequestGetFutureCreatorAfterLeave : IRequest<MyTelegram.Schema.IUser>
@@ -14,6 +17,7 @@ public sealed partial class RequestGetFutureCreatorAfterLeave : IRequest<MyTeleg
     public uint ConstructorId => 0xa00918af;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputChannel" />
     /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }

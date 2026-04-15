@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/stories">story</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/storyItem" /></para>
 /// </summary>
-[TlObject(0xedf164f1)]
+[TlObject(0x16a4b93c)]
 public sealed partial class TStoryItem : IStoryItem
 {
-    public uint ConstructorId => 0xedf164f1;
+    public uint ConstructorId => 0x16a4b93c;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -133,6 +133,11 @@ public sealed partial class TStoryItem : IStoryItem
     /// </summary>
     public TVector<int>? Albums { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Document" />
+    /// </summary>
+    public MyTelegram.Schema.IDocument? Music { get; set; }
+
     public void ComputeFlag()
     {
         if (Pinned) { Flags = Flags.SetBit(5); }
@@ -153,6 +158,7 @@ public sealed partial class TStoryItem : IStoryItem
         if (Views != null) { Flags = Flags.SetBit(3); }
         if (SentReaction != null) { Flags = Flags.SetBit(15); }
         if (Albums?.Count > 0) { Flags = Flags.SetBit(19); }
+        if (Music != null) { Flags = Flags.SetBit(20); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -173,6 +179,7 @@ public sealed partial class TStoryItem : IStoryItem
         if (Flags.IsBitSet(3)) { writer.Write(Views); }
         if (Flags.IsBitSet(15)) { writer.Write(SentReaction); }
         if (Flags.IsBitSet(19)) { writer.Write(Albums); }
+        if (Flags.IsBitSet(20)) { writer.Write(Music); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -200,5 +207,6 @@ public sealed partial class TStoryItem : IStoryItem
         if (Flags.IsBitSet(3)) { Views = buffer.Read<MyTelegram.Schema.IStoryViews>(); }
         if (Flags.IsBitSet(15)) { SentReaction = buffer.Read<MyTelegram.Schema.IReaction>(); }
         if (Flags.IsBitSet(19)) { Albums = buffer.Read<TVector<int>>(); }
+        if (Flags.IsBitSet(20)) { Music = buffer.Read<MyTelegram.Schema.IDocument>(); }
     }
 }

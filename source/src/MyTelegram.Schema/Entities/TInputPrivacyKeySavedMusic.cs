@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeySavedMusic" /></para>
 /// </summary>
 [TlObject(0x4dbe9226)]
 public sealed partial class TInputPrivacyKeySavedMusic : IInputPrivacyKey

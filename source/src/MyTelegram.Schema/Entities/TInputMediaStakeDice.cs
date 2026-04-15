@@ -3,16 +3,25 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/inputMediaStakeDice" /></para>
 /// </summary>
 [TlObject(0xf3a9244a)]
 public sealed partial class TInputMediaStakeDice : IInputMedia
 {
     public uint ConstructorId => 0xf3a9244a;
+    /// <summary>
+    ///  
+    /// </summary>
     public string GameHash { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long TonAmount { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public ReadOnlyMemory<byte> ClientSeed { get; set; }
 
     public void ComputeFlag()

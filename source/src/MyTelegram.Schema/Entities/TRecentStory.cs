@@ -3,16 +3,25 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/recentStory" /></para>
 /// </summary>
 [TlObject(0x711d692d)]
 public sealed partial class TRecentStory : IRecentStory
 {
     public uint ConstructorId => 0x711d692d;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Live { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? MaxId { get; set; }
 
     public void ComputeFlag()

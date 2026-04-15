@@ -3,10 +3,13 @@
 namespace MyTelegram.Schema.Phone;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 GROUPCALL_INVALID The specified group call is invalid. </c></para>
+/// <para>See <a href="https://corefork.telegram.org/method/phone.getGroupCallStars" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ] [Bot ] [Anonymous ]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x6f636302)]
 public sealed partial class RequestGetGroupCallStars : IRequest<MyTelegram.Schema.Phone.IGroupCallStars>
@@ -14,6 +17,7 @@ public sealed partial class RequestGetGroupCallStars : IRequest<MyTelegram.Schem
     public uint ConstructorId => 0x6f636302;
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }

@@ -3,22 +3,40 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/passkey" /></para>
 /// </summary>
 [TlObject(0x98613ebf)]
 public sealed partial class TPasskey : IPasskey
 {
     public uint ConstructorId => 0x98613ebf;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string Id { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string Name { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int Date { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? SoftwareEmojiId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? LastUsageDate { get; set; }
 
     public void ComputeFlag()

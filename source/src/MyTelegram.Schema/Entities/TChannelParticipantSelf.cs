@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Myself
 /// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantSelf" /></para>
 /// </summary>
-[TlObject(0x4f607bef)]
+[TlObject(0xa9478a1a)]
 public sealed partial class TChannelParticipantSelf : IChannelParticipant
 {
-    public uint ConstructorId => 0x4f607bef;
+    public uint ConstructorId => 0xa9478a1a;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -40,10 +40,16 @@ public sealed partial class TChannelParticipantSelf : IChannelParticipant
     /// </summary>
     public int? SubscriptionUntilDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public string? Rank { get; set; }
+
     public void ComputeFlag()
     {
         if (ViaRequest) { Flags = Flags.SetBit(0); }
         if (/*SubscriptionUntilDate != 0 && */SubscriptionUntilDate.HasValue) { Flags = Flags.SetBit(1); }
+        if (Rank != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -55,6 +61,7 @@ public sealed partial class TChannelParticipantSelf : IChannelParticipant
         writer.Write(InviterId);
         writer.Write(Date);
         if (Flags.IsBitSet(1)) { writer.Write(SubscriptionUntilDate.Value); }
+        if (Flags.IsBitSet(2)) { writer.Write(Rank); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -65,5 +72,6 @@ public sealed partial class TChannelParticipantSelf : IChannelParticipant
         InviterId = buffer.ReadInt64();
         Date = buffer.ReadInt32();
         if (Flags.IsBitSet(1)) { SubscriptionUntilDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(2)) { Rank = buffer.ReadString(); }
     }
 }

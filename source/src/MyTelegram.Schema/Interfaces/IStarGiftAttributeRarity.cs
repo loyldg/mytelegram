@@ -3,15 +3,15 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/type/StarGiftAttributeRarity" /></para>
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TStarGiftAttributeRarity"/> See <a href="" /><br/>
-/// <see cref="TStarGiftAttributeRarityUncommon"/> See <a href="" /><br/>
-/// <see cref="TStarGiftAttributeRarityRare"/> See <a href="" /><br/>
-/// <see cref="TStarGiftAttributeRarityEpic"/> See <a href="" /><br/>
-/// <see cref="TStarGiftAttributeRarityLegendary"/> See <a href="" /><br/>
+/// <see cref="TStarGiftAttributeRarity"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeRarity" /><br/>
+/// <see cref="TStarGiftAttributeRarityUncommon"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeRarityUncommon" /><br/>
+/// <see cref="TStarGiftAttributeRarityRare"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeRarityRare" /><br/>
+/// <see cref="TStarGiftAttributeRarityEpic"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeRarityEpic" /><br/>
+/// <see cref="TStarGiftAttributeRarityLegendary"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeRarityLegendary" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAttributeRarity), nameof(TStarGiftAttributeRarity))]
 [JsonDerivedType(typeof(TStarGiftAttributeRarityUncommon), nameof(TStarGiftAttributeRarityUncommon))]

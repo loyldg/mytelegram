@@ -3,17 +3,21 @@
 namespace MyTelegram.Schema;
 
 /// <summary>
-/// <para>See <a href="" /></para>
+/// <para>See <a href="https://corefork.telegram.org/constructor/updateDeleteGroupCallMessages" /></para>
 /// </summary>
 [TlObject(0x3e85e92c)]
 public sealed partial class TUpdateDeleteGroupCallMessages : IUpdate
 {
     public uint ConstructorId => 0x3e85e92c;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<int> Messages { get; set; }
 
     public void ComputeFlag()
