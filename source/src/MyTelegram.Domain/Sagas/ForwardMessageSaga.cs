@@ -94,7 +94,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
         var isForwardToSavedMessages = _state.ToPeer.PeerId == _state.RequestInfo.UserId;
         long? postChannelId = null;
         int? postMessageId = null;
-        Peer? savedPeerId;
+        Peer? savedPeerId = null;
         Peer? sendAs = _state.SendAs;
         var isOut = true;
         string? fromName = null;
@@ -180,6 +180,7 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
                 fwd.SavedFromPeer = _state.FromPeer;
 
                 sendAs = aggregateEvent.OriginalMessageItem.SendAs;
+                savedPeerId = _state.FromPeer;
             }
             else
             {
@@ -190,10 +191,6 @@ public class ForwardMessageSaga : MyInMemoryAggregateSaga<ForwardMessageSaga, Fo
             {
                 fwd.FromId = null;
                 savedPeerId = MyTelegramConsts.AnonymousUserId.ToUserPeer();
-            }
-            else
-            {
-                savedPeerId = null;
             }
         }
 
