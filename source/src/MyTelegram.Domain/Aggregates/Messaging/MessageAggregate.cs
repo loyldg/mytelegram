@@ -212,7 +212,7 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (_state.MessageItem.Date + MyTelegramConsts.EditTimeLimit < DateTime.UtcNow.ToTimestamp())
+        if (!_state.MessageItem.Post && _state.MessageItem.Date + MyTelegramConsts.EditTimeLimit < DateTime.UtcNow.ToTimestamp())
         {
             RpcErrors.RpcErrors400.MessageEditTimeExpired.ThrowRpcError();
         }

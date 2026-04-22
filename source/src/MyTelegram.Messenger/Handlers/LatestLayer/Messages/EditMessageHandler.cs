@@ -90,6 +90,12 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
             RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
         }
 
+        if (!messageReadModel.Post &&
+            messageReadModel.Date + MyTelegramConsts.EditTimeLimit < DateTime.UtcNow.ToTimestamp())
+        {
+            RpcErrors.RpcErrors400.MessageEditTimeExpired.ThrowRpcError();
+        }
+
         var message = messageReadModel.Message;
         var messageTextEdited = false;
         if (!string.IsNullOrEmpty(obj.Message))
@@ -134,6 +140,6 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
         var hashtags = messageAppService.GetHashtags(obj.Message);
         var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, message, CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags, encryptedData, inboxMessageEncryptedData);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }
