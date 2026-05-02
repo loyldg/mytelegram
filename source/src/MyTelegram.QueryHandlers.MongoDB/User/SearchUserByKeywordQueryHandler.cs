@@ -14,6 +14,11 @@ public class SearchUserByKeywordQueryHandler(IQueryOnlyReadModelStore<UserReadMo
             q = query.Keyword[1..];
         }
 
+        if (!string.IsNullOrEmpty(q))
+        {
+            q = Regex.Escape(q);
+        }
+
         Expression<Func<UserReadModel, bool>> predicate = x => true;
         predicate = predicate.WhereIf(!string.IsNullOrEmpty(q),
             p => (p.UserName != null && Regex.IsMatch(p.UserName, $"^{q}", RegexOptions.IgnoreCase)) ||

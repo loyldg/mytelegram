@@ -7,7 +7,8 @@ public class SearchUserNameQueryHandler(IQueryOnlyReadModelStore<UserNameReadMod
     public async Task<IReadOnlyCollection<IUserNameReadModel>> ExecuteQueryAsync(SearchUserNameQuery query,
         CancellationToken cancellationToken)
     {
-        return await store.FindAsync(p => Regex.IsMatch(p.UserName, $"^{query.Keyword}", RegexOptions.IgnoreCase),
+        var keyword=Regex.Escape(query.Keyword);
+        return await store.FindAsync(p => Regex.IsMatch(p.UserName, $"^{keyword}", RegexOptions.IgnoreCase),
             limit: 50, cancellationToken: cancellationToken);
     }
 }
