@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.AuthServer.EventHandlers;
+﻿using System.Collections.Concurrent;
+
+namespace MyTelegram.AuthServer.EventHandlers;
 
 public class UnencryptedMessageHandler(
     ILogger<UnencryptedMessageHandler> logger,
@@ -6,7 +8,7 @@ public class UnencryptedMessageHandler(
     IEventBus eventBus,
     IOptionsMonitor<MyTelegramAuthServerOptions> options) : IEventHandler<UnencryptedMessage>, ITransientDependency
 {
-    private static readonly Dictionary<string, IResPQ> Step1Results = [];
+    private static readonly ConcurrentDictionary<string, IResPQ> Step1Results = new();
 
     public async Task HandleEventAsync(UnencryptedMessage eventData)
     {
@@ -63,7 +65,9 @@ public class UnencryptedMessageHandler(
             // arrive on the same TCP connection within a short period(50ms), only the last request will be responded to.
             if (r is IResPQ resPq)
             {
-                Step1Results[eventData.ConnectionId] = resPq;
+                //Step1Results[eventData.ConnectionId] = resPq;
+                Step1Results.TryRemove(eventData.ConnectionId, out _);
+                Step1Results.TryAdd(eventData.ConnectionId, resPq);
                 _ = Task.Delay(options.CurrentValue.AuthStep1DelayMs).ContinueWith(async _ =>
                 {
                     if (Step1Results.Remove(eventData.ConnectionId, out var newResPq))
