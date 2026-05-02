@@ -1,5 +1,5 @@
 ﻿
-namespace MyTelegram.Messenger.Handlers.Messages;
+namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 
 /// <summary>
 /// <para><c>See <a href="" /> </c></para>
@@ -11,7 +11,7 @@ internal sealed class ReportReadMetricsHandler : RpcResultObjectHandler<MyTelegr
 {
     protected override Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestReportReadMetrics obj)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IBool>(new TBoolTrue());
     }
 }
 
