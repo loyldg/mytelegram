@@ -46,7 +46,7 @@ internal sealed class DeleteHistoryHandler(IQueryProcessor queryProcessor, IComm
         messageIds.Remove(1);
         if (messageIds.Count > 0)
         {
-            var newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(channelId, messageIds));
+            var newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(channelId, channelId, messageIds));
             var command = new StartDeleteParticipantHistoryCommand(TempId.New, input.ToRequestInfo(), channelId, messageIds, newTopMessageId);
             await commandBus.PublishAsync(command);
         }

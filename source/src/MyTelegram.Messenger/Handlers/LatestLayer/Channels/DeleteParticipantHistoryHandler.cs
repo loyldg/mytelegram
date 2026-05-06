@@ -26,7 +26,7 @@ internal sealed class DeleteParticipantHistoryHandler(IQueryProcessor queryProce
             var messageIds = (await queryProcessor.ProcessAsync(new GetMessageIdListByUserIdQuery(inputChannel.ChannelId, peer.PeerId, MyTelegramConsts.ClearHistoryDefaultPageSize))).ToList();
             if (messageIds.Count > 0)
             {
-                var newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(inputChannel.ChannelId, messageIds));
+                var newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(inputChannel.ChannelId, inputChannel.ChannelId, messageIds));
                 var command = new StartDeleteParticipantHistoryCommand(TempId.New, input.ToRequestInfo(), inputChannel.ChannelId, messageIds, newTopMessageId);
                 await commandBus.PublishAsync(command);
                 return null !;

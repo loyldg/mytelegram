@@ -26,21 +26,23 @@ internal sealed class DeleteMessagesHandler(ICommandBus commandBus, IPtsHelper p
             // Not set top message id for group chat
             if (messageItemsToBeDeletedList.Any(p => p.ToPeerType == PeerType.User))
             {
-                newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(input.UserId, messageIds));
+                var firstItem = messageItemsToBeDeletedList.ElementAt(0);
+                newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(input.UserId, firstItem.ToPeerId, messageIds));
                 if (obj.Revoke)
                 {
                     var toPeerMessageItem = messageItemsToBeDeletedList.FirstOrDefault(p => p.OwnerUserId != input.UserId);
                     if (toPeerMessageItem != null)
                     {
                         var toPeerMessageIds = messageItemsToBeDeletedList.Where(p => p.OwnerUserId != input.UserId).Select(p => p.MessageId).ToList();
-                        newTopMessageIdForOtherParticipant = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(toPeerMessageItem.OwnerUserId, toPeerMessageIds));
+                        newTopMessageIdForOtherParticipant = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(toPeerMessageItem.OwnerUserId,
+                            input.UserId, toPeerMessageIds));
                     }
                 }
             }
 
             var command = new StartDeleteMessagesCommand(TempId.New, input.ToRequestInfo(), messageItemsToBeDeletedList, obj.Revoke, obj.Revoke, newTopMessageId, newTopMessageIdForOtherParticipant);
             await commandBus.PublishAsync(command);
-            return null !;
+            return null!;
         }
 
         var pts = ptsHelper.GetCachedPts(input.UserId);

@@ -38,7 +38,7 @@ internal sealed class DeleteMessagesHandler(ICommandBus commandBus, IPtsHelper p
                 channelReadModel.ThrowExceptionIfChannelDeleted();
                 IReadOnlyCollection<int>? repliesMessageIds = null;
                 long? discussionGroupChannelId = null;
-                var newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(inputChannel.ChannelId, ids));
+                var newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(inputChannel.ChannelId, inputChannel.ChannelId, ids));
                 int? newTopMessageIdForDiscussionGroup = null;
                 if (channelReadModel!.Broadcast && channelReadModel.LinkedChatId.HasValue)
                 {
@@ -46,7 +46,8 @@ internal sealed class DeleteMessagesHandler(ICommandBus commandBus, IPtsHelper p
                     repliesMessageIds = await queryProcessor.ProcessAsync(new GetCommentsMessageIdListQuery(channelReadModel.ChannelId, ids));
                     if (repliesMessageIds.Count > 0)
                     {
-                        newTopMessageIdForDiscussionGroup = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(channelReadModel.LinkedChatId.Value, repliesMessageIds.ToList()));
+                        newTopMessageIdForDiscussionGroup = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(channelReadModel.LinkedChatId.Value,
+                            channelReadModel.LinkedChatId.Value, repliesMessageIds.ToList()));
                     }
                 }
 

@@ -451,7 +451,7 @@ public record GetFirstInboxMessageIdByMessageIdListQuery(long UserId, long Chann
 
 public record GetCommentsMessageIdListQuery(long ChannelId, List<int> MessageIds) : IQuery<IReadOnlyCollection<int>>;
 
-public record GetTopMessageIdQuery(long OwnerPeerId, List<int> MessageIds) : IQuery<int>;
+public record GetTopMessageIdQuery(long OwnerPeerId, long ToPeerId, List<int> MessageIds) : IQuery<int>;
 
 public record GetTopMessageQuery(long OwnerPeerId, List<int> MessageIds) : IQuery<IMessageReadModel?>;
 
