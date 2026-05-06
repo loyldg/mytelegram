@@ -16,7 +16,8 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Users;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetFullUserHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IUserConverterService userConverterService, ILayeredService<IPeerSettingsConverter> peerSettingsLayeredService, ILayeredService<IPeerNotifySettingsConverter> peerNotifySettingsLayeredService, IBlockCacheAppService blockCacheAppService, IAccessHashHelper accessHashHelper, IContactHelper contactHelper, IPeerSettingsAppService peerSettingsAppService, IPhotoAppService photoAppService, IUserAppService userAppService, IPrivacyAppService privacyAppService) : RpcResultObjectHandler<MyTelegram.Schema.Users.RequestGetFullUser, MyTelegram.Schema.Users.IUserFull>
+internal sealed class GetFullUserHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IUserConverterService userConverterService, ILayeredService<IPeerSettingsConverter> peerSettingsLayeredService, ILayeredService<IPeerNotifySettingsConverter> peerNotifySettingsLayeredService, IBlockCacheAppService blockCacheAppService, IAccessHashHelper accessHashHelper, IContactHelper contactHelper, IPeerSettingsAppService peerSettingsAppService,
+    IChatConverterService chatConverterService, IPhotoAppService photoAppService, IUserAppService userAppService, IPrivacyAppService privacyAppService) : RpcResultObjectHandler<MyTelegram.Schema.Users.RequestGetFullUser, MyTelegram.Schema.Users.IUserFull>
 {
     protected override async Task<MyTelegram.Schema.Users.IUserFull> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Users.RequestGetFullUser obj)
     {
@@ -49,12 +50,20 @@ internal sealed class GetFullUserHandler(IPeerHelper peerHelper, IQueryProcessor
         var user = userConverterService.ToUser(input, userReadModel, photoReadModels, myContactReadModel, targetUserContactReadModel, privacyReadModels, input.Layer);
         await SetPersonalChannelAsync(input, userReadModel, userFull);
         await SetCommonChatCountAsync(input, userReadModel, userFull);
-        return new TUserFull
+        var result = new TUserFull
         {
             Chats = [],
             FullUser = userFull,
             Users = new TVector<IUser>(user)
         };
+        if (userReadModel.PersonalChannelId != null)
+        {
+            var channel = await chatConverterService.GetChannelAsync(input, userReadModel.PersonalChannelId.Value,
+                false, null, input.Layer);
+            result.Chats.Add(channel);
+        }
+
+        return result;
     }
 
     private async Task SetCommonChatCountAsync(IRequestInput input, IUserReadModel userReadModel, IUserFull userFull)
