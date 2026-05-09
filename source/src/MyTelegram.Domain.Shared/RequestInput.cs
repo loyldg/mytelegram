@@ -20,7 +20,9 @@ public record RequestInput(
     DeviceType DeviceType,
     string ClientIp,
     long SessionId,
-    long AccessHashKeyId
+    long AccessHashKeyId,
+    long InvokeAfterMsgId,
+    ConnectedBotData? ConnectedBotData = null
 ) : IRequestInput
 {
     public uint ObjectId { get; set; } = ObjectId;
@@ -28,5 +30,7 @@ public record RequestInput(
     public DeviceType DeviceType { get; set; } = DeviceType;
 
     public long UserId { get; set; } = UserId;
-    public long AccessHashKeyId { get; set; }= AccessHashKeyId;
+    public long AccessHashKeyId { get; set; } = AccessHashKeyId;
+    public ConnectedBotData? ConnectedBotData { get; set; } = ConnectedBotData;
+    public long InvokeAfterMsgId { get; set; } = InvokeAfterMsgId;
 }

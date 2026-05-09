@@ -17,7 +17,8 @@ public record AcksDataReceivedEvent(
     DeviceType DeviceType,
     string ClientIp,
     long SessionId,
-    long AccessHashKeyId
+    long AccessHashKeyId,
+    long InvokeAfterMsgId
 ) : DataReceivedEvent(
     ConnectionId,
     ConnectionType,
@@ -34,13 +35,14 @@ public record AcksDataReceivedEvent(
     DeviceType,
     ClientIp,
     SessionId,
-    AccessHashKeyId
+    AccessHashKeyId,
+    InvokeAfterMsgId
 )
 {
     public static AcksDataReceivedEvent Create()
     {
         return new AcksDataReceivedEvent(string.Empty, ConnectionType.UnKnown, Guid.Empty, 0, 0, 0, 0, 0,
             0, default, 0,
-            0, DeviceType.Unknown, string.Empty, 0, 0);
+            0, DeviceType.Unknown, string.Empty, 0, 0, 0);
     }
 }

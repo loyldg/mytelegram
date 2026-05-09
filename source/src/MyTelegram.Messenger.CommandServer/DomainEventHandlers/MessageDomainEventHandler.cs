@@ -54,17 +54,8 @@ public class MessageDomainEventHandler(ICommandBus commandBus,
         var message = item.Message;
         if (string.IsNullOrEmpty(message) && item.EncryptedData != null)
         {
-            try
-            {
-                message = messageConverterService.DecryptMessage(item.OwnerPeer.PeerId, item.MessageId,
-                    item.EncryptedData);
-                Console.WriteLine($"decrypted ok:{message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"decrypted failed.{item}");
-                throw;
-            }
+            message = messageConverterService.DecryptMessage(item.OwnerPeer.PeerId, item.MessageId,
+                item.EncryptedData);
         }
 
         if (!string.IsNullOrEmpty(message) && message.Length > 3)

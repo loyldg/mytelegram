@@ -108,7 +108,7 @@ builder.ConfigureServices((ctx,
     services.AddHostedService<MessageQueueDataProcessorBackgroundService<MessengerCommandDataReceivedEvent>>();
     services.AddHostedService<MessageQueueDataProcessorBackgroundService<NewDeviceCreatedEvent>>();
     services.AddHostedService<MessageQueueDataProcessorBackgroundService<ISessionMessage>>();
-    services.AddHostedService<MessageQueueDataProcessorBackgroundService<IDomainEvent>>();
+//    services.AddHostedService<MessageQueueDataProcessorBackgroundService<IDomainEvent>>();
     services.AddHostedService<QueuedCommandExecutorBackgroundService<DeviceAggregate, DeviceId>>();
     services.AddHostedService<QueuedCommandExecutorBackgroundService<PtsAggregate, PtsId>>();
     services.AddHostedService<ChannelViewsBackgroundService>();

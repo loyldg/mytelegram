@@ -8,7 +8,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="EventFlow" />
-		<PackageReference Include="System.Text.Json" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 	</ItemGroup>
 

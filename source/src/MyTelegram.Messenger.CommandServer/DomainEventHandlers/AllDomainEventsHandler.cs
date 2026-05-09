@@ -1,30 +1,23 @@
 ﻿namespace MyTelegram.Messenger.CommandServer.DomainEventHandlers;
+
 public class AllDomainEventsHandler(
-    IEventBus eventBus,
-    IDomainEventMessageFactory domainEventMessageFactory,
-    IMessageQueueProcessor<IDomainEvent> domainEventMessageQueueProcessor,
-    ILogger<AllDomainEventsHandler> logger)
+    IMessageQueueProcessor<IReadOnlyCollection<IDomainEvent>> domainEventsMessageQueueProcessor)
     : ISubscribeSynchronousToAll
 {
-    public async Task HandleAsync(IReadOnlyCollection<IDomainEvent> domainEvents, CancellationToken cancellationToken)
+    public Task HandleAsync(IReadOnlyCollection<IDomainEvent> domainEvents, CancellationToken cancellationToken)
     {
+        var queueKey = 0L;
         foreach (var domainEvent in domainEvents)
         {
-            domainEventMessageQueueProcessor.Enqueue(domainEvent, 0);
             var aggregateEvent = domainEvent.GetAggregateEvent();
-            if (aggregateEvent is IHasRequestInfo requestInfo)
+            if (aggregateEvent is IHasRequestInfo hasRequestInfo)
             {
-                var totalMilliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - requestInfo.RequestInfo.Date;
-                if (totalMilliseconds > 500)
-                {
-                    logger.LogDebug("Process domain event '{DomainEvent}' is too slow, timespan: {Timespan}ms, reqMsgId: {ReqMsgId}",
-                        domainEvent.GetAggregateEvent().GetType().Name,
-                        totalMilliseconds,
-                        requestInfo.RequestInfo.ReqMsgId);
-                }
+                queueKey = hasRequestInfo.RequestInfo.PermAuthKeyId;
             }
-            var message = domainEventMessageFactory.CreateDomainEventMessage(domainEvent);
-            await eventBus.PublishAsync(message);
         }
+
+        domainEventsMessageQueueProcessor.Enqueue(domainEvents, queueKey);
+
+        return Task.CompletedTask;
     }
 }

@@ -1,26 +1,24 @@
-﻿using MyTelegram.Messenger.Services.Caching;
-
-namespace MyTelegram.Messenger.QueryServer.EventHandlers;
+﻿namespace MyTelegram.Messenger.QueryServer.EventHandlers;
 
 public class DistributedDomainEventHandler(
     IEventJsonSerializer eventJsonSerializer,
-    IDispatchToEventSubscribers dispatchToEventSubscribers,
     ILogger<DistributedDomainEventHandler> logger,
-    ICachedReadModelUpdater cachedReadModelUpdater,
-    IChatEventCacheHelper chatEventCacheHelper)
+    IMessageQueueProcessor<IDomainEvent> messageQueueProcessor )
     : IEventHandler<DomainEventMessage>, ITransientDependency
 {
-    public async Task HandleEventAsync(DomainEventMessage eventData)
+    public Task HandleEventAsync(DomainEventMessage eventData)
     {
-        var maxMillSeconds = 500;
-        var sw = Stopwatch.StartNew();
         var domainEvent = eventJsonSerializer.Deserialize(eventData.Message, new Metadata(eventData.Headers));
 
+        var queueKey = 0L;
         var aggregateEvent = domainEvent.GetAggregateEvent();
         if (aggregateEvent is IHasRequestInfo hasRequestInfo)
         {
+            queueKey = hasRequestInfo.RequestInfo.PermAuthKeyId;
+
             var totalMilliseconds =
                 DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - hasRequestInfo.RequestInfo.Date;
+            const int maxMillSeconds = 500;
 
             if (totalMilliseconds > maxMillSeconds)
             {
@@ -28,29 +26,12 @@ public class DistributedDomainEventHandler(
                     "Process domain event '{DomainEvent}' is too slow, time: {Timespan}ms, reqMsgId: {ReqMsgId}",
                     domainEvent.GetAggregateEvent().GetType().Name,
                     totalMilliseconds,
-                    hasRequestInfo.RequestInfo.ReqMsgId);
+                    hasRequestInfo.RequestInfo.ReqMsgId
+                );
             }
         }
+        messageQueueProcessor.Enqueue(domainEvent, queueKey);
 
-        switch (aggregateEvent)
-        {
-            case ChannelCreatedEvent channelCreatedEvent:
-                chatEventCacheHelper.Add(channelCreatedEvent);
-                break;
-            //case StartInviteToChannelEvent startInviteToChannelEvent:
-            //    chatEventCacheHelper.Add(startInviteToChannelEvent);
-            //    break;
-        }
-
-        await cachedReadModelUpdater.UpdateAsync([domainEvent], default);
-        await dispatchToEventSubscribers.DispatchToSynchronousSubscribersAsync([domainEvent], default);
-        sw.Stop();
-
-        if (sw.Elapsed.TotalMilliseconds > maxMillSeconds)
-        {
-            logger.LogInformation("Process domain event '{DomainEvent}' is too slow, time {Timespan}ms",
-                domainEvent.GetAggregateEvent().GetType().Name,
-                sw.Elapsed);
-        }
+        return Task.CompletedTask;
     }
 }
