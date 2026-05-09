@@ -2,7 +2,7 @@
 
 namespace MyTelegram.ReadModel.Impl;
 
-public class PushDeviceReadModel : IPushDeviceReadModel,
+public class PushDeviceReadModel : ReadModelBase, IPushDeviceReadModel,
     IAmReadModelFor<PushDeviceAggregate, PushDeviceId, PushDeviceRegisteredEvent>,
     IAmReadModelFor<PushDeviceAggregate, PushDeviceId, PushDeviceUnRegisteredEvent>
 {

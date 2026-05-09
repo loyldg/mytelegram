@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class MessageTokenReadModel : IMessageTokenReadModel,
+public class MessageTokenReadModel : ReadModelBase, IMessageTokenReadModel,
     IAmReadModelFor<MessageTokenAggregate, MessageTokenId, MessageTokenCreatedEvent>,
     IAmReadModelFor<MessageTokenAggregate, MessageTokenId, MessageTokenDeletedEvent>
 {

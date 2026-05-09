@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class ContactReadModel : IContactReadModel,
+public class ContactReadModel : ReadModelBase, IContactReadModel,
     IAmReadModelFor<ContactAggregate, ContactId, ContactAddedEvent>,
     IAmReadModelFor<ContactAggregate, ContactId, ContactDeletedEvent>,
     IAmReadModelFor<ContactAggregate, ContactId, ContactProfilePhotoChangedEvent>,

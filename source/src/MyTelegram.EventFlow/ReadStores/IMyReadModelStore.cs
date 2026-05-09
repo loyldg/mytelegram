@@ -3,6 +3,21 @@ using EventFlow.ReadStores;
 
 namespace MyTelegram.EventFlow.ReadStores;
 
+public interface IMyReadModel : IReadModel, ISoftDelete
+{
+    long? CreatedBy { get; set; }
+    long CreatedAt { get; set; }
+    long? LastModificationTime { get; set; }
+    long? LastModifiedBy { get; set; }
+    long? DeletionTime { get; set; }
+    long? DeletedBy { get; set; }
+}
+
+public interface ISoftDelete
+{
+    bool IsDeleted { get; set; }
+}
+
 public interface IQueryOnlyReadModel : IReadModel
 {
 }
@@ -11,7 +26,6 @@ public interface IQueryOnlyReadModelStore<TQueryOnlyReadModel> //: IReadModelSto
     where TQueryOnlyReadModel : class, IReadModel
 {
     IQueryable<TQueryOnlyReadModel> GetAll();
-
     Task<IReadOnlyCollection<TQueryOnlyReadModel>> FindAsync(
         Expression<Func<TQueryOnlyReadModel, bool>> filter,
         int skip = 0,

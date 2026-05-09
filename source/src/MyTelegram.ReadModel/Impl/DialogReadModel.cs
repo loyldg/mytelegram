@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class DialogReadModel : IDialogReadModel,
+public class DialogReadModel : ReadModelBase, IDialogReadModel,
     IAmReadModelFor<DialogAggregate, DialogId, DialogCreatedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, SetOutboxTopMessageSuccessEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, InboxMessageReceivedEvent>,

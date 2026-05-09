@@ -2,7 +2,7 @@
 
 namespace MyTelegram.ReadModel.Impl;
 
-public class DraftReadModel : IDraftReadModel,
+public class DraftReadModel : ReadModelBase, IDraftReadModel,
     IAmReadModelFor<DialogAggregate, DialogId, DraftSavedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, DraftClearedEvent>,
     IAmReadModelFor<TempAggregate,TempId,DraftDeletedEvent>

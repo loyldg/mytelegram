@@ -2,7 +2,7 @@
 
 namespace MyTelegram.ReadModel.Impl;
 
-public class MessageReadModel : IMessageReadModel,
+public class MessageReadModel : ReadModelBase, IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageCreatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessageCreatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageEditedEventV2>,

@@ -1,8 +1,8 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class DialogFilterReadModel : IDialogFilterReadModel,
-    IAmReadModelFor<DialogFilterAggregate,DialogFilterId,DialogFilterUpdatedEvent>,
-    IAmReadModelFor<DialogFilterAggregate,DialogFilterId,DialogFilterDeletedEvent>
+public class DialogFilterReadModel : ReadModelBase, IDialogFilterReadModel,
+    IAmReadModelFor<DialogFilterAggregate, DialogFilterId, DialogFilterUpdatedEvent>,
+    IAmReadModelFor<DialogFilterAggregate, DialogFilterId, DialogFilterDeletedEvent>
 {
     public long OwnerUserId { get; private set; }
     public int FolderId { get; private set; }

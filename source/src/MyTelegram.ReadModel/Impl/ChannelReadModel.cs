@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
-public class ChannelReadModel : IChannelReadModel,
+
+public class ChannelReadModel : ReadModelBase, IChannelReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, IncrementParticipantCountEvent>,
 

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class ChatInviteImporterReadModel : IChatInviteImporterReadModel,
+public class ChatInviteImporterReadModel : ReadModelBase, IChatInviteImporterReadModel,
         IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteImportedEvent>
 {
     public string Id { get; private set; } = default!;

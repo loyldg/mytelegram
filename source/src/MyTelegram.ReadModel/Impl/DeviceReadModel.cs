@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class DeviceReadModel : IDeviceReadModel,
+public class DeviceReadModel : ReadModelBase, IDeviceReadModel,
     IAmReadModelFor<DeviceAggregate, DeviceId, DeviceCreatedEvent>,
     IAmReadModelFor<DeviceAggregate, DeviceId, BindUidToDeviceEvent>,
     IAmReadModelFor<DeviceAggregate, DeviceId, DeviceAuthKeyUnRegisteredEvent>

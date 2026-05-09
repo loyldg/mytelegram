@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class PtsReadModel : IPtsReadModel,
+public class PtsReadModel : ReadModelBase, IPtsReadModel,
     IAmReadModelFor<PtsAggregate, PtsId, PtsUpdatedEvent>,
     IAmReadModelFor<PtsAggregate, PtsId, QtsUpdatedEvent>,
     IAmReadModelFor<PtsAggregate, PtsId, PtsGlobalSeqNoUpdatedEvent>

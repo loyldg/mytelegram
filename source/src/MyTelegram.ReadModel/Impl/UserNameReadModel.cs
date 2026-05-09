@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class UserNameReadModel : IUserNameReadModel,
+public class UserNameReadModel : ReadModelBase, IUserNameReadModel,
     IAmReadModelFor<UserNameAggregate, UserNameId, UserNameDeletedEvent>,
     IAmReadModelFor<UserNameAggregate, UserNameId, UserNameCreatedEvent>,
     IAmReadModelFor<UserNameAggregate, UserNameId, UserNameChangedEvent>

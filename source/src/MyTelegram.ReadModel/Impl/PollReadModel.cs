@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class PollReadModel : IPollReadModel,
+public class PollReadModel : ReadModelBase, IPollReadModel,
     IAmReadModelFor<PollAggregate, PollId, PollCreatedEvent>,
     IAmReadModelFor<PollAggregate, PollId, VoteSucceededEvent>,
     IAmReadModelFor<PollAggregate, PollId, PollClosedEvent>

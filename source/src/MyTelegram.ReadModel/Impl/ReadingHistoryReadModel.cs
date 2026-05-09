@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class ReadingHistoryReadModel : IReadingHistoryReadModel,
+public class ReadingHistoryReadModel : ReadModelBase, IReadingHistoryReadModel,
     IAmReadModelFor<ReadingHistoryAggregate, ReadingHistoryId, ReadingHistoryCreatedEvent>//,
     //IAmReadModelFor<DialogAggregate,DialogId, ReadInboxMessage2Event>
 {
