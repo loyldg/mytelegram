@@ -235,6 +235,11 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
                 _state.IsSendGroupedMessages,
                 []
                 ));
+
+            if (outboxMessageItem.OwnerPeer.PeerId == outboxMessageItem.ToPeer.PeerId)
+            {
+                await CompleteAsync();
+            }
         }
 
         var defaultHistoryTtl = outboxMessageItem.IsTtlFromDefaultSetting ? outboxMessageItem.TtlPeriod : null;
