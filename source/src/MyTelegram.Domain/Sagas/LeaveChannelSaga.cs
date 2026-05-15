@@ -53,7 +53,7 @@ public class LeaveChannelSaga(LeaveChannelSagaId id, IEventStore eventStore) : M
             Publish(command);
         }
 
-        Complete();
+        CompleteAsync();
         return Task.CompletedTask;
     }
 }

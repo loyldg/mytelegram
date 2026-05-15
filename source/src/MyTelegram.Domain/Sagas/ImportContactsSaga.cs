@@ -14,7 +14,7 @@ public class ImportContactsSaga : AggregateSaga<ImportContactsSaga, ImportContac
 
     public void Apply(ImportContactsCompletedSagaEvent aggregateEvent)
     {
-        Complete();
+        CompleteAsync();
     }
 
     public Task HandleAsync(

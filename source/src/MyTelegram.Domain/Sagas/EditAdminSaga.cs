@@ -90,7 +90,7 @@ public class EditAdminSaga : MyInMemoryAggregateSaga<EditAdminSaga, EditAdminSag
     private void HandleEditAdminCompleted()
     {
         Emit(new EditAdminCompletedSagaEvent(_state.RequestInfo, _state.ChannelId, _state.IsBroadcast, _state.UserId, _state.IsBot, _state.IsNewAdmin, _state.PromotedBy, _state.AdminRights));
-        Complete();
+        CompleteAsync();
     }
 
     public Task HandleAsync(IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent> domainEvent, ISagaContext sagaContext, CancellationToken cancellationToken)
