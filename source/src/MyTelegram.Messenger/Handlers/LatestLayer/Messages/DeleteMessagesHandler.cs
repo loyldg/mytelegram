@@ -21,6 +21,15 @@ internal sealed class DeleteMessagesHandler(ICommandBus commandBus, IPtsHelper p
         {
             var messageIds = obj.Id.ToList();
             var messageItemsToBeDeletedList = await queryProcessor.ProcessAsync(new GetMessageItemListToBeDeletedQuery(input.UserId, messageIds, obj.Revoke));
+            if (messageItemsToBeDeletedList.Count == 0)
+            {
+                return new TAffectedMessages
+                {
+                    Pts = ptsHelper.GetCachedPts(input.UserId),
+                    PtsCount = 1
+                };
+            }
+
             int? newTopMessageId = null;
             int? newTopMessageIdForOtherParticipant = null;
             // Not set top message id for group chat
