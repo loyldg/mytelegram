@@ -19,7 +19,7 @@ public class MessageAppService(
     : BaseAppService, IMessageAppService, ITransientDependency
 {
     private const string HashtagPattern = "#(\\w+)";
-    private const string UrlPattern = @"(?:^|\s)((https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s,.:;!?]*)?)";
+    private const string UrlPattern = @"(?:^|\s)((?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(?:\/[^\s]*)?)";
 
     private static byte[]? _encryptionKey;
     private static KeyConfig? _keyConfig;
