@@ -2,7 +2,8 @@
 
 public class SignInSagaState : AggregateState<SignInSaga, SignInSagaId, SignInSagaState>,
         IApply<SignInStartedSagaEvent>,
-        IApply<SignUpRequiredSagaEvent>
+        IApply<SignUpRequiredSagaEvent>,
+        IApply<SignInSuccessSagaEvent>
 {
     public RequestInfo RequestInfo { get; private set; } = default!;
 
@@ -13,5 +14,10 @@ public class SignInSagaState : AggregateState<SignInSaga, SignInSagaId, SignInSa
 
     public void Apply(SignUpRequiredSagaEvent aggregateEvent)
     {
+    }
+
+    public void Apply(SignInSuccessSagaEvent aggregateEvent)
+    {
+        
     }
 }
