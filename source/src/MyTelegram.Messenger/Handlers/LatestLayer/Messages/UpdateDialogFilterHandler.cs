@@ -29,9 +29,9 @@ internal sealed class UpdateDialogFilterHandler(ICommandBus commandBus, IPeerHel
         {
             if (obj.Filter is TDialogFilter f)
             {
-                var pinnedPeers = f.PinnedPeers.Select(GetInputPeer).ToList();
-                var includePeers = f.IncludePeers.Select(GetInputPeer).ToList();
-                var excludePeers = f.ExcludePeers.Select(GetInputPeer).ToList();
+                var pinnedPeers = f.PinnedPeers.Select(p => GetInputPeer(input, p)).ToList();
+                var includePeers = f.IncludePeers.Select(p => GetInputPeer(input, p)).ToList();
+                var excludePeers = f.ExcludePeers.Select(p => GetInputPeer(input, p)).ToList();
                 var filter = new DialogFilter(obj.Id, f.Contacts, f.NonContacts, f.Groups, f.Broadcasts, f.Bots, f.ExcludeMuted, f.ExcludeRead, f.ExcludeArchived, f.TitleNoanimate, f.Title, f.Emoticon, f.Color, pinnedPeers, includePeers, excludePeers, false);
                 var command = new UpdateDialogFilterCommand(DialogFilterId.Create(input.UserId, obj.Id), input.ToRequestInfo(), input.UserId, filter);
                 await commandBus.PublishAsync(command, default);
@@ -45,9 +45,9 @@ internal sealed class UpdateDialogFilterHandler(ICommandBus commandBus, IPeerHel
         return new TBoolTrue();
     }
 
-    private InputPeer GetInputPeer(IInputPeer inputPeer)
+    private InputPeer GetInputPeer(IRequestInput input, IInputPeer inputPeer)
     {
-        var peer = peerHelper.GetPeer(inputPeer);
+        var peer = peerHelper.GetPeer(inputPeer, input.UserId);
         long accessHash = 0;
         switch (inputPeer)
         {
