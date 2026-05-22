@@ -20,7 +20,7 @@ public class ObjectSerializer<T> : ISerializer<T>
     public T Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         var constructorId = buffer.ReadUInt32();
-        
+
         var typeOfT = typeof(T);
         if (!SerializerObjectMappings.TryGetTlObject(constructorId, out var func))
         {
@@ -40,11 +40,20 @@ public class ObjectSerializer<T> : ISerializer<T>
             // typeOfT=IObject,targetType=TVector<TObjectOrSubTypes>
             if (constructorId == VectorConstructorId)
             {
-                // [0..4]=constructorId [4..8]=_list.Count [8..12]=constructorId of T (Vector<T>)
-                // Read 4 bytes from 8 to 12,the first 4 bytes already read by reader.ReadUInt32()
-                // So need to read 4 bytes from 4 to 8
-                var vectorOfTConstructorIdBytesSpan = buffer[4..8].Span;
-                var constructorId2 = BitConverter.ToUInt32(vectorOfTConstructorIdBytesSpan);
+                // [0..4]=constructorId
+                // [4..8]=_list.Count
+                // [8..12]=constructorId of T (Vector<T>)
+
+                var vectorOfTConstructorIdBytesSpan = buffer.Span;
+
+                var count = BitConverter.ToInt32(vectorOfTConstructorIdBytesSpan);
+                if (count == 0)
+                {
+                    buffer = buffer[4..];
+                    return default;
+                }
+
+                var constructorId2 = BitConverter.ToUInt32(vectorOfTConstructorIdBytesSpan[4..]);
                 if (SerializerObjectMappings.TryGetTlObjectType(constructorId2, out var type))
                 {
                     var baseType = typeof(IObject);
