@@ -23,7 +23,8 @@ public class DialogReadModel : ReadModelBase, IDialogReadModel,
     IAmReadModelFor<DialogAggregate, DialogId, ReadOutboxMaxIdUpdatedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, TopMessageIdUpdatedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, UpdateReadChannelInboxEvent>,
-    IAmReadModelFor<DialogAggregate, DialogId, DialogFolderUpdatedEvent>
+    IAmReadModelFor<DialogAggregate, DialogId, DialogFolderUpdatedEvent>,
+    IAmReadModelFor<DialogAggregate, DialogId, DraftClearedEvent>
 {
     public virtual int ChannelHistoryMinId { get; private set; }
     public virtual DateTime CreationTime { get; private set; }
@@ -366,6 +367,13 @@ public class DialogReadModel : ReadModelBase, IDialogReadModel,
     public Task ApplyAsync(IReadModelContext context, IDomainEvent<DialogAggregate, DialogId, DialogFolderUpdatedEvent> domainEvent, CancellationToken cancellationToken)
     {
         FolderId = domainEvent.AggregateEvent.FolderId;
+
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<DialogAggregate, DialogId, DraftClearedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        Draft = null;
 
         return Task.CompletedTask;
     }
