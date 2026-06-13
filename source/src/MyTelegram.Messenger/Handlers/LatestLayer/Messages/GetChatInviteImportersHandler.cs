@@ -17,19 +17,16 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper, IPeerHelper peerHelper, IUserConverterService userConverterService) : RpcResultObjectHandler<RequestGetChatInviteImporters, IChatInviteImporters>
+internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcessor,
+    IChannelAdminRightsChecker channelAdminRightsChecker,
+    IPeerHelper peerHelper, IUserConverterService userConverterService) : RpcResultObjectHandler<RequestGetChatInviteImporters, IChatInviteImporters>
 {
     protected override async Task<IChatInviteImporters> HandleCoreAsync(IRequestInput input, RequestGetChatInviteImporters obj)
     {
         if (obj.Peer is TInputPeerChannel inputPeerChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel);
+            await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId, p => true);
             var userPeer = peerHelper.GetPeer(obj.OffsetUser);
-            var channelAdminReadModel = await queryProcessor.ProcessAsync(new GetChatAdminQuery(inputPeerChannel.ChannelId, input.UserId));
-            if (channelAdminReadModel == null)
-            {
-                RpcErrors.RpcErrors403.ChatAdminRequired.ThrowRpcError();
-            }
 
             long? inviteId = null;
             if (!string.IsNullOrEmpty(obj.Link))
@@ -53,7 +50,7 @@ internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcess
                     Date = readModel.Date,
                     Requested = !readModel.IsJoinRequestProcessed,
                     UserId = readModel.UserId,
-                //ViaChatlist = readModel.ViaChatList
+                    //ViaChatlist = readModel.ViaChatList
                 };
                 importers.Add(importer);
                 userIds.Add(readModel.UserId);
@@ -61,8 +58,8 @@ internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcess
 
             return new TChatInviteImporters
             {
-                Importers = [..importers],
-                Users = [..users],
+                Importers = [.. importers],
+                Users = [.. users],
             };
         }
 

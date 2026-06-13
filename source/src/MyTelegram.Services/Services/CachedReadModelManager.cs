@@ -4,10 +4,10 @@ using EventFlow.ReadStores;
 
 namespace MyTelegram.Services.Services;
 
-public abstract class CachedReadModelManager<TReadModelInterface, TReadModel>(
+public abstract class CachedReadModelManager<TReadModelInterface, TReadModel, TKey>(
     IReadModelDomainEventApplier readModelDomainEventApplier,
     IServiceProvider serviceProvider,
-    IReadModelCacheHelper<TReadModelInterface> readModelCacheHelper) : ICachedReadModelManager
+    IReadModelCacheHelper<TReadModelInterface, TKey> readModelCacheHelper) : ICachedReadModelManager
 
     where TReadModel : class, IReadModel
     where TReadModelInterface : IReadModel
@@ -65,7 +65,7 @@ public abstract class CachedReadModelManager<TReadModelInterface, TReadModel>(
 
             foreach (var readModelId in readModelIds)
             {
-                if (readModelCacheHelper.TryGetReadModel(readModelId, out var readModel))
+                if (readModelCacheHelper.TryGetReadModelById(readModelId, out var readModel))
                 {
                     var readModelContext = new ReadModelContext(serviceProvider, readModelId, false);
                     await readModelDomainEventApplier.UpdateReadModelAsync(readModel, [domainEvent], readModelContext,

@@ -1,9 +1,12 @@
 ﻿namespace MyTelegram.QueryHandlers.MongoDB.ChatInvite;
 
-public class GetAdminInvitesQueryHandler : IQueryHandler<GetAdminInvitesQuery, IReadOnlyCollection<AdminWithInvites>>
+public class GetAdminInvitesQueryHandler(IQueryOnlyReadModelStore<ChatInviteReadModel> store) : IQueryHandler<GetAdminInvitesQuery, IReadOnlyCollection<AdminWithInvites>>
 {
-    public Task<IReadOnlyCollection<AdminWithInvites>> ExecuteQueryAsync(GetAdminInvitesQuery query, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<AdminWithInvites>> ExecuteQueryAsync(GetAdminInvitesQuery query, CancellationToken cancellationToken)
     {
-        return Task.FromResult<IReadOnlyCollection<AdminWithInvites>>(new List<AdminWithInvites>());
+        var results = await store.GroupByAsync(p => p.PeerId == query.ChannelId, p => p.AdminId,
+            r => new AdminWithInvites(r.Key, r.Count(), r.Count(x => x.Revoked)));
+
+        return results;
     }
 }

@@ -17,6 +17,7 @@ public sealed partial class TMessages : IMessages
     public TVector<MyTelegram.Schema.IMessage> Messages { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/ForumTopic" />
     /// </summary>
     public TVector<MyTelegram.Schema.IForumTopic> Topics { get; set; }

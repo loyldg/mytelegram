@@ -115,4 +115,9 @@ public interface IGroupCallParticipant : IObject
     /// See <a href="https://corefork.telegram.org/type/GroupCallParticipantVideo" />
     /// </summary>
     MyTelegram.Schema.IGroupCallParticipantVideo? Presentation { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    long? PaidStarsTotal { get; set; }
 }

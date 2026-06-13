@@ -7,11 +7,13 @@ namespace MyTelegram.Schema.Payments;
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
+/// <para><c>400 COLLECTION_ID_INVALID  </c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/payments.getSavedStarGifts" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xa319e569)]
 public sealed partial class RequestGetSavedStarGifts : IRequest<MyTelegram.Schema.Payments.ISavedStarGifts>
@@ -58,8 +60,14 @@ public sealed partial class RequestGetSavedStarGifts : IRequest<MyTelegram.Schem
     /// </summary>
     public bool ExcludeUnupgradable { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool PeerColorAvailable { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool ExcludeHosted { get; set; }
 
     /// <summary>

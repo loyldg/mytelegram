@@ -2,14 +2,13 @@
 
 namespace MyTelegram.Services.Services;
 
-public class ReadModelCacheHelper<TReadModel> : IReadModelCacheHelper<TReadModel>
+public class ReadModelCacheHelper<TReadModel, TKey> : IReadModelCacheHelper<TReadModel, TKey> where TKey : notnull
 {
-    private static readonly ConcurrentDictionary<long, TReadModel> ReadModels = [];
-    private static readonly ConcurrentDictionary<string, long> ReadModelIds = [];
-
-    public async Task<TReadModel?> GetOrCreateAsync(long readModelId, Func<Task<TReadModel?>> createFactory, Func<TReadModel, string> createReadModelIdFunc)
+    private static readonly ConcurrentDictionary<TKey, TReadModel> ReadModels = [];
+    private static readonly ConcurrentDictionary<string, TKey> ReadModelIds = [];
+    public async Task<TReadModel?> GetOrCreateAsync(TKey id, Func<Task<TReadModel?>> createFactory, Func<TReadModel, string> createReadModelIdFunc)
     {
-        if (ReadModels.TryGetValue(readModelId, out var readModel))
+        if (ReadModels.TryGetValue(id, out var readModel))
         {
             return readModel;
         }
@@ -20,20 +19,20 @@ public class ReadModelCacheHelper<TReadModel> : IReadModelCacheHelper<TReadModel
             return readModel;
         }
 
-        ReadModels.TryAdd(readModelId, readModel!);
+        ReadModels.TryAdd(id, readModel!);
 
-        var id = createReadModelIdFunc(readModel!);
-        ReadModelIds.TryAdd(id, readModelId);
+        var readModelId = createReadModelIdFunc(readModel!);
+        ReadModelIds.TryAdd(readModelId, id);
 
-        return readModel!;
+        return readModel;
     }
 
-    public bool TryGetReadModel(long readModelId, out TReadModel? readModel)
+    public bool TryGetReadModel(TKey readModelId, out TReadModel? readModel)
     {
         return ReadModels.TryGetValue(readModelId, out readModel);
     }
 
-    public bool TryGetReadModel(string readModelId, out TReadModel? readModel)
+    public bool TryGetReadModelById(string readModelId, out TReadModel? readModel)
     {
         if (ReadModelIds.TryGetValue(readModelId, out var id))
         {
@@ -45,7 +44,7 @@ public class ReadModelCacheHelper<TReadModel> : IReadModelCacheHelper<TReadModel
         return false;
     }
 
-    public void Add(long id, string readModelId, TReadModel readModel)
+    public void Add(TKey id, string readModelId, TReadModel readModel)
     {
         ReadModelIds.TryAdd(readModelId, id);
         ReadModels.TryAdd(id, readModel);
@@ -69,4 +68,10 @@ public class ReadModelCacheHelper<TReadModel> : IReadModelCacheHelper<TReadModel
 
         return default;
     }
+}
+
+
+public class ReadModelCacheHelper<TReadModel> : ReadModelCacheHelper<TReadModel, long>, IReadModelCacheHelper<TReadModel>
+{
+
 }

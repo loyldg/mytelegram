@@ -33,6 +33,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.</c></para>
 /// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
 /// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 EFFECT_CHAT_INVALID  </c></para>
 /// <para><c>400 ENCRYPTION_DECLINED The secret chat was declined.</c></para>
 /// <para><c>400 ENTITIES_TOO_LONG You provided too many styled message entities.</c></para>
 /// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
@@ -49,7 +50,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.</c></para>
 /// <para><c>400 POLL_OPTION_INVALID Invalid poll option provided.</c></para>
 /// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.</c></para>
-/// <para><c>403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
+/// <para><c>406 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.</c></para>
 /// <para><c>400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.</c></para>
 /// <para><c>400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.</c></para>
 /// <para><c>400 QUOTE_TEXT_INVALID The specified <code>reply_to</code>.<code>quote_text</code> field is invalid.</c></para>
@@ -83,10 +84,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xfe05dc9a)]
+[TlObject(0x545cd15a)]
 public sealed partial class RequestSendMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xfe05dc9a;
+    public uint ConstructorId => 0x545cd15a;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -173,6 +174,11 @@ public sealed partial class RequestSendMessage : IRequest<MyTelegram.Schema.IUpd
     public int? ScheduleDate { get; set; }
 
     /// <summary>
+    ///  
+    /// </summary>
+    public int? ScheduleRepeatPeriod { get; set; }
+
+    /// <summary>
     /// Send this message as the specified peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
@@ -214,6 +220,7 @@ public sealed partial class RequestSendMessage : IRequest<MyTelegram.Schema.IUpd
         if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
         if (Entities?.Count > 0) { Flags = Flags.SetBit(3); }
         if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(10); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags = Flags.SetBit(24); }
         if (SendAs != null) { Flags = Flags.SetBit(13); }
         if (QuickReplyShortcut != null) { Flags = Flags.SetBit(17); }
         if (/*Effect != 0 &&*/ Effect.HasValue) { Flags = Flags.SetBit(18); }
@@ -233,6 +240,7 @@ public sealed partial class RequestSendMessage : IRequest<MyTelegram.Schema.IUpd
         if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
         if (Flags.IsBitSet(3)) { writer.Write(Entities); }
         if (Flags.IsBitSet(10)) { writer.Write(ScheduleDate.Value); }
+        if (Flags.IsBitSet(24)) { writer.Write(ScheduleRepeatPeriod.Value); }
         if (Flags.IsBitSet(13)) { writer.Write(SendAs); }
         if (Flags.IsBitSet(17)) { writer.Write(QuickReplyShortcut); }
         if (Flags.IsBitSet(18)) { writer.Write(Effect.Value); }
@@ -258,6 +266,7 @@ public sealed partial class RequestSendMessage : IRequest<MyTelegram.Schema.IUpd
         if (Flags.IsBitSet(2)) { ReplyMarkup = buffer.Read<MyTelegram.Schema.IReplyMarkup>(); }
         if (Flags.IsBitSet(3)) { Entities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
         if (Flags.IsBitSet(10)) { ScheduleDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(24)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
         if (Flags.IsBitSet(13)) { SendAs = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags.IsBitSet(17)) { QuickReplyShortcut = buffer.Read<MyTelegram.Schema.IInputQuickReplyShortcut>(); }
         if (Flags.IsBitSet(18)) { Effect = buffer.ReadInt64(); }

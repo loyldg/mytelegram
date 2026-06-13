@@ -20,23 +20,25 @@ public class SendAppCodeEventHandler(
         if (domainEvent.AggregateEvent.UserId != 0)
         {
             var message =
-                    $"Login code: {domainEvent.AggregateEvent.Code}. Do not give this code to anyone, even if they say they are from Telegram!\n\nThis code can be used to log in to your Telegram account. We never ask it for anything else.\n\nIf you didn't request this code by trying to log in on another device, simply ignore this message.";
+                $"Login code: {domainEvent.AggregateEvent.Code}. Do not give this code to anyone, even if they say they are from Telegram!\n\nThis code can be used to log in to your Telegram account. We never ask it for anything else.\n\nIf you didn't request this code by trying to log in on another device, simply ignore this message.\n\nPowered by MyTelegram\nhttps://github.com/loyldg/mytelegram";
             var entities = new TVector<IMessageEntity>
-                {
-                    new TMessageEntityBold { Offset = 0, Length = 11 },
-                    new TMessageEntitySpoiler{Offset = 12,Length = domainEvent.AggregateEvent.Code.Length},
-                    new TMessageEntityBold { Offset = 22, Length = 3 }
-                };
+            {
+                new TMessageEntityBold { Offset = 0, Length = 11 },
+                new TMessageEntitySpoiler{Offset = 12,Length = domainEvent.AggregateEvent.Code.Length},
+                new TMessageEntityBold { Offset = 22, Length = 3 },
+                new TMessageEntityBold { Offset = message.Length-48, Length = 11 },
+
+            };
 
             var sendMessageInput = new SendMessageInput(
                 RequestInfo.Empty with
                 {
-                    UserId = MyTelegramConsts.OfficialUserId,
+                    UserId = MyTelegramConsts.NotificationServiceUserId,
                     Layer = MyTelegramConsts.Layer,
                     Date = DateTime.UtcNow.ToTimestamp(),
                     RequestId = Guid.NewGuid()
                 },
-                MyTelegramConsts.OfficialUserId,
+                MyTelegramConsts.NotificationServiceUserId,
                 new Peer(PeerType.User, domainEvent.AggregateEvent.UserId),
                 message,
                 randomHelper.NextInt64(),

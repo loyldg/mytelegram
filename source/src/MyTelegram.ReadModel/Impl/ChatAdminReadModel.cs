@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class ChatAdminReadModel : IChatAdminReadModel,
+public class ChatAdminReadModel : ReadModelBase, IChatAdminReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent>
 {

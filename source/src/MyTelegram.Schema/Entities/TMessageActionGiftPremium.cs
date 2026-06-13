@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Info about a gifted Telegram Premium subscriptionThis service message should be displayed below the appropriate sticker from the <a href="https://corefork.telegram.org/constructor/inputStickerSetPremiumGifts">inputStickerSetPremiumGifts »</a> <a href="https://corefork.telegram.org/api/stickers#stickersets">stickerset »</a>:
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGiftPremium" /></para>
 /// </summary>
-[TlObject(0x6c6274fa)]
+[TlObject(0x48e91302)]
 public sealed partial class TMessageActionGiftPremium : IMessageAction
 {
-    public uint ConstructorId => 0x6c6274fa;
+    public uint ConstructorId => 0x48e91302;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -26,9 +26,9 @@ public sealed partial class TMessageActionGiftPremium : IMessageAction
     public long Amount { get; set; }
 
     /// <summary>
-    /// Duration of the gifted Telegram Premium subscription.
+    ///  
     /// </summary>
-    public int Months { get; set; }
+    public int Days { get; set; }
 
     /// <summary>
     /// If the gift was bought using a cryptocurrency, the cryptocurrency name.
@@ -60,7 +60,7 @@ public sealed partial class TMessageActionGiftPremium : IMessageAction
         writer.Write(Flags);
         writer.Write(Currency);
         writer.Write(Amount);
-        writer.Write(Months);
+        writer.Write(Days);
         if (Flags.IsBitSet(0)) { writer.Write(CryptoCurrency); }
         if (Flags.IsBitSet(0)) { writer.Write(CryptoAmount.Value); }
         if (Flags.IsBitSet(1)) { writer.Write(Message); }
@@ -71,7 +71,7 @@ public sealed partial class TMessageActionGiftPremium : IMessageAction
         Flags = buffer.ReadInt32();
         Currency = buffer.ReadString();
         Amount = buffer.ReadInt64();
-        Months = buffer.ReadInt32();
+        Days = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { CryptoCurrency = buffer.ReadString(); }
         if (Flags.IsBitSet(0)) { CryptoAmount = buffer.ReadInt64(); }
         if (Flags.IsBitSet(1)) { Message = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }

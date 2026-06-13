@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Info about a group call or livestream
 /// <para>See <a href="https://corefork.telegram.org/constructor/groupCall" /></para>
 /// </summary>
-[TlObject(0x553b0ba1)]
+[TlObject(0xefb2b617)]
 public sealed partial class TGroupCall : IGroupCall
 {
-    public uint ConstructorId => 0x553b0ba1;
+    public uint ConstructorId => 0xefb2b617;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -65,10 +65,19 @@ public sealed partial class TGroupCall : IGroupCall
     /// </summary>
     public bool Creator { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool MessagesEnabled { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool CanChangeMessagesEnabled { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Min { get; set; }
 
     /// <summary>
@@ -126,6 +135,17 @@ public sealed partial class TGroupCall : IGroupCall
     /// </summary>
     public string? InviteLink { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public long? SendPaidMessagesStars { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public MyTelegram.Schema.IPeer? DefaultSendAs { get; set; }
+
     public void ComputeFlag()
     {
         if (JoinMuted) { Flags = Flags.SetBit(1); }
@@ -147,6 +167,8 @@ public sealed partial class TGroupCall : IGroupCall
         if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(7); }
         if (/*UnmutedVideoCount != 0 && */UnmutedVideoCount.HasValue) { Flags = Flags.SetBit(10); }
         if (InviteLink != null) { Flags = Flags.SetBit(16); }
+        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { Flags = Flags.SetBit(20); }
+        if (DefaultSendAs != null) { Flags = Flags.SetBit(21); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -165,6 +187,8 @@ public sealed partial class TGroupCall : IGroupCall
         writer.Write(UnmutedVideoLimit);
         writer.Write(Version);
         if (Flags.IsBitSet(16)) { writer.Write(InviteLink); }
+        if (Flags.IsBitSet(20)) { writer.Write(SendPaidMessagesStars.Value); }
+        if (Flags.IsBitSet(21)) { writer.Write(DefaultSendAs); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -194,5 +218,7 @@ public sealed partial class TGroupCall : IGroupCall
         UnmutedVideoLimit = buffer.ReadInt32();
         Version = buffer.ReadInt32();
         if (Flags.IsBitSet(16)) { InviteLink = buffer.ReadString(); }
+        if (Flags.IsBitSet(20)) { SendPaidMessagesStars = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(21)) { DefaultSendAs = buffer.Read<MyTelegram.Schema.IPeer>(); }
     }
 }

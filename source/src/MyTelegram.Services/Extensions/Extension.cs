@@ -265,13 +265,16 @@ public static class Extension
     }
     public static RequestInfo ToRequestInfo(this IRequestInput requestInput)
     {
-        return new RequestInfo(requestInput.ReqMsgId,
+        return new RequestInfo(
+            requestInput.ConnectionId,
+            requestInput.SessionId,
+            requestInput.ReqMsgId,
             requestInput.UserId,
             requestInput.AccessHashKeyId,
             requestInput.AuthKeyId,
-            requestInput.PermAuthKeyId, 
-            requestInput.RequestId, 
-            requestInput.Layer, 
+            requestInput.PermAuthKeyId,
+            requestInput.RequestId,
+            requestInput.Layer,
             requestInput.Date,
             requestInput.DeviceType);
     }

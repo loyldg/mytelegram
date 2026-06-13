@@ -13,6 +13,8 @@
 /// <param name="DeviceType">Client device type</param>
 /// <param name="AddRequestIdToCache">Add the request id to cache(used by InvokeAfterMsgHandler)</param>
 public record RequestInfo(
+    string ConnectionId,
+    long SessionId,
     long ReqMsgId,
     long UserId,
     long AccessHashKeyId,
@@ -23,10 +25,11 @@ public record RequestInfo(
     long Date,
     DeviceType DeviceType = DeviceType.Desktop,
     bool AddRequestIdToCache = true,
-    bool IsSubRequest = false
+    bool IsSubRequest = false,
+    long InvokeAfterMsgId = 0
     ) : IRequestWithAccessHashKeyId
 {
-    public static RequestInfo Empty { get; } = new(0, 0, 0, 0, 0, Guid.Empty, 0, 0);
+    public static RequestInfo Empty { get; } = new(string.Empty, 0, 0, 0, 0, 0, 0, Guid.Empty, 0, 0);
 
     /// <summary>Request layer</summary>
     public int Layer { get; set; } = Layer;

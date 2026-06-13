@@ -45,8 +45,12 @@ public interface IRequestInput : IRequestWithAccessHashKeyId
     DeviceType DeviceType { get; set; }
     string ClientIp { get; }
     long SessionId { get; }
+    ConnectedBotData? ConnectedBotData { get; set; }
     //long AccessHashKeyId { get; }
+    long InvokeAfterMsgId { get; set; }
 }
+
+public record ConnectedBotData(long UserId, long BotUserId, IBusinessBotRights Rights);
 
 public interface IRequestWithAccessHashKeyId
 {

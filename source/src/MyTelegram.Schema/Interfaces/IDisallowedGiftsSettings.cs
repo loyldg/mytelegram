@@ -37,4 +37,9 @@ public interface IDisallowedGiftsSettings : IObject
     /// Disallow the reception of <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">gifted Telegram Premium subscriptions »</a>.
     /// </summary>
     bool DisallowPremiumGifts { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    bool DisallowStargiftsFromChannels { get; set; }
 }

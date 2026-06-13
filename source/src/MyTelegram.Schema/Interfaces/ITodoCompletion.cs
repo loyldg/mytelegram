@@ -20,8 +20,9 @@ public interface ITodoCompletion : IObject
 
     /// <summary>
     /// ID of the user that completed the item.
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
-    long CompletedBy { get; set; }
+    MyTelegram.Schema.IPeer CompletedBy { get; set; }
 
     /// <summary>
     /// When was the item completed.

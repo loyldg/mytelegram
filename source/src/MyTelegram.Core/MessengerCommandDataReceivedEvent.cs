@@ -16,7 +16,8 @@ public record MessengerCommandDataReceivedEvent(
     DeviceType DeviceType,
     string ClientIp,
     long SessionId,
-    long AccessHashKeyId
+    long AccessHashKeyId,
+    long InvokeAfterMsgId
 ) : DataReceivedEvent(
     ConnectionId,
     ConnectionType,
@@ -33,13 +34,14 @@ public record MessengerCommandDataReceivedEvent(
     DeviceType,
     ClientIp,
     SessionId,
-    AccessHashKeyId
+    AccessHashKeyId,
+    InvokeAfterMsgId
 )
 {
     public static MessengerCommandDataReceivedEvent Create()
     {
         return new MessengerCommandDataReceivedEvent(string.Empty, ConnectionType.UnKnown, Guid.Empty, 0, 0, 0, 0, 0,
             0, default, 0,
-            0, DeviceType.Unknown, string.Empty, 0, 0);
+            0, DeviceType.Unknown, string.Empty, 0, 0, 0);
     }
 }

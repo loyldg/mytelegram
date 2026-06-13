@@ -1,4 +1,4 @@
-namespace MyTelegram.Messenger.Handlers;
+namespace MyTelegram.Messenger.Handlers.LatestLayer;
 /// <summary>
 /// Invokes a query after successful completion of one of the previous queries.
 /// <para><c>See <a href="https://corefork.telegram.org/method/invokeAfterMsg"/> </c></para>
@@ -6,23 +6,16 @@ namespace MyTelegram.Messenger.Handlers;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class InvokeAfterMsgHandler : BaseObjectHandler<MyTelegram.Schema.RequestInvokeAfterMsg, IObject>
+internal sealed class InvokeAfterMsgHandler(IInvokeAfterMsgProcessor invokeAfterMsgProcessor) : BaseObjectHandler<RequestInvokeAfterMsg, IObject> //,IShouldCacheRequest
 {
-    private readonly IInvokeAfterMsgProcessor _invokeAfterMsgProcessor;
-    public InvokeAfterMsgHandler(IInvokeAfterMsgProcessor invokeAfterMsgProcessor)
-    {
-        _invokeAfterMsgProcessor = invokeAfterMsgProcessor;
-    }
-
     protected override async Task<IObject> HandleCoreAsync(IRequestInput input, RequestInvokeAfterMsg obj)
     {
-        //Logger.LogDebug($"InvokeAfterMsg,msgId{obj.MsgId},query:{obj.Query.GetType().Name}");
-        if (_invokeAfterMsgProcessor.ExistsInRecentMessageId(obj.MsgId))
+        if (invokeAfterMsgProcessor.ExistsInRecentMessageId(obj.MsgId))
         {
-            return await _invokeAfterMsgProcessor.HandleAsync(input, obj.Query);
+            return await invokeAfterMsgProcessor.HandleAsync(input, obj.Query);
         }
+        invokeAfterMsgProcessor.Enqueue(obj.MsgId, input, obj.Query);
 
-        _invokeAfterMsgProcessor.Enqueue(obj.MsgId, input, obj.Query);
-        return null !;
+        return null!;
     }
 }

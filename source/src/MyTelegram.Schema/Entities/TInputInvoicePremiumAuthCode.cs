@@ -10,6 +10,7 @@ public sealed partial class TInputInvoicePremiumAuthCode : IInputInvoice
 {
     public uint ConstructorId => 0x3e77f614;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputStorePaymentPurpose" />
     /// </summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }

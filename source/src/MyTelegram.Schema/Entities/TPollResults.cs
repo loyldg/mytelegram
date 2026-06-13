@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Results of poll
 /// <para>See <a href="https://corefork.telegram.org/constructor/pollResults" /></para>
 /// </summary>
-[TlObject(0x7adf2420)]
+[TlObject(0xba7bb15e)]
 public sealed partial class TPollResults : IPollResults
 {
-    public uint ConstructorId => 0x7adf2420;
+    public uint ConstructorId => 0xba7bb15e;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,8 @@ public sealed partial class TPollResults : IPollResults
     /// Similar to <a href="https://corefork.telegram.org/api/min">min</a> objects, used for poll constructors that are the same for all users so they don't have the option chosen by the current user (you can use <a href="https://corefork.telegram.org/method/messages.getPollResults">messages.getPollResults</a> to get the full poll results).
     /// </summary>
     public bool Min { get; set; }
+
+    public bool HasUnreadVotes { get; set; }
 
     /// <summary>
     /// Poll results
@@ -48,14 +50,21 @@ public sealed partial class TPollResults : IPollResults
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? SolutionEntities { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
+    /// </summary>
+    public MyTelegram.Schema.IMessageMedia? SolutionMedia { get; set; }
+
     public void ComputeFlag()
     {
         if (Min) { Flags = Flags.SetBit(0); }
+        if (HasUnreadVotes) { Flags = Flags.SetBit(6); }
         if (Results?.Count > 0) { Flags = Flags.SetBit(1); }
         if (/*TotalVoters != 0 && */TotalVoters.HasValue) { Flags = Flags.SetBit(2); }
         if (RecentVoters?.Count > 0) { Flags = Flags.SetBit(3); }
         if (Solution != null) { Flags = Flags.SetBit(4); }
         if (SolutionEntities?.Count > 0) { Flags = Flags.SetBit(4); }
+        if (SolutionMedia != null) { Flags = Flags.SetBit(5); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -68,16 +77,19 @@ public sealed partial class TPollResults : IPollResults
         if (Flags.IsBitSet(3)) { writer.Write(RecentVoters); }
         if (Flags.IsBitSet(4)) { writer.Write(Solution); }
         if (Flags.IsBitSet(4)) { writer.Write(SolutionEntities); }
+        if (Flags.IsBitSet(5)) { writer.Write(SolutionMedia); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { Min = true; }
+        if (Flags.IsBitSet(6)) { HasUnreadVotes = true; }
         if (Flags.IsBitSet(1)) { Results = buffer.Read<TVector<MyTelegram.Schema.IPollAnswerVoters>>(); }
         if (Flags.IsBitSet(2)) { TotalVoters = buffer.ReadInt32(); }
         if (Flags.IsBitSet(3)) { RecentVoters = buffer.Read<TVector<MyTelegram.Schema.IPeer>>(); }
         if (Flags.IsBitSet(4)) { Solution = buffer.ReadString(); }
         if (Flags.IsBitSet(4)) { SolutionEntities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
+        if (Flags.IsBitSet(5)) { SolutionMedia = buffer.Read<MyTelegram.Schema.IMessageMedia>(); }
     }
 }

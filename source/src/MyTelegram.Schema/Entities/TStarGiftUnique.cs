@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible star gift, see here »</a> for more info.The sticker that represents the gift is contained in a <a href="https://corefork.telegram.org/constructor/starGiftAttributeModel">starGiftAttributeModel</a> object in <code>attributes</code>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/starGiftUnique" /></para>
 /// </summary>
-[TlObject(0xb0bf741b)]
+[TlObject(0x85f0a9cd)]
 public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
 {
-    public uint ConstructorId => 0xb0bf741b;
+    public uint ConstructorId => 0x85f0a9cd;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -29,6 +29,16 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     /// A chat theme associated to this gift is available, <a href="https://corefork.telegram.org/api/themes#chat-themes">see here »</a> for more info on how to use it.
     /// </summary>
     public bool ThemeAvailable { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool Burned { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool Crafted { get; set; }
 
     /// <summary>
     /// Identifier of the collectible gift.
@@ -115,26 +125,45 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     public string? ValueCurrency { get; set; }
 
     /// <summary>
+    ///  
+    /// </summary>
+    public long? ValueUsdAmount { get; set; }
+
+    /// <summary>
     /// The current chat where the associated <a href="https://corefork.telegram.org/api/themes#chat-themes">chat theme</a> is installed, if any (gift-based themes can only be installed in one chat at a time).
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer? ThemePeer { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/PeerColor" />
     /// </summary>
     public MyTelegram.Schema.IPeerColor? PeerColor { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer? HostId { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public int? OfferMinStars { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public int? CraftChancePermille { get; set; }
 
     public void ComputeFlag()
     {
         if (RequirePremium) { Flags = Flags.SetBit(6); }
         if (ResaleTonOnly) { Flags = Flags.SetBit(7); }
         if (ThemeAvailable) { Flags = Flags.SetBit(9); }
+        if (Burned) { Flags = Flags.SetBit(14); }
+        if (Crafted) { Flags = Flags.SetBit(15); }
         if (OwnerId != null) { Flags = Flags.SetBit(0); }
         if (OwnerName != null) { Flags = Flags.SetBit(1); }
         if (OwnerAddress != null) { Flags = Flags.SetBit(2); }
@@ -143,9 +172,12 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (ReleasedBy != null) { Flags = Flags.SetBit(5); }
         if (/*ValueAmount != 0 &&*/ ValueAmount.HasValue) { Flags = Flags.SetBit(8); }
         if (ValueCurrency != null) { Flags = Flags.SetBit(8); }
+        if (/*ValueUsdAmount != 0 &&*/ ValueUsdAmount.HasValue) { Flags = Flags.SetBit(8); }
         if (ThemePeer != null) { Flags = Flags.SetBit(10); }
         if (PeerColor != null) { Flags = Flags.SetBit(11); }
         if (HostId != null) { Flags = Flags.SetBit(12); }
+        if (/*OfferMinStars != 0 && */OfferMinStars.HasValue) { Flags = Flags.SetBit(13); }
+        if (/*CraftChancePermille != 0 && */CraftChancePermille.HasValue) { Flags = Flags.SetBit(16); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -169,9 +201,12 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(5)) { writer.Write(ReleasedBy); }
         if (Flags.IsBitSet(8)) { writer.Write(ValueAmount.Value); }
         if (Flags.IsBitSet(8)) { writer.Write(ValueCurrency); }
+        if (Flags.IsBitSet(8)) { writer.Write(ValueUsdAmount.Value); }
         if (Flags.IsBitSet(10)) { writer.Write(ThemePeer); }
         if (Flags.IsBitSet(11)) { writer.Write(PeerColor); }
         if (Flags.IsBitSet(12)) { writer.Write(HostId); }
+        if (Flags.IsBitSet(13)) { writer.Write(OfferMinStars.Value); }
+        if (Flags.IsBitSet(16)) { writer.Write(CraftChancePermille.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -180,6 +215,8 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(6)) { RequirePremium = true; }
         if (Flags.IsBitSet(7)) { ResaleTonOnly = true; }
         if (Flags.IsBitSet(9)) { ThemeAvailable = true; }
+        if (Flags.IsBitSet(14)) { Burned = true; }
+        if (Flags.IsBitSet(15)) { Crafted = true; }
         Id = buffer.ReadInt64();
         GiftId = buffer.ReadInt64();
         Title = buffer.ReadString();
@@ -196,8 +233,11 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
         if (Flags.IsBitSet(5)) { ReleasedBy = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(8)) { ValueAmount = buffer.ReadInt64(); }
         if (Flags.IsBitSet(8)) { ValueCurrency = buffer.ReadString(); }
+        if (Flags.IsBitSet(8)) { ValueUsdAmount = buffer.ReadInt64(); }
         if (Flags.IsBitSet(10)) { ThemePeer = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(11)) { PeerColor = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
         if (Flags.IsBitSet(12)) { HostId = buffer.Read<MyTelegram.Schema.IPeer>(); }
+        if (Flags.IsBitSet(13)) { OfferMinStars = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(16)) { CraftChancePermille = buffer.ReadInt32(); }
     }
 }

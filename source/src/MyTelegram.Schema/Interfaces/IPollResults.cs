@@ -23,6 +23,8 @@ public interface IPollResults : IObject
     /// </summary>
     bool Min { get; set; }
 
+    bool HasUnreadVotes { get; set; }
+
     /// <summary>
     /// Poll results
     /// See <a href="https://corefork.telegram.org/type/PollAnswerVoters" />
@@ -50,4 +52,9 @@ public interface IPollResults : IObject
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
     /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity>? SolutionEntities { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
+    /// </summary>
+    MyTelegram.Schema.IMessageMedia? SolutionMedia { get; set; }
 }

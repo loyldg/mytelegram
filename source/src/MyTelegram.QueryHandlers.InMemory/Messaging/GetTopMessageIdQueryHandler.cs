@@ -4,8 +4,14 @@ public class GetTopMessageIdQueryHandler(IQueryOnlyReadModelStore<MessageReadMod
 {
     public Task<int> ExecuteQueryAsync(GetTopMessageIdQuery query, CancellationToken cancellationToken)
     {
+        Expression<Func<MessageReadModel, bool>> filter = p => p.OwnerPeerId == query.OwnerPeerId && !query.MessageIds.Contains(p.MessageId);
+        if (!query.OwnerPeerId.IsChannelPeer())
+        {
+            filter = filter.And(p => p.ToPeerId == query.ToPeerId);
+        }
+
         return store.FirstOrDefaultAsync(
-            p => p.OwnerPeerId == query.OwnerPeerId && !query.MessageIds.Contains(p.MessageId), p => p.MessageId,
+            filter, p => p.MessageId,
             new SortOptions<MessageReadModel>(p => p.MessageId, SortType.Descending), cancellationToken);
     }
 }

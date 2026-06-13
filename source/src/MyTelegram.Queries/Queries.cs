@@ -210,7 +210,8 @@ public record GetMessagesQuery(
     MessageActionType? MessageActionType = null,
     bool BroadcastsOnly = false,
     bool GroupsOnly = false,
-    bool UsersOnly = false
+    bool UsersOnly = false,
+    List<long>? Tokens = null
 )
     : IQuery<IReadOnlyCollection<IMessageReadModel>>
 {
@@ -235,9 +236,12 @@ public record GetPhoneCallConfigQuery(long UserId) : IQuery<IPhoneCallConfigRead
 public record GetPollAnswerVotersQuery(long PollId, long VoterPeerId)
     : IQuery<IReadOnlyCollection<IPollAnswerVoterReadModel>>;
 
+public record GetPollVotesQuery(long PollId, string? Option, int Skip, int Limit)
+    : IQuery<IReadOnlyCollection<IPollAnswerVoterReadModel>>;
+
 public record GetPollIdByMessageIdQuery(long PeerId, int MessageId) : IQuery<long?>;
 
-public record GetPollQuery(long ToPeerId, long PollId) : IQuery<IPollReadModel?>;
+public record GetPollQuery(/*long ToPeerId,*/ long PollId) : IQuery<IPollReadModel?>;
 
 public record GetPollsQuery(List<long> PollIds) : IQuery<IReadOnlyCollection<IPollReadModel>>;
 
@@ -404,7 +408,7 @@ public record GetUpdatesByGlobalSeqNoQuery(long UserId, long MinGlobalSeqNo)
 public record GetReplyToMsgIdListQuery(Peer ToPeer, long SelfUserId, int? ReplyToMsgId)
     : IQuery<IReadOnlyCollection<ReplyToMsgItem>?>;
 
-public record GetPermanentChatInviteQuery(long PeerId) : IQuery<IChatInviteReadModel?>;
+public record GetPermanentChatInviteQuery(long ChannelId, long AdminUserId) : IQuery<IChatInviteReadModel?>;
 
 public record GetEncryptedMessagesQuery(long UserId, long PermAuthKeyId, int Qts)
     : IQuery<IReadOnlyCollection<IEncryptedMessageReadModel>>;
@@ -447,7 +451,7 @@ public record GetFirstInboxMessageIdByMessageIdListQuery(long UserId, long Chann
 
 public record GetCommentsMessageIdListQuery(long ChannelId, List<int> MessageIds) : IQuery<IReadOnlyCollection<int>>;
 
-public record GetTopMessageIdQuery(long OwnerPeerId, List<int> MessageIds) : IQuery<int>;
+public record GetTopMessageIdQuery(long OwnerPeerId, long ToPeerId, List<int> MessageIds) : IQuery<int>;
 
 public record GetTopMessageQuery(long OwnerPeerId, List<int> MessageIds) : IQuery<IMessageReadModel?>;
 
@@ -656,7 +660,7 @@ public record GetShareableFolderCountQuery(long UserId) : IQuery<int>;
 public record GetMaxFolderIdQuery(long UserId) : IQuery<int>;
 public record GetAllDialogFiltersQuery(int Skip, int Limit) : IQuery<IReadOnlyCollection<IDialogFilterReadModel>>;
 public record GetImportedDialogFolderQuery(long UserId, string Slug) : IQuery<IDialogFilterReadModel?>;
-public record SearchPostsQuery(string Hashtag, int OffsetRate, long OffsetPeerId, int OffsetId, int Limit) : IQuery<IReadOnlyCollection<IMessageReadModel>>;
+public record SearchPostsQuery(string Hashtag, string? Query, List<long>? Tokens, int OffsetRate, long OffsetPeerId, int OffsetId, int Limit) : IQuery<IReadOnlyCollection<IMessageReadModel>>;
 public record GetPostsCountQuery(string Hashtag, int OffsetRate, int OffsetId) : IQuery<int>;
 
 public record GetFilesQuery(List<long> FileIds) : IQuery<IReadOnlyCollection<IFileReadModel>>;
@@ -679,3 +683,5 @@ public record GetPhotoByIdQuery(long PhotoId) : IQuery<IPhotoReadModel?>;
 public record GetPhotosByPhotoIdLisQuery(IList<long> PhotoIds) : IQuery<IReadOnlyCollection<IPhotoReadModel>>;
 public record GetUserConfigByKeyQuery(long UserId, string Key) : IQuery<IUserConfigReadModel?>;
 public record GetChannelMemberIdListQuery(long ChannelId, List<long> MemberUserIds) : IQuery<IReadOnlyCollection<long>>;
+public record GetMessageByBatchIdQuery(Guid BatchId, long ExcludePeerId) : IQuery<IMessageReadModel?>;
+public record GetFutureCreatorAfterLeaveQuery(long ChannelId, long CurrentCreatorUserId) : IQuery<long?>;

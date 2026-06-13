@@ -2,7 +2,7 @@
 
 namespace MyTelegram.ReadModel.Impl;
 
-public class UserConfigReadModel : IUserConfigReadModel,
+public class UserConfigReadModel : ReadModelBase, IUserConfigReadModel,
     IAmReadModelFor<UserConfigAggregate, UserConfigId, UserConfigChangedEvent>
 {
     public long UserId { get; private set; }

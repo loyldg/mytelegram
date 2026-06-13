@@ -123,6 +123,8 @@ public static class MyTelegramServerReadModelMongoDbExtensions
             .UseMongoDbReadModel<JoinChannelAggregate, JoinChannelId, JoinChannelRequestReadModel>()
 
             .UseMongoDbReadModel<UserConfigAggregate, UserConfigId, UserConfigReadModel>()
+            .UseMongoDbReadModel<MessageTokenAggregate, MessageTokenId, MessageTokenReadModel>()
+
             ;
     }
 }

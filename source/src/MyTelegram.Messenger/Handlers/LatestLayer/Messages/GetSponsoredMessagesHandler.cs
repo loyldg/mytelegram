@@ -5,6 +5,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// Code Type Description
 /// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.
+/// 400 MSG_ID_INVALID Invalid message ID provided.
 /// <para><c>See <a href="https://corefork.telegram.org/method/messages.getSponsoredMessages"/> </c></para>
 /// </summary>
 /// <remarks>

@@ -1,20 +1,20 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class ImportContactsSaga : AggregateSaga<ImportContactsSaga, ImportContactsSagaId, ImportContactsSagaLocator>,
+public class ImportContactsSaga : MyInMemoryAggregateSaga<ImportContactsSaga, ImportContactsSagaId, ImportContactsSagaLocator>,
     ISagaIsStartedBy<ImportedContactAggregate, ImportedContactId, ContactsImportedEvent>,
     ISagaHandles<ImportedContactAggregate, ImportedContactId, SingleContactImportedEvent>,
     IApply<ImportContactsCompletedSagaEvent>
 {
     private readonly ImportContactsSagaState _state = new();
 
-    public ImportContactsSaga(ImportContactsSagaId id) : base(id)
+    public ImportContactsSaga(ImportContactsSagaId id,IEventStore eventStore ) : base(id,eventStore)
     {
         Register(_state);
     }
 
     public void Apply(ImportContactsCompletedSagaEvent aggregateEvent)
     {
-        Complete();
+        CompleteAsync();
     }
 
     public Task HandleAsync(

@@ -4,15 +4,19 @@ public class EditAdminSaga : MyInMemoryAggregateSaga<EditAdminSaga, EditAdminSag
         ISagaIsStartedBy<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent>,
         ISagaHandles<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>
 {
+    private readonly IIdGenerator _idGenerator;
+    private readonly IChatInviteLinkHelper _chatInviteLinkHelper;
     private readonly EditAdminSagaState _state = new();
 
     public EditAdminSaga(EditAdminSagaId id,
-        IEventStore eventStore) : base(id, eventStore)
+        IEventStore eventStore, IIdGenerator idGenerator, IChatInviteLinkHelper chatInviteLinkHelper) : base(id, eventStore)
     {
+        _idGenerator = idGenerator;
+        _chatInviteLinkHelper = chatInviteLinkHelper;
         Register(_state);
     }
 
-    public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent> domainEvent,
+    public async Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent> domainEvent,
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
@@ -48,8 +52,10 @@ public class EditAdminSaga : MyInMemoryAggregateSaga<EditAdminSaga, EditAdminSag
         {
             var command = new EditChannelAdminCommand2(
                 ChannelMemberId.Create(domainEvent.AggregateEvent.ChannelId, domainEvent.AggregateEvent.UserId),
-                domainEvent.AggregateEvent.RequestInfo, domainEvent.AggregateEvent.ChannelId,
-                domainEvent.AggregateEvent.UserId, _state.AdminRights.GetFlags().ToInt32(),
+                domainEvent.AggregateEvent.RequestInfo,
+                domainEvent.AggregateEvent.ChannelId,
+                domainEvent.AggregateEvent.UserId,
+                _state.AdminRights.GetFlags().ToInt32(),
                 _state.Rank
             );
             Publish(command);
@@ -57,13 +63,34 @@ public class EditAdminSaga : MyInMemoryAggregateSaga<EditAdminSaga, EditAdminSag
             HandleEditAdminCompleted();
         }
 
-        return Task.CompletedTask;
+        if (domainEvent.AggregateEvent.ShouldCreatePermanentChatInvite)
+        {
+            // Create permanent chat invites for new admin
+            var chatInviteId = await _idGenerator.NextLongIdAsync(IdType.InviteId, domainEvent.AggregateEvent.ChannelId, cancellationToken: cancellationToken);
+            var createChatInviteCommand = new CreateChatInviteCommand(
+                ChatInviteId.Create(domainEvent.AggregateEvent.ChannelId, chatInviteId),
+                RequestInfo.Empty with { UserId = domainEvent.AggregateEvent.RequestInfo.UserId },
+                domainEvent.AggregateEvent.ChannelId,
+                chatInviteId,
+                _chatInviteLinkHelper.GenerateInviteLink(),
+                domainEvent.AggregateEvent.UserId,
+                string.Empty,
+                false,
+                null,
+                null,
+                null,
+                true,
+                DateTime.UtcNow.ToTimestamp(),
+                domainEvent.AggregateEvent.IsBroadcast
+            );
+            Publish(createChatInviteCommand);
+        }
     }
 
     private void HandleEditAdminCompleted()
     {
         Emit(new EditAdminCompletedSagaEvent(_state.RequestInfo, _state.ChannelId, _state.IsBroadcast, _state.UserId, _state.IsBot, _state.IsNewAdmin, _state.PromotedBy, _state.AdminRights));
-        Complete();
+        CompleteAsync();
     }
 
     public Task HandleAsync(IDomainEvent<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent> domainEvent, ISagaContext sagaContext, CancellationToken cancellationToken)

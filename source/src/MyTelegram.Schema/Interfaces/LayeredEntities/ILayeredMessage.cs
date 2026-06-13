@@ -21,4 +21,5 @@ public interface ILayeredMessage : IMessage
     /// Message <a href="https://corefork.telegram.org/api/entities">entities</a> for styled text
     ///</summary>
     TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
+    string Message { get; set; }
 }

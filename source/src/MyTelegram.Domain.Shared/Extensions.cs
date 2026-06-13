@@ -6,6 +6,21 @@ namespace MyTelegram;
 
 public static class Extensions
 {
+    public static bool IsUserPeer(this long peerId)
+    {
+        return peerId is >= MyTelegramConsts.UserIdInitId and < MyTelegramConsts.ChatIdInitId;
+    }
+
+    public static bool IsChannelPeer(this long peerId)
+    {
+        return peerId > MyTelegramConsts.ChannelInitId;
+    }
+
+    public static bool IsBotPeer(this long peerId)
+    {
+        return peerId is >= MyTelegramConsts.BotUserInitId and < MyTelegramConsts.ChatIdInitId;
+    }
+
     public static Peer ToUserPeer(this long peerId)
     {
         return new Peer(PeerType.User, peerId);

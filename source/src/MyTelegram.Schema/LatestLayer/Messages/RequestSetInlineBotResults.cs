@@ -16,6 +16,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 FILE_CONTENT_TYPE_INVALID File content-type is invalid.</c></para>
 /// <para><c>400 FILE_TITLE_EMPTY An empty file title was specified.</c></para>
 /// <para><c>400 GIF_CONTENT_TYPE_INVALID GIF content-type invalid.</c></para>
+/// <para><c>400 MEDIA_CAPTION_TOO_LONG The caption is too long.</c></para>
 /// <para><c>400 MESSAGE_EMPTY The provided message is empty.</c></para>
 /// <para><c>400 MESSAGE_TOO_LONG The provided message is too long.</c></para>
 /// <para><c>400 NEXT_OFFSET_INVALID The specified offset is longer than 64 bytes.</c></para>

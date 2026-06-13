@@ -1,11 +1,15 @@
-﻿namespace MyTelegram.AuthServer.EventHandlers;
+﻿using System.Collections.Concurrent;
+
+namespace MyTelegram.AuthServer.EventHandlers;
 
 public class UnencryptedMessageHandler(
     ILogger<UnencryptedMessageHandler> logger,
     IHandlerHelper handlerHelper,
-    IEventBus eventBus
-) : IEventHandler<UnencryptedMessage>, ITransientDependency
+    IEventBus eventBus,
+    IOptionsMonitor<MyTelegramAuthServerOptions> options) : IEventHandler<UnencryptedMessage>, ITransientDependency
 {
+    private static readonly ConcurrentDictionary<string, IResPQ> Step1Results = new();
+
     public async Task HandleEventAsync(UnencryptedMessage eventData)
     {
         try
@@ -50,22 +54,35 @@ public class UnencryptedMessageHandler(
                     DeviceType.Unknown,
                     eventData.ClientIp,
                     0,
+                    0,
                     0
                 ),
                 obj
             );
 
+            // After a server restart
+            // The Android client then sends two ReqPqMultiHandler requests in a very short time(10ms), causing Nonce verification to fail.
+            // This is resolved by delaying the response to ReqPqHandler / ReqPqMultiHandler.If multiple ReqPqHandler/ ReqPqMultiHandler requests
+            // arrive on the same TCP connection within a short period(50ms), only the last request will be responded to.
+            if (r is IResPQ resPq)
+            {
+                //Step1Results[eventData.ConnectionId] = resPq;
+                Step1Results.TryRemove(eventData.ConnectionId, out _);
+                Step1Results.TryAdd(eventData.ConnectionId, resPq);
+                _ = Task.Delay(options.CurrentValue.AuthStep1DelayMs).ContinueWith(async _ =>
+                {
+                    if (Step1Results.Remove(eventData.ConnectionId, out var newResPq))
+                    {
+                        await SendUnencryptResultToClientAsync(eventData, newResPq);
+                    }
+                });
+
+                return;
+            }
+
             if (r != null!)
             {
-                using var writer = new ArrayPoolBufferWriter<byte>();
-                r.Serialize(writer);
-                var unencryptedResponse = new UnencryptedMessageResponse(
-                    eventData.AuthKeyId,
-                    writer.WrittenMemory,
-                    eventData.ConnectionId,
-                    eventData.MessageId
-                );
-                await eventBus.PublishAsync(unencryptedResponse);
+                await SendUnencryptResultToClientAsync(eventData, r);
             }
         }
         catch (Exception ex)
@@ -89,5 +106,18 @@ public class UnencryptedMessageHandler(
                 eventData.MessageId
             );
         }
+    }
+
+    private async Task SendUnencryptResultToClientAsync(UnencryptedMessage unencryptedMessage, IObject result)
+    {
+        using var writer = new ArrayPoolBufferWriter<byte>();
+        result.Serialize(writer);
+        var unencryptedResponse = new UnencryptedMessageResponse(
+            unencryptedMessage.AuthKeyId,
+            writer.WrittenMemory,
+            unencryptedMessage.ConnectionId,
+            unencryptedMessage.MessageId
+        );
+        await eventBus.PublishAsync(unencryptedResponse);
     }
 }

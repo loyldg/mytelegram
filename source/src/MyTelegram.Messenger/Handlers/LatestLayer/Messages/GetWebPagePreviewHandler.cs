@@ -14,6 +14,6 @@ internal sealed class GetWebPagePreviewHandler : RpcResultObjectHandler<MyTelegr
 {
     protected override Task<MyTelegram.Schema.Messages.IWebPagePreview> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestGetWebPagePreview obj)
     {
-        return Task.FromResult<MyTelegram.Schema.Messages.IWebPagePreview>(new TWebPagePreview { Media = new TMessageMediaEmpty(), Users = [] });
+        return Task.FromResult<MyTelegram.Schema.Messages.IWebPagePreview>(new TWebPagePreview { Media = new TMessageMediaEmpty(), Users = [], Chats = [] });
     }
 }

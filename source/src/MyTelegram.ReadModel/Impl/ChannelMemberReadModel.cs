@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class ChannelMemberReadModel : IChannelMemberReadModel,
+public class ChannelMemberReadModel : ReadModelBase, IChannelMemberReadModel,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelCreatorCreatedEvent>,
     IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>,
     //IAmReadModelFor<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
@@ -77,10 +77,10 @@ public class ChannelMemberReadModel : IChannelMemberReadModel,
         IsBot = domainEvent.AggregateEvent.IsBot;
 
         Left = false;
-        Kicked = false;
-        KickedBy = 0;
-        BannedRights = 0;
-        UntilDate = 0;
+        Kicked = domainEvent.AggregateEvent.Kicked;
+        KickedBy = domainEvent.AggregateEvent.KickedBy;
+        BannedRights = domainEvent.AggregateEvent.BannedRights?.ToIntValue() ?? 0;
+        UntilDate = domainEvent.AggregateEvent.UntilDate;
 
         ChatInviteId = domainEvent.AggregateEvent.ChatInviteId;
         ChatJoinType = domainEvent.AggregateEvent.ChatJoinType;

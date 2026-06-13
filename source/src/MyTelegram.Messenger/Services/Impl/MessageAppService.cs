@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Messenger.Services.Impl;
+﻿using System.Text;
+
+namespace MyTelegram.Messenger.Services.Impl;
 
 public class MessageAppService(
     IQueryProcessor queryProcessor,
@@ -11,11 +13,16 @@ public class MessageAppService(
     IPrivacyAppService privacyAppService,
     IContactAppService contactAppService,
     IOffsetHelper offsetHelper,
+    IDataEncryptionHelper dataEncryptionHelper,
+    IOptionsMonitor<MyTelegramMessengerServerOptions> options,
     IIdGenerator idGenerator)
     : BaseAppService, IMessageAppService, ITransientDependency
 {
     private const string HashtagPattern = "#(\\w+)";
-    private const string UrlPattern = @"(?:^|\s)((https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s,.:;!?]*)?)";
+    private const string UrlPattern = @"(?:^|\s)((?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+(?:\/[^\s]*)?)";
+
+    private static byte[]? _encryptionKey;
+    private static KeyConfig? _keyConfig;
 
     public void CheckBotPermission(long requestUserId, Peer toPeer)
     {
@@ -418,6 +425,21 @@ public class MessageAppService(
 
         var date = CurrentDate;
         var hashtags = GetHashtags(input.Message);
+        byte[]? encryptedData = null;
+        byte[]? inboxMessageEncryptedData = null;
+        if (!string.IsNullOrEmpty(input.Message) &&
+            options.CurrentValue.EncryptionConfig is { Enabled: true, MessageKeys.Count: > 0 })
+        {
+            _keyConfig ??= options.CurrentValue.EncryptionConfig.MessageKeys[0];
+            _encryptionKey ??= Encoding.UTF8.GetBytes(_keyConfig.Key);
+            encryptedData = dataEncryptionHelper.Encrypt(_keyConfig.Id, _encryptionKey, ownerPeerId, input.Message);
+
+            if (input.ToPeer.PeerType == PeerType.User && input.ToPeer.PeerId != input.SenderUserId)
+            {
+                inboxMessageEncryptedData =
+                    dataEncryptionHelper.Encrypt(_keyConfig.Id, _encryptionKey, input.ToPeer.PeerId, input.Message);
+            }
+        }
         var messageItem = new MessageItem(
             input.ToPeer with { PeerId = ownerPeerId /*, AccessHash = 0 */ },
             input.ToPeer,
@@ -457,7 +479,9 @@ public class MessageAppService(
             PublicPosts: isPublicPost,
             Hashtags: hashtags,
             MentionedUserIds: mentionedUserIds,
-            Views: views
+            Views: views,
+            EncryptedData: encryptedData,
+            InboxMessageEncryptedData: inboxMessageEncryptedData
         );
 
         var sendMessageItem = new SendMessageItem(messageItem, input.ClearDraft, mentionedUserIds, []);
@@ -500,7 +524,7 @@ public class MessageAppService(
             if (globalPrivacySettings?.NewNoncontactPeersRequirePremium ?? false)
             {
                 var userReadModel = await userAppService.GetAsync(input.RequestInfo.UserId);
-                if (userReadModel.UserId != MyTelegramConsts.OfficialUserId && !userReadModel.Premium)
+                if (userReadModel.UserId != MyTelegramConsts.NotificationServiceUserId && !userReadModel.Premium)
                 {
                     var contactType =
                         await contactAppService.GetContactTypeAsync(input.RequestInfo.UserId, input.ToPeer.PeerId);
@@ -522,7 +546,10 @@ public class MessageAppService(
 
         ProcessMessageEntityHashtag(message, entities);
         ProcessMessageEntityUrlList(message, entities);
-        return ProcessMessageEntityMentionAsync(message, entities, toPeer);
+        var mentionedUserIds = ProcessMessageEntityMentionAsync(message, entities, toPeer);
+        RemoveOverlappedEntities(entities);
+
+        return mentionedUserIds;
     }
 
     private async Task<List<long>> ProcessMessageEntityMentionAsync(string message, IList<IMessageEntity>? entities, Peer toPeer)
@@ -605,11 +632,18 @@ public class MessageAppService(
 
     private void ProcessMessageEntityUrlList(string message, IList<IMessageEntity>? entities)
     {
+        var entityDict = entities?.DistinctBy(k => k.Offset).ToDictionary(k => k.Offset) ?? [];
         var matches = Regex.Matches(message, UrlPattern);
         foreach (Match match in matches)
         {
             if (match.Success)
             {
+                // Fix the case when client sends both TMessageEntityUrl and the offset of TMessageEntityUrl is match.Index-1, which causes the client to fail to parse the message entities correctly. So we need to remove the existing TMessageEntityUrl whose offset is match.Index-1
+                if (entityDict.TryGetValue(match.Index - 1, out var existingEntity))
+                {
+                    entities!.Remove(existingEntity);
+                }
+
                 var entity = new TMessageEntityUrl
                 {
                     Offset = match.Index,
@@ -617,6 +651,54 @@ public class MessageAppService(
                 };
                 entities ??= [];
                 entities.Add(entity);
+            }
+        }
+    }
+
+    private static void RemoveOverlappedEntities(IList<IMessageEntity>? entities)
+    {
+        if (entities == null || entities.Count == 0)
+        {
+            return;
+        }
+
+        var urlEntities = new List<TMessageEntityUrl>();
+
+        foreach (var t in entities)
+        {
+            if (t is TMessageEntityUrl url)
+            {
+                urlEntities.Add(url);
+            }
+        }
+
+        if (urlEntities.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = entities.Count - 1; i >= 0; i--)
+        {
+            var entity = entities[i];
+
+            if (entity is TMessageEntityUrl)
+            {
+                continue;
+            }
+
+            int offset = entity.Offset;
+            int end = offset + entity.Length;
+
+            foreach (var url in urlEntities)
+            {
+                int urlStart = url.Offset;
+                int urlEnd = url.Offset + url.Length;
+
+                if (offset >= urlStart && end <= urlEnd)
+                {
+                    entities.RemoveAt(i);
+                    break;
+                }
             }
         }
     }

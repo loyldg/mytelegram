@@ -6,14 +6,20 @@ namespace MyTelegram.Schema;
 /// Button to request a user to authorize via URL using <a href="https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots">Seamless Telegram Login</a>. When the user clicks on such a button, <a href="https://corefork.telegram.org/method/messages.requestUrlAuth">messages.requestUrlAuth</a> should be called, providing the <code>button_id</code> and the ID of the container message. The returned <a href="https://corefork.telegram.org/constructor/urlAuthResultRequest">urlAuthResultRequest</a> object will contain more details about the authorization request (<code>request_write_access</code> if the bot would like to send messages to the user along with the username of the bot which will be used for user authorization). Finally, the user can choose to call <a href="https://corefork.telegram.org/method/messages.acceptUrlAuth">messages.acceptUrlAuth</a> to get a <a href="https://corefork.telegram.org/constructor/urlAuthResultAccepted">urlAuthResultAccepted</a> with the URL to open instead of the <code>url</code> of this constructor, or a <a href="https://corefork.telegram.org/constructor/urlAuthResultDefault">urlAuthResultDefault</a>, in which case the <code>url</code> of this constructor must be opened, instead. If the user refuses the authorization request but still wants to open the link, the <code>url</code> of this constructor must be used.
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonUrlAuth" /></para>
 /// </summary>
-[TlObject(0x10b78d29)]
+[TlObject(0xf51006f9)]
 public sealed partial class TKeyboardButtonUrlAuth : IKeyboardButton
 {
-    public uint ConstructorId => 0x10b78d29;
+    public uint ConstructorId => 0xf51006f9;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
     public int Flags { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
 
     /// <summary>
     /// Button label
@@ -37,6 +43,7 @@ public sealed partial class TKeyboardButtonUrlAuth : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
         if (FwdText != null) { Flags = Flags.SetBit(0); }
     }
 
@@ -45,6 +52,7 @@ public sealed partial class TKeyboardButtonUrlAuth : IKeyboardButton
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         if (Flags.IsBitSet(0)) { writer.Write(FwdText); }
         writer.Write(Url);
@@ -54,6 +62,7 @@ public sealed partial class TKeyboardButtonUrlAuth : IKeyboardButton
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         if (Flags.IsBitSet(0)) { FwdText = buffer.ReadString(); }
         Url = buffer.ReadString();

@@ -220,3 +220,8 @@ public class UserConfigReadModel : Impl.UserConfigReadModel, IMongoDbReadModel
 {
 
 }
+
+public class MessageTokenReadModel : Impl.MessageTokenReadModel, IMongoDbReadModel
+{
+
+}

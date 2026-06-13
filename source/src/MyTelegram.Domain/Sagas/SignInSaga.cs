@@ -3,20 +3,13 @@
 public class SignInSaga :
     MyInMemoryAggregateSaga<SignInSaga, SignInSagaId, SignInSagaLocator>,
     ISagaIsStartedBy<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>,
-    ISagaHandles<UserAggregate, UserId, CheckUserStatusCompletedEvent>,
-    IApply<SignInSuccessSagaEvent>,
-    IApply<SignUpRequiredSagaEvent>
+    ISagaHandles<UserAggregate, UserId, CheckUserStatusCompletedEvent>
 {
     private readonly SignInSagaState _state = new();
 
     public SignInSaga(SignInSagaId id, IEventStore eventStore) : base(id, eventStore)
     {
         Register(_state);
-    }
-
-    public void Apply(SignInSuccessSagaEvent aggregateEvent)
-    {
-        CompleteAsync();
     }
 
     public Task HandleAsync(IDomainEvent<UserAggregate, UserId, CheckUserStatusCompletedEvent> domainEvent,
@@ -51,6 +44,8 @@ public class SignInSaga :
         if (domainEvent.AggregateEvent.UserId == 0)
         {
             Emit(new SignUpRequiredSagaEvent(domainEvent.AggregateEvent.RequestInfo));
+
+            await CompleteAsync(cancellationToken);
             return;
         }
 
@@ -58,10 +53,5 @@ public class SignInSaga :
         var checkUserStatusCommand = new CheckUserStatusCommand(UserId.Create(domainEvent.AggregateEvent.UserId),
             domainEvent.AggregateEvent.RequestInfo);
         Publish(checkUserStatusCommand);
-    }
-
-    public void Apply(SignUpRequiredSagaEvent aggregateEvent)
-    {
-        CompleteAsync();
     }
 }

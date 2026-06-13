@@ -66,6 +66,15 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageActionSuggestedPostRefund"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestedPostRefund" /><br/>
 /// <see cref="TMessageActionGiftTon"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiftTon" /><br/>
 /// <see cref="TMessageActionSuggestBirthday"/> See <a href="https://corefork.telegram.org/constructor/messageActionSuggestBirthday" /><br/>
+/// <see cref="TMessageActionStarGiftPurchaseOffer"/> See <a href="https://corefork.telegram.org/constructor/messageActionStarGiftPurchaseOffer" /><br/>
+/// <see cref="TMessageActionStarGiftPurchaseOfferDeclined"/> See <a href="https://corefork.telegram.org/constructor/messageActionStarGiftPurchaseOfferDeclined" /><br/>
+/// <see cref="TMessageActionNewCreatorPending"/> See <a href="https://corefork.telegram.org/constructor/messageActionNewCreatorPending" /><br/>
+/// <see cref="TMessageActionChangeCreator"/> See <a href="https://corefork.telegram.org/constructor/messageActionChangeCreator" /><br/>
+/// <see cref="TMessageActionNoForwardsToggle"/> See <a href="" /><br/>
+/// <see cref="TMessageActionNoForwardsRequest"/> See <a href="" /><br/>
+/// <see cref="TMessageActionPollAppendAnswer"/> See <a href="" /><br/>
+/// <see cref="TMessageActionPollDeleteAnswer"/> See <a href="" /><br/>
+/// <see cref="TMessageActionManagedBotCreated"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageActionEmpty), nameof(TMessageActionEmpty))]
 [JsonDerivedType(typeof(TMessageActionChatCreate), nameof(TMessageActionChatCreate))]
@@ -125,6 +134,15 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionSuggestedPostRefund), nameof(TMessageActionSuggestedPostRefund))]
 [JsonDerivedType(typeof(TMessageActionGiftTon), nameof(TMessageActionGiftTon))]
 [JsonDerivedType(typeof(TMessageActionSuggestBirthday), nameof(TMessageActionSuggestBirthday))]
+[JsonDerivedType(typeof(TMessageActionStarGiftPurchaseOffer), nameof(TMessageActionStarGiftPurchaseOffer))]
+[JsonDerivedType(typeof(TMessageActionStarGiftPurchaseOfferDeclined), nameof(TMessageActionStarGiftPurchaseOfferDeclined))]
+[JsonDerivedType(typeof(TMessageActionNewCreatorPending), nameof(TMessageActionNewCreatorPending))]
+[JsonDerivedType(typeof(TMessageActionChangeCreator), nameof(TMessageActionChangeCreator))]
+[JsonDerivedType(typeof(TMessageActionNoForwardsToggle), nameof(TMessageActionNoForwardsToggle))]
+[JsonDerivedType(typeof(TMessageActionNoForwardsRequest), nameof(TMessageActionNoForwardsRequest))]
+[JsonDerivedType(typeof(TMessageActionPollAppendAnswer), nameof(TMessageActionPollAppendAnswer))]
+[JsonDerivedType(typeof(TMessageActionPollDeleteAnswer), nameof(TMessageActionPollDeleteAnswer))]
+[JsonDerivedType(typeof(TMessageActionManagedBotCreated), nameof(TMessageActionManagedBotCreated))]
 public interface IMessageAction : IObject
 {
 }

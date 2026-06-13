@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public partial class PhotoReadModel : IPhotoReadModel,
+public partial class PhotoReadModel : ReadModelBase, IPhotoReadModel,
     IAmReadModelFor<PhotoAggregate, PhotoId, PhotoCreatedEvent>,
     IAmReadModelFor<PhotoAggregate, PhotoId, PhotoDeletedEvent>,
     IAmReadModelFor<PhotoAggregate, PhotoId, SetAsProfilePhotoCompletedEvent>

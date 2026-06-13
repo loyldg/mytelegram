@@ -155,6 +155,13 @@ namespace MyTelegram.Schema;
 /// <see cref="TUpdateGroupCallEncryptedMessage"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCallEncryptedMessage" /><br/>
 /// <see cref="TUpdatePinnedForumTopic"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedForumTopic" /><br/>
 /// <see cref="TUpdatePinnedForumTopics"/> See <a href="https://corefork.telegram.org/constructor/updatePinnedForumTopics" /><br/>
+/// <see cref="TUpdateDeleteGroupCallMessages"/> See <a href="https://corefork.telegram.org/constructor/updateDeleteGroupCallMessages" /><br/>
+/// <see cref="TUpdateStarGiftAuctionState"/> See <a href="https://corefork.telegram.org/constructor/updateStarGiftAuctionState" /><br/>
+/// <see cref="TUpdateStarGiftAuctionUserState"/> See <a href="https://corefork.telegram.org/constructor/updateStarGiftAuctionUserState" /><br/>
+/// <see cref="TUpdateEmojiGameInfo"/> See <a href="https://corefork.telegram.org/constructor/updateEmojiGameInfo" /><br/>
+/// <see cref="TUpdateStarGiftCraftFail"/> See <a href="https://corefork.telegram.org/constructor/updateStarGiftCraftFail" /><br/>
+/// <see cref="TUpdateChatParticipantRank"/> See <a href="" /><br/>
+/// <see cref="TUpdateManagedBot"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUpdateNewMessage), nameof(TUpdateNewMessage))]
 [JsonDerivedType(typeof(TUpdateMessageID), nameof(TUpdateMessageID))]
@@ -303,6 +310,13 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateGroupCallEncryptedMessage), nameof(TUpdateGroupCallEncryptedMessage))]
 [JsonDerivedType(typeof(TUpdatePinnedForumTopic), nameof(TUpdatePinnedForumTopic))]
 [JsonDerivedType(typeof(TUpdatePinnedForumTopics), nameof(TUpdatePinnedForumTopics))]
+[JsonDerivedType(typeof(TUpdateDeleteGroupCallMessages), nameof(TUpdateDeleteGroupCallMessages))]
+[JsonDerivedType(typeof(TUpdateStarGiftAuctionState), nameof(TUpdateStarGiftAuctionState))]
+[JsonDerivedType(typeof(TUpdateStarGiftAuctionUserState), nameof(TUpdateStarGiftAuctionUserState))]
+[JsonDerivedType(typeof(TUpdateEmojiGameInfo), nameof(TUpdateEmojiGameInfo))]
+[JsonDerivedType(typeof(TUpdateStarGiftCraftFail), nameof(TUpdateStarGiftCraftFail))]
+[JsonDerivedType(typeof(TUpdateChatParticipantRank), nameof(TUpdateChatParticipantRank))]
+[JsonDerivedType(typeof(TUpdateManagedBot), nameof(TUpdateManagedBot))]
 public interface IUpdate : IObject
 {
 }

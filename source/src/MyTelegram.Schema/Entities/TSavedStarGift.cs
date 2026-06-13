@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/gifts">gift</a> owned by a peer.
 /// <para>See <a href="https://corefork.telegram.org/constructor/savedStarGift" /></para>
 /// </summary>
-[TlObject(0x8983a452)]
+[TlObject(0x41df43fc)]
 public sealed partial class TSavedStarGift : ISavedStarGift
 {
-    public uint ConstructorId => 0x8983a452;
+    public uint ConstructorId => 0x41df43fc;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -118,7 +118,20 @@ public sealed partial class TSavedStarGift : ISavedStarGift
     /// </summary>
     public string? PrepaidUpgradeHash { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? DropOriginalDetailsStars { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public int? GiftNum { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public int? CanCraftAt { get; set; }
 
     public void ComputeFlag()
     {
@@ -141,6 +154,8 @@ public sealed partial class TSavedStarGift : ISavedStarGift
         if (CollectionId?.Count > 0) { Flags = Flags.SetBit(15); }
         if (PrepaidUpgradeHash != null) { Flags = Flags.SetBit(16); }
         if (/*DropOriginalDetailsStars != 0 &&*/ DropOriginalDetailsStars.HasValue) { Flags = Flags.SetBit(18); }
+        if (/*GiftNum != 0 && */GiftNum.HasValue) { Flags = Flags.SetBit(19); }
+        if (/*CanCraftAt != 0 && */CanCraftAt.HasValue) { Flags = Flags.SetBit(20); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -163,6 +178,8 @@ public sealed partial class TSavedStarGift : ISavedStarGift
         if (Flags.IsBitSet(15)) { writer.Write(CollectionId); }
         if (Flags.IsBitSet(16)) { writer.Write(PrepaidUpgradeHash); }
         if (Flags.IsBitSet(18)) { writer.Write(DropOriginalDetailsStars.Value); }
+        if (Flags.IsBitSet(19)) { writer.Write(GiftNum.Value); }
+        if (Flags.IsBitSet(20)) { writer.Write(CanCraftAt.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -189,5 +206,7 @@ public sealed partial class TSavedStarGift : ISavedStarGift
         if (Flags.IsBitSet(15)) { CollectionId = buffer.Read<TVector<int>>(); }
         if (Flags.IsBitSet(16)) { PrepaidUpgradeHash = buffer.ReadString(); }
         if (Flags.IsBitSet(18)) { DropOriginalDetailsStars = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(19)) { GiftNum = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(20)) { CanCraftAt = buffer.ReadInt32(); }
     }
 }

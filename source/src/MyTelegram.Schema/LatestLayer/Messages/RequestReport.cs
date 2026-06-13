@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
 /// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MESSAGE_REQUIRED  </c></para>
 /// <para><c>400 OPTION_INVALID Invalid option selected.</c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.report" /></para>

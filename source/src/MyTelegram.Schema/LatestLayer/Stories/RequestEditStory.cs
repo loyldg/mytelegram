@@ -13,10 +13,10 @@ namespace MyTelegram.Schema.Stories;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xb583ba46)]
+[TlObject(0x2c63a72b)]
 public sealed partial class RequestEditStory : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xb583ba46;
+    public uint ConstructorId => 0x2c63a72b;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -63,6 +63,11 @@ public sealed partial class RequestEditStory : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPrivacyRule>? PrivacyRules { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputDocument" />
+    /// </summary>
+    public MyTelegram.Schema.IInputDocument? Music { get; set; }
+
     public void ComputeFlag()
     {
         if (Media != null) { Flags = Flags.SetBit(0); }
@@ -70,6 +75,7 @@ public sealed partial class RequestEditStory : IRequest<MyTelegram.Schema.IUpdat
         if (Caption != null) { Flags = Flags.SetBit(1); }
         if (Entities?.Count > 0) { Flags = Flags.SetBit(1); }
         if (PrivacyRules?.Count > 0) { Flags = Flags.SetBit(2); }
+        if (Music != null) { Flags = Flags.SetBit(4); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -84,6 +90,7 @@ public sealed partial class RequestEditStory : IRequest<MyTelegram.Schema.IUpdat
         if (Flags.IsBitSet(1)) { writer.Write(Caption); }
         if (Flags.IsBitSet(1)) { writer.Write(Entities); }
         if (Flags.IsBitSet(2)) { writer.Write(PrivacyRules); }
+        if (Flags.IsBitSet(4)) { writer.Write(Music); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -96,5 +103,6 @@ public sealed partial class RequestEditStory : IRequest<MyTelegram.Schema.IUpdat
         if (Flags.IsBitSet(1)) { Caption = buffer.ReadString(); }
         if (Flags.IsBitSet(1)) { Entities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
         if (Flags.IsBitSet(2)) { PrivacyRules = buffer.Read<TVector<MyTelegram.Schema.IInputPrivacyRule>>(); }
+        if (Flags.IsBitSet(4)) { Music = buffer.Read<MyTelegram.Schema.IInputDocument>(); }
     }
 }

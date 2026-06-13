@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class ImportedContactReadModel : IImportedContactReadModel,
+public class ImportedContactReadModel : ReadModelBase, IImportedContactReadModel,
     IAmReadModelFor<ImportedContactAggregate, ImportedContactId, SingleContactImportedEvent>
 {
     public virtual string FirstName { get; private set; } = default!;

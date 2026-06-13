@@ -32,6 +32,16 @@ internal sealed class MessageFwdHeaderMapper
         destination.SavedDate = source.SavedDate;
         destination.PsaType = source.PsaType;
 
+        if (destination.SavedFromMsgId == null)
+        {
+            destination.SavedFromPeer = null;
+        }
+
+        if (destination.SavedFromPeer == null)
+        {
+            destination.SavedFromMsgId = null;
+        }
+
         return destination;
     }
 }

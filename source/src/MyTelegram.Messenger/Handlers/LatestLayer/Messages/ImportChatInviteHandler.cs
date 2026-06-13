@@ -53,16 +53,28 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
 
         if (chatInviteReadModel.UsageLimit > 0)
         {
-            if (chatInviteReadModel.Usage >= chatInviteReadModel.UsageLimit.Value)
+            if (chatInviteReadModel.Usage >= chatInviteReadModel.UsageLimit)
             {
                 RpcErrors.RpcErrors400.UsersTooMuch.ThrowRpcError();
             }
+        }
+
+        var channelReadModel = await channelAppService.GetAsync(channelId);
+        var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == chatInviteReadModel.AdminId);
+        if (admin == null)
+        {
+            RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
         }
 
         var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelId, input.UserId));
         if (channelMember is { Left: false, Kicked: false })
         {
             RpcErrors.RpcErrors400.UserAlreadyParticipant.ThrowRpcError();
+        }
+
+        if (channelMember is { Kicked: true })
+        {
+            RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
         }
 
         var joinRequestReadModel = await queryProcessor.ProcessAsync(new GetJoinRequestQuery(chatInviteReadModel.PeerId, input.UserId));
@@ -74,7 +86,6 @@ internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAp
         var requestState = chatInviteReadModel.RequestNeeded ? ChatInviteRequestState.WaitingForApproval : ChatInviteRequestState.NoApprovalRequired;
         if (!chatInviteReadModel.RequestNeeded)
         {
-            var channelReadModel = await channelAppService.GetAsync(channelId);
             if (channelReadModel.JoinRequest)
             {
                 requestState = ChatInviteRequestState.WaitingForApproval;

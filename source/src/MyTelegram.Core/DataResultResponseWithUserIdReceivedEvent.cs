@@ -3,6 +3,9 @@
 namespace MyTelegram.Core;
 
 public record DataResultResponseWithUserIdReceivedEvent(
+    string ConnectionId,
+    long TempAuthKeyId,
+    long SessionId,
     long ReqMsgId,
     byte[] Data,
     long UserId,

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// The backdrop of a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeBackdrop" /></para>
 /// </summary>
-[TlObject(0xd93d859c)]
+[TlObject(0x9f2504e4)]
 public sealed partial class TStarGiftAttributeBackdrop : IStarGiftAttribute
 {
-    public uint ConstructorId => 0xd93d859c;
+    public uint ConstructorId => 0x9f2504e4;
     /// <summary>
     /// Name of the backdrop
     /// </summary>
@@ -41,8 +41,9 @@ public sealed partial class TStarGiftAttributeBackdrop : IStarGiftAttribute
     public int TextColor { get; set; }
 
     /// <summary>
-    /// The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
+    /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeRarity" />
     /// </summary>
+    public MyTelegram.Schema.IStarGiftAttributeRarity Rarity { get; set; }
     public int RarityPermille { get; set; }
 
     public void ComputeFlag()
@@ -51,6 +52,11 @@ public sealed partial class TStarGiftAttributeBackdrop : IStarGiftAttribute
 
     public void Serialize(IBufferWriter<byte> writer)
     {
+        if (Rarity == null)
+        {
+            Rarity = new TStarGiftAttributeRarity { Permille = RarityPermille };
+        }
+
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Name);
@@ -59,7 +65,7 @@ public sealed partial class TStarGiftAttributeBackdrop : IStarGiftAttribute
         writer.Write(EdgeColor);
         writer.Write(PatternColor);
         writer.Write(TextColor);
-        writer.Write(RarityPermille);
+        writer.Write(Rarity);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -70,6 +76,6 @@ public sealed partial class TStarGiftAttributeBackdrop : IStarGiftAttribute
         EdgeColor = buffer.ReadInt32();
         PatternColor = buffer.ReadInt32();
         TextColor = buffer.ReadInt32();
-        RarityPermille = buffer.ReadInt32();
+        Rarity = buffer.Read<MyTelegram.Schema.IStarGiftAttributeRarity>();
     }
 }

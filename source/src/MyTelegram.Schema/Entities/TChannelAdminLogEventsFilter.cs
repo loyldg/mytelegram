@@ -110,6 +110,11 @@ public sealed partial class TChannelAdminLogEventsFilter : IChannelAdminLogEvent
     /// </summary>
     public bool SubExtend { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool EditRank { get; set; }
+
     public void ComputeFlag()
     {
         if (Join) { Flags = Flags.SetBit(0); }
@@ -131,6 +136,7 @@ public sealed partial class TChannelAdminLogEventsFilter : IChannelAdminLogEvent
         if (Send) { Flags = Flags.SetBit(16); }
         if (Forums) { Flags = Flags.SetBit(17); }
         if (SubExtend) { Flags = Flags.SetBit(18); }
+        if (EditRank) { Flags = Flags.SetBit(19); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -162,5 +168,6 @@ public sealed partial class TChannelAdminLogEventsFilter : IChannelAdminLogEvent
         if (Flags.IsBitSet(16)) { Send = true; }
         if (Flags.IsBitSet(17)) { Forums = true; }
         if (Flags.IsBitSet(18)) { SubExtend = true; }
+        if (Flags.IsBitSet(19)) { EditRank = true; }
     }
 }

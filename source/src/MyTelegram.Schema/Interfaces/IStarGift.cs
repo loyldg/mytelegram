@@ -21,7 +21,7 @@ public interface IStarGift : IObject
     int Flags { get; set; }
 
     /// <summary>
-    /// Identifier of the gift
+    /// Identifier of the collectible gift.
     /// </summary>
     long Id { get; set; }
 }

@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.Domain;
+﻿using System.Buffers.Text;
+
+namespace MyTelegram.Domain;
 
 public class ChatInviteLinkHelper : IChatInviteLinkHelper
 {
@@ -6,12 +8,8 @@ public class ChatInviteLinkHelper : IChatInviteLinkHelper
     {
         var bytes = new byte[12];
         Random.Shared.NextBytes(bytes);
-        var inviteHash = $"{Convert.ToBase64String(bytes)
-            .Replace("+", "-")
-            .Replace("/", ".")
-            .Replace("=", string.Empty)}";
 
-        return inviteHash;
+        return Base64Url.EncodeToString(bytes);
     }
 
     public string GetHashFromLink(string link)

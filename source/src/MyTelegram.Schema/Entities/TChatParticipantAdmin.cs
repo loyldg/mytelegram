@@ -6,10 +6,15 @@ namespace MyTelegram.Schema;
 /// Chat admin
 /// <para>See <a href="https://corefork.telegram.org/constructor/chatParticipantAdmin" /></para>
 /// </summary>
-[TlObject(0xa0933f5b)]
+[TlObject(0x360d5d2)]
 public sealed partial class TChatParticipantAdmin : IChatParticipant
 {
-    public uint ConstructorId => 0xa0933f5b;
+    public uint ConstructorId => 0x360d5d2;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
+
     /// <summary>
     /// ID of a group member that is admin
     /// </summary>
@@ -25,23 +30,33 @@ public sealed partial class TChatParticipantAdmin : IChatParticipant
     /// </summary>
     public int Date { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public string? Rank { get; set; }
+
     public void ComputeFlag()
     {
+        if (Rank != null) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(UserId);
         writer.Write(InviterId);
         writer.Write(Date);
+        if (Flags.IsBitSet(0)) { writer.Write(Rank); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         UserId = buffer.ReadInt64();
         InviterId = buffer.ReadInt64();
         Date = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Rank = buffer.ReadString(); }
     }
 }

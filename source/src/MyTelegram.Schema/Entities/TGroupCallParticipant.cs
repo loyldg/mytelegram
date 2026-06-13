@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Info about a group call participant
 /// <para>See <a href="https://corefork.telegram.org/constructor/groupCallParticipant" /></para>
 /// </summary>
-[TlObject(0xeba636fe)]
+[TlObject(0x2a3dc7ac)]
 public sealed partial class TGroupCallParticipant : IGroupCallParticipant
 {
-    public uint ConstructorId => 0xeba636fe;
+    public uint ConstructorId => 0x2a3dc7ac;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -113,6 +113,11 @@ public sealed partial class TGroupCallParticipant : IGroupCallParticipant
     /// </summary>
     public MyTelegram.Schema.IGroupCallParticipantVideo? Presentation { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public long? PaidStarsTotal { get; set; }
+
     public void ComputeFlag()
     {
         if (Muted) { Flags = Flags.SetBit(0); }
@@ -131,6 +136,7 @@ public sealed partial class TGroupCallParticipant : IGroupCallParticipant
         if (/*RaiseHandRating != 0 &&*/ RaiseHandRating.HasValue) { Flags = Flags.SetBit(13); }
         if (Video != null) { Flags = Flags.SetBit(6); }
         if (Presentation != null) { Flags = Flags.SetBit(14); }
+        if (/*PaidStarsTotal != 0 &&*/ PaidStarsTotal.HasValue) { Flags = Flags.SetBit(16); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -147,6 +153,7 @@ public sealed partial class TGroupCallParticipant : IGroupCallParticipant
         if (Flags.IsBitSet(13)) { writer.Write(RaiseHandRating.Value); }
         if (Flags.IsBitSet(6)) { writer.Write(Video); }
         if (Flags.IsBitSet(14)) { writer.Write(Presentation); }
+        if (Flags.IsBitSet(16)) { writer.Write(PaidStarsTotal.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -171,5 +178,6 @@ public sealed partial class TGroupCallParticipant : IGroupCallParticipant
         if (Flags.IsBitSet(13)) { RaiseHandRating = buffer.ReadInt64(); }
         if (Flags.IsBitSet(6)) { Video = buffer.Read<MyTelegram.Schema.IGroupCallParticipantVideo>(); }
         if (Flags.IsBitSet(14)) { Presentation = buffer.Read<MyTelegram.Schema.IGroupCallParticipantVideo>(); }
+        if (Flags.IsBitSet(16)) { PaidStarsTotal = buffer.ReadInt64(); }
     }
 }

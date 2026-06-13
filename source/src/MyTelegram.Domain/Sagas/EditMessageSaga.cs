@@ -42,9 +42,10 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEventV2>,
 
     private void EditInbox(OutboxMessageEditedEventV2 aggregateEvent)
     {
+        var newItem = aggregateEvent.NewMessageItem;
+
         if (aggregateEvent.OldMessageItem.InboxItems?.Count > 0)
         {
-            var newItem = aggregateEvent.NewMessageItem;
             foreach (var inboxItem in aggregateEvent.OldMessageItem.InboxItems)
             {
                 var command = new EditInboxMessageCommand(

@@ -15,6 +15,9 @@ public sealed partial class TMessageActionTopicCreate : IMessageAction
     /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool TitleMissing { get; set; }
 
     /// <summary>

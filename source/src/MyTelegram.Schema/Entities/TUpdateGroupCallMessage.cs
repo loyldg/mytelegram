@@ -5,26 +5,21 @@ namespace MyTelegram.Schema;
 /// <summary>
 /// <para>See <a href="https://corefork.telegram.org/constructor/updateGroupCallMessage" /></para>
 /// </summary>
-[TlObject(0x78c314e0)]
+[TlObject(0xd8326f0d)]
 public sealed partial class TUpdateGroupCallMessage : IUpdate
 {
-    public uint ConstructorId => 0x78c314e0;
+    public uint ConstructorId => 0xd8326f0d;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     /// <summary>
-    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/GroupCallMessage" />
     /// </summary>
-    public MyTelegram.Schema.IPeer FromId { get; set; }
-
-    public long RandomId { get; set; }
-
-    /// <summary>
-    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
-    /// </summary>
-    public MyTelegram.Schema.ITextWithEntities Message { get; set; }
+    public MyTelegram.Schema.IGroupCallMessage Message { get; set; }
 
     public void ComputeFlag()
     {
@@ -35,16 +30,12 @@ public sealed partial class TUpdateGroupCallMessage : IUpdate
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
-        writer.Write(FromId);
-        writer.Write(RandomId);
         writer.Write(Message);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Call = buffer.Read<MyTelegram.Schema.IInputGroupCall>();
-        FromId = buffer.Read<MyTelegram.Schema.IPeer>();
-        RandomId = buffer.ReadInt64();
-        Message = buffer.Read<MyTelegram.Schema.ITextWithEntities>();
+        Message = buffer.Read<MyTelegram.Schema.IGroupCallMessage>();
     }
 }

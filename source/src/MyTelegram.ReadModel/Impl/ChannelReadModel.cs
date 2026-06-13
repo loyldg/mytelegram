@@ -1,5 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
-public class ChannelReadModel : IChannelReadModel,
+
+public class ChannelReadModel : ReadModelBase, IChannelReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, IncrementParticipantCountEvent>,
 
@@ -32,7 +33,8 @@ public class ChannelReadModel : IChannelReadModel,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelTopMessageIdUpdatedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, PreHistoryHiddenChangedEvent>,
     IAmReadModelFor<ChannelAggregate, ChannelId, ChannelParticipantsHiddenUpdatedEvent>,
-    IAmReadModelFor<ChannelAggregate, ChannelId, ChannelJoinRequestUpdatedEvent>
+    IAmReadModelFor<ChannelAggregate, ChannelId, ChannelJoinRequestUpdatedEvent>,
+	    IAmReadModelFor<ChannelAggregate, ChannelId, ChannelAdminRemovedEvent>
 {
     public string? About { get; private set; }
     public long AccessHash { get; private set; }
@@ -435,6 +437,12 @@ public class ChannelReadModel : IChannelReadModel,
     public Task ApplyAsync(IReadModelContext context, IDomainEvent<DeleteReplyMessagesSaga, DeleteReplyMessagesSagaId, DeleteReplyMessagesCompletedSagaEvent> domainEvent, CancellationToken cancellationToken)
     {
         TopMessageId = domainEvent.AggregateEvent.NewTopMessageId;
+
+        return Task.CompletedTask;
+    }
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<ChannelAggregate, ChannelId, ChannelAdminRemovedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        AdminList = domainEvent.AggregateEvent.AdminList;
 
         return Task.CompletedTask;
     }

@@ -2,7 +2,7 @@
 
 namespace MyTelegram.ReadModel.Impl;
 
-public class LanguageTextReadModel : ILanguageTextReadModel,
+public class LanguageTextReadModel : ReadModelBase, ILanguageTextReadModel,
     IAmReadModelFor<LanguageTextAggregate, LanguageTextId, LanguageTextCreatedEvent>
 {
     public DeviceType Platform { get; private set; }

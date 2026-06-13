@@ -6,6 +6,7 @@ namespace MyTelegram.Schema.Messages;
 /// Save a message <a href="https://corefork.telegram.org/api/drafts">draft</a> associated to a chat.
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
 /// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
 /// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>

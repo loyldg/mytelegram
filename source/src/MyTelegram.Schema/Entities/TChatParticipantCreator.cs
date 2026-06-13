@@ -6,28 +6,43 @@ namespace MyTelegram.Schema;
 /// Represents the creator of the group
 /// <para>See <a href="https://corefork.telegram.org/constructor/chatParticipantCreator" /></para>
 /// </summary>
-[TlObject(0xe46bcee4)]
+[TlObject(0xe1f867b8)]
 public sealed partial class TChatParticipantCreator : IChatParticipant
 {
-    public uint ConstructorId => 0xe46bcee4;
+    public uint ConstructorId => 0xe1f867b8;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
+
     /// <summary>
     /// ID of the user that created the group
     /// </summary>
     public long UserId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public string? Rank { get; set; }
+
     public void ComputeFlag()
     {
+        if (Rank != null) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(UserId);
+        if (Flags.IsBitSet(0)) { writer.Write(Rank); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         UserId = buffer.ReadInt64();
+        if (Flags.IsBitSet(0)) { Rank = buffer.ReadString(); }
     }
 }

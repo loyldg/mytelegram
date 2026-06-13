@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
 /// <para><c>403 BROADCAST_FORBIDDEN Channel poll voters and reactions cannot be fetched to prevent deanonymization.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.getMessageReactionsList" /></para>
 /// </summary>

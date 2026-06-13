@@ -14,6 +14,7 @@ namespace MyTelegram.Schema.Updates;
 /// <para><c>400 FROM_MESSAGE_BOT_DISABLED Bots can't use fromMessage min constructors.</c></para>
 /// <para><c>400 FROZEN_PARTICIPANT_MISSING The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and cannot access the specified peer.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>500 NEED_DOC_INVALID  </c></para>
 /// <para><c>400 PERSISTENT_TIMESTAMP_EMPTY Persistent timestamp empty.</c></para>
 /// <para><c>400 PERSISTENT_TIMESTAMP_INVALID Persistent timestamp invalid.</c></para>
 /// <para><c>500 PERSISTENT_TIMESTAMP_OUTDATED Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL).</c></para>

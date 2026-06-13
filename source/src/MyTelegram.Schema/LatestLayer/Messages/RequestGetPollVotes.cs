@@ -38,7 +38,7 @@ public sealed partial class RequestGetPollVotes : IRequest<MyTelegram.Schema.Mes
     /// <summary>
     /// Get only results for the specified poll <code>option</code>
     /// </summary>
-    public ReadOnlyMemory<byte>? Option { get; set; }
+    public string Option { get; set; }
 
     /// <summary>
     /// Offset for results, taken from the <code>next_offset</code> field of <a href="https://corefork.telegram.org/constructor/messages.votesList">messages.votesList</a>, initially an empty string. <br/>Note: if no more results are available, the method call will return an empty <code>next_offset</code>; thus, avoid providing the <code>next_offset</code> returned in <a href="https://corefork.telegram.org/constructor/messages.votesList">messages.votesList</a> if it is empty, to avoid an infinite loop.
@@ -52,7 +52,7 @@ public sealed partial class RequestGetPollVotes : IRequest<MyTelegram.Schema.Mes
 
     public void ComputeFlag()
     {
-        if (Option != null) { Flags = Flags.SetBit(0); }
+        if (!string.IsNullOrEmpty(Option)) { Flags = Flags.SetBit(0); }
         if (Offset != null) { Flags = Flags.SetBit(1); }
     }
 
@@ -73,7 +73,7 @@ public sealed partial class RequestGetPollVotes : IRequest<MyTelegram.Schema.Mes
         Flags = buffer.ReadInt32();
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
         Id = buffer.ReadInt32();
-        if (Flags.IsBitSet(0)) { Option = buffer.ReadBytes(); }
+        if (Flags.IsBitSet(0)) { Option = buffer.ReadString(); }
         if (Flags.IsBitSet(1)) { Offset = buffer.ReadString(); }
         Limit = buffer.ReadInt32();
     }

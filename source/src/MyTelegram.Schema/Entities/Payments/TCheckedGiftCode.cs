@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Payments;
 /// Contains info about a <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Telegram Premium giftcode link</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/payments.checkedGiftCode" /></para>
 /// </summary>
-[TlObject(0x284a1096)]
+[TlObject(0xeb983f8f)]
 public sealed partial class TCheckedGiftCode : ICheckedGiftCode
 {
-    public uint ConstructorId => 0x284a1096;
+    public uint ConstructorId => 0xeb983f8f;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -42,9 +42,9 @@ public sealed partial class TCheckedGiftCode : ICheckedGiftCode
     public int Date { get; set; }
 
     /// <summary>
-    /// Duration in months of the gifted <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription.
+    ///  
     /// </summary>
-    public int Months { get; set; }
+    public int Days { get; set; }
 
     /// <summary>
     /// When was the giftcode imported, if it was imported.
@@ -81,7 +81,7 @@ public sealed partial class TCheckedGiftCode : ICheckedGiftCode
         if (Flags.IsBitSet(3)) { writer.Write(GiveawayMsgId.Value); }
         if (Flags.IsBitSet(0)) { writer.Write(ToId.Value); }
         writer.Write(Date);
-        writer.Write(Months);
+        writer.Write(Days);
         if (Flags.IsBitSet(1)) { writer.Write(UsedDate.Value); }
         writer.Write(Chats);
         writer.Write(Users);
@@ -95,7 +95,7 @@ public sealed partial class TCheckedGiftCode : ICheckedGiftCode
         if (Flags.IsBitSet(3)) { GiveawayMsgId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(0)) { ToId = buffer.ReadInt64(); }
         Date = buffer.ReadInt32();
-        Months = buffer.ReadInt32();
+        Days = buffer.ReadInt32();
         if (Flags.IsBitSet(1)) { UsedDate = buffer.ReadInt32(); }
         Chats = buffer.Read<TVector<MyTelegram.Schema.IChat>>();
         Users = buffer.Read<TVector<MyTelegram.Schema.IUser>>();

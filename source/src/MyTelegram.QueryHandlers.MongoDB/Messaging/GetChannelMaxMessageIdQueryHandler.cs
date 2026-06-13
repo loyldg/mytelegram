@@ -6,7 +6,7 @@ public class GetChannelMaxMessageIdQueryHandler(IQueryOnlyReadModelStore<Message
     {
         return await store.FirstOrDefaultAsync(p => p.OwnerPeerId == query.ChannelId,
             p => p.MessageId,
-            sort: new SortOptions<MessageReadModel>(p => p.Message, SortType.Descending)
+            sort: new SortOptions<MessageReadModel>(p => p.MessageId, SortType.Descending)
             , cancellationToken);
     }
 }

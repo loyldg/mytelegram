@@ -9,9 +9,13 @@ namespace MyTelegram.Schema;
 public sealed partial class TSendMessageTextDraftAction : ISendMessageAction
 {
     public uint ConstructorId => 0x376d975c;
+    /// <summary>
+    ///  
+    /// </summary>
     public long RandomId { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities Text { get; set; }

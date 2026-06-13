@@ -3,35 +3,53 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.editForumTopic" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 [TlObject(0xcecc1134)]
 public sealed partial class RequestEditForumTopic : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0xcecc1134;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int TopicId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string? Title { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? IconEmojiId { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     /// </summary>
     public bool? Closed { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Bool" />
     /// </summary>
     public bool? Hidden { get; set; }

@@ -9,6 +9,7 @@ namespace MyTelegram.Schema.Account;
 /// <para><c>400 EMAIL_INVALID The specified email is invalid.</c></para>
 /// <para><c>400 EMAIL_NOT_ALLOWED The specified email cannot be used to complete the operation.</c></para>
 /// <para><c>400 EMAIL_NOT_SETUP In order to change the login email with emailVerifyPurposeLoginChange, an existing login email must already be set using emailVerifyPurposeLoginSetup.</c></para>
+/// <para><c>400 PHONE_CODE_EMPTY phone_code is missing.</c></para>
 /// <para><c>400 PHONE_HASH_EXPIRED An invalid or expired <code>phone_code_hash</code> was provided.</c></para>
 /// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/account.sendVerifyEmailCode" /></para>

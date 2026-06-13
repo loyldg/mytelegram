@@ -11,23 +11,18 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetAdminsWithInvitesHandler(IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper, IUserConverterService userConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetAdminsWithInvites, MyTelegram.Schema.Messages.IChatAdminsWithInvites>
+internal sealed class GetAdminsWithInvitesHandler(IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper, IUserConverterService userConverterService) : RpcResultObjectHandler<RequestGetAdminsWithInvites, IChatAdminsWithInvites>
 {
     protected override async Task<IChatAdminsWithInvites> HandleCoreAsync(IRequestInput input, RequestGetAdminsWithInvites obj)
     {
         if (obj.Peer is TInputPeerChannel inputPeerChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel.ChannelId, inputPeerChannel.AccessHash, AccessHashType.Channel);
             var adminWithInvitesList = await queryProcessor.ProcessAsync(new GetAdminInvitesQuery(inputPeerChannel.ChannelId));
             var userIds = adminWithInvitesList.Select(p => p.AdminId).ToList();
-            //var userReadModels = await userAppService.GetListAsync(userIds);
-            //var contactReadModels = await queryProcessor.ProcessAsync(new GetContactListQuery(input.UserId, userIds));
-            //var photoReadModels = await photoAppService.GetPhotosAsync(userReadModels, contactReadModels);
-            //var privacyList = await privacyAppService.GetPrivacyListAsync(userIds);
             var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
             return new TChatAdminsWithInvites
             {
-                Admins = [..adminWithInvitesList.Select(p => new TChatAdminWithInvites { AdminId = p.AdminId, InvitesCount = p.InvitesCount, RevokedInvitesCount = p.RevokedInvitesCount, })],
+                Admins = [..adminWithInvitesList.Select(p => new TChatAdminWithInvites { AdminId = p.AdminId, InvitesCount = p.InvitesCount, RevokedInvitesCount = p.RevokedInvitesCount })],
                 Users = [..users]
             };
         }

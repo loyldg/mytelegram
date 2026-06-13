@@ -24,6 +24,8 @@ public partial class ObjectIdConsts
     //0x63c66506
     public const uint MessagesGetMessagesId = 0x63c66506;
 
+    public const uint InvokeAfterMsgId = 0xcb9f372d;
+
     // CommandServerHandlers count=195
     public static readonly FrozenDictionary<uint, string> CommandServerHandlers = new Dictionary<uint, string>
     {

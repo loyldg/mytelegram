@@ -6,10 +6,21 @@ namespace MyTelegram.Schema;
 /// Button to start a game
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonGame" /></para>
 /// </summary>
-[TlObject(0x50f41ccf)]
+[TlObject(0x89c590f9)]
 public sealed partial class TKeyboardButtonGame : IKeyboardButton
 {
-    public uint ConstructorId => 0x50f41ccf;
+    public uint ConstructorId => 0x89c590f9;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
+
     /// <summary>
     /// Button text
     /// </summary>
@@ -17,17 +28,22 @@ public sealed partial class TKeyboardButtonGame : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
     }
 }

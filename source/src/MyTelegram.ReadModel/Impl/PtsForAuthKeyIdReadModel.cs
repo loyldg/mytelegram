@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class PtsForAuthKeyIdReadModel : IPtsForAuthKeyIdReadModel,
+public class PtsForAuthKeyIdReadModel : ReadModelBase, IPtsForAuthKeyIdReadModel,
     IAmReadModelFor<PtsAggregate, PtsId, PtsForAuthKeyIdUpdatedEvent>
 {
     public virtual long GlobalSeqNo { get; private set; }

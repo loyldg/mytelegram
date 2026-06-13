@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0xae500895)]
-public sealed class TFutureSalts : IFutureSalts
+public sealed partial class TFutureSalts : IFutureSalts
 {
     public uint ConstructorId => 0xae500895;
     public long ReqMsgId { get; set; }
@@ -40,11 +40,13 @@ public sealed class TFutureSalts : IFutureSalts
         ReqMsgId = buffer.ReadInt64();
         Now = buffer.ReadInt32();
         //Salts = buffer.Read<TVector<MyTelegram.Schema.IFutureSalt>>();
-        var count=buffer.ReadInt32();
+        var count = buffer.ReadInt32();
         Salts = new TVector<IFutureSalt>();
         for (int i = 0; i < count; i++)
         {
-            var futureSalt=buffer.Read<IFutureSalt>();
+            //var futureSalt = buffer.Read<IFutureSalt>();
+            var futureSalt = new TFutureSalt();
+            futureSalt.Deserialize(ref buffer);
             Salts.Add(futureSalt);
         }
     }

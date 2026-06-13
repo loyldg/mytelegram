@@ -10,15 +10,20 @@ public sealed partial class TUpdateGroupCallEncryptedMessage : IUpdate
 {
     public uint ConstructorId => 0xc957a766;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputGroupCall" />
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer FromId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public ReadOnlyMemory<byte> EncryptedMessage { get; set; }
 
     public void ComputeFlag()

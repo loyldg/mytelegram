@@ -3,7 +3,7 @@ using MyTelegram.Domain.Events.Temp;
 
 namespace MyTelegram.ReadModel.Impl;
 
-public class DialogReadModel : IDialogReadModel,
+public class DialogReadModel : ReadModelBase, IDialogReadModel,
     IAmReadModelFor<DialogAggregate, DialogId, DialogCreatedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, SetOutboxTopMessageSuccessEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, InboxMessageReceivedEvent>,
@@ -28,7 +28,8 @@ public class DialogReadModel : IDialogReadModel,
     IAmReadModelFor<DialogAggregate, DialogId, ReadOutboxMaxIdUpdatedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, TopMessageIdUpdatedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, UpdateReadChannelInboxEvent>,
-    IAmReadModelFor<DialogAggregate, DialogId, DialogFolderUpdatedEvent>
+    IAmReadModelFor<DialogAggregate, DialogId, DialogFolderUpdatedEvent>,
+    IAmReadModelFor<DialogAggregate, DialogId, DraftClearedEvent>
 {
     public virtual int ChannelHistoryMinId { get; private set; }
     public virtual DateTime CreationTime { get; private set; }

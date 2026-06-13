@@ -28,6 +28,7 @@ namespace MyTelegram.Schema.Channels;
 /// <para><c>403 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.</c></para>
 /// <para><c>400 USER_CREATOR For channels.editAdmin: you've tried to edit the admin rights of the owner, but you're not the owner; for channels.leaveChannel: you can't leave this channel, because you're its creator.</c></para>
 /// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>400 USER_KICKED This user was kicked from this supergroup/channel.</c></para>
 /// <para><c>403 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.</c></para>
 /// <para><c>403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this.</c></para>
 /// <para><c>403 USER_RESTRICTED You're spamreported, you can't create channels or chats. </c></para>
@@ -36,10 +37,15 @@ namespace MyTelegram.Schema.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xd33c8902)]
+[TlObject(0x9a98ad68)]
 public sealed partial class RequestEditAdmin : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xd33c8902;
+    public uint ConstructorId => 0x9a98ad68;
+
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
 
     /// <summary>
     /// The <a href="https://corefork.telegram.org/api/channel">supergroup/channel</a>.
@@ -62,27 +68,30 @@ public sealed partial class RequestEditAdmin : IRequest<MyTelegram.Schema.IUpdat
     /// <summary>
     /// Indicates the role (rank) of the admin in the group: just an arbitrary string
     /// </summary>
-    public string Rank { get; set; }
+    public string? Rank { get; set; }
 
     public void ComputeFlag()
     {
+        if (Rank != null) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Channel);
         writer.Write(UserId);
         writer.Write(AdminRights);
-        writer.Write(Rank);
+        if (Flags.IsBitSet(0)) { writer.Write(Rank); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Channel = buffer.Read<MyTelegram.Schema.IInputChannel>();
         UserId = buffer.Read<MyTelegram.Schema.IInputUser>();
         AdminRights = buffer.Read<MyTelegram.Schema.IChatAdminRights>();
-        Rank = buffer.ReadString();
+        if (Flags.IsBitSet(0)) { Rank = buffer.ReadString(); }
     }
 }

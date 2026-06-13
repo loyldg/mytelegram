@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <summary>
 /// Edit message
@@ -41,6 +43,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 500 MSG_WAIT_FAILED A waiting call returned an error.
 /// 400 PEER_ID_INVALID The provided peer id is invalid.
 /// 400 PEER_TYPES_INVALID The passed <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline">keyboardButtonSwitchInline</a>.<code>peer_types</code> field is invalid.
+/// 400 PHOTO_EXT_INVALID The extension of the photo is invalid.
 /// 400 PHOTO_INVALID_DIMENSIONS The photo dimensions are invalid.
 /// 400 PHOTO_SAVE_FILE_INVALID Internal issues, try again later.
 /// 400 REPLY_MARKUP_INVALID The provided reply markup is invalid.
@@ -55,24 +58,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IMessageAppService messageAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditMessage, MyTelegram.Schema.IUpdates>
+internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IMessageAppService messageAppService, IDataEncryptionHelper dataEncryptionHelper, IOptionsMonitor<MyTelegramMessengerServerOptions> options, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditMessage, MyTelegram.Schema.IUpdates>
 {
+    private static byte[]? _encryptionKey;
+    private static KeyConfig? _keyConfig;
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestEditMessage obj)
     {
-        IChatReadModel? chatReadModel = null;
-        switch (obj.Peer)
-        {
-            case TInputPeerChannel inputPeerChannel:
-                await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel.ChannelId, inputPeerChannel.AccessHash, AccessHashType.Channel);
-                break;
-            case TInputPeerChat inputPeerChat:
-                chatReadModel = await queryProcessor.ProcessAsync(new GetChatByChatIdQuery(inputPeerChat.ChatId));
-                break;
-            case TInputPeerUser inputPeerUser:
-                await accessHashHelper.CheckAccessHashAsync(input, inputPeerUser.UserId, inputPeerUser.AccessHash, AccessHashType.User);
-                break;
-        }
-
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
         var ownerPeerId = input.UserId;
         if (peer.PeerType == PeerType.Channel)
@@ -93,6 +84,52 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
             }
         }
 
+        var messageReadModel = await queryProcessor.ProcessAsync(new GetMessageByIdQuery(MessageId.Create(ownerPeerId, obj.Id).Value));
+        if (messageReadModel == null)
+        {
+            RpcErrors.RpcErrors400.MessageIdInvalid.ThrowRpcError();
+        }
+
+        if (!messageReadModel.Post &&
+            messageReadModel.Date + MyTelegramConsts.EditTimeLimit < DateTime.UtcNow.ToTimestamp())
+        {
+            RpcErrors.RpcErrors400.MessageEditTimeExpired.ThrowRpcError();
+        }
+
+        var message = messageReadModel.Message;
+        var messageTextEdited = false;
+        if (!string.IsNullOrEmpty(obj.Message))
+        {
+            message = obj.Message;
+            messageTextEdited = true;
+        }
+
+        byte[]? encryptedData = null;
+        byte[]? inboxMessageEncryptedData = null;
+        if (messageTextEdited && options.CurrentValue.EncryptionConfig is { Enabled: true, MessageKeys.Count: > 0 })
+        {
+            _keyConfig ??= options.CurrentValue.EncryptionConfig.MessageKeys[0];
+            _encryptionKey ??= Encoding.UTF8.GetBytes(_keyConfig.Key);
+            encryptedData = dataEncryptionHelper.Encrypt(_keyConfig.Id, _encryptionKey, ownerPeerId, message);
+            if (messageReadModel.ToPeerType == PeerType.User && messageReadModel.ToPeerId != input.UserId)
+            {
+                inboxMessageEncryptedData = dataEncryptionHelper.Encrypt(_keyConfig.Id, _encryptionKey, messageReadModel.ToPeerId, message);
+            }
+
+            message = string.Empty;
+        }
+
+        //InboxItem? inboxItem = null;
+        //if (messageReadModel!.ToPeerType == PeerType.User)
+        //{
+        //    var inboxMessageReadModel =
+        //        await queryProcessor.ProcessAsync(new GetMessageByBatchIdQuery(messageReadModel.BatchId,
+        //            messageReadModel.OwnerPeerId));
+        //    if (inboxMessageReadModel != null)
+        //    {
+        //        inboxItem = new InboxItem(inboxMessageReadModel.OwnerPeerId, inboxMessageReadModel.MessageId);
+        //    }
+        //}
         var entities = obj.Entities ?? [];
         await messageAppService.ProcessMessageEntitiesAsync(obj.Message, entities, peer);
         if (entities.Count == 0)
@@ -101,8 +138,7 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
         }
 
         var hashtags = messageAppService.GetHashtags(obj.Message);
-        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, obj.Message ?? string.Empty,
-            CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags);
+        var command = new EditOutboxMessageCommand(MessageId.Create(ownerPeerId, obj.Id, obj.QuickReplyShortcutId.HasValue), input.ToRequestInfo(), obj.Id, message, CurrentDate, entities, media, obj.ReplyMarkup, obj.InvertMedia, hashtags, encryptedData, inboxMessageEncryptedData);
         await commandBus.PublishAsync(command);
         return null!;
     }

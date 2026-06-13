@@ -6,7 +6,10 @@ namespace MyTelegram.Schema.Phone;
 /// Join a group call
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
 /// <para><c>400 DATA_JSON_INVALID The provided JSON data is invalid.</c></para>
+/// <para><c>500 GROUPCALL_ADD_PARTICIPANTS_FAILED  </c></para>
 /// <para><c>403 GROUPCALL_FORBIDDEN The group call has already ended.</c></para>
 /// <para><c>400 GROUPCALL_INVALID The specified group call is invalid.</c></para>
 /// <para><c>400 GROUPCALL_SSRC_DUPLICATE_MUCH The app needs to retry joining the group call with a new SSRC value.</c></para>

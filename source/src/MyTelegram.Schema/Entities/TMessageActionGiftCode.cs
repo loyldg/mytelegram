@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Contains a <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Telegram Premium giftcode link</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageActionGiftCode" /></para>
 /// </summary>
-[TlObject(0x56d03994)]
+[TlObject(0x31c48347)]
 public sealed partial class TMessageActionGiftCode : IMessageAction
 {
-    public uint ConstructorId => 0x56d03994;
+    public uint ConstructorId => 0x31c48347;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -32,9 +32,9 @@ public sealed partial class TMessageActionGiftCode : IMessageAction
     public MyTelegram.Schema.IPeer? BoostPeer { get; set; }
 
     /// <summary>
-    /// Duration in months of the gifted <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a>.
+    ///  
     /// </summary>
-    public int Months { get; set; }
+    public int Days { get; set; }
 
     /// <summary>
     /// Slug of the <a href="https://corefork.telegram.org/api/links#premium-giftcode-links">Telegram Premium giftcode link</a>
@@ -85,7 +85,7 @@ public sealed partial class TMessageActionGiftCode : IMessageAction
         writer.Write(ConstructorId);
         writer.Write(Flags);
         if (Flags.IsBitSet(1)) { writer.Write(BoostPeer); }
-        writer.Write(Months);
+        writer.Write(Days);
         writer.Write(Slug);
         if (Flags.IsBitSet(2)) { writer.Write(Currency); }
         if (Flags.IsBitSet(2)) { writer.Write(Amount.Value); }
@@ -100,7 +100,7 @@ public sealed partial class TMessageActionGiftCode : IMessageAction
         if (Flags.IsBitSet(0)) { ViaGiveaway = true; }
         if (Flags.IsBitSet(5)) { Unclaimed = true; }
         if (Flags.IsBitSet(1)) { BoostPeer = buffer.Read<MyTelegram.Schema.IPeer>(); }
-        Months = buffer.ReadInt32();
+        Days = buffer.ReadInt32();
         Slug = buffer.ReadString();
         if (Flags.IsBitSet(2)) { Currency = buffer.ReadString(); }
         if (Flags.IsBitSet(2)) { Amount = buffer.ReadInt64(); }

@@ -79,7 +79,7 @@ public class UserConverterService(
         IReadOnlyCollection<IPrivacyReadModel>? privacyReadModels, int layer = 0)
     {
         var userId = userReadModel.UserId;
-        var isOfficialUserId = userId == MyTelegramConsts.OfficialUserId;
+        var isOfficialUserId = userId == MyTelegramConsts.NotificationServiceUserId;
         var phoneCallAvailable = !isOfficialUserId &&
                                  !userReadModel.Bot &&
                                  userId != request.UserId;

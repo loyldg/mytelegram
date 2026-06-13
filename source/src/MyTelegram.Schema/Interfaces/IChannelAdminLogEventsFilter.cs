@@ -112,4 +112,9 @@ public interface IChannelAdminLogEventsFilter : IObject
     /// <a href="https://corefork.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend">Telegram Star subscription extension events »</a>
     /// </summary>
     bool SubExtend { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    bool EditRank { get; set; }
 }

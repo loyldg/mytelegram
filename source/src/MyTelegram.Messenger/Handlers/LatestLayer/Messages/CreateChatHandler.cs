@@ -10,7 +10,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 400 INPUT_USER_DEACTIVATED The specified user was deleted.
 /// 400 TTL_PERIOD_INVALID The specified TTL period is invalid.
 /// 400 USERS_TOO_FEW Not enough users (to create a chat, for example).
-/// 403 USER_RESTRICTED You're spamreported, you can't create channels or chats.
+/// 406 USER_RESTRICTED You're spamreported, you can't create channels or chats.
 /// <para><c>See <a href="https://corefork.telegram.org/method/messages.createChat"/> </c></para>
 /// </summary>
 /// <remarks>
@@ -65,9 +65,9 @@ internal sealed class CreateChatHandler(ICommandBus commandBus, IIdGenerator idG
             memberUserIds.RemoveAll(needRemoveUserIdsFromList.Contains);
         }
 
-        var createChannelCommand = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId,  //obj.Broadcast,
-        false, true, obj.Title, string.Empty, null, null, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, true, ttlFromDefaultSetting, memberUserIds, botUserIds);
+        var createChannelCommand = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId, //obj.Broadcast,
+ false, true, obj.Title, string.Empty, null, null, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, true, ttlFromDefaultSetting, memberUserIds, botUserIds);
         await commandBus.PublishAsync(createChannelCommand);
-        return null!;
+        return null !;
     }
 }

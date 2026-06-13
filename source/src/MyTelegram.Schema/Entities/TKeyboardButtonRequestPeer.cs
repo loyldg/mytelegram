@@ -6,10 +6,21 @@ namespace MyTelegram.Schema;
 /// Prompts the user to select and share one or more peers with the bot using <a href="https://corefork.telegram.org/method/messages.sendBotRequestedPeer">messages.sendBotRequestedPeer</a>
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer" /></para>
 /// </summary>
-[TlObject(0x53d7bfd8)]
+[TlObject(0x5b0f15f5)]
 public sealed partial class TKeyboardButtonRequestPeer : IKeyboardButton
 {
-    public uint ConstructorId => 0x53d7bfd8;
+    public uint ConstructorId => 0x5b0f15f5;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
+
     /// <summary>
     /// Button text
     /// </summary>
@@ -33,12 +44,15 @@ public sealed partial class TKeyboardButtonRequestPeer : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         writer.Write(ButtonId);
         writer.Write(PeerType);
@@ -47,6 +61,8 @@ public sealed partial class TKeyboardButtonRequestPeer : IKeyboardButton
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         ButtonId = buffer.ReadInt32();
         PeerType = buffer.Read<MyTelegram.Schema.IRequestPeerType>();

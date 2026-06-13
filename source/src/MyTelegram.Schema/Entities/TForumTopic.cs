@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/forum#forum-topics">forum topic</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/forumTopic" /></para>
 /// </summary>
-[TlObject(0xcdff0eca)]
+[TlObject(0xfcdad815)]
 public sealed partial class TForumTopic : IForumTopic
 {
-    public uint ConstructorId => 0xcdff0eca;
+    public uint ConstructorId => 0xfcdad815;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -40,6 +40,9 @@ public sealed partial class TForumTopic : IForumTopic
     /// </summary>
     public bool Hidden { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool TitleMissing { get; set; }
 
     /// <summary>
@@ -53,6 +56,7 @@ public sealed partial class TForumTopic : IForumTopic
     public int Date { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
@@ -102,6 +106,8 @@ public sealed partial class TForumTopic : IForumTopic
     /// </summary>
     public int UnreadReactionsCount { get; set; }
 
+    public int UnreadPollVotesCount { get; set; }
+
     /// <summary>
     /// ID of the peer that created the topic
     /// See <a href="https://corefork.telegram.org/type/Peer" />
@@ -149,6 +155,7 @@ public sealed partial class TForumTopic : IForumTopic
         writer.Write(UnreadCount);
         writer.Write(UnreadMentionsCount);
         writer.Write(UnreadReactionsCount);
+        writer.Write(UnreadPollVotesCount);
         writer.Write(FromId);
         writer.Write(NotifySettings);
         if (Flags.IsBitSet(4)) { writer.Write(Draft); }
@@ -175,6 +182,7 @@ public sealed partial class TForumTopic : IForumTopic
         UnreadCount = buffer.ReadInt32();
         UnreadMentionsCount = buffer.ReadInt32();
         UnreadReactionsCount = buffer.ReadInt32();
+        UnreadPollVotesCount = buffer.ReadInt32();
         FromId = buffer.Read<MyTelegram.Schema.IPeer>();
         NotifySettings = buffer.Read<MyTelegram.Schema.IPeerNotifySettings>();
         if (Flags.IsBitSet(4)) { Draft = buffer.Read<MyTelegram.Schema.IDraftMessage>(); }

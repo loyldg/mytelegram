@@ -6,10 +6,14 @@ namespace MyTelegram.Schema;
 /// The model of a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/starGiftAttributeModel" /></para>
 /// </summary>
-[TlObject(0x39d99013)]
+[TlObject(0x565251e2)]
 public sealed partial class TStarGiftAttributeModel : IStarGiftAttribute
 {
-    public uint ConstructorId => 0x39d99013;
+    public uint ConstructorId => 0x565251e2;
+    public int Flags { get; set; }
+
+    public bool Crafted { get; set; }
+
     /// <summary>
     /// Name of the model
     /// </summary>
@@ -22,27 +26,37 @@ public sealed partial class TStarGiftAttributeModel : IStarGiftAttribute
     public MyTelegram.Schema.IDocument Document { get; set; }
 
     /// <summary>
-    /// The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
+    /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeRarity" />
     /// </summary>
+    public MyTelegram.Schema.IStarGiftAttributeRarity Rarity { get; set; }
+
     public int RarityPermille { get; set; }
 
     public void ComputeFlag()
     {
+        if (Crafted) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
+        if (Rarity == null)
+        {
+            Rarity = new TStarGiftAttributeRarity { Permille = RarityPermille };
+        }
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Name);
         writer.Write(Document);
-        writer.Write(RarityPermille);
+        writer.Write(Rarity);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Crafted = true; }
         Name = buffer.ReadString();
         Document = buffer.Read<MyTelegram.Schema.IDocument>();
-        RarityPermille = buffer.ReadInt32();
+        Rarity = buffer.Read<MyTelegram.Schema.IStarGiftAttributeRarity>();
     }
 }

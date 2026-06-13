@@ -6,10 +6,15 @@ namespace MyTelegram.Schema;
 /// <a href="https://corefork.telegram.org/api/dice">Dice-based animated sticker</a>
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageMediaDice" /></para>
 /// </summary>
-[TlObject(0x3f7ee58b)]
+[TlObject(0x8cbec07)]
 public sealed partial class TMessageMediaDice : IMessageMedia
 {
-    public uint ConstructorId => 0x3f7ee58b;
+    public uint ConstructorId => 0x8cbec07;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
+
     /// <summary>
     /// <a href="https://corefork.telegram.org/api/dice">Dice value</a>
     /// </summary>
@@ -20,21 +25,32 @@ public sealed partial class TMessageMediaDice : IMessageMedia
     /// </summary>
     public string Emoticon { get; set; }
 
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/messages.EmojiGameOutcome" />
+    /// </summary>
+    public MyTelegram.Schema.Messages.IEmojiGameOutcome? GameOutcome { get; set; }
+
     public void ComputeFlag()
     {
+        if (GameOutcome != null) { Flags = Flags.SetBit(0); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Value);
         writer.Write(Emoticon);
+        if (Flags.IsBitSet(0)) { writer.Write(GameOutcome); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Value = buffer.ReadInt32();
         Emoticon = buffer.ReadString();
+        if (Flags.IsBitSet(0)) { GameOutcome = buffer.Read<MyTelegram.Schema.Messages.IEmojiGameOutcome>(); }
     }
 }

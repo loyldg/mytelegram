@@ -30,6 +30,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 403 CHAT_SEND_PLAIN_FORBIDDEN You can't send non-media (text) messages in this chat.
 /// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
 /// 400 DOCUMENT_INVALID The specified document is invalid.
+/// 400 EFFECT_CHAT_INVALID  
 /// 400 ENCRYPTION_DECLINED The secret chat was declined.
 /// 400 ENTITIES_TOO_LONG You provided too many styled message entities.
 /// 400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.
@@ -46,7 +47,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// 400 PINNED_DIALOGS_TOO_MUCH Too many pinned dialogs.
 /// 400 POLL_OPTION_INVALID Invalid poll option provided.
 /// 403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action.
-/// 403 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
+/// 406 PRIVACY_PREMIUM_REQUIRED You need a <a href="https://corefork.telegram.org/api/premium">Telegram Premium subscription</a> to send a message to this user.
 /// 400 QUICK_REPLIES_BOT_NOT_ALLOWED <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">Quick replies</a> cannot be used by bots.
 /// 400 QUICK_REPLIES_TOO_MUCH A maximum of <a href="https://corefork.telegram.org/api/config#quick-replies-limit">appConfig.<code>quick_replies_limit</code></a> shortcuts may be created, the limit was reached.
 /// 400 QUOTE_TEXT_INVALID The specified <code>reply_to</code>.<code>quote_text</code> field is invalid.
@@ -115,6 +116,10 @@ internal sealed class SendMessageHandler(IMessageAppService messageAppService, I
             if (m2.Success && !isInviteUrlAdded)
             {
                 var link = m2.Groups[1].Value;
+                if (link.StartsWith('/'))
+                {
+                    link = link[1..];
+                }
                 var chatInvite = await queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(link));
                 if (chatInvite != null)
                 {

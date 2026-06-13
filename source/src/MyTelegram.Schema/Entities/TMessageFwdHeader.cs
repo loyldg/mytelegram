@@ -109,8 +109,8 @@ public sealed partial class TMessageFwdHeader : IMessageFwdHeader
         writer.Write(Date);
         if (Flags.IsBitSet(2)) { writer.Write(ChannelPost.Value); }
         if (Flags.IsBitSet(3)) { writer.Write(PostAuthor); }
-        if (Flags.IsBitSet(4) && SavedFromPeer != null) { writer.Write(SavedFromPeer); }
-        if (Flags.IsBitSet(4) && SavedFromPeer != null) { writer.Write(SavedFromMsgId.Value); }
+        if (Flags.IsBitSet(4)) { writer.Write(SavedFromPeer); }
+        if (Flags.IsBitSet(4)) { writer.Write(SavedFromMsgId.Value); }
         if (Flags.IsBitSet(8)) { writer.Write(SavedFromId); }
         if (Flags.IsBitSet(9)) { writer.Write(SavedFromName); }
         if (Flags.IsBitSet(10)) { writer.Write(SavedDate.Value); }

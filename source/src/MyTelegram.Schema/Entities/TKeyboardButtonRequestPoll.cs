@@ -6,14 +6,20 @@ namespace MyTelegram.Schema;
 /// A button that allows the user to create and send a poll when pressed; available only in private
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPoll" /></para>
 /// </summary>
-[TlObject(0xbbc7515d)]
+[TlObject(0x7a11d782)]
 public sealed partial class TKeyboardButtonRequestPoll : IKeyboardButton
 {
-    public uint ConstructorId => 0xbbc7515d;
+    public uint ConstructorId => 0x7a11d782;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
     public int Flags { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
 
     /// <summary>
     /// If set, only quiz polls can be sent
@@ -28,6 +34,7 @@ public sealed partial class TKeyboardButtonRequestPoll : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
         if (Quiz != null) { Flags = Flags.SetBit(0); }
     }
 
@@ -36,6 +43,7 @@ public sealed partial class TKeyboardButtonRequestPoll : IKeyboardButton
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         if (Flags.IsBitSet(0)) { writer.Write(Quiz.Value); }
         writer.Write(Text);
     }
@@ -43,6 +51,7 @@ public sealed partial class TKeyboardButtonRequestPoll : IKeyboardButton
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         if (Flags.IsBitSet(0)) { Quiz = buffer.Read(); }
         Text = buffer.ReadString();
     }

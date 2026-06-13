@@ -150,7 +150,7 @@ public class EditPeerFoldersSagaId(string value) : SingleValueObject<string>(val
 
 }
 
-public class EditPeerFoldersSagaLocator : DefaultSagaLocator<EditPeerFoldersSagaId>
+public class EditPeerFoldersSagaLocator : DefaultSagaLocator<EditPeerFoldersSaga, EditPeerFoldersSagaId>
 {
     protected override EditPeerFoldersSagaId CreateSagaId(string requestId)
     {

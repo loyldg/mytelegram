@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Indicates info about a certain user.Unless specified otherwise, when updating the <a href="https://corefork.telegram.org/api/peers">local peer database</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).See <a href="https://github.com/tdlib/td/blob/cb164927417f22811c74cd8678ed4a5ab7cb80ba/td/telegram/UserManager.cpp#L2267">here »</a> for an implementation of the logic to use when updating the <a href="https://corefork.telegram.org/api/peers">local user peer database</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/user" /></para>
 /// </summary>
-[TlObject(0x20b1422)]
+[TlObject(0x31774388)]
 public sealed partial class TUser : IUser, ILayeredUser
 {
-    public uint ConstructorId => 0x20b1422;
+    public uint ConstructorId => 0x31774388;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -145,7 +145,17 @@ public sealed partial class TUser : IUser, ILayeredUser
     /// </summary>
     public bool BotHasMainApp { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool BotForumView { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool BotForumCanManageTopics { get; set; }
+
+    public bool BotCanManageBots { get; set; }
 
     /// <summary>
     /// ID of the user, see <a href="https://corefork.telegram.org/api/peers#peer-id">here »</a> for more info and the available ID range.
@@ -224,8 +234,9 @@ public sealed partial class TUser : IUser, ILayeredUser
 
     /// <summary>
     /// ID of the maximum read <a href="https://corefork.telegram.org/api/stories">story</a>.  <br/>When updating the <a href="https://corefork.telegram.org/api/peers">local peer database</a>, do not apply changes to this field if the <code>min</code> flag of the incoming constructor is set.
+    /// See <a href="https://corefork.telegram.org/type/RecentStory" />
     /// </summary>
-    public int? StoriesMaxId { get; set; }
+    public MyTelegram.Schema.IRecentStory? StoriesMaxId { get; set; }
 
     /// <summary>
     /// The user's <a href="https://corefork.telegram.org/api/colors">accent color</a>.
@@ -282,6 +293,8 @@ public sealed partial class TUser : IUser, ILayeredUser
         if (BotBusiness) { Flags2 = Flags2.SetBit(11); }
         if (BotHasMainApp) { Flags2 = Flags2.SetBit(13); }
         if (BotForumView) { Flags2 = Flags2.SetBit(16); }
+        if (BotForumCanManageTopics) { Flags2 = Flags2.SetBit(17); }
+        if (BotCanManageBots) { Flags2 = Flags2.SetBit(18); }
         if (/*AccessHash != 0 &&*/ AccessHash.HasValue) { Flags = Flags.SetBit(0); }
         if (FirstName != null) { Flags = Flags.SetBit(1); }
         if (LastName != null) { Flags = Flags.SetBit(2); }
@@ -295,7 +308,7 @@ public sealed partial class TUser : IUser, ILayeredUser
         if (LangCode != null) { Flags = Flags.SetBit(22); }
         if (EmojiStatus != null) { Flags = Flags.SetBit(30); }
         if (Usernames?.Count > 0) { Flags2 = Flags2.SetBit(0); }
-        if (/*StoriesMaxId != 0 && */StoriesMaxId.HasValue) { Flags2 = Flags2.SetBit(5); }
+        if (StoriesMaxId != null) { Flags2 = Flags2.SetBit(5); }
         if (Color != null) { Flags2 = Flags2.SetBit(8); }
         if (ProfileColor != null) { Flags2 = Flags2.SetBit(9); }
         if (/*BotActiveUsers != 0 && */BotActiveUsers.HasValue) { Flags2 = Flags2.SetBit(12); }
@@ -323,7 +336,7 @@ public sealed partial class TUser : IUser, ILayeredUser
         if (Flags.IsBitSet(22)) { writer.Write(LangCode); }
         if (Flags.IsBitSet(30)) { writer.Write(EmojiStatus); }
         if (Flags2.IsBitSet(0)) { writer.Write(Usernames); }
-        if (Flags2.IsBitSet(5)) { writer.Write(StoriesMaxId.Value); }
+        if (Flags2.IsBitSet(5)) { writer.Write(StoriesMaxId); }
         if (Flags2.IsBitSet(8)) { writer.Write(Color); }
         if (Flags2.IsBitSet(9)) { writer.Write(ProfileColor); }
         if (Flags2.IsBitSet(12)) { writer.Write(BotActiveUsers.Value); }
@@ -361,6 +374,8 @@ public sealed partial class TUser : IUser, ILayeredUser
         if (Flags2.IsBitSet(11)) { BotBusiness = true; }
         if (Flags2.IsBitSet(13)) { BotHasMainApp = true; }
         if (Flags2.IsBitSet(16)) { BotForumView = true; }
+        if (Flags2.IsBitSet(17)) { BotForumCanManageTopics = true; }
+        if (Flags2.IsBitSet(18)) { BotCanManageBots = true; }
         Id = buffer.ReadInt64();
         if (Flags.IsBitSet(0)) { AccessHash = buffer.ReadInt64(); }
         if (Flags.IsBitSet(1)) { FirstName = buffer.ReadString(); }
@@ -375,7 +390,7 @@ public sealed partial class TUser : IUser, ILayeredUser
         if (Flags.IsBitSet(22)) { LangCode = buffer.ReadString(); }
         if (Flags.IsBitSet(30)) { EmojiStatus = buffer.Read<MyTelegram.Schema.IEmojiStatus>(); }
         if (Flags2.IsBitSet(0)) { Usernames = buffer.Read<TVector<MyTelegram.Schema.IUsername>>(); }
-        if (Flags2.IsBitSet(5)) { StoriesMaxId = buffer.ReadInt32(); }
+        if (Flags2.IsBitSet(5)) { StoriesMaxId = buffer.Read<MyTelegram.Schema.IRecentStory>(); }
         if (Flags2.IsBitSet(8)) { Color = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
         if (Flags2.IsBitSet(9)) { ProfileColor = buffer.Read<MyTelegram.Schema.IPeerColor>(); }
         if (Flags2.IsBitSet(12)) { BotActiveUsers = buffer.ReadInt32(); }

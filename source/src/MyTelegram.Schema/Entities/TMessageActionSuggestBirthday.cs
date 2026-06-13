@@ -10,6 +10,7 @@ public sealed partial class TMessageActionSuggestBirthday : IMessageAction
 {
     public uint ConstructorId => 0x2c8f2a25;
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Birthday" />
     /// </summary>
     public MyTelegram.Schema.IBirthday Birthday { get; set; }

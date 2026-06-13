@@ -1,14 +1,10 @@
-﻿using MyTelegram.Messenger.Services.Caching;
-using MyTelegram.Services.Extensions;
-
-namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
+﻿namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
 
 public class DialogDomainEventHandler(
     IObjectMessageSender objectMessageSender,
     ICommandBus commandBus,
     IIdGenerator idGenerator,
     IAckCacheService ackCacheService,
-    IResponseCacheAppService responseCacheAppService,
     IObjectMapper objectMapper)
     : DomainEventHandlerBase(objectMessageSender, commandBus, idGenerator, ackCacheService),
         ISubscribeSynchronousTo<DialogAggregate, DialogId, ChannelHistoryClearedEvent>,

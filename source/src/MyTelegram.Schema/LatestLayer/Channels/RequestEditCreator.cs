@@ -7,18 +7,23 @@ namespace MyTelegram.Schema.Channels;
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH You're admin of too many public channels, make some channels private to change the username of this channel.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
 /// <para><c>400 CHANNEL_MONOFORUM_UNSUPPORTED <a href="https://corefork.telegram.org/api/channel#monoforums">Monoforums</a> do not support this feature.</c></para>
 /// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
 /// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
 /// <para><c>400 CHAT_MEMBER_ADD_FAILED Could not add participants.</c></para>
 /// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
 /// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
 /// <para><c>400 PASSWORD_HASH_INVALID The provided password hash is invalid.</c></para>
 /// <para><c>400 PASSWORD_MISSING You must <a href="https://corefork.telegram.org/api/srp">enable 2FA</a> before executing this operation.</c></para>
 /// <para><c>400 PASSWORD_TOO_FRESH_%d The password was modified less than 24 hours ago, try again in %d seconds.</c></para>
 /// <para><c>400 SESSION_TOO_FRESH_%d This session was created less than 24 hours ago, try again in %d seconds.</c></para>
 /// <para><c>400 SRP_ID_INVALID Invalid SRP ID provided.</c></para>
+/// <para><c>400 USERS_TOO_MUCH The maximum number of users has been exceeded (to create a chat, for example).</c></para>
+/// <para><c>403 USER_CHANNELS_TOO_MUCH One of the users you tried to add is already in too many channels/supergroups.</c></para>
 /// <para><c>400 USER_ID_INVALID The provided user ID is invalid.</c></para>
+/// <para><c>400 USER_NOT_MUTUAL_CONTACT The provided user is not a mutual contact.</c></para>
 /// <para><c>403 USER_PRIVACY_RESTRICTED The user's privacy settings do not allow you to do this. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/channels.editCreator" /></para>
 /// </summary>

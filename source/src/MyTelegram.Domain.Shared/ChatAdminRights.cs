@@ -20,6 +20,7 @@ public class ChatAdminRights
         true,
         true,
         true,
+        true,
         true
     );
 
@@ -52,7 +53,8 @@ public class ChatAdminRights
         bool manageTopics,
         bool postStories,
         bool editStories,
-        bool deleteStories
+        bool deleteStories,
+        bool manageDirectMessages
     )
     {
         ChangeInfo = changeInfo;
@@ -70,6 +72,7 @@ public class ChatAdminRights
         PostStories = postStories;
         EditStories = editStories;
         DeleteStories = deleteStories;
+        ManageDirectMessages = manageDirectMessages;
 
         ComputeFlag();
     }
@@ -90,6 +93,7 @@ public class ChatAdminRights
     public bool PostStories { get; set; }
     public bool EditStories { get; set; }
     public bool DeleteStories { get; set; }
+    public bool ManageDirectMessages { get; set; }
 
     public bool HasNoRights()
     {
@@ -107,7 +111,8 @@ public class ChatAdminRights
                !ManageTopics &&
                !PostStories &&
                !EditStories &&
-               !DeleteStories
+               !DeleteStories &&
+               !ManageDirectMessages
             ;
     }
 
@@ -128,6 +133,7 @@ public class ChatAdminRights
         _flags[14] = PostStories;
         _flags[15] = EditStories;
         _flags[16] = DeleteStories;
+        _flags[17] = ManageDirectMessages;
     }
 
     public BitArray GetFlags()
@@ -154,5 +160,6 @@ public class ChatAdminRights
         PostStories = _flags[14];
         EditStories = _flags[15];
         DeleteStories = _flags[16];
+        ManageDirectMessages = _flags[17];
     }
 }

@@ -13,6 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN You can't forward polls with public voters.</c></para>
 /// <para><c>400 BUSINESS_CONNECTION_INVALID The <code>connection_id</code> passed to the wrapping <a href="https://corefork.telegram.org/api/business">invokeWithBusinessConnection</a> call is invalid.</c></para>
 /// <para><c>400 BUSINESS_PEER_INVALID Messages can't be set to the specified peer through the current <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a>.</c></para>
+/// <para><c>400 BUSINESS_PEER_USAGE_MISSING You cannot send a message to a user through a <a href="https://corefork.telegram.org/api/business#connected-bots">business connection</a> if the user hasn't recently contacted us.</c></para>
 /// <para><c>400 BUTTON_COPY_TEXT_INVALID The specified <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy">keyboardButtonCopy</a>.<code>copy_text</code> is invalid.</c></para>
 /// <para><c>400 BUTTON_DATA_INVALID The data of one or more of the buttons you provided is invalid.</c></para>
 /// <para><c>400 BUTTON_POS_INVALID The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...).</c></para>
@@ -39,10 +40,12 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
 /// <para><c>400 CURRENCY_TOTAL_AMOUNT_INVALID The total amount of all prices is invalid.</c></para>
 /// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
+/// <para><c>400 EFFECT_CHAT_INVALID  </c></para>
 /// <para><c>400 EFFECT_ID_INVALID The specified effect ID is invalid.</c></para>
 /// <para><c>400 EMOTICON_INVALID The specified emoji is invalid.</c></para>
 /// <para><c>400 ENTITY_BOUNDS_INVALID A specified <a href="https://corefork.telegram.org/api/entities#entity-length">entity offset or length</a> is invalid, see <a href="https://corefork.telegram.org/api/entities#entity-length">here »</a> for info on how to properly compute the entity offset/length.</c></para>
 /// <para><c>400 EXTENDED_MEDIA_AMOUNT_INVALID The specified <code>stars_amount</code> of the passed <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia">inputMediaPaidMedia</a> is invalid.</c></para>
+/// <para><c>400 EXTENDED_MEDIA_EMPTY  </c></para>
 /// <para><c>400 EXTENDED_MEDIA_INVALID The specified paid media is invalid.</c></para>
 /// <para><c>400 EXTERNAL_URL_INVALID External URL invalid.</c></para>
 /// <para><c>400 FILE_PARTS_INVALID The number of file parts is invalid.</c></para>
@@ -85,6 +88,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 REPLY_MARKUP_TOO_LONG The specified reply_markup is too long.</c></para>
 /// <para><c>400 REPLY_MESSAGES_TOO_MUCH Each shortcut can contain a maximum of <a href="https://corefork.telegram.org/api/config#quick-reply-messages-limit">appConfig.<code>quick_reply_messages_limit</code></a> messages, the limit was reached.</c></para>
 /// <para><c>400 REPLY_MESSAGE_ID_INVALID The specified reply-to message ID is invalid.</c></para>
+/// <para><c>400 REPLY_TO_MONOFORUM_PEER_INVALID The specified inputReplyToMonoForum.monoforum_peer_id is invalid.</c></para>
 /// <para><c>400 SCHEDULE_BOT_NOT_ALLOWED Bots cannot schedule messages.</c></para>
 /// <para><c>400 SCHEDULE_DATE_TOO_LATE You can't schedule a message this far in the future.</c></para>
 /// <para><c>400 SCHEDULE_TOO_MUCH There are too many scheduled messages.</c></para>
@@ -116,10 +120,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xac55d9c1)]
+[TlObject(0x330e77f)]
 public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0xac55d9c1;
+    public uint ConstructorId => 0x330e77f;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -207,6 +211,11 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
     public int? ScheduleDate { get; set; }
 
     /// <summary>
+    ///  
+    /// </summary>
+    public int? ScheduleRepeatPeriod { get; set; }
+
+    /// <summary>
     /// Send this message as the specified peer
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
@@ -247,6 +256,7 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
         if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
         if (Entities?.Count > 0) { Flags = Flags.SetBit(3); }
         if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(10); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags = Flags.SetBit(24); }
         if (SendAs != null) { Flags = Flags.SetBit(13); }
         if (QuickReplyShortcut != null) { Flags = Flags.SetBit(17); }
         if (/*Effect != 0 &&*/ Effect.HasValue) { Flags = Flags.SetBit(18); }
@@ -267,6 +277,7 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
         if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
         if (Flags.IsBitSet(3)) { writer.Write(Entities); }
         if (Flags.IsBitSet(10)) { writer.Write(ScheduleDate.Value); }
+        if (Flags.IsBitSet(24)) { writer.Write(ScheduleRepeatPeriod.Value); }
         if (Flags.IsBitSet(13)) { writer.Write(SendAs); }
         if (Flags.IsBitSet(17)) { writer.Write(QuickReplyShortcut); }
         if (Flags.IsBitSet(18)) { writer.Write(Effect.Value); }
@@ -292,6 +303,7 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
         if (Flags.IsBitSet(2)) { ReplyMarkup = buffer.Read<MyTelegram.Schema.IReplyMarkup>(); }
         if (Flags.IsBitSet(3)) { Entities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
         if (Flags.IsBitSet(10)) { ScheduleDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(24)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
         if (Flags.IsBitSet(13)) { SendAs = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags.IsBitSet(17)) { QuickReplyShortcut = buffer.Read<MyTelegram.Schema.IInputQuickReplyShortcut>(); }
         if (Flags.IsBitSet(18)) { Effect = buffer.ReadInt64(); }

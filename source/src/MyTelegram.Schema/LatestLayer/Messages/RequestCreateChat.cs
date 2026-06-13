@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
 /// <para><c>400 TTL_PERIOD_INVALID The specified TTL period is invalid.</c></para>
 /// <para><c>400 USERS_TOO_FEW Not enough users (to create a chat, for example).</c></para>
-/// <para><c>403 USER_RESTRICTED You're spamreported, you can't create channels or chats. </c></para>
+/// <para><c>406 USER_RESTRICTED You're spamreported, you can't create channels or chats. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.createChat" /></para>
 /// </summary>
 /// <remarks>

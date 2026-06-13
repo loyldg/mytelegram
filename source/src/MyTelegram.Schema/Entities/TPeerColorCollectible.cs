@@ -9,20 +9,44 @@ namespace MyTelegram.Schema;
 public sealed partial class TPeerColorCollectible : IPeerColor
 {
     public uint ConstructorId => 0xb9c0639a;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long CollectibleId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long GiftEmojiId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long BackgroundEmojiId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int AccentColor { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<int> Colors { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? DarkAccentColor { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<int>? DarkColors { get; set; }
 
     public void ComputeFlag()

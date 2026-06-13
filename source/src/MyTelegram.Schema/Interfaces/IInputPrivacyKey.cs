@@ -21,6 +21,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputPrivacyKeyBirthday"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyBirthday" /><br/>
 /// <see cref="TInputPrivacyKeyStarGiftsAutoSave"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyStarGiftsAutoSave" /><br/>
 /// <see cref="TInputPrivacyKeyNoPaidMessages"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeyNoPaidMessages" /><br/>
+/// <see cref="TInputPrivacyKeySavedMusic"/> See <a href="https://corefork.telegram.org/constructor/inputPrivacyKeySavedMusic" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputPrivacyKeyStatusTimestamp), nameof(TInputPrivacyKeyStatusTimestamp))]
 [JsonDerivedType(typeof(TInputPrivacyKeyChatInvite), nameof(TInputPrivacyKeyChatInvite))]
@@ -35,6 +36,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputPrivacyKeyBirthday), nameof(TInputPrivacyKeyBirthday))]
 [JsonDerivedType(typeof(TInputPrivacyKeyStarGiftsAutoSave), nameof(TInputPrivacyKeyStarGiftsAutoSave))]
 [JsonDerivedType(typeof(TInputPrivacyKeyNoPaidMessages), nameof(TInputPrivacyKeyNoPaidMessages))]
+[JsonDerivedType(typeof(TInputPrivacyKeySavedMusic), nameof(TInputPrivacyKeySavedMusic))]
 public interface IInputPrivacyKey : IObject
 {
 }

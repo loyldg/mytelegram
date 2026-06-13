@@ -4,6 +4,6 @@ public class GetPermanentChatInviteQueryHandler(IQueryOnlyReadModelStore<ChatInv
 {
     public async Task<IChatInviteReadModel?> ExecuteQueryAsync(GetPermanentChatInviteQuery query, CancellationToken cancellationToken)
     {
-        return await store.FirstOrDefaultAsync(p => p.PeerId == query.PeerId && p.Permanent && !p.Revoked, cancellationToken: cancellationToken);
+        return await store.FirstOrDefaultAsync(p => p.PeerId == query.ChannelId && p.Permanent && !p.Revoked, cancellationToken: cancellationToken);
     }
 }

@@ -3,34 +3,59 @@
 namespace MyTelegram.Schema.Messages;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 CHANNEL_FORUM_MISSING This supergroup is not a forum.</c></para>
+/// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.createForumTopic" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x2f98c3d5)]
 public sealed partial class RequestCreateForumTopic : IRequest<MyTelegram.Schema.IUpdates>
 {
     public uint ConstructorId => 0x2f98c3d5;
 
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool TitleMissing { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string Title { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public int? IconColor { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long? IconEmojiId { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long RandomId { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
     /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }

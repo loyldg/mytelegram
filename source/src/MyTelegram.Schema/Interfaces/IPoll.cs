@@ -43,6 +43,16 @@ public interface IPoll : IObject
     /// </summary>
     bool Quiz { get; set; }
 
+    bool OpenAnswers { get; set; }
+
+    bool RevotingDisabled { get; set; }
+
+    bool ShuffleAnswers { get; set; }
+
+    bool HideResultsUntilClose { get; set; }
+
+    bool Creator { get; set; }
+
     /// <summary>
     /// The question of the poll (only <a href="https://corefork.telegram.org/api/premium">Premium</a> users can use <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji entities</a> here).
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
@@ -64,4 +74,6 @@ public interface IPoll : IObject
     /// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.
     /// </summary>
     int? CloseDate { get; set; }
+
+    long Hash { get; set; }
 }

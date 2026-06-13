@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Callback button
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonCallback" /></para>
 /// </summary>
-[TlObject(0x35bbdb6b)]
+[TlObject(0xe62bc960)]
 public sealed partial class TKeyboardButtonCallback : IKeyboardButton
 {
-    public uint ConstructorId => 0x35bbdb6b;
+    public uint ConstructorId => 0xe62bc960;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,12 @@ public sealed partial class TKeyboardButtonCallback : IKeyboardButton
     /// Whether the user should verify his identity by entering his <a href="https://corefork.telegram.org/api/srp">2FA SRP parameters</a> to the <a href="https://corefork.telegram.org/method/messages.getBotCallbackAnswer">messages.getBotCallbackAnswer</a> method. NOTE: telegram and the bot WILL NOT have access to the plaintext password, thanks to <a href="https://corefork.telegram.org/api/srp">SRP</a>. This button is mainly used by the official <a href="https://t.me/botfather">@botfather</a> bot, for verifying the user's identity before transferring ownership of a bot to another user.
     /// </summary>
     public bool RequiresPassword { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
 
     /// <summary>
     /// Button text
@@ -33,6 +39,7 @@ public sealed partial class TKeyboardButtonCallback : IKeyboardButton
     public void ComputeFlag()
     {
         if (RequiresPassword) { Flags = Flags.SetBit(0); }
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -40,6 +47,7 @@ public sealed partial class TKeyboardButtonCallback : IKeyboardButton
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         writer.Write(Data);
     }
@@ -48,6 +56,7 @@ public sealed partial class TKeyboardButtonCallback : IKeyboardButton
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { RequiresPassword = true; }
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         Data = buffer.ReadString();
     }

@@ -61,7 +61,7 @@ internal sealed class SendMessageConverterService(
                     var updates = new TUpdateShortMessage
                     {
                         Out = false,
-                        Message = item.Message,
+                        Message = ToMessageText(item.Message, item.OwnerPeer.PeerId, item.MessageId, item.EncryptedData),
                         Date = item.Date,
                         Entities = item.Entities,
                         Id = item.MessageId,
@@ -80,7 +80,7 @@ internal sealed class SendMessageConverterService(
                     var updates = new TUpdateShortChatMessage
                     {
                         Out = false,
-                        Message = item.Message,
+                        Message = ToMessageText(item.Message, item.OwnerPeer.PeerId, item.MessageId, item.EncryptedData),
                         Date = item.Date,
                         Entities = item.Entities,
                         Id = item.MessageId,
@@ -155,7 +155,7 @@ internal sealed class SendMessageConverterService(
                     Out = true,
                     Id = item.MessageId,
                     UserId = item.ToPeer.PeerId,
-                    Message = item.Message,
+                    Message = ToMessageText(item.Message, item.OwnerPeer.PeerId, item.MessageId, item.EncryptedData),
                     Pts = item.Pts,
                     PtsCount = 1,
                     Date = item.Date,
@@ -176,7 +176,7 @@ internal sealed class SendMessageConverterService(
                     Id = item.MessageId,
                     FromId = item.SenderPeer.PeerId,
                     ChatId = item.ToPeer.PeerId,
-                    Message = item.Message,
+                    Message = ToMessageText(item.Message, item.OwnerPeer.PeerId, item.MessageId, item.EncryptedData),
                     Pts = item.Pts,
                     PtsCount = 1,
                     Date = item.Date,
@@ -430,5 +430,19 @@ internal sealed class SendMessageConverterService(
         }
 
         return false;
+    }
+
+    private string ToMessageText(string message, long ownerPeerId, int messageId, ReadOnlyMemory<byte>? encryptedData)
+    {
+        if (encryptedData?.Length > 0)
+        {
+            return messageConverterService.DecryptMessage(ownerPeerId, messageId, encryptedData);
+        }
+        if (!string.IsNullOrEmpty(message))
+        {
+            return message;
+        }
+
+        return string.Empty;
     }
 }

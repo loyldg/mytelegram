@@ -6,7 +6,8 @@ namespace MyTelegram.Schema.Payments;
 /// Obtain a preview of the possible attributes (chosen randomly) a <a href="https://corefork.telegram.org/api/gifts">gift »</a> can receive after upgrading it to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>, see <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">here »</a> for more info.
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
-/// <para><c>400 STARGIFT_INVALID The passed gift is invalid. </c></para>
+/// <para><c>400 STARGIFT_INVALID The passed gift is invalid.</c></para>
+/// <para><c>400 STARGIFT_UPGRADE_UNAVAILABLE A received gift can only be upgraded to a collectible gift if the <a href="https://corefork.telegram.org/constructor/messageActionStarGift">messageActionStarGift</a>/<a href="https://corefork.telegram.org/constructor/savedStarGift">savedStarGift</a>.<code>can_upgrade</code> flag is set. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/payments.getStarGiftUpgradePreview" /></para>
 /// </summary>
 /// <remarks>

@@ -2,6 +2,7 @@
 
 public interface IPollReadModel : IReadModel
 {
+    string Id { get; }
     long ToPeerId { get; }
     long PollId { get; }
     bool MultipleChoice { get; }
@@ -20,4 +21,5 @@ public interface IPollReadModel : IReadModel
     IReadOnlyCollection<PollAnswerVoter>? AnswerVoters { get; }
     byte[]? QuestionEntities { get; }
     IList<IMessageEntity>? QuestionEntities2 { get; }
+    long? CreatorUserId { get; }
 }

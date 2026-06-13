@@ -56,7 +56,7 @@ internal sealed class GetParticipantsHandler(IQueryProcessor queryProcessor, ICh
 
             var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel.ChannelId, input.UserId));
             //ChatAdminRights? adminRights = null;
-            bool isAdmin = channelMemberReadModel != null && channelMemberReadModel.AdminRights != 0 && channelMemberReadModel.IsAdmin;
+            bool isAdmin = channelReadModel.CreatorId == input.UserId || (channelMemberReadModel != null && channelMemberReadModel.AdminRights != 0 && channelMemberReadModel.IsAdmin);
             var onlyAdmin = false;
             var onlyBanned = false;
             var onlyBots = false;

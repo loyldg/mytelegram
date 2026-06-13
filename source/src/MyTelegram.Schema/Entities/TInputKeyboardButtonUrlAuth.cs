@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Button to request a user to <a href="https://corefork.telegram.org/method/messages.acceptUrlAuth">authorize</a> via URL using <a href="https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots">Seamless Telegram Login</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUrlAuth" /></para>
 /// </summary>
-[TlObject(0xd02e7fd4)]
+[TlObject(0x68013e72)]
 public sealed partial class TInputKeyboardButtonUrlAuth : IKeyboardButton
 {
-    public uint ConstructorId => 0xd02e7fd4;
+    public uint ConstructorId => 0x68013e72;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,12 @@ public sealed partial class TInputKeyboardButtonUrlAuth : IKeyboardButton
     /// Set this flag to request the permission for your bot to send messages to the user.
     /// </summary>
     public bool RequestWriteAccess { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
 
     /// <summary>
     /// Button text
@@ -44,6 +50,7 @@ public sealed partial class TInputKeyboardButtonUrlAuth : IKeyboardButton
     public void ComputeFlag()
     {
         if (RequestWriteAccess) { Flags = Flags.SetBit(0); }
+        if (Style != null) { Flags = Flags.SetBit(10); }
         if (FwdText != null) { Flags = Flags.SetBit(1); }
     }
 
@@ -52,6 +59,7 @@ public sealed partial class TInputKeyboardButtonUrlAuth : IKeyboardButton
         ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         if (Flags.IsBitSet(1)) { writer.Write(FwdText); }
         writer.Write(Url);
@@ -62,6 +70,7 @@ public sealed partial class TInputKeyboardButtonUrlAuth : IKeyboardButton
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { RequestWriteAccess = true; }
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         if (Flags.IsBitSet(1)) { FwdText = buffer.ReadString(); }
         Url = buffer.ReadString();

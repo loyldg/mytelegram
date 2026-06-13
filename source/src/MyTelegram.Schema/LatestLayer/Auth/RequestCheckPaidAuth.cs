@@ -3,20 +3,32 @@
 namespace MyTelegram.Schema.Auth;
 
 /// <summary>
+/// <para><c>Possible errors</c></para>
+/// <para><c>Code Type Description</c></para>
+/// <para><c>400 PHONE_NUMBER_INVALID The phone number is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/auth.checkPaidAuth" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✖] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✖] [Anonymous ✔]
 /// </remarks>
 [TlObject(0x56e59f9c)]
 public sealed partial class RequestCheckPaidAuth : IRequest<MyTelegram.Schema.Auth.ISentCode>
 {
     public uint ConstructorId => 0x56e59f9c;
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string PhoneNumber { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string PhoneCodeHash { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long FormId { get; set; }
 
     public void ComputeFlag()

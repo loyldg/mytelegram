@@ -6,7 +6,8 @@ namespace MyTelegram.Schema.Channels;
 /// Globally search for posts from public <a href="https://corefork.telegram.org/api/channel">channels »</a> (<em>including</em> those we aren't a member of) containing either a specific hashtag, <em>or</em> a full text query.Exactly one of <code>query</code> and <code>hashtag</code> must be set.
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
-/// <para><c>420 FROZEN_METHOD_INVALID The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and thus cannot execute the specified action. </c></para>
+/// <para><c>420 FROZEN_METHOD_INVALID The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and thus cannot execute the specified action.</c></para>
+/// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/channels.searchPosts" /></para>
 /// </summary>
 /// <remarks>

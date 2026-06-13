@@ -42,6 +42,9 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             RpcErrors.RpcErrors400.UserAlreadyParticipant.ThrowRpcError();
         }
         var isRejoin = !IsNew;
+        var untilDate = _state.UntilDate;
+        var kickedBy = _state.KickedBy;
+        var kicked = _state.Kicked;
         Emit(new ChannelMemberCreatedEvent(
             requestInfo,
             channelId,
@@ -53,7 +56,10 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             isBot,
             chatInviteId,
             chatJoinType,
-            isBroadcast
+            isBroadcast,
+            untilDate,
+            kicked,
+            kickedBy
             ));
     }
 
@@ -84,7 +90,7 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
 
         bool kicked;
         long kickedBy;
-        bool left;
+        bool left = _state.Left;
         bool removedFromKicked = false;
         bool removedFromBanned = false;
         // User is banned all rights
@@ -98,7 +104,6 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
         {
             kicked = false;
             kickedBy = adminId;
-            left = false;
         }
 
         if (_state.BannedRights != null)
@@ -114,7 +119,6 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
         }
 
         var banned = bannedRights.ToIntValue() != ChatBannedRights.CreateDefaultBannedRights().ToIntValue();
-
         Emit(new ChannelMemberBannedRightsChangedEvent(requestInfo,
             adminId,
             channelId,
@@ -126,7 +130,9 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             banned,
             removedFromKicked,
             removedFromBanned,
-            bannedRights));
+            bannedRights,
+            _state.IsAdmin
+            ));
     }
 
     public void LeaveChannel(RequestInfo requestInfo,
@@ -150,7 +156,7 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
     protected override Task<ChannelMemberSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
     {
         return Task.FromResult(new ChannelMemberSnapshot(_state.Banned, _state.BannedRights, _state.Kicked,
-            _state.KickedBy, _state.Left, _state.IsBot, _state.Broadcast));
+            _state.KickedBy, _state.Left, _state.IsBot, _state.Broadcast, _state.UntilDate));
     }
 
     protected override Task LoadSnapshotAsync(ChannelMemberSnapshot snapshot, ISnapshotMetadata metadata, CancellationToken cancellationToken)

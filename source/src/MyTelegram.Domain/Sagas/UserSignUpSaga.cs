@@ -1,7 +1,7 @@
 ﻿namespace MyTelegram.Domain.Sagas;
 
-public class UserSignUpSaga(UserSignUpSagaId id, IIdGenerator idGenerator)
-    : AggregateSaga<UserSignUpSaga, UserSignUpSagaId, UserSignUpSagaLocator>(id),
+public class UserSignUpSaga(UserSignUpSagaId id, IIdGenerator idGenerator, IEventStore eventStore)
+    : MyInMemoryAggregateSaga<UserSignUpSaga, UserSignUpSagaId, UserSignUpSagaLocator>(id, eventStore),
         ISagaIsStartedBy<AppCodeAggregate, AppCodeId, CheckSignUpCodeCompletedEvent>,
         IApply<UserSignUpSuccessSagaEvent>
 {
@@ -30,11 +30,8 @@ public class UserSignUpSaga(UserSignUpSagaId id, IIdGenerator idGenerator)
             Emit(new UserSignUpSuccessSagaEvent(domainEvent.AggregateEvent.RequestInfo,
                 userId,
                 domainEvent.AggregateEvent.PhoneNumber));
-            Complete();
         }
-        else
-        {
-            Complete();
-        }
+
+        await CompleteAsync(cancellationToken);
     }
 }

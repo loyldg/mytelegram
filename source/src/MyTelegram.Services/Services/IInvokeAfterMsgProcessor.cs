@@ -6,7 +6,7 @@ public interface IInvokeAfterMsgProcessor
 {
     void AddToRecentMessageIdList(long messageId);
 
-    void Enqueue(long reqMsgId,
+    void Enqueue(long invokeAfterMsgId,
         IRequestInput input,
         IObject query);
 

@@ -9,6 +9,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 CHAT_ID_EMPTY The provided chat ID is empty.</c></para>
 /// <para><c>400 ENCRYPTION_ALREADY_ACCEPTED Secret chat already accepted.</c></para>
 /// <para><c>400 ENCRYPTION_ALREADY_DECLINED The secret chat was already declined.</c></para>
+/// <para><c>500 ENCRYPTION_DECLINE_ADMIN_FAILED  </c></para>
 /// <para><c>400 ENCRYPTION_ID_INVALID The provided secret chat ID is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.discardEncryption" /></para>
 /// </summary>

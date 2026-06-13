@@ -26,6 +26,11 @@ public sealed partial class TChannelForbidden : IChat
     public bool Megagroup { get; set; }
 
     /// <summary>
+    ///  
+    /// </summary>
+    public bool Monoforum { get; set; }
+
+    /// <summary>
     /// Channel ID
     /// </summary>
     public long Id { get; set; }
@@ -49,6 +54,7 @@ public sealed partial class TChannelForbidden : IChat
     {
         if (Broadcast) { Flags = Flags.SetBit(5); }
         if (Megagroup) { Flags = Flags.SetBit(8); }
+        if (Monoforum) { Flags = Flags.SetBit(10); }
         if (/*UntilDate != 0 && */UntilDate.HasValue) { Flags = Flags.SetBit(16); }
     }
 
@@ -68,6 +74,7 @@ public sealed partial class TChannelForbidden : IChat
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(5)) { Broadcast = true; }
         if (Flags.IsBitSet(8)) { Megagroup = true; }
+        if (Flags.IsBitSet(10)) { Monoforum = true; }
         Id = buffer.ReadInt64();
         AccessHash = buffer.ReadInt64();
         Title = buffer.ReadString();

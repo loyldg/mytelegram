@@ -20,7 +20,9 @@ public record DataReceivedEvent(
     DeviceType DeviceType,
     string ClientIp,
     long SessionId,
-    long AccessHashKeyId) : IMayHaveMemoryOwner
+    long AccessHashKeyId,
+    long InvokeAfterMsgId
+    ) : IMayHaveMemoryOwner
 {
     public string ConnectionId { get; set; } = ConnectionId;
     public Guid RequestId { get; set; } = RequestId;
@@ -37,6 +39,8 @@ public record DataReceivedEvent(
     public string ClientIp { get; set; } = ClientIp;
     public long SessionId { get; set; } = SessionId;
     public long AccessHashKeyId { get; set; } = AccessHashKeyId;
+
+    public long InvokeAfterMsgId { get; set; } = InvokeAfterMsgId;
 
     [JsonIgnore] public IMemoryOwner<byte>? MemoryOwner { get; set; }
 }

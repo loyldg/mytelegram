@@ -22,6 +22,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputInvoiceStarGiftPrepaidUpgrade"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftPrepaidUpgrade" /><br/>
 /// <see cref="TInputInvoicePremiumAuthCode"/> See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumAuthCode" /><br/>
 /// <see cref="TInputInvoiceStarGiftDropOriginalDetails"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftDropOriginalDetails" /><br/>
+/// <see cref="TInputInvoiceStarGiftAuctionBid"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftAuctionBid" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputInvoiceMessage), nameof(TInputInvoiceMessage))]
 [JsonDerivedType(typeof(TInputInvoiceSlug), nameof(TInputInvoiceSlug))]
@@ -37,6 +38,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputInvoiceStarGiftPrepaidUpgrade), nameof(TInputInvoiceStarGiftPrepaidUpgrade))]
 [JsonDerivedType(typeof(TInputInvoicePremiumAuthCode), nameof(TInputInvoicePremiumAuthCode))]
 [JsonDerivedType(typeof(TInputInvoiceStarGiftDropOriginalDetails), nameof(TInputInvoiceStarGiftDropOriginalDetails))]
+[JsonDerivedType(typeof(TInputInvoiceStarGiftAuctionBid), nameof(TInputInvoiceStarGiftAuctionBid))]
 public interface IInputInvoice : IObject
 {
 }

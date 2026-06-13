@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class AppCodeReadModel :
+public class AppCodeReadModel : ReadModelBase,
     IAppCodeReadModel,
     IAmReadModelFor<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent>
 {

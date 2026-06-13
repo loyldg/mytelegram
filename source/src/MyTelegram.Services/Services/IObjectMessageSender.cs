@@ -34,11 +34,14 @@ public interface IObjectMessageSender
         int pts = 0) where TData : IObject;
 
     Task SendRpcMessageToClientAsync<TData>(
+        string connectionId,
+        long tempAuthKeyId,
+        long sessionId,
         long reqMsgId,
         TData data,
         int pts = 0,
         long permAuthKeyId = 0
-        ) where TData : IObject;
+    ) where TData : IObject;
 
     Task SendRpcMessageToClientAsync<TData>(
         RequestInfo requestInfo,

@@ -28,7 +28,7 @@ internal sealed class GetDialogsHandler(IDialogAppService dialogAppService, IPee
         }
 
         var getDialogOutput = await dialogAppService.GetDialogsAsync(new GetDialogInput { FolderId = obj.FolderId, Limit = obj.Limit, Pinned = pinned, //Pinned = !obj.ExcludePinned,
-        //ExcludePinned = obj.ExcludePinned,
+ //ExcludePinned = obj.ExcludePinned,
         OwnerId = userId, OffsetPeer = offsetPeer });
         return dialogConverterService.ToDialogs(input, getDialogOutput, input.Layer);
     }

@@ -33,7 +33,7 @@ internal sealed class SendCodeHandler(ICommandBus commandBus, IPeerHelper peerHe
         var userReadModel = await queryProcessor.ProcessAsync(new GetUserByPhoneNumberQuery(phoneNumber));
         if (userReadModel != null)
         {
-            if (peerHelper.IsBotUser(userReadModel.UserId) || userReadModel.UserId == MyTelegramConsts.OfficialUserId)
+            if (peerHelper.IsBotUser(userReadModel.UserId) || userReadModel.UserId == MyTelegramConsts.NotificationServiceUserId)
             {
                 RpcErrors.RpcErrors400.PhoneNumberInvalid.ThrowRpcError();
             }

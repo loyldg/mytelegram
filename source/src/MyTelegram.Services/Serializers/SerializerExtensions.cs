@@ -199,6 +199,8 @@ public static class SerializerExtensions
 
     public static RequestInfo ReadRequestInfo(this ref ReadOnlyMemory<byte> buffer)
     {
+        var connectionId = buffer.ReadString();
+        var sessionId = buffer.ReadInt64();
         var reqMsgId = buffer.ReadInt64();
         var userId = buffer.ReadInt64();
         var accessHashKeyId = buffer.ReadInt64();
@@ -211,12 +213,14 @@ public static class SerializerExtensions
         var addRequestIdToCache = buffer.ReadBoolean();
         var isSubRequest = buffer.ReadBoolean();
 
-        return new RequestInfo(reqMsgId, userId, accessHashKeyId, authKeyId, permAuthKeyId, requestId, layer, date,
+        return new RequestInfo(connectionId, sessionId, reqMsgId, userId, accessHashKeyId, authKeyId, permAuthKeyId, requestId, layer, date,
             deviceType, addRequestIdToCache, isSubRequest);
     }
 
     public static void Write(this IBufferWriter<byte> writer, RequestInfo value)
     {
+        writer.Write(value.ConnectionId);
+        writer.Write(value.SessionId);
         writer.Write(value.ReqMsgId);
         writer.Write(value.UserId);
         writer.Write(value.AccessHashKeyId);

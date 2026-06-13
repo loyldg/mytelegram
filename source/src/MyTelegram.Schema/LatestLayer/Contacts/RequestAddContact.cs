@@ -52,6 +52,7 @@ public sealed partial class RequestAddContact : IRequest<MyTelegram.Schema.IUpda
     public string Phone { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Note { get; set; }

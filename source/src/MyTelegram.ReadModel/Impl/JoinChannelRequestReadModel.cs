@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class JoinChannelRequestReadModel : IJoinChannelRequestReadModel,
+public class JoinChannelRequestReadModel : ReadModelBase, IJoinChannelRequestReadModel,
     IAmReadModelFor<JoinChannelAggregate, JoinChannelId, JoinChannelRequestCreatedEvent>,
     IAmReadModelFor<JoinChannelAggregate, JoinChannelId, JoinChannelRequestUpdatedEvent>
 {

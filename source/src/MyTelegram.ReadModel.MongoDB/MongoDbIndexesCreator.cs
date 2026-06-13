@@ -76,7 +76,12 @@ public class MongoDbIndexesCreator(
 
 		await CreateIndexAsync<UserConfigReadModel>(p => p.UserId);
         await CreateIndexAsync<UserConfigReadModel>(p => p.Key);
-		
+
+        await CreateIndexAsync<MessageTokenReadModel>(p => p.OwnerPeerId);
+        await CreateIndexAsync<MessageTokenReadModel>(p => p.ToPeerId);
+        await CreateIndexAsync<MessageTokenReadModel>(p => p.MessageId);
+        await CreateIndexAsync<MessageTokenReadModel>(p => p.Tokens);
+
         var snapShotCollectionName = "snapShots";
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateId, snapShotCollectionName);
         await CreateIndexAsync<MongoDbSnapshotDataModel>(p => p.AggregateName, snapShotCollectionName);

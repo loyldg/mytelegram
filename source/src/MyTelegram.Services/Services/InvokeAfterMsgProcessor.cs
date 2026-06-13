@@ -1,16 +1,15 @@
-﻿using System.Collections.Concurrent;
+﻿using EventFlow.Core;
+using System.Collections.Concurrent;
 using System.Threading.Channels;
-using EventFlow.Core;
-using MyTelegram.Schema;
 
 namespace MyTelegram.Services.Services;
 
 public class InvokeAfterMsgProcessor(IHandlerHelper handlerHelper, ILogger<InvokeAfterMsgProcessor> logger) : IInvokeAfterMsgProcessor
     , ISingletonDependency
 {
-    private readonly CircularBuffer<long> _recentMessageIds = new(50000);
-    private readonly ConcurrentDictionary<long, InvokeAfterMsgItem> _requests = new();
-    private readonly System.Threading.Channels.Channel<long> _completedReqMsgIds = Channel.CreateUnbounded<long>();
+    private readonly CircularBuffer<long> _recentMessageIds = new(100000);
+    private readonly ConcurrentDictionary<long, InvokeAfterMsgItem> _pendingRequests = new();
+    private readonly Channel<long> _completedReqMsgIds = Channel.CreateUnbounded<long>();
 
     public void AddToRecentMessageIdList(long messageId)
     {
@@ -22,15 +21,16 @@ public class InvokeAfterMsgProcessor(IHandlerHelper handlerHelper, ILogger<Invok
         return _recentMessageIds.Contains(messageId);
     }
 
-    public void Enqueue(long reqMsgId,
+    public void Enqueue(long invokeAfterMsgId,
         IRequestInput input,
         IObject query)
     {
-        _requests.TryAdd(reqMsgId, new InvokeAfterMsgItem(input, query));
+        _pendingRequests.TryAdd(invokeAfterMsgId, new InvokeAfterMsgItem(input, query));
     }
 
     public ValueTask AddCompletedReqMsgIdAsync(long reqMsgId)
     {
+        _recentMessageIds.Put(reqMsgId);
         return _completedReqMsgIds.Writer.WriteAsync(reqMsgId);
     }
 
@@ -54,7 +54,7 @@ public class InvokeAfterMsgProcessor(IHandlerHelper handlerHelper, ILogger<Invok
 
     public Task HandleAsync(long reqMsgId)
     {
-        if (_requests.TryGetValue(reqMsgId, out var item))
+        if (_pendingRequests.TryRemove(reqMsgId, out var item))
         {
             if (!handlerHelper.TryGetHandler(item.Query.ConstructorId, out var handler))
             {

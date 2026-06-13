@@ -13,6 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 CHAT_ID_INVALID The provided chat id is invalid.</c></para>
 /// <para><c>403 CHAT_WRITE_FORBIDDEN You can't write in this chat.</c></para>
 /// <para><c>400 EXPIRE_DATE_INVALID The specified expiration date is invalid.</c></para>
+/// <para><c>400 INPUT_USER_DEACTIVATED The specified user was deleted.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
 /// <para><c>400 PRICING_CHAT_INVALID The pricing for the <a href="https://corefork.telegram.org/api/subscriptions">subscription</a> is invalid, the maximum price is specified in the <a href="https://corefork.telegram.org/api/config#stars-subscription-amount-max"><code>stars_subscription_amount_max</code> config key »</a>.</c></para>

@@ -19,7 +19,7 @@ public sealed partial class TMessagePeerVote : IMessagePeerVote
     /// <summary>
     /// The option chosen by the peer
     /// </summary>
-    public ReadOnlyMemory<byte> Option { get; set; }
+    public string Option { get; set; }
 
     /// <summary>
     /// When did the peer cast the vote
@@ -42,7 +42,7 @@ public sealed partial class TMessagePeerVote : IMessagePeerVote
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Peer = buffer.Read<MyTelegram.Schema.IPeer>();
-        Option = buffer.ReadBytes();
+        Option = buffer.ReadString();
         Date = buffer.ReadInt32();
     }
 }

@@ -14,4 +14,5 @@ public class SearchGlobalInput : GetPagedListInput
     public bool BroadcastsOnly { get; set; }
     public bool GroupsOnly { get; set; }
     public bool UsersOnly { get; set; }
+    public List<long>? Tokens { get; set; }
 }

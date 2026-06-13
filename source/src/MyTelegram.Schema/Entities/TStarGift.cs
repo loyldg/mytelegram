@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Represents a <a href="https://corefork.telegram.org/api/gifts">star gift, see here »</a> for more info.
 /// <para>See <a href="https://corefork.telegram.org/constructor/starGift" /></para>
 /// </summary>
-[TlObject(0x80ac53c3)]
+[TlObject(0x313a9547)]
 public sealed partial class TStarGift : ILayeredStarGift
 {
-    public uint ConstructorId => 0x80ac53c3;
+    public uint ConstructorId => 0x313a9547;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -40,7 +40,15 @@ public sealed partial class TStarGift : ILayeredStarGift
     /// </summary>
     public bool LimitedPerUser { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool PeerColorAvailable { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool Auction { get; set; }
 
     /// <summary>
     /// Identifier of the gift
@@ -124,6 +132,32 @@ public sealed partial class TStarGift : ILayeredStarGift
     /// </summary>
     public int? LockedUntilDate { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public string? AuctionSlug { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public int? GiftsPerRound { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public int? AuctionStartDate { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public int? UpgradeVariants { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/StarGiftBackground" />
+    /// </summary>
+    public MyTelegram.Schema.IStarGiftBackground? Background { get; set; }
+
     public void ComputeFlag()
     {
         if (Limited) { Flags = Flags.SetBit(0); }
@@ -132,6 +166,7 @@ public sealed partial class TStarGift : ILayeredStarGift
         if (RequirePremium) { Flags = Flags.SetBit(7); }
         if (LimitedPerUser) { Flags = Flags.SetBit(8); }
         if (PeerColorAvailable) { Flags = Flags.SetBit(10); }
+        if (Auction) { Flags = Flags.SetBit(11); }
         if (/*AvailabilityRemains != 0 && */AvailabilityRemains.HasValue) { Flags = Flags.SetBit(0); }
         if (/*AvailabilityTotal != 0 && */AvailabilityTotal.HasValue) { Flags = Flags.SetBit(0); }
         if (/*AvailabilityResale != 0 &&*/ AvailabilityResale.HasValue) { Flags = Flags.SetBit(4); }
@@ -144,6 +179,11 @@ public sealed partial class TStarGift : ILayeredStarGift
         if (/*PerUserTotal != 0 && */PerUserTotal.HasValue) { Flags = Flags.SetBit(8); }
         if (/*PerUserRemains != 0 && */PerUserRemains.HasValue) { Flags = Flags.SetBit(8); }
         if (/*LockedUntilDate != 0 && */LockedUntilDate.HasValue) { Flags = Flags.SetBit(9); }
+        if (AuctionSlug != null) { Flags = Flags.SetBit(11); }
+        if (/*GiftsPerRound != 0 && */GiftsPerRound.HasValue) { Flags = Flags.SetBit(11); }
+        if (/*AuctionStartDate != 0 && */AuctionStartDate.HasValue) { Flags = Flags.SetBit(11); }
+        if (/*UpgradeVariants != 0 && */UpgradeVariants.HasValue) { Flags = Flags.SetBit(12); }
+        if (Background != null) { Flags = Flags.SetBit(13); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -167,6 +207,11 @@ public sealed partial class TStarGift : ILayeredStarGift
         if (Flags.IsBitSet(8)) { writer.Write(PerUserTotal.Value); }
         if (Flags.IsBitSet(8)) { writer.Write(PerUserRemains.Value); }
         if (Flags.IsBitSet(9)) { writer.Write(LockedUntilDate.Value); }
+        if (Flags.IsBitSet(11)) { writer.Write(AuctionSlug); }
+        if (Flags.IsBitSet(11)) { writer.Write(GiftsPerRound.Value); }
+        if (Flags.IsBitSet(11)) { writer.Write(AuctionStartDate.Value); }
+        if (Flags.IsBitSet(12)) { writer.Write(UpgradeVariants.Value); }
+        if (Flags.IsBitSet(13)) { writer.Write(Background); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -178,6 +223,7 @@ public sealed partial class TStarGift : ILayeredStarGift
         if (Flags.IsBitSet(7)) { RequirePremium = true; }
         if (Flags.IsBitSet(8)) { LimitedPerUser = true; }
         if (Flags.IsBitSet(10)) { PeerColorAvailable = true; }
+        if (Flags.IsBitSet(11)) { Auction = true; }
         Id = buffer.ReadInt64();
         Sticker = buffer.Read<MyTelegram.Schema.IDocument>();
         Stars = buffer.ReadInt64();
@@ -194,5 +240,10 @@ public sealed partial class TStarGift : ILayeredStarGift
         if (Flags.IsBitSet(8)) { PerUserTotal = buffer.ReadInt32(); }
         if (Flags.IsBitSet(8)) { PerUserRemains = buffer.ReadInt32(); }
         if (Flags.IsBitSet(9)) { LockedUntilDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(11)) { AuctionSlug = buffer.ReadString(); }
+        if (Flags.IsBitSet(11)) { GiftsPerRound = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(11)) { AuctionStartDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(12)) { UpgradeVariants = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(13)) { Background = buffer.Read<MyTelegram.Schema.IStarGiftBackground>(); }
     }
 }

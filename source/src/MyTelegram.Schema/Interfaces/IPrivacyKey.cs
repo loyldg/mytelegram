@@ -21,6 +21,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPrivacyKeyBirthday"/> See <a href="https://corefork.telegram.org/constructor/privacyKeyBirthday" /><br/>
 /// <see cref="TPrivacyKeyStarGiftsAutoSave"/> See <a href="https://corefork.telegram.org/constructor/privacyKeyStarGiftsAutoSave" /><br/>
 /// <see cref="TPrivacyKeyNoPaidMessages"/> See <a href="https://corefork.telegram.org/constructor/privacyKeyNoPaidMessages" /><br/>
+/// <see cref="TPrivacyKeySavedMusic"/> See <a href="https://corefork.telegram.org/constructor/privacyKeySavedMusic" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPrivacyKeyStatusTimestamp), nameof(TPrivacyKeyStatusTimestamp))]
 [JsonDerivedType(typeof(TPrivacyKeyChatInvite), nameof(TPrivacyKeyChatInvite))]
@@ -35,6 +36,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPrivacyKeyBirthday), nameof(TPrivacyKeyBirthday))]
 [JsonDerivedType(typeof(TPrivacyKeyStarGiftsAutoSave), nameof(TPrivacyKeyStarGiftsAutoSave))]
 [JsonDerivedType(typeof(TPrivacyKeyNoPaidMessages), nameof(TPrivacyKeyNoPaidMessages))]
+[JsonDerivedType(typeof(TPrivacyKeySavedMusic), nameof(TPrivacyKeySavedMusic))]
 public interface IPrivacyKey : IObject
 {
 }

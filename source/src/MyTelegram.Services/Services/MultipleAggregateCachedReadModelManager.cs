@@ -7,7 +7,26 @@ public class MultipleAggregateCachedReadModelManager<TReadModelInterface, TReadM
     IServiceProvider serviceProvider,
     TReadModelLocator readModelLocator,
     IReadModelCacheHelper<TReadModelInterface> readModelCacheHelper) :
-    CachedReadModelManager<TReadModelInterface, TReadModel>(readModelDomainEventApplier, serviceProvider,
+    CachedReadModelManager<TReadModelInterface, TReadModel, long>(readModelDomainEventApplier, serviceProvider,
+        readModelCacheHelper)
+    where TReadModel : class, IReadModel
+    where TReadModelInterface : IReadModel
+    where TReadModelLocator : IReadModelLocator
+{
+    private TReadModelLocator _readModelLocator = readModelLocator;
+
+    protected override IEnumerable<string> GetReadModelIds(IDomainEvent domainEvent)
+    {
+        return _readModelLocator.GetReadModelIds(domainEvent);
+    }
+}
+
+public class MultipleAggregateCachedReadModelManager<TReadModelInterface, TReadModel, TReadModelLocator, TKey>(
+    IReadModelDomainEventApplier readModelDomainEventApplier,
+    IServiceProvider serviceProvider,
+    TReadModelLocator readModelLocator,
+    IReadModelCacheHelper<TReadModelInterface, TKey> readModelCacheHelper) :
+    CachedReadModelManager<TReadModelInterface, TReadModel, TKey>(readModelDomainEventApplier, serviceProvider,
         readModelCacheHelper)
     where TReadModel : class, IReadModel
     where TReadModelInterface : IReadModel

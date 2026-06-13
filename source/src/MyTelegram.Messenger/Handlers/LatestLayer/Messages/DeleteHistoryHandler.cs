@@ -18,7 +18,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class DeleteHistoryHandler(ICommandBus commandBus, //IRandomHelper randomHelper,
-IPeerHelper peerHelper, IQueryProcessor queryProcessor, IPtsHelper ptsHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteHistory, MyTelegram.Schema.Messages.IAffectedHistory>
+ IPeerHelper peerHelper, IQueryProcessor queryProcessor, IPtsHelper ptsHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteHistory, MyTelegram.Schema.Messages.IAffectedHistory>
 {
     protected override async Task<IAffectedHistory> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestDeleteHistory obj)
     {
@@ -45,23 +45,23 @@ IPeerHelper peerHelper, IQueryProcessor queryProcessor, IPtsHelper ptsHelper, IA
         switch (peer.PeerType)
         {
             case PeerType.Chat:
-                {
-                }
+            {
+            }
 
                 break;
             case PeerType.User:
+            {
+                if (obj.Peer is TInputPeerUser inputUser)
                 {
-                    if (obj.Peer is TInputPeerUser inputUser)
-                    {
-                        await accessHashHelper.CheckAccessHashAsync(input, inputUser.UserId, inputUser.AccessHash, AccessHashType.User);
-                    }
+                    await accessHashHelper.CheckAccessHashAsync(input, inputUser.UserId, inputUser.AccessHash, AccessHashType.User);
                 }
+            }
 
                 break;
         }
 
         var command = new StartDeleteHistoryCommand(TempId.New, input.ToRequestInfo(), messageItemsToBeDeleted, obj.Revoke, obj.Revoke, false);
         await commandBus.PublishAsync(command);
-        return null!;
+        return null !;
     }
 }

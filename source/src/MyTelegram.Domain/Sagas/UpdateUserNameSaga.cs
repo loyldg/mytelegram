@@ -22,9 +22,7 @@ public class UpdateUserNameSaga(UpdateUserNameSagaId id, IEventStore eventStore)
             Publish(command);
         }
 
-        Complete();
-
-        return Task.CompletedTask;
+       return CompleteAsync();
     }
 
     public Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserNameUpdatedEvent> domainEvent,
@@ -37,9 +35,7 @@ public class UpdateUserNameSaga(UpdateUserNameSagaId id, IEventStore eventStore)
             Publish(command);
         }
 
-        Complete();
-
-        return Task.CompletedTask;
+        return CompleteAsync();
     }
 
     public Task HandleAsync(IDomainEvent<UserNameAggregate, UserNameId, UserNameChangedEvent> domainEvent, ISagaContext sagaContext, CancellationToken cancellationToken)

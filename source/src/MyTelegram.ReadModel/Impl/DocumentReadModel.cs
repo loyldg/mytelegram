@@ -1,7 +1,7 @@
 ﻿// Resharper Disable All
 namespace MyTelegram.ReadModel.Impl;
 
-public class DocumentReadModel : IDocumentReadModel,
+public class DocumentReadModel : ReadModelBase, IDocumentReadModel,
     IAmReadModelFor<DocumentAggregate, DocumentId, EmptyDocumentEvent>
 {
     public Task ApplyAsync(IReadModelContext context,

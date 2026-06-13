@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Banned/kicked user
 /// <para>See <a href="https://corefork.telegram.org/constructor/channelParticipantBanned" /></para>
 /// </summary>
-[TlObject(0x6df8014e)]
+[TlObject(0xd5f0ad91)]
 public sealed partial class TChannelParticipantBanned : IChannelParticipant
 {
-    public uint ConstructorId => 0x6df8014e;
+    public uint ConstructorId => 0xd5f0ad91;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -42,9 +42,15 @@ public sealed partial class TChannelParticipantBanned : IChannelParticipant
     /// </summary>
     public MyTelegram.Schema.IChatBannedRights BannedRights { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public string? Rank { get; set; }
+
     public void ComputeFlag()
     {
         if (Left) { Flags = Flags.SetBit(0); }
+        if (Rank != null) { Flags = Flags.SetBit(2); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -56,6 +62,7 @@ public sealed partial class TChannelParticipantBanned : IChannelParticipant
         writer.Write(KickedBy);
         writer.Write(Date);
         writer.Write(BannedRights);
+        if (Flags.IsBitSet(2)) { writer.Write(Rank); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -66,5 +73,6 @@ public sealed partial class TChannelParticipantBanned : IChannelParticipant
         KickedBy = buffer.ReadInt64();
         Date = buffer.ReadInt32();
         BannedRights = buffer.Read<MyTelegram.Schema.IChatBannedRights>();
+        if (Flags.IsBitSet(2)) { Rank = buffer.ReadString(); }
     }
 }

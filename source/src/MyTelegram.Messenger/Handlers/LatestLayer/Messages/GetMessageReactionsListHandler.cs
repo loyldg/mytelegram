@@ -4,6 +4,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// Possible errors
 /// Code Type Description
 /// 403 BROADCAST_FORBIDDEN Channel poll voters and reactions cannot be fetched to prevent deanonymization.
+/// 400 CHANNEL_INVALID The provided channel is invalid.
 /// 400 MSG_ID_INVALID Invalid message ID provided.
 /// <para><c>See <a href="https://corefork.telegram.org/method/messages.getMessageReactionsList"/> </c></para>
 /// </summary>

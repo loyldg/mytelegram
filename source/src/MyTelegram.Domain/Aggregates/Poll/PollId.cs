@@ -8,5 +8,8 @@ public class PollId(string value) : Identity<PollId>(value)
         return NewDeterministic(GuidFactories.Deterministic.Namespaces.Commands, $"{peerId}_{pollId}");
     }
 
-    //public static PollId CreatePollIdForVoteAnswer(long pollId,)
+    public static PollId Create(long pollId)
+    {
+        return NewDeterministic(GuidFactories.Deterministic.Namespaces.Commands, $"pollid-{pollId}");
+    }
 }

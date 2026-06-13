@@ -121,5 +121,18 @@ public interface ISavedStarGift : IObject
     /// </summary>
     string? PrepaidUpgradeHash { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     long? DropOriginalDetailsStars { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    int? GiftNum { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    int? CanCraftAt { get; set; }
 }

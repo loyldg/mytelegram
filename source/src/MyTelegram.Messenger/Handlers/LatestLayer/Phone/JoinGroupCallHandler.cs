@@ -3,7 +3,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Phone;
 /// Join a group call
 /// Possible errors
 /// Code Type Description
+/// 400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.
+/// 403 CHAT_WRITE_FORBIDDEN You can't write in this chat.
 /// 400 DATA_JSON_INVALID The provided JSON data is invalid.
+/// 500 GROUPCALL_ADD_PARTICIPANTS_FAILED  
 /// 403 GROUPCALL_FORBIDDEN The group call has already ended.
 /// 400 GROUPCALL_INVALID The specified group call is invalid.
 /// 400 GROUPCALL_SSRC_DUPLICATE_MUCH The app needs to retry joining the group call with a new SSRC value.

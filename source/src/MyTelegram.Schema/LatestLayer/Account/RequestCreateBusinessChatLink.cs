@@ -7,6 +7,7 @@ namespace MyTelegram.Schema.Account;
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 CHATLINKS_TOO_MUCH Too many <a href="https://corefork.telegram.org/api/business#business-chat-links">business chat links</a> were created, please delete some older links.</c></para>
+/// <para><c>400 DOCUMENT_INVALID The specified document is invalid.</c></para>
 /// <para><c>403 PREMIUM_ACCOUNT_REQUIRED A premium account is required to execute this action. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/account.createBusinessChatLink" /></para>
 /// </summary>

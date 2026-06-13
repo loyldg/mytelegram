@@ -5,11 +5,21 @@ public class UserDataSeeder(
     IEventStore eventStore,
     ILogger<UserDataSeeder> logger,
     IOptionsMonitor<MyTelegramDataSeederOptions> options,
+    IDataSeederHelper dataSeederHelper,
     ISnapshotStore snapshotStore)
     : IUserDataSeeder, ITransientDependency
 {
     public async Task SeedAsync()
     {
+        var config = await dataSeederHelper.LoadDataSeederConfigAsync();
+
+        if (config.IsUserCreated)
+        {
+            await UpdateServiceNotificationAccountBioAsync();
+
+            return;
+        }
+
         await CreateOfficialUserAsync();
         await CreateDefaultSupportUserAsync();
         await CreateAnonymousUserAsync();
@@ -56,7 +66,7 @@ public class UserDataSeeder(
                 );
             await commandBus.PublishAsync(createUserCommand);
 
-            if (userId != MyTelegramConsts.OfficialUserId)
+            if (userId != MyTelegramConsts.NotificationServiceUserId)
             {
                 var command = new UpdateUserPremiumStatusCommand(u.Id, true);
                 await commandBus.PublishAsync(command);
@@ -100,7 +110,7 @@ public class UserDataSeeder(
 
     private async Task CreateOfficialUserAsync()
     {
-        var userId = MyTelegramConsts.OfficialUserId;
+        var userId = MyTelegramConsts.NotificationServiceUserId;
         var created = await CreateUserIfNeededAsync(userId,
             "42777",
             "MyTelegram",
@@ -117,5 +127,24 @@ public class UserDataSeeder(
             await commandBus.PublishAsync(setVerifiedCommand);
             logger.LogInformation("MyTelegram notification user created successfully");
         }
+
+        await UpdateServiceNotificationAccountBioAsync();
+    }
+
+    private async Task UpdateServiceNotificationAccountBioAsync()
+    {
+        var config = await dataSeederHelper.LoadDataSeederConfigAsync();
+        if (!config.IsServiceNotificationAccountBioUpdated)
+        {
+            await UpdateUserBioAsync(MyTelegramConsts.NotificationServiceUserId, "This service is powered by the MyTelegram open-source project.\nLearn more: https://github.com/loyldg/mytelegram");
+            config.IsServiceNotificationAccountBioUpdated = true;
+            await dataSeederHelper.SaveDataSeederConfigAsync();
+        }
+    }
+
+    private Task UpdateUserBioAsync(long userId, string bio)
+    {
+        var command = new UpdateAboutCommand(UserId.Create(userId), bio);
+        return commandBus.PublishAsync(command);
     }
 }

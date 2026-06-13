@@ -108,7 +108,8 @@ public class CustomObjectMapper : ILayeredMapper,
                 0,
                 BroadcastsOnly: source.BroadcastsOnly,
                 GroupsOnly: source.GroupsOnly,
-                UsersOnly: source.UsersOnly
+                UsersOnly: source.UsersOnly,
+                Tokens: source.Tokens
             )
         {
             IsSearchGlobal = source.IsSearchGlobal,
@@ -133,6 +134,8 @@ public class CustomObjectMapper : ILayeredMapper,
             null,
             source.Peer,
             source.SelfUserId,
-            0);
+            0,
+            Tokens: source.Tokens
+            );
     }
 }

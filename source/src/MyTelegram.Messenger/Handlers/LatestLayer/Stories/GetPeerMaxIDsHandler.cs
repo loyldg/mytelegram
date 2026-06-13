@@ -6,16 +6,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Stories;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetPeerMaxIDsHandler : RpcResultObjectHandler<MyTelegram.Schema.Stories.RequestGetPeerMaxIDs, TVector<int>>
+internal sealed class GetPeerMaxIDsHandler : RpcResultObjectHandler<MyTelegram.Schema.Stories.RequestGetPeerMaxIDs, TVector<MyTelegram.Schema.IRecentStory>>
 {
-    private readonly ILogger<GetPeerMaxIDsHandler> _logger;
-    public GetPeerMaxIDsHandler(ILogger<GetPeerMaxIDsHandler> logger)
+    protected override Task<TVector<MyTelegram.Schema.IRecentStory>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Stories.RequestGetPeerMaxIDs obj)
     {
-        _logger = logger;
-    }
-
-    protected override Task<TVector<int>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Stories.RequestGetPeerMaxIDs obj)
-    {
-        return Task.FromResult(new TVector<int>(obj.Id.Select(p => 0)));
+        return Task.FromResult(new TVector<IRecentStory>(obj.Id.Select(p => new TRecentStory())));
     }
 }

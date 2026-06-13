@@ -102,7 +102,7 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
                     messageItem.QuickReplyItem != null
                 ),
                 requestInfo,
-                messageItem,
+                messageItem with { InboxMessageEncryptedData = null },
                 item.MentionedUserIds,
                 messageItem.ReplyToMsgItems,
                 item.ClearDraft,
@@ -126,6 +126,17 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
         await CreateInboxMessageAsync(domainEvent.AggregateEvent);
 
         CreateMentions(domainEvent.AggregateEvent.MentionedUserIds, domainEvent.AggregateEvent.OutboxMessageItem.MessageId);
+        ClearDraft(domainEvent.AggregateEvent);
+    }
+
+    private void ClearDraft(OutboxMessageCreatedEvent aggregateEvent)
+    {
+        if (aggregateEvent.ClearDraft)
+        {
+            var command = new ClearDraftCommand(DialogId.Create(aggregateEvent.OutboxMessageItem.OwnerPeer.PeerId,
+                aggregateEvent.OutboxMessageItem.ToPeer));
+            Publish(command);
+        }
     }
 
     private void CreateMentions(List<long>? mentionedUserIds, int messageId)
@@ -192,13 +203,13 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
 
         _state.UserInboxItems.TryGetValue(inboxMessageItem.BatchId ?? Guid.Empty, out var inboxItems);
 
-        //var command = new AddInboxItemsToOutboxMessageCommand(
-        //    MessageId.Create(inboxMessageItem.SenderPeer.PeerId,
-        //        senderMessageId, inboxMessageItem.QuickReplyItem != null),
-        //    _state.RequestInfo,
-        //    inboxItems ?? []
-        //);
-        //Publish(command);
+        var command = new AddInboxItemsToOutboxMessageCommand(
+            MessageId.Create(inboxMessageItem.SenderPeer.PeerId,
+                senderMessageId, inboxMessageItem.QuickReplyItem != null),
+            //_state.RequestInfo,
+            inboxItems ?? []
+        );
+        Publish(command);
 
         if (_state.IsCreateInboxMessagesCompleted())
         {
@@ -224,6 +235,11 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
                 _state.IsSendGroupedMessages,
                 []
                 ));
+
+            if (outboxMessageItem.OwnerPeer.PeerId == outboxMessageItem.ToPeer.PeerId)
+            {
+                await CompleteAsync();
+            }
         }
 
         var defaultHistoryTtl = outboxMessageItem.IsTtlFromDefaultSetting ? outboxMessageItem.TtlPeriod : null;
@@ -346,6 +362,11 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
         var inboxMessageId = await _idGenerator.NextIdAsync(IdType.MessageId, inboxOwnerUserId);
         var pts = await _idGenerator.NextIdAsync(IdType.Pts, inboxOwnerUserId);
         var aggregateId = MessageId.Create(inboxOwnerUserId, inboxMessageId);
+        ReadOnlyMemory<byte>? encryptedData = null;
+        if (_state.OutboxMessageItems.TryGetValue(outboxMessageItem.MessageId, out var item))
+        {
+            encryptedData = item.MessageItem.InboxMessageEncryptedData;
+        }
         var inboxMessageItem = outMessageItem with
         {
             OwnerPeer = new Peer(PeerType.User, inboxOwnerUserId),
@@ -353,7 +374,8 @@ public class SendMessageSaga : MyInMemoryAggregateSaga<SendMessageSaga, SendMess
             MessageId = inboxMessageId,
             IsOut = false,
             InputReplyTo = replyTo,
-            Pts = pts
+            Pts = pts,
+            EncryptedData = encryptedData
         };
 
         var command = new CreateInboxMessageCommand(aggregateId, _state.RequestInfo, inboxMessageItem, outMessageItem.MessageId);

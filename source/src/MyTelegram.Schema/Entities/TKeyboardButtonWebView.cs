@@ -6,10 +6,21 @@ namespace MyTelegram.Schema;
 /// Button to open a <a href="https://corefork.telegram.org/api/bots/webapps">bot mini app</a> using <a href="https://corefork.telegram.org/method/messages.requestWebView">messages.requestWebView</a>, sending over user information after user confirmation.Can only be sent or received as part of an inline keyboard, use <a href="https://corefork.telegram.org/constructor/keyboardButtonSimpleWebView">keyboardButtonSimpleWebView</a> for reply keyboards.
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonWebView" /></para>
 /// </summary>
-[TlObject(0x13767230)]
+[TlObject(0xe846b1a0)]
 public sealed partial class TKeyboardButtonWebView : IKeyboardButton
 {
-    public uint ConstructorId => 0x13767230;
+    public uint ConstructorId => 0xe846b1a0;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
+
     /// <summary>
     /// Button text
     /// </summary>
@@ -22,18 +33,23 @@ public sealed partial class TKeyboardButtonWebView : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
         writer.Write(Url);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
         Url = buffer.ReadString();
     }

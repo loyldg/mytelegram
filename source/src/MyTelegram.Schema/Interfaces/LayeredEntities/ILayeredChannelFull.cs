@@ -85,4 +85,5 @@ public interface ILayeredChannelFull : IChatFull
 
     TVector<MyTelegram.Schema.IBotInfo> BotInfo { get; set; }
     int? StargiftsCount { get; set; }
+    long? LinkedChatId { get; set; }
 }

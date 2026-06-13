@@ -358,6 +358,11 @@ services:
       App__VerificationCodeExpirationSeconds: ${App__VerificationCodeExpirationSeconds}
       App__CheckPhoneNumberFormat: ${App__CheckPhoneNumberFormat}
       App__EnableSearchNonContacts: ${App__EnableSearchNonContacts}
+      App__EncryptionConfig__Enabled: ${App__EncryptionConfig__Enabled}
+      App__EncryptionConfig__MessageKeys__0__Id: ${App__EncryptionConfig__MessageKeys__0__Id}
+      App__EncryptionConfig__MessageKeys__0__Key: ${App__EncryptionConfig__MessageKeys__0__Key}
+      App__EncryptionConfig__IndexKeys__0__Id: ${App__EncryptionConfig__IndexKeys__0__Id}
+      App__EncryptionConfig__IndexKeys__0__Key: ${App__EncryptionConfig__IndexKeys__0__Key}
       # App__JoinChatDomain: ${App__JoinChatDomain}
       # App__ChannelGetDifferenceIntervalSeconds: ${App__ChannelGetDifferenceIntervalSeconds}
       # App__UseInMemoryFilters: ${App__UseInMemoryFilters}
@@ -451,6 +456,11 @@ services:
       App__VerificationCodeLength: ${App__VerificationCodeLength}
       App__VerificationCodeExpirationSeconds: ${App__VerificationCodeExpirationSeconds}
       App__EnableSearchNonContacts: ${App__EnableSearchNonContacts}
+      App__EncryptionConfig__Enabled: ${App__EncryptionConfig__Enabled}
+      App__EncryptionConfig__MessageKeys__0__Id: ${App__EncryptionConfig__MessageKeys__0__Id}
+      App__EncryptionConfig__MessageKeys__0__Key: ${App__EncryptionConfig__MessageKeys__0__Key}
+      App__EncryptionConfig__IndexKeys__0__Id: ${App__EncryptionConfig__IndexKeys__0__Id}
+      App__EncryptionConfig__IndexKeys__0__Key: ${App__EncryptionConfig__IndexKeys__0__Key}
       # App__JoinChatDomain: ${App__JoinChatDomain}
       # App__ChannelGetDifferenceIntervalSeconds: ${App__ChannelGetDifferenceIntervalSeconds}
       # App__UseInMemoryFilters: ${App__UseInMemoryFilters}

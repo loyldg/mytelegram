@@ -12,8 +12,10 @@ namespace MyTelegram.Schema.Messages;
 /// <para><c>400 CHAT_NOT_MODIFIED No changes were made to chat information because the new information you passed is identical to the current information.</c></para>
 /// <para><c>400 FROZEN_PARTICIPANT_MISSING The current account is <a href="https://corefork.telegram.org/api/auth#frozen-accounts">frozen</a>, and cannot access the specified peer.</c></para>
 /// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
+/// <para><c>500 NEED_DOC_INVALID  </c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
-/// <para><c>400 TAKEOUT_INVALID The specified takeout ID is invalid. </c></para>
+/// <para><c>400 TAKEOUT_INVALID The specified takeout ID is invalid.</c></para>
+/// <para><c>500 VOLUME_MOVE_INVALID   </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.getHistory" /></para>
 /// </summary>
 /// <remarks>

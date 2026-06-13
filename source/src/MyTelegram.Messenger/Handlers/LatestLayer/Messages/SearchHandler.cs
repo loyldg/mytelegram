@@ -21,7 +21,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SearchHandler(IMessageAppService messageAppService, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSearch, IMessages>
+internal sealed class SearchHandler(IMessageAppService messageAppService, ITokenizer tokenizer, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSearch, IMessages>
 {
     protected override async Task<IMessages> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestSearch obj)
     {
@@ -30,7 +30,8 @@ internal sealed class SearchHandler(IMessageAppService messageAppService, IPeerH
         var userId = input.UserId;
         var peer = peerHelper.GetPeer(obj.Peer, userId);
         var ownerPeerId = peer.PeerType == PeerType.Channel ? peer.PeerId : userId;
-        var getMessageOutput = await messageAppService.SearchAsync(new SearchInput { OwnerPeerId = ownerPeerId, SelfUserId = userId, Limit = obj.Limit, Q = obj.Q, OffsetId = obj.OffsetId, AddOffset = obj.AddOffset, Peer = peer, MaxDate = obj.MaxDate, MaxId = obj.MaxId, MinDate = obj.MinDate, MinId = obj.MinId, MessageType = GetMessageType(obj.Filter) });
+        var tokens = tokenizer.BuildSearchTokens(obj.Q);
+        var getMessageOutput = await messageAppService.SearchAsync(new SearchInput { OwnerPeerId = ownerPeerId, SelfUserId = userId, Limit = obj.Limit, Q = obj.Q, OffsetId = obj.OffsetId, AddOffset = obj.AddOffset, Peer = peer, MaxDate = obj.MaxDate, MaxId = obj.MaxId, MinDate = obj.MinDate, MinId = obj.MinId, MessageType = GetMessageType(obj.Filter), Tokens = tokens });
         return getHistoryConverterService.ToMessages(input, getMessageOutput, input.Layer);
     }
 

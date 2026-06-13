@@ -15,6 +15,8 @@ public static class MyEventFlowExtensions
         services.AddTransient<ISnapshotStore, SnapshotWithInMemoryCacheStore>();
         services.AddSingleton<IMyInMemorySnapshotPersistence, MyInMemorySnapshotPersistence>();
 
+        services.AddSingleton<IQueryFilterScope, QueryFilterScope>();
+
         return services;
     }
 }

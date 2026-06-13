@@ -65,7 +65,25 @@ public sealed partial class TStarsTransaction : IStarsTransaction
     /// </summary>
     public bool StargiftPrepaidUpgrade { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool StargiftDropOriginalDetails { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool PhonegroupMessage { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool StargiftAuctionBid { get; set; }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool Offer { get; set; }
 
     /// <summary>
     /// Transaction ID.
@@ -202,6 +220,9 @@ public sealed partial class TStarsTransaction : IStarsTransaction
         if (PostsSearch) { Flags = Flags.SetBit(24); }
         if (StargiftPrepaidUpgrade) { Flags = Flags.SetBit(25); }
         if (StargiftDropOriginalDetails) { Flags = Flags.SetBit(26); }
+        if (PhonegroupMessage) { Flags = Flags.SetBit(27); }
+        if (StargiftAuctionBid) { Flags = Flags.SetBit(28); }
+        if (Offer) { Flags = Flags.SetBit(29); }
         if (Title != null) { Flags = Flags.SetBit(0); }
         if (Description != null) { Flags = Flags.SetBit(1); }
         if (Photo != null) { Flags = Flags.SetBit(2); }
@@ -267,6 +288,9 @@ public sealed partial class TStarsTransaction : IStarsTransaction
         if (Flags.IsBitSet(24)) { PostsSearch = true; }
         if (Flags.IsBitSet(25)) { StargiftPrepaidUpgrade = true; }
         if (Flags.IsBitSet(26)) { StargiftDropOriginalDetails = true; }
+        if (Flags.IsBitSet(27)) { PhonegroupMessage = true; }
+        if (Flags.IsBitSet(28)) { StargiftAuctionBid = true; }
+        if (Flags.IsBitSet(29)) { Offer = true; }
         Id = buffer.ReadString();
         Amount = buffer.Read<MyTelegram.Schema.IStarsAmount>();
         Date = buffer.ReadInt32();

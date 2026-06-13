@@ -9,13 +9,20 @@ namespace MyTelegram.Schema;
 public sealed partial class TUpdatePinnedForumTopics : IUpdate
 {
     public uint ConstructorId => 0xdef143d0;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/Peer" />
     /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public TVector<int>? Order { get; set; }
 
     public void ComputeFlag()

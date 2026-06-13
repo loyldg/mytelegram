@@ -5,7 +5,8 @@ public class ChatInviteState : AggregateState<ChatInviteAggregate, ChatInviteId,
     IApply<ChatInviteEditedEvent>,
     IApply<ChatInviteImportedEvent>,
     IApply<ChatInviteDeletedEvent>,
-    IApply<ChatInviteExportedEvent>
+    IApply<ChatInviteExportedEvent>,
+    IApply<ChatInviteReovkedEvent>
 {
     public long ChannelId { get; private set; }
     public long InviteId { get; private set; }
@@ -94,5 +95,10 @@ public class ChatInviteState : AggregateState<ChatInviteAggregate, ChatInviteId,
         Permanent = aggregateEvent.Permanent;
         IsBroadcast = aggregateEvent.IsBroadcast;
         Date = aggregateEvent.Date;
+    }
+
+    public void Apply(ChatInviteReovkedEvent aggregateEvent)
+    {
+        Revoked = true;
     }
 }

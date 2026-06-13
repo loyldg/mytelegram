@@ -30,8 +30,14 @@ public sealed partial class TSentCodePaymentRequired : ISentCode
     /// </summary>
     public string SupportEmailSubject { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public string Currency { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public long Amount { get; set; }
 
     public void ComputeFlag()

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class ChatInviteReadModel : IChatInviteReadModel,
+public class ChatInviteReadModel : ReadModelBase, IChatInviteReadModel,
 //IAmReadModelFor<ChannelAggregate, ChannelId, ChannelInviteExportedEvent>,
 //IAmReadModelFor<ChannelAggregate, ChannelId, ChannelInviteEditedEvent>,
 //IAmReadModelFor<ChannelAggregate, ChannelId, ChannelInviteDeletedEvent>
@@ -8,7 +8,8 @@ IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteCreatedEvent>,
 IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteEditedEvent>,
 IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteImportedEvent>,
 IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteDeletedEvent>,
-IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteExportedEvent>
+IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteExportedEvent>,
+IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteReovkedEvent>
 {
     public long InviteId { get; private set; }
     public virtual long AdminId { get; private set; }
@@ -94,6 +95,13 @@ IAmReadModelFor<ChatInviteAggregate, ChatInviteId, ChatInviteExportedEvent>
         RequestNeeded = domainEvent.AggregateEvent.RequestNeeded;
         InviteId = domainEvent.AggregateEvent.InviteId;
         IsBroadcast = domainEvent.AggregateEvent.IsBroadcast;
+
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<ChatInviteAggregate, ChatInviteId, ChatInviteReovkedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        Revoked = true;
 
         return Task.CompletedTask;
     }

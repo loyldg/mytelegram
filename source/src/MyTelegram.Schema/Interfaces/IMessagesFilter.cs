@@ -25,6 +25,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputMessagesFilterGeo"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterGeo" /><br/>
 /// <see cref="TInputMessagesFilterContacts"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterContacts" /><br/>
 /// <see cref="TInputMessagesFilterPinned"/> See <a href="https://corefork.telegram.org/constructor/inputMessagesFilterPinned" /><br/>
+/// <see cref="TInputMessagesFilterPoll"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputMessagesFilterEmpty), nameof(TInputMessagesFilterEmpty))]
 [JsonDerivedType(typeof(TInputMessagesFilterPhotos), nameof(TInputMessagesFilterPhotos))]
@@ -43,6 +44,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputMessagesFilterGeo), nameof(TInputMessagesFilterGeo))]
 [JsonDerivedType(typeof(TInputMessagesFilterContacts), nameof(TInputMessagesFilterContacts))]
 [JsonDerivedType(typeof(TInputMessagesFilterPinned), nameof(TInputMessagesFilterPinned))]
+[JsonDerivedType(typeof(TInputMessagesFilterPoll), nameof(TInputMessagesFilterPoll))]
 public interface IMessagesFilter : IObject
 {
 }

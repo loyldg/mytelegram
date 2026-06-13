@@ -52,6 +52,10 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         int senderMessageId)
     {
         Specs.AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+        if (inboxMessageItem.EncryptedData != null)
+        {
+            inboxMessageItem = inboxMessageItem with { Message = string.Empty };
+        }
         Emit(new InboxMessageCreatedEvent(requestInfo, inboxMessageItem, senderMessageId));
     }
 
@@ -75,6 +79,11 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         if (!outboxMessageItem.BatchId.HasValue)
         {
             outboxMessageItem = outboxMessageItem with { BatchId = SequentialGuid.Create() };
+        }
+
+        if (outboxMessageItem.EncryptedData != null)
+        {
+            outboxMessageItem = outboxMessageItem with { Message = string.Empty };
         }
 
         Emit(new OutboxMessageCreatedEvent(requestInfo,
@@ -149,7 +158,8 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         IMessageMedia? media,
         IReplyMarkup? replyMarkup,
         bool invertMedia,
-        List<string>? hashtags)
+        List<string>? hashtags,
+        ReadOnlyMemory<byte>? encryptedData = null)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
 
@@ -158,7 +168,15 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             newMessage = _state.MessageItem.Message;
         }
 
+        var newEncryptedData = _state.MessageItem.EncryptedData;
+        if (encryptedData != null)
+        {
+            newEncryptedData = encryptedData;
+            newMessage = string.Empty;
+        }
+
         var oldMessageItem = _state.MessageItem;
+        var editHide = oldMessageItem.SenderUserId == MyTelegramConsts.BotFatherUserId && (replyMarkup != null || oldMessageItem.ReplyMarkup != null);
         media ??= oldMessageItem.Media;
 
         var newMessageItem = oldMessageItem with
@@ -168,8 +186,10 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             Media = media,
             ReplyMarkup = replyMarkup,
             EditDate = editDate,
+            EditHide = editHide,
             InvertMedia = invertMedia,
-            Hashtags = hashtags
+            Hashtags = hashtags,
+            EncryptedData = newEncryptedData
         };
 
         Emit(new InboxMessageEditedEventV2(
@@ -186,10 +206,13 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         IMessageMedia? media,
         IReplyMarkup? replyMarkup,
         bool invertMedia,
-        List<string>? hashtags)
+        List<string>? hashtags,
+        ReadOnlyMemory<byte>? encryptedData = null,
+        ReadOnlyMemory<byte>? inboxMessageEncryptedData = null
+        )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (_state.MessageItem.Date + MyTelegramConsts.EditTimeLimit < DateTime.UtcNow.ToTimestamp())
+        if (!_state.MessageItem.Post && _state.MessageItem.Date + MyTelegramConsts.EditTimeLimit < DateTime.UtcNow.ToTimestamp())
         {
             RpcErrors.RpcErrors400.MessageEditTimeExpired.ThrowRpcError();
         }
@@ -203,6 +226,18 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
         {
             newMessage = _state.MessageItem.Message;
         }
+        var newEncryptedData = _state.MessageItem.EncryptedData;
+        var newInboxMessageEncryptedData = _state.MessageItem.InboxMessageEncryptedData;
+        if (encryptedData != null)
+        {
+            newEncryptedData = encryptedData;
+            newMessage = string.Empty;
+        }
+
+        if (inboxMessageEncryptedData != null)
+        {
+            newInboxMessageEncryptedData = inboxMessageEncryptedData;
+        }
 
         var oldMessageItem = _state.MessageItem;
         media ??= oldMessageItem.Media;
@@ -215,7 +250,9 @@ public class MessageAggregate : SnapshotAggregateRoot<MessageAggregate, MessageI
             ReplyMarkup = replyMarkup,
             EditDate = editDate,
             InvertMedia = invertMedia,
-            Hashtags = hashtags
+            Hashtags = hashtags,
+            EncryptedData = newEncryptedData,
+            InboxMessageEncryptedData = newInboxMessageEncryptedData
         };
 
         Emit(new OutboxMessageEditedEventV2(requestInfo,

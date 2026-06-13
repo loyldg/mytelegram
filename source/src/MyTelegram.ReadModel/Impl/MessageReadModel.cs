@@ -2,7 +2,7 @@
 
 namespace MyTelegram.ReadModel.Impl;
 
-public class MessageReadModel : IMessageReadModel,
+public class MessageReadModel : ReadModelBase, IMessageReadModel,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageCreatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, InboxMessageCreatedEvent>,
     IAmReadModelFor<MessageAggregate, MessageId, OutboxMessageEditedEventV2>,
@@ -94,6 +94,7 @@ public class MessageReadModel : IMessageReadModel,
     public List<string> Hashtags { get; private set; } = [];
     public List<long>? MentionedUserIds { get; private set; }
     public long? TodoId { get; private set; }
+    public ReadOnlyMemory<byte>? EncryptedData { get; private set; }
 
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<MessageAggregate, MessageId, OutboxMessageCreatedEvent> domainEvent,
@@ -164,6 +165,7 @@ public class MessageReadModel : IMessageReadModel,
         Pinned = messageItem.Pinned;
         InvertMedia = messageItem.InvertMedia;
         MentionedUserIds = messageItem.MentionedUserIds;
+        EncryptedData = messageItem.EncryptedData;
 
         return Task.CompletedTask;
     }
@@ -217,6 +219,7 @@ public class MessageReadModel : IMessageReadModel,
         }
 
         InvertMedia = messageItem.InvertMedia;
+        EncryptedData = messageItem.EncryptedData;
 
         return Task.CompletedTask;
     }
@@ -232,6 +235,7 @@ public class MessageReadModel : IMessageReadModel,
         ReplyMarkup2 = item.ReplyMarkup;
         Media2 = item.Media;
         InvertMedia = item.InvertMedia;
+        EncryptedData = item.EncryptedData;
 
         return Task.CompletedTask;
     }
@@ -247,6 +251,7 @@ public class MessageReadModel : IMessageReadModel,
         ReplyMarkup2 = item.ReplyMarkup;
         Media2 = item.Media;
         InvertMedia = item.InvertMedia;
+        EncryptedData = item.EncryptedData;
 
         return Task.CompletedTask;
     }

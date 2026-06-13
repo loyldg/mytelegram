@@ -19,26 +19,25 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditBannedHandler(IPeerHelper peerHelper, ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditBanned, MyTelegram.Schema.IUpdates>
+internal sealed class EditBannedHandler(IPeerHelper peerHelper, ICommandBus commandBus, IChannelAppService channelAppService, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditBanned, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestEditBanned obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
-            await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, p => p.BanUsers, RpcErrors.RpcErrors400.ChatAdminRequired);
             var channel = peerHelper.GetChannel(obj.Channel);
             var peer = peerHelper.GetPeer(obj.Participant);
+            var channelReadModel = await channelAppService.GetAsync(channel.PeerId);
+            await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, p => p.BanUsers && peer.PeerId != channelReadModel.CreatorId, RpcErrors.RpcErrors400.ChatAdminRequired);
             if (obj.BannedRights.SendPlain)
             {
                 obj.BannedRights.SendMessages = true;
-                //obj.BannedRights.Flags[1] = true;
                 obj.BannedRights.Flags.SetBit(1);
             }
 
             var bannedRights = ChatBannedRights.FromValue(obj.BannedRights.Flags, obj.BannedRights.UntilDate);
             var command = new EditBannedCommand(ChannelMemberId.Create(channel.PeerId, peer.PeerId), input.ToRequestInfo(), input.UserId, channel.PeerId, peer.PeerId, bannedRights);
-            await commandBus.PublishAsync(command, default);
+            await commandBus.PublishAsync(command);
             return null !;
         }
 

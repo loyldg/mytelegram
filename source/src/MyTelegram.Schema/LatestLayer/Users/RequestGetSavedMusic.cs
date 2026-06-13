@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Users;
 /// <para>See <a href="https://corefork.telegram.org/method/users.getSavedMusic" /></para>
 /// </summary>
 /// <remarks>
-/// Access: [User ✔] [Bot ✖] [Anonymous ✖]
+/// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 [TlObject(0x788d7fe3)]
 public sealed partial class RequestGetSavedMusic : IRequest<MyTelegram.Schema.Users.ISavedMusic>

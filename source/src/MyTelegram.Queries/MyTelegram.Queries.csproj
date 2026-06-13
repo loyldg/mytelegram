@@ -4,9 +4,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\MyTelegram.ReadModel\MyTelegram.ReadModel.csproj" />
+    <ProjectReference Include="..\MyTelegram.ReadModel.Interfaces\MyTelegram.ReadModel.Interfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>

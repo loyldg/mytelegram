@@ -6,10 +6,21 @@ namespace MyTelegram.Schema;
 /// Button to request a user's phone number
 /// <para>See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPhone" /></para>
 /// </summary>
-[TlObject(0xb16a6c29)]
+[TlObject(0x417efd8f)]
 public sealed partial class TKeyboardButtonRequestPhone : IKeyboardButton
 {
-    public uint ConstructorId => 0xb16a6c29;
+    public uint ConstructorId => 0x417efd8f;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
+    public int Flags { get; set; }
+
+    /// <summary>
+    ///  
+    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonStyle" />
+    /// </summary>
+    public MyTelegram.Schema.IKeyboardButtonStyle? Style { get; set; }
+
     /// <summary>
     /// Button text
     /// </summary>
@@ -17,17 +28,22 @@ public sealed partial class TKeyboardButtonRequestPhone : IKeyboardButton
 
     public void ComputeFlag()
     {
+        if (Style != null) { Flags = Flags.SetBit(10); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         ComputeFlag();
         writer.Write(ConstructorId);
+        writer.Write(Flags);
+        if (Flags.IsBitSet(10)) { writer.Write(Style); }
         writer.Write(Text);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(10)) { Style = buffer.Read<MyTelegram.Schema.IKeyboardButtonStyle>(); }
         Text = buffer.ReadString();
     }
 }

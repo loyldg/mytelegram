@@ -3,6 +3,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Auth;
 /// Resend the login code via another medium, the phone code type is determined by the return value of the previous auth.sendCode/auth.resendCode: see <a href="https://corefork.telegram.org/api/auth">login</a> for more info.
 /// Possible errors
 /// Code Type Description
+/// 400 EMAIL_INSTALL_MISSING  
 /// 400 PHONE_CODE_EMPTY phone_code is missing.
 /// 400 PHONE_CODE_EXPIRED The phone code you provided has expired.
 /// 400 PHONE_CODE_HASH_EMPTY phone_code_hash is missing.

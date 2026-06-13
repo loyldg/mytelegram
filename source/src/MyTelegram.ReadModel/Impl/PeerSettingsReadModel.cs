@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
-public class PeerSettingsReadModel : IPeerSettingsReadModel,
+public class PeerSettingsReadModel : ReadModelBase, IPeerSettingsReadModel,
     IAmReadModelFor<PeerSettingsAggregate, PeerSettingsId, PeerSettingsBarHiddenEvent>
 {
     public string Id { get; private set; } = null!;

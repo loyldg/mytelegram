@@ -1,4 +1,5 @@
-﻿using EventFlow.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using EventFlow.Extensions;
 using EventFlow.ReadStores;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -28,7 +29,34 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
         var readModelDescription = readModelDescriptionProvider.GetReadModelDescription<TReadModel>();
         var collection = GetDatabase().GetCollection<TReadModel>(readModelDescription.RootCollectionName.Value);
 
-        return collection.AsQueryable();
+        var query = collection.AsQueryable();
+
+        if (!QueryFilterScope.Current.IgnoreSoftDelete &&
+            typeof(ISoftDelete).IsAssignableFrom(typeof(TReadModel)))
+        {
+            query = query.Where(x => !((ISoftDelete)x).IsDeleted);
+        }
+
+        return query;
+    }
+
+    public async Task<List<TResult>> GroupByAsync<TKey, TResult>(
+        Expression<Func<TReadModel, bool>>? filter,
+        Expression<Func<TReadModel, TKey>> keySelector,
+        Expression<Func<IGrouping<TKey, TReadModel>, TResult>> resultSelector)
+    {
+        var readModelDescription = readModelDescriptionProvider.GetReadModelDescription<TReadModel>();
+        var collection = GetDatabase().GetCollection<TReadModel>(readModelDescription.RootCollectionName.Value);
+        var query = collection.Aggregate();
+        var finalFilter = ApplySoftDeleteFilter(filter);
+        if (finalFilter != null!)
+        {
+            query = query.Match(finalFilter);
+        }
+
+        return await query
+            .Group(keySelector, resultSelector)
+            .ToListAsync();
     }
 
     public Task<IReadOnlyCollection<TReadModel>> FindAsync(Expression<Func<TReadModel, bool>> filter, int skip = 0,
@@ -36,15 +64,19 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
         SortOptions<TReadModel>? sort = null,
         CancellationToken cancellationToken = default)
     {
-        return FindAsync(filter, p => p, skip, limit, sort, cancellationToken);
+        var finalFilter = ApplySoftDeleteFilter(filter);
+
+        return FindAsync(finalFilter, p => p, skip, limit, sort, cancellationToken);
     }
 
     public async Task<IReadOnlyCollection<TResult>> FindAsync<TResult>(Expression<Func<TReadModel, bool>> filter,
         Expression<Func<TReadModel, TResult>> createResult, int skip = 0,
         int limit = 0, SortOptions<TReadModel>? sort = null, CancellationToken cancellationToken = default)
     {
+        var finalFilter = ApplySoftDeleteFilter(filter);
+
         var findOptions = CreateFindOptions(createResult, skip, limit, sort);
-        var cursor = await FindCoreAsync(filter, findOptions, cancellationToken);
+        var cursor = await FindCoreAsync(finalFilter, findOptions, cancellationToken);
 
         return await cursor.ToListAsync(cancellationToken);
     }
@@ -52,7 +84,9 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
     public async Task<TReadModel?> FirstOrDefaultAsync(Expression<Func<TReadModel, bool>> filter,
         CancellationToken cancellationToken = default)
     {
-        var cursor = await FindCoreAsync<TReadModel>(filter, cancellationToken: cancellationToken);
+        var finalFilter = ApplySoftDeleteFilter(filter);
+
+        var cursor = await FindCoreAsync<TReadModel>(finalFilter, cancellationToken: cancellationToken);
         return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -62,8 +96,9 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
         CancellationToken cancellationToken = default)
     {
         var findOptions = CreateFindOptions(createResult, 0, 0, sort);
+        var finalFilter = ApplySoftDeleteFilter(filter);
 
-        var cursor = await FindCoreAsync(filter, findOptions, cancellationToken);
+        var cursor = await FindCoreAsync(finalFilter, findOptions, cancellationToken);
         return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -73,7 +108,26 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
         var readModelDescription = readModelDescriptionProvider.GetReadModelDescription<TReadModel>();
         var collection = GetDatabase().GetCollection<TReadModel>(readModelDescription.RootCollectionName.Value);
 
-        return collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken);
+        var finalFilter = ApplySoftDeleteFilter(filter);
+
+        return collection.CountDocumentsAsync(finalFilter, cancellationToken: cancellationToken);
+    }
+
+    [return: NotNullIfNotNull(nameof(filter))]
+    private Expression<Func<TReadModel, bool>>? ApplySoftDeleteFilter(
+        Expression<Func<TReadModel, bool>>? filter)
+    {
+        if (QueryFilterScope.Current.IgnoreSoftDelete || !typeof(ISoftDelete).IsAssignableFrom(typeof(TReadModel)))
+        {
+            return filter;
+        }
+
+        Expression<Func<TReadModel, bool>> notDeleted =
+            x => !((ISoftDelete)x).IsDeleted;
+
+        return filter == null
+            ? notDeleted
+            : filter.And(notDeleted);
     }
 
     private static FindOptions<T1, T2> CreateFindOptions<T1, T2>(
@@ -111,16 +165,17 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
     private async Task<IAsyncCursor<TResult>> FindCoreAsync<TResult>(Expression<Func<TReadModel, bool>> filter,
         FindOptions<TReadModel, TResult>? options = null, CancellationToken cancellationToken = default)
     {
+        var finalFilter = ApplySoftDeleteFilter(filter);
         var readModelDescription = readModelDescriptionProvider.GetReadModelDescription<TReadModel>();
         var collection = GetDatabase().GetCollection<TReadModel>(readModelDescription.RootCollectionName.Value);
 
         logger.LogTrace(
             "Finding read model '{ReadModel}' with expression '{Filter}' from collection '{RootCollectionName}'",
             typeof(TReadModel).PrettyPrint(),
-            filter,
+            finalFilter,
             readModelDescription.RootCollectionName);
 
-        return await collection.FindAsync(filter, options, cancellationToken);
+        return await collection.FindAsync(finalFilter, options, cancellationToken);
     }
 
     private IMongoDatabase GetDatabase()

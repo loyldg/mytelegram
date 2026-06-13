@@ -26,7 +26,7 @@ internal sealed class LeaveChannelHandler(IPeerHelper peerHelper, ICommandBus co
             var channel = peerHelper.GetChannel(obj.Channel);
             var command = new LeaveChannelCommand(ChannelMemberId.Create(channel.PeerId, input.UserId), input.ToRequestInfo(), channel.PeerId, input.UserId, false);
             await commandBus.PublishAsync(command);
-            return null!;
+            return null !;
         }
 
         throw new NotImplementedException();

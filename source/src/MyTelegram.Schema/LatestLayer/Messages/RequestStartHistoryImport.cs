@@ -7,7 +7,9 @@ namespace MyTelegram.Schema.Messages;
 /// To be called only after initializing the import with <a href="https://corefork.telegram.org/method/messages.initHistoryImport">messages.initHistoryImport</a> and uploading all files using <a href="https://corefork.telegram.org/method/messages.uploadImportedMedia">messages.uploadImportedMedia</a>.
 /// <para><c>Possible errors</c></para>
 /// <para><c>Code Type Description</c></para>
-/// <para><c>400 IMPORT_ID_INVALID The specified import ID is invalid. </c></para>
+/// <para><c>400 CHAT_ADMIN_REQUIRED You must be an admin in this chat to do this.</c></para>
+/// <para><c>400 IMPORT_ID_INVALID The specified import ID is invalid.</c></para>
+/// <para><c>400 PEER_ID_INVALID The provided peer id is invalid. </c></para>
 /// <para>See <a href="https://corefork.telegram.org/method/messages.startHistoryImport" /></para>
 /// </summary>
 /// <remarks>

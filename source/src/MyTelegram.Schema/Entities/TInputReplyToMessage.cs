@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Reply to a message.
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputReplyToMessage" /></para>
 /// </summary>
-[TlObject(0x869fbe10)]
+[TlObject(0x3bd4b7c2)]
 public sealed partial class TInputReplyToMessage : IInputReplyTo
 {
-    public uint ConstructorId => 0x869fbe10;
+    public uint ConstructorId => 0x3bd4b7c2;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -58,6 +58,8 @@ public sealed partial class TInputReplyToMessage : IInputReplyTo
     /// </summary>
     public int? TodoItemId { get; set; }
 
+    public ReadOnlyMemory<byte>? PollOption { get; set; }
+
     public void ComputeFlag()
     {
         if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(0); }
@@ -67,6 +69,7 @@ public sealed partial class TInputReplyToMessage : IInputReplyTo
         if (/*QuoteOffset != 0 && */QuoteOffset.HasValue) { Flags = Flags.SetBit(4); }
         if (MonoforumPeerId != null) { Flags = Flags.SetBit(5); }
         if (/*TodoItemId != 0 && */TodoItemId.HasValue) { Flags = Flags.SetBit(6); }
+        if (PollOption != null) { Flags = Flags.SetBit(7); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -82,6 +85,7 @@ public sealed partial class TInputReplyToMessage : IInputReplyTo
         if (Flags.IsBitSet(4)) { writer.Write(QuoteOffset.Value); }
         if (Flags.IsBitSet(5)) { writer.Write(MonoforumPeerId); }
         if (Flags.IsBitSet(6)) { writer.Write(TodoItemId.Value); }
+        if (Flags.IsBitSet(7)) { writer.Write(PollOption); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -95,5 +99,6 @@ public sealed partial class TInputReplyToMessage : IInputReplyTo
         if (Flags.IsBitSet(4)) { QuoteOffset = buffer.ReadInt32(); }
         if (Flags.IsBitSet(5)) { MonoforumPeerId = buffer.Read<MyTelegram.Schema.IInputPeer>(); }
         if (Flags.IsBitSet(6)) { TodoItemId = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(7)) { PollOption = buffer.ReadBytes(); }
     }
 }

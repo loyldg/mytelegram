@@ -95,6 +95,11 @@ public sealed partial class TChatAdminRights : IChatAdminRights
     /// </summary>
     public bool ManageDirectMessages { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
+    public bool ManageRanks { get; set; }
+
     public void ComputeFlag()
     {
         if (ChangeInfo) { Flags = Flags.SetBit(0); }
@@ -113,6 +118,7 @@ public sealed partial class TChatAdminRights : IChatAdminRights
         if (EditStories) { Flags = Flags.SetBit(15); }
         if (DeleteStories) { Flags = Flags.SetBit(16); }
         if (ManageDirectMessages) { Flags = Flags.SetBit(17); }
+        if (ManageRanks) { Flags = Flags.SetBit(18); }
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -141,5 +147,6 @@ public sealed partial class TChatAdminRights : IChatAdminRights
         if (Flags.IsBitSet(15)) { EditStories = true; }
         if (Flags.IsBitSet(16)) { DeleteStories = true; }
         if (Flags.IsBitSet(17)) { ManageDirectMessages = true; }
+        if (Flags.IsBitSet(18)) { ManageRanks = true; }
     }
 }

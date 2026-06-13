@@ -8,6 +8,7 @@ namespace MyTelegram.Schema.Stories;
 /// <para><c>Code Type Description</c></para>
 /// <para><c>400 CHANNEL_INVALID The provided channel is invalid.</c></para>
 /// <para><c>400 CHANNEL_PRIVATE You haven't joined this channel/supergroup.</c></para>
+/// <para><c>400 MSG_ID_INVALID Invalid message ID provided.</c></para>
 /// <para><c>400 PEER_ID_INVALID The provided peer id is invalid.</c></para>
 /// <para><c>400 STORIES_NEVER_CREATED This peer hasn't ever posted any stories.</c></para>
 /// <para><c>400 STORY_ID_EMPTY You specified no story IDs. </c></para>

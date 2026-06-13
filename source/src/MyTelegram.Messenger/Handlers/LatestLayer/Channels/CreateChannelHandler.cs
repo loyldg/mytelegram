@@ -10,7 +10,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// 500 CHAT_INVALID Invalid chat.
 /// 400 CHAT_TITLE_EMPTY No chat title provided.
 /// 400 TTL_PERIOD_INVALID The specified TTL period is invalid.
-/// 403 USER_RESTRICTED You're spamreported, you can't create channels or chats.
+/// 406 USER_RESTRICTED You're spamreported, you can't create channels or chats.
 /// <para><c>See <a href="https://corefork.telegram.org/method/channels.createChannel"/> </c></para>
 /// </summary>
 /// <remarks>
@@ -46,6 +46,6 @@ internal sealed class CreateChannelHandler(ICommandBus commandBus, IIdGenerator 
 
         var command = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId, obj.Broadcast, megagroup, obj.Title, obj.About ?? string.Empty, geoPoint, obj.Address, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, ttlFromDefaultSetting: ttlFromDefaultSetting);
         await commandBus.PublishAsync(command);
-        return null!;
+        return null !;
     }
 }

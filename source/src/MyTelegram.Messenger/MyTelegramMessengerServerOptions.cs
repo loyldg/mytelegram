@@ -42,4 +42,19 @@ public class MyTelegramMessengerServerOptions
     public bool CheckPhoneNumberFormat { get; set; }
     public bool EnableSearchNonContacts { get; set; }
     public int RpcResultExpirationMinutes { get; set; }
+    public EncryptionConfig EncryptionConfig { get; set; }
+}
+
+public class EncryptionConfig
+{
+    public bool Enabled { get; set; }
+    public string PhoneKey { get; set; }
+    public List<KeyConfig> IndexKeys { get; set; }
+    public List<KeyConfig> MessageKeys { get; set; }
+}
+
+public class KeyConfig
+{
+    public int Id { get; set; }
+    public string Key { get; set; }
 }
