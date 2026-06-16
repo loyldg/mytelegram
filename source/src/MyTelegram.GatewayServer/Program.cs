@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Microsoft.AspNetCore.HttpOverrides;
 using MyTelegram.EventBus.RabbitMQ.Extensions;
 
 Console.Title = "MyTelegram gateway server";
@@ -186,7 +187,13 @@ builder.WebHost.ConfigureKestrel(options =>
 builder.Services.AddConnections();
 
 var app = builder.Build();
-
+if (appConfig.UseForwardedHeaders)
+{
+    app.UseForwardedHeaders(new ForwardedHeadersOptions
+    {
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+    });
+}
 app.UseWebSockets();
 app.UseRouting();
 app.UseMiddleware<WebSocketMiddleware>();
