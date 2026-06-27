@@ -24,23 +24,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class AddChatUserHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestAddChatUser, MyTelegram.Schema.Messages.IInvitedUsers>
+internal sealed class AddChatUserHandler
+    : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestAddChatUser, MyTelegram.Schema.Messages.IInvitedUsers>
 {
-    private readonly ICommandBus _commandBus;
-    private readonly IPeerHelper _peerHelper;
-    private readonly IRandomHelper _randomHelper;
-    private readonly IAccessHashHelper _accessHashHelper;
-    private readonly IPrivacyAppService _privacyAppService;
-    public AddChatUserHandler(ICommandBus commandBus, IPeerHelper peerHelper, IRandomHelper randomHelper, IAccessHashHelper accessHashHelper, IPrivacyAppService privacyAppService)
-    {
-        _commandBus = commandBus;
-        _peerHelper = peerHelper;
-        _randomHelper = randomHelper;
-        _accessHashHelper = accessHashHelper;
-        _privacyAppService = privacyAppService;
-    }
-
-    protected override async Task<MyTelegram.Schema.Messages.IInvitedUsers> HandleCoreAsync(IRequestInput input, RequestAddChatUser obj)
+    protected override Task<MyTelegram.Schema.Messages.IInvitedUsers> HandleCoreAsync(IRequestInput input, RequestAddChatUser obj)
     {
         throw new NotImplementedException();
     }

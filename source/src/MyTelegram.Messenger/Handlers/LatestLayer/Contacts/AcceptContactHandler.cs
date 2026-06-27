@@ -12,12 +12,11 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Contacts;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class AcceptContactHandler(ICommandBus commandBus, IUserAppService userAppService, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestAcceptContact, MyTelegram.Schema.IUpdates>
+internal sealed class AcceptContactHandler(ICommandBus commandBus, IUserAppService userAppService, IPeerHelper peerHelper) : RpcResultObjectHandler<MyTelegram.Schema.Contacts.RequestAcceptContact, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Contacts.RequestAcceptContact obj)
     {
         var peer = peerHelper.GetPeer(obj.Id);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Id);
         var userReadModel = await userAppService.GetAsync(peer.PeerId);
         if (userReadModel == null)
         {
@@ -27,6 +26,6 @@ internal sealed class AcceptContactHandler(ICommandBus commandBus, IUserAppServi
         var command = new AddContactCommand(ContactId.Create(input.UserId, peer.PeerId), input.ToRequestInfo(), input.UserId, peer.PeerId, userReadModel!.PhoneNumber, //null,
  userReadModel.FirstName, userReadModel.LastName, false);
         await commandBus.PublishAsync(command, default);
-        return null !;
+        return null!;
     }
 }

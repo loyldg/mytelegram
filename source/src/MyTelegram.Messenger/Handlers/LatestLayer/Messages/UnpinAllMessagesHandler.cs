@@ -12,11 +12,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class UnpinAllMessagesHandler(ICommandBus commandBus, IPeerHelper peerHelper, IChannelAdminRightsChecker channelAdminRightsChecker, IPtsHelper ptsHelper, IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestUnpinAllMessages, MyTelegram.Schema.Messages.IAffectedHistory>
+internal sealed class UnpinAllMessagesHandler(ICommandBus commandBus, IPeerHelper peerHelper, IChannelAdminRightsChecker channelAdminRightsChecker, IPtsHelper ptsHelper, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestUnpinAllMessages, MyTelegram.Schema.Messages.IAffectedHistory>
 {
     protected override async Task<MyTelegram.Schema.Messages.IAffectedHistory> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestUnpinAllMessages obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var peer = peerHelper.GetPeer(obj.Peer);
         var ownerPeerId = input.UserId;
         if (peer.PeerType == PeerType.Channel)
@@ -38,6 +37,6 @@ internal sealed class UnpinAllMessagesHandler(ICommandBus commandBus, IPeerHelpe
 
         var command = new StartUnpinAllMessagesCommand(TempId.New, input.ToRequestInfo(), messageItems, peer);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

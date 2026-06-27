@@ -12,19 +12,18 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ToggleDialogPinHandler(ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestToggleDialogPin, IBool>
+internal sealed class ToggleDialogPinHandler(ICommandBus commandBus, IPeerHelper peerHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestToggleDialogPin, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestToggleDialogPin obj)
     {
         switch (obj.Peer)
         {
             case TInputDialogPeer inputDialogPeer:
-                await accessHashHelper.CheckAccessHashAsync(input, inputDialogPeer.Peer);
                 var peer = peerHelper.GetPeer(inputDialogPeer.Peer, input.UserId);
                 //var ownerUid = peer.PeerType == PeerType.Channel ? peer.PeerId : input.UserId;
                 var command = new ToggleDialogPinnedCommand(DialogId.Create(input.UserId, peer), input.ToRequestInfo(), obj.Pinned);
                 await commandBus.PublishAsync(command, CancellationToken.None);
-                return null !;
+                return null!;
             case TInputDialogPeerFolder:
                 return new TBoolTrue();
             default:

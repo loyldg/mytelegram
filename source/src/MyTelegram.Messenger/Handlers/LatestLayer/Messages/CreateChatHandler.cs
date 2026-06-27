@@ -16,7 +16,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class CreateChatHandler(ICommandBus commandBus, IIdGenerator idGenerator, IRandomHelper randomHelper, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor, IPeerHelper peerHelper, IPrivacyAppService privacyAppService) : RpcResultObjectHandler<Schema.Messages.RequestCreateChat, Schema.Messages.IInvitedUsers>
+internal sealed class CreateChatHandler(ICommandBus commandBus, IIdGenerator idGenerator, IRandomHelper randomHelper, IQueryProcessor queryProcessor, IPeerHelper peerHelper, IPrivacyAppService privacyAppService) : RpcResultObjectHandler<Schema.Messages.RequestCreateChat, Schema.Messages.IInvitedUsers>
 {
     protected override async Task<Schema.Messages.IInvitedUsers> HandleCoreAsync(IRequestInput input, RequestCreateChat obj)
     {
@@ -33,7 +33,6 @@ internal sealed class CreateChatHandler(ICommandBus commandBus, IIdGenerator idG
         {
             if (inputUser is TInputUser u)
             {
-                await accessHashHelper.CheckAccessHashAsync(input, u.UserId, u.AccessHash, AccessHashType.User);
                 memberUserIds.Add(u.UserId);
                 if (peerHelper.IsBotUser(u.UserId))
                 {
@@ -68,6 +67,6 @@ internal sealed class CreateChatHandler(ICommandBus commandBus, IIdGenerator idG
         var createChannelCommand = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId, //obj.Broadcast,
  false, true, obj.Title, string.Empty, null, null, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, true, ttlFromDefaultSetting, memberUserIds, botUserIds);
         await commandBus.PublishAsync(createChannelCommand);
-        return null !;
+        return null!;
     }
 }

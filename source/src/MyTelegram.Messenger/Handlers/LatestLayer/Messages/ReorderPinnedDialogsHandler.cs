@@ -9,7 +9,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ReorderPinnedDialogsHandler(IDialogAppService dialogAppService, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReorderPinnedDialogs, IBool>
+internal sealed class ReorderPinnedDialogsHandler(IDialogAppService dialogAppService, IPeerHelper peerHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReorderPinnedDialogs, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestReorderPinnedDialogs obj)
     {
@@ -19,13 +19,12 @@ internal sealed class ReorderPinnedDialogsHandler(IDialogAppService dialogAppSer
             switch (inputDialogPeer)
             {
                 case TInputDialogPeer inputDialogPeer1:
-                    await accessHashHelper.CheckAccessHashAsync(input, inputDialogPeer1.Peer);
                     peerList.Add(peerHelper.GetPeer(inputDialogPeer1.Peer, input.UserId));
                     break;
-            //case TInputDialogPeerFolder inputDialogPeerFolder:
-            //    break;
-            //default:
-            //    throw new ArgumentOutOfRangeException(nameof(inputDialogPeer));
+                    //case TInputDialogPeerFolder inputDialogPeerFolder:
+                    //    break;
+                    //default:
+                    //    throw new ArgumentOutOfRangeException(nameof(inputDialogPeer));
             }
         }
 

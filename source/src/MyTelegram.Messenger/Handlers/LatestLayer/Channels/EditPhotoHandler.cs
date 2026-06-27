@@ -22,20 +22,11 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditPhotoHandler(IMediaHelper mediaHelper, ICommandBus commandBus, IRandomHelper randomHelper, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditPhoto, MyTelegram.Schema.IUpdates>
+internal sealed class EditPhotoHandler(IMediaHelper mediaHelper, ICommandBus commandBus, IRandomHelper randomHelper, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestEditPhoto, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestEditPhoto obj)
     {
-        long channelId = 0;
-        if (obj.Channel is TInputChannel inputChannel)
-        {
-            channelId = inputChannel.ChannelId;
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
-        }
-        else
-        {
-            throw new NotImplementedException();
-        }
+        long channelId = obj.Channel.ToChannelPeer().PeerId;
 
         await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, adminRights => adminRights.ChangeInfo);
         long fileId = 0;
@@ -48,29 +39,29 @@ internal sealed class EditPhotoHandler(IMediaHelper mediaHelper, ICommandBus com
         switch (obj.Photo)
         {
             case Schema.TInputChatUploadedPhoto inputChatUploadedPhoto1:
-            {
-                var file = inputChatUploadedPhoto1.File ?? inputChatUploadedPhoto1.Video;
-                if (file is TInputFile tInputFile)
                 {
-                    fileId = tInputFile!.Id;
-                    parts = tInputFile.Parts;
-                    name = tInputFile.Name;
-                    hasVideo = inputChatUploadedPhoto1.Video != null;
-                    videoStartTs = inputChatUploadedPhoto1.VideoStartTs;
-                    switch (file)
+                    var file = inputChatUploadedPhoto1.File ?? inputChatUploadedPhoto1.Video;
+                    if (file is TInputFile tInputFile)
                     {
-                        case TInputFile inputFile:
-                            md5 = inputFile.Md5Checksum;
-                            break;
-                        case TInputFileBig:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(file));
+                        fileId = tInputFile!.Id;
+                        parts = tInputFile.Parts;
+                        name = tInputFile.Name;
+                        hasVideo = inputChatUploadedPhoto1.Video != null;
+                        videoStartTs = inputChatUploadedPhoto1.VideoStartTs;
+                        switch (file)
+                        {
+                            case TInputFile inputFile:
+                                md5 = inputFile.Md5Checksum;
+                                break;
+                            case TInputFileBig:
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException(nameof(file));
+                        }
                     }
-                }
 
-                videoSize = inputChatUploadedPhoto1.VideoEmojiMarkup;
-            }
+                    videoSize = inputChatUploadedPhoto1.VideoEmojiMarkup;
+                }
 
                 break;
             case TInputChatPhoto inputChatPhoto:
@@ -100,6 +91,6 @@ internal sealed class EditPhotoHandler(IMediaHelper mediaHelper, ICommandBus com
         photo = r.Photo;
         var command = new EditChannelPhotoCommand(ChannelId.Create(channelId), input.ToRequestInfo(), photoId, new TMessageActionChatEditPhoto { Photo = photo }, randomHelper.NextInt64());
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

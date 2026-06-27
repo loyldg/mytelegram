@@ -13,11 +13,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SaveDraftHandler(ICommandBus commandBus, IPeerHelper peerHelper, IMediaHelper mediaHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSaveDraft, IBool>
+internal sealed class SaveDraftHandler(ICommandBus commandBus, IPeerHelper peerHelper, IMediaHelper mediaHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSaveDraft, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestSaveDraft obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         int? replyToMsgId = null;
         switch (obj.ReplyTo)
         {

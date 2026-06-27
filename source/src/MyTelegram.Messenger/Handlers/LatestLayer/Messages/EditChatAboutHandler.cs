@@ -17,7 +17,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditChatAboutHandler(ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditChatAbout, IBool>
+internal sealed class EditChatAboutHandler(ICommandBus commandBus, IPeerHelper peerHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditChatAbout, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestEditChatAbout obj)
     {
@@ -25,17 +25,12 @@ internal sealed class EditChatAboutHandler(ICommandBus commandBus, IPeerHelper p
         switch (peer.PeerType)
         {
             case PeerType.Channel:
-            {
-                if (obj.Peer is TInputPeerChannel inputChannel)
                 {
-                    await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
+                    var command = new EditChannelAboutCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo(), input.UserId, obj.About);
+                    await commandBus.PublishAsync(command, CancellationToken.None);
+                    //return new TBoolTrue();
+                    return null!;
                 }
-
-                var command = new EditChannelAboutCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo(), input.UserId, obj.About);
-                await commandBus.PublishAsync(command, CancellationToken.None);
-                //return new TBoolTrue();
-                return null !;
-            }
         }
 
         throw new NotImplementedException();

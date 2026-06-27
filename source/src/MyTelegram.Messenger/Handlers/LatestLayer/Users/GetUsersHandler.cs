@@ -15,7 +15,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Users;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetUsersHandler(IAccessHashHelper accessHashHelper, IUserConverterService userConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Users.RequestGetUsers, TVector<MyTelegram.Schema.IUser>>
+internal sealed class GetUsersHandler(IUserConverterService userConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Users.RequestGetUsers, TVector<MyTelegram.Schema.IUser>>
 {
     protected override async Task<TVector<IUser>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Users.RequestGetUsers obj)
     {
@@ -26,10 +26,7 @@ internal sealed class GetUsersHandler(IAccessHashHelper accessHashHelper, IUserC
             switch (inputUser)
             {
                 case TInputUser inputUser1:
-                    if (await accessHashHelper.IsAccessHashValidAsync(input, inputUser1.UserId, inputUser1.AccessHash))
-                    {
-                        userIds.Add(inputUser1.UserId);
-                    }
+                    userIds.Add(inputUser1.UserId);
 
                     result.Add(new TUserEmpty { Id = inputUser1.UserId });
                     break;

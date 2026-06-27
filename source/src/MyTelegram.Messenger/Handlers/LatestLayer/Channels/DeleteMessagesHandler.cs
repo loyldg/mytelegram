@@ -13,13 +13,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class DeleteMessagesHandler(ICommandBus commandBus, IPtsHelper ptsHelper, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor, IChannelAppService channelAppService, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteMessages, MyTelegram.Schema.Messages.IAffectedMessages>
+internal sealed class DeleteMessagesHandler(ICommandBus commandBus, IPtsHelper ptsHelper, IQueryProcessor queryProcessor, IChannelAppService channelAppService, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteMessages, MyTelegram.Schema.Messages.IAffectedMessages>
 {
     protected override async Task<IAffectedMessages> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestDeleteMessages obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             if (obj.Id.Count > 0)
             {
                 var ids = obj.Id.ToList();
@@ -53,7 +52,7 @@ internal sealed class DeleteMessagesHandler(ICommandBus commandBus, IPtsHelper p
 
                 var command = new StartDeleteChannelMessagesCommand(TempId.New, input.ToRequestInfo(), inputChannel.ChannelId, ids, newTopMessageId, newTopMessageIdForDiscussionGroup, discussionGroupChannelId, repliesMessageIds);
                 await commandBus.PublishAsync(command);
-                return null !;
+                return null!;
             }
 
             var pts = ptsHelper.GetCachedPts(input.UserId);

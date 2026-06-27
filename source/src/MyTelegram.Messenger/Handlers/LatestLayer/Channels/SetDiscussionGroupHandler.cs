@@ -15,26 +15,15 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SetDiscussionGroupHandler(ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSetDiscussionGroup, IBool>
+internal sealed class SetDiscussionGroupHandler(ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSetDiscussionGroup, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestSetDiscussionGroup obj)
     {
-        if (obj.Broadcast is TInputChannel broadcastChannel)
-        {
-            await accessHashHelper.CheckAccessHashAsync(input, broadcastChannel.ChannelId, broadcastChannel.AccessHash, AccessHashType.Channel);
-        }
-        else
-        {
-            throw new NotImplementedException();
-        }
+        var broadcastChannel = obj.Broadcast.ToChannelPeer();
 
         await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Broadcast, input.UserId);
         await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Group, input.UserId);
         long? groupId = null;
-        if (obj.Group is TInputChannel groupChannel)
-        {
-            await accessHashHelper.CheckAccessHashAsync(input, groupChannel.ChannelId, groupChannel.AccessHash, AccessHashType.Channel);
-        }
 
         switch (obj.Group)
         {
@@ -49,8 +38,8 @@ internal sealed class SetDiscussionGroupHandler(ICommandBus commandBus, IChannel
                 throw new ArgumentOutOfRangeException();
         }
 
-        var command = new StartSetChannelDiscussionGroupCommand(TempId.New, input.ToRequestInfo(), broadcastChannel.ChannelId, groupId);
+        var command = new StartSetChannelDiscussionGroupCommand(TempId.New, input.ToRequestInfo(), broadcastChannel.PeerId, groupId);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

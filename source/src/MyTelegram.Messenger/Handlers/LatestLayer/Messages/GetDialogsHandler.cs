@@ -14,11 +14,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetDialogsHandler(IDialogAppService dialogAppService, IPeerHelper peerHelper, IDialogConverterService dialogConverterService, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetDialogs, MyTelegram.Schema.Messages.IDialogs>
+internal sealed class GetDialogsHandler(IDialogAppService dialogAppService, IPeerHelper peerHelper, IDialogConverterService dialogConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetDialogs, MyTelegram.Schema.Messages.IDialogs>
 {
     protected override async Task<IDialogs> HandleCoreAsync(IRequestInput input, RequestGetDialogs obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.OffsetPeer);
         var userId = input.UserId;
         var offsetPeer = peerHelper.GetPeer(obj.OffsetPeer);
         bool? pinned = null;
@@ -27,9 +26,15 @@ internal sealed class GetDialogsHandler(IDialogAppService dialogAppService, IPee
             pinned = false;
         }
 
-        var getDialogOutput = await dialogAppService.GetDialogsAsync(new GetDialogInput { FolderId = obj.FolderId, Limit = obj.Limit, Pinned = pinned, //Pinned = !obj.ExcludePinned,
- //ExcludePinned = obj.ExcludePinned,
-        OwnerId = userId, OffsetPeer = offsetPeer });
+        var getDialogOutput = await dialogAppService.GetDialogsAsync(new GetDialogInput
+        {
+            FolderId = obj.FolderId,
+            Limit = obj.Limit,
+            Pinned = pinned, //Pinned = !obj.ExcludePinned,
+                             //ExcludePinned = obj.ExcludePinned,
+            OwnerId = userId,
+            OffsetPeer = offsetPeer
+        });
         return dialogConverterService.ToDialogs(input, getDialogOutput, input.Layer);
     }
 }

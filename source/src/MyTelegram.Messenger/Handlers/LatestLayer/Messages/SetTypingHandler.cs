@@ -24,11 +24,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class SetTypingHandler(IPeerHelper peerHelper, IObjectMessageSender messageSender, IBlockCacheAppService blockCacheAppService, IChannelAppService channelAppService, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSetTyping, IBool>
+internal sealed class SetTypingHandler(IPeerHelper peerHelper, IObjectMessageSender messageSender, IBlockCacheAppService blockCacheAppService, IChannelAppService channelAppService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSetTyping, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestSetTyping obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var userId = input.UserId;
         var peer = peerHelper.GetPeer(obj.Peer, userId);
         IUpdate? update = null;
@@ -59,7 +58,7 @@ internal sealed class SetTypingHandler(IPeerHelper peerHelper, IObjectMessageSen
                     {
                         UserId = userId
                     }
-                //UserId = session.UserId
+                    //UserId = session.UserId
                 };
                 break;
             case PeerType.Channel:

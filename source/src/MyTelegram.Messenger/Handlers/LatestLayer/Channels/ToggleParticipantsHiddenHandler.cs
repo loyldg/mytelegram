@@ -13,17 +13,16 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ToggleParticipantsHiddenHandler(ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<RequestToggleParticipantsHidden, IUpdates>
+internal sealed class ToggleParticipantsHiddenHandler(ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestToggleParticipantsHidden, IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestToggleParticipantsHidden obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, p => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
             var command = new ToggleParticipantsHiddenCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), obj.Enabled);
             await commandBus.PublishAsync(command);
-            return null !;
+            return null!;
         }
 
         throw new NotImplementedException();

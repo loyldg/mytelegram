@@ -16,17 +16,16 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class LeaveChannelHandler(IPeerHelper peerHelper, ICommandBus commandBus, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestLeaveChannel, MyTelegram.Schema.IUpdates>
+internal sealed class LeaveChannelHandler(IPeerHelper peerHelper, ICommandBus commandBus) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestLeaveChannel, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestLeaveChannel obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             var channel = peerHelper.GetChannel(obj.Channel);
             var command = new LeaveChannelCommand(ChannelMemberId.Create(channel.PeerId, input.UserId), input.ToRequestInfo(), channel.PeerId, input.UserId, false);
             await commandBus.PublishAsync(command);
-            return null !;
+            return null!;
         }
 
         throw new NotImplementedException();

@@ -14,12 +14,11 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Photos;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetUserPhotosHandler(IQueryProcessor queryProcessor, IUserAppService userAppService, ILayeredService<IPhotoConverter> photoLayeredService, IPrivacyAppService privacyAppService, IAccessHashHelper accessHashHelper, IPeerHelper peerHelper) : RpcResultObjectHandler<Schema.Photos.RequestGetUserPhotos, Schema.Photos.IPhotos>
+internal sealed class GetUserPhotosHandler(IQueryProcessor queryProcessor, IUserAppService userAppService, ILayeredService<IPhotoConverter> photoLayeredService, IPrivacyAppService privacyAppService, IPeerHelper peerHelper) : RpcResultObjectHandler<Schema.Photos.RequestGetUserPhotos, Schema.Photos.IPhotos>
 {
     protected override async Task<Schema.Photos.IPhotos> HandleCoreAsync(IRequestInput input, Schema.Photos.RequestGetUserPhotos obj)
     {
         var peer = peerHelper.GetPeer(obj.UserId, input.UserId);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.UserId);
         bool shouldReturnEmptyProfilePhotos = false;
         if (peer.PeerId != input.UserId)
         {
@@ -61,7 +60,7 @@ internal sealed class GetUserPhotosHandler(IQueryProcessor queryProcessor, IUser
 
                 return new TPhotos
                 {
-                    Photos = [..photos],
+                    Photos = [.. photos],
                     Users = []
                 };
             }

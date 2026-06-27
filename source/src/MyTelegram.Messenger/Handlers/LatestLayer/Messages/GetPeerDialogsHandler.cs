@@ -16,7 +16,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetPeerDialogsHandler(IDialogAppService dialogAppService, IPeerHelper peerHelper, IPtsHelper ptsHelper, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor, IUserConverterService userConverterService, IDialogConverterService dialogConverterService) : RpcResultObjectHandler<RequestGetPeerDialogs, IPeerDialogs>
+internal sealed class GetPeerDialogsHandler(IDialogAppService dialogAppService, IPeerHelper peerHelper, IPtsHelper ptsHelper, IQueryProcessor queryProcessor, IUserConverterService userConverterService, IDialogConverterService dialogConverterService) : RpcResultObjectHandler<RequestGetPeerDialogs, IPeerDialogs>
 {
     protected override async Task<IPeerDialogs> HandleCoreAsync(IRequestInput input, RequestGetPeerDialogs obj)
     {
@@ -29,39 +29,22 @@ internal sealed class GetPeerDialogsHandler(IDialogAppService dialogAppService, 
                 case TInputDialogPeer dialogPeer when dialogPeer.Peer is TInputPeerSelf || dialogPeer.Peer is TInputPeerEmpty:
                     continue;
                 case TInputDialogPeer dialogPeer:
-                {
-                    var peer = peerHelper.GetPeer(dialogPeer.Peer, userId);
-                    if (peerHelper.IsEncryptedDialogPeer(peer.PeerId))
                     {
-                        continue;
+                        var peer = peerHelper.GetPeer(dialogPeer.Peer, userId);
+                        if (peerHelper.IsEncryptedDialogPeer(peer.PeerId))
+                        {
+                            continue;
+                        }
+
+                        peerList.Add(peer);
+                        break;
                     }
-
-                    var shouldCheckAccessHash = true;
-                    switch (dialogPeer.Peer)
-                    {
-                        case TInputPeerUser inputPeerUser:
-                            if (inputPeerUser.UserId != input.UserId)
-                            {
-                                shouldCheckAccessHash = false;
-                            }
-
-                            break;
-                    }
-
-                    if (shouldCheckAccessHash)
-                    {
-                        await accessHashHelper.CheckAccessHashAsync(input, dialogPeer.Peer);
-                    }
-
-                    peerList.Add(peer);
-                    break;
-                }
 
                 case TInputDialogPeerFolder inputDialogPeerFolder:
-                {
-                    var peers = await queryProcessor.ProcessAsync(new GetDialogsByFolderIdQuery(userId, inputDialogPeerFolder.FolderId));
-                    peerList.AddRange(peers);
-                }
+                    {
+                        var peers = await queryProcessor.ProcessAsync(new GetDialogsByFolderIdQuery(userId, inputDialogPeerFolder.FolderId));
+                        peerList.AddRange(peers);
+                    }
 
                     break;
             }

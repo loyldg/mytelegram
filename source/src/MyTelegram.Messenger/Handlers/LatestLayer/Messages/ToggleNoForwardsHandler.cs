@@ -11,14 +11,13 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ToggleNoForwardsHandler(ICommandBus commandBus, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<RequestToggleNoForwards, IUpdates>
+internal sealed class ToggleNoForwardsHandler(ICommandBus commandBus) : RpcResultObjectHandler<RequestToggleNoForwards, IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestToggleNoForwards obj)
     {
         switch (obj.Peer)
         {
             case TInputPeerChannel inputPeerChannel:
-                await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel.ChannelId, inputPeerChannel.AccessHash, AccessHashType.Channel);
                 {
                     var command = new ToggleChannelNoForwardsCommand(ChannelId.Create(inputPeerChannel.ChannelId), input.ToRequestInfo(), obj.Enabled);
                     await commandBus.PublishAsync(command);

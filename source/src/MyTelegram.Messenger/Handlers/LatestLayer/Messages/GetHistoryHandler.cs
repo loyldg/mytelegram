@@ -18,11 +18,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetHistoryHandler(IMessageAppService messageAppService, IQueryProcessor queryProcessor, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IChannelAppService channelAppService, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<RequestGetHistory, IMessages>
+internal sealed class GetHistoryHandler(IMessageAppService messageAppService, IQueryProcessor queryProcessor, IPeerHelper peerHelper, IChannelAppService channelAppService, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<RequestGetHistory, IMessages>
 {
     protected override async Task<IMessages> HandleCoreAsync(IRequestInput input, RequestGetHistory obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var userId = input.UserId;
         var peer = peerHelper.GetPeer(obj.Peer, userId);
         var ownerPeerId = peer.PeerType == PeerType.Channel ? peer.PeerId : userId;
@@ -42,7 +41,7 @@ internal sealed class GetHistoryHandler(IMessageAppService messageAppService, IQ
             var channelReadModel = await channelAppService.GetAsync(peer.PeerId);
             if (await channelAppService.SendRpcErrorIfNotChannelMemberAsync(input, channelReadModel!))
             {
-                return null !;
+                return null!;
             }
         }
 

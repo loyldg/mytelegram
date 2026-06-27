@@ -16,15 +16,14 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class DeleteChannelHandler(ICommandBus commandBus, IAccessHashHelper accessHashHelper, IChannelAdminRightsChecker channelAdminRightsChecker, IPeerHelper peerHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteChannel, MyTelegram.Schema.IUpdates>
+internal sealed class DeleteChannelHandler(ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker, IPeerHelper peerHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestDeleteChannel, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestDeleteChannel obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Channel);
         await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
         var peer = peerHelper.GetChannel(obj.Channel);
         var command = new DeleteChannelCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo());
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

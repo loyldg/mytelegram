@@ -18,46 +18,45 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditExportedChatInviteHandler(IQueryProcessor queryProcessor, IChannelAppService channelAppService, IAccessHashHelper accessHashHelper, ICommandBus commandBus, IChatInviteLinkHelper chatInviteLinkHelper) : RpcResultObjectHandler<Schema.Messages.RequestEditExportedChatInvite, IExportedChatInvite>
+internal sealed class EditExportedChatInviteHandler(IQueryProcessor queryProcessor, IChannelAppService channelAppService, ICommandBus commandBus, IChatInviteLinkHelper chatInviteLinkHelper) : RpcResultObjectHandler<Schema.Messages.RequestEditExportedChatInvite, IExportedChatInvite>
 {
     protected override async Task<IExportedChatInvite> HandleCoreAsync(IRequestInput input, RequestEditExportedChatInvite obj)
     {
         switch (obj.Peer)
         {
             case TInputPeerChannel inputPeerChannel:
-            {
-                var link = obj.Link.Substring(obj.Link.LastIndexOf("/") + 2);
-                await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel);
-                var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteQuery(inputPeerChannel.ChannelId, link));
-                if (chatInviteReadModel == null)
                 {
-                    RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
-                }
+                    var link = obj.Link.Substring(obj.Link.LastIndexOf("/") + 2);
+                    var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteQuery(inputPeerChannel.ChannelId, link));
+                    if (chatInviteReadModel == null)
+                    {
+                        RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
+                    }
 
-                var channelReadModel = await channelAppService.GetAsync(inputPeerChannel.ChannelId);
-                if (channelReadModel == null)
-                {
-                    RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
-                }
+                    var channelReadModel = await channelAppService.GetAsync(inputPeerChannel.ChannelId);
+                    if (channelReadModel == null)
+                    {
+                        RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
+                    }
 
-                var admin = channelReadModel!.AdminList.FirstOrDefault(p => p.UserId == input.UserId);
-                if (admin == null || !admin.AdminRights.ChangeInfo)
-                {
-                    RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
-                }
+                    var admin = channelReadModel!.AdminList.FirstOrDefault(p => p.UserId == input.UserId);
+                    if (admin == null || !admin.AdminRights.ChangeInfo)
+                    {
+                        RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
+                    }
 
-                //var inviteId = chatInviteReadModel!.InviteId;
-                var hash = link;
-                string? newHash = null;
-                if (obj.Revoked)
-                {
-                    newHash = chatInviteLinkHelper.GenerateInviteLink();
-                }
+                    //var inviteId = chatInviteReadModel!.InviteId;
+                    var hash = link;
+                    string? newHash = null;
+                    if (obj.Revoked)
+                    {
+                        newHash = chatInviteLinkHelper.GenerateInviteLink();
+                    }
 
-                var command = new EditChatInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteReadModel!.InviteId), input.ToRequestInfo(), chatInviteReadModel.InviteId, hash, newHash, input.UserId, obj.Title, obj.RequestNeeded ?? false, null, obj.ExpireDate, obj.UsageLimit, chatInviteReadModel.Permanent, obj.Revoked);
-                await commandBus.PublishAsync(command, default);
-                return null !;
-            }
+                    var command = new EditChatInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteReadModel!.InviteId), input.ToRequestInfo(), chatInviteReadModel.InviteId, hash, newHash, input.UserId, obj.Title, obj.RequestNeeded ?? false, null, obj.ExpireDate, obj.UsageLimit, chatInviteReadModel.Permanent, obj.Revoked);
+                    await commandBus.PublishAsync(command, default);
+                    return null!;
+                }
 
             case TInputPeerChat inputPeerChat:
                 break;

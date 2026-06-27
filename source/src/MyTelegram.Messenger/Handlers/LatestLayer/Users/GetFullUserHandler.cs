@@ -16,12 +16,11 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Users;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetFullUserHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IUserConverterService userConverterService, ILayeredService<IPeerSettingsConverter> peerSettingsLayeredService, ILayeredService<IPeerNotifySettingsConverter> peerNotifySettingsLayeredService, IBlockCacheAppService blockCacheAppService, IAccessHashHelper accessHashHelper, IContactHelper contactHelper, IPeerSettingsAppService peerSettingsAppService,
+internal sealed class GetFullUserHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IUserConverterService userConverterService, ILayeredService<IPeerSettingsConverter> peerSettingsLayeredService, ILayeredService<IPeerNotifySettingsConverter> peerNotifySettingsLayeredService, IBlockCacheAppService blockCacheAppService, IContactHelper contactHelper, IPeerSettingsAppService peerSettingsAppService,
     IChatConverterService chatConverterService, IPhotoAppService photoAppService, IUserAppService userAppService, IPrivacyAppService privacyAppService) : RpcResultObjectHandler<MyTelegram.Schema.Users.RequestGetFullUser, MyTelegram.Schema.Users.IUserFull>
 {
     protected override async Task<MyTelegram.Schema.Users.IUserFull> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Users.RequestGetFullUser obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Id);
         var selfUserId = input.UserId;
         var targetPeer = peerHelper.GetPeer(obj.Id, input.UserId);
         var targetUserId = targetPeer.PeerId;

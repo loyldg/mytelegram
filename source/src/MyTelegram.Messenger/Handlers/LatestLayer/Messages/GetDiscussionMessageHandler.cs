@@ -14,15 +14,14 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
 internal sealed class GetDiscussionMessageHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAppService channelAppService, //ILayeredService<IChannelConverter> layeredChatService,
- IChatConverterService chatConverterService, IMessageConverterService messageConverterService, IAccessHashHelper accessHashHelper, IPhotoAppService photoAppService) : RpcResultObjectHandler<RequestGetDiscussionMessage, IDiscussionMessage>
+ IChatConverterService chatConverterService, IMessageConverterService messageConverterService, IPhotoAppService photoAppService) : RpcResultObjectHandler<RequestGetDiscussionMessage, IDiscussionMessage>
 {
     protected override async Task<IDiscussionMessage> HandleCoreAsync(IRequestInput input, RequestGetDiscussionMessage obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         // peer is the channel peer
         var peer = peerHelper.GetPeer(obj.Peer);
         var channelReadModel = await channelAppService.GetAsync(peer.PeerId);
-        if (channelReadModel == null !)
+        if (channelReadModel == null!)
         {
             RpcErrors.RpcErrors400.ChatIdInvalid.ThrowRpcError();
         }
@@ -54,7 +53,7 @@ internal sealed class GetDiscussionMessageHandler(IPeerHelper peerHelper, IQuery
         var chats = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, channelMemberReadModels, layer: input.Layer);
         return new TDiscussionMessage
         {
-            Chats = [..chats],
+            Chats = [.. chats],
             Messages = new TVector<IMessage>(message),
             Users = [],
             MaxId = readMaxId,

@@ -15,11 +15,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ReadHistoryHandler(ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor, IPtsHelper ptsHelper) : RpcResultObjectHandler<RequestReadHistory, Schema.Messages.IAffectedMessages>
+internal sealed class ReadHistoryHandler(ICommandBus commandBus, IPeerHelper peerHelper, IQueryProcessor queryProcessor, IPtsHelper ptsHelper) : RpcResultObjectHandler<RequestReadHistory, Schema.Messages.IAffectedMessages>
 {
     protected override async Task<IAffectedMessages> HandleCoreAsync(IRequestInput input, RequestReadHistory obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         if (obj.MaxId < 0)
         {
             return new TAffectedMessages
@@ -50,6 +49,6 @@ internal sealed class ReadHistoryHandler(ICommandBus commandBus, IPeerHelper pee
         var unreadCount = await queryProcessor.ProcessAsync(new GetUnreadCountQuery(input.UserId, peer.PeerId, obj.MaxId));
         var command = new UpdateReadInboxMaxIdCommand(selfDialogId, input.ToRequestInfo(), obj.MaxId, messageReadModel!.SenderUserId, messageReadModel.SenderMessageId, unreadCount);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

@@ -58,7 +58,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IMessageAppService messageAppService, IDataEncryptionHelper dataEncryptionHelper, IOptionsMonitor<MyTelegramMessengerServerOptions> options, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditMessage, MyTelegram.Schema.IUpdates>
+internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus commandBus, IPeerHelper peerHelper, IMessageAppService messageAppService, IDataEncryptionHelper dataEncryptionHelper, IOptionsMonitor<MyTelegramMessengerServerOptions> options, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestEditMessage, MyTelegram.Schema.IUpdates>
 {
     private static byte[]? _encryptionKey;
     private static KeyConfig? _keyConfig;

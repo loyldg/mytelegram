@@ -28,7 +28,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class InviteToChannelHandler(ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IPrivacyAppService privacyAppService, IChannelAppService channelAppService, IUserAppService userAppService, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestInviteToChannel, IInvitedUsers>
+internal sealed class InviteToChannelHandler(ICommandBus commandBus, IPeerHelper peerHelper, IPrivacyAppService privacyAppService, IChannelAppService channelAppService, IUserAppService userAppService, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestInviteToChannel, IInvitedUsers>
 {
     protected override async Task<IInvitedUsers> HandleCoreAsync(IRequestInput input, RequestInviteToChannel obj)
     {
@@ -36,7 +36,6 @@ internal sealed class InviteToChannelHandler(ICommandBus commandBus, IPeerHelper
         {
             await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, adminRights => adminRights.ChangeInfo);
             var channelId = inputChannel.ChannelId;
-            await accessHashHelper.CheckAccessHashAsync(input, channelId, inputChannel.AccessHash, AccessHashType.Channel);
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
             var userReadModel = await userAppService.GetAsync(input.UserId);
@@ -58,7 +57,7 @@ internal sealed class InviteToChannelHandler(ICommandBus commandBus, IPeerHelper
 
             var command = new StartInviteToChannelCommand(TempId.New, input.ToRequestInfo(), channelId, channelReadModel.Broadcast, channelReadModel.HasLink, inviterUserId, channelReadModel.TopMessageId, channelReadModel.TopMessageId, userIds, botUserIds, ChatJoinType.InvitedByAdmin);
             await commandBus.PublishAsync(command);
-            return null !;
+            return null!;
         }
 
         throw new NotImplementedException();

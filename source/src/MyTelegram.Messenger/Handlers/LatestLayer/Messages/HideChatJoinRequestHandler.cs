@@ -19,12 +19,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class HideChatJoinRequestHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IChannelAppService channelAppService, IChannelAdminRightsChecker channelAdminRightsChecker, ICommandBus commandBus) : RpcResultObjectHandler<RequestHideChatJoinRequest, IUpdates>
+internal sealed class HideChatJoinRequestHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IChannelAppService channelAppService, IChannelAdminRightsChecker channelAdminRightsChecker, ICommandBus commandBus) : RpcResultObjectHandler<RequestHideChatJoinRequest, IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestHideChatJoinRequest obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.UserId);
         var channelPeer = peerHelper.GetPeer(obj.Peer);
         var channelId = channelPeer.PeerId;
         var userPeer = peerHelper.GetPeer(obj.UserId);
@@ -57,6 +55,6 @@ internal sealed class HideChatJoinRequestHandler(IQueryProcessor queryProcessor,
 
         var command = new HideChatJoinRequestCommand(JoinChannelId.Create(channelId, userPeer.PeerId), input.ToRequestInfo(), userPeer.PeerId, obj.Approved, topMessageId, channelHistoryMinId, broadcast);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

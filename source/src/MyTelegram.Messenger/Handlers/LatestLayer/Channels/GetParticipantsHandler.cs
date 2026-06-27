@@ -13,13 +13,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetParticipantsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IAccessHashHelper accessHashHelper, IUserConverterService userConverterService, IPhotoAppService photoAppService, IRpcErrorHelper rpcErrorHelper, IChannelAdminRightsChecker channelAdminRightsChecker, IChannelAppService channelAppService) : RpcResultObjectHandler<RequestGetParticipants, IChannelParticipants>
+internal sealed class GetParticipantsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IUserConverterService userConverterService, IPhotoAppService photoAppService, IRpcErrorHelper rpcErrorHelper, IChannelAdminRightsChecker channelAdminRightsChecker, IChannelAppService channelAppService) : RpcResultObjectHandler<RequestGetParticipants, IChannelParticipants>
 {
     protected override async Task<IChannelParticipants> HandleCoreAsync(IRequestInput input, RequestGetParticipants obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
             var participants = new TChannelParticipants

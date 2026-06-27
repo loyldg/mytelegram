@@ -12,26 +12,25 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class DeleteExportedChatInviteHandler(IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper, ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker, IChatInviteLinkHelper chatInviteLinkHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteExportedChatInvite, IBool>
+internal sealed class DeleteExportedChatInviteHandler(IQueryProcessor queryProcessor, ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker, IChatInviteLinkHelper chatInviteLinkHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteExportedChatInvite, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestDeleteExportedChatInvite obj)
     {
         switch (obj.Peer)
         {
             case TInputPeerChannel inputPeerChannel:
-            {
-                var link = chatInviteLinkHelper.GetHashFromLink(obj.Link);
-                await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel);
-                var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteQuery(inputPeerChannel.ChannelId, link));
-                if (chatInviteReadModel == null)
                 {
-                    RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
-                }
+                    var link = chatInviteLinkHelper.GetHashFromLink(obj.Link);
+                    var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteQuery(inputPeerChannel.ChannelId, link));
+                    if (chatInviteReadModel == null)
+                    {
+                        RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
+                    }
 
-                await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId, (p) => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
-                var command = new DeleteExportedInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteReadModel!.InviteId), input.ToRequestInfo());
-                await commandBus.PublishAsync(command);
-            }
+                    await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId, (p) => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
+                    var command = new DeleteExportedInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteReadModel!.InviteId), input.ToRequestInfo());
+                    await commandBus.PublishAsync(command);
+                }
 
                 break;
             case TInputPeerChat:

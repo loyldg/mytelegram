@@ -13,15 +13,14 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ToggleJoinRequestHandler(IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestToggleJoinRequest, IUpdates>
+internal sealed class ToggleJoinRequestHandler(IPeerHelper peerHelper, ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestToggleJoinRequest, IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestToggleJoinRequest obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Channel);
         var peer = peerHelper.GetChannel(obj.Channel);
         await channelAdminRightsChecker.CheckAdminRightAsync(peer.PeerId, input.UserId, p => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
         var command = new ToggleJoinRequestCommand(ChannelId.Create(peer.PeerId), input.ToRequestInfo(), obj.Enabled);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

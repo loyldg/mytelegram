@@ -15,7 +15,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetMessagesHandler(IMessageAppService messageAppService, IAccessHashHelper accessHashHelper, IChannelAppService channelAppService, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestGetMessages, MyTelegram.Schema.Messages.IMessages>
+internal sealed class GetMessagesHandler(IMessageAppService messageAppService, IChannelAppService channelAppService, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestGetMessages, MyTelegram.Schema.Messages.IMessages>
 {
     protected override async Task<IMessages> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestGetMessages obj)
     {
@@ -27,12 +27,6 @@ internal sealed class GetMessagesHandler(IMessageAppService messageAppService, I
             if (channelReadModel == null)
             {
                 RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
-            }
-
-            // Only check accessHash for private channel
-            if (string.IsNullOrEmpty(channelReadModel!.UserName))
-            {
-                await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             }
         }
         else

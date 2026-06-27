@@ -17,11 +17,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class HideAllChatJoinRequestsHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IChannelAppService channelAppService, IChatConverterService chatConverterService, IChannelAdminRightsChecker channelAdminRightsChecker, ICommandBus commandBus) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestHideAllChatJoinRequests, MyTelegram.Schema.IUpdates>
+internal sealed class HideAllChatJoinRequestsHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IChannelAppService channelAppService, IChatConverterService chatConverterService, IChannelAdminRightsChecker channelAdminRightsChecker, ICommandBus commandBus) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestHideAllChatJoinRequests, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestHideAllChatJoinRequests obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var channelPeer = peerHelper.GetPeer(obj.Peer);
         var channelId = channelPeer.PeerId;
         if (string.IsNullOrEmpty(obj.Link))

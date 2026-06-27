@@ -14,13 +14,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class DeleteParticipantHistoryHandler(IQueryProcessor queryProcessor, ICommandBus commandBus, IPeerHelper peerHelper, IPtsHelper ptsHelper, IAccessHashHelper accessHashHelper, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestDeleteParticipantHistory, IAffectedHistory>
+internal sealed class DeleteParticipantHistoryHandler(IQueryProcessor queryProcessor, ICommandBus commandBus, IPeerHelper peerHelper, IPtsHelper ptsHelper, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestDeleteParticipantHistory, IAffectedHistory>
 {
     protected override async Task<IAffectedHistory> HandleCoreAsync(IRequestInput input, RequestDeleteParticipantHistory obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, rights => rights.DeleteMessages, RpcErrors.RpcErrors403.ChatAdminRequired);
             var peer = peerHelper.GetPeer(obj.Participant);
             var messageIds = (await queryProcessor.ProcessAsync(new GetMessageIdListByUserIdQuery(inputChannel.ChannelId, peer.PeerId, MyTelegramConsts.ClearHistoryDefaultPageSize))).ToList();
@@ -29,7 +28,7 @@ internal sealed class DeleteParticipantHistoryHandler(IQueryProcessor queryProce
                 var newTopMessageId = await queryProcessor.ProcessAsync(new GetTopMessageIdQuery(inputChannel.ChannelId, inputChannel.ChannelId, messageIds));
                 var command = new StartDeleteParticipantHistoryCommand(TempId.New, input.ToRequestInfo(), inputChannel.ChannelId, messageIds, newTopMessageId);
                 await commandBus.PublishAsync(command);
-                return null !;
+                return null!;
             }
 
             return new TAffectedHistory

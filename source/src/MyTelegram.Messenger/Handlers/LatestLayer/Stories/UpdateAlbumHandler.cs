@@ -10,7 +10,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Stories;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class UpdateAlbumHandler(ICommandBus commandBus, IAccessHashHelper accessHashHelper, IPeerHelper peerHelper, IChannelAppService channelAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Stories.RequestUpdateAlbum, MyTelegram.Schema.IStoryAlbum>, IObjectHandler
+internal sealed class UpdateAlbumHandler(ICommandBus commandBus, IPeerHelper peerHelper, IChannelAppService channelAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Stories.RequestUpdateAlbum, MyTelegram.Schema.IStoryAlbum>, IObjectHandler
 {
     protected override async Task<MyTelegram.Schema.IStoryAlbum> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Stories.RequestUpdateAlbum obj)
     {

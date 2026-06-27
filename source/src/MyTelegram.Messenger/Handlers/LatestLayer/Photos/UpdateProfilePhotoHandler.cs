@@ -16,7 +16,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Photos;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class UpdateProfilePhotoHandler(ICommandBus commandBus, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Photos.RequestUpdateProfilePhoto, MyTelegram.Schema.Photos.IPhoto>
+internal sealed class UpdateProfilePhotoHandler(ICommandBus commandBus) : RpcResultObjectHandler<MyTelegram.Schema.Photos.RequestUpdateProfilePhoto, MyTelegram.Schema.Photos.IPhoto>
 {
     protected override async Task<MyTelegram.Schema.Photos.IPhoto> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Photos.RequestUpdateProfilePhoto obj)
     {
@@ -24,13 +24,12 @@ internal sealed class UpdateProfilePhotoHandler(ICommandBus commandBus, IAccessH
         switch (obj.Id)
         {
             case TInputPhoto inputPhoto:
-                await accessHashHelper.CheckAccessHashAsync(input, inputPhoto.Id, inputPhoto.AccessHash, AccessHashType.Photo);
                 photoId = inputPhoto.Id;
                 break;
         }
 
         var command = new UpdateProfilePhotoCommand(UserId.Create(input.UserId), input.ToRequestInfo(), photoId, obj.Fallback);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

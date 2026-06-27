@@ -64,13 +64,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper peerHelper, IChannelAppService channelAppService, IMessageAppService messageAppService, IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestForwardMessages, MyTelegram.Schema.IUpdates>
+internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper peerHelper, IChannelAppService channelAppService, IMessageAppService messageAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestForwardMessages, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestForwardMessages obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.FromPeer);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.ToPeer);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.SendAs);
         var fromPeer = peerHelper.GetPeer(obj.FromPeer, input.UserId);
         var toPeer = peerHelper.GetPeer(obj.ToPeer, input.UserId);
         var sendAs = peerHelper.GetPeer(obj.SendAs);
@@ -126,6 +123,6 @@ internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper
 
         var command = new StartForwardMessagesCommand(TempId.New, input.ToRequestInfo(), obj.Silent, obj.Background, obj.WithMyScore, obj.DropAuthor, obj.DropMediaCaptions, obj.Noforwards, fromPeer, toPeer, obj.Id.ToList(), obj.RandomId.ToList(), obj.ScheduleDate, sendAs, false, post);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

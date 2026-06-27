@@ -11,13 +11,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ReadHistoryHandler(ICommandBus commandBus, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestReadHistory, IBool>
+internal sealed class ReadHistoryHandler(ICommandBus commandBus, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestReadHistory, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestReadHistory obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             var messageReadModel = await queryProcessor.ProcessAsync(new GetMessageByIdQuery(MessageId.Create(inputChannel.ChannelId, obj.MaxId).Value));
             if (messageReadModel == null)
             {
@@ -37,7 +36,7 @@ internal sealed class ReadHistoryHandler(ICommandBus commandBus, IAccessHashHelp
 
             var command = new UpdateReadChannelInboxCommand(DialogId.Create(input.UserId, PeerType.Channel, inputChannel.ChannelId), input.ToRequestInfo(), messageReadModel!.SenderUserId, obj.MaxId);
             await commandBus.PublishAsync(command);
-            return null !;
+            return null!;
         }
 
         return new TBoolTrue();

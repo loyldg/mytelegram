@@ -19,11 +19,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SendVoteHandler(ICommandBus commandBus, IQueryProcessor queryProcessor, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendVote, MyTelegram.Schema.IUpdates>
+internal sealed class SendVoteHandler(ICommandBus commandBus, IQueryProcessor queryProcessor, IPeerHelper peerHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendVote, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestSendVote obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var peer = peerHelper.GetPeer(obj.Peer);
         var pollId = await queryProcessor.ProcessAsync(new GetPollIdByMessageIdQuery(peer.PeerId, obj.MsgId), default);
         if (pollId == null)
@@ -44,6 +43,6 @@ internal sealed class SendVoteHandler(ICommandBus commandBus, IQueryProcessor qu
 
         var command = new VoteCommand(PollId.With(pollReadModel.Id), input.ToRequestInfo(), input.UserId, obj.Options.Select(p => p).ToList());
         await commandBus.PublishAsync(command, default);
-        return null !;
+        return null!;
     }
 }

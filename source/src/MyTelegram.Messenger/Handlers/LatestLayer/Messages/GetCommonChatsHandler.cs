@@ -10,11 +10,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetCommonChatsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IPhotoAppService photoAppService, IChannelAppService channelAppService, IAccessHashHelper accessHashHelper, IPeerHelper peerHelper) : RpcResultObjectHandler<Schema.Messages.RequestGetCommonChats, Schema.Messages.IChats>
+internal sealed class GetCommonChatsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IPhotoAppService photoAppService, IChannelAppService channelAppService, IPeerHelper peerHelper) : RpcResultObjectHandler<Schema.Messages.RequestGetCommonChats, Schema.Messages.IChats>
 {
     protected override async Task<Schema.Messages.IChats> HandleCoreAsync(IRequestInput input, Schema.Messages.RequestGetCommonChats obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.UserId);
         var peer = peerHelper.GetPeer(obj.UserId);
         var limit = obj.Limit;
         if (limit < 0)
@@ -30,7 +29,7 @@ internal sealed class GetCommonChatsHandler(IQueryProcessor queryProcessor, ICha
             var chats = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, [], commonChannelIds, layer: input.Layer);
             return new TChats
             {
-                Chats = [..chats]
+                Chats = [.. chats]
             };
         }
 

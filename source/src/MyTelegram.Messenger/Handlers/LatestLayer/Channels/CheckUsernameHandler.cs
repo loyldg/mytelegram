@@ -17,7 +17,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class CheckUsernameHandler(IQueryProcessor queryProcessor, IUsernameHelper usernameHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestCheckUsername, IBool>
+internal sealed class CheckUsernameHandler(IQueryProcessor queryProcessor, IUsernameHelper usernameHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestCheckUsername, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Channels.RequestCheckUsername obj)
     {
@@ -27,15 +27,6 @@ internal sealed class CheckUsernameHandler(IQueryProcessor queryProcessor, IUser
             {
                 RpcErrors.RpcErrors400.UsernameInvalid.ThrowRpcError();
             }
-        }
-
-        switch (obj.Channel)
-        {
-            case TInputChannel inputChannel1:
-                await accessHashHelper.CheckAccessHashAsync(input, inputChannel1.ChannelId, inputChannel1.AccessHash, AccessHashType.Channel);
-                break;
-            case TInputChannelEmpty _:
-                break;
         }
 
         var userNameReadModel = await queryProcessor.ProcessAsync(new GetUserNameByNameQuery(obj.Username.ToLower()));

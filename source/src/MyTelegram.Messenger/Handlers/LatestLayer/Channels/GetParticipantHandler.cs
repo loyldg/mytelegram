@@ -15,14 +15,13 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetParticipantHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IChannelAppService channelAppService, IChatConverterService chatConverterService, IUserConverterService userConverterService, IAccessHashHelper accessHashHelper, IPhotoAppService photoAppService) : RpcResultObjectHandler<RequestGetParticipant, MyTelegram.Schema.Channels.IChannelParticipant>
+internal sealed class GetParticipantHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IChannelAppService channelAppService, IChatConverterService chatConverterService, IUserConverterService userConverterService, IPhotoAppService photoAppService) : RpcResultObjectHandler<RequestGetParticipant, MyTelegram.Schema.Channels.IChannelParticipant>
 {
     protected override async Task<MyTelegram.Schema.Channels.IChannelParticipant> HandleCoreAsync(IRequestInput input, RequestGetParticipant obj)
     {
         var peer = peerHelper.GetPeer(obj.Participant, input.UserId);
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
             if (channelMemberReadModel == null)
             {

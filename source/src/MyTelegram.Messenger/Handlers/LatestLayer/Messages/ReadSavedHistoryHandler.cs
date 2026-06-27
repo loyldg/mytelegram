@@ -10,12 +10,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ReadSavedHistoryHandler(ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadSavedHistory, IBool>
+internal sealed class ReadSavedHistoryHandler(ICommandBus commandBus, IPeerHelper peerHelper, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadSavedHistory, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestReadSavedHistory obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.ParentPeer);
         if (obj.MaxId > 0)
         {
             var parentPeer = peerHelper.GetPeer(obj.ParentPeer);
@@ -41,7 +39,7 @@ internal sealed class ReadSavedHistoryHandler(ICommandBus commandBus, IPeerHelpe
 
                 var command = new UpdateReadChannelInboxCommand(DialogId.Create(input.UserId, PeerType.Channel, parentPeer.PeerId), input.ToRequestInfo(), messageReadModel!.SenderUserId, obj.MaxId);
                 await commandBus.PublishAsync(command);
-                return null !;
+                return null!;
             }
         }
 

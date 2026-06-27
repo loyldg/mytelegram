@@ -13,11 +13,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetMessageEditDataHandler(IQueryProcessor queryProcessor, IOptions<MyTelegramMessengerServerOptions> options, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetMessageEditData, MyTelegram.Schema.Messages.IMessageEditData>
+internal sealed class GetMessageEditDataHandler(IQueryProcessor queryProcessor, IOptions<MyTelegramMessengerServerOptions> options) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetMessageEditData, MyTelegram.Schema.Messages.IMessageEditData>
 {
     protected override async Task<IMessageEditData> HandleCoreAsync(IRequestInput input, RequestGetMessageEditData obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var message = await queryProcessor.ProcessAsync(new GetMessageByIdQuery(MessageId.Create(input.UserId, obj.Id).Value), default);
         var canEdit = message != null && message.Date + options.Value.EditTimeLimit > CurrentDate;
         return new TMessageEditData

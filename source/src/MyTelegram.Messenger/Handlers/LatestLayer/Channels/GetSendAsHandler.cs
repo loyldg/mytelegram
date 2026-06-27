@@ -12,13 +12,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetSendAsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IChannelAppService channelAppService, ILayeredService<ISendAsPeerConverter> layeredSendAsPeerService, IAccessHashHelper accessHashHelper, IMessageAppService messageAppService, IPhotoAppService photoAppService) : RpcResultObjectHandler<RequestGetSendAs, ISendAsPeers>
+internal sealed class GetSendAsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IChannelAppService channelAppService, ILayeredService<ISendAsPeerConverter> layeredSendAsPeerService, IMessageAppService messageAppService, IPhotoAppService photoAppService) : RpcResultObjectHandler<RequestGetSendAs, ISendAsPeers>
 {
     protected override async Task<ISendAsPeers> HandleCoreAsync(IRequestInput input, RequestGetSendAs obj)
     {
         if (obj.Peer is TInputPeerChannel inputPeerChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel.ChannelId, inputPeerChannel.AccessHash, AccessHashType.Channel);
             var canSendAsPeer = await messageAppService.CanSendAsPeerAsync(inputPeerChannel.ChannelId, input.UserId);
             var channelReadModel = await channelAppService.GetAsync(inputPeerChannel.ChannelId);
             if (canSendAsPeer)

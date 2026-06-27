@@ -18,20 +18,18 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetExportedChatInvitesHandler(IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor, IChannelAppService channelAppService, IUserConverterService userConverterService, IChatInviteExportedConverterService chatInviteExportedConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetExportedChatInvites, MyTelegram.Schema.Messages.IExportedChatInvites>
+internal sealed class GetExportedChatInvitesHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAppService channelAppService, IUserConverterService userConverterService, IChatInviteExportedConverterService chatInviteExportedConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetExportedChatInvites, MyTelegram.Schema.Messages.IExportedChatInvites>
 {
-    protected async override Task<MyTelegram.Schema.Messages.IExportedChatInvites> HandleCoreAsync(IRequestInput input, RequestGetExportedChatInvites obj)
+    protected override async Task<MyTelegram.Schema.Messages.IExportedChatInvites> HandleCoreAsync(IRequestInput input, RequestGetExportedChatInvites obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.AdminId);
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
-        var channelReadModel = await channelAppService.GetAsync(peer.PeerId);
-        if (channelReadModel == null)
+        var channelReadModel = await channelAppService.GetAsync(peer.PeerId, false);
+        if (channelReadModel == null!)
         {
             RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
         }
 
-        if (!channelReadModel!.AdminList.Any(p => p.UserId == input.UserId))
+        if (channelReadModel!.AdminList.All(p => p.UserId != input.UserId))
         {
             RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
         }
@@ -46,8 +44,8 @@ internal sealed class GetExportedChatInvitesHandler(IPeerHelper peerHelper, IAcc
         var r = new TExportedChatInvites
         {
             Count = invites.Count,
-            Invites = [..tInvites],
-            Users = [..users],
+            Invites = [.. tInvites],
+            Users = [.. users],
         };
         return r;
     }

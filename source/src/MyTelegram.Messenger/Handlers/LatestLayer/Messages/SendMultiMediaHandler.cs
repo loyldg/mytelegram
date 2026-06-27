@@ -44,14 +44,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
 internal sealed class SendMultiMediaHandler(IMessageAppService messageAppService, IMediaHelper mediaHelper, //IRequestCacheAppService requestCacheAppService,
- IPeerHelper peerHelper, IRandomHelper randomHelper, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendMultiMedia, MyTelegram.Schema.IUpdates>
+ IPeerHelper peerHelper, IRandomHelper randomHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSendMultiMedia, MyTelegram.Schema.IUpdates>
 {
     //private readonly IRequestCacheAppService _requestCacheAppService;
     //_requestCacheAppService = requestCacheAppService;
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestSendMultiMedia obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.SendAs);
         var groupId = randomHelper.NextInt64();
         var groupItemCount = obj.MultiMedia.Count;
         var requestInfo = input.ToRequestInfo();
@@ -71,11 +69,11 @@ internal sealed class SendMultiMediaHandler(IMessageAppService messageAppService
             var sendMessageInput = new SendMessageInput(requestInfo, input.UserId, peerHelper.GetPeer(obj.Peer, input.UserId), inputSingleMedia.Message, inputSingleMedia.RandomId, clearDraft: obj.ClearDraft, entities: inputSingleMedia.Entities, media: media, //replyToMsgId: replyToMsgId,
  inputReplyTo: obj.ReplyTo, sendMessageType: SendMessageType.Media, messageType: mediaHelper.GeMessageType(media), groupId: groupId, groupItemCount: groupItemCount, topMsgId: topMsgId, sendAs: sendAs, effect: obj.Effect, inputQuickReplyShortcut: obj.QuickReplyShortcut, isSendGroupedMessage: true, silent: obj.Silent, scheduleDate: obj.ScheduleDate, invertMedia: obj.InvertMedia);
             inputs.Add(sendMessageInput);
-        //await _messageAppService.SendMessageAsync(sendMessageInput);
-        //_requestCacheAppService.AddRequest(input.ReqMsgId, input.AuthKeyId, input.RequestSessionId, input.SeqNumber);
+            //await _messageAppService.SendMessageAsync(sendMessageInput);
+            //_requestCacheAppService.AddRequest(input.ReqMsgId, input.AuthKeyId, input.RequestSessionId, input.SeqNumber);
         }
 
         await messageAppService.SendMessageAsync(inputs);
-        return null !;
+        return null!;
     }
 }

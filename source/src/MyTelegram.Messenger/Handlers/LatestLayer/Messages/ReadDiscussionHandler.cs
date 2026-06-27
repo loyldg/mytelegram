@@ -11,11 +11,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ReadDiscussionHandler(ICommandBus commandBus, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadDiscussion, IBool>
+internal sealed class ReadDiscussionHandler(ICommandBus commandBus, IPeerHelper peerHelper, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestReadDiscussion, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestReadDiscussion obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
         var selfDialogId = DialogId.Create(input.UserId, peer);
         var messageReadModel = await queryProcessor.ProcessAsync(new GetMessageByIdQuery(MessageId.Create(peer.PeerId, obj.MsgId).Value));
@@ -28,7 +27,7 @@ internal sealed class ReadDiscussionHandler(ICommandBus commandBus, IPeerHelper 
         if (dialogReadModel == null)
         {
             return new TBoolTrue();
-        //RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
+            //RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
         }
 
         if (dialogReadModel!.ReadInboxMaxId >= obj.ReadMaxId)
@@ -38,6 +37,6 @@ internal sealed class ReadDiscussionHandler(ICommandBus commandBus, IPeerHelper 
 
         var command = new UpdateReadChannelInboxCommand(selfDialogId, input.ToRequestInfo(), messageReadModel!.SenderUserId, obj.ReadMaxId);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

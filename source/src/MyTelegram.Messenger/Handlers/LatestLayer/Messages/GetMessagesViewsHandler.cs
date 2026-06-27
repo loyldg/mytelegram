@@ -14,11 +14,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetMessagesViewsHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelMessageViewsAppService channelMessageViewsAppService, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetMessagesViews, MyTelegram.Schema.Messages.IMessageViews>
+internal sealed class GetMessagesViewsHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelMessageViewsAppService channelMessageViewsAppService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetMessagesViews, MyTelegram.Schema.Messages.IMessageViews>
 {
     protected override async Task<MyTelegram.Schema.Messages.IMessageViews> HandleCoreAsync(IRequestInput input, RequestGetMessagesViews obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
         if (peer.PeerType == PeerType.Channel)
         {
@@ -26,7 +25,7 @@ internal sealed class GetMessagesViewsHandler(IPeerHelper peerHelper, IQueryProc
             {
                 return new MyTelegram.Schema.Messages.TMessageViews
                 {
-                    Views = [..obj.Id.Select(p => new Schema.TMessageViews { Views = 1 }).ToList()],
+                    Views = [.. obj.Id.Select(p => new Schema.TMessageViews { Views = 1 }).ToList()],
                     Chats = [],
                     Users = []
                 };
@@ -37,7 +36,7 @@ internal sealed class GetMessagesViewsHandler(IPeerHelper peerHelper, IQueryProc
             {
                 Chats = [],
                 Users = [],
-                Views = [..views]
+                Views = [.. views]
             };
         }
 

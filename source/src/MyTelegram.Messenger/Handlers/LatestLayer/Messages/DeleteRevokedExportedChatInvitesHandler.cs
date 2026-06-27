@@ -10,14 +10,13 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class DeleteRevokedExportedChatInvitesHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteRevokedExportedChatInvites, IBool>
+internal sealed class DeleteRevokedExportedChatInvitesHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestDeleteRevokedExportedChatInvites, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestDeleteRevokedExportedChatInvites obj)
     {
         switch (obj.Peer)
         {
             case TInputPeerChannel inputPeerChannel:
-                await accessHashHelper.CheckAccessHashAsync(input, inputPeerChannel);
                 var peer = peerHelper.GetPeer(obj.Peer);
                 var adminId = peerHelper.GetPeer(obj.AdminId, input.UserId);
                 await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId, (p) => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);

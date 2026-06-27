@@ -12,7 +12,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetChannelsHandler(IChatConverterService chatConverterService, IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<RequestGetChannels, IChats>
+internal sealed class GetChannelsHandler(IChatConverterService chatConverterService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<RequestGetChannels, IChats>
 {
     protected override async Task<IChats> HandleCoreAsync(IRequestInput input, RequestGetChannels obj)
     {
@@ -22,7 +22,6 @@ internal sealed class GetChannelsHandler(IChatConverterService chatConverterServ
             if (inputChannel is TInputChannel tInputChannel)
             {
                 channelIds.Add(tInputChannel.ChannelId);
-                await accessHashHelper.CheckAccessHashAsync(input, tInputChannel.ChannelId, tInputChannel.AccessHash, AccessHashType.Channel);
             }
         }
 
@@ -32,7 +31,7 @@ internal sealed class GetChannelsHandler(IChatConverterService chatConverterServ
             var channels = await chatConverterService.GetChannelListAsync(input, channelIds, channelMemberReadModels, layer: input.Layer);
             return new TChats
             {
-                Chats = [..channels]
+                Chats = [.. channels]
             };
         }
 

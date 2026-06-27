@@ -11,7 +11,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetAdminsWithInvitesHandler(IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper, IUserConverterService userConverterService) : RpcResultObjectHandler<RequestGetAdminsWithInvites, IChatAdminsWithInvites>
+internal sealed class GetAdminsWithInvitesHandler(IQueryProcessor queryProcessor, IUserConverterService userConverterService) : RpcResultObjectHandler<RequestGetAdminsWithInvites, IChatAdminsWithInvites>
 {
     protected override async Task<IChatAdminsWithInvites> HandleCoreAsync(IRequestInput input, RequestGetAdminsWithInvites obj)
     {
@@ -22,8 +22,8 @@ internal sealed class GetAdminsWithInvitesHandler(IQueryProcessor queryProcessor
             var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
             return new TChatAdminsWithInvites
             {
-                Admins = [..adminWithInvitesList.Select(p => new TChatAdminWithInvites { AdminId = p.AdminId, InvitesCount = p.InvitesCount, RevokedInvitesCount = p.RevokedInvitesCount })],
-                Users = [..users]
+                Admins = [.. adminWithInvitesList.Select(p => new TChatAdminWithInvites { AdminId = p.AdminId, InvitesCount = p.InvitesCount, RevokedInvitesCount = p.RevokedInvitesCount })],
+                Users = [.. users]
             };
         }
 

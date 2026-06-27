@@ -13,12 +13,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SaveDefaultSendAsHandler(ICommandBus commandBus, IAccessHashHelper accessHashHelper, IPeerHelper peerHelper, IMessageAppService messageAppService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSaveDefaultSendAs, IBool>
+internal sealed class SaveDefaultSendAsHandler(ICommandBus commandBus, IPeerHelper peerHelper, IMessageAppService messageAppService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestSaveDefaultSendAs, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestSaveDefaultSendAs obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.SendAs);
         var peer = peerHelper.GetPeer(obj.Peer);
         var sendAsPeer = peerHelper.GetPeer(obj.SendAs, input.UserId);
         await messageAppService.CheckSendAsAsync(input.UserId, peer, sendAsPeer);

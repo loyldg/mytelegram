@@ -15,13 +15,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class DeleteHistoryHandler(IQueryProcessor queryProcessor, ICommandBus commandBus, IAccessHashHelper accessHashHelper, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestDeleteHistory, IUpdates> //, IShouldCacheRequest
+internal sealed class DeleteHistoryHandler(IQueryProcessor queryProcessor, ICommandBus commandBus,  IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestDeleteHistory, IUpdates> //, IShouldCacheRequest
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestDeleteHistory obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             if (obj.ForEveryone)
             {
                 await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, adminRights => adminRights.DeleteMessages, RpcErrors.RpcErrors403.ChatAdminRequired);

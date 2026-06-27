@@ -13,11 +13,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetRepliesHandler(IPeerHelper peerHelper, IMessageAppService messageAppService, IAccessHashHelper accessHashHelper, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetReplies, MyTelegram.Schema.Messages.IMessages>
+internal sealed class GetRepliesHandler(IPeerHelper peerHelper, IMessageAppService messageAppService, IGetHistoryConverterService getHistoryConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetReplies, MyTelegram.Schema.Messages.IMessages>
 {
     protected override async Task<IMessages> HandleCoreAsync(IRequestInput input, RequestGetReplies obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
         var peer = peerHelper.GetPeer(obj.Peer);
         var getMessageOutput = await messageAppService.GetRepliesAsync(new GetRepliesInput { ReplyToMsgId = obj.MsgId, OwnerPeerId = peer.PeerId, AddOffset = obj.AddOffset, Limit = obj.Limit, OffsetId = obj.OffsetId, MinDate = obj.OffsetDate, SelfUserId = input.UserId });
         return getHistoryConverterService.ToMessages(input, getMessageOutput, input.Layer);

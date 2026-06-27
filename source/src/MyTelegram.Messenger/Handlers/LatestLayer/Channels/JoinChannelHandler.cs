@@ -23,13 +23,12 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class JoinChannelHandler(ICommandBus commandBus, IChannelAppService channelAppService, IQueryProcessor queryProcessor, IAccessHashHelper accessHashHelper) : RpcResultObjectHandler<RequestJoinChannel, IUpdates>
+internal sealed class JoinChannelHandler(ICommandBus commandBus, IChannelAppService channelAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<RequestJoinChannel, IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestJoinChannel obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await accessHashHelper.CheckAccessHashAsync(input, inputChannel.ChannelId, inputChannel.AccessHash, AccessHashType.Channel);
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
             var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel.ChannelId, input.UserId));
@@ -65,7 +64,7 @@ internal sealed class JoinChannelHandler(ICommandBus commandBus, IChannelAppServ
                 await commandBus.PublishAsync(command);
             }
 
-            return null !;
+            return null!;
         }
 
         throw new NotImplementedException();

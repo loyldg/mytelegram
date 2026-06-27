@@ -81,12 +81,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class SendMessageHandler(IMessageAppService messageAppService, IPeerHelper peerHelper, IAccessHashHelper accessHashHelper, IChannelAppService channelAppService, IOptions<MyTelegramMessengerServerOptions> options, IQueryProcessor queryProcessor) : RpcResultObjectHandler<RequestSendMessage, IUpdates>
+internal sealed class SendMessageHandler(IMessageAppService messageAppService, IPeerHelper peerHelper, IChannelAppService channelAppService, IOptions<MyTelegramMessengerServerOptions> options, IQueryProcessor queryProcessor) : RpcResultObjectHandler<RequestSendMessage, IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestSendMessage obj)
     {
-        await accessHashHelper.CheckAccessHashAsync(input, obj.Peer);
-        await accessHashHelper.CheckAccessHashAsync(input, obj.SendAs);
         var media = await ProcessUrlsInMessageAsync(obj);
         if (obj.Message.StartsWith("/"))
         {
@@ -98,7 +96,7 @@ internal sealed class SendMessageHandler(IMessageAppService messageAppService, I
         var sendAs = peerHelper.GetPeer(obj.SendAs, input.UserId);
         var sendMessageInput = new SendMessageInput(input.ToRequestInfo(), input.UserId, peerHelper.GetPeer(obj.Peer, input.UserId), obj.Message, obj.RandomId, obj.Entities, obj.ReplyTo, obj.ClearDraft, media: media, replyMarkup: obj.ReplyMarkup, topMsgId: topMsgId, sendAs: sendAs, effect: obj.Effect, inputQuickReplyShortcut: obj.QuickReplyShortcut, silent: obj.Silent, scheduleDate: obj.ScheduleDate, invertMedia: obj.InvertMedia);
         await messageAppService.SendMessageAsync([sendMessageInput]);
-        return null !;
+        return null!;
     }
 
     private async Task<TMessageMediaWebPage?> ProcessUrlsInMessageAsync(RequestSendMessage obj)
