@@ -175,7 +175,7 @@ public class MyEventStoreBase(
 
     private IEventPersistence GetEventPersistence<TAggregate>()
     {
-        if (typeof(INotSaveAggregateEvents).IsAssignableFrom(typeof(TAggregate)))
+        if (typeof(ISkipAggregateEvents).IsAssignableFrom(typeof(TAggregate)))
         {
             return nullEventPersistence;
         }

@@ -97,7 +97,7 @@ public class TempState : AggregateState<TempAggregate, TempId, TempState>,
 /// All domain events will not be saved
 /// </summary>
 [EnableAutoGeneration]
-public class TempAggregate : AggregateRoot<TempAggregate, TempId>, INotSaveAggregateEvents
+public class TempAggregate : AggregateRoot<TempAggregate, TempId>, ISkipAggregateEvents
 {
     private readonly TempState _state = new();
     /// <summary>

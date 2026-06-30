@@ -1,7 +1,7 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Pts;
 
 [EnableAutoGeneration]
-public class PtsAggregate : MyInMemorySnapshotAggregateRoot<PtsAggregate, PtsId, PtsSnapshot>, INotSaveAggregateEvents
+public class PtsAggregate : MyInMemorySnapshotAggregateRoot<PtsAggregate, PtsId, PtsSnapshot>, ISkipAggregateEvents
 {
     private readonly PtsState _state = new();
 

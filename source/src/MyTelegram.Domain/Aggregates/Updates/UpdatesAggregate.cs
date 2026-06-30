@@ -1,7 +1,7 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Updates;
 
 [EnableAutoGeneration]
-public class UpdatesAggregate : MyInMemorySnapshotAggregateRoot<UpdatesAggregate, UpdatesId, UpdatesSnapshot>, INotSaveAggregateEvents
+public class UpdatesAggregate : MyInMemorySnapshotAggregateRoot<UpdatesAggregate, UpdatesId, UpdatesSnapshot>, ISkipAggregateEvents
 {
     private readonly UpdatesState _state = new();
     public UpdatesAggregate(UpdatesId id) : base(id,SnapshotEveryFewVersionsStrategy.Default)
