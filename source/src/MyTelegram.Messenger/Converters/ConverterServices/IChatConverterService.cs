@@ -8,7 +8,8 @@ public interface IChatConverterService
         long channelId,
         bool checkChannelMember,
         bool? channelMemberIsLeft,
-        int layer = 0
+        int layer = 0,
+        bool throwIfNotFound = true
     );
 
     Task<List<IChat>> GetChannelListAsync(IRequestWithAccessHashKeyId request,

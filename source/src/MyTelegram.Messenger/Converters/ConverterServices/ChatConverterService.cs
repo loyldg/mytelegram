@@ -23,12 +23,17 @@ public class ChatConverterService(
     : IChatConverterService, ITransientDependency
 {
     public async Task<IChat> GetChannelAsync(IRequestWithAccessHashKeyId request, long channelId,
-        bool checkChannelMember, bool? channelMemberIsLeft, int layer = 0)
+        bool checkChannelMember, bool? channelMemberIsLeft, int layer = 0, bool throwIfNotFound = true)
     {
-        var channelReadModel = await channelAppService.GetAsync(channelId);
-        if (channelReadModel == null)
+        var channelReadModel = await channelAppService.GetAsync(channelId, throwIfNotFound);
+        if (channelReadModel == null!)
         {
-            throw new RpcException(RpcErrors.RpcErrors400.ChannelInvalid);
+            if (throwIfNotFound)
+            {
+                throw new RpcException(RpcErrors.RpcErrors400.ChannelInvalid);
+            }
+
+            return null!;
         }
 
         IChannelMemberReadModel? channelMemberReadModel = null;

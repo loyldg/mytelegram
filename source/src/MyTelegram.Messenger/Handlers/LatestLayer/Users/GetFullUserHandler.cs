@@ -58,8 +58,17 @@ internal sealed class GetFullUserHandler(IPeerHelper peerHelper, IQueryProcessor
         if (userReadModel.PersonalChannelId != null)
         {
             var channel = await chatConverterService.GetChannelAsync(input, userReadModel.PersonalChannelId.Value,
-                false, null, input.Layer);
-            result.Chats.Add(channel);
+                false, null, input.Layer, false);
+            if (channel != null!)
+            {
+                result.Chats.Add(channel);
+            }
+            else
+            {
+                userFull.PersonalChannelId = null;
+                userFull.PersonalChannelMessage = null;
+            }
+
         }
 
         return result;
