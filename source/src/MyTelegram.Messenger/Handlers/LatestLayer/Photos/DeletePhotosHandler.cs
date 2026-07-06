@@ -12,36 +12,27 @@ internal sealed class DeletePhotosHandler(IQueryProcessor queryProcessor, IComma
 {
     protected override async Task<TVector<long>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Photos.RequestDeletePhotos obj)
     {
-        var photoIds = new Dictionary<long, long>();
+        var photoIds = new List<long>();
         foreach (var inputPhoto in obj.Id)
         {
             switch (inputPhoto)
             {
                 case TInputPhoto inputPhoto1:
-                    photoIds.TryAdd(inputPhoto1.Id, inputPhoto1.AccessHash);
+                    photoIds.Add(inputPhoto1.Id);
                     break;
             }
         }
 
         var deletedIds = new List<long>();
-        var photoReadModels = await queryProcessor.ProcessAsync(new GetPhotoListQuery(input.UserId, photoIds.Keys.ToList()));
+        var photoReadModels = await queryProcessor.ProcessAsync(new GetPhotoListQuery(input.UserId, photoIds));
+
         foreach (var photoReadModel in photoReadModels)
         {
-            if (photoIds.TryGetValue(photoReadModel.PhotoId, out var accessHash))
-            {
-                if (accessHash == photoReadModel.AccessHash)
-                {
-                    deletedIds.Add(photoReadModel.PhotoId);
-                }
-            }
-        }
-
-        foreach (var deletedId in deletedIds)
-        {
-            var command = new DeletePhotoCommand(PhotoId.Create(deletedId), input.UserId);
+            var command = new DeletePhotoCommand(PhotoId.Create(photoReadModel.PhotoId), input.UserId);
             await commandBus.PublishAsync(command);
+            deletedIds.Add(photoReadModel.PhotoId);
         }
 
-        return[..deletedIds];
+        return [.. deletedIds];
     }
 }
