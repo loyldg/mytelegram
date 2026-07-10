@@ -18,6 +18,7 @@ MyTelegram is a self-hosted C# implementation of the Telegram server-side API, d
 
 ### Pro Version Features
 - [![API Layer](https://img.shields.io/badge/API_Layer-227-blueviolet)](https://corefork.telegram.org/methods)
+- Multi-Layer Support (Layers 223–227)
 - End-to-End Encrypted Chat
 - Voice & Video Calls
 - Bot Support
