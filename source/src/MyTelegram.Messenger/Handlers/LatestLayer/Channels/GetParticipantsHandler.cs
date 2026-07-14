@@ -47,9 +47,12 @@ internal sealed class GetParticipantsHandler(IQueryProcessor queryProcessor, ICh
 
                 var joinedChannelIdList = await queryProcessor.ProcessAsync(new GetJoinedChannelIdListQuery(input.UserId, [inputChannel.ChannelId]));
                 // Private group
-                if (string.IsNullOrEmpty(channelReadModel.UserName) && joinedChannelIdList.Count == 0)
+                if (channelReadModel.LinkedChatId == null && string.IsNullOrEmpty(channelReadModel.UserName) && joinedChannelIdList.Count == 0)
                 {
-                    RpcErrors.RpcErrors400.ChannelPrivate.ThrowRpcError();
+                    if (channelReadModel.LinkedChatId == null)
+                    {
+                        RpcErrors.RpcErrors400.ChannelPrivate.ThrowRpcError();
+                    }
                 }
             }
 
