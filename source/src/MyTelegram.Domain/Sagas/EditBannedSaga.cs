@@ -25,6 +25,6 @@ public class EditBannedSaga(
             Publish(command);
         }
 
-        return Task.CompletedTask;
+        return CompleteAsync(cancellationToken);
     }
 }
