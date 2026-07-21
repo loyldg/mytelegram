@@ -3,7 +3,7 @@
 [![API Layer](https://img.shields.io/badge/API_Layer-228-blueviolet)](https://corefork.telegram.org/methods)
 [![MTProto](https://img.shields.io/badge/MTProto_Protocol-2.0-green)](https://corefork.telegram.org/mtproto/)
 [![MyTelegram Channel](https://img.shields.io/badge/Subscribe-_MyTelegram_Channel-0088cc)](https://t.me/+9wMJrMqLTIoyYzM8)
-[![MyTelegram Discussion Group](https://img.shields.io/badge/Join_-MyTelegram_Discussion_Group-0088cc)](https://t.me/+S-aNBoRvCRpPyXrR)
+[![MyTelegram Discussion Group](https://img.shields.io/badge/Join_-MyTelegram_Discussion_Group-0088cc)](https://t.me/+1MGvOgv34cUxYzhl)
 
 MyTelegram is a self-hosted C# implementation of the Telegram server-side API, designed for private deployments and extensibility.
 
@@ -95,4 +95,4 @@ If you find MyTelegram helpful, please consider giving the project a ⭐.
 
 - Contact author: https://t.me/mytelegram666  
 - MyTelegram Channel: https://t.me/+9wMJrMqLTIoyYzM8  
-- Discussion Group: https://t.me/+S-aNBoRvCRpPyXrR
+- Discussion Group: https://t.me/+1MGvOgv34cUxYzhl
