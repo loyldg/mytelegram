@@ -35,10 +35,17 @@ internal sealed class EditBannedHandler(IPeerHelper peerHelper, ICommandBus comm
                 obj.BannedRights.Flags.SetBit(1);
             }
 
+            var memberUserId = peer.PeerId;
+            if (peer.PeerType == PeerType.Channel)
+            {
+                var sendAsChannelReadModel = await channelAppService.GetAsync(peer.PeerId);
+                memberUserId = sendAsChannelReadModel.CreatorId;
+            }
+
             var bannedRights = ChatBannedRights.FromValue(obj.BannedRights.Flags, obj.BannedRights.UntilDate);
-            var command = new EditBannedCommand(ChannelMemberId.Create(channel.PeerId, peer.PeerId), input.ToRequestInfo(), input.UserId, channel.PeerId, peer.PeerId, bannedRights);
+            var command = new EditBannedCommand(ChannelMemberId.Create(channel.PeerId, memberUserId), input.ToRequestInfo(), input.UserId, channel.PeerId, memberUserId, bannedRights);
             await commandBus.PublishAsync(command);
-            return null !;
+            return null!;
         }
 
         throw new NotImplementedException();
