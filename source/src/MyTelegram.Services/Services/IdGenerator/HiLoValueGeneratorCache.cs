@@ -7,6 +7,16 @@ public class HiLoValueGeneratorCache(IHiLoStateBlockSizeHelper stateBlockSizeHel
     private readonly ConcurrentDictionary<IdType, ConcurrentDictionary<long, HiLoValueGeneratorState>> _states = new();
     //private readonly int DefaultBlockSize = 10000;
 
+    public bool Exists(IdType idType, long key)
+    {
+        if (!_states.TryGetValue(idType, out var stateList))
+        {
+            return false;
+        }
+
+        return stateList.ContainsKey(key);
+    }
+
     public HiLoValueGeneratorState GetOrAdd(IdType idType,
         long key)
     {
