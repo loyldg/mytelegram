@@ -41,6 +41,11 @@ public class IdGenerator(
                 if (!cache.Exists(idType, id))
                 {
                     var maxUserId = await GetMaxUserIdAsync();
+                    if (maxUserId > 0)
+                    {
+                        maxUserId = maxUserId - MyTelegramConsts.UserIdInitId;
+                        maxUserId = Math.Max(maxUserId, 0);
+                    }
                     state = await GetStateAsync(idType, id, maxUserId);
                 }
                 break;
@@ -49,6 +54,11 @@ public class IdGenerator(
                     if (!cache.Exists(idType, id))
                     {
                         var maxChannelId = await GetMaxChannelIdAsync();
+                        if (maxChannelId > 0)
+                        {
+                            maxChannelId = maxChannelId - MyTelegramConsts.ChannelInitId;
+                            maxChannelId = Math.Max(maxChannelId, 0);
+                        }
                         state = await GetStateAsync(idType, id, maxChannelId);
                     }
                 }
