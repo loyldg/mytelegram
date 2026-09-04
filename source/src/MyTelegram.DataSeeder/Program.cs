@@ -12,6 +12,19 @@ Log.Information("MyTelegram data seeder starting...");
 var builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureAppConfiguration(options =>
 {
+    var configFile =
+        Environment.GetEnvironmentVariable("MYTELEGRAM_CONFIG");
+    if (!string.IsNullOrEmpty(configFile))
+    {
+        if (File.Exists(configFile))
+        {
+            options.AddJsonFile(configFile,
+                false,
+                true
+            );
+        }
+    }
+
     options.AddEnvironmentVariables();
     options.AddCommandLine(args);
 });

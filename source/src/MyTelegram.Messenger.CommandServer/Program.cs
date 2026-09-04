@@ -53,6 +53,19 @@ builder.ConfigureHostOptions(options =>
 
 builder.ConfigureAppConfiguration(options =>
 {
+    var configFile =
+        Environment.GetEnvironmentVariable("MYTELEGRAM_CONFIG");
+    if (!string.IsNullOrEmpty(configFile))
+    {
+        if (File.Exists(configFile))
+        {
+            options.AddJsonFile(configFile,
+                false,
+                true
+            );
+        }
+    }
+
     options.AddEnvironmentVariables();
     options.AddCommandLine(args);
 });
