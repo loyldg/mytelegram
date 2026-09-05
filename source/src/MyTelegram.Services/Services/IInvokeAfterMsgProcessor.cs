@@ -17,5 +17,5 @@ public interface IInvokeAfterMsgProcessor
         IObject query);
 
     ValueTask AddCompletedReqMsgIdAsync(long reqMsgId);
-    Task ProcessAsync();
+    Task ProcessAsync(CancellationToken cancellationToken = default);
 }

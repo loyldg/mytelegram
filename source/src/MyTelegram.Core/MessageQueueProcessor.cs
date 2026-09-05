@@ -12,6 +12,8 @@ public class MessageQueueProcessor<TData>(
     private readonly ConcurrentDictionary<long, QueueItem> _queues = [];
     private readonly ConcurrentDictionary<long, CancellationTokenSource> _timeoutTokens = [];
 
+    private CancellationToken _cancellationToken = CancellationToken.None;
+
     public void Enqueue(TData data, long key)
     {
         var cts = _timeoutTokens.AddOrUpdate(
@@ -36,6 +38,7 @@ public class MessageQueueProcessor<TData>(
 
     public Task ProcessAsync(CancellationToken cancellationToken = default)
     {
+        _cancellationToken = cancellationToken;
         return Task.CompletedTask;
     }
 
@@ -69,19 +72,33 @@ public class MessageQueueProcessor<TData>(
 
     private async Task ProcessAsync(Channel<TData> channel)
     {
-        while (await channel.Reader.WaitToReadAsync())
+        try
         {
-            await foreach (var data in channel.Reader.ReadAllAsync())
+            await foreach (var item in channel.Reader.ReadAllAsync(_cancellationToken))
             {
                 try
                 {
-                    await dataProcessor.ProcessAsync(data);
+                    await dataProcessor.ProcessAsync(
+                        item,
+                        _cancellationToken);
+                }
+                catch (OperationCanceledException)
+                    when (_cancellationToken.IsCancellationRequested)
+                {
+                    break;
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "Process {MessageType} queue failed", typeof(TData));
+                    logger.LogError(
+                        ex,
+                        "Process sharded queue failed.");
                 }
             }
+        }
+        catch (OperationCanceledException)
+            when (_cancellationToken.IsCancellationRequested)
+        {
+            // Normal shutdown.
         }
     }
 

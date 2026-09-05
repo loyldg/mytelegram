@@ -1,24 +1,43 @@
 ﻿namespace MyTelegram.GatewayServer.Services;
 
-public class MtpConnectionHandler(
+public sealed class MtpConnectionHandler(
     IClientManager clientManager,
     IMtpMessageParser messageParser,
     IMtpMessageDispatcher messageDispatcher,
     ILogger<MtpConnectionHandler> logger,
     IClientDataSender clientDataSender,
+    IHostApplicationLifetime applicationLifetime,
     IMessageQueueProcessor<ClientDisconnectedEvent> messageQueueProcessor)
     : ConnectionHandler
 {
-    public override async Task OnConnectedAsync(ConnectionContext connection)
+    public override async Task OnConnectedAsync(
+        ConnectionContext connection)
     {
         var remoteEndPoint = connection.RemoteEndPoint;
-        var proxyProtocolFeature = connection.Features.Get<ProxyProtocolFeature>();
-        var connectionTypeFeature = connection.Features.Get<ConnectionTypeFeature>();
 
-        var clientIp = (connection.RemoteEndPoint as IPEndPoint)?.Address.ToString() ?? string.Empty;
+        logger.LogInformation(
+            "{ConnectionId}:{RemoteEndpoint}",
+            connection.ConnectionId,
+            remoteEndPoint);
+
+        var proxyProtocolFeature =
+            connection.Features.Get<ProxyProtocolFeature>();
+
+        var connectionTypeFeature =
+            connection.Features.Get<ConnectionTypeFeature>();
+
+        var clientIp =
+            (connection.RemoteEndPoint as IPEndPoint)
+            ?.Address
+            .ToString()
+            ?? string.Empty;
+
         if (proxyProtocolFeature != null)
         {
-            remoteEndPoint = new IPEndPoint(proxyProtocolFeature.SourceIp, proxyProtocolFeature.SourcePort);
+            remoteEndPoint = new IPEndPoint(
+                proxyProtocolFeature.SourceIp,
+                proxyProtocolFeature.SourcePort);
+
             clientIp = proxyProtocolFeature.SourceIp.ToString();
 
             logger.NewClientConnectedWUsingProxyProtocolV2(
@@ -47,160 +66,453 @@ public class MtpConnectionHandler(
             ConnectionId = connection.ConnectionId,
             ClientType = ClientType.Tcp,
             ClientIp = clientIp,
-            ConnectionType = connectionTypeFeature?.ConnectionType ?? ConnectionType.Generic,
-            DcId = connectionTypeFeature?.DcId ?? 0,
+            ConnectionType =
+                connectionTypeFeature?.ConnectionType
+                ?? ConnectionType.Generic,
+            DcId = connectionTypeFeature?.DcId ?? 0
         };
-        clientManager.AddClient(connection.ConnectionId, clientData);
 
-        connection.ConnectionClosed.Register(() =>
-        {
-            if (clientManager.TryRemoveClient(connection.ConnectionId, out _))
+        clientManager.AddClient(
+            connection.ConnectionId,
+            clientData);
+
+        var connectionClosedRegistration =
+            connection.ConnectionClosed.Register(() =>
             {
-                messageQueueProcessor.Enqueue(
-                    new ClientDisconnectedEvent(clientData.ConnectionId, clientData.AuthKeyId, 0),
-                    clientData.AuthKeyId);
-            }
+                OnConnectionClosed(
+                    connection,
+                    clientData,
+                    connectionTypeFeature,
+                    remoteEndPoint);
+            });
 
-            logger.ClientDisconnected(
-                connection.ConnectionId,
-                connectionTypeFeature?.DcId,
-                remoteEndPoint,
-                clientData.AuthKeyId);
-        });
+        try
+        {
+            using var cts = CancellationTokenSource.CreateLinkedTokenSource(
+                connection.ConnectionClosed,
+                applicationLifetime.ApplicationStopping);
 
-        var processSendUnencryptedDataTask = ProcessSendUnencryptedDataAsync(clientData, connection);
-        var processSendDataTask = ProcessSendDataAsync(clientData, connection);
-        var processReceiveDataTask = ProcessReceiveDataAsync(clientData, connection);
+            var cancellationToken = cts.Token;
 
-        await Task.WhenAny(processSendUnencryptedDataTask, processSendDataTask, processReceiveDataTask);
+            var processSendUnencryptedDataTask =
+                ProcessSendUnencryptedDataAsync(
+                    clientData,
+                    connection,
+                    cancellationToken);
+
+            var processSendDataTask =
+                ProcessSendDataAsync(
+                    clientData,
+                    connection,
+                    cancellationToken);
+
+            var processReceiveDataTask =
+                ProcessReceiveDataAsync(
+                    clientData,
+                    connection,
+                    cancellationToken);
+
+            var tasks = new[]
+            {
+                processSendUnencryptedDataTask,
+                processSendDataTask,
+                processReceiveDataTask
+            };
+
+            // If any worker exits, stop the other workers.
+            await Task.WhenAny(tasks)
+                .ConfigureAwait(false);
+
+            await StopConnectionAsync(
+                    connection,
+                    tasks)
+                .ConfigureAwait(false);
+        }
+        finally
+        {
+            await connectionClosedRegistration.DisposeAsync();
+        }
     }
 
-    private async Task ProcessReceiveDataAsync(ClientData clientData, ConnectionContext connection)
+    private void OnConnectionClosed(
+        ConnectionContext connection,
+        ClientData clientData,
+        ConnectionTypeFeature? connectionTypeFeature,
+        EndPoint? remoteEndPoint)
     {
-        var input = connection.Transport.Input;
-        while (!connection.ConnectionClosed.IsCancellationRequested)
+        if (clientManager.TryRemoveClient(
+                connection.ConnectionId,
+                out _))
         {
-            var result = await input.ReadAsync();
-            if (result.IsCanceled)
-            {
-                break;
-            }
-
-            var buffer = result.Buffer;
-            if (buffer.Length == 0)
-            {
-                continue;
-            }
-
-            if (!clientManager.TryGetClientData(connection.ConnectionId, out _))
-            {
-                //logger.LogWarning("Cannot find client data, connectionId: {ConnectionId}", connection.ConnectionId);
-                break;
-            }
-
-            if (!clientData.IsFirstPacketParsed)
-            {
-                messageParser.ProcessFirstUnencryptedPacket(ref buffer, clientData);
-            }
-
-            while (TryParseMessage(ref buffer, clientData, out var mtpMessage))
-            {
-                await ProcessDataAsync(mtpMessage, clientData);
-            }
-
-            input.AdvanceTo(buffer.Start, buffer.End);
-            if (result.IsCompleted || result.IsCanceled)
-            {
-                break;
-            }
+            messageQueueProcessor.Enqueue(
+                new ClientDisconnectedEvent(
+                    clientData.ConnectionId,
+                    clientData.AuthKeyId,
+                    0),
+                clientData.AuthKeyId);
         }
 
-        await input.CompleteAsync();
+        logger.ClientDisconnected(
+            connection.ConnectionId,
+            connectionTypeFeature?.DcId,
+            remoteEndPoint,
+            clientData.AuthKeyId);
     }
 
-    private async Task ProcessSendUnencryptedDataAsync(ClientData clientData,
-        ConnectionContext connectionContext)
+    private static async Task StopConnectionAsync(
+        ConnectionContext connection,
+        Task[] tasks)
     {
-        var queue = clientData.UnencryptedMessageResponseQueue;
-        while (await queue.Reader.WaitToReadAsync() && !connectionContext.ConnectionClosed.IsCancellationRequested)
+        // Closing the transport causes:
+        //
+        // PipeReader.ReadAsync()
+        // ChannelReader.WaitToReadAsync()
+        // Output.WriteAsync()
+        // Output.FlushAsync()
+        //
+        // to finish/cancel.
+        //
+        // ConnectionClosed is also triggered as part of connection shutdown.
+
+        try
         {
-            while (queue.Reader.TryRead(out var response))
+            await connection.Transport.Input
+                .CompleteAsync()
+                .ConfigureAwait(false);
+        }
+        catch
+        {
+            // The transport may already be completed.
+        }
+
+        try
+        {
+            await connection.Transport.Output
+                .CompleteAsync()
+                .ConfigureAwait(false);
+        }
+        catch
+        {
+            // The transport may already be completed.
+        }
+
+        try
+        {
+            await Task.WhenAll(tasks)
+                .ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when the connection is closed.
+        }
+        catch (IOException)
+        {
+            // Expected when the TCP connection is closed.
+        }
+        catch (ObjectDisposedException)
+        {
+            // Expected when the transport is already disposed.
+        }
+    }
+
+    private async Task ProcessReceiveDataAsync(
+        ClientData clientData,
+        ConnectionContext connection,
+        CancellationToken cancellationToken)
+    {
+        var input = connection.Transport.Input;
+
+        try
+        {
+            while (!cancellationToken.IsCancellationRequested)
             {
+                ReadResult result;
+
                 try
                 {
-                    if (!clientManager.TryGetClientData(clientData.ConnectionId, out var d))
+                    result = await input.ReadAsync(
+                            cancellationToken)
+                        .ConfigureAwait(false);
+                }
+                catch (OperationCanceledException)
+                    when (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                var buffer = result.Buffer;
+
+                try
+                {
+                    if (result.IsCanceled)
                     {
-                        logger.CachedClientInfoNotFound(clientData.ConnectionId);
+                        break;
+                    }
+
+                    if (buffer.Length == 0)
+                    {
+                        if (result.IsCompleted)
+                        {
+                            break;
+                        }
+
                         continue;
                     }
 
-                    var encodedBytes = ArrayPool<byte>.Shared.Rent(clientDataSender.GetEncodedDataMaxLength(response.Data.Length));
+                    if (!clientManager.TryGetClientData(
+                            connection.ConnectionId,
+                            out _))
+                    {
+                        break;
+                    }
+
+                    if (!clientData.IsFirstPacketParsed)
+                    {
+                        messageParser.ProcessFirstUnencryptedPacket(
+                            ref buffer,
+                            clientData);
+                    }
+
+                    while (TryParseMessage(
+                               ref buffer,
+                               clientData,
+                               out var mtpMessage))
+                    {
+                        await ProcessDataAsync(
+                                mtpMessage,
+                                clientData)
+                            .ConfigureAwait(false);
+                    }
+
+                    if (result.IsCompleted)
+                    {
+                        break;
+                    }
+                }
+                finally
+                {
+                    input.AdvanceTo(
+                        buffer.Start,
+                        buffer.End);
+                }
+            }
+        }
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (IOException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (ObjectDisposedException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            try
+            {
+                await input.CompleteAsync()
+                    .ConfigureAwait(false);
+            }
+            catch
+            {
+                // The transport may already be completed.
+            }
+        }
+    }
+
+    private async Task ProcessSendUnencryptedDataAsync(
+        ClientData clientData,
+        ConnectionContext connection,
+        CancellationToken cancellationToken)
+    {
+        var queue =
+            clientData.UnencryptedMessageResponseQueue;
+
+        try
+        {
+            while (await queue.Reader.WaitToReadAsync(
+                       cancellationToken)
+                   .ConfigureAwait(false))
+            {
+                while (queue.Reader.TryRead(
+                           out var response))
+                {
                     try
                     {
-                        var totalCount = clientDataSender.EncodeData(response, d, encodedBytes);
-                        await SendAsync(encodedBytes.AsMemory()[..totalCount], connectionContext);
+                        if (!clientManager.TryGetClientData(
+                                clientData.ConnectionId,
+                                out var currentClientData))
+                        {
+                            logger.CachedClientInfoNotFound(
+                                clientData.ConnectionId);
+
+                            continue;
+                        }
+
+                        var maxLength =
+                            clientDataSender
+                                .GetEncodedDataMaxLength(
+                                    response.Data.Length);
+
+                        var encodedBytes =
+                            ArrayPool<byte>.Shared.Rent(
+                                maxLength);
+
+                        try
+                        {
+                            var totalCount =
+                                clientDataSender.EncodeData(
+                                    response,
+                                    currentClientData,
+                                    encodedBytes);
+
+                            await SendAsync(
+                                    encodedBytes.AsMemory(
+                                        0,
+                                        totalCount),
+                                    connection,
+                                    cancellationToken)
+                                .ConfigureAwait(false);
+                        }
+                        finally
+                        {
+                            ArrayPool<byte>.Shared.Return(
+                                encodedBytes);
+                        }
                     }
                     finally
                     {
-                        ArrayPool<byte>.Shared.Return(encodedBytes);
+                        response.MemoryOwner?.Dispose();
                     }
                 }
-                finally
-                {
-                    response.MemoryOwner?.Dispose();
-                }
             }
         }
-    }
-
-    private async Task ProcessSendDataAsync(ClientData clientData, ConnectionContext connectionContext)
-    {
-        var queue = clientData.EncryptedMessageResponseQueue;
-        while (await queue.Reader.WaitToReadAsync() && !connectionContext.ConnectionClosed.IsCancellationRequested)
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
         {
-            while (queue.Reader.TryRead(out var response))
-            {
-                try
-                {
-                    using var memoryOwner =
-                        MemoryPool<byte>.Shared.Rent(clientDataSender.GetEncodedDataMaxLength(response.Data.Length));
-                    var encodedBytes = memoryOwner.Memory;
-                    clientManager.UpdateAuthKeyId(clientData, response.AuthKeyId, clientData.ConnectionId);
-                    var totalCount = clientDataSender.EncodeData(response, clientData, encodedBytes);
-
-                    await SendAsync(encodedBytes[..totalCount], connectionContext);
-                }
-                finally
-                {
-                    response.MemoryOwner?.Dispose();
-                }
-            }
+        }
+        catch (IOException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (ObjectDisposedException)
+            when (cancellationToken.IsCancellationRequested)
+        {
         }
     }
 
-    private async Task SendAsync(ReadOnlyMemory<byte> data, ConnectionContext connectionContext)
+    private async Task ProcessSendDataAsync(
+        ClientData clientData,
+        ConnectionContext connection,
+        CancellationToken cancellationToken)
     {
-        await connectionContext.Transport.Output.WriteAsync(data);
-        await connectionContext.Transport.Output.FlushAsync();
+        var queue =
+            clientData.EncryptedMessageResponseQueue;
+
+        try
+        {
+            while (await queue.Reader.WaitToReadAsync(
+                       cancellationToken)
+                   .ConfigureAwait(false))
+            {
+                while (queue.Reader.TryRead(
+                           out var response))
+                {
+                    try
+                    {
+                        using var memoryOwner =
+                            MemoryPool<byte>.Shared.Rent(
+                                clientDataSender
+                                    .GetEncodedDataMaxLength(
+                                        response.Data.Length));
+
+                        var encodedBytes =
+                            memoryOwner.Memory;
+
+                        clientManager.UpdateAuthKeyId(
+                            clientData,
+                            response.AuthKeyId,
+                            clientData.ConnectionId);
+
+                        var totalCount =
+                            clientDataSender.EncodeData(
+                                response,
+                                clientData,
+                                encodedBytes);
+
+                        await SendAsync(
+                                encodedBytes[..totalCount],
+                                connection,
+                                cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+                    finally
+                    {
+                        response.MemoryOwner?.Dispose();
+                    }
+                }
+            }
+        }
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (IOException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (ObjectDisposedException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
     }
 
-    private Task ProcessDataAsync(IMtpMessage mtpMessage,
+    private static async Task SendAsync(
+        ReadOnlyMemory<byte> data,
+        ConnectionContext connection,
+        CancellationToken cancellationToken)
+    {
+        await connection.Transport.Output
+            .WriteAsync(
+                data,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        await connection.Transport.Output
+            .FlushAsync(cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    private Task ProcessDataAsync(
+        IMtpMessage mtpMessage,
         ClientData clientData)
     {
-        mtpMessage.ConnectionType = clientData.ConnectionType;
-        mtpMessage.DcId = clientData.DcId;
+        mtpMessage.ConnectionType =
+            clientData.ConnectionType;
+
+        mtpMessage.DcId =
+            clientData.DcId;
 
         if (clientData.IsFirstPacketParsed)
         {
-            mtpMessage.ConnectionId = clientData.ConnectionId;
-            mtpMessage.ClientIp = clientData.ClientIp;
-            return messageDispatcher.DispatchAsync(mtpMessage);
+            mtpMessage.ConnectionId =
+                clientData.ConnectionId;
+
+            mtpMessage.ClientIp =
+                clientData.ClientIp;
+
+            return messageDispatcher.DispatchAsync(
+                mtpMessage);
         }
 
         return Task.CompletedTask;
     }
 
-    private bool TryParseMessage(ref ReadOnlySequence<byte> buffer,
+    private bool TryParseMessage(
+        ref ReadOnlySequence<byte> buffer,
         ClientData clientData,
         [NotNullWhen(true)] out IMtpMessage? mtpMessage)
     {
@@ -210,15 +522,18 @@ public class MtpConnectionHandler(
             return false;
         }
 
-        var reader = new SequenceReader<byte>(buffer);
+        var reader = new SequenceReader<byte>(
+            buffer);
 
         if (reader.Remaining < 4)
         {
             mtpMessage = null;
-
             return false;
         }
 
-        return messageParser.TryParse(ref buffer, clientData, out mtpMessage);
+        return messageParser.TryParse(
+            ref buffer,
+            clientData,
+            out mtpMessage);
     }
 }

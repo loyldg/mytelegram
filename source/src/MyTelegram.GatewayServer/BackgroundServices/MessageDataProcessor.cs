@@ -4,7 +4,7 @@ public class MessageDataProcessor(IEventBus eventBus)
     : IDataProcessor<UnencryptedMessage>,
         IDataProcessor<EncryptedMessage>, ITransientDependency
 {
-    public async Task ProcessAsync(EncryptedMessage data)
+    public async Task ProcessAsync(EncryptedMessage data, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -16,7 +16,7 @@ public class MessageDataProcessor(IEventBus eventBus)
         }
     }
 
-    public async Task ProcessAsync(UnencryptedMessage data)
+    public async Task ProcessAsync(UnencryptedMessage data, CancellationToken cancellationToken = default)
     {
         try
         {

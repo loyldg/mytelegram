@@ -12,7 +12,7 @@ public class DefaultDataProcessor<TData>(
     : IDataProcessor<TData>
     where TData : DataReceivedEvent
 {
-    public virtual async Task ProcessAsync(TData obj)
+    public virtual async Task ProcessAsync(TData obj, CancellationToken cancellationToken = default)
     {
         var sw = Stopwatch.StartNew();
         if (handlerHelper.TryGetHandler(obj.ObjectId, out var handler))

@@ -7,7 +7,7 @@ public class NewDeviceCreatedEventDataProcessor(
     IQueuedCommandExecutor<DeviceAggregate, DeviceId, IExecutionResult> queuedCommandExecutor)
     : IDataProcessor<NewDeviceCreatedEvent>, ITransientDependency
 {
-    public Task ProcessAsync(NewDeviceCreatedEvent eventData)
+    public Task ProcessAsync(NewDeviceCreatedEvent eventData, CancellationToken cancellationToken = default)
     {
         var createDeviceCommand = new CreateDeviceCommand(DeviceId.Create(eventData.PermAuthKeyId),
             //eventData.RequestInfo,

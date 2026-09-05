@@ -7,7 +7,7 @@ public class DomainEventDataProcessor(IDispatchToEventSubscribers dispatchToEven
     IChatEventCacheHelper chatEventCacheHelper,
     ILogger<DomainEventDataProcessor> logger) : IDataProcessor<IDomainEvent>, ITransientDependency
 {
-    public async Task ProcessAsync(IDomainEvent domainEvent)
+    public async Task ProcessAsync(IDomainEvent domainEvent, CancellationToken cancellationToken = default)
     {
         var maxMillSeconds = 500;
         var sw = Stopwatch.StartNew();
@@ -21,10 +21,10 @@ public class DomainEventDataProcessor(IDispatchToEventSubscribers dispatchToEven
                 break;
         }
 
-        await cachedReadModelUpdater.UpdateAsync([domainEvent], CancellationToken.None);
+        await cachedReadModelUpdater.UpdateAsync([domainEvent], cancellationToken);
         await dispatchToEventSubscribers.DispatchToSynchronousSubscribersAsync([domainEvent],
-            CancellationToken.None);
-        await dispatchToEventSubscribers.DispatchToAsynchronousSubscribersAsync(domainEvent, CancellationToken.None);
+            cancellationToken);
+        await dispatchToEventSubscribers.DispatchToAsynchronousSubscribersAsync(domainEvent, cancellationToken);
         sw.Stop();
 
         if (sw.Elapsed.TotalMilliseconds > maxMillSeconds)

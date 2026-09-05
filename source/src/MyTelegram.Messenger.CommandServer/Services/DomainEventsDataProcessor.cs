@@ -8,9 +8,9 @@ public class DomainEventsDataProcessor(
     ICachedReadModelUpdater cachedReadModelUpdater,
     ILogger<DomainEventsDataProcessor> logger) : IDataProcessor<IReadOnlyCollection<IDomainEvent>>, ITransientDependency
 {
-    public async Task ProcessAsync(IReadOnlyCollection<IDomainEvent> domainEvents)
+    public async Task ProcessAsync(IReadOnlyCollection<IDomainEvent> domainEvents, CancellationToken cancellationToken = default)
     {
-        await cachedReadModelUpdater.UpdateAsync(domainEvents, CancellationToken.None);
+        await cachedReadModelUpdater.UpdateAsync(domainEvents, cancellationToken);
 
         foreach (var domainEvent in domainEvents)
         {

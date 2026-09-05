@@ -2,5 +2,5 @@
 
 public interface IDataProcessor<in TData>
 {
-    Task ProcessAsync(TData data);
+    Task ProcessAsync(TData data, CancellationToken cancellationToken = default);
 }

@@ -4,7 +4,7 @@ public class SessionMessageDataProcessor(IEventBus eventBus, IGZipHelper gZipHel
 {
     //private static readonly IGZipHelper gZipHelper = new GZipHelper();
 
-    public async Task ProcessAsync(ISessionMessage data)
+    public async Task ProcessAsync(ISessionMessage data, CancellationToken cancellationToken = default)
     {
         try
         {
