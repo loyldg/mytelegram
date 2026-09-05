@@ -34,21 +34,42 @@ public class InvokeAfterMsgProcessor(IHandlerHelper handlerHelper, ILogger<Invok
         return _completedReqMsgIds.Writer.WriteAsync(reqMsgId);
     }
 
-    public async Task ProcessAsync()
+    public async Task ProcessAsync(
+        CancellationToken cancellationToken = default)
     {
-        while (await _completedReqMsgIds.Reader.WaitToReadAsync().ConfigureAwait(false))
+        try
         {
-            if (_completedReqMsgIds.Reader.TryRead(out var reqMsgId))
+            while (await _completedReqMsgIds.Reader
+                       .WaitToReadAsync(cancellationToken)
+                       .ConfigureAwait(false))
             {
-                try
+                while (_completedReqMsgIds.Reader.TryRead(
+                           out var reqMsgId))
                 {
-                    await HandleAsync(reqMsgId);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "InvokeAfterMsg failed");
+                    try
+                    {
+                        await HandleAsync(
+                            reqMsgId);
+                    }
+                    catch (OperationCanceledException)
+                        when (cancellationToken.IsCancellationRequested)
+                    {
+                        // Normal shutdown.
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(
+                            ex,
+                            "InvokeAfterMsg failed.");
+                    }
                 }
             }
+        }
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+            // Normal shutdown.
         }
     }
 

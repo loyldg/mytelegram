@@ -9,6 +9,6 @@ public class QueuedCommandExecutorBackgroundService<TAggregate, TAggregateId>(IQ
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        return commandExecutor.ProcessCommandAsync();
+        return commandExecutor.ProcessCommandAsync(stoppingToken);
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Threading.Channels;
-using EventFlow;
-using EventFlow.Aggregates;
+﻿using EventFlow;
 using EventFlow.Aggregates.ExecutionResults;
 using EventFlow.Commands;
 using EventFlow.Core;
+using System.Threading.Channels;
 
 namespace MyTelegram.Services.Services;
 
@@ -15,27 +14,43 @@ public class QueuedCommandExecutor<TAggregate, TIdentity, TExecutionResult>(ICom
 {
     private readonly Channel<ICommand<TAggregate, TIdentity, TExecutionResult>> _commands = Channel.CreateUnbounded<ICommand<TAggregate, TIdentity, TExecutionResult>>();
 
-    public Task ProcessCommandAsync()
+    public async Task ProcessCommandAsync(
+        CancellationToken cancellationToken = default)
     {
-        Task.Run(async () =>
+        try
         {
-            while (await _commands.Reader.WaitToReadAsync())
+            while (await _commands.Reader
+                       .WaitToReadAsync(cancellationToken)
+                       .ConfigureAwait(false))
             {
                 while (_commands.Reader.TryRead(out var command))
                 {
                     try
                     {
-                        await commandBus.PublishAsync(command, default);
+                        await commandBus.PublishAsync(
+                            command,
+                            cancellationToken);
+                    }
+                    catch (OperationCanceledException)
+                        when (cancellationToken.IsCancellationRequested)
+                    {
+                        // Normal shutdown.
+                        return;
                     }
                     catch (Exception ex)
                     {
-                        logger.LogError(ex, "Publish command failed");
+                        logger.LogError(
+                            ex,
+                            "Publish command failed");
                     }
                 }
             }
-        });
-
-        return Task.CompletedTask;
+        }
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+            // Normal shutdown.
+        }
     }
 
     public void Enqueue(

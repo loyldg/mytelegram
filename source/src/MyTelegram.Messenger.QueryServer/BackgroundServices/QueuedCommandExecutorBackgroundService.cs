@@ -9,6 +9,6 @@ public class QueuedCommandExecutorBackgroundService(
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        return ptsCommandExecutor.ProcessCommandAsync();
+        return ptsCommandExecutor.ProcessCommandAsync(stoppingToken);
     }
 }

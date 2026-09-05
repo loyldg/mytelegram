@@ -7,6 +7,6 @@ public class MyTelegramInvokeAfterMsgProcessorBackgroundService(IInvokeAfterMsgP
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        return invokeAfterMsgProcessor.ProcessAsync();
+        return invokeAfterMsgProcessor.ProcessAsync(stoppingToken);
     }
 }

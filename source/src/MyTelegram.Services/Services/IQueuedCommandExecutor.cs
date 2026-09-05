@@ -10,7 +10,7 @@ public interface IQueuedCommandExecutor<out TAggregate, in TIdentity, TExecution
     where TIdentity : IIdentity
     where TExecutionResult : IExecutionResult
 {
-    Task ProcessCommandAsync();
+    Task ProcessCommandAsync(CancellationToken cancellationToken = default);
 
     void Enqueue(ICommand<TAggregate, TIdentity, TExecutionResult> command);
 }
