@@ -43,7 +43,8 @@ public class IdGenerator(
                     var maxUserId = await GetMaxUserIdAsync();
                     if (maxUserId > 0)
                     {
-                        maxUserId = maxUserId - MyTelegramConsts.UserIdInitId;
+                        var initId = GetInitId(idType);
+                        maxUserId = maxUserId - initId;
                         maxUserId = Math.Max(maxUserId, 0);
                     }
                     state = await GetStateAsync(idType, id, maxUserId);
@@ -56,7 +57,8 @@ public class IdGenerator(
                         var maxChannelId = await GetMaxChannelIdAsync();
                         if (maxChannelId > 0)
                         {
-                            maxChannelId = maxChannelId - MyTelegramConsts.ChannelInitId;
+                            var initId = GetInitId(idType);
+                            maxChannelId = maxChannelId - initId;
                             maxChannelId = Math.Max(maxChannelId, 0);
                         }
                         state = await GetStateAsync(idType, id, maxChannelId);
@@ -139,7 +141,15 @@ public class IdGenerator(
         {
             var blockSize = stateBlockSizeHelper.GetBlockSize(idType);
             var high = oldMaxId / blockSize;
-            return await cache.GetOrAddAsync(idType, id, () => Task.FromResult(new HiLoValueGeneratorState(blockSize, oldMaxId, (high + 1) * blockSize + 1)));
+
+            return await cache.GetOrAddAsync(
+                idType,
+                id,
+                () => Task.FromResult(
+                    new HiLoValueGeneratorState(
+                        blockSize,
+                        oldMaxId,
+                        (high + 1) * blockSize)));
         }
 
         return cache.GetOrAdd(idType, id);
