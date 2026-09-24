@@ -25,6 +25,9 @@ Log.Information("MyTelegram authentication server starting...");
 var builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureAppConfiguration(options =>
 {
+    options.AddEnvironmentVariables();
+    options.AddCommandLine(args);
+
     var configFile =
         Environment.GetEnvironmentVariable("MYTELEGRAM_CONFIG");
     if (!string.IsNullOrEmpty(configFile))
@@ -37,8 +40,6 @@ builder.ConfigureAppConfiguration(options =>
             );
         }
     }
-    options.AddEnvironmentVariables();
-    options.AddCommandLine(args);
 });
 
 builder.UseSerilog(

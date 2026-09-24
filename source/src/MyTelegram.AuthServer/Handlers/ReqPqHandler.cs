@@ -4,7 +4,7 @@ public class ReqPqHandler(
     IStep1Helper step1ServerHelper,
     ILogger<ReqPqHandler> logger,
     ICacheManager<AuthCacheItem> cacheManager
-) : BaseObjectHandler<RequestReqPq, IResPQ>, IReqPqHandler
+) : BaseObjectHandler<RequestReqPq, IResPQ>
 {
     protected override async Task<IResPQ> HandleCoreAsync(IRequestInput input, RequestReqPq obj)
     {

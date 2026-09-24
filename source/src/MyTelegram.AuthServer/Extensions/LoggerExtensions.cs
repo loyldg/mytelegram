@@ -19,7 +19,7 @@ public static partial class LoggerExtensions
         double elapsedMs);
 
 
-    [LoggerMessage(1003, LogLevel.Information, "[Step2] ReqDhParamsHandler, ConnectionId: {ConnectionId}, ReqMsgId: {ReqMsgId}", EventName = "ReqDhParamsHandlerStep2")]
+    [LoggerMessage(LogLevel.Information, "[Step2] ReqDhParamsHandler, ConnectionId: {ConnectionId}, ReqMsgId: {ReqMsgId}", EventName = "ReqDhParamsHandlerStep2")]
     public static partial void HandshakeStep2(this ILogger logger, string connectionId, long reqMsgId);
 
     [LoggerMessage(
@@ -34,5 +34,10 @@ public static partial class LoggerExtensions
         long reqMsgId,
         bool mediaOnly);
 
+    [LoggerMessage(LogLevel.Warning, "The default private key is being used. The default key is publicly available in the MyTelegram open-source project. For security reasons, configure your own private key and replace the client's public key.", EventName = "DefaultPrivateKeyDetected")]
+    public static partial void DefaultPrivateKeyDetected(this ILogger logger);
 
+    [LoggerMessage(LogLevel.Warning, "PQInnerData SHA-1 hash mismatch", EventName = "PQInnerDataSha1HashMismatch")] public static partial void PqInnerDataSha1HashMismatch(this ILogger logger);
+
+    [LoggerMessage(LogLevel.Warning, "Answer SHA-1 hash mismatch", EventName = "AnswerSha1HashMismatch")] public static partial void AnswerSha1HashMismatch(this ILogger logger);
 }

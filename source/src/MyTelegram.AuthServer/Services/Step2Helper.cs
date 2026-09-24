@@ -114,7 +114,7 @@ public class Step2Helper(
         SHA1.HashData(realInnerData, calcHash);
         if (!shaHash.SequenceEqual(calcHash))
         {
-            logger.LogWarning("PQInnerData SHA1 hash mismatch");
+            logger.PqInnerDataSha1HashMismatch();
         }
 
         return tPqInnerData;
@@ -169,7 +169,7 @@ public class Step2Helper(
 
             if (!hash.SequenceEqual(calculatedHash))
             {
-                logger.LogWarning("PQInnerData hash mismatch");
+                logger.PqInnerDataSha1HashMismatch();
 
                 throw new ArgumentException("PQInnerData hash mismatch");
             }

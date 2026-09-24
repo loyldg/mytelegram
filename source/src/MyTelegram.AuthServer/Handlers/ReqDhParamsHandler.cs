@@ -1,8 +1,7 @@
 ﻿namespace MyTelegram.AuthServer.Handlers;
 
 public class ReqDhParamsHandler(IStep2Helper step2ServerHelper, ILogger<ReqDhParamsHandler> logger)
-    : BaseObjectHandler<RequestReqDHParams, IServerDHParams>,
-        IReqDhParamsHandler
+    : BaseObjectHandler<RequestReqDHParams, IServerDHParams>
 {
     protected override async Task<IServerDHParams> HandleCoreAsync(
         IRequestInput input,

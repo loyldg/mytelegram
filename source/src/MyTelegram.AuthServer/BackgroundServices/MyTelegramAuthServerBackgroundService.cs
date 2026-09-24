@@ -14,7 +14,7 @@ public class MyTelegramAuthServerBackgroundService(
         var fingerprint = fingerprintHelper.GetFingerprint();
         if (fingerprint == defaultFingerprint)
         {
-            logger.LogWarning("You are currently using the default private key, which anyone can obtain from the mytelegram open source project. For security reasons, please use your own private key and replace the client's public key.");
+            logger.DefaultPrivateKeyDetected();
         }
 
         return Task.CompletedTask;

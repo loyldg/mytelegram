@@ -90,8 +90,7 @@ public class Step3Helper(
             SHA1.HashData(data, calcHash);
             if (!hash.SequenceEqual(calcHash))
             {
-                logger.LogWarning("Answer sha1 hash mismatch.");
-
+                logger.AnswerSha1HashMismatch();
                 throw new ArgumentException($"Answer sha1 hash mismatch.");
             }
 

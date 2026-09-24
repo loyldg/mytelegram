@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.AuthServer.Handlers;
 
-public class MsgsAckHandler : BaseObjectHandler<TMsgsAck, IObject>, IMsgsAckHandler
+public class MsgsAckHandler : BaseObjectHandler<TMsgsAck, IObject>
 {
     protected override Task<IObject> HandleCoreAsync(IRequestInput input, TMsgsAck obj)
     {

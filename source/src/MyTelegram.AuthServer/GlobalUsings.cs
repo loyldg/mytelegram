@@ -23,3 +23,4 @@ global using Serilog.Sinks.SystemConsole.Themes;
 global using System.Buffers;
 global using System.Numerics;
 global using System.Security.Cryptography;
+global using System.Collections.Concurrent;

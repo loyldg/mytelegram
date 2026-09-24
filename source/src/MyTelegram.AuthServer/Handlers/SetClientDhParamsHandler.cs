@@ -5,7 +5,7 @@ public class SetClientDhParamsHandler(
     ILogger<SetClientDhParamsHandler> logger,
     ICacheManager<AuthKeyCacheItem> cacheManager,
     IEventBus eventBus
-) : BaseObjectHandler<RequestSetClientDHParams, ISetClientDHParamsAnswer>, ISetClientDhParamsHandler
+) : BaseObjectHandler<RequestSetClientDHParams, ISetClientDHParamsAnswer>
 {
     protected override async Task<ISetClientDHParamsAnswer> HandleCoreAsync(
         IRequestInput input,

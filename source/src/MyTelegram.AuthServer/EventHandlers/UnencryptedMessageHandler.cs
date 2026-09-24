@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-
-namespace MyTelegram.AuthServer.EventHandlers;
+﻿namespace MyTelegram.AuthServer.EventHandlers;
 
 public class UnencryptedMessageHandler(
     ILogger<UnencryptedMessageHandler> logger,

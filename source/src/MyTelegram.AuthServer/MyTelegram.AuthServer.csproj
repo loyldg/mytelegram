@@ -59,9 +59,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyTelegram.Caching.Redis\MyTelegram.Caching.Redis.csproj" />
-    <ProjectReference Include="..\MyTelegram.EventBus.RabbitMQ\MyTelegram.EventBus.RabbitMQ.csproj" />
-    <!--<ProjectReference Include="..\MyTelegram.EventBus.RabbitMQ\MyTelegram.EventBus.RabbitMQ.csproj" />-->
     <ProjectReference Include="..\MyTelegram.Services\MyTelegram.Services.csproj" />
   </ItemGroup>
 

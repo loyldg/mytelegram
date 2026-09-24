@@ -5,7 +5,7 @@ namespace MyTelegram.AuthServer.Handlers;
 public class ReqPqMultiHandler(
     IStep1Helper step1ServerHelper,
     ILogger<ReqPqMultiHandler> logger,
-    ICacheManager<AuthCacheItem> cacheManager) : BaseObjectHandler<RequestReqPqMulti, IResPQ>, IReqPqMultiHandler
+    ICacheManager<AuthCacheItem> cacheManager) : BaseObjectHandler<RequestReqPqMulti, IResPQ>
 {
     protected override async Task<IResPQ> HandleCoreAsync(
         IRequestInput input,

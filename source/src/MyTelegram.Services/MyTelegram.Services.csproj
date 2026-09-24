@@ -14,6 +14,7 @@
     <ProjectReference Include="..\MyTelegram.EventBus\MyTelegram.EventBus.csproj" />
     <ProjectReference Include="..\MyTelegram.EventFlow\MyTelegram.EventFlow.csproj" />
     <ProjectReference Include="..\MyTelegram.Schema\MyTelegram.Schema.csproj" />
+    <ProjectReference Include="..\MyTelegram.Caching.Redis\MyTelegram.Caching.Redis.csproj" />
 
     <PackageReference Include="EventFlow" />
     <PackageReference Include="SharpZipLib" />
