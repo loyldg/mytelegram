@@ -1,10 +1,15 @@
-﻿namespace MyTelegram.ReadModel.Impl;
+﻿using MyTelegram.Domain.Aggregates.Temp;
+using MyTelegram.Domain.Events.Temp;
+
+namespace MyTelegram.ReadModel.Impl;
 
 public class DialogReadModel : ReadModelBase, IDialogReadModel,
     IAmReadModelFor<DialogAggregate, DialogId, DialogCreatedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, SetOutboxTopMessageSuccessEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, InboxMessageReceivedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, DraftSavedEvent>,
+    IAmReadModelFor<DialogAggregate, DialogId, DraftClearedEvent>,
+    IAmReadModelFor<TempAggregate, TempId, DraftDeletedEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, ReadInboxMessage2Event>,
     IAmReadModelFor<DialogAggregate, DialogId, OutboxMessageHasReadEvent>,
     IAmReadModelFor<DialogAggregate, DialogId, ReadChannelInboxMessageEvent>,
@@ -371,10 +376,15 @@ public class DialogReadModel : ReadModelBase, IDialogReadModel,
         return Task.CompletedTask;
     }
 
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<TempAggregate, TempId, DraftDeletedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        Draft = null;
+        return Task.CompletedTask;
+    }
+
     public Task ApplyAsync(IReadModelContext context, IDomainEvent<DialogAggregate, DialogId, DraftClearedEvent> domainEvent, CancellationToken cancellationToken)
     {
         Draft = null;
-
         return Task.CompletedTask;
     }
 }
